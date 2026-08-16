@@ -98,7 +98,7 @@ export default function DefensiveIntervalRatioCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`rounded-xl p-5 border-l-4 ${r.dir >= 30 ? "bg-primary/10 border-primary" : "bg-red-500/10 border-red-500"}`}>
+            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${r.dir >= 30 ? "border-primary" : "border-red-500"}`}>
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Defensive Interval</div>
               <div className={`text-5xl font-extrabold ${r.ratingColor}`}>{r.dir.toFixed(1)} <span className="text-2xl">days</span></div>
               <div className={`text-sm font-semibold mt-1 ${r.ratingColor}`}>{r.rating}</div>

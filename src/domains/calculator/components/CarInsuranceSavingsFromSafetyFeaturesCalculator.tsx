@@ -195,7 +195,7 @@ const CarInsuranceSavingsFromSafetyFeaturesCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-emerald-600 mb-1 uppercase tracking-wider">Annual Savings</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.annualSavings).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">{results.totalDiscountPct.toFixed(0)}% off · ${Math.round(results.monthlySavings)}/mo · ${Math.round(results.fiveYearSavings).toLocaleString()} over 5 years</div>

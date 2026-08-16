@@ -7,8 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import PieChart from "@/domains/calculator/components/ui/PieChart";
 import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 const CAGRCalculator = () => {
   const [mode, setMode] = useState<"cagr" | "future" | "years">("cagr");
@@ -117,6 +117,16 @@ const CAGRCalculator = () => {
               <>
                 <h2 className="text-2xl font-bold mb-3">Results</h2>
 
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 mb-1">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">{results.mode === "cagr" ? "CAGR" : results.mode === "future" ? "Future Value" : "Years Required"}</div>
+                  <div className="text-4xl font-extrabold text-primary">
+                    {results.mode === "cagr" ? `${results.cagr.toFixed(2)}%` : results.mode === "future" ? `$${Math.round(results.fv).toLocaleString()}` : `${results.n.toFixed(1)} yrs`}
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">
+                    {results.mode === "cagr" ? `From $${Math.round(results.IV).toLocaleString()} to $${Math.round(results.FV).toLocaleString()} over ${results.N} years` : results.mode === "future" ? `${results.IV.toLocaleString(undefined, { maximumFractionDigits: 0 })} at ${results.R}% for ${results.N} years` : `${results.IV.toLocaleString(undefined, { maximumFractionDigits: 0 })} to ${results.FV.toLocaleString(undefined, { maximumFractionDigits: 0 })} at ${results.R}%`}
+                  </div>
+                </div>
+
                 {results.mode === "cagr" && (
                   <>
                     <ResultDisplay items={[
@@ -146,19 +156,20 @@ const CAGRCalculator = () => {
                       </div>
                     </div>
 
-                    <div className="mt-6 flex justify-center">
-                      <PieChart
-                        segments={[
-                          { label: "Initial", value: results.IV, color: "hsl(211, 100%, 50%)" },
-                          { label: "Gain", value: results.absoluteGain, color: "hsl(142, 71%, 45%)" },
-                        ]}
-                        size={180}
-                      />
-                    </div>
-
                     {results.yearlyData.length > 0 && (
                       <div className="mt-6">
                         <h3 className="text-sm font-semibold text-foreground mb-3">Year-by-Year Growth</h3>
+                        <div className="card-calculator !p-4 border border-border bg-card mb-4">
+                          <ResponsiveContainer width="100%" height={200}>
+                            <LineChart data={results.yearlyData.map((r: any) => ({ year: r.year, value: Math.round(r.value) }))} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                              <XAxis dataKey="year" tick={{ fontSize: 10 }} />
+                              <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}K`} />
+                              <Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, "Value"]} />
+                              <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                            </LineChart>
+                          </ResponsiveContainer>
+                        </div>
                         <div className="overflow-x-auto rounded-lg border border-border">
                           <table className="w-full text-sm">
                             <thead>

@@ -157,8 +157,8 @@ const DewPointCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-6">
-                <div className="text-sm font-bold text-sky-600 dark:text-sky-400 mb-2 uppercase tracking-wider">Dew Point Temperature</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Dew Point Temperature</div>
                 <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                   <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono">
                     {unit === "imperial" ? result.dewPointF : result.dewPointC}
@@ -178,7 +178,7 @@ const DewPointCalculator = () => {
               </div>
 
               <div className={`card-calculator !p-5 border shadow-sm ${result.dewPointF >= 70 ? 'bg-orange-500/5 border-orange-500/30' : result.dewPointF <= 55 ? 'bg-sky-500/5 border-sky-500/30' : 'bg-card border-border'}`}>
-                <h3 className={`text-base font-bold mb-2 uppercase tracking-wider ${result.dewPointF >= 70 ? 'text-orange-600 dark:text-orange-400' : result.dewPointF <= 55 ? 'text-sky-600 dark:text-sky-400' : 'text-foreground'}`}>
+                <h3 className={`text-base font-bold mb-2 uppercase tracking-wider ${result.dewPointF >= 70 ? 'text-primary' : result.dewPointF <= 55 ? 'text-primary' : 'text-foreground'}`}>
                   Comfort Level: {result.comfortLevel}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -189,12 +189,12 @@ const DewPointCalculator = () => {
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
                 <h3 className="text-base font-bold text-foreground mb-3">Dew Point Comfort Scale</h3>
                 <ul className="space-y-2 font-mono text-sm">
-                  <li className="flex justify-between items-center text-sky-600 dark:text-sky-400"><span>≤ 55°F</span> <span>Dry / Comfortable</span></li>
-                  <li className="flex justify-between items-center text-emerald-600 dark:text-emerald-400"><span>56°F - 60°F</span> <span>Pleasant</span></li>
-                  <li className="flex justify-between items-center text-yellow-600 dark:text-yellow-400"><span>61°F - 65°F</span> <span>Slightly Humid</span></li>
-                  <li className="flex justify-between items-center text-orange-600 dark:text-orange-400"><span>66°F - 70°F</span> <span>Humid / Muggy</span></li>
-                  <li className="flex justify-between items-center text-red-600 dark:text-red-400"><span>71°F - 75°F</span> <span>Oppressive</span></li>
-                  <li className="flex justify-between items-center text-purple-600 dark:text-purple-400 font-bold"><span>≥ 76°F</span> <span>Miserable / Dangerous</span></li>
+                  <li className="flex justify-between items-center text-primary"><span>≤ 55°F</span> <span>Dry / Comfortable</span></li>
+                  <li className="flex justify-between items-center text-primary"><span>56°F - 60°F</span> <span>Pleasant</span></li>
+                  <li className="flex justify-between items-center text-primary"><span>61°F - 65°F</span> <span>Slightly Humid</span></li>
+                  <li className="flex justify-between items-center text-primary"><span>66°F - 70°F</span> <span>Humid / Muggy</span></li>
+                  <li className="flex justify-between items-center text-primary"><span>71°F - 75°F</span> <span>Oppressive</span></li>
+                  <li className="flex justify-between items-center text-primary font-bold"><span>≥ 76°F</span> <span>Miserable / Dangerous</span></li>
                 </ul>
               </div>
 

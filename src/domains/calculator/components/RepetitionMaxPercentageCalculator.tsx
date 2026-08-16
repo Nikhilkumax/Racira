@@ -229,14 +229,6 @@ export default function RepetitionMaxPercentageCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">1-Rep Max (1RM) Estimator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-red-800 dark:text-red-400">
-            <strong>Accuracy Warning:</strong> For the most precise mathematical estimation, input a set where you performed between <strong>2 and 5 repetitions</strong> to technical failure. Do not use sets exceeding 10 repetitions, as the mathematical formulas degrade rapidly due to cardiovascular fatigue variables.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}

@@ -85,7 +85,7 @@ const SkewnessCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-4 ${result.skewSample > 0.1 ? "bg-blue-500/10 border-blue-500" : result.skewSample < -0.1 ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-4 ${result.skewSample > 0.1 ? "bg-blue-500/10 border-blue-500" : result.skewSample < -0.1 ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Skewness (Fisher{"'"}s)</div>
                 <div className="text-4xl font-bold" style={{ color: result.skewSample > 0.1 ? "#3b82f6" : result.skewSample < -0.1 ? "#f59e0b" : "#10b981" }}>{fmt(result.skewSample)}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.interpretation} • n={result.n}</div>

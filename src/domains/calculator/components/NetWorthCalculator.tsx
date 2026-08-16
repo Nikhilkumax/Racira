@@ -133,7 +133,7 @@ export default function NetWorthCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.netWorth >= 0 ? "bg-primary/10 border-primary" : "bg-red-500/10 border-red-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.netWorth >= 0 ? "bg-primary/10 border-primary" : "bg-red-500/10 border-red-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.netWorth >= 0 ? "text-primary" : "text-red-600"}`}>Your Net Worth</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.netWorth < 0 ? "−" : ""}${Math.abs(result.netWorth).toLocaleString()}</div>
                 <div className="text-base text-muted-foreground mt-1">Assets: ${result.totalAssets.toLocaleString()} · Liabilities: ${result.totalLiabilities.toLocaleString()} · Debt ratio: {result.totalAssets > 0 ? ((result.totalLiabilities / result.totalAssets) * 100).toFixed(1) : 0}%</div>

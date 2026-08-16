@@ -119,7 +119,11 @@ const WeddingBudgetCalculator = () => {
                 </div>
               </div>
             ) : result && (<>
-              
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Wedding Budget</div>
+                <div className="text-3xl font-black text-primary">{formatCurrency(parseFloat(budget) || 0)}</div>
+              </div>
+
               <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
                 <div className="bg-secondary/50 p-4 border-b border-border/50 flex justify-between items-center">
                   <h3 className="font-bold text-foreground">Recommended Budget Allocation</h3>

@@ -193,7 +193,7 @@ export default function PrenatalVitaminCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status.includes("Deficient") ? "text-amber-600" : "text-primary"}`}>Evaluation: {result.status}</div>
                 <div className="text-base font-medium text-foreground">{result.recommendation}</div>
               </div>

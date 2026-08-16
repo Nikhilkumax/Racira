@@ -1,6 +1,8 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { tools, categories, SEARCH_REGISTRY } from "@/domains/developers/registry";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_DEVELOPERS_COUNT = onlyLive(tools, "developers").length;
 import { ToolCard } from "@/components/developers/tool-card";
 import { ToolSearch } from "@/components/developers/tool-search";
 import { Metadata } from "next";
@@ -30,7 +32,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Essential utilities for developers including JSON formatters, Base64 encoders, and decoders. No signup required.
           </p>
-          <CategorySearch categorySlug="developers" placeholder="Search 316 developer tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="developers" placeholder={LIVE_DEVELOPERS_COUNT > 0 ? `Search ${LIVE_DEVELOPERS_COUNT} developer tools...` : "Search developer tools..."} registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -42,7 +44,6 @@ export default function Index() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-5">
                 {tools
                   .filter((t) => (t as any).category === category)
-                  .filter((t) => isLiveTool(t, "developers"))
                   .map((tool) => (
                     <ToolCard key={tool.slug} tool={tool} />
                   ))}

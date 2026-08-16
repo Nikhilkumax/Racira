@@ -15,9 +15,9 @@ import {
 } from "./threeDPrintLogic";
 import { 
   ThreeDPrintPieChart, 
-  ThreeDPrintTimelineChart, 
   ThreeDPrintImpactChart 
 } from "./ThreeDPrintCharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const fmt = (n: number, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 const fmtInt = (n: number) => Math.round(n).toLocaleString("en-US");
@@ -320,7 +320,7 @@ const ThreeDPrintTimeCalculator = () => {
           <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start print-section" ref={printRef}>
             
             {/* HERO CARD */}
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center relative overflow-hidden flex flex-col items-center justify-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden flex flex-col items-center justify-center">
               <div className="flex justify-end absolute top-3 right-3">
                 <button onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
                   <Printer className="h-3.5 w-3.5" /> Print
@@ -419,7 +419,17 @@ const ThreeDPrintTimeCalculator = () => {
             
             <div className="card-calculator !p-4 flex flex-col items-center mt-2">
               <h4 className="text-sm font-bold text-foreground mb-4">Layer Progress Over Time</h4>
-              <ThreeDPrintTimelineChart data={results.timelineData} />
+              <div className="h-[250px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={results.timelineData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="timeHrs" tickFormatter={(val: number) => `${val.toFixed(1)}h`} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} tickLine={false} axisLine={false} />
+                    <Tooltip formatter={(value: number) => [Math.round(value), "Layers"]} labelFormatter={(label) => `Time: ${Number(label).toFixed(2)}h`} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                    <Line type="monotone" dataKey="layer" stroke="hsl(var(--primary))" strokeWidth={3} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
             {/* RECOMMENDATIONS ENGINE */}

@@ -87,9 +87,9 @@ export default function BetaCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
-              <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">CAPM Expected Return</div>
-              <div className="text-5xl font-extrabold text-foreground">{pct(r.capmReturn)}</div>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">CAPM Expected Return</div>
+              <div className="text-5xl font-extrabold text-primary">{pct(r.capmReturn)}</div>
               <div className={`text-sm font-semibold mt-1 ${r.color}`}>{r.interpretation}</div>
             </div>
 

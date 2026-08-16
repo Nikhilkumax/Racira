@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, ThermometerSun } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface BtuResult {
   btuHeating: number;
@@ -191,16 +192,16 @@ const BtuCalculator = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
-                <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-5">
-                  <div className="text-xs font-bold text-sky-600 dark:text-sky-400 mb-1 uppercase tracking-wider">Air Conditioner Size</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Air Conditioner Size</div>
                   <div className="flex items-baseline gap-1 mb-1">
                     <span className="text-4xl font-extrabold text-foreground tracking-tight font-mono">{result.btuCooling.toLocaleString()}</span>
                   </div>
                   <div className="text-sm text-muted-foreground font-bold">BTUs (Cooling)</div>
                 </div>
 
-                <div className="bg-orange-500/10 border-l-4 border-orange-500 rounded-lg p-5">
-                  <div className="text-xs font-bold text-orange-600 dark:text-orange-400 mb-1 uppercase tracking-wider">Heater / Furnace Size</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Heater / Furnace Size</div>
                   <div className="flex items-baseline gap-1 mb-1">
                     <span className="text-4xl font-extrabold text-foreground tracking-tight font-mono">{result.btuHeating.toLocaleString()}</span>
                   </div>
@@ -221,6 +222,25 @@ const BtuCalculator = () => {
                     <div className="text-2xl font-bold text-foreground font-mono">{result.tonnage} <span className="text-sm font-normal text-muted-foreground font-sans">Tons</span></div>
                   </div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Cooling vs Heating Load</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={[
+                    { name: "Cooling (AC)", value: result.btuCooling },
+                    { name: "Heating (Furnace)", value: result.btuHeating },
+                  ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}K`} />
+                    <Tooltip formatter={(v: number) => [`${v.toLocaleString()} BTU`, "Load"]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={70}>
+                      <Cell fill="hsl(var(--primary))" />
+                      <Cell fill="hsl(var(--primary)/0.45)" />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">

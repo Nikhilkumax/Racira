@@ -115,7 +115,7 @@ export default function LoanComparisonSideBySide() {
 
           {results.length > 0 && (<>
             {best && (
-              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 mb-6">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 mb-6">
                 <p className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">✅ <strong>{best.name}</strong> has the lowest total cost — ${best.totalCost.toLocaleString("en-US", { maximumFractionDigits: 0 })} over the loan life.</p>
               </div>
             )}

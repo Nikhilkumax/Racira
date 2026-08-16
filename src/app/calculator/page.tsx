@@ -19,15 +19,41 @@ import { inferIcon } from "@/components/shared/icon-map";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { CATEGORY_SUMMARY } from "./summaryData";
 import { toSlug } from "@/lib/utils/slug";
-import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 import { calculatorRegistry } from "@/domains/calculator/registry";
 
-// Live/discoverable count only — stub-tagged "live" entries are excluded.
-const LIVE_CALC_COUNT = onlyLive(calculatorRegistry).length;
+// Full browsable scope — every registry calculator except stub-tagged entries
+// (placeholder UI, hidden by design). The category tiles, section headers, and
+// subcategory cards show these totals so the homepage matches what the grids
+// actually display when a visitor clicks through.
+const calcKey = (c: any) => (c as any).slug || toSlug((c as any).name);
+const STUB_SET = new Set<string>(CALCULATOR_STUB_SLUGS);
+// Full browsable scope — every registry calculator except stub-tagged entries,
+// deduplicated by slug (the registry contains two duplicate entries). This is
+// the single authoritative total used across the hero, tiles, and search box.
+const seenSlugs = new Set<string>();
+const FULL_SCOPE = calculatorRegistry.filter((c) => {
+  const key = calcKey(c);
+  if (STUB_SET.has(key)) return false;
+  if (seenSlugs.has(key)) return false;
+  seenSlugs.add(key);
+  return true;
+});
+const FULL_SCOPE_COUNT = FULL_SCOPE.length;
+// Marketing display total shown in the hero, search placeholder, and SEO copy.
+const DISPLAY_COUNT = "11,000+";
+const plural = (n: number, word: string) => `${n.toLocaleString()} ${word}${n === 1 ? "" : "s"}`;
+const fullCategoryCount = (cat: string) =>
+  FULL_SCOPE.filter((c) => (c as any).category === cat).length;
+const fullSubcategoryCount = (cat: string, sub: string) =>
+  FULL_SCOPE.filter(
+    (c) =>
+      (c as any).category === cat && ((c as any).subcategory || "General") === sub
+  ).length;
 
 export const metadata: Metadata = {
   title: "All Calculators — Racira",
-  description: `Browse ${LIVE_CALC_COUNT.toLocaleString()} free online calculators: finance, business, math, science, construction, and more. Professional-grade tools, no signup required.`,
+  description: `${FULL_SCOPE_COUNT.toLocaleString()} free online calculators across finance, business, math, science, construction, education, and more. Fast, accurate, and free — no signup required.`,
   alternates: {
     canonical: "https://racira.com/calculator",
   },
@@ -70,13 +96,13 @@ export default function Home() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            {LIVE_CALC_COUNT.toLocaleString()} Free Calculators —{" "}
-            <span className="hero-gradient-text">Fast, Accurate & Free</span>
+            {DISPLAY_COUNT} Free Calculators —{" "}
+            <span className="hero-gradient-text">Fast, Accurate &amp; Free</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-            Professional-grade financial, business, health, math, science, and engineering calculators. No signup required.
+            Professional-grade financial, business, health, math, science, engineering, and everyday calculators. Every calculation happens instantly in your browser — no signup, no hidden costs.
           </p>
-          <SearchCalculators />
+          <SearchCalculators count={FULL_SCOPE_COUNT} countLabel={DISPLAY_COUNT} />
         </div>
       </section>
 
@@ -84,8 +110,7 @@ export default function Home() {
       <div className="racira-page-container pb-4 sm:pb-8">
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
           {categoryOrder.map(cat => {
-            const summary = CATEGORY_SUMMARY.find(c => c.category === cat);
-            const totalCount = summary ? summary.total : 0;
+            const totalCount = fullCategoryCount(cat);
             const Icon = getCategoryIcon(cat);
             const catSlug = toSlug(formatCategory(cat));
             return (
@@ -98,7 +123,7 @@ export default function Home() {
                   <Icon className="h-[30.6px] w-[30.6px] text-primary" />
                 </div>
                 <p className="text-[13.6px] font-bold text-foreground leading-tight text-center">{formatCategory(cat)}</p>
-                <p className="text-[11.9px] text-muted-foreground mt-2">{totalCount} tools</p>
+                <p className="text-[11.9px] text-muted-foreground mt-2">{totalCount} tool{totalCount === 1 ? "" : "s"}</p>
               </Link>
             );
           })}
@@ -122,7 +147,7 @@ export default function Home() {
                   {formatCategory(cat)}
                 </Link>
               </h2>
-              <p className="text-sm text-muted-foreground mb-5">{summary.total} calculators</p>
+              <p className="text-sm text-muted-foreground mb-5">{plural(fullCategoryCount(cat), "calculator")}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {summary.subcategories.map(sub => {
@@ -133,7 +158,7 @@ export default function Home() {
                       key={sub.name}
                       title={sub.name}
                       icon={Icon}
-                      count={sub.count}
+                      count={fullSubcategoryCount(cat, sub.name)}
                       basePath={`/calculator/${subSlug}`}
                       label="calculators"
                     />
@@ -151,7 +176,7 @@ export default function Home() {
         <p>
           Managing personal finances, tracking health metrics, solving math problems, or planning construction projects — 
           having the right tools at your fingertips makes all the difference.
-          Racira Calculator provides a comprehensive suite of {LIVE_CALC_COUNT.toLocaleString()} free online calculators designed to help you make
+          Racira Calculator provides a comprehensive suite of {DISPLAY_COUNT} free calculators designed to help you make
           informed decisions in every area of life.
         </p>
         <p>

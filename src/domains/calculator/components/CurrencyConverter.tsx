@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, ArrowRightLeft } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 type CurrencyCode = "USD" | "EUR" | "GBP" | "JPY" | "INR" | "CAD" | "AUD" | "CHF" | "CNY" | "BRL";
 
@@ -30,16 +30,71 @@ const faqs = [
   { question: "Which currencies are supported?", answer: "USD, EUR, GBP, JPY, INR, CAD, AUD, CHF, CNY, and BRL." },
 ];
 
-const CurrencyConverter = () => {
+interface CurrencyResult {
+  amount: number;
+  from: CurrencyCode;
+  to: CurrencyCode;
+  converted: number;
+  rate: number;
+  inverseRate: number;
+  fromSymbol: string;
+  toSymbol: string;
+}
+
+function calcConversion(value: number, from: CurrencyCode, to: CurrencyCode): CurrencyResult {
+  const fromCur = currencies.find(c => c.key === from)!;
+  const toCur = currencies.find(c => c.key === to)!;
+  const usd = value * fromCur.rateToUSD;
+  const converted = usd / toCur.rateToUSD;
+  const rate = fromCur.rateToUSD / toCur.rateToUSD;
+  return {
+    amount: value,
+    from,
+    to,
+    converted,
+    rate,
+    inverseRate: rate !== 0 ? 1 / rate : 0,
+    fromSymbol: fromCur.symbol,
+    toSymbol: toCur.symbol,
+  };
+}
+
+export default function CurrencyConverter() {
   const [value, setValue] = useState("1000");
   const [from, setFrom] = useState<CurrencyCode>("USD");
   const [to, setTo] = useState<CurrencyCode>("EUR");
+  const [result, setResult] = useState<CurrencyResult>(() => calcConversion(1000, "USD", "EUR"));
 
-  const v = parseFloat(value) || 0;
-  const fromCur = currencies.find(c => c.key === from)!;
-  const toCur = currencies.find(c => c.key === to)!;
-  const usd = v * fromCur.rateToUSD;
-  const result = usd / toCur.rateToUSD;
+  useEffect(() => {
+    const v = parseFloat(value);
+    if (!isNaN(v) && v >= 0) setResult(calcConversion(v, from, to));
+  }, [value, from, to]);
+
+  const reset = () => { setValue("1000"); setFrom("USD"); setTo("EUR"); };
+  const invalid = isNaN(parseFloat(value)) || parseFloat(value) < 0;
+
+  const breakdown = [
+    { label: "Amount", value: `${result.fromSymbol}${fmt(result.amount)} ${result.from}` },
+    { label: "Exchange Rate", value: `${fmt(result.rate)} ${result.to} per ${result.from}` },
+    { label: "Converted Amount", value: `${result.toSymbol}${fmt(result.converted)} ${result.to}` },
+    { label: "Inverse Rate", value: `${fmt(result.inverseRate)} ${result.from} per ${result.to}` },
+    { label: "Direction", value: `${result.from} → ${result.to}` },
+    { label: "Method", value: "Via USD intermediate" },
+  ];
+
+  const summaryStats = [
+    { label: "Amount", value: `${result.fromSymbol}${fmt(result.amount)}` },
+    { label: "Converted", value: `${result.toSymbol}${fmt(result.converted)}` },
+    { label: "Exchange Rate", value: fmt(result.rate) },
+    { label: "Inverse Rate", value: fmt(result.inverseRate) },
+    { label: "From", value: result.from },
+    { label: "To", value: result.to },
+  ];
+
+  const chartData = [
+    { name: `Original (${result.from})`, value: result.amount },
+    { name: `Converted (${result.to})`, value: result.converted },
+  ];
 
   return (
     <>
@@ -48,37 +103,98 @@ const CurrencyConverter = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Currency Converter</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <InputField id="cur-value" label="Amount" value={value} onChange={setValue} />
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">From</label>
-              <Select value={from} onValueChange={(v) => setFrom(v as CurrencyCode)}>
-                <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                <SelectContent>{currencies.map(c => <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>)}</SelectContent>
-              </Select>
+              <label htmlFor="cur-value" className="block text-sm font-medium mb-1 text-foreground">Amount</label>
+              <input id="cur-value" type="number" min="0" value={value} onChange={(e) => setValue(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
             </div>
-            <div>
-              <label className="text-sm font-medium text-foreground mb-1 block">To</label>
-              <Select value={to} onValueChange={(v) => setTo(v as CurrencyCode)}>
-                <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                <SelectContent>{currencies.map(c => <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>)}</SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="cur-from" className="block text-sm font-medium mb-1 text-foreground">From</label>
+                <select id="cur-from" value={from} onChange={(e) => setFrom(e.target.value as CurrencyCode)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20">
+                  {currencies.map(c => <option key={c.key} value={c.key}>{c.label}</option>)}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="cur-to" className="block text-sm font-medium mb-1 text-foreground">To</label>
+                <select id="cur-to" value={to} onChange={(e) => setTo(e.target.value as CurrencyCode)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20">
+                  {currencies.map(c => <option key={c.key} value={c.key}>{c.label}</option>)}
+                </select>
+              </div>
             </div>
+
+            <div className="flex gap-3 pt-1">
+              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+                <ArrowRightLeft className="h-4 w-4" /> Calculate
+              </button>
+              <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            {invalid && <p className="text-xs text-destructive">Enter a valid non-negative amount.</p>}
           </div>
 
-          <div className="flex flex-col gap-3">
-            <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-              <p className="text-xs font-bold text-primary uppercase tracking-widest">{fromCur.label} to {toCur.label}</p>
-              <p className="text-5xl font-black text-foreground">{toCur.symbol}{fmt(result)}</p>
-              <p className="text-sm text-muted-foreground">Rate: 1 {from} = {fmt(fromCur.rateToUSD / toCur.rateToUSD)} {to}</p>
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Converted Amount</div>
+              <div className="text-4xl font-extrabold text-primary">{result.toSymbol}{fmt(result.converted)} <span className="text-xl font-bold">{result.to}</span></div>
+              <div className="text-sm text-muted-foreground mt-1">{result.fromSymbol}{fmt(result.amount)} {result.from} at {fmt(result.rate)}</div>
             </div>
-            <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-              <h2 className="text-2xl font-bold mb-3">All Conversions ({from} {fmt(v)})</h2>
-              <div className="grid sm:grid-cols-2 gap-1">
-                {currencies.map(c => (
-                  <div key={c.key} className="flex justify-between py-1.5 border-b border-border last:border-0">
-                    <span className="text-sm text-muted-foreground">{c.key}</span>
-                    <span className="text-sm font-bold text-foreground">{c.symbol}{fmt(usd / c.rateToUSD)}</span>
+
+            <div className="grid grid-cols-3 gap-0 rounded-lg border border-border overflow-hidden bg-card">
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Exchange Rate</div>
+                <div className="text-lg font-bold text-primary">{fmt(result.rate)}</div>
+              </div>
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Inverse Rate</div>
+                <div className="text-lg font-bold text-primary">{fmt(result.inverseRate)}</div>
+              </div>
+              <div className="p-3 text-center">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Direction</div>
+                <div className="text-lg font-bold text-primary">{result.from} → {result.to}</div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Detail</th>
+                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row, i) => (
+                    <tr key={row.label} className={i === 2 ? "bg-primary/10 font-bold" : ""}>
+                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right font-semibold">{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Original vs Converted</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(v: number) => [fmt(v), "Amount"]} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={70} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-sm font-bold mb-3">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {summaryStats.map((s) => (
+                  <div key={s.label} className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{s.label}</span>
+                    <span className="font-semibold">{s.value}</span>
                   </div>
                 ))}
               </div>
@@ -89,16 +205,10 @@ const CurrencyConverter = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How Currency Conversion Works</h2>
-            <p>Currency conversion calculates how much of one currency you receive when exchanging another. This converter uses fixed reference rates relative to the US Dollar (USD) as a base currency.</p>
-            <h3>Understanding Exchange Rates</h3>
-            <p>An exchange rate tells you how much of one currency you can buy with another. For example, if 1 USD = 0.92 EUR, then $100 converts to approximately €92.</p>
-            <h3>Factors That Affect Exchange Rates</h3>
-            <ul>
-              <li><strong>Interest Rates:</strong> Higher rates attract foreign investment, strengthening a currency.</li>
-              <li><strong>Inflation:</strong> Lower inflation typically strengthens purchasing power.</li>
-              <li><strong>Political Stability:</strong> Stable countries tend to have stronger currencies.</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-3">About the Currency Converter</h2>
+            <p>This converter values every pair through the US dollar as an intermediate: the amount is first converted from the source currency to USD, then from USD to the target currency. Rates are static approximations for estimation only.</p>
+            <h3>Reading Exchange Rates</h3>
+            <p>The exchange rate shown is how many units of the target currency one unit of the source buys. The inverse rate is the reciprocal — how many units of the source one unit of the target buys. Banks and brokers typically quote slightly different buy and sell rates; the spread is how they earn revenue.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/currency-converter" />
           <PopularCalculators exclude="/calculator/currency-converter" />
@@ -106,6 +216,4 @@ const CurrencyConverter = () => {
       </div>
     </>
   );
-};
-
-export default CurrencyConverter;
+}

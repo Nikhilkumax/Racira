@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { Tool } from "@/domains/_types";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
-import { StatusBadge } from "./StatusBadge";
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -11,12 +10,19 @@ const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffec
 interface ToolCardProps {
   tool: Tool;
   basePath: string;
+  /**
+   * URL route segment for the tool's domain (e.g. "photo", "3d"). When passed,
+   * the genuinely-live check is used instead of the raw registry status, so a
+   * card never links to a page that doesn't render a real tool.
+   */
+  domain?: string;
 }
 
-export function ToolCard({ tool, basePath }: ToolCardProps) {
-  // Non-live / stub tools are hidden from every grid that renders ToolCard.
-  if (!isLiveTool(tool)) return null;
-
+export function ToolCard({ tool, basePath, domain }: ToolCardProps) {
+  // Live tools link to their tool page. Non-live tools render the same card
+  // (icon, name, description, "Soon" badge) but as a plain, non-navigating
+  // element — no href, no click-through to a coming-soon page.
+  const isLive = domain ? isLiveTool(tool, domain) : tool.status === "live";
   const Icon = tool.icon;
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [showDescription, setShowDescription] = useState(true);
@@ -45,20 +51,21 @@ export function ToolCard({ tool, basePath }: ToolCardProps) {
     return () => observer.disconnect();
   }, [tool.name]);
 
-  return (
-    <Link
-      href={`${basePath}/${tool.slug}`}
-      className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] transition-all"
-    >
-      <StatusBadge status={tool.status} />
-      
+  const cardBody = (
+    <>
+      {!isLive && (
+        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Soon
+        </span>
+      )}
+
       <div className="flex flex-col">
         <div className="mb-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
           <Icon className="h-5 w-5" />
         </div>
 
         <div className="flex flex-col">
-          <h3 
+          <h3
             ref={titleRef}
             className="font-semibold text-foreground leading-snug line-clamp-2"
           >
@@ -71,6 +78,23 @@ export function ToolCard({ tool, basePath }: ToolCardProps) {
           )}
         </div>
       </div>
+    </>
+  );
+
+  if (!isLive) {
+    return (
+      <div className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 cursor-default">
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      href={`${basePath}/${tool.slug}`}
+      className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 hover:-translate-y-[3px] hover:border-primary/40 hover:shadow-[0_8px_24px_hsl(var(--ring)/0.1)] transition-all"
+    >
+      {cardBody}
     </Link>
   );
 }

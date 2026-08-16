@@ -127,6 +127,9 @@ export default function MaximumMortgageAffordabilityCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Loan & Qualification</h4>
+                  </div>
                   <CompactInput id="term" label="Loan Term" value={loanTermYears} onChange={setLoanTermYears} suffix="years" />
                   <CompactInput id="tax" label="Property Tax Rate" value={propertyTaxRate} onChange={setPropertyTaxRate} suffix="%" />
                   <CompactInput id="ins" label="Annual Insurance" value={homeInsurance} onChange={setHomeInsurance} prefix="$" />

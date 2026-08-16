@@ -1,16 +1,18 @@
 import { SubcategorySection } from "@/domains/_types";
-import { onlyLive } from "@/lib/tools/liveToolFilters";
 import { ToolCard } from "./ToolCard";
 
 interface CategorySectionProps {
   section: SubcategorySection;
   basePath: string;
+  /** Domain route segment, passed to ToolCard for the genuinely-live check. */
+  domain?: string;
 }
 
-export function CategorySection({ section, basePath }: CategorySectionProps) {
+export function CategorySection({ section, basePath, domain }: CategorySectionProps) {
+  // Every tool is shown — live tools as-is, non-live tools with the "Soon"
+  // badge (ToolCard/StatusBadge). Sitemap filtering is handled separately.
   const Icon = section.icon;
-  const domain = basePath.replace(/^\//, "");
-  const tools = onlyLive(section.tools, domain);
+  const tools = section.tools;
 
   if (tools.length === 0) return null;
 
@@ -25,7 +27,7 @@ export function CategorySection({ section, basePath }: CategorySectionProps) {
       
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {tools.map((tool) => (
-          <ToolCard key={tool.slug} tool={tool} basePath={basePath} />
+          <ToolCard key={tool.slug} tool={tool} basePath={basePath} domain={domain} />
         ))}
       </div>
     </section>

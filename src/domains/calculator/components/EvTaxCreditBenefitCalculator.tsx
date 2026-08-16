@@ -209,7 +209,7 @@ const EvTaxCreditBenefitCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-emerald-600 mb-1 uppercase tracking-wider">Total EV Benefit</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalBenefit).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">${Math.round(results.totalIncentives).toLocaleString()} upfront + ${Math.round(results.totalFuelSavings).toLocaleString()} fuel savings over {ownershipYears} yr</div>

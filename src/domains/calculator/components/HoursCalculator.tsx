@@ -114,7 +114,7 @@ const HoursCalculator = () => {
           <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
             
             <div className="flex flex-col">
-              <label className="text-base font-medium text-emerald-600 dark:text-emerald-400 mb-1.5 font-bold">Clock In (Start Time)</label>
+              <label className="text-base font-medium text-primary mb-1.5 font-bold">Clock In (Start Time)</label>
               <div className="flex gap-2">
                 <div className="flex-1"><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Hour</div><div className={wrap}><input type="number" value={sh} onChange={e => setSh(e.target.value)} className={ci} min="1" max="12" /></div></div>
                 <div className="flex flex-col justify-end pb-2 font-bold text-lg">:</div>
@@ -175,9 +175,9 @@ const HoursCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1 uppercase tracking-wider">Gross Shift Pay</div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Gross Shift Pay</div>
                   <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                     <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                       {formatCurrency(result.grossPay)}

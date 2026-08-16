@@ -309,7 +309,7 @@ export default function MindfulnessPracticeRoiCalculator() {
           <AdPlaceholder className="mb-10" />
 
           {/* MOVED DISCLAIMER */}
-          <div className="mb-8 bg-purple-500/10 border-l-4 border-purple-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <div className="mb-8 bg-primary/10 border-l-4 border-primary p-4 rounded-r-lg flex gap-3 items-start">
             <AlertTriangle className="h-5 w-5 shrink-0 text-purple-600 mt-0.5" />
             <p className="text-sm font-medium leading-relaxed text-purple-800 dark:text-purple-400">
               <strong>The Cognitive Blade:</strong> Abraham Lincoln famously said, <em>"If I had six hours to chop down a tree, I'd spend the first four sharpening the axe."</em> Mindfulness is the sharpening of the cognitive blade. This tool calculates the exact financial ROI of investing 15 minutes a day into your brain's prefrontal cortex.

@@ -119,7 +119,7 @@ export default function OperatingMarginCalculator() {
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                     <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Operating Margin</div>
                     <div className="text-3xl font-extrabold text-foreground tracking-tight">{fmtPct(res.operatingMargin)}</div>
                   </div>

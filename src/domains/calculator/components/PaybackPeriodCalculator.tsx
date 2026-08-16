@@ -183,7 +183,7 @@ export default function PaybackPeriodCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Results</h2>
                   <Hourglass className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`bg-gradient-to-br border rounded-xl p-5 text-center ${res.paybackPeriod >= 0 ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 animate-fade-in" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
+                <div className={`bg-primary/10 border-l-4 bg-gradient-to-br border rounded-xl p-5 text-center ${res.paybackPeriod >= 0 ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 animate-fade-in" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
                   <div className="text-[13px] font-bold text-muted-foreground mb-1 uppercase tracking-wider">Payback Period</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
                     {res.paybackPeriod >= 0 ? `${res.paybackPeriod.toFixed(2)} Years` : "Does Not Recoup"}

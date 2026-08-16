@@ -281,38 +281,7 @@ export const orphanedCalculators: CalculatorDef[] = [
     subcategory: "Other Utilities",
     status: "live"
   },
-  {
-    slug: "four01k-growth-calculator",
-    name: "401(k) Growth Calculator",
-    description: "Example: \"100% match up to 5% of salary\" means enter 100 and 5.\"en-US\", { maximumFractionDigits: 0 })}",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
-    slug: "four03b-growth-calculator",
-    name: "403(b) Growth Calculator",
-    description: "Example: \"100% match up to 5% of salary\" means enter 100 and 5. Leave as 0 if no match.\"en-US\", { maximumFractionDigits: 0 })}",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
-    slug: "four57b-plan-calculator",
-    name: "457(b) Plan Calculator",
-    description: "Enter the total dollar amount you contribute per year. Remember the IRS limit is $23,000 for 2024, but the 457(b) \"Special 3-Year Catch-Up\" allows you to contribute up to double that amount if you are within 3 years of normal retirement age.\"en-US\", { maximumFractionDigits: 0 })}",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
-    slug: "four-percent-rule-calculator",
-    name: "4% Rule Calculator",
-    description: "The 4% Rule is a widely used rule of thumb in retirement planning that helps determine a safe withdrawal rate from your retirement savings. The rule states that you can comfortably withdraw 4% of your total retirement portfolio in your first year of retirement, and then adjust that dollar amount for inflation each subsequent year, without running out of money for at least 30 years.\"en-US\", { maximumFractionDigits: 0 })}",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
+
   {
     slug: "fuel-injector-calculator",
     name: "Fuel Injector Calculator",
@@ -441,14 +410,7 @@ export const orphanedCalculators: CalculatorDef[] = [
     subcategory: "Other Utilities",
     status: "live"
   },
-  {
-    slug: "ten-year-averaging-distribution-calculator",
-    name: "10-Year Averaging Distribution Calculator",
-    description: "The 10-Year Averaging Distribution Calculator is a specialized tax tool designed to estimate the tax liability on a lump-sum distribution from a qualified retirement plan. This specific tax treatment is available only to individuals who were born before January 2, 1936, or to their beneficiaries.\"en-US\", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
+
     {
     slug: "total-car-cost-per-mile-calculator",
     name: "Total Car Cost Per Mile Calculator",

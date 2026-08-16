@@ -142,8 +142,8 @@ const WindChillCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-6">
-                <div className="text-sm font-bold text-sky-600 dark:text-sky-400 mb-2 uppercase tracking-wider">Wind Chill (Feels Like)</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Wind Chill (Feels Like)</div>
                 <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                   <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono">
                     {unit === "imperial" ? result.windChillF : result.windChillC}
@@ -164,13 +164,13 @@ const WindChillCalculator = () => {
 
               {result.frostbiteTime && (
                 <div className={`card-calculator !p-5 border shadow-sm ${result.windChillF <= -18 ? 'bg-red-500/10 border-red-500/30' : 'bg-card border-border'}`}>
-                  <h3 className={`text-base font-bold mb-2 ${result.windChillF <= -18 ? 'text-red-600 dark:text-red-400' : 'text-foreground'}`}>Frostbite Warning</h3>
+                  <h3 className={`text-base font-bold mb-2 ${result.windChillF <= -18 ? 'text-primary' : 'text-foreground'}`}>Frostbite Warning</h3>
                   <div className="flex items-start gap-3">
                     <div>
-                      <p className={`text-sm ${result.windChillF <= -18 ? 'text-red-700/80 dark:text-red-300/80' : 'text-muted-foreground'} leading-relaxed`}>
+                      <p className={`text-sm ${result.windChillF <= -18 ? 'text-muted-foreground/80 dark:text-red-300/80' : 'text-muted-foreground'} leading-relaxed`}>
                         At this temperature and wind speed, exposed skin can freeze in:
                       </p>
-                      <div className={`text-xl font-bold font-mono mt-1 ${result.windChillF <= -18 ? 'text-red-600 dark:text-red-400' : 'text-foreground'}`}>
+                      <div className={`text-xl font-bold font-mono mt-1 ${result.windChillF <= -18 ? 'text-primary' : 'text-foreground'}`}>
                         {result.frostbiteTime}
                       </div>
                     </div>

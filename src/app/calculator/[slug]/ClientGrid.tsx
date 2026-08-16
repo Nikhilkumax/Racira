@@ -52,6 +52,7 @@ export function ClientGrid({ tools, subcategoryName, slug }: { tools: any[]; sub
                 key={toolSlug}
                 tool={mappedTool}
                 basePath="/calculator"
+                domain="calculator"
               />
             );
           })}

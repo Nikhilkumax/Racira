@@ -161,8 +161,8 @@ const DataTransferCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-6">
-                <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-2 uppercase tracking-wider">Estimated Transfer Time</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Estimated Transfer Time</div>
                 <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                   <span className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                     {result.timeFormatted}

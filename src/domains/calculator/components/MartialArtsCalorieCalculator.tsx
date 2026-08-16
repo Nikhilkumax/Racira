@@ -173,14 +173,6 @@ export default function MartialArtsCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Martial Arts Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-amber-800 dark:text-amber-400">
-            <strong>Accuracy Warning:</strong> Only input your <strong>ACTIVE</strong> combat or drilling time. If your dojo class is 60 minutes, but you spend 20 minutes resting and listening to the instructor, your active time is 40 minutes. Entering your total class time will massively overestimate your true caloric expenditure.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -221,7 +213,8 @@ export default function MartialArtsCalorieCalculator() {
             )}
 
             <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
+                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
                 <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
               </button>
             </div>

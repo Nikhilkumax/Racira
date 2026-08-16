@@ -116,9 +116,9 @@ const TotalFactorProductivityCalculator = () => {
           {/* Right Column - Results */}
           <div className="space-y-6">
             {/* Primary Result Card */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold mb-4">Productivity</h2>
-              <p className="text-4xl font-bold text-indigo-600">{result.toFixed(2)} units/hr</p>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Productivity</div>
+              <p className="text-4xl font-bold text-primary">{result.toFixed(2)} units/hr</p>
             </div>
 
             {/* 3-Stat Bar */}

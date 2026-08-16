@@ -301,8 +301,8 @@ export default function OilChangeIntervalCalculator() {
                     <div className="text-sm text-foreground">You are past due for an oil change. Change it as soon as possible to prevent engine wear.</div>
                   </div>
                 ) : (
-                  <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-5 relative">
-                    <div className="text-xs uppercase tracking-wide text-emerald-600 dark:text-emerald-400 mb-1 font-bold">Next Recommended Oil Change</div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                    <div className="text-xs uppercase tracking-wide text-primary mb-1 font-bold">Next Recommended Oil Change</div>
                     <div className="text-4xl font-bold text-foreground mb-1">{results.nextChangeMileage.toLocaleString()} Miles</div>
                     <div className="text-sm text-muted-foreground">Or by <strong>{results.nextChangeDate}</strong>, whichever comes first.</div>
                   </div>

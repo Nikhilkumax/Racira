@@ -59,12 +59,14 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
       <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2 sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">
         {related.map((t) => {
           const Icon = t.icon;
-          return (
-            <Link
-              key={(t as any).slug}
-              href={`/pdf/${(t as any).slug}`}
-              className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0"
-            >
+          const isLive = (t as any).status === "live";
+          const cardBody = (
+            <>
+              {!isLive && (
+                <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Soon
+                </span>
+              )}
               <div className="tool-card-icon">
                 <Icon className="h-5 w-5 text-primary" />
               </div>
@@ -74,7 +76,23 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
               <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
                 {(t as any).description}
               </p>
+            </>
+          );
+          return isLive ? (
+            <Link
+              key={(t as any).slug}
+              href={`/pdf/${(t as any).slug}`}
+              className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0"
+            >
+              {cardBody}
             </Link>
+          ) : (
+            <div
+              key={(t as any).slug}
+              className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0 cursor-default"
+            >
+              {cardBody}
+            </div>
           );
         })}
       </div>

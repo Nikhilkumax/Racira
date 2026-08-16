@@ -157,7 +157,7 @@ export default function NetWorthTrackerCalc() {
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
 
-                <div className={`bg-gradient-to-br border rounded-xl p-5 text-center ${res.netWorth >= 0 ? "from-primary/10 to-primary/5 border-primary/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
+                <div className={`bg-primary/10 border-l-4 bg-gradient-to-br border rounded-xl p-5 text-center ${res.netWorth >= 0 ? "from-primary/10 to-primary/5 border-primary/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
                   <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${res.netWorth >= 0 ? "text-primary" : "text-red-500"}`}>Net Worth</div>
                   <div className={`text-4xl font-extrabold mb-1 tracking-tight ${res.netWorth >= 0 ? "text-foreground" : "text-red-500"}`}>{fmtUSD(res.netWorth)}</div>
                   <div className="text-sm text-muted-foreground font-medium">

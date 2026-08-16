@@ -299,7 +299,7 @@ export default function RangeAnxietyCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.safetyMarginMiles < 0 ? 'bg-destructive/10 border-destructive' : results.safetyMarginPct < 10 ? 'bg-orange-500/10 border-orange-500' : 'bg-[#10b981]/10 border-[#10b981]'}`}>
+                <div className={`border-l-4 rounded-lg p-5 relative ${results.safetyMarginMiles < 0 ? 'bg-destructive/10 border-destructive' : results.safetyMarginPct < 10 ? 'bg-primary/10 border-primary' : 'bg-[#10b981]/10 border-[#10b981]'}`}>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Estimated Arrival Battery</div>
                   <div className={`text-5xl font-bold mb-1 ${results.safetyMarginMiles < 0 ? 'text-destructive' : results.safetyMarginPct < 10 ? 'text-orange-500' : 'text-[#10b981]'}`}>
                     {results.arriveAtPercent < 0 ? "DEAD" : `${Math.round(results.arriveAtPercent)}%`}

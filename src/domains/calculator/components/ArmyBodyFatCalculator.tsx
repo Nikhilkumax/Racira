@@ -170,9 +170,9 @@ const ArmyBodyFatCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-4 ${result.passesStandard ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Army Body Fat Assessment</div>
-                <div className="text-4xl font-bold" style={{ color: result.rating.color }}>{fmt(result.bf, 1)}%</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Army Body Fat Assessment</div>
+                <div className="text-4xl font-bold text-primary">{fmt(result.bf, 1)}%</div>
                 <div className="text-sm mt-1 font-semibold" style={{ color: result.passesStandard ? "#10b981" : "#ef4444" }}>
                   {result.passesStandard ? `✓ Meets Army Standard (max ${result.armyMax}% for age ${result.ageGroup})` : `✗ Exceeds Army Standard (max ${result.armyMax}% for age ${result.ageGroup})`}
                 </div>

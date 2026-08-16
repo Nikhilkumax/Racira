@@ -358,7 +358,7 @@ export default function RepaymentCalculator() {
               <div ref={printRef} className="flex flex-col gap-4">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-5 relative">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-emerald-600 transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

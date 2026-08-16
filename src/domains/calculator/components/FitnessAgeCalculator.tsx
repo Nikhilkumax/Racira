@@ -168,10 +168,10 @@ export default function FitnessAgeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="rounded-lg p-5 shadow-sm border-l-4" style={{ backgroundColor: `${result.resultColor}15`, borderColor: result.resultColor }}>
-                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.resultColor }}>Your Biological Fitness Age</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Your Biological Fitness Age</div>
                 <div className="flex items-baseline gap-2">
-                  <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.fitnessAge}</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">{result.fitnessAge}</div>
                   <div className="text-lg font-semibold text-muted-foreground">years old</div>
                 </div>
                 <div className="text-sm font-semibold mt-1" style={{ color: result.resultColor }}>You are biologically {result.ageDiff} years {result.ageDiffDirection} than your real age.</div>

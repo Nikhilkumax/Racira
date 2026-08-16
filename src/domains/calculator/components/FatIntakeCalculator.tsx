@@ -1,50 +1,84 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Utensils } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Droplet } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const FatIntakeCalculator = () => {
-  const [calories, setCalories] = useState("2000");
-  const [dietType, setDietType] = useState("moderate"); // low, moderate, high/keto
+type DietKey = "low" | "moderate" | "high";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+const DIETS: Record<DietKey, { label: string; pct: number }> = {
+  low: { label: "Low fat (20%)", pct: 0.2 },
+  moderate: { label: "Moderate (30%)", pct: 0.3 },
+  high: { label: "High fat / keto (60%)", pct: 0.6 },
+};
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const cals = parseFloat(calories);
-    
-    let pct = 0.30; // moderate by default
-    if (dietType === "low") pct = 0.20;
-    else if (dietType === "moderate") pct = 0.30;
-    else if (dietType === "keto") pct = 0.70;
+interface FatResult {
+  calories: number;
+  diet: DietKey;
+  pct: number;
+  fatCalories: number;
+  fatGrams: number;
+  saturatedGrams: number;
+  otherCalories: number;
+  chartData: { name: string; value: number }[];
+}
 
-    const fatCalories = cals * pct;
-    const fatGrams = fatCalories / 9; // 9 cals per gram of fat
+function calcFat(calories: number, diet: DietKey): FatResult {
+  const pct = DIETS[diet].pct;
+  const fatCalories = calories * pct;
+  const fatGrams = fatCalories / 9;
+  const saturatedGrams = (calories * 0.1) / 9;
+  const otherCalories = calories - fatCalories;
+  const chartData = [
+    { name: "Fat", value: fatCalories },
+    { name: "Carbs & Protein", value: otherCalories },
+  ];
+  return { calories, diet, pct, fatCalories, fatGrams, saturatedGrams, otherCalories, chartData };
+}
 
-    // Saturated fat limit (AHA recommends < 6-10%)
-    const saturatedLimitGrams = (cals * 0.10) / 9;
+const DEFAULTS = { calories: "2000", diet: "moderate" as DietKey };
 
-    setResults({ 
-      fatGrams: Math.round(fatGrams), 
-      fatCalories: Math.round(fatCalories), 
-      pct: pct * 100,
-      saturatedLimitGrams: Math.round(saturatedLimitGrams)
-    });
-  };
+const COLORS = ["hsl(var(--primary))", "hsl(38 92% 50%)"];
 
-  const reset = () => {
-    setShowResults(false); setCalories("2000"); setDietType("moderate"); setResults(null); };
+const faqs = [
+  { question: "How much fat should I eat?", answer: "Dietary guidelines recommend 20–35% of calories from fat (about 44–78 g on a 2,000-calorie diet). Keto diets run 60–75%; low-fat plans 15–20%. Fat provides 9 kcal per gram, more than double protein or carbs." },
+  { question: "What about saturated fat?", answer: "Guidelines cap saturated fat at ~10% of calories — about 22 g on 2,000 calories. Replace it with unsaturated sources (olive oil, nuts, fish) for heart health; trans fats should be avoided entirely." },
+  { question: "Are all fats the same?", answer: "No. Unsaturated fats (mono- and poly-) support heart health; saturated fats raise LDL cholesterol in excess; trans fats are harmful at any level. This calculator tracks total fat — aim to get most of it from unsaturated sources." },
+];
 
-  const faqs = [
-    { question: "How much fat should I eat daily?", answer: "The Dietary Guidelines for Americans suggest that 20% to 35% of total daily calories should come from fat. For a 2,000-calorie diet, this equates to roughly 44 to 78 grams of fat per day." },
-    { question: "Are all fats the same?", answer: "No. Monounsaturated and polyunsaturated fats (found in olive oil, avocados, nuts, and fish) are heart-healthy and reduce inflammation. Saturated fats (found in red meat, butter, and cheese) should be limited to less than 10% of calories. Trans fats should be avoided entirely." },
-    { question: "Why do fats have more calories?", answer: "Fats are energy-dense, containing 9 calories per gram. In contrast, proteins and carbohydrates contain only 4 calories per gram. This is why high-fat foods quickly add to your daily caloric total." }
+export default function FatIntakeCalculator() {
+  const [calories, setCalories] = useState(DEFAULTS.calories);
+  const [diet, setDiet] = useState<DietKey>(DEFAULTS.diet);
+  const [result, setResult] = useState<FatResult>(() => calcFat(2000, "moderate"));
+
+  useEffect(() => {
+    const c = parseFloat(calories);
+    if (!isNaN(c) && c > 0) setResult(calcFat(c, diet));
+  }, [calories, diet]);
+
+  const reset = () => { setCalories(DEFAULTS.calories); setDiet(DEFAULTS.diet); };
+  const invalid = isNaN(parseFloat(calories)) || parseFloat(calories) <= 0;
+
+  const breakdown = [
+    { label: "Daily Calories", value: `${Math.round(result.calories).toLocaleString()} kcal` },
+    { label: "Fat Share of Diet", value: `${(result.pct * 100).toFixed(0)}%` },
+    { label: "Calories from Fat", value: `${Math.round(result.fatCalories).toLocaleString()} kcal` },
+    { label: "Total Fat", value: `${result.fatGrams.toFixed(0)} g`, highlight: true },
+    { label: "Fat per Meal (3 meals)", value: `${(result.fatGrams / 3).toFixed(0)} g` },
+    { label: "Saturated Fat Limit (≤10%)", value: `${result.saturatedGrams.toFixed(0)} g` },
+    { label: "Carbs & Protein Calories", value: `${Math.round(result.otherCalories).toLocaleString()} kcal` },
+  ];
+
+  const summaryStats = [
+    { label: "Total Fat", value: `${result.fatGrams.toFixed(0)} g` },
+    { label: "Fat Calories", value: `${Math.round(result.fatCalories).toLocaleString()} kcal` },
+    { label: "Fat Share", value: `${(result.pct * 100).toFixed(0)}%` },
+    { label: "Saturated Limit", value: `${result.saturatedGrams.toFixed(0)} g` },
+    { label: "Per Meal", value: `${(result.fatGrams / 3).toFixed(0)} g` },
+    { label: "Other Macros", value: `${Math.round(result.otherCalories).toLocaleString()} kcal` },
   ];
 
   return (
@@ -54,63 +88,109 @@ const FatIntakeCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fat Intake Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="cals" label="Total Daily Calories" value={calories} onChange={setCalories} />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Diet Type</label>
-                  <select value={dietType} onChange={e => setDietType(e.target.value)} className="input-calc">
-                    <option value="low">Low Fat (20% calories)</option>
-                    <option value="moderate">Moderate / Standard (30% calories)</option>
-                    <option value="keto">High Fat / Ketogenic (70% calories)</option>
-                  </select>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            <div>
+              <label htmlFor="fi-cals" className="block text-sm font-medium mb-1 text-foreground">Daily Calories</label>
+              <input id="fi-cals" type="number" min="500" step="100" value={calories} onChange={(e) => setCalories(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            </div>
+            <div>
+              <label htmlFor="fi-diet" className="block text-sm font-medium mb-1 text-foreground">Diet Type</label>
+              <select id="fi-diet" value={diet} onChange={(e) => setDiet(e.target.value as DietKey)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20">
+                {Object.entries(DIETS).map(([key, d]) => <option key={key} value={key}>{d.label}</option>)}
+              </select>
+            </div>
+
+            <div className="flex gap-3 pt-1">
+              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+                <Droplet className="h-4 w-4" /> Calculate
+              </button>
+              <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            {invalid && <p className="text-xs text-destructive">Enter a positive daily calorie target.</p>}
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Daily Fat Target</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Dietary Fat</p>
-                    <p className="text-5xl font-black text-foreground">{results.fatGrams}g</p>
-                    <p className="text-sm text-muted-foreground mt-1">per day</p>
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Recommended Fat Intake</div>
+              <div className="text-4xl font-extrabold text-primary">{result.fatGrams.toFixed(0)} g</div>
+              <div className="text-sm text-muted-foreground mt-1">{Math.round(result.fatCalories).toLocaleString()} kcal from fat · {(result.pct * 100).toFixed(0)}% of diet</div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-0 rounded-lg border border-border overflow-hidden bg-card">
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Per Meal</div>
+                <div className="text-lg font-bold text-primary">{(result.fatGrams / 3).toFixed(0)} g</div>
+              </div>
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Saturated ≤</div>
+                <div className="text-lg font-bold text-primary">{result.saturatedGrams.toFixed(0)} g</div>
+              </div>
+              <div className="p-3 text-center">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Fat Calories</div>
+                <div className="text-lg font-bold text-primary">{Math.round(result.fatCalories).toLocaleString()}</div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Metric</th>
+                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row) => (
+                    <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
+                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right font-semibold">{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Calorie Split by Macro</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={80} paddingAngle={2}>
+                    {result.chartData.map((entry, i) => <Cell key={entry.name} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip formatter={(v: number) => [`${Math.round(v).toLocaleString()} kcal (${((v / result.calories) * 100).toFixed(0)}%)`, ""]} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-sm font-bold mb-3">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {summaryStats.map((s) => (
+                  <div key={s.label} className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{s.label}</span>
+                    <span className="font-semibold">{s.value}</span>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Calories from Fat</p>
-                    <p className="text-3xl font-black text-foreground">{results.fatCalories} kcal</p>
-                  </div>
-                </div>
-                <ResultDisplay items={[
-                  { label: "Diet Percentage", value: 0, textValue: results.pct + "% of total calories" },
-                  { label: "Saturated Fat Limit", value: 0, textValue: "< " + results.saturatedLimitGrams + "g (10% limit)" },
-                ]} />
-              </>
-            )}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Importance of Dietary Fat</h2>
-              <p>For decades, fat was demonized as the primary cause of weight gain and heart disease. Modern nutritional science has shown that dietary fat is essential for health, hormone production, and nutrient absorption.</p>
-              <h3>Hormonal Balance and Fat</h3>
-              <p>Your body needs fat to produce hormones, including testosterone and estrogen. Diets that are extremely low in fat (under 15-20% of calories) can lead to hormonal imbalances, fatigue, and fat-soluble vitamin (A, D, E, K) deficiencies.</p>
-              <h3>The Ketogenic Diet</h3>
-              <p>A ketogenic diet flips standard macros upside down, making fat the primary energy source (70-80% of calories). When carbohydrate intake is extremely low, the liver converts fats into ketones, which the brain and body use for fuel.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-intake" />
+            <h2 className="text-2xl font-bold mb-3">About the Fat Intake Calculator</h2>
+            <p>Fat is the most calorie-dense macro at 9 kcal per gram, so targets convert easily: fat grams = calories × fat % ÷ 9. On 2,000 calories at 30% fat, that is 600 kcal and about 67 g of fat — with saturated fat capped near 22 g (10% of calories).</p>
+            <h3>Quality Over Quantity</h3>
+            <p>The total-fat target matters less than the source. Unsaturated fats from olive oil, nuts, avocado, and fish improve lipid profiles, while excess saturated fat from butter, fatty meats, and processed foods raises LDL cholesterol. Track total fat here, but choose the unsaturated sources within it.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fat-intake-calculator" />
           <PopularCalculators exclude="/calculator/fat-intake-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default FatIntakeCalculator;
-
+}

@@ -105,7 +105,7 @@ const BonusCalculator = () => {
                       </button>
                       {showAdv && (
                         <div className="mt-3 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
-                          <h3 className="text-sm font-bold mb-3 flex items-center gap-1.5 text-foreground">
+                          <h3 className="text-xs uppercase tracking-wide text-muted-foreground mb-2 flex items-center gap-1.5">
                               <Landmark className="h-4 w-4 text-primary" /> Pre-Tax Deductions
                           </h3>
                           <InputField id="ret" label="401(k) Contribution (%)" value={retirementContribution} onChange={setRetirementContribution} suffix="%" tooltip="Percentage of bonus to contribute to your 401(k)." />
@@ -127,9 +127,9 @@ const BonusCalculator = () => {
               <>
                 <h2 className="text-2xl font-bold mb-3">Net Bonus Breakdown</h2>
                 
-                <div className="bg-primary/5 rounded-3xl p-10 text-center border border-primary/10 mb-8">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Your Take-Home Bonus</p>
-                    <p className="text-6xl font-black text-foreground">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center mb-8">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Your Take-Home Bonus</p>
+                    <p className="text-6xl font-black text-primary">
                         ${results.netBonus.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </p>
                     <p className="text-xs text-muted-foreground mt-4 italic">Estimated amount you'll see on your paycheck.</p>

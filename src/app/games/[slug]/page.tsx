@@ -6,7 +6,6 @@ import { ChevronRight, Sparkles, Gamepad2, Construction } from "lucide-react";
 import { CATEGORIES, slugify } from "@/domains/games/registry";
 import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
 
-import Header from "@/components/Header";
 import GameRenderer from "../GameRenderer";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
@@ -42,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const match = findBySlug(slug);
   if (match?.type === "category") return { title: `${match.cat.name} — Racira Games`, description: `Play free browser-based ${match.cat.name} games.`, alternates: { canonical: `/games/${slug}` } };
   if (match?.type === "subcategory") return { title: `${match.sub.name} — Racira Games`, description: `Play free ${match.sub.name} games in your browser.`, alternates: { canonical: `/games/${slug}` } };
-  if (match?.type === "tool") return { title: `${match.game.name} — Racira Games`, description: `Play ${match.game.name} free in your browser.`, alternates: { canonical: `/games/${slug}` } };
+  if (match?.type === "tool") return { title: `${match.game.name} — Racira Games`, description: `Play ${match.game.name} free in your browser.`, alternates: { canonical: `/games/${slug}` }, robots: GAME_LIVE_SLUGS.includes(match.game.slug) ? undefined : { index: false, follow: false } };
   return { title: "Not Found — Racira" };
 }
 
@@ -50,7 +49,9 @@ export async function generateStaticParams() {
   const params: { slug: string }[] = [];
   for (const cat of catsList) params.push({ slug: cat.slug });
   for (const sub of allSubs) params.push({ slug: sub.slug });
-  for (const g of allGames) params.push({ slug: g.slug });
+  for (const g of allGames) {
+    if (GAME_LIVE_SLUGS.includes(g.slug)) params.push({ slug: g.slug });
+  }
   return params;
 }
 
@@ -59,7 +60,6 @@ function CategoryView({ cat }: { cat: typeof catsList[0] }) {
   const totalGames = cat.subcategories.reduce((acc, s) => acc + s.games.length, 0);
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="Games" />
       <main className="flex-1">
         <div className="racira-page-container pt-8 pb-0">
           <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
@@ -73,7 +73,7 @@ function CategoryView({ cat }: { cat: typeof catsList[0] }) {
         <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">{cat.name}</h1>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{totalGames} free browser games in {cat.subcategories.length} subcategories.</p>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{totalGames} free browser game{totalGames === 1 ? "" : "s"} in {cat.subcategories.length} subcategor{cat.subcategories.length === 1 ? "y" : "ies"}.</p>
           </div>
         </section>
         <div className="racira-page-container pb-16">
@@ -86,7 +86,7 @@ function CategoryView({ cat }: { cat: typeof catsList[0] }) {
                     <SubIcon className="h-5 w-5" />
                   </div>
                   <h3 className="font-semibold text-foreground leading-snug">{sub.name}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{sub.games.length} games</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{sub.games.length} game{sub.games.length === 1 ? "" : "s"}</p>
                 </Link>
               );
             })}
@@ -101,7 +101,6 @@ function SubcategoryView({ sub, categoryName, categorySlug }: { sub: typeof allS
   const Icon = sub.icon;
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="Games" />
       <main className="flex-1">
         <div className="racira-page-container pt-8 pb-0">
           <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
@@ -117,23 +116,37 @@ function SubcategoryView({ sub, categoryName, categorySlug }: { sub: typeof allS
         <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">{sub.name}</h1>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{sub.games.length} free browser games.</p>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{sub.games.length} free browser game{sub.games.length === 1 ? "" : "s"}.</p>
           </div>
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {sub.games
               .map((gameName) => ({ name: gameName, slug: slugify(gameName) }))
-              .filter((g) => GAME_LIVE_SLUGS.includes(g.slug))
               .map(({ name: gameName, slug: gameSlug }, idx) => {
-              return (
-                <Link key={gameSlug + idx} href={`/games/${gameSlug}`} className="tool-card group hover:-translate-y-[3px]">
+              const isLive = GAME_LIVE_SLUGS.includes(gameSlug);
+              const cardBody = (
+                <>
+                  {!isLive && (
+                    <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Soon
+                    </span>
+                  )}
                   <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
                     <Gamepad2 className="h-5 w-5" />
                   </div>
                   <h3 className="font-semibold text-foreground leading-snug">{gameName}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{sub.name}</p>
+                </>
+              );
+              return isLive ? (
+                <Link key={gameSlug + idx} href={`/games/${gameSlug}`} className="tool-card group hover:-translate-y-[3px]">
+                  {cardBody}
                 </Link>
+              ) : (
+                <div key={gameSlug + idx} className="tool-card group hover:-translate-y-[3px] relative cursor-default">
+                  {cardBody}
+                </div>
               );
             })}
           </div>
@@ -146,7 +159,6 @@ function SubcategoryView({ sub, categoryName, categorySlug }: { sub: typeof allS
 function GameView({ game }: { game: typeof allGames[0] }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="Games" />
       <main className="flex-1">
         <ToolPageHeader
           breadcrumbItems={[
@@ -171,6 +183,7 @@ export default async function PolymorphicPage({ params }: PageProps) {
   const match = findBySlug(slug);
   if (match?.type === "category") return <CategoryView cat={match.cat} />;
   if (match?.type === "subcategory") return <SubcategoryView sub={match.sub} categoryName={match.sub.categoryName} categorySlug={match.sub.categorySlug} />;
-  if (match?.type === "tool") return <GameView game={match.game} />;
+  if (match?.type === "tool" && GAME_LIVE_SLUGS.includes(match.game.slug)) return <GameView game={match.game} />;
+  // Non-live game slugs (and unknown routes) 404 — no coming-soon game pages.
   notFound();
 }

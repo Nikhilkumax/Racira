@@ -266,9 +266,9 @@ export default function CarInsuranceCostCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className="bg-[#10b981]/10 border-l-4 border-[#10b981] rounded-lg p-5 relative">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Estimated Monthly Premium</div>
-                  <div className="text-5xl font-bold text-[#10b981] mb-1">
+                  <div className="text-5xl font-bold text-primary mb-1">
                     {formatCurrency(results.monthlyPremium)}
                     <span className="text-xl font-normal text-muted-foreground ml-2">/ mo</span>
                   </div>

@@ -101,9 +101,9 @@ export default function TimesInterestEarnedCalculator() {
                   <TrendingUp className="h-5 w-5 text-primary" />
                 </div>
 
-                <div className={`border rounded-xl p-5 text-center ${res.statusColor === 'green' ? 'bg-green-500/10 border-green-500/30' : res.statusColor === 'blue' ? 'bg-blue-500/10 border-blue-500/30' : res.statusColor === 'yellow' ? 'bg-yellow-500/10 border-yellow-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Times Interest Earned</div>
-                  <div className="text-4xl font-extrabold tracking-tight">{isFinite(res.tie) ? `${fmt(res.tie)}x` : "∞"}</div>
+                <div className="bg-primary/10 border-l-4 rounded-xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Times Interest Earned</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">{isFinite(res.tie) ? `${fmt(res.tie)}x` : "∞"}</div>
                   <div className="text-sm text-muted-foreground mt-1">Coverage Status: <span className="font-bold">{res.status}</span> · EBIT: {fmtM(parseFloat(ebit)||0)}</div>
                 </div>
 

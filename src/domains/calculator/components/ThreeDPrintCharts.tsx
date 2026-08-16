@@ -101,3 +101,84 @@ export const ThreeDPrintImpactChart = React.memo(({ data }: { data: { label: str
     </div>
   );
 });
+
+// Reference charts page for the "3D Print Material Charts" registry entry.
+// Composes the reusable charts above with static reference data.
+export default function ThreeDPrintCharts() {
+  const materialCostData = [
+    { name: "PLA", value: 22 },
+    { name: "PETG", value: 30 },
+    { name: "ABS", value: 34 },
+    { name: "TPU", value: 45 },
+    { name: "Nylon", value: 62 },
+  ];
+
+  const layerTimelineData = [
+    { timeHrs: 0.5, layer: 60 },
+    { timeHrs: 1.0, layer: 130 },
+    { timeHrs: 1.5, layer: 195 },
+    { timeHrs: 2.0, layer: 260 },
+    { timeHrs: 2.5, layer: 330 },
+    { timeHrs: 3.0, layer: 400 },
+  ];
+
+  const printTimeImpactData = [
+    { label: "Layer Height 0.28mm", timeSeconds: 10800 },
+    { label: "Layer Height 0.20mm", timeSeconds: 14400 },
+    { label: "Layer Height 0.12mm", timeSeconds: 23400 },
+    { label: "Infill 15%", timeSeconds: 14400 },
+    { label: "Infill 50%", timeSeconds: 21600 },
+    { label: "Current", timeSeconds: 14400 },
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-10 text-center">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-3 tracking-tight">
+          3D Print Material Charts
+        </h1>
+        <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+          Reference charts for common 3D printing materials, layer timelines, and
+          print-time settings.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-card rounded-3xl border border-border/50 shadow-xl p-6">
+          <h2 className="text-xl font-bold text-foreground mb-1">Material Cost per kg</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Typical filament prices for popular materials.
+          </p>
+          <ThreeDPrintPieChart data={materialCostData} />
+        </div>
+
+        <div className="bg-card rounded-3xl border border-border/50 shadow-xl p-6">
+          <h2 className="text-xl font-bold text-foreground mb-1">Layers Printed Over Time</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            Layer progression for a standard 0.2mm layer-height print.
+          </p>
+          <ThreeDPrintTimelineChart data={layerTimelineData} />
+        </div>
+
+        <div className="bg-card rounded-3xl border border-border/50 shadow-xl p-6 lg:col-span-2">
+          <h2 className="text-xl font-bold text-foreground mb-1">Print Time by Setting</h2>
+          <p className="text-sm text-muted-foreground mb-4">
+            How layer height and infill affect total print time.
+          </p>
+          <ThreeDPrintImpactChart data={printTimeImpactData} />
+        </div>
+      </div>
+
+      <div className="mt-8 space-y-4 text-sm text-muted-foreground max-w-3xl mx-auto">
+        <h3 className="font-semibold text-foreground">Reading These Charts</h3>
+        <p>
+          Material cost varies by brand, color, and vendor — prices above are
+          typical retail ranges per kilogram. Layer height is the biggest lever on
+          print time: halving it roughly doubles the layer count and duration.
+          Infill percentage affects strength and material use, but has a smaller
+          effect on time than layer height for most models.
+        </p>
+      </div>
+    </div>
+  );
+}

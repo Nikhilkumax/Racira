@@ -244,7 +244,7 @@ const LiquidatedDamagesCalculator: React.FC = () => {
           {/* Second Tier: Advanced Options */}
           <div className="space-y-4">
             <div className="border-t pt-4">
-              <h2 className="text-lg font-semibold mb-2">Interest Options</h2>
+              <h2 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Interest Options</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">Interest Rate (% per annum)</label>
@@ -274,7 +274,7 @@ const LiquidatedDamagesCalculator: React.FC = () => {
             </div>
 
             <div className="border-t pt-4">
-              <h2 className="text-lg font-semibold mb-2">Escalation Options</h2>
+              <h2 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Escalation Options</h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">Daily Increase (% per day)</label>

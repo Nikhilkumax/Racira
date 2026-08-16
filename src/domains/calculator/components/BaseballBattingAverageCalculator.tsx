@@ -347,11 +347,11 @@ const BaseballBattingAverageCalculator = () => {
             )}
 
             {/* Primary Result Card */}
-            <div className="card-calculator flex flex-col gap-1 !p-6 shadow-sm border border-border bg-card">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">
                 Batting Average
               </p>
-              <p className="text-5xl font-black text-foreground tabular-nums">
+              <p className="text-4xl font-extrabold text-primary tabular-nums">
                 .{result.battingAverage.toFixed(3).split(".")[1]}
               </p>
               <p className="text-sm text-muted-foreground mt-1">

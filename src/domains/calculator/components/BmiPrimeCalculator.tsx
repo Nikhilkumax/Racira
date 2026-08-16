@@ -144,10 +144,10 @@ export default function BmiPrimeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="rounded-lg p-5 shadow-sm border-l-4" style={{ backgroundColor: `${result.categoryColor}15`, borderColor: result.categoryColor }}>
-                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.categoryColor }}>BMI Prime Score</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">BMI Prime Score</div>
                 <div className="flex items-baseline gap-2">
-                  <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.bmiPrime.toFixed(2)}</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">{result.bmiPrime.toFixed(2)}</div>
                 </div>
                 <div className="text-sm font-semibold mt-1" style={{ color: result.categoryColor }}>{result.category}: You are {result.percentageOffset.toFixed(1)}% {result.offsetDirection}.</div>
               </div>

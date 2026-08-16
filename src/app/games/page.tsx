@@ -7,10 +7,14 @@ import {
   SEARCH_REGISTRY,
   slugify,
 } from "@/domains/games/registry";
+import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
+
+const LIVE_GAME_SLUGS = new Set(GAME_LIVE_SLUGS);
+const isLiveGame = (title: string) => LIVE_GAME_SLUGS.has(slugify(title));
 
 export const metadata: Metadata = {
   title: "All Games — Racira",
-  description: "Play 500+ free browser-based games: casual, logic, puzzles, card games, and arcade classics. No signup required.",
+  description: "Play 47 free browser-based games: casual, logic, and puzzles. No signup required.",
   alternates: {
     canonical: "https://racira.com/games",
   },
@@ -31,7 +35,7 @@ export default function GamesPage() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Relax with browser-based casual games, logic puzzles, and brain teasers. No signup required.
           </p>
-          <CategorySearch categorySlug="games" placeholder="Search 500+ games..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="games" placeholder={`Search ${GAME_LIVE_SLUGS.length} games...`} registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -40,7 +44,7 @@ export default function GamesPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center calculator-category-grid">
           {categories.map(cat => {
             const Icon = cat.icon;
-            const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.length, 0);
+            const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.filter(isLiveGame).length, 0);
             return (
               <Link
                 key={cat.name}
@@ -61,7 +65,7 @@ export default function GamesPage() {
       {/* All Categories with Subcategories */}
       <div className="racira-page-container pb-16">
         {categories.map((cat, idx) => {
-          const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.length, 0);
+          const totalCount = cat.subcategories.reduce((acc, sub) => acc + sub.games.filter(isLiveGame).length, 0);
 
           return (
             <section
@@ -84,7 +88,7 @@ export default function GamesPage() {
                       key={sub.name}
                       title={sub.name}
                       icon={Icon}
-                      count={sub.games.length}
+                      count={sub.games.filter(isLiveGame).length}
                       basePath={`/games/${subSlug}`}
                       label="games"
                     />

@@ -1,29 +1,63 @@
 "use client";
-
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Gift } from "lucide-react";
 
-const GiftCostPerPersonCalculator = () => {
-  const [inputA, setInputA] = useState("");
-  const [inputB, setInputB] = useState("");
-  const [result, setResult] = useState<string|null>(null);
+interface GiftResult {
+  total: number;
+  people: number;
+  perPerson: number;
+  rounded: number;
+  leftover: number;
+  chartData: { name: string; value: number }[];
+}
 
-  const calculate = () => {
-    const a = parseFloat(inputA);
-    const b = parseFloat(inputB);
-    if (isNaN(a)) { setResult("Please enter a valid number"); return; }
-    setResult(`Result: ${a} (input B: ${isNaN(b) ? "N/A" : b})`);
+function calcGift(total: number, people: number): GiftResult {
+  const perPerson = people > 0 ? total / people : 0;
+  const rounded = Math.ceil(perPerson);
+  const leftover = rounded * people - total;
+  const chartData = [
+    { name: "Exact Share", value: Number(perPerson.toFixed(2)) },
+    { name: "Rounded Up", value: Number(rounded.toFixed(2)) },
+  ];
+  return { total, people, perPerson, rounded, leftover, chartData };
+}
+
+const DEFAULTS = { total: "150", people: "5" };
+
+const faqs = [
+  { question: "How do I split a group gift fairly?", answer: "Divide the total cost (including tax, shipping, and gift wrap) by the number of contributors. For a $150 gift among 5 people, each contributes $30. Rounding up to the nearest dollar covers any surprise fees." },
+  { question: "What should be included in the total?", answer: "The gift price plus sales tax, shipping, gift wrapping, and a card. Decide upfront whether the organizer's convenience costs (e.g., parking to pick it up) are included or absorbed by the organizer." },
+  { question: "What if someone wants to contribute more?", answer: "Optional: allow uneven contributions. The simplest approach is equal shares, but for big-ticket gifts (like a vacation or appliance), letting each person choose their amount while the organizer tops up the difference works well." },
+];
+
+export default function GiftCostPerPersonCalculator() {
+  const [total, setTotal] = useState(DEFAULTS.total);
+  const [people, setPeople] = useState(DEFAULTS.people);
+  const [result, setResult] = useState<GiftResult>(() => calcGift(150, 5));
+
+  const handleCalculate = () => {
+    const t = parseFloat(total);
+    const p = parseInt(people, 10);
+    if (isNaN(t) || isNaN(p) || p <= 0) return;
+    setResult(calcGift(t, p));
   };
 
-  const reset = () => { setInputA(""); setInputB(""); setResult(null); };
+  const reset = () => {
+    setTotal(DEFAULTS.total);
+    setPeople(DEFAULTS.people);
+    setResult(calcGift(150, 5));
+  };
 
-  const faqs = [
-    { question: "How do I use this calculator?", answer: "Enter your values in the input fields and click Calculate to see the result." },
-    { question: "What formula does this use?", answer: "This calculator uses the standard Gift Cost Per Person Calculator formula. Enter your known values to compute the unknown." },
-    { question: "Is this calculator free?", answer: "Yes, all Racira calculators are completely free to use." },
+  const breakdown = [
+    { label: "Total Gift Cost", value: `$${result.total.toFixed(2)}`, highlight: false },
+    { label: "Contributors", value: `${result.people}`, highlight: false },
+    { label: "Exact Share Per Person", value: `$${result.perPerson.toFixed(2)}`, highlight: true },
+    { label: "Rounded Up (nearest $)", value: `$${result.rounded.toFixed(2)}`, highlight: false },
+    { label: "Surplus After Rounding", value: `$${result.leftover.toFixed(2)}`, highlight: false },
   ];
 
   return (
@@ -34,27 +68,76 @@ const GiftCostPerPersonCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div>
-              <label className="text-sm font-semibold text-foreground mb-1 block">Value A</label>
-              <input type="number" value={inputA} onChange={e => setInputA(e.target.value)} className="input-calc" placeholder="Enter value" />
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <Gift className="w-4 h-4" /> Group Gift Split
             </div>
-            <div>
-              <label className="text-sm font-semibold text-foreground mb-1 block">Value B (if needed)</label>
-              <input type="number" value={inputB} onChange={e => setInputB(e.target.value)} className="input-calc" placeholder="Enter value (optional)" />
+            <div className="grid grid-cols-1 gap-4">
+              <div>
+                <label className="text-sm font-semibold text-foreground mb-1 block">Total Gift Cost ($)</label>
+                <input type="number" value={total} onChange={(e) => setTotal(e.target.value)} className="input-calc" placeholder="150" min={0} />
+                <p className="text-xs text-muted-foreground mt-1">Include tax, shipping, and gift wrap.</p>
+              </div>
+              <div>
+                <label className="text-sm font-semibold text-foreground mb-1 block">Number of Contributors</label>
+                <input type="number" value={people} onChange={(e) => setPeople(e.target.value)} className="input-calc" placeholder="5" min={1} />
+              </div>
             </div>
             <div className="flex gap-2 pt-2">
-              <button onClick={calculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
               <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {result !== null && (
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Result</p>
-                <p className="text-2xl font-black text-foreground">{result}</p>
+          <div className="flex flex-col gap-4 min-w-0">
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
+                <Gift className="w-4 h-4 text-primary" /> COST PER PERSON
               </div>
-            )}
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl md:text-4xl font-bold text-primary">${result.perPerson.toFixed(2)}</span>
+                <span className="text-sm text-muted-foreground">per person</span>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                ${result.total.toFixed(2)} split {result.people} ways — ${result.rounded.toFixed(2)} rounded up covers it with ${result.leftover.toFixed(2)} spare.
+              </p>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Result Breakdown</h3>
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Quantity</th>
+                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row) => (
+                    <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
+                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right font-semibold">{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-sm font-bold mb-3">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {[
+                  { label: "Per Person (rounded)", value: `$${result.rounded.toFixed(2)}` },
+                  { label: "Surplus Fund", value: `$${result.leftover.toFixed(2)}` },
+                  { label: "Surplus Suggestion", value: "Card, wrap, or tip the organizer" },
+                  { label: "Rule of Thumb", value: "Include every cost, then round up" },
+                ].map((s) => (
+                  <div key={s.label} className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{s.label}</span>
+                    <span className="font-semibold">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -62,15 +145,9 @@ const GiftCostPerPersonCalculator = () => {
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">About the Gift Cost Per Person Calculator</h2>
-            <p>The Gift Cost Per Person Calculator helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.</p>
-            <h3>How to Use</h3>
-            <ol>
-              <li>Enter your known values in the input fields.</li>
-              <li>Click the <strong>Calculate</strong> button.</li>
-              <li>Read your result instantly in the results panel.</li>
-            </ol>
-            <h3>Why Use This Calculator?</h3>
-            <p>Our calculator is fast, free, and accurate. No sign-up required.</p>
+            <p>Group gifting is simple in concept — one gift, many wallets — but the details matter. The total must include tax, shipping, and wrapping, and the split should be decided before anyone contributes. Dividing the total by the number of people gives the exact share; rounding up to the nearest dollar creates a small surplus that covers rounding errors or the organizer's card purchase.</p>
+            <h3>Making it painless</h3>
+            <p>Set a clear collection deadline and use a payment app so the organizer isn't fronting the full cost. If contributions are uneven, track them separately and treat the organizer's payment as the balancing item. For recurring group gifts — teacher appreciation, office birthdays — a standing split avoids renegotiating every time.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gift-cost-per-person-calculator" />
           <PopularCalculators exclude="/calculator/gift-cost-per-person-calculator" />
@@ -78,6 +155,4 @@ const GiftCostPerPersonCalculator = () => {
       </div>
     </>
   );
-};
-
-export default GiftCostPerPersonCalculator;
+}

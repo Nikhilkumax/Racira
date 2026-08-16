@@ -69,7 +69,7 @@ export default function InvestmentGrowthCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Future Value</div>
               <div className="text-4xl font-extrabold text-foreground">{fmt(r.futureValue)}</div>
               <div className="text-sm text-muted-foreground mt-1">Invested: {fmt(r.totalContributions)} · Gains: {fmt(r.totalInterest)}</div>

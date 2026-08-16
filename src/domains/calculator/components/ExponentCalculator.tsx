@@ -1,49 +1,116 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Calculator } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-const ExponentCalculator = () => {
-  const [mode, setMode] = useState<"power" | "root" | "scientific">("power");
-  const [base, setBase] = useState("2");
-  const [exp, setExp] = useState("10");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<any>(null);
+type Mode = "power" | "root" | "scientific";
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const b = parseFloat(base) || 0;
-    const e = parseFloat(exp) || 0;
+interface ExponentResult {
+  mode: Mode;
+  base: number;
+  exponent: number;
+  result: number;
+  resultText: string;
+  log10: number;
+  chartData: { x: number; y: number }[];
+}
 
-    if (mode === "power") {
-      const res = Math.pow(b, e);
-      setResult({ type: "power", base: b, exponent: e, result: res });
-    } else if (mode === "root") {
-      if (e === 0) return;
-      const res = Math.pow(b, 1 / e);
-      setResult({ type: "root", radicand: b, index: e, result: res });
-    } else {
-      // scientific notation
-      const sci = b.toExponential();
-      const [mantissa, exponent] = sci.split("e");
-      setResult({ type: "scientific", original: b, mantissa, exponent: parseInt(exponent), scientific: sci });
+function calcExponent(mode: Mode, base: number, exponent: number): ExponentResult | null {
+  if (mode === "power") {
+    const result = Math.pow(base, exponent);
+    if (!isFinite(result)) return null;
+    const chartData: { x: number; y: number }[] = [];
+    const steps = Math.min(Math.max(Math.abs(exponent), 1), 20);
+    for (let i = 0; i <= steps; i++) {
+      const e = exponent >= 0 ? i : -i;
+      chartData.push({ x: e, y: Number(Math.pow(base, e).toFixed(4)) });
     }
+    return {
+      mode, base, exponent, result,
+      resultText: result >= 1e15 || (result > 0 && result < 1e-6) ? result.toExponential(6) : result.toLocaleString("en-US", { maximumFractionDigits: 6 }),
+      log10: Math.log10(Math.abs(result)),
+      chartData,
+    };
+  }
+  if (mode === "root") {
+    const result = exponent !== 0 ? Math.pow(base, 1 / exponent) : NaN;
+    if (isNaN(result) || !isFinite(result)) return null;
+    const chartData: { x: number; y: number }[] = [];
+    for (let i = 1; i <= 20; i++) {
+      const n = i;
+      chartData.push({ x: n, y: Number(Math.pow(base, 1 / n).toFixed(4)) });
+    }
+    return {
+      mode, base, exponent, result,
+      resultText: result.toLocaleString("en-US", { maximumFractionDigits: 6 }),
+      log10: Math.log10(Math.abs(result)),
+      chartData,
+    };
+  }
+  // scientific: base × 10^exponent
+  const result = base * Math.pow(10, exponent);
+  if (!isFinite(result)) return null;
+  const chartData: { x: number; y: number }[] = [];
+  const steps = Math.min(Math.max(Math.abs(exponent), 1), 20);
+  for (let i = 0; i <= steps; i++) {
+    const e = exponent >= 0 ? i : -i;
+    chartData.push({ x: e, y: Number((base * Math.pow(10, e)).toExponential(3)) });
+  }
+  return {
+    mode, base, exponent, result,
+    resultText: result.toExponential(6),
+    log10: Math.log10(Math.abs(result)),
+    chartData,
   };
+}
 
-  const reset = () => {
-    setShowResults(false); setBase("2"); setExp("10"); setResult(null); };
+const DEFAULTS = { mode: "power" as Mode, base: "2", exp: "10" };
 
-  const faqs = [
-    { question: "What is an exponent?", answer: "An exponent indicates how many times a number (the base) is multiplied by itself. For example, 2³ = 2 × 2 × 2 = 8." },
-    { question: "What is a negative exponent?", answer: "A negative exponent means the reciprocal of the base raised to the positive exponent. 2⁻³ = 1/2³ = 1/8." },
-    { question: "What is a fractional exponent?", answer: "A fractional exponent represents a root. x^(1/n) = ⁿ√x. For example, 8^(1/3) = ∛8 = 2." },
-  ];
+const faqs = [
+  { question: "What is an exponent?", answer: "An exponent says how many times to multiply the base by itself: 2¹⁰ = 2 × 2 × … = 1,024. Negative exponents give reciprocals (2⁻³ = 1/8); fractional exponents give roots (16^½ = 4)." },
+  { question: "What is the root mode?", answer: "The nth root of a number: ⁵√32 = 32^(1/5) = 2. The root mode evaluates base^(1/exponent) — enter the root degree as the exponent field." },
+  { question: "What is scientific notation?", answer: "Numbers are written as mantissa × 10^exponent, e.g. 3 × 10⁸ = 300,000,000. The scientific mode multiplies your base by the power of ten and shows the result in exponential form." },
+];
+
+export default function ExponentCalculator() {
+  const [mode, setMode] = useState<Mode>(DEFAULTS.mode);
+  const [base, setBase] = useState(DEFAULTS.base);
+  const [exp, setExp] = useState(DEFAULTS.exp);
+  const [result, setResult] = useState<ExponentResult | null>(() => calcExponent("power", 2, 10));
+
+  useEffect(() => {
+    const b = parseFloat(base);
+    const e = parseFloat(exp);
+    if (!isNaN(b) && !isNaN(e)) {
+      const r = calcExponent(mode, b, e);
+      if (r) setResult(r);
+    }
+  }, [mode, base, exp]);
+
+  const reset = () => { setMode(DEFAULTS.mode); setBase(DEFAULTS.base); setExp(DEFAULTS.exp); };
+  const invalid = isNaN(parseFloat(base)) || isNaN(parseFloat(exp)) || (mode === "root" && parseFloat(exp) === 0);
+
+  const breakdown = result ? [
+    { label: "Mode", value: mode === "power" ? "Power" : mode === "root" ? "Nth Root" : "Scientific Notation" },
+    { label: "Base", value: `${result.base}` },
+    { label: mode === "power" ? "Exponent" : mode === "root" ? "Root Degree" : "Exponent (×10^)", value: `${result.exponent}` },
+    { label: "Result", value: result.resultText, highlight: true },
+    { label: "log₁₀(|result|)", value: `${result.log10.toFixed(4)}` },
+    { label: "Scientific Form", value: result.result.toExponential(6) },
+  ] : [];
+
+  const summaryStats = result ? [
+    { label: "Result", value: result.resultText },
+    { label: "Scientific", value: result.result.toExponential(6) },
+    { label: "log₁₀", value: `${result.log10.toFixed(4)}` },
+    { label: "Base", value: `${result.base}` },
+    { label: "Exponent", value: `${result.exponent}` },
+    { label: "Mode", value: mode === "power" ? "Power" : mode === "root" ? "Root" : "Scientific" },
+  ] : [];
 
   return (
     <>
@@ -52,69 +119,121 @@ const ExponentCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Exponent Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex gap-2 mb-6">
-                {(["power", "root", "scientific"] as const).map(m => (
-                  <button key={m} onClick={() => { setMode(m); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${mode === m ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
-                    {m === "power" ? "Power (xⁿ)" : m === "root" ? "Root (ⁿ√x)" : "Scientific"}
-                  </button>
-                ))}
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            <div>
+              <label htmlFor="ex-mode" className="block text-sm font-medium mb-1 text-foreground">Mode</label>
+              <select id="ex-mode" value={mode} onChange={(e) => setMode(e.target.value as Mode)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20">
+                <option value="power">Power (base^exponent)</option>
+                <option value="root">Nth Root (base^(1/n))</option>
+                <option value="scientific">Scientific (base × 10^exponent)</option>
+              </select>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="ex-base" className="block text-sm font-medium mb-1 text-foreground">Base</label>
+                <input id="ex-base" type="number" step="0.1" value={base} onChange={(e) => setBase(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
+              <div>
+                <label htmlFor="ex-exp" className="block text-sm font-medium mb-1 text-foreground">{mode === "root" ? "Root Degree (n)" : "Exponent"}</label>
+                <input id="ex-exp" type="number" step="0.1" value={exp} onChange={(e) => setExp(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+              </div>
+            </div>
 
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <InputField id="base" label={mode === "root" ? "Radicand" : mode === "scientific" ? "Number" : "Base"} value={base} onChange={setBase} />
-                {mode !== "scientific" && (
-                  <InputField id="exp" label={mode === "root" ? "Root Index (n)" : "Exponent"} value={exp} onChange={setExp} />
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            <div className="flex gap-3 pt-1">
+              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+                <Calculator className="h-4 w-4" /> Calculate
+              </button>
+              <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            {invalid && <p className="text-xs text-destructive">Enter valid numeric inputs (root degree ≠ 0).</p>}
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
+          <div className="flex flex-col gap-4">
+            {result && (
               <>
-                <h2 className="text-2xl font-bold mb-3">Result</h2>
-                {result.type === "power" && (
-                  <ResultDisplay items={[
-                    { label: `${result.base}^${result.exponent}`, value: 0, textValue: result.result.toLocaleString(undefined, { maximumFractionDigits: 10 }), highlight: true },
-                    { label: "Expression", value: 0, textValue: `${result.base} ^ ${result.exponent}` },
-                  ]} />
-                )}
-                {result.type === "root" && (
-                  <ResultDisplay items={[
-                    { label: `${result.index}√${result.radicand}`, value: 0, textValue: result.result.toFixed(8), highlight: true },
-                    { label: "Expression", value: 0, textValue: `${result.radicand} ^ (1/${result.index})` },
-                  ]} />
-                )}
-                {result.type === "scientific" && (
-                  <ResultDisplay items={[
-                    { label: "Scientific Notation", value: 0, textValue: result.scientific, highlight: true },
-                    { label: "Mantissa", value: 0, textValue: result.mantissa },
-                    { label: "Exponent", value: 0, textValue: String(result.exponent) },
-                  ]} />
-                )}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Result</div>
+                  <div className="text-4xl font-extrabold text-primary break-all">{result.resultText}</div>
+                  <div className="text-sm text-muted-foreground mt-1">{mode === "power" ? `${result.base}^${result.exponent}` : mode === "root" ? `nth root of ${result.base}` : `${result.base} × 10^${result.exponent}`} · {result.result.toExponential(6)}</div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-0 rounded-lg border border-border overflow-hidden bg-card">
+                  <div className="p-3 text-center border-r border-border">
+                    <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Scientific</div>
+                    <div className="text-lg font-bold text-primary break-all">{result.result.toExponential(4)}</div>
+                  </div>
+                  <div className="p-3 text-center border-r border-border">
+                    <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">log₁₀</div>
+                    <div className="text-lg font-bold text-primary">{result.log10.toFixed(3)}</div>
+                  </div>
+                  <div className="p-3 text-center">
+                    <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Mode</div>
+                    <div className="text-lg font-bold text-primary">{mode === "power" ? "Power" : mode === "root" ? "Root" : "Scientific"}</div>
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Quantity</th>
+                        <th className="p-2.5 pr-3 text-right">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {breakdown.map((row) => (
+                        <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
+                          <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
+                          <td className="p-2.5 pr-3 text-right font-semibold break-all">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="card-calculator !p-4 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-3">{mode === "power" ? "Value Across Exponents" : mode === "root" ? "Value Across Root Degrees" : "Value Across Powers of Ten"}</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <LineChart data={result.chartData} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                      <XAxis dataKey="x" tick={{ fontSize: 11 }} type="number" domain={["dataMin", "dataMax"]} />
+                      <YAxis tick={{ fontSize: 11 }} />
+                      <Tooltip formatter={(v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 3 }), "Value"]} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                      <Line type="monotone" dataKey="y" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="text-sm font-bold mb-3">Summary Statistics</div>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                    {summaryStats.map((s) => (
+                      <div key={s.label} className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{s.label}</span>
+                        <span className="font-semibold break-all">{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </>
             )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How Exponents Work</h2>
-              <p>Exponentiation is repeated multiplication. The base is the number being multiplied, and the exponent tells how many times. This calculator also handles roots (fractional exponents) and scientific notation for very large or small numbers.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">About the Exponent Calculator</h2>
+            <p>Exponentiation multiplies a base by itself a number of times: 2¹⁰ = 1,024. The rules that make it powerful: any base to the 0 is 1, negative exponents invert (2⁻³ = 1/8), and fractional exponents are roots (27^(1/3) = 3).</p>
+            <h3>Exponents Everywhere</h3>
+            <p>Compound growth is (1 + r)^t, sound intensity spans 10^12 in decibels, and scientific notation keeps the universe's scale manageable. The exponent is the single most important operation in modeling growth — linear in the exponent, explosive in the value.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/exponent-calculator" />
-          <PopularCalculators exclude="/exponent-calculator" />
+          <PopularCalculators exclude="/calculator/exponent-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default ExponentCalculator;
-
-
+}

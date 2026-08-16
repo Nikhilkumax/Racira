@@ -2,14 +2,13 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Sparkles, ChevronRight, Hammer } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { categories, TOOLS_BY_SLUG, totalCount } from "@/domains/cad/registry";
 import { toSlug } from "@/lib/utils/slug";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
-import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -42,6 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       alternates: {
         canonical: `/cad/${tool.slug}`,
       },
+      robots: isComingSoonToolPage(tool, "cad") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -54,7 +54,7 @@ export async function generateStaticParams() {
   for (const cat of categories) {
     params.push({ slug: toSlug(cat.title) });
     for (const tool of cat.tools) {
-      params.push({ slug: tool.slug });
+      if (isLiveTool(tool, "cad")) params.push({ slug: tool.slug });
     }
   }
 
@@ -92,7 +92,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 
         <div className="racira-page-container pb-16 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {category.tools.filter((t) => isLiveTool(t, "cad")).map((tool: any) => {
+            {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
               return (
                 <SubcategoryCard
@@ -102,56 +102,11 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
                   count={0}
                   basePath={`/cad/${tool.slug}`}
                   label="tool"
+                  soon={!isLiveTool(tool, "cad")}
                 />
               );
             })}
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
-}
-
-function ToolView({ tool, category }: { tool: any, category: typeof categories[0] }) {
-  const categorySlug = toSlug(category.title);
-
-  return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="CAD" />
-      <main className="flex-1">
-        <ToolPageHeader
-          breadcrumbItems={[
-            { label: "Home", href: "/" },
-            { label: "CAD", href: "/cad" },
-            { label: category.title, href: `/cad/${categorySlug}` },
-            { label: tool.name, href: null },
-          ]}
-          title={tool.name}
-        />
-        <div className="racira-page-container pb-16">
-
-          {tool.status === "live" && tool.component ? (
-            <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
-              {React.createElement(tool.component)}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
-              <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Hammer className="h-6 w-6" />
-              </div>
-              <h2 className="text-xl font-semibold">Coming soon</h2>
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-                We're polishing <span className="font-medium text-foreground">{tool.name}</span>. It will land here shortly.
-              </p>
-              <Link
-                href="/cad"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
-              >
-                <Sparkles className="h-4 w-4" /> Browse all tools
-              </Link>
-            </div>
-          )}
         </div>
       </main>
       <Footer />
@@ -171,14 +126,8 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <CategoryView category={category} />;
   }
 
-  // 2. Is it a tool?
-  const tool = TOOLS_BY_SLUG.get(slug);
-  if (tool) {
-    const parentCategory = categories.find(c => c.title === (tool as any).category);
-    return <ToolView tool={tool} category={parentCategory!} />;
-  }
-
-  // 3. Not found
+  // 2. No CAD tool page renders a real tool (registry has no components) —
+  //    every tool slug 404s.
   notFound();
 }
 

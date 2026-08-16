@@ -137,6 +137,9 @@ export default function JumboLoanPaymentCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Escrow (Taxes & Insurance)</h4>
+                  </div>
                   <CompactInput id="tax" label="Annual Property Tax" value={propertyTax} onChange={setPropertyTax} prefix="$" />
                   <CompactInput id="ins" label="Annual Home Insurance" value={homeInsurance} onChange={setHomeInsurance} prefix="$" />
                 </div>

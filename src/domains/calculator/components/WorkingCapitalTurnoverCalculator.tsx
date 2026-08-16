@@ -77,7 +77,7 @@ export default function WorkingCapitalTurnoverCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`rounded-xl p-5 border-l-4 ${r.wct > 2 || r.wct < 0 ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
+            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${r.wct > 2 || r.wct < 0 ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Working Capital Turnover</div>
               <div className={`text-5xl font-extrabold ${r.ratingColor}`}>{r.wct.toFixed(2)}<span className="text-2xl">×</span></div>
               <div className={`text-sm font-semibold mt-1 ${r.ratingColor}`}>{r.rating}</div>

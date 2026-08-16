@@ -147,9 +147,9 @@ export default function BodyTypeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="rounded-lg p-5 border-l-4" style={{ backgroundColor: `${TYPE_COLORS[result.type]}15`, borderColor: TYPE_COLORS[result.type] }}>
-                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: TYPE_COLORS[result.type] }}>Dominant Somatotype</div>
-                <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.type}</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Dominant Somatotype</div>
+                <div className="text-4xl font-extrabold text-primary tracking-tight">{result.type}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.description}</div>
               </div>
               <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">

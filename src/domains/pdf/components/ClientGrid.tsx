@@ -19,7 +19,7 @@ export default function ClientGrid() {
       <div className="racira-page-container">
         {sections.map((section) => (
           <div key={section.title} className="mb-14 last:mb-0">
-            <CategorySection section={section} basePath="/pdf" />
+            <CategorySection section={section} basePath="/pdf" domain="pdf" />
           </div>
         ))}
       </div>

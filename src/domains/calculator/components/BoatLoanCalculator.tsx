@@ -126,6 +126,9 @@ export default function BoatLoanCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
+                <div className="col-span-2">
+                  <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Loan Fees & Taxes</h4>
+                </div>
                 <div><label className="text-sm font-medium mb-1.5 block">Sales Tax</label><div className={inp}><input type="number" value={salesTax} onChange={e => setSalesTax(e.target.value)} step={0.1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Dealer Fees</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={fees} onChange={e => setFees(e.target.value)} className={ci} /></div></div>
               </div>

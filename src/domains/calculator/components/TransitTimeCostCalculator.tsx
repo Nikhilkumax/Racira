@@ -212,7 +212,7 @@ export default function TransitTimeCostCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.winner === 'Ocean' ? 'bg-blue-500/10 border-blue-500' : 'bg-sky-500/10 border-sky-500'}`}>
+                <div className={`border-l-4 rounded-lg p-5 relative ${results.winner === 'Ocean' ? 'bg-primary/10 border-primary' : 'bg-sky-500/10 border-sky-500'}`}>
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

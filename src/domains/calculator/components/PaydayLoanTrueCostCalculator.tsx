@@ -118,9 +118,9 @@ export default function PaydayLoanTrueCostCalculator() {
 
           <div className="flex flex-col gap-4">
             {results && (<>
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
-                <div className="text-xs font-bold text-destructive uppercase tracking-wider mb-1">True Annual Percentage Rate (APR)</div>
-                <div className="text-5xl font-bold text-foreground">{results.trueApr.toFixed(0)}%</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">True Annual Percentage Rate (APR)</div>
+                <div className="text-5xl font-bold text-primary">{results.trueApr.toFixed(0)}%</div>
                 <div className="text-sm text-muted-foreground mt-2 font-medium">To borrow ${loanAmount} for {termDays} days, you will pay ${results.totalFee.toFixed(2)} in fees.</div>
               </div>
 

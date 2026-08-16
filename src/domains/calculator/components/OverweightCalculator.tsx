@@ -108,7 +108,7 @@ const OverweightCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-4 ${result.isOverweight ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-4 ${result.isOverweight ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Weight Assessment</div>
                 <div className="text-4xl font-bold" style={{ color: result.category.color }}>
                   {result.isOverweight ? `${fmt(result.toUnit(result.overweightBy), 1)} ${result.wU} overweight` : "Not Overweight"}

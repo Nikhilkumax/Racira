@@ -97,9 +97,9 @@ export default function PreferredStockValuationCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Valuation Results</h2>
                   <DollarSign className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`rounded-xl p-5 text-center border ${res.valuePerShare >= market && market > 0 ? "bg-green-500/10 border-green-500/30" : "bg-red-500/10 border-red-500/30"}`}>
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Intrinsic Value Per Share</div>
-                  <div className="text-4xl font-extrabold tracking-tight">${fmt(res.valuePerShare)}</div>
+                <div className={`bg-primary/10 border-l-4 rounded-xl p-5 text-center ${res.valuePerShare >= market && market > 0 ? "border-green-500" : "border-red-500"}`}>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Intrinsic Value Per Share</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">${fmt(res.valuePerShare)}</div>
                   <div className="text-sm text-muted-foreground mt-1">
                     Market: ${fmt(market)} · {market > 0 ? (res.valuePerShare >= market ? <span className="text-green-500 font-bold">Undervalued</span> : <span className="text-red-500 font-bold">Overvalued</span>) : "Enter market price to compare"}
                   </div>

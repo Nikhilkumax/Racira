@@ -119,7 +119,7 @@ export default function RuleOf72Calculator() {
                   <h2 className="text-2xl font-bold mb-3">Results</h2>
                   <Zap className="h-5 w-5 text-primary" />
                 </div>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">
                     {mode === "rate" ? "Years to Double" : "Required Annual Rate"}
                   </div>

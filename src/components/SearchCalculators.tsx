@@ -4,14 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Search, Calculator } from "lucide-react";
 import type { CalculatorDef } from "@/domains/calculator/registry";
-import { trackSearchImpression, trackComingSoonClick } from "@/lib/analytics";
+import { trackSearchImpression } from "@/lib/analytics";
 import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
-import { toSlug } from "@/lib/utils/slug";
 
-// Only genuinely-built calculators are searchable — no "soon" entries, no stub-tagged-live.
+// The search covers the full browsable scope (live + soon) except stub-tagged
+// entries (placeholder UI, hidden by design). Live results link to their tool
+// page; soon results render as non-interactive rows so nothing points at a 404.
 const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
 function isSearchable(c: CalculatorDef): boolean {
-  return c.status === "live" && !stubSlugs.has(c.slug);
+  return !stubSlugs.has(c.slug);
 }
 
 const formatCategory = (cat: string | undefined) => {
@@ -20,7 +21,18 @@ const formatCategory = (cat: string | undefined) => {
   return cat.charAt(0).toUpperCase() + cat.slice(1).toLowerCase();
 };
 
-const SearchCalculators = () => {
+const SearchCalculators = ({
+  count,
+  countLabel,
+  category,
+}: {
+  /** Number shown in the placeholder — must match what the search actually covers. */
+  count: number;
+  /** Optional display label (e.g. "11,000+") shown instead of the exact count. */
+  countLabel?: string;
+  /** When set, results are restricted to this category (its pages scope the search). */
+  category?: string;
+}) => {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [registry, setRegistry] = useState<CalculatorDef[]>([]);
@@ -60,6 +72,7 @@ const SearchCalculators = () => {
   const results = normalizedQuery.length >= 1 && registry.length > 0
     ? registry
         .filter(isSearchable)
+        .filter(c => !category || c.category === category)
         .filter(c =>
           c.name?.toLowerCase().includes(normalizedQuery) ||
           c.description?.toLowerCase().includes(normalizedQuery) ||
@@ -130,7 +143,7 @@ const SearchCalculators = () => {
             setOpen(true);
             handleLoadRegistry();
           }}
-          placeholder="Search 1,000+ calculators..."
+          placeholder={`Search ${countLabel ?? count.toLocaleString()} calculators...`}
           className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
           aria-label="Search calculators"
         />
@@ -142,21 +155,9 @@ const SearchCalculators = () => {
       {open && results.length > 0 && (
         <div className="absolute z-50 top-full mt-1.5 w-full rounded-lg border border-border bg-card shadow-lg max-h-[400px] overflow-y-auto">
           {results.map(c => {
-            const catSlug = toSlug(formatCategory(c.category));
-            const subSlug = c.subcategory ? toSlug(c.subcategory) : "general";
-            
-            return (
-              <Link
-                key={c.slug}
-                href={`/calculator/${c.slug}`}
-                prefetch={false}
-                onClick={() => { 
-                  if (c.status !== "live") trackComingSoonClick(c.slug, "search");
-                  setQuery(""); 
-                  setOpen(false); 
-                }}
-                className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/60 transition-colors"
-              >
+            const isLive = c.status === "live";
+            const row = (
+              <>
                 <div className="h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   {c.icon ? <c.icon className="h-4 w-4 text-primary" /> : <Calculator className="h-4 w-4 text-primary" />}
                 </div>
@@ -166,6 +167,38 @@ const SearchCalculators = () => {
                     {formatCategory(c.category)} → {c.subcategory || "General"}
                   </p>
                 </div>
+                {!isLive && (
+                  <span className="ml-auto shrink-0 rounded-md bg-muted px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Soon
+                  </span>
+                )}
+              </>
+            );
+
+            if (!isLive) {
+              // Soon tools are visible in search but not clickable — nothing to navigate to.
+              return (
+                <div
+                  key={c.slug}
+                  className="flex items-center gap-3 w-full px-4 py-2.5 text-left cursor-default"
+                >
+                  {row}
+                </div>
+              );
+            }
+
+            return (
+              <Link
+                key={c.slug}
+                href={`/calculator/${c.slug}`}
+                prefetch={false}
+                onClick={() => { 
+                  setQuery(""); 
+                  setOpen(false); 
+                }}
+                className="flex items-center gap-3 w-full px-4 py-2.5 text-left hover:bg-muted/60 transition-colors"
+              >
+                {row}
               </Link>
             );
           })}

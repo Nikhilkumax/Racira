@@ -189,7 +189,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up space-y-3">
-                  <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">New Car — Loan & Resale</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">New Car — Loan & Resale</div>
                   <div className="grid grid-cols-2 gap-3">
                     <CI id="ndown" label="Down Payment" value={newDown} onChange={setNewDown} prefix="$" />
                     <CI id="napr" label="Loan APR" value={newApr} onChange={setNewApr} suffix="%" />
@@ -197,7 +197,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
                     <CI id="nresale" label="Resale Value" value={newResale} onChange={setNewResale} prefix="$" />
                     <CI id="nreg" label="Registration / Year" value={newReg} onChange={setNewReg} prefix="$" />
                   </div>
-                  <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Used Car — Loan & Resale</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Used Car — Loan & Resale</div>
                   <div className="grid grid-cols-2 gap-3">
                     <CI id="udown" label="Down Payment" value={usedDown} onChange={setUsedDown} prefix="$" />
                     <CI id="uapr" label="Loan APR" value={usedApr} onChange={setUsedApr} suffix="%" />
@@ -224,7 +224,7 @@ const UsedCarVsNewCarTotalCostComparisonCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-emerald-600 mb-1 uppercase tracking-wider">
                     {results.savings > 0 ? "Used Car Saves" : "New Car Saves"}
                   </div>

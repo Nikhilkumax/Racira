@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles } from "lucide-react";
 import { tools } from "@/domains/pdf/registry/tools";
 import { toSlug } from "@/lib/utils/slug";
-import Header from "@/components/Header";
 
 // Dynamic imports for client-side ToolPage
 import ToolPage from "@/domains/pdf/tools/ToolPage";
@@ -42,7 +41,6 @@ function SubcategoryView({ catName }: { catName: string }) {
   const catTools = tools.filter(t => t.subCategory === catName);
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="PDF" />
       <main className="flex-1">
         <div className="racira-page-container pt-8 pb-0">
           <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
@@ -56,21 +54,36 @@ function SubcategoryView({ catName }: { catName: string }) {
         <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">{catName}</h1>
-            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{catTools.length} free browser-based {catName} tools.</p>
+            <p className="text-base text-muted-foreground max-w-2xl mx-auto">{catTools.length} free browser-based {catName} tool{catTools.length === 1 ? "" : "s"}.</p>
           </div>
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {catTools.map(tool => {
               const Icon = tool.icon;
-              return (
-                <Link key={tool.slug} href={`/pdf/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
+              const isLive = tool.status === "live";
+              const cardBody = (
+                <>
+                  {!isLive && (
+                    <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Soon
+                    </span>
+                  )}
                   <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
+                </>
+              );
+              return isLive ? (
+                <Link key={tool.slug} href={`/pdf/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
+                  {cardBody}
                 </Link>
+              ) : (
+                <div key={tool.slug} className="tool-card group hover:-translate-y-[3px] relative cursor-default">
+                  {cardBody}
+                </div>
               );
             })}
           </div>

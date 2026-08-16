@@ -174,11 +174,11 @@ export default function FertilityWindowCalculator() {
                         <div className="text-[10px] font-bold uppercase px-2 py-1 bg-secondary rounded-md">Cycle {i + 1}</div>
                       </div>
 
-                      <div className="bg-purple-50 dark:bg-purple-900/10 border border-purple-100 dark:border-purple-800/30 rounded-lg p-4 mb-4">
+                      <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 mb-4">
                         <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs font-bold text-purple-700 dark:text-purple-400 uppercase tracking-wider">Estimated Peak Ovulation</span>
+                          <span className="text-xs uppercase tracking-wide text-muted-foreground">Estimated Peak Ovulation</span>
                         </div>
-                        <div className="text-2xl font-black text-purple-600 dark:text-purple-400">{p.peakDayStr}</div>
+                        <div className="text-2xl font-black text-primary">{p.peakDayStr}</div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">

@@ -189,10 +189,10 @@ export default function VitaminDCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="rounded-lg p-5 shadow-sm border-l-4" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
-                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.statusColor }}>Target Daily Dosage</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Target Daily Dosage</div>
                 <div className="flex items-baseline gap-2">
-                  <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.dailyIU.toLocaleString()}</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">{result.dailyIU.toLocaleString()}</div>
                   <div className="text-lg font-semibold text-muted-foreground">IU / day</div>
                 </div>
                 <div className="text-sm font-semibold mt-2" style={{ color: result.statusColor }}>{result.recommendation}</div>

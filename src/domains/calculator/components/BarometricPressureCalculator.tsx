@@ -186,6 +186,9 @@ export default function BarometricPressureCalculator() {
 
             {inputs.showAdvanced && (
               <div className="grid grid-cols-2 gap-3 pt-1 border-t border-border">
+                <div className="col-span-2">
+                  <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Calibration</h4>
+                </div>
                 <CompactInput id="temperature" label="Temperature" value={inputs.temperature} onChange={(v: string) => handleChange("temperature", v)} suffix="°C" />
                 <CompactInput id="seaLevel" label="Sea Level" value={inputs.seaLevel} onChange={(v: string) => handleChange("seaLevel", v)} suffix="hPa" />
               </div>

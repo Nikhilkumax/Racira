@@ -1,9 +1,5 @@
 import React, { Suspense } from "react";
-import { Metadata } from "next";
 import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
-import { calculatorRegistry, getCalculatorBySlug } from "@/domains/calculator/registry";
-import ComingSoonCalculator from "@/domains/calculator/components/ui/ComingSoonCalculator";
 import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSkeleton";
 
 
@@ -1316,6 +1312,142 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "clausius-clapeyron-calculator": () => import("@/domains/calculator/components/ClausiusClapeyronCalculator"),
   "clausius-clapeyron-phase-transition-calculator": () => import("@/domains/calculator/components/ClausiusClapeyronCalculator"),
 
+  "0-60-mph-acceleration-estimator": () => import("@/domains/calculator/components/AccelerationEstimatorCalculator"),
+  "0-60-mph-calculator": () => import("@/domains/calculator/components/ZeroSixtyCalculator"),
+  "0-apr-promotional-period-cost-calculator": () => import("@/domains/calculator/components/ZeroAprPromotionalPeriodCostCalculator"),
+  "1-3-5-daily-task-prioritization-calculator": () => import("@/domains/calculator/components/OneThreeFiveCalculator"),
+  "1031-exchange-timeline-calculator": () => import("@/domains/calculator/components/Exchange1031TimelineCalculator"),
+  "401(k)-growth-calculator": () => import("@/domains/calculator/components/Four01kGrowthCalculator"),
+  "403(b)-growth-calculator": () => import("@/domains/calculator/components/Four03bGrowthCalculator"),
+  "457(b)-plan-calculator": () => import("@/domains/calculator/components/Four57bPlanCalculator"),
+  "529-college-savings-plan-calculator": () => import("@/domains/calculator/components/Five29CollegeSavingsPlanCalculator"),
+  "83(b)-election-tax-calculator": () => import("@/domains/calculator/components/EightyThreeBElectionTaxCalculator"),
+  "adjustable-rate-mortgage-reset-calculator": () => import("@/domains/calculator/components/AdjustableRateMortgageResetCalculator"),
+  "android-vs-gynoid-fat-distribution-estimator": () => import("@/domains/calculator/components/AndroidVsGynoidEstimator"),
+  "annual-recurring-revenue-arr-calculator": () => import("@/domains/calculator/components/AnnualRecurringRevenueCalculator"),
+  "average-revenue-per-user-arpu-calculator": () => import("@/domains/calculator/components/AverageRevenuePerUserCalculator"),
+  "aviation-fuel-burn-rate-calculator": () => import("@/domains/calculator/components/AviationFuelBurnRateCalculator"),
+  "baby-formula-cost-calculator": () => import("@/domains/calculator/components/BabyFormulaCostCalculator"),
+  "bmi-for-age-pediatric-calculator": () => import("@/domains/calculator/components/PediatricBmiCalculator"),
+  "bmi-to-body-fat-conversion-calculator": () => import("@/domains/calculator/components/BMIToBodyFatCalculator"),
+  "body-fat-percentage-navy-method-calculator": () => import("@/domains/calculator/components/BodyFatNavyMethodCalculator"),
+  "body-fat-percentage-skinfold-calculator": () => import("@/domains/calculator/components/BodyFatSkinfoldCalculator"),
+  "body-mass-index-bmi-calculator": () => import("@/domains/calculator/components/BodyMassIndexCalculator"),
+  "body-roundness-index-calculator": () => import("@/domains/calculator/components/BodyRoundnessIndexCalculator"),
+  "burn-rate-calculator-2": () => import("@/domains/calculator/components/BurnRateCalculator"),
+  "business-burn-rate-calculator": () => import("@/domains/calculator/components/BurnRateCalculator"),
+  "business-valuation-ebitda-multiple-calculator": () => import("@/domains/calculator/components/BusinessValuationEbitdaMultipleCalculator"),
+  "business-valuation-revenue-multiple-calculator": () => import("@/domains/calculator/components/BusinessValuationRevenueMultipleCalculator"),
+  "calorie-intake-calculator": () => import("@/domains/calculator/components/CalorieIntakeCalculator"),
+  "calories-burned-by-activity-calculator": () => import("@/domains/calculator/components/CaloriesBurnedCalculator"),
+  "cardio-vs-strength-calorie-comparison-calculator": () => import("@/domains/calculator/components/CardioVsStrengthComparisonCalculator"),
+  "conforming-vs-jumbo-loan-calculator": () => import("@/domains/calculator/components/ConformingVsJumboLoanCalculator"),
+  "cost-of-living-adjustment-cola-calculator": () => import("@/domains/calculator/components/CostOfLivingAdjustmentColaCalculator"),
+  "cost-of-living-comparison-calculator": () => import("@/domains/calculator/components/CostOfLivingCalculator"),
+  "credit-score-impact-estimator": () => import("@/domains/calculator/components/CreditScoreImpactEstimator"),
+  "credit-score-to-interest-rate-impact-calculator": () => import("@/domains/calculator/components/CreditScoreToInterestRateImpactCalculator"),
+  "daily-calorie-burn-per-pound-of-body-weight": () => import("@/domains/calculator/components/CalorieBurnPerPoundCalculator"),
+  "daily-calorie-need-calculator": () => import("@/domains/calculator/components/DailyCalorieBurnCalculator"),
+
+  // Wired live calculators whose slug keys were missing (fixes coming-soon pages
+  // for genuinely-built tools, e.g. Speed Distance Time Calculator)
+  "price-to-book-ratio-calculator": () => import("@/domains/calculator/components/PriceToBookRatioCalculator"),
+  "supply-and-demand-equilibrium-price-calculator": () => import("@/domains/calculator/components/SupplyAndDemandEquilibriumPriceCalculator"),
+  "custodial-account-growth-calculator": () => import("@/domains/calculator/components/CustodialAccountGrowthCalculator"),
+  "freelancer-rate-calculator": () => import("@/domains/calculator/components/FreelancerRateCalculator"),
+  "hourly-freelance-rate-to-annual-income-calculator": () => import("@/domains/calculator/components/FreelanceRateCalculator"),
+  "unrealized-gainloss-calculator": () => import("@/domains/calculator/components/UnrealizedGainLossCalculator"),
+  "market-neutral-return-calculator": () => import("@/domains/calculator/components/MarketNeutralReturnCalculator"),
+  "book-value-per-share-calculator": () => import("@/domains/calculator/components/BookValuePerShareCalculator"),
+  "total-factor-productivity-calculator": () => import("@/domains/calculator/components/TotalFactorProductivityCalculator"),
+  "inventory-turnover-ratio-calculator": () => import("@/domains/calculator/components/InventoryTurnoverRatioCalculator"),
+  "retained-earnings-calculator": () => import("@/domains/calculator/components/RetainedEarningsCalculator"),
+  "auto-lease-calculator": () => import("@/domains/calculator/components/AutoLeaseCalculator"),
+  "cd-calculator-full": () => import("@/domains/calculator/components/CdCalculatorFull"),
+  "customer-lifetime-value-calculator": () => import("@/domains/calculator/components/CustomerLifetimeValueCalculator"),
+  "debt-service-coverage-calculator": () => import("@/domains/calculator/components/DebtServiceCoverageCalculator"),
+  "domain-valuation-calculator": () => import("@/domains/calculator/components/DomainValuationCalculator"),
+  "fha-mip-calculator": () => import("@/domains/calculator/components/FhaMipCalculator"),
+  "fifteen-vs-thirty-mortgage-calculator": () => import("@/domains/calculator/components/FifteenVsThirtyMortgageCalculator"),
+  "five-year-ownership-cost-calculator": () => import("@/domains/calculator/components/FiveYearOwnershipCostCalculator"),
+  "home-loan-emi-india": () => import("@/domains/calculator/components/HomeLoanEmiIndia"),
+  "k401-calculator": () => import("@/domains/calculator/components/K401Calculator"),
+  "loan-deferment-interest-calculator": () => import("@/domains/calculator/components/LoanDefermentInterestCalculator"),
+  "net-worth-tracker-calc": () => import("@/domains/calculator/components/NetWorthTrackerCalc"),
+  "npv-calculator": () => import("@/domains/calculator/components/NpvCalculator"),
+  "real-estate-calculator-full": () => import("@/domains/calculator/components/RealEstateCalculatorFull"),
+  "ten-year-ownership-cost-calculator": () => import("@/domains/calculator/components/TenYearOwnershipCostCalculator"),
+  "supply-chain-cost-as-of-sales-calculator": () => import("@/domains/calculator/components/SupplyChainCostAsOfSalesCalculator"),
+  "tariff-classification-cost-estimator": () => import("@/domains/calculator/components/TariffClassificationCostEstimatorCalculator"),
+  "vessel-turnaround-cost-calculator": () => import("@/domains/calculator/components/VesselTurnaroundCostCalculator"),
+  "warehouse-cost-per-pallet-calculator": () => import("@/domains/calculator/components/WarehouseCostPerPalletCalculator"),
+  "return-on-marketing-investment-calculator": () => import("@/domains/calculator/components/ReturnOnMarketingInvestmentCalculator"),
+  "operating-profit-margin-calculator": () => import("@/domains/calculator/components/OperatingProfitMarginCalculator"),
+  "gross-profit-margin-calculator": () => import("@/domains/calculator/components/GrossProfitMarginCalculator"),
+  "cost-to-income-ratio-calculator": () => import("@/domains/calculator/components/CostToIncomeRatioCalculator"),
+  "freight-cost-per-unit-calculator": () => import("@/domains/calculator/components/FreightCostPerUnitCalculator"),
+  "logistics-cost-as-of-revenue-calculator": () => import("@/domains/calculator/components/LogisticsCostAsOfRevenueCalculator"),
+  "headcount-to-revenue-ratio-calculator": () => import("@/domains/calculator/components/HeadcountToRevenueRatioCalculator"),
+  "soccer-goals-per-game-calculator": () => import("@/domains/calculator/components/SoccerGoalsPerGameCalculator"),
+  "ffmi-calculator": () => import("@/domains/calculator/components/FFMI_Calculator"),
+  "sird-epidemic-model-calculator": () => import("@/domains/calculator/components/SirdEpidemicModelCalculator"),
+  "meatless-diet-impact-calculator": () => import("@/domains/calculator/components/MeatlessDietImpactCalculator"),
+  "pregnancy-weight-target-calculator": () => import("@/domains/calculator/components/PregnancyWeightTargetCalculator"),
+  "tennis-first-serve-calculator": () => import("@/domains/calculator/components/TennisFirstServeCalculator"),
+  "viscerial-fat-calculator": () => import("@/domains/calculator/components/ViscerialFatCalculator"),
+  "exponential-equation-solver": () => import("@/domains/calculator/components/ExponentialEquationSolver"),
+  "midpoint-calculator": () => import("@/domains/calculator/components/MidpointCalculator"),
+  "fourier-transform-calculator": () => import("@/domains/calculator/components/FourierTransformCalculator"),
+  "kerr-black-hole-radius-calculator": () => import("@/domains/calculator/components/KerrBlackHoleRadiusCalculator"),
+  "geothermal-gradient-calculator": () => import("@/domains/calculator/components/GeothermalGradientCalculator"),
+  "mechanical-seal-pressure-calculator": () => import("@/domains/calculator/components/MechanicalSealPressureCalculator"),
+  "mean-time-between-failures-mtbf-calculator": () => import("@/domains/calculator/components/MtbfCalculator"),
+  "groundwater-contamination-plume-calculator": () => import("@/domains/calculator/components/GroundwaterContaminationPlumeCalculator"),
+  "colpitts-oscillator-calculator": () => import("@/domains/calculator/components/ColpittsOscillatorCalculator"),
+  "fugacity-calculator": () => import("@/domains/calculator/components/FugacityCalculator"),
+  "hydraulic-retention-time-calculator": () => import("@/domains/calculator/components/HydraulicRetentionTimeCalculator"),
+  "epoch-training-time-calculator": () => import("@/domains/calculator/components/EpochTrainingTimeCalculator"),
+  "ppi-calculator": () => import("@/domains/calculator/components/PpiCalculator"),
+  "psu-calculator": () => import("@/domains/calculator/components/PsuCalculator"),
+  "speed-distance-time-calculator": () => import("@/domains/calculator/components/SpeedDistanceTimeCalculator"),
+  "ssl-cost-calculator": () => import("@/domains/calculator/components/SslCostCalculator"),
+  "three-dprint-time-calculator": () => import("@/domains/calculator/components/ThreeDPrintTimeCalculator"),
+  "three-dprint-charts": () => import("@/domains/calculator/components/ThreeDPrintCharts"),
+  "car-sharing-vs-rental-cost-calculator": () => import("@/domains/calculator/components/CarSharingVsRentalCostCalculator"),
+  "game-completion-time-calculator": () => import("@/domains/calculator/components/GameCompletionTimeCalculator"),
+  "freelance-design-rate-calculator": () => import("@/domains/calculator/components/FreelanceDesignRateCalculator"),
+  "exposure-value-calculator": () => import("@/domains/calculator/components/ExposureValueCalculator"),
+  "baseball-fielding-calculator": () => import("@/domains/calculator/components/BaseballFieldingCalculator"),
+  "baseball-slugging-calculator": () => import("@/domains/calculator/components/BaseballSluggingCalculator"),
+  "hp-to-kw-calculator": () => import("@/domains/calculator/components/HpToKwCalculator"),
+  "mpg-calculator": () => import("@/domains/calculator/components/MpgCalculator"),
+  "tea-steeping-calculator": () => import("@/domains/calculator/components/TeaSteepingCalculator"),
+  "turkey-roasting-calculator": () => import("@/domains/calculator/components/TurkeyRoastingCalculator"),
+  "vanity-license-plate-cost-calculator": () => import("@/domains/calculator/components/VanityLicensePlateCostCalculator"),
+  "ev-range-calculator": () => import("@/domains/calculator/components/EVRangeCalculator"),
+  "block-time-calculator": () => import("@/domains/calculator/components/BlockTimeCalculator"),
+  "federal-work-study-earnings-calculator": () => import("@/domains/calculator/components/FederalWorkStudyEarningsCalculator"),
+  "teacher-preparation-time-calculator": () => import("@/domains/calculator/components/TeacherPreparationTimeCalculator"),
+  "school-day-minutes-calculator": () => import("@/domains/calculator/components/SchoolDayMinutesCalculator"),
+  "elearning-seat-time-calculator": () => import("@/domains/calculator/components/ELearningSeatTimeCalculator"),
+  "quarter-to-semester-credit-calculator": () => import("@/domains/calculator/components/QuarterToSemesterCreditCalculator"),
+  "freelancer-tax-calculator": () => import("@/domains/calculator/components/FreelanceTaxCalculator"),
+  "laundry-loads-per-month-cost-calculator": () => import("@/domains/calculator/components/LaundryLoadsCostCalculator"),
+  "overhead-absorption-calculator": () => import("@/domains/calculator/components/OverheadAbsorptionCalculator"),
+  "as-built-survey-tolerance-calculator": () => import("@/domains/calculator/components/AsBuiltSurveyToleranceCalculator"),
+  "digital-nomad-cost-of-living-calculator": () => import("@/domains/calculator/components/DigitalNomadCostOfLivingCalculator"),
+  "budget-rule-calculator": () => import("@/domains/calculator/components/BudgetRuleCalculator"),
+  "10-year-averaging-distribution-calculator": () => import("@/domains/calculator/components/TenYearAveragingDistributionCalculator"),
+  "loan-comparison-calculator": () => import("@/domains/calculator/components/LoanComparisonCalculator"),
+  "crossfit-wod-calorie-calculator": () => import("@/domains/calculator/components/CrossFitWodCalorieCalculator"),
+  "pre-pregnancy-bmi-calculator": () => import("@/domains/calculator/components/PrePregnancyBMICalculator"),
+  "error-budget-burn-rate-calculator": () => import("@/domains/calculator/components/ErrorBudgetBurnRateCalculator"),
+  "0-apr-promotion-payoff-calculator": () => import("@/domains/calculator/components/ZeroAprPromotionPayoffCalculator"),
+  "land-loan-calculator": () => import("@/domains/calculator/components/LandLoanPaymentCalculator"),
+  "total-asset-turnover-calculator": () => import("@/domains/calculator/components/AssetTurnoverRatioCalculator"),
+  "reliability-engineering-burn-rate-calculator": () => import("@/domains/calculator/components/ErrorBudgetBurnRateCalculator"),
+  "hourly-rate-from-annual-salary-calculator": () => import("@/domains/calculator/components/AnnualSalaryToHourlyRateCalculator"),
+  "interest-only-loan-calculator": () => import("@/domains/calculator/components/InterestOnlyCalculator"),
 };
 
 // Pre-build lazy components at module level to avoid re-creating them on every render.
@@ -1326,68 +1458,3 @@ export const lazyComponents: Record<string, React.ComponentType> = Object.fromEn
     dynamic(importFn, { loading: () => <CalculatorSkeleton />, ssr: false }),
   ])
 );
-
-
-interface Props {
-  params: { slug: string };
-}
-
-export async function generateStaticParams() {
-  return calculatorRegistry.map((calc) => ({
-    slug: calc.slug,
-  }));
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const calc = getCalculatorBySlug(params.slug);
-  if (!calc) return { title: "Calculator Not Found" };
-
-  const title = `${calc.name} — Free Online Calculator`;
-  const description = calc.description;
-  const url = `https://racira.com/calculator/${params.slug}`;
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: url,
-    },
-    openGraph: {
-      title,
-      description,
-      url,
-      siteName: "Racira",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
-  };
-}
-
-export default function CalculatorPage({ params }: Props) {
-  const { slug } = params;
-  const calc = getCalculatorBySlug(slug);
-
-  if (!calc) {
-    notFound();
-  }
-
-  if (calc.status !== "live") {
-    return <ComingSoonCalculator slug={slug} />;
-  }
-
-  const CalculatorComponent = lazyComponents[slug];
-
-  if (!CalculatorComponent) {
-    return <ComingSoonCalculator slug={slug} />;
-  }
-
-  return (
-    <Suspense fallback={<CalculatorSkeleton />}>
-      <CalculatorComponent />
-    </Suspense>
-  );
-}

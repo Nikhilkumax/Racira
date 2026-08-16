@@ -2,11 +2,11 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Sparkles, ChevronRight, Hammer } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { TOOLS_BY_SLUG, toolsByCategory } from "@/domains/colors/registry";
 import { CATEGORY_META, ToolCategory } from "@/domains/colors/registry/types";
 import { toSlug } from "@/lib/utils/slug";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       alternates: {
         canonical: `/colors/${tool.slug}`,
       },
+      robots: isComingSoonToolPage(tool, "colors") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -64,7 +65,7 @@ export async function generateStaticParams() {
   }
   
   for (const slug of Object.keys(TOOLS_BY_SLUG)) {
-    params.push({ slug });
+    if (isLiveTool(TOOLS_BY_SLUG[slug], "colors")) params.push({ slug });
   }
 
   return params;
@@ -103,7 +104,7 @@ function CategoryView({ categoryKey }: { categoryKey: ToolCategory }) {
 
         <div className="racira-page-container pb-16 w-full">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {toolsList.filter((t) => isLiveTool(t, "colors")).map((tool: any) => {
+            {toolsList.map((tool: any) => {
               const Icon = tool.icon;
               return (
                 <SubcategoryCard
@@ -113,6 +114,7 @@ function CategoryView({ categoryKey }: { categoryKey: ToolCategory }) {
                   count={0}
                   basePath={`/colors/${tool.slug}`}
                   label="tool"
+                  soon={!isLiveTool(tool, "colors")}
                 />
               );
             })}
@@ -146,28 +148,9 @@ function ToolView({ tool, categoryKey }: { tool: any, categoryKey: ToolCategory 
           title={tool.name}
         />
         <div className="racira-page-container pb-16">
-
-          {tool.status === "live" && Cmp ? (
-            <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
-              <Cmp />
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
-              <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <Hammer className="h-6 w-6" />
-              </div>
-              <h2 className="text-xl font-semibold">Coming soon</h2>
-              <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-                We're polishing <span className="font-medium text-foreground">{tool.name}</span>. It will land here shortly.
-              </p>
-              <Link
-                href="/colors"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
-              >
-                <Sparkles className="h-4 w-4" /> Browse all tools
-              </Link>
-            </div>
-          )}
+          <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
+            <Cmp />
+          </div>
         </div>
       </main>
       <footer className="border-t border-border py-8 mt-16">
@@ -193,9 +176,9 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <CategoryView categoryKey={foundCategoryKey} />;
   }
 
-  // 2. Is it a tool?
+  // 2. Is it a genuinely-live tool?
   const tool = TOOLS_BY_SLUG[slug];
-  if (tool) {
+  if (tool && isLiveTool(tool, "colors")) {
     return <ToolView tool={tool} categoryKey={tool.category} />;
   }
 

@@ -44,6 +44,8 @@ export function ToolSearch() {
     return () => document.removeEventListener("keydown", handler);
   }, []);
 
+  const liveToolCount = tools.filter((t) => isLiveTool(t, "developers")).length;
+
   const results = useMemo<Scored[]>(() => {
     const pool = (activeCategory
       ? tools.filter((t) => t.category === activeCategory)
@@ -124,7 +126,7 @@ export function ToolSearch() {
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
           onKeyDown={onKeyDown}
-          placeholder="Search 310+ tools...  (press / or ?K)"
+          placeholder={liveToolCount > 0 ? `Search ${liveToolCount} tools...  (press / or ?K)` : "Search tools...  (press / or ?K)"}
           className="w-full bg-transparent pl-12 pr-24 py-3.5 text-[15px] text-foreground placeholder:text-muted-foreground outline-none"
           aria-label="Search tools"
         />

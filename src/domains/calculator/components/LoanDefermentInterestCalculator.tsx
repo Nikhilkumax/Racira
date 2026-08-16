@@ -149,7 +149,7 @@ export default function LoanDefermentInterestCalculator() {
 
           <div className="flex flex-col gap-4">
             {results && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${results.interestAccrued > 0 ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${results.interestAccrued > 0 ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${results.interestAccrued > 0 ? "text-amber-600" : "text-primary"}`}>Interest Accrued During Deferment</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.interestAccrued.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 <div className="text-sm text-muted-foreground mt-1 font-medium">New balance: ${results.newBalance.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} · Extra lifetime cost: ${results.extraInterestCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>

@@ -251,9 +251,9 @@ const HighwayDesignSpeedCalculator: React.FC = () => {
         {/* RIGHT COLUMN: RESULTS */}
         <div className="space-y-6">
           {/* PRIMARY RESULT CARD */}
-          <div className="border rounded-lg p-4">
-            <h2 className="text-xl font-bold mb-2">Stopping Sight Distance</h2>
-            <p className="text-3xl font-bold text-blue-600">
+          <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Stopping Sight Distance</div>
+            <p className="text-3xl font-bold text-primary">
               {Math.round(result.ssd)} ft
             </p>
             <p className="text-sm text-gray-500">

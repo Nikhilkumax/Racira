@@ -163,6 +163,9 @@ const CarFinancingInterestCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Taxes & Fees</h4>
+                  </div>
                   <CI id="tax" label="Sales Tax Rate" value={salesTaxPct} onChange={setSalesTaxPct} suffix="%" />
                   <div className="flex flex-col justify-end">
                     <p className="text-xs text-muted-foreground leading-relaxed">Sales tax applies to financed amount in most states.</p>
@@ -185,7 +188,7 @@ const CarFinancingInterestCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Total Financing Interest</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalInterest).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">${(results.interestRatio * 100).toFixed(1)}% of total payments · ~${results.dailyInterestAvg.toFixed(2)}/day</div>

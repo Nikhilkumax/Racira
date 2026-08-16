@@ -196,10 +196,10 @@ export default function FifteenVsThirtyMortgageCalculator() {
                   </div>
                 </div>
 
-                <div className="border-l-4 rounded-lg p-4 bg-green-500/10 border-green-500 flex items-center justify-between">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-green-700 dark:text-green-400">Total Interest Saved with 15-Year</p>
-                    <p className="text-2xl font-black text-green-600 dark:text-green-400">{formatCurrency(result.interest30 - result.interest15)}</p>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Total Interest Saved with 15-Year</p>
+                    <p className="text-2xl font-black text-primary">{formatCurrency(result.interest30 - result.interest15)}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold text-destructive">Extra Monthly Cost</p>

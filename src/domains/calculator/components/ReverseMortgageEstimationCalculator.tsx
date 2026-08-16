@@ -156,7 +156,7 @@ export default function ReverseMortgageEstimationCalculator() {
 
           <div className="flex flex-col gap-4">
             {results && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${results.availableFunds > 0 ? "bg-primary/10 border-primary" : "bg-destructive/10 border-destructive"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${results.availableFunds > 0 ? "bg-primary/10 border-primary" : "bg-destructive/10 border-destructive"}`}>
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${results.availableFunds > 0 ? "text-primary" : "text-destructive"}`}>Est. Net Available Funds</div>
                 <div className="text-4xl font-bold text-foreground">${results.availableFunds.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
                 <div className="text-sm text-muted-foreground mt-1 font-medium">After paying off your $${parseFloat(currentMortgage).toLocaleString()} mortgage and closing costs.</div>

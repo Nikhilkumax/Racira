@@ -82,7 +82,7 @@ export default function DupointAnalysisCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Return on Equity (ROE)</div>
               <div className="text-5xl font-extrabold text-foreground">{pct(r.roe)}</div>
               <div className="text-sm text-muted-foreground mt-1">ROA: {pct(r.roa)} · Equity Multiplier: {x(r.equityMultiplier)}</div>

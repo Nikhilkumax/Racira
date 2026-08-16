@@ -78,7 +78,7 @@ export default function PermutationCombinationCalculator() {
           </div>
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-4 text-center">
                 <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Permutations P({n},{rVal})</div>
                 <div className="text-3xl font-extrabold text-foreground break-all">{r.permutation}</div>
                 <div className="text-xs text-muted-foreground mt-1">Ordered arrangements</div>

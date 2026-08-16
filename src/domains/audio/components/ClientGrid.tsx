@@ -37,6 +37,7 @@ export default function AudioClientGrid() {
             <CategorySection 
               section={{ title: cat.name, tools: cat.tools }} 
               basePath="/audio" 
+              domain="audio"
             />
           </div>
         ))}

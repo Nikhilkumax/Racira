@@ -208,7 +208,7 @@ const CalorieCalculator = () => {
               {showAdvanced&&(
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3">
                   <div className="col-span-2">
-                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Results Unit</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Results Unit</div>
                     <div className="flex gap-4">
                       {([["cal","Calories"],["kj","Kilojoules"]] as const).map(([v,l])=>(
                         <label key={v} className="flex items-center gap-1.5 text-sm cursor-pointer">
@@ -218,7 +218,7 @@ const CalorieCalculator = () => {
                     </div>
                   </div>
                   <div className="col-span-2">
-                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">BMR Formula</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">BMR Formula</div>
                     <div className="flex flex-col gap-1.5">
                       {([["mifflin","Mifflin St Jeor"],["harris","Revised Harris-Benedict"],["katch","Katch-McArdle"]] as const).map(([v,l])=>(
                         <label key={v} className="flex items-center gap-1.5 text-sm cursor-pointer">
@@ -258,7 +258,7 @@ const CalorieCalculator = () => {
 
 
                 {/* TDEE hero */}
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Maintenance Calories (TDEE)</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmt(result.tdee)} {result.unit}</div>
                   <div className="text-sm text-muted-foreground font-medium">BMR {fmt(result.bmr)} {result.unit} × {result.actObj.multiplier} — {result.actObj.label.split(":")[0]}</div>

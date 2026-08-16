@@ -140,7 +140,7 @@ export default function ViscerialFatCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Visceral Fat Analysis</h2>
                   <Activity className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`bg-gradient-to-br ${res.riskInfo.bg} border ${res.riskInfo.border} rounded-xl p-5 text-center`}>
+                <div className={`bg-primary/10 border-l-4 bg-gradient-to-br ${res.riskInfo.bg} border ${res.riskInfo.border} rounded-xl p-5 text-center`}>
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Visceral Fat Level</div>
                   <div className="text-5xl font-extrabold text-foreground mb-1 tracking-tight">{res.level.toFixed(1)}</div>
                   <div className={`text-sm font-bold ${res.riskInfo.color}`}>Risk Level: {res.riskInfo.level}</div>

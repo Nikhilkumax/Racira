@@ -105,7 +105,7 @@ export default function VatCalculator() {
                     { label: "VAT Amount", value: fmt(res.vat), cls: "from-amber-500/10 to-amber-500/5 border-amber-500/20" },
                     { label: "Gross Price", value: fmt(res.gross), cls: "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" },
                   ].map(item => (
-                    <div key={item.label} className={`bg-gradient-to-br ${item.cls} border rounded-xl p-4 text-center`}>
+                    <div key={item.label} className={`bg-primary/10 border-l-4 bg-gradient-to-br ${item.cls} border rounded-xl p-4 text-center`}>
                       <div className="text-[11px] font-bold text-muted-foreground mb-1 uppercase tracking-wider">{item.label}</div>
                       <div className="text-xl font-extrabold text-foreground">{item.value}</div>
                     </div>

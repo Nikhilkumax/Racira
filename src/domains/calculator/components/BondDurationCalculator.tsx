@@ -155,9 +155,9 @@ export default function BondDurationCalculator() {
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Macaulay Duration</div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmt(result.macaulayDuration)} years</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Macaulay Duration</div>
+                  <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">{fmt(result.macaulayDuration)} years</div>
                   <div className="text-sm text-muted-foreground font-medium">Bond Price: {fmtCurrency(result.bondPrice)} · Modified Duration: {fmt(result.modifiedDuration)}</div>
                 </div>
 

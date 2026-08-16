@@ -6,6 +6,9 @@ import Header from "@/components/Header";
 import { useMemo, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { CATEGORIES, TOTAL_TOOLS, SEARCH_REGISTRY } from "@/domains/productivity/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_PRODUCTIVITY_COUNT = onlyLive(CATEGORIES.flatMap((c) => c.tools), "productivity").length;
 import { CategorySection } from "@/components/shared/CategorySection";
 
 import { SiteFooter } from "@/components/productivity/SiteFooter";
@@ -35,7 +38,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Boost your workflow with Pomodoro timers, planners, and task tracking utilities. No signup required.
           </p>
-          <CategorySearch categorySlug="productivity" placeholder="Search 74 productivity tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="productivity" placeholder={LIVE_PRODUCTIVITY_COUNT > 0 ? `Search ${LIVE_PRODUCTIVITY_COUNT} productivity tools...` : "Search productivity tools..."} registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -48,14 +51,14 @@ export default function Index() {
                type="search"
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder={`Search 74 tools…`}
+              placeholder={`Search tools…`}
               className="w-full rounded-full border border-border bg-card pl-9 pr-4 py-2.5 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
           </div>
         </div>
 
         {filtered.map((cat, i) => (
-          <CategorySection key={cat.name} section={{ title: cat.name, tools: cat.tools }} basePath="/productivity" />
+          <CategorySection key={cat.name} section={{ title: cat.name, tools: cat.tools }} basePath="/productivity" domain="productivity" />
         ))}
 
         {filtered.length === 0 && (

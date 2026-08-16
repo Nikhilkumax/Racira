@@ -196,9 +196,9 @@ const GasMileageCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-bold text-sky-600 dark:text-sky-400 mb-1 uppercase tracking-wider">True Fuel Efficiency</div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">True Fuel Efficiency</div>
                   <div className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                     {unit === "imperial" ? result.mpg : result.litersPer100km}
                   </div>

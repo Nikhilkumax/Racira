@@ -144,9 +144,9 @@ export default function BodyFrameSizeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 shadow-sm`} style={{ backgroundColor: `${result.frameColor}15`, borderColor: result.frameColor }}>
-                <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.frameColor }}>Calculated Frame Size</div>
-                <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.frameSize}</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Calculated Frame Size</div>
+                <div className="text-4xl font-extrabold text-primary tracking-tight">{result.frameSize}</div>
                 <div className="text-sm font-medium mt-1 text-muted-foreground">{result.categoryDesc}</div>
               </div>
               <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card shadow-sm">

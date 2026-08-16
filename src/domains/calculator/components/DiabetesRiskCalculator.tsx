@@ -221,12 +221,12 @@ export default function DiabetesRiskCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.categoryColor}10`, borderColor: result.categoryColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.categoryColor }}>ADA Risk Score</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">ADA Risk Score</div>
                     <div className="flex items-baseline gap-2">
-                      <div className="text-5xl font-extrabold text-foreground tracking-tight">{result.totalScore}</div>
+                      <div className="text-5xl font-extrabold text-primary tracking-tight">{result.totalScore}</div>
                       <div className="text-xl font-bold text-muted-foreground">/ 10 points</div>
                     </div>
                   </div>

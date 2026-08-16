@@ -134,7 +134,7 @@ export default function IntermittentFastingCalculator() {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-4 text-center">
                     <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Fast Starts</div>
                     <div className="text-2xl font-extrabold text-foreground">{format12Hour(fastStartTime)}</div>
                     <div className="text-[11px] text-muted-foreground mt-1">Duration: {res.fastHours}h</div>

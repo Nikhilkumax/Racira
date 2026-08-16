@@ -237,9 +237,9 @@ export default function CarBuyingBudgetCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className="bg-[#3b82f6]/10 border-l-4 border-[#3b82f6] rounded-lg p-5 relative">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Max Recommended Budget</div>
-                  <div className="text-5xl font-bold text-[#3b82f6] mb-1">
+                  <div className="text-5xl font-bold text-primary mb-1">
                     {formatCurrency(results.maxCarPrice)}
                   </div>
                   <div className="text-sm text-muted-foreground">The maximum sticker price (MSRP) you should look for on the lot.</div>

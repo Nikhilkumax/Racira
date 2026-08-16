@@ -156,12 +156,12 @@ export default function GlasgowComaScaleCalculator() {
           <div className="flex flex-col gap-6">
             {result && (<>
               
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.statusColor }}>Total GCS Score</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total GCS Score</div>
                     <div className="flex items-baseline gap-2">
-                      <div className="text-5xl sm:text-6xl font-extrabold text-foreground tracking-tight">{result.totalScore}</div>
+                      <div className="text-5xl sm:text-6xl font-extrabold text-primary tracking-tight">{result.totalScore}</div>
                       <div className="text-2xl font-bold text-muted-foreground">/ 15</div>
                     </div>
                   </div>

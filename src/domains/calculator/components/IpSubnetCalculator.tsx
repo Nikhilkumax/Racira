@@ -152,14 +152,14 @@ const IpSubnetCalculator = () => {
             ) : result && (<>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-6">
-                  <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1 uppercase tracking-wider">Usable Hosts</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Usable Hosts</div>
                   <div className="text-5xl font-extrabold text-foreground tracking-tight font-mono">{result.usableHosts.toLocaleString()}</div>
                   <div className="text-xs text-muted-foreground font-bold mt-1 uppercase">Total IPs: {result.totalHosts.toLocaleString()}</div>
                 </div>
 
                 <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-6">
-                  <div className="text-sm font-bold text-sky-600 dark:text-sky-400 mb-1 uppercase tracking-wider">Subnet Mask</div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Subnet Mask</div>
                   <div className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight font-mono mt-2">{result.subnetMask}</div>
                   <div className="text-xs text-muted-foreground font-bold mt-2 uppercase">Wildcard: {result.wildcardMask}</div>
                 </div>

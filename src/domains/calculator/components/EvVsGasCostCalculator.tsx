@@ -275,7 +275,7 @@ export default function EvVsGasCostCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.betterOption === 'EV' ? 'bg-[#10b981]/10 border-[#10b981]' : 'bg-[#3b82f6]/10 border-[#3b82f6]'}`}>
+                <div className={`bg-primary/10 border-l-4 rounded-lg p-5 relative ${results.betterOption === 'EV' ? 'border-[#10b981]' : 'border-[#3b82f6]'}`}>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">The Winner: {results.betterOption}</div>
                   <div className={`text-4xl font-bold mb-1 ${results.betterOption === 'EV' ? 'text-[#10b981]' : 'text-[#3b82f6]'}`}>
                     Saves {formatCurrency(results.savings)}

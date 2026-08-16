@@ -1,8 +1,26 @@
-Business Valuation (EBITDA Multiple) Calculator
-Business Valuation (Revenue Multiple) Calculator
-Conforming vs Jumbo Loan Calculator
-Home Improvement Loan Calculator
-Interest-Only Loan Calculator
-Land Loan Calculator
-Title Loan Cost Calculator
-Wedding Loan Calculator
+401k-calculator
+plan529-calculator
+black-scholes-calculator
+keplers-laws-calculator
+marathon-training-calculator
+microfinance-loan-repayment-calculator
+number-sequence-calculator
+odometer-correction-calculator
+piti-mortgage-payment-calculator
+radiator-size-calculator
+rehab-loan-203k-estimator-calculator
+safe-following-distance-calculator
+sba-7a-loan-payment-calculator
+seasonal-payment-loan-calculator
+simple-interest-loan-calculator
+social-security-calculator
+speed-calculator
+student-loan-calculator
+tax-return-calculator
+tire-load-index-calculator
+tire-pressure-calculator
+towing-capacity-calculator
+transmission-ratio-calculator
+vehicle-weight-calculator
+weight-gain-during-pregnancy-target-calculator
+wheel-horsepower-calculator

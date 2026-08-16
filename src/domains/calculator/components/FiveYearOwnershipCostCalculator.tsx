@@ -158,9 +158,15 @@ const FiveYearOwnershipCostCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Financing</h4>
+                  </div>
                   <CI id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
                   <CI id="apr" label="Loan APR" value={loanApr} onChange={setLoanApr} suffix="%" />
                   <CI id="term" label="Loan Term" value={loanTermYears} onChange={setLoanTermYears} suffix="yr" />
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Operating Costs</h4>
+                  </div>
                   <CI id="park" label="Parking / Year" value={annualParking} onChange={setAnnualParking} prefix="$" />
                 </div>
               )}
@@ -181,9 +187,9 @@ const FiveYearOwnershipCostCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 rounded-xl p-5 text-center">
-                  <div className="text-[13px] font-bold text-amber-600 mb-1 uppercase tracking-wider">5-Year Total Ownership Cost</div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalCost).toLocaleString()}</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">5-Year Total Ownership Cost</div>
+                  <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">${Math.round(results.totalCost).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">${Math.round(results.annualCost).toLocaleString()}/yr · ${results.costPerMile.toFixed(2)}/mi · Est. value after 5yr: ${Math.round(results.finalValue).toLocaleString()}</div>
                 </div>
 

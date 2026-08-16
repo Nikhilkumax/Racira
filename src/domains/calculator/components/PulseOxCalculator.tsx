@@ -173,12 +173,12 @@ export default function PulseOxCalculator() {
           <div className="flex flex-col gap-6">
             {result && (<>
               
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.actionColor}10`, borderColor: result.actionColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.actionColor }}>Triage Action</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Triage Action</div>
                     <div className="flex items-baseline gap-2">
-                      <div className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">{result.actionLevel}</div>
+                      <div className="text-3xl sm:text-4xl font-extrabold text-primary tracking-tight">{result.actionLevel}</div>
                     </div>
                   </div>
                   <div className="bg-background rounded-full p-2.5 shadow-sm border border-border">

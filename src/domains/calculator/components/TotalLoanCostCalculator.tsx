@@ -166,6 +166,9 @@ const TotalLoanCostCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Upfront Loan Fees</h4>
+                  </div>
                   <CompactInput id="orig-fee" label="Origination Fee" value={originationFee} onChange={setOriginationFee} prefix="$" />
                   <CompactInput id="doc-fee" label="Doc / Application Fee" value={docFee} onChange={setDocFee} prefix="$" />
                 </div>
@@ -189,7 +192,7 @@ const TotalLoanCostCalculator = () => {
                   </button>
                 </div>
 
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Total Cost of Loan</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalCost).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">Over {Math.round(inputs.termYears * 12)} payments at {inputs.aprPct.toFixed(2)}% APR</div>

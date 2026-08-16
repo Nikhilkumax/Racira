@@ -193,10 +193,16 @@ const CarTrueCostOfOwnershipCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Financing</h4>
+                  </div>
                   <CI id="down" label="Down Payment" value={downPayment} onChange={setDownPayment} prefix="$" />
                   <CI id="apr" label="Loan APR" value={loanApr} onChange={setLoanApr} suffix="%" />
                   <CI id="term" label="Loan Term" value={loanTermYears} onChange={setLoanTermYears} suffix="yr" />
                   <CI id="resale" label="Resale Value" value={resaleValue} onChange={setResaleValue} prefix="$" />
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Fees & Taxes</h4>
+                  </div>
                   <CI id="reg" label="Registration / Year" value={annualRegistration} onChange={setAnnualRegistration} prefix="$" />
                   <CI id="park" label="Parking / Year" value={annualParking} onChange={setAnnualParking} prefix="$" />
                   <CI id="tax" label="Tax/Title/Fees" value={taxTitleFees} onChange={setTaxTitleFees} prefix="$" />
@@ -219,7 +225,7 @@ const CarTrueCostOfOwnershipCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-red-500/10 to-red-500/5 border border-red-500/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-red-600 mb-1 uppercase tracking-wider">True Cost of Ownership</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalCost).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">${Math.round(results.monthlyCost).toLocaleString()}/mo · ${results.costPerMile.toFixed(2)}/mile</div>

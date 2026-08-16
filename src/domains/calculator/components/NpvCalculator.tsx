@@ -161,7 +161,7 @@ export default function NpvCalculator() {
                   <h2 className="text-2xl font-bold mb-3">NPV Analysis</h2>
                   <BarChart2 className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`bg-gradient-to-br border rounded-xl p-5 text-center ${res.npv >= 0 ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
+                <div className={`bg-primary/10 border-l-4 bg-gradient-to-br border rounded-xl p-5 text-center ${res.npv >= 0 ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
                   <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${res.npv >= 0 ? "text-emerald-600" : "text-red-600"}`}>Net Present Value</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmt(res.npv)}</div>
                   <div className={`text-sm font-bold ${res.npv >= 0 ? "text-emerald-600" : "text-red-600"}`}>{res.npv >= 0 ? "✓ ACCEPT — Project creates value" : "✗ REJECT — Project destroys value"}</div>

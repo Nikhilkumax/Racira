@@ -167,7 +167,7 @@ export default function PayRaisePercentageCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.isPayCut ? 'bg-red-500/10 border-red-500/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
+                <div className={`border-l-4 rounded-lg p-5 relative ${results.isPayCut ? 'bg-primary/10 border-primary/30' : 'bg-emerald-500/10 border-emerald-500/30'}`}>
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

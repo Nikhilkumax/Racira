@@ -174,14 +174,6 @@ export default function SportSpecificCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sport Specific Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-emerald-500/10 border-l-4 border-emerald-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-emerald-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-emerald-800 dark:text-emerald-400">
-            <strong>Active Time Warning:</strong> To get an accurate calculation, you must only enter your <strong>ACTIVE</strong> playing time. If you spend 2 hours at the basketball courts but only play three 15-minute games, enter 45 minutes. Entering your total time at the facility will mathematically destroy the accuracy of the result.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -222,7 +214,8 @@ export default function SportSpecificCalorieCalculator() {
             )}
 
             <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
+                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
                 <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
               </button>
             </div>

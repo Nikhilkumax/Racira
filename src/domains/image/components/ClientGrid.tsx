@@ -16,6 +16,7 @@ export default function ImageClientGrid() {
             <CategorySection 
               section={{ title: cat.name, tools: cat.tools }} 
               basePath="/image" 
+              domain="image"
             />
           </div>
         ))}

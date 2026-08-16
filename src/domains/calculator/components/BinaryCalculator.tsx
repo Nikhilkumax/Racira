@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, ArrowLeftRight } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface BinaryResult {
   operation: string;
@@ -226,6 +227,23 @@ const BinaryCalculator = () => {
                     <div className="tracking-[0.3em] font-bold text-primary">{formatBinary(result.resultBin)}</div>
                   </div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Decimal Value Comparison</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={[
+                    { name: "Input 1", value: BigInt("0b" + result.num1Bin.replace(/[^01]/g, "") || "0").toString() },
+                    ...(!isUnary && result.num2Bin ? [{ name: "Input 2", value: BigInt("0b" + result.num2Bin.replace(/[^01]/g, "") || "0").toString() }] : []),
+                    { name: "Result", value: result.resultDec },
+                  ].map(d => ({ name: d.name, value: Number(d.value) }))} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString(), "Decimal"]} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={50} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
 
             </>)}

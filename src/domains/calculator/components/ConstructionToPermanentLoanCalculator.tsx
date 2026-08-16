@@ -127,6 +127,9 @@ export default function ConstructionToPermanentLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Permanent Loan</h4>
+                  </div>
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-foreground mb-1.5">Permanent Term</label>
                     <div className="grid grid-cols-2 gap-2">

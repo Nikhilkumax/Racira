@@ -163,7 +163,7 @@ export default function RealEstateCalculatorFull() {
                   <Building className="h-5 w-5 text-primary" />
                 </div>
 
-                <div className={`bg-gradient-to-br border rounded-xl p-5 text-center ${res.monthlyCashFlow >= 0 ? "from-primary/10 to-primary/5 border-primary/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
+                <div className={`bg-primary/10 border-l-4 bg-gradient-to-br border rounded-xl p-5 text-center ${res.monthlyCashFlow >= 0 ? "from-primary/10 to-primary/5 border-primary/20" : "from-red-500/10 to-red-500/5 border-red-500/20"}`}>
                   <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${res.monthlyCashFlow >= 0 ? "text-primary" : "text-red-500"}`}>Monthly Cash Flow</div>
                   <div className={`text-4xl font-extrabold mb-1 tracking-tight ${res.monthlyCashFlow >= 0 ? "text-foreground" : "text-red-500"}`}>
                     {res.monthlyCashFlow >= 0 ? "+" : ""}{fmtUSD(Math.round(res.monthlyCashFlow))}/mo

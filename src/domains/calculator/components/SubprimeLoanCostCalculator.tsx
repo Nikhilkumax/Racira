@@ -354,12 +354,12 @@ export default function SubprimeLoanCostCalculator() {
               <div ref={printRef} className="flex flex-col gap-4">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 relative">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-destructive transition-colors print:hidden" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
-                  <div className="text-xs font-bold text-destructive uppercase tracking-wider mb-1">Total Subprime Penalty</div>
-                  <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.totalSubprimePenalty.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Subprime Penalty</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">${results.totalSubprimePenalty.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</div>
                   <div className="text-sm text-destructive mt-1 font-bold">This is the exact amount of cash you lose because of a low credit score.</div>
                 </div>
 

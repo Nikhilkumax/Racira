@@ -179,6 +179,9 @@ const GapInsuranceValueCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Assumptions</h4>
+                  </div>
                   <CI id="fees" label="Fees & Add-ons" value={feesAndAddOns} onChange={setFeesAndAddOns} prefix="$" />
                   <CI id="dep1" label="Year-1 Depreciation" value={firstYearDep} onChange={setFirstYearDep} suffix="%" />
                   <CI id="depN" label="Annual Depreciation" value={annualDep} onChange={setAnnualDep} suffix="%" />
@@ -201,11 +204,11 @@ const GapInsuranceValueCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className={`border rounded-xl p-5 text-center ${results.gapUseful ? "bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" : "bg-gradient-to-br from-amber-500/10 to-amber-500/5 border-amber-500/20"}`}>
-                  <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${results.gapUseful ? "text-emerald-600" : "text-amber-600"}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                     {results.gapUseful ? "GAP Insurance Is Worth It" : "GAP Insurance May Not Be Needed"}
                   </div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                  <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">
                     {results.netBenefit > 0 ? "+" : ""}${Math.round(Math.abs(results.netBenefit)).toLocaleString()}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium">

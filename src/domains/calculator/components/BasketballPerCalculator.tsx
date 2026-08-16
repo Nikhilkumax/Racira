@@ -341,7 +341,7 @@ export default function BasketballPerCalculator() {
 
             {showAdvanced && (
               <div className="flex flex-col gap-3 mt-1 border-t border-border pt-4">
-                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Additional Stats</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Additional Stats</div>
                 <div className="grid grid-cols-2 gap-3">
                   <CompactInput id="threePointersAttempted" label="3-Pointers Attempted" value={inputs.threePointersAttempted} onChange={(v: number) => updateInput("threePointersAttempted", v)} />
                   <CompactInput id="freeThrowsMade" label="Free Throws Made" value={inputs.freeThrowsMade} onChange={(v: number) => updateInput("freeThrowsMade", v)} />
@@ -361,7 +361,7 @@ export default function BasketballPerCalculator() {
                 <div className="grid grid-cols-2 gap-3">
                   <CompactInput id="personalFouls" label="Personal Fouls" value={inputs.personalFouls} onChange={(v: number) => updateInput("personalFouls", v)} />
                 </div>
-                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1 mt-2">League</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">League</div>
                 <div className="grid grid-cols-2 gap-3">
                   <CompactInput id="leagueAveragePer" label="League Average PER" value={inputs.leagueAveragePer} onChange={(v: number) => updateInput("leagueAveragePer", v)} />
                 </div>

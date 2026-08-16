@@ -21,6 +21,16 @@ const COMPONENT_GATED_DOMAINS = new Set([
 ]);
 
 /**
+ * Domains whose [slug] ToolView renders the "Coming soon" template for every
+ * tool (no status check, no component) — i.e. all tool pages are coming-soon.
+ */
+const ALWAYS_COMING_SOON_DOMAINS = new Set([
+  ...COMPONENT_GATED_DOMAINS,
+  "image",
+  "video",
+]);
+
+/**
  * A tool is "discoverable" (sitemap + grids) only if it is genuinely built:
  * - registry status is "live", AND
  * - it is not one of the known calculator stub slugs (live-tagged but rendering
@@ -51,4 +61,20 @@ export function onlyLive<T extends { status?: string; slug?: string }>(
 /** True when no tool in the domain genuinely renders (all pages are "coming soon"). */
 export function isComponentGatedDomain(domain?: string): boolean {
   return !!domain && COMPONENT_GATED_DOMAINS.has(domain);
+}
+
+/**
+ * Whether the tool's [slug] page renders a "coming soon" template instead of a
+ * real tool. Pages that do must emit `robots: noindex` — they are browsable
+ * (soon cards link to them) but must stay out of the index. `domain` is the URL
+ * route segment (e.g. "photo", "3d", "calculator").
+ */
+export function isComingSoonToolPage(
+  tool: { status?: string; component?: unknown } | undefined | null,
+  domain?: string
+): boolean {
+  if (!tool) return true;
+  if (domain && ALWAYS_COMING_SOON_DOMAINS.has(domain)) return true;
+  if (tool.status !== "live") return true;
+  return false;
 }

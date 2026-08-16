@@ -230,7 +230,7 @@ const InvertElevationCalculator: React.FC = () => {
 
           {/* ADVANCED OPTIONS: FLOW CHARACTERISTICS */}
           <div className="border p-4 rounded-lg">
-            <h2 className="text-2xl font-bold mb-3">Flow Characteristics</h2>
+            <h2 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Flow Characteristics</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">
@@ -273,7 +273,7 @@ const InvertElevationCalculator: React.FC = () => {
 
           {/* ADVANCED OPTIONS: DESIGN CRITERIA */}
           <div className="border p-4 rounded-lg">
-            <h2 className="text-2xl font-bold mb-3">Design Criteria</h2>
+            <h2 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Design Criteria</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-1">

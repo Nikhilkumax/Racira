@@ -293,7 +293,7 @@ export default function BatteryDegradationCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.currentHealthPct < parseFloat(inputs.warrantyThreshold) ? 'bg-destructive/10 border-destructive' : results.currentHealthPct < 80 ? 'bg-orange-500/10 border-orange-500' : 'bg-[#10b981]/10 border-[#10b981]'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Estimated Battery Health</div>
                   <div className={`text-5xl font-bold mb-1 ${results.currentHealthPct < parseFloat(inputs.warrantyThreshold) ? 'text-destructive' : results.currentHealthPct < 80 ? 'text-orange-500' : 'text-[#10b981]'}`}>
                     {results.currentHealthPct.toFixed(1)}%

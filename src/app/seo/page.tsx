@@ -22,7 +22,10 @@ import {
   Search as SearchIcon,
   Wrench,
 } from "lucide-react";
-import { CATEGORIES, TOOLS, TOTAL_TOOLS, type Tool } from "@/domains/seo/registry";
+import { CATEGORIES, TOOLS, type Tool } from "@/domains/seo/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_SEO_COUNT = onlyLive(TOOLS, "seo").length;
 
 
 
@@ -60,7 +63,7 @@ export default function Home() {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground pointer-events-none" />
               <input
                 type="text"
-                placeholder="Search 246 SEO tools..."
+                placeholder={LIVE_SEO_COUNT > 0 ? `Search ${LIVE_SEO_COUNT} SEO tools...` : "Search SEO tools..."}
                 className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
                 aria-label="Search SEO Tools"
               />
@@ -108,8 +111,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Racira SEO · {TOTAL_TOOLS} tools in one
-        workspace.
+        © {new Date().getFullYear()} Racira SEO
       </footer>
     </div>
   );
@@ -118,7 +120,7 @@ export default function Home() {
 function ToolGrid({ tools }: { tools: Tool[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {tools.filter((t) => isLiveTool(t, "seo")).map((t) => (
+      {tools.map((t) => (
         <ToolCard key={t.slug} tool={t} />
       ))}
     </div>
@@ -127,13 +129,12 @@ function ToolGrid({ tools }: { tools: Tool[] }) {
 
 function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
-  const isLive = tool.status === "live";
+  // SEO tool pages all render the coming-soon template (no wired component),
+  // so every card is non-interactive with the "Soon" badge.
+  const isLive = isLiveTool(tool, "seo");
 
-  return (
-    <Link
-      href={`/seo/${tool.slug}`}
-      className="tool-card group relative"
-    >
+  const cardBody = (
+    <>
       {!isLive && (
         <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Soon
@@ -148,6 +149,20 @@ function ToolCard({ tool }: { tool: Tool }) {
       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
         {tool.description}
       </p>
+    </>
+  );
+
+  if (!isLive) {
+    return (
+      <div className="tool-card group relative cursor-default">
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={`/seo/${tool.slug}`} className="tool-card group relative">
+      {cardBody}
     </Link>
   );
 }

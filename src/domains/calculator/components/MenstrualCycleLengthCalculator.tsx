@@ -153,10 +153,10 @@ export default function MenstrualCycleLengthCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.isIrregular ? "#f59e0b10" : "#22c55e10"}`, borderColor: result.isIrregular ? "#f59e0b" : "#22c55e" }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.isIrregular ? "#d97706" : "#16a34a" }}>Calculated Cycle Length</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Calculated Cycle Length</div>
                     <div className="flex items-baseline gap-2">
                       <div className="text-5xl font-extrabold text-foreground tracking-tight">{result.cycleLength}</div>
                       <div className="text-xl font-bold text-muted-foreground">Days</div>

@@ -319,14 +319,14 @@ export default function BaseballSluggingCalculator() {
 
             {showAdvanced && (
               <div className="flex flex-col gap-3 mt-1 border-t border-border pt-4">
-                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Power Group</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Power Group</div>
                 <div className="grid grid-cols-2 gap-3">
                   <CompactInput id="homeRuns" label="Home Runs (HR)" value={inputs.homeRuns} onChange={(v: number) => updateInput("homeRuns", v)} />
                   <CompactInput id="sacFlies" label="Sacrifice Flies (SF)" value={inputs.sacFlies} onChange={(v: number) => updateInput("sacFlies", v)} />
                 </div>
                 <p className="text-[11px] text-muted-foreground leading-snug">Home Runs = 4 bases each. Sacrifice Flies do NOT count for SLG.</p>
 
-                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-2 mb-1">Advanced Metrics</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Advanced Metrics</div>
                 <div className="flex flex-col gap-3">
                   <ToggleRow id="showOps" label="Show OPS (OBP + SLG)" checked={inputs.showOps} onChange={(v: boolean) => updateInput("showOps", v)} />
                   <ToggleRow id="showIso" label="Show ISO (SLG − AVG)" checked={inputs.showIso} onChange={(v: boolean) => updateInput("showIso", v)} />

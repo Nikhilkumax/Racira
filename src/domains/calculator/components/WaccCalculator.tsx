@@ -161,7 +161,7 @@ export default function WaccCalculator() {
                   <h2 className="text-2xl font-bold mb-3">WACC Breakdown</h2>
                   <Percent className="h-5 w-5 text-primary" />
                 </div>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Weighted Average Cost of Capital (WACC)</div>
                   <div className="text-4xl font-extrabold text-foreground tracking-tight">{fmtPct(res.wacc)}</div>
                 </div>

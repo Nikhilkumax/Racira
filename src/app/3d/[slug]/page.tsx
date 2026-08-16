@@ -3,11 +3,11 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/domains/3d/components/SiteShell";
-import { ArrowLeft, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { ToolRenderer } from "@/domains/3d/components/tools/ToolRenderer";
 import { CATEGORIES, TOOLS_BY_SLUG } from "@/domains/3d/registry";
 import { toSlug } from "@/lib/utils/slug";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -44,6 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       alternates: {
         canonical: `/3d/${tool.slug}`,
       },
+      robots: isComingSoonToolPage(tool, "3d") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -56,7 +57,7 @@ export async function generateStaticParams() {
   for (const cat of CATEGORIES) {
     params.push({ slug: toSlug(cat.title || cat.name) });
     for (const tool of cat.tools) {
-      params.push({ slug: tool.slug });
+      if (isLiveTool(tool, "3d")) params.push({ slug: tool.slug });
     }
   }
 
@@ -92,7 +93,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
 
       <div className="racira-page-container pb-16 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {category.tools.filter((t) => isLiveTool(t, "3d")).map((tool: any) => {
+          {category.tools.map((tool: any) => {
             const Icon = tool.icon || inferIcon(tool.name, tool.slug);
             return (
               <SubcategoryCard
@@ -102,6 +103,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
                 count={0}
                 basePath={`/3d/${tool.slug}`}
                 label="tool"
+                soon={!isLiveTool(tool, "3d")}
               />
             );
           })}
@@ -126,14 +128,9 @@ function ToolView({ tool, category }: { tool: any, category: typeof CATEGORIES[0
         title={tool.name}
       />
       <div className="racira-page-container">
-
-        {tool.status === "live" ? (
-          <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-            <ToolRenderer slug={tool.slug} />
-          </div>
-        ) : (
-          <ComingSoon name={tool.name} />
-        )}
+        <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
+          <ToolRenderer slug={tool.slug} />
+        </div>
       </div>
     </SiteShell>
   );
@@ -151,30 +148,13 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <CategoryView category={category} />;
   }
 
-  // 2. Is it a tool?
+  // 2. Is it a genuinely-live tool?
   const tool = TOOLS_BY_SLUG.get(slug);
-  if (tool) {
+  if (tool && isLiveTool(tool, "3d")) {
     const parentCategory = CATEGORIES.find(c => (c.title || c.name) === tool.category);
     return <ToolView tool={tool} category={parentCategory!} />;
   }
 
   // 3. Not found
   notFound();
-}
-
-function ComingSoon({ name }: { name: string }) {
-  return (
-    <div className="rounded-xl border border-dashed border-border bg-card p-12 text-center">
-      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Sparkles className="h-6 w-6" />
-      </div>
-      <h2 className="mt-4 text-xl font-semibold">{name} is coming soon</h2>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto">
-        We're crafting this tool right now. In the meantime, explore our live tools.
-      </p>
-      <Link href="/3d" className="mt-6 inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-        Browse live tools
-      </Link>
-    </div>
-  );
 }

@@ -1,5 +1,6 @@
 "use client";
 import { RotateCcw, Landmark, ArrowRightLeft, Home, ChevronDown } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -174,6 +175,23 @@ const BridgeLoanCalculator = () => {
                     { label: "Upfront Fees", value: results.totalFees },
                     { label: "Bridge LTV Ratio", value: results.ltv, textValue: `${results.ltv.toFixed(1)}%` },
                   ]} />
+                </div>
+
+                <div className="card-calculator border border-border bg-card !p-5">
+                  <h3 className="text-base font-bold mb-4">Cost Composition</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={[
+                      { name: "Loan Amount", value: results.bridgeLoanAmount },
+                      { name: "Interest", value: results.totalInterest },
+                      { name: "Fees", value: results.totalFees },
+                    ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                      <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `$${v >= 1000 ? (v / 1000).toFixed(0) + "K" : v}`} />
+                      <Tooltip formatter={(v: number) => [`$${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, "Amount"]} />
+                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={60} />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
               </>
             )}

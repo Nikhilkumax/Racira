@@ -133,7 +133,13 @@ export function ColorPercentageAnalyzer() {
 export function EyedropperTool() {
   const [picked, setPicked] = useState<string>("");
   const [err, setErr] = useState<string>("");
-  const supported = typeof window !== "undefined" && "EyeDropper" in window;
+  // Capability check must run after mount: during SSR `window` is undefined, so
+  // evaluating it at render time would make the server and client HTML differ
+  // (React error #418, hydration failure).
+  const [supported, setSupported] = useState(false);
+  useEffect(() => {
+    setSupported(typeof window !== "undefined" && "EyeDropper" in window);
+  }, []);
   async function go() {
     setErr("");
     try {

@@ -2,6 +2,9 @@
 
 import { CategorySearch } from "@/components/CategorySearch";
 import { categories, SEARCH_REGISTRY } from "@/domains/animator/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_ANIMATOR_COUNT = onlyLive(categories.flatMap((c) => c.tools), "animator").length;
 import { CategorySection } from "@/components/shared/CategorySection";
 
 export default function Index() {
@@ -17,7 +20,7 @@ export default function Index() {
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Generate CSS animations, SVG paths, and keyframe sequences for your web projects. No signup required.
             </p>
-            <CategorySearch categorySlug="animator" placeholder="Search 116 animation tools..." registry={SEARCH_REGISTRY} />
+            <CategorySearch categorySlug="animator" placeholder={LIVE_ANIMATOR_COUNT > 0 ? `Search ${LIVE_ANIMATOR_COUNT} animation tools...` : "Search animation tools..."} registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
@@ -30,6 +33,7 @@ export default function Index() {
                 tools: cat.tools
               }}
               basePath="/animator"
+              domain="animator"
             />
           ))}
         </div>

@@ -1,46 +1,88 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, DollarSign } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw, Home } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const DownPaymentCalculator = () => {
-  const [homePrice, setHomePrice] = useState("400000");
-  const [downPct, setDownPct] = useState("20");
-  const [closingCostPct, setClosingCostPct] = useState("3");
-  const [monthsToSave, setMonthsToSave] = useState("24");
+interface DownPaymentResult {
+  homePrice: number;
+  downPct: number;
+  closingPct: number;
+  months: number;
+  downPayment: number;
+  loanAmount: number;
+  ltv: number;
+  closingCosts: number;
+  cashNeeded: number;
+  monthlySavings: number;
+  chartData: { name: string; value: number }[];
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+function calcDownPayment(homePrice: number, downPct: number, closingPct: number, months: number): DownPaymentResult {
+  const downPayment = homePrice * (downPct / 100);
+  const loanAmount = homePrice - downPayment;
+  const ltv = (loanAmount / homePrice) * 100;
+  const closingCosts = homePrice * (closingPct / 100);
+  const cashNeeded = downPayment + closingCosts;
+  const monthlySavings = months > 0 ? cashNeeded / months : 0;
+  const chartData = [
+    { name: "Down Payment", value: downPayment },
+    { name: "Loan Amount", value: loanAmount },
+  ];
+  return { homePrice, downPct, closingPct, months, downPayment, loanAmount, ltv, closingCosts, cashNeeded, monthlySavings, chartData };
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const price = parseFloat(homePrice);
-    const pct = parseFloat(downPct) / 100;
-    const closingPct = parseFloat(closingCostPct) / 100;
-    const months = parseFloat(monthsToSave);
+const DEFAULTS = { price: "400000", pct: "20", closing: "3", months: "24" };
 
-    const downPayment = price * pct;
-    const closingCosts = price * closingPct;
-    const totalNeeded = downPayment + closingCosts;
-    const monthlySavingsNeeded = totalNeeded / months;
-    const loanAmount = price - downPayment;
-    const pmiNeeded = pct < 0.20;
+const COLORS = ["hsl(var(--primary))", "hsl(38 92% 50%)"];
 
-    setResults({ downPayment, closingCosts, totalNeeded, monthlySavingsNeeded, loanAmount, pmiNeeded });
-  };
+const fmtMoney = (n: number) => `$${Math.round(n).toLocaleString()}`;
 
-  const reset = () => {
-    setShowResults(false); setHomePrice("400000"); setDownPct("20"); setClosingCostPct("3"); setMonthsToSave("24"); setResults(null); };
+const faqs = [
+  { question: "How much should I put down?", answer: "20% avoids private mortgage insurance (PMI) and typically gets the best rate, but many programs allow 3–10%. Compare the PMI cost against the cash you'd keep for repairs and emergencies." },
+  { question: "What are closing costs?", answer: "Lender, title, appraisal, and escrow fees typically run 2–5% of the purchase price. They are paid at closing on top of the down payment — budget for both together." },
+  { question: "What is LTV?", answer: "Loan-to-value is the loan amount divided by the home's value. At 20% down, LTV is 80% — the threshold most lenders use to waive PMI. Higher LTV usually means a higher rate." },
+];
 
-  const faqs = [
-    { question: "How much down payment do I need?", answer: "Conventional loans typically require 5-20% down. FHA loans require 3.5% (with 580+ credit score). VA and USDA loans can require 0% down. A 20% down payment avoids PMI and usually gets the best rate." },
-    { question: "What are closing costs?", answer: "Closing costs include lender fees, appraisal, title insurance, attorney fees, and prepaid items like property taxes and insurance. They typically run 2-5% of the loan amount for buyers." },
-    { question: "Can I use gift money for a down payment?", answer: "Yes. Conventional loans allow gift funds with a gift letter. FHA loans also allow gifts from family members. VA loans allow gifts as well. Some programs restrict gift money from non-family parties." }
+export default function DownPaymentCalculator() {
+  const [price, setPrice] = useState(DEFAULTS.price);
+  const [pct, setPct] = useState(DEFAULTS.pct);
+  const [closing, setClosing] = useState(DEFAULTS.closing);
+  const [months, setMonths] = useState(DEFAULTS.months);
+  const [result, setResult] = useState<DownPaymentResult>(() => calcDownPayment(400000, 20, 3, 24));
+
+  useEffect(() => {
+    const p = parseFloat(price);
+    const d = parseFloat(pct);
+    const c = parseFloat(closing);
+    const m = parseFloat(months);
+    if (!isNaN(p) && !isNaN(d) && !isNaN(c) && !isNaN(m) && p > 0 && d >= 0 && d <= 100 && c >= 0 && m > 0) setResult(calcDownPayment(p, d, c, m));
+  }, [price, pct, closing, months]);
+
+  const reset = () => { setPrice(DEFAULTS.price); setPct(DEFAULTS.pct); setClosing(DEFAULTS.closing); setMonths(DEFAULTS.months); };
+  const invalid = isNaN(parseFloat(price)) || isNaN(parseFloat(pct)) || isNaN(parseFloat(closing)) || isNaN(parseFloat(months)) || parseFloat(price) <= 0 || parseFloat(pct) < 0 || parseFloat(pct) > 100 || parseFloat(closing) < 0 || parseFloat(months) <= 0;
+
+  const breakdown = [
+    { label: "Home Price", value: fmtMoney(result.homePrice) },
+    { label: "Down Payment %", value: `${result.downPct.toFixed(1)}%` },
+    { label: "Down Payment Amount", value: fmtMoney(result.downPayment), highlight: true },
+    { label: "Loan Amount", value: fmtMoney(result.loanAmount) },
+    { label: "Loan-to-Value (LTV)", value: `${result.ltv.toFixed(1)}%` },
+    { label: "Closing Costs", value: fmtMoney(result.closingCosts) },
+    { label: "Total Cash Needed at Closing", value: fmtMoney(result.cashNeeded) },
+    { label: "Monthly Savings Target", value: `${fmtMoney(result.monthlySavings)}/mo over ${result.months.toFixed(0)} months` },
+  ];
+
+  const summaryStats = [
+    { label: "Down Payment", value: fmtMoney(result.downPayment) },
+    { label: "Loan Amount", value: fmtMoney(result.loanAmount) },
+    { label: "LTV", value: `${result.ltv.toFixed(1)}%` },
+    { label: "Closing Costs", value: fmtMoney(result.closingCosts) },
+    { label: "Cash Needed", value: fmtMoney(result.cashNeeded) },
+    { label: "Monthly Savings", value: `${fmtMoney(result.monthlySavings)}/mo` },
   ];
 
   return (
@@ -50,58 +92,117 @@ const DownPaymentCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Down Payment Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="price" label="Home Price ($)" value={homePrice} onChange={setHomePrice} />
-                <InputField id="pct" label="Down Payment (%)" value={downPct} onChange={setDownPct} />
-                <InputField id="close" label="Closing Costs (%)" value={closingCostPct} onChange={setClosingCostPct} />
-                <InputField id="months" label="Months to Save" value={monthsToSave} onChange={setMonthsToSave} />
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            <div>
+              <label htmlFor="dp-price" className="block text-sm font-medium mb-1 text-foreground">Home Price ($)</label>
+              <input id="dp-price" type="number" min="1000" step="1000" value={price} onChange={(e) => setPrice(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="dp-pct" className="block text-sm font-medium mb-1 text-foreground">Down Payment (%)</label>
+                <input id="dp-pct" type="number" min="0" max="100" step="0.5" value={pct} onChange={(e) => setPct(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label htmlFor="dp-closing" className="block text-sm font-medium mb-1 text-foreground">Closing Costs (%)</label>
+                <input id="dp-closing" type="number" min="0" step="0.5" value={closing} onChange={(e) => setClosing(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
+            </div>
+            <div>
+              <label htmlFor="dp-months" className="block text-sm font-medium mb-1 text-foreground">Savings Timeline (months)</label>
+              <input id="dp-months" type="number" min="1" step="1" value={months} onChange={(e) => setMonths(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            </div>
+
+            <div className="flex gap-3 pt-1">
+              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+                <Home className="h-4 w-4" /> Calculate
+              </button>
+              <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            {invalid && <p className="text-xs text-destructive">Enter a valid home price, down payment 0–100%, and a positive timeline.</p>}
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Down Payment Plan</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Cash Needed</p>
-                    <p className="text-5xl font-black text-foreground">${results.totalNeeded.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Down Payment</div>
+              <div className="text-4xl font-extrabold text-primary">{fmtMoney(result.downPayment)}</div>
+              <div className="text-sm text-muted-foreground mt-1">{result.downPct.toFixed(0)}% of {fmtMoney(result.homePrice)} · {fmtMoney(result.monthlySavings)}/mo to save</div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-0 rounded-lg border border-border overflow-hidden bg-card">
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Loan Amount</div>
+                <div className="text-lg font-bold text-primary">{fmtMoney(result.loanAmount)}</div>
+              </div>
+              <div className="p-3 text-center border-r border-border">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">LTV</div>
+                <div className="text-lg font-bold text-primary">{result.ltv.toFixed(1)}%</div>
+              </div>
+              <div className="p-3 text-center">
+                <div className="text-[11px] uppercase font-bold text-muted-foreground tracking-wider mb-1">Cash Needed</div>
+                <div className="text-lg font-bold text-primary">{fmtMoney(result.cashNeeded)}</div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Metric</th>
+                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row) => (
+                    <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
+                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right font-semibold">{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">How the Purchase Is Funded</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={80} paddingAngle={2}>
+                    {result.chartData.map((entry, i) => <Cell key={entry.name} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip formatter={(v: number) => [fmtMoney(v), ""]} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-sm font-bold mb-3">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {summaryStats.map((s) => (
+                  <div key={s.label} className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{s.label}</span>
+                    <span className="font-semibold">{s.value}</span>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Monthly Savings Needed</p>
-                    <p className="text-3xl font-black text-foreground">${results.monthlySavingsNeeded.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-                  </div>
-                </div>
-                <ResultDisplay items={[
-                  { label: "Down Payment", value: 0, textValue: "$" + results.downPayment.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
-                  { label: "Estimated Closing Costs", value: 0, textValue: "$" + results.closingCosts.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
-                  { label: "PMI Required?", value: 0, textValue: results.pmiNeeded ? "Yes (< 20% down)" : "No ✓" },
-                ]} />
-              </>
-            )}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Planning Your Home Purchase</h2>
-              <p>One of the biggest barriers to homeownership is saving the necessary cash. Most buyers underestimate the total needed because they focus on the down payment and forget about closing costs, moving expenses, and initial repairs.</p>
-              <h3>The 20% Threshold</h3>
-              <p>A 20% down payment eliminates Private Mortgage Insurance (PMI), which typically costs 0.5-1.5% of the loan annually. On a $400,000 loan, that's $2,000-$6,000 per year in avoidable cost. It also often results in a lower interest rate.</p>
-              <h3>Low Down Payment Programs</h3>
-              <p>If 20% feels out of reach, consider: FHA (3.5% down), Conventional 97 (3% down), or state first-time buyer programs that offer down payment assistance grants. Some employers also offer home buying assistance programs.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/down-payment" />
+            <h2 className="text-2xl font-bold mb-3">About the Down Payment Calculator</h2>
+            <p>The down payment is the cash portion of the purchase: price × down-payment %. The loan covers the rest, giving LTV = loan ÷ price. Closing costs (typically 2–5%) are paid separately at closing, so the true cash requirement is down payment plus closing costs.</p>
+            <h3>Planning the Savings</h3>
+            <p>Divide the total cash needed by your savings timeline to get a monthly target. On a $400,000 home at 20% down with 3% closing costs, that is $80,000 + $12,000 = $92,000 — $3,833 per month over two years, a budget most buyers need to plan around carefully.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/down-payment-calculator" />
           <PopularCalculators exclude="/calculator/down-payment-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default DownPaymentCalculator;
-
+}

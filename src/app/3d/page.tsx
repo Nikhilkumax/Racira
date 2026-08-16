@@ -1,7 +1,10 @@
 "use client";
 
 import { CategorySearch } from "@/components/CategorySearch";
-import { CATEGORIES, SEARCH_REGISTRY } from "@/domains/3d/registry";
+import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY } from "@/domains/3d/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_3D_COUNT = onlyLive(ALL_TOOLS, "3d").length;
 import { SiteShell } from "@/domains/3d/components/SiteShell";
 import { CategorySection } from "@/components/shared/CategorySection";
 
@@ -17,7 +20,7 @@ export default function Index() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Browser-based 3D model viewers, format converters, and spatial utilities. No signup required.
           </p>
-          <CategorySearch categorySlug="3d" placeholder="Search 120+ 3D tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="3d" placeholder={LIVE_3D_COUNT > 0 ? `Search ${LIVE_3D_COUNT} 3D tools...` : "Search 3D tools..."} registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -27,6 +30,7 @@ export default function Index() {
             key={cat.key}
             section={cat}
             basePath="/3d"
+            domain="3d"
           />
         ))}
       </div>

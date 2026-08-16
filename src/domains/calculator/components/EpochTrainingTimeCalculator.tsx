@@ -180,19 +180,19 @@ const EpochTrainingTimeCalculator: React.FC = () => {
         {/* Right Column - Results */}
         <div className="space-y-6">
           {/* Primary Results */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-xl font-bold mb-4">Training Timeline Summary</h2>
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-semibold text-gray-600">Remaining Time:</span>
-              <span className="text-2xl font-bold text-indigo-600">{weeksRemaining !== null ? weeksRemaining.toFixed(0) + ' weeks' : 'N/A'}</span>
+          <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <h2 className="text-base font-bold mb-3 text-foreground">Training Timeline Summary</h2>
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-muted-foreground">Remaining Time:</span>
+              <span className="text-2xl font-bold text-primary">{weeksRemaining !== null ? weeksRemaining.toFixed(0) + ' weeks' : 'N/A'}</span>
             </div>
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-semibold text-gray-600">Sessions:</span>
-              <span className="text-2xl font-bold text-indigo-600">{sessionsRemaining !== null ? sessionsRemaining.toFixed(0) : 'N/A'}</span>
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-muted-foreground">Sessions:</span>
+              <span className="text-2xl font-bold text-primary">{sessionsRemaining !== null ? sessionsRemaining.toFixed(0) : 'N/A'}</span>
             </div>
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-semibold text-gray-600">Total Hours:</span>
-              <span className="text-2xl font-bold text-indigo-600">{totalHours !== null ? totalHours.toFixed(2) : 'N/A'}</span>
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-muted-foreground">Total Hours:</span>
+              <span className="text-2xl font-bold text-primary">{totalHours !== null ? totalHours.toFixed(2) : 'N/A'}</span>
             </div>
           </div>
           

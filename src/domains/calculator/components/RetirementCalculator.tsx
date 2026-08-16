@@ -123,7 +123,7 @@ export default function RetirementCalculator() {
           </div>
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.isOnTrack ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500" : "bg-amber-50 dark:bg-amber-950/20 border-amber-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.isOnTrack ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500" : "bg-amber-50 dark:bg-amber-950/20 border-amber-500"}`}>
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.isOnTrack ? "text-emerald-600" : "text-amber-600"}`}>{result.isOnTrack ? "✅ Retirement Status: On Track" : "⚠️ Retirement Status: Gap Exists"}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">${result.retirementPortfolio.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
                 <div className="text-sm text-muted-foreground mt-1">Portfolio at retirement · Gap: {result.incomeGap >= 0 ? "+" : ""}${(result.incomeGap / 12).toFixed(0)}/mo</div>

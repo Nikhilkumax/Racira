@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Grid3x3 } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface BrickResult {
   totalBricks: number;
@@ -241,9 +242,9 @@ const BrickCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-orange-500/10 border-l-4 border-orange-500 rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-bold text-orange-600 dark:text-orange-400 mb-1 uppercase tracking-wider">Total Bricks Required</div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Total Bricks Required</div>
                   <div className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                     {result.totalBricks.toLocaleString()}
                   </div>
@@ -277,6 +278,24 @@ const BrickCalculator = () => {
                 <p className="text-xs text-muted-foreground mt-4 leading-relaxed">
                   * Note: Mortar estimation is based on a standard 1:3 mix ratio. Exact bag yields vary heavily based on how deep the mason strikes the joints and how much mortar falls on the ground.
                 </p>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Materials Comparison</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={[
+                    { name: "Bricks", value: result.totalBricks },
+                    { name: "Mortar (" + (unit === "imperial" ? "cu ft" : "cu m") + ")", value: parseFloat(String(result.mortarVolume)) || 0 },
+                    { name: "Cement Bags", value: result.cementBags },
+                    { name: "Sand Bags", value: result.sandBags },
+                  ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString(), "Count"]} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={50} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
 
             </>)}

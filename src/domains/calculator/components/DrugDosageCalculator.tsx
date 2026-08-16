@@ -175,7 +175,7 @@ export default function DrugDosageCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 shadow-sm ${result.isOverMax ? "bg-amber-500/10 border-amber-500" : "bg-primary/5 border-primary"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 shadow-sm ${result.isOverMax ? "border-amber-500" : "border-primary"}`}>
                 <div className="flex justify-between items-start">
                   <div>
                     <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.isOverMax ? "text-amber-600" : "text-primary"}`}>Single Dose Volume (mL)</div>

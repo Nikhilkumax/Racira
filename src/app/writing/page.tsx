@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, PenLine } from "lucide-react";
 import { categories, totalToolCount } from "@/domains/writing/registry";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+
+const LIVE_WRITING_COUNT = onlyLive(categories.flatMap((c) => c.tools), "writing").length;
 
 export default function Index() {
   const [query, setQuery] = useState("");
@@ -45,7 +47,7 @@ export default function Index() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 type="text"
-                placeholder="Search 148 writing tools..."
+                placeholder={LIVE_WRITING_COUNT > 0 ? `Search ${LIVE_WRITING_COUNT} writing tools...` : "Search writing tools..."}
                 className="w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"
                 aria-label="Search Writing Tools"
               />
@@ -72,32 +74,48 @@ export default function Index() {
                   {cat.name}
                 </h2>
                 <span className="text-xs text-muted-foreground">
-                  {cat.tools.filter((t) => isLiveTool(t, "writing")).length} tools
+                  {cat.tools.length} tools
                 </span>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {cat.tools.filter((t) => isLiveTool(t, "writing")).map((t) => (
-                  <Link
-                    key={t.slug}
-                    href={`/writing/${t.slug}`}
-                    className="tool-card group"
-                  >
-                    {t.status !== "live" && (
-                      <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
-                        Soon
-                      </span>
-                    )}
-                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      {t.icon ? <t.icon className="h-5 w-5" /> : <PenLine className="h-5 w-5" />}
+                {cat.tools.map((t) => {
+                  // No writing tool page renders a real tool — every card is inert.
+                  const isLive = isLiveTool(t, "writing");
+                  const cardBody = (
+                    <>
+                      {!isLive && (
+                        <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
+                          Soon
+                        </span>
+                      )}
+                      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        {t.icon ? <t.icon className="h-5 w-5" /> : <PenLine className="h-5 w-5" />}
+                      </div>
+                      <h3 className="font-semibold text-foreground leading-snug">
+                        {t.name}
+                      </h3>
+                      <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                        {t.description}
+                      </p>
+                    </>
+                  );
+                  return isLive ? (
+                    <Link
+                      key={t.slug}
+                      href={`/writing/${t.slug}`}
+                      className="tool-card group"
+                    >
+                      {cardBody}
+                    </Link>
+                  ) : (
+                    <div
+                      key={t.slug}
+                      className="tool-card group relative cursor-default"
+                    >
+                      {cardBody}
                     </div>
-                    <h3 className="font-semibold text-foreground leading-snug">
-                      {t.name}
-                    </h3>
-                    <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                      {t.description}
-                    </p>
-                  </Link>
-                ))}
+                  );
+                })}
               </div>
             </section>
           ))}

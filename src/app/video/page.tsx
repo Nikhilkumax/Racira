@@ -1,15 +1,17 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/domains/video/registry";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
+
+const LIVE_VIDEO_COUNT = onlyLive(TOOLS, "video").length;
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Racira Video — All-in-One Free Online Video Tools",
-  description: "Convert, trim, compress, extract and edit videos with 150 free online video tools. Runs in your browser — no signup, no upload.",
+  description: "Convert, trim, compress, extract and edit videos in your browser — no signup, no upload.",
   openGraph: {
     title: "Racira Video — All-in-One Free Online Video Tools",
-    description: "150 free in-browser video tools: convert, trim, compress, extract frames and more. No signup required.",
+    description: "Free in-browser video tools: convert, trim, compress, extract frames and more. No signup required.",
     url: "/",
   },
   alternates: {
@@ -30,7 +32,7 @@ export default function Home() {
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Basic video utilities to trim, crop, and convert formats without heavy software. No signup required.
           </p>
-          <CategorySearch categorySlug="video" placeholder="Search 150 video tools..." registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="video" placeholder={LIVE_VIDEO_COUNT > 0 ? `Search ${LIVE_VIDEO_COUNT} video tools...` : "Search video tools..."} registry={SEARCH_REGISTRY} />
         </div>
       </section>
 
@@ -41,7 +43,7 @@ export default function Home() {
               {cat}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {TOOLS_BY_CATEGORY[cat].filter((t) => isLiveTool(t, "video")).map((tool) => (
+              {TOOLS_BY_CATEGORY[cat].map((tool) => (
                 <ToolCard key={tool.slug} tool={tool} />
               ))}
             </div>

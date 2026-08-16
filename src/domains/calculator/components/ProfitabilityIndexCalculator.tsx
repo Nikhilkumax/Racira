@@ -99,7 +99,7 @@ export default function ProfitabilityIndexCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`rounded-xl p-5 border-l-4 ${result.pi>1?"bg-primary/10 border-primary":"bg-red-500/10 border-red-500"}`}>
+            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${result.pi>1?"bg-primary/10 border-primary":"bg-red-500/10 border-red-500"}`}>
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Profitability Index</div>
               <div className={`text-5xl font-extrabold ${result.ratingColor}`}>{result.pi.toFixed(3)}</div>
               <div className={`text-sm font-semibold mt-1 ${result.ratingColor}`}>{result.rating}</div>

@@ -135,11 +135,10 @@ const CustodialAccountGrowthCalculator = () => {
           
           {/* Right Column - Results */}
           <div className="space-y-6">
-            {/* Primary Result Card */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold mb-4">Future Value</h2>
-              <p className="text-4xl font-bold text-indigo-600">${result.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-            </div>
+            {/* Primary Result Card */}  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Future Value</div>
+  <p className="text-4xl font-bold text-primary">${result.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+  </div>
             
             {/* 3-Stat Bar */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

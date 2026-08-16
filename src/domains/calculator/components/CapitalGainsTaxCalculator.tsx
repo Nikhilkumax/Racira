@@ -1,5 +1,6 @@
 "use client";
 import { RotateCcw, TrendingUp, Info, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -154,16 +155,38 @@ const CapitalGainsTaxCalculator = () => {
           <div className="flex flex-col gap-3">
             {showResults && results && (
               <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-red-500/5 border-red-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-1">Estimated Tax Due</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.totalTax).toLocaleString()}</p>
-                    <p className="text-xs text-red-500 mt-2 font-bold uppercase tracking-widest">{results.taxRate}% Rate</p>
-                  </div>
-                  <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Net After-Tax Profit</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.netProfit).toLocaleString()}</p>
-                  </div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Estimated Tax Due</div>
+                  <div className="text-4xl font-extrabold text-primary">${Math.round(results.totalTax).toLocaleString()}</div>
+                  <div className="text-sm text-muted-foreground mt-1">On a gain of ${Math.round(results.gain).toLocaleString()} at {results.taxRate}% · Net profit ${Math.round(results.netProfit).toLocaleString()}</div>
+                </div>
+                <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                  {[["Gain", `$${Math.round(results.gain).toLocaleString()}`], ["Tax Rate", `${results.taxRate}%`], ["Net Profit", `$${Math.round(results.netProfit).toLocaleString()}`]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Gain vs Tax</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={[
+                      { name: "Cost Basis", value: parseFloat(purchasePrice) || 0 },
+                      { name: "Sale Price", value: parseFloat(salePrice) || 0 },
+                      { name: "Tax Due", value: results.totalTax },
+                      { name: "Net Profit", value: results.netProfit },
+                    ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                      <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `$${v >= 1000 ? (v / 1000).toFixed(0) + "K" : v}`} />
+                      <Tooltip formatter={(v: number) => [`$${v.toLocaleString(undefined, { maximumFractionDigits: 0 })}`, "Amount"]} />
+                      <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={50}>
+                        {[0, 1, 2, 3].map(i => <Cell key={i} fill={i === 2 ? "hsl(var(--primary))" : "hsl(var(--primary)/0.35)"} />)}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
 
                 <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">

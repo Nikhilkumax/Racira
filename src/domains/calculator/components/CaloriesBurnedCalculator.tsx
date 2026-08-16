@@ -7,6 +7,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
 import { RotateCcw, Dumbbell } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 const CaloriesBurnedCalculator = () => {
   const [weight, setWeight] = useState("160");
@@ -101,21 +102,37 @@ const CaloriesBurnedCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Energy Expenditure</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Total Calories Burned</p>
-                    <p className="text-5xl font-black text-foreground">{results.calories}</p>
-                    <p className="text-sm text-muted-foreground mt-1">kcal</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 mb-2">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Calories Burned</div>
+                  <div className="text-4xl font-extrabold text-primary">{results.calories} <span className="text-2xl">kcal</span></div>
+                  <div className="text-sm text-muted-foreground mt-1">{results.caloriesPerHour} kcal/hour at MET {results.met}</div>
+                </div>
+                <div className="grid grid-cols-2 gap-0 border border-border rounded-lg overflow-hidden bg-card mb-4">
+                  <div className="p-4 text-center">
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Burn Rate</div>
+                    <div className="text-base font-bold">{results.caloriesPerHour} kcal/hr</div>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Burn Rate</p>
-                    <p className="text-3xl font-black text-foreground">{results.caloriesPerHour} / hr</p>
+                  <div className="p-4 text-center border-l border-border">
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">MET Value</div>
+                    <div className="text-base font-bold">{results.met}</div>
                   </div>
                 </div>
                 <ResultDisplay items={[
                   { label: "Activity MET Value", value: 0, textValue: results.met },
                   { label: "Activity Type", value: 0, textValue: activityType.charAt(0).toUpperCase() + activityType.slice(1) },
                 ]} />
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Calories by Duration</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={[15, 30, 45, 60, 90, 120].map(min => ({ name: `${min}m`, value: Math.round(results.calories * (min / (parseFloat(duration) || 60))) }))} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                      <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                      <YAxis tick={{ fontSize: 10 }} />
+                      <Tooltip formatter={(v: number) => [`${v} kcal`]} />
+                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
               </>
             )}
           </div>

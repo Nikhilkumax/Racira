@@ -6,7 +6,9 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
 import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY, type Tool } from "@/domains/photo/registry";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+
+const LIVE_PHOTO_COUNT = onlyLive(ALL_TOOLS, "photo").length;
 
 
 export default function Home() {
@@ -32,7 +34,7 @@ export default function Home() {
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
               Apply filters, adjust lighting, and retouch your photos right in the browser. No signup required.
             </p>
-            <CategorySearch categorySlug="photo" placeholder="Search 122 photo tools..." registry={SEARCH_REGISTRY} />
+            <CategorySearch categorySlug="photo" placeholder={LIVE_PHOTO_COUNT > 0 ? `Search ${LIVE_PHOTO_COUNT} photo tools...` : "Search photo tools..."} registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
@@ -49,10 +51,10 @@ export default function Home() {
                     </h2>
                     <p className="mt-1 text-sm text-muted-foreground/80">{c.description}</p>
                   </div>
-                  <span className="text-xs text-muted-foreground">{c.tools.filter((t) => isLiveTool(t, "photo")).length} tools</span>
+                  <span className="text-xs text-muted-foreground">{c.tools.length} tools</span>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  {c.tools.filter((t) => isLiveTool(t, "photo")).map((t) => (
+                  {c.tools.map((t) => (
                     <ToolCard key={t.slug} tool={t} />
                   ))}
                 </div>
@@ -83,13 +85,12 @@ function SearchResults({ results }: { results: typeof ALL_TOOLS }) {
 
 function ToolCard({ tool }: { tool: Tool }) {
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
-  const isLive = tool.status === "live";
+  // Photo tool pages all render the coming-soon template (no wired component),
+  // so every card is non-interactive with the "Soon" badge.
+  const isLive = isLiveTool(tool, "photo");
 
-  return (
-    <Link
-      href={`/photo/${tool.slug}`}
-      className="tool-card group relative"
-    >
+  const cardBody = (
+    <>
       {!isLive && (
         <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Soon
@@ -100,6 +101,20 @@ function ToolCard({ tool }: { tool: Tool }) {
       </div>
       <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
+    </>
+  );
+
+  if (!isLive) {
+    return (
+      <div className="tool-card group relative cursor-default">
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={`/photo/${tool.slug}`} className="tool-card group relative">
+      {cardBody}
     </Link>
   );
 }

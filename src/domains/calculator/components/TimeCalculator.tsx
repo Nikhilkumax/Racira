@@ -159,8 +159,8 @@ const TimeCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-6">
-                <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-2 uppercase tracking-wider">Resulting Time Span</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Resulting Time Span</div>
                 <div className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                   {result.resultString}
                 </div>

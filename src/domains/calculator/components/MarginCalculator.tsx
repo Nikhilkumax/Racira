@@ -241,7 +241,7 @@ export default function MarginCalculator() {
               <>
                 {/* Result Dashboards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-4 text-center">
                     <div className="text-xs font-bold text-primary mb-0.5 uppercase tracking-wider">Gross Margin</div>
                     <div className="text-3xl font-extrabold text-foreground tracking-tight">{fmtPct(result.margin)}</div>
                     <span className="text-[10px] text-muted-foreground">Percentage of Selling Price</span>

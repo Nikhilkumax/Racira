@@ -7,6 +7,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
 import { RotateCcw, Utensils } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 const CarbCalculator = () => {
   const [calories, setCalories] = useState("2000");
@@ -77,12 +78,29 @@ const CarbCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Daily Carb Target</h2>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 mb-2">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Carbohydrates per Day</div>
+                  <div className="text-4xl font-extrabold text-primary">{results.carbGrams}g</div>
+                  <div className="text-sm text-muted-foreground mt-1">{results.carbCalories} kcal · {results.pct.toFixed(0)}% of daily calories · {results.fiber}g fiber</div>
+                </div>
+                <div className="card-calculator !p-5 border border-border bg-card mb-4">
+                  <h3 className="text-base font-bold mb-4">Macronutrient Split</h3>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie data={[
+                        { name: "Carbs", value: Math.max(0, results.carbCalories) },
+                        { name: "Protein", value: Math.max(0, (parseFloat(calories) || 0) * 0.25) },
+                        { name: "Fat", value: Math.max(0, (parseFloat(calories) || 0) - results.carbCalories - (parseFloat(calories) || 0) * 0.25) },
+                      ]} cx="50%" cy="50%" innerRadius={50} outerRadius={75} paddingAngle={4} dataKey="value">
+                        <Cell fill="hsl(var(--primary))" />
+                        <Cell fill="hsl(var(--primary)/0.55)" />
+                        <Cell fill="hsl(var(--primary)/0.25)" />
+                      </Pie>
+                      <Tooltip formatter={(v: number) => [`${v.toFixed(0)} kcal`, "Calories"]} contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Carbohydrates</p>
-                    <p className="text-5xl font-black text-foreground">{results.carbGrams}g</p>
-                    <p className="text-sm text-muted-foreground mt-1">per day</p>
-                  </div>
                   <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
                     <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Calories from Carbs</p>
                     <p className="text-3xl font-black text-foreground">{results.carbCalories} kcal</p>

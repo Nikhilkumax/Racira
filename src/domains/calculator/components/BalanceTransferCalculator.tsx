@@ -239,10 +239,10 @@ const BalanceTransferCalculator = () => {
             )}
 
             {/* 1. Primary Result Card */}
-            <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-5 relative">
-              <p className="text-xs uppercase tracking-wide text-emerald-700 dark:text-emerald-400 font-semibold">Total Savings</p>
-              <p className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mt-1">${Math.round(result.savings).toLocaleString()}</p>
-              <p className="text-sm text-emerald-700/70 dark:text-emerald-400/70 mt-1">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">Total Savings</p>
+              <p className="text-4xl font-bold text-primary mt-1">${Math.round(result.savings).toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground mt-1">
                 {inputs.keepCurrentCard ? "By transferring instead of keeping the balance on your current card" : "Compared to keeping the balance on your current card"}
               </p>
             </div>

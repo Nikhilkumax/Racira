@@ -88,7 +88,7 @@ export default function WorkoutCalorieCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Calories Burned</div>
               <div className="text-5xl font-extrabold text-foreground">{r.calories.toLocaleString()}</div>
               <div className="text-sm text-muted-foreground mt-1">MET {r.met} · {r.calPerHour} kcal/hr · {f.duration} minutes</div>

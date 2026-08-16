@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Delete } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 // Helper to determine string mathematical operations using BigInt
 const calculateBigNumber = (num1: string, num2: string, operation: string): { result: string, sciNot: string, error: string } => {
@@ -195,6 +196,23 @@ const BigNumberCalculator = () => {
                   <div className="text-2xl font-bold text-foreground font-mono break-all">{sciNot}</div>
                 </div>
               )}
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <div className="text-sm font-bold mb-4">Number Size Comparison (Digits)</div>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[
+                    { name: "Number A", digits: num1.replace(/[^0-9]/g, "").length },
+                    { name: "Number B", digits: num2.replace(/[^0-9]/g, "").length },
+                    { name: "Result", digits: result.replace(/[^0-9]/g, "").length },
+                  ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v.toLocaleString()} digits`, "Length"]} />
+                    <Bar dataKey="digits" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} barSize={50} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
 
             </>)}
           </div>

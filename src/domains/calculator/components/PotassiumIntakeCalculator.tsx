@@ -181,7 +181,7 @@ export default function PotassiumIntakeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status === "Consult Physician" ? "bg-red-500/10 border-red-500" : result.status === "Deficient" ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.status === "Consult Physician" ? "bg-red-500/10 border-red-500" : result.status === "Deficient" ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status === "Consult Physician" ? "text-red-600" : result.status === "Deficient" ? "text-amber-600" : "text-primary"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.target.toLocaleString()} mg <span className="text-lg font-normal text-muted-foreground">/ daily target</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

@@ -199,7 +199,7 @@ const PmiRemovalDateCalculator = () => {
                 <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
             ) : !results.pmiRequired ? (
-              <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-5">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-sm font-bold text-emerald-600 mb-1 uppercase tracking-wider">No PMI Required</div>
                 <div className="text-base font-medium text-foreground">Your starting loan is {fmtPct(results.initialLtv)} LTV — below the 80% threshold. PMI was never required on this loan.</div>
               </div>

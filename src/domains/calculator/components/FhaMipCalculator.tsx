@@ -172,6 +172,9 @@ export default function FhaMipCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Loan Details</h4>
+                  </div>
                   <CompactInput id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
                 </div>
               )}

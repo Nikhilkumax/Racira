@@ -166,8 +166,8 @@ export default function NthRootCalculator() {
                   </div>
                 ) : (
                   <>
-                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">
+                    <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                      <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         {ordinal(degN)} Root of {radX}
                         {res.isPerfectRoot && (
                           <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-green-500/15 text-green-700 dark:text-green-400">
@@ -175,7 +175,7 @@ export default function NthRootCalculator() {
                           </span>
                         )}
                       </p>
-                      <p className="text-5xl font-black text-foreground">{fmt(res.root)}</p>
+                      <p className="text-5xl font-black text-primary">{fmt(res.root)}</p>
                       <p className="text-sm text-muted-foreground">Verification: {fmt(res.root)}^{degN} = {fmt(res.verification)}</p>
                     </div>
                     {mounted && res.chartData.length > 1 && (

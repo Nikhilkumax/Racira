@@ -209,7 +209,7 @@ export default function ColdWalletKeyEntropyCalculator() {
 
           {result && (
             <div className="flex flex-col gap-4">
-              <div className={`border-l-4 rounded-lg p-5 ${result.securityLevel.includes("Strong") ? "bg-emerald-500/10 border-emerald-500" : result.securityLevel.includes("Moderate") ? "bg-amber-500/10 border-amber-500" : "bg-rose-500/10 border-rose-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.securityLevel.includes("Strong") ? "border-emerald-500" : result.securityLevel.includes("Moderate") ? "border-amber-500" : "border-rose-500"}`}>
                 <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
                   <Shield className="h-3 w-3" /> Security Level
                 </div>

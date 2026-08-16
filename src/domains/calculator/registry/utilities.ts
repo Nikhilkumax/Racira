@@ -84,14 +84,6 @@ export const utilityCalculators: CalculatorDef[] = [
     isBuilt: true
   },
   {
-    slug: "baking-ingredient-converter",
-    name: "Baking Ingredient Converter",
-    description: "The Baking Ingredient Converter helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Conversions & Utilities",
-    status: "live"
-  },
-  {
     slug: "base64-decoder",
     name: "Base64 Decoder",
     description: "The Base64 Decoder helps you quickly compute accurate results for your needs. Simply enter your values and click Calculate.",
@@ -472,8 +464,8 @@ export const utilityCalculators: CalculatorDef[] = [
     slug: "liquidated-damages-calculator",
     name: "Liquidated Damages Calculator",
     description: "Calculate liquidated damages for contract breaches with interest, escalation, and caps.",
-    category: "CALCULATOR",
-    subcategory: "Financial",
+    category: "FINANCE",
+    subcategory: "Law & Legal Finance",
     status: "live",
     isBuilt: true
   },

@@ -175,7 +175,7 @@ export default function WheelOffsetCalculator() {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Inner Clearance Card */}
-                  <div className={`border-l-4 rounded-lg p-6 relative overflow-hidden shadow-sm ${results.innerClearanceMm > 0 ? 'bg-orange-500/10 border-orange-500' : 'bg-card border-border'}`}>
+                  <div className={`border-l-4 rounded-lg p-6 relative overflow-hidden shadow-sm ${results.innerClearanceMm > 0 ? 'bg-primary/10 border-primary' : 'bg-card border-border'}`}>
                     <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Inner Clearance (Strut Side)</div>
                     <div className="flex items-center gap-3 mb-2">
                       {results.innerClearanceMm > 0 ? (

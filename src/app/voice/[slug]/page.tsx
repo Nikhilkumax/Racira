@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Construction, ArrowLeft, ChevronRight } from "lucide-react";
-import Header from "@/components/Header";
 import { CATEGORIES } from "@/domains/voice/registry";
 import { Metadata } from "next";
 import { toSlug } from "@/lib/utils/slug";
+import { isComingSoonToolPage } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 
@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       alternates: {
         canonical: `/voice/${tool.slug}`,
       },
+      robots: isComingSoonToolPage(tool, "voice") ? { index: false, follow: false } : undefined,
     };
   }
 
@@ -72,8 +73,6 @@ export async function generateStaticParams() {
 function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
   return (
     <div className="min-h-screen bg-background">
-      <Header mode="category" categoryName="Voice" />
-      
       <div className="racira-page-container pt-8 pb-0">
         <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
@@ -107,6 +106,7 @@ function CategoryView({ category }: { category: typeof CATEGORIES[0] }) {
                 count={0}
                 basePath={`/voice/${tool.slug}`}
                 label="tool"
+                soon={tool.status !== "live"}
               />
             );
           })}
@@ -121,8 +121,6 @@ function ToolView({ tool, category }: { tool: any, category: typeof CATEGORIES[0
 
   return (
     <div className="min-h-screen bg-background">
-      <Header mode="category" categoryName="Voice" />
-
       <div className="racira-page-container pt-8">
         <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
           <Link href="/" className="hover:text-foreground transition-colors">Home</Link>

@@ -22,9 +22,29 @@ import {
 import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
-import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
+
+// Full browsable scope — every registry calculator except stub-tagged entries
+// (placeholder UI, hidden by design), deduplicated by slug. Category heroes and
+// subcategory card counts use these so the numbers match the grids they lead to.
+const calcKey = (c: any) => (c as any).slug || toSlug((c as any).name);
+const STUB_SET = new Set<string>(CALCULATOR_STUB_SLUGS);
+const seenSlugs = new Set<string>();
+const FULL_SCOPE = calculatorRegistry.filter((t) => {
+  const key = calcKey(t);
+  if (STUB_SET.has(key)) return false;
+  if (seenSlugs.has(key)) return false;
+  seenSlugs.add(key);
+  return true;
+});
+const fullCategoryCount = (cat: string) =>
+  FULL_SCOPE.filter((t) => (t as any).category === cat).length;
+const fullSubcategoryCount = (cat: string, sub: string) =>
+  FULL_SCOPE.filter(
+    (t) => (t as any).category === cat && ((t as any).subcategory || "General") === sub
+  ).length;
 import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSkeleton";
-import ComingSoonCalculator from "@/domains/calculator/components/ui/ComingSoonCalculator";
 import { lazyComponents } from "@/app/calculator/lazyComponents";
 import SearchCalculators from "@/components/SearchCalculators";
 import { ClientGrid } from "./ClientGrid";
@@ -86,10 +106,11 @@ export async function generateStaticParams() {
     });
   });
 
-  // 3. Add tool routes
+  // 3. Add tool routes — only genuinely-live calculators (status live, not
+  //    stub-tagged) get static pages; every live slug now has a wired component.
   calculatorRegistry.forEach(t => {
     const toolSlug = (t as any).slug || toSlug((t as any).name);
-    if (!params.find(p => p.slug === toolSlug)) {
+    if (!params.find(p => p.slug === toolSlug) && isLiveTool(t, "calculator")) {
       params.push({ slug: toolSlug });
     }
   });
@@ -105,7 +126,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (summary) {
     const catName = formatCategory(summary.category);
     const title = `${catName} Calculators — Racira`;
-    const description = `Browse ${summary.total} free online ${catName.toLowerCase()} calculators.`;
+    const total = fullCategoryCount(summary.category);
+    const description = `Browse ${total.toLocaleString()} free online ${catName.toLowerCase()} calculator${total === 1 ? "" : "s"}.`;
     const url = `https://racira.com/calculator/${resolvedParams.slug}`;
     return { title, description, alternates: { canonical: url } };
   }
@@ -115,7 +137,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const sub = c.subcategories.find(s => toSlug(s.name) === resolvedParams.slug);
     if (sub) {
       const title = `${sub.name} Calculators — Racira`;
-      const description = `Browse ${sub.count} free online ${sub.name.toLowerCase()} calculators.`;
+      const fullCount = fullSubcategoryCount(c.category, sub.name);
+      const description = `Browse ${fullCount.toLocaleString()} free online ${sub.name.toLowerCase()} calculator${fullCount === 1 ? "" : "s"}.`;
       const url = `https://racira.com/calculator/${resolvedParams.slug}`;
       return { title, description, alternates: { canonical: url } };
     }
@@ -130,7 +153,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const title = `${tool.name} — Free Online Calculator`;
     const description = tool.description || `Free online ${tool.name}.`;
     const url = `https://racira.com/calculator/${resolvedParams.slug}`;
-    return { title, description, alternates: { canonical: url } };
+    const meta: Metadata = { title, description, alternates: { canonical: url } };
+    // Calculators that are not genuinely built (soon, or stub-tagged "live")
+    // render the coming-soon template — browsable but excluded from the index.
+    if (!isLiveTool(tool, "calculator")) {
+      meta.robots = { index: false, follow: false };
+    }
+    return meta;
   }
 
   return { title: "Not Found" };
@@ -169,9 +198,9 @@ function CategoryView({ summary }: { summary: any }) {
             {catName} Calculators
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-            Explore {summary.total} professional-grade {catName.toLowerCase()} calculators and tools.
+            Browse {fullCategoryCount(summary.category).toLocaleString()} calculator{fullCategoryCount(summary.category) === 1 ? "" : "s"} across {summary.subcategories.length} subcategor{summary.subcategories.length === 1 ? "y" : "ies"}.
           </p>
-          <SearchCalculators />
+          <SearchCalculators count={fullCategoryCount(summary.category)} category={summary.category} />
         </div>
       </section>
 
@@ -185,7 +214,7 @@ function CategoryView({ summary }: { summary: any }) {
                 key={sub.name}
                 title={sub.name}
                 icon={SubIcon}
-                count={sub.count}
+                count={fullSubcategoryCount(summary.category, sub.name)}
                 basePath={`/calculator/${subSlug}`}
                 label="calculators"
               />
@@ -205,11 +234,21 @@ function SubcategoryView({ parentCategory, subcategory, slug }: { parentCategory
   const formattedCategoryName = formatCategory(categoryName);
   const categorySlug = toSlug(formattedCategoryName);
 
-  const tools = onlyLive(calculatorRegistry.filter(t => {
+  // Every calculator in the subcategory is shown — soon tools carry the "Soon"
+  // badge (via ClientGrid/ToolCard). Stub-tagged "live" calculators stay hidden:
+  // they render broken/template UI and are excluded from the sitemap.
+  const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
+  const seen = new Set<string>();
+  const tools = calculatorRegistry.filter(t => {
     const tCatSlug = toSlug((t as any).category || "");
     const tSubSlug = toSlug(t.subcategory || "General");
-    return tCatSlug === categorySlug && tSubSlug === slug;
-  }));
+    if (tCatSlug !== categorySlug || tSubSlug !== slug) return false;
+    const key = (t as any).slug || toSlug((t as any).name);
+    if (stubSlugs.has(key)) return false;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   return (
     <div className="flex flex-col">
@@ -238,7 +277,7 @@ function SubcategoryView({ parentCategory, subcategory, slug }: { parentCategory
             {subcategory.name} Calculators
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-            Explore {tools.length} professional-grade calculators for {subcategory.name.toLowerCase()}.
+            Explore {tools.length.toLocaleString()} professional-grade calculator{tools.length === 1 ? "" : "s"} for {subcategory.name.toLowerCase()}.
           </p>
         </div>
       </section>
@@ -339,13 +378,9 @@ function ToolView({ slug, tool }: { slug: string, tool: any }) {
       `}} />
 
       <div className="tool-wrapper">
-        {tool.status === "soon" || !CalculatorComponent ? (
-          <ComingSoonCalculator slug={tool.slug || slug} />
-        ) : (
-          <Suspense fallback={<CalculatorSkeleton />}>
-            <CalculatorComponent />
-          </Suspense>
-        )}
+        <Suspense fallback={<CalculatorSkeleton />}>
+          <CalculatorComponent />
+        </Suspense>
       </div>
     </div>
   );
@@ -372,12 +407,12 @@ export default async function PolymorphicPage({ params }: Props) {
     }
   }
 
-  // 3. Is it a tool?
+  // 3. Is it a genuinely-live tool? Non-live (soon) and stub-tagged slugs 404.
   const tool = calculatorRegistry.find(t => 
     ((t as any).slug === slug || toSlug((t as any).name) === slug)
   );
 
-  if (tool) {
+  if (tool && isLiveTool(tool, "calculator")) {
     return <ToolView slug={slug} tool={tool} />;
   }
 

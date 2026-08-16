@@ -319,7 +319,7 @@ export default function InterestOnlyCalculator() {
                 
                 {/* 1. Dual Phase Cards */}
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-5">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                     <div className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">Phase 1: Interest Only</div>
                     <div className="text-3xl font-extrabold text-foreground tracking-tight">${results.ioMonthlyPayment.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}<span className="text-base text-muted-foreground">/mo</span></div>
                     <div className="text-xs text-muted-foreground mt-1 font-medium">For the first {ioTermYears} years.</div>

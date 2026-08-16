@@ -178,15 +178,15 @@ export default function VaccinationScheduleCalculator() {
 
             <div className="flex gap-3 mt-2">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <CalendarClock className="h-5 w-5" /> Generate Timeline
+                <CalendarClock className="h-5 w-5" /> Calculate
               </button>
             </div>
 
             {result && (
               <div className="mt-4 pt-4 border-t border-border">
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                  <div className="text-[10px] font-bold uppercase text-primary tracking-wider mb-1">Next Appointment Goal</div>
-                  <div className="text-lg font-bold text-foreground leading-tight">{result.nextAppointmentStr}</div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Next Appointment Goal</div>
+                  <div className="text-lg font-bold text-primary leading-tight">{result.nextAppointmentStr}</div>
                 </div>
                 
                 <div className="mt-4 space-y-3">

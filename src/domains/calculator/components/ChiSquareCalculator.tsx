@@ -182,7 +182,7 @@ export default function ChiSquareCalculator() {
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-3 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-3 text-center">
                     <div className="text-[10px] font-bold text-primary mb-1 uppercase tracking-wider">Chi-Square (χ²)</div>
                     <div className="text-2xl font-extrabold text-foreground">{res.chiSquare.toFixed(4)}</div>
                   </div>

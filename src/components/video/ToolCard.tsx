@@ -2,13 +2,12 @@ import Link from "next/link";
 import type { Tool } from "@/domains/video/registry";
 
 export function ToolCard({ tool }: { tool: Tool }) {
+  const isLive = tool.status === "live";
   const Icon = tool.icon as React.ComponentType<{ className?: string }>;
-  return (
-    <Link
-      href={`/video/${tool.slug}`}
-      className="tool-card group relative"
-    >
-      {tool.status !== "live" && (
+
+  const cardBody = (
+    <>
+      {!isLive && (
         <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Soon
         </span>
@@ -18,6 +17,20 @@ export function ToolCard({ tool }: { tool: Tool }) {
       </div>
       <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
       <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
+    </>
+  );
+
+  if (!isLive) {
+    return (
+      <div className="tool-card group relative cursor-default">
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <Link href={`/video/${tool.slug}`} className="tool-card group relative">
+      {cardBody}
     </Link>
   );
 }

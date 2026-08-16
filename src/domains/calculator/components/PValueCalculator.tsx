@@ -197,7 +197,7 @@ export default function PValueCalculator() {
                   <BarChart3 className="h-5 w-5 text-primary" />
                 </div>
                 
-                <div className={`border rounded-xl p-5 text-center ${res.isSignificant ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 bg-gradient-to-br" : "from-amber-500/10 to-amber-500/5 border-amber-500/20 bg-gradient-to-br"}`}>
+                <div className={`bg-primary/10 border-l-4 border rounded-xl p-5 text-center ${res.isSignificant ? "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 bg-gradient-to-br" : "from-amber-500/10 to-amber-500/5 border-amber-500/20 bg-gradient-to-br"}`}>
                   <div className="text-[13px] font-bold mb-1 uppercase tracking-wider text-muted-foreground">Calculated P-Value</div>
                   <div className="text-5xl font-extrabold text-foreground mb-1 tracking-tight">{res.pValue.toFixed(6)}</div>
                   <div className={`text-xs font-bold ${res.isSignificant ? "text-emerald-600" : "text-amber-600"}`}>

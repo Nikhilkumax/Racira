@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Shirt } from "lucide-react"; // Using Shirt as a proxy for clothing size
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface BraResult {
   bandSize: string;
@@ -172,9 +173,9 @@ const BraSizeCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-emerald-500/10 border-l-4 border-emerald-500 rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mb-1 uppercase tracking-wider">Estimated US Size</div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Estimated US Size</div>
                   <div className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
                     {result.fullSize}
                   </div>
@@ -202,6 +203,26 @@ const BraSizeCalculator = () => {
                 <p className="text-xs text-muted-foreground mt-4 leading-relaxed border-t border-border/50 pt-4">
                   * Note: Because cup volume scales with band size, your "Sister Sizes" hold the exact same physical breast volume as your estimated size, just with a different band length.
                 </p>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Measurement Comparison</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={[
+                    { name: "Underbust", value: parseFloat(underbust) || 0 },
+                    { name: "Bust", value: parseFloat(bust) || 0 },
+                  ]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v} ${unit === "inches" ? "in" : "cm"}`, "Measurement"]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={70}>
+                      <Cell fill="hsl(var(--primary))" />
+                      <Cell fill="hsl(var(--primary)/0.4)" />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-3 text-center">Cup size = difference between bust and band (1 in / 2.5 cm per cup letter)</p>
               </div>
 
             </>)}

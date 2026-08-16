@@ -3,6 +3,7 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { CategorySection } from "@/components/shared/CategorySection";
 import { TOOLS } from "@/domains/colors/registry";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
 import { CATEGORY_META } from "@/domains/colors/registry/types";
 import type { ToolCategory } from "@/domains/colors/registry/types";
 
@@ -16,6 +17,7 @@ export function HomeClient() {
     cat,
     tools: TOOLS.filter((t) => t.category === cat),
   }));
+  const liveColorCount = onlyLive(TOOLS, "colors").length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -31,7 +33,7 @@ export function HomeClient() {
             </p>
             <CategorySearch 
               categorySlug="colors" 
-              placeholder="Search 226 color tools..." 
+              placeholder={liveColorCount > 0 ? `Search ${liveColorCount} color tools...` : "Search color tools..."} 
               registry={TOOLS.map(t => ({ 
                 name: t.name, 
                 description: t.description, 
@@ -55,6 +57,7 @@ export function HomeClient() {
                   tools: tools
                 }}
                 basePath="/colors"
+                domain="colors"
               />
             );
           })}

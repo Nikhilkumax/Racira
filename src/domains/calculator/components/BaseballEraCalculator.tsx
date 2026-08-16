@@ -312,7 +312,7 @@ export default function BaseballEraCalculator() {
 
             {showAdvanced && (
               <div className="flex flex-col gap-3 mt-1 border-t border-border pt-4">
-                <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Advanced Metrics (for FIP)</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Advanced Metrics (for FIP)</div>
                 <div className="grid grid-cols-2 gap-3">
                   <CompactInput id="homeRuns" label="Home Runs Allowed" value={inputs.homeRuns} onChange={(v: number) => updateInput("homeRuns", v)} />
                   <CompactInput id="walks" label="Walks (BB)" value={inputs.walks} onChange={(v: number) => updateInput("walks", v)} />

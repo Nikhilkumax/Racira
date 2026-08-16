@@ -160,7 +160,7 @@ const EvFederalTaxCreditValueCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className={`border rounded-xl p-5 text-center ${results.eligible ? "bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border-emerald-500/20" : "bg-gradient-to-br from-red-500/10 to-red-500/5 border-red-500/20"}`}>
+                <div className={`bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center ${results.eligible ? "border-primary" : "border-red-500"}`}>
                   <div className={`text-[13px] font-bold mb-1 uppercase tracking-wider ${results.eligible ? "text-emerald-600" : "text-red-600"}`}>
                     {results.eligible ? "Federal EV Credit Value" : "Not Eligible"}
                   </div>

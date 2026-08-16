@@ -152,6 +152,9 @@ const BaseballFieldingCalculator = () => {
                 <span className="text-xs font-semibold uppercase tracking-wider text-primary">Advanced Options</span>
               </div>
               <div className="grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Fielding Stats</h4>
+                </div>
                 <div>
                   <label className="text-sm font-medium block mb-1">Position</label>
                   <select value={inputs.position} onChange={(e) => setInputs((p) => ({ ...p, position: e.target.value as Position }))} className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20">

@@ -259,8 +259,8 @@ export const OverheadAbsorptionCalculator: React.FC = () => {
         {/* Right Column: Results */}
         <div className="space-y-6">
           {/* Primary Result Card */}
-          <div className="border rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-3">Primary Result</h3>
+          <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3">Primary Result</div>
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Overhead Rate</span>
@@ -403,3 +403,5 @@ export const OverheadAbsorptionCalculator: React.FC = () => {
     </div>
   );
 };
+
+export default OverheadAbsorptionCalculator;

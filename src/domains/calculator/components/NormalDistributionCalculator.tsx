@@ -75,7 +75,7 @@ export default function NormalDistributionCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Z-Score</div>
               <div className="text-5xl font-extrabold text-foreground">{r.zScore}</div>
               <div className="text-sm text-muted-foreground mt-1">{r.percentile}th percentile · P(X ≤ {f.value}) = {r.pLeft}</div>

@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Construction, Sparkles } from "lucide-react";
 import { categories, allToolsWithComponents, findTool, findToolWithComponent } from "@/domains/typography/registry";
 import { toSlug } from "@/lib/utils/slug";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.name) === slug);
   if (category) return { title: `${category.name} — Racira Typography`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/typography/${slug}` } };
   const result = findTool(slug);
-  if (result) return { title: `${result.tool.name} — Racira Typography`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` } };
+  if (result) return { title: `${result.tool.name} — Racira Typography`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` }, robots: isComingSoonToolPage(result.tool, "typography") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 
@@ -50,16 +50,32 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
         </section>
         <div className="racira-page-container pb-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {category.tools.filter((t) => isLiveTool(t, "typography")).map((tool: any) => {
+            {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
-              return (
-                <Link key={tool.slug} href={`/typography/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
+              // No typography tool page renders a real tool — every card is inert.
+              const isLive = isLiveTool(tool, "typography");
+              const cardBody = (
+                <>
+                  {!isLive && (
+                    <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      Soon
+                    </span>
+                  )}
                   <div className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary/10 text-primary">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
+                </>
+              );
+              return isLive ? (
+                <Link key={tool.slug} href={`/typography/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
+                  {cardBody}
                 </Link>
+              ) : (
+                <div key={tool.slug} className="tool-card group hover:-translate-y-[3px] relative cursor-default">
+                  {cardBody}
+                </div>
               );
             })}
           </div>
@@ -85,19 +101,9 @@ function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
           title={tool.name}
         />
         <div className="racira-page-container pb-16">
-          {tool.status === "live" && Cmp ? (
-            <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
-              {React.createElement(Cmp)}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-primary/30 bg-primary/10 p-10 text-center">
-              <Construction className="mx-auto mb-4 h-10 w-10 text-primary" />
-              <h2 className="text-xl font-semibold">Coming soon</h2>
-              <Link href="/typography" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-                <Sparkles className="h-4 w-4" /> Browse all tools
-              </Link>
-            </div>
-          )}
+          <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
+            {React.createElement(Cmp)}
+          </div>
         </div>
       </main>
     </div>

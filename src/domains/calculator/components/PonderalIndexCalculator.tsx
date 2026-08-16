@@ -218,14 +218,6 @@ export default function PonderalIndexCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ponderal Index (PI)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
-            <strong>The 3D Advantage:</strong> The Ponderal Index (cubing your height) fixes the massive mathematical flaw inherent in standard BMI (squaring your height). It provides a significantly more accurate body mass assessment for individuals who are extremely tall (over 6'2") or extremely short (under 5'2").
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}

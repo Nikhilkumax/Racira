@@ -108,7 +108,7 @@ export default function BudgetRuleCalculator() {
               {showAdv && (
                 <div className="mt-2 p-3 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
                   <div className="flex flex-col gap-1.5">
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide block">Income Period</span>
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-2 block">Income Period</span>
                     <div className="flex rounded-md border border-border overflow-hidden">
                       {(["monthly", "annual"] as const).map(p => (
                         <button key={p} type="button" onClick={() => setPeriod(p)} className={`flex-1 py-1.5 text-sm font-semibold transition-colors ${period === p ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:bg-secondary"}`}>
@@ -144,9 +144,9 @@ export default function BudgetRuleCalculator() {
                     { label: "30% Wants", value: fmt(res.wants), cls: "from-amber-500/10 to-amber-500/5 border-amber-500/20 text-amber-600" },
                     { label: "20% Savings", value: fmt(res.savings), cls: "from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 text-emerald-600" },
                   ].map(item => (
-                    <div key={item.label} className={`bg-gradient-to-br ${item.cls.split(" text-")[0]} border rounded-xl p-4 text-center`}>
-                      <div className={`text-[11px] font-bold mb-1 uppercase tracking-wider ${item.cls.split("border-")[0].split("text-")[1] ? "text-" + item.cls.split(" text-")[1] : "text-muted-foreground"}`}>{item.label}</div>
-                      <div className="text-xl font-extrabold text-foreground">{item.value}</div>
+                    <div key={item.label} className={`${item.label === "50% Needs" ? "bg-primary/10 border-l-4 border-primary" : `bg-gradient-to-br ${item.cls.split(" text-")[0]} border`} rounded-xl p-4 text-center`}>
+                      <div className={`${item.label === "50% Needs" ? "text-xs uppercase tracking-wide text-muted-foreground" : `text-[11px] font-bold mb-1 uppercase tracking-wider ${item.cls.split("border-")[0].split("text-")[1] ? "text-" + item.cls.split(" text-")[1] : "text-muted-foreground"}`} mb-1`}>{item.label}</div>
+                      <div className={`text-xl font-extrabold ${item.label === "50% Needs" ? "text-primary" : "text-foreground"}`}>{item.value}</div>
                       <div className="text-xs text-muted-foreground mt-0.5">per month</div>
                     </div>
                   ))}

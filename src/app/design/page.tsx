@@ -1,16 +1,16 @@
 import Header from "@/components/Header";
 import Link from "next/link";
 import { categories } from "@/domains/design/registry";
-import { isLiveTool } from "@/lib/tools/liveToolFilters";
 import { LegalLinks } from "@/components/LegalLinks";
 import { Search } from "lucide-react";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 export const metadata = {
-  title: "Racira Design — 144 Free Design Tools in Your Browser",
-  description: "Layouts, icons, vectors, logos, UI kits, mockups and more. 144 free design tools — fast, simple, no signup.",
+  title: "Racira Design — Free Design Tools in Your Browser",
+  description: "Layouts, icons, vectors, logos, UI kits, mockups and more. Fast, simple, no signup.",
   openGraph: {
-    title: "Racira Design — 144 Free Design Tools",
-    description: "144 free design tools in your browser. No signup required."
+    title: "Racira Design — Free Design Tools",
+    description: "Free design tools in your browser. No signup required."
   }
 };
 
@@ -63,18 +63,16 @@ export default function Index() {
               <h2 className="text-xs font-bold tracking-[0.18em] uppercase text-muted-foreground">
                 {cat.name}
               </h2>
-              <span className="text-xs text-muted-foreground">{cat.tools.filter((t) => isLiveTool(t, "design")).length} tools</span>
+              <span className="text-xs text-muted-foreground">{cat.tools.length} tools</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cat.tools.filter((t) => isLiveTool(t, "design")).map((tool) => {
+              {cat.tools.map((tool) => {
                 const Icon = tool.icon;
-                return (
-                  <Link
-                    key={tool.slug}
-                    href={`/design/${tool.slug}`}
-                    className="tool-card group"
-                  >
-                    {tool.status !== "live" && (
+                // No design tool page renders a real tool — every card is inert.
+                const isLive = isLiveTool(tool, "design");
+                const cardBody = (
+                  <>
+                    {!isLive && (
                       <span className="absolute right-3 top-3 rounded-md bg-muted px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase text-muted-foreground">
                         Soon
                       </span>
@@ -84,7 +82,23 @@ export default function Index() {
                     </div>
                     <h3 className="font-semibold text-foreground leading-snug">{tool.name}</h3>
                     <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.desc}</p>
+                  </>
+                );
+                return isLive ? (
+                  <Link
+                    key={tool.slug}
+                    href={`/design/${tool.slug}`}
+                    className="tool-card group"
+                  >
+                    {cardBody}
                   </Link>
+                ) : (
+                  <div
+                    key={tool.slug}
+                    className="tool-card group relative cursor-default"
+                  >
+                    {cardBody}
+                  </div>
                 );
               })}
             </div>

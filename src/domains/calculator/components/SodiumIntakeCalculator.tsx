@@ -171,7 +171,7 @@ export default function SodiumIntakeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status === "Excessive" ? "bg-red-500/10 border-red-500" : result.status === "Ideal" ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.status === "Excessive" ? "bg-red-500/10 border-red-500" : result.status === "Ideal" ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status === "Excessive" ? "text-red-600" : result.status === "Ideal" ? "text-primary" : "text-amber-600"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.maxLimit} mg <span className="text-lg font-normal text-muted-foreground">/ max daily</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

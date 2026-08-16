@@ -170,14 +170,6 @@ export default function WaterAerobicsCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Water Aerobics Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-cyan-500/10 border-l-4 border-cyan-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-cyan-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-cyan-800 dark:text-cyan-400">
-            <strong>The Buoyancy Factor:</strong> Because water neutralizes gravity but multiplies resistance, you can achieve a massive cardiovascular calorie burn with virtually <strong>zero orthopedic impact</strong> on your knees, hips, or spine.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -217,7 +209,8 @@ export default function WaterAerobicsCalorieCalculator() {
             )}
 
             <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
+                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
                 <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
               </button>
             </div>

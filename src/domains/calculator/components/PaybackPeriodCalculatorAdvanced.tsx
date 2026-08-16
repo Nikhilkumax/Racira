@@ -132,6 +132,9 @@ export default function PaybackPeriodCalculatorAdvanced() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2">
+                    <h4 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Financial Assumptions</h4>
+                  </div>
                   <div>
                     <label className="text-sm font-semibold mb-1 block">Discount Rate</label>
                     <div className={inp}><input type="number" value={discountRate} onChange={e => setDiscountRate(e.target.value)} step={0.5} className={ci} /><span className={suf}>%</span></div>
@@ -153,7 +156,7 @@ export default function PaybackPeriodCalculatorAdvanced() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.isPositive ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.isPositive ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.isPositive ? "text-green-600" : "text-red-600"}`}>Payback Period</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.paybackYears.toFixed(2)} years</div>
                 <div className="text-base text-muted-foreground mt-1">{result.paybackMonths.toFixed(1)} months · ROI: {result.roi.toFixed(1)}% · IRR: {result.irr.toFixed(1)}%</div>
