@@ -24,7 +24,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
   for (const cat of categories) params.push({ slug: toSlug(cat.name) });
-  for (const tool of allToolsWithComponents) params.push({ slug: tool.slug });
+  for (const tool of allToolsWithComponents) {
+    if (isLiveTool(tool, "typography")) {
+      params.push({ slug: tool.slug });
+    }
+  }
   return params;
 }
 
@@ -115,6 +119,6 @@ export default async function PolymorphicPage({ params }: PageProps) {
   const category = categories.find((c) => toSlug(c.name) === slug);
   if (category) return <CategoryView category={category} />;
   const result = findToolWithComponent(slug);
-  if (result) return <ToolView tool={result.tool} categoryName={result.category} />;
+  if (result && isLiveTool(result.tool, "typography")) return <ToolView tool={result.tool} categoryName={result.category} />;
   notFound();
 }

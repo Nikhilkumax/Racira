@@ -1,27 +1,15 @@
-barometric-pressure-calculator	SEO: 351 words (needs 500) | subtitle under H1
-black-scholes-calculator	SEO: 422 words (needs 500) | subtitle under H1
-digital-nomad-cost-of-living-calculator	SEO: 175 words (needs 500)
-error-budget-burn-rate-calculator	SEO: 180 words (needs 500)
-keplers-laws-calculator	Advanced Options not grouped
-marathon-training-calculator	Advanced Options not grouped
-microfinance-loan-repayment-calculator	Advanced Options not grouped
-number-sequence-calculator	Advanced Options not grouped
-odometer-correction-calculator	subtitle under H1
-paint-calculator	subtitle under H1 | Advanced Options not grouped
-piti-mortgage-payment-calculator	Advanced Options not grouped
-plan529-calculator	subtitle under H1
-quadratic-formula-calculator	SEO: 444 words (needs 500) | subtitle under H1
-radiator-size-calculator	subtitle under H1
-rehab-loan-203k-estimator-calculator	Advanced Options not grouped
-safe-following-distance-calculator	subtitle under H1
-sba-7a-loan-payment-calculator	Advanced Options not grouped
-seasonal-payment-loan-calculator	Advanced Options not grouped
-simple-interest-loan-calculator	Advanced Options not grouped
-social-security-calculator	Advanced Options not grouped
-student-loan-calculator	Advanced Options not grouped
-tax-return-calculator	Advanced Options not grouped
-tire-load-index-calculator	subtitle under H1
-towing-capacity-calculator	subtitle under H1
-transmission-ratio-calculator	SEO: 409 words (needs 500) | subtitle under H1
-vehicle-weight-calculator	subtitle under H1
-wheel-horsepower-calculator	subtitle under H1
+paint-calculator — subtitle under H1
+student-loan-calculator — minor default value (0)
+black-scholes-calculator — subtitle under H1
+quadratic-formula-calculator — subtitle under H1
+plan529-calculator — subtitle under H1
+barometric-pressure-calculator — subtitle under H1
+radiator-size-calculator — subtitle under H1
+tire-load-index-calculator — subtitle under H1
+tire-pressure-calculator — subtitle under H1
+transmission-ratio-calculator — subtitle under H1
+wheel-horsepower-calculator — subtitle under H1
+towing-capacity-calculator — subtitle under H1
+safe-following-distance-calculator — subtitle under H1
+vehicle-weight-calculator — subtitle under H1
+odometer-correction-calculator — subtitle under H1

@@ -1,4 +1,0 @@
-body-frame-size-calculator	missing primary result card
-body-type-calculator	missing primary result card
-bond-duration-calculator	missing primary result card
-bonus-calculator	missing primary result card

@@ -1,8 +1,0 @@
-glycemic-index-calculator
-vitamin-d-calculator
-healthy-weight-range-calculator
-glasgow-coma-scale-calculator
-pulse-ox-calculator
-heart-attack-risk-calculator
-menstrual-cycle-length-calculator
-meld-score-calculator

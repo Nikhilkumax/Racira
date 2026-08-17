@@ -1,4 +1,0 @@
-cooking-temperature-converter	file < 8KB (4.3KB), no Recharts import, missing primary result card
-cooking-time-calculator	file < 8KB (4.2KB), no Recharts import, missing primary result card
-coordinate-geometry-calculator	file < 8KB (4.3KB), no Recharts import, missing primary result card
-correlation-coefficient-calculator	file < 8KB (4.3KB), no Recharts import, missing primary result card

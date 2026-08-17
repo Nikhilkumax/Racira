@@ -1,8 +1,0 @@
-GlasgowComaScaleCalculator.tsx
-GlycemicIndexCalculator.tsx
-HealthyWeightRangeCalculator.tsx
-HeartAttackRiskCalculator.tsx
-MeldScoreCalculator.tsx
-MenstrualCycleLengthCalculator.tsx
-PulseOxCalculator.tsx
-VitaminDCalculator.tsx
