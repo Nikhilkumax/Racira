@@ -1,0 +1,1494 @@
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⨯ ./src/app/calculator/lazyComponents.tsx
+Error: 
+  [31mx[0m Expected ',', got ':'
+      ,-[[36;1;4mC:\Racira\racira-nextjs\src\app\calculator\lazyComponents.tsx[0m:1436:1]
+ [2m1436[0m |   "elearning-seat-time-calculator": () => import("@/domains/calculator/components/ELearningSeatTimeCalculator"),
+ [2m1437[0m |   "quarter-to-semester-credit-calculator": () => import("@/domains/calculator/components/QuarterToSemesterCreditCalculator"),
+ [2m1438[0m |   
+ [2m1439[0m |   TOTAL: 82 | no-file: 2
+      : [31;1m                     ^[0m
+ [2m1440[0m |   "freelancer-tax-calculator": () => import("@/domains/calculator/components/FreelanceTaxCalculator"),
+ [2m1441[0m |   "laundry-loads-per-month-cost-calculator": () => import("@/domains/calculator/components/LaundryLoadsCostCalculator"),
+ [2m1441[0m | };
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/calculator/lazyComponents.tsx
+./src/app/calculator/[slug]/page.tsx
+ ⨯ ./src/app/calculator/lazyComponents.tsx
+Error: 
+  [31mx[0m Expected ',', got ':'
+      ,-[[36;1;4mC:\Racira\racira-nextjs\src\app\calculator\lazyComponents.tsx[0m:1436:1]
+ [2m1436[0m |   "elearning-seat-time-calculator": () => import("@/domains/calculator/components/ELearningSeatTimeCalculator"),
+ [2m1437[0m |   "quarter-to-semester-credit-calculator": () => import("@/domains/calculator/components/QuarterToSemesterCreditCalculator"),
+ [2m1438[0m |   
+ [2m1439[0m |   TOTAL: 82 | no-file: 2
+      : [31;1m                     ^[0m
+ [2m1440[0m |   "freelancer-tax-calculator": () => import("@/domains/calculator/components/FreelanceTaxCalculator"),
+ [2m1441[0m |   "laundry-loads-per-month-cost-calculator": () => import("@/domains/calculator/components/LaundryLoadsCostCalculator"),
+ [2m1441[0m | };
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/calculator/lazyComponents.tsx
+./src/app/calculator/[slug]/page.tsx
+ ⨯ ./src/app/calculator/lazyComponents.tsx
+Error: 
+  [31mx[0m Expected ',', got ':'
+      ,-[[36;1;4mC:\Racira\racira-nextjs\src\app\calculator\lazyComponents.tsx[0m:1436:1]
+ [2m1436[0m |   "elearning-seat-time-calculator": () => import("@/domains/calculator/components/ELearningSeatTimeCalculator"),
+ [2m1437[0m |   "quarter-to-semester-credit-calculator": () => import("@/domains/calculator/components/QuarterToSemesterCreditCalculator"),
+ [2m1438[0m |   
+ [2m1439[0m |   TOTAL: 82 | no-file: 2
+      : [31;1m                     ^[0m
+ [2m1440[0m |   "freelancer-tax-calculator": () => import("@/domains/calculator/components/FreelanceTaxCalculator"),
+ [2m1441[0m |   "laundry-loads-per-month-cost-calculator": () => import("@/domains/calculator/components/LaundryLoadsCostCalculator"),
+ [2m1441[0m | };
+      `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/app/calculator/lazyComponents.tsx
+./src/app/calculator/[slug]/page.tsx
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (231kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Server is approaching the used memory threshold, restarting...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Server is approaching the used memory threshold, restarting...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⨯ src\components\SearchCalculators.tsx (143:40) @ toLocaleString
+ ⨯ TypeError: Cannot read properties of undefined (reading 'toLocaleString')
+    at SearchCalculators (./src/components/SearchCalculators.tsx:140:54)
+digest: "1557878658"
+[0m [90m 141 |[39m             handleLoadRegistry()[33m;[39m[0m
+[0m [90m 142 |[39m           }}[0m
+[0m[31m[1m>[22m[39m[90m 143 |[39m           placeholder[33m=[39m{[32m`Search ${count.toLocaleString()} calculators...`[39m}[0m
+[0m [90m     |[39m                                        [31m[1m^[22m[39m[0m
+[0m [90m 144 |[39m           className[33m=[39m[32m"w-full h-11 pl-10 pr-16 rounded-lg border border-border bg-card text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/40 transition-shadow"[39m[0m
+[0m [90m 145 |[39m           aria[33m-[39mlabel[33m=[39m[32m"Search calculators"[39m[0m
+[0m [90m 146 |[39m         [33m/[39m[33m>[39m[0m
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Server is approaching the used memory threshold, restarting...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Server is approaching the used memory threshold, restarting...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Server is approaching the used memory threshold, restarting...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (230kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (239kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (240kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at listOnTimeout (node:internal/timers:567:9)
+    at process.processTimers (node:internal/timers:541:7)
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './89379.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-middleware.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:162:22)
+    at C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7329
+    at Object.<anonymous> (C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js:1:7380)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js:109:84)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:84
+    at async loadComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js:98:26)
+    at async DevServer.findPageComponentsImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\next-server.js:709:36)
+    at async DevServer.findPageComponents (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2074:30)
+    at async pipe.req.req (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:2040:30)
+    at async DevServer.pipeImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\base-server.js:921:25)
+    at async C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (C:\Racira\racira-nextjs\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:173:21)
+    at async handleRequest (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:365:24)
+    at async requestHandlerImpl (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\router-server.js:374:13)
+    at async Server.requestListener (C:\Racira\racira-nextjs\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Failed to generate static paths for /pdf/[slug]:
+Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\pdf\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\pdf\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ]
+}
+ ⨯ Failed to generate static paths for /calculator/[slug]:
+Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\calculator\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\calculator\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ]
+}
+ ⨯ Failed to generate static paths for /calculator/[slug]:
+Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\calculator\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\calculator\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ]
+}
+ ⨯ Error: Cannot find module './_rsc_src_domains_calculator_components_SpeedDistanceTimeCalculator_tsx.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\(home)\page.js
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28)
+    at C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:110:67)
+    at speed-distance-time-calculator [as loader] (./src/app/calculator/lazyComponents.tsx:1415:63)
+    at stringify (<anonymous>)
+    at stringify (<anonymous>)
+digest: "2739719574"
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/core-util-is' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js', but to 'Error: Can't resolve './vendor-chunks/core-util-is' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/core-util-is (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/core-util-is' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js', but to 'Error: Can't resolve './vendor-chunks/core-util-is' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/core-util-is (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/core-util-is' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js', but to 'Error: Can't resolve './vendor-chunks/core-util-is' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/core-util-is (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/core-util-is' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js', but to 'Error: Can't resolve './vendor-chunks/core-util-is' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/core-util-is (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/file-saver' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\file-saver.js', but to 'Error: Can't resolve './vendor-chunks/file-saver' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/file-saver (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\file-saver.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ⨯ Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\pdf\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\pdf\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ],
+  page: '/pdf/organize-pages'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js', but to 'Error: Can't resolve './_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx (expected C:\Racira\racira-nextjs\.next\server\_rsc_src_domains_calculator_components_TaxEquivalentYieldCalculator_tsx.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/core-util-is' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js', but to 'Error: Can't resolve './vendor-chunks/core-util-is' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/core-util-is (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\core-util-is.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/file-saver' in C:\Racira\racira-nextjs\.next\server for build dependencies doesn't lead to expected result 'C:\Racira\racira-nextjs\.next\server\vendor-chunks\file-saver.js', but to 'Error: Can't resolve './vendor-chunks/file-saver' in 'C:\Racira\racira-nextjs\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/file-saver (expected C:\Racira\racira-nextjs\.next\server\vendor-chunks\file-saver.js)
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file C:\Racira\racira-nextjs\.next\server\pages\_app.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Racira\racira-nextjs\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ⨯ Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\calculator\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\calculator\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ],
+  page: '/calculator/speed-distance-time-calculator'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+digest: "3631479896"
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458) {
+  page: '/calculator'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+digest: "3631479896"
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458) {
+  page: '/calculator'
+}
+ ⨯ Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\calculator\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\calculator\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ],
+  page: '/calculator/speed-distance-time-calculator'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+digest: "3631479896"
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458) {
+  page: '/calculator'
+}
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at JSON.parse (<anonymous>)
+digest: "3631479896"
+TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458)
+ ⨯ TypeError: Cannot read properties of undefined (reading 'call')
+    at Object.__webpack_require__ [as require] (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:33:43)
+    at require (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:39:19918)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108279
+    at eo (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108464)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:110693
+    at Object._fromJSON (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:111249)
+    at JSON.parse (<anonymous>)
+    at eu (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108958)
+    at en (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:108026)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115168
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115185
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115218
+    at C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115235
+    at t (C:\Racira\racira-nextjs\node_modules\next\dist\compiled\next-server\app-page.runtime.dev.js:35:115458) {
+  page: '/calculator'
+}
+ ⨯ Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\calculator\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\calculator\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ],
+  page: '/calculator/speed-distance-time-calculator'
+}
+ ⨯ Error: Cannot find module './vendor-chunks/lucide-react.js'
+Require stack:
+- C:\Racira\racira-nextjs\.next\server\webpack-runtime.js
+- C:\Racira\racira-nextjs\.next\server\app\pdf\[slug]\page.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\require.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\load-components.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\build\utils.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\server\dev\static-paths-worker.js
+- C:\Racira\racira-nextjs\node_modules\next\dist\compiled\jest-worker\processChild.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (C:\Racira\racira-nextjs\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (C:\Racira\racira-nextjs\.next\server\webpack-runtime.js:203:28) {
+  type: 'Error',
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Racira\\racira-nextjs\\.next\\server\\webpack-runtime.js',
+    'C:\\Racira\\racira-nextjs\\.next\\server\\app\\pdf\\[slug]\\page.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\server\\dev\\static-paths-worker.js',
+    'C:\\Racira\\racira-nextjs\\node_modules\\next\\dist\\compiled\\jest-worker\\processChild.js'
+  ],
+  page: '/pdf/organize-pages'
+}

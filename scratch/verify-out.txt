@@ -1,0 +1,111 @@
+
+=================== RESULTS ===================
+PASS  all 22 slugs registered in securityTools
+      found 22/22
+PASS  no duplicate slugs in securityTools
+      []
+PASS  word list identical to security domain (501 words)
+      501 words
+PASS  passphrase-generator: 5 words joined by '-'
+      form-pool-seem-knee-loan
+PASS  passphrase-generator: respects count/separator
+      fate_call_live_tale
+PASS  password-entropy-calculator: 'password' → 8 chars, pool 26, 37.6 bits
+      "Length: 8\nCharacter pool: 26\nEstimated entropy: 37.6 bits"
+PASS  password-pattern-analyzer: detects common sequence
+      "• Common sequence detected"
+PASS  password-pattern-analyzer: flags short/repeated
+      "• Repeated characters (3+)\n• Length below 10\n• No uppercase\n• No digits\n• No symbols"
+PASS  common-password-checker: case-insensitive hit
+      ⚠ Found in common password list
+PASS  common-password-checker: non-common miss
+      ✓ Not in built-in common list
+PASS  password-length-estimator: len12/pool94 → 1.51e+6 years
+      Estimated crack time @ 10B guesses/sec: 1.51e+6 years
+PASS  pin-generator: 8-digit numeric ×3
+      60750207,03787839,23070843
+PASS  memorable-password-generator: Word-Word##sym shape ×5
+      Laid-copy67& | Poll-past64? | Bird-logo84$ | Seem-very77& | Less-much14?
+PASS  password-comparison-tool: identical → Identical
+      ✓ Identical
+PASS  password-comparison-tool: different → Different
+      ✗ Different
+PASS  aes-encryption-decryption-tool: roundtrip
+      ct=qgard53r+F4230DxavxATG4J… → "hello secret"
+PASS  aes-encryption-decryption-tool: wrong password fails
+      threw as expected
+PASS  rsa-key-generator: PEM blocks present
+      pub=true prv=true
+PASS  rsa-key-generator: public key imports as RSA-OAEP SPKI
+      WebCrypto importKey ok
+PASS  elliptic-curve-key-generator: PEM blocks present
+      pub=true
+PASS  elliptic-curve-key-generator: public key imports as ECDSA P-256 SPKI
+      WebCrypto importKey ok
+PASS  caesar-cipher-tool: shift 3 → 'KHOOR Zruog!'
+      KHOOR Zruog!
+PASS  caesar-cipher-tool: shift -3 roundtrip
+      HELLO World!
+PASS  vigenre-cipher-tool: HELLO/KEY → RIJVS
+      RIJVS
+PASS  vigenre-cipher-tool: decrypt roundtrip
+      HELLO
+PASS  xor-cipher-tool: abc^k → base64 of [10,9,8] = 'CgkI'
+      CgkI
+PASS  xor-cipher-tool: matches reference XOR
+      EBwWFBY= vs EBwWFBY=
+PASS  rail-fence-cipher-tool: classic 3-rail vector
+      WECRLTEERDSOEEFEAOCAIVDEN
+PASS  rail-fence-cipher-tool: decrypt roundtrip
+      WEAREDISCOVEREDFLEEATONCE
+PASS  zero-width-character-inserter: host + invisible chars
+      len=23
+PASS  zero-width-character-inserter: secret decodes to 'hi'
+      "hi"
+PASS  jwt-validator: valid token passes
+      ✓ Structure valid, no temporal issues.
+PASS  jwt-validator: expired flagged
+      • Expired (exp=1786695353)
+PASS  jwt-validator: missing iss/sub flagged
+      • Missing iss claim
+• Missing sub claim
+PASS  jwt-validator: malformed flagged
+      • Token must have 3 dot-separated parts
+• Invalid header
+• Invalid payload
+PASS  hash-comparison-tool: case-insensitive match
+      ✓ Match
+PASS  hash-comparison-tool: different → Different
+      ✗ Different
+PASS  csp-validator: flags unsafe-inline + missing frame-ancestors
+      "• Uses 'unsafe-inline' (allows inline scripts)\n• Missing frame-ancestors (clickjacking)"
+PASS  csp-validator: clean CSP passes
+      ✓ No common issues detected.
+PASS  subresource-integrity-generator: matches sha256 of served asset
+      sha256-LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ= vs sha256-LPJNul+wow4m6DsqxbninhsWHlwfp0JecwQzYpOLmCQ=
+PASS  subresource-integrity-generator: SHA-384 variant
+      sha384-WeF0h3dEj… vs sha384-WeF0h3dEj…
+PASS  subresource-integrity-generator: bad URL throws
+      threw as expected
+PASS  api-key-format-detector: detects Stripe live secret
+      ✓ Matches: Stripe Live Secret
+PASS  api-key-format-detector: detects GitHub PAT
+      ✓ Matches: GitHub PAT (classic)
+PASS  api-key-format-detector: unknown → no match
+      No known format matched.
+PASS  jwt-hs256-verifier: correct secret verifies
+      ✓ Signature valid (HS256)
+PASS  jwt-hs256-verifier: wrong secret rejected
+      ✗ Signature does NOT match
+PASS  registry: 316 tools
+      316
+PASS  registry: all 22 new names present
+      missing: []
+PASS  registry: all 51 security slugs in built set
+      missing from built: []
+PASS  developers page count updated to 316
+      page.tsx contains 316
+PASS  registry: no duplicate slugs
+      316 unique
+==============================================
+TOTAL: 52 checks, 0 failed

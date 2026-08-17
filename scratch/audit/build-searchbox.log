@@ -1,0 +1,222 @@
+
+> racira-nextjs@0.1.0 prebuild
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.15
+
+   Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (228kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (228kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (228kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (228kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (227kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ⚠ Compiled with warnings
+
+./node_modules/@huggingface/transformers/node_modules/onnxruntime-web/dist/ort.bundle.min.mjs
+Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+
+Import trace for requested module:
+./node_modules/@huggingface/transformers/node_modules/onnxruntime-web/dist/ort.bundle.min.mjs
+./node_modules/@huggingface/transformers/dist/transformers.web.js
+./node_modules/kokoro-js/dist/kokoro.js
+./src/domains/voice/lib/kokoroEngine.ts
+./src/domains/voice/components/tts/KokoroGenerator.tsx
+
+./node_modules/@huggingface/transformers/dist/transformers.web.js
+Critical dependency: Accessing import.meta directly is unsupported (only property access or destructuring is supported)
+
+Import trace for requested module:
+./node_modules/@huggingface/transformers/dist/transformers.web.js
+./node_modules/kokoro-js/dist/kokoro.js
+./src/domains/voice/lib/kokoroEngine.ts
+./src/domains/voice/components/tts/KokoroGenerator.tsx
+
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/15317) ...
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+Warning: Please use the `legacy` build in Node.js environments.
+   Generating static pages (3829/15317) 
+   Generating static pages (7658/15317) 
+   Generating static pages (11487/15317) 
+ ✓ Generating static pages (15317/15317)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                        Size     First Load JS
+┌ ○ /                                              6.36 kB         111 kB
+├ ○ /_not-found                                    161 B          88.8 kB
+├ ○ /3d                                            5.39 kB         307 kB
+├ ● /3d/[slug]                                     2.11 kB         118 kB
+├   ├ /3d/3d-viewing-and-inspection
+├   ├ /3d/3d-model-viewer-gltf-obj-stl
+├   ├ /3d/gltf-inspector
+├   └ [+122 more paths]
+├ ○ /about                                         214 B          95.7 kB
+├ ○ /ai-tools                                      161 B          88.8 kB
+├ ○ /animator                                      7.21 kB         289 kB
+├ ● /animator/[slug]                               250 B           116 kB
+├   ├ /animator/css-animation
+├   ├ /animator/css-keyframe-builder
+├   ├ /animator/css-transition-builder
+├   └ [+124 more paths]
+├ ○ /audio                                         14.3 kB         316 kB
+├ ● /audio/[slug]                                  2.73 kB         119 kB
+├   ├ /audio/audio-conversion
+├   ├ /audio/mp3-converter
+├   ├ /audio/wav-converter
+├   └ [+245 more paths]
+├ ○ /cad                                           5.23 kB         307 kB
+├ ● /cad/[slug]                                    250 B           116 kB
+├   ├ /cad/2d-drafting
+├   ├ /cad/2d-cad-sketch-tool
+├   ├ /cad/floor-plan-drawer
+├   └ [+125 more paths]
+├ ○ /calculator                                    1.08 kB         101 kB
+├ ● /calculator/[slug]                             4.21 MB        4.53 MB
+├   ├ /calculator/finance
+├   ├ /calculator/business
+├   ├ /calculator/health
+├   └ [+12058 more paths]
+├ ○ /colors                                        15 kB           206 kB
+├ ● /colors/[slug]                                 551 B           180 kB
+├   ├ /colors/color-pickers
+├   ├ /colors/palette-tools
+├   ├ /colors/color-accessibility
+├   └ [+235 more paths]
+├ ○ /contact                                       214 B          95.7 kB
+├ ○ /design                                        250 B           116 kB
+├ ● /design/[slug]                                 250 B           116 kB
+├   ├ /design/layout-and-composition
+├   ├ /design/icon-and-symbol
+├   ├ /design/vector-and-svg
+├   └ [+163 more paths]
+├ ○ /developers                                    950 B           101 kB
+├ ● /developers/[slug]                             250 B           116 kB
+├   ├ /developers/json-and-data
+├   ├ /developers/encoding
+├   ├ /developers/security
+├   └ [+331 more paths]
+├ ○ /disclaimer                                    214 B          95.7 kB
+├ ○ /finance                                       1.4 kB          127 kB
+├ ○ /finance/about                                 220 B           125 kB
+├ ○ /finance/admin                                 2.55 kB         107 kB
+├ ○ /finance/admin/categories                      7.7 kB          121 kB
+├ ○ /finance/admin/media                           7.45 kB         121 kB
+├ ○ /finance/admin/posts                           8.2 kB          122 kB
+├ ○ /finance/admin/posts/new                       12.8 kB         157 kB
+├ ○ /finance/admin/tags                            7.32 kB         121 kB
+├ ƒ /finance/authors/[slug]                        220 B           125 kB
+├ ○ /finance/blog                                  2.71 kB         133 kB
+├ ƒ /finance/blog/[slug]                           1.4 kB          127 kB
+├ ƒ /finance/category/[slug]                       220 B           125 kB
+├ ○ /finance/contact                               1.22 kB         132 kB
+├ ƒ /finance/tag/[slug]                            220 B           125 kB
+├ ○ /games                                         950 B           101 kB
+├ ● /games/[slug]                                  1.42 kB         117 kB
+├   ├ /games/puzzle-games
+├   ├ /games/word-games
+├   ├ /games/math-and-number-games
+├   └ [+645 more paths]
+├ ○ /image                                         3.05 kB         305 kB
+├ ○ /image-tools                                   214 B          95.7 kB
+├ ● /image/[slug]                                  250 B           116 kB
+├   ├ /image/conversion
+├   ├ /image/jpg-to-png
+├   ├ /image/png-to-jpg
+├   └ [+36 more paths]
+├ ○ /pdf                                           4.31 kB         293 kB
+├ ○ /pdf-tools                                     214 B          95.7 kB
+├ ● /pdf/[slug]                                    124 kB          655 kB
+├   ├ /pdf/organize-pdf
+├   ├ /pdf/convert-from-pdf
+├   ├ /pdf/convert-to-pdf
+├   └ [+196 more paths]
+├ ○ /pdf/sitemap.xml                               0 B                0 B
+├ ○ /photo                                         7.75 kB         136 kB
+├ ● /photo/[slug]                                  250 B           116 kB
+├   ├ /photo/raw-processing
+├   ├ /photo/exposure-and-tone
+├   ├ /photo/color-grading-and-correction
+├   └ [+130 more paths]
+├ ○ /privacy-policy                                214 B          95.7 kB
+├ ○ /productivity                                  8.83 kB         129 kB
+├ ● /productivity/[slug]                           251 B           116 kB
+├   ├ /productivity/focus-and-time-management
+├   ├ /productivity/task-and-project-productivity
+├   ├ /productivity/writing-and-knowledge-work
+├   └ [+79 more paths]
+├ ○ /robots.txt                                    0 B                0 B
+├ ○ /seo                                           11.1 kB         138 kB
+├ ● /seo/[slug]                                    250 B           116 kB
+├   ├ /seo/keyword-tools
+├   ├ /seo/on-page-seo-analysis
+├   ├ /seo/content-optimization
+├   └ [+257 more paths]
+├ ○ /sitemap-calculator-categories.xml             0 B                0 B
+├ ○ /sitemap-calculator-subcategories.xml          0 B                0 B
+├ ○ /sitemap-pages.xml                             0 B                0 B
+├ ○ /sitemap.xml                                   0 B                0 B
+├ ● /sitemaps/[key]/[category]/[page]              0 B                0 B
+├   ├ /sitemaps/calculators/finance/1
+├   ├ /sitemaps/calculators/business/1
+├   ├ /sitemaps/calculators/health/1
+├   └ [+36 more paths]
+├ ○ /terms-of-service                              214 B          95.7 kB
+├ ○ /typography                                    1.93 kB         123 kB
+├ ● /typography/[slug]                             1.84 kB         118 kB
+├   ├ /typography/font-preview-and-testing
+├   ├ /typography/type-scale-and-spacing
+├   ├ /typography/font-conversion-and-export
+├   └ [+114 more paths]
+├ ○ /video                                         950 B           101 kB
+├ ● /video/[slug]                                  251 B           116 kB
+├   ├ /video/video-conversion
+├   ├ /video/video-trimming-and-editing
+├   ├ /video/video-compression-and-optimization
+├   └ [+164 more paths]
+├ ○ /voice                                         14.4 kB         146 kB
+├ ● /voice/[slug]                                  250 B           116 kB
+├ ○ /writing                                       10.5 kB         133 kB
+└ ● /writing/[slug]                                251 B           116 kB
+    ├ /writing/text-editing-and-drafting
+    ├ /writing/grammar-and-style
+    ├ /writing/spelling-and-proofreading
+    └ [+157 more paths]
++ First Load JS shared by all                      88.7 kB
+  ├ chunks/2117-648bd1c6c1281404.js                31.8 kB
+  ├ chunks/fd9d1056-e626b51423258c13.js            53.6 kB
+  └ other shared chunks (total)                    3.26 kB
+
+
+ƒ Middleware                                       26.6 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
+ƒ  (Dynamic)  server-rendered on demand
+

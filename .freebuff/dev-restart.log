@@ -1,0 +1,235 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 10.6s
+ ○ Compiling / ...
+ ✓ Compiled / in 1435ms (637 modules)
+ GET / 200 in 1678ms
+ ○ Compiling /audio/[slug] ...
+ ✓ Compiled /audio/[slug] in 4.3s (2374 modules)
+ GET /audio/audio-conversion 200 in 4943ms
+ ○ Compiling /photo ...
+ ✓ Compiled /photo in 4.3s (2616 modules)
+ GET /photo 200 in 4663ms
+ GET /audio/audio-conversion 200 in 135ms
+ ○ Compiling /games/[slug] ...
+ ✓ Compiled /games/[slug] in 2.3s (2742 modules)
+ GET /games/wordle-variants 200 in 2819ms
+ GET / 200 in 56ms
+ GET / 200 in 39ms
+ GET /photo 200 in 87ms
+ GET / 200 in 74ms
+ ○ Compiling /developers ...
+ ✓ Compiled /developers in 14s (2651 modules)
+ ○ Compiling /developers/[slug] ...
+ ✓ Compiled /developers/[slug] in 3.3s (2661 modules)
+ GET / 200 in 429ms
+ ○ Compiling /calculator ...
+ ✓ Compiled /calculator in 8.4s (2864 modules)
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 66.9s (13294 modules)
+ GET / 200 in 45619ms
+ ○ Compiling /pdf ...
+ ✓ Compiled /pdf in 18.5s (13750 modules)
+ GET / 200 in 2657ms
+ GET / 200 in 131ms
+ GET /developers 200 in 180ms
+ ○ Compiling /pdf/[slug] ...
+ ✓ Compiled /pdf/[slug] in 6.6s (13839 modules)
+ GET /pdf/organize-pdf 200 in 12385ms
+Warning: Please use the `legacy` build in Node.js environments.
+ GET /pdf/merge 200 in 352ms
+ GET /pdf 200 in 216ms
+ ✓ Compiled in 3.6s (13839 modules)
+ GET /developers 200 in 703ms
+Warning: Please use the `legacy` build in Node.js environments.
+ GET /pdf/merge 200 in 236ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1130ms (8359 modules)
+ GET / 200 in 1298ms
+ GET /calculator 200 in 238ms
+ GET /calculator/investment-and-wealth 200 in 1593ms
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3.6s
+ ○ Compiling / ...
+ ✓ Compiled / in 9.7s (651 modules)
+ GET / 200 in 10062ms
+ ○ Compiling /3d ...
+ ✓ Compiled /3d in 5s (3817 modules)
+ GET /3d 200 in 5260ms
+ ○ Compiling /animator ...
+ ✓ Compiled /animator in 1576ms (3819 modules)
+ GET /animator 200 in 1817ms
+ ○ Compiling /audio ...
+ ✓ Compiled /audio in 1261ms (5379 modules)
+ GET /audio 200 in 1618ms
+ ○ Compiling /audio/[slug] ...
+ ✓ Compiled /audio/[slug] in 3.2s (5453 modules)
+ GET /audio/audio-conversion 200 in 3960ms
+ ○ Compiling /cad ...
+ ✓ Compiled /cad in 1908ms (5467 modules)
+ GET /cad 200 in 2177ms
+ ○ Compiling /colors ...
+ ✓ Compiled /colors in 1558ms (5960 modules)
+ GET /colors 200 in 1743ms
+ ○ Compiling /design ...
+ ✓ Compiled /design in 607ms (5968 modules)
+ GET /design 200 in 735ms
+ ○ Compiling /design/[slug] ...
+ ✓ Compiled /design/[slug] in 898ms (5970 modules)
+ GET /design/layout-and-composition 200 in 1579ms
+ ○ Compiling /developers ...
+ ✓ Compiled /developers in 1060ms (5979 modules)
+ GET /developers 200 in 1322ms
+ ○ Compiling /developers/[slug] ...
+ ✓ Compiled /developers/[slug] in 874ms (5981 modules)
+ GET /developers/json-and-data 200 in 1405ms
+ ○ Compiling /games ...
+ ✓ Compiled /games in 853ms (5997 modules)
+ GET /games 200 in 971ms
+ ○ Compiling /games/[slug] ...
+ ✓ Compiled /games/[slug] in 1472ms (6107 modules)
+ GET /games/wordle-variants 200 in 1906ms
+ ○ Compiling /image ...
+ ✓ Compiled /image in 916ms (6121 modules)
+ GET /image 200 in 1119ms
+ ○ Compiling /image/[slug] ...
+ ✓ Compiled /image/[slug] in 883ms (6123 modules)
+ GET /image/conversion 200 in 1371ms
+ ○ Compiling /pdf ...
+ ✓ Compiled /pdf in 1445ms (6570 modules)
+ GET /pdf 200 in 1801ms
+ ○ Compiling /pdf/[slug] ...
+ ✓ Compiled /pdf/[slug] in 4.3s (6677 modules)
+ GET /pdf/organize-pdf 200 in 5082ms
+Warning: Please use the `legacy` build in Node.js environments.
+ GET /pdf/merge 200 in 383ms
+ ○ Compiling /photo ...
+ ✓ Compiled /photo in 2.9s (6693 modules)
+ GET /photo 200 in 3086ms
+ ○ Compiling /photo/[slug] ...
+ ✓ Compiled /photo/[slug] in 1725ms (6697 modules)
+ GET /photo/raw-processing 200 in 2317ms
+ ○ Compiling /productivity ...
+ ✓ Compiled /productivity in 1634ms (6717 modules)
+ GET /productivity 200 in 1721ms
+ ○ Compiling /productivity/[slug] ...
+ ✓ Compiled /productivity/[slug] in 1316ms (6721 modules)
+ GET /productivity/focus-and-time-management 200 in 1884ms
+ ○ Compiling /seo ...
+ ✓ Compiled /seo in 1536ms (6737 modules)
+ GET /seo 200 in 1669ms
+ ○ Compiling /seo/[slug] ...
+ ✓ Compiled /seo/[slug] in 1232ms (6741 modules)
+ GET /seo/meta-tags 404 in 1796ms
+ ○ Compiling /typography ...
+ ✓ Compiled /typography in 1348ms (6752 modules)
+ GET /typography 200 in 1441ms
+ ○ Compiling /typography/[slug] ...
+ ✓ Compiled /typography/[slug] in 1471ms (6756 modules)
+ GET /typography/font-preview-and-testing 200 in 2001ms
+ ○ Compiling /video ...
+ ✓ Compiled /video in 1366ms (6763 modules)
+ GET /video 200 in 1514ms
+ ○ Compiling /video/[slug] ...
+ ✓ Compiled /video/[slug] in 1246ms (6765 modules)
+ GET /video/video-conversion 200 in 1867ms
+ ○ Compiling /writing ...
+ ✓ Compiled /writing in 1540ms (6783 modules)
+ GET /writing 200 in 1640ms
+ ○ Compiling /writing/[slug] ...
+ ✓ Compiled /writing/[slug] in 1262ms (6746 modules)
+ GET /writing/text-editing-and-drafting 200 in 1763ms
+ ✓ Compiled in 1619ms (2546 modules)
+ ✓ Compiled in 490ms (2546 modules)
+ ○ Compiling /calculator ...
+ ✓ Compiled /calculator in 4.9s (4563 modules)
+ GET /calculator 200 in 5361ms
+ GET /calculator 200 in 129ms
+ GET /calculator 200 in 113ms
+ GET /calculator 200 in 92ms
+ GET /calculator 200 in 112ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 26.4s (13675 modules)
+ GET /calculator/finance 200 in 31816ms
+ GET /calculator/finance 200 in 78ms
+ GET /calculator/finance 200 in 51ms
+ ○ Compiling /sitemap.xml ...
+ ✓ Compiled /sitemap.xml in 1852ms (8009 modules)
+ GET /sitemap.xml 200 in 2199ms
+ ○ Compiling /sitemap-pages.xml ...
+ ✓ Compiled /sitemap-pages.xml in 1365ms (8011 modules)
+ GET /sitemap-pages.xml 200 in 1536ms
+ ○ Compiling /sitemap-calculator-categories.xml ...
+ ✓ Compiled /sitemap-calculator-categories.xml in 799ms (8013 modules)
+ GET /sitemap-calculator-categories.xml 200 in 938ms
+ ○ Compiling /sitemap-calculator-subcategories.xml ...
+ ✓ Compiled /sitemap-calculator-subcategories.xml in 1368ms (8015 modules)
+ GET /sitemap-calculator-subcategories.xml 200 in 1526ms
+ ○ Compiling /sitemaps/[key]/[category]/[page] ...
+ ✓ Compiled /sitemaps/[key]/[category]/[page] in 739ms (8017 modules)
+ GET /sitemaps/calculators/finance/1 200 in 1669ms
+ GET /sitemaps/calculators/business/1 200 in 15ms
+ GET /sitemaps/calculators/health/1 200 in 10ms
+ GET /sitemaps/calculators/math/1 200 in 12ms
+ GET /sitemaps/calculators/science/1 200 in 9ms
+ GET /sitemaps/calculators/engineering/1 200 in 8ms
+ GET /sitemaps/calculators/technology/1 200 in 9ms
+ GET /sitemaps/calculators/environment/1 200 in 9ms
+ GET /sitemaps/calculators/everydaylife/1 200 in 11ms
+ GET /sitemaps/calculators/transportation/1 200 in 10ms
+ GET /sitemaps/calculators/construction/1 200 in 10ms
+ GET /sitemaps/calculators/education/1 200 in 10ms
+ GET /sitemaps/3d/3d-viewing-and-inspection/1 200 in 8ms
+ GET /sitemaps/audio/audio-conversion/1 200 in 7ms
+ GET /sitemaps/colors/color-pickers/1 200 in 8ms
+ GET /sitemaps/colors/palette-tools/1 200 in 9ms
+ GET /sitemaps/colors/color-accessibility/1 200 in 19ms
+ GET /sitemaps/colors/color-analysis/1 200 in 9ms
+ GET /sitemaps/colors/manipulation/1 200 in 8ms
+ GET /sitemaps/colors/gradient-tools/1 200 in 9ms
+ GET /sitemaps/colors/design-effects/1 200 in 9ms
+ GET /sitemaps/colors/css-and-developer-output/1 200 in 9ms
+ GET /sitemaps/colors/design-system-references/1 200 in 8ms
+ GET /sitemaps/colors/color-data-and-export/1 200 in 14ms
+ GET /sitemaps/colors/fun-and-creative/1 200 in 11ms
+ GET /sitemaps/colors/color-theory/1 200 in 7ms
+ GET /sitemaps/pdf/organize-pdf/1 200 in 8ms
+ GET /sitemaps/pdf/convert-from-pdf/1 200 in 8ms
+ GET /sitemaps/pdf/convert-to-pdf/1 200 in 9ms
+ GET /sitemaps/pdf/security/1 200 in 7ms
+ GET /sitemaps/pdf/ocr-and-text/1 200 in 10ms
+ GET /sitemaps/pdf/edit-pdf/1 200 in 15ms
+ GET /sitemaps/pdf/info-and-inspection/1 200 in 8ms
+ GET /sitemaps/pdf/optimize-and-color/1 200 in 9ms
+ GET /sitemaps/pdf/forms-and-signatures/1 200 in 8ms
+ GET /sitemaps/pdf/print-and-layout/1 200 in 8ms
+ GET /sitemaps/pdf/utilities/1 200 in 8ms
+ GET /sitemaps/typography/font-preview-and-testing/1 200 in 14ms
+ GET /sitemaps/games/puzzle-games/1 200 in 14ms
+ ○ Compiling /calculator ...
+ ✓ Compiled /calculator in 2.2s (8020 modules)
+ GET /calculator 200 in 2592ms
+ GET /calculator 200 in 119ms
+ GET /calculator 200 in 139ms
+ GET /calculator/loans-and-mortgages 200 in 720ms
+ GET /calculator/crypto-and-defi 200 in 80ms
+ GET /calculator/cryptocurrency-offline-math 200 in 86ms
+ GET /calculator/statistics 200 in 82ms
+[?25h

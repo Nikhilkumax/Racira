@@ -1,0 +1,1650 @@
+{
+  "candidates": [
+    {
+      "file": "analyze2.js",
+      "size_kb": 4.28,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "audit-results.json",
+      "size_kb": 253.82,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "audit_results.md",
+      "size_kb": 371.35,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "build-output.txt",
+      "size_kb": 30.25,
+      "last_modified": "2026-08-09",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build.log",
+      "size_kb": 30.31,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_batch1.log",
+      "size_kb": 79.77,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_batch1b.log",
+      "size_kb": 123.6,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_batch1_verify.log",
+      "size_kb": 0.23,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_error.log",
+      "size_kb": 7.29,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_fresh.log",
+      "size_kb": 77.53,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_no_ignore.log",
+      "size_kb": 7.9,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_output.log",
+      "size_kb": 11.46,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_output.txt",
+      "size_kb": 3.41,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_output_utf8.log",
+      "size_kb": 2.32,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_puzzle.log",
+      "size_kb": 83.88,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_stderr.log",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_stdout.log",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_voice_engine.log",
+      "size_kb": 27.48,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_voice_kokoro.log",
+      "size_kb": 15.17,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "build_voice_strip.log",
+      "size_kb": 25.51,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "business.xml",
+      "size_kb": 178.82,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "calc.py",
+      "size_kb": 1.12,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "capture-probe-output.mjs",
+      "size_kb": 0.26,
+      "last_modified": "2026-08-08",
+      "category": "capture-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off capture/probe script"
+    },
+    {
+      "file": "check_calc_labels.js",
+      "size_kb": 1.04,
+      "last_modified": "2026-08-01",
+      "category": "check-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off verification or check script"
+    },
+    {
+      "file": "check_lazy.js",
+      "size_kb": 1.18,
+      "last_modified": "2026-08-01",
+      "category": "check-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off verification or check script"
+    },
+    {
+      "file": "check_nocalc.js",
+      "size_kb": 0.68,
+      "last_modified": "2026-08-01",
+      "category": "check-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off verification or check script"
+    },
+    {
+      "file": "check_status.js",
+      "size_kb": 1.44,
+      "last_modified": "2026-08-01",
+      "category": "check-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off verification or check script"
+    },
+    {
+      "file": "check_summary.js",
+      "size_kb": 0.93,
+      "last_modified": "2026-08-01",
+      "category": "check-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off verification or check script"
+    },
+    {
+      "file": "chunk-test.js",
+      "size_kb": 4.29,
+      "last_modified": "2026-08-01",
+      "category": "data-collection-or-test",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off data collection or chunk testing"
+    },
+    {
+      "file": "clean_approved.js",
+      "size_kb": 0.62,
+      "last_modified": "2026-08-01",
+      "category": "clean-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off cleanup script"
+    },
+    {
+      "file": "clean_install.log",
+      "size_kb": 5.42,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "clean_install2.log",
+      "size_kb": 5.42,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "coming_soon_stubs.txt",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "data-collection.js",
+      "size_kb": 7.59,
+      "last_modified": "2026-08-01",
+      "category": "data-collection-or-test",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off data collection or chunk testing"
+    },
+    {
+      "file": "detect.mjs",
+      "size_kb": 8.98,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect.ts",
+      "size_kb": 4.71,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_output.txt",
+      "size_kb": 2.12,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "detect_output_v3.txt",
+      "size_kb": 7.55,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_results_v3.json",
+      "size_kb": 1759.34,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_results_v3_final.json",
+      "size_kb": 129.36,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_results_v3_master.json",
+      "size_kb": 2057.18,
+      "last_modified": "2026-07-19",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_results_v3_updated.json",
+      "size_kb": 180.05,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_scan.js",
+      "size_kb": 1.25,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_scan_v3.js",
+      "size_kb": 11.58,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_scan_v3_final.js",
+      "size_kb": 7.2,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_scan_v3_master.js",
+      "size_kb": 11.43,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_scan_v3_updated.js",
+      "size_kb": 9.64,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "detect_temp.ts",
+      "size_kb": 4.71,
+      "last_modified": "2026-08-01",
+      "category": "detect-scripts",
+      "referenced_elsewhere": false,
+      "reason_flagged": "One-off detect script or scan"
+    },
+    {
+      "file": "dev_err.txt",
+      "size_kb": 0.65,
+      "last_modified": "2026-06-29",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "dev_log2.txt",
+      "size_kb": 26.52,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "dev_log3.txt",
+      "size_kb": 2478.04,
+      "last_modified": "2026-07-15",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "dev_out.txt",
+      "size_kb": 1.13,
+      "last_modified": "2026-06-29",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "dev_restart.log",
+      "size_kb": 74.11,
+      "last_modified": "2026-08-16",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "dev_server.log",
+      "size_kb": 0.29,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "diag-espeak-encoding.mjs",
+      "size_kb": 2.96,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "diag-output.txt",
+      "size_kb": 5.44,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "err.txt",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "error.html",
+      "size_kb": 7.61,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "error2.html",
+      "size_kb": 2.32,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "espeak-bundle-output.txt",
+      "size_kb": 5.33,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "espeak-forensics-output.txt",
+      "size_kb": 13.48,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "espeak-probe-output.txt",
+      "size_kb": 12.03,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "fetch_audit.js",
+      "size_kb": 3.33,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "fetch_error.js",
+      "size_kb": 0.31,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "finance.xml",
+      "size_kb": 350.39,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find",
+      "size_kb": 2.71,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find_buttons.js",
+      "size_kb": 1.29,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find_buttons2.js",
+      "size_kb": 1.65,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "find_buttons3.js",
+      "size_kb": 1.68,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "find_button_labels.js",
+      "size_kb": 2.75,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find_button_patterns.js",
+      "size_kb": 13.11,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find_missing.js",
+      "size_kb": 1.16,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "find_stubs.js",
+      "size_kb": 1.03,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "fix_bc.js",
+      "size_kb": 2.96,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "fix_footprint.js",
+      "size_kb": 0.6,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "fix_polish_buttons.js",
+      "size_kb": 3.71,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "generate-report.js",
+      "size_kb": 8.18,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "generate_audit.ts",
+      "size_kb": 4.96,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "generate_calculators.py",
+      "size_kb": 15.36,
+      "last_modified": "2026-08-05",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "get-error.js",
+      "size_kb": 0.55,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "get-overrides.js",
+      "size_kb": 2.14,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "get-real-slugs.js",
+      "size_kb": 3.53,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "get-tools.js",
+      "size_kb": 0.65,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "get_batch2.js",
+      "size_kb": 2.82,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "get_batch3.js",
+      "size_kb": 3.39,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "get_finance.js",
+      "size_kb": 1.44,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "global_fix.js",
+      "size_kb": 4.45,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "health.xml",
+      "size_kb": 310.99,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "install_kokoro.log",
+      "size_kb": 1.79,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "kokoro-lang-output.txt",
+      "size_kb": 17.4,
+      "last_modified": "2026-08-09",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "lint_voice_strip.log",
+      "size_kb": 1.25,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "make_reset_script.js",
+      "size_kb": 0.4,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "merge_plan.json",
+      "size_kb": 21.4,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "mod.py",
+      "size_kb": 12.51,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "modify_seo_exact.py",
+      "size_kb": 0.6,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "mod_adv.py",
+      "size_kb": 1.95,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "mod_adv_exact.py",
+      "size_kb": 1.82,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "new_summary.json",
+      "size_kb": 19.43,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "parse-sitemap.js",
+      "size_kb": 0.42,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_11.js",
+      "size_kb": 8.66,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_13.js",
+      "size_kb": 5.19,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_avg.js",
+      "size_kb": 0.76,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_avg2.js",
+      "size_kb": 0.35,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_balloon.js",
+      "size_kb": 0.46,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_balloon2.js",
+      "size_kb": 0.47,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_balloon3.js",
+      "size_kb": 0.38,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_balloon4.js",
+      "size_kb": 1.6,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_broken_divs.js",
+      "size_kb": 0.79,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_broken_divs2.js",
+      "size_kb": 0.82,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_hidden.js",
+      "size_kb": 1.04,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_irr.js",
+      "size_kb": 0.32,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_last_two.js",
+      "size_kb": 4.76,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "patch_last_two2.js",
+      "size_kb": 0.45,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_last_two3.js",
+      "size_kb": 1.61,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "patch_polish.js",
+      "size_kb": 3.66,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "playwright_debug.log",
+      "size_kb": 10.22,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "playwright_diag.log",
+      "size_kb": 10.32,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "playwright_voice.log",
+      "size_kb": 14.53,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "polish_batch_fix.js",
+      "size_kb": 31.14,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "polish_batch_report.txt",
+      "size_kb": 31.5,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "probe-espeak-ng.mjs",
+      "size_kb": 10.34,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "probe-espeak-output-v2.txt",
+      "size_kb": 8.04,
+      "last_modified": "2026-08-08",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "probe-espeak-output.txt",
+      "size_kb": 11.31,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "probe-espeak-readable.txt",
+      "size_kb": 5.53,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "probe-output.txt",
+      "size_kb": 28.46,
+      "last_modified": "2026-08-08",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "probe-phonemizer.mjs",
+      "size_kb": 2.69,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "racira_build_log.md",
+      "size_kb": 5.68,
+      "last_modified": "2026-08-16",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "racira_status_scan.js",
+      "size_kb": 13.92,
+      "last_modified": "2026-08-16",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "racira_wire.js",
+      "size_kb": 2.15,
+      "last_modified": "2026-08-16",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "reclassify_polish.js",
+      "size_kb": 2.4,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "revert_broken.js",
+      "size_kb": 0.89,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scan2.js",
+      "size_kb": 9.27,
+      "last_modified": "2026-08-03",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-apply-kokoro-lang-patch.cjs",
+      "size_kb": 6.36,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-apply-kokoro-step34.cjs",
+      "size_kb": 13.17,
+      "last_modified": "2026-08-09",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-apply-kokoro-step5.cjs",
+      "size_kb": 4.34,
+      "last_modified": "2026-08-09",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-check.js",
+      "size_kb": 0.75,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-check2.js",
+      "size_kb": 0.89,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance.js",
+      "size_kb": 1.72,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-detect-finance2.js",
+      "size_kb": 1.84,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance3.js",
+      "size_kb": 1.76,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance4.js",
+      "size_kb": 1.84,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance5.js",
+      "size_kb": 1.76,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance7.js",
+      "size_kb": 1.91,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance8.js",
+      "size_kb": 1.75,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-detect-finance9.js",
+      "size_kb": 1.75,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-espeak-bundle-test.cjs",
+      "size_kb": 16.21,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-step3-redo.cjs",
+      "size_kb": 9.53,
+      "last_modified": "2026-08-09",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-verify-chunker.mjs",
+      "size_kb": 6.19,
+      "last_modified": "2026-08-10",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-verify-kokoro-lang.mjs",
+      "size_kb": 7,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch-verify-kokoro-step34.mjs",
+      "size_kb": 7.29,
+      "last_modified": "2026-08-09",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "scratch-verify-tier2-final.mjs",
+      "size_kb": 9.49,
+      "last_modified": "2026-08-09",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "scratch_diff.patch",
+      "size_kb": 129.81,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "slug_dryrun.ts",
+      "size_kb": 5.07,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "status_not_built_clean.json",
+      "size_kb": 1613.87,
+      "last_modified": "2026-08-05",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "status_not_built_clean.txt",
+      "size_kb": 491.42,
+      "last_modified": "2026-08-05",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "stub_list.txt",
+      "size_kb": 6.96,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "temp-test.js",
+      "size_kb": 1.63,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "temp_count.js",
+      "size_kb": 0.53,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "temp_summary.json",
+      "size_kb": 41.04,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "temp_summary_test.json",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test-espeak-instance.mjs",
+      "size_kb": 4.34,
+      "last_modified": "2026-08-08",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test-urls.ts",
+      "size_kb": 2.54,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test.css",
+      "size_kb": 194.11,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test_kokoro.mjs",
+      "size_kb": 1.64,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test_kokoro_full.mjs",
+      "size_kb": 2.51,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test_output.mp3",
+      "size_kb": 69.38,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test_output.wav",
+      "size_kb": 410.2,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "test_video.mov",
+      "size_kb": 770.01,
+      "last_modified": "2026-06-11",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "tsc_errors.log",
+      "size_kb": 0,
+      "last_modified": "2026-08-01",
+      "category": "log",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Log file or terminal output dump"
+    },
+    {
+      "file": "update-slugs.js",
+      "size_kb": 2.03,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "update_batch2.js",
+      "size_kb": 0.83,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch3.js",
+      "size_kb": 1.28,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch4.js",
+      "size_kb": 1.16,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch5.js",
+      "size_kb": 0.98,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch6.js",
+      "size_kb": 0.91,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch7.js",
+      "size_kb": 0.92,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_batch8.js",
+      "size_kb": 0.92,
+      "last_modified": "2026-08-01",
+      "category": "duplicate-iterations",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Iterative duplicate or superseded script/file"
+    },
+    {
+      "file": "update_live.js",
+      "size_kb": 0.81,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "update_registry.js",
+      "size_kb": 1.21,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "utf8_diff.patch",
+      "size_kb": 129.82,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "voice_page.html",
+      "size_kb": 89.32,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    },
+    {
+      "file": "voice_page_new.html",
+      "size_kb": 89.32,
+      "last_modified": "2026-08-01",
+      "category": "other",
+      "referenced_elsewhere": false,
+      "reason_flagged": "Loose root-level script, config, patch, status or scratch file"
+    }
+  ],
+  "excluded_for_review": [
+    {
+      "file": "Calculator_Database_Final.json",
+      "reason": "Referenced in scripts\\detect-calculators.ts (line 7: \"const DB_PATH = path.join(__dirname, '../Calculato...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\detect-calculators.ts",
+          "line": 7,
+          "text": "const DB_PATH = path.join(__dirname, '../Calculator_Database_Final.json');"
+        }
+      ]
+    },
+    {
+      "file": "EpochTrainingTimeCalculator.tsx",
+      "reason": "Referenced in src\\app\\calculator\\lazyComponents.tsx (line 1409: \"\"epoch-training-time-calculator\": () => import(\"@/...\") - needs manual decision",
+      "references": [
+        {
+          "file": "src\\app\\calculator\\lazyComponents.tsx",
+          "line": 1409,
+          "text": "\"epoch-training-time-calculator\": () => import(\"@/domains/calculator/components/EpochTrainingTimeCal"
+        },
+        {
+          "file": "src\\domains\\calculator\\components\\_approved.json",
+          "line": 450,
+          "text": "\"EpochTrainingTimeCalculator\","
+        }
+      ]
+    },
+    {
+      "file": "scan.js",
+      "reason": "Referenced in src\\components\\shared\\icon-map.ts (line 50: \"\"joint-mobility-assessment\": \"Scan\",...\") - needs manual decision",
+      "references": [
+        {
+          "file": "src\\components\\shared\\icon-map.ts",
+          "line": 50,
+          "text": "\"joint-mobility-assessment\": \"Scan\","
+        },
+        {
+          "file": "src\\components\\shared\\icon-map.ts",
+          "line": 213,
+          "text": "\"project-scope-planner\": \"Scan\","
+        },
+        {
+          "file": "src\\components\\shared\\icon-map.ts",
+          "line": 939,
+          "text": "\"component-footprint-reference\": \"Scan\","
+        }
+      ]
+    },
+    {
+      "file": "status_approved.txt",
+      "reason": "Referenced in scripts\\status-scan.cjs (line 223: \"W(\"status_approved.txt\", B.complete.slice().sort(a...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 223,
+          "text": "W(\"status_approved.txt\", B.complete.slice().sort(alpha).map((c) => c.slug).join(\"\\n\") + \"\\n\");"
+        }
+      ]
+    },
+    {
+      "file": "status_live_not_approved.txt",
+      "reason": "Referenced in scripts\\scan-report.cjs (line 118: \"R(\"status_live_not_approved.txt\"),...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 118,
+          "text": "R(\"status_live_not_approved.txt\"),"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 224,
+          "text": "W(\"status_live_not_approved.txt\", B.liveNotApproved.slice().sort(alpha).map((c) => c.slug).join(\"\\n\""
+        }
+      ]
+    },
+    {
+      "file": "status_not_built.txt",
+      "reason": "Referenced in scripts\\scan-report.cjs (line 130: \"R(\"status_not_built.txt\"),...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 130,
+          "text": "R(\"status_not_built.txt\"),"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 227,
+          "text": "W(\"status_not_built.txt\", B.notBuilt.slice().sort(alpha).map((c) => `${c.slug} — ${c.category}`).joi"
+        }
+      ]
+    },
+    {
+      "file": "status_polish.txt",
+      "reason": "Referenced in scripts\\scan-report.cjs (line 122: \"R(\"status_polish.txt\"),...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 122,
+          "text": "R(\"status_polish.txt\"),"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 225,
+          "text": "W(\"status_polish.txt\", B.polish.slice().sort(alpha).map((c) => `${c.slug} — ${c.issues.join(\", \")}`)"
+        }
+      ]
+    },
+    {
+      "file": "status_rebuild.txt",
+      "reason": "Referenced in scripts\\scan-report.cjs (line 126: \"R(\"status_rebuild.txt\"),...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 126,
+          "text": "R(\"status_rebuild.txt\"),"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 226,
+          "text": "W(\"status_rebuild.txt\", B.rebuild.slice().sort(alpha).map((c) => `${c.slug} — ${c.reason}`).join(\"\\n"
+        }
+      ]
+    },
+    {
+      "file": "status_report.md",
+      "reason": "Referenced in scripts\\scan-calculators.cjs (line 4: \"* needs-polish, needs-rebuild, not-built. Writes s...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\scan-calculators.cjs",
+          "line": 4,
+          "text": "* needs-polish, needs-rebuild, not-built. Writes status_*.txt + status_report.md."
+        },
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 143,
+          "text": "fs.writeFileSync(R(\"status_report.md\"), md);"
+        },
+        {
+          "file": "scripts\\scan-report.cjs",
+          "line": 144,
+          "text": "console.log(\"\\nWrote status_report.md + 4 status txt files\");"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 3,
+          "text": "* writes status_report.md + 4 status txt files to the project root."
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 241,
+          "text": "W(\"status_report.md\", md);"
+        },
+        {
+          "file": "scripts\\status-scan.cjs",
+          "line": 243,
+          "text": "console.log(\"\\nWrote status_report.md + status_approved/live_not_approved/polish/rebuild/not_built ."
+        }
+      ]
+    },
+    {
+      "file": "work_list.json",
+      "reason": "Referenced in scripts\\detect_phase1.mjs (line 118: \"fs.writeFileSync('work_list.json', JSON.stringify(...\") - needs manual decision",
+      "references": [
+        {
+          "file": "scripts\\detect_phase1.mjs",
+          "line": 118,
+          "text": "fs.writeFileSync('work_list.json', JSON.stringify(workList, null, 2));"
+        }
+      ]
+    },
+    {
+      "file": "spot-check.js",
+      "reason": "Referenced in racira_status_scan.js (line 292: \"report += `   useState(0)/defaultValue={0}. Manual...\") - needs manual decision",
+      "references": [
+        {
+          "file": "racira_status_scan.js",
+          "line": 292,
+          "text": "report += `   useState(0)/defaultValue={0}. Manual spot-checks were run on sample entries.\\n`;"
+        },
+        {
+          "file": "scratch\\audit\\verify-scope1.cjs",
+          "line": 3,
+          "text": "// 2. Spot-check 5 category landing pages: grids must not link excluded stub tools."
+        }
+      ]
+    }
+  ],
+  "total_candidates": 182,
+  "total_size_mb": 13.09
+}

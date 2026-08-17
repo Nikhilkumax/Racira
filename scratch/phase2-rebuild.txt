@@ -1,0 +1,575 @@
+carbon-dating-calculator	CarbonDatingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+carbon-footprint-calculator	CarbonFootprintCalculator.tsx	no Recharts import
+cat-age-calculator	CatAgeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cat-calorie-calculator	CatCalorieCalculator.tsx	no Recharts import
+cat-pregnancy-calculator	CatPregnancyCalculator.tsx	no Recharts import
+catering-quantity-calculator	CateringQuantityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ceiling-floor-calculator	CeilingFloorCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+certificate-of-deposit-calculator	CertificateOfDepositCalculator.tsx	no Recharts import, missing primary result card
+charles-law-calculator	CharlesLawCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+circle-calculator	CircleCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+clothing-size-converter	ClothingSizeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+clothing-size-converter-advanced	ClothingSizeConverterAdvanced.tsx	file < 8KB, no Recharts import, missing primary result card
+coefficient-of-variation-calculator	CoefficientOfVariationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+coffee-brewing-calculator	CoffeeBrewingCalculator.tsx	no Recharts import
+coffee-strength-calculator	CoffeeStrengthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+combined-gas-law-calculator	CombinedGasLawCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+commission-calculator	CommissionCalculator.tsx	no Recharts import
+completing-the-square-calculator	CompletingTheSquareCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+complex-numbers-calculator	ComplexNumbersCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+compost-ratio-calculator	CompostRatioCalculator.tsx	no Recharts import, missing primary result card
+concentration-calculator	ConcentrationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+conception-calculator	ConceptionCalculator.tsx	file < 8KB, no Recharts import
+cone-calculator	ConeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+contrast-ratio-calculator	ContrastRatioCalculator.tsx	no Recharts import, no Calculate button, missing primary result card
+conversion-calculator	ConversionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+conversion-rate-calculator	ConversionRateCalculator.tsx	file < 8KB, no Recharts import
+convexity-calculator	ConvexityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cooking-measurement-converter	CookingMeasurementConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+cooking-temperature-converter	CookingTemperatureConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+cooking-time-calculator	CookingTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+coordinate-geometry-calculator	CoordinateGeometryCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+correlation-coefficient-calculator	CorrelationCoefficientCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cost-of-living-calculator	CostOfLivingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cost-to-income-ratio-calculator	CostToIncomeRatioCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+coulombs-law-calculator	CoulombsLawCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+countdown-calculator	CountdownCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+covariance-calculator	CovarianceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cpc-calculator	CpcCalculator.tsx	file < 8KB, no Recharts import
+cpm-calculator	CpmCalculator.tsx	file < 8KB, no Recharts import
+credit-score-estimator	CreditScoreEstimator.tsx	no Recharts import
+crochet-hook-converter	CrochetHookConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+cron-expression-calculator	CronExpressionCalculator.tsx	no Recharts import, no Calculate button
+crypto-currency-converter	CryptoCurrencyConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+crypto-position-size-calculator	CryptoPositionSizeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+css-swimming-calculator	CssSwimmingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+csu-gpa-calculator	CsuGpaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ctr-calculator	CtrCalculator.tsx	file < 8KB, no Recharts import
+cube-root-calculator	CubeRootCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cumulative-gpa-calculator	CumulativeGPACalculator.tsx	no Recharts import
+currency-converter	CurrencyConverter.tsx	file < 8KB, no Recharts import, no Calculate button, missing primary result card
+current-divider-calculator	CurrentDividerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+custodial-account-growth-calculator	CustodialAccountGrowthCalculator.tsx	missing primary result card
+customer-retention-rate-calculator	CustomerRetentionRateCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cycling-cadence-calculator	CyclingCadenceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cycling-power-calculator	CyclingPowerCalculator.tsx	no Recharts import
+cycling-speed-calculator	CyclingSpeedCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cycling-wattage-calculator	CyclingWattageCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+cylinder-calculator	CylinderCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+da-calculator	DaCalculator.tsx	no Recharts import, missing primary result card
+data-size-converter	DataSizeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+data-storage-converter	DataStorageConverter.tsx	no Recharts import
+data-transfer-calculator	DataTransferCalculator.tsx	no Recharts import
+data-transfer-converter	DataTransferConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+data-transfer-rate-calculator	DataTransferRateCalculator.tsx	no Recharts import
+date-calculator	DateCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+date-difference-calculator	DateDifferenceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+day-counter	DayCounter.tsx	file < 8KB, no Recharts import, missing primary result card
+daylight-saving-calculator	DaylightSavingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+dcf-calculator	DcfCalculator.tsx	no Recharts import, missing primary result card
+debt-service-coverage-ratio-calculator	DebtServiceCoverageRatioCalculator.tsx	no Recharts import
+decibel-calculator	DecibelCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+decile-calculator	DecileCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+decimal-to-fraction-converter	DecimalToFractionConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+decimal-to-hex-converter	DecimalToHexConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+density-calculator	DensityCalculator.tsx	no Recharts import
+density-converter	DensityConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+depreciation-calculator	DepreciationCalculator.tsx	no Recharts import, missing primary result card
+derivative-calculator	DerivativeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+dew-point-calculator	DewPointCalculator.tsx	no Recharts import
+dice-roller	DiceRoller.tsx	file < 8KB, no Recharts import, missing primary result card
+direct-variation-calculator	DirectVariationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+displacement-calculator	DisplacementCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+distance-calculator	DistanceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+dividend-reinvestment-calculator	DividendReinvestmentCalculator.tsx	no Recharts import
+docker-image-size-calculator	DockerImageSizeCalculator.tsx	no Recharts import
+dog-age-calculator	DogAgeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+dog-calorie-calculator	DogCalorieCalculator.tsx	file < 8KB, no Recharts import
+dog-chocolate-toxicity-calculator	DogChocolateToxicityCalculator.tsx	no Recharts import, missing primary result card
+dog-pregnancy-calculator	DogPregnancyCalculator.tsx	no Recharts import
+dog-size-predictor	DogSizePredictor.tsx	no Recharts import
+dollar-cost-averaging-calculator	DollarCostAveragingCalculator.tsx	no Recharts import, missing primary result card
+domain-name-valuation-calculator	DomainValuationCalculator.tsx	no Recharts import
+dots-score-calculator	DotsScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+down-payment-calculator	DownPaymentCalculator.tsx	file < 8KB, no Recharts import
+driveway-sealer-calculator	DrivewaySealerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+dti-calculator	DtiCalculator.tsx	no Recharts import
+due-date-calculator	DueDateCalculator.tsx	no Recharts import
+ebitda-calculator	EbitdaCalculator.tsx	no Recharts import, missing primary result card
+ecological-footprint-calculator	EcologicalFootprintCalculator.tsx	no Recharts import
+edpi-calculator	EdpiCalculator.tsx	file < 8KB, no Recharts import
+efficiency-calculator	EfficiencyCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+eigenvalue-calculator	EigenvalueCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+elearning-seat-time-calculator	ELearningSeatTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+electric-field-calculator	ElectricFieldCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+electric-power-calculator	ElectricPowerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+electricity-bill-calculator	ElectricityBillCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+electricity-cost-calculator	ElectricityCostCalculator.tsx	no Recharts import
+ellipse-calculator	EllipseCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+email-open-rate-calculator	EmailOpenRateCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+emergency-fund-calculator	EmergencyFundCalculator.tsx	file < 8KB, no Recharts import
+empirical-formula-calculator	EmpiricalFormulaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+energy-converter	EnergyConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+energy-efficient-appliance-calculator	EnergyEfficientApplianceCalculator.tsx	no Recharts import
+engine-horsepower-calculator	EngineHorsepowerCalculator.tsx	no Recharts import
+epf-calculator	EpfCalculator.tsx	no Recharts import, missing primary result card
+epoch-time-converter	EpochTimeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+epoch-training-time-calculator	EpochTrainingTimeCalculator.tsx	missing primary result card
+equilibrium-constant-calculator	EquilibriumConstantCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+estate-tax-calculator	EstateTaxCalculator.tsx	no Recharts import
+ethereum-gas-calculator	EthereumGasCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ev-federal-tax-credit-value-calculator	EvFederalTaxCreditValueCalculator.tsx	no Recharts import
+exchange1031-timeline-calculator	Exchange1031TimelineCalculator.tsx	no Recharts import
+expected-return-calculator	ExpectedReturnCalculator.tsx	no Recharts import
+exponent-calculator	ExponentCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+exponential-decay-calculator	ExponentialDecayCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+exponential-growth-calculator	ExponentialGrowthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+exposure-value-calculator	ExposureValueCalculator.tsx	file < 8KB, missing primary result card
+f-test-calculator	FTestCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+factor-calculator	FactorCalculator.tsx	no Recharts import
+fat-intake-calculator	FatIntakeCalculator.tsx	file < 8KB, no Recharts import
+federal-work-study-earnings-calculator	FederalWorkStudyEarningsCalculator.tsx	missing primary result card
+fertility-calculator	FertilityCalculator.tsx	no Recharts import
+fertilizer-calculator	FertilizerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ffmi-calculator	FFMI_Calculator.tsx	missing primary result card
+final-grade-calculator	FinalGradeCalculator.tsx	no Recharts import
+firewood-cord-calculator	FirewoodCordCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+flight-emissions-calculator	FlightEmissionsCalculator.tsx	no Recharts import
+flight-time-calculator	FlightTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+floor-area-calculator	FloorAreaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+flooring-calculator	FlooringCalculator.tsx	no Recharts import
+flow-rate-converter	FlowRateConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+fluid-flow-calculator	FluidFlowCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+font-size-converter	FontSizeConverter.tsx	no Recharts import
+food-carbon-footprint-calculator	FoodCarbonFootprintCalculator.tsx	no Recharts import
+food-cost-calculator	FoodCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+force-calculator	ForceCalculator.tsx	no Recharts import
+force-converter	ForceConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+fov-calculator	FovCalculator.tsx	file < 8KB, no Recharts import
+fraction-calculator	FractionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+fraction-to-decimal-converter	FractionToDecimalConverter.tsx	no Recharts import
+fractional-distillation-calculator	FractionalDistillationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+freelance-design-rate-calculator	FreelanceDesignRateCalculator.tsx	no Recharts import
+freelancer-rate-calculator	FreelancerRateCalculator.tsx	no Recharts import
+freelancer-tax-calculator	FreelanceTaxCalculator.tsx	no Recharts import
+freezing-point-depression-calculator	FreezingPointDepressionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+freight-cost-per-unit-calculator	FreightCostPerUnitCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+frequency-converter	FrequencyConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+frequency-wavelength-calculator	FrequencyWavelengthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+fuel-cost-calculator	FuelCostCalculator.tsx	no Recharts import
+fuel-economy-converter	FuelEconomyConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+function-composition-calculator	FunctionCompositionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+game-download-calculator	GameDownloadCalculator.tsx	file < 8KB, no Recharts import
+garden-fertilizer-calculator	GardenFertilizerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gas-mileage-calculator	GasMileageCalculator.tsx	no Recharts import
+gcf-calculator	GcfCalculator.tsx	no Recharts import
+geometric-mean-calculator	GeometricMeanCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+geometric-progression-calculator	GeometricProgressionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gestation-calculator	GestationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gfr-calculator	GfrCalculator.tsx	no Recharts import
+gift-cost-per-person-calculator	GiftCostPerPersonCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+git-repo-size-calculator	GitRepoSizeCalculator.tsx	no Recharts import
+gmat-score-calculator	GmatScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+golf-handicap-calculator	GolfHandicapCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gpa-calculator	GpaCalculator.tsx	no Recharts import, missing primary result card
+grade-calculator	GradeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+grass-seed-calculator	GrassSeedCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gratuity-calculator	GratuityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gravel-calculator	GravelCalculator.tsx	no Recharts import
+gravitational-force-calculator	GravitationalForceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gre-score-calculator	GREScoreCalculator.tsx	no Recharts import
+greeks-calculator	GreeksCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+grilling-time-calculator	GrillingTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+gross-profit-margin-calculator	GrossProfitMarginCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+groundwater-contamination-plume-calculator	GroundwaterContaminationPlumeCalculator.tsx	no Recharts import
+gst-calculator	GstCalculator.tsx	no Recharts import, missing primary result card
+gutter-size-calculator	GutterSizeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+hard-drive-capacity-calculator	HardDriveCapacityCalculator.tsx	file < 8KB, no Recharts import
+hard-money-loan-calculator	HardMoneyLoanCalculator.tsx	no Recharts import
+hash-calculator	HashCalculator.tsx	no Recharts import, no Calculate button
+heat-index-calculator	HeatIndexCalculator.tsx	no Recharts import
+heater-size-calculator	HeaterSizeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+height-calculator	HeightCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+hex-calculator	HexCalculator.tsx	no Recharts import
+hex-to-decimal-converter	HexToDecimalConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+highway-design-speed-calculator	HighwayDesignSpeedCalculator.tsx	missing primary result card
+home-affordability-calculator	HomeAffordabilityCalculator.tsx	no Recharts import
+home-cooling-cost-calculator	HomeCoolingCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+home-energy-emissions-calculator	HomeEnergyEmissionsCalculator.tsx	no Recharts import
+home-heating-cost-calculator	HomeHeatingCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+horsepower-to-kilowatts-calculator	HpToKwCalculator.tsx	file < 8KB, no Recharts import
+hotel-cost-calculator	HotelCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+hourly-freelance-rate-to-annual-income-calculator	HourlyFreelanceToAnnualIncomeCalculator.tsx	no Recharts import
+hourly-to-salary-calculator	HourlyToSalaryCalculator.tsx	no Recharts import
+hours-calculator	HoursCalculator.tsx	no Recharts import
+house-affordability-calculator	HouseAffordabilityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+hra-calculator	HraCalculator.tsx	no Recharts import, missing primary result card
+humidity-calculator	HumidityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+hydration-calculator	HydrationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ib-grade-calculator	IbGradeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ideal-bmi-weight-calculator	IdealBmiWeightCalculator.tsx	no Recharts import
+ideal-gas-law-calculator	IdealGasLawCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ideal-weight-calculator	IdealWeightCalculator.tsx	no Recharts import, missing primary result card
+illuminance-converter	IlluminanceConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+image-file-size-calculator	ImageFileSizeCalculator.tsx	no Recharts import
+income-tax-calculator-india	IncomeTaxCalculatorIndia.tsx	no Recharts import, missing primary result card
+inductance-calculator	InductanceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+inequality-calculator	InequalityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+inflation-calculator	InflationCalculator.tsx	no Recharts import, missing primary result card
+instagram-engagement-calculator	InstagramEngagementCalculator.tsx	no Recharts import
+insulin-to-carb-ratio-calculator	InsulinToCarbRatioCalculator.tsx	no Recharts import
+integral-calculator	IntegralCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+interest-only-mortgage-calculator	InterestOnlyMortgageCalculator.tsx	no Recharts import
+interest-rate-calculator	InterestRateCalculator.tsx	no Recharts import, missing primary result card
+inventory-turnover-ratio-calculator	InventoryTurnoverRatioCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+inverse-variation-calculator	InverseVariationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+investment-property-calculator	InvestmentPropertyCalculator.tsx	no Recharts import
+ip-subnet-calculator	IpSubnetCalculator.tsx	no Recharts import
+irr-calculator	IrrCalculator.tsx	file < 8KB, no Recharts import
+jitter-calculator	JitterCalculator.tsx	file < 8KB, no Recharts import
+kendall-tau-calculator	KendallTauCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+knitting-needle-converter	KnittingNeedleConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+kruskal-wallis-test-calculator	KruskalWallisTestCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+law-of-cosines-calculator	LawOfCosinesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+law-of-sines-calculator	LawOfSinesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lawn-mowing-time-calculator	LawnMowingTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lawn-seeding-calculator	LawnSeedingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lc-resonance-calculator	LcResonanceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lcm-calculator	LcmCalculator.tsx	no Recharts import
+lcm-gcd-calculator	LcmGcdCalculator.tsx	no Recharts import, missing primary result card
+lean-body-mass-calculator	LeanBodyMassCalculator.tsx	file < 8KB, no Recharts import
+lean-mass-calculator	LeanMassCalculator.tsx	file < 8KB, no Recharts import
+leap-year-calculator	LeapYearCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lease-vs-buy-calculator	LeaseVsBuyCalculator.tsx	no Recharts import
+leave-encashment-calculator	LeaveEncashmentCalculator.tsx	no Recharts import, missing primary result card
+led-savings-calculator	LedSavingsCalculator.tsx	no Recharts import
+lifetime-value-calculator	CustomerLifetimeValueCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lighting-lumens-calculator	LightingLumensCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+limit-calculator	LimitCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+limiting-reagent-calculator	LimitingReagentCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+linear-equation-calculator	LinearEquationCalculator.tsx	no Recharts import, missing primary result card
+linear-regression-calculator	LinearRegressionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+loan-origination-points-to-apr-calculator	LoanOriginationPointsToAprCalculator.tsx	no Recharts import
+log-calculator	LogCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+logarithm-change-of-base-calculator	LogarithmChangeOfBaseCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+logistic-regression-calculator	LogisticRegressionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+logistics-cost-as-of-revenue-calculator	LogisticsCostAsOfRevenueCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+love-calculator	LoveCalculator.tsx	no Recharts import, missing primary result card
+loyalty-points-calculator	LoyaltyPointsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+lsat-score-calculator	LsatScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ltv-calculator	LtvCalculator.tsx	no Calculate button
+luminance-converter	LuminanceConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+mac-address-generator	MacAddressGenerator.tsx	no Recharts import, no Calculate button
+magnetic-field-calculator	MagneticFieldCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+mann-whitney-u-test-calculator	MannWhitneyUTestCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+margin-of-error-calculator	MarginOfErrorCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+market-neutral-return-calculator	MarketNeutralReturnCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+markup-calculator	MarkupCalculator.tsx	no Recharts import, missing primary result card
+marriage-tax-calculator	MarriageTaxCalculator.tsx	no Recharts import
+mass-calculator	MassCalculator.tsx	no Recharts import
+mass-defect-calculator	MassDefectCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+matrix-calculator	MatrixCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+matrix-determinant-calculator	MatrixDeterminantCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+matrix-inverse-calculator	MatrixInverseCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+matrix-multiplication-calculator	MatrixMultiplicationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+mcat-score-calculator	McatScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+meatless-monday-impact-calculator	MeatlessDietImpactCalculator.tsx	no Recharts import, missing primary result card
+meeting-time-zone-calculator	MeetingTimeZoneCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+microwave-wattage-conversion-calculator	MicrowaveWattageConversionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+midpoint-calculator	MidpointCalculator.tsx	file < 8KB, missing primary result card
+minimum-payment-calculator	MinimumPaymentCalculator.tsx	no Recharts import
+modified-duration-calculator	ModifiedDurationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+molality-calculator	MolalityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+molar-mass-calculator	MolarMassCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+molarity-calculator	MolarityCalculator.tsx	no Recharts import, no Calculate button
+molecular-weight-calculator	MolecularWeightCalculator.tsx	no Recharts import
+money-market-calculator	MoneyMarketCalculator.tsx	no Recharts import, missing primary result card
+monitor-dpi-calculator	MonitorDpiCalculator.tsx	file < 8KB, no Recharts import
+months-calculator	MonthsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+morse-code-translator	MorseCodeTranslator.tsx	file < 8KB, no Recharts import, missing primary result card
+mortgage-affordability-calculator	MortgageAffordabilityCalculator.tsx	no Recharts import, missing primary result card
+mouse-sensitivity-calculator	MouseSensitivityCalculator.tsx	file < 8KB, no Recharts import
+mulch-calculator	MulchCalculator.tsx	no Recharts import
+mulch-cost-calculator	MulchCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+multiple-regression-calculator	MultipleRegressionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+net-pay-calculator	NetPayCalculator.tsx	no Recharts import
+net-promoter-score-calculator	NetPromoterScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+normality-calculator	NormalityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+nps-calculator	NpsCalculator.tsx	no Recharts import, missing primary result card
+number-to-words-converter	NumberToWordsConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+one-rep-max-calculator	OneRepMaxCalculator.tsx	file < 8KB, no Recharts import
+operating-profit-margin-calculator	OperatingProfitMarginCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+options-profit-calculator	OptionsProfitCalculator.tsx	no Recharts import, missing primary result card
+osmolarity-calculator	OsmolarityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+oven-temperature-converter	OvenTemperatureConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+overhead-absorption-calculator	OverheadAbsorptionCalculator.tsx	missing primary result card
+overtime-calculator	OvertimeCalculator.tsx	file < 8KB, no Recharts import
+overweight-percentage-calculator	OverweightPercentageCalculator.tsx	no Recharts import
+ovulation-calculator	OvulationCalculator.tsx	file < 8KB, no Recharts import
+oxbridge-interview-calculator	OxbridgeInterviewCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+pace-calculator	PaceCalculator.tsx	file < 8KB, no Recharts import
+pace-converter	PaceConverter.tsx	file < 8KB, no Recharts import
+packet-loss-calculator	PacketLossCalculator.tsx	file < 8KB, no Recharts import
+packing-weight-calculator	PackingWeightCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+paper-savings-calculator	PaperSavingsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+password-entropy-calculator	PasswordEntropyCalculator.tsx	no Recharts import, no Calculate button, missing primary result card
+password-generator	PasswordGenerator.tsx	no Recharts import, missing primary result card
+payroll-tax-calculator	PayrollTaxCalculator.tsx	no Recharts import
+pe-ratio-calculator	PERatioCalculator.tsx	no Recharts import, missing primary result card
+pension-calculator	PensionCalculator.tsx	no Recharts import
+percent-error-calculator	PercentErrorCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+percent-yield-calculator	PercentYieldCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+percentage-to-cgpa-converter	PercentageToCgpaConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+percentile-calculator	PercentileCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+period-calculator	PeriodCalculator.tsx	file < 8KB, no Recharts import
+pet-food-calculator	PetFoodCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ph-calculator	PhCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+photon-energy-calculator	PhotonEnergyCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+piti-calculator	PitiCalculator.tsx	no Calculate button
+pixel-density-calculator	PpiCalculator.tsx	file < 8KB, no Recharts import
+pizza-size-calculator	PizzaSizeCalculator.tsx	no Recharts import, missing primary result card
+plant-spacing-calculator	PlantSpacingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+plastic-footprint-calculator	PlasticFootprintCalculator.tsx	no Recharts import
+plywood-calculator	PlywoodCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+pmi-amortization-table	PmiAmortizationTable.tsx	file < 8KB, no Recharts import, no Calculate button, missing primary result card
+pmi-ltv-chart	PmiLtvChart.tsx	file < 8KB, no Calculate button, missing primary result card
+podcast-hosting-cost-calculator	PodcastHostingCostCalculator.tsx	no Recharts import
+points-break-even-calculator	PointsBreakEvenCalculator.tsx	no Recharts import
+poisson-distribution-calculator	PoissonDistributionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+polygon-area-calculator	PolygonAreaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+polygon-calculator	PolygonCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+polynomial-calculator	PolynomialCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+pomodoro-calculator	PomodoroCalculator.tsx	no Recharts import
+pool-volume-calculator	PoolVolumeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+population-growth-ecology-calculator	PopulationGrowthEcologyCalculator.tsx	no Recharts import
+portfolio-rebalancing-calculator	PortfolioRebalancingCalculator.tsx	no Recharts import, missing primary result card
+potting-soil-calculator	PottingSoilCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+power-converter	PowerConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+power-factor-calculator	PowerFactorCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+power-supply-calculator	PsuCalculator.tsx	no Recharts import
+ppf-calculator	PpfCalculator.tsx	no Recharts import, missing primary result card
+pregnancy-calculator	PregnancyCalculator.tsx	no Recharts import
+pregnancy-weight-gain-calculator	PregnancyWeightGainCalculator.tsx	no Recharts import
+pressure-calculator	PressureCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+pressure-converter	PressureConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+price-to-book-ratio-calculator	PriceToBookRatioCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+prime-factorization-calculator	PrimeFactorizationCalculator.tsx	no Recharts import
+probability-calculator	ProbabilityCalculator.tsx	no Recharts import
+professional-tax-calculator	ProfessionalTaxCalculator.tsx	no Recharts import, missing primary result card
+profit-margin-calculator	ProfitMarginCalculator.tsx	no Recharts import, missing primary result card
+projectile-motion-calculator	ProjectileMotionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+projector-screen-size-calculator	ProjectorScreenSizeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+property-appreciation-calculator	PropertyAppreciationCalculator.tsx	file < 8KB, no Recharts import
+protein-intake-calculator	ProteinIntakeCalculator.tsx	no Recharts import
+pulse-ox-calculator	PulseOxCalculator.tsx	no Calculate button
+put-call-parity-calculator	PutCallParityCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+pythagorean-theorem-calculator	PythagoreanTheoremCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+qb-rating-calculator	QbRatingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+quarterly-tax-calculator	QuarterlyTaxCalculator.tsx	no Recharts import
+race-time-predictor	RaceTimePredictor.tsx	file < 8KB, no Recharts import, missing primary result card
+radiation-dose-converter	RadiationDoseConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+radioactive-decay-calculator	RadioactiveDecayCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+radioactivity-converter	RadioactivityConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+raid-calculator	RaidCalculator.tsx	no Recharts import
+rain-barrel-calculator	RainBarrelCalculator.tsx	no Recharts import
+rainwater-collection-calculator	RainwaterCollectionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+random-number-generator	RandomNumberGenerator.tsx	no Recharts import
+ratio-calculator	RatioCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+rc-time-constant-calculator	RcTimeConstantCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+reading-speed-calculator	ReadingSpeedCalculator.tsx	no Recharts import, no Calculate button
+reading-time-calculator	ReadingTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+recipe-scale-calculator	RecipeScaleCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+refrigerator-energy-calculator	RefrigeratorEnergyCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+regex-test-calculator	RegexTestCalculator.tsx	no Recharts import
+rent-affordability-calculator	RentAffordabilityCalculator.tsx	file < 8KB, no Recharts import
+rent-vs-buy-calculator	RentVsBuyCalculator.tsx	no Recharts import, missing primary result card
+resistor-calculator	ResistorCalculator.tsx	no Recharts import, no Calculate button
+resistors-in-parallel-calculator	ResistorsInParallelCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+resistors-in-series-calculator	ResistorsInSeriesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+retained-earnings-calculator	RetainedEarningsCalculator.tsx	missing primary result card
+return-on-marketing-investment-calculator	ReturnOnMarketingInvestmentCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+reverse-mortgage-calculator	ReverseMortgageCalculator.tsx	no Recharts import
+rgb-to-hex-converter	RgbToHexConverter.tsx	no Recharts import, no Calculate button, missing primary result card
+riemann-sum-calculator	RiemannSumCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+right-angle-calculator	RightAngleCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ring-size-calculator	RingSizeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+ring-size-converter-advanced	RingSizeConverterAdvanced.tsx	file < 8KB, no Recharts import, missing primary result card
+rl-time-constant-calculator	RlTimeConstantCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+road-trip-cost-calculator	RoadTripCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+roas-calculator	RoasCalculator.tsx	file < 8KB, no Recharts import
+roi-calculator	RoiCalculator.tsx	no Recharts import, missing primary result card
+roman-numeral-converter	RomanNumeralConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+roof-shingle-calculator	RoofShingleCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+roofing-calculator	RoofingCalculator.tsx	no Recharts import
+room-volume-calculator	RoomVolumeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+root-calculator	RootCalculator.tsx	no Recharts import
+root-mean-square-calculator	RootMeanSquareCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+roth-ira-calculator	RothIraCalculator.tsx	no Recharts import
+rounding-calculator	RoundingCalculator.tsx	no Recharts import
+rule-of-70-calculator	RuleOf70Calculator.tsx	file < 8KB, no Recharts import
+running-cadence-calculator	RunningCadenceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+running-calorie-calculator	RunningCalorieCalculator.tsx	file < 8KB, no Recharts import
+running-stride-length-calculator	RunningStrideLengthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+salary-calculator	SalaryCalculator.tsx	no Recharts import, missing primary result card
+sales-price-calculator	SalesPriceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sales-tax-calculator	SalesTaxCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sample-size-calculator	SampleSizeCalculator.tsx	no Recharts import
+sat-score-calculator	SATScoreCalculator.tsx	no Recharts import
+savings-calculator	SavingsCalculator.tsx	no Recharts import, missing primary result card
+school-day-minutes-calculator	SchoolDayMinutesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+scientific-calculator	ScientificCalculator.tsx	no Recharts import, no Calculate button
+scientific-notation-calculator	ScientificNotationCalculator.tsx	no Recharts import
+scientific-notation-converter	ScientificNotationConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+screen-size-calculator	ScreenSizeCalculator.tsx	file < 8KB, no Recharts import
+sector-area-calculator	SectorAreaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+self-employment-tax-calculator	SelfEmploymentTaxCalculator.tsx	no Recharts import
+senior-bmi-calculator	SeniorBmiCalculator.tsx	no Recharts import
+server-rack-units-calculator	ServerRackUnitsCalculator.tsx	no Recharts import
+set-operations-calculator	SetOperationsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sharpe-ratio-calculator	SharpeRatioCalculator.tsx	no Recharts import, missing primary result card
+shoe-size-converter	ShoeSizeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+shopping-budget-calculator	ShoppingBudgetCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+significant-figures-calculator	SignificantFiguresCalculator.tsx	no Recharts import
+simple-pendulum-calculator	SimplePendulumCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sinclair-coefficient-calculator	SinclairCoefficientCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sird-epidemic-model-calculator	SirdEpidemicModelCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+sleep-calculator	SleepCalculator.tsx	no Recharts import
+slope-calculator	SlopeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+snells-law-calculator	SnellsLawCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+snow-shoveling-calculator	SnowShovelingCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+soccer-goals-per-game-calculator	SoccerGoalsPerGameCalculator.tsx	file < 8KB, missing primary result card
+solar-energy-savings-calculator	SolarEnergySavingsCalculator.tsx	no Recharts import
+solar-panel-calculator	SolarPanelCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+speaker-placement-calculator	SpeakerPlacementCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+spearman-rank-correlation-calculator	SpearmanRankCorrelationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+specific-heat-calculator	SpecificHeatCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+speedometer-error-calculator	SpeedometerErrorCalculator.tsx	no Calculate button
+sphere-calculator	SphereCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+spring-constant-calculator	SpringConstantCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+square-footage-calculator	SquareFootageCalculator.tsx	no Recharts import
+ssd-tbw-calculator	SsdTbwCalculator.tsx	file < 8KB, no Recharts import
+ssl-certificate-cost-calculator	SslCostCalculator.tsx	no Recharts import
+stair-calculator	StairCalculator.tsx	no Recharts import
+stamp-duty-calculator	StampDutyCalculator.tsx	no Recharts import, missing primary result card
+starter-motor-calculator	StarterMotorCalculator.tsx	no Calculate button
+statistics-calculator	StatisticsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+stepper-motor-calculator	StepperMotorCalculator.tsx	no Recharts import
+steroid-equivalence-calculator	SteroidEquivalenceCalculator.tsx	no Recharts import
+stock-calculator	StockCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+stoichiometry-calculator	StoichiometryCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+stopping-distance-calculator	StoppingDistanceCalculator.tsx	missing primary result card
+student-budget-calculator	StudentBudgetCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+student-loan-payoff-calculator	StudentLoanPayoffCalculator.tsx	no Recharts import
+study-time-calculator	StudyTimeCalculator.tsx	no Recharts import
+subnet-calculator	SubnetCalculator.tsx	no Recharts import
+subprime-loan-cost-calculator	SubprimeLoanCostCalculator.tsx	missing primary result card
+subscription-cost-calculator	SubscriptionCostCalculator.tsx	no Recharts import, missing primary result card
+sukanya-samriddhi-calculator	SukanyaSamriddhiCalculator.tsx	no Recharts import, missing primary result card
+supply-and-demand-equilibrium-price-calculator	SupplyAndDemandEquilibriumPriceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+supply-chain-cost-as-of-sales-calculator	SupplyChainCostAsOfSalesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+surface-area-calculator	SurfaceAreaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+swimming-pace-calculator	SwimmingPaceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+swimming-split-calculator	SwimmingSplitCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+swimming-time-conversion	SwimmingTimeConversion.tsx	file < 8KB, no Recharts import, missing primary result card
+swolf-calculator	SwolfCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+swp-calculator	SwpCalculator.tsx	no Recharts import, missing primary result card
+symmetric-strength-calculator	SymmetricStrengthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+system-of-equations-calculator	SystemOfEquationsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+t-test-calculator	TTestCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+take-home-salary-calculator	TakeHomeSalaryCalculator.tsx	no Recharts import
+target-heart-rate-calculator	TargetHeartRateCalculator.tsx	no Recharts import, missing primary result card
+tariff-classification-cost-estimator	TariffClassificationCostEstimatorCalculator.tsx	no Recharts import
+tax-bracket-calculator	TaxBracketCalculator.tsx	no Recharts import
+taylor-series-calculator	TaylorSeriesCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tdee-calculator	TdeeCalculator.tsx	no Recharts import, missing primary result card
+tds-calculator	TdsCalculator.tsx	no Recharts import, missing primary result card
+tea-steeping-time-calculator	TeaSteepingCalculator.tsx	file < 8KB, no Recharts import
+teacher-preparation-time-calculator	TeacherPreparationTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tennis-serve-speed-calculator	TennisServeSpeedCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+test-grade-calculator	TestGradeCalculator.tsx	no Recharts import
+text-binary-converter	TextBinaryConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+thermal-expansion-calculator	ThermalExpansionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tidal-prediction-calculator	TidalPredictionCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tiktok-earnings-calculator	TiktokEarningsCalculator.tsx	no Recharts import
+tile-calculator	TileCalculator.tsx	no Recharts import
+time-calculator	TimeCalculator.tsx	no Recharts import
+time-converter	TimeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+time-difference-calculator	TimeDifferenceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+time-duration-calculator	TimeDurationCalculator.tsx	no Recharts import
+time-zone-converter	TimeZoneConverter.tsx	no Recharts import, missing primary result card
+tip-and-split-calculator	TipAndSplitCalculator.tsx	file < 8KB, no Recharts import
+tire-size-calculator	TireSizeCalculator.tsx	no Calculate button
+titration-calculator	TitrationCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+torque-converter	TorqueConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+total-factor-productivity-calculator	TotalFactorProductivityCalculator.tsx	missing primary result card
+traditional-ira-calculator	TraditionalIraCalculator.tsx	file < 8KB, no Recharts import
+trailer-tongue-weight-calculator	TrailerTongueWeightCalculator.tsx	no Calculate button
+transformer-calculator	TransformerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+travel-budget-calculator	TravelBudgetCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+travel-insurance-calculator	TravelInsuranceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+treadmill-pace-calculator	TreadmillPaceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+treasury-bill-calculator	TreasuryBillCalculator.tsx	no Recharts import, missing primary result card
+tree-planting-offset-calculator	TreePlantingOffsetCalculator.tsx	no Recharts import
+triangle-calculator	TriangleCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+triathlon-time-calculator	TriathlonTimeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+truth-table-calculator	TruthTableCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tss-calculator	TssCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+tuition-roi-calculator	TuitionRoiCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+turkey-roasting-time-calculator	TurkeyRoastingCalculator.tsx	no Recharts import
+tv-viewing-distance-calculator	TvViewingDistanceCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+twitch-earnings-calculator	TwitchEarningsCalculator.tsx	file < 8KB, no Recharts import
+two-complement-calculator	TwoComplementCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+typing-speed-calculator	TypingSpeedCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+uc-gpa-calculator	UcGpaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+unrealized-gainloss-calculator	UnrealizedGainLossCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+upload-time-calculator	UploadTimeCalculator.tsx	file < 8KB, no Recharts import
+ups-battery-runtime-calculator	UpsBatteryRuntimeCalculator.tsx	file < 8KB, no Recharts import
+uptime-calculator	UptimeCalculator.tsx	no Recharts import
+url-decoder	UrlDecoder.tsx	file < 8KB, no Recharts import, missing primary result card
+url-encoder	UrlEncoder.tsx	file < 8KB, no Recharts import, missing primary result card
+uv-index-calculator	UvIndexCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+vanity-license-plate-cost-calculator	VanityLicensePlateCostCalculator.tsx	file < 8KB, missing primary result card
+vapor-pressure-calculator	VaporPressureCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+vector-cross-product-calculator	VectorCrossProductCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+vector-operations-calculator	VectorOperationsCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+vehicle-emissions-calculator	VehicleEmissionsCalculator.tsx	no Recharts import
+vessel-turnaround-cost-calculator	VesselTurnaroundCostCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+video-file-size-calculator	VideoFileSizeCalculator.tsx	no Recharts import
+visa-fee-calculator	VisaFeeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+viscosity-dynamic-converter	ViscosityDynamicConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+viscosity-kinematic-converter	ViscosityKinematicConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+vo2-max-calculator	Vo2MaxCalculator.tsx	no Recharts import
+voltage-divider-calculator	VoltageDividerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+voltage-drop-calculator	VoltageDropCalculator.tsx	no Recharts import
+volume-calculator	VolumeCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+volume-converter	VolumeConverter.tsx	file < 8KB, no Recharts import, missing primary result card
+vps-pricing-calculator	VpsPricingCalculator.tsx	no Recharts import
+w4-withholding-calculator	W4WithholdingCalculator.tsx	no Recharts import, missing primary result card
+waist-to-hip-ratio-calculator	WaistToHipRatioCalculator.tsx	file < 8KB, no Recharts import
+walking-calorie-calculator	WalkingCalorieCalculator.tsx	no Recharts import
+wall-area-calculator	WallAreaCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+wallpaper-calculator	WallpaperCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+warehouse-cost-per-pallet-calculator	WarehouseCostPerPalletCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+waste-diversion-calculator	WasteDiversionCalculator.tsx	no Recharts import
+water-bill-calculator	WaterBillCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+water-boiling-time-calculator	WaterBoilingTimeCalculator.tsx	no Recharts import
+water-footprint-calculator	WaterFootprintCalculator.tsx	no Recharts import
+water-intake-calculator	WaterIntakeCalculator.tsx	file < 8KB, no Recharts import
+wavelength-calculator	WavelengthCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+website-hosting-cost-calculator	WebsiteHostingCostCalculator.tsx	file < 8KB, no Recharts import
+weeks-calculator	WeeksCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+weight-converter	WeightConverter.tsx	no Recharts import, missing primary result card
+weighted-average-calculator	WeightedAverageCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+weighted-grade-calculator	WeightedGradeCalculator.tsx	no Recharts import, missing primary result card
+wells-score-for-dvt-calculator	WellsScoreForDvtCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+wheel-offset-calculator	WheelOffsetCalculator.tsx	no Recharts import, missing primary result card
+wilcoxon-signed-rank-test-calculator	WilcoxonSignedRankTestCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+wilks-score-calculator	WilksScoreCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+wind-chill-calculator	WindChillCalculator.tsx	no Recharts import
+wind-speed-power-calculator	WindSpeedPowerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+wind-turbine-energy-calculator	WindTurbineEnergyCalculator.tsx	no Recharts import
+window-curtain-calculator	WindowCurtainCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+work-hours-calculator	WorkHoursCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+work-power-calculator	WorkPowerCalculator.tsx	file < 8KB, no Recharts import, missing primary result card
+working-capital-calculator	WorkingCapitalCalculator.tsx	no Recharts import, missing primary result card
+yarn-weight-converter	YarnWeightConverter.tsx	file < 8KB, no Recharts import, missing primary result card

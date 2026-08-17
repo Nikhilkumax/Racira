@@ -1,0 +1,2749 @@
+[
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/3d-booleans-concept-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 224,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/3d-print-shrinkage-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 238,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/cmyk-print-preview-simulator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 244,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "https:",
+    "url": "https://racira.com",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 5291,
+    "visibleControls": 1,
+    "imgCount": 68,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/lip-sync-viseme-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 234,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/resin-exposure-time-finder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 229,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/pla-vs-petg-vs-abs-guide",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 226,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/first-layer-squish-visualizer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 233,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "about",
+    "url": "https://racira.com/about",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 2272,
+    "visibleControls": 0,
+    "imgCount": 9,
+    "err": []
+  },
+  {
+    "dom": "3d",
+    "url": "https://racira.com/3d/texture-tiling-checker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 221,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/animation-a11y-documentation-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 251,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/animation-to-webp-exporter",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 231,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/checkbox-animation-maker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 228,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/gif-optimizer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 197,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/css-timing-function-editor",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 225,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/lottie-speed-controller",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 226,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/smil-animation-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 213,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/3d-audio-visualizer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 171,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "animator",
+    "url": "https://racira.com/animator/svg-motion-path-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 216,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/audio-normalizer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 161,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/chirp-generator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 150,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/frequency-analyzer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 168,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/m4a-converter",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 1772,
+    "visibleControls": 15,
+    "imgCount": 6,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/pitch-shift-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 166,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/sawtooth-wave-generator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 174,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/bonus-pool-allocator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 163,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "audio",
+    "url": "https://racira.com/audio/tap-tempo",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 127,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/campaign-timeline-planner",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 184,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/employee-onboarding-planner",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 184,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/growth-experiment-planner",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 193,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/launch-planning-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 169,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/org-chart-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 154,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/quarterly-planning-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 180,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/2d-cad-sketch-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 152,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "business",
+    "url": "https://racira.com/business/startup-launch-checklist-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 214,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/cad-unit-converter",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 163,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/dimension-and-annotation-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 179,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/hvac-load-estimator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 157,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/fit-tolerance-selector-iso",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 197,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/parking-layout-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 167,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/roof-load-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 169,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 7594,
+    "visibleControls": 1,
+    "imgCount": 160,
+    "err": []
+  },
+  {
+    "dom": "cad",
+    "url": "https://racira.com/cad/staircase-code-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 182,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/car-value-depreciation-curve-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1168,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/digital-filter-coefficient-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1173,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/gaming-and-hobbies",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 175,
+    "visibleControls": 1,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/led-headlight-power-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1145,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/10-color-palette-generator",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 148,
+    "visibleControls": 6,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/parallelogram-perimeter-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1135,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/takeoff-distance-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1134,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "calculator",
+    "url": "https://racira.com/calculator/retake-grade-impact-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 1140,
+    "visibleControls": 0,
+    "imgCount": 15,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/color-blindness-simulator",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 303,
+    "visibleControls": 7,
+    "imgCount": 9,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/color-naming-history-tool",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 754,
+    "visibleControls": 0,
+    "imgCount": 3,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/color-trend-analyzer",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 293,
+    "visibleControls": 0,
+    "imgCount": 3,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/duotone-generator",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 123,
+    "visibleControls": 0,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/hue-rotator",
+    "status": 200,
+    "kind": "blank",
+    "stub": false,
+    "mainTextLen": 97,
+    "visibleControls": 3,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/seasonal-color-finder",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 159,
+    "visibleControls": 6,
+    "imgCount": 9,
+    "err": []
+  },
+  {
+    "dom": "colors",
+    "url": "https://racira.com/colors/opacity-calculator",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 180,
+    "visibleControls": 5,
+    "imgCount": 4,
+    "err": []
+  },
+  {
+    "dom": "contact",
+    "url": "https://racira.com/contact",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 373,
+    "visibleControls": 0,
+    "imgCount": 1,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/abi-decoder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 137,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/block-reward-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 165,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/crypto-glossary-browser",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 168,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/gas-fee-calculator",
+    "status": 200,
+    "kind": "real",
+    "stub": false,
+    "mainTextLen": 141,
+    "visibleControls": 3,
+    "imgCount": 3,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/mempool-concept-explainer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 176,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/nft-royalty-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 159,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/replace-by-fee-rbf-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 191,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "crypto",
+    "url": "https://racira.com/crypto/tax-summary-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 156,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/accessible-color-pair-finder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 171,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/button-style-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 136,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/design-token-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 139,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/grid-system-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 140,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/kaleidoscope-designer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 148,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/screenshot-mockup-wrapper",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 158,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/monogram-generator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 129,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "design",
+    "url": "https://racira.com/design/svg-icon-editor",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 121,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/ai-prompt-formatter",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 110,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/cookie-parser",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 86,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/diff-merge-tool",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 99,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/html-to-jsx",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 73,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/json-to-typescript",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 94,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/mime-type-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 98,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/svg-wave-generator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 97,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "developers",
+    "url": "https://racira.com/developers/regex-visualizer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 84,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "disclaimer",
+    "url": "https://racira.com/disclaimer",
+    "status": 200,
+    "kind": "unknown",
+    "stub": false,
+    "mainTextLen": 1656,
+    "visibleControls": 0,
+    "imgCount": 1,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/aac-symbol-chart-maker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 107,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/chemical-equation-balancer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 115,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/document-based-question-template",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 134,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/language-learning-streak-tracker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 127,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/geological-time-scale-explorer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 123,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/micro-credential-planner",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 126,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/pronunciation-guide",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 101,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/555-timer-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 109,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "education",
+    "url": "https://racira.com/education/statistics-distribution-viewer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 127,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/compressible-flow-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 117,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/esd-protection-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 117,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/hydrostatic-pressure-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 125,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/mosfet-drive-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 115,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/pressure-vessel-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 120,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/sampling-theorem-demonstrator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 123,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/1rm-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 102,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "engineering",
+    "url": "https://racira.com/engineering/takt-time-calculator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 111,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/calorie-counter",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 90,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/deload-week-planner",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 98,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/hrv-basics-reference",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 106,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/prenatal-exercise-guide",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 109,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/mindfulness-meditation-timer",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 122,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/set-and-rep-tracker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 105,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/affinity-diagram-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 103,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/cdn-architecture-diagram",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 118,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "fitness",
+    "url": "https://racira.com/fitness/training-frequency-tracker",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 123,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/database-table-relationship-mapper",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 147,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/infrastructure-diagram-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 127,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/experience-map-creator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 108,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/portfolio-diagram-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 115,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/security-architecture-diagram",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 125,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "flowchart",
+    "url": "https://racira.com/flowchart/uml-class-diagram-builder",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 108,
+    "visibleControls": 0,
+    "imgCount": 5,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/20-questions-ai-guess",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 195,
+    "visibleControls": 0,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/map-labeling-game",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 185,
+    "visibleControls": 0,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/golf-solitaire",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 171,
+    "visibleControls": 0,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/canfield-solitaire",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 179,
+    "visibleControls": 0,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/dot-to-dot-generator",
+    "status": 200,
+    "kind": "stub",
+    "stub": true,
+    "mainTextLen": 188,
+    "visibleControls": 0,
+    "imgCount": 7,
+    "err": []
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/parts-of-speech-tagger",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/games/parts-of-speech-tagger\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/rock-paper-scissors-vs-ai",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/games/rock-paper-scissors-vs-ai\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "games",
+    "url": "https://racira.com/games/tapa",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/games/tapa\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/blur-tool",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/blur-tool\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/blur-tool\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/color-adjuster",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/color-adjuster\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/color-adjuster\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/grayscale-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/grayscale-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/grayscale-converter\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/image-cropper",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/image-cropper\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/image-cropper\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/image-metadata-viewer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/image-metadata-viewer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/image-metadata-viewer\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/image-size-reducer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/image-size-reducer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/image-size-reducer\", waiting until \"domcontentloaded\""
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/png-compressor",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/image/png-compressor\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/png-compressor\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/annotation-layer-tool",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/annotation-layer-tool\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/annotation-layer-tool\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/chart-embed-code-generator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/chart-embed-code-generator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/chart-embed-code-generator\", waiting unti"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/column-renamer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/column-renamer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/column-renamer\", waiting until \"domcontentloaded\"\u001b[22"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/data-grid-formatter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/data-grid-formatter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/data-grid-formatter\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/distribution-fitter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/distribution-fitter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/distribution-fitter\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/interactive-data-table-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/interactive-data-table-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/interactive-data-table-builder\", wait"
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/outlier-detector",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/outlier-detector\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/outlier-detector\", waiting until \"domcontentloaded\""
+    ]
+  },
+  {
+    "dom": "insight",
+    "url": "https://racira.com/insight/sampling-size-estimator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/insight/sampling-size-estimator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/insight/sampling-size-estimator\", waiting until \"dom"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/3d-globe-earth-viewer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/3d-globe-earth-viewer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/3d-globe-earth-viewer\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/coordinate-format-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/coordinate-format-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/coordinate-format-converter\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/fuel-consumption-by-distance",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/fuel-consumption-by-distance\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/fuel-consumption-by-distance\", waiting until "
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/gps-coordinate-logger",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/gps-coordinate-logger\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/gps-coordinate-logger\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/location-sharing-card",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/location-sharing-card\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/location-sharing-card\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/map-thumbnail-generator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/map-thumbnail-generator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/map-thumbnail-generator\", waiting until \"domconten"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/point-in-polygon-checker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/point-in-polygon-checker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/point-in-polygon-checker\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "maps",
+    "url": "https://racira.com/maps/speed-velocity-display",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/maps/speed-velocity-display\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/maps/speed-velocity-display\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/adsr-envelope-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/adsr-envelope-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/adsr-envelope-builder\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/circle-of-fifths-tool",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/circle-of-fifths-tool\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/circle-of-fifths-tool\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/frequency-spectrum-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/frequency-spectrum-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/frequency-spectrum-planner\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/intro-and-outro-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/intro-and-outro-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/intro-and-outro-builder\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/mix-reference-track-comparator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/mix-reference-track-comparator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/mix-reference-track-comparator\", waiting "
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/note-frequency-reference",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/note-frequency-reference\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/note-frequency-reference\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/podcast-background-music-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/podcast-background-music-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/podcast-background-music-builder\", wait"
+    ]
+  },
+  {
+    "dom": "music",
+    "url": "https://racira.com/music/song-structure-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/music/song-structure-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/music/song-structure-planner\", waiting until \"domconten"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/add-background",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/add-background\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/add-background\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "image",
+    "url": "https://racira.com/image/aspect-ratio-cropper",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: Timeout 45000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/image/aspect-ratio-cropper\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/batch-watermark",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/batch-watermark\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/batch-watermark\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/dual-page-viewer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/dual-page-viewer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/dual-page-viewer\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/font-inspector",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/font-inspector\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/font-inspector\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/label-sheet",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/label-sheet\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/label-sheet\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/pdf-to-epub",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/pdf-to-epub\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/pdf-to-epub\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/redact",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/redact\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/redact\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "pdf",
+    "url": "https://racira.com/pdf/strike-text",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/pdf/strike-text\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/pdf/strike-text\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/blemish-removal-guide",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/blemish-removal-guide\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/blemish-removal-guide\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/color-story-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/color-story-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/color-story-builder\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/exif-stripper",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/exif-stripper\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/exif-stripper\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/green-screen-color-matcher",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/green-screen-color-matcher\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/green-screen-color-matcher\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/lens-profile-identifier",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/lens-profile-identifier\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/lens-profile-identifier\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/photo-album-layout-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/photo-album-layout-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/photo-album-layout-planner\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/portrait-retouching-guide",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/portrait-retouching-guide\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/portrait-retouching-guide\", waiting until \"dom"
+    ]
+  },
+  {
+    "dom": "photo",
+    "url": "https://racira.com/photo/raw-white-balance-tool",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/photo/raw-white-balance-tool\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/photo/raw-white-balance-tool\", waiting until \"domconten"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/3d-shape-library",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/3d-shape-library\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/3d-shape-library\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/case-study-deck-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/case-study-deck-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/case-study-deck-builder\", waiting "
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/gantt-chart-slide",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/gantt-chart-slide\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/gantt-chart-slide\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/marketing-plan-deck",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/marketing-plan-deck\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/marketing-plan-deck\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/presentation-to-pdf-exporter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/presentation-to-pdf-exporter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/presentation-to-pdf-exporter\""
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/single-slide-editor",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/single-slide-editor\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/single-slide-editor\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/slide-layout-selector",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/slide-layout-selector\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/slide-layout-selector\", waiting unti"
+    ]
+  },
+  {
+    "dom": "presentation",
+    "url": "https://racira.com/presentation/sound-effect-library",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/presentation/sound-effect-library\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/presentation/sound-effect-library\", waiting until "
+    ]
+  },
+  {
+    "dom": "privacy-policy",
+    "url": "https://racira.com/privacy-policy",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/privacy-policy\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/privacy-policy\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/accountability-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/accountability-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/accountability-planner\", waiting un"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/content-idea-organizer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/content-idea-organizer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/content-idea-organizer\", waiting un"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/deliberate-practice-session-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/deliberate-practice-session-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/deliberate-practice-se"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/habit-loop-designer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/habit-loop-designer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/habit-loop-designer\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/meeting-action-tracker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/meeting-action-tracker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/meeting-action-tracker\", waiting un"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/pitch-deck-slide-count-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/pitch-deck-slide-count-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/pitch-deck-slide-count-plan"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/research-workflow-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/research-workflow-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/research-workflow-planner\", wait"
+    ]
+  },
+  {
+    "dom": "productivity",
+    "url": "https://racira.com/productivity/time-leak-detector",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/productivity/time-leak-detector\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/productivity/time-leak-detector\", waiting until \"dom"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/adler-32-calculator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/adler-32-calculator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/adler-32-calculator\", waiting until \"domconten"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/clickjacking-prevention",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/clickjacking-prevention\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/clickjacking-prevention\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/e2e-messaging-reference",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/e2e-messaging-reference\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/e2e-messaging-reference\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/input-validation-reference",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/input-validation-reference\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/input-validation-reference\", waiting un"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/murmurhash-reference",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/murmurhash-reference\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/murmurhash-reference\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/permissions-policy-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/permissions-policy-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/permissions-policy-builder\", waiting un"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/rot13-encoder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/rot13-encoder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/rot13-encoder\", waiting until \"domcontentloaded\"\u001b[22"
+    ]
+  },
+  {
+    "dom": "security",
+    "url": "https://racira.com/security/ssl-certificate-inspector",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/security/ssl-certificate-inspector\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/security/ssl-certificate-inspector\", waiting unti"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/absolute-vs-relative-url-checker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/absolute-vs-relative-url-checker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/absolute-vs-relative-url-checker\", waiting "
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/content-freshness-checker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/content-freshness-checker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/content-freshness-checker\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/font-request-analyzer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/font-request-analyzer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/font-request-analyzer\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/internal-link-analyzer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/internal-link-analyzer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/internal-link-analyzer\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/local-keyword-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/local-keyword-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/local-keyword-builder\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/open-graph-tag-analyzer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/open-graph-tag-analyzer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/open-graph-tag-analyzer\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/robotstxt-rule-tester",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/robotstxt-rule-tester\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/robotstxt-rule-tester\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "seo",
+    "url": "https://racira.com/seo/tap-target-size-checker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/seo/tap-target-size-checker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/seo/tap-target-size-checker\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "terms-of-service",
+    "url": "https://racira.com/terms-of-service",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/terms-of-service\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/terms-of-service\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/accommodation-type-comparator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/accommodation-type-comparator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/accommodation-type-comparator\", waiting "
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/car-rental-checklist",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/car-rental-checklist\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/car-rental-checklist\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/digital-nomad-setup-guide",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/digital-nomad-setup-guide\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/digital-nomad-setup-guide\", waiting until \"d"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/food-allergy-communication-card-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/food-allergy-communication-card-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/food-allergy-communication-car"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/local-holiday-calendar",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/local-holiday-calendar\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/local-holiday-calendar\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/road-trip-route-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/road-trip-route-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/road-trip-route-planner\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/travel-budget-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/travel-budget-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/travel-budget-planner\", waiting until \"domconten"
+    ]
+  },
+  {
+    "dom": "travel",
+    "url": "https://racira.com/travel/travel-photo-caption-generator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/travel/travel-photo-caption-generator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/travel/travel-photo-caption-generator\", waitin"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/3d-text-effect-preview",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/3d-text-effect-preview\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/3d-text-effect-preview\", waiting until "
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/css-fluid-typography-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/css-fluid-typography-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/css-fluid-typography-builder\", wa"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/fluid-type-scale-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/fluid-type-scale-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/fluid-type-scale-builder\", waiting un"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/font-line-height-tester",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/font-line-height-tester\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/font-line-height-tester\", waiting unti"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/google-fonts-pairing-picker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/google-fonts-pairing-picker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/google-fonts-pairing-picker\", wait"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/low-vision-font-tester",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/low-vision-font-tester\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/low-vision-font-tester\", waiting until "
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/pangram-font-tester",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/pangram-font-tester\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/pangram-font-tester\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "typography",
+    "url": "https://racira.com/typography/text-box-shape-wrapper",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/typography/text-box-shape-wrapper\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/typography/text-box-shape-wrapper\", waiting until "
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/1080p-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/1080p-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/1080p-converter\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/codec-information-viewer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/codec-information-viewer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/codec-information-viewer\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/grayscale-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/grayscale-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/grayscale-converter\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/obs-settings-calculator",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/obs-settings-calculator\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/obs-settings-calculator\", waiting until \"domcont"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/srt-to-vtt-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/srt-to-vtt-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/srt-to-vtt-converter\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/video-bitrate-checker",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/video-bitrate-checker\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/video-bitrate-checker\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/video-frame-extractor",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/video-frame-extractor\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/video-frame-extractor\", waiting until \"domcontentl"
+    ]
+  },
+  {
+    "dom": "video",
+    "url": "https://racira.com/video/video-speed-changer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/video/video-speed-changer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/video/video-speed-changer\", waiting until \"domcontentloade"
+    ]
+  },
+  {
+    "dom": "voice",
+    "url": "https://racira.com/voice",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/voice\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/voice\", waiting until \"domcontentloaded\"\u001b[22m\n"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/about-page-builder",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/about-page-builder\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/about-page-builder\", waiting until \"domcontentloa"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/bullet-to-prose-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/bullet-to-prose-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/bullet-to-prose-converter\", waiting until "
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/doi-to-citation-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/doi-to-citation-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/doi-to-citation-converter\", waiting until "
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/grant-proposal-outline",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/grant-proposal-outline\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/grant-proposal-outline\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/locale-aware-sort-tool",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/locale-aware-sort-tool\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/locale-aware-sort-tool\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/plot-structure-planner",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/plot-structure-planner\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/plot-structure-planner\", waiting until \"domco"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/scene-and-chapter-organizer",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/scene-and-chapter-organizer\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/scene-and-chapter-organizer\", waiting un"
+    ]
+  },
+  {
+    "dom": "writing",
+    "url": "https://racira.com/writing/technical-to-plain-language-converter",
+    "status": 0,
+    "kind": "error",
+    "mainTextLen": 0,
+    "visibleControls": 0,
+    "imgCount": 0,
+    "err": [
+      "page.goto: net::ERR_INTERNET_DISCONNECTED at https://racira.com/writing/technical-to-plain-language-converter\nCall log:\n\u001b[2m  - navigating to \"https://racira.com/writing/technical-to-plain-language-co"
+    ]
+  }
+]
