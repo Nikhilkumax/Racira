@@ -56,7 +56,7 @@ function calculateConcentration(inputs: ConcentrationInputs): ConcentrationResul
   }
 
   return {
-    mass, molarMass, volume: vol, moles, molarity, gramsPerLiter,
+    mass, molarMass: mm, volume: vol, moles, molarity, gramsPerLiter,
     milliMolar: molarity * 1000,
     chartData, isError: false,
   };

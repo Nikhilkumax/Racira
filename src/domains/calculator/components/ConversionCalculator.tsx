@@ -38,7 +38,7 @@ const SPEED: Record<string, number> = { "m/s": 1, "km/h": 0.2777777778, mph: 0.4
 const TIME: Record<string, number> = { s: 1, min: 60, h: 3600, day: 86400, week: 604800 };
 const DATA: Record<string, number> = { B: 1, KB: 1024, MB: 1024 * 1024, GB: 1024 ** 3, TB: 1024 ** 4 };
 
-const UNITS: Record<Category, Record<string, number>> = {
+const UNITS: Record<Exclude<Category, "temperature">, Record<string, number>> = {
   length: LENGTH,
   weight: WEIGHT,
   volume: VOLUME,
