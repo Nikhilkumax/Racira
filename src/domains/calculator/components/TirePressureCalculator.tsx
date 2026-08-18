@@ -157,7 +157,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Simulate how seasonal temperature changes (summer heat to winter cold) affect your vehicle's tire pressure.</p>
+            
 
             <div className="text-sm font-bold uppercase tracking-wider text-muted-foreground border-b border-border pb-2 text-primary">Current Conditions</div>
             <div className="grid grid-cols-2 gap-4 mb-2">

@@ -4,253 +4,214 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface HexResult {
-  operation: string;
-  num1Hex: string;
-  num2Hex?: string;
+  a: number;
+  b: number;
+  op: string;
+  result: number;
   resultHex: string;
   resultDec: string;
   resultBin: string;
-  isError: boolean;
-  errorMsg?: string;
+  resultOct: string;
+  bitLength: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-const calculateHex = (val1: string, val2: string, op: string): HexResult | null => {
-  // Clean inputs
-  const h1 = val1.replace(/[^0-9A-Fa-f]/g, "").toUpperCase();
-  const h2 = val2.replace(/[^0-9A-Fa-f]/g, "").toUpperCase();
+function parseHex(s: string): number | null {
+  const clean = s.trim().replace(/^0x/i, "");
+  if (!/^[0-9a-fA-F]+$/.test(clean) || clean.length === 0) return null;
+  if (clean.length > 13) return null;
+  return parseInt(clean, 16);
+}
 
-  if (!h1) return null;
+function opLabel(op: string): string {
+  return op === "add" ? "+" : op === "sub" ? "−" : op === "mul" ? "×" : "÷";
+}
 
-  try {
-    const dec1 = BigInt("0x" + h1);
-    let resultDec = BigInt(0);
-    
-    if (["+", "-", "*", "/", "AND", "OR", "XOR"].includes(op)) {
-      if (!h2) return null;
-      const dec2 = BigInt("0x" + h2);
-      
-      switch (op) {
-        case "+": resultDec = dec1 + dec2; break;
-        case "-": resultDec = dec1 - dec2; break;
-        case "*": resultDec = dec1 * dec2; break;
-        case "/": 
-          if (dec2 === BigInt(0)) return { operation: op, num1Hex: h1, num2Hex: h2, resultHex: "", resultDec: "", resultBin: "", isError: true, errorMsg: "Cannot divide by zero." };
-          resultDec = dec1 / dec2; 
-          break;
-        case "AND": resultDec = dec1 & dec2; break;
-        case "OR": resultDec = dec1 | dec2; break;
-        case "XOR": resultDec = dec1 ^ dec2; break;
-      }
-    } else if (op === "NOT") {
-      // Bitwise NOT for hex - pad to nearest 4 bits matching input length
-      // 1 hex char = 4 bits
-      const bitLength = h1.length * 4;
-      let binStr = dec1.toString(2).padStart(bitLength, '0');
-      let notBin = "";
-      for (let i = 0; i < binStr.length; i++) {
-        notBin += binStr[i] === "1" ? "0" : "1";
-      }
-      resultDec = BigInt("0b" + notBin);
-      
-      return {
-        operation: op,
-        num1Hex: h1,
-        resultHex: resultDec.toString(16).toUpperCase().padStart(h1.length, '0'),
-        resultDec: resultDec.toString(),
-        resultBin: resultDec.toString(2).padStart(bitLength, '0'),
-        isError: false
-      };
-    } else if (op === "LSHIFT") {
-      resultDec = dec1 << BigInt(1);
-    } else if (op === "RSHIFT") {
-      resultDec = dec1 >> BigInt(1);
-    }
+function toHex(v: number): string {
+  return v < 0 ? `−${Math.abs(v).toString(16).toUpperCase()}` : v.toString(16).toUpperCase();
+}
 
-    const isNeg = resultDec < BigInt(0);
-    const absDec = isNeg ? -resultDec : resultDec;
-    
-    const resultHex = (isNeg ? "-" : "") + absDec.toString(16).toUpperCase();
-    const resultBin = (isNeg ? "-" : "") + absDec.toString(2);
+function toBin(v: number): string {
+  return v < 0 ? `−${Math.abs(v).toString(2)}` : v.toString(2);
+}
 
-    return {
-      operation: op,
-      num1Hex: h1,
-      num2Hex: h2,
-      resultHex,
-      resultDec: resultDec.toString(),
-      resultBin,
-      isError: false
-    };
+function toOct(v: number): string {
+  return v < 0 ? `−${Math.abs(v).toString(8)}` : v.toString(8);
+}
 
-  } catch (e) {
-    return { operation: op, num1Hex: h1, resultHex: "", resultDec: "", resultBin: "", isError: true, errorMsg: "Calculation error. Input may be too large." };
-  }
-};
+function calcHex(aHex: string, bHex: string, op: string): HexResult {
+  const a = parseHex(aHex)!;
+  const b = parseHex(bHex)!;
+  let result = 0;
+  if (op === "add") result = a + b;
+  else if (op === "sub") result = a - b;
+  else if (op === "mul") result = a * b;
+  else result = Math.trunc(a / b);
+  const absBitLength = Math.abs(Math.trunc(result)).toString(2).length;
 
-const HexCalculator = () => {
-  const [val1, setVal1] = useState("A5");
-  const [val2, setVal2] = useState("3F");
-  const [op, setOp] = useState("+");
+  const breakdown = [
+    { label: "First Operand (A)", value: `0x${toHex(a)}` },
+    { label: "Second Operand (B)", value: `0x${toHex(b)}` },
+    { label: "Operation", value: `A ${opLabel(op)} B` },
+    { label: "Result (Hex)", value: `0x${toHex(result)}` },
+    { label: "Result (Decimal)", value: result.toString() },
+    { label: "Result (Binary)", value: toBin(result) },
+    { label: "Result (Octal)", value: toOct(result) },
+    { label: "Bit Length", value: `${absBitLength} bits` },
+  ];
+  const summaryStats = [
+    { label: "Hex", value: `0x${toHex(result)}` },
+    { label: "Decimal", value: result.toString() },
+    { label: "Binary", value: toBin(result) },
+    { label: "Octal", value: toOct(result) },
+    { label: "A (dec)", value: a.toString() },
+    { label: "B (dec)", value: b.toString() },
+    { label: "Operation", value: opLabel(op) },
+    { label: "Bits", value: `${absBitLength}` },
+  ];
+  const chartData = [
+    { name: "A", value: a, fill: "#8b5cf6" },
+    { name: "B", value: b, fill: "#f59e0b" },
+    { name: "Result", value: result, fill: "hsl(var(--primary))" },
+  ];
+  return { a, b, op, result, resultHex: toHex(result), resultDec: result.toString(), resultBin: toBin(result), resultOct: toOct(result), bitLength: absBitLength, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { a: "2A", b: "1F", op: "add" };
+
+export default function HexCalculator() {
+  const [a, setA] = useState(DEFAULTS.a);
+  const [b, setB] = useState(DEFAULTS.b);
+  const [op, setOp] = useState(DEFAULTS.op);
   const [result, setResult] = useState<HexResult | null>(null);
 
-  const calculate = () => {
-    setResult(calculateHex(val1, val2, op));
-  };
+  const errs: string[] = [];
+  if (!parseHex(a)) errs.push("First value must be valid hex (0–9, A–F, up to 13 digits).");
+  if (!parseHex(b)) errs.push("Second value must be valid hex (0–9, A–F, up to 13 digits).");
+  if (op === "div" && parseHex(b) === 0) errs.push("Division by zero is undefined.");
+  const valid = errs.length === 0;
 
-  useEffect(() => { calculate(); }, [val1, val2, op]);
-
+  const calculate = () => { if (valid) setResult(calcHex(a, b, op)); };
   const reset = () => {
-    setVal1("A5"); setVal2("3F"); setOp("+");
+    setA(DEFAULTS.a); setB(DEFAULTS.b); setOp(DEFAULTS.op);
+    setResult(calcHex("2A", "1F", "add"));
   };
+  useEffect(() => { setResult(calcHex("2A", "1F", "add")); }, []);
 
-  const isUnary = ["NOT", "LSHIFT", "RSHIFT"].includes(op);
-
-  const wrap = "flex items-center rounded-md border border-input bg-background h-12 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-4 text-lg bg-transparent outline-none border-none text-foreground font-mono uppercase tracking-widest";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is Hexadecimal?", answer: "Hexadecimal (Base-16) is a numbering system that uses 16 distinct symbols. It uses the standard numbers 0-9 to represent values zero to nine, and the letters A, B, C, D, E, and F to represent values ten to fifteen." },
-    { question: "Why do computers use Hexadecimal?", answer: "Hex is incredibly efficient for human programmers to read binary data. Because 16 is a power of 2 (2⁴), exactly one hexadecimal digit represents exactly four binary digits (bits), known as a 'nibble'. A standard 8-bit byte (e.g., 10100101) can be written perfectly as a 2-digit hex code (A5), making large strings of binary much shorter and easier to debug." },
-    { question: "What are common uses for Hex?", answer: "You will frequently see hex codes used to define colors in web design (e.g., #FFFFFF is pure white, #FF0000 is red). Hex is also used extensively in networking to represent MAC addresses, IPv6 addresses, and in memory addresses when debugging computer crashes." },
-    { question: "How does Hex addition work?", answer: "It works just like decimal addition, but you carry over at 16 instead of 10. For example, 9 + 1 in decimal is 10. In hex, 9 + 1 is A. If you add F (15) + 1, you hit the Base-16 ceiling, so you write 0 and carry the 1, resulting in 10 (which represents 16 in decimal)." },
+    { question: "Why use hexadecimal?", answer: "Each hex digit maps exactly to four bits, so hex is a compact, readable shorthand for binary. Memory addresses, color codes, and packet headers are all conventionally written in hex." },
+    { question: "How do I convert hex to decimal?", answer: "Each position is a power of 16: 2A = 2×16 + 10 = 42. The calculator shows every result in hex, decimal, binary, and octal simultaneously." },
+    { question: "What is the size limit?", answer: "Values up to 13 hex digits (≈ 2⁵²) are supported, which covers every practical use — addresses, colors, and protocol fields. Larger values should be handled with dedicated arbitrary-precision tools." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Hex Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hex Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Hex Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">Hex Number 1</label>
-              <div className={wrap}><input type="text" value={val1} onChange={e => setVal1(e.target.value.replace(/[^0-9A-Fa-f]/g, ''))} className={ci} placeholder="e.g. A5" /></div>
-            </div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">Operation</label>
-              <div className="grid grid-cols-4 gap-1">
-                {['+', '-', '*', '/'].map((o) => (
-                  <button key={o} type="button" onClick={() => setOp(o)} className={`h-10 rounded text-base font-bold transition-colors border border-input ${op === o ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
-                    {o === '*' ? '×' : o === '/' ? '÷' : o}
-                  </button>
-                ))}
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>First Hex Value</label>
+                <div className={inp}><input value={a} onChange={e => setA(e.target.value)} placeholder="e.g. 2A" className={ci} /></div>
               </div>
-              <div className="grid grid-cols-5 gap-1 mt-1">
-                {['AND', 'OR', 'XOR', 'NOT'].map((o) => (
-                  <button key={o} type="button" onClick={() => setOp(o)} className={`h-10 rounded text-xs font-bold transition-colors border border-input ${op === o ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>
-                    {o}
-                  </button>
-                ))}
-                <div className="col-span-1 flex gap-1">
-                  <button type="button" onClick={() => setOp('LSHIFT')} className={`flex-1 h-10 rounded text-xs font-bold transition-colors border border-input ${op === 'LSHIFT' ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>&lt;&lt;</button>
-                  <button type="button" onClick={() => setOp('RSHIFT')} className={`flex-1 h-10 rounded text-xs font-bold transition-colors border border-input ${op === 'RSHIFT' ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-foreground hover:bg-secondary/80"}`}>&gt;&gt;</button>
-                </div>
+              <div>
+                <label className={lbl}>Second Hex Value</label>
+                <div className={inp}><input value={b} onChange={e => setB(e.target.value)} placeholder="e.g. 1F" className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Operation</label>
+                <select value={op} onChange={e => setOp(e.target.value)} className={sel}>
+                  <option value="add">Add (+)</option>
+                  <option value="sub">Subtract (−)</option>
+                  <option value="mul">Multiply (×)</option>
+                  <option value="div">Divide (÷)</option>
+                </select>
               </div>
             </div>
-
-            <div className={`flex flex-col transition-opacity ${isUnary ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
-              <label className="text-base font-medium text-foreground mb-1.5">Hex Number 2</label>
-              <div className={wrap}><input type="text" value={val2} onChange={e => setVal2(e.target.value.replace(/[^0-9A-Fa-f]/g, ''))} className={ci} placeholder="e.g. 3F" disabled={isUnary} /></div>
-            </div>
-
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-5 w-5" />
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Result</div>
+                <div className="text-4xl font-extrabold tracking-tight break-all">0x{result.resultHex}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.resultDec} decimal · {result.bitLength} bits</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Decimal`, result.resultDec], ["Binary", result.resultBin], ["Octal", result.resultOct]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold break-all">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Conversion Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 3 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold break-all ${i === 3 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Operands and Result</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v}`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-            ) : result && (<>
-              
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
-                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Hexadecimal Result</div>
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl text-muted-foreground font-mono mt-1">0x</span>
-                  <div className="text-3xl md:text-5xl font-extrabold text-foreground tracking-widest font-mono break-all leading-tight">
-                    {result.resultHex}
-                  </div>
-                </div>
-                
-                <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-background border border-border/50 rounded p-4">
-                    <div className="text-xs text-muted-foreground font-bold uppercase mb-1">Decimal (Base-10)</div>
-                    <div className="text-xl font-bold text-foreground font-mono break-all">{result.resultDec}</div>
-                  </div>
-                  <div className="bg-background border border-border/50 rounded p-4">
-                    <div className="text-xs text-muted-foreground font-bold uppercase mb-1">Binary (Base-2)</div>
-                    <div className="text-xl font-bold text-foreground font-mono break-all">{result.resultBin}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Equation Breakdown</h3>
-                <div className="bg-secondary/30 border border-border/50 rounded-lg p-5 overflow-x-auto">
-                  <div className="font-mono text-xl min-w-max flex flex-col items-end">
-                    <div className="tracking-[0.2em]">{result.num1Hex}</div>
-                    {!isUnary && (
-                      <div className="flex w-full items-center justify-end">
-                        <span className="mr-4 text-primary font-bold">{result.operation}</span>
-                        <span className="tracking-[0.2em]">{result.num2Hex || ""}</span>
-                      </div>
-                    )}
-                    {isUnary && (
-                      <div className="text-primary font-bold text-sm uppercase self-start w-full text-right mt-1 mb-2">
-                        {result.operation}
-                      </div>
-                    )}
-                    <div className="w-full border-b-2 border-foreground my-2"></div>
-                    <div className="tracking-[0.2em] font-bold text-primary">{result.resultHex}</div>
-                  </div>
-                </div>
-              </div>
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Power of Hexadecimal</h2>
-            <p><strong>Hexadecimal (Base-16)</strong> is a numbering system designed to make raw binary code significantly more human-readable. Computers only understand binary (Base-2), meaning long strings of 0s and 1s. However, writing out millions of binary digits is incredibly prone to error for human programmers.</p>
-            <p>Hexadecimal solves this problem elegantly. Because 16 is exactly 2⁴, one single hexadecimal digit maps perfectly to four binary digits (a "nibble"). Therefore, an 8-bit byte (like <code>1101 0101</code>) can be compressed down to just two hex characters (<code>D5</code>). This drastically shortens code while retaining an exact, mathematical link to the underlying binary.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Counting in Base-16</h2>
-            <p>Standard numbers only have 10 digits (0 through 9). Since Base-16 requires 16 unique symbols, mathematicians borrowed the first six letters of the alphabet to fill the gaps:</p>
-            <ul>
-              <li><strong>0 - 9</strong> represent values zero to nine.</li>
-              <li><strong>A</strong> = 10</li>
-              <li><strong>B</strong> = 11</li>
-              <li><strong>C</strong> = 12</li>
-              <li><strong>D</strong> = 13</li>
-              <li><strong>E</strong> = 14</li>
-              <li><strong>F</strong> = 15</li>
-            </ul>
-            <p>When counting in hex, you go: 8, 9, A, B, C, D, E, F. Once you run out of symbols at F, you carry the 1 over to the next column, making the next number <strong>10</strong> (which equals 16 in decimal).</p>
-
-            <h2 className="text-2xl font-bold mb-3">Where is Hex Used?</h2>
-            <p>You interact with hexadecimal code daily without realizing it. The most common applications include:</p>
-            <ul>
-              <li><strong>Web Colors:</strong> HTML/CSS color codes use hex to define red, green, and blue values. <code>#FF0000</code> means maximum Red (FF), no Green (00), and no Blue (00).</li>
-              <li><strong>MAC Addresses:</strong> The unique physical identifier burned into your computer's network card is written in hex (e.g., <code>00:1A:2B:3C:4D:5E</code>).</li>
-              <li><strong>Memory Addresses:</strong> When software crashes and displays an error code (like <code>0x000000FF</code>), it is telling the developer the exact physical memory location in RAM where the error occurred, written in hex.</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-3">Hexadecimal Arithmetic</h2>
+            <p>This <strong>hex calculator</strong> performs addition, subtraction, multiplication, and division on hexadecimal operands, then reports the result in hex, decimal, binary, and octal. Each hex digit stands for exactly four binary bits, which is why hex is the natural shorthand for binary data.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading the Conversions</h2>
+            <p>0x2A equals 42 in decimal: 2×16 plus 10. Binary 101010 and octal 52 encode the same value. Negative results are displayed with a minus sign, and division uses integer truncation like most low-level operations.</p>
+            <h2 className="text-2xl font-bold mb-3">Where Hex Appears</h2>
+            <p>Memory addresses and debuggers, CSS colors (#RRGGBB), MAC addresses, opcodes, and checksums all use hex. Converting between bases by hand is tedious — this tool makes the round trips instant.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hex-calculator" />
           <PopularCalculators exclude="/calculator/hex-calculator" />
@@ -258,5 +219,4 @@ const HexCalculator = () => {
       </div>
     </>
   );
-};
-export default HexCalculator;
+}

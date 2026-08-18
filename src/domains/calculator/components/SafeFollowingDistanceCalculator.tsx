@@ -147,7 +147,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Calculate the exact physical distance you need to maintain behind the car in front of you to prevent a rear-end collision.</p>
+            
 
             <div className="grid grid-cols-1 gap-4">
               <CompactInput id="speed" label="Vehicle Speed" value={inputs.speed} onChange={(v: string) => handleChange("speed", v)} suffix="MPH" placeholder="60" />

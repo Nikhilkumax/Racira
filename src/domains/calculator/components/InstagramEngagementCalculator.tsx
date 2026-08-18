@@ -1,156 +1,219 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Heart, Calculator, Users, MessageCircle, TrendingUp, BarChart3, Camera } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+
+interface EngagementResult {
+  followers: number;
+  likes: number;
+  comments: number;
+  saves: number;
+  shares: number;
+  total: number;
+  rate: number;
+  benchmark: string;
+  benchmarkColor: string;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
+
+function calcEngagement(followers: number, likes: number, comments: number, saves: number, shares: number): EngagementResult {
+  const total = likes + comments + saves + shares;
+  const rate = followers > 0 ? (total / followers) * 100 : 0;
+
+  let benchmark: string, benchmarkColor: string;
+  if (rate >= 6) { benchmark = "Excellent"; benchmarkColor = "text-emerald-600"; }
+  else if (rate >= 3) { benchmark = "Good"; benchmarkColor = "text-primary"; }
+  else if (rate >= 1) { benchmark = "Average"; benchmarkColor = "text-amber-500"; }
+  else { benchmark = "Below Average"; benchmarkColor = "text-red-500"; }
+
+  const breakdown = [
+    { label: "Followers", value: followers.toLocaleString() },
+    { label: "Likes", value: likes.toLocaleString() },
+    { label: "Comments", value: comments.toLocaleString() },
+    { label: "Saves", value: saves.toLocaleString() },
+    { label: "Shares", value: shares.toLocaleString() },
+    { label: "Total Engagements", value: total.toLocaleString() },
+    { label: "Engagement Rate", value: `${rate.toFixed(2)}%` },
+    { label: "Benchmark", value: benchmark },
+  ];
+  const summaryStats = [
+    { label: "Engagement Rate", value: `${rate.toFixed(2)}%` },
+    { label: "Total Engagements", value: total.toLocaleString() },
+    { label: "Likes", value: likes.toLocaleString() },
+    { label: "Comments", value: comments.toLocaleString() },
+    { label: "Saves", value: saves.toLocaleString() },
+    { label: "Shares", value: shares.toLocaleString() },
+    { label: "Followers", value: followers.toLocaleString() },
+    { label: "Benchmark", value: benchmark },
+  ];
+  const chartData = [
+    { name: "Likes", value: likes, fill: "hsl(var(--primary))" },
+    { name: "Comments", value: comments, fill: "#8b5cf6" },
+    { name: "Saves", value: saves, fill: "#f59e0b" },
+    { name: "Shares", value: shares, fill: "#10b981" },
+  ];
+  return { followers, likes, comments, saves, shares, total, rate, benchmark, benchmarkColor, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { followers: "25000", likes: "900", comments: "45", saves: "60", shares: "20" };
 
 export default function InstagramEngagementCalculator() {
-  const [followers, setFollowers] = useState("10000");
-  const [avgLikes, setAvgLikes] = useState("450");
-  const [avgComments, setAvgComments] = useState("25");
-  const [avgSaves, setAvgSaves] = useState("15");
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState({
-    engagementRate: 0,
-    status: "",
-    totalInteractions: 0,
-    estimatedValuePerPost: 0,
-  });
+  const [followers, setFollowers] = useState(DEFAULTS.followers);
+  const [likes, setLikes] = useState(DEFAULTS.likes);
+  const [comments, setComments] = useState(DEFAULTS.comments);
+  const [saves, setSaves] = useState(DEFAULTS.saves);
+  const [shares, setShares] = useState(DEFAULTS.shares);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<EngagementResult | null>(null);
 
-  const handleCalculate = () => {
-    const f = parseFloat(followers) || 0;
-    const l = parseFloat(avgLikes) || 0;
-    const c = parseFloat(avgComments) || 0;
-    const s = parseFloat(avgSaves) || 0;
+  const fl = parseInt(followers) || 0;
+  const lk = parseInt(likes) || 0;
+  const cm = parseInt(comments) || 0;
+  const sv = parseInt(saves) || 0;
+  const sh = parseInt(shares) || 0;
+  const errs: string[] = [];
+  if (fl <= 0) errs.push("Followers must be greater than 0.");
+  if (lk < 0 || cm < 0 || sv < 0 || sh < 0) errs.push("Engagement counts cannot be negative.");
+  const valid = errs.length === 0;
 
-    const totalInteractions = l + c + s;
-    const engagementRate = f > 0 ? (totalInteractions / f) * 100 : 0;
-
-    let status = "Average";
-    if (engagementRate > 6) status = "Elite";
-    else if (engagementRate > 3.5) status = "Good";
-    else if (engagementRate < 1.5) status = "Below Average";
-
-    // Rough estimate of value per post based on engagement and market rates
-    const estimatedValuePerPost = (totalInteractions * 0.5) + (f * 0.01);
-
-    setResults({
-      engagementRate,
-      status,
-      totalInteractions,
-      estimatedValuePerPost,
-    });
-    setShowResults(true);
-  };
-
+  const calculate = () => { if (valid) setResult(calcEngagement(fl, lk, cm, sv, sh)); };
   const reset = () => {
-    setFollowers("10000");
-    setAvgLikes("450");
-    setAvgComments("25");
-    setAvgSaves("15");
-    setShowResults(false);
+    setFollowers(DEFAULTS.followers); setLikes(DEFAULTS.likes); setComments(DEFAULTS.comments); setSaves(DEFAULTS.saves); setShares(DEFAULTS.shares);
+    setResult(calcEngagement(25000, 900, 45, 60, 20));
   };
+  useEffect(() => { setResult(calcEngagement(25000, 900, 45, 60, 20)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is a good engagement rate on Instagram?", answer: "A 'good' engagement rate typically ranges from 1.5% to 3.5%. For accounts with fewer than 10,000 followers, rates are often higher (5-10%). As your follower count grows, your engagement rate naturally tends to decrease due to the algorithm's reach limitations." },
-    { question: "How is Instagram engagement calculated?", answer: "The most common formula is: ((Likes + Comments + Saves) / Total Followers) * 100. Some professionals also calculate engagement based on 'Reach' (people who actually saw the post) instead of total followers, which often yields a higher and more accurate percentage of active interest." },
-    { question: "Why is my engagement rate dropping?", answer: "Engagement can drop due to algorithm changes, posting inconsistent content, using 'shadowbanned' hashtags, or having a high number of inactive or bot followers. It can also happen if your content no longer resonates with the specific interests of your audience." },
-    { question: "Do Saves and Shares count toward engagement?", answer: "Yes! In fact, the Instagram algorithm currently values 'Saves' and 'Shares' more than 'Likes' because they represent a deeper level of interest and intent. Saves tell Instagram that your content is high-value and worth revisiting." },
-    { question: "What is the best time to post on Instagram?", answer: "The best time varies by audience location and habits. However, generally, posting between 9 AM and 11 AM (local time of your majority audience) on weekdays yields the highest initial engagement, which helps propel the post into more feeds." },
-    { question: "How many followers do I need for brands to pay me?", answer: "There is no magic number. 'Nano-influencers' with as few as 1,000 followers can get paid if their engagement rate is extremely high (7%+) and they are in a specific, valuable niche like high-end fashion or tech." },
-    { question: "Does the number of hashtags affect engagement?", answer: "Research suggests that using 3 to 5 highly relevant hashtags is currently more effective than using the maximum limit of 30. Using too many irrelevant hashtags can lead the algorithm to categorize your content incorrectly." },
+    { question: "How is engagement rate calculated?", answer: "Add likes, comments, saves, and shares, divide by followers, and multiply by 100. Saves and shares count more heavily in the algorithm, but this standard formula treats all equally." },
+    { question: "What is a good engagement rate?", answer: "For most accounts, 1–3% is average, 3–6% is good, and above 6% is excellent. Smaller accounts often see higher rates because the follower base is more intentional." },
+    { question: "Why do saves matter?", answer: "Saves signal future value and are weighted heavily by Instagram's ranking. Posts with high save rates get pushed to non-followers, driving reach and new followers." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Instagram Engagement Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Instagram Engagement Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Instagram Engagement Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Instagram Engagement Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                <InputField id="followers" label="Total Followers" value={followers} onChange={setFollowers} tooltip="Your current total follower count." />
-                <InputField id="likes" label="Avg. Likes" value={avgLikes} onChange={setAvgLikes} />
-                <InputField id="comments" label="Avg. Comments" value={avgComments} onChange={setAvgComments} />
-                <InputField id="saves" label="Avg. Saves" value={avgSaves} onChange={setAvgSaves} />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Followers</label>
+                <div className={inp}><input type="number" value={followers} onChange={e => setFollowers(e.target.value)} className={ci} /></div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className={lbl}>Likes</label>
+                <div className={inp}><input type="number" value={likes} onChange={e => setLikes(e.target.value)} className={ci} /></div>
               </div>
+              <div>
+                <label className={lbl}>Comments</label>
+                <div className={inp}><input type="number" value={comments} onChange={e => setComments(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Saves</label>
+                <div className={inp}><input type="number" value={saves} onChange={e => setSaves(e.target.value)} className={ci} /></div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Additional Signals</div>
+                  <div>
+                    <label className={lbl}>Shares</label>
+                    <div className={inp}><input type="number" value={shares} onChange={e => setShares(e.target.value)} className={ci} /></div>
+                    <p className="text-xs text-muted-foreground mt-1.5">Reposts and message shares — a strong ranking signal included in the total.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Account Analysis</h2>
-                <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Engagement Rate</p>
-                    <p className="text-5xl font-black text-foreground">{results.engagementRate.toFixed(2)}%</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Engagement Rate</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.rate.toFixed(2)}%</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.total.toLocaleString()} engagements on {result.followers.toLocaleString()} followers</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Total Engagements`, result.total.toLocaleString()], ["Benchmark", result.benchmark], ["Engagements/Follower", (result.total / Math.max(result.followers, 1)).toFixed(3)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className={`text-base font-bold ${i === 1 ? result.benchmarkColor : ""}`}>{v}</div>
                   </div>
-                  <div className={`p-6 rounded-2xl border text-center flex flex-col justify-center ${results.status === "Elite" || results.status === "Good" ? "bg-green-500/5 border-green-500/10" : "bg-orange-500/5 border-orange-500/10"}`}>
-                    <p className="text-xs font-bold uppercase tracking-widest mb-1 opacity-70">Benchmark Status</p>
-                    <p className={`text-3xl font-black ${results.status === "Elite" || results.status === "Good" ? "text-green-600" : "text-orange-600"}`}>{results.status}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Engagement Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 6 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 6 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 6 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Engagement Mix</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v}`, ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Composition of total engagements</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-                <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center mb-8">
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Est. Sponsored Post Value</p>
-                    <p className="text-4xl font-black text-foreground">${results.estimatedValuePerPost.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-                    <p className="text-xs text-muted-foreground mt-2">Based on current engagement metrics and industry averages.</p>
-                </div>
-                <ResultDisplay items={[
-                  { label: "Avg. Interactions", value: 0, textValue: results.totalInteractions.toLocaleString() },
-                  { label: "Follower Tier", value: 0, textValue: parseFloat(followers) < 10000 ? "Nano-Influencer" : "Micro-Influencer" },
-                  { label: "Algorithm Health", value: 0, textValue: results.engagementRate > 2.5 ? "Very Healthy" : "Needs Improvement" },
-                ]} />
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Mastering Instagram Engagement Metrics</h2>
-              <p>In the early days of Instagram, a high follower count was the only metric that mattered. Today, the landscape has shifted entirely. Brands, agencies, and the Instagram algorithm itself now prioritize <strong>engagement</strong> over raw numbers. This Instagram Engagement Calculator is designed to help you see past the 'vanity metrics' and understand the true health and commercial value of your social presence.</p>
-
-              <h3>1. The Shift from Followers to Interaction</h3>
-              <p>Why does engagement matter so much? Because it is easy to fake followers but difficult to fake consistent, meaningful interaction. A 'ghost' follower who never sees your posts adds zero value to your account. In fact, having too many inactive followers actually hurts you, as it tells the algorithm that even your own audience isn't interested in your content, leading to lower reach for your active followers.</p>
-
-              <h3>2. Decoding the Algorithm: Likes vs. Comments vs. Saves</h3>
-              <p>Not all engagement is created equal. Instagram uses a weighted system to determine which posts to push to the 'Explore' page and the top of user feeds:</p>
-              <ul>
-                <li><strong>Likes:</strong> The most common but least valuable. It's a low-effort interaction.</li>
-                <li><strong>Comments:</strong> More valuable, especially if they are more than 4 words long. This signals deep engagement and community.</li>
-                <li><strong>Shares:</strong> Extremely valuable as it brings new users to your profile and signals high virality potential.</li>
-                <li><strong>Saves:</strong> The current 'Holy Grail.' A save tells Instagram your content is evergreen, useful, and high-quality.</li>
-              </ul>
-
-              <h3>3. Benchmarking: What is 'Good' Engagement?</h3>
-              <p>Engagement rates are relative to your account size. A small account with 2,000 followers should aim for an engagement rate of 7-10%. As you scale toward 100,000 followers, a rate of 2-3% becomes the healthy standard. If you have 50,000 followers but only get 100 likes per post (0.2% ER), your account is likely suffering from 'follower decay' or has a high percentage of bot accounts.</p>
-
-              <h3>4. Influencer Valuation: What Are You Worth?</h3>
-              <p>When brands look to partner with influencers, they use engagement rate to calculate their ROI. A common industry formula is the <strong>CPE (Cost Per Engagement)</strong>. If a brand pays you $500 for a post that generates 1,000 interactions, their CPE is $0.50. High-quality influencers in specific niches can often command $1.00 to $2.00 per engagement. Use our calculator's 'Estimated Value' as a starting point for your next brand negotiation.</p>
-
-              <h3>5. How to Boost Your Engagement Rate</h3>
-              <p>If the results of this calculator were lower than you hoped, don't worry. Engagement is a dynamic metric that can be improved with strategy:</p>
-              <ul>
-                <li><strong>Leverage Instagram Reels:</strong> Reels currently receive the highest organic reach and engagement of any post type on the platform.</li>
-                <li><strong>Engage First:</strong> Spend 15 minutes before and after posting engaging with other accounts in your niche. This signals the algorithm that you are an active member of the community.</li>
-                <li><strong>Use Interactive Stories:</strong> Polls, sliders, and 'Add Yours' stickers are low-friction ways to keep your audience interacting with your brand daily.</li>
-                <li><strong>Clean Your Follower List:</strong> Periodically removing 'ghost' or bot accounts can actually increase your overall engagement percentage and reach.</li>
-              </ul>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Measuring Account Health</h2>
+            <p>This <strong>Instagram engagement calculator</strong> computes engagement rate — total interactions divided by followers — the standard health metric for social accounts. Unlike raw follower counts, the rate measures how actively your audience responds to content.</p>
+            <h2 className="text-2xl font-bold mb-3">Interpreting the Number</h2>
+            <p>1–3% is typical, 3–6% is strong, and 6%+ is exceptional. Rates naturally decline as accounts grow past 100K followers, so compare against accounts of similar size rather than celebrity outliers.</p>
+            <h2 className="text-2xl font-bold mb-3">Improving It</h2>
+            <p>Saves and shares carry outsized algorithmic weight — content people bookmark and forward reaches far beyond followers. Carousels, tutorials, and value-dense posts consistently lift both the rate and the reach that feeds it.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/instagram-engagement-calculator" />
           <PopularCalculators exclude="/calculator/instagram-engagement-calculator" />
         </div>

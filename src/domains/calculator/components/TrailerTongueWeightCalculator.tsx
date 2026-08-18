@@ -170,8 +170,11 @@ export default function TrailerTongueWeightCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button type="button" onClick={() => setResults(calculateTongue(inputs))} className="flex-1 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="h-11 w-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
             
@@ -221,6 +224,37 @@ export default function TrailerTongueWeightCalculator() {
                     <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Maximum Safe</div>
                     <div className="text-2xl font-bold text-destructive">{results.maxWeight.toLocaleString()}</div>
                     <div className="text-xs text-muted-foreground">To prevent overload</div>
+                  </div>
+                </div>
+
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Trailer Weight</p>
+                      <p className="font-semibold text-foreground">{parseFloat(inputs.trailerWeight).toLocaleString()} lbs</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Hitch Type</p>
+                      <p className="font-semibold text-foreground capitalize">{inputs.hitchType.replace('_', ' ')}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Minimum Tongue Weight</p>
+                      <p className="font-semibold text-foreground">{results.minWeight.toLocaleString()} lbs</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Maximum Safe</p>
+                      <p className="font-semibold text-foreground">{results.maxWeight.toLocaleString()} lbs</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Ideal Target</p>
+                      <p className="font-semibold text-primary">{results.targetWeight.toLocaleString()} lbs ({results.targetPercentage}%)</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Rule of Thumb</p>
+                      <p className="font-semibold text-foreground">Bumper: 10–15% · 5th wheel: 15–25%</p>
+                    </div>
                   </div>
                 </div>
 
@@ -281,7 +315,7 @@ export default function TrailerTongueWeightCalculator() {
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/trailer-tongue-weight-calculator" />
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/trailer-tongue-weight-calculator" />
         </div>
       </div>
     </>

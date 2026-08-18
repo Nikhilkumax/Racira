@@ -162,7 +162,7 @@ export default function PulseOxCalculator() {
 
             <div className="flex gap-3 mt-4">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <Wind className="h-5 w-5" /> Analyze Reading
+                <Wind className="h-5 w-5" /> Calculate
               </button>
               <button onClick={() => { setSpo2("98"); setCopd(false); setSymptoms(false); setResult(calcPulseOx(98, false, false)); }} className="w-11 h-11 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />

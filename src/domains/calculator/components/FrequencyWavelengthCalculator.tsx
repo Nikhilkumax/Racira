@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Radio } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 const MEDIA = [
   { id: "vacuum", label: "Vacuum / Air (c ≈ 3.00 × 10⁸ m/s)", speed: 299792458 },
@@ -80,6 +81,7 @@ export default function FrequencyWavelengthCalculator() {
     setResult(calcWave(100, "mhz", "vacuum"));
   };
 
+  const chartData = MEDIA.map((m) => ({ name: m.label.split(" (")[0], value: Number((m.speed / result.freqHz).toFixed(4)) }));
   const breakdown = [
     { label: "Frequency", value: `${result.freqHz.toLocaleString("en-US", { maximumFractionDigits: 6 })} Hz`, highlight: false },
     { label: "Wave Speed in Medium", value: `${(result.speed / 1e8).toFixed(2)} × 10⁸ m/s`, highlight: false },
@@ -140,6 +142,22 @@ export default function FrequencyWavelengthCalculator() {
               <p className="text-sm text-muted-foreground mt-1">
                 A {result.freqDisplay} wave in {media === "vacuum" ? "vacuum" : "this medium"} — {result.band}.
               </p>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Wavelength by Medium</h3>
+              <div className="h-[220px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip formatter={(value: number) => `${value} m`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={55} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-center text-muted-foreground mt-3 italic">Same frequency, slower media compress the wavelength.</p>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

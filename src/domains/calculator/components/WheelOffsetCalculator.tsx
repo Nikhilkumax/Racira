@@ -6,6 +6,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { Maximize2, RotateCcw, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
 
 // 1. TypeScript interfaces
 interface OffsetResults {
@@ -121,10 +122,24 @@ export default function WheelOffsetCalculator() {
     if (!r.isError) setResults(r);
   };
 
+  const handleCalculate = () => {
+    const r = calculateOffset(inputs);
+    if (!r.isError) setResults(r);
+  };
+
   const handleReset = () => {
     setInputs(DEFAULTS);
     setResults(calculateOffset(DEFAULTS));
   };
+
+  const w1Mm = (parseFloat(inputs.w1) || 0) * 25.4;
+  const w2Mm = (parseFloat(inputs.w2) || 0) * 25.4;
+  const o1N = parseFloat(inputs.o1) || 0;
+  const o2N = parseFloat(inputs.o2) || 0;
+  const chartData = [
+    { name: "Current", "Inner (strut)": Number(((w1Mm / 2) + o1N).toFixed(1)), "Outer (fender)": Number(((w1Mm / 2) - o1N).toFixed(1)) },
+    { name: "New", "Inner (strut)": Number(((w2Mm / 2) + o2N).toFixed(1)), "Outer (fender)": Number(((w2Mm / 2) - o2N).toFixed(1)) },
+  ];
 
   const faqs = [
     { question: "What is wheel offset?", answer: "Wheel offset is the distance from the wheel's absolute center line to the wheel's mounting hub pad (where it bolts to the car). It is measured in millimeters. A positive offset means the mounting pad is closer to the outside (street side) of the wheel. A negative offset means the pad is deeper inside the wheel." },
@@ -158,7 +173,10 @@ export default function WheelOffsetCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>
@@ -209,6 +227,24 @@ export default function WheelOffsetCalculator() {
                       {results.outerPositionDesc}
                     </div>
                   </div>
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card shadow-sm mt-2">
+                  <h3 className="text-base font-semibold text-foreground mb-4">Wheel Position from Hub</h3>
+                  <div className="h-[220px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                        <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                        <RechartsTooltip formatter={(value: number) => `${value} mm`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                        <Legend wrapperStyle={{ fontSize: '13px' }} />
+                        <Bar dataKey="Inner (strut)" fill="hsl(var(--destructive))" radius={[4, 4, 0, 0]} maxBarSize={60} />
+                        <Bar dataKey="Outer (fender)" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={60} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <p className="text-xs text-center text-muted-foreground mt-3 italic">Distance from the hub mounting face to the inner and outer wheel lips.</p>
                 </div>
 
                 {/* Track Width */}

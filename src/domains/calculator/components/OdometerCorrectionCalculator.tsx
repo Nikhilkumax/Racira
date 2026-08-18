@@ -139,7 +139,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Determine your vehicle's true, physical mileage after installing aftermarket tires without recalibrating the computer.</p>
+            
 
             <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 pb-1 mt-2">Tire Geometry</div>
             <div className="grid grid-cols-2 gap-4">

@@ -7,7 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import PieChart from "@/domains/calculator/components/ui/PieChart"; // uses recharts internally
+import PieChart from "@/domains/calculator/components/ui/PieChart";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 import { RotateCcw, Award, ShieldCheck, Landmark, Calculator, ChevronDown } from "lucide-react";
 
 const BonusCalculator = () => {
@@ -25,6 +26,16 @@ const BonusCalculator = () => {
     retirementAmt: number;
     totalDeductions: number;
   } | null>(null);
+
+  const breakdownChartData = results
+    ? [
+        { name: "Federal", value: Math.round(results.federalAmt) },
+        { name: "State", value: Math.round(results.stateAmt) },
+        { name: "FICA", value: Math.round(results.ficaAmt) },
+        { name: "401(k)", value: Math.round(results.retirementAmt) },
+        { name: "Take-Home", value: Math.round(results.netBonus) },
+      ]
+    : [];
   const [showResults, setShowResults] = useState(false);
   const [showAdv, setShowAdv] = useState(false);
 
@@ -150,6 +161,21 @@ const BonusCalculator = () => {
                             { label: "Retirement", value: results.retirementAmt, color: "hsl(var(--secondary))" },
                         ]} size={180} />
                     </div>
+                </div>
+
+                <div className="card-calculator !p-4 border border-border bg-card shadow-sm mt-4">
+                  <h3 className="text-base font-bold mb-3">Where the Bonus Goes</h3>
+                  <div className="h-[220px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={breakdownChartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                        <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
+                        <RechartsTooltip formatter={(value: number) => `$${value.toLocaleString()}`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={55} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
               </>
             )}

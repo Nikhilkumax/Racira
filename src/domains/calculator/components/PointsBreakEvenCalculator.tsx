@@ -1,199 +1,223 @@
 "use client";
-import { RotateCcw, Target, DollarSign, TrendingDown } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const PointsBreakEvenCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("300000");
-  const [points, setPoints] = useState("1");
-  const [originalRate, setOriginalRate] = useState("7.0");
-  const [newRate, setNewRate] = useState("6.75");
-  const [loanTerm, setLoanTerm] = useState("30");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface PbeResult {
+  basePayment: number;
+  ptsPayment: number;
+  monthlySavings: number;
+  pointsCost: number;
+  ptsRate: number;
+  breakEvenMonths: number;
+  breakEvenYears: string;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { month: number; noPoints: number; withPoints: number }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const principal = parseFloat(loanAmount) || 0;
-    const pts = parseFloat(points) || 0;
-    const rateOrig = (parseFloat(originalRate) || 0) / 100 / 12;
-    const rateNew = (parseFloat(newRate) || 0) / 100 / 12;
-    const termMonths = (parseFloat(loanTerm) || 0) * 12;
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-    if (principal <= 0 || termMonths <= 0 || rateOrig <= 0 || rateNew <= 0) return;
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
 
-    const paymentOrig = (principal * rateOrig * Math.pow(1 + rateOrig, termMonths)) / (Math.pow(1 + rateOrig, termMonths) - 1);
-    const paymentNew = (principal * rateNew * Math.pow(1 + rateNew, termMonths)) / (Math.pow(1 + rateNew, termMonths) - 1);
+function paymentFor(loan: number, ratePct: number, years: number): number {
+  const r = ratePct / 100 / 12;
+  const n = years * 12;
+  if (r === 0) return loan / n;
+  return (loan * r) / (1 - Math.pow(1 + r, -n));
+}
 
-    const monthlySavings = paymentOrig - paymentNew;
-    const costOfPoints = principal * (pts / 100);
-
-    if (monthlySavings <= 0) {
-      setResults({ error: "The new interest rate must be lower than the original rate to calculate a break-even point." });
-      return;
-    }
-
-    const breakEvenMonths = costOfPoints / monthlySavings;
-    const totalSavingsOverTerm = (monthlySavings * termMonths) - costOfPoints;
-
-    setResults({
-      paymentOrig,
-      paymentNew,
-      monthlySavings,
-      costOfPoints,
-      breakEvenMonths,
-      totalSavingsOverTerm,
-      error: null
+function calcPbe(loan: number, baseRate: number, points: number, ratePerPoint: number, years: number): PbeResult {
+  const ptsRate = baseRate - points * ratePerPoint;
+  const basePayment = paymentFor(loan, baseRate, years);
+  const ptsPayment = paymentFor(loan, ptsRate, years);
+  const monthlySavings = basePayment - ptsPayment;
+  const pointsCost = (points / 100) * loan;
+  const breakEvenMonths = monthlySavings > 0 ? Math.ceil(pointsCost / monthlySavings) : Infinity;
+  const beYears = breakEvenMonths === Infinity ? "Never" : `${Math.floor(breakEvenMonths / 12)} yr ${breakEvenMonths % 12} mo`;
+  const breakdown = [
+    { label: "Loan Amount", value: money(loan) },
+    { label: "Base Interest Rate", value: `${fmt(baseRate)}%` },
+    { label: "Points Purchased", value: `${fmt(points)} pt` },
+    { label: "Rate Reduction per Point", value: `${fmt(ratePerPoint)}%` },
+    { label: "New Interest Rate", value: `${fmt(ptsRate)}%` },
+    { label: "Points Cost (1% of loan each)", value: money(pointsCost) },
+    { label: "Monthly Payment (no points)", value: money(basePayment) },
+    { label: "Monthly Payment (with points)", value: money(ptsPayment) },
+    { label: "Monthly Savings", value: money(monthlySavings) },
+    { label: "Break-Even", value: breakEvenMonths === Infinity ? "Never — rates equal or higher" : `${breakEvenMonths} months (${beYears})` },
+  ];
+  const summaryStats = [
+    { label: "Monthly Savings", value: money(monthlySavings) },
+    { label: "Points Cost", value: money(pointsCost) },
+    { label: "Break-Even", value: beYears },
+    { label: "New Rate", value: `${fmt(ptsRate)}%` },
+  ];
+  const chartData: { month: number; noPoints: number; withPoints: number }[] = [];
+  const horizon = breakEvenMonths === Infinity ? 240 : Math.max(60, breakEvenMonths + 60);
+  for (let m = 0; m <= horizon; m += Math.max(1, Math.floor(horizon / 24))) {
+    chartData.push({
+      month: m,
+      noPoints: Number((basePayment * m).toFixed(0)),
+      withPoints: Number((pointsCost + ptsPayment * m).toFixed(0)),
     });
-  };
+  }
+  return { basePayment, ptsPayment, monthlySavings, pointsCost, ptsRate, breakEvenMonths, breakEvenYears: beYears, breakdown, summaryStats, chartData };
+}
 
+const DEFAULTS = { loan: "300000", rate: "6.5", points: "1", perPoint: "0.25", years: "30" };
+
+export default function PointsBreakEvenCalculator() {
+  const [loan, setLoan] = useState(DEFAULTS.loan);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [points, setPoints] = useState(DEFAULTS.points);
+  const [perPoint, setPerPoint] = useState(DEFAULTS.perPoint);
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [result, setResult] = useState<PbeResult | null>(null);
+
+  const l = parseFloat(loan);
+  const r = parseFloat(rate);
+  const p = parseFloat(points);
+  const pp = parseFloat(perPoint);
+  const y = parseFloat(years);
+  const errs: string[] = [];
+  if (!l || l <= 0) errs.push("Loan amount must be greater than 0.");
+  if (isNaN(r) || r < 0) errs.push("Interest rate must be 0 or greater.");
+  if (isNaN(p) || p < 0) errs.push("Points must be 0 or greater.");
+  if (isNaN(pp) || pp < 0) errs.push("Rate reduction per point must be 0 or greater.");
+  if (!y || y <= 0 || y > 50) errs.push("Loan term must be between 1 and 50 years.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcPbe(l, r, p, pp, y)); };
   const reset = () => {
-    setLoanAmount("300000");
-    setPoints("1");
-    setOriginalRate("7.0");
-    setNewRate("6.75");
-    setLoanTerm("30");
+    setLoan(DEFAULTS.loan); setRate(DEFAULTS.rate); setPoints(DEFAULTS.points); setPerPoint(DEFAULTS.perPoint); setYears(DEFAULTS.years);
+    setResult(calcPbe(300000, 6.5, 1, 0.25, 30));
   };
+  useEffect(() => { setResult(calcPbe(300000, 6.5, 1, 0.25, 30)); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What are mortgage points?",
-      answer: "Mortgage points, also known as discount points, are upfront fees paid to the lender at closing in exchange for a lower interest rate on your loan. One point typically costs 1% of the total loan amount and usually lowers the interest rate by 0.25%."
-    },
-    {
-      question: "How do I calculate the break-even point for points?",
-      answer: "To find the break-even point, divide the upfront cost of the points by the monthly savings you get from the lower interest rate. The result is the number of months you need to stay in the home to recoup the initial investment."
-    },
-    {
-      question: "Is it worth buying mortgage points?",
-      answer: "It depends on how long you plan to keep the mortgage. If you plan to stay in the home longer than the break-even period, buying points will save you money over the life of the loan. If you plan to sell or refinance sooner, you're better off keeping the cash."
-    },
-    {
-      question: "Can points be negotiated?",
-      answer: "Yes, mortgage points and the associated interest rate reductions are often negotiable. You should compare offers from different lenders to see who provides the best value for each point purchased."
-    }
+    { question: "What are mortgage discount points?", answer: "Points are prepaid interest: each point costs 1% of the loan amount and lowers the interest rate by roughly 0.25 percentage points. A $300,000 loan with 1 point costs $3,000 upfront for a lower monthly payment." },
+    { question: "What is the break-even point?", answer: "The moment your monthly savings have repaid the upfront cost of the points. If points cost $3,000 and save $60/month, you break even at 50 months. Live in the house longer than that and points pay off; sell sooner and they do not." },
+    { question: "Should I buy points?", answer: "It depends on how long you will keep the mortgage. Short horizon — plan to refinance or sell within a few years — skip points. Long horizon — 7+ years — points usually win. Tax treatment also differs since points are deductible as mortgage interest in the year paid." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Mortgage Points Break-Even Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Mortgage Points Break-Even Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Points Break-Even Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Mortgage Points Break-Even Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <DollarSign className="h-5 w-5 text-primary" /> Loan Details
-                  </h2>
-                  <InputField id="loan-amount" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" />
-                  <InputField id="points" label="Number of Points" value={points} onChange={setPoints} suffix="pts" step="0.1" tooltip="1 point = 1% of loan amount. Usually reduces rate by 0.25%." />
-                  <InputField id="term" label="Loan Term (Years)" value={loanTerm} onChange={setLoanTerm} suffix="yrs" />
-                </section>
-
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <TrendingDown className="h-5 w-5 text-primary" /> Rate Comparison
-                  </h2>
-                  <InputField id="orig-rate" label="Original Rate (%)" value={originalRate} onChange={setOriginalRate} suffix="%" step="0.1" tooltip="The interest rate without paying points." />
-                  <InputField id="new-rate" label="New Rate (with Points)" value={newRate} onChange={setNewRate} suffix="%" step="0.1" tooltip="The lower interest rate after paying the points." />
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Loan Amount ($)</label>
+                <input type="number" value={loan} onChange={e => setLoan(e.target.value)} className={inp} placeholder="300000" />
               </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+              <div>
+                <label className={lbl}>Base Interest Rate (%)</label>
+                <input type="number" value={rate} onChange={e => setRate(e.target.value)} className={inp} placeholder="6.5" />
               </div>
+              <div>
+                <label className={lbl}>Points to Buy</label>
+                <input type="number" value={points} onChange={e => setPoints(e.target.value)} className={inp} placeholder="1" />
+              </div>
+              <div>
+                <label className={lbl}>Rate Cut per Point (%)</label>
+                <input type="number" value={perPoint} onChange={e => setPerPoint(e.target.value)} className={inp} placeholder="0.25" />
+              </div>
+              <div className="col-span-2">
+                <label className={lbl}>Loan Term (years)</label>
+                <input type="number" value={years} onChange={e => setYears(e.target.value)} className={inp} placeholder="30" />
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                {results.error ? (
-                  <div className="bg-red-500/10 border border-red-500/20 text-red-700 p-6 rounded-2xl text-center font-bold">
-                    {results.error}
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Break-Even Point</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.breakEvenMonths === Infinity ? "Never" : `${result.breakEvenMonths} months`}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.breakEvenYears} · saves {money(result.monthlySavings)}/mo after paying {money(result.pointsCost)}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Monthly Savings", money(result.monthlySavings)], ["Points Cost", money(result.pointsCost)], ["New Rate", `${fmt(result.ptsRate)}%`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                ) : (
-                  <>
-                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                      <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Break-Even Point</p>
-                        <p className="text-5xl font-black text-foreground">{Math.floor(results.breakEvenMonths / 12)}y {Math.round(results.breakEvenMonths % 12)}m</p>
-                        <p className="text-xs text-muted-foreground mt-2 font-medium">({Math.round(results.breakEvenMonths)} months)</p>
-                      </div>
-                      <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Total Savings Over Term</p>
-                        <p className="text-5xl font-black text-foreground">${Math.round(results.totalSavingsOverTerm).toLocaleString()}</p>
-                      </div>
-                    </div>
-
-                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-2xl font-bold mb-3">
-                        <Target className="h-5 w-5 text-primary" /> Savings Breakdown
-                      </h2>
-                      <ResultDisplay items={[
-                        { label: "Upfront Cost of Points", value: results.costOfPoints },
-                        { label: "Monthly Payment Savings", value: results.monthlySavings },
-                        { label: "Original Monthly Payment", value: results.paymentOrig },
-                        { label: "New Monthly Payment", value: results.paymentNew },
-                      ]} />
-                    </div>
-                  </>
-                )}
-              </>
-            )}
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 8 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 8 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 8 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Cumulative Cost: Points vs No Points</h3>
+                <ResponsiveContainer width="100%" height={240}>
+                  <LineChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" label={{ value: "Month", position: "insideBottom", offset: -2, fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [money(v), ""]} labelFormatter={(l) => `Month ${l}`} />
+                    <Line type="monotone" dataKey="noPoints" name="No points" stroke="#f59e0b" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="withPoints" name="With points" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                    {result.breakEvenMonths !== Infinity && <ReferenceLine x={result.breakEvenMonths} stroke="hsl(var(--muted-foreground))" strokeDasharray="4 4" />}
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">{result.breakEvenMonths === Infinity ? "No break-even — the points never pay back" : "The lines cross at the break-even month; below it, no-points wins"}</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Are Mortgage Discount Points?</h2>
-              <p>Mortgage discount points are essentially prepaid interest. By paying a lump sum at the closing of your home loan, you "buy down" the interest rate for the entire life of the mortgage. This is often referred to as "buying down the rate."</p>
-
-              <h3>The Cost and the Benefit</h3>
-              <p>In most cases, one mortgage point costs exactly 1% of the total loan amount. For a $300,000 mortgage, one point would cost $3,000. In return, the lender will typically reduce your interest rate by 0.25% (25 basis points). The goal is to trade an upfront cash payment for long-term savings on your monthly mortgage bill.</p>
-
-              <h3>Calculating the Break-Even Point</h3>
-              <p>The break-even point is the most important metric when deciding whether to buy points. It tells you exactly how many months you must keep the loan to make the upfront investment worth it. The formula is simple:</p>
-              <div className="p-4 bg-secondary/50 rounded-xl font-mono text-center my-4 border border-border">
-                Break-Even Months = Upfront Cost ÷ Monthly Savings
-              </div>
-
-              <h3>When Should You Buy Points?</h3>
-              <p>Buying points makes financial sense if you answer 'yes' to the following questions:</p>
-              <ul>
-                <li><strong>Are you keeping the home for a long time?</strong> If the break-even is 4 years and you plan to stay for 10, points are a great deal.</li>
-                <li><strong>Do you have extra cash at closing?</strong> Don't buy points if it leaves you with no emergency savings.</li>
-                <li><strong>Are rates currently low?</strong> Buying points on an already low rate can lock in historically cheap financing.</li>
-              </ul>
-
-              <h3>When Should You Skip Points?</h3>
-              <p>Conversely, you should probably avoid buying points if:</p>
-              <ul>
-                <li><strong>You plan to sell or refinance soon:</strong> If you'll likely sell in 3 years but the break-even is 5 years, you'll lose money.</li>
-                <li><strong>You need the cash for renovations:</strong> Upfront equity or home improvements might provide a better return than a slightly lower interest rate.</li>
-                <li><strong>The reduction is too small:</strong> If a point only lowers your rate by 0.125% instead of 0.25%, the break-even point will be much further out.</li>
-              </ul>
-
-              <h3>Tax Considerations</h3>
-              <p>Mortgage discount points are generally tax-deductible as home mortgage interest, provided you meet certain IRS requirements. This tax benefit can actually shorten your "effective" break-even period by reducing your overall tax liability for the year you buy the home.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Pay Upfront, Save Monthly</h2>
+            <p>Mortgage points are prepaid interest: one point costs 1% of the loan and typically shaves 0.25 points off the rate. This <strong>points break-even calculator</strong> finds how long the lower payment takes to repay the upfront cost — the single number that decides whether points are worth it.</p>
+            <h2 className="text-2xl font-bold mb-3">The Break-Even Logic</h2>
+            <p>Compare the amortized monthly payments with and without points. The savings each month chip away at the points' cost; the break-even month is when cumulative savings equal that cost. The chart draws both cumulative-cost lines so the crossing point is visible.</p>
+            <h2 className="text-2xl font-bold mb-3">The Decision Rule</h2>
+            <p>Points pay if you keep the mortgage past break-even — typically 4–7 years. If you plan to sell, refinance, or pay off early, the upfront money is usually better kept as cash. Buyers who itemize can also deduct points in the purchase year, sweetening the deal.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/points-break-even-calculator" />
           <PopularCalculators exclude="/calculator/points-break-even-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default PointsBreakEvenCalculator;
-
+}

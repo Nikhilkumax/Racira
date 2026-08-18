@@ -1,176 +1,212 @@
 "use client";
-import { RotateCcw, ArrowRightLeft, Table } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-const FontSizeConverter = () => {
-  const [baseSize, setBaseSize] = useState("16");
-  const [inputValue, setInputValue] = useState("1");
-  const [fromUnit, setFromUnit] = useState("rem");
-  const [toUnit, setToUnit] = useState("px");
-  const [showResults, setShowResults] = useState(false);
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-  const [convertedValue, setConvertedValue] = useState<number>(16);
-  const [conversionTable, setConversionTable] = useState<any[]>([]);
+interface FontSizeResult {
+  value: number;
+  unit: string;
+  basePx: number;
+  rootPx: number;
+  px: number;
+  pt: number;
+  em: number;
+  rem: number;
+  percent: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const base = parseFloat(baseSize) || 16;
-    const val = parseFloat(inputValue) || 0;
+const UNIT_LABELS: Record<string, string> = { pt: "Points", px: "Pixels", em: "EM", rem: "REM", pct: "Percent" };
 
-    // Convert input to pixels
-    let pxValue = val;
-    if (fromUnit === "rem" || fromUnit === "em") pxValue = val * base;
-    else if (fromUnit === "pt") pxValue = val * (96 / 72);
-    else if (fromUnit === "percent") pxValue = (val / 100) * base;
+function calcFont(value: number, unit: string, basePx: number, rootPx: number): FontSizeResult {
+  let px = 0;
+  if (unit === "pt") px = value * (96 / 72);
+  else if (unit === "px") px = value;
+  else if (unit === "em") px = value * basePx;
+  else if (unit === "rem") px = value * rootPx;
+  else if (unit === "pct") px = (value / 100) * basePx;
 
-    // Convert pixels to target
-    let result = pxValue;
-    if (toUnit === "rem" || toUnit === "em") result = pxValue / base;
-    else if (toUnit === "pt") result = pxValue * (72 / 96);
-    else if (toUnit === "percent") result = (pxValue / base) * 100;
+  const pt = px * (72 / 96);
+  const em = px / basePx;
+  const rem = px / rootPx;
+  const percent = em * 100;
 
-    setConvertedValue(result);
+  const fmt = (v: number, d = 4) => `${parseFloat(v.toFixed(d))}`;
+  const breakdown = [
+    { label: "Input", value: `${fmt(value)} ${UNIT_LABELS[unit]}` },
+    { label: "Base (Body) Size", value: `${basePx} px` },
+    { label: "Root Size", value: `${rootPx} px` },
+    { label: "Pixels (px)", value: `${fmt(px, 2)} px` },
+    { label: "Points (pt)", value: `${fmt(pt, 2)} pt` },
+    { label: "EM", value: `${fmt(em)} em` },
+    { label: "REM", value: `${fmt(rem)} rem` },
+    { label: "Percent (%)", value: `${fmt(percent, 2)}%` },
+  ];
+  const summaryStats = [
+    { label: "Pixels", value: `${fmt(px, 2)} px` },
+    { label: "Points", value: `${fmt(pt, 2)} pt` },
+    { label: "EM", value: `${fmt(em)} em` },
+    { label: "REM", value: `${fmt(rem)} rem` },
+    { label: "Percent", value: `${fmt(percent, 2)}%` },
+    { label: "Base Size", value: `${basePx} px` },
+    { label: "Root Size", value: `${rootPx} px` },
+    { label: "Unit", value: UNIT_LABELS[unit] },
+  ];
+  const chartData = [
+    { name: "pt", value: Math.round(pt), fill: "hsl(var(--primary))" },
+    { name: "px", value: Math.round(px), fill: "#8b5cf6" },
+    { name: "em", value: Math.round(em * basePx), fill: "#f59e0b" },
+    { name: "rem", value: Math.round(rem * rootPx), fill: "#10b981" },
+    { name: "%", value: Math.round((percent / 100) * basePx), fill: "#ef4444" },
+  ];
+  return { value, unit, basePx, rootPx, px, pt, em, rem, percent, breakdown, summaryStats, chartData };
+}
 
-    // Build common table
-    const commonSizes = [10, 12, 14, 16, 18, 20, 24, 32, 48, 64];
-    const table = commonSizes.map(px => ({
-      px,
-      rem: px / base,
-      pt: px * (72 / 96),
-      pct: (px / base) * 100
-    }));
-    setConversionTable(table);
+const DEFAULTS = { value: "16", unit: "px", base: "16", root: "16" };
+
+export default function FontSizeConverter() {
+  const [value, setValue] = useState(DEFAULTS.value);
+  const [unit, setUnit] = useState(DEFAULTS.unit);
+  const [base, setBase] = useState(DEFAULTS.base);
+  const [root, setRoot] = useState(DEFAULTS.root);
+  const [result, setResult] = useState<FontSizeResult | null>(null);
+
+  const v = parseFloat(value) || 0;
+  const bs = parseFloat(base) || 0;
+  const rt = parseFloat(root) || 0;
+  const errs: string[] = [];
+  if (v < 0) errs.push("Font size cannot be negative.");
+  if (bs <= 0) errs.push("Base (body) size must be greater than 0.");
+  if (rt <= 0) errs.push("Root size must be greater than 0.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcFont(v, unit, bs, rt)); };
+  const reset = () => {
+    setValue(DEFAULTS.value); setUnit(DEFAULTS.unit); setBase(DEFAULTS.base); setRoot(DEFAULTS.root);
+    setResult(calcFont(16, "px", 16, 16));
   };
+  useEffect(() => { setResult(calcFont(16, "px", 16, 16)); }, []);
 
-  const swapUnits = () => {
-    setFromUnit(toUnit);
-    setToUnit(fromUnit);
-  };
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the difference between EM and REM?", answer: "REM (Root EM) is always relative to the font size of the root element (usually 16px). EM is relative to the font size of its parent element, which can cause 'nesting' issues where sizes multiply." },
-    { question: "Why use REM instead of Pixels?", answer: "REM is better for accessibility. If a user changes their browser's default font size, your entire layout will scale proportionally. Pixels are absolute and do not respect user preferences." },
-    { question: "How do I convert Points to Pixels?", answer: "The standard conversion used in web design is 1 Point (pt) = 1.333 Pixels (px). This is based on the assumption that a standard screen has 96 DPI (Dots Per Inch)." }
+    { question: "How do pt and px relate?", answer: "One point is 1/72 of an inch and one CSS pixel is 1/96 of an inch, so 1 pt = 96/72 = 1.333 px. Multiply points by 4/3 to get pixels." },
+    { question: "What is the difference between em and rem?", answer: "An em is relative to the font size of the current element (inherited from its parent), while a rem is relative to the root element's font size. REMs make scaling consistent across the page." },
+    { question: "Why does my em value depend on base size?", answer: "EM and percent are relative units: 1 em equals the current base font size. With a 16 px base, 1 em = 16 px; with a 20 px base, 1 em = 20 px." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Font Size Converter" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Font Size Converter" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Font Size Converter</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Font Size Converter</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-4 items-end">
-              <div className="space-y-3">
-                <div className="flex justify-between items-center px-1">
-                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Input Value</label>
-                  <span className="text-[10px] font-bold text-primary uppercase">{fromUnit}</span>
-                </div>
-                <input type="number" value={inputValue} onChange={(e) => setInputValue(e.target.value)} className="input-calc text-2xl font-black py-4" />
-                <select value={fromUnit} onChange={(e) => setFromUnit(e.target.value)} className="input-calc font-bold">
-                  <option value="px">Pixels (px)</option>
-                  <option value="rem">Root EM (rem)</option>
-                  <option value="em">Element EM (em)</option>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Font Size Value</label>
+                <div className={inp}><input type="number" value={value} onChange={e => setValue(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Unit</label>
+                <select value={unit} onChange={e => setUnit(e.target.value)} className={sel}>
                   <option value="pt">Points (pt)</option>
-                  <option value="percent">Percentage (%)</option>
+                  <option value="px">Pixels (px)</option>
+                  <option value="em">EM</option>
+                  <option value="rem">REM</option>
+                  <option value="pct">Percent (%)</option>
                 </select>
               </div>
-              <button onClick={swapUnits} className="p-3 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mb-2">
-                <ArrowRightLeft className="h-5 w-5" />
-              </button>
-              <div className="space-y-3">
-                <div className="flex justify-between items-center px-1">
-                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Converted</label>
-                  <span className="text-[10px] font-bold text-emerald-500 uppercase">{toUnit}</span>
-                </div>
-                <div className="input-calc text-2xl font-black py-4 flex items-center bg-secondary/20 border-emerald-500/30">
-                  {convertedValue.toFixed(convertedValue % 1 === 0 ? 0 : 3)}
-                </div>
-                <select value={toUnit} onChange={(e) => setToUnit(e.target.value)} className="input-calc font-bold">
-                  <option value="px">Pixels (px)</option>
-                  <option value="rem">Root EM (rem)</option>
-                  <option value="em">Element EM (em)</option>
-                  <option value="pt">Points (pt)</option>
-                  <option value="percent">Percentage (%)</option>
-                </select>
+              <div>
+                <label className={lbl}>Base (Body) Size</label>
+                <div className={inp}><input type="number" value={base} onChange={e => setBase(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">px</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Root Size</label>
+                <div className={inp}><input type="number" value={root} onChange={e => setRoot(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">px</span></div>
               </div>
             </div>
-            <div className="border-t border-border pt-4 grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Base Font Size (px)</label>
-                <div className="relative">
-                  <input type="number" value={baseSize} onChange={(e) => setBaseSize(e.target.value)} className="input-calc" />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">px</span>
-                </div>
-                <p className="text-[10px] text-muted-foreground mt-1">Browser default is 16px.</p>
-              </div>
-              <div className="flex flex-col justify-end gap-2">
-                <button onClick={handleCalculate} className="btn-calculate">Calculate</button>
-                <button onClick={() => { setBaseSize("16"); setInputValue("1"); setFromUnit("rem"); setToUnit("px"); }} className="p-2 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 text-sm font-medium">
-                  <RotateCcw className="h-4 w-4" /> Reset
-                </button>
-              </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && conversionTable.length > 0 && (
-              <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Result</p>
-                  <p className="text-5xl font-black text-foreground">
-                    {convertedValue.toFixed(convertedValue % 1 === 0 ? 0 : 3)}
-                    <span className="text-2xl ml-2 text-muted-foreground">{toUnit}</span>
-                  </p>
-                  <p className="text-sm text-muted-foreground">{inputValue} {fromUnit} at base {baseSize}px</p>
-                </div>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Table className="h-4 w-4 text-primary" /> Common Sizes (base {baseSize}px)
-                  </h2>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left">
-                      <thead>
-                        <tr className="border-b border-border text-[10px] font-black text-muted-foreground uppercase tracking-widest">
-                          <th className="pb-3 px-2">px</th>
-                          <th className="pb-3 px-2">rem</th>
-                          <th className="pb-3 px-2">pt</th>
-                          <th className="pb-3 px-2">%</th>
-                        </tr>
-                      </thead>
-                      <tbody className="font-mono">
-                        {conversionTable.map((row, i) => (
-                          <tr key={i} className="border-b border-border/50 hover:bg-secondary/30 transition-colors">
-                            <td className="py-2 px-2 font-black">{row.px}</td>
-                            <td className="py-2 px-2">{row.rem.toFixed(3)}</td>
-                            <td className="py-2 px-2">{row.pt.toFixed(1)}</td>
-                            <td className="py-2 px-2">{row.pct.toFixed(0)}%</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Pixels Equivalent</div>
+                <div className="text-4xl font-extrabold tracking-tight">{parseFloat(result.px.toFixed(2))} px</div>
+                <div className="text-sm text-muted-foreground mt-1">{parseFloat(result.pt.toFixed(2))} pt · {parseFloat(result.em.toFixed(4))} em · {parseFloat(result.rem.toFixed(4))} rem · {parseFloat(result.percent.toFixed(2))}%</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Points`, `${parseFloat(result.pt.toFixed(2))} pt`], ["EM", `${parseFloat(result.em.toFixed(4))} em`], ["REM", `${parseFloat(result.rem.toFixed(4))} rem`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Unit Conversions</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 3 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 3 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Equivalent Sizes (px)</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}px`} />
+                    <Tooltip formatter={(v: number) => [`${v} px`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Each unit expressed as its pixel equivalent</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Modern Web Typography Units</h2>
-            <p>In modern web development, absolute units like pixels (px) are generally discouraged. Responsive, accessible designs prioritize relative units like REM and EM.</p>
-            <h3>The Power of REM</h3>
-            <p>The rem unit is relative to the root HTML element font size. If a user sets their browser default to 20px, your entire layout scales proportionally.</p>
-            <h3>When to Use EM</h3>
-            <p>While rem is great for global layout, em is useful for components that should scale relative to their own container.</p>
+            <h2 className="text-2xl font-bold mb-3">Absolute vs Relative Units</h2>
+            <p>This <strong>font size converter</strong> handles both families. Points and pixels are absolute — 1 pt equals 1/72 inch and 1 CSS pixel equals 1/96 inch, giving the exact 4:3 ratio. EM, REM, and percent are relative: they scale against a reference size rather than physical units.</p>
+            <h2 className="text-2xl font-bold mb-3">Why REM for Accessibility</h2>
+            <p>Root-relative sizing respects browser zoom and user font-size preferences. If a user sets their default to 18 px, a 1 rem headline scales up automatically, while a fixed 16 px size stays put. That makes REM the recommended unit for fluid, accessible type systems.</p>
+            <h2 className="text-2xl font-bold mb-3">Converting Between Systems</h2>
+            <p>Design tools default to points, the web defaults to pixels, and modern CSS prefers relative units. Convert through pixels as the common denominator: points to pixels first, then to em or rem using the relevant base size.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/font-size-converter" />
           <PopularCalculators exclude="/calculator/font-size-converter" />
@@ -178,6 +214,4 @@ const FontSizeConverter = () => {
       </div>
     </>
   );
-};
-
-export default FontSizeConverter;
+}

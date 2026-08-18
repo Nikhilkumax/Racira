@@ -4,248 +4,198 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, ThermometerSun } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface HeatIndexResult {
-  heatIndexF: number;
-  heatIndexC: number;
-  dangerLevel: string;
-  dangerDescription: string;
-  isError: boolean;
-  errorMsg?: string;
+  tempF: number;
+  rh: number;
+  heatIndex: number;
+  risk: string;
+  riskColor: string;
+  riskDesc: string;
+  curve: { rh: number; hi: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { rh: number; hi: number }[];
 }
 
-const calculateHeatIndex = (tempStr: string, humidityStr: string, unit: string): HeatIndexResult | null => {
-  const temp = parseFloat(tempStr);
-  const humidity = parseFloat(humidityStr);
-
-  if (isNaN(temp) || isNaN(humidity) || humidity < 0 || humidity > 100) return null;
-
-  try {
-    let tF = temp;
-
-    if (unit === "metric") {
-      tF = (temp * 9/5) + 32;
-    }
-
-    // Heat index is only officially defined for temperatures at or above 80F and humidity >= 40%
-    // If not met, heat index is essentially the air temperature.
-    let hiF = tF;
-
-    if (tF >= 80 && humidity >= 40) {
-      // Rothfusz regression equation (NWS)
-      const c1 = -42.379;
-      const c2 = 2.04901523;
-      const c3 = 10.14333127;
-      const c4 = -0.22475541;
-      const c5 = -6.83783 * Math.pow(10, -3);
-      const c6 = -5.481717 * Math.pow(10, -2);
-      const c7 = 1.22874 * Math.pow(10, -3);
-      const c8 = 8.5282 * Math.pow(10, -4);
-      const c9 = -1.99 * Math.pow(10, -6);
-
-      let hi = c1 + (c2 * tF) + (c3 * humidity) + (c4 * tF * humidity) + 
-               (c5 * tF * tF) + (c6 * humidity * humidity) + 
-               (c7 * tF * tF * humidity) + (c8 * tF * humidity * humidity) + 
-               (c9 * tF * tF * humidity * humidity);
-
-      // Adjustments based on NWS rules
-      if (humidity < 13 && tF >= 80 && tF <= 112) {
-        hi -= ((13 - humidity) / 4) * Math.sqrt((17 - Math.abs(tF - 95)) / 17);
-      } else if (humidity > 85 && tF >= 80 && tF <= 87) {
-        hi += ((humidity - 85) / 10) * ((87 - tF) / 5);
-      }
-
-      hiF = hi;
-    }
-
-    const hiC = (hiF - 32) * 5/9;
-
-    let dangerLevel = "Safe";
-    let dangerDesc = "No immediate danger under normal conditions.";
-
-    if (hiF >= 130) {
-      dangerLevel = "Extreme Danger";
-      dangerDesc = "Heat stroke is highly likely with continued exposure.";
-    } else if (hiF >= 103) {
-      dangerLevel = "Danger";
-      dangerDesc = "Sunstroke, muscle cramps, and/or heat exhaustion likely. Heat stroke possible with prolonged exposure.";
-    } else if (hiF >= 90) {
-      dangerLevel = "Extreme Caution";
-      dangerDesc = "Sunstroke, muscle cramps, and/or heat exhaustion possible with prolonged exposure.";
-    } else if (hiF >= 80) {
-      dangerLevel = "Caution";
-      dangerDesc = "Fatigue possible with prolonged exposure and physical activity.";
-    }
-
-    return {
-      heatIndexF: parseFloat(hiF.toFixed(1)),
-      heatIndexC: parseFloat(hiC.toFixed(1)),
-      dangerLevel: tF >= 80 ? dangerLevel : "Safe",
-      dangerDescription: tF >= 80 ? dangerDesc : "Temperature is below Heat Index threshold.",
-      isError: false
-    };
-
-  } catch (err) {
-    return { heatIndexF: 0, heatIndexC: 0, dangerLevel: "", dangerDescription: "", isError: true, errorMsg: "Calculation error." };
+function rothfusz(t: number, rh: number): number {
+  const hi = -42.379
+    + 2.04901523 * t
+    + 10.14333127 * rh
+    - 0.22475541 * t * rh
+    - 0.00683783 * t * t
+    - 0.05481717 * rh * rh
+    + 0.00122874 * t * t * rh
+    + 0.00085282 * t * rh * rh
+    - 0.00000199 * t * t * rh * rh;
+  if (rh < 13 && t >= 80 && t <= 112) {
+    return hi - ((13 - rh) / 4) * Math.sqrt((17 - Math.abs(t - 95)) / 17);
   }
-};
+  if (rh > 85 && t >= 80 && t <= 87) {
+    return hi + ((rh - 85) / 10) * ((87 - t) / 5);
+  }
+  return hi;
+}
 
-const HeatIndexCalculator = () => {
-  const [unit, setUnit] = useState("imperial");
-  const [temp, setTemp] = useState("90");
-  const [humidity, setHumidity] = useState("70");
+function calcHeatIndex(tempF: number, rh: number): HeatIndexResult {
+  const heatIndex = tempF <= 80
+    ? 0.5 * (tempF + 61.0 + (tempF - 68.0) * 1.2 + rh * 0.094)
+    : rothfusz(tempF, rh);
 
+  let risk: string, riskColor: string, riskDesc: string;
+  if (heatIndex >= 125) { risk = "Extreme Danger"; riskColor = "text-red-600"; riskDesc = "Heat stroke highly likely with continued exposure."; }
+  else if (heatIndex >= 103) { risk = "Danger"; riskColor = "text-orange-500"; riskDesc = "Heat cramps and exhaustion likely; heat stroke possible."; }
+  else if (heatIndex >= 90) { risk = "Extreme Caution"; riskColor = "text-amber-500"; riskDesc = "Heat cramps and heat exhaustion possible."; }
+  else { risk = "Caution"; riskColor = "text-emerald-600"; riskDesc = "Fatigue possible with prolonged exposure and activity."; }
+
+  const curve: { rh: number; hi: number }[] = [];
+  for (let h = 10; h <= 100; h += 10) {
+    curve.push({ rh: h, hi: Math.round((tempF <= 80 ? 0.5 * (tempF + 61.0 + (tempF - 68.0) * 1.2 + h * 0.094) : rothfusz(tempF, h)) * 10) / 10 });
+  }
+
+  const breakdown = [
+    { label: "Air Temperature", value: `${tempF.toFixed(1)} °F (${(((tempF - 32) * 5) / 9).toFixed(1)} °C)` },
+    { label: "Relative Humidity", value: `${rh.toFixed(0)}%` },
+    { label: "Heat Index (feels like)", value: `${heatIndex.toFixed(1)} °F` },
+    { label: "Risk Category", value: risk },
+    { label: "Risk Guidance", value: riskDesc },
+    { label: "Formula", value: tempF <= 80 ? "NWS simplified formula" : "NWS Rothfusz regression" },
+    { label: "Dew Point Estimate", value: `${(tempF - (100 - rh) / 5).toFixed(1)} °F` },
+    { label: "Temp Range", value: tempF <= 80 ? "Below 80 °F — apparent ≈ actual" : "Heat index applies" },
+  ];
+  const summaryStats = [
+    { label: "Heat Index", value: `${heatIndex.toFixed(1)} °F` },
+    { label: "Air Temp", value: `${tempF.toFixed(1)} °F` },
+    { label: "Humidity", value: `${rh.toFixed(0)}%` },
+    { label: "Risk", value: risk },
+    { label: "Dew Point", value: `${(tempF - (100 - rh) / 5).toFixed(1)} °F` },
+    { label: "Formula", value: tempF <= 80 ? "Simplified" : "Rothfusz" },
+    { label: "Feels Like", value: `${((heatIndex - tempF) >= 0 ? "+" : "")}${(heatIndex - tempF).toFixed(1)} °F` },
+    { label: "Caution Line", value: "90 °F" },
+  ];
+  return { tempF, rh, heatIndex, risk, riskColor, riskDesc, curve, breakdown, summaryStats, chartData: curve };
+}
+
+const DEFAULTS = { temp: "95", rh: "55" };
+
+export default function HeatIndexCalculator() {
+  const [temp, setTemp] = useState(DEFAULTS.temp);
+  const [rh, setRh] = useState(DEFAULTS.rh);
   const [result, setResult] = useState<HeatIndexResult | null>(null);
 
-  const calculate = () => {
-    setResult(calculateHeatIndex(temp, humidity, unit));
+  const t = parseFloat(temp) || 0;
+  const h = parseFloat(rh) || 0;
+  const errs: string[] = [];
+  if (t < -60 || t > 140) errs.push("Temperature must be between −60 °F and 140 °F.");
+  if (h < 0 || h > 100) errs.push("Relative humidity must be between 0% and 100%.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcHeatIndex(t, h)); };
+  const reset = () => {
+    setTemp(DEFAULTS.temp); setRh(DEFAULTS.rh);
+    setResult(calcHeatIndex(95, 55));
   };
+  useEffect(() => { setResult(calcHeatIndex(95, 55)); }, []);
 
-  useEffect(() => { calculate(); }, [unit, temp, humidity]);
-
-  const handleUnitChange = (newUnit: "imperial" | "metric") => {
-    setUnit(newUnit);
-    if (newUnit === "imperial") {
-      setTemp("90");
-    } else {
-      setTemp("32");
-    }
-  };
-
-  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the Heat Index?", answer: "The Heat Index (often referred to as the 'feels like' temperature) is a measure of how hot it really feels when relative humidity is factored in with the actual air temperature. It is the summer equivalent to the winter's Wind Chill factor." },
-    { question: "Why does humidity make it feel hotter?", answer: "The human body naturally cools itself by sweating. As sweat evaporates off your skin, it pulls heat away from your body. However, when the relative humidity is high, the air is already saturated with water vapor. This makes it much harder for your sweat to evaporate, preventing your body from cooling down. As a result, you 'feel' much hotter." },
-    { question: "Does the Heat Index assume I'm in the sun?", answer: "No. The official National Weather Service Heat Index values were devised for shady, light wind conditions. Exposure to full sunshine can increase heat index values by up to 15°F." },
-    { question: "Why does the calculator say 'Safe' below 80°F?", answer: "The complex mathematics of the Heat Index (the Rothfusz regression equation) are only officially defined and accurate for temperatures of 80°F (27°C) or higher, and a relative humidity of 40% or more. Below these levels, the humidity does not significantly impede human evaporative cooling." },
+    { question: "What is the heat index?", answer: "The heat index is the temperature it feels like when humidity is factored in. High humidity slows sweat evaporation, so the body can't cool as effectively at the same air temperature." },
+    { question: "Which formula is used?", answer: "The NWS Rothfusz regression applies at 80 °F and above, with corrections for very low and very high humidity. Below 80 °F, the simplified apparent-temperature formula is used." },
+    { question: "Is heat index the same as temperature?", answer: "No — it is a perceived temperature. At 95 °F with 55% humidity, the index is about 110 °F, meaning your body experiences conditions equivalent to a 110 °F dry day." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Heat Index Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Science", href: "/calculator#science" }, { label: "Heat Index Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Heat Index Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Heat Index Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">Measurement System</label>
-              <div className="flex rounded-md border border-input overflow-hidden h-10 w-full">
-                <button type="button" onClick={() => handleUnitChange("imperial")} className={`flex-1 text-sm font-bold transition-colors ${unit === "imperial" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Imperial (°F)</button>
-                <button type="button" onClick={() => handleUnitChange("metric")} className={`flex-1 text-sm font-bold transition-colors border-l border-input ${unit === "metric" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Metric (°C)</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Air Temperature</label>
+                <div className={inp}><input type="number" value={temp} onChange={e => setTemp(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">°F</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Relative Humidity</label>
+                <div className={inp}><input type="number" value={rh} onChange={e => setRh(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
               </div>
             </div>
-
-            <div className="h-px w-full bg-border/50"></div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Air Temperature</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">{unit === "imperial" ? "°F" : "°C"}</span>
-              </label>
-              <div className={wrap}><input type="number" value={temp} onChange={e => setTemp(e.target.value)} className={ci} step="any" /></div>
-            </div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Relative Humidity</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">%</span>
-              </label>
-              <div className={wrap}><input type="number" value={humidity} onChange={e => setHumidity(e.target.value)} className={ci} min="0" max="100" step="any" /></div>
-            </div>
-
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
-                </div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Heat Index (Feels Like)</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.heatIndex.toFixed(1)} °F</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.tempF.toFixed(1)} °F at {result.rh.toFixed(0)}% humidity</div>
               </div>
-            ) : result && (<>
-              
-              <div className={`${result.heatIndexF >= 103 ? 'bg-red-500/10 border-red-500' : result.heatIndexF >= 90 ? 'bg-orange-500/10 border-orange-500' : 'bg-primary/10 border-primary'} border-l-4 rounded-lg p-6`}>
-                <div className={`text-sm font-bold mb-2 uppercase tracking-wider ${result.heatIndexF >= 103 ? 'text-red-600 dark:text-red-400' : result.heatIndexF >= 90 ? 'text-orange-600 dark:text-orange-400' : 'text-primary'}`}>
-                  Heat Index (Feels Like)
-                </div>
-                <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                  <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono">
-                    {unit === "imperial" ? result.heatIndexF : result.heatIndexC}
-                  </span>
-                  <span className="text-2xl font-bold text-muted-foreground font-mono">
-                    {unit === "imperial" ? "°F" : "°C"}
-                  </span>
-                </div>
-                
-                {/* Secondary Unit Display */}
-                <div className={`mt-4 pt-4 border-t ${result.heatIndexF >= 103 ? 'border-red-500/20' : result.heatIndexF >= 90 ? 'border-orange-500/20' : 'border-primary/20'}`}>
-                  <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Equivalent Temperature</div>
-                  <div className="text-lg font-bold text-foreground font-mono">
-                    {unit === "imperial" ? `${result.heatIndexC} °C` : `${result.heatIndexF} °F`}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Risk Category`, result.risk], ["Dew Point", `${(result.tempF - (100 - result.rh) / 5).toFixed(1)} °F`], ["vs Air Temp", `${result.heatIndex >= result.tempF ? "+" : ""}${(result.heatIndex - result.tempF).toFixed(1)} °F`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className={`text-base font-bold ${i === 0 ? result.riskColor : ""}`}>{v}</div>
                   </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Heat Index Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 2 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 2 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 2 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Heat Index vs Humidity</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="rh" tick={{ fontSize: 11 }} tickFormatter={v => `${v}%`} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}°F`} />
+                    <Tooltip formatter={(v: number) => [`${v} °F`, "Heat Index"]} labelFormatter={(l: number) => `${l}% humidity`} />
+                    <Line type="monotone" dataKey="hi" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">How the index rises with humidity at your air temperature</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-
-              <div className={`card-calculator !p-5 border shadow-sm ${result.heatIndexF >= 103 ? 'bg-red-500/5 border-red-500/30' : result.heatIndexF >= 90 ? 'bg-orange-500/5 border-orange-500/30' : 'bg-card border-border'}`}>
-                <h3 className={`text-base font-bold mb-2 uppercase tracking-wider ${result.heatIndexF >= 103 ? 'text-red-600 dark:text-red-400' : result.heatIndexF >= 90 ? 'text-orange-600 dark:text-orange-400' : 'text-foreground'}`}>
-                  Level: {result.dangerLevel}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {result.dangerDescription}
-                </p>
-                {result.heatIndexF >= 90 && (
-                  <p className="text-xs font-bold text-foreground mt-3">
-                    * Note: Exposure to full sunshine can increase heat index values by up to 15°F.
-                  </p>
-                )}
-              </div>
-
-              {(parseFloat(temp) < (unit === "imperial" ? 80 : 26.6) || parseFloat(humidity) < 40) && (
-                <div className="bg-secondary/30 border border-border/50 rounded-lg p-4">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    <strong>Note:</strong> The Heat Index is officially defined only for temperatures of 80°F (27°C) or higher, and a relative humidity of 40% or more. Below these levels, the "feels like" temperature is considered identical to the actual air temperature.
-                  </p>
-                </div>
-              )}
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Science of the Heat Index</h2>
-            <p>During the summer, you will frequently hear meteorologists say, <em>"The temperature is 90°F, but the Heat Index makes it feel like 105°F."</em> This <strong>Heat Index</strong> (often called the apparent temperature) is the summer equivalent to the winter's Wind Chill factor. It calculates how hot it actually feels on human skin when relative humidity is combined with the air temperature.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Humidity Makes Us Feel Hotter</h2>
-            <p>The human body is an engine that generates heat. To prevent overheating, the body has a built-in cooling system: <strong>sweating</strong>. As sweat physically evaporates off your skin and turns into a gas, it pulls heat energy away from your body, cooling you down.</p>
-            <p>However, evaporation depends entirely on the surrounding air. When the <strong>Relative Humidity</strong> is high, it means the air is already heavily saturated with water vapor. Because the air is "full," it cannot easily absorb any more water. Therefore, your sweat cannot evaporate. Because the sweat stays on your skin, your body's primary cooling mechanism shuts down. This causes your core temperature to rise, making you "feel" significantly hotter than the thermometer reads.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Heat Index Danger Levels</h2>
-            <p>The National Weather Service (NWS) categorizes Heat Index values to warn the public of the physical dangers of heat exposure. Prolonged exposure or physical activity in high heat index conditions can lead to severe medical emergencies:</p>
-            <ul>
-              <li><strong>80°F - 90°F (Caution):</strong> Fatigue is possible with prolonged exposure and physical activity.</li>
-              <li><strong>90°F - 103°F (Extreme Caution):</strong> Sunstroke, muscle cramps, and heat exhaustion are possible.</li>
-              <li><strong>103°F - 124°F (Danger):</strong> Sunstroke, muscle cramps, and heat exhaustion are likely. Heat stroke is possible with prolonged exposure.</li>
-              <li><strong>125°F or higher (Extreme Danger):</strong> Heat stroke is highly likely with continued exposure. This is a medical emergency.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">Crucial Caveats of the Heat Index</h2>
-            <p>It is important to remember two critical rules about the Heat Index:</p>
-            <ol>
-              <li>The official formula (the Rothfusz regression equation) assumes you are resting in the <strong>shade</strong> with a light breeze. If you are standing in direct, full sunshine, the heat index value can actually increase by up to 15°F.</li>
-              <li>The formula mathematically breaks down below 80°F or below 40% humidity. In those mild conditions, humidity does not significantly impair evaporative cooling, so the "feels like" temperature is simply the actual temperature.</li>
-            </ol>
+            <h2 className="text-2xl font-bold mb-3">What the Heat Index Means</h2>
+            <p>This <strong>heat index calculator</strong> applies the National Weather Service Rothfusz regression for temperatures of 80 °F and above, with the standard corrections for humidity below 13% or above 85%. Below 80 °F it uses the simplified apparent-temperature formula. The result is the temperature the air feels like once humidity is considered.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Humidity Changes the Feeling</h2>
+            <p>Sweating cools the body by evaporation. Humid air is already saturated with water vapor, so sweat evaporates slowly and the cooling effect fades. That is why a 95 °F day at 55% humidity feels like 110 °F.</p>
+            <h2 className="text-2xl font-bold mb-3">Staying Safe</h2>
+            <p>Above 90 °F, heat cramps and exhaustion become possible; above 103 °F, heat stroke risk rises sharply. Hydrate, take shade breaks, and reschedule strenuous outdoor work when the index climbs into the Danger zone.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/heat-index-calculator" />
           <PopularCalculators exclude="/calculator/heat-index-calculator" />
@@ -253,5 +203,4 @@ const HeatIndexCalculator = () => {
       </div>
     </>
   );
-};
-export default HeatIndexCalculator;
+}

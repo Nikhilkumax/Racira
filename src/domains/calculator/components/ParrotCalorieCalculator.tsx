@@ -1,11 +1,10 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Bird } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 // 1. TypeScript Interfaces
@@ -18,22 +17,19 @@ interface AvianInputs {
 interface AvianResults {
   ber: number; // Basal Energy Requirement
   dailyCalories: number; // Maintenance Energy Requirement
-  
   pelletCalories: number; // 70%
   freshVegCalories: number; // 20%
   treatCalories: number; // 10%
-
   chartData: { name: string; value: number; color: string }[];
   summaryStats: { label: string; value: string; colorClass?: string }[];
 }
 
 // 2. Pure Calculation Function
-const calculateAvianDiet = (inputs: AvianInputs): AvianResults | null => {
+const calculateAvianDiet = (inputs: AvianInputs): AvianResults => {
   const { weightGrams, activityLevel, birdType } = inputs;
-  
-  if (weightGrams <= 0) return null;
+  const safeWeight = weightGrams > 0 ? weightGrams : 0;
 
-  const weightKg = weightGrams / 1000;
+  const weightKg = safeWeight / 1000;
 
   // Avian Basal Energy Requirement (BER)
   // Non-Passerines (Parrots, Macaws, Cockatiels): 78 * W^0.75
@@ -50,24 +46,21 @@ const calculateAvianDiet = (inputs: AvianInputs): AvianResults | null => {
 
   const dailyCalories = ber * multipliers[activityLevel];
 
-  // Avian Diet Rule of Thumb (approximate ideal for most parrots):
-  // 70% high-quality pellets
-  // 20% fresh vegetables / greens
-  // 10% seeds / nuts / fruit (treats)
+  // Avian Diet Rule of Thumb: 70% pellets, 20% fresh vegetables, 10% treats
   const pelletCalories = dailyCalories * 0.70;
   const freshVegCalories = dailyCalories * 0.20;
   const treatCalories = dailyCalories * 0.10;
 
   const chartData = [
-    { name: "Formulated Pellets", value: pelletCalories, color: "hsl(var(--primary))" },
-    { name: "Fresh Vegetables", value: freshVegCalories, color: "#10b981" },
-    { name: "Seeds / Nuts / Fruit", value: treatCalories, color: "#f59e0b" }
+    { name: "Formulated Pellets", value: Math.round(pelletCalories), color: "hsl(var(--primary))" },
+    { name: "Fresh Vegetables", value: Math.round(freshVegCalories), color: "#10b981" },
+    { name: "Seeds / Nuts / Fruit", value: Math.round(treatCalories), color: "#f59e0b" }
   ];
 
   let speciesSize = "Small";
-  if (weightGrams > 600) speciesSize = "Extra Large (Macaw/Cockatoo)";
-  else if (weightGrams > 300) speciesSize = "Large (African Grey/Amazon)";
-  else if (weightGrams > 100) speciesSize = "Medium (Conure/Quaker)";
+  if (safeWeight > 600) speciesSize = "Extra Large (Macaw/Cockatoo)";
+  else if (safeWeight > 300) speciesSize = "Large (African Grey/Amazon)";
+  else if (safeWeight > 100) speciesSize = "Medium (Conure/Quaker)";
   else speciesSize = "Small (Budgie/Cockatiel/Finch)";
 
   const summaryStats = [
@@ -97,13 +90,15 @@ const DEFAULTS = {
   birdType: "non_passerine" as const
 };
 
+const fmt = (n: number, dec = 1) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
 // Custom Chart Tooltip
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
         <p className="font-bold mb-0.5" style={{ color: payload[0].payload.color }}>{payload[0].name}</p>
-        <p className="text-muted-foreground">{payload[0].value.toFixed(1)} kcal / day</p>
+        <p className="text-muted-foreground">{payload[0].value.toFixed(0)} kcal / day</p>
       </div>
     );
   }
@@ -111,23 +106,50 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  min,
+  error
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  min?: string;
+  error?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {prefix}
+        </span>
+      )}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
+        min={min}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
+    {error && <p className="text-[11px] text-red-500 font-medium mt-1">{error}</p>}
   </div>
 );
 
@@ -136,35 +158,35 @@ export default function ParrotCalorieCalculator() {
   const [weightGrams, setWeightGrams] = useState(DEFAULTS.weightGrams);
   const [activityLevel, setActivityLevel] = useState<"inactive" | "moderate" | "active">(DEFAULTS.activityLevel);
   const [birdType, setBirdType] = useState<"non_passerine" | "passerine">(DEFAULTS.birdType);
-  
-  const [results, setResults] = useState<AvianResults | null>(null);
+
+  const getInputs = (): AvianInputs => ({
+    weightGrams: parseFloat(weightGrams) || 0,
+    activityLevel,
+    birdType
+  });
+
+  const [results, setResults] = useState<AvianResults>(() => calculateAvianDiet(getInputs()));
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setResults(calculateAvianDiet(getInputs()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wg = parseFloat(weightGrams) || 0;
+  const hasErrors = wg <= 0;
+
   const handleCalculate = () => {
-    const inputs: AvianInputs = {
-      weightGrams: parseFloat(weightGrams) || 0,
-      activityLevel,
-      birdType
-    };
-    setResults(calculateAvianDiet(inputs));
+    if (hasErrors) return;
+    setResults(calculateAvianDiet(getInputs()));
   };
 
   const handleReset = () => {
     setWeightGrams(DEFAULTS.weightGrams);
     setActivityLevel(DEFAULTS.activityLevel);
     setBirdType(DEFAULTS.birdType);
-    
-    setResults(calculateAvianDiet({
-      weightGrams: parseFloat(DEFAULTS.weightGrams),
-      activityLevel: DEFAULTS.activityLevel,
-      birdType: DEFAULTS.birdType
-    }));
+    setResults(calculateAvianDiet(getInputs()));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weightGrams, activityLevel, birdType]);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -177,6 +199,15 @@ export default function ParrotCalorieCalculator() {
     w.print();
   };
 
+  const breakdown = [
+    { label: "Basal Energy Requirement (BER)", value: `${fmt(results.ber)} kcal` },
+    { label: "Maintenance Calories (MER)", value: `${fmt(results.dailyCalories)} kcal` },
+    { label: "Pellet Allocation (70%)", value: `${fmt(results.pelletCalories)} kcal`, highlight: true },
+    { label: "Veggie Allocation (20%)", value: `${fmt(results.freshVegCalories)} kcal` },
+    { label: "Treat Allocation (10%)", value: `${fmt(results.treatCalories)} kcal` },
+    { label: "Total Daily Calories", value: `${fmt(results.dailyCalories)} kcal`, isTotal: true }
+  ];
+
   const faqs = [
     { question: "Why is a seed-only diet dangerous for parrots?", answer: "Seeds are incredibly high in fat and low in essential vitamins, particularly Vitamin A and Calcium. Feeding a parrot a 100% seed diet is the equivalent of feeding a human a diet composed entirely of fast food. It leads to obesity, fatty liver disease, and severely shortened lifespans." },
     { question: "What is a Non-Passerine vs Passerine?", answer: "Non-passerines include all parrots, macaws, cockatoos, budgies, and conures. They have a slightly lower basal metabolic rate. Passerines are 'perching birds' like canaries and finches. They have extremely fast metabolisms and require significantly more calories per gram of body weight." },
@@ -187,52 +218,50 @@ export default function ParrotCalorieCalculator() {
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Parrot & Avian Calorie Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Parrot Calorie Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Parrot & Avian Diet Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Parrot Calorie Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          {/* LEFT 460px: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Bird className="h-4 w-4" /> Avian Dietitian
+          {/* LEFT: INPUT PANEL */}
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="weight"
+                label="Bird's Weight"
+                value={weightGrams}
+                onChange={setWeightGrams}
+                suffix="grams"
+                min="1"
+                error={wg <= 0 ? "Must be > 0" : undefined}
+              />
+              <div className="flex flex-col">
+                <label htmlFor="birdType" className="flex items-center text-sm font-semibold text-foreground mb-1">
+                  Avian Classification
+                </label>
+                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                  <select
+                    id="birdType"
+                    value={birdType}
+                    onChange={(e) => setBirdType(e.target.value as "non_passerine" | "passerine")}
+                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
+                  >
+                    <option value="non_passerine">Parrots, Macaws, Cockatiels, Budgies</option>
+                    <option value="passerine">Passerines (Canaries, Finches)</option>
+                  </select>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Calculate exact daily caloric requirements and ideal dietary distribution for your parrot, macaw, or finch.</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4">
-              <CompactInput id="weight" label="Bird's Weight" value={weightGrams} onChange={setWeightGrams} suffix="grams" />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="birdType" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-                Avian Classification
-              </label>
-              <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                <select
-                  id="birdType"
-                  value={birdType}
-                  onChange={(e) => setBirdType(e.target.value as any)}
-                  className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
-                >
-                  <option value="non_passerine">Parrots, Macaws, Cockatiels, Budgies</option>
-                  <option value="passerine">Passerines (Canaries, Finches)</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="flex flex-col mb-1">
-              <label htmlFor="activity" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+              <label htmlFor="activity" className="flex items-center text-sm font-semibold text-foreground mb-1">
                 Flight Activity Level
               </label>
               <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
                 <select
                   id="activity"
                   value={activityLevel}
-                  onChange={(e) => setActivityLevel(e.target.value as any)}
+                  onChange={(e) => setActivityLevel(e.target.value as "inactive" | "moderate" | "active")}
                   className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
                 >
                   <option value="inactive">Cage-Bound / Clipped Wings / Inactive</option>
@@ -242,98 +271,137 @@ export default function ParrotCalorieCalculator() {
               </div>
             </div>
 
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Values
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >Calculate</button>
+              <button
+                type="button"
+                onClick={handleReset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT fluid: Results */}
-          <div className="flex flex-col gap-4">
-            {results ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* 1. Primary Result Card */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden z-10" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="relative z-10">
-                    <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Daily Maintenance Calories</div>
-                    <div className="flex items-baseline gap-2 mb-2">
-                      <div className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">{results.dailyCalories.toFixed(1)}</div>
-                      <div className="text-xl font-bold text-muted-foreground">kcal</div>
-                    </div>
-                    <div className="text-sm font-medium text-foreground/80 leading-relaxed max-w-sm">
-                      Distribute these calories utilizing the veterinary recommended 70/20/10 protocol to prevent malnutrition.
-                    </div>
-                  </div>
-                  <Bird className="absolute -bottom-4 -right-4 h-32 w-32 text-primary/10" />
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  {/* 3. Summary Statistics */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full">
-                    <h3 className="text-base font-bold mb-4">Nutritional Distribution</h3>
-                    <div className="grid grid-cols-1 gap-y-4 text-base">
-                      {results.summaryStats.map((stat, i) => (
-                        <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0 last:pb-0">
-                          <span className="text-muted-foreground">{stat.label}:</span>
-                          <span className={`font-semibold ${stat.colorClass || ''}`}>{stat.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 4. Chart / Visualization */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[260px]">
-                    <h3 className="text-base font-bold mb-2 w-full text-left">The 70/20/10 Protocol</h3>
-                    <ResponsiveContainer width="100%" height={160}>
-                      <PieChart>
-                        <Pie
-                          data={results.chartData}
-                          cx="50%" cy="50%"
-                          innerRadius={50} outerRadius={70}
-                          paddingAngle={3} dataKey="value"
-                        >
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={<CustomTooltip />} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="flex flex-col gap-2 mt-2 w-full">
-                      {results.chartData.map((d, i) => (
-                        <div key={i} className="flex justify-between items-center text-xs font-medium">
-                          <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
-                            {d.name}
-                          </div>
-                          <span className="font-bold">{d.value.toFixed(1)} kcal</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
+            {/* 1. Primary Result Card */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Bird className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium">Enter your bird's weight in grams to calculate their exact basal and maintenance metabolic requirements.</p>
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Daily Maintenance Calories</div>
+              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">
+                {fmt(results.dailyCalories)} <span className="text-xl font-bold text-muted-foreground">kcal</span>
               </div>
-            )}
+              <div className="text-sm text-muted-foreground font-medium">
+                Distribute using the veterinary 70/20/10 protocol: pellets, vegetables, and treats.
+              </div>
+            </div>
+
+            {/* 2. 3-Stat Bar */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Pellets (70%)</span>
+                <span className="font-extrabold text-emerald-600">{fmt(results.pelletCalories)} kcal</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Veggies (20%)</span>
+                <span className="font-extrabold text-emerald-600">{fmt(results.freshVegCalories)} kcal</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Treats (10%)</span>
+                <span className="font-extrabold text-amber-600">{fmt(results.treatCalories)} kcal</span>
+              </div>
+            </div>
+
+            {/* 3. Breakdown Table */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Breakdown</th>
+                    <th className="p-2.5 pr-3 text-right w-[160px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row, idx) => (
+                    <tr key={idx} className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                      <td className={`p-2.5 pr-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. Chart */}
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="text-sm font-bold text-foreground mb-3">The 70/20/10 Protocol</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={results.chartData}
+                    cx="50%" cy="50%"
+                    innerRadius={60} outerRadius={85}
+                    paddingAngle={3} dataKey="value"
+                  >
+                    {results.chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="flex flex-col gap-2 mt-2">
+                {results.chartData.map((d, i) => {
+                  const pct = results.dailyCalories > 0 ? (d.value / results.dailyCalories) * 100 : 0;
+                  return (
+                    <div key={i} className="flex justify-between items-center text-xs font-medium">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
+                        <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
+                        {d.name}
+                      </div>
+                      <span className="font-bold">{pct.toFixed(0)}% · {d.value} kcal</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. Summary Statistics */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-sm font-bold text-foreground mb-4">Nutritional Distribution</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                {results.summaryStats.map((stat, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{stat.label}</span>
+                    <span className={`text-base font-extrabold ${stat.colorClass || "text-foreground"}`}>{stat.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">Understanding Avian Metabolism and Nutrition</h2>
-            <p>Parrots, macaws, and finches are incredibly complex animals with a metabolism vastly different from the domestic dogs and cats we are used to caring for. A bird's metabolic engine runs incredibly hot; their core body temperature is higher, their heart rate is significantly faster, and their respiratory system is highly specialized for the immense physical demands of flight. The <strong>Parrot & Avian Calorie Calculator</strong> utilizes veterinary allometric scaling equations to pinpoint exactly how much energy your bird needs to maintain this high-performance biology.</p>
+            <p>Parrots, macaws, and finches are incredibly complex animals with a metabolism vastly different from the domestic dogs and cats we are used to caring for. A bird's metabolic engine runs incredibly hot; their core body temperature is higher, their heart rate is significantly faster, and their respiratory system is highly specialized for the immense physical demands of flight. The <strong>Parrot Calorie Calculator</strong> utilizes veterinary allometric scaling equations to pinpoint exactly how much energy your bird needs to maintain this high-performance biology.</p>
             <p>Unfortunately, malnutrition is the leading cause of premature death in captive exotic birds. Many owners inadvertently feed their birds diets that are too high in fat, too low in calcium, and devoid of Vitamin A. By understanding your bird's precise daily caloric limit, you can transition them to a medically sound 70/20/10 diet plan, ensuring vibrant plumage, a strong immune system, and a lifespan that can stretch for decades.</p>
 
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Avian Basal Energy Requirements</h2>
@@ -373,9 +441,9 @@ export default function ParrotCalorieCalculator() {
             <p>While the focus is often on food, hydration is equally critical. Unlike mammals, birds produce uric acid instead of liquid urea, which is why their droppings have a white, chalky component. While this is water-efficient, they still require constant access to fresh, clean water. A general rule of thumb is that a bird requires roughly 1 milliliter of water for every kilocalorie of energy consumed. A bird eating 100 kcal per day will generally drink about 100 mL of water, though much of this can come from the moisture content in their fresh vegetables.</p>
 
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
-            <p>Feeding a parrot is more akin to feeding a highly specialized human athlete than an ordinary house pet. Their brilliant minds and delicate biologies require exact nutritional inputs to thrive. By utilizing the Parrot & Avian Diet Calculator, converting their diet to a pellet-based protocol, and vigilantly monitoring their weight on a gram scale, you can protect your feathered companion from the silent epidemic of avian malnutrition.</p>
+            <p>Feeding a parrot is more akin to feeding a highly specialized human athlete than an ordinary house pet. Their brilliant minds and delicate biologies require exact nutritional inputs to thrive. By utilizing the Parrot Calorie Calculator, converting their diet to a pellet-based protocol, and vigilantly monitoring their weight on a gram scale, you can protect your feathered companion from the silent epidemic of avian malnutrition.</p>
           </section>
-          
+
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/parrot-calorie-calculator" />
           <PopularCalculators exclude="/calculator/parrot-calorie-calculator" />
         </div>

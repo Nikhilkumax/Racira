@@ -4,230 +4,195 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Network } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 interface SubnetResult {
-  ipAddress: string;
-  subnetMask: string;
-  networkAddress: string;
-  broadcastAddress: string;
+  ip: string;
+  prefix: number;
+  ipInt: number;
+  netmaskInt: number;
+  networkInt: number;
+  broadcastInt: number;
+  network: string;
+  netmask: string;
+  wildcard: string;
+  broadcast: string;
   firstHost: string;
   lastHost: string;
-  totalHosts: number;
   usableHosts: number;
-  wildcardMask: string;
-  binaryIp: string;
-  binaryMask: string;
-  isError: boolean;
-  errorMsg?: string;
+  totalAddresses: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-const numToIP = (num: number) => {
-  return [
-    (num >>> 24) & 255,
-    (num >>> 16) & 255,
-    (num >>> 8) & 255,
-    num & 255
-  ].join(".");
-};
+function ipToInt(ip: string): number | null {
+  const parts = ip.trim().split(".").map(p => parseInt(p, 10));
+  if (parts.length !== 4 || parts.some(p => isNaN(p) || p < 0 || p > 255)) return null;
+  return ((parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3]) >>> 0;
+}
 
-const ipToNum = (ip: string) => {
-  return ip.split(".").reduce((acc, octet) => (acc << 8) + parseInt(octet, 10), 0) >>> 0;
-};
+function intToIp(v: number): string {
+  return `${(v >>> 24) & 255}.${(v >>> 16) & 255}.${(v >>> 8) & 255}.${v & 255}`;
+}
 
-const calculateSubnet = (
-  ipInput: string,
-  cidrStr: string
-): SubnetResult | null => {
-  // Validate IP
-  const ipParts = ipInput.split(".");
-  if (ipParts.length !== 4) return null;
-  for (let part of ipParts) {
-    const num = parseInt(part, 10);
-    if (isNaN(num) || num < 0 || num > 255) return null;
-  }
+function calcSubnet(ip: string, prefix: number): SubnetResult {
+  const ipInt = ipToInt(ip)!;
+  const netmaskInt = prefix === 0 ? 0 : (0xffffffff << (32 - prefix)) >>> 0;
+  const networkInt = (ipInt & netmaskInt) >>> 0;
+  const broadcastInt = prefix === 32 ? networkInt : (networkInt | ((1 << (32 - prefix)) - 1)) >>> 0;
+  const totalAddresses = 2 ** (32 - prefix);
+  const usableHosts = prefix >= 31 ? (prefix === 31 ? 2 : 1) : Math.max(0, totalAddresses - 2);
 
-  const cidr = parseInt(cidrStr, 10);
-  if (isNaN(cidr) || cidr < 0 || cidr > 32) return null;
+  const breakdown = [
+    { label: "IP Address", value: ip },
+    { label: "CIDR Prefix", value: `/${prefix}` },
+    { label: "Subnet Mask", value: intToIp(netmaskInt) },
+    { label: "Wildcard Mask", value: intToIp(~netmaskInt >>> 0) },
+    { label: "Network Address", value: intToIp(networkInt) },
+    { label: "Broadcast Address", value: intToIp(broadcastInt) },
+    { label: "First Usable Host", value: intToIp(networkInt + 1) },
+    { label: "Last Usable Host", value: intToIp(broadcastInt - 1) },
+    { label: "Usable Hosts", value: `${usableHosts}` },
+    { label: "Total Addresses", value: `${totalAddresses}` },
+  ];
+  const summaryStats = [
+    { label: "Network", value: intToIp(networkInt) },
+    { label: "Broadcast", value: intToIp(broadcastInt) },
+    { label: "Netmask", value: intToIp(netmaskInt) },
+    { label: "Usable Hosts", value: `${usableHosts}` },
+    { label: "Total Addresses", value: `${totalAddresses}` },
+    { label: "First Host", value: intToIp(networkInt + 1) },
+    { label: "Last Host", value: intToIp(broadcastInt - 1) },
+    { label: "Prefix", value: `/${prefix}` },
+  ];
+  const chartData = [
+    { name: "Usable", value: Math.max(0, usableHosts), fill: "hsl(var(--primary))" },
+    { name: "Reserved", value: Math.max(0, totalAddresses - usableHosts), fill: "#f59e0b" },
+  ];
+  return { ip, prefix, ipInt, netmaskInt, networkInt, broadcastInt, network: intToIp(networkInt), netmask: intToIp(netmaskInt), wildcard: intToIp(~netmaskInt >>> 0), broadcast: intToIp(broadcastInt), firstHost: intToIp(networkInt + 1), lastHost: intToIp(broadcastInt - 1), usableHosts, totalAddresses, breakdown, summaryStats, chartData };
+}
 
-  try {
-    const ipNum = ipToNum(ipInput);
-    
-    // Create subnet mask numeric
-    const maskNum = cidr === 0 ? 0 : (~0 << (32 - cidr)) >>> 0;
-    const wildcardNum = (~maskNum) >>> 0;
+const DEFAULTS = { ip: "192.168.1.0", prefix: "24" };
 
-    const networkNum = (ipNum & maskNum) >>> 0;
-    const broadcastNum = (networkNum | wildcardNum) >>> 0;
-
-    const totalHosts = cidr === 32 ? 1 : Math.pow(2, 32 - cidr);
-    const usableHosts = cidr >= 31 ? 0 : totalHosts - 2;
-
-    const firstHostNum = usableHosts > 0 ? (networkNum + 1) >>> 0 : 0;
-    const lastHostNum = usableHosts > 0 ? (broadcastNum - 1) >>> 0 : 0;
-
-    // Binary strings
-    const toBin = (num: number) => {
-      const b = num.toString(2).padStart(32, "0");
-      return `${b.slice(0,8)}.${b.slice(8,16)}.${b.slice(16,24)}.${b.slice(24,32)}`;
-    };
-
-    return {
-      ipAddress: ipInput,
-      subnetMask: numToIP(maskNum),
-      networkAddress: numToIP(networkNum),
-      broadcastAddress: numToIP(broadcastNum),
-      firstHost: usableHosts > 0 ? numToIP(firstHostNum) : "N/A",
-      lastHost: usableHosts > 0 ? numToIP(lastHostNum) : "N/A",
-      totalHosts,
-      usableHosts,
-      wildcardMask: numToIP(wildcardNum),
-      binaryIp: toBin(ipNum),
-      binaryMask: toBin(maskNum),
-      isError: false
-    };
-
-  } catch (err) {
-    return { ipAddress: "", subnetMask: "", networkAddress: "", broadcastAddress: "", firstHost: "", lastHost: "", totalHosts: 0, usableHosts: 0, wildcardMask: "", binaryIp: "", binaryMask: "", isError: true, errorMsg: "Invalid IP address format." };
-  }
-};
-
-const IpSubnetCalculator = () => {
-  const [ip, setIp] = useState("192.168.1.100");
-  const [cidr, setCidr] = useState("24");
-
+export default function IpSubnetCalculator() {
+  const [ip, setIp] = useState(DEFAULTS.ip);
+  const [prefix, setPrefix] = useState(DEFAULTS.prefix);
   const [result, setResult] = useState<SubnetResult | null>(null);
 
-  const calculate = () => {
-    setResult(calculateSubnet(ip, cidr));
+  const pf = parseInt(prefix) || 0;
+  const errs: string[] = [];
+  if (!ipToInt(ip)) errs.push("Enter a valid IPv4 address (e.g. 192.168.1.0).");
+  if (pf < 0 || pf > 32) errs.push("CIDR prefix must be between 0 and 32.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcSubnet(ip, pf)); };
+  const reset = () => {
+    setIp(DEFAULTS.ip); setPrefix(DEFAULTS.prefix);
+    setResult(calcSubnet("192.168.1.0", 24));
   };
+  useEffect(() => { setResult(calcSubnet("192.168.1.0", 24)); }, []);
 
-  useEffect(() => { calculate(); }, [ip, cidr]);
-
-  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground font-mono";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is a Subnet Mask?", answer: "A subnet mask is a 32-bit number that masks an IP address, dividing the IP address into a Network Address and a Host Address. It tells network routers exactly how large your local network is so they know whether to route traffic internally or send it out to the internet." },
-    { question: "Why do we subtract 2 from total hosts?", answer: "In any standard subnet, the very first address is reserved as the 'Network Identifier' and the very last address is reserved as the 'Broadcast Address' (used to send messages to all devices at once). Therefore, if a /24 subnet has 256 total IP addresses, you can only physically assign 254 of them to computers or devices." },
-    { question: "What does /24 mean (CIDR)?", answer: "CIDR (Classless Inter-Domain Routing) notation is a shorthand way of writing a subnet mask. /24 simply means that the first 24 bits of the 32-bit subnet mask are turned ON (1s). This correlates to the standard subnet mask 255.255.255.0." },
-    { question: "What is a Wildcard Mask?", answer: "A wildcard mask is the exact inverse of a subnet mask (all 1s become 0s, and all 0s become 1s). It is heavily used in advanced networking equipment like Cisco routers and firewalls to quickly define Access Control Lists (ACLs) and routing protocols like OSPF." },
+    { question: "How does CIDR notation work?", answer: "The /24 in 192.168.1.0/24 means the first 24 bits are the network — leaving 8 bits (256 addresses) for hosts. The subnet mask 255.255.255.0 encodes the same boundary." },
+    { question: "Why are usable hosts two fewer?", answer: "The network address (all host bits zero) and the broadcast address (all host bits one) can't be assigned to devices. A /24 has 254 usable hosts out of 256 addresses." },
+    { question: "What about /31 and /32?", answer: "Point-to-point links use /31 (2 usable addresses, RFC 3021) and loopbacks use /32 (1 address). The calculator handles these special cases." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "IP Subnet Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">IP Subnet Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">IP Subnet Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">IPv4 Address</label>
-              <div className={wrap}><input type="text" value={ip} onChange={e => setIp(e.target.value)} className={ci} placeholder="e.g. 192.168.1.100" /></div>
-            </div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">Subnet Mask (CIDR)</label>
-              <div className={wrap}>
-                <span className="pl-3 text-muted-foreground font-bold">/</span>
-                <input type="number" value={cidr} onChange={e => setCidr(e.target.value)} className={ci} min="0" max="32" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>IP Address</label>
+                <div className={inp}><input value={ip} onChange={e => setIp(e.target.value)} placeholder="e.g. 192.168.1.0" className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>CIDR Prefix</label>
+                <select value={prefix} onChange={e => setPrefix(e.target.value)} className={sel}>
+                  {Array.from({ length: 33 }, (_, i) => <option key={i} value={i}>/{i} ({i === 24 ? "255.255.255.0" : ""})</option>)}
+                </select>
               </div>
             </div>
-
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Invalid IP Address</div>
-                  <div className="text-base font-medium text-foreground">Please enter a valid IPv4 address (e.g. 192.168.1.100) and a CIDR between 0 and 32.</div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Usable Hosts</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.usableHosts}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.network} – {result.broadcast} · {result.netmask} · /{result.prefix}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Network`, result.network], ["Broadcast", result.broadcast], ["Netmask", result.netmask]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Subnet Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Address Space</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v} addresses`, ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Usable vs reserved (network + broadcast) addresses</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-            ) : result && (<>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
-                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Usable Hosts</div>
-                  <div className="text-5xl font-extrabold text-foreground tracking-tight font-mono">{result.usableHosts.toLocaleString()}</div>
-                  <div className="text-xs text-muted-foreground font-bold mt-1 uppercase">Total IPs: {result.totalHosts.toLocaleString()}</div>
-                </div>
-
-                <div className="bg-sky-500/10 border-l-4 border-sky-500 rounded-lg p-6">
-                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Subnet Mask</div>
-                  <div className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight font-mono mt-2">{result.subnetMask}</div>
-                  <div className="text-xs text-muted-foreground font-bold mt-2 uppercase">Wildcard: {result.wildcardMask}</div>
-                </div>
-              </div>
-
-              <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden mt-2">
-                <div className="bg-secondary/50 p-4 border-b border-border/50">
-                  <h3 className="font-bold text-foreground">Subnet Layout Details</h3>
-                </div>
-                <div className="divide-y divide-border/50">
-                  <div className="grid grid-cols-1 md:grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground mb-1 md:mb-0">Network Address</div>
-                    <div className="text-base md:text-right font-mono text-muted-foreground">{result.networkAddress}</div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground mb-1 md:mb-0">First Usable IP</div>
-                    <div className="text-base md:text-right font-mono text-primary font-bold">{result.firstHost}</div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground mb-1 md:mb-0">Last Usable IP</div>
-                    <div className="text-base md:text-right font-mono text-primary font-bold">{result.lastHost}</div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground mb-1 md:mb-0">Broadcast Address</div>
-                    <div className="text-base md:text-right font-mono text-muted-foreground">{result.broadcastAddress}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Binary Representation</h3>
-                <div className="space-y-4">
-                  <div>
-                    <div className="text-xs font-bold text-muted-foreground uppercase mb-1">IP Address</div>
-                    <div className="p-3 bg-secondary/30 rounded border border-border/50 font-mono text-xs md:text-sm text-center break-all tracking-wider text-foreground">
-                      {result.binaryIp}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Subnet Mask</div>
-                    <div className="p-3 bg-secondary/30 rounded border border-border/50 font-mono text-xs md:text-sm text-center break-all tracking-wider text-primary">
-                      {result.binaryMask}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding IPv4 Subnetting</h2>
-            <p>At its core, a computer network is like a city postal system. The IP address is the exact street address of a house, but the post office needs to know which city the house is in. A <strong>Subnet Mask</strong> acts as the dividing line, cutting an IP address into two distinct parts: the Network (the city) and the Host (the specific house).</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why We Use CIDR Notation</h2>
-            <p>Writing out subnet masks like <code>255.255.255.0</code> is tedious. Network engineers use <strong>CIDR (Classless Inter-Domain Routing)</strong> shorthand. Because an IPv4 address is mathematically just 32 bits of binary (1s and 0s), a subnet mask simply turns on the first sequence of bits to "mask" the network.</p>
-            <p>If you see an IP address written as <code>192.168.1.100 /24</code>, the <code>/24</code> means that the first 24 bits of the subnet mask are 1s. If you convert 24 1s into decimal format, you get exactly 255.255.255.0. This tells the router that the first three blocks (192.168.1) belong to the Network, leaving the final 8 bits (the last block) available for Hosts (devices).</p>
-
-            <h2 className="text-2xl font-bold mb-3">The -2 Host Rule</h2>
-            <p>If you allocate 8 bits for host addresses, binary math dictates you have 256 total combinations (2^8 = 256). However, you can never assign 256 devices to this network. Why? Because the IPv4 protocol permanently reserves two specific addresses in every single subnet:</p>
-            <ul>
-              <li><strong>The Network Address:</strong> The very first address in the block (e.g., .0) is used to mathematically identify the entire network itself. It cannot be assigned to a computer.</li>
-              <li><strong>The Broadcast Address:</strong> The very last address in the block (e.g., .255) is reserved. If a router sends a data packet to the broadcast address, it acts as a loudspeaker, sending the packet to every single device on the network simultaneously.</li>
-            </ul>
-            <p>Therefore, a standard /24 home network has 256 total IPs, but only 254 <em>usable</em> IPs.</p>
+            <h2 className="text-2xl font-bold mb-3">How Subnetting Works</h2>
+            <p>This <strong>IP subnet calculator</strong> masks the address with the CIDR prefix to find the network, then derives the broadcast, host range, and counts. Every /24 in 192.168.1.0/24 shares the first 24 bits; the remaining 8 bits enumerate 256 addresses.</p>
+            <h2 className="text-2xl font-bold mb-3">The Address Accounting</h2>
+            <p>Total addresses double with each smaller prefix: /24 → 256, /23 → 512, /25 → 128. Two are always reserved for network and broadcast, except on /31 point-to-point links where both are usable.</p>
+            <h2 className="text-2xl font-bold mb-3">Planning Subnets</h2>
+            <p>Size the subnet to the device count plus headroom: a floor of 30 devices needs /27 (30 usable), not /24. Good planning prevents renumbering when the office grows.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ip-subnet-calculator" />
           <PopularCalculators exclude="/calculator/ip-subnet-calculator" />
@@ -235,5 +200,4 @@ const IpSubnetCalculator = () => {
       </div>
     </>
   );
-};
-export default IpSubnetCalculator;
+}

@@ -1,167 +1,200 @@
 "use client";
-import { RotateCcw, Calendar, TrendingUp, Clock, Info, Calculator } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-const HourlyToSalaryCalculator = () => {
-  const [hourlyRate, setHourlyRate] = useState("25");
-  const [hoursPerWeek, setHoursPerWeek] = useState("40");
-  const [weeksPerYear, setWeeksPerYear] = useState("52");
-  const [annualSalary, setAnnualSalary] = useState("52000");
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
-  const [calcSource, setCalcSource] = useState<"hourly" | "salary">("hourly");
+interface PayResult {
+  direction: string;
+  hourly: number;
+  hoursWeek: number;
+  weeksYear: number;
+  annual: number;
+  monthly: number;
+  biweekly: number;
+  weekly: number;
+  daily: number;
+  hoursPerYear: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    const hours = parseFloat(hoursPerWeek) || 0;
-    const weeks = parseFloat(weeksPerYear) || 0;
-    if (hours === 0 || weeks === 0) return;
+function fmt$(v: number): string {
+  return `$${v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
 
-    let annual, rate;
-    if (calcSource === "hourly") {
-      rate = parseFloat(hourlyRate) || 0;
-      annual = rate * hours * weeks;
-      setAnnualSalary(annual.toFixed(0));
-    } else {
-      annual = parseFloat(annualSalary) || 0;
-      rate = annual / (hours * weeks);
-      setHourlyRate(rate.toFixed(2));
-    }
+function calcPay(hourly: number, hoursWeek: number, weeksYear: number): PayResult {
+  const annual = hourly * hoursWeek * weeksYear;
+  const monthly = annual / 12;
+  const biweekly = hourly * hoursWeek * 2;
+  const weekly = hourly * hoursWeek;
+  const daily = hourly * 8;
+  const hoursPerYear = hoursWeek * weeksYear;
 
-    const monthly = annual / 12;
-    const biweekly = annual / 26;
-    const weekly = annual / 52;
-    const daily = rate * 8;
+  const breakdown = [
+    { label: "Hourly Rate", value: fmt$(hourly) },
+    { label: "Hours per Week", value: `${hoursWeek} hrs` },
+    { label: "Weeks per Year", value: `${weeksYear} weeks` },
+    { label: "Annual Salary", value: fmt$(annual) },
+    { label: "Monthly (1/12)", value: fmt$(monthly) },
+    { label: "Biweekly", value: fmt$(biweekly) },
+    { label: "Weekly", value: fmt$(weekly) },
+    { label: "Hours per Year", value: `${hoursPerYear} hrs` },
+  ];
+  const summaryStats = [
+    { label: "Annual Salary", value: fmt$(annual) },
+    { label: "Monthly", value: fmt$(monthly) },
+    { label: "Biweekly", value: fmt$(biweekly) },
+    { label: "Weekly", value: fmt$(weekly) },
+    { label: "Daily (8 hrs)", value: fmt$(daily) },
+    { label: "Hourly", value: fmt$(hourly) },
+    { label: "Hours/Week", value: `${hoursWeek}` },
+    { label: "Hours/Year", value: `${hoursPerYear}` },
+  ];
+  const chartData = [
+    { name: "Weekly", value: Math.round(weekly), fill: "#8b5cf6" },
+    { name: "Biweekly", value: Math.round(biweekly), fill: "#f59e0b" },
+    { name: "Monthly", value: Math.round(monthly), fill: "hsl(var(--primary))" },
+    { name: "Annual", value: Math.round(annual), fill: "#10b981" },
+  ];
+  return { direction: "hourly-to-salary", hourly, hoursWeek, weeksYear, annual, monthly, biweekly, weekly, daily, hoursPerYear, breakdown, summaryStats, chartData };
+}
 
-    setResults({
-      annual,
-      monthly,
-      biweekly,
-      weekly,
-      daily,
-      hourly: rate
-    });
-    setShowResults(true);
-  };
+const DEFAULTS = { hourly: "32", hoursWeek: "40", weeksYear: "52" };
 
-  useEffect(() => {
-    // Initial calculation silently
-    const rate = parseFloat(hourlyRate) || 0;
-    const hours = parseFloat(hoursPerWeek) || 0;
-    const weeks = parseFloat(weeksPerYear) || 0;
-    const annual = rate * hours * weeks;
-    setResults({ annual, monthly: annual/12, biweekly: annual/26, weekly: annual/52, daily: rate*8, hourly: rate });
-  }, []);
+export default function HourlyToSalaryCalculator() {
+  const [hourly, setHourly] = useState(DEFAULTS.hourly);
+  const [hoursWeek, setHoursWeek] = useState(DEFAULTS.hoursWeek);
+  const [weeksYear, setWeeksYear] = useState(DEFAULTS.weeksYear);
+  const [result, setResult] = useState<PayResult | null>(null);
 
+  const h = parseFloat(hourly) || 0;
+  const hw = parseFloat(hoursWeek) || 0;
+  const wy = parseFloat(weeksYear) || 0;
+  const errs: string[] = [];
+  if (h < 0) errs.push("Hourly rate cannot be negative.");
+  if (hw < 1 || hw > 168) errs.push("Hours per week must be between 1 and 168.");
+  if (wy < 1 || wy > 52) errs.push("Weeks per year must be between 1 and 52.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcPay(h, hw, wy)); };
   const reset = () => {
-    setHourlyRate("25");
-    setHoursPerWeek("40");
-    setWeeksPerYear("52");
-    setAnnualSalary("52000");
-    setShowResults(false);
-    setCalcSource("hourly");
+    setHourly(DEFAULTS.hourly); setHoursWeek(DEFAULTS.hoursWeek); setWeeksYear(DEFAULTS.weeksYear);
+    setResult(calcPay(32, 40, 52));
   };
+  useEffect(() => { setResult(calcPay(32, 40, 52)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "How do I calculate my annual salary from an hourly rate?", answer: "The standard formula for a full-time employee is: Hourly Rate × 40 Hours/Week × 52 Weeks/Year. For example, $25 per hour equals $52,000 per year." },
-    { question: "Is it better to be salaried or hourly?", answer: "It depends on your lifestyle. Hourly employees are generally eligible for overtime pay (1.5x rate) for any hours over 40. Salaried employees often have more consistent paychecks and better benefits." },
-    { question: "Does this calculator include taxes?", answer: "No, this calculator provides 'gross' figures (before taxes). To see your take-home pay, you should use our Net Pay Calculator which accounts for federal, state, and FICA taxes." },
-    { question: "How many working hours are in a year?", answer: "A standard full-time work year (40 hours per week, 52 weeks per year) consists of 2,080 working hours." },
+    { question: "How is annual salary calculated?", answer: "Multiply your hourly rate by hours per week and weeks per year: $32 × 40 × 52 = $66,560. Adjust the weeks figure for unpaid time off." },
+    { question: "What is the difference between monthly and biweekly?", answer: "Monthly is exactly 1/12 of the annual figure. Biweekly is two weeks of hours — 26 payments per year, so two months a year have three paydays." },
+    { question: "Should I include overtime?", answer: "This calculator uses a single straight-time rate. If you regularly earn time-and-a-half, add the blended average rate instead for a more accurate annual figure." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hourly to Salary Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Hourly to Salary Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hourly to Salary Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Hourly to Salary Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-6 flex gap-2">
-                <button onClick={() => setCalcSource("hourly")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${calcSource === "hourly" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Convert Hourly to Salary</button>
-                <button onClick={() => setCalcSource("salary")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${calcSource === "salary" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Convert Salary to Hourly</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Hourly Rate</label>
+                <div className={inp}><input type="number" step="0.5" value={hourly} onChange={e => setHourly(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$/hr</span></div>
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-8 mb-6">
-                <section className="space-y-4">
-                  {calcSource === "hourly" ? (
-                    <InputField id="hourly" label="Hourly Rate" value={hourlyRate} onChange={setHourlyRate} prefix="$" />
-                  ) : (
-                    <InputField id="salary" label="Annual Salary" value={annualSalary} onChange={setAnnualSalary} prefix="$" />
-                  )}
-                  <InputField id="hours" label="Hours Per Week" value={hoursPerWeek} onChange={setHoursPerWeek} suffix="hrs" />
-                  <InputField id="weeks" label="Weeks Per Year" value={weeksPerYear} onChange={setWeeksPerYear} suffix="wks" />
-                </section>
-                <section>
-                   <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 h-full flex flex-col justify-center">
-                      <div className="flex items-center gap-2 mb-2">
-                         <Info className="h-4 w-4 text-primary" />
-                         <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Standard Work Year</p>
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">Calculations assume a standard full-time schedule of 2,080 hours per year (40 hrs × 52 wks) unless adjusted.</p>
-                   </div>
-                </section>
+              <div>
+                <label className={lbl}>Hours per Week</label>
+                <div className={inp}><input type="number" value={hoursWeek} onChange={e => setHoursWeek(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">hrs</span></div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className={lbl}>Weeks per Year</label>
+                <div className={inp}><input type="number" value={weeksYear} onChange={e => setWeeksYear(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">weeks</span></div>
               </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="result-card text-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Equivalent Annual Salary</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.annual).toLocaleString()}</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Annual Salary</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt$(result.annual)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmt$(result.hourly)}/hr × {result.hoursWeek} hrs × {result.weeksYear} weeks</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Monthly`, fmt$(result.monthly)], ["Biweekly", fmt$(result.biweekly)], ["Weekly", fmt$(result.weekly)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                  <div className="result-card text-center py-8 border-emerald-500/20 bg-emerald-500/5">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Equivalent Hourly Rate</p>
-                    <p className="text-5xl font-black text-foreground">${results.hourly.toFixed(2)}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Salary Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 3 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 3 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Pay Periods Compared</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
+                    <Tooltip formatter={(v: number) => [fmt$(v), ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <TrendingUp className="h-5 w-5 text-primary" /> Pay Period Breakdown (Gross)
-                  </h2>
-                  <ResultDisplay items={[
-                    { label: "Annual Income", value: results.annual },
-                    { label: "Monthly Income", value: results.monthly },
-                    { label: "Bi-Weekly Income", value: results.biweekly },
-                    { label: "Weekly Income", value: results.weekly },
-                    { label: "Daily (8-Hour Day)", value: results.daily },
-                  ]} />
-                </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Converting Hourly to Salary: The Full Picture</h2>
-              <p>Whether you are negotiating a new job offer or looking to switch from hourly to salaried status, understanding the relationship between these two figures is essential. While the math is simple, there are several "hidden" factors that can make one option more valuable than the other.</p>
-              <h3>The Standard Formula</h3>
-              <p>For most professionals in the United States, the work year is calculated as 2,080 hours (40 hours/week × 52 weeks/year).</p>
-              <h3>Overtime and Non-Exempt Status</h3>
-              <p>The biggest difference between hourly and salaried roles is often overtime eligibility. Non-exempt employees must be paid 1.5x their rate for hours over 40, whereas salaried employees often have consistent pay regardless of extra hours worked.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Hourly to Annual</h2>
+            <p>This <strong>hourly to salary calculator</strong> multiplies your hourly rate by hours per week and weeks per year to produce the annual figure, then breaks it into monthly, biweekly, weekly, and daily equivalents. Reverse the math by dividing a salary offer by your annual hours to compare job offers.</p>
+            <h2 className="text-2xl font-bold mb-3">Choosing the Right Hours</h2>
+            <p>Full-time is conventionally 40 hours × 52 weeks, but most workers take unpaid time off. If you have two weeks of unpaid vacation, use 50 weeks; if you only work 30 hours a week, use that — the annual number is only useful if the inputs match reality.</p>
+            <h2 className="text-2xl font-bold mb-3">Salary vs Hourly Trade-offs</h2>
+            <p>A $66,560 salary at 40 hours equals $32/hr. But salaried roles often mean 45+ hour weeks with no overtime, dropping the effective rate — convert both sides before comparing total compensation including benefits and bonuses.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hourly-to-salary-calculator" />
           <PopularCalculators exclude="/calculator/hourly-to-salary-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default HourlyToSalaryCalculator;
+}

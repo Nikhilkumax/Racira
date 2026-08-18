@@ -101,6 +101,10 @@ export default function HasBledScoreCalculator() {
     setResult(calcHasBled(htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol));
   }, [htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol]);
 
+  const handleCalculate = () => {
+    setResult(calcHasBled(htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol));
+  };
+
   const reset = () => {
     setHtn(false);
     setRenal(false);
@@ -163,7 +167,10 @@ export default function HasBledScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-2 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Clear Patient Data
               </button>
             </div>

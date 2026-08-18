@@ -1,170 +1,249 @@
 "use client";
 import { useState, useEffect } from "react";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Heart, Sparkles } from "lucide-react";
 
-interface LoveResult {
-  score: number;
-  message: string;
-  isError: boolean;
-  errorMsg?: string;
+// 1. TypeScript interfaces — no 'any'
+interface LoveInputs {
+  name1: string;
+  name2: string;
 }
 
-const calculateLove = (name1: string, name2: string): LoveResult | null => {
-  const n1 = name1.trim().toLowerCase();
-  const n2 = name2.trim().toLowerCase();
+interface LoveResults {
+  score: number;
+  verdict: string;
+  combined: string;
+  asciiSum: number;
+  moduloScore: number;
+  lengthBonus: number;
+  name1Len: number;
+  name2Len: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
+  summaryStats: { label: string; value: string }[];
+}
 
+// 2. Pure calculation function — zero React, fully typed
+function calcLove(i: LoveInputs): LoveResults | null {
+  const n1 = i.name1.trim().toLowerCase();
+  const n2 = i.name2.trim().toLowerCase();
   if (!n1 || !n2) return null;
 
-  try {
-    // A classic, fun, deterministic algorithm based on character codes
-    // so the same two names always get the exact same score.
-    const combined = n1 + "loves" + n2;
-    
-    let sum = 0;
-    for (let i = 0; i < combined.length; i++) {
-      sum += combined.charCodeAt(i);
-    }
-    
-    // Create a deterministic pseudo-random number between 0 and 100
-    // Multiply by a prime number and modulo 101 to get a score 0-100
-    let score = (sum * 73) % 101;
-    
-    // Add a little flavor based on name lengths
-    score = (score + (n1.length * n2.length)) % 101;
-
-    let message = "";
-    if (score >= 90) message = "A match made in heaven! 💘 You two are absolutely perfect for each other.";
-    else if (score >= 75) message = "Sparks are flying! ✨ There is a very strong connection here.";
-    else if (score >= 50) message = "There is definitely potential! 💖 With a little effort, this could blossom into something beautiful.";
-    else if (score >= 25) message = "It might take some work. 🤔 You have different vibes, but opposites can attract!";
-    else message = "Not the best astrological match. 💔 But hey, true love defies all odds!";
-
-    return {
-      score,
-      message,
-      isError: false
-    };
-
-  } catch (err) {
-    return { score: 0, message: "", isError: true, errorMsg: "Calculation error." };
+  // Deterministic numerology: ASCII sum → prime-modulo score, same names always → same score
+  const combined = n1 + "loves" + n2;
+  let sum = 0;
+  for (let i = 0; i < combined.length; i++) {
+    sum += combined.charCodeAt(i);
   }
-};
+  const moduloScore = (sum * 73) % 101;
+  const lengthBonus = (n1.length * n2.length) % 101;
+  const score = (moduloScore + lengthBonus) % 101;
 
-const LoveCalculator = () => {
-  const [name1, setName1] = useState("Romeo");
-  const [name2, setName2] = useState("Juliet");
+  let verdict: string;
+  if (score >= 90) verdict = "A match made in heaven — you two are absolutely perfect for each other.";
+  else if (score >= 75) verdict = "Sparks are flying — there is a very strong connection here.";
+  else if (score >= 50) verdict = "There is definite potential — with a little effort this could blossom.";
+  else if (score >= 25) verdict = "It might take some work — you have different vibes, but opposites can attract.";
+  else verdict = "Not the best numerological match — but true love defies all odds.";
 
-  const [result, setResult] = useState<LoveResult | null>(null);
+  const chartData = [
+    { name: "Compatibility", value: score },
+    { name: "Remainder", value: 100 - score },
+  ];
 
-  const calculate = () => {
-    setResult(calculateLove(name1, name2));
+  const breakdown = [
+    { label: "Person 1", value: `${n1.length} letters` },
+    { label: "Person 2", value: `${n2.length} letters` },
+    { label: "Combined String", value: `"${combined}"` },
+    { label: "ASCII Sum", value: `${sum}` },
+    { label: "Modulo Step (sum × 73 % 101)", value: `${moduloScore}` },
+    { label: "Length Bonus (len₁ × len₂ % 101)", value: `${lengthBonus}` },
+    { label: "Compatibility Score", value: `${score}%`, highlight: true, isTotal: true },
+    { label: "Verdict", value: verdict },
+  ];
+
+  const summaryStats = [
+    { label: "Compatibility Score", value: `${score}%` },
+    { label: "Verdict", value: verdict },
+    { label: "ASCII Sum", value: `${sum}` },
+    { label: "Modulo Step", value: `${moduloScore}` },
+    { label: "Length Bonus", value: `${lengthBonus}` },
+    { label: "Person 1 Length", value: `${n1.length} letters` },
+    { label: "Person 2 Length", value: `${n2.length} letters` },
+    { label: "Combined Length", value: `${combined.length} characters` },
+  ];
+
+  return { score, verdict, combined, asciiSum: sum, moduloScore, lengthBonus, name1Len: n1.length, name2Len: n2.length, chartData, breakdown, summaryStats };
+}
+
+// 3. DEFAULTS object — realistic values
+const DEFAULTS: LoveInputs = { name1: "Romeo", name2: "Juliet" };
+
+// 4. Component
+export default function LoveCalculator() {
+  const [inputs, setInputs] = useState(DEFAULTS);
+  const [result, setResult] = useState<LoveResults | null>(() => calcLove(DEFAULTS));
+
+  useEffect(() => {
+    setResult(calcLove(DEFAULTS));
+  }, []);
+
+  const set = (key: keyof LoveInputs) => (v: string) => setInputs((s) => ({ ...s, [key]: v }));
+
+  const calculate = () => setResult(calcLove(inputs));
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setResult(calcLove(DEFAULTS));
   };
 
-  useEffect(() => { calculate(); }, [name1, name2]);
+  const hasErrors = !inputs.name1.trim() || !inputs.name2.trim();
 
-  const wrap = "flex items-center rounded-md border border-input bg-background h-12 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-pink-500/20 focus-within:border-pink-500";
-  const ci = "w-full h-full px-4 text-lg bg-transparent outline-none border-none text-foreground font-medium";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "block text-sm font-medium mb-1";
 
   const faqs = [
-    { question: "How does the Love Calculator actually work?", answer: "This calculator uses a deterministic numerology algorithm. It converts the letters of both names into their numerical ASCII values, combines them with a specific mathematical formula, and outputs a percentage. Because it relies on the exact spelling of the names, entering the exact same two names will always yield the exact same result." },
-    { question: "Is this mathematically scientifically accurate?", answer: "Absolutely not! This calculator is purely for fun and entertainment. Human relationships are complex, beautiful, and entirely unpredictable. No mathematical algorithm or computer code can dictate who you will fall in love with. If you get a low score with your crush, ignore it and go talk to them!" },
-    { question: "Does the order of the names matter?", answer: "Because of how the mathematical modulo algorithm processes the string of characters, putting 'John' first and 'Jane' second might yield a slightly different score than putting 'Jane' first and 'John' second. For the best reading, try it both ways!" },
-    { question: "Why do we associate the heart symbol with love?", answer: "The modern heart symbol (♥) actually looks very little like a biological human heart. Historians believe the symbol originated in antiquity as a representation of the seedpod of the silphium plant, a species of giant fennel grown on the North African coast that was highly valued as an herbal contraceptive by the ancient Greeks and Romans." },
+    { question: "How does the Love Calculator actually work?", answer: "This calculator uses a deterministic numerology algorithm. It converts the letters of both names into their numerical ASCII values, combines them with a prime-modulo formula, and outputs a percentage. Because it relies on the exact spelling of the names, entering the same two names always yields the exact same score — enter them in either order to compare." },
+    { question: "Is this scientifically accurate?", answer: "Absolutely not! This calculator is purely for fun and entertainment. Human relationships are complex, beautiful, and entirely unpredictable. No mathematical algorithm or computer code can dictate who you will fall in love with. If you get a low score with your crush, ignore it and go talk to them!" },
+    { question: "Does the order of the names matter?", answer: "Yes. Because the algorithm processes the combined character string, putting 'John' first and 'Jane' second can yield a slightly different score than the reverse. For the best reading, try it both ways!" },
+    { question: "Why do we associate the heart symbol with love?", answer: "The modern heart symbol actually looks very little like a biological human heart. Historians believe the symbol originated in antiquity as a representation of the seedpod of the silphium plant, a species of giant fennel that was highly valued as a herbal contraceptive by the ancient Greeks and Romans." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Love Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">True Love Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-6 !p-6 shadow-sm border border-pink-200 dark:border-pink-900 bg-card">
-            
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col">
-                <label className="text-sm font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider mb-2">Person 1</label>
-                <div className={wrap}><input type="text" value={name1} onChange={e => setName1(e.target.value)} className={ci} placeholder="Enter a name..." /></div>
-              </div>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Love Calculator</h1>
 
-              <div className="flex justify-center -my-2 relative z-10">
-                <div className="bg-pink-100 dark:bg-pink-900/50 p-2 rounded-full border-4 border-card">
-                  <Heart className="h-6 w-6 text-pink-500 fill-pink-500" />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="name1" className={lbl}>Person 1</label>
+                <div className={inp}>
+                  <input id="name1" type="text" value={inputs.name1} onChange={(e) => set("name1")(e.target.value)} className={ci} placeholder="First name" />
                 </div>
               </div>
-
-              <div className="flex flex-col">
-                <label className="text-sm font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider mb-2">Person 2</label>
-                <div className={wrap}><input type="text" value={name2} onChange={e => setName2(e.target.value)} className={ci} placeholder="Enter a name..." /></div>
+              <div>
+                <label htmlFor="name2" className={lbl}>Person 2</label>
+                <div className={inp}>
+                  <input id="name2" type="text" value={inputs.name2} onChange={(e) => set("name2")(e.target.value)} className={ci} placeholder="First name" />
+                </div>
               </div>
             </div>
+            {hasErrors && <p className="text-xs text-red-500 font-medium -mt-1">Enter both names to calculate compatibility.</p>}
 
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold h-14 text-xl transition-all active:scale-[0.98] shadow-md hover:shadow-lg">Calculate</button>
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-1">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={calculate}
+                className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >
+                Calculate
+              </button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
+          {/* RIGHT: RESULTS */}
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">Please enter both names to calculate compatibility.</div>
-                </div>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Compatibility Score</div>
+              <div className="text-4xl font-extrabold text-primary tracking-tight">{result ? `${result.score}%` : "—"}</div>
+              <div className="text-sm text-muted-foreground mt-1">
+                {inputs.name1.trim() || "Person 1"} + {inputs.name2.trim() || "Person 2"} · deterministic, same names → same score
               </div>
-            ) : result && (<>
-              
-              <div className="card-calculator !p-8 border border-pink-200 dark:border-pink-900 bg-gradient-to-b from-pink-50 to-white dark:from-pink-950/30 dark:to-card shadow-lg text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 -mr-8 -mt-8 opacity-10">
-                  <Heart className="h-48 w-48 text-pink-500 fill-pink-500" />
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[
+                ["Letters (P1)", result ? `${result.name1Len}` : "—"],
+                ["Letters (P2)", result ? `${result.name2Len}` : "—"],
+                ["Score Band", result ? (result.score >= 75 ? "Strong" : result.score >= 50 ? "Promising" : "Mixed") : "—"],
+              ].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold text-foreground">{v}</div>
                 </div>
-                <div className="absolute bottom-0 left-0 -ml-8 -mb-8 opacity-10">
-                  <Heart className="h-32 w-32 text-pink-500 fill-pink-500" />
-                </div>
-                
-                <div className="relative z-10">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Compatibility Score</h3>
-                  
-                  <div className="flex justify-center mb-6">
-                    <div className="relative flex items-center justify-center h-40 w-40 rounded-full bg-white dark:bg-card border-8 border-pink-100 dark:border-pink-900 shadow-inner">
-                      <svg className="absolute inset-0 h-full w-full transform -rotate-90">
-                        <circle cx="72" cy="72" r="68" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-pink-100 dark:text-pink-900" />
-                        <circle cx="72" cy="72" r="68" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray="427" strokeDashoffset={427 - (427 * result.score) / 100} className="text-pink-500 transition-all duration-1000 ease-out" />
-                      </svg>
-                      <div className="text-5xl font-extrabold text-pink-600 dark:text-pink-400 font-mono tracking-tighter">
-                        {result.score}%
-                      </div>
-                    </div>
+              ))}
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="rounded-lg border border-border bg-card overflow-hidden">
+              <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">How the Score Is Built</h3>
+              </div>
+              <table className="w-full text-base">
+                <tbody>
+                  {result?.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${r.isTotal ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. CHART */}
+            <div className="rounded-lg border border-border bg-card p-5">
+              <h3 className="text-base font-bold mb-4">Score out of 100</h3>
+              {result ? (
+                <>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={90} paddingAngle={2}>
+                        <Cell fill="hsl(var(--primary))" />
+                        <Cell fill="hsl(var(--muted-foreground) / 0.2)" />
+                      </Pie>
+                      <Tooltip formatter={(v: number, n: string) => [n === "Compatibility" ? `${v}%` : `${v}%`, n]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2 text-center">A pure entertainment score — chemistry is measured in person, not in modulo.</p>
+                </>
+              ) : (
+                <p className="text-sm text-muted-foreground">Enter both names to see the breakdown.</p>
+              )}
+            </div>
+
+            {/* 5. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                {result?.summaryStats.map((s, i) => (
+                  <div key={i} className="flex justify-between">
+                    <span className="text-muted-foreground">{s.label}:</span>
+                    <span className="font-semibold text-foreground">{s.value}</span>
                   </div>
-
-                  <p className="text-lg font-medium text-foreground max-w-md leading-relaxed">
-                    {result.message}
-                  </p>
-                </div>
+                ))}
               </div>
-
-            </>)}
+            </div>
           </div>
         </div>
-        
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">The Mathematics of Romance</h2>
-            <p>Can a computer algorithm truly predict love? Since the dawn of the internet, "Love Calculators" have been incredibly popular tools for friends and couples to test their compatibility. While they are purely for entertainment, the mathematics running behind the scenes are quite interesting.</p>
-
+            <p>Can a computer algorithm truly predict love? Since the dawn of the internet, love calculators have been popular tools for friends and couples to test their compatibility. While they are purely for entertainment, the mathematics running behind the scenes are quite interesting.</p>
             <h2 className="text-2xl font-bold mb-3">How Deterministic Algorithms Work</h2>
-            <p>If you type "Romeo" and "Juliet" into the calculator, you will get a specific score. If you refresh the page and type them in again tomorrow, you will get the exact same score. This is because the calculator is not randomly generating a number; it is using a <strong>Deterministic Algorithm</strong>.</p>
-            <p>Computers do not natively understand letters; they only understand numbers. Every letter on your keyboard is assigned a numerical ASCII code. For example, a capital 'A' is 65, and a lowercase 'a' is 97. The Love Calculator takes the names you entered, converts every single letter into its numerical value, and adds them all together into a massive sum.</p>
-            <p>It then runs that sum through a series of mathematical functions—usually involving prime numbers and modulo operations—to safely compress that massive number down into a two-digit percentage between 0 and 100.</p>
-
+            <p>If you type "Romeo" and "Juliet" into the calculator, you get a specific score — and you get the exact same score tomorrow. This is because the calculator is not randomly generating a number; it is using a deterministic algorithm. Computers do not natively understand letters; they only understand numbers. Every letter on your keyboard is assigned a numerical ASCII code — a capital 'A' is 65, a lowercase 'a' is 97. The calculator converts every letter of both names into its numerical value, adds them all into a massive sum, then runs that sum through a prime-modulo operation to compress it into a percentage between 0 and 100.</p>
             <h2 className="text-2xl font-bold mb-3">Why Opposites Attract</h2>
-            <p>While numerology is fun, human psychology is much more complex. Psychologists have long studied why certain personalities mesh well together. Interestingly, research suggests that the "Opposites Attract" theory has some scientific backing when it comes to specific personality traits.</p>
-            <p>A highly organized, structured person often pairs incredibly well with a spontaneous, relaxed person. The structured partner provides stability and planning, while the spontaneous partner introduces excitement and flexibility. They physically balance out each other's extremes. So, if this calculator gives you a low score because your names are vastly different, take heart: in the real world, differences are often the foundation of the strongest relationships!</p>
+            <p>While numerology is fun, human psychology is much more complex. Psychologists have long studied why certain personalities mesh well together — and research suggests the "opposites attract" theory has some backing. A highly organized, structured person often pairs incredibly well with a spontaneous, relaxed one: the structured partner provides stability and planning, while the spontaneous partner introduces excitement and flexibility. So if this calculator gives you a low score because your names are vastly different, take heart — in the real world, differences are often the foundation of the strongest relationships.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/love-calculator" />
           <PopularCalculators exclude="/calculator/love-calculator" />
@@ -172,5 +251,4 @@ const LoveCalculator = () => {
       </div>
     </>
   );
-};
-export default LoveCalculator;
+}

@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Clock } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface TimeResult {
   totalSeconds: number;
@@ -112,7 +113,7 @@ const TimeCalculator = () => {
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Time Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Calculator (Add/Subtract)</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           
           <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
@@ -144,8 +145,11 @@ const TimeCalculator = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+            <div className="flex gap-2.5 mt-4">
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setOp("add"); setD1("0"); setH1("5"); setM1("30"); setS1("0"); setD2("0"); setH2("2"); setM2("45"); setS2("0"); }} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -159,11 +163,25 @@ const TimeCalculator = () => {
               </div>
             ) : result && (<>
               
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
-                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Resulting Time Span</div>
-                <div className="text-2xl md:text-3xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
-                  {result.resultString}
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Resulting Time Span</div>
+                <div className="text-4xl font-extrabold text-primary tracking-tight">{result.resultString}</div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {op === "add" ? "Time 1 + Time 2" : "Time 1 − Time 2"} · {Math.abs(result.totalSeconds).toLocaleString()} seconds
                 </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[
+                  ["Total Hours", `${result.totalHours}`],
+                  ["Total Minutes", `${result.totalMinutes}`],
+                  ["Total Seconds", `${result.totalSeconds.toLocaleString()}`],
+                ].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground font-mono">{v}</div>
+                  </div>
+                ))}
               </div>
 
               <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
@@ -191,6 +209,42 @@ const TimeCalculator = () => {
               </div>
 
             </>)}
+            {result && !result.isError && (
+              <>
+                <div className="rounded-lg border border-border bg-card p-5">
+                  <h3 className="text-base font-bold mb-4">Result Components</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={[{ name: "Days", value: Math.floor(Math.abs(result.totalSeconds) / 86400) }, { name: "Hours", value: Math.floor((Math.abs(result.totalSeconds) % 86400) / 3600) }, { name: "Minutes", value: Math.floor((Math.abs(result.totalSeconds) % 3600) / 60) }, { name: "Seconds", value: Math.abs(result.totalSeconds) % 60 }]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                      <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={40} />
+                      <Tooltip formatter={(v: number) => `${v}`} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2 text-center">The result re-packaged from seconds into days, hours, minutes, and seconds.</p>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {[
+                      ["Time Span", result.resultString],
+                      ["Total Seconds", result.totalSeconds.toLocaleString()],
+                      ["Total Minutes", `${result.totalMinutes}`],
+                      ["Total Hours", `${result.totalHours}`],
+                      ["Total Days", `${result.totalDays}`],
+                      ["Operation", op === "add" ? "Addition" : "Subtraction"],
+                    ].map(([l, v]) => (
+                      <div key={l} className="flex justify-between">
+                        <span className="text-muted-foreground">{l}:</span>
+                        <span className="font-semibold text-foreground font-mono">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         

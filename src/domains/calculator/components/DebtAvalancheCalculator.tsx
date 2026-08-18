@@ -28,11 +28,6 @@ const DebtAvalancheCalculator = () => {
   const [showAdv, setShowAdv] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  import("react").then(React => {
-    React.useEffect(() => { setMounted(true); }, []);
-  });
 
   const updateDebt = (i: number, field: keyof Debt, val: string) => {
     setDebts(prev => prev.map((d, idx) => idx === i ? { ...d, [field]: val } : d));
@@ -173,8 +168,7 @@ const DebtAvalancheCalculator = () => {
                   </div>
                 </div>
 
-                {mounted && (
-                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
                     <h3 className="text-sm font-bold mb-4 w-full text-left">Cost Breakdown</h3>
                     <ResponsiveContainer width="100%" height={220}>
                       <PieChart>
@@ -192,7 +186,6 @@ const DebtAvalancheCalculator = () => {
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
-                )}
 
                 <ResultDisplay items={[
                   { label: "Estimated Total Interest", value: 0, textValue: "$" + results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 }) },

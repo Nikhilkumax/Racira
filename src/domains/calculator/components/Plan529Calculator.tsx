@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -133,12 +133,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function Plan529Calculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<Plan529Results>(calculate529(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -167,8 +161,6 @@ const handleCalculate = () => {
     { question: "Can I use a 529 plan for student loans?", answer: "Yes, you can use up to a lifetime limit of $10,000 from a 529 plan to repay qualified student loans for the beneficiary or their siblings." }
   ];
 
-  if (!mounted) return null;
-
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "529 Plan Calculator" }]} />
@@ -178,7 +170,7 @@ const handleCalculate = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <p className="text-sm text-muted-foreground mb-2">Estimate how much your 529 plan will grow and if it will cover future college costs.</p>
+            
 
             <div className="grid grid-cols-2 gap-4">
               <CompactInput id="currentSavings" label="Current Savings" value={inputs.currentSavings} onChange={(v: string) => handleChange("currentSavings", v)} prefix="$" />

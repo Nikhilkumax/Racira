@@ -1,209 +1,383 @@
-"use client";
-import { HardDrive, RotateCcw, Cloud, Cpu } from "lucide-react";
+"use client"
 
-import { useState, useEffect } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-const VpsPricingCalculator = () => {
-  const [cpu, setCpu] = useState("2");
-  const [ram, setRam] = useState("4");
-  const [storage, setStorage] = useState("80");
-  const [bandwidth, setBandwidth] = useState("2");
-  const [region, setRegion] = useState("us-east");
-  
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+import { useState, useEffect, useMemo } from "react"
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    // Basic baseline pricing factors (Average of DigitalOcean, Vultr, Linode)
-    const CPU_PRICE = 5; // $5 per core
-    const RAM_PRICE = 4; // $4 per GB
-    const STORAGE_PRICE = 0.10; // $0.10 per GB
-    const BANDWIDTH_PRICE = 0.01; // $0.01 per GB (above free tier)
+interface Inputs {
+  cpu: string
+  ram: string
+  storage: string
+  bandwidth: string
+  region: string
+}
 
-    const baseCost = (parseFloat(cpu) * CPU_PRICE) + 
-                     (parseFloat(ram) * RAM_PRICE) + 
-                     (parseFloat(storage) * STORAGE_PRICE);
-    
-    // Bandwidth usually has a free tier of 1TB per TB of RAM approx
-    const freeBandwidth = parseFloat(ram) * 1000; // 1TB per GB RAM
-    const extraBandwidth = Math.max(0, (parseFloat(bandwidth) * 1000) - freeBandwidth);
-    const bandwidthCost = extraBandwidth * BANDWIDTH_PRICE;
+interface Result {
+  monthlyTotal: number
+  annualTotal: number
+  hourlyTotal: number
+  breakdown: { cpu: number; ram: number; storage: number; bandwidth: number }
+}
 
-    // Region multiplier
-    const regionMult: any = {
-      "us-east": 1.0,
-      "us-west": 1.0,
-      "eu-west": 1.05,
-      "ap-south": 1.2,
-      "ap-east": 1.3
-    };
+const DEFAULTS: Inputs = {
+  cpu: "2",
+  ram: "4",
+  storage: "80",
+  bandwidth: "2",
+  region: "us-east",
+}
 
-    const monthlyTotal = (baseCost + bandwidthCost) * (regionMult[region] || 1);
+const REGIONS: { key: string; label: string; mult: number }[] = [
+  { key: "us-east", label: "US East (N. Virginia)", mult: 1.0 },
+  { key: "us-west", label: "US West (Oregon)", mult: 1.0 },
+  { key: "eu-west", label: "Europe (London/Frankfurt)", mult: 1.05 },
+  { key: "ap-south", label: "Asia Pacific (Mumbai)", mult: 1.2 },
+  { key: "ap-east", label: "Asia Pacific (Tokyo)", mult: 1.3 },
+]
 
-    setResults({
-      monthlyTotal,
-      annualTotal: monthlyTotal * 12,
-      hourlyTotal: monthlyTotal / 730, // Average hours in month
-      breakdown: {
-        cpu: parseFloat(cpu) * CPU_PRICE,
-        ram: parseFloat(ram) * RAM_PRICE,
-        storage: parseFloat(storage) * STORAGE_PRICE,
-        bandwidth: bandwidthCost
-      }
-    });
-  };
+const PRESETS = [
+  { label: "Basic", cpu: "1", ram: "1", storage: "25", bandwidth: "1" },
+  { label: "Standard", cpu: "2", ram: "4", storage: "80", bandwidth: "4" },
+  { label: "Enterprise", cpu: "8", ram: "32", storage: "640", bandwidth: "10" },
+]
 
-  const reset = () => {
-    setShowResults(false);
-    setResults(null);
-  };
+function calculate(inputs: Inputs): Result {
+  const CPU_PRICE = 5 // $/core/mo
+  const RAM_PRICE = 4 // $/GB/mo
+  const STORAGE_PRICE = 0.1 // $/GB/mo
+  const BANDWIDTH_PRICE = 0.01 // $/GB above free tier
 
-  const setPreset = (type: string) => {
-    if (type === "basic") { setCpu("1"); setRam("1"); setStorage("25"); setBandwidth("1"); }
-    if (type === "standard") { setCpu("2"); setRam("4"); setStorage("80"); setBandwidth("4"); }
-    if (type === "high-performance") { setCpu("8"); setRam("32"); setStorage("640"); setBandwidth("10"); }
-  };
+  const baseCost =
+    (parseFloat(inputs.cpu) || 0) * CPU_PRICE +
+    (parseFloat(inputs.ram) || 0) * RAM_PRICE +
+    (parseFloat(inputs.storage) || 0) * STORAGE_PRICE
 
-  const faqs = [
-    { question: "What is a VPS?", answer: "A Virtual Private Server (VPS) is a virtual machine sold as a service by an Internet hosting provider. It runs its own copy of an operating system, and customers have superuser-level access to that operating system instance." },
-    { question: "How much RAM do I need for my website?", answer: "A simple blog or personal site typically needs 1-2GB. A high-traffic WordPress site or small e-commerce store needs 4-8GB. Complex applications or high-traffic databases may require 16GB or more." },
-    { question: "What is bandwidth in VPS hosting?", answer: "Bandwidth refers to the amount of data transferred between your server and the internet. Most VPS providers include a generous monthly quota (e.g., 2TB to 5TB) and charge extra only if you exceed it." }
-  ];
+  const freeBandwidth = (parseFloat(inputs.ram) || 0) * 1000 // 1 TB per GB RAM
+  const extraBandwidth = Math.max(0, (parseFloat(inputs.bandwidth) || 0) * 1000 - freeBandwidth)
+  const bandwidthCost = extraBandwidth * BANDWIDTH_PRICE
+
+  const regionMult = REGIONS.find((r) => r.key === inputs.region)?.mult ?? 1
+  const monthlyTotal = (baseCost + bandwidthCost) * regionMult
+
+  return {
+    monthlyTotal,
+    annualTotal: monthlyTotal * 12,
+    hourlyTotal: monthlyTotal / 730,
+    breakdown: {
+      cpu: (parseFloat(inputs.cpu) || 0) * CPU_PRICE * regionMult,
+      ram: (parseFloat(inputs.ram) || 0) * RAM_PRICE * regionMult,
+      storage: (parseFloat(inputs.storage) || 0) * STORAGE_PRICE * regionMult,
+      bandwidth: bandwidthCost * regionMult,
+    },
+  }
+}
+
+export default function VpsPricingCalculator() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
+
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
+
+  const invalid = useMemo(() => {
+    const cpu = parseFloat(inputs.cpu)
+    const ram = parseFloat(inputs.ram)
+    const storage = parseFloat(inputs.storage)
+    const bw = parseFloat(inputs.bandwidth)
+    return [cpu, ram, storage, bw].some((x) => isNaN(x) || x < 0)
+  }, [inputs])
+
+  const chartData = useMemo(
+    () => [
+      { name: "Compute (vCPU)", value: result.breakdown.cpu, fill: "hsl(var(--primary))" },
+      { name: "Memory (RAM)", value: result.breakdown.ram, fill: "hsl(var(--primary) / 0.75)" },
+      { name: "Block Storage", value: result.breakdown.storage, fill: "hsl(var(--primary) / 0.5)" },
+      { name: "Bandwidth", value: result.breakdown.bandwidth, fill: "hsl(var(--primary) / 0.3)" },
+    ],
+    [result]
+  )
+
+  function setPreset(p: { cpu: string; ram: string; storage: string; bandwidth: string }) {
+    setInputs({ ...inputs, ...p })
+  }
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "VPS Pricing Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">VPS Pricing Calculator</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Technology</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">VPS Pricing Calculator</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex flex-wrap gap-2 mb-8">
-                 <button onClick={() => setPreset('basic')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Basic</button>
-                 <button onClick={() => setPreset('standard')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Standard</button>
-                 <button onClick={() => setPreset('high-performance')} className="px-4 py-2 rounded-full border border-border text-xs font-bold hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Enterprise</button>
-              </div>
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        VPS Pricing Calculator
+      </h1>
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider">
-                     <Cpu className="h-4 w-4" /> CPU Cores
-                  </div>
-                  <input type="range" min="1" max="64" step="1" value={cpu} onChange={(e) => setCpu(e.target.value)} className="w-full accent-primary" />
-                  <div className="flex justify-between text-xs font-bold text-muted-foreground"><span>1 Core</span><span>{cpu} Cores</span><span>64 Cores</span></div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider">
-                     <Cpu className="h-4 w-4" /> RAM (GB)
-                  </div>
-                  <input type="range" min="1" max="512" step="1" value={ram} onChange={(e) => setRam(e.target.value)} className="w-full accent-primary" />
-                  <div className="flex justify-between text-xs font-bold text-muted-foreground"><span>1 GB</span><span>{ram} GB</span><span>512 GB</span></div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider">
-                     <HardDrive className="h-4 w-4" /> Storage (GB)
-                  </div>
-                  <input type="range" min="10" max="2000" step="10" value={storage} onChange={(e) => setStorage(e.target.value)} className="w-full accent-primary" />
-                  <div className="flex justify-between text-xs font-bold text-muted-foreground"><span>10 GB</span><span>{storage} GB</span><span>2 TB</span></div>
-                </div>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6 pt-4 border-t border-border">
-                <InputField id="bw" label="Monthly Bandwidth (TB)" value={bandwidth} onChange={setBandwidth} suffix="TB" />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Cloud Region</label>
-                  <select value={region} onChange={(e) => setRegion(e.target.value)} className="input-calc">
-                    <option value="us-east">US East (N. Virginia)</option>
-                    <option value="us-west">US West (Oregon)</option>
-                    <option value="eu-west">Europe (London/Frankfurt)</option>
-                    <option value="ap-south">Asia Pacific (Mumbai)</option>
-                    <option value="ap-east">Asia Pacific (Tokyo)</option>
-                  </select>
-                </div>
-              </div>
-            
-              <div className="mt-8 flex gap-3 items-center pt-4 border-t border-border">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {PRESETS.map((p) => (
                 <button
-                  onClick={reset}
-                  className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"
-                  aria-label="Reset"
+                  key={p.label}
+                  type="button"
+                  onClick={() => setPreset(p)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-colors ${
+                    inputs.cpu === p.cpu && inputs.ram === p.ram
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-secondary hover:bg-primary/10 border-border text-foreground"
+                  }`}
                 >
-                  <RotateCcw className="h-5 w-5" />
+                  {p.label}
                 </button>
+              ))}
+            </div>
+
+            {(
+              [
+                { label: "CPU Cores", key: "cpu", min: 1, max: 64, step: 1 },
+                { label: "RAM (GB)", key: "ram", min: 1, max: 512, step: 1 },
+                { label: "Storage (GB)", key: "storage", min: 10, max: 2000, step: 10 },
+              ] as const
+            ).map((f) => (
+              <div key={f.key} className="mb-4">
+                <div className="flex justify-between items-center mb-1">
+                  <label className="text-sm font-medium">{f.label}</label>
+                  <input
+                    type="number"
+                    min={f.min}
+                    max={f.max}
+                    value={inputs[f.key]}
+                    onChange={(e) => setInputs({ ...inputs, [f.key]: e.target.value })}
+                    className="w-20 h-9 text-center rounded-md border border-input bg-background font-mono font-bold text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <input
+                  type="range"
+                  min={f.min}
+                  max={f.max}
+                  step={f.step}
+                  value={parseFloat(inputs[f.key]) || f.min}
+                  onChange={(e) => setInputs({ ...inputs, [f.key]: e.target.value })}
+                  className="w-full accent-primary"
+                />
               </div>
-          </div>
+            ))}
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Cost Estimation</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Estimated Monthly Cost</p>
-                    <p className="text-5xl font-black text-foreground">${results.monthlyTotal.toFixed(2)}</p>
-                    <p className="text-xs text-muted-foreground mt-2">~${results.hourlyTotal.toFixed(3)} per hour</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Annual Total</p>
-                    <p className="text-3xl font-black text-foreground">${results.annualTotal.toFixed(0)}</p>
-                  </div>
-                </div>
+            <div className="grid grid-cols-2 gap-3 mt-2">
+              <div>
+                <label className="block text-sm font-medium mb-1">Bandwidth (TB/mo)</label>
+                <input
+                  type="number"
+                  min={0}
+                  step="0.5"
+                  value={inputs.bandwidth}
+                  onChange={(e) => setInputs({ ...inputs, bandwidth: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Cloud Region</label>
+                <select
+                  value={inputs.region}
+                  onChange={(e) => setInputs({ ...inputs, region: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {REGIONS.map((r) => (
+                    <option key={r.key} value={r.key}>{r.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-border/50">
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><Cloud className="h-6 w-6 text-primary" /></div>
-                    <div>
-                      <h3 className="font-bold mb-1 text-sm uppercase tracking-wider">Resource Allocation</h3>
-                      <p className="text-xs text-muted-foreground">Estimated prices based on market averages for unmanaged VPS instances.</p>
-                    </div>
-                  </div>
-                  <ResultDisplay items={[
-                    { label: "Compute (vCPU)", value: 0, textValue: "$" + results.breakdown.cpu.toFixed(2) },
-                    { label: "Memory (RAM)", value: 0, textValue: "$" + results.breakdown.ram.toFixed(2) },
-                    { label: "Block Storage", value: 0, textValue: "$" + results.breakdown.storage.toFixed(2) },
-                    { label: "Egress Bandwidth", value: 0, textValue: results.breakdown.bandwidth > 0 ? "$" + results.breakdown.bandwidth.toFixed(2) : "Included (Free Tier)" },
-                  ]} />
-                </div>
-              </>
-            )}
+            {invalid && <p className="text-xs text-red-500 mt-2">Enter non-negative numbers for all resources.</p>}
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">VPS Pricing Decoded</h2>
-              <p>Virtual Private Server (VPS) pricing is generally more predictable than "serverless" or "managed" services because you are paying for reserved capacity. However, there are several factors that can influence your final bill.</p>
-              
-              <h3>Managed vs. Unmanaged</h3>
-              <p>Unmanaged VPS (like DigitalOcean Droplets or AWS Lightsail) are cheaper because you are responsible for security, updates, and maintenance. Managed VPS can cost 2-3 times more but include professional support and server management.</p>
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Estimated Monthly Cost</p>
+            <p className="text-4xl font-bold text-primary mt-1">${result.monthlyTotal.toFixed(2)}</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              ≈ ${result.hourlyTotal.toFixed(3)}/hr · unmanaged VPS market average
+            </p>
+          </div>
 
-              <h3>Bandwidth and Egress Fees</h3>
-              <p>While many providers offer a high monthly bandwidth quota for free, others (like AWS EC2 or Google Cloud Engine) charge per GB for data leaving the server. If your application serves large video files or high-resolution images, bandwidth can easily become your largest expense.</p>
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Annual Total</p>
+              <p className="text-lg font-bold text-foreground mt-1">${result.annualTotal.toFixed(0)}</p>
+              <p className="text-xs text-muted-foreground">12 × monthly</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Hourly Rate</p>
+              <p className="text-lg font-bold text-primary mt-1">${result.hourlyTotal.toFixed(3)}</p>
+              <p className="text-xs text-muted-foreground">730 hrs/month</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Region Factor</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">
+                {REGIONS.find((r) => r.key === inputs.region)?.mult ?? 1}×
+              </p>
+              <p className="text-xs text-muted-foreground">{REGIONS.find((r) => r.key === inputs.region)?.label.split(" (")[0]}</p>
+            </div>
+          </div>
 
-              <h3>Storage Types</h3>
-              <ul>
-                <li><strong>SATA SSD:</strong> Standard speed, reliable for most web applications.</li>
-                <li><strong>NVMe SSD:</strong> High-performance storage, essential for database-heavy applications.</li>
-                <li><strong>Block Storage:</strong> External drives that can be detached and attached to different servers, usually priced per GB/month.</li>
-              </ul>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/vps-pricing" />
-          <PopularCalculators exclude="/calculator/vps-pricing-calculator" />
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Cost Breakdown</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="text-left py-2 px-3 font-medium">Resource</th>
+                  <th className="text-right py-2 px-3 font-medium">Amount</th>
+                  <th className="text-right py-2 px-3 font-medium">Monthly</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-border bg-primary/10 font-semibold text-primary">
+                  <td className="py-2.5 px-3">Compute (vCPU)</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">{parseFloat(inputs.cpu) || 0} cores</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${result.breakdown.cpu.toFixed(2)}</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-2.5 px-3">Memory (RAM)</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">{parseFloat(inputs.ram) || 0} GB</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${result.breakdown.ram.toFixed(2)}</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-2.5 px-3">Block Storage</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">{parseFloat(inputs.storage) || 0} GB</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${result.breakdown.storage.toFixed(2)}</td>
+                </tr>
+                <tr className="border-b border-border">
+                  <td className="py-2.5 px-3">Egress Bandwidth</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">{parseFloat(inputs.bandwidth) || 0} TB</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">
+                    {result.breakdown.bandwidth > 0 ? `$${result.breakdown.bandwidth.toFixed(2)}` : "Included"}
+                  </td>
+                </tr>
+                <tr className="border-t-2 border-border font-bold">
+                  <td className="py-2.5 px-3">Total</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">{inputs.region.split("-")[0].toUpperCase()}</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${result.monthlyTotal.toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Cost Allocation</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={55}
+                  outerRadius={90}
+                  paddingAngle={2}
+                >
+                  {chartData.map((d) => (
+                    <Cell key={d.name} fill={d.fill} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  formatter={(v: number, name: string) => [`$${v.toFixed(2)}`, name]}
+                  contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid hsl(var(--border))" }}
+                />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+              </PieChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">
+              Bandwidth shown as $0 if within the included free tier (1 TB per GB RAM).
+            </p>
+          </div>
+
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Configuration</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.cpu) || 0} vCPU · {parseFloat(inputs.ram) || 0} GB RAM</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Storage</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.storage) || 0} GB NVMe</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Monthly</p>
+                <p className="font-semibold text-foreground">${result.monthlyTotal.toFixed(2)}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Annual</p>
+                <p className="font-semibold text-foreground">${result.annualTotal.toFixed(0)}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Free Bandwidth Included</p>
+                <p className="font-semibold text-foreground">{(parseFloat(inputs.ram) || 0).toFixed(0)} TB</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Pricing Basis</p>
+                <p className="font-semibold text-foreground">Avg of DigitalOcean / Vultr / Linode</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default VpsPricingCalculator;
-
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/vps-pricing-calculator" />
+      </div>
+    </div>
+  )
+}

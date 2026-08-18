@@ -1,11 +1,10 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Mouse } from "lucide-react";
+import { RotateCcw, Printer } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 // 1. TypeScript Interfaces
@@ -20,24 +19,20 @@ interface HamsterResults {
   dailyCalories: number; // Maintenance Energy Requirement
   treatCaloriesMax: number; // 10% rule
   baseFoodCalories: number; // 90% rule
-  
   foodGramsPerDay: number; // Based on food density
-  waterMlPerDay: number; // Roughly 10-15% of body weight in ml, or roughly 1 ml per kcal
-
+  waterMlPerDay: number; // Roughly 10-15% of body weight in ml
   chartData: { name: string; value: number; color: string }[];
   summaryStats: { label: string; value: string; colorClass?: string }[];
 }
 
 // 2. Pure Calculation Function
-const calculateHamsterDiet = (inputs: HamsterInputs): HamsterResults | null => {
+const calculateHamsterDiet = (inputs: HamsterInputs): HamsterResults => {
   const { weightGrams, activityLevel, foodDensity } = inputs;
-  
-  if (weightGrams <= 0) return null;
+  const safeWeight = weightGrams > 0 ? weightGrams : 0;
 
-  const weightKg = weightGrams / 1000;
+  const weightKg = safeWeight / 1000;
 
-  // Veterinary RER formula for small mammals
-  // RER = 70 * (Weight in kg)^0.75
+  // Veterinary RER formula for small mammals: RER = 70 * (Weight in kg)^0.75
   const rer = 70 * Math.pow(weightKg, 0.75);
 
   // Activity Multipliers
@@ -56,15 +51,15 @@ const calculateHamsterDiet = (inputs: HamsterInputs): HamsterResults | null => {
   // Food in grams
   const foodGramsPerDay = baseFoodCalories / (foodDensity > 0 ? foodDensity : 3.5);
 
-  // Water requirement (small mammals typically need ~10% of body weight in ml daily, or 1ml/kcal)
-  const waterMlPerDay = Math.max(weightGrams * 0.10, dailyCalories);
+  // Water requirement (~10% of body weight in ml daily)
+  const waterMlPerDay = Math.max(safeWeight * 0.10, dailyCalories);
 
   const chartData = [
-    { name: "Main Diet (Pellets/Seed Mix)", value: baseFoodCalories, color: "hsl(var(--primary))" },
-    { name: "Treats/Fresh Veggies", value: treatCaloriesMax, color: "#f59e0b" }
+    { name: "Main Diet (Pellets/Seed Mix)", value: Math.round(baseFoodCalories), color: "hsl(var(--primary))" },
+    { name: "Treats/Fresh Veggies", value: Math.round(treatCaloriesMax), color: "#f59e0b" }
   ];
 
-  const species = weightGrams > 80 ? "Syrian Hamster" : weightGrams > 30 ? "Dwarf Hamster" : "Roborovski / Young Pup";
+  const species = safeWeight > 80 ? "Syrian Hamster" : safeWeight > 30 ? "Dwarf Hamster" : "Roborovski / Young Pup";
 
   const summaryStats = [
     { label: "Total Daily Calories", value: `${dailyCalories.toFixed(1)} kcal`, colorClass: "text-primary font-bold" },
@@ -94,13 +89,15 @@ const DEFAULTS = {
   foodDensity: "3.5" // Typical kcal/g for Oxbow/Mazuri
 };
 
+const fmt = (n: number, dec = 1) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
 // Custom Chart Tooltip
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
         <p className="font-bold mb-0.5" style={{ color: payload[0].payload.color }}>{payload[0].name}</p>
-        <p className="text-muted-foreground">{payload[0].value.toFixed(1)} kcal / day</p>
+        <p className="text-muted-foreground">{payload[0].value.toFixed(0)} kcal / day</p>
       </div>
     );
   }
@@ -108,23 +105,50 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  min,
+  error
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  min?: string;
+  error?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {prefix}
+        </span>
+      )}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
+        min={min}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
+    {error && <p className="text-[11px] text-red-500 font-medium mt-1">{error}</p>}
   </div>
 );
 
@@ -133,35 +157,35 @@ export default function HamsterCalorieCalculator() {
   const [weightGrams, setWeightGrams] = useState(DEFAULTS.weightGrams);
   const [activityLevel, setActivityLevel] = useState<"inactive" | "normal" | "active">(DEFAULTS.activityLevel);
   const [foodDensity, setFoodDensity] = useState(DEFAULTS.foodDensity);
-  
-  const [results, setResults] = useState<HamsterResults | null>(null);
+
+  const getInputs = (): HamsterInputs => ({
+    weightGrams: parseFloat(weightGrams) || 0,
+    activityLevel,
+    foodDensity: parseFloat(foodDensity) || 3.5
+  });
+
+  const [results, setResults] = useState<HamsterResults>(() => calculateHamsterDiet(getInputs()));
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setResults(calculateHamsterDiet(getInputs()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wg = parseFloat(weightGrams) || 0;
+  const hasErrors = wg <= 0;
+
   const handleCalculate = () => {
-    const inputs: HamsterInputs = {
-      weightGrams: parseFloat(weightGrams) || 0,
-      activityLevel,
-      foodDensity: parseFloat(foodDensity) || 3.5
-    };
-    setResults(calculateHamsterDiet(inputs));
+    if (hasErrors) return;
+    setResults(calculateHamsterDiet(getInputs()));
   };
 
   const handleReset = () => {
     setWeightGrams(DEFAULTS.weightGrams);
     setActivityLevel(DEFAULTS.activityLevel);
     setFoodDensity(DEFAULTS.foodDensity);
-    
-    setResults(calculateHamsterDiet({
-      weightGrams: parseFloat(DEFAULTS.weightGrams),
-      activityLevel: DEFAULTS.activityLevel,
-      foodDensity: parseFloat(DEFAULTS.foodDensity)
-    }));
+    setResults(calculateHamsterDiet(getInputs()));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weightGrams, activityLevel, foodDensity]);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -173,6 +197,16 @@ export default function HamsterCalorieCalculator() {
     w.document.close();
     w.print();
   };
+
+  const breakdown = [
+    { label: "Resting Energy (RER)", value: `${fmt(results.rer)} kcal` },
+    { label: "Maintenance Calories (MER)", value: `${fmt(results.dailyCalories)} kcal` },
+    { label: "Main Diet Allocation (90%)", value: `${fmt(results.baseFoodCalories)} kcal`, highlight: true },
+    { label: "Max Treat Allowance (10%)", value: `${fmt(results.treatCaloriesMax)} kcal` },
+    { label: "Estimated Daily Food", value: `${fmt(results.foodGramsPerDay)} grams` },
+    { label: "Estimated Daily Water", value: `~${fmt(results.waterMlPerDay, 0)} mL` },
+    { label: "Total Daily Calories", value: `${fmt(results.dailyCalories)} kcal`, isTotal: true }
+  ];
 
   const faqs = [
     { question: "How many calories does a hamster need?", answer: "A hamster's caloric needs depend entirely on their species and weight. A 150-gram Syrian hamster requires about 27 kcal per day, while a tiny 35-gram Dwarf hamster only requires about 9 kcal per day." },
@@ -189,131 +223,175 @@ export default function HamsterCalorieCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hamster Calorie Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          {/* LEFT 460px: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Mouse className="h-4 w-4" /> Small Mammal Dietitian
+          {/* LEFT: INPUT PANEL */}
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="weight"
+                label="Hamster's Weight"
+                value={weightGrams}
+                onChange={setWeightGrams}
+                suffix="grams"
+                min="1"
+                error={wg <= 0 ? "Must be > 0" : undefined}
+              />
+              <div className="flex flex-col">
+                <label htmlFor="activity" className="flex items-center text-sm font-semibold text-foreground mb-1">
+                  Activity / Life Stage
+                </label>
+                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                  <select
+                    id="activity"
+                    value={activityLevel}
+                    onChange={(e) => setActivityLevel(e.target.value as "inactive" | "normal" | "active")}
+                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
+                  >
+                    <option value="normal">Normal / Maintenance Adult</option>
+                    <option value="inactive">Senior / Sedentary / Overweight</option>
+                    <option value="active">Growing Pup / Nursing / Highly Active</option>
+                  </select>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Calculate exact daily caloric requirements, treat allowances, and feeding portions for Syrian, Dwarf, and Roborovski hamsters.</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <CompactInput id="weight" label="Hamster's Weight" value={weightGrams} onChange={setWeightGrams} suffix="grams" />
+              <CompactInput
+                id="density"
+                label="Food Energy Density"
+                value={foodDensity}
+                onChange={setFoodDensity}
+                suffix="kcal / gram"
+                min="0.1"
+              />
+              <p className="text-[11px] text-muted-foreground -mt-1">Standard hamster pellets are usually 3.0 to 3.8 kcal/g. Check your food bag's guaranteed analysis.</p>
             </div>
 
-            <div className="flex flex-col mb-1">
-              <label htmlFor="activity" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-                Activity / Life Stage
-              </label>
-              <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                <select
-                  id="activity"
-                  value={activityLevel}
-                  onChange={(e) => setActivityLevel(e.target.value as any)}
-                  className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
-                >
-                  <option value="normal">Normal / Maintenance Adult</option>
-                  <option value="inactive">Senior / Sedentary / Overweight</option>
-                  <option value="active">Growing Pup / Nursing / Highly Active</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 mt-2">
-              <CompactInput id="density" label="Food Energy Density (Optional)" value={foodDensity} onChange={setFoodDensity} suffix="kcal / gram" />
-              <p className="text-[10px] text-muted-foreground mt-0">Standard hamster pellets are usually 3.0 to 3.8 kcal/g. Check your food bag's guaranteed analysis.</p>
-            </div>
-
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Values
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >Calculate</button>
+              <button
+                type="button"
+                onClick={handleReset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT fluid: Results */}
-          <div className="flex flex-col gap-4">
-            {results ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* 1. Primary Result Card */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden z-10" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="relative z-10">
-                    <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Daily Calories</div>
-                    <div className="flex items-baseline gap-2 mb-2">
-                      <div className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">{results.dailyCalories.toFixed(1)}</div>
-                      <div className="text-xl font-bold text-muted-foreground">kcal</div>
-                    </div>
-                    <div className="text-sm font-medium text-foreground/80 leading-relaxed max-w-sm">
-                      Feed exactly <strong className="text-primary">{results.foodGramsPerDay.toFixed(1)} grams</strong> of your main food mix per day to maintain this weight.
-                    </div>
-                  </div>
-                  <Mouse className="absolute -bottom-4 -right-4 h-32 w-32 text-primary/10" />
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  {/* 3. Summary Statistics */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full">
-                    <h3 className="text-base font-bold mb-4">Nutritional Targets</h3>
-                    <div className="grid grid-cols-1 gap-y-4 text-base">
-                      {results.summaryStats.map((stat, i) => (
-                        <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0 last:pb-0">
-                          <span className="text-muted-foreground">{stat.label}:</span>
-                          <span className={`font-semibold ${stat.colorClass || ''}`}>{stat.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 4. Chart / Visualization */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[260px]">
-                    <h3 className="text-base font-bold mb-2 w-full text-left">Dietary Distribution</h3>
-                    <ResponsiveContainer width="100%" height={160}>
-                      <PieChart>
-                        <Pie
-                          data={results.chartData}
-                          cx="50%" cy="50%"
-                          innerRadius={50} outerRadius={70}
-                          paddingAngle={3} dataKey="value"
-                        >
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={<CustomTooltip />} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="flex flex-col gap-2 mt-2 w-full">
-                      {results.chartData.map((d, i) => (
-                        <div key={i} className="flex justify-between items-center text-xs font-medium">
-                          <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
-                            {d.name}
-                          </div>
-                          <span className="font-bold">{d.value.toFixed(1)} kcal</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
+            {/* 1. Primary Result Card */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Mouse className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium">Enter your hamster's weight in grams to calculate their daily caloric needs and proper feeding portions.</p>
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Daily Calories</div>
+              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">
+                {fmt(results.dailyCalories)} <span className="text-xl font-bold text-muted-foreground">kcal</span>
               </div>
-            )}
+              <div className="text-sm text-muted-foreground font-medium">
+                Feed {fmt(results.foodGramsPerDay)} grams of main food per day to maintain this weight.
+              </div>
+            </div>
+
+            {/* 2. 3-Stat Bar */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Main Diet</span>
+                <span className="font-extrabold text-emerald-600">{fmt(results.baseFoodCalories)} kcal</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Max Treats</span>
+                <span className="font-extrabold text-amber-600">{fmt(results.treatCaloriesMax)} kcal</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Daily Food</span>
+                <span className="font-extrabold text-foreground">{fmt(results.foodGramsPerDay)} g</span>
+              </div>
+            </div>
+
+            {/* 3. Breakdown Table */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Breakdown</th>
+                    <th className="p-2.5 pr-3 text-right w-[160px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row, idx) => (
+                    <tr key={idx} className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                      <td className={`p-2.5 pr-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. Chart */}
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="text-sm font-bold text-foreground mb-3">Dietary Distribution</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={results.chartData}
+                    cx="50%" cy="50%"
+                    innerRadius={60} outerRadius={85}
+                    paddingAngle={3} dataKey="value"
+                  >
+                    {results.chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="flex flex-col gap-2 mt-2">
+                {results.chartData.map((d, i) => {
+                  const pct = results.dailyCalories > 0 ? (d.value / results.dailyCalories) * 100 : 0;
+                  return (
+                    <div key={i} className="flex justify-between items-center text-xs font-medium">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
+                        <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
+                        {d.name}
+                      </div>
+                      <span className="font-bold">{pct.toFixed(0)}% · {d.value} kcal</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. Summary Statistics */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-sm font-bold text-foreground mb-4">Nutritional Targets</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                {results.summaryStats.map((stat, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{stat.label}</span>
+                    <span className={`text-base font-extrabold ${stat.colorClass || "text-foreground"}`}>{stat.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
@@ -350,7 +428,7 @@ export default function HamsterCalorieCalculator() {
             <p>Caring for a hamster involves much more than filling a bowl and forgetting about it. These complex, delicate animals require precise nutritional management to thrive. By utilizing a digital kitchen scale and the Hamster Calorie Calculator, you transform your care routine from reactive to proactive.</p>
             <p>Weigh your hamster weekly to track their baseline, use the 10% rule to safely provide enrichment treats, and never overfill the food bowl. Through strict adherence to caloric data, you can prevent obesity, avoid diabetes, and ensure your tiny companion lives the longest, healthiest life possible.</p>
           </section>
-          
+
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hamster-calorie-calculator" />
           <PopularCalculators exclude="/calculator/hamster-calorie-calculator" />
         </div>

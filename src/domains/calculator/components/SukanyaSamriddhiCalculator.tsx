@@ -1,159 +1,325 @@
 "use client";
 
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import Link from "next/link";
 
-const SukanyaSamriddhiCalculator = () => {
+const DEPOSIT_YEARS = 15;
+const MATURITY_YEARS = 21;
+
+function fmtInr(n: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+export default function SukanyaSamriddhiCalculator() {
   const [yearlyDeposit, setYearlyDeposit] = useState("150000");
   const [interestRate, setInterestRate] = useState("8.2");
   const [girlAge, setGirlAge] = useState("5");
   const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{
-    totalDeposited: number; totalInterest: number; maturityAmount: number; maturityYear: number;
-  } | null>(null);
-  const [yearlyBreakdown, setYearlyBreakdown] = useState<{ year: number; deposit: number; interest: number; balance: number }[]>([]);
 
-  const handleCalculate = () => {
-    setShowResults(true);
+  const result = useMemo(() => {
     const deposit = parseFloat(yearlyDeposit) || 0;
-    const rate = parseFloat(interestRate) || 0;
+    const rate = (parseFloat(interestRate) || 0) / 100;
     const age = parseInt(girlAge) || 0;
-    if (deposit <= 0 || rate <= 0 || age < 0 || age > 10) return;
 
-    const depositYears = 15;
-    const maturityYears = 21;
-    const r = rate / 100;
+    const r = rate;
     let balance = 0;
     let totalDeposited = 0;
-    const breakdown: typeof yearlyBreakdown = [];
+    const yearlyBreakdown: { year: number; deposit: number; interest: number; balance: number }[] = [];
 
-    for (let y = 1; y <= maturityYears; y++) {
-      const dep = y <= depositYears ? deposit : 0;
+    for (let y = 1; y <= MATURITY_YEARS; y++) {
+      const dep = y <= DEPOSIT_YEARS ? deposit : 0;
       totalDeposited += dep;
       balance += dep;
       const interest = balance * r;
       balance += interest;
-      breakdown.push({ year: y, deposit: dep, interest: Math.round(interest), balance: Math.round(balance) });
+      yearlyBreakdown.push({ year: y, deposit: dep, interest, balance });
     }
 
-    setResult({
+    return {
       totalDeposited,
-      totalInterest: Math.round(balance - totalDeposited),
-      maturityAmount: Math.round(balance),
-      maturityYear: new Date().getFullYear() + (21 - age),
-    });
-    setYearlyBreakdown(breakdown);
-  };
+      totalInterest: balance - totalDeposited,
+      maturityAmount: balance,
+      maturityYear: new Date().getFullYear() + (21 - Math.min(age, 10)),
+      yearlyBreakdown,
+    };
+  }, [yearlyDeposit, interestRate, girlAge]);
 
-  const reset = () => {
-    setShowResults(false); setYearlyDeposit("150000"); setInterestRate("8.2"); setGirlAge("5"); setResult(null); setYearlyBreakdown([]); };
-
-  const faqs = [
-    { question: "What is Sukanya Samriddhi Yojana (SSY)?", answer: "SSY is a government-backed savings scheme for the girl child in India. It offers one of the highest interest rates among small savings schemes with tax benefits under Section 80C." },
-    { question: "What is the minimum and maximum deposit?", answer: "The minimum annual deposit is ₹250 and the maximum is ₹1,50,000 per financial year. Deposits can be made for 15 years from the date of account opening." },
-    { question: "When does SSY mature?", answer: "The account matures 21 years from the date of opening or upon the marriage of the girl child after she turns 18, whichever is earlier." },
-    { question: "Is SSY tax-free?", answer: "Yes, SSY falls under the EEE (Exempt-Exempt-Exempt) category — the deposit, interest earned, and maturity amount are all tax-free." },
-    { question: "Can partial withdrawal be made?", answer: "Yes, up to 50% of the balance can be withdrawn after the girl turns 18 for higher education purposes." },
-  ];
+  const handleCalculate = () => setShowResults(true);
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Sukanya Samriddhi Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Sukanya Samriddhi Calculator</h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Finance", href: "/finance" },
+          {
+            label: "Sukanya Samriddhi Calculator",
+            href: "/calculator/sukanya-samriddhi-calculator",
+          },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-3 gap-5 mb-6">
-                <InputField id="yearlyDeposit" label="Yearly Deposit" value={yearlyDeposit} onChange={setYearlyDeposit} prefix="₹" tooltip="Annual deposit amount (₹250 to ₹1,50,000)" />
-                <InputField id="interestRate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" tooltip="Current SSY interest rate set by government" />
-                <InputField id="girlAge" label="Girl's Current Age" value={girlAge} onChange={setGirlAge} suffix="yrs" tooltip="Age of the girl child (0-10 years eligible)" min="0" />
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">SSY Maturity Summary</h2>
-                  <ResultDisplay currency="₹" items={[
-                    { label: "Total Deposited", value: result.totalDeposited },
-                    { label: "Total Interest Earned", value: result.totalInterest, highlight: true },
-                    { label: "Maturity Amount", value: result.maturityAmount, highlight: true },
-                    { label: "Maturity Year", value: 0, textValue: `${result.maturityYear}` },
-                  ]} />
-                </div>
-
-                {yearlyBreakdown.length > 0 && (
-                  <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                    <h2 className="text-2xl font-bold mb-3">Year-wise Breakdown</h2>
-                    <table className="w-full text-sm">
-                      <thead><tr className="border-b border-border text-left"><th className="pb-2 pr-4">Year</th><th className="pb-2 pr-4 text-right">Deposit</th><th className="pb-2 pr-4 text-right">Interest</th><th className="pb-2 text-right">Balance</th></tr></thead>
-                      <tbody>
-                        {yearlyBreakdown.map(row => (
-                          <tr key={row.year} className="border-b border-border/50"><td className="py-2 pr-4">{row.year}</td><td className="py-2 pr-4 text-right">₹{row.deposit.toLocaleString("en-IN")}</td><td className="py-2 pr-4 text-right">₹{row.interest.toLocaleString("en-IN")}</td><td className="py-2 text-right font-medium">₹{row.balance.toLocaleString("en-IN")}</td></tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-              </>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is Sukanya Samriddhi Yojana?</h2>
-              <p>Sukanya Samriddhi Yojana (SSY) is a government-backed savings scheme launched in 2015 under the Beti Bachao Beti Padhao campaign. It is designed to encourage parents to build a fund for their girl child's future education and marriage. The scheme offers one of the highest interest rates among small savings instruments and provides full tax benefits.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How Is SSY Maturity Calculated?</h2>
-              <p>The maturity amount depends on three factors: annual deposit amount, prevailing interest rate, and the tenure. Deposits are made for the first 15 years, but interest continues to accrue for the full 21-year term. The formula uses annual compounding:</p>
-              <p><strong>A = P × [(1 + r)^n – 1] / r × (1 + r)</strong> (approximately, with yearly deposits)</p>
-
-              <h2 className="text-2xl font-bold mb-3">Key Features of SSY</h2>
-              <ul>
-                <li><strong>Eligibility:</strong> Parents of a girl child aged 0-10 years can open the account.</li>
-                <li><strong>Deposit period:</strong> 15 years from account opening.</li>
-                <li><strong>Maturity:</strong> 21 years from account opening.</li>
-                <li><strong>Tax benefit:</strong> EEE status — deposits, interest, and maturity are all tax-free.</li>
-                <li><strong>Partial withdrawal:</strong> 50% after the girl turns 18 for education.</li>
-                <li><strong>Maximum 2 accounts:</strong> One per girl child, maximum two per family.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">SSY Interest Rate History</h2>
-              <p>The interest rate is set by the government quarterly. As of 2024-25, the rate is 8.2% per annum. Historically, rates have ranged from 7.6% to 9.2%, making it one of the most attractive fixed-income schemes in India.</p>
-
-              <h2 className="text-2xl font-bold mb-3">SSY vs PPF vs FD</h2>
-              <ul>
-                <li><strong>SSY (8.2%):</strong> Highest rate, 21-year lock-in, only for girl child, fully tax-free.</li>
-                <li><strong>PPF (7.1%):</strong> 15-year lock-in, available to all, also EEE status.</li>
-                <li><strong>FD (6-7%):</strong> Flexible tenure, interest is taxable, no Section 80C benefit beyond tax-saver FD.</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Interest rates are subject to quarterly revision by the government. This calculator provides estimates based on the rate you enter. Verify with post office or bank for current rates.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sukanya-samriddhi-calculator" />
-          <PopularCalculators exclude="/sukanya-samriddhi-calculator" />
-        </div>
+      <div className="mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
+          Sukanya Samriddhi Calculator
+        </h1>
+        <p className="text-muted-foreground">
+          Estimate the maturity amount of a Sukanya Samriddhi account for your girl child&apos;s
+          education and marriage fund — deposits for 15 years, compounding for 21.
+        </p>
       </div>
-    </>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>SSY Details</CardTitle>
+          <CardDescription>Enter the yearly deposit, rate, and your daughter&apos;s age.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="ssy-deposit">Yearly deposit (₹)</Label>
+              <Input
+                id="ssy-deposit"
+                type="number"
+                value={yearlyDeposit}
+                onChange={(e) => setYearlyDeposit(e.target.value)}
+                min={250}
+              />
+              <p className="text-xs text-muted-foreground">Range: ₹250 – ₹1,50,000 per year.</p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="ssy-rate">Interest rate (p.a.) (%)</Label>
+              <Input
+                id="ssy-rate"
+                type="number"
+                value={interestRate}
+                onChange={(e) => setInterestRate(e.target.value)}
+                min={0}
+                max={15}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="ssy-age">Girl&apos;s current age</Label>
+              <Input
+                id="ssy-age"
+                type="number"
+                value={girlAge}
+                onChange={(e) => setGirlAge(e.target.value)}
+                min={0}
+                max={10}
+              />
+              <p className="text-xs text-muted-foreground">Eligible up to age 10.</p>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button onClick={handleCalculate}>Calculate</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setYearlyDeposit("150000");
+                setInterestRate("8.2");
+                setGirlAge("5");
+                setShowResults(false);
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {showResults && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card className="bg-primary/10 border-l-4 border-primary rounded-xl">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Maturity amount</p>
+                <p className="text-2xl font-bold text-primary">{fmtInr(result.maturityAmount)}</p>
+                <p className="text-xs text-muted-foreground">Matures in {result.maturityYear}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Total interest earned</p>
+                <p className="text-2xl font-bold">{fmtInr(result.totalInterest)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {result.maturityAmount > 0
+                    ? ((result.totalInterest / result.maturityAmount) * 100).toFixed(0)
+                    : 0}
+                  % of the corpus
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Total deposited (15 yrs)</p>
+                <p className="text-2xl font-bold">{fmtInr(result.totalDeposited)}</p>
+                <p className="text-xs text-muted-foreground">Compounds 6 more years after</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Corpus Growth Over 21 Years</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={result.yearlyBreakdown}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="year" />
+                    <YAxis tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`} />
+                    <Tooltip
+                      formatter={(v) => fmtInr(Number(v))}
+                      labelFormatter={(l) => `Year ${l}`}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="balance"
+                      stroke="#ec4899"
+                      strokeWidth={2}
+                      name="Balance"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="deposit"
+                      stroke="#10b981"
+                      name="Deposit"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Year-wise Breakdown</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Year</TableHead>
+                    <TableHead className="text-right">Deposit</TableHead>
+                    <TableHead className="text-right">Interest</TableHead>
+                    <TableHead className="text-right">Balance</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {result.yearlyBreakdown.map((d) => (
+                    <TableRow key={d.year}>
+                      <TableCell className="font-medium">{d.year}</TableCell>
+                      <TableCell className="text-right">
+                        {d.deposit > 0 ? fmtInr(d.deposit) : "—"}
+                      </TableCell>
+                      <TableCell className="text-right">{fmtInr(d.interest)}</TableCell>
+                      <TableCell className="text-right font-medium">{fmtInr(d.balance)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>How It Works</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                You deposit every year for 15 years (the account must be opened before the girl
+                turns 10), then the balance keeps compounding for 6 more years until maturity at
+                age 21 — that final stretch without deposits is where a big share of the interest
+                is earned.
+              </p>
+              <p>
+                <strong>EEE status:</strong> deposits qualify for the 80C deduction, and both the
+                interest and maturity are tax-free. The account can be opened with just ₹250 and
+                topped up to ₹1,50,000 a year.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <p className="font-semibold">What happens after 15 years of deposits?</p>
+                <p className="text-muted-foreground">
+                  Contributions stop but the balance keeps compounding at the prevailing rate
+                  until maturity in the 21st year, when the full amount is paid out to the girl.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Can I withdraw before maturity?</p>
+                <p className="text-muted-foreground">
+                  Up to 50% of the balance can be withdrawn once the girl reaches 18, for higher
+                  education or marriage. Premature closure is allowed only in exceptional cases
+                  (death, life-threatening illness, etc.).
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Who can open an account?</p>
+                <p className="text-muted-foreground">
+                  A guardian can open one account for each girl child under 10 — two children
+                  means two accounts, each eligible for its own ₹1,50,000 annual limit.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Is the interest rate guaranteed?</p>
+                <p className="text-muted-foreground">
+                  No — it is set quarterly by the government, but SSY has consistently offered a
+                  premium over PPF (recently 8.2% vs 7.1%), making it the best fixed-return
+                  small-savings scheme.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-sm text-muted-foreground">
+            <Link href="/finance" className="text-primary hover:underline">
+              ← More Finance Calculators
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
   );
-};
-
-export default SukanyaSamriddhiCalculator;
-
-
+}

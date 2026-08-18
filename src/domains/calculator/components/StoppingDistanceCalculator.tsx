@@ -172,8 +172,11 @@ export default function StoppingDistanceCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button type="button" onClick={() => setResults(calculateStopping(inputs))} className="flex-1 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="h-11 w-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
             
@@ -190,11 +193,11 @@ export default function StoppingDistanceCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-6 relative overflow-hidden shadow-sm">
-                    <div className="text-xs uppercase tracking-wide text-destructive/80 mb-2 font-bold">Total Stopping Distance</div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Total Stopping Distance</div>
                     <div className="flex items-end gap-3 mb-1">
-                      <div className="text-6xl font-black text-destructive tracking-tighter">{results.totalDistanceFt}</div>
-                      <div className="text-2xl font-bold text-destructive mb-1">ft</div>
+                      <div className="text-6xl font-black text-primary tracking-tighter">{results.totalDistanceFt}</div>
+                      <div className="text-2xl font-bold text-primary mb-1">ft</div>
                     </div>
                   </div>
 
@@ -246,6 +249,37 @@ export default function StoppingDistanceCalculator() {
                     </ResponsiveContainer>
                   </div>
                   <div className="text-xs text-muted-foreground mt-3 text-center">Notice how Physical Braking distance violently expands at higher speeds due to kinetic energy.</div>
+                </div>
+
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Vehicle Speed</p>
+                      <p className="font-semibold text-foreground">{inputs.speed} mph</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Reaction Time</p>
+                      <p className="font-semibold text-foreground">{inputs.reactionTime} sec</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Reaction Distance</p>
+                      <p className="font-semibold text-foreground">{results.reactionDistanceFt} ft</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Braking Distance</p>
+                      <p className="font-semibold text-foreground">{results.brakingDistanceFt} ft</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Total Stopping Distance</p>
+                      <p className="font-semibold text-primary">{results.totalDistanceFt} ft ({results.totalDistanceM} m)</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Road Condition</p>
+                      <p className="font-semibold text-foreground capitalize">{inputs.roadCondition}</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* 3. Breakdown Table */}
@@ -305,22 +339,7 @@ export default function StoppingDistanceCalculator() {
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/stopping-distance-calculator" />
-
-      <section className="mt-12 space-y-8 text-base text-foreground">
-        <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Stopping Distance Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Stopping Distance Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Stopping Distance Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Stopping Distance Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Stopping Distance Calculator useful for both quick checks and deeper what-if analysis.</p>
-        </div>
-      </section>
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/stopping-distance-calculator" />
         </div>
       </div>
     </>

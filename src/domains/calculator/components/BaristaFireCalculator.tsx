@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -184,12 +184,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function BaristaFireCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<BaristaFireResults>(calculateBaristaFire(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -197,6 +191,11 @@ export default function BaristaFireCalculator() {
       const r = calculateBaristaFire(newInputs);
       if (!r.isError) setResults(r);
     }
+  };
+
+  const handleCalculate = () => {
+    const r = calculateBaristaFire(inputs);
+    if (!r.isError) setResults(r);
   };
 
   const handleReset = () => {
@@ -211,8 +210,6 @@ export default function BaristaFireCalculator() {
     { question: "What about health insurance?", answer: "Health insurance is a massive expense for early retirees in the US. Many pursue Barista FIRE specifically because companies like Starbucks offer health insurance to part-time employees working as few as 20 hours a week, completely eliminating that line item from their retirement budget." },
     { question: "Does my portfolio continue to grow during Barista FIRE?", answer: "It depends. If your part-time income covers 100% of your expenses, your portfolio will continue to compound untouched until full retirement age (Coast FIRE). If you withdraw from it to bridge a gap, it will grow slower, stay flat, or decrease, depending on your withdrawal rate and market returns." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -257,7 +254,10 @@ export default function BaristaFireCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

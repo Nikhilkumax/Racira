@@ -1,185 +1,284 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const LinearEquationCalculator = () => {
-  const [mode, setMode] = useState<"single" | "system2" | "system3">("single");
-  const [a1, setA1] = useState("2");
-  const [b1, setB1] = useState("5");
-  const [a2, setA2] = useState("3");
-  const [b2, setB2] = useState("-1");
-  const [c1, setC1] = useState("7");
-  const [c2, setC2] = useState("4");
-  // system 3
-  const [a3, setA3] = useState("1");
-  const [b3, setB3] = useState("1");
-  const [c3, setC3] = useState("1");
-  const [d1, setD1] = useState("6");
-  const [d2, setD2] = useState("14");
-  const [d3, setD3] = useState("6");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<any>(null);
+interface EqResult {
+  mode: string;
+  solution: string;
+  xSol: number | null;
+  ySol: number | null;
+  lines: { x: number; y1: number; y2: number | null }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    if (mode === "single") {
-      const na = parseFloat(a1) || 0, nb = parseFloat(b1) || 0;
-      if (na === 0) return;
-      const x = -nb / na;
-      setResult({ type: "single", equation: `${na}x + ${nb} = 0`, x });
-    } else if (mode === "system2") {
-      const na1 = parseFloat(a1), nb1 = parseFloat(b1), nc1 = parseFloat(c1);
-      const na2 = parseFloat(a2), nb2 = parseFloat(b2), nc2 = parseFloat(c2);
-      const det = na1 * nb2 - na2 * nb1;
-      if (det === 0) { setResult({ type: "error", message: "No unique solution (determinant = 0)" }); return; }
-      const x = (nc1 * nb2 - nc2 * nb1) / det;
-      const y = (na1 * nc2 - na2 * nc1) / det;
-      setResult({ type: "system2", x, y });
+function fmt(v: number, d = 4): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
+
+function calcEquation(mode: string, a: number, b: number, c: number, d: number, e: number, f: number): EqResult {
+  let solution = "";
+  let xSol: number | null = null;
+  let ySol: number | null = null;
+  let lines: { x: number; y1: number; y2: number | null }[] = [];
+  const breakdown: { label: string; value: string }[] = [];
+  if (mode === "single") {
+    // ax + b = cx + d
+    const lhs = a - c;
+    if (lhs === 0 && b !== d) {
+      solution = "No solution — the equation reduces to a false statement (b ≠ d).";
+    } else if (lhs === 0) {
+      solution = "Infinite solutions — both sides are identical (identity).";
     } else {
-      const v = [a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3].map(s => parseFloat(s) || 0);
-      const [va1, vb1, vc1, vd1, va2, vb2, vc2, vd2, va3, vb3, vc3, vd3] = v;
-      const det = va1*(vb2*vc3 - vb3*vc2) - vb1*(va2*vc3 - va3*vc2) + vc1*(va2*vb3 - va3*vb2);
-      if (det === 0) { setResult({ type: "error", message: "No unique solution (determinant = 0)" }); return; }
-      const x = (vd1*(vb2*vc3 - vb3*vc2) - vb1*(vd2*vc3 - vd3*vc2) + vc1*(vd2*vb3 - vd3*vb2)) / det;
-      const y = (va1*(vd2*vc3 - vd3*vc2) - vd1*(va2*vc3 - va3*vc2) + vc1*(va2*vd3 - va3*vd2)) / det;
-      const z = (va1*(vb2*vd3 - vb3*vd2) - vb1*(va2*vd3 - va3*vd2) + vd1*(va2*vb3 - va3*vb2)) / det;
-      setResult({ type: "system3", x, y, z });
+      xSol = (d - b) / lhs;
+      solution = `x = (${d} − ${b}) ÷ (${a} − ${c}) = ${fmt(xSol!)}`;
     }
-  };
+    const fLeft = (x: number) => a * x + b;
+    const fRight = (x: number) => c * x + d;
+    lines = [];
+    for (let i = -20; i <= 20; i++) {
+      const x = i * 0.5;
+      lines.push({ x: Number(x.toFixed(2)), y1: Number(fLeft(x).toFixed(3)), y2: Number(fRight(x).toFixed(3)) });
+    }
+    breakdown.push(
+      { label: "Equation", value: `${a}x + ${b} = ${c}x + ${d}` },
+      { label: "Move x terms left", value: `(${a} − ${c})x = ${d} − ${b}` },
+      { label: "Coefficient of x", value: `${lhs}` },
+      { label: "Constant Difference", value: `${d - b}` },
+      { label: "Solution", value: solution },
+      { label: "Check (LHS)", value: xSol !== null ? fmt(a * xSol + b) : "—" },
+      { label: "Check (RHS)", value: xSol !== null ? fmt(c * xSol + d) : "—" },
+    );
+  } else {
+    // system: a x + b y = e ; c x + d y = f
+    const det = a * d - b * c;
+    if (det === 0) {
+      const proportional = a * f === c * e && b * f === d * e;
+      solution = proportional ? "Infinite solutions — the two equations describe the same line." : "No solution — the lines are parallel and never intersect.";
+      xSol = null; ySol = null;
+      // still draw parallel lines
+      const y1 = (x: number) => a !== 0 ? (e - a * x) / b : NaN;
+      const y2 = (x: number) => c !== 0 ? (f - c * x) / d : NaN;
+      lines = [];
+      for (let i = -20; i <= 20; i++) {
+        const x = i * 0.5;
+        const yy1 = y1(x);
+        const yy2 = y2(x);
+        lines.push({ x: Number(x.toFixed(2)), y1: isFinite(yy1) ? Number(yy1.toFixed(3)) : 0, y2: isFinite(yy2) ? Number(yy2.toFixed(3)) : 0 });
+      }
+    } else {
+      xSol = (e * d - b * f) / det;
+      ySol = (a * f - e * c) / det;
+      solution = `x = ${fmt(xSol!)}, y = ${fmt(ySol!)}`;
+      const y1 = (x: number) => (e - a * x) / b;
+      const y2 = (x: number) => (f - c * x) / d;
+      lines = [];
+      for (let i = -20; i <= 20; i++) {
+        const x = i * 0.5;
+        lines.push({ x: Number(x.toFixed(2)), y1: Number(y1(x).toFixed(3)), y2: Number(y2(x).toFixed(3)) });
+      }
+    }
+    breakdown.push(
+      { label: "System", value: `${a}x + ${b}y = ${e} ; ${c}x + ${d}y = ${f}` },
+      { label: "Determinant", value: `${fmt(det, 4)}` },
+      { label: "Cramer's x", value: xSol !== null ? `${fmt(xSol)}` : "—" },
+      { label: "Cramer's y", value: ySol !== null ? `${fmt(ySol)}` : "—" },
+      { label: "Solution", value: solution },
+    );
+  }
+  const summaryStats = [
+    { label: "Solution", value: solution },
+    { label: "x", value: xSol !== null ? fmt(xSol) : "—" },
+    { label: "y", value: ySol !== null ? fmt(ySol) : "—" },
+    { label: "Mode", value: mode === "single" ? "Single equation" : "2×2 system" },
+  ];
+  return { mode, solution, xSol, ySol, lines, breakdown, summaryStats };
+}
 
+const DEFAULTS = { mode: "system", a: "2", b: "3", c: "1", d: "-1", e: "12", f: "1" };
+
+export default function LinearEquationCalculator() {
+  const [mode, setMode] = useState(DEFAULTS.mode);
+  const [a, setA] = useState(DEFAULTS.a);
+  const [b, setB] = useState(DEFAULTS.b);
+  const [c, setC] = useState(DEFAULTS.c);
+  const [d, setD] = useState(DEFAULTS.d);
+  const [e, setE] = useState(DEFAULTS.e);
+  const [f, setF] = useState(DEFAULTS.f);
+  const [result, setResult] = useState<EqResult | null>(null);
+
+  const n = (s: string) => parseFloat(s) || 0;
+  const aN = n(a), bN = n(b), cN = n(c), dN = n(d), eN = n(e), fN = n(f);
+  const errs: string[] = [];
+  if (mode === "single" && aN === cN && bN === dN) errs.push("Both sides are identical — infinite solutions.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcEquation(mode, aN, bN, cN, dN, eN, fN)); };
   const reset = () => {
-    setShowResults(false);
-    setA1("2"); setB1("5"); setA2("3"); setB2("-1"); setC1("7"); setC2("4");
-    setA3("1"); setB3("1"); setC3("1"); setD1("6"); setD2("14"); setD3("6");
-    setResult(null);
+    setMode(DEFAULTS.mode); setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c); setD(DEFAULTS.d); setE(DEFAULTS.e); setF(DEFAULTS.f);
+    setResult(calcEquation("system", 2, 3, 1, -1, 12, 1));
   };
+  useEffect(() => { setResult(calcEquation("system", 2, 3, 1, -1, 12, 1)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 px-3 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is a linear equation?", answer: "A linear equation is an equation where each variable has degree 1, like ax + b = 0 or ax + by = c." },
-    { question: "How do you solve a system of equations?", answer: "This calculator uses Cramer's rule (determinants) to find the unique solution for 2×2 and 3×3 systems." },
-    { question: "When is there no solution?", answer: "When the determinant of the coefficient matrix is zero, the system has either no solution or infinitely many solutions." },
+    { question: "How is a single linear equation solved?", answer: "Collect x terms on one side and constants on the other: (a − c)x = d − b, then divide. If the coefficient vanishes, the equation is either an identity (infinite solutions) or a contradiction (no solution)." },
+    { question: "How does Cramer's rule solve a system?", answer: "For a₁x + b₁y = e₁ and a₂x + b₂y = e₂, the determinant D = a₁b₂ − a₂b₁ decides everything. If D ≠ 0, x = (e₁b₂ − e₂b₁)/D and y = (a₁e₂ − a₂e₁)/D. If D = 0 the lines are parallel (no solution) or identical (infinite)." },
+    { question: "What does the graph show?", answer: "Each equation is a straight line. The solution is the intersection point of the two lines — visible as the crossing on the chart, where the x and y values satisfy both equations at once." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Linear Equation Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Linear Equation Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Linear Equation Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Linear Equation Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex flex-wrap gap-2 mb-6">
-                {(["single", "system2", "system3"] as const).map(m => (
-                  <button key={m} onClick={() => { setMode(m); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${mode === m ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>
-                    {m === "single" ? "Single (ax+b=0)" : m === "system2" ? "2×2 System" : "3×3 System"}
-                  </button>
-                ))}
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <label className={lbl}>Equation Type</label>
+                <select value={mode} onChange={e => setMode(e.target.value)} className={sel}>
+                  <option value="system">System of 2 (ax + by = e, cx + dy = f)</option>
+                  <option value="single">Single (ax + b = cx + d)</option>
+                </select>
               </div>
-
-              {mode === "single" && (
-                <div className="mb-6">
-                  <p className="text-sm text-muted-foreground mb-3">Solve: ax + b = 0</p>
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputField id="a1" label="a" value={a1} onChange={setA1} />
-                    <InputField id="b1" label="b" value={b1} onChange={setB1} />
-                  </div>
+              {mode === "single" ? (<>
+                <div>
+                  <label className={lbl}>a</label>
+                  <div className={inp}><input type="number" value={a} onChange={e => setA(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">x +</span></div>
                 </div>
-              )}
-
-              {mode === "system2" && (
-                <div className="mb-6 space-y-3">
-                  <p className="text-sm text-muted-foreground">a₁x + b₁y = c₁ &nbsp;&&nbsp; a₂x + b₂y = c₂</p>
-                  <div className="grid grid-cols-3 gap-3">
-                    <InputField id="a1" label="a₁" value={a1} onChange={setA1} />
-                    <InputField id="b1" label="b₁" value={b1} onChange={setB1} />
-                    <InputField id="c1" label="c₁" value={c1} onChange={setC1} />
-                  </div>
-                  <div className="grid grid-cols-3 gap-3">
-                    <InputField id="a2" label="a₂" value={a2} onChange={setA2} />
-                    <InputField id="b2" label="b₂" value={b2} onChange={setB2} />
-                    <InputField id="c2" label="c₂" value={c2} onChange={setC2} />
-                  </div>
+                <div>
+                  <label className={lbl}>b</label>
+                  <div className={inp}><input type="number" value={b} onChange={e => setB(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">=</span></div>
                 </div>
-              )}
-
-              {mode === "system3" && (
-                <div className="mb-6 space-y-3">
-                  <p className="text-sm text-muted-foreground">a₁x + b₁y + c₁z = d₁</p>
-                  <div className="grid grid-cols-4 gap-3">
-                    <InputField id="a1" label="a₁" value={a1} onChange={setA1} />
-                    <InputField id="b1" label="b₁" value={b1} onChange={setB1} />
-                    <InputField id="c1s" label="c₁" value={c1} onChange={setC1} />
-                    <InputField id="d1" label="d₁" value={d1} onChange={setD1} />
-                  </div>
-                  <div className="grid grid-cols-4 gap-3">
-                    <InputField id="a2" label="a₂" value={a2} onChange={setA2} />
-                    <InputField id="b2" label="b₂" value={b2} onChange={setB2} />
-                    <InputField id="c2s" label="c₂" value={c2} onChange={setC2} />
-                    <InputField id="d2" label="d₂" value={d2} onChange={setD2} />
-                  </div>
-                  <div className="grid grid-cols-4 gap-3">
-                    <InputField id="a3" label="a₃" value={a3} onChange={setA3} />
-                    <InputField id="b3" label="b₃" value={b3} onChange={setB3} />
-                    <InputField id="c3" label="c₃" value={c3} onChange={setC3} />
-                    <InputField id="d3" label="d₃" value={d3} onChange={setD3} />
-                  </div>
+                <div>
+                  <label className={lbl}>c</label>
+                  <div className={inp}><input type="number" value={c} onChange={e => setC(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">x +</span></div>
                 </div>
-              )}
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+                <div>
+                  <label className={lbl}>d</label>
+                  <div className={inp}><input type="number" value={d} onChange={e => setD(e.target.value)} className={ci} /></div>
+                </div>
+              </>) : (<>
+                <div>
+                  <label className={lbl}>a₁</label>
+                  <div className={inp}><input type="number" value={a} onChange={e => setA(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">x +</span></div>
+                </div>
+                <div>
+                  <label className={lbl}>b₁</label>
+                  <div className={inp}><input type="number" value={b} onChange={e => setB(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">y =</span></div>
+                </div>
+                <div>
+                  <label className={lbl}>e₁</label>
+                  <div className={inp}><input type="number" value={e} onChange={ev => setE(ev.target.value)} className={ci} /></div>
+                </div>
+                <div>
+                  <label className={lbl}>a₂</label>
+                  <div className={inp}><input type="number" value={c} onChange={ev => setC(ev.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">x +</span></div>
+                </div>
+                <div>
+                  <label className={lbl}>b₂</label>
+                  <div className={inp}><input type="number" value={d} onChange={ev => setD(ev.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">y =</span></div>
+                </div>
+                <div>
+                  <label className={lbl}>e₂</label>
+                  <div className={inp}><input type="number" value={f} onChange={ev => setF(ev.target.value)} className={ci} /></div>
+                </div>
+              </>)}
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Solution</h2>
-                {result.type === "error" ? (
-                  <p className="text-destructive font-medium">{result.message}</p>
-                ) : result.type === "single" ? (
-                  <ResultDisplay items={[
-                    { label: "Equation", value: 0, textValue: result.equation },
-                    { label: "x", value: 0, textValue: result.x.toFixed(6), highlight: true },
-                  ]} />
-                ) : result.type === "system2" ? (
-                  <ResultDisplay items={[
-                    { label: "x", value: 0, textValue: result.x.toFixed(6), highlight: true },
-                    { label: "y", value: 0, textValue: result.y.toFixed(6), highlight: true },
-                  ]} />
-                ) : (
-                  <ResultDisplay items={[
-                    { label: "x", value: 0, textValue: result.x.toFixed(6), highlight: true },
-                    { label: "y", value: 0, textValue: result.y.toFixed(6), highlight: true },
-                    { label: "z", value: 0, textValue: result.z.toFixed(6), highlight: true },
-                  ]} />
-                )}
-              </>
-            )}
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Solution</div>
+                <div className="text-4xl font-extrabold tracking-tight break-all">{result.xSol !== null ? (result.ySol !== null ? `(${fmt(result.xSol)}, ${fmt(result.ySol)})` : `x = ${fmt(result.xSol)}`) : "No Unique Solution"}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.solution}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {result.mode === "single"
+                  ? [["x", result.xSol !== null ? fmt(result.xSol) : "—"], ["LHS at x", result.xSol !== null ? fmt(parseFloat(a) * result.xSol + parseFloat(b)) : "—"], ["RHS at x", result.xSol !== null ? fmt(parseFloat(c) * result.xSol + parseFloat(d)) : "—"]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
+                    </div>
+                  ))
+                  : [["x", result.xSol !== null ? fmt(result.xSol) : "—"], ["y", result.ySol !== null ? fmt(result.ySol) : "—"], ["Determinant", fmt(parseFloat(a) * parseFloat(d) - parseFloat(b) * parseFloat(c), 4)]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
+                    </div>
+                  ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Step-by-Step</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">{result.mode === "single" ? "Left vs Right Side" : "The Two Lines"}</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={result.lines} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="x" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [fmt(v, 3), ""]} />
+                    <Legend />
+                    <Line type="monotone" dataKey="y1" name={result.mode === "single" ? "LHS" : "Line 1"} stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="y2" name={result.mode === "single" ? "RHS" : "Line 2"} stroke="#f59e0b" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">{result.mode === "single" ? "The x where the two lines cross is the solution" : "The intersection of the two lines is the solution point"}</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Solving Linear Equations</h2>
-              <p>Linear equations are the foundation of algebra. This calculator solves single-variable equations (ax + b = 0) and systems of 2 or 3 equations using Cramer's rule with determinants.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Solving One Equation</h2>
+            <p>This <strong>linear equation calculator</strong> solves ax + b = cx + d by collecting terms: (a − c)x = d − b, then dividing. The chart shows both sides as lines — the crossing point is the answer — and degenerate cases (0 = 0 identity, 0 = k contradiction) are detected and labeled.</p>
+            <h2 className="text-2xl font-bold mb-3">Systems of Two Equations</h2>
+            <p>For a₁x + b₁y = e₁ and a₂x + b₂y = e₂, Cramer's rule uses the determinant D = a₁b₂ − a₂b₁. When D ≠ 0 there is exactly one intersection; when D = 0 the lines are parallel (no solution) or coincident (infinite solutions).</p>
+            <h2 className="text-2xl font-bold mb-3">Why It Matters</h2>
+            <p>Linear equations model budgets, mixtures, motion, and supply-and-demand. Systems capture interactions — two constraints met simultaneously — and the geometric view on this page makes the algebra concrete.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/linear-equation-calculator" />
-          <PopularCalculators exclude="/linear-equation-calculator" />
+          <PopularCalculators exclude="/calculator/linear-equation-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default LinearEquationCalculator;
-
-
+}

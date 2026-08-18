@@ -1,161 +1,215 @@
 "use client";
-import { RotateCcw, BookOpen, Calculator, CheckCircle2 } from "lucide-react";
-
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { RotateCcw, Printer } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+
+const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const NumInput = ({ id, label, value, onChange, min, max }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; min?: string; max?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" min={min} max={max} step="any" value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
+    </div>
+  </div>
+);
+
+interface Inputs { readingRaw: string; writingRaw: string; mathRaw: string; }
+
+interface Result {
+  readingScaled: number;
+  writingScaled: number;
+  erw: number;
+  math: number;
+  total: number;
+  percentile: string;
+  chart: { name: string; value: number }[];
+}
+
+const DEFAULTS: Inputs = { readingRaw: "45", writingRaw: "40", mathRaw: "50" };
+
+function calculate(inputs: Inputs): Result {
+  const rRaw = Math.min(52, Math.max(0, parseFloat(inputs.readingRaw) || 0));
+  const wRaw = Math.min(44, Math.max(0, parseFloat(inputs.writingRaw) || 0));
+  const mRaw = Math.min(58, Math.max(0, parseFloat(inputs.mathRaw) || 0));
+  // Linear approximation of the paper-SAT conversion tables (Reading 10-40, Writing 10-40, Math 200-800)
+  const readingScaled = Math.round(10 + (rRaw / 52) * 30);
+  const writingScaled = Math.round(10 + (wRaw / 44) * 30);
+  const erw = Math.min(800, Math.max(200, (readingScaled + writingScaled) * 10));
+  const math = Math.min(800, Math.max(200, Math.round(200 + (mRaw / 58) * 600)));
+  const total = erw + math;
+  const percentile = total >= 1550 ? "99th" : total >= 1400 ? "95th" : total >= 1200 ? "75th" : total >= 1050 ? "50th" : "Below 50th";
+  return {
+    readingScaled,
+    writingScaled,
+    erw,
+    math,
+    total,
+    percentile,
+    chart: [
+      { name: "Reading & Writing", value: erw },
+      { name: "Mathematics", value: math },
+    ],
+  };
+}
+
 const SATScoreCalculator = () => {
-  const [readingRaw, setReadingRaw] = useState("45"); // 0-52
-  const [writingRaw, setWritingRaw] = useState("40"); // 0-44
-  const [mathRaw, setMathRaw] = useState("50"); // 0-58
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS));
+  const set = (k: keyof Inputs) => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+  const num = (v: string) => parseFloat(v) || 0;
+  const hasErrors = num(inputs.readingRaw) < 0 || num(inputs.readingRaw) > 52 || num(inputs.writingRaw) < 0 || num(inputs.writingRaw) > 44 || num(inputs.mathRaw) < 0 || num(inputs.mathRaw) > 58;
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const rRaw = parseInt(readingRaw) || 0;
-    const wRaw = parseInt(writingRaw) || 0;
-    const mRaw = parseInt(mathRaw) || 0;
+  const handleCalculate = () => { if (!hasErrors) setResult(calculate(inputs)); };
+  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
+  const handlePrint = () => window.print();
 
-    // SAT Scoring is complex and uses a conversion table (scaled score).
-    // This is a simplified linear approximation of the 2024 SAT tables.
-    
-    // Reading/Writing (800)
-    // Reading Raw (52) -> Reading Scaled (10-40)
-    // Writing Raw (44) -> Writing Scaled (10-40)
-    // ERW Score = (Reading Scaled + Writing Scaled) * 10
-    
-    const rScaled = Math.round(10 + (rRaw / 52) * 30);
-    const wScaled = Math.round(10 + (wRaw / 44) * 30);
-    const erwScore = Math.min(800, Math.max(200, (rScaled + wScaled) * 10));
-
-    // Math (800)
-    // Math Raw (58) -> Math Scaled (200-800)
-    const mathScore = Math.min(800, Math.max(200, Math.round(200 + (mRaw / 58) * 600)));
-
-    const totalScore = erwScore + mathScore;
-
-    setResults({
-      erwScore,
-      mathScore,
-      totalScore,
-      percentile: totalScore >= 1550 ? "99th" : totalScore >= 1400 ? "95th" : totalScore >= 1200 ? "75th" : totalScore >= 1050 ? "50th" : "Below 50th"
-    });
-  };
-
-  const reset = () => {
-    setReadingRaw("45");
-    setWritingRaw("40");
-    setMathRaw("50");
-  };
+  const rows = [
+    { label: "Reading Raw Score (0-52)", value: fmt(num(inputs.readingRaw)) },
+    { label: "Writing Raw Score (0-44)", value: fmt(num(inputs.writingRaw)) },
+    { label: "Math Raw Score (0-58)", value: fmt(num(inputs.mathRaw)) },
+    { label: "Reading Scaled (10-40)", value: fmt(result.readingScaled) },
+    { label: "Writing Scaled (10-40)", value: fmt(result.writingScaled) },
+    { label: "Reading & Writing Score (200-800)", value: fmt(result.erw), highlight: true },
+    { label: "Math Score (200-800)", value: fmt(result.math), highlight: true },
+    { label: "Estimated Total SAT Score (400-1600)", value: fmt(result.total), total: true },
+  ];
 
   const faqs = [
-    { question: "How is the SAT scored?", answer: "The SAT is scored on a scale of 400-1600. It consists of two main sections: Evidence-Based Reading and Writing (ERW) and Math, each worth 200-800 points." },
-    { question: "What is a good SAT score?", answer: "A 1200 is above average and considered a good score for many state universities. A 1400+ is competitive for top-tier universities, and a 1500+ is usually required for Ivy League schools." },
-    { question: "Does this calculator use the Digital SAT scale?", answer: "This calculator uses an approximation of the traditional SAT scoring curve. The new Digital SAT uses multistage adaptive testing, meaning the difficulty of the second module depends on your performance in the first, making exact raw-to-scaled conversion impossible without full test data." }
+    { question: "How is the SAT scored?", answer: "The SAT ranges 400-1600, split into Evidence-Based Reading and Writing (200-800) and Math (200-800). Raw scores (questions correct) convert to scaled scores through equating tables that keep scores comparable across test dates." },
+    { question: "What is a good SAT score?", answer: "1200 is above average and competitive for many state schools; 1400+ is strong for selective universities; 1500+ is in the range expected by the most competitive programs. Percentiles depend on the test date." },
+    { question: "Is this the digital SAT conversion?", answer: "This calculator uses a linear approximation of the traditional paper-SAT curve. The digital SAT uses adaptive modules, so exact raw-to-scaled conversion depends on which module path you took." },
+    { question: "Is there a guessing penalty?", answer: "No — since 2016 the SAT has no penalty for wrong answers. Your raw score is simply the number of correct answers, so guessing is always better than leaving a question blank." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SAT Score Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Education", href: "/calculator#education" }, { label: "SAT Score Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SAT Score Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <BookOpen className="h-5 w-5 text-primary" /> Reading & Writing
-                  </h2>
-                  <div>
-                    <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Reading Raw Score (0-52)</label>
-                    <input type="number" value={readingRaw} onChange={(e) => setReadingRaw(e.target.value)} className="input-calc" min="0" max="52" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Writing Raw Score (0-44)</label>
-                    <input type="number" value={writingRaw} onChange={(e) => setWritingRaw(e.target.value)} className="input-calc" min="0" max="44" />
-                  </div>
-                </section>
-
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calculator className="h-5 w-5 text-primary" /> Mathematics
-                  </h2>
-                  <div>
-                    <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Math Raw Score (0-58)</label>
-                    <input type="number" value={mathRaw} onChange={(e) => setMathRaw(e.target.value)} className="input-calc" min="0" max="58" />
-                    <p className="text-[10px] text-muted-foreground mt-1">Total correct across both No-Calculator and Calculator sections.</p>
-                  </div>
-                  <div className="pt-2">
-                    <button onClick={reset} className="w-full p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
-                      <RotateCcw className="h-4 w-4" /> Reset 
-                    </button>
-                  </div>
-                </section>
-              </div>
-            
-              <div className="mt-8 flex gap-3 items-center pt-4 border-t border-border">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-                <button
-                  onClick={reset}
-                  className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"
-                  aria-label="Reset"
-                >
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold">Reading & Writing</div>
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="reading" label="Reading Raw (0-52)" value={inputs.readingRaw} onChange={set("readingRaw")} min="0" max="52" />
+              <NumInput id="writing" label="Writing Raw (0-44)" value={inputs.writingRaw} onChange={set("writingRaw")} min="0" max="44" />
+            </div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Mathematics</div>
+            <div>
+              <NumInput id="math" label="Math Raw (0-58)" value={inputs.mathRaw} onChange={set("mathRaw")} min="0" max="58" />
+            </div>
+            {hasErrors && (
+              <p className="text-xs text-red-500 font-medium">Raw scores must be within section limits: Reading ≤ 52, Writing ≤ 44, Math ≤ 58.</p>
+            )}
+            <div className="flex gap-2.5 mt-1">
+              <button type="button" onClick={handleCalculate} disabled={hasErrors} className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground active:scale-[0.98]"}`}>Calculate</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-10 mb-6 relative overflow-hidden">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-2">Estimated Total SAT Score</p>
-                    <p className="text-7xl font-black text-foreground">{results.totalScore}</p>
-                    <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-xs font-bold uppercase tracking-wider mx-auto">
-                      <CheckCircle2 className="h-4 w-4" /> Approx. {results.percentile} Percentile
-                    </div>
-                </div>
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
+              </div>
+              <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Estimated Total SAT Score</div>
+              <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{fmt(result.total)}</div>
+              <div className="text-sm text-muted-foreground font-medium">Approx. <span className="font-bold text-foreground">{result.percentile}</span> percentile</div>
+            </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                   <div className="card-calculator p-6 text-center border-emerald-500/20 bg-emerald-500/5">
-                      <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Reading & Writing</p>
-                      <p className="text-3xl font-black text-foreground">{results.erwScore}</p>
-                   </div>
-                   <div className="card-calculator p-6 text-center border-blue-500/20 bg-blue-500/5">
-                      <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Mathematics</p>
-                      <p className="text-3xl font-black text-foreground">{results.mathScore}</p>
-                   </div>
-                </div>
-              </>
-            )}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Reading & Writing</span>
+                <span className="font-extrabold text-primary">{fmt(result.erw)}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Mathematics</span>
+                <span className="font-extrabold text-emerald-600">{fmt(result.math)}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Percentile</span>
+                <span className="font-extrabold text-foreground">{result.percentile}</span>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Score Detail</th>
+                    <th className="p-2.5 pr-3 text-right w-[140px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {rows.map((r) => (
+                    <tr key={r.label} className={`hover:bg-secondary/20 transition-colors ${r.total ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.label}</td>
+                      <td className={`p-2.5 pr-3 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4">
+              <h3 className="text-sm font-bold text-foreground mb-3">Section Scores (out of 800)</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={result.chart} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                  <YAxis domain={[0, 800]} tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(v: number) => [fmt(v), "Score"]} />
+                  <ReferenceLine y={600} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: "Competitive threshold", fontSize: 10, fill: "#d97706", position: "insideTopRight" }} />
+                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-semibold mb-4">Summary</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                {[
+                  { label: "Reading Raw", value: fmt(num(inputs.readingRaw)) + " / 52" },
+                  { label: "Writing Raw", value: fmt(num(inputs.writingRaw)) + " / 44" },
+                  { label: "Math Raw", value: fmt(num(inputs.mathRaw)) + " / 58" },
+                  { label: "Reading & Writing", value: fmt(result.erw), bold: true },
+                  { label: "Mathematics", value: fmt(result.math), bold: true },
+                  { label: "Total SAT Score", value: fmt(result.total), bold: true },
+                  { label: "Percentile", value: result.percentile },
+                ].map((s) => (
+                  <div key={s.label} className="flex flex-col">
+                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
+                    <span className={`text-sm font-extrabold ${s.bold ? "text-primary" : "text-foreground"}`}>{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding the SAT Curve</h2>
-              <p>The SAT uses a process called "equating" to ensure that scores are consistent across different test dates, regardless of slight variations in difficulty. This means that missing two questions on a particularly hard test might result in the same scaled score as missing zero questions on an easier test.</p>
-              
-              <h3>Raw Score vs. Scaled Score</h3>
-              <p>Your raw score is simply the number of questions you answered correctly. There is no penalty for guessing. This raw score is then converted to a scaled score (200-800) using a table specific to that test form. This calculator provides an average conversion based on historical SAT curves.</p>
-
-              <h3>Section Weighting</h3>
-              <p>The SAT is divided into two 800-point halves. The first is the Evidence-Based Reading and Writing section, which combines your performance on the Reading test and the Writing & Language test. The second is the Math section, which combines the calculator and non-calculator portions.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sat-score" />
+            <h2 className="text-2xl font-bold mb-3">Understanding the SAT Curve</h2>
+            <p>The SAT uses equating to keep scores comparable across test dates. Your raw score — the number of correct answers, with no guessing penalty — converts through a table into a scaled 200-800 section score. With the defaults (45/52 Reading, 40/44 Writing, 50/58 Math), the estimate is 730 ERW + 717 Math = <strong>1447</strong>, roughly the 95th percentile.</p>
+            <h2 className="text-2xl font-bold mb-3">Raw vs Scaled</h2>
+            <p>This calculator applies a linear approximation of the traditional conversion tables. The actual curve varies slightly by test form, and the digital SAT's adaptive format makes exact conversion depend on your module path — treat the output as an estimate within a few points.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sat-score-calculator" />
           <PopularCalculators exclude="/calculator/sat-score-calculator" />
         </div>
       </div>
     </>
   );
 };
-
 export default SATScoreCalculator;
-

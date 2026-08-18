@@ -20,11 +20,6 @@ const CreditUtilizationCalculator = () => {
   const [showResults, setShowResults] = useState(false);
   const [showAdv, setShowAdv] = useState(false);
   const [targetUtil, setTargetUtil] = useState("10");
-  const [mounted, setMounted] = useState(false);
-
-  import("react").then(React => {
-    React.useEffect(() => { setMounted(true); }, []);
-  });
 
   const updateCard = (i: number, field: string, val: string) => {
     setCards(prev => prev.map((c, idx) => idx === i ? { ...c, [field]: val } : c));
@@ -111,24 +106,36 @@ const CreditUtilizationCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Utilization Report</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className={`p-6 rounded-2xl text-center border ${results.overallUtilization > 30 ? "bg-red-500/10 border-red-500/20" : results.overallUtilization > 10 ? "bg-yellow-500/10 border-yellow-500/20" : "bg-green-500/10 border-green-500/20"}`}>
-                    <p className="text-sm font-bold uppercase tracking-widest mb-1">Overall Utilization</p>
-                    <p className="text-5xl font-black text-foreground">{results.overallUtilization.toFixed(1)}%</p>
-                    <p className={`text-sm font-bold mt-1 ${results.overallUtilization > 30 ? "text-red-600" : results.overallUtilization > 10 ? "text-yellow-600" : "text-green-600"}`}>{results.rating}</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 mb-6">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Overall Credit Utilization</p>
+                  <div className="flex items-baseline gap-3 flex-wrap">
+                    <p className="text-4xl font-bold text-primary">{results.overallUtilization.toFixed(1)}%</p>
+                    <span className={`text-sm font-bold px-2.5 py-1 rounded-full ${results.overallUtilization > 30 ? "bg-red-500/10 text-red-600 border border-red-500/20" : results.overallUtilization > 10 ? "bg-yellow-500/10 text-yellow-600 border border-yellow-500/20" : "bg-green-500/10 text-green-600 border border-green-500/20"}`}>{results.rating}</span>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-border flex flex-col justify-center">
-                    <p className="text-sm text-muted-foreground leading-relaxed">{results.advice}</p>
-                    {results.overallUtilization > results.target && (
-                      <p className="mt-4 text-sm font-semibold text-foreground">
-                        Pay off at least <span className="text-primary">${(results.totalBalance - (results.totalLimit * results.target / 100)).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span> to reach your target.
-                      </p>
-                    )}
+                  <p className="text-sm text-muted-foreground mt-1">{results.advice}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Total Balance</p>
+                    <p className="text-2xl font-black text-foreground">${results.totalBalance.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Total Limit</p>
+                    <p className="text-2xl font-black text-foreground">${results.totalLimit.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Available Credit</p>
+                    <p className="text-2xl font-black text-foreground">${Math.max(0, results.totalLimit - results.totalBalance).toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>
                 </div>
-
-                {mounted && (
-                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                <div className={`mb-6 p-4 rounded-2xl text-center border ${results.overallUtilization > 30 ? "bg-red-500/10 border-red-500/20" : results.overallUtilization > 10 ? "bg-yellow-500/10 border-yellow-500/20" : "bg-green-500/10 border-green-500/20"}`}>
+                  {results.overallUtilization > results.target && (
+                    <p className="text-sm font-semibold text-foreground">
+                      Pay off at least <span className="text-primary">${(results.totalBalance - (results.totalLimit * results.target / 100)).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span> to reach your {results.target}% target.
+                    </p>
+                  )}
+                </div>
+                <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
                     <h3 className="text-sm font-bold mb-4 w-full text-left">Credit Limit Usage</h3>
                     <ResponsiveContainer width="100%" height={220}>
                       <PieChart>
@@ -146,7 +153,6 @@ const CreditUtilizationCalculator = () => {
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
-                )}
 
                 <h3 className="font-semibold mb-3">Per-Card Utilization</h3>
                 <div className="space-y-3">

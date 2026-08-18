@@ -82,6 +82,10 @@ export default function Chads2ScoreCalculator() {
     setResult(calcChads2(chf, htn, age, dm, stroke));
   }, [chf, htn, age, dm, stroke]);
 
+  const handleCalculate = () => {
+    setResult(calcChads2(chf, htn, age, dm, stroke));
+  };
+
   const reset = () => {
     setChf(false);
     setHtn(false);
@@ -135,7 +139,10 @@ export default function Chads2ScoreCalculator() {
             </div>
 
             <div className="flex gap-3 mt-4 border-t border-border pt-4">
-              <button onClick={reset} className="w-full flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+              <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-sm transition-all shadow-sm">
+                Calculate
+              </button>
+              <button onClick={reset} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-secondary hover:bg-secondary/80 text-secondary-foreground font-bold h-11 text-sm transition-all shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Clear Patient Data
               </button>
             </div>

@@ -5,30 +5,69 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Briefcase } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-type StateKey = "maharashtra" | "karnataka" | "west_bengal" | "andhra_pradesh" | "telangana" | "tamil_nadu" | "gujarat" | "madhya_pradesh";
+interface NumInputProps {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  prefix?: string;
+}
 
-const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: number; tax: number }[] }> = {
-  maharashtra: {
+function NumInput({ label, value, onChange, min = 0, max = 9999999, step = 1, suffix, prefix }: NumInputProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1.5 text-foreground">{label}</label>
+      <div className="relative">
+        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{prefix}</span>}
+        <input
+          type="number"
+          value={Number.isFinite(value) ? value : ""}
+          min={min}
+          max={max}
+          step={step}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "") return onChange(min);
+            const n = parseFloat(raw);
+            if (Number.isNaN(n)) return;
+            onChange(Math.min(max, Math.max(min, n)));
+          }}
+          className={`input-calc ${prefix ? "pl-8" : ""} ${suffix ? "pr-10" : ""}`}
+        />
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+const INR = (n: number) => "₹" + Math.round(n).toLocaleString("en-IN");
+
+const STATES: { id: string; label: string; slabs: { min: number; max: number; tax: number }[] }[] = [
+  {
+    id: "maharashtra",
     label: "Maharashtra",
     slabs: [
       { min: 0, max: 7500, tax: 0 },
       { min: 7501, max: 10000, tax: 175 },
-      { min: 10001, max: Infinity, tax: 200 }, // ₹300 for Feb
+      { min: 10001, max: Infinity, tax: 200 },
     ],
   },
-  karnataka: {
+  {
+    id: "karnataka",
     label: "Karnataka",
     slabs: [
       { min: 0, max: 15000, tax: 0 },
-      { min: 15001, max: 25000, tax: 200 },
-      { min: 25001, max: Infinity, tax: 200 },
+      { min: 15001, max: Infinity, tax: 200 },
     ],
   },
-  west_bengal: {
+  {
+    id: "west_bengal",
     label: "West Bengal",
     slabs: [
       { min: 0, max: 10000, tax: 0 },
@@ -38,7 +77,8 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 40001, max: Infinity, tax: 200 },
     ],
   },
-  andhra_pradesh: {
+  {
+    id: "andhra_pradesh",
     label: "Andhra Pradesh",
     slabs: [
       { min: 0, max: 15000, tax: 0 },
@@ -46,7 +86,8 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 20001, max: Infinity, tax: 200 },
     ],
   },
-  telangana: {
+  {
+    id: "telangana",
     label: "Telangana",
     slabs: [
       { min: 0, max: 15000, tax: 0 },
@@ -54,7 +95,8 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 20001, max: Infinity, tax: 200 },
     ],
   },
-  tamil_nadu: {
+  {
+    id: "tamil_nadu",
     label: "Tamil Nadu",
     slabs: [
       { min: 0, max: 21000, tax: 0 },
@@ -65,7 +107,8 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 75001, max: Infinity, tax: 1095 },
     ],
   },
-  gujarat: {
+  {
+    id: "gujarat",
     label: "Gujarat",
     slabs: [
       { min: 0, max: 5999, tax: 0 },
@@ -74,7 +117,8 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 12000, max: Infinity, tax: 200 },
     ],
   },
-  madhya_pradesh: {
+  {
+    id: "madhya_pradesh",
     label: "Madhya Pradesh",
     slabs: [
       { min: 0, max: 18750, tax: 0 },
@@ -82,41 +126,52 @@ const stateSlabs: Record<StateKey, { label: string; slabs: { min: number; max: n
       { min: 25001, max: Infinity, tax: 208 },
     ],
   },
-};
+];
 
-const ProfessionalTaxCalculator = () => {
-  const [monthlySalary, setMonthlySalary] = useState("50000");
+export default function ProfessionalTaxCalculator() {
+  const [salary, setSalary] = useState(50000);
+  const [state, setState] = useState("maharashtra");
   const [showResults, setShowResults] = useState(false);
-  const [state, setState] = useState<StateKey>("maharashtra");
-  const [result, setResult] = useState<{ monthlyTax: number; annualTax: number; effectiveRate: number } | null>(null);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const salary = parseFloat(monthlySalary) || 0;
-    if (salary <= 0) return;
+  const st = STATES.find((s) => s.id === state) ?? STATES[0];
+  let monthly = 0;
+  for (const slab of st.slabs) {
+    if (salary >= slab.min && salary <= slab.max) {
+      monthly = slab.tax;
+      break;
+    }
+  }
+  if (salary > st.slabs[st.slabs.length - 1].min) monthly = st.slabs[st.slabs.length - 1].tax;
+  const annual = Math.min(monthly * 12, 2500);
+  const effective = salary > 0 ? (annual / (salary * 12)) * 100 : 0;
+  const monthlyAfter = salary - monthly;
 
-    const slabs = stateSlabs[state].slabs;
-    let monthlyTax = 0;
-    for (const slab of slabs) {
+  const chartData = STATES.map((s) => {
+    let m = 0;
+    for (const slab of s.slabs) {
       if (salary >= slab.min && salary <= slab.max) {
-        monthlyTax = slab.tax;
+        m = slab.tax;
         break;
       }
     }
+    if (salary > s.slabs[s.slabs.length - 1].min) m = s.slabs[s.slabs.length - 1].tax;
+    return { name: s.label.split(" ")[0], tax: m };
+  });
 
-    // Max PT in India is ₹2,500/year
-    const annualTax = Math.min(monthlyTax * 12, 2500);
-    setResult({ monthlyTax, annualTax, effectiveRate: (annualTax / (salary * 12)) * 100 });
-  };
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setShowResults(false); setMonthlySalary("50000"); setState("maharashtra"); setResult(null); };
+    setSalary(50000);
+    setState("maharashtra");
+    setShowResults(false);
+  };
 
   const faqs = [
-    { question: "What is Professional Tax?", answer: "Professional Tax (PT) is a state-level tax levied on salaried individuals and professionals. It is deducted by the employer from salary and remitted to the state government. The maximum PT is capped at ₹2,500 per year by the Constitution." },
-    { question: "Which states levy Professional Tax?", answer: "States like Maharashtra, Karnataka, West Bengal, Andhra Pradesh, Telangana, Tamil Nadu, Gujarat, Madhya Pradesh, Kerala, Assam, and others levy PT. Some states like Delhi, UP, Rajasthan, and Haryana do not charge PT." },
-    { question: "Is Professional Tax deductible from income tax?", answer: "Yes, Professional Tax paid is fully deductible under Section 16(iii) of the Income Tax Act as a deduction from salary income." },
-    { question: "Who is exempt from Professional Tax?", answer: "Exemptions vary by state but typically include parents of children with disabilities, members of armed forces, and individuals above a certain age. Some states exempt women or persons with disabilities." },
+    { question: "What is professional tax?", answer: "It is a state-level tax on salaried income and professions, deducted monthly by employers and paid to the state. Each state sets its own slab rates keyed to monthly gross salary, and the Constitution caps the annual total at ₹2,500 per person." },
+    { question: "Who pays professional tax?", answer: "Anyone earning a salary in a state that levies it. The employer deducts it from your pay and deposits it with the state each month. Self-employed professionals in most states must register and pay it themselves on their professional income." },
+    { question: "Which states have the highest slabs?", answer: "Tamil Nadu tops out at ₹1,095/month (₹2,400/year), followed by West Bengal and Maharashtra at ₹200/month. Several states — including Delhi, Haryana, and Rajasthan — do not levy professional tax at all." },
+    { question: "Is professional tax tax-deductible?", answer: "Yes. It is deductible from your salary income under Section 16(iii) of the Income Tax Act, which effectively lowers your taxable salary by the amount of PT you paid during the year." },
+    { question: "What is the ₹2,500 annual cap?", answer: "Article 276 of the Indian Constitution limits total professional tax to ₹2,500 per person per year. No state can charge more, so even the highest monthly slabs are constrained by this ceiling." },
   ];
 
   return (
@@ -127,37 +182,143 @@ const ProfessionalTaxCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">State</label>
-                <div className="flex flex-wrap gap-2">
-                  {(Object.keys(stateSlabs) as StateKey[]).map(k => (
-                    <button key={k} onClick={() => { setState(k); setResult(null); }}
-                      className={`px-3 py-2 rounded-lg text-xs font-medium transition-colors ${state === k ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>
-                      {stateSlabs[k].label}
-                    </button>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <Briefcase className="w-4 h-4" /> India State PT
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <NumInput label="Monthly Gross Salary" value={salary} onChange={setSalary} min={0} max={1000000} step={1000} prefix="₹" />
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-foreground">State</label>
+                <select
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="input-calc"
+                >
+                  {STATES.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
+            </div>
 
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="monthlySalary" label="Monthly Gross Salary" value={monthlySalary} onChange={setMonthlySalary} prefix="₹" />
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            {showResults && result && (
+            {showResults ? (
               <>
-                <h2 className="text-2xl font-bold mb-3">Professional Tax — {stateSlabs[state].label}</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Monthly PT", value: result.monthlyTax, highlight: true },
-                  { label: "Annual PT", value: result.annualTax, highlight: true },
-                  { label: "Effective Rate", value: 0, textValue: `${result.effectiveRate.toFixed(3)}%` },
-                ]} />
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Monthly Professional Tax</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{INR(monthly)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {st.label} · annual {INR(annual)} (constitutional cap ₹2,500/yr) · {effective.toFixed(3)}% of salary
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Monthly PT</p>
+                    <p className="text-2xl font-bold text-primary">{INR(monthly)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Annual PT</p>
+                    <p className="text-2xl font-bold text-orange-500">{INR(annual)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Net Monthly Salary</p>
+                    <p className="text-2xl font-bold text-green-600">{INR(monthlyAfter)}</p>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Item</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Monthly Professional Tax</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{INR(monthly)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Annual Professional Tax</td>
+                        <td className="py-2.5 px-3 text-right">{INR(annual)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Gross Monthly Salary</td>
+                        <td className="py-2.5 px-3 text-right">{INR(salary)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Net Monthly Salary (after PT)</td>
+                        <td className="py-2.5 px-3 text-right">{INR(monthlyAfter)}</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Effective Rate</td>
+                        <td className="py-2.5 px-3 text-right">{effective.toFixed(3)}%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Monthly PT by State (your salary)</p>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="name" tick={{ fontSize: 9 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip formatter={(v: number) => "₹" + v} />
+                        <Bar dataKey="tax" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">State</span>
+                      <span className="font-medium">{st.label}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Monthly Salary</span>
+                      <span className="font-medium">{INR(salary)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Monthly PT</span>
+                      <span className="font-medium">{INR(monthly)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Annual PT</span>
+                      <span className="font-medium">{INR(annual)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Income Tax Deduction</span>
+                      <span className="font-medium">Deductible u/s 16(iii)</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Constitutional Cap</span>
+                      <span className="font-medium">₹2,500 / year</span>
+                    </div>
+                  </div>
+                </div>
               </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Enter your monthly salary and state, then click <strong className="text-foreground">Calculate</strong> to see your monthly and annual professional tax.
+              </div>
             )}
           </div>
         </div>
@@ -165,37 +326,17 @@ const ProfessionalTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is Professional Tax?</h2>
-              <p>Professional Tax (PT) is a direct tax levied by state governments on individuals earning income through employment, trade, or profession. It is one of the oldest forms of taxation in India and is governed by Article 276 of the Indian Constitution, which caps it at ₹2,500 per year.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How Is Professional Tax Calculated?</h2>
-              <p>Each state has its own slab structure based on monthly gross salary. The employer deducts PT from the employee's salary and deposits it with the state government. The slabs vary significantly — for example, Maharashtra charges ₹200/month for salaries above ₹10,000, while Tamil Nadu has a graduated structure reaching ₹1,095/half-year.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Professional Tax Rates by State</h2>
-              <ul>
-                <li><strong>Maharashtra:</strong> ₹175-200/month (₹300 in February to meet ₹2,500 cap)</li>
-                <li><strong>Karnataka:</strong> ₹200/month for salary above ₹15,000</li>
-                <li><strong>West Bengal:</strong> ₹110-200/month depending on salary slab</li>
-                <li><strong>Tamil Nadu:</strong> Half-yearly payment, ₹100-1,095 based on salary</li>
-                <li><strong>Gujarat:</strong> ₹80-200/month</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Tax Benefits</h2>
-              <p>Professional Tax paid during the financial year is <strong>deductible under Section 16(iii)</strong> of the Income Tax Act. This means it reduces your taxable salary income. The deduction is available in both old and new tax regimes.</p>
-
-              <h2 className="text-2xl font-bold mb-3">States Without Professional Tax</h2>
-              <p>Several states and union territories do not levy Professional Tax, including Delhi, Uttar Pradesh, Rajasthan, Haryana, Uttarakhand, Punjab, Himachal Pradesh, and Jammu & Kashmir.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PT rates vary by state and are subject to change. Some states have special rates for February. Verify with your employer or state government portal.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Professional Tax Works</h2>
+            <p>Professional tax is a state-level levy on salaried income, deducted monthly by the employer. Each state has its own slab table keyed to monthly gross salary; the annual total is capped at ₹2,500 by Article 276 of the Constitution. The tax is deductible from salary income under Section 16(iii).</p>
+            <h3>Worked Example</h3>
+            <p>At ₹50,000/month in Maharashtra, PT is ₹200/month (₹2,400/year — under the cap). The same salary in Karnataka also costs ₹200/month, but in Tamil Nadu the slab is ₹760/month, hitting ₹2,400/year.</p>
+            <h3>Comparing States</h3>
+            <p>PT differences are small in absolute terms — at most ₹100–900/month — but they vary with your salary band and state of employment. If you work remotely or are choosing between offers in different states, this calculator shows exactly what each location deducts from your pay.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/professional-tax-calculator" />
-          <PopularCalculators exclude="/professional-tax-calculator" />
+          <PopularCalculators exclude="/calculator/professional-tax-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default ProfessionalTaxCalculator;
-
-
+}

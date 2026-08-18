@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 type BandColor = 'black' | 'brown' | 'red' | 'orange' | 'yellow' | 'green' | 'blue' | 'violet' | 'gray' | 'white' | 'gold' | 'silver' | 'none';
 
@@ -186,8 +187,9 @@ const ResistorCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={reset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center gap-2 font-medium" aria-label="Reset">
-                <RotateCcw className="h-4 w-4" /> Reset Calculator
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -232,6 +234,22 @@ const ResistorCalculator = () => {
                     <div className="w-4 h-full ml-8" style={{ backgroundColor: colorData[bandCount === 4 ? band4 : band5].hex, boxShadow: 'inset 0 0 5px rgba(0,0,0,0.3)' }}></div>
                   </div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Value Range by Tolerance</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[{ name: "Min", value: result.resistanceValue * (1 - parseInt(result.toleranceStr.replace(/[^0-9.]/g, ""), 10) / 100), fill: "#a3a3a3" }, { name: "Nominal", value: result.resistanceValue, fill: "hsl(var(--primary))" }, { name: "Max", value: result.resistanceValue * (1 + parseInt(result.toleranceStr.replace(/[^0-9.]/g, ""), 10) / 100), fill: "#a3a3a3" }]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString() + " Ω", ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {[{ name: "Min" }, { name: "Nominal" }, { name: "Max" }].map((d, i) => <Cell key={i} fill={d.name === "Nominal" ? "hsl(var(--primary))" : "#a3a3a3"} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">A {result.resistanceStr} {result.toleranceStr} resistor measures anywhere between {result.minRange} and {result.maxRange}.</p>
               </div>
 
             </>)}

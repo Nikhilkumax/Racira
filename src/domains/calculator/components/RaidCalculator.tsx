@@ -1,167 +1,363 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, HardDrive, ShieldCheck, Database, Info } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
-const RaidCalculator = () => {
-  const [driveCount, setDriveCount] = useState("4");
-  const [driveSize, setDriveSize] = useState("4"); // TB
-  const [raidLevel, setRaidLevel] = useState("5");
+interface Inputs {
+  driveCount: string
+  driveSize: string
+  raidLevel: string
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface RaidLevelInfo {
+  id: string
+  label: string
+  minDrives: number
+  usable: (n: number, s: number) => number
+  faultTolerance: (n: number) => number
+  description: string
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const n = parseInt(driveCount);
-    const s = parseFloat(driveSize);
-    
-    let usableCapacity = 0;
-    let faultTolerance = 0;
-    let description = "";
+const LEVELS: RaidLevelInfo[] = [
+  {
+    id: "0",
+    label: "RAID 0 (Striping)",
+    minDrives: 1,
+    usable: (n, s) => n * s,
+    faultTolerance: () => 0,
+    description: "Maximum performance, zero redundancy. If one drive fails, all data is lost.",
+  },
+  {
+    id: "1",
+    label: "RAID 1 (Mirroring)",
+    minDrives: 2,
+    usable: (n, s) => (n >= 2 ? s : 0),
+    faultTolerance: (n) => n - 1,
+    description: "Full data duplication. High redundancy, but expensive storage-wise.",
+  },
+  {
+    id: "5",
+    label: "RAID 5 (Parity)",
+    minDrives: 3,
+    usable: (n, s) => (n >= 3 ? (n - 1) * s : 0),
+    faultTolerance: () => 1,
+    description: "Balanced performance and redundancy. Can survive one drive failure.",
+  },
+  {
+    id: "6",
+    label: "RAID 6 (Double Parity)",
+    minDrives: 4,
+    usable: (n, s) => (n >= 4 ? (n - 2) * s : 0),
+    faultTolerance: () => 2,
+    description: "High redundancy. Can survive two simultaneous drive failures.",
+  },
+  {
+    id: "10",
+    label: "RAID 10 (1+0)",
+    minDrives: 4,
+    usable: (n, s) => (n >= 4 && n % 2 === 0 ? (n / 2) * s : 0),
+    faultTolerance: (n) => (n >= 4 && n % 2 === 0 ? n / 2 : 0),
+    description: "Excellent performance and redundancy. Requires even number of drives.",
+  },
+]
 
-    switch (raidLevel) {
-      case "0": // Striping
-        usableCapacity = n * s;
-        faultTolerance = 0;
-        description = "Maximum performance, zero redundancy. If one drive fails, all data is lost.";
-        break;
-      case "1": // Mirroring
-        usableCapacity = n >= 2 ? s : 0;
-        faultTolerance = n - 1;
-        description = "Full data duplication. High redundancy, but expensive storage-wise.";
-        break;
-      case "5": // Parity
-        usableCapacity = n >= 3 ? (n - 1) * s : 0;
-        faultTolerance = 1;
-        description = "Balanced performance and redundancy. Can survive one drive failure.";
-        break;
-      case "6": // Double Parity
-        usableCapacity = n >= 4 ? (n - 2) * s : 0;
-        faultTolerance = 2;
-        description = "High redundancy. Can survive two simultaneous drive failures.";
-        break;
-      case "10": // Striped Mirrors
-        usableCapacity = n >= 4 && n % 2 === 0 ? (n / 2) * s : 0;
-        faultTolerance = n / 2;
-        description = "Excellent performance and redundancy. Requires even number of drives.";
-        break;
-    }
+interface Result {
+  usableCapacity: number
+  totalCapacity: number
+  faultTolerance: number
+  efficiency: number
+  description: string
+  perLevel: { id: string; label: string; usable: number; valid: boolean }[]
+}
 
-    setResults({
-      usableCapacity,
-      totalCapacity: n * s,
-      faultTolerance,
-      description,
-      efficiency: (usableCapacity / (n * s)) * 100
-    });
-  };
+const DEFAULTS: Inputs = {
+  driveCount: "4",
+  driveSize: "4",
+  raidLevel: "5",
+}
 
-  const reset = () => {
-    setShowResults(false);
-    setDriveCount("4"); setDriveSize("4"); setRaidLevel("5");
-    setResults(null);
-  };
+function calculate(inputs: Inputs): Result {
+  const n = parseInt(inputs.driveCount) || 0
+  const s = parseFloat(inputs.driveSize) || 0
+  const level = LEVELS.find((l) => l.id === inputs.raidLevel) ?? LEVELS[2]
 
-  const faqs = [
-    { question: "What is RAID?", answer: "RAID (Redundant Array of Independent Disks) is a way of storing the same data in different places on multiple hard disks or solid-state drives to protect data in the case of a drive failure." },
-    { question: "Which RAID level is best for me?", answer: "For home servers (NAS), RAID 5 or 6 are popular for balancing cost and safety. For high-performance databases, RAID 10 is often preferred. RAID 0 should only be used for temporary data where speed is the only priority." },
-    { question: "Can RAID replace backups?", answer: "No. RAID protects against hardware failure, but not against accidental deletion, file corruption, ransomware, or fire. You still need an off-site backup for critical data." }
-  ];
+  const usableCapacity = level.usable(n, s)
+  const totalCapacity = n * s
+  const faultTolerance = level.faultTolerance(n)
+  const efficiency = totalCapacity > 0 ? (usableCapacity / totalCapacity) * 100 : 0
+
+  const perLevel = LEVELS.map((l) => ({
+    id: l.id,
+    label: `RAID ${l.id}`,
+    usable: l.usable(n, s),
+    valid: n >= l.minDrives && (l.id !== "10" || n % 2 === 0),
+  }))
+
+  return {
+    usableCapacity,
+    totalCapacity,
+    faultTolerance,
+    efficiency,
+    description: level.description,
+    perLevel,
+  }
+}
+
+export default function RaidCalculator() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
+
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
+
+  const invalid = useMemo(() => {
+    const n = parseInt(inputs.driveCount)
+    const s = parseFloat(inputs.driveSize)
+    return isNaN(n) || n <= 0 || isNaN(s) || s <= 0
+  }, [inputs])
+
+  const selected = LEVELS.find((l) => l.id === inputs.raidLevel) ?? LEVELS[2]
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "RAID Capacity Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">RAID Capacity Calculator</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Technology</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">RAID Capacity Calculator</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-3 gap-6 mb-6">
-                <InputField id="count" label="Number of Drives" value={driveCount} onChange={setDriveCount} />
-                <InputField id="size" label="Drive Size" value={driveSize} onChange={setDriveSize} suffix="TB" />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">RAID Level</label>
-                  <select value={raidLevel} onChange={(e) => setRaidLevel(e.target.value)} className="input-calc">
-                    <option value="0">RAID 0 (Striping)</option>
-                    <option value="1">RAID 1 (Mirroring)</option>
-                    <option value="5">RAID 5 (Parity)</option>
-                    <option value="6">RAID 6 (Double Parity)</option>
-                    <option value="10">RAID 10 (1+0)</option>
-                  </select>
-                </div>
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        RAID Capacity Calculator
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Number of Drives</label>
+                <input
+                  type="number"
+                  min={1}
+                  value={inputs.driveCount}
+                  onChange={(e) => setInputs({ ...inputs, driveCount: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="4"
+                />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className="block text-sm font-medium mb-1">Drive Size (TB)</label>
+                <input
+                  type="number"
+                  step="0.5"
+                  value={inputs.driveSize}
+                  onChange={(e) => setInputs({ ...inputs, driveSize: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="4"
+                />
               </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Storage Configuration Results</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Usable Capacity</p>
-                    <p className="text-5xl font-black text-foreground">{results.usableCapacity.toFixed(1)} <span className="text-xl font-normal text-muted-foreground">TB</span></p>
-                    <p className="text-xs text-muted-foreground mt-2">({results.efficiency.toFixed(0)}% efficiency)</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Fault Tolerance</p>
-                    <p className="text-3xl font-black text-foreground">{results.faultTolerance} <span className="text-lg">Drives</span></p>
-                  </div>
-                </div>
-
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-border/50 flex items-start gap-4">
-                  <div className="p-3 bg-white rounded-xl shadow-sm"><ShieldCheck className="h-6 w-6 text-primary" /></div>
-                  <div>
-                    <h3 className="font-bold mb-1">Level Description</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{results.description}</p>
-                    <ResultDisplay items={[
-                      { label: "Total Raw Capacity", value: 0, textValue: results.totalCapacity + " TB" },
-                      { label: "Capacity Lost to Redundancy", value: 0, textValue: (results.totalCapacity - results.usableCapacity).toFixed(1) + " TB" },
-                    ]} />
-                  </div>
-                </div>
-              </>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">RAID Level</label>
+                <select
+                  value={inputs.raidLevel}
+                  onChange={(e) => setInputs({ ...inputs, raidLevel: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {LEVELS.map((l) => (
+                    <option key={l.id} value={l.id}>{l.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {invalid && <p className="text-xs text-red-500 mt-2">Enter a positive drive count and drive size.</p>}
+            {!invalid && parseInt(inputs.driveCount) < selected.minDrives && (
+              <p className="text-xs text-amber-600 mt-2">
+                {selected.label} requires at least {selected.minDrives} drives — usable capacity will be 0.
+              </p>
             )}
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">A Guide to RAID Levels</h2>
-              <p>Choosing the right RAID level is a tradeoff between three factors: <strong>Performance</strong>, <strong>Redundancy</strong>, and <strong>Cost</strong> (Capacity).</p>
-              
-              <h3>RAID 0 (Performance)</h3>
-              <p>Data is split across all drives. It's the fastest, but if any drive fails, you lose everything. Use only for temporary processing or scratch space.</p>
-              
-              <h3>RAID 1 (Redundancy)</h3>
-              <p>Drives are exact copies of each other. Extremely safe, but very expensive because you only get the capacity of one drive regardless of how many you have.</p>
-              
-              <h3>RAID 5 (The Sweet Spot)</h3>
-              <p>Uses "parity" information spread across all drives. You lose the capacity of exactly one drive, but you gain protection against one failure and increased read speeds. Minimum of 3 drives required.</p>
-              
-              <h3>RAID 6 (The Modern Standard)</h3>
-              <p>Similar to RAID 5 but uses double parity. It can survive two simultaneous drive failures. As drive sizes increase (10TB+), RAID 6 is recommended because rebuild times are so long that a second drive might fail during the process.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/raid" />
-          <PopularCalculators exclude="/calculator/raid-calculator" />
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Usable Capacity</p>
+            <p className="text-4xl font-bold text-primary mt-1">
+              {result.usableCapacity.toLocaleString("en-US", { maximumFractionDigits: 1 })}{" "}
+              <span className="text-xl font-semibold">TB</span>
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {selected.label} · {result.efficiency.toFixed(0)}% storage efficiency
+            </p>
+          </div>
+
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Total Raw</p>
+              <p className="text-lg font-bold text-foreground mt-1">{result.totalCapacity.toLocaleString()} TB</p>
+              <p className="text-xs text-muted-foreground">{parseInt(inputs.driveCount) || 0} × {(parseFloat(inputs.driveSize) || 0).toLocaleString()} TB</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Fault Tolerance</p>
+              <p className="text-lg font-bold text-primary mt-1">{result.faultTolerance} drive{result.faultTolerance === 1 ? "" : "s"}</p>
+              <p className="text-xs text-muted-foreground">simultaneous failure</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Redundancy Overhead</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">
+                {(result.totalCapacity - result.usableCapacity).toLocaleString("en-US", { maximumFractionDigits: 1 })} TB
+              </p>
+              <p className="text-xs text-muted-foreground">lost to parity/mirroring</p>
+            </div>
+          </div>
+
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Usable Capacity by RAID Level</h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                    <th className="text-left py-2 px-3 font-medium">Level</th>
+                    <th className="text-right py-2 px-3 font-medium">Usable</th>
+                    <th className="text-right py-2 px-3 font-medium">Efficiency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.perLevel.map((row) => (
+                    <tr
+                      key={row.id}
+                      className={`border-b border-border ${row.id === inputs.raidLevel ? "bg-primary/10 font-semibold text-primary" : ""}`}
+                    >
+                      <td className="py-2.5 px-3">
+                        RAID {row.id}
+                        {!row.valid && <span className="text-xs text-muted-foreground font-normal"> (needs more drives)</span>}
+                      </td>
+                      <td className="py-2.5 px-3 text-right tabular-nums">
+                        {row.valid ? row.usable.toLocaleString("en-US", { maximumFractionDigits: 1 }) + " TB" : "—"}
+                      </td>
+                      <td className="py-2.5 px-3 text-right tabular-nums">
+                        {row.valid ? ((row.usable / result.totalCapacity) * 100).toFixed(0) + "%" : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Usable Capacity Comparison (TB)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={result.perLevel} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 11 }} />
+                <Tooltip
+                  formatter={(v: number, name: string) => [`${v.toLocaleString("en-US", { maximumFractionDigits: 1 })} TB`, "Usable"]}
+                  labelFormatter={(l) => `${l}`}
+                />
+                <Bar dataKey="usable" radius={[4, 4, 0, 0]}>
+                  {result.perLevel.map((d) => (
+                    <Cell
+                      key={d.id}
+                      fill={
+                        d.id === inputs.raidLevel
+                          ? "hsl(var(--primary))"
+                          : d.valid
+                          ? "hsl(var(--primary) / 0.45)"
+                          : "hsl(var(--muted-foreground) / 0.3)"
+                      }
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">Solid = selected level · dimmed = invalid for {parseInt(inputs.driveCount) || 0} drives.</p>
+          </div>
+
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Configuration</p>
+                <p className="font-semibold text-foreground">{parseInt(inputs.driveCount) || 0} × {(parseFloat(inputs.driveSize) || 0).toLocaleString()} TB</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Total Raw Capacity</p>
+                <p className="font-semibold text-foreground">{result.totalCapacity.toLocaleString()} TB</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Usable Capacity</p>
+                <p className="font-semibold text-foreground">{result.usableCapacity.toLocaleString("en-US", { maximumFractionDigits: 1 })} TB</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Fault Tolerance</p>
+                <p className="font-semibold text-foreground">{result.faultTolerance} drive{result.faultTolerance === 1 ? "" : "s"}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Storage Efficiency</p>
+                <p className="font-semibold text-foreground">{result.efficiency.toFixed(0)}%</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Level Description</p>
+                <p className="font-semibold text-foreground text-xs leading-snug">{result.description}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default RaidCalculator;
-
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/raid-calculator" />
+      </div>
+    </div>
+  )
+}

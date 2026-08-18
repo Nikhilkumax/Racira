@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 // Per-card pill overrides — keeps tools.ts untouched
 const PILL_OVERRIDES: Record<string, string[]> = {
-  voice: ["100+ Voices", "50+ Languages"],
+  voice: ["28 Voices", "US & UK English"],
 };
 
 // 8 featured slugs = 2 complete rows of 4 on desktop, 2 rows of 2 on mobile

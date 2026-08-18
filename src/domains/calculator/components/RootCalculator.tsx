@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, ArrowLeftRight } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell, ReferenceLine } from "recharts";
 
 interface RootResult {
   base: number;
@@ -62,6 +63,16 @@ const calculateRoot = (baseStr: string, nStr: string): RootResult | null => {
   };
 };
 
+const powerChartFor = (r: RootResult) => {
+  const base = Math.abs(r.result);
+  const levels = Math.min(r.n, 6);
+  const data: { name: string; value: number; fill: string }[] = [];
+  for (let k = 1; k <= levels; k++) {
+    data.push({ name: `^${k}`, value: Math.pow(base, k), fill: k === levels ? "hsl(var(--primary))" : "#a3a3a3" });
+  }
+  return data;
+};
+
 const getOrdinalSuffix = (i: number) => {
   const j = i % 10, k = i % 100;
   if (j === 1 && k !== 11) return "st";
@@ -105,21 +116,17 @@ const RootCalculator = () => {
           
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <div className="flex flex-col mb-2">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Degree (n)</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">e.g. 2 for Square, 3 for Cube</span>
-              </label>
-              <div className={wrap}><input type="number" value={nVal} onChange={e => setNVal(e.target.value)} className={ci} step="1" /></div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-foreground mb-1">Degree (n)</label>
+                <div className={wrap}><input type="number" value={nVal} onChange={e => setNVal(e.target.value)} className={ci} step="1" /></div>
+              </div>
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-foreground mb-1">Radicand (Base)</label>
+                <div className={wrap}><input type="number" value={baseVal} onChange={e => setBaseVal(e.target.value)} className={ci} step="0.000001" /></div>
+              </div>
             </div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Radicand (Base Number)</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">The number inside the root</span>
-              </label>
-              <div className={wrap}><input type="number" value={baseVal} onChange={e => setBaseVal(e.target.value)} className={ci} step="any" /></div>
-            </div>
+            <p className="text-xs text-muted-foreground -mt-2">n = 2 for square root, 3 for cube root. The radicand is the number inside the root.</p>
 
             <div className="flex gap-3 mt-4">
               <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
@@ -159,6 +166,23 @@ const RootCalculator = () => {
                     Complex / Imaginary Result Detected
                   </p>
                 )}
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Powers of the Result</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={powerChartFor(result)} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toPrecision(6), "Value"]} />
+                    <ReferenceLine y={Math.abs(result.base)} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: `Base ${Math.abs(result.base)}`, position: "insideTopRight", fontSize: 10, fill: "#b45309" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {powerChartFor(result).map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">Each bar is the result raised to a higher power; the top bar meets the radicand, confirming {result.n}√{result.base} = {result.result.toPrecision(6)}.</p>
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
@@ -204,7 +228,7 @@ const RootCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">Imaginary Numbers and Negative Roots</h2>
             <p>Can you find the root of a negative number? The answer depends on the degree (n) of the root.</p>
             <p>If the degree is <strong>odd</strong> (like a cube root or 5th root), the answer is yes, and it is a real number. The cube root of -8 is -2, because <code>(-2) × (-2) × (-2) = -8</code>.</p>
-            <p>If the degree is <strong>even</strong> (like a square root or 4th root), the answer cannot be a real number. Why? Because multiplying any real number by itself an even number of times always results in a positive number. Therefore, to solve the square root of a negative number, mathematicians created <strong>Imaginary Numbers</strong>, denoted by the letter <em>i</em> (where <em>i</em> = √-1). Our calculator automatically detects this scenario and appends <em>i</em> to your result.</p>
+            <p>If the degree is <strong>even</strong> (like a square root or 4th root), the answer cannot be a real number. Why? Because multiplying a real number by itself an even number of times always results in a positive number. Therefore, to solve the square root of a negative number, mathematicians created <strong>Imaginary Numbers</strong>, denoted by the letter <em>i</em> (where <em>i</em> = √-1). Our calculator automatically detects this scenario and appends <em>i</em> to your result.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/root-calculator" />
           <PopularCalculators exclude="/calculator/root-calculator" />

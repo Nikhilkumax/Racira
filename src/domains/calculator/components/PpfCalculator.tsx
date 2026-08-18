@@ -1,141 +1,318 @@
 "use client";
 
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import Link from "next/link";
 
-const PPFCalculator = () => {
+const PPF_CAP = 150000;
+
+function fmtInr(n: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+export default function PpfCalculator() {
   const [yearly, setYearly] = useState("150000");
   const [rate, setRate] = useState("7.1");
   const [years, setYears] = useState("15");
   const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ invested: number; interest: number; maturity: number; yearData: { year: number; deposit: number; interest: number; balance: number }[] } | null>(null);
 
-  const handleCalculate = () => {
-    setShowResults(true);
+  const result = useMemo(() => {
     const P = parseFloat(yearly) || 0;
     const r = (parseFloat(rate) || 0) / 100;
-    const n = parseInt(years) || 15;
-    if (P <= 0 || n <= 0) return;
+    const n = Math.max(1, parseInt(years) || 15);
+    const cappedP = Math.min(P, PPF_CAP);
 
-    const cappedP = Math.min(P, 150000); // PPF max limit
     let balance = 0;
     let totalDeposit = 0;
-    const data: { year: number; deposit: number; interest: number; balance: number }[] = [];
+    const yearData: { year: number; deposit: number; interest: number; balance: number }[] = [];
 
     for (let y = 1; y <= n; y++) {
       totalDeposit += cappedP;
       const interest = (balance + cappedP) * r;
       balance = balance + cappedP + interest;
-      data.push({ year: y, deposit: cappedP, interest, balance });
+      yearData.push({ year: y, deposit: cappedP, interest, balance });
     }
 
-    setResult({ invested: totalDeposit, interest: balance - totalDeposit, maturity: balance, yearData: data });
-  };
+    return {
+      invested: totalDeposit,
+      interest: balance - totalDeposit,
+      maturity: balance,
+      yearData,
+      capped: P > PPF_CAP,
+    };
+  }, [yearly, rate, years]);
 
-  const reset = () => {
-    setShowResults(false); setYearly("150000"); setRate("7.1"); setYears("15"); setResult(null); };
-
-  const faqs = [
-    { question: "What is PPF?", answer: "PPF (Public Provident Fund) is a government-backed long-term savings scheme in India offering guaranteed, tax-free returns. It has a 15-year lock-in period with extension options." },
-    { question: "What is the current PPF interest rate?", answer: "The PPF interest rate is reviewed quarterly by the government. As of recent quarters, it has been 7.1% per annum, compounded annually." },
-    { question: "What is the maximum PPF deposit?", answer: "The maximum annual deposit in PPF is ₹1,50,000. The minimum is ₹500 per year. Deposits above ₹1,50,000 do not earn interest." },
-    { question: "Is PPF tax-free?", answer: "Yes, PPF enjoys EEE (Exempt-Exempt-Exempt) tax status. Deposits qualify for Section 80C deduction (up to ₹1.5L), interest earned is tax-free, and maturity amount is tax-free." },
-    { question: "Can I extend PPF after 15 years?", answer: "Yes, PPF can be extended in blocks of 5 years each. You can extend with or without fresh contributions." },
-  ];
+  const handleCalculate = () => setShowResults(true);
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PPF Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PPF Calculator</h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Finance", href: "/finance" },
+          { label: "PPF Calculator", href: "/calculator/ppf-calculator" },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="yearly" label="Yearly Deposit" value={yearly} onChange={setYearly} prefix="₹" />
-                <InputField id="rate" label="Interest Rate (p.a.)" value={rate} onChange={setRate} suffix="%" />
-                <InputField id="years" label="Tenure" value={years} onChange={setYears} suffix="Years" min="15" />
-              </div>
-              <p className="text-xs text-muted-foreground mb-4">Max deposit: ₹1,50,000/year. Min tenure: 15 years.</p>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">PPF Maturity</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Total Deposited", value: result.invested },
-                  { label: "Total Interest", value: result.interest, highlight: true },
-                  { label: "Maturity Amount", value: result.maturity, highlight: true },
-                ]} />
-
-                <div className="mt-6">
-                  <h3 className="font-semibold mb-3">Year-by-Year Breakdown</h3>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead><tr className="border-b border-border">
-                        <th className="text-left py-2 px-3 font-medium text-muted-foreground">Year</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Deposit</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Interest</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Balance</th>
-                      </tr></thead>
-                      <tbody>
-                        {result.yearData.map((d) => (
-                          <tr key={d.year} className="border-b border-border/50">
-                            <td className="py-2 px-3">{d.year}</td>
-                            <td className="py-2 px-3 text-right">₹{d.deposit.toLocaleString("en-IN")}</td>
-                            <td className="py-2 px-3 text-right text-[hsl(217,91%,40%)] dark:text-primary">₹{d.interest.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            <td className="py-2 px-3 text-right font-medium">₹{d.balance.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is a PPF Calculator?</h2>
-              <p>A PPF calculator helps you estimate the maturity value of your Public Provident Fund account based on annual deposits, interest rate, and tenure. PPF is one of the safest investment options in India, backed by the Government of India.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How PPF Interest Is Calculated</h2>
-              <p>PPF interest is compounded annually. The interest for each year is calculated on the balance at the end of the previous year plus the current year's deposit. The formula is:</p>
-              <p><strong>Balance(n) = [Balance(n-1) + Deposit] × (1 + r)</strong></p>
-
-              <h2 className="text-2xl font-bold mb-3">PPF Key Features</h2>
-              <ul>
-                <li><strong>Tax Benefits:</strong> EEE status — deduction under 80C, tax-free interest, tax-free maturity.</li>
-                <li><strong>Lock-in:</strong> 15-year minimum, extendable in 5-year blocks.</li>
-                <li><strong>Partial Withdrawal:</strong> Allowed from 7th year onwards.</li>
-                <li><strong>Loan Facility:</strong> Available from 3rd to 6th year against PPF balance.</li>
-                <li><strong>Sovereign Guarantee:</strong> Zero credit risk, backed by Government of India.</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> PPF interest rate is subject to quarterly revision by the government. This calculator uses the rate you provide for the entire tenure. Actual returns may vary.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ppf-calculator" />
-          <PopularCalculators exclude="/ppf-calculator" />
-        </div>
+      <div className="mb-6">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
+          PPF Calculator
+        </h1>
+        <p className="text-muted-foreground">
+          Estimate the maturity value of your Public Provident Fund with annual compounding — the
+          tax-free (EEE) cornerstone of Indian long-term saving.
+        </p>
       </div>
-    </>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>PPF Details</CardTitle>
+          <CardDescription>Enter your yearly deposit, rate, and tenure.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="space-y-2">
+              <Label htmlFor="ppf-yearly">Yearly deposit (₹)</Label>
+              <Input
+                id="ppf-yearly"
+                type="number"
+                value={yearly}
+                onChange={(e) => setYearly(e.target.value)}
+                min={500}
+              />
+              {result.capped && (
+                <p className="text-xs text-amber-500">
+                  Capped at ₹1,50,000/year — deposits above the limit earn no interest.
+                </p>
+              )}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="ppf-rate">Interest rate (p.a.) (%)</Label>
+              <Input
+                id="ppf-rate"
+                type="number"
+                value={rate}
+                onChange={(e) => setRate(e.target.value)}
+                min={0}
+                max={15}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="ppf-years">Tenure (years)</Label>
+              <Input
+                id="ppf-years"
+                type="number"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                min={15}
+                max={30}
+              />
+              <p className="text-xs text-muted-foreground">Minimum lock-in is 15 years.</p>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button onClick={handleCalculate}>Calculate</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => {
+                setYearly("150000");
+                setRate("7.1");
+                setYears("15");
+                setShowResults(false);
+              }}
+            >
+              Reset
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {showResults && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card className="bg-primary/10 border-l-4 border-primary rounded-xl">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Maturity amount</p>
+                <p className="text-2xl font-bold text-primary">{fmtInr(result.maturity)}</p>
+                <p className="text-xs text-muted-foreground">After {parseInt(years) || 15} years</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Total interest earned</p>
+                <p className="text-2xl font-bold">{fmtInr(result.interest)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {result.maturity > 0 ? ((result.interest / result.maturity) * 100).toFixed(0) : 0}% of
+                  the corpus
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Total deposited</p>
+                <p className="text-2xl font-bold">{fmtInr(result.invested)}</p>
+                <p className="text-xs text-muted-foreground">₹{PPF_CAP.toLocaleString("en-IN")} max/year</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Corpus Growth Over Time</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={result.yearData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="year" />
+                    <YAxis tickFormatter={(v) => `₹${(v / 100000).toFixed(1)}L`} />
+                    <Tooltip
+                      formatter={(v) => fmtInr(Number(v))}
+                      labelFormatter={(l) => `Year ${l}`}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="balance"
+                      stroke="#3b82f6"
+                      strokeWidth={2}
+                      name="Balance"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="deposit"
+                      stroke="#10b981"
+                      name="Cumulative Deposit"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Year-wise Breakdown</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Year</TableHead>
+                    <TableHead className="text-right">Deposit</TableHead>
+                    <TableHead className="text-right">Interest</TableHead>
+                    <TableHead className="text-right">Balance</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {result.yearData.slice(0, 30).map((d) => (
+                    <TableRow key={d.year}>
+                      <TableCell className="font-medium">{d.year}</TableCell>
+                      <TableCell className="text-right">{fmtInr(d.deposit)}</TableCell>
+                      <TableCell className="text-right">{fmtInr(d.interest)}</TableCell>
+                      <TableCell className="text-right font-medium">{fmtInr(d.balance)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>How It Works</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                PPF compounds annually: interest is calculated on the opening balance plus the
+                current year&apos;s deposit, then added to the balance. A 15-year minimum lock-in
+                means the compounding curve really only shows its power in the back half of the
+                tenure.
+              </p>
+              <p>
+                <strong>EEE status</strong> means the deposit (deductible under 80C), the interest,
+                and the maturity amount are all tax-free — one of the safest and most tax-efficient
+                long-term instruments available in India.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <p className="font-semibold">Can I extend PPF beyond 15 years?</p>
+                <p className="text-muted-foreground">
+                  Yes — in blocks of 5 years, with or without further deposits. Extending with
+                  deposits keeps the EEE tax benefit flowing for as long as the account stays open.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Can I withdraw before 15 years?</p>
+                <p className="text-muted-foreground">
+                  Partial withdrawals are allowed from year 7 under specific conditions (up to 50%
+                  of the balance at the end of year 6). Full closure before 15 years is only
+                  permitted for serious illness, higher education, or a change of residency.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Is the interest rate fixed?</p>
+                <p className="text-muted-foreground">
+                  No — the government resets it quarterly, though it has been remarkably stable
+                  (7.1% for several years). Treat the rate as a planning assumption, not a promise.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">What is the minimum deposit?</p>
+                <p className="text-muted-foreground">
+                  ₹500 per year. The maximum is ₹1,50,000 per year — anything above the cap earns
+                  no interest and is refunded.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-sm text-muted-foreground">
+            <Link href="/finance" className="text-primary hover:underline">
+              ← More Finance Calculators
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
   );
-};
-
-export default PPFCalculator;
-
-
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -121,12 +121,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function AssetCoverageRatioCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<AssetCoverageResults>(calculateAssetCoverage(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -134,6 +128,11 @@ export default function AssetCoverageRatioCalculator() {
       const r = calculateAssetCoverage(newInputs);
       if (!r.isError) setResults(r);
     }
+  };
+
+  const handleCalculate = () => {
+    const r = calculateAssetCoverage(inputs);
+    if (!r.isError) setResults(r);
   };
 
   const handleReset = () => {
@@ -148,8 +147,6 @@ export default function AssetCoverageRatioCalculator() {
     { question: "What is a 'good' Asset Coverage Ratio?", answer: "It depends on the industry. For most industrial and manufacturing companies, a ratio of 2.0x or higher is considered safe. For utility companies, which have highly predictable cash flows, a ratio of 1.5x or higher is usually acceptable." },
     { question: "How does this differ from the Debt Ratio?", answer: "The Debt Ratio simply compares total debt to total assets. The Asset Coverage Ratio is more conservative; it strips out intangibles and operational liabilities to give a true picture of liquidation coverage." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -190,7 +187,10 @@ export default function AssetCoverageRatioCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

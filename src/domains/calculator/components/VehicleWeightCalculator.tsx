@@ -140,7 +140,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Determine your vehicle's safe payload limits or find its maximum legal operating weight (GVWR).</p>
+            
 
             <div className="grid grid-cols-1 gap-4 mb-2">
               <CompactInput id="mode" label="What are you trying to calculate?" value={inputs.calcMode} onChange={(v: string) => handleChange("calcMode", v)} options={[

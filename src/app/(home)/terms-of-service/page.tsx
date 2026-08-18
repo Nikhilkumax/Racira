@@ -1,4 +1,10 @@
 import Breadcrumb from "@/components/Breadcrumb";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Racira",
+  description: "Racira's terms of service for using our browser-based tools.",
+};
 
 const TermsOfService = () => (
   <>

@@ -42,7 +42,14 @@ export default function EscrowCalculator() {
     };
   };
 
-  const results = calculateEscrow();
+  const [results, setResults] = useState(calculateEscrow());
+  const handleCalculate = () => setResults(calculateEscrow());
+  const handleReset = () => {
+    setAnnualPropertyTaxes(3600);
+    setAnnualHomeInsurance(1200);
+    setPmiMonthly(0);
+    setHoaMonthly(0);
+  };
 
   return (
     <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -117,6 +124,15 @@ export default function EscrowCalculator() {
                   Note: HOA fees are not always held in escrow, but are part of your monthly housing cost.
                 </p>
               </div>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button type="button" onClick={handleCalculate} className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 h-11 rounded-xl border border-border/50 bg-background hover:bg-secondary text-foreground font-semibold transition-colors flex items-center justify-center gap-2">
+                Reset
+              </button>
             </div>
           </div>
         </div>

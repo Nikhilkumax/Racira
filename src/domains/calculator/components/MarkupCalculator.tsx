@@ -1,172 +1,199 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-const MarkupCalculator = () => {
-  const [mode, setMode] = useState<"cost_markup" | "cost_price" | "price_margin">("cost_markup");
-  const [costPrice, setCostPrice] = useState("60");
-  const [sellingPrice, setSellingPrice] = useState("100");
-  const [markupPercent, setMarkupPercent] = useState("66.67");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{
-    cost: number; selling: number; profit: number;
-    markup: number; margin: number;
-  } | null>(null);
+interface MarkupResult {
+  mode: string;
+  cost: number;
+  selling: number;
+  profit: number;
+  markupPct: number;
+  marginPct: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    let cost: number, selling: number;
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-    if (mode === "cost_markup") {
-      cost = parseFloat(costPrice) || 0;
-      const mkp = parseFloat(markupPercent) || 0;
-      if (cost <= 0) return;
-      selling = cost * (1 + mkp / 100);
-    } else if (mode === "cost_price") {
-      cost = parseFloat(costPrice) || 0;
-      selling = parseFloat(sellingPrice) || 0;
-      if (cost <= 0 || selling <= 0) return;
-    } else {
-      selling = parseFloat(sellingPrice) || 0;
-      const marginPct = parseFloat(markupPercent) || 0;
-      if (selling <= 0 || marginPct >= 100) return;
-      cost = selling * (1 - marginPct / 100);
-    }
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+}
 
-    const profit = selling - cost;
-    setResult({
-      cost: Math.round(cost * 100) / 100,
-      selling: Math.round(selling * 100) / 100,
-      profit: Math.round(profit * 100) / 100,
-      markup: cost > 0 ? Math.round((profit / cost) * 10000) / 100 : 0,
-      margin: selling > 0 ? Math.round((profit / selling) * 10000) / 100 : 0,
-    });
-  };
-
-  const reset = () => {
-    setShowResults(false); setCostPrice("60"); setSellingPrice("100"); setMarkupPercent("66.67"); setResult(null); };
-
-  const modes = [
-    { value: "cost_markup", label: "Cost + Markup %" },
-    { value: "cost_price", label: "Cost + Selling Price" },
-    { value: "price_margin", label: "Price + Margin %" },
+function calcMarkup(cost: number, selling: number, markupPct: number, mode: string): MarkupResult {
+  const c = mode === "from-cost-selling" ? cost : cost;
+  const s = mode === "from-cost-selling" ? selling : cost * (1 + markupPct / 100);
+  const profit = s - c;
+  const mp = c > 0 ? (profit / c) * 100 : 0;
+  const mg = s > 0 ? (profit / s) * 100 : 0;
+  const breakdown = [
+    { label: "Cost Price", value: money(c) },
+    { label: "Selling Price", value: money(s) },
+    { label: "Profit", value: money(profit) },
+    { label: "Markup Percentage", value: `${fmt(mp)}%` },
+    { label: "Gross Margin", value: `${fmt(mg)}%` },
   ];
+  const summaryStats = [
+    { label: "Markup", value: `${fmt(mp)}%` },
+    { label: "Margin", value: `${fmt(mg)}%` },
+    { label: "Profit", value: money(profit) },
+    { label: "Selling Price", value: money(s) },
+    { label: "Cost Price", value: money(c) },
+  ];
+  const chartData = [
+    { name: "Cost", value: Number(c.toFixed(2)), fill: "hsl(var(--primary))" },
+    { name: "Profit", value: Number(profit.toFixed(2)), fill: "#f59e0b" },
+  ];
+  return { mode, cost: c, selling: s, profit, markupPct: mp, marginPct: mg, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { cost: "100", selling: "150", markup: "50" };
+
+export default function MarkupCalculator() {
+  const [mode, setMode] = useState<string>("from-cost-selling");
+  const [cost, setCost] = useState(DEFAULTS.cost);
+  const [selling, setSelling] = useState(DEFAULTS.selling);
+  const [markup, setMarkup] = useState(DEFAULTS.markup);
+  const [result, setResult] = useState<MarkupResult | null>(null);
+
+  const costNum = parseFloat(cost);
+  const sellingNum = parseFloat(selling);
+  const markupNum = parseFloat(markup);
+  const errs: string[] = [];
+  if (!costNum || costNum <= 0) errs.push("Cost price must be greater than 0.");
+  if (mode === "from-cost-selling" && (!sellingNum || sellingNum <= 0)) errs.push("Selling price must be greater than 0.");
+  if (mode === "from-cost-markup" && isNaN(markupNum)) errs.push("Markup percentage is required.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcMarkup(costNum, sellingNum, markupNum, mode)); };
+  const reset = () => {
+    setMode("from-cost-selling"); setCost(DEFAULTS.cost); setSelling(DEFAULTS.selling); setMarkup(DEFAULTS.markup);
+    setResult(calcMarkup(100, 150, 50, "from-cost-selling"));
+  };
+  useEffect(() => { setResult(calcMarkup(100, 150, 50, "from-cost-selling")); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is markup?", answer: "Markup is the percentage added to the cost price to determine the selling price. If an item costs $60 and you sell it for $100, the markup is ($40 ÷ $60) × 100 = 66.7%." },
-    { question: "What is the difference between markup and margin?", answer: "Markup is profit divided by cost (percentage of cost). Margin is profit divided by selling price (percentage of revenue). A 100% markup equals a 50% margin." },
-    { question: "How do I convert markup to margin?", answer: "Margin = Markup ÷ (1 + Markup). For example, 50% markup → 0.50 ÷ 1.50 = 33.3% margin. Conversely, Markup = Margin ÷ (1 − Margin)." },
-    { question: "What markup should I use?", answer: "It depends on your industry. Retail typically uses 50-100% markup. Restaurants use 200-300% on food. Software may use 500%+ on marginal cost. Ensure your markup covers overhead and desired profit." },
+    { question: "What is the difference between markup and margin?", answer: "Markup is profit expressed as a percentage of cost: (price − cost) ÷ cost. Margin is profit expressed as a percentage of price: (price − cost) ÷ price. A 50% markup is only a 33.3% margin, because the denominators differ." },
+    { question: "How do I convert markup to margin?", answer: "Given markup m as a decimal, margin = m ÷ (1 + m). So a 100% markup (double the cost) is a 50% margin, and a 25% markup is a 20% margin. The two only coincide at 0%." },
+    { question: "Which should I use for pricing?", answer: "Margin is the better planning metric because it shows how much of each revenue dollar survives as profit. Markup is convenient for quoting from cost, but businesses that quote in markup often underpricе — a common retail pitfall." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Markup Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Markup Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Markup Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Markup Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-6">
-                <label className="block text-sm font-medium text-foreground mb-2">Calculate From</label>
-                <div className="flex flex-wrap gap-2">
-                  {modes.map(m => (
-                    <button key={m.value} onClick={() => { setMode(m.value as any); setResult(null); }}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${mode === m.value ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>
-                      {m.label}
-                    </button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className={lbl}>What do you want to calculate?</label>
+              <select value={mode} onChange={e => setMode(e.target.value)} className={inp}>
+                <option value="from-cost-selling">Markup % from cost &amp; selling price</option>
+                <option value="from-cost-markup">Selling price from cost &amp; markup %</option>
+              </select>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Cost Price ($)</label>
+                <input type="number" value={cost} onChange={e => setCost(e.target.value)} className={inp} placeholder="100" />
+              </div>
+              {mode === "from-cost-selling" ? (
+                <div>
+                  <label className={lbl}>Selling Price ($)</label>
+                  <input type="number" value={selling} onChange={e => setSelling(e.target.value)} className={inp} placeholder="150" />
+                </div>
+              ) : (
+                <div>
+                  <label className={lbl}>Markup (%)</label>
+                  <input type="number" value={markup} onChange={e => setMarkup(e.target.value)} className={inp} placeholder="50" />
+                </div>
+              )}
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Markup Percentage</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt(result.markupPct)}%</div>
+                <div className="text-sm text-muted-foreground mt-1">Gross margin: {fmt(result.marginPct)}% · profit {money(result.profit)} on {money(result.cost)} cost</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Selling Price`, money(result.selling)], ["Cost Price", money(result.cost)], ["Profit", money(result.profit)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 3 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 3 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Cost vs Profit Split</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [money(v), ""]} />
+                    <Legend wrapperStyle={{ fontSize: 13 }} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Markup measures profit against cost; margin measures it against price</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                   ))}
                 </div>
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                {(mode === "cost_markup" || mode === "cost_price") && (
-                  <InputField id="costPrice" label="Cost Price" value={costPrice} onChange={setCostPrice} prefix="$" />
-                )}
-                {mode === "cost_markup" && (
-                  <InputField id="markupPercent" label="Markup %" value={markupPercent} onChange={setMarkupPercent} suffix="%" />
-                )}
-                {(mode === "cost_price" || mode === "price_margin") && (
-                  <InputField id="sellingPrice" label="Selling Price" value={sellingPrice} onChange={setSellingPrice} prefix="$" />
-                )}
-                {mode === "price_margin" && (
-                  <InputField id="marginPercent" label="Margin %" value={markupPercent} onChange={setMarkupPercent} suffix="%" />
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Markup & Margin</h2>
-                <ResultDisplay items={[
-                  { label: "Cost Price", value: result.cost },
-                  { label: "Selling Price", value: result.selling },
-                  { label: "Profit", value: result.profit, highlight: true },
-                  { label: "Markup %", value: 0, textValue: `${result.markup}%`, highlight: true },
-                  { label: "Margin %", value: 0, textValue: `${result.margin}%` },
-                ]} />
-              </>
-            )}
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is Markup?</h2>
-              <p>Markup is the amount added to the cost of a product or service to determine its selling price. It is expressed as a percentage of the cost. Markup is one of the most fundamental pricing concepts in business, directly affecting profitability and competitiveness.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Markup Formulas</h2>
-              <ul>
-                <li><strong>Markup % = ((Selling Price − Cost) ÷ Cost) × 100</strong></li>
-                <li><strong>Selling Price = Cost × (1 + Markup% ÷ 100)</strong></li>
-                <li><strong>Cost = Selling Price ÷ (1 + Markup% ÷ 100)</strong></li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Markup vs Margin Conversion Table</h2>
-              <table className="w-full text-sm mb-4">
-                <thead><tr><th className="text-left py-1">Markup</th><th className="text-right">Margin</th></tr></thead>
-                <tbody>
-                  <tr><td>15%</td><td className="text-right">13.0%</td></tr>
-                  <tr><td>25%</td><td className="text-right">20.0%</td></tr>
-                  <tr><td>50%</td><td className="text-right">33.3%</td></tr>
-                  <tr><td>75%</td><td className="text-right">42.9%</td></tr>
-                  <tr><td>100%</td><td className="text-right">50.0%</td></tr>
-                  <tr><td>200%</td><td className="text-right">66.7%</td></tr>
-                </tbody>
-              </table>
-
-              <h2 className="text-2xl font-bold mb-3">Common Markup by Industry</h2>
-              <ul>
-                <li><strong>Grocery:</strong> 10-30% markup</li>
-                <li><strong>Retail clothing:</strong> 50-100% (keystone markup)</li>
-                <li><strong>Restaurants:</strong> 200-300% on food, 400-500% on beverages</li>
-                <li><strong>Jewelry:</strong> 50-100% for fine jewelry, up to 300% for fashion</li>
-                <li><strong>Electronics:</strong> 20-50%</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Pricing decisions should consider market conditions, competitor pricing, and perceived value. Markup alone doesn't guarantee profitability — total volume and overhead matter.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Markup vs Margin, Once and for All</h2>
+            <p>This <strong>markup calculator</strong> computes both sides of the same coin: markup — profit as a share of cost — and gross margin — profit as a share of price. Buy at $100, sell at $150: that is a 50% markup but only a 33.3% margin.</p>
+            <h2 className="text-2xl font-bold mb-3">Two Ways to Price</h2>
+            <p>Give the calculator cost plus selling price and it derives the markup; or give it cost plus a target markup and it derives the selling price. The math is the same either direction: price = cost × (1 + markup/100).</p>
+            <h2 className="text-2xl font-bold mb-3">Why the Confusion Costs Money</h2>
+            <p>Retailers who target "50% markup" are actually earning a 33% margin, and margin-based targets need a higher markup to hit. Converting is simple: margin = markup ÷ (1 + markup). Knowing which number you are quoting keeps your pricing honest.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/markup-calculator" />
-          <PopularCalculators exclude="/markup-calculator" />
+          <PopularCalculators exclude="/calculator/markup-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default MarkupCalculator;
-
-
+}

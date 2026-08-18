@@ -124,7 +124,16 @@ export default function ArmVsFixedRateCalculator() {
     };
   };
 
-  const results = calculateComparison();
+  const [results, setResults] = useState(calculateComparison());
+  const handleCalculate = () => setResults(calculateComparison());
+  const handleReset = () => {
+    setLoanAmount(300000);
+    setLoanTerm(30);
+    setFixedRate(6.5);
+    setArmInitialRate(5.5);
+    setArmFixedYears(5);
+    setArmExpectedAdjustment(0.25);
+  };
   const savingsInitial = results.fixedPayment - results.initialArmPayment;
   const isArmCheaperOverall = results.totalArmPaid < results.totalFixedPaid;
 
@@ -230,6 +239,15 @@ export default function ArmVsFixedRateCalculator() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button type="button" onClick={handleCalculate} className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 h-11 rounded-xl border border-border/50 bg-background hover:bg-secondary text-foreground font-semibold transition-colors flex items-center justify-center gap-2">
+                Reset
+              </button>
             </div>
           </div>
         </div>

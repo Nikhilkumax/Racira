@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -123,12 +123,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function Election83bCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<Election83bResults>(calculate83b(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -136,6 +130,11 @@ export default function Election83bCalculator() {
       const r = calculate83b(newInputs);
       if (!r.isError) setResults(r);
     }
+  };
+
+  const handleCalculate = () => {
+    const r = calculate83b(inputs);
+    if (!r.isError) setResults(r);
   };
 
   const handleReset = () => {
@@ -150,8 +149,6 @@ export default function Election83bCalculator() {
     { question: "What are the risks of an 83(b) election?", answer: "The primary risk is if the company fails or the stock price drops below the grant price. If you leave the company before the stock vests and forfeit the shares, you cannot claim a tax deduction or refund for the taxes already paid upon grant." },
     { question: "Does an 83(b) election apply to stock options?", answer: "No. An 83(b) election generally only applies to restricted stock or early-exercised stock options (where you exercise the option to buy unvested shares). It does not apply to standard unexercised ISOs or NSOs." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -188,7 +185,10 @@ export default function Election83bCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

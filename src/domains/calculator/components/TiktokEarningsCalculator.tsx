@@ -1,154 +1,299 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Share2, DollarSign, Calculator, TrendingUp, Users, Heart, MessageCircle } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
+
+interface Inputs {
+  views: string
+  followers: string
+  engagement: string
+}
+
+interface Result {
+  fundLow: number
+  fundHigh: number
+  brandDealLow: number
+  brandDealHigh: number
+  monthlyPotential: number
+  rpm: number
+  followerTier: string
+  eligible: boolean
+}
+
+const DEFAULTS: Inputs = { views: "100000", followers: "50000", engagement: "4.5" }
+
+function calculate(inputs: Inputs): Result {
+  const v = parseFloat(inputs.views) || 0
+  const f = parseFloat(inputs.followers) || 0
+  const e = parseFloat(inputs.engagement) || 0
+
+  // TikTok Creator Rewards Program: ~$0.20–$0.80 per 1,000 qualified views
+  const fundLow = (v / 1000) * 0.2
+  const fundHigh = (v / 1000) * 0.8
+
+  // Brand deals: $15 per 1,000 followers, scaled by engagement (3% = average)
+  const baseRate = (f / 1000) * 15
+  const engagementMultiplier = e / 3
+  const brandDealLow = baseRate * Math.max(0.5, engagementMultiplier * 0.8)
+  const brandDealHigh = baseRate * Math.max(1.2, engagementMultiplier * 1.5)
+
+  const monthlyPotential = fundLow * 30 + brandDealLow * 2
+
+  return {
+    fundLow,
+    fundHigh,
+    brandDealLow,
+    brandDealHigh,
+    monthlyPotential,
+    rpm: v > 0 ? (fundLow / v) * 1000 : 0,
+    followerTier: f >= 100000 ? "Macro-Influencer" : f >= 10000 ? "Micro-Influencer" : "Nano-Influencer",
+    eligible: f >= 10000 && v >= 100000,
+  }
+}
 
 export default function TiktokEarningsCalculator() {
-  const [views, setViews] = useState("100000");
-  const [followers, setFollowers] = useState("50000");
-  const [engagement, setEngagement] = useState("4.5");
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState({
-    fundLow: 0,
-    fundHigh: 0,
-    brandDealLow: 0,
-    brandDealHigh: 0,
-    monthlyPotential: 0,
-  });
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
 
-  const handleCalculate = () => {
-    const v = parseFloat(views) || 0;
-    const f = parseFloat(followers) || 0;
-    const e = parseFloat(engagement) || 0;
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
 
-    // TikTok Creator Rewards Program (Newer version of Creator Fund)
-    // Pays roughly $0.20 to $1.00 per 1,000 views for 1min+ videos
-    const fundLow = (v / 1000) * 0.20;
-    const fundHigh = (v / 1000) * 0.80;
+  const invalid = useMemo(() => {
+    const v = parseFloat(inputs.views)
+    const f = parseFloat(inputs.followers)
+    const e = parseFloat(inputs.engagement)
+    return [v, f, e].some((x) => isNaN(x) || x < 0)
+  }, [inputs])
 
-    // Brand Deal estimates based on follower count and engagement
-    // Standard industry rate: $10-$25 per 1,000 followers per post
-    const baseRate = (f / 1000) * 15;
-    const engagementMultiplier = e / 3; // 3% is average
-    const brandDealLow = baseRate * Math.max(0.5, engagementMultiplier * 0.8);
-    const brandDealHigh = baseRate * Math.max(1.2, engagementMultiplier * 1.5);
+  const chartData = useMemo(
+    () => [
+      { name: "Rewards Program", low: result.fundLow * 30, high: result.fundHigh * 30 },
+      { name: "Brand Deals", low: result.brandDealLow * 2, high: result.brandDealHigh * 2 },
+      { name: "Total Potential", low: result.monthlyPotential, high: result.monthlyPotential + result.fundHigh * 30 * 0.3 },
+    ],
+    [result]
+  )
 
-    const monthlyPotential = (fundLow * 30) + (brandDealLow * 2); // Assuming daily uploads and 2 brand deals a month
+  function run() {
+    setResult(calculate(inputs))
+  }
 
-    setResults({
-      fundLow,
-      fundHigh,
-      brandDealLow,
-      brandDealHigh,
-      monthlyPotential,
-    });
-    setShowResults(true);
-  };
-
-  const reset = () => {
-    setViews("100000");
-    setFollowers("50000");
-    setEngagement("4.5");
-    setShowResults(false);
-  };
-
-  const faqs = [
-    { question: "How much does the TikTok Creator Rewards Program pay?", answer: "The newer TikTok Creator Rewards Program (which replaced the Creator Fund) pays significantly more, typically between $0.20 and $1.00 per 1,000 qualified views. This applies primarily to high-quality videos longer than one minute." },
-    { question: "What are the requirements for TikTok monetization?", answer: "To join the Rewards Program, you must be 18+ years old, have at least 10,000 followers, and have accrued at least 100,000 valid video views in the last 30 days." },
-    { question: "How much do brands pay for a TikTok post?", answer: "Brand deal rates vary wildly, but a common industry benchmark is $10 to $50 per 1,000 followers. However, engagement is the bigger driver; a creator with 50,000 highly engaged followers can often out-earn one with 500,000 inactive followers." },
-    { question: "What counts as a 'qualified view' on TikTok?", answer: "A qualified view is one that lasts for at least 5 seconds, is not a paid promotion, and is from a unique user. Repeated views from the same user or very short views do not count toward your rewards payout." },
-    { question: "How do I increase my TikTok engagement rate?", answer: "Hook viewers in the first 3 seconds, use trending but relevant audio, reply to comments to build community, and use 'Stitch' or 'Duet' features to interact with other popular content." },
-    { question: "Do TikTok Likes help you get paid?", answer: "Not directly. TikTok doesn't pay for likes. However, high like counts signal to the algorithm that your content is engaging, which leads to more views, which then leads to more revenue." },
-    { question: "Can I make money with TikTok Shop?", answer: "Yes, the TikTok Shop Affiliate program is currently one of the highest-earning methods for creators. By tagging products in your videos, you can earn a 5-20% commission on every sale made through your link." },
-  ];
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "TikTok Earnings Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">TikTok Earnings Calculator</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Social Media</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">TikTok Earnings Calculator</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-3 gap-6 mb-6">
-                <InputField id="views" label="Avg. Views per Video" value={views} onChange={setViews} tooltip="Average views you expect per video upload." />
-                <InputField id="followers" label="Total Followers" value={followers} onChange={setFollowers} tooltip="Your current total follower count." />
-                <InputField id="engagement" label="Engagement Rate (%)" value={engagement} onChange={setEngagement} suffix="%" tooltip="Average likes/comments as a percentage of your followers." />
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        TikTok Earnings Calculator
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Avg. Views per Video</label>
+                <input
+                  type="number"
+                  value={inputs.views}
+                  onChange={(e) => setInputs({ ...inputs, views: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="100000"
+                />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className="block text-sm font-medium mb-1">Total Followers</label>
+                <input
+                  type="number"
+                  value={inputs.followers}
+                  onChange={(e) => setInputs({ ...inputs, followers: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="50000"
+                />
               </div>
-          </div>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">Engagement Rate (%)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={inputs.engagement}
+                  onChange={(e) => setInputs({ ...inputs, engagement: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="4.5"
+                />
+              </div>
+            </div>
+            {invalid && <p className="text-xs text-red-500 mt-2">Enter non-negative numbers for all fields.</p>}
 
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Revenue Projections</h2>
-                <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Rewards Program (Per Video)</p>
-                    <p className="text-4xl font-black text-foreground">${results.fundLow.toFixed(2)} - ${results.fundHigh.toFixed(2)}</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-green-500/5 border border-green-500/10 text-center">
-                    <p className="text-xs font-bold text-green-600 uppercase tracking-widest mb-1">Brand Deal Est. (Per Post)</p>
-                    <p className="text-3xl font-black text-foreground">${results.brandDealLow.toLocaleString(undefined, { maximumFractionDigits: 0 })} - ${results.brandDealHigh.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
-                  </div>
-                </div>
-                <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center mb-8">
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Est. Total Monthly Potential</p>
-                    <p className="text-5xl font-black text-foreground">${results.monthlyPotential.toLocaleString(undefined, { maximumFractionDigits: 0 })}+</p>
-                    <p className="text-xs text-muted-foreground mt-2">Based on consistent posting and occasional sponsorships.</p>
-                </div>
-                <ResultDisplay items={[
-                  { label: "Follower Tier", value: 0, textValue: parseFloat(followers) >= 100000 ? "Macro-Influencer" : "Micro-Influencer" },
-                  { label: "Monetization Eligibility", value: 0, textValue: parseFloat(followers) >= 10000 ? "Qualified" : "Need 10k Followers" },
-                  { label: "Engagement Benchmark", value: 0, textValue: parseFloat(engagement) > 4 ? "Above Average" : "Industry Standard" },
-                ]} />
-              </>
-            )}
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The New Era of TikTok Monetization</h2>
-              <p>TikTok has evolved from a lip-syncing app into one of the most powerful wealth-creation platforms for the creator economy. Unlike YouTube, which relies heavily on long-form ad revenue, TikTok offers a multi-faceted monetization ecosystem that rewards viral reach, niche community building, and direct social commerce. This TikTok Earnings Calculator helps you navigate these different income streams to understand your true market value.</p>
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Est. Monthly Potential</p>
+            <p className="text-4xl font-bold text-primary mt-1">
+              ${result.monthlyPotential.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              <span className="text-xl font-semibold">+</span>
+            </p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Daily uploads + 2 brand deals/month · {result.followerTier}
+            </p>
+          </div>
 
-              <h3>1. From Creator Fund to Creator Rewards Program</h3>
-              <p>For years, the 'TikTok Creator Fund' was criticized for paying very little (often $0.02 to $0.04 per 1,000 views). In 2023, TikTok introduced the <strong>Creator Rewards Program</strong> (initially called the Creativity Program Beta), which completely changed the math. By incentivizing videos longer than 60 seconds, TikTok began paying RPMs that rival YouTube, ranging from $0.20 to $1.00+. If you are serious about making money directly from TikTok, transition your content to the 1-minute+ format immediately.</p>
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Rewards / Video</p>
+              <p className="text-lg font-bold text-foreground mt-1">
+                ${result.fundLow.toFixed(2)}–${result.fundHigh.toFixed(2)}
+              </p>
+              <p className="text-xs text-muted-foreground">${result.rpm.toFixed(2)} RPM</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Brand Deal / Post</p>
+              <p className="text-lg font-bold text-primary mt-1">
+                ${result.brandDealLow.toLocaleString("en-US", { maximumFractionDigits: 0 })}–${result.brandDealHigh.toLocaleString("en-US", { maximumFractionDigits: 0 })}
+              </p>
+              <p className="text-xs text-muted-foreground">engagement-scaled</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Monetization</p>
+              <p className={`text-lg font-bold mt-1 ${result.eligible ? "text-emerald-600" : "text-amber-600"}`}>
+                {result.eligible ? "Qualified" : "Not yet"}
+              </p>
+              <p className="text-xs text-muted-foreground">10k followers + 100k views</p>
+            </div>
+          </div>
 
-              <h3>2. The Brand Deal Economy: Engagement Over Followers</h3>
-              <p>In the TikTok ecosystem, a creator's value is not just their follower count; it's their <strong>engagement rate</strong>. Brands are moving away from 'Macro-influencers' with millions of followers but low engagement in favor of 'Micro-influencers' who have deep trust with a smaller niche. A 5% engagement rate on TikTok is considered excellent, while 2-3% is the industry average. If your engagement is high, you can command 'premium' rates that exceed the standard $15 per 1,000 follower benchmark.</p>
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Revenue Breakdown (Monthly)</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="text-left py-2 px-3 font-medium">Stream</th>
+                  <th className="text-right py-2 px-3 font-medium">Low</th>
+                  <th className="text-right py-2 px-3 font-medium">High</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Rewards Program (30 videos)", result.fundLow * 30, result.fundHigh * 30],
+                  ["Brand Deals (2 posts)", result.brandDealLow * 2, result.brandDealHigh * 2],
+                ].map((row, i) => (
+                  <tr key={row[0] as string} className={`border-b border-border ${i === 0 ? "bg-primary/10 font-semibold text-primary" : ""}`}>
+                    <td className="py-2.5 px-3">{row[0] as string}</td>
+                    <td className="py-2.5 px-3 text-right tabular-nums">${(row[1] as number).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                    <td className="py-2.5 px-3 text-right tabular-nums">${(row[2] as number).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                  </tr>
+                ))}
+                <tr className="border-t-2 border-border font-bold">
+                  <td className="py-2.5 px-3">Total Potential</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${result.monthlyPotential.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                  <td className="py-2.5 px-3 text-right tabular-nums">${(result.monthlyPotential + (result.fundHigh - result.fundLow) * 30 + (result.brandDealHigh - result.brandDealLow) * 2).toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-              <h3>3. TikTok Shop: The Biggest Opportunity in 2024</h3>
-              <p>The launch of TikTok Shop has created a 'gold rush' for creators. By becoming a TikTok Shop Affiliate, you can earn commissions on products you feature in your videos. Unlike traditional brand deals, which are one-time payments, TikTok Shop revenue is uncapped. A single viral video featuring a $30 product with a 15% commission can generate thousands of dollars in a single day, regardless of your follower count.</p>
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Monthly Revenue Streams ($)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v >= 1000 ? (v / 1000).toFixed(0) + "k" : v}`} />
+                <Tooltip formatter={(v: number, name: string) => [`$${v.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, name === "low" ? "Conservative" : "Optimistic"]} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Bar dataKey="low" name="Conservative" radius={[4, 4, 0, 0]} fill="hsl(var(--primary) / 0.45)" />
+                <Bar dataKey="high" name="Optimistic" radius={[4, 4, 0, 0]} fill="hsl(var(--primary))" />
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">
+              Estimates assume 1-min+ videos in the Creator Rewards Program and typical brand deal pricing.
+            </p>
+          </div>
 
-              <h3>4. LIVE Gifting and Subscriptions</h3>
-              <p>For creators who enjoy direct interaction, TikTok LIVE is a massive revenue stream. Viewers can buy 'Coins' to send virtual 'Gifts' during a live stream, which the creator can then convert into 'Diamonds' and eventually cash out. While TikTok takes a significant 50% cut of LIVE revenue, top streamers earn five or even six figures a month solely through the generosity of their community.</p>
-
-              <h3>5. How to Scale Your TikTok Income</h3>
-              <p>To maximize the numbers you see on this calculator, follow these three scaling laws:</p>
-              <ul>
-                <li><strong>Quantity Leads to Quality:</strong> The TikTok algorithm is a volume game. Posting 1-3 times daily increases your surface area for virality.</li>
-                <li><strong>Build a 'Searchable' Niche:</strong> TikTok is increasingly becoming a search engine. Create content that answers specific questions to gain 'evergreen' views that pay long after the video is posted.</li>
-                <li><strong>Diversify Immediately:</strong> Don't wait for the Rewards Program. Start using affiliate links and seeking small brand partnerships as soon as you hit 1,000 followers.</li>
-              </ul>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tiktok-earnings-calculator" />
-          <PopularCalculators exclude="/calculator/tiktok-earnings-calculator" />
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Views per Video</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.views)?.toLocaleString() || 0}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Followers</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.followers)?.toLocaleString() || 0}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Engagement Rate</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.engagement) || 0}% {parseFloat(inputs.engagement) > 4 ? "(above avg)" : "(avg ~3%)"}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">RPM (Rewards)</p>
+                <p className="font-semibold text-foreground">${result.rpm.toFixed(2)} per 1k views</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Follower Tier</p>
+                <p className="font-semibold text-foreground">{result.followerTier}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Rewards Eligibility</p>
+                <p className="font-semibold text-foreground">{result.eligible ? "Qualified" : "10k followers + 100k views/30d required"}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
+
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/tiktok-earnings-calculator" />
+      </div>
+    </div>
+  )
 }

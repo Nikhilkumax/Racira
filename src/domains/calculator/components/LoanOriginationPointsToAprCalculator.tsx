@@ -2,180 +2,227 @@
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Target, ChevronDown } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-interface AprResult {
+interface PointsAprResult {
+  loan: number;
+  ratePct: number;
+  termMonths: number;
+  points: number;
+  fees: number;
+  pointsCost: number;
+  netReceived: number;
   monthlyPayment: number;
-  totalFees: number;
-  effectiveLoanAmount: number;
-  trueApr: number;
-  aprDifference: number;
+  apr: number;
+  rateDiff: number;
+  breakdown: { label: string; value: string }[];
   summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-function calcApr(loanAmount: number, interestRate: number, loanTermYears: number, originationPoints: number, discountPoints: number, otherFees: number): AprResult {
-  const r = interestRate / 100 / 12;
-  const n = loanTermYears * 12;
+function fmt$(v: number): string {
+  return `$${v.toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+}
 
-  // Monthly payment based on nominal rate and full loan amount
-  const monthlyPayment = loanAmount > 0 && n > 0
-    ? (r > 0 ? loanAmount * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1) : loanAmount / n)
-    : 0;
+function fmtPct(v: number, d = 3): string {
+  return `${v.toFixed(d)}%`;
+}
 
-  const originationFeeAmt = loanAmount * (originationPoints / 100);
-  const discountFeeAmt = loanAmount * (discountPoints / 100);
-  const totalFees = originationFeeAmt + discountFeeAmt + otherFees;
+function pmt(principal: number, rMonthly: number, n: number): number {
+  const g = Math.pow(1 + rMonthly, n);
+  return (principal * rMonthly * g) / (g - 1);
+}
 
-  // Effective loan amount is the principal minus the fees paid upfront
-  const effectiveLoanAmount = loanAmount - totalFees;
-
-  // Calculate True APR using Newton-Raphson to find the internal rate of return
-  let trueAprMonthly = r;
-  if (effectiveLoanAmount > 0 && monthlyPayment > 0) {
-    // Starting guess
-    let guess = r;
-    for (let i = 0; i < 20; i++) {
-      const f = effectiveLoanAmount - monthlyPayment * ((1 - Math.pow(1 + guess, -n)) / guess);
-      const fPrime = monthlyPayment * ((1 - Math.pow(1 + guess, -n)) / (guess * guess) - (n * Math.pow(1 + guess, -n - 1)) / guess);
-      const newGuess = guess - f / fPrime;
-      if (Math.abs(newGuess - guess) < 1e-7) {
-        guess = newGuess;
-        break;
-      }
-      guess = newGuess;
-    }
-    trueAprMonthly = guess;
+function solveApr(netReceived: number, payment: number, n: number): number {
+  // find monthly rate such that PV of payments = net received
+  let lo = 1e-9, hi = 0.5;
+  for (let i = 0; i < 200; i++) {
+    const mid = (lo + hi) / 2;
+    const pv = payment * ((1 - Math.pow(1 + mid, -n)) / mid);
+    if (pv > netReceived) lo = mid; else hi = mid;
   }
-  const trueApr = trueAprMonthly * 12 * 100;
-  const aprDifference = trueApr - interestRate;
-
-  const summaryStats = [
-    { label: "Nominal Interest Rate", value: `${interestRate.toFixed(3)}%` },
-    { label: "Origination Fees", value: `$${originationFeeAmt.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Discount Points Cost", value: `$${discountFeeAmt.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Other Upfront Fees", value: `$${otherFees.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Total Upfront Costs", value: `$${totalFees.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-  ];
-
-  return { monthlyPayment, totalFees, effectiveLoanAmount, trueApr, aprDifference, summaryStats };
+  return ((lo + hi) / 2) * 12 * 100;
 }
 
-const DEFAULTS = { loanAmount: "300000", interestRate: "6.5", loanTermYears: "30", originationPoints: "1.0", discountPoints: "0.5", otherFees: "1500" };
+function calcApr(loan: number, ratePct: number, termYears: number, points: number, fees: number): PointsAprResult {
+  const termMonths = Math.round(termYears * 12);
+  const rMonthly = ratePct / 100 / 12;
+  const monthlyPayment = pmt(loan, rMonthly, termMonths);
+  const pointsCost = (points / 100) * loan;
+  const netReceived = loan - pointsCost - fees;
+  const apr = solveApr(netReceived, monthlyPayment, termMonths);
+  const rateDiff = apr - ratePct;
+  const breakdown = [
+    { label: "Loan Amount", value: fmt$(loan) },
+    { label: "Nominal Interest Rate", value: fmtPct(ratePct) },
+    { label: "Loan Term", value: `${termMonths} months` },
+    { label: "Origination Points", value: `${fmtPct(points, 1)} of loan` },
+    { label: "Points Cost", value: fmt$(pointsCost) },
+    { label: "Upfront Fees", value: fmt$(fees) },
+    { label: "Net Amount Received", value: fmt$(netReceived) },
+    { label: "Monthly Payment", value: fmt$(monthlyPayment) },
+    { label: "True APR (incl. points)", value: fmtPct(apr) },
+    { label: "Rate Increase from Points", value: `+${fmtPct(rateDiff)}` },
+  ];
+  const summaryStats = [
+    { label: "True APR", value: fmtPct(apr) },
+    { label: "Nominal Rate", value: fmtPct(ratePct) },
+    { label: "Rate Difference", value: `+${fmtPct(rateDiff)}` },
+    { label: "Points Cost", value: fmt$(pointsCost) },
+    { label: "Net Received", value: fmt$(netReceived) },
+    { label: "Monthly Payment", value: fmt$(monthlyPayment) },
+    { label: "Term", value: `${termMonths} months` },
+    { label: "Total Interest", value: fmt$(monthlyPayment * termMonths - loan) },
+  ];
+  const chartData = [
+    { name: "Nominal Rate", value: Number(ratePct.toFixed(2)), fill: "hsl(var(--primary))" },
+    { name: "True APR", value: Number(apr.toFixed(2)), fill: "#f59e0b" },
+  ];
+  return { loan, ratePct, termMonths, points, fees, pointsCost, netReceived, monthlyPayment, apr, rateDiff, breakdown, summaryStats, chartData };
+}
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix }: any) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1.5">{label}</label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground shrink-0">{prefix}</span>}
-      <input id={id} type="number" value={value} onChange={e => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground shrink-0">{suffix}</span>}
-    </div>
-  </div>
-);
+const DEFAULTS = { loan: "300000", rate: "6.5", term: "30", points: "1", fees: "1500" };
 
 export default function LoanOriginationPointsToAprCalculator() {
-  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
-  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
-  const [loanTermYears, setLoanTermYears] = useState(DEFAULTS.loanTermYears);
-  const [originationPoints, setOriginationPoints] = useState(DEFAULTS.originationPoints);
-  const [discountPoints, setDiscountPoints] = useState(DEFAULTS.discountPoints);
-  const [otherFees, setOtherFees] = useState(DEFAULTS.otherFees);
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [results, setResults] = useState<AprResult | null>(null);
+  const [loan, setLoan] = useState(DEFAULTS.loan);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [term, setTerm] = useState(DEFAULTS.term);
+  const [points, setPoints] = useState(DEFAULTS.points);
+  const [fees, setFees] = useState(DEFAULTS.fees);
+  const [result, setResult] = useState<PointsAprResult | null>(null);
 
-  const calc = () => setResults(calcApr(parseFloat(loanAmount)||0, parseFloat(interestRate)||0, parseFloat(loanTermYears)||30, parseFloat(originationPoints)||0, parseFloat(discountPoints)||0, parseFloat(otherFees)||0));
-  const reset = () => { setLoanAmount(DEFAULTS.loanAmount); setInterestRate(DEFAULTS.interestRate); setLoanTermYears(DEFAULTS.loanTermYears); setOriginationPoints(DEFAULTS.originationPoints); setDiscountPoints(DEFAULTS.discountPoints); setOtherFees(DEFAULTS.otherFees); setShowAdvanced(false); };
-  useEffect(() => { calc(); }, []);
+  const l = parseFloat(loan) || 0;
+  const r = parseFloat(rate) || 0;
+  const t = parseFloat(term) || 0;
+  const p = parseFloat(points) || 0;
+  const f = parseFloat(fees) || 0;
+  const errs: string[] = [];
+  if (l <= 0 || r <= 0 || t <= 0) errs.push("Loan amount, rate, and term must all be greater than 0.");
+  if (p < 0 || f < 0) errs.push("Points and fees cannot be negative.");
+  if (p + f >= l) errs.push("Points plus fees cannot exceed the loan amount.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcApr(l, r, t, p, f)); };
+  const reset = () => {
+    setLoan(DEFAULTS.loan); setRate(DEFAULTS.rate); setTerm(DEFAULTS.term); setPoints(DEFAULTS.points); setFees(DEFAULTS.fees);
+    setResult(calcApr(300000, 6.5, 30, 1, 1500));
+  };
+  useEffect(() => { setResult(calcApr(300000, 6.5, 30, 1, 1500)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the difference between APR and Interest Rate?", answer: "The interest rate is the percentage of the principal that the lender charges annually to borrow money. The Annual Percentage Rate (APR) goes further by reflecting the true cost of borrowing, incorporating both the interest rate and all upfront fees (like origination points, discount points, and underwriter fees) spread over the life of the loan." },
-    { question: "What are origination points?", answer: "Origination points are fees charged by the lender to process, underwrite, and close your loan. One point equals 1% of the total loan amount. On a $300,000 loan, 1 origination point costs $3,000. These points do not lower your interest rate; they are simply the cost of doing business with that lender." },
-    { question: "What are discount points?", answer: "Discount points are optional upfront fees paid directly to the lender at closing to permanently reduce your interest rate. Like origination points, one discount point equals 1% of the loan amount. Paying for discount points lowers your monthly payment, but increases your upfront closing costs." },
-    { question: "Why does the APR go up when I pay points?", answer: "APR measures the total cost of credit. When you pay upfront fees (points), you effectively receive less useable money from the loan, but you are still making payments based on the full loan amount. This mathematical dynamic forces the effective Annual Percentage Rate (APR) higher than the nominal interest rate." },
-    { question: "Is a lower APR always better?", answer: "Not necessarily. The APR calculation assumes you will keep the loan for the entire term (e.g., 30 years). If you sell the home or refinance after just 5 years, the heavy upfront fees that drove the APR calculation will actually cost you much more in the short term. Always compare the upfront costs against your expected time in the home." },
+    { question: "What are origination points?", answer: "One point equals 1% of the loan amount, paid upfront — effectively prepaid interest. Because you receive less than the face amount but still repay the full loan, points raise the true cost of borrowing above the nominal rate." },
+    { question: "How is the true APR computed?", answer: "The APR is the rate that makes the present value of all monthly payments equal to the net amount received (loan minus points minus fees). The calculator solves this equation exactly by bisection." },
+    { question: "Are points worth paying?", answer: "Points buy a lower nominal rate, so they pay off when you keep the loan long enough to recoup the upfront cost. The APR comparison shows the true breakeven — compare it against the no-points quote." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator/finance" }, { label: "Loan Origination Points to APR Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Loan Origination Points to APR Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Origination Points to APR Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Loan Origination Points to APR Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="loan" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" />
-              <CompactInput id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
+              <div>
+                <label className={lbl}>Loan Amount</label>
+                <div className={inp}><input type="number" value={loan} onChange={e => setLoan(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Nominal Rate (%)</label>
+                <div className={inp}><input type="number" value={rate} onChange={e => setRate(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Loan Term (Years)</label>
+                <div className={inp}><input type="number" value={term} onChange={e => setTerm(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Origination Points (1 = 1%)</label>
+                <div className={inp}><input type="number" value={points} onChange={e => setPoints(e.target.value)} className={ci} /></div>
+              </div>
+              <div className="col-span-2">
+                <label className={lbl}>Other Upfront Fees</label>
+                <div className={inp}><input type="number" value={fees} onChange={e => setFees(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="orig-pts" label="Origination Points" value={originationPoints} onChange={setOriginationPoints} suffix="pts" />
-              <CompactInput id="term" label="Loan Term" value={loanTermYears} onChange={setLoanTermYears} suffix="years" />
-            </div>
-            <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1">
-                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
-              </button>
-              {showAdvanced && (
-                <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <CompactInput id="disc-pts" label="Discount Points" value={discountPoints} onChange={setDiscountPoints} suffix="pts" />
-                  <CompactInput id="other" label="Other Closing Fees" value={otherFees} onChange={setOtherFees} prefix="$" />
-                </div>
-              )}
-            </div>
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {results && (<>
+            {result && (<>
               <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">True Annual Percentage Rate (APR)</div>
-                <div className="text-4xl font-bold text-foreground">{results.trueApr.toFixed(3)}%</div>
-                <div className="text-sm text-muted-foreground mt-1 font-medium">This is {results.aprDifference.toFixed(3)}% higher than your nominal interest rate.</div>
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">True Annual Percentage Rate</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtPct(result.apr)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmtPct(result.ratePct)} nominal + {fmtPct(result.rateDiff)} from {fmtPct(result.points, 1)} points and {fmt$(result.fees)} fees</div>
               </div>
               <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[["Total Upfront Fees", `$${results.totalFees.toLocaleString("en-US",{maximumFractionDigits:0})}`], ["Monthly Payment", `$${results.monthlyPayment.toFixed(2)}`], ["Effective Loan", `$${results.effectiveLoanAmount.toLocaleString("en-US",{maximumFractionDigits:0})}`]].map(([l,v],i) => (
-                  <div key={i} className={`p-4 text-center ${i>0?"border-l border-border":""}`}>
+                {[[`Nominal Rate`, fmtPct(result.ratePct)], ["Points Cost", fmt$(result.pointsCost)], ["Monthly Payment", fmt$(result.monthlyPayment)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
                     <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className={`text-lg font-bold ${i===0?"text-amber-600":""}`}>{v}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
                 ))}
               </div>
               <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Fee Breakdown</h3>
-                <div className="space-y-2.5">
-                  {results.summaryStats.map((s, i) => (
-                    <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0">
-                      <span className="text-sm text-muted-foreground">{s.label}:</span>
-                      <span className="text-sm font-semibold">{s.value}</span>
-                    </div>
+                <h3 className="text-base font-bold mb-4">Cost Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 8 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 8 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 8 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Nominal vs True APR</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [`${v.toFixed(3)}%`, ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Points and fees push the true APR above the quoted rate</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                   ))}
                 </div>
-              </div>
-              <div className="bg-secondary/30 border border-border rounded-lg p-4 text-sm text-muted-foreground">
-                <p><strong>Note on Effective Loan Amount:</strong> To calculate APR, the total upfront fees are deducted from the principal to determine the "effective" loan amount you actually receive. The APR is the mathematical rate that equates this effective loan amount to your actual monthly payments over the full term.</p>
               </div>
             </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding APR vs. Interest Rate</h2>
-            <p>When shopping for a mortgage or business loan, the interest rate is often the headline number that catches your attention. However, federal law requires lenders to also display the Annual Percentage Rate (APR). While the interest rate represents the annual cost of the principal, the APR represents the true total cost of borrowing by factoring in upfront fees, origination points, and discount points over the life of the loan. A lender offering a rock-bottom interest rate may actually be the most expensive option if they charge excessive origination fees—the APR reveals this hidden cost.</p>
-            
-            <h2 className="text-2xl font-bold mb-3">What Are Points?</h2>
-            <p>In mortgage lending, a "point" is equal to exactly 1% of your total loan amount. There are two distinct types of points that affect your APR differently. <strong>Origination points</strong> are fees the lender charges simply to process, underwrite, and close your loan. They do not lower your interest rate. <strong>Discount points</strong> are optional fees you pay upfront to permanently lower ("buy down") your interest rate over the life of the loan. Both types of points require cash at closing and both push your effective APR higher than your nominal interest rate.</p>
-
-            <h2 className="text-2xl font-bold mb-3">How APR is Calculated</h2>
-            <p>The math behind APR is complex, but the concept is straightforward. To find the true cost of credit, the calculation subtracts all upfront, non-refundable fees (points, underwriting fees, processing fees) from your loan amount to find the "effective loan amount" you actually receive. It then looks at the monthly payments you are required to make based on the full nominal loan amount. The APR is the mathematical internal rate of return that makes your stream of monthly payments equal to the effective loan amount you walked away with.</p>
-            <p>For example, if you borrow $300,000 but pay $6,000 in upfront fees, you effectively only received $294,000. But you are still making monthly payments based on a $300,000 principal. This dynamic is why your APR is always higher than your interest rate when upfront fees are involved.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Points Raise the APR</h2>
+            <p>This <strong>loan origination points to APR calculator</strong> shows the real cost of upfront charges. Paying one point on a $300,000 loan hands $3,000 to the lender immediately, yet you still repay the full $300,000 — so the effective annual rate exceeds the quoted nominal rate.</p>
+            <h2 className="text-2xl font-bold mb-3">The APR Equation</h2>
+            <p>The true APR is the discount rate that equates the present value of all monthly payments with the net amount you actually receive (loan minus points minus fees). The calculator solves this nonlinear equation numerically to a tight tolerance.</p>
+            <h2 className="text-2xl font-bold mb-3">Comparing Loan Offers</h2>
+            <p>Lenders quote different combinations of rate, points, and fees. Converting every offer to a single true APR — as this calculator does — is the honest way to compare them, because it folds all upfront costs into one number.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-origination-points-to-apr-calculator" />
           <PopularCalculators exclude="/calculator/loan-origination-points-to-apr-calculator" />

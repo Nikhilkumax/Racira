@@ -115,10 +115,7 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function AngelInvestmentReturnCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<AngelReturnResults | null>(null);
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
     setResults(calculateAngelReturn(DEFAULTS));
   }, []);
 
@@ -143,8 +140,6 @@ export default function AngelInvestmentReturnCalculator() {
     { question: "What is the difference between Pre-Money and Post-Money Valuation?", answer: "Pre-money valuation is the value of the company before the new investment round is added. Post-money valuation is the pre-money valuation plus the total amount raised in the round. Your ownership percentage is calculated based on the post-money valuation." },
     { question: "What is a good IRR for an angel investment?", answer: "Because angel investing is highly risky (many startups fail entirely), angel investors typically target a very high IRR on their successful investments—often 30% to 50% or more—to compensate for the total losses in the rest of their portfolio." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>

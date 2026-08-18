@@ -1,217 +1,208 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Calculator, AlertTriangle } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-// Theobromine content per oz of different chocolate types (mg/oz)
-const CHOCOLATE_TYPES: Record<string, { theobromine: number; caffeine: number; label: string }> = {
-  white: { theobromine: 0.25, caffeine: 0.85, label: "White Chocolate" },
-  milk: { theobromine: 58, caffeine: 6, label: "Milk Chocolate" },
-  semisweet: { theobromine: 138, caffeine: 22, label: "Semi-Sweet / Dark Chocolate" },
-  baking: { theobromine: 393, caffeine: 47, label: "Baker's / Unsweetened Chocolate" },
-  cocoa_powder: { theobromine: 737, caffeine: 70, label: "Dry Cocoa Powder" },
-  cacao_nibs: { theobromine: 720, caffeine: 60, label: "Raw Cacao Nibs" },
-};
+interface ToxicityResult {
+  dogWeightKg: number;
+  amountGrams: number;
+  theobromineMg: number;
+  doseMgKg: number;
+  riskLevel: string;
+  riskColor: string;
+  advice: string;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-const DogChocolateToxicityCalculator = () => {
-  const [dogWeight, setDogWeight] = useState("10");
-  const [weightUnit, setWeightUnit] = useState("kg");
-  const [chocolateType, setChocolateType] = useState("milk");
-  const [amountEaten, setAmountEaten] = useState("30");
-  const [amountUnit, setAmountUnit] = useState("g");
+type ChocolateType = "milk" | "dark" | "baking" | "cocoa" | "white";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+const CHOCO_MG: Record<ChocolateType, number> = { milk: 60, dark: 450, baking: 1300, cocoa: 2600, white: 3.5 };
+const CHOCO_LABELS: Record<ChocolateType, string> = { milk: "Milk Chocolate", dark: "Dark Chocolate (70%)", baking: "Baking Chocolate", cocoa: "Cocoa Powder", white: "White Chocolate" };
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    let weightKg = parseFloat(dogWeight) || 0;
-    if (weightUnit === "lbs") weightKg /= 2.20462;
+function calcToxicity(weightLb: number, type: ChocolateType, amountOz: number): ToxicityResult {
+  const dogWeightKg = weightLb * 0.453592;
+  const amountGrams = amountOz * 28.3495;
+  const theobromineMg = (amountGrams * CHOCO_MG[type]) / 100; // values are mg per 100 g
+  const doseMgKg = dogWeightKg > 0 ? theobromineMg / dogWeightKg : 0;
 
-    let amountOz = parseFloat(amountEaten) || 0;
-    if (amountUnit === "g") amountOz /= 28.3495;
+  let riskLevel: string, riskColor: string, advice: string;
+  if (doseMgKg >= 200) { riskLevel = "Severe — Emergency"; riskColor = "text-red-500"; advice = "Call your veterinarian or the Pet Poison Helpline (855-764-7661) immediately. 200 mg/kg can cause seizures and heart arrhythmias."; }
+  else if (doseMgKg >= 100) { riskLevel = "Toxic — Vet Required"; riskColor = "text-orange-500"; advice = "100 mg/kg is the toxic threshold. Contact a vet now — symptoms can appear within hours and treatment is most effective early."; }
+  else if (doseMgKg >= 20) { riskLevel = "Mild Risk — Monitor"; riskColor = "text-amber-500"; advice = "Vomiting and restlessness are possible. Monitor closely and call your vet if any symptoms appear."; }
+  else { riskLevel = "Low Risk"; riskColor = "text-emerald-600"; advice = "Dose is below the typical concern threshold, but watch for vomiting or restlessness and contact your vet if symptoms develop."; }
 
-    if (weightKg <= 0 || amountOz <= 0) return;
+  const breakdown = [
+    { label: "Dog Weight", value: `${weightLb} lb (${dogWeightKg.toFixed(1)} kg)` },
+    { label: `Chocolate (${CHOCO_LABELS[type]})`, value: `${amountOz} oz (${amountGrams.toFixed(1)} g)` },
+    { label: "Theobromine Content", value: `${CHOCO_MG[type]} mg per 100 g` },
+    { label: "Total Theobromine Ingested", value: `${Math.round(theobromineMg)} mg` },
+    { label: "Dose per kg Body Weight", value: `${doseMgKg.toFixed(1)} mg/kg` },
+    { label: "Risk Level", value: riskLevel },
+    { label: "Toxic Threshold (100 mg/kg)", value: doseMgKg >= 100 ? "EXCEEDED" : "not reached" },
+    { label: "Severe Threshold (200 mg/kg)", value: doseMgKg >= 200 ? "EXCEEDED" : "not reached" },
+  ];
+  const summaryStats = [
+    { label: "Dose", value: `${doseMgKg.toFixed(1)} mg/kg` },
+    { label: "Risk", value: riskLevel },
+    { label: "Theobromine", value: `${Math.round(theobromineMg)} mg` },
+    { label: "Dog Weight", value: `${dogWeightKg.toFixed(1)} kg` },
+    { label: "Chocolate Eaten", value: `${amountOz} oz` },
+    { label: "Type", value: CHOCO_LABELS[type] },
+    { label: "Mild Threshold (20)", value: doseMgKg >= 20 ? "reached" : "not reached" },
+    { label: "Toxic Threshold (100)", value: doseMgKg >= 100 ? "reached" : "not reached" },
+  ];
+  const chartData = [
+    { name: "Dose", value: Math.round(doseMgKg), fill: "hsl(var(--primary))" },
+    { name: "Mild (20)", value: 20, fill: "#f59e0b" },
+    { name: "Toxic (100)", value: 100, fill: "#ef4444" },
+    { name: "Severe (200)", value: 200, fill: "#7f1d1d" },
+  ];
+  return { dogWeightKg, amountGrams, theobromineMg, doseMgKg, riskLevel, riskColor, advice, breakdown, summaryStats, chartData };
+}
 
-    const choc = CHOCOLATE_TYPES[chocolateType];
-    const theoMg = choc.theobromine * amountOz;
-    const caffMg = choc.caffeine * amountOz;
-    const theoPerKg = theoMg / weightKg;
+const DEFAULTS = { weight: "40", type: "milk" as ChocolateType, amount: "2" };
 
-    // Toxicity thresholds (mg/kg theobromine)
-    // < 20 mg/kg: Mild (GI upset)
-    // 20-40 mg/kg: Moderate (vomiting, diarrhea, restlessness)
-    // 40-60 mg/kg: Severe (muscle tremors, seizures)
-    // > 60 mg/kg: Potentially fatal
-    let severity = "None / Minimal";
-    let color = "green";
-    let action = "Monitor for any symptoms. Call your vet if concerned.";
+export default function DogChocolateToxicityCalculator() {
+  const [weight, setWeight] = useState(DEFAULTS.weight);
+  const [type, setType] = useState<ChocolateType>("milk");
+  const [amount, setAmount] = useState(DEFAULTS.amount);
+  const [result, setResult] = useState<ToxicityResult | null>(null);
 
-    if (theoPerKg >= 60) {
-      severity = "CRITICAL — Potentially Fatal";
-      color = "red";
-      action = "EMERGENCY — Call your vet or Animal Poison Control immediately.";
-    } else if (theoPerKg >= 40) {
-      severity = "Severe Toxicity";
-      color = "red";
-      action = "URGENT — Contact your vet NOW. Do not wait for symptoms.";
-    } else if (theoPerKg >= 20) {
-      severity = "Moderate Toxicity";
-      color = "orange";
-      action = "Contact your vet within the next 1–2 hours.";
-    } else if (theoPerKg >= 5) {
-      severity = "Mild Toxicity";
-      color = "yellow";
-      action = "Call your vet for guidance. GI upset is likely.";
-    }
+  const w = parseFloat(weight) || 0;
+  const a = parseFloat(amount) || 0;
+  const errs: string[] = [];
+  if (w <= 0) errs.push("Dog weight must be greater than 0.");
+  if (w > 300) errs.push("Dog weight looks unrealistic — enter pounds.");
+  if (a <= 0) errs.push("Amount eaten must be greater than 0.");
+  const valid = errs.length === 0;
 
-    setResults({ theoMg, caffMg, theoPerKg, severity, color, action, chocolateLabel: choc.label });
-  };
-
+  const calculate = () => { if (valid) setResult(calcToxicity(w, type, a)); };
   const reset = () => {
-    setShowResults(false);
-    setDogWeight("10"); setWeightUnit("kg");
-    setChocolateType("milk"); setAmountEaten("30"); setAmountUnit("g");
-    setResults(null);
+    setWeight(DEFAULTS.weight); setType("milk"); setAmount(DEFAULTS.amount);
+    setResult(calcToxicity(40, "milk", 2));
   };
+  useEffect(() => { setResult(calcToxicity(40, "milk", 2)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "Why is chocolate toxic to dogs?",
-      answer: "Chocolate contains theobromine and caffeine, both methylxanthines that dogs metabolise much more slowly than humans. The build-up causes hyperactivity, vomiting, diarrhea, abnormal heart rhythm, tremors, and in severe cases, death."
-    },
-    {
-      question: "How much chocolate is lethal to a dog?",
-      answer: "The LD50 (dose lethal to 50% of animals) for theobromine is approximately 300 mg/kg. That said, symptoms appear at far lower doses — as little as 20 mg/kg can cause moderate illness. Dark chocolate and baking chocolate are the most dangerous."
-    },
-    {
-      question: "What should I do if my dog ate chocolate?",
-      answer: "Call your vet or the ASPCA Animal Poison Control Center (888-426-4435) immediately. Do not wait for symptoms. If ingestion was very recent (under 2 hours), your vet may induce vomiting to prevent further absorption."
-    },
-    {
-      question: "Is white chocolate dangerous?",
-      answer: "White chocolate contains virtually no theobromine (it's made from cocoa butter, not cocoa solids), so it's rarely a toxicity concern. However, the high fat and sugar content can still cause pancreatitis."
-    },
+    { question: "Why is chocolate toxic to dogs?", answer: "Chocolate contains theobromine and caffeine (methylxanthines). Dogs metabolize theobromine very slowly, so it accumulates. Theobromine stimulates the heart and nervous system; at high doses it causes seizures, arrhythmias, and can be fatal." },
+    { question: "How much chocolate is dangerous?", answer: "The toxic threshold is about 100 mg of theobromine per kg of body weight; severe symptoms start around 200 mg/kg. Because baking chocolate has ~20× more theobromine than milk chocolate, an ounce of baking chocolate can be as dangerous as a pound of milk chocolate for a small dog." },
+    { question: "What are the symptoms of chocolate poisoning?", answer: "Vomiting, diarrhea, restlessness, hyperactivity, rapid heart rate, tremors, and seizures — typically appearing 1–4 hours after ingestion and lasting up to 24 hours. If you see any of these after chocolate ingestion, get veterinary help immediately." },
+    { question: "What should I do if my dog ate chocolate?", answer: "Determine the type and amount, weigh your dog, and calculate the dose. If the dose is at or above 20 mg/kg, contact your vet or Pet Poison Helpline (855-764-7661). Do NOT induce vomiting unless instructed — it can be unsafe in some cases." },
   ];
-
-  const colorMap: Record<string, string> = {
-    green: "bg-green-500/5 border-green-500/10 text-green-600",
-    yellow: "bg-yellow-500/5 border-yellow-500/10 text-yellow-600",
-    orange: "bg-orange-500/5 border-orange-500/10 text-orange-600",
-    red: "bg-red-500/5 border-red-500/10 text-red-600",
-  };
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Dog Chocolate Toxicity" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Dog Chocolate Toxicity Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Dog Chocolate Toxicity Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Dog Chocolate Toxicity Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-                <div className="flex gap-2">
-                  <div className="flex-1">
-                    <InputField id="dogWeight" label="Dog's Weight" value={dogWeight} onChange={setDogWeight} />
-                  </div>
-                  <div className="w-20 mt-7">
-                    <select value={weightUnit} onChange={(e) => setWeightUnit(e.target.value)} className="input-calc">
-                      <option value="kg">kg</option>
-                      <option value="lbs">lbs</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Type of Chocolate</label>
-                  <select value={chocolateType} onChange={(e) => setChocolateType(e.target.value)} className="input-calc">
-                    {Object.entries(CHOCOLATE_TYPES).map(([key, val]) => (
-                      <option key={key} value={key}>{val.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex gap-2">
-                  <div className="flex-1">
-                    <InputField id="amount" label="Amount Eaten" value={amountEaten} onChange={setAmountEaten} />
-                  </div>
-                  <div className="w-20 mt-7">
-                    <select value={amountUnit} onChange={(e) => setAmountUnit(e.target.value)} className="input-calc">
-                      <option value="g">g</option>
-                      <option value="oz">oz</option>
-                    </select>
-                  </div>
-                </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Dog Weight</label>
+                <div className={inp}><input type="number" value={weight} onChange={e => setWeight(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">lb</span></div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="btn-reset flex items-center justify-center gap-2 px-4">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className={lbl}>Chocolate Type</label>
+                <select value={type} onChange={e => setType(e.target.value as ChocolateType)} className={sel}>
+                  {Object.entries(CHOCO_LABELS).map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                </select>
               </div>
+            </div>
+            <div>
+              <label className={lbl}>Amount Eaten</label>
+              <div className={inp}><input type="number" value={amount} onChange={e => setAmount(e.target.value)} step="0.25" className={ci} /><span className="pr-3 text-muted-foreground text-sm">oz</span></div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Toxicity Assessment</h2>
-                <div className={`p-6 rounded-2xl border mb-6 ${colorMap[results.color]}`}>
-                  <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-80">Risk Level</p>
-                  <p className="text-2xl font-black mb-2">{results.severity}</p>
-                  <p className="text-sm font-semibold">{results.action}</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Theobromine Dose</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.doseMgKg.toFixed(1)} <span className="text-2xl text-muted-foreground">mg/kg</span></div>
+                <div className={`text-sm mt-1 font-semibold ${result.riskColor}`}>{result.riskLevel}</div>
+              </div>
+              <div className={`rounded-lg p-4 border text-sm ${result.doseMgKg >= 100 ? "bg-red-500/10 border-red-500/30 text-red-600" : "bg-amber-500/10 border-amber-500/30 text-amber-600"}`}>
+                {result.advice}
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Total Theobromine", `${Math.round(result.theobromineMg)} mg`], ["Dog Weight", `${result.dogWeightKg.toFixed(1)} kg`], ["Risk", result.riskLevel.split(" — ")[0], result.riskColor]].map(([l, v, color], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className={`text-base font-bold ${color || ""}`}>{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Toxicity Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-amber-500/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-amber-700 font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-amber-700" : i === 6 || i === 7 ? (r.value === "EXCEEDED" ? "text-red-500" : "text-emerald-600") : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Dose vs Danger Thresholds</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}`} />
+                    <Tooltip formatter={(v: number) => [`${v} mg/kg`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-                <ResultDisplay items={[
-                  { label: "Theobromine Ingested", value: 0, textValue: results.theoMg.toFixed(1) + " mg" },
-                  { label: "Theobromine per kg Body Weight", value: 0, textValue: results.theoPerKg.toFixed(1) + " mg/kg" },
-                  { label: "Caffeine Ingested", value: 0, textValue: results.caffMg.toFixed(1) + " mg" },
-                ]} />
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Science of Chocolate Toxicity in Dogs</h2>
-              <p>Chocolate poisoning is one of the most common emergencies seen by veterinarians, particularly around holidays like Halloween, Christmas, and Easter. Understanding exactly why chocolate is dangerous and how different types vary in their potency can help pet owners respond appropriately.</p>
-
-              <h3>What Makes Chocolate Toxic?</h3>
-              <p>The culprit is <strong>theobromine</strong>, a bitter alkaloid in the methylxanthine family (related to caffeine). In humans, theobromine is metabolised quickly and poses little threat. In dogs, the half-life of theobromine is approximately 17.5 hours — meaning it builds up in the body much more effectively, allowing toxic concentrations to accumulate.</p>
-
-              <h3>Theobromine Content by Chocolate Type</h3>
-              <p>The danger is directly proportional to how much cocoa solid the chocolate contains:</p>
-              <ul>
-                <li><strong>White Chocolate:</strong> ~0.25 mg/oz — Essentially non-toxic</li>
-                <li><strong>Milk Chocolate:</strong> ~58 mg/oz — Dangerous in moderate amounts</li>
-                <li><strong>Dark / Semi-Sweet:</strong> ~138 mg/oz — High risk</li>
-                <li><strong>Baker's Chocolate:</strong> ~393 mg/oz — Very high risk, even small amounts</li>
-                <li><strong>Dry Cocoa Powder:</strong> ~737 mg/oz — Extremely concentrated, most dangerous</li>
-              </ul>
-
-              <h3>Clinical Signs of Theobromine Toxicosis</h3>
-              <p>Signs typically appear within 6–12 hours of ingestion and can last up to 72 hours:</p>
-              <ul>
-                <li><strong>Mild (5–20 mg/kg):</strong> Vomiting, diarrhea, increased urination, restlessness</li>
-                <li><strong>Moderate (20–40 mg/kg):</strong> Tachycardia, hyperactivity, muscle tremors</li>
-                <li><strong>Severe (40–60+ mg/kg):</strong> Seizures, cardiac arrhythmias, potentially fatal</li>
-              </ul>
-
-              <h3>Treatment Options</h3>
-              <p>If ingestion occurred within 2 hours, a vet may induce vomiting. Activated charcoal may be administered to slow absorption. Severe cases require hospitalisation for IV fluids, cardiac monitoring, and anticonvulsant therapy. There is no specific antidote — treatment is supportive.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-chocolate-toxicity" />
+            <h2 className="text-2xl font-bold mb-3">Theobromine and Dogs</h2>
+            <p>Dogs clear theobromine from their systems far slower than humans, so even modest amounts accumulate to toxic levels. Theobromine content per 100 g: white chocolate ~3.5 mg, milk ~60 mg, dark (70%) ~450 mg, baking ~1,300 mg, cocoa powder ~2,600 mg. This <strong>dog chocolate toxicity calculator</strong> converts what your dog ate into a mg/kg dose against published thresholds.</p>
+            <h2 className="text-2xl font-bold mb-3">Risk Thresholds</h2>
+            <p>Below 20 mg/kg: unlikely to cause symptoms. 20–100 mg/kg: mild risk (vomiting, restlessness). 100–200 mg/kg: toxic — veterinary treatment needed. Above 200 mg/kg: severe — seizures and arrhythmias possible. Dose = theobromine ingested ÷ body weight in kg.</p>
+            <h2 className="text-2xl font-bold mb-3">If Ingestion Happens</h2>
+            <p>Stay calm, record the type and amount, and call your vet or Pet Poison Helpline (855-764-7661) with the calculated dose. Induced vomiting within 1–2 hours helps if instructed. This tool is a screening aid — it does not replace professional veterinary judgment.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/dog-chocolate-toxicity-calculator" />
           <PopularCalculators exclude="/calculator/dog-chocolate-toxicity-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default DogChocolateToxicityCalculator;
-
+}

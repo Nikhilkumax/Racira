@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Ruler } from "lucide-react";
+import { BarChart, Bar, Cell, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface HeightResult {
   feet: number;
@@ -101,21 +102,32 @@ export default function HeightCalculator() {
               </div>
             </div>
             <div className="flex gap-2 pt-2">
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
-                <Ruler className="w-4 h-4 text-primary" /> CONVERTED HEIGHT
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Converted Height</div>
+              <div className="text-4xl font-extrabold text-primary tracking-tight">{result.feet} ft {result.inches.toFixed(1)} in</div>
+              <div className="text-sm text-muted-foreground mt-1">
+                {result.cm.toFixed(1)} cm · {result.meters.toFixed(2)} m · {result.totalInches.toFixed(1)} in total
               </div>
-              <div className="flex items-baseline gap-2 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold text-primary">{result.feet} ft {result.inches.toFixed(1)} in</span>
-              </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {result.cm.toFixed(1)} cm — or {fmtIn(result.totalInches)}.
-              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[
+                ["Total Inches", `${result.totalInches.toFixed(1)} in`],
+                ["Centimeters", `${result.cm.toFixed(1)} cm`],
+                ["Meters", `${result.meters.toFixed(3)} m`],
+              ].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold text-foreground">{v}</div>
+                </div>
+              ))}
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">
@@ -138,16 +150,37 @@ export default function HeightCalculator() {
               </table>
             </div>
 
+            <div className="rounded-lg border border-border bg-card p-5">
+              <h3 className="text-base font-bold mb-4">Your Height vs Common References</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={[{ name: "Your Height", cm: Math.round(result.cm), selected: true }, { name: "5' 0\"", cm: 152, selected: false }, { name: "5' 6\"", cm: 168, selected: false }, { name: "5' 10\"", cm: 178, selected: false }, { name: "6' 0\"", cm: 183, selected: false }, { name: "6' 2\"", cm: 188, selected: false }]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <XAxis dataKey="name" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
+                  <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={40} />
+                  <Tooltip formatter={(v: number) => `${v} cm`} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                  <Bar dataKey="cm" radius={[4, 4, 0, 0]}>
+                    <Cell fill="hsl(var(--primary))" />
+                    <Cell fill="hsl(var(--primary) / 0.25)" />
+                    <Cell fill="hsl(var(--primary) / 0.25)" />
+                    <Cell fill="hsl(var(--primary) / 0.25)" />
+                    <Cell fill="hsl(var(--primary) / 0.25)" />
+                    <Cell fill="hsl(var(--primary) / 0.25)" />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <p className="text-xs text-muted-foreground mt-2 text-center">Highlighted bar is your height; the US male average is 175.3 cm (5' 9").</p>
+            </div>
+
             <div className="bg-muted/30 rounded-lg p-5">
-              <div className="text-sm font-bold mb-3">Reference Points</div>
+              <div className="text-sm font-bold mb-3">Summary Statistics</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                 {[
-                  { label: "5' 0\"", value: "152.4 cm" },
-                  { label: "5' 6\"", value: "167.6 cm" },
-                  { label: "5' 10\"", value: "177.8 cm" },
-                  { label: "6' 0\"", value: "182.9 cm" },
-                  { label: "6' 2\"", value: "188.0 cm" },
+                  { label: "Feet & Inches", value: `${result.feet} ft ${result.inches.toFixed(1)} in` },
+                  { label: "Total Inches", value: `${result.totalInches.toFixed(1)} in` },
+                  { label: "Centimeters", value: `${result.cm.toFixed(1)} cm` },
+                  { label: "Meters", value: `${result.meters.toFixed(3)} m` },
                   { label: "US Avg Male / Female", value: "175.3 / 161.5 cm" },
+                  { label: "6 ft Reference", value: "182.9 cm" },
                 ].map((s) => (
                   <div key={s.label} className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{s.label}</span>

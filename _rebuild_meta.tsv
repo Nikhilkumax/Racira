@@ -1,0 +1,223 @@
+carbon-footprint-calculator	Carbon Footprint Calculator	ENVIRONMENT	Carbon Footprint	Estimate your personal or household annual carbon dioxide emissions.
+cat-calorie-calculator	Cat Calorie Calculator	EVERYDAY_LIFE	Gaming & Hobbies	Determine the exact daily caloric intake your cat needs to stay healthy.
+cat-pregnancy-calculator	Cat Pregnancy Calculator	EVERYDAY_LIFE	Gaming & Hobbies	Calculate your cat
+certificate-of-deposit-calculator	Certificate of Deposit Calculator	FINANCE	Savings & Banking	Calculate CD maturity value and interest earned at any term and APY.
+circle-calculator	Circle Calculator	MATH	Algebra	Calculate circle area, circumference, diameter, and arc length.
+coffee-brewing-calculator	Coffee Brewing Calculator	EVERYDAY_LIFE	Food & Cooking	Calculate the perfect coffee-to-water ratio for any brewing method.
+commission-calculator	Commission Calculator	FINANCE	Tax	Calculate sales commission with tiered rates and bonuses.
+compost-ratio-calculator	Compost C:N Ratio Calculator	ENVIRONMENT	Crops & Soil	Calculate the optimal carbon-to-nitrogen ratio for your compost pile.
+conception-calculator	Conception Calculator	HEALTH	Pregnancy & Fertility	Estimate conception date from due date or birth date.
+contrast-ratio-calculator	Color Contrast Calculator	TECHNOLOGY	Web & Digital	Check WCAG contrast ratios between text and background colors for accessibility.
+conversion-rate-calculator	Conversion Rate Calculator	TECHNOLOGY	Web & Digital	Calculate conversion percentage and Cost Per Acquisition (CPA).
+credit-score-estimator	Credit Score Estimator	FINANCE	Debt & Credit	Estimate your credit score range based on payment history and utilization.
+cron-expression-calculator	Cron Expression Calculator	TECHNOLOGY	Programming & Software	Generate and decode cron expressions for scheduling tasks.
+cumulative-gpa-calculator	Cumulative GPA Calculator	EDUCATION	GPA & Grades	Calculate your overall cumulative GPA including past semesters.
+cycling-power-calculator	Cycling Power Calculator	HEALTH	Cycling & Water Sports	Estimate the power (Watts) required to ride at a certain speed.
+da-calculator	DA Calculator	FINANCE	Personal Finance	Calculate Dearness Allowance based on latest CPI index.
+data-storage-converter	Data Storage Converter	TECHNOLOGY	Database & Storage	Convert between Bytes, Kilobytes, Megabytes, Gigabytes, Terabytes, etc.
+data-transfer-rate-calculator	Data Transfer Rate Calculator	TECHNOLOGY	Networking & Infrastructure	Convert between different data transfer units (Mbps, MB/s, Gbps, etc.).
+dcf-calculator	DCF Calculator	FINANCE	Investment & Wealth	Discounted Cash Flow analysis to find intrinsic value per share.
+debt-service-coverage-ratio-calculator	Debt Service Coverage Ratio Calculator	BUSINESS	Business Finance	Calculate DSCR to assess a company
+debt-to-income-calculator	Debt-to-Income Ratio Calculator	FINANCE	Debt & Credit	Calculate your DTI ratio to assess mortgage and loan eligibility.
+density-calculator	Density Calculator	SCIENCE	Physics – Mechanics	Calculate density, mass, or volume given the other two values.
+depreciation-calculator	Depreciation Calculator	FINANCE	Personal Finance	Calculate asset depreciation using straight-line or accelerated methods.
+dividend-reinvestment-calculator	Dividend Reinvestment Calculator	FINANCE	Investment & Wealth	Project long-term wealth from automatically reinvesting dividends (DRIP).
+docker-image-size-calculator	Docker Image Size Calculator	TECHNOLOGY	Programming & Software	Estimate the final size of a Docker image based on base image and installed packages.
+dog-chocolate-toxicity-calculator	Dog Chocolate Toxicity Calculator	EVERYDAY_LIFE	Gaming & Hobbies	Assess toxicity risk based on dog weight, chocolate type, and amount eaten.
+dog-pregnancy-calculator	Dog Pregnancy Calculator	EVERYDAY_LIFE	Gaming & Hobbies	Determine your dog
+dog-size-predictor	Dog Size Predictor	EVERYDAY_LIFE	Gaming & Hobbies	Predict your puppy
+dollar-cost-averaging-calculator	Dollar Cost Averaging Calculator	FINANCE	Investment & Wealth	See the long-term wealth impact of regular fixed investments using DCA strategy.
+domain-name-valuation-calculator	Domain Name Valuation Calculator	TECHNOLOGY	Web & Digital	Estimate the market value of a domain name based on length, TLD, and traffic.
+dti-calculator	DTI Calculator	FINANCE	Debt & Credit	Calculate your debt-to-income ratio for mortgage qualification.
+due-date-calculator	Due Date Calculator	HEALTH	Pregnancy & Fertility	Calculate your estimated due date from last menstrual period.
+ebitda-calculator	EBITDA Calculator	FINANCE	Personal Finance	Calculate EBITDA and EBITDA margin from financial statements.
+ecological-footprint-calculator	Ecological Footprint Calculator	ENVIRONMENT	Carbon Footprint	Estimate how many \\
+energy-efficient-appliance-calculator	Energy Efficiency ROI Calculator	ENVIRONMENT	Renewable Energy	Calculate the payback period for upgrading to energy-efficient appliances.
+epf-calculator	EPF Calculator	FINANCE	Savings & Banking	Estimate Employee Provident Fund corpus at retirement.
+estate-tax-calculator	Estate Tax Calculator	FINANCE	Tax	Estimate federal estate tax and exemption amounts.
+expected-return-calculator	Expected Return Calculator	FINANCE	Investment & Wealth	Calculate weighted average return for probabilistic outcomes.
+fertility-calculator	Fertility Calculator	HEALTH	Pregnancy & Fertility	Track fertility window and best days to conceive.
+final-grade-calculator	Final Grade Calculator	EDUCATION	GPA & Grades	Determine what grade you need on a final exam to achieve a target overall class grade.
+flight-emissions-calculator	Flight Emissions Calculator	ENVIRONMENT	Carbon Footprint	Calculate the carbon footprint of a specific flight route.
+font-size-converter	Font Size Converter	TECHNOLOGY	Web & Digital	Convert font sizes between Points, Pixels, EMs, and REMs.
+food-carbon-footprint-calculator	Food Carbon Footprint Calculator	ENVIRONMENT	Carbon Footprint	Estimate the emissions impact of different diets (e.g., vegan vs. meat-heavy).
+force-calculator	Force Calculator	SCIENCE	Physics – Mechanics	Calculate force using Newton
+freelance-design-rate-calculator	Freelance Design Rate Calculator	EVERYDAY_LIFE	Creative & Arts	Calculate freelance design rate calculator online with our free tool.
+freelancer-rate-calculator	Freelancer Rate Calculator	FINANCE	Personal Finance	Calculate Freelancer Rate Calculator online with our free tool.
+freelancer-tax-calculator	Freelancer Tax Calculator	FINANCE	Tax	Calculate freelancer tax calculator online with our free tool.
+gfr-calculator	GFR Calculator	HEALTH	Fitness & Exercise	Estimate glomerular filtration rate for kidney function assessment.
+git-repo-size-calculator	Git Repository Size Calculator	TECHNOLOGY	Programming & Software	Estimate the size of a git repository clone based on commit history and file sizes.
+gpa-calculator	GPA Calculator	EDUCATION	Academic Planning	Calculate semester and cumulative GPA with weighted credits.
+gre-score-calculator	GRE Score Percentile Calculator	EDUCATION	Standardized Tests	Convert your GRE scores into percentile rankings.
+groundwater-contamination-plume-calculator	Groundwater Contamination Plume Calculator	ENGINEERING	Environmental Engineering	Calculate Groundwater Contamination Plume Calculator online with our free tool.
+gst-calculator	GST Calculator	FINANCE	Tax	GST/VAT calculator with CGST, SGST, and IGST split.
+hard-money-loan-calculator	Hard Money Loan Calculator	FINANCE	Loans & Mortgages	Estimate the cost and payments for short-term hard money real estate loans.
+hash-calculator	Hash Calculator	TECHNOLOGY	Cybersecurity	Generate cryptographic hashes (MD5, SHA-1, SHA-256) for a given text or file.
+home-affordability-calculator	Home Affordability Calculator	FINANCE	Real Estate Finance	Estimate max home price based on income, debts, and down payment.
+home-energy-emissions-calculator	Home Energy Emissions Calculator	ENVIRONMENT	Carbon Footprint	Calculate greenhouse gas emissions from household electricity and gas usage.
+hourly-to-salary-calculator	Hourly to Salary Calculator	FINANCE	Tax	Convert hourly wage to annual salary and vice versa.
+house-affordability-calculator	House Affordability Calculator	FINANCE	Personal Finance	Find out how much house you can afford based on income and debts.
+hra-calculator	HRA Calculator	FINANCE	Tax	Calculate HRA exemption under Section 10(13A) of Income Tax Act.
+hydration-calculator	Daily Hydration Calculator	HEALTH	Clinical & Medical	Calculate precise daily water needs based on body weight, activity level, and climate.
+ideal-bmi-weight-calculator	Ideal BMI Weight Calculator	HEALTH	Body Metrics & Anthropometry	Calculate ideal bmi weight calculator online with our free tool.
+ideal-weight-calculator	Ideal Weight Calculator	HEALTH	Body Metrics & Anthropometry	Find your ideal weight range based on height, age, and gender.
+image-file-size-calculator	Image File Size Calculator	TECHNOLOGY	Database & Storage	Estimate uncompressed image file size based on resolution and color depth.
+income-tax-calculator-india	Income Tax Calculator (India)	FINANCE	Tax	Compare old vs new tax regime and find optimal tax-saving strategy.
+inflation-calculator	Inflation Calculator	FINANCE	Tax	Calculate purchasing power and inflation-adjusted values.
+instagram-engagement-calculator	Instagram Engagement Calculator	TECHNOLOGY	Web & Digital	Measure account health by calculating engagement-to-follower ratio.
+insulin-to-carb-ratio-calculator	Insulin-to-Carb Ratio Calculator	HEALTH	Pharmacy & Dosing	Calculate insulin-to-carb ratio calculator online with our free tool.
+interest-only-mortgage-calculator	Interest-Only Mortgage Calculator	FINANCE	Loans & Mortgages	Calculate monthly payments during the interest-only period of your mortgage.
+interest-rate-calculator	Interest Rate Calculator	FINANCE	Investment & Wealth	Find the implied interest rate from payment and loan details.
+inventory-turnover-ratio-calculator	Inventory Turnover Ratio Calculator	FINANCE	Accounting & Financial Statements	Calculate Inventory Turnover Ratio Calculator online with our free tool.
+investment-property-calculator	Investment Property Calculator	FINANCE	Real Estate Finance	Analyze rental property profitability, cash flow, and cap rate.
+irr-calculator	IRR Calculator	FINANCE	Investment & Wealth	Calculate Internal Rate of Return for uneven cash flows.
+jitter-calculator	Jitter Calculator	TECHNOLOGY	Networking & Infrastructure	Analyze the stability of your network connection and latency variance.
+lcm-gcd-calculator	LCM and GCD Calculator	MATH	Number Theory & Discrete Math	Calculate the Least Common Multiple and Greatest Common Divisor of two or three numbers.
+lean-body-mass-calculator	Lean Body Mass Calculator	HEALTH	Body Metrics & Anthropometry	Calculate lean body mass excluding body fat.
+lean-mass-calculator	Lean Mass Calculator	HEALTH	Body Metrics & Anthropometry	Calculate your lean body mass and fat weight.
+lease-vs-buy-calculator	Lease vs Buy Calculator	FINANCE	Loans & Mortgages	Compare total costs of leasing vs buying a vehicle.
+leave-encashment-calculator	Leave Encashment Calculator	FINANCE	Personal Finance	Calculate leave encashment amount with tax exemption.
+led-savings-calculator	LED Lighting Savings Calculator	ENVIRONMENT	Renewable Energy	Calculate energy and cost savings from switching to LED bulbs.
+lifetime-value-calculator	Customer Lifetime Value Calculator	BUSINESS	Business Finance	Estimate the total revenue a business can expect from a single customer.
+linear-equation-calculator	Linear Equation Calculator	MATH	Algebra	Solve linear equations and systems of equations step by step.
+loan-origination-points-to-apr-calculator	Loan Origination Points to APR Calculator	FINANCE	Loans & Mortgages	Calculate the true Annual Percentage Rate (APR) by factoring in origination points and upfront fees.
+log-calculator	Log Calculator	MATH	Algebra	Calculate logarithms with any base — natural, common, and custom.
+logistics-cost-as-of-revenue-calculator	Logistics Cost as % of Revenue Calculator	BUSINESS	Operations & Supply Chain	Calculate Logistics Cost as % of Revenue Calculator online with our free tool.
+mac-address-generator	MAC Address Generator	TECHNOLOGY	Networking & Infrastructure	Generate random or vendor-specific MAC addresses for network testing.
+market-neutral-return-calculator	Market Neutral Return Calculator	FINANCE	Investment & Wealth	Calculate market neutral return calculator online with our free tool.
+markup-calculator	Markup Calculator	FINANCE	Personal Finance	Calculate markup percentage, selling price, and cost price.
+marriage-tax-calculator	Marriage Tax Calculator	FINANCE	Tax	Compare tax liability for married filing jointly vs separately.
+matrix-calculator	Matrix Calculator	MATH	Algebra	Perform matrix operations — addition, multiplication, determinant, inverse.
+meatless-monday-impact-calculator	Meatless Diet Impact Calculator	ENVIRONMENT	Carbon Footprint	Estimate the environmental benefits of skipping meat for a specific number of days.
+midpoint-calculator	Midpoint Calculator	MATH	Geometry	Calculate midpoint calculator online with our free tool.
+minimum-payment-calculator	Minimum Payment Calculator	FINANCE	Debt & Credit	See how long it takes to pay off debt making only minimum payments.
+molarity-calculator	Molarity Calculator	SCIENCE	Chemistry	Calculate molarity, moles, volume, or dilution for solutions.
+money-market-calculator	Money Market Calculator	FINANCE	Savings & Banking	Calculate interest earned and final balance on a money market account.
+monitor-dpi-calculator	Monitor DPI Calculator	TECHNOLOGY	Programming & Software	Calculate pixel density and sharpness for any display.
+mortgage-affordability-calculator	Mortgage Affordability Calculator	FINANCE	Loans & Mortgages	Find out how much home you can afford based on income and DTI ratios.
+mouse-sensitivity-calculator	Mouse Sensitivity Calculator	TECHNOLOGY	Programming & Software	Calculate effective sensitivity (eDPI) and physical movement distance.
+net-pay-calculator	Net Pay Calculator	FINANCE	Tax	Calculate your actual take-home pay after all taxes and deductions.
+nps-calculator	NPS Calculator	FINANCE	Savings & Banking	Plan National Pension System contributions and retirement corpus.
+one-rep-max-calculator	One Rep Max Calculator	HEALTH	Fitness & Exercise	Calculate your estimated one-rep max for any lift.
+operating-profit-margin-calculator	Operating Profit Margin Calculator	BUSINESS	Business Finance	Calculate operating profit margin calculator online with our free tool.
+options-profit-calculator	Options Profit Calculator	FINANCE	Investment & Wealth	Calculate profit, loss, and break-even for call and put options contracts.
+overtime-calculator	Overtime Calculator	FINANCE	Tax	Calculate overtime pay with regular and overtime hourly rates.
+overweight-percentage-calculator	Overweight Percentage Calculator	HEALTH	Body Metrics & Anthropometry	Calculate overweight percentage calculator online with our free tool.
+ovulation-calculator	Ovulation Calculator	HEALTH	Pregnancy & Fertility	Predict ovulation dates and fertile window for conception.
+pace-calculator	Pace Calculator	HEALTH	Fitness & Exercise	Calculate running or walking pace, speed, and finish time.
+pace-converter	Pace Converter	HEALTH	Running & Endurance	Convert between running times, distances, paces, and speeds.
+packet-loss-calculator	Packet Loss Calculator	TECHNOLOGY	Networking & Infrastructure	Calculate the percentage of data lost during transmission.
+paper-savings-calculator	Paper Savings Calculator	ENVIRONMENT	Ecology & Biodiversity	Calculate the environmental impact (trees, water, energy saved) by going paperless.
+password-entropy-calculator	Password Entropy Calculator	TECHNOLOGY	Cybersecurity	Calculate the strength and entropy of a password to estimate cracking time.
+password-generator	Password Generator	TECHNOLOGY	Programming & Software	Generate secure passwords with customizable length and characters.
+payroll-tax-calculator	Payroll Tax Calculator	FINANCE	Tax	Calculate employer and employee payroll tax obligations by state.
+pe-ratio-calculator	P/E Ratio Calculator	FINANCE	Investment & Wealth	Calculate Price-to-Earnings ratio and compare stock valuation to industry averages.
+pension-calculator	Pension Calculator	FINANCE	Tax	Calculate pension income based on years of service and salary.
+percent-error-calculator	Percent Error Calculator	MATH	Algebra	Calculate percent error between experimental and theoretical values.
+percentage-to-cgpa-converter	Percentage to CGPA Converter	EDUCATION	Academic Planning	Convert percentage marks to CGPA and vice versa.
+period-calculator	Period Calculator	HEALTH	Pregnancy & Fertility	Predict your next period date and menstrual cycle length.
+pixel-density-calculator	Pixel Density (PPI) Calculator	TECHNOLOGY	Programming & Software	Calculate Pixels Per Inch (PPI) based on screen resolution and diagonal display size.
+pizza-size-calculator	Pizza Size Calculator	EVERYDAY_LIFE	Food & Cooking	Compare pizza sizes and prices to find the best value per square inch.
+plastic-footprint-calculator	Plastic Footprint Calculator	ENVIRONMENT	Carbon Footprint	Calculate your annual consumption of single-use plastics.
+podcast-hosting-cost-calculator	Podcast Hosting Cost Calculator	TECHNOLOGY	Web & Digital	Estimate monthly podcasting infrastructure costs based on episode size and listeners.
+points-break-even-calculator	Mortgage Points Break-Even Calculator	FINANCE	Loans & Mortgages	Calculate how long it takes to recoup the cost of buying mortgage discount points.
+polynomial-calculator	Polynomial Calculator	MATH	Algebra	Add, subtract, multiply polynomials and find roots.
+population-growth-ecology-calculator	Population Growth Rate Calculator	ENVIRONMENT	Climate & Carbon	Model exponential or logistic population growth in an ecosystem.
+portfolio-rebalancing-calculator	Portfolio Rebalancing Calculator	FINANCE	Investment & Wealth	Calculate exactly how much to buy or sell to restore target asset allocations.
+power-supply-calculator	PC Power Supply Calculator	TECHNOLOGY	Database & Storage	Estimate required power supply wattage for a custom PC build based on components.
+ppf-calculator	PPF Calculator	FINANCE	Savings & Banking	Calculate Public Provident Fund maturity with yearly deposits.
+pregnancy-calculator	Pregnancy Calculator	HEALTH	Pregnancy & Fertility	Track pregnancy milestones, due date, and trimester progress.
+pregnancy-weight-gain-calculator	Pregnancy Weight Gain Calculator	HEALTH	Pregnancy & Fertility	Track healthy weight gain during pregnancy by trimester.
+price-to-book-ratio-calculator	Price-to-Book Ratio Calculator	FINANCE	Investment & Wealth	Calculate price-to-book ratio calculator online with our free tool.
+professional-tax-calculator	Professional Tax Calculator	FINANCE	Tax	Calculate state-wise professional tax deduction from salary.
+profit-margin-calculator	Profit Margin Calculator	FINANCE	Personal Finance	Calculate gross, operating, and net profit margins.
+property-appreciation-calculator	Property Appreciation Calculator	FINANCE	Personal Finance	Estimate future property value based on historical appreciation rates.
+protein-intake-calculator	Protein Intake Calculator	HEALTH	Nutrition & Diet	Find your optimal daily protein intake based on goals and activity.
+pythagorean-theorem-calculator	Pythagorean Theorem Calculator	MATH	Algebra	Find the missing side of a right triangle using a² + b² = c².
+quarterly-tax-calculator	Quarterly Estimated Tax Calculator	FINANCE	Tax	Calculate quarterly tax payments to avoid IRS underpayment penalties.
+raid-calculator	RAID Capacity Calculator	TECHNOLOGY	Database & Storage	Determine usable storage capacity and fault tolerance for various RAID configurations (0, 1, 5, 6, 10).
+rain-barrel-calculator	Rain Barrel Sizing Calculator	ENVIRONMENT	Ecology & Biodiversity	Determine the required rain barrel capacity based on roof area and rainfall.
+ratio-calculator	Ratio Calculator	MATH	Algebra	Simplify ratios, find equivalent ratios, and solve proportions.
+reading-speed-calculator	Reading Speed Calculator	EDUCATION	Study Skills & Productivity	Calculate your reading speed in words per minute (WPM).
+regex-test-calculator	Regex Match Calculator	TECHNOLOGY	Programming & Software	Calculate the number of matches and capture groups for a given regular expression.
+rent-affordability-calculator	Rent Affordability Calculator	FINANCE	Real Estate Finance	Find out how much rent you can afford using 30% and 40x rules.
+rent-vs-buy-calculator	Rent vs Buy Calculator	FINANCE	Personal Finance	Compare the true costs of renting versus buying a home.
+return-on-marketing-investment-calculator	Return on Marketing Investment Calculator	BUSINESS	Business Finance	Calculate return on marketing investment calculator online with our free tool.
+reverse-mortgage-calculator	Reverse Mortgage Calculator	FINANCE	Loans & Mortgages	Calculate how much equity you can access through a reverse mortgage.
+rgb-to-hex-converter	RGB to HEX Converter	TECHNOLOGY	Web & Digital	Convert RGB color values to hexadecimal codes for web design.
+roas-calculator	ROAS Calculator	TECHNOLOGY	Web & Digital	Calculate revenue generated per dollar spent on advertising.
+roi-calculator	ROI Calculator	FINANCE	Investment & Wealth	Calculate return on investment with annualized returns.
+roth-ira-calculator	Roth IRA Calculator	FINANCE	Retirement	Calculate Roth IRA growth with tax-free withdrawal projections.
+rule-of-70-calculator	Rule of 70 Calculator	FINANCE	Investment & Wealth	Estimate how long it will take for an investment to double.
+running-calorie-calculator	Running Calorie Calculator	HEALTH	Running & Endurance	Calculate calories burned while running based on distance and pace.
+salary-calculator	Salary Calculator	FINANCE	Tax	Convert between hourly, weekly, monthly, and annual salary.
+sales-tax-calculator	Sales Tax Calculator	FINANCE	Tax	Calculate sales tax, before-tax and after-tax prices.
+sat-score-calculator	SAT Score Calculator	EDUCATION	Standardized Tests	Estimate your SAT score based on raw section scores.
+savings-calculator	Savings Calculator	FINANCE	Retirement	Calculate savings growth with regular deposits and compound interest.
+school-day-minutes-calculator	School Day Minutes Calculator	EDUCATION	Teaching & Curriculum	Calculate School Day Minutes Calculator online with our free tool.
+screen-size-calculator	Screen Size Calculator	TECHNOLOGY	Programming & Software	Calculate screen dimensions, PPI, and aspect ratio.
+self-employment-tax-calculator	Self-Employment Tax Calculator	FINANCE	Tax	Calculate self-employment taxes including Social Security and Medicare contributions.
+senior-bmi-calculator	Senior BMI Calculator	HEALTH	Body Metrics & Anthropometry	Calculate senior bmi calculator online with our free tool.
+server-rack-units-calculator	Server Rack Units Calculator	TECHNOLOGY	Database & Storage	Plan data center layout by calculating rack unit usage and space.
+sharpe-ratio-calculator	Sharpe Ratio Calculator	FINANCE	Investment & Wealth	Measure risk-adjusted returns by calculating excess return per unit of volatility.
+sird-epidemic-model-calculator	SIRD Epidemic Model Calculator	HEALTH	Epidemiology & Public Health	Calculate SIRD Epidemic Model Calculator online with our free tool.
+sleep-calculator	Sleep Calculator	HEALTH	Fitness & Exercise	Calculate optimal bedtime and wake time based on sleep cycles.
+slope-calculator	Slope Calculator	MATH	Algebra	Calculate slope, distance, and midpoint between two points.
+soccer-goals-per-game-calculator	Soccer Goals per Game Calculator	HEALTH	Ball Sports	Calculate soccer goals per game calculator online with our free tool.
+solar-energy-savings-calculator	Solar Energy Savings Calculator	ENVIRONMENT	Renewable Energy	Estimate financial savings and CO2 reduction from installing solar panels.
+ssd-tbw-calculator	SSD TBW Calculator	TECHNOLOGY	Database & Storage	Estimate SSD lifespan based on TBW rating and daily usage.
+ssl-certificate-cost-calculator	SSL Certificate Cost Calculator	TECHNOLOGY	Web & Digital	Compare costs and features for different types of SSL certificates.
+stamp-duty-calculator	Stamp Duty Calculator	FINANCE	Tax	Calculate stamp duty and registration charges for property purchase.
+statistics-calculator	Statistics Calculator	MATH	Statistics	Calculate mean, median, mode, range, and standard deviation.
+stepper-motor-calculator	Stepper Motor Calculator	TECHNOLOGY	Database & Storage	Calculate steps per millimeter for 3D printers and CNC machines.
+steroid-equivalence-calculator	Steroid Equivalence Calculator	HEALTH	Pharmacy & Dosing	Calculate steroid equivalence calculator online with our free tool.
+stock-calculator	Stock Return Calculator	FINANCE	Investment & Wealth	Calculate total return on a stock investment including dividends and price appreciation.
+study-time-calculator	Study Time Calculator	EDUCATION	Study Skills & Productivity	Estimate how many hours you should study per week based on credit hours and course difficulty.
+subnet-calculator	IP Subnet Calculator	TECHNOLOGY	Networking & Infrastructure	Calculate network, broadcast, and host ranges for IPv4 and IPv6 subnets.
+subscription-cost-calculator	Subscription Cost Calculator	FINANCE	Personal Finance	Calculate the true annual cost of all your recurring subscription services.
+sukanya-samriddhi-calculator	Sukanya Samriddhi Calculator	FINANCE	Savings & Banking	Calculate Sukanya Samriddhi Yojana maturity amount for girl child.
+supply-and-demand-equilibrium-price-calculator	Supply and Demand Equilibrium Price Calculator	FINANCE	Economics	Calculate Supply and Demand Equilibrium Price Calculator online with our free tool.
+supply-chain-cost-as-of-sales-calculator	Supply Chain Cost as % of Sales Calculator	BUSINESS	Logistics & Trade	Calculate Supply Chain Cost as % of Sales Calculator online with our free tool.
+surface-area-calculator	Surface Area Calculator	MATH	Algebra	Calculate surface area of 3D shapes with formulas and diagrams.
+swp-calculator	SWP Calculator	FINANCE	Investment & Wealth	Plan systematic withdrawals from your mutual fund investments.
+take-home-salary-calculator	Take-Home Salary Calculator	FINANCE	Tax	Calculate your net pay after taxes, deductions, and benefits.
+target-heart-rate-calculator	Target Heart Rate Calculator	HEALTH	Fitness & Exercise	Calculate target heart rate zones for optimal exercise intensity.
+tariff-classification-cost-estimator	Tariff Classification Cost Estimator	BUSINESS	Logistics & Trade	Calculate Tariff Classification Cost Estimator online with our free tool.
+tax-bracket-calculator	Tax Bracket Calculator	FINANCE	Tax	Find your marginal and effective federal income tax rates by bracket.
+tdee-calculator	TDEE Calculator	HEALTH	Body Metrics & Anthropometry	Calculate Total Daily Energy Expenditure based on activity level.
+tds-calculator	TDS Calculator	FINANCE	Tax	Calculate Tax Deducted at Source for salary, FD, and other income.
+tea-steeping-time-calculator	Tea Steeping Time Calculator	EVERYDAY_LIFE	Food & Cooking	Get optimal steeping times and temperatures for all tea varieties.
+teacher-preparation-time-calculator	Teacher Preparation Time Calculator	EDUCATION	Teaching & Curriculum	Calculate Teacher Preparation Time Calculator online with our free tool.
+test-grade-calculator	Test Grade Calculator	EDUCATION	GPA & Grades	Quickly generate a grading scale for a test based on the total number of questions.
+tiktok-earnings-calculator	TikTok Earnings Calculator	TECHNOLOGY	Web & Digital	Estimate potential earnings from the TikTok Creator Fund and deals.
+time-duration-calculator	Time Duration Calculator	EVERYDAY_LIFE	Personal & Family	Calculate the duration between two specific times.
+tip-and-split-calculator	Tip and Split Calculator	EVERYDAY_LIFE	Consumer & Shopping	Calculate tip amounts and split bills evenly among a group.
+traditional-ira-calculator	Traditional IRA Calculator	FINANCE	Retirement	Estimate Traditional IRA growth with tax-deferred contributions.
+treasury-bill-calculator	Treasury Bill Calculator	FINANCE	Savings & Banking	Calculate purchase price, discount, and annualized yield on U.S. Treasury Bills.
+tree-planting-offset-calculator	Tree Planting Offset Calculator	ENVIRONMENT	Offset & Sequestration	Calculate how many trees you need to plant to offset your carbon emissions.
+triangle-calculator	Triangle Calculator	MATH	Algebra	Solve triangles — find sides, angles, area, and perimeter.
+turkey-roasting-time-calculator	Turkey Roasting Time Calculator	EVERYDAY_LIFE	Food & Cooking	Calculate roasting and thawing times for the perfect holiday turkey.
+twitch-earnings-calculator	Twitch Earnings Calculator	TECHNOLOGY	Web & Digital	Estimate monthly and yearly Twitch income from subs, bits, and ads.
+unrealized-gainloss-calculator	Unrealized Gain/Loss Calculator	FINANCE	Investment & Wealth	Calculate Unrealized Gain/Loss Calculator online with our free tool.
+upload-time-calculator	Upload Time Calculator	TECHNOLOGY	Networking & Infrastructure	Estimate file upload duration based on file size and connection speed.
+ups-battery-runtime-calculator	UPS Battery Runtime Calculator	TECHNOLOGY	Database & Storage	Estimate backup power duration for your UPS during a blackout.
+uptime-calculator	Server Uptime Calculator	TECHNOLOGY	Cloud & DevOps	Calculate allowed downtime based on uptime SLA percentages (e.g., 99.9%).
+vanity-license-plate-cost-calculator	Vanity License Plate Cost Calculator	TRANSPORTATION	Costs & Ownership	Calculate vanity license plate cost calculator online with our free tool.
+vehicle-emissions-calculator	Vehicle Emissions Calculator	ENVIRONMENT	Carbon Footprint	Estimate CO2 emissions based on your car
+vessel-turnaround-cost-calculator	Vessel Turnaround Cost Calculator	BUSINESS	Logistics & Trade	Calculate Vessel Turnaround Cost Calculator online with our free tool.
+video-file-size-calculator	Video File Size Calculator	TECHNOLOGY	Database & Storage	Estimate video file size based on bitrate, resolution, and duration.
+vo2-max-calculator	VO2 Max Calculator	HEALTH	Fitness & Exercise	Estimate your maximum oxygen uptake and cardiovascular fitness.
+volume-calculator	Volume Calculator	MATH	Algebra	Calculate volume of 3D shapes — sphere, cylinder, cone, and more.
+vps-pricing-calculator	VPS Pricing Calculator	TECHNOLOGY	Cloud & DevOps	Estimate monthly cloud hosting costs based on CPU, RAM, and Storage requirements.
+w4-withholding-calculator	W-4 Withholding Calculator	FINANCE	Tax	Determine the correct withholding allowances for your W-4 form.
+waist-to-hip-ratio-calculator	Waist-to-Hip Ratio Calculator	HEALTH	Body Metrics & Anthropometry	Assess health risk based on waist and hip measurements.
+walking-calorie-calculator	Walking Calorie Calculator	HEALTH	Running & Endurance	Estimate calories burned during your walk based on weight and speed.
+warehouse-cost-per-pallet-calculator	Warehouse Cost Per Pallet Calculator	BUSINESS	Logistics & Trade	Calculate Warehouse Cost Per Pallet Calculator online with our free tool.
+waste-diversion-calculator	Waste Diversion Rate Calculator	ENVIRONMENT	Ecology & Biodiversity	Calculate the percentage of waste diverted from landfills via recycling and composting.
+water-boiling-time-calculator	Water Boiling Time Calculator	EVERYDAY_LIFE	Food & Cooking	Estimate boiling time based on volume, heat source, and altitude.
+water-footprint-calculator	Water Footprint Calculator	ENVIRONMENT	Carbon Footprint	Estimate your direct and indirect water consumption.
+water-intake-calculator	Water Intake Calculator	HEALTH	Nutrition & Diet	Calculate recommended daily water intake based on weight and activity.
+website-hosting-cost-calculator	Website Hosting Cost Calculator	TECHNOLOGY	Web & Digital	Estimate monthly web hosting expenses based on traffic and server type.
+weighted-grade-calculator	Weighted Grade Calculator	EDUCATION	GPA & Grades	Calculate a class grade based on weighted assignment categories (e.g., Exams 50%, Homework 30%).
+wind-turbine-energy-calculator	Wind Turbine Energy Calculator	ENVIRONMENT	Renewable Energy	Calculate potential energy generation from a residential wind turbine.
+working-capital-calculator	Working Capital Calculator	FINANCE	Personal Finance	Calculate working capital and current ratio from assets and liabilities.

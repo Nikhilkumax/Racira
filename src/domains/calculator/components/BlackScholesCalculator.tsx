@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -160,12 +160,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function BlackScholesCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<BlackScholesResults>(calculateBlackScholes(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -188,8 +182,6 @@ export default function BlackScholesCalculator() {
     { question: "What is the Risk-Free Rate?", answer: "The risk-free rate is the theoretical return of an investment with zero risk. In practice, traders typically use the yield on a US Treasury bill (like the 3-month or 1-year yield) that closely matches the expiration date of the option." }
   ];
 
-  if (!mounted) return null;
-
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Black-Scholes Calculator" }]} />
@@ -199,7 +191,7 @@ export default function BlackScholesCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <p className="text-sm text-muted-foreground mb-2">Price theoretical European call and put options and calculate the Greeks.</p>
+            
 
             <div className="grid grid-cols-2 gap-4">
               <CompactInput id="stockPrice" label="Stock Price (S)" value={inputs.stockPrice} onChange={(v: string) => handleChange("stockPrice", v)} prefix="$" />

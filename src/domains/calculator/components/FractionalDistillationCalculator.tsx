@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, FlaskConical } from "lucide-react";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface DistillResult {
   lowBp: number;
@@ -57,6 +58,12 @@ export default function FractionalDistillationCalculator() {
     setResult(calcDistillation(78, 100));
   };
 
+  const currentGap = Math.round(result.highBp - result.lowBp);
+  const chartData = [5, 10, 15, 20, 30, 40, 60, 80].map((dT) => {
+    const alpha = Math.exp(dT / 28);
+    const plates = Math.max(1, Math.ceil(Math.log((0.95 / 0.05) * (0.95 / 0.05)) / Math.log(alpha)));
+    return { name: `${dT}°C`, plates, isCurrent: dT === currentGap };
+  });
   const breakdown = [
     { label: "Boiling-Point Gap (ΔT)", value: `${(result.highBp - result.lowBp).toFixed(1)} °C`, highlight: false },
     { label: "Relative Volatility (α)", value: `${result.alpha.toFixed(2)}`, highlight: false },
@@ -101,6 +108,26 @@ export default function FractionalDistillationCalculator() {
                 <span className="text-sm text-muted-foreground">minimum theoretical plates</span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">{result.ease} — relative volatility α = {result.alpha.toFixed(2)}.</p>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Minimum Plates vs Boiling-Point Gap</h3>
+              <div className="h-[220px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip formatter={(value: number) => `${value} plates`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                    <Bar dataKey="plates" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                      {chartData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.isCurrent ? "hsl(var(--primary))" : "hsl(var(--muted-foreground)/0.35)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-center text-muted-foreground mt-3 italic">Highlighted bar is the current boiling-point gap — narrow gaps need far more plates.</p>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

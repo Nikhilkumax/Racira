@@ -1,147 +1,153 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Zap, Cpu, Monitor, Info, ShieldCheck } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-const PsuCalculator = () => {
-  const [cpu, setCpu] = useState("125"); // Watts (Typical high-end CPU)
-  const [gpu, setGpu] = useState("250"); // Watts (Typical high-end GPU)
-  const [ramCount, setRamCount] = useState("2");
-  const [driveCount, setDriveCount] = useState("2");
-  const [fanCount, setFanCount] = useState("4");
+// Typical power draw (watts) per component class — build-adjusted defaults
+const PARTS: { key: string; label: string; base: number }[] = [
+  { key: "cpu", label: "CPU", base: 105 },
+  { key: "gpu", label: "GPU", base: 250 },
+  { key: "motherboard", label: "Motherboard", base: 50 },
+  { key: "ram", label: "RAM", base: 15 },
+  { key: "ssd", label: "SSD / NVMe", base: 8 },
+  { key: "hdd", label: "HDD", base: 10 },
+  { key: "fans", label: "Case fans", base: 6 },
+  { key: "pump", label: "AIO / water pump", base: 18 },
+  { key: "leds", label: "RGB / LED strips", base: 12 },
+];
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+const DEFAULTS: Record<string, string> = {
+  cpu: "105", gpu: "250", motherboard: "50", ram: "15", ssd: "8", hdd: "10", fans: "6", pump: "18", leds: "12",
+};
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const cpuW = parseFloat(cpu) || 0;
-    const gpuW = parseFloat(gpu) || 0;
-    const ramW = (parseInt(ramCount) || 0) * 5;
-    const driveW = (parseInt(driveCount) || 0) * 10;
-    const fanW = (parseInt(fanCount) || 0) * 3;
-    const moboW = 50; // Standard motherboard power
+function fmt(n: number): string {
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(n);
+}
 
-    const totalLoad = cpuW + gpuW + ramW + driveW + fanW + moboW;
-    
-    // Recommended PSU should be 20-30% higher than peak load for efficiency and headroom
-    const recommendedWattage = totalLoad * 1.3;
+export default function PsuCalculator() {
+  const [values, setValues] = useState<Record<string, string>>(DEFAULTS);
+  const [overclock, setOverclock] = useState(false);
+  const [aging, setAging] = useState(false);
+  const [calculated, setCalculated] = useState(false);
 
-    setResults({
-      totalLoad,
-      recommended: Math.ceil(recommendedWattage / 50) * 50, // Round to nearest 50W
-      efficiencyRange: `${Math.round(totalLoad * 0.4)}W - ${Math.round(totalLoad * 0.6)}W`,
-      co2Annual: (totalLoad / 1000) * 4 * 365 * 0.4 // Assuming 4 hours active use per day
-    });
-  };
+  const set = (k: string, v: string) => setValues(prev => ({ ...prev, [k]: v }));
+  const total = PARTS.reduce((acc, p) => acc + (parseFloat(values[p.key]) || 0), 0);
+  const loadFactor = 1 + (overclock ? 0.15 : 0) + (aging ? 0.1 : 0);
+  const load = total * loadFactor;
+  const recommended = Math.ceil(load * 1.3 / 50) * 50; // 30% headroom, rounded to 50W
+  const peak = Math.ceil(load * 1.2 / 50) * 50;
 
-  const reset = () => {
-    setShowResults(false);
-    setCpu("125"); setGpu("250"); setRamCount("2"); setDriveCount("2"); setFanCount("4");
-    setResults(null);
-  };
+  const chartData = [
+    ...PARTS.map(p => ({ name: p.label, value: parseFloat(values[p.key]) || 0, fill: "hsl(var(--primary))" })),
+    { name: "Headroom", value: recommended - load, fill: "#10b981" },
+  ].filter(d => d.value > 0);
+
+  const calc = () => setCalculated(true);
+  useEffect(() => { if (calculated) setCalculated(true); }, [calculated]);
+
+  const reset = () => { setValues(DEFAULTS); setOverclock(false); setAging(false); setCalculated(false); };
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "Why do I need more wattage than my PC uses?", answer: "Power supplies (PSUs) are most efficient when running at 50-60% of their rated capacity. Having extra headroom also allows for future upgrades and prevents the PSU from overheating or running its fan at maximum speed constantly." },
-    { question: "What are 80 PLUS ratings?", answer: "80 PLUS is a certification that measures PSU efficiency. Bronze, Silver, Gold, Platinum, and Titanium represent increasing levels of efficiency. A Gold-rated PSU will waste less electricity as heat than a White or Bronze-rated one." },
-    { question: "Can a PSU have too much wattage?", answer: "Not really. Your components only draw the power they need. A 1000W PSU will only draw 300W from the wall if your PC only needs 300W. The only downside is the higher initial cost of the unit." }
+    { question: "How much headroom should I add?", answer: "A PSU runs most efficiently around 50–80% of its rated load. This calculator targets about 30% headroom over your estimated load, which keeps the unit out of its loudest, hottest zone and leaves room for transient power spikes from the GPU." },
+    { question: "Why does the recommended wattage matter?", answer: "An undersized PSU can trigger shutdowns during gaming spikes, and running near max load shortens capacitor life and increases fan noise. Oversizing by more than ~50% wastes money because efficiency drops at very low loads." },
+    { question: "Should I include overclocking?", answer: "Yes — an overclocked CPU or GPU can draw 10–20% more than stock under load. Toggle the option on if you plan to overclock so the recommendation accounts for it instead of finding out during a benchmark crash." },
+    { question: "Do PSUs degrade over time?", answer: "Capacitors age, especially under heat. The aging option adds 10% to the estimated load, which is a reasonable allowance for a PSU you plan to keep for 5+ years." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PSU Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "PC Power Supply Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">PC Power Supply Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">PC Power Supply Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <InputField id="cpu" label="CPU TDP" value={cpu} onChange={setCpu} suffix="W" tooltip="Thermal Design Power (Check manufacturer specs)." />
-                <InputField id="gpu" label="GPU TDP" value={gpu} onChange={setGpu} suffix="W" tooltip="Graphics card peak power draw." />
-                <InputField id="ram" label="RAM Sticks" value={ramCount} onChange={setRamCount} />
-                <InputField id="drives" label="Storage Drives" value={driveCount} onChange={setDriveCount} tooltip="SSD or HDD count." />
-                <InputField id="fans" label="Case Fans" value={fanCount} onChange={setFanCount} />
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              {PARTS.map(p => (
+                <div key={p.key}>
+                  <label className={lbl}>{p.label}</label>
+                  <input type="number" min={0} value={values[p.key]} onChange={e => set(p.key, e.target.value)} className={inp} placeholder={String(p.base)} />
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={overclock} onChange={e => setOverclock(e.target.checked)} className="h-4 w-4" /> Overclocking CPU/GPU (+15%)</label>
+              <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={aging} onChange={e => setAging(e.target.checked)} className="h-4 w-4" /> Aging allowance (+10%)</label>
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calc} className="flex-1 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/90 text-primary-foreground">Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">Values are typical TDP-style draws; adjust them to match your exact parts. The recommendation targets ~30% headroom for efficiency and transient spikes.</p>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Power Recommendation</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Recommended PSU</p>
-                    <p className="text-5xl font-black text-foreground">{results.recommended} <span className="text-xl font-normal text-muted-foreground">Watts</span></p>
+          {calculated && (
+            <div className="flex flex-col gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Recommended PSU Wattage</div>
+                <div className="text-3xl font-extrabold tracking-tight">{fmt(recommended)} W</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmt(load)} W estimated load · {fmt(peak)} W peak-safe rating</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Estimated load", `${fmt(load)} W`, "full system draw"], ["Recommended", `${fmt(recommended)} W`, "30% headroom"], ["Peak-safe", `${fmt(peak)} W`, "transient allowance"]].map(([l, v, s], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{s}</div>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Estimated Load</p>
-                    <p className="text-3xl font-black text-foreground">{Math.round(results.totalLoad)} W</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Power Draw by Component</h3>
+                <ResponsiveContainer width="100%" height={240}>
+                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" interval={0} angle={-20} textAnchor="end" height={50} />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [`${fmt(Number(v))} W`, ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">GPU + CPU dominate a modern build — the rest is usually under 150 W combined</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Build Summary</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">Components draw:</span><span className="font-semibold">{fmt(total)} W</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Load factor:</span><span className="font-semibold">×{(loadFactor * 100).toFixed(0)}%</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Adjusted load:</span><span className="font-semibold">{fmt(load)} W</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Headroom:</span><span className="font-semibold">{fmt(recommended - load)} W</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Gold-class sweet spot:</span><span className="font-semibold">{fmt(Math.round(load / 0.7 / 50) * 50)}–{fmt(Math.round(load / 0.5 / 50) * 50)} W</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Pick:</span><span className="font-semibold">{fmt(recommended)} W or higher</span></div>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/10 border border-border/50">
-                    <div className="p-2 bg-white rounded-lg text-primary"><Cpu className="h-5 w-5" /></div>
-                    <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold">Peak Efficiency Zone</p>
-                      <p className="font-bold">{results.efficiencyRange}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/10 border border-border/50">
-                    <div className="p-2 bg-white rounded-lg text-primary"><ShieldCheck className="h-5 w-5" /></div>
-                    <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-bold">Suggested Rating</p>
-                      <p className="font-bold">80+ Gold</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-primary/5 border border-primary/10 text-xs text-muted-foreground leading-relaxed">
-                  <p className="flex items-center gap-1.5"><Info className="h-3 w-3" /> This is a conservative estimate. High-end components (Intel i9, RTX 4090) may experience "transient spikes" that draw significantly more power for a fraction of a second.</p>
-                </div>
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Choosing the Right PSU</h2>
-              <p>The Power Supply Unit is the heart of your PC. A poor-quality PSU can not only cause crashes and instability but can also damage your expensive CPU and GPU if it fails or experiences a surge.</p>
-              
-              <h3>Understanding PSU Tiers</h3>
-              <p>Efficiency (80 PLUS) is important, but internal component quality matters more. Look for PSUs with 10-year warranties and "Japanese Capacitors," as these are indicators of high-quality engineering that can handle consistent load for years.</p>
-              
-              <h3>Modular vs. Non-Modular</h3>
-              <ul>
-                <li><strong>Non-Modular:</strong> All cables are permanently attached. Cheaper, but leads to cable clutter inside the case.</li>
-                <li><strong>Semi-Modular:</strong> Essential cables (24-pin, CPU) are attached, others are removable. A good middle ground.</li>
-                <li><strong>Fully Modular:</strong> All cables are removable. Best for aesthetics and airflow, as you only plug in what you need.</li>
-              </ul>
-              
-              <h3>Transient Spikes</h3>
-              <p>Modern high-end graphics cards can occasionally draw double their rated TDP for just a few milliseconds. These "spikes" can trip the protection circuits on low-wattage power supplies, causing the PC to shut down abruptly. This is why we recommend a 30% margin over your total estimated load.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/psu" />
+            <h2 className="text-2xl font-bold mb-3">Size the Supply, Not the Spec Sheet</h2>
+            <p>Every component lists a TDP or typical draw, but adding them up is only the start. This <strong>PC power supply calculator</strong> applies load-factor and headroom logic so the number you buy is the number that keeps the build quiet, cool, and stable.</p>
+            <h2 className="text-2xl font-bold mb-3">Why 30% Headroom</h2>
+            <p>PSUs peak in efficiency between roughly 50% and 80% of rated load, and GPUs can momentarily draw far more than their sustained TDP. Targeting 30% headroom covers both: the unit idles in its efficient band and never hits its limit during transient spikes.</p>
+            <h2 className="text-2xl font-bold mb-3">Match the Recommendation</h2>
+            <p>Read the recommended wattage, then pick a reputable unit of that size or the next step up. Higher-rated bronze/gold/platinum tiers mostly reflect efficiency at load — the wattage figure itself is what protects the hardware.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/power-supply-calculator" />
           <PopularCalculators exclude="/calculator/power-supply-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default PsuCalculator;
-
+}

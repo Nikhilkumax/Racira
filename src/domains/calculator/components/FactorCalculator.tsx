@@ -4,192 +4,210 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 interface FactorResult {
-  original: number;
+  number: number;
   factors: number[];
+  factorCount: number;
   factorPairs: [number, number][];
+  sumOfFactors: number;
+  primeFactorization: string;
+  evenCount: number;
+  oddCount: number;
   isPrime: boolean;
-  isError: boolean;
-  errorMsg?: string;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-const calculateFactors = (numStr: string): FactorResult | null => {
-  const num = parseInt(numStr, 10);
-  if (isNaN(num)) return null;
-
-  if (num < 1 || num > 10000000000) {
-    return {
-      original: num,
-      factors: [],
-      factorPairs: [],
-      isPrime: false,
-      isError: true,
-      errorMsg: "Please enter a positive integer between 1 and 10,000,000,000."
-    };
-  }
-
+function getFactors(n: number): number[] {
   const factors: number[] = [];
-  const factorPairs: [number, number][] = [];
-
-  // We loop up to the square root of the number to find factors efficiently
-  const limit = Math.sqrt(num);
-  for (let i = 1; i <= limit; i++) {
-    if (num % i === 0) {
-      const pair = num / i;
+  for (let i = 1; i * i <= n; i++) {
+    if (n % i === 0) {
       factors.push(i);
-      if (i !== pair) {
-        factors.push(pair);
-      }
-      factorPairs.push([i, pair]);
+      if (i !== n / i) factors.push(n / i);
     }
   }
+  return factors.sort((a, b) => a - b);
+}
 
-  // Sort factors in ascending order
-  factors.sort((a, b) => a - b);
+function getPrimeFactorization(n: number): string {
+  let x = n;
+  const parts: string[] = [];
+  for (let p = 2; p * p <= x; p++) {
+    let count = 0;
+    while (x % p === 0) { x /= p; count++; }
+    if (count > 0) parts.push(count > 1 ? `${p}${superscript(count)}` : `${p}`);
+  }
+  if (x > 1) parts.push(`${x}`);
+  return parts.join(" × ");
+}
 
-  // A prime number has exactly 2 factors: 1 and itself (and must be > 1)
-  const isPrime = factors.length === 2 && num > 1;
+function superscript(n: number): string {
+  const map: Record<string, string> = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹" };
+  return String(n).split("").map(c => map[c]).join("");
+}
 
-  return {
-    original: num,
-    factors,
-    factorPairs,
-    isPrime,
-    isError: false
-  };
-};
+function calcFactors(n: number): FactorResult {
+  const factors = getFactors(n);
+  const factorPairs: [number, number][] = [];
+  for (let i = 0; i < factors.length; i++) {
+    const a = factors[i];
+    const b = n / a;
+    if (a > b) break;
+    factorPairs.push([a, b]);
+  }
+  const sumOfFactors = factors.reduce((s, f) => s + f, 0);
+  const evenCount = factors.filter(f => f % 2 === 0).length;
+  const oddCount = factors.length - evenCount;
+  const isPrime = factors.length === 2;
 
-const FactorCalculator = () => {
-  const [inputVal, setInputVal] = useState("144");
+  const breakdown = [
+    { label: "Number", value: `${n.toLocaleString()}` },
+    { label: "Total Factors", value: `${factorCount(n)}` },
+    { label: "Factors", value: factors.join(", ") },
+    { label: "Factor Pairs", value: factorPairs.map(p => `${p[0]} × ${p[1]}`).join(" · ") },
+    { label: "Sum of Factors", value: sumOfFactors.toLocaleString() },
+    { label: "Prime Factorization", value: getPrimeFactorization(n) },
+    { label: "Even / Odd Factors", value: `${evenCount} / ${oddCount}` },
+    { label: "Primality", value: isPrime ? "Prime number" : "Composite number" },
+  ];
+  const summaryStats = [
+    { label: "Factor Count", value: `${factorCount(n)}` },
+    { label: "Sum of Factors", value: sumOfFactors.toLocaleString() },
+    { label: "Smallest Factor", value: `${factors[0]}` },
+    { label: "Largest Factor", value: `${factors[factors.length - 1]}` },
+    { label: "Even Factors", value: `${evenCount}` },
+    { label: "Odd Factors", value: `${oddCount}` },
+    { label: "Factorization", value: getPrimeFactorization(n) },
+    { label: "Primality", value: isPrime ? "Prime" : "Composite" },
+  ];
+  const chartData = [
+    { name: "Even", value: evenCount, fill: "hsl(var(--primary))" },
+    { name: "Odd", value: oddCount, fill: "#f59e0b" },
+  ];
+  return { number: n, factors, factorCount: factorCount(n), factorPairs, sumOfFactors, primeFactorization: getPrimeFactorization(n), evenCount, oddCount, isPrime, breakdown, summaryStats, chartData };
+}
+
+function factorCount(n: number): number {
+  let count = 0;
+  for (let i = 1; i * i <= n; i++) {
+    if (n % i === 0) count += i === n / i ? 1 : 2;
+  }
+  return count;
+}
+
+const DEFAULTS = { num: "72" };
+
+export default function FactorCalculator() {
+  const [num, setNum] = useState(DEFAULTS.num);
   const [result, setResult] = useState<FactorResult | null>(null);
 
-  const calculate = () => {
-    setResult(calculateFactors(inputVal));
-  };
+  const n = parseInt(num) || 0;
+  const errs: string[] = [];
+  if (!/^\d+$/.test(num.trim())) errs.push("Enter a whole number to factor.");
+  else if (n < 1 || n > 1000000) errs.push("Number must be between 1 and 1,000,000.");
+  const valid = errs.length === 0;
 
-  useEffect(() => { calculate(); }, []);
-
+  const calculate = () => { if (valid) setResult(calcFactors(n)); };
   const reset = () => {
-    setInputVal("144");
-    setResult(calculateFactors("144"));
+    setNum(DEFAULTS.num);
+    setResult(calcFactors(72));
   };
+  useEffect(() => { setResult(calcFactors(72)); }, []);
 
-  const wrap = "flex items-center rounded-md border border-input bg-background h-12 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-4 text-lg bg-transparent outline-none border-none text-foreground font-mono";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is a factor in math?", answer: "A factor is a whole number that divides into another whole number exactly, without leaving a remainder. For example, 3 is a factor of 12 because 12 divided by 3 equals exactly 4." },
-    { question: "What are factor pairs?", answer: "Factor pairs are any two numbers that, when multiplied together, produce the original number. For example, the factor pairs of 12 are (1, 12), (2, 6), and (3, 4)." },
-    { question: "How can I tell if a number is prime?", answer: "A prime number is a number greater than 1 that has exactly two factors: 1 and itself. If this calculator outputs exactly two factors for your number, it will automatically flag it as a Prime Number." },
-    { question: "Is this the same as prime factorization?", answer: "No. Prime factorization breaks a number down exclusively into prime numbers that multiply together to make the original (e.g., 12 = 2 × 2 × 3). This factor calculator simply lists all possible integers (both prime and composite) that divide evenly into the number." },
-    { question: "Are negative numbers factors?", answer: "Technically, yes. In pure mathematics, if 3 and 4 are factors of 12, then -3 and -4 are also factors, because (-3) × (-4) = 12. However, in basic arithmetic and schooling contexts, 'factors' typically refers exclusively to positive integers, which is what this calculator displays." },
+    { question: "What is a factor?", answer: "A factor of a number n is any whole number that divides n exactly with no remainder. For example, the factors of 12 are 1, 2, 3, 4, 6, and 12." },
+    { question: "How do I find factors quickly?", answer: "Check divisors only up to the square root of n. Each divisor you find pairs with a larger divisor, so you never need to test beyond √n." },
+    { question: "What is prime factorization?", answer: "Every composite number can be written uniquely as a product of primes, e.g., 72 = 2³ × 3². This representation is the basis for GCD, LCM, and many number-theory operations." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Factor Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Factor Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Factor Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">Enter Number</label>
-              <div className={wrap}><input type="number" value={inputVal} onChange={e => setInputVal(e.target.value)} className={ci} min="1" max="10000000000" step="1" placeholder="e.g. 144" /></div>
-              <p className="text-xs text-muted-foreground mt-1.5">Enter an integer up to 10 billion.</p>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className={lbl}>Number to Factor</label>
+              <div className={inp}><input value={num} onChange={e => setNum(e.target.value)} className={ci} /></div>
             </div>
-
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-5 w-5" />
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
-                </div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Factors</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.factorCount}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.number.toLocaleString()} = {result.primeFactorization} · {result.isPrime ? "prime" : "composite"}</div>
               </div>
-            ) : result && (<>
-              
-              <div className={`border-l-4 rounded-lg p-6 ${result.isPrime ? 'bg-emerald-500/10 border-emerald-500' : 'bg-primary/10 border-primary'}`}>
-                <div className={`text-sm font-bold mb-2 uppercase tracking-wider ${result.isPrime ? 'text-emerald-600 dark:text-emerald-400' : 'text-primary'}`}>
-                  {result.isPrime ? 'Prime Number Detected' : `All Factors of ${result.original}`}
-                </div>
-                
-                <div className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight font-mono break-all leading-tight">
-                  {result.factors.length} <span className="text-2xl text-muted-foreground">factors found</span>
-                </div>
-
-                {result.isPrime && (
-                  <p className="mt-3 text-base font-medium text-emerald-700 dark:text-emerald-400">
-                    {result.original} is a prime number. Its only factors are 1 and itself.
-                  </p>
-                )}
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Complete Factor List</h3>
-                <div className="bg-secondary/30 border border-border/50 rounded-lg p-4 max-h-[300px] overflow-y-auto shadow-inner custom-scrollbar">
-                  <div className="flex flex-wrap gap-2">
-                    {result.factors.map((factor, idx) => (
-                      <span key={idx} className="bg-background px-3 py-1.5 rounded-md border border-border font-mono text-base font-bold text-foreground inline-block">
-                        {factor.toLocaleString()}
-                      </span>
-                    ))}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Sum of Factors`, result.sumOfFactors.toLocaleString()], ["Factor Pairs", `${result.factorPairs.length}`], ["Even / Odd", `${result.evenCount} / ${result.oddCount}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                </div>
+                ))}
               </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Factor Pairs</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-6">
-                  {result.factorPairs.map((pair, idx) => (
-                    <div key={idx} className="flex justify-between items-center bg-secondary/20 px-3 py-2 rounded border border-border/50">
-                      <span className="font-mono font-medium text-foreground">{pair[0].toLocaleString()}</span>
-                      <span className="text-muted-foreground text-xs mx-1">×</span>
-                      <span className="font-mono font-medium text-foreground">{pair[1].toLocaleString()}</span>
-                    </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Factor Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 1 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 1 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 1 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Factor Parity</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v} factors`, ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Share of factors that are even vs odd</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                   ))}
                 </div>
               </div>
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Are Factors?</h2>
-            <p>In mathematics, <strong>factors</strong> are the numbers that you can multiply together to get another number. Put differently, a factor is an integer that divides evenly into a larger integer without leaving a remainder. For example, 5 is a factor of 20 because 20 divided by 5 equals exactly 4.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Understanding Factor Pairs</h2>
-            <p>Because factors are determined through multiplication, they naturally come in sets of two, known as <strong>factor pairs</strong>. Every time you find one factor of a number, you automatically find another. If you know that 3 is a factor of 12, then the corresponding pair is 4 (because 3 × 4 = 12).</p>
-            <p>A notable exception to visual pairs occurs with perfect squares. For the number 16, the factor pairs are (1, 16), (2, 8), and (4, 4). When creating the final list of unique factors, the number 4 is only written once: 1, 2, 4, 8, 16.</p>
-
-            <h2 className="text-2xl font-bold mb-3">How Do You Find the Factors of a Number?</h2>
-            <p>When finding factors manually, the most efficient method is to test division starting from 1 and working upwards, creating your factor pairs as you go. You can stop testing once you reach the square root of your target number, because any factors larger than the square root would have already been discovered as the "pair" to a smaller number.</p>
-            <ul>
-              <li><strong>Find the factors of 36:</strong></li>
-              <li>1 × 36 = 36</li>
-              <li>2 × 18 = 36</li>
-              <li>3 × 12 = 36</li>
-              <li>4 × 9 = 36</li>
-              <li>(5 does not divide evenly)</li>
-              <li>6 × 6 = 36. Since we reached a number multiplying by itself (the square root), we can stop. The factors are 1, 2, 3, 4, 6, 9, 12, 18, and 36.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">Factors vs. Multiples</h2>
-            <p>A common point of confusion for students is the difference between factors and multiples. <strong>Factors</strong> are the numbers that fit <em>into</em> a target number (they are smaller than or equal to the target). <strong>Multiples</strong> are the numbers you get when you multiply the target number by 1, 2, 3, etc. (they are larger than or equal to the target). The factors of 8 are 1, 2, 4, and 8. The multiples of 8 are 8, 16, 24, 32, etc.</p>
+            <h2 className="text-2xl font-bold mb-3">Finding All Factors</h2>
+            <p>This <strong>factor calculator</strong> finds every divisor of a number by testing only up to its square root — each divisor found below the root pairs with one above it. The results include the factor list, factor pairs, the sum of factors, and the prime factorization.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Factorization Matters</h2>
+            <p>Prime factorization is the foundation of GCD and LCM computations, simplifying fractions, modular arithmetic, and cryptography. Knowing the divisor structure of a number also reveals properties like perfect numbers (sum of factors equals 2n) and abundant or deficient numbers.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading the Pairs</h2>
+            <p>Every factor pair multiplies back to the original number: for 72, pairs run 1 × 72 up to 8 × 9. When a number is a perfect square, the middle pair is a single factor repeated (e.g., 8 × 8 for 64).</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/factor-calculator" />
           <PopularCalculators exclude="/calculator/factor-calculator" />
@@ -197,5 +215,4 @@ const FactorCalculator = () => {
       </div>
     </>
   );
-};
-export default FactorCalculator;
+}

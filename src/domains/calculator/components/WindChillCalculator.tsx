@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Wind } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface WindChillResult {
   windChillF: number;
@@ -85,6 +86,16 @@ const WindChillCalculator = () => {
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
+  const chartData = [5, 10, 15, 20, 25, 30, 40, 50].map((sp) => {
+    const tF = unit === "imperial" ? (parseFloat(temp) || 0) : ((parseFloat(temp) || 0) * 9 / 5) + 32;
+    const vMph = unit === "imperial" ? sp : sp * 0.621371;
+    let wcF = tF;
+    if (tF <= 50 && vMph > 3) {
+      wcF = 35.74 + (0.6215 * tF) - (35.75 * Math.pow(vMph, 0.16)) + (0.4275 * tF * Math.pow(vMph, 0.16));
+    }
+    return { name: `Wind ${sp}`, "Wind Chill": unit === "imperial" ? Number(wcF.toFixed(1)) : Number(((wcF - 32) * 5 / 9).toFixed(1)) };
+  });
+
   const faqs = [
     { question: "What exactly is Wind Chill?", answer: "Wind chill is how cold it actually feels on human skin when the wind is blowing. Your body naturally creates a thin, invisible layer of warm air right next to your skin. When the wind blows, it strips this insulating layer of warm air away. The faster the wind blows, the faster it strips the heat, making you feel significantly colder than the actual air temperature." },
     { question: "Does wind chill affect inanimate objects?", answer: "No. Wind chill only affects living things that generate heat. If it is 40°F outside with a wind chill of 20°F, your car engine and water pipes will only cool down to 40°F. Water will not freeze, because the actual physical air temperature is still above freezing." },
@@ -160,6 +171,22 @@ const WindChillCalculator = () => {
                     {unit === "imperial" ? `${result.windChillC} °C` : `${result.windChillF} °F`}
                   </div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Wind Chill vs Wind Speed</h3>
+                <div className="h-[220px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                      <RechartsTooltip formatter={(value: number) => `${value}°`} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                      <Line type="monotone" dataKey="Wind Chill" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-center text-muted-foreground mt-3 italic">Feels-like temperature at the current air temperature for increasing wind speeds.</p>
               </div>
 
               {result.frostbiteTime && (

@@ -1,156 +1,213 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Home, Calculator } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-const MortgageAffordabilityCalculator = () => {
-  const [annualIncome, setAnnualIncome] = useState("100000");
-  const [monthlyDebts, setMonthlyDebts] = useState("500");
-  const [downPayment, setDownPayment] = useState("60000");
-  const [interestRate, setInterestRate] = useState("6.5");
-  const [loanTerm, setLoanTerm] = useState("30"); // years
-  const [propertyTax, setPropertyTax] = useState("1.2"); // percent of home value annually
-  const [homeInsurance, setHomeInsurance] = useState("1200"); // annual
-  const [hoaFees, setHoaFees] = useState("0"); // monthly
+interface AffordResult {
+  maxPayment28: number;
+  maxPayment36: number;
+  maxLoan28: number;
+  maxLoan36: number;
+  totalDebtPayment: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const income = parseFloat(annualIncome);
-    const debts = parseFloat(monthlyDebts);
-    const down = parseFloat(downPayment);
-    const rate = parseFloat(interestRate) / 100 / 12;
-    const months = parseFloat(loanTerm) * 12;
-    const taxRate = parseFloat(propertyTax) / 100 / 12; // monthly tax rate
-    const insurance = parseFloat(homeInsurance) / 12; // monthly
-    const hoa = parseFloat(hoaFees);
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
 
-    if (income <= 0) return;
+function maxLoanFor(payment: number, ratePct: number, years: number): number {
+  const r = ratePct / 100 / 12;
+  const n = years * 12;
+  if (r === 0) return payment * n;
+  return payment * ((Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)));
+}
 
-    const monthlyIncome = income / 12;
+function calcAfford(income: number, debts: number, rate: number, years: number): AffordResult {
+  const monthlyIncome = income / 12;
+  const maxPayment28 = monthlyIncome * 0.28;
+  const maxPayment36 = monthlyIncome * 0.36 - debts;
+  const totalDebtPayment = debts;
+  const maxLoan28 = maxLoanFor(Math.max(0, maxPayment28), rate, years);
+  const maxLoan36 = maxLoanFor(Math.max(0, maxPayment36), rate, years);
+  const frontDti = (maxPayment28 / monthlyIncome) * 100;
+  const backDti = ((totalDebtPayment + Math.max(maxPayment36, 0)) / monthlyIncome) * 100;
+  const breakdown = [
+    { label: "Annual Income", value: money(income) },
+    { label: "Monthly Income", value: money(monthlyIncome) },
+    { label: "Existing Monthly Debts", value: money(debts) },
+    { label: "Front-End Ratio (28% of income)", value: `${fmt(frontDti)}%` },
+    { label: "Max Housing Payment (28%)", value: money(Math.max(0, maxPayment28)) },
+    { label: "Back-End Ratio (36% incl. debts)", value: `${fmt(backDti)}%` },
+    { label: "Max Total Debt Payment (36%)", value: money(monthlyIncome * 0.36) },
+    { label: "Max Mortgage Payment (36% − debts)", value: money(Math.max(0, maxPayment36)) },
+    { label: "Max Loan Amount (28% rule)", value: money(maxLoan28) },
+    { label: "Max Loan Amount (36% rule)", value: money(maxLoan36) },
+  ];
+  const summaryStats = [
+    { label: "Max Payment (28%)", value: money(Math.max(0, maxPayment28)) },
+    { label: "Max Payment (36%)", value: money(Math.max(0, maxPayment36)) },
+    { label: "Max Loan (28% rule)", value: money(maxLoan28) },
+    { label: "Max Loan (36% rule)", value: money(maxLoan36) },
+    { label: "Monthly Debts", value: money(debts) },
+  ];
+  const chartData = [
+    { name: "Housing (28%)", value: Number(Math.max(0, maxPayment28).toFixed(0)), fill: "hsl(var(--primary))" },
+    { name: "Housing (36%)", value: Number(Math.max(0, maxPayment36).toFixed(0)), fill: "#f59e0b" },
+    { name: "Other Debts", value: Number(debts.toFixed(0)), fill: "#10b981" },
+  ];
+  return { maxPayment28, maxPayment36, maxLoan28, maxLoan36, totalDebtPayment, breakdown, summaryStats, chartData };
+}
 
-    // Lender rules:
-    // Front-end ratio (housing costs / income): max 28%
-    // Back-end ratio (total debts + housing / income): max 36% (we will use 36% for conservative, up to 43% for max)
-    
-    // Max monthly payment allowed by back-end ratio (36%)
-    const maxTotalDebtPayment = monthlyIncome * 0.36;
-    let maxHousingPayment = maxTotalDebtPayment - debts;
+const DEFAULTS = { income: "95000", debts: "500", rate: "6.5", years: "30" };
 
-    // Front-end constraint (28%)
-    const maxHousingByFrontEnd = monthlyIncome * 0.28;
-    if (maxHousingByFrontEnd < maxHousingPayment) {
-      maxHousingPayment = maxHousingByFrontEnd;
-    }
+export default function MortgageAffordabilityCalculator() {
+  const [income, setIncome] = useState(DEFAULTS.income);
+  const [debts, setDebts] = useState(DEFAULTS.debts);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [result, setResult] = useState<AffordResult | null>(null);
 
-    if (maxHousingPayment <= 0) {
-      setResults({ error: "Your debt-to-income ratio is too high to qualify for a mortgage." });
-      return;
-    }
+  const inc = parseFloat(income);
+  const d = parseFloat(debts);
+  const r = parseFloat(rate);
+  const y = parseFloat(years);
+  const errs: string[] = [];
+  if (!inc || inc <= 0) errs.push("Annual income must be greater than 0.");
+  if (isNaN(d) || d < 0) errs.push("Monthly debts must be 0 or greater.");
+  if (isNaN(r) || r < 0) errs.push("Interest rate must be 0 or greater.");
+  if (!y || y <= 0 || y > 50) errs.push("Loan term must be between 1 and 50 years.");
+  const valid = errs.length === 0;
 
-    // Now we must reverse-engineer the home price from maxHousingPayment
-    // Housing payment = (HomePrice - DownPayment) * (rate * (1+rate)^months) / ((1+rate)^months - 1) 
-    //                   + HomePrice * taxRate + insurance + hoa
-    //
-    // Let M_factor = (rate * (1+rate)^months) / ((1+rate)^months - 1)
-    // Payment = (HomePrice - DownPayment) * M_factor + HomePrice * taxRate + insurance + hoa
-    // Payment = HomePrice * M_factor - DownPayment * M_factor + HomePrice * taxRate + insurance + hoa
-    // Payment + DownPayment * M_factor - insurance - hoa = HomePrice * (M_factor + taxRate)
-    // HomePrice = (Payment + DownPayment * M_factor - insurance - hoa) / (M_factor + taxRate)
-
-    const M_factor = (rate * Math.pow(1 + rate, months)) / (Math.pow(1 + rate, months) - 1);
-    
-    let affordableHomePrice = (maxHousingPayment + (down * M_factor) - insurance - hoa) / (M_factor + taxRate);
-    
-    if (affordableHomePrice < down) {
-        affordableHomePrice = down; // Can't afford a loan, only cash
-    }
-
-    const maxLoanAmount = affordableHomePrice - down;
-    const actualPITI = (maxLoanAmount * M_factor) + (affordableHomePrice * taxRate) + insurance + hoa;
-
-    setResults({
-      homePrice: Math.round(affordableHomePrice),
-      maxLoanAmount: Math.max(0, Math.round(maxLoanAmount)),
-      monthlyPayment: Math.round(actualPITI),
-      principalAndInterest: Math.round(maxLoanAmount * M_factor),
-      taxes: Math.round(affordableHomePrice * taxRate),
-      insurance: Math.round(insurance),
-      hoa: Math.round(hoa)
-    });
-  };
-
+  const calculate = () => { if (valid) setResult(calcAfford(inc, d, r, y)); };
   const reset = () => {
-    setShowResults(false); 
-    setAnnualIncome("100000"); setMonthlyDebts("500"); setDownPayment("60000"); 
-    setInterestRate("6.5"); setLoanTerm("30"); setPropertyTax("1.2"); 
-    setHomeInsurance("1200"); setHoaFees("0"); setResults(null); 
+    setIncome(DEFAULTS.income); setDebts(DEFAULTS.debts); setRate(DEFAULTS.rate); setYears(DEFAULTS.years);
+    setResult(calcAfford(95000, 500, 6.5, 30));
   };
+  useEffect(() => { setResult(calcAfford(95000, 500, 6.5, 30)); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the 28/36 rule?", answer: "The 28/36 rule is a standard used by mortgage lenders to determine how much you can borrow. It states that a household should spend a maximum of 28% of its gross monthly income on total housing expenses, and no more than 36% on total debt service (housing + car loans + student loans + credit cards)." },
-    { question: "Can I get approved for more than this calculator says?", answer: "Yes. While 36% is the conservative benchmark for the back-end ratio, many lenders will approve Conventional loans up to 43% DTI, and FHA loans up to 50% DTI if you have excellent credit. However, borrowing the absolute maximum puts you at high risk of being 'house poor'." },
-    { question: "Why do property taxes affect how much I can borrow?", answer: "Lenders look at your total housing payment (PITI: Principal, Interest, Taxes, and Insurance). If you buy in an area with very high property taxes, a large portion of your allowed monthly housing budget is eaten up by taxes, leaving less money to pay the actual loan principal." }
+    { question: "What are the 28/36 rules?", answer: "Lenders like housing costs at or below 28% of gross monthly income, and all debt payments — housing plus car loans, credit cards, student loans — at or below 36%. This calculator applies both and reports the loan each supports." },
+    { question: "Which number should I use?", answer: "The binding constraint is whichever loan is smaller. Most borrowers are limited by the 36% back-end ratio once other debts exist; borrowers with no debts can reach the 28% front-end ceiling. The calculator shows both explicitly." },
+    { question: "What is not included?", answer: "Property taxes, insurance, HOA dues, and PMI. Those are real monthly costs and reduce what you can afford. Many lenders cap the full housing payment (PITI) rather than just principal and interest — budget for them separately." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Mortgage Affordability Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Mortgage Affordability Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mortgage Affordability Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Mortgage Affordability Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="income" label="Annual Gross Income ($)" value={annualIncome} onChange={setAnnualIncome} />
-                <InputField id="debts" label="Monthly Debts ($)" value={monthlyDebts} onChange={setMonthlyDebts} />
-                <InputField id="down" label="Down Payment ($)" value={downPayment} onChange={setDownPayment} />
-                <InputField id="rate" label="Interest Rate (%)" value={interestRate} onChange={setInterestRate} />
-                <InputField id="term" label="Loan Term (Years)" value={loanTerm} onChange={setLoanTerm} />
-                <InputField id="tax" label="Property Tax Rate (%)" value={propertyTax} onChange={setPropertyTax} />
-                <InputField id="ins" label="Annual Home Insurance ($)" value={homeInsurance} onChange={setHomeInsurance} />
-                <InputField id="hoa" label="Monthly HOA Fees ($)" value={hoaFees} onChange={setHoaFees} />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Annual Income ($)</label>
+                <input type="number" value={income} onChange={e => setIncome(e.target.value)} className={inp} placeholder="95000" />
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className={lbl}>Monthly Debts ($)</label>
+                <input type="number" value={debts} onChange={e => setDebts(e.target.value)} className={inp} placeholder="500" />
               </div>
+              <div>
+                <label className={lbl}>Interest Rate (%)</label>
+                <input type="number" value={rate} onChange={e => setRate(e.target.value)} className={inp} placeholder="6.5" />
+              </div>
+              <div>
+                <label className={lbl}>Loan Term (years)</label>
+                <input type="number" value={years} onChange={e => setYears(e.target.value)} className={inp} placeholder="30" />
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">Uses the 28% front-end and 36% back-end debt-to-income guidelines.</p>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {results && results.error && (
-              <>
-                {results.error}
-              </>
-            )}
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Max Mortgage Payment (36% rule)</div>
+                <div className="text-4xl font-extrabold tracking-tight">{money(Math.max(0, result.maxPayment36))}/mo</div>
+                <div className="text-sm text-muted-foreground mt-1">28% rule allows {money(Math.max(0, result.maxPayment28))}/mo · max loan {money(result.maxLoan28)} / {money(result.maxLoan36)}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Max Payment (28%)", money(Math.max(0, result.maxPayment28))], ["Max Payment (36%)", money(Math.max(0, result.maxPayment36))], ["Monthly Debts", money(result.totalDebtPayment)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 7 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 7 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 7 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Payment Budgets Compared</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [money(v), ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">The 36% housing budget shrinks by your existing monthly debts</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Being "House Poor"</h2>
-              <p>Just because a bank approves you for a massive loan does not mean you should take it. Lenders look at your gross income (before taxes) when calculating your Debt-to-Income (DTI) ratio. They do not factor in your groceries, childcare, retirement savings, or lifestyle costs.</p>
-              <h3>The 28/36 Rule</h3>
-              <p>Financial experts widely recommend keeping your housing costs below 28% of your gross income, and your total debts (housing + everything else) below 36%. If you push your DTI to the absolute maximum allowed by lenders (43-50%), you will likely struggle to afford everyday emergencies or basic vacations.</p>
-              <h3>Interest Rates Dictate Affordability</h3>
-              <p>Your purchasing power is highly sensitive to interest rates. A 1% increase in mortgage rates can decrease your maximum affordable home price by tens of thousands of dollars, because more of your allowed monthly budget goes straight to interest.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-affordability" />
+            <h2 className="text-2xl font-bold mb-3">What the Bank Will Approve</h2>
+            <p>Lenders ration mortgage size by debt-to-income ratio. The <strong>28/36 rule</strong> — housing under 28% of gross income, all debts under 36% — is the classic benchmark. This <strong>mortgage affordability calculator</strong> applies both and converts them into a maximum loan.</p>
+            <h2 className="text-2xl font-bold mb-3">Two Rules, Two Loans</h2>
+            <p>The 28% front-end ratio caps the housing payment on its own; the 36% back-end ratio subtracts your existing debts first, leaving the remainder for housing. Whichever yields the smaller loan is your real ceiling — the calculator shows both paths and their loans.</p>
+            <h2 className="text-2xl font-bold mb-3">Beyond the Ratios</h2>
+            <p>Qualifying is not the same as comfortable. Property taxes, insurance, HOA fees, and repairs ride on top of the payment, and a 36% ratio leaves little margin for surprise expenses. Many buyers voluntarily cap their housing at 25–30% regardless of what a lender approves.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/mortgage-affordability-calculator" />
           <PopularCalculators exclude="/calculator/mortgage-affordability-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default MortgageAffordabilityCalculator;
-
+}

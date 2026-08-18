@@ -1,248 +1,227 @@
 "use client";
-import { RotateCcw, Calendar, Info, Home } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import AmortizationTable, { type AmortRow } from "@/domains/calculator/components/ui/AmortizationTable";
-const InterestOnlyMortgageCalculator = () => {
-  const [loanAmount, setLoanAmount] = useState("350000");
-  const [interestRate, setInterestRate] = useState("6.8");
-  const [ioPeriod, setIoPeriod] = useState("10");
-  const [totalTerm, setTotalTerm] = useState("30");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface IoMortgageResult {
+  principal: number;
+  ratePct: number;
+  ioYears: number;
+  totalYears: number;
+  ioPayment: number;
+  amortPayment: number;
+  interestDuringIo: number;
+  principalAfterIo: number;
+  totalInterest: number;
+  totalPayments: number;
+  balanceCurve: { year: number; balance: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const principal = parseFloat(loanAmount) || 0;
-    const rate = (parseFloat(interestRate) || 0) / 100 / 12;
-    const ioMonths = (parseFloat(ioPeriod) || 0) * 12;
-    const totalMonths = (parseFloat(totalTerm) || 0) * 12;
-    const amortMonths = totalMonths - ioMonths;
+function fmt$(v: number): string {
+  return `$${v.toLocaleString("en-US", { maximumFractionDigits: 2 })}`;
+}
 
-    if (principal <= 0 || rate <= 0 || totalMonths <= 0 || ioMonths >= totalMonths) return;
+function fmtPct(v: number): string {
+  return `${v.toFixed(2)}%`;
+}
 
-    // Payment during IO period
-    const ioPayment = principal * rate;
+function pmt(principal: number, rMonthly: number, n: number): number {
+  const g = Math.pow(1 + rMonthly, n);
+  return (principal * rMonthly * g) / (g - 1);
+}
 
-    // Payment after IO period (amortizing)
-    const amortPayment = (principal * rate * Math.pow(1 + rate, amortMonths)) / (Math.pow(1 + rate, amortMonths) - 1);
+function calcIoMortgage(principal: number, ratePct: number, ioYears: number, totalYears: number): IoMortgageResult {
+  const rMonthly = ratePct / 100 / 12;
+  const ioMonths = ioYears * 12;
+  const amortMonths = Math.max(1, (totalYears - ioYears) * 12);
+  const ioPayment = principal * rMonthly;
+  const amortPayment = pmt(principal, rMonthly, amortMonths);
+  const interestDuringIo = ioPayment * ioMonths;
+  const principalAfterIo = principal;
+  const totalPayments = interestDuringIo + amortPayment * amortMonths;
+  const totalInterest = totalPayments - principal;
 
-    const monthlyRows: AmortRow[] = [];
-    const yearlyRows: AmortRow[] = [];
-
-    let currentBalance = principal;
-    let totalInterest = 0;
-    let yearInterest = 0;
-    let yearPrincipal = 0;
-
-    for (let m = 1; m <= totalMonths; m++) {
-      const isIO = m <= ioMonths;
-      const payment = isIO ? ioPayment : amortPayment;
-      const interestPayment = currentBalance * rate;
-      const principalPayment = payment - interestPayment;
-      
-      currentBalance -= principalPayment;
-      totalInterest += interestPayment;
-      yearInterest += interestPayment;
-      yearPrincipal += principalPayment;
-
-      monthlyRows.push({
-        period: m,
-        payment,
-        interest: interestPayment,
-        principal: principalPayment,
-        balance: Math.max(0, currentBalance),
-      });
-
-      if (m % 12 === 0) {
-        yearlyRows.push({
-          period: m / 12,
-          payment: (m <= ioMonths ? ioPayment : amortPayment) * 12,
-          interest: yearInterest,
-          principal: yearPrincipal,
-          balance: Math.max(0, currentBalance),
-        });
-        yearInterest = 0;
-        yearPrincipal = 0;
-      }
+  // Balance curve: flat during IO period, then amortizes.
+  const curve: { year: number; balance: number }[] = [];
+  const years = Math.max(1, Math.ceil(totalYears));
+  for (let yr = 0; yr <= years; yr++) {
+    const months = yr * 12;
+    if (months <= ioMonths) {
+      curve.push({ year: yr, balance: Math.round(principal) });
+    } else {
+      const m = months - ioMonths;
+      let bal = principal;
+      for (let i = 0; i < m; i++) bal = bal * (1 + rMonthly) - amortPayment;
+      curve.push({ year: yr, balance: Math.round(Math.max(0, bal)) });
     }
+  }
 
-    setResults({
-      ioPayment,
-      amortPayment,
-      totalInterest,
-      totalPaid: totalInterest + principal,
-      monthlyRows,
-      yearlyRows,
-    });
-  };
+  const breakdown = [
+    { label: "Loan Amount", value: fmt$(principal) },
+    { label: "Interest Rate", value: fmtPct(ratePct) },
+    { label: "Interest-Only Period", value: `${ioYears} years` },
+    { label: "Total Term", value: `${totalYears} years` },
+    { label: "Interest-Only Payment", value: fmt$(ioPayment) },
+    { label: "Payment After IO Period", value: fmt$(amortPayment) },
+    { label: "Interest During IO Period", value: fmt$(interestDuringIo) },
+    { label: "Total Interest (Full Loan)", value: fmt$(totalInterest) },
+  ];
+  const summaryStats = [
+    { label: "Interest-Only Payment", value: fmt$(ioPayment) },
+    { label: "Payment After IO Period", value: fmt$(amortPayment) },
+    { label: "Payment Increase", value: fmt$(amortPayment - ioPayment) },
+    { label: "Interest During IO Period", value: fmt$(interestDuringIo) },
+    { label: "Principal After IO Period", value: fmt$(principalAfterIo) },
+    { label: "Total Interest", value: fmt$(totalInterest) },
+    { label: "Total Payments", value: fmt$(totalPayments) },
+    { label: "Amortization Length", value: `${totalYears - ioYears} years` },
+  ];
+  return { principal, ratePct, ioYears, totalYears, ioPayment, amortPayment, interestDuringIo, principalAfterIo, totalInterest, totalPayments, balanceCurve: curve, breakdown, summaryStats };
+}
 
+const DEFAULTS = { principal: "400000", rate: "6.5", io: "5", total: "30" };
+
+export default function InterestOnlyMortgageCalculator() {
+  const [principal, setPrincipal] = useState(DEFAULTS.principal);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [io, setIo] = useState(DEFAULTS.io);
+  const [total, setTotal] = useState(DEFAULTS.total);
+  const [result, setResult] = useState<IoMortgageResult | null>(null);
+
+  const p = parseFloat(principal) || 0;
+  const r = parseFloat(rate) || 0;
+  const ioY = parseFloat(io) || 0;
+  const totY = parseFloat(total) || 0;
+  const errs: string[] = [];
+  if (p <= 0) errs.push("Loan amount must be greater than 0.");
+  if (r <= 0) errs.push("Interest rate must be greater than 0.");
+  if (ioY <= 0 || totY <= 0) errs.push("Both the interest-only period and total term must be positive.");
+  if (ioY >= totY) errs.push("The interest-only period must be shorter than the total term.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcIoMortgage(p, r, ioY, totY)); };
   const reset = () => {
-    setLoanAmount("350000");
-    setInterestRate("6.8");
-    setIoPeriod("10");
-    setTotalTerm("30");
+    setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setIo(DEFAULTS.io); setTotal(DEFAULTS.total);
+    setResult(calcIoMortgage(400000, 6.5, 5, 30));
   };
+  useEffect(() => { setResult(calcIoMortgage(400000, 6.5, 5, 30)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What is an interest-only mortgage?",
-      answer: "An interest-only mortgage is a loan where the borrower is only required to pay the interest on the principal for a set period (the interest-only period). After this period ends, the loan converts to a standard amortizing loan, and the monthly payments increase significantly to pay off the principal."
-    },
-    {
-      question: "How much will my payment increase after the interest-only period?",
-      answer: "The increase can be substantial. For example, on a $350,000 loan at 6.8% interest, a 10-year interest-only payment might be around $1,983. When the 20-year amortization period begins, the payment would jump to approximately $2,672 — a 35% increase."
-    },
-    {
-      question: "Can I pay principal during the interest-only period?",
-      answer: "Yes, most interest-only mortgages allow you to make extra payments toward the principal at any time. This will reduce your future amortizing payments and the total interest you pay over the life of the loan."
-    },
-    {
-      question: "What are the risks of an interest-only mortgage?",
-      answer: "The main risks are payment shock when the amortizing period begins and the lack of equity growth in the early years. If home values drop, you could end up owing more than the home is worth since you haven't been paying down the principal."
-    }
+    { question: "What is an interest-only mortgage?", answer: "During the interest-only period you pay only the monthly interest — the principal balance stays flat. Once the period ends, the loan must be repaid over the remaining term, so the payment jumps to a fully amortizing amount that also reduces principal." },
+    { question: "Why does the payment jump after the IO period?", answer: "The remaining amortization is compressed into fewer years on the full original balance. With a 5-year IO period on a 30-year mortgage, the principal that was untouched for 5 years must be repaid in the remaining 25, raising the payment substantially." },
+    { question: "Who should consider an interest-only mortgage?", answer: "They suit borrowers with irregular income who expect higher earnings later, or investors who plan to sell or refinance before amortization begins. The trade-off is payment shock and zero equity buildup during the IO period." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Interest-Only Mortgage Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Interest-Only Mortgage Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Interest-Only Mortgage Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Interest-Only Mortgage Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Home className="h-5 w-5 text-primary" /> Loan Details
-                  </h2>
-                  <InputField id="loan-amount" label="Loan Amount" value={loanAmount} onChange={setLoanAmount} prefix="$" tooltip="Total amount of the mortgage loan." />
-                  <InputField id="interest-rate" label="Interest Rate (Annual %)" value={interestRate} onChange={setInterestRate} suffix="%" step="0.1" tooltip="The annual interest rate." />
-                </section>
-
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calendar className="h-5 w-5 text-primary" /> Terms
-                  </h2>
-                  <InputField id="io-period" label="Interest-Only Period" value={ioPeriod} onChange={setIoPeriod} suffix="yrs" tooltip="The number of years you only pay interest." />
-                  <InputField id="total-term" label="Total Loan Term" value={totalTerm} onChange={setTotalTerm} suffix="yrs" tooltip="The total length of the mortgage (e.g., 30 years)." />
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Loan Amount</label>
+                <div className={inp}><input type="number" value={principal} onChange={e => setPrincipal(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
               </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+              <div>
+                <label className={lbl}>Interest Rate (Annual)</label>
+                <div className={inp}><input type="number" value={rate} onChange={e => setRate(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
               </div>
+              <div>
+                <label className={lbl}>Interest-Only Period (Years)</label>
+                <div className={inp}><input type="number" value={io} onChange={e => setIo(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Total Term (Years)</label>
+                <div className={inp}><input type="number" value={total} onChange={e => setTotal(e.target.value)} className={ci} /></div>
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Initial IO Payment</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.ioPayment).toLocaleString()}</p>
-                    <p className="text-[10px] text-primary mt-2 font-bold uppercase underline">Years 1–{ioPeriod}</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Interest-Only Monthly Payment</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt$(result.ioPayment)}</div>
+                <div className="text-sm text-muted-foreground mt-1">for {result.ioYears} years, then {fmt$(result.amortPayment)}/month for {result.totalYears - result.ioYears} years</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`IO Payment`, fmt$(result.ioPayment)], ["After IO Period", fmt$(result.amortPayment)], ["Interest During IO", fmt$(result.interestDuringIo)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                  <div className="card-calculator bg-orange-500/5 border-orange-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-orange-600 uppercase tracking-widest mb-1">Future Amortized Payment</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.amortPayment).toLocaleString()}</p>
-                    <p className="text-[10px] text-orange-500 mt-2 font-bold uppercase underline tracking-tighter">Years {parseInt(ioPeriod) + 1}–{totalTerm}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Payment Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Principal Balance Over Time</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={result.balanceCurve} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="year" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" tickFormatter={(v: number) => `$${Math.round(v / 1000)}k`} />
+                    <Tooltip formatter={(v: number) => [fmt$(v), "Balance"]} />
+                    <Line type="monotone" dataKey="balance" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Balance stays flat during the IO period, then amortizes to zero</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Info className="h-5 w-5 text-primary" /> Payment Shock Analysis
-                  </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-                    <div className="text-center">
-                      <p className="text-xs font-bold text-muted-foreground uppercase mb-1">Payment Increase</p>
-                      <p className="text-2xl font-bold text-red-600">${Math.round(results.amortPayment - results.ioPayment).toLocaleString()}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-bold text-muted-foreground uppercase mb-1">Percentage Jump</p>
-                      <p className="text-2xl font-bold text-red-600">{(((results.amortPayment / results.ioPayment) - 1) * 100).toFixed(1)}%</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-bold text-muted-foreground uppercase mb-1">Total Interest</p>
-                      <p className="text-2xl font-bold text-foreground">${Math.round(results.totalInterest).toLocaleString()}</p>
-                    </div>
-                  </div>
-                  <ResultDisplay items={[
-                    { label: "Total Loan Cost", value: results.totalPaid },
-                    { label: "Principal Balance After IO", value: parseFloat(loanAmount) },
-                    { label: "Monthly Interest (IO)", value: results.ioPayment },
-                  ]} />
-                </div>
-
-                <AmortizationTable rows={results.yearlyRows} yearly={true} />
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Interest-Only Mortgages</h2>
-              <p>An interest-only (IO) mortgage is a specialized home loan that provides flexibility in the early years of homeownership. For a predetermined period, usually 5 to 10 years, you are not required to pay down any of the loan's principal. Instead, your monthly payments cover only the interest charges.</p>
-
-              <h3>How the Payment Structure Works</h3>
-              <p>The life of an interest-only mortgage is divided into two distinct phases:</p>
-              <ol>
-                <li><strong>The Interest-Only Phase:</strong> During this time (e.g., the first 10 years of a 30-year loan), your payment is calculated as (Loan Balance × Interest Rate) ÷ 12. Because you aren't paying principal, the balance remains the same every month.</li>
-                <li><strong>The Amortization Phase:</strong> Once the IO period ends, the loan must be fully paid off within the remaining time (e.g., the final 20 years). The lender recalculates your payment to include both principal and interest, causing a sharp increase in your monthly obligation.</li>
-              </ol>
-
-              <h3>Pros and Cons of Interest-Only Loans</h3>
-              <div className="grid sm:grid-cols-2 gap-6 my-6">
-                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
-                  <h4 className="text-emerald-700 font-bold mb-2">Advantages</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>Lower initial monthly payments</li>
-                    <li>Increased cash flow for other investments</li>
-                    <li>Ability to qualify for a more expensive home</li>
-                    <li>Ideal for homeowners who expect income to rise</li>
-                  </ul>
-                </div>
-                <div className="p-4 rounded-xl bg-red-500/5 border border-red-500/10">
-                  <h4 className="text-red-700 font-bold mb-2">Disadvantages</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>No equity growth from payments</li>
-                    <li>Massive 'payment shock' after IO period</li>
-                    <li>Total interest paid is much higher</li>
-                    <li>Risk of being 'underwater' if home values fall</li>
-                  </ul>
-                </div>
-              </div>
-
-              <h3>Who Should Consider an IO Mortgage?</h3>
-              <p>Interest-only loans are generally considered advanced financial products and are best suited for:</p>
-              <ul>
-                <li><strong>High Net Worth Individuals:</strong> Who want to keep their cash liquid for high-yield investments.</li>
-                <li><strong>Commission-Based Earners:</strong> Who have fluctuating monthly income but receive large annual bonuses.</li>
-                <li><strong>Short-Term Owners:</strong> Who plan to sell the home before the amortizing phase begins.</li>
-              </ul>
-
-              <h3>Important Considerations</h3>
-              <p>Before choosing an interest-only mortgage, it is vital to have a clear "exit strategy." This might include plans to sell the property, refinance into a traditional mortgage, or a guaranteed increase in household income to handle the future payment jump. Without a plan, the transition to the amortization phase can cause significant financial distress.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Interest-Only Mortgages Work</h2>
+            <p>During the interest-only period, each monthly payment covers only the interest accrued on the full balance — principal never declines. The payment equals the loan amount times the monthly rate. When the period ends, the full balance must be repaid over the remaining years, so the payment jumps to the fully amortizing amount shown here.</p>
+            <h2 className="text-2xl font-bold mb-3">Payment Shock</h2>
+            <p>The gap between the IO payment and the later amortized payment is the payment shock. With a 30-year mortgage and a 5-year IO period, the difference can be hundreds of dollars a month — plan for it before the amortization clock starts.</p>
+            <h2 className="text-2xl font-bold mb-3">Interest Cost</h2>
+            <p>Interest-only terms almost always cost more in total interest than a conventional amortizing loan of the same term, because principal repayment is postponed. Compare both scenarios before choosing.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/interest-only-mortgage-calculator" />
           <PopularCalculators exclude="/calculator/interest-only-mortgage-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default InterestOnlyMortgageCalculator;
-
+}

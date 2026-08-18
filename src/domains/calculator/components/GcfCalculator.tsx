@@ -4,236 +4,207 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-interface GCFResult {
+interface GcfResult {
   numbers: number[];
-  gcd: number;
-  steps: string[];
-  isError: boolean;
-  errorMsg?: string;
-  primeFactorsMap: Record<number, string>;
+  gcf: number;
+  lcm: number;
+  steps: string;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-const calculateGCF = (numbersStr: string): GCFResult | null => {
-  const numStrs = numbersStr.split(/[\s,]+/).filter(s => s.trim() !== "");
-  const numbers: number[] = [];
-  
-  for (const s of numStrs) {
-    const num = parseInt(s, 10);
-    if (isNaN(num) || num <= 0) {
-      return { numbers: [], gcd: 0, steps: [], isError: true, errorMsg: "Please enter only positive whole numbers.", primeFactorsMap: {} };
-    }
-    numbers.push(num);
-  }
+function gcd(a: number, b: number): number {
+  a = Math.abs(a); b = Math.abs(b);
+  while (b) { [a, b] = [b, a % b]; }
+  return a || 1;
+}
 
-  if (numbers.length < 2) {
-    return { numbers, gcd: 0, steps: [], isError: true, errorMsg: "Please enter at least two numbers to find the GCF.", primeFactorsMap: {} };
-  }
-  if (numbers.length > 15) {
-    return { numbers, gcd: 0, steps: [], isError: true, errorMsg: "Maximum of 15 numbers allowed to prevent browser freezing.", primeFactorsMap: {} };
-  }
+function lcm(a: number, b: number): number {
+  return (a / gcd(a, b)) * b;
+}
 
+function calcGcf(nums: number[]): GcfResult {
+  let g = nums[0];
   const steps: string[] = [];
-  const primeFactorsMap: Record<number, string> = {};
-
-  // Prime factorization helper for display
-  const getPrimeFactorizationString = (n: number) => {
-    if (n === 1) return "1";
-    let temp = n;
-    const factors: number[] = [];
-    while (temp % 2 === 0) { factors.push(2); temp /= 2; }
-    for (let i = 3; i <= Math.sqrt(temp); i += 2) {
-      while (temp % i === 0) { factors.push(i); temp /= i; }
-    }
-    if (temp > 2) factors.push(temp);
-    return factors.join(" × ");
-  };
-
-  numbers.forEach(n => {
-    primeFactorsMap[n] = getPrimeFactorizationString(n);
-  });
-
-  // Euclidean algorithm for GCD
-  const getGCD = (a: number, b: number): number => {
-    let stepCount = 1;
-    let currentA = a;
-    let currentB = b;
-    // We only log the Euclidean steps if it's just 2 numbers to avoid massive clutter
-    const logSteps = numbers.length === 2;
-    
-    while (currentB !== 0) {
-      const remainder = currentA % currentB;
-      const quotient = Math.floor(currentA / currentB);
-      if (logSteps) {
-        steps.push(`Step ${stepCount}: ${currentA} = ${currentB} × ${quotient} + ${remainder}`);
-      }
-      currentA = currentB;
-      currentB = remainder;
-      stepCount++;
-    }
-    if (logSteps) {
-      steps.push(`Since the remainder is now 0, the last non-zero remainder (${currentA}) is the GCF.`);
-    }
-    return currentA;
-  };
-
-  let currentGCD = numbers[0];
-
-  if (numbers.length === 2) {
-    steps.push(`Using the Euclidean Algorithm for ${numbers[0]} and ${numbers[1]}:`);
-    currentGCD = getGCD(numbers[0], numbers[1]);
-  } else {
-    steps.push(`Because there are more than two numbers, we calculate the GCF sequentially.`);
-    for (let i = 1; i < numbers.length; i++) {
-      const prevGCD = currentGCD;
-      currentGCD = getGCD(currentGCD, numbers[i]);
-      steps.push(`GCF of (${prevGCD}, ${numbers[i]}) = ${currentGCD}.`);
-    }
+  for (let i = 1; i < nums.length; i++) {
+    g = gcd(g, nums[i]);
+    steps.push(`gcd(${nums.slice(0, i + 1).join(", ")}) = ${g}`);
   }
+  let l = nums[0];
+  for (let i = 1; i < nums.length; i++) l = lcm(l, nums[i]);
+  const gcf = g;
+  const lcmValue = Math.round(l);
 
-  return {
-    numbers,
-    gcd: currentGCD,
-    steps,
-    isError: false,
-    primeFactorsMap
-  };
-};
+  const breakdown = [
+    { label: "Numbers", value: nums.join(", ") },
+    { label: "Greatest Common Factor", value: `${gcf}` },
+    { label: "Least Common Multiple", value: `${lcmValue}` },
+    { label: "Euclidean Steps", value: steps.join(" → ") },
+    { label: "GCF as Product of Primes", value: primeProduct(gcf) },
+    { label: "Count of Numbers", value: `${nums.length}` },
+    { label: "Product of Numbers", value: nums.reduce((p, n) => p * n, 1).toLocaleString() },
+    { label: "Largest Input", value: `${Math.max(...nums)}` },
+  ];
+  const summaryStats = [
+    { label: "GCF", value: `${gcf}` },
+    { label: "LCM", value: `${lcmValue}` },
+    { label: "Numbers", value: `${nums.length}` },
+    { label: "Smallest", value: `${Math.min(...nums)}` },
+    { label: "Largest", value: `${Math.max(...nums)}` },
+    { label: "Product", value: nums.reduce((p, n) => p * n, 1).toLocaleString() },
+    { label: "Factorization", value: primeProduct(gcf) },
+    { label: "Algorithm", value: "Euclidean" },
+  ];
+  const chartData = nums.map((n, i) => ({ name: `N${i + 1}`, value: n, fill: i === nums.length - 1 ? "hsl(var(--primary))" : "#8b5cf6" }));
+  return { numbers: nums, gcf, lcm: lcmValue, steps: steps.join(" → "), breakdown, summaryStats, chartData };
+}
 
-const GcfCalculator = () => {
-  const [inputVal, setInputVal] = useState("48, 180");
-  const [result, setResult] = useState<GCFResult | null>(null);
+function primeProduct(n: number): string {
+  if (n <= 1) return n === 1 ? "1" : "—";
+  let x = n;
+  const parts: string[] = [];
+  for (let p = 2; p * p <= x; p++) {
+    let count = 0;
+    while (x % p === 0) { x /= p; count++; }
+    if (count > 0) parts.push(count > 1 ? `${p}²` : `${p}`);
+  }
+  if (x > 1) parts.push(`${x}`);
+  return parts.join(" × ");
+}
 
-  const calculate = () => {
-    setResult(calculateGCF(inputVal));
-  };
+const DEFAULTS = { n1: "48", n2: "72", n3: "36", n4: "60" };
 
-  useEffect(() => { calculate(); }, []);
+export default function GcfCalculator() {
+  const [n1, setN1] = useState(DEFAULTS.n1);
+  const [n2, setN2] = useState(DEFAULTS.n2);
+  const [n3, setN3] = useState(DEFAULTS.n3);
+  const [n4, setN4] = useState(DEFAULTS.n4);
+  const [result, setResult] = useState<GcfResult | null>(null);
 
+  const vals = [parseInt(n1) || 0, parseInt(n2) || 0, parseInt(n3) || 0, parseInt(n4) || 0];
+  const errs: string[] = [];
+  if (vals.some(v => !/^\d+$/.test(String(v)) && v <= 0)) errs.push("Enter whole numbers greater than 0.");
+  if (vals.some(v => v <= 0)) errs.push("All numbers must be greater than 0.");
+  if (vals.some(v => v > 1000000)) errs.push("Numbers must be 1,000,000 or less.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcGcf(vals)); };
   const reset = () => {
-    setInputVal("48, 180");
-    setResult(calculateGCF("48, 180"));
+    setN1(DEFAULTS.n1); setN2(DEFAULTS.n2); setN3(DEFAULTS.n3); setN4(DEFAULTS.n4);
+    setResult(calcGcf([48, 72, 36, 60]));
   };
+  useEffect(() => { setResult(calcGcf([48, 72, 36, 60])); }, []);
 
-  const wrap = "flex items-center rounded-md border border-input bg-background overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full px-3 py-3 text-base bg-transparent outline-none border-none text-foreground resize-y min-h-[60px] font-mono";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the Greatest Common Factor (GCF)?", answer: "The Greatest Common Factor (GCF), also known as the Greatest Common Divisor (GCD) or Highest Common Factor (HCF), is the largest positive integer that divides two or more numbers evenly without leaving a remainder." },
-    { question: "Why is the GCF important?", answer: "The most common practical use of the GCF is simplifying (or reducing) fractions. To simplify a fraction to its lowest terms, you find the GCF of the numerator (top number) and denominator (bottom number), and divide both by that GCF." },
-    { question: "Is GCF the same as GCD and HCF?", answer: "Yes, they all refer to the exact same mathematical concept. GCF (Greatest Common Factor), GCD (Greatest Common Divisor), and HCF (Highest Common Factor) are used interchangeably depending on regional curriculum." },
-    { question: "What is the Euclidean Algorithm?", answer: "The Euclidean Algorithm is a fast and efficient method for finding the GCF of two numbers, discovered by the ancient Greek mathematician Euclid. Instead of factoring the numbers, it involves repeatedly dividing the larger number by the smaller number and tracking the remainders until the remainder is zero." },
+    { question: "What is the greatest common factor?", answer: "The GCF is the largest number that divides every input evenly. For 48, 72, 36, and 60, the shared factors are 1, 2, 3, 4, 6, and 12 — so the GCF is 12." },
+    { question: "How does the Euclidean algorithm work?", answer: "Repeatedly replace the larger number with the remainder of dividing the two: gcd(48, 72) → gcd(48, 24) → gcd(24, 0) = 24. It is the fastest known method and works for huge numbers." },
+    { question: "Why does the LCM matter too?", answer: "The least common multiple is the smallest number all inputs divide into — needed for adding fractions and synchronizing repeating schedules. GCF and LCM are linked: lcm(a, b) × gcd(a, b) = a × b." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "GCF Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GCF Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">GCF Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Enter Numbers</span>
-              </label>
-              <div className={wrap}>
-                <textarea value={inputVal} onChange={e => setInputVal(e.target.value.replace(/[^0-9,\s]/g, ''))} className={ci} placeholder="e.g. 48, 180" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Number 1</label>
+                <div className={inp}><input value={n1} onChange={e => setN1(e.target.value)} className={ci} /></div>
               </div>
-              <p className="text-xs text-muted-foreground mt-1.5">Separate numbers with commas or spaces (max 15 numbers).</p>
+              <div>
+                <label className={lbl}>Number 2</label>
+                <div className={inp}><input value={n2} onChange={e => setN2(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Number 3</label>
+                <div className={inp}><input value={n3} onChange={e => setN3(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Number 4</label>
+                <div className={inp}><input value={n4} onChange={e => setN4(e.target.value)} className={ci} /></div>
+              </div>
             </div>
-
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-5 w-5" />
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
-                </div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Greatest Common Factor</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.gcf}</div>
+                <div className="text-sm text-muted-foreground mt-1">of {result.numbers.join(", ")} · LCM {result.lcm}</div>
               </div>
-            ) : result && (<>
-              
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 text-center">
-                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">Greatest Common Factor</div>
-                <div className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono break-all leading-tight">
-                  {result.gcd.toLocaleString()}
-                </div>
-                <div className="mt-3 text-sm text-muted-foreground font-medium">
-                  GCF({result.numbers.join(", ")})
-                </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`LCM`, `${result.lcm}`], ["Factorization", primeProduct(result.gcf)], ["Count", `${result.numbers.length}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
               </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Calculation Logic (Euclidean)</h3>
-                <ol className="space-y-3 list-decimal list-inside text-muted-foreground marker:text-primary marker:font-bold font-mono text-sm sm:text-base">
-                  {result.steps.map((step, idx) => (
-                    <li key={idx} className="pl-1">
-                      <span className={idx === result.steps.length - 1 ? "font-bold text-foreground" : "text-foreground"}>{step}</span>
-                    </li>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">GCF Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 1 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 1 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 1 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
                   ))}
-                </ol>
+                </tbody></table>
               </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Reference: Prime Factorization</h3>
-                <div className="space-y-3">
-                  {Object.entries(result.primeFactorsMap).map(([numStr, factorization], idx) => (
-                    <div key={idx} className="flex flex-col sm:flex-row justify-between sm:items-center p-3 rounded-md bg-secondary/30 border border-border/50 gap-2">
-                      <span className="font-bold text-foreground text-lg w-20 shrink-0">{numStr}</span>
-                      <span className="text-muted-foreground font-mono text-base break-all text-right w-full">{factorization}</span>
-                    </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Input Numbers</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v}`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
                   ))}
                 </div>
-                <p className="text-xs text-muted-foreground mt-4 text-center">
-                  The GCF is the product of all prime factors that are common to every number listed above.
-                </p>
               </div>
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding the Greatest Common Factor (GCF)</h2>
-            <p>The <strong>Greatest Common Factor (GCF)</strong>, which is entirely synonymous with the Greatest Common Divisor (GCD) and Highest Common Factor (HCF), is the largest integer that divides two or more numbers perfectly, leaving a remainder of zero. For example, the factors of 12 are 1, 2, 3, 4, 6, and 12. The factors of 16 are 1, 2, 4, 8, and 16. The common factors they share are 1, 2, and 4. The <em>greatest</em> of these is 4, making 4 the GCF.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Methods for Finding the GCF</h2>
-            <p>While listing out all the factors manually works for small numbers, it becomes tedious and error-prone for larger numbers like 180 and 48. Mathematicians use two primary methods to find the GCF efficiently.</p>
-
-            <h3>1. The Prime Factorization Method</h3>
-            <p>This method requires breaking each number down into its prime building blocks. Once you have the prime factors of both numbers, you identify the prime numbers they have in common and multiply them together.</p>
-            <ul>
-              <li><strong>Find the GCF of 48 and 180:</strong></li>
-              <li>Prime factors of 48: <code>2 × 2 × 2 × 2 × 3</code> (or 2⁴ × 3¹)</li>
-              <li>Prime factors of 180: <code>2 × 2 × 3 × 3 × 5</code> (or 2² × 3² × 5¹)</li>
-              <li>The common prime factors are two 2s and one 3.</li>
-              <li>Multiply them: <code>2 × 2 × 3 = 12</code>. The GCF is 12.</li>
-            </ul>
-
-            <h3>2. The Euclidean Algorithm</h3>
-            <p>Discovered over 2,000 years ago by the Greek mathematician Euclid, this algorithm is incredibly fast and is exactly how computer programs (including this calculator) find the GCF. It avoids factoring altogether and relies on division with remainders.</p>
-            <ul>
-              <li><strong>Find the GCF of 180 and 48:</strong></li>
-              <li>Divide 180 by 48. The quotient is 3, with a remainder of 36. (180 = 48 × 3 + 36)</li>
-              <li>Now, divide the previous divisor (48) by the previous remainder (36). The quotient is 1, with a remainder of 12. (48 = 36 × 1 + 12)</li>
-              <li>Divide 36 by 12. The quotient is 3, with a remainder of 0. (36 = 12 × 3 + 0)</li>
-              <li>Because the remainder is 0, the last non-zero remainder (12) is the GCF.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">Why Do We Need the GCF?</h2>
-            <p>In applied mathematics, the GCF is the crucial tool for <strong>simplifying fractions</strong>. If you have the fraction 48/180 and you need to reduce it to its lowest terms, finding the GCF (12) allows you to divide both the top and bottom number by 12 in a single step, instantly arriving at the simplified fraction 4/15.</p>
+            <h2 className="text-2xl font-bold mb-3">Greatest Common Factor</h2>
+            <p>This <strong>GCF calculator</strong> finds the largest number dividing all inputs, using the Euclidean algorithm — the oldest algorithm still in common use. The LCM is computed alongside via the identity lcm(a, b) × gcd(a, b) = a × b.</p>
+            <h2 className="text-2xl font-bold mb-3">The Euclidean Algorithm</h2>
+            <p>Instead of listing every factor, Euclid's method replaces the larger number with the division remainder until one reaches zero: gcd(48, 72) = gcd(48, 24) = gcd(24, 0) = 24, then gcd(24, 36) = 12, and gcd(12, 60) = 12. Each step shrinks the numbers dramatically, so even large inputs resolve in a handful of iterations.</p>
+            <h2 className="text-2xl font-bold mb-3">Where GCF Shows Up</h2>
+            <p>Simplifying fractions, factoring expressions, finding common denominators, distributing items into equal groups, and solving modular arithmetic problems all reduce to finding the GCF first.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gcf-calculator" />
           <PopularCalculators exclude="/calculator/gcf-calculator" />
@@ -241,5 +212,4 @@ const GcfCalculator = () => {
       </div>
     </>
   );
-};
-export default GcfCalculator;
+}

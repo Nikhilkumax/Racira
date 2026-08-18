@@ -214,8 +214,11 @@ export default function StarterMotorCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset
+              <button type="button" onClick={() => setResults(calculateStarter(inputs))} className="flex-1 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="h-11 w-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
             
@@ -291,6 +294,37 @@ export default function StarterMotorCalculator() {
                   <div className="text-xs text-muted-foreground text-center mt-3">If the blue voltage line dips below the red cutoff line during cranking, the vehicle's computer shuts off and it will not start.</div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Engine Displacement</p>
+                      <p className="font-semibold text-foreground">{inputs.displacementL} L</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Compression Ratio</p>
+                      <p className="font-semibold text-foreground">{inputs.compressionRatio}:1</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Required CCA</p>
+                      <p className="font-semibold text-primary">{results.requiredCCA} CCA</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Battery Rating</p>
+                      <p className="font-semibold text-foreground">{inputs.batteryCCA} CCA</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Expected Voltage Drop</p>
+                      <p className="font-semibold text-foreground">-{results.expectedVoltageDrop} V</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Start Verdict</p>
+                      <p className={`font-semibold ${results.isBatterySufficient ? 'text-emerald-600' : 'text-destructive'}`}>{results.isBatterySufficient ? 'Battery sufficient' : 'Battery insufficient'}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 3. Breakdown Table */}
                 <div className="card-calculator !p-0 overflow-hidden border border-border bg-card shadow-sm mt-2">
                   <div className="px-4 py-3 bg-muted/30 border-b border-border flex justify-between items-center">
@@ -346,7 +380,7 @@ export default function StarterMotorCalculator() {
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/starter-motor-calculator" />
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/starter-motor-calculator" />
         </div>
       </div>
     </>

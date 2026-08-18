@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Gift } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface GiftResult {
   total: number;
@@ -84,7 +85,9 @@ export default function GiftCostPerPersonCalculator() {
             </div>
             <div className="flex gap-2 pt-2">
               <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -100,6 +103,19 @@ export default function GiftCostPerPersonCalculator() {
               <p className="text-sm text-muted-foreground mt-1">
                 ${result.total.toFixed(2)} split {result.people} ways — ${result.rounded.toFixed(2)} rounded up covers it with ${result.leftover.toFixed(2)} spare.
               </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[
+                ["Total Gift", `$${result.total.toFixed(2)}`],
+                ["Contributors", `${result.people}`],
+                ["Exact Share", `$${result.perPerson.toFixed(2)}`],
+              ].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold text-foreground">{v}</div>
+                </div>
+              ))}
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">
@@ -120,6 +136,20 @@ export default function GiftCostPerPersonCalculator() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-5">
+              <h3 className="text-base font-bold mb-4">Exact vs Rounded Share</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                  <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                  <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={50} />
+                  <Tooltip formatter={(v: number) => `$${v.toFixed(2)}`} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+              <p className="text-xs text-muted-foreground mt-2 text-center">Rounding each share up leaves ${result.leftover.toFixed(2)} surplus to cover the card or wrapping.</p>
             </div>
 
             <div className="bg-muted/30 rounded-lg p-5">

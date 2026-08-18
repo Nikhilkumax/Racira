@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Zap } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface VoltageDropResult {
   voltageDrop: number;
@@ -134,7 +135,7 @@ const VoltageDropCalculator = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-foreground mb-1.5">Source Voltage (V)</label>
-                <div className={wrap}><input type="number" value={voltage} onChange={e => setVoltage(e.target.value)} className={ci} min="1" step="any" placeholder="120" /></div>
+                <div className={wrap}><input type="number" value={voltage} onChange={e => setVoltage(e.target.value)} className={ci} min="1" step="0.01" placeholder="120" /></div>
               </div>
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-foreground mb-1.5">Phase</label>
@@ -150,11 +151,11 @@ const VoltageDropCalculator = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-foreground mb-1.5">Current Load (Amps)</label>
-                <div className={wrap}><input type="number" value={current} onChange={e => setCurrent(e.target.value)} className={ci} min="0.1" step="any" placeholder="15" /></div>
+                <div className={wrap}><input type="number" value={current} onChange={e => setCurrent(e.target.value)} className={ci} min="0.1" step="0.01" placeholder="15" /></div>
               </div>
               <div className="flex flex-col">
                 <label className="text-sm font-medium text-foreground mb-1.5">Distance (Meters)</label>
-                <div className={wrap}><input type="number" value={distance} onChange={e => setDistance(e.target.value)} className={ci} min="1" step="any" placeholder="30" /></div>
+                <div className={wrap}><input type="number" value={distance} onChange={e => setDistance(e.target.value)} className={ci} min="1" step="0.01" placeholder="30" /></div>
               </div>
             </div>
 
@@ -199,6 +200,22 @@ const VoltageDropCalculator = () => {
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Source vs End Voltage</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[{ name: "Source", value: voltage, fill: "#a3a3a3" }, { name: "At End of Wire", value: result.voltageAtEnd, fill: "hsl(var(--primary))" }]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 10 }} domain={[0, "auto"]} />
+                    <Tooltip formatter={(v: number) => [v.toFixed(2) + " V", ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {[{ name: "Source", value: voltage }, { name: "At End of Wire", value: result.voltageAtEnd }].map((d, i) => <Cell key={i} fill={d.name === "Source" ? "#a3a3a3" : "hsl(var(--primary))"} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">The gap between the bars is the {result.voltageDrop.toFixed(2)} V ({result.percentageDrop.toFixed(2)}%) lost to wire resistance.</p>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
                 <h3 className="text-base font-bold text-foreground mb-4">Wire Specifications Used</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-secondary/30 rounded border border-border/50">
@@ -236,7 +253,7 @@ const VoltageDropCalculator = () => {
             
             <h2 className="text-2xl font-bold mb-3">Why is Voltage Drop Dangerous?</h2>
             <p>If you plug a heavy-duty air compressor into a very long, thin extension cord, you will experience severe voltage drop. The compressor's motor requires 120 Volts to spin freely, but due to the drop, it might only receive 100 Volts. Because it is starved for pressure, the motor will struggle to turn, generating massive amounts of internal heat. This can quickly destroy the motor's windings or even cause a fire.</p>
-            <p>For sensitive electronics, excessive voltage drop can cause computers to reboot randomly, screens to flicker, or power supplies to fail prematurely. This is why the National Electrical Code (NEC) strongly recommends keeping voltage drop below 3% for any single branch circuit.</p>
+            <p>For sensitive electronics, excessive voltage drop can cause computers to reboot randomly, screens to flicker, or power supplies to fail prematurely. This is why the National Electrical Code (NEC) strongly recommends keeping voltage drop below 3% for every single branch circuit.</p>
 
             <h2 className="text-2xl font-bold mb-3">How to Reduce Voltage Drop</h2>
             <p>If your calculation shows an unacceptable percentage drop, you have three primary ways to fix the circuit:</p>

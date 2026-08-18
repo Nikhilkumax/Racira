@@ -145,7 +145,7 @@ export default function ChildHeightPredictor() {
 
             <div className="flex gap-3 mt-4">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <TrendingUp className="h-5 w-5" /> Predict Height
+                <TrendingUp className="h-5 w-5" /> Calculate
               </button>
               <button onClick={() => { setSex("boy"); setMomFt("5"); setMomIn("4"); setDadFt("5"); setDadIn("10"); setResult(calcHeight("boy", 64, 70)); }} className="w-11 h-11 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />

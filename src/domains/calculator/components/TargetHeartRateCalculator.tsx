@@ -1,142 +1,203 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, HeartPulse } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
 
-const TargetHeartRateCalculator = () => {
-  const [age, setAge] = useState("30");
-  const [restingHr, setRestingHr] = useState("60");
+interface HrInput {
+  age: number;
+  restingHr: number;
+  goal: "zone2" | "zone3" | "zone4" | "zone5";
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface Zone {
+  name: string;
+  desc: string;
+  low: number;
+  high: number;
+  color: string;
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const a = parseInt(age);
-    const rhr = parseInt(restingHr);
+interface HrResult {
+  mhr: number;
+  hrr: number;
+  zones: Zone[];
+  goalZone: Zone;
+  chartData: { name: string; low: number; high: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-    if (a <= 0 || rhr <= 0) return;
+const ZONE_META: { key: string; name: string; desc: string; color: string }[] = [
+  { key: "z1", name: "Zone 1: Warm Up", desc: "50–60% HRR · Brisk walking", color: "#3b82f6" },
+  { key: "z2", name: "Zone 2: Fat Burn", desc: "60–70% HRR · Light jogging, cycling", color: "#10b981" },
+  { key: "z3", name: "Zone 3: Aerobic", desc: "70–80% HRR · Tempo runs, cardio", color: "#eab308" },
+  { key: "z4", name: "Zone 4: Anaerobic", desc: "80–90% HRR · Hard interval training", color: "#f97316" },
+  { key: "z5", name: "Zone 5: Peak", desc: "90–100% HRR · Sprinting", color: "#ef4444" },
+];
 
-    // Max Heart Rate (Gellish formula is more accurate than 220-age)
-    // Formula: 207 - (0.7 * age)
-    const mhr = Math.round(207 - (0.7 * a));
+function calcHr(input: HrInput): HrResult {
+  // Gellish max heart rate: 207 − 0.7 × age (more accurate than 220 − age)
+  const mhr = Math.round(207 - 0.7 * input.age);
+  const hrr = Math.max(0, mhr - input.restingHr);
 
-    // Heart Rate Reserve (Karvonen method)
-    const hrr = mhr - rhr;
+  const zones: Zone[] = ZONE_META.map((z, i) => {
+    const low = Math.round(input.restingHr + hrr * (0.5 + i * 0.1));
+    const high = i === 4 ? mhr : Math.round(input.restingHr + hrr * (0.6 + i * 0.1));
+    return { name: z.name, desc: z.desc, low, high, color: z.color };
+  });
 
-    // Zones
-    // Moderate (50-70% of max, or 40-59% of HRR)
-    // Vigorous (70-85% of max, or 60-84% of HRR)
-    
-    // Using Karvonen method for zones (more accurate as it accounts for resting fitness)
-    const z1Start = Math.round(rhr + (hrr * 0.50));
-    const z1End = Math.round(rhr + (hrr * 0.60)); // Warm up / Recovery
+  const goalIndex = input.goal === "zone2" ? 1 : input.goal === "zone3" ? 2 : input.goal === "zone4" ? 3 : 4;
+  const goalZone = zones[goalIndex];
 
-    const z2Start = Math.round(rhr + (hrr * 0.60));
-    const z2End = Math.round(rhr + (hrr * 0.70)); // Fat Burn / Aerobic Base
+  const chartData = zones.map((z) => ({ name: z.name.split(":")[1].trim().split(" ")[0], low: z.low, high: z.high }));
 
-    const z3Start = Math.round(rhr + (hrr * 0.70));
-    const z3End = Math.round(rhr + (hrr * 0.80)); // Aerobic / Cardio
+  const breakdown = [
+    { label: "Age", value: `${input.age} years` },
+    { label: "Resting Heart Rate", value: `${input.restingHr} bpm` },
+    { label: "Max Heart Rate (Gellish)", value: `${mhr} bpm` },
+    { label: "Heart Rate Reserve", value: `${hrr} bpm` },
+    ...zones.map((z) => ({ label: z.name, value: `${z.low}–${z.high} bpm` })),
+  ];
 
-    const z4Start = Math.round(rhr + (hrr * 0.80));
-    const z4End = Math.round(rhr + (hrr * 0.90)); // Anaerobic / Threshold
+  const summaryStats = [
+    { label: "Max Heart Rate", value: `${mhr} bpm` },
+    { label: "Heart Rate Reserve", value: `${hrr} bpm` },
+    { label: "Target Zone", value: `${goalZone.name.split(":")[1].trim()}` },
+    { label: "Target Range", value: `${goalZone.low}–${goalZone.high} bpm` },
+    { label: "Zone 2 (Fat Burn)", value: `${zones[1].low}–${zones[1].high} bpm` },
+    { label: "Zone 4 (Anaerobic)", value: `${zones[3].low}–${zones[3].high} bpm` },
+  ];
 
-    const z5Start = Math.round(rhr + (hrr * 0.90));
-    const z5End = mhr; // VO2 Max / Peak
+  return { mhr, hrr, zones, goalZone, chartData, breakdown, summaryStats };
+}
 
-    setResults({ 
-      mhr, 
-      hrr,
-      z1: `${z1Start} - ${z1End} bpm`,
-      z2: `${z2Start} - ${z2End} bpm`,
-      z3: `${z3Start} - ${z3End} bpm`,
-      z4: `${z4Start} - ${z4End} bpm`,
-      z5: `${z5Start} - ${z5End} bpm`
-    });
+const DEFAULTS: HrInput = { age: 30, restingHr: 60, goal: "zone3" };
+
+const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary";
+const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+export default function TargetHeartRateCalculator() {
+  const [age, setAge] = useState(String(DEFAULTS.age));
+  const [restingHr, setRestingHr] = useState(String(DEFAULTS.restingHr));
+  const [goal, setGoal] = useState<HrInput["goal"]>(DEFAULTS.goal);
+  const [result, setResult] = useState<HrResult | null>(null);
+
+  const parse = (s: string, fallback: number) => {
+    const n = parseFloat(s);
+    return Number.isFinite(n) && n > 0 ? n : fallback;
   };
 
+  const calculate = () =>
+    setResult(calcHr({ age: parse(age, DEFAULTS.age), restingHr: parse(restingHr, DEFAULTS.restingHr), goal }));
   const reset = () => {
-    setShowResults(false); setAge("30"); setRestingHr("60"); setResults(null); };
+    setAge(String(DEFAULTS.age));
+    setRestingHr(String(DEFAULTS.restingHr));
+    setGoal(DEFAULTS.goal);
+    setResult(calcHr(DEFAULTS));
+  };
+  useEffect(() => {
+    setResult(calcHr(DEFAULTS));
+  }, []);
 
   const faqs = [
-    { question: "What is the Karvonen Formula?", answer: "The Karvonen formula is a mathematical equation that helps determine your target heart rate zones. Unlike the standard '220 - age' formula, Karvonen factors in your resting heart rate (Heart Rate Reserve), making it highly personalized to your current fitness level." },
-    { question: "What is the 'Fat Burning Zone'?", answer: "Zone 2 (roughly 60-70% of your maximum heart rate) is often called the fat-burning zone because a higher percentage of calories burned comes from fat rather than carbohydrates. However, high-intensity workouts (Zone 4) burn more total calories overall." },
-    { question: "How do I find my true resting heart rate?", answer: "The best way to find your resting heart rate (RHR) is to measure it first thing in the morning, before getting out of bed. You can count your pulse for 60 seconds, or use a fitness tracker or smartwatch that tracks sleep metrics." }
+    { question: "What is the Karvonen Formula?", answer: "The Karvonen formula determines target heart rate zones using Heart Rate Reserve (HRR = max HR − resting HR). Zone range = resting HR + (HRR × %). Unlike '220 − age', it accounts for your current fitness level via your resting heart rate." },
+    { question: "What is the 'Fat Burning Zone'?", answer: "Zone 2 (roughly 60–70% of HRR) is called the fat-burning zone because a higher percentage of calories burned comes from fat. However, high-intensity work (Zone 4) burns more total calories overall." },
+    { question: "How do I find my true resting heart rate?", answer: "Measure it first thing in the morning, before getting out of bed. Count your pulse for 60 seconds, or use a fitness tracker. The average adult resting heart rate is 60–100 bpm; well-trained athletes often sit at 40–60." },
+    { question: "How accurate is the max heart rate formula?", answer: "The Gellish formula (207 − 0.7 × age) is more accurate than the classic 220 − age, but formulas are still estimates. Your true max HR is genetic and only definitively measured through a maximal stress test." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Target Heart Rate Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Target Heart Rate Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Target Heart Rate Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Target Heart Rate Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="age" label="Age" value={age} onChange={setAge} />
-                <InputField id="rhr" label="Resting Heart Rate (bpm)" value={restingHr} onChange={setRestingHr} />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Age</label>
+                <div className={inp}><input type="number" value={age} onChange={(e) => setAge(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yr</span></div>
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Resting Heart Rate</label>
+                <div className={inp}><input type="number" value={restingHr} onChange={(e) => setRestingHr(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">bpm</span></div>
               </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-medium mb-1 block">Training Goal</label>
+              <select value={goal} onChange={(e) => setGoal(e.target.value as HrInput["goal"])} className="w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground">
+                <option value="zone2">Fat Burn (Zone 2)</option>
+                <option value="zone3">Aerobic / Cardio (Zone 3)</option>
+                <option value="zone4">Anaerobic / Interval (Zone 4)</option>
+                <option value="zone5">Peak / VO2 Max (Zone 5)</option>
+              </select>
+            </div>
+
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
+          <div className="flex flex-col gap-4">
+            {result && (
               <>
-                <h2 className="text-2xl font-bold mb-3">Your Heart Rate Zones</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
-                    <p className="text-sm font-bold text-red-600 uppercase tracking-widest mb-1">Max Heart Rate</p>
-                    <p className="text-4xl font-black text-foreground">{results.mhr}</p>
-                    <p className="text-sm text-muted-foreground mt-1">bpm</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Heart Rate Reserve</p>
-                    <p className="text-3xl font-black text-foreground">{results.hrr}</p>
-                  </div>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Target Zone · {result.goalZone.name.split(":")[1].trim()}</div>
+                  <div className="text-4xl font-extrabold tracking-tight text-primary">{result.goalZone.low}–{result.goalZone.high} <span className="text-xl font-bold text-muted-foreground">bpm</span></div>
+                  <div className="text-sm text-muted-foreground mt-1">{result.goalZone.desc}</div>
                 </div>
-                
-                <div className="space-y-3 mb-6">
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-border bg-card">
-                    <div>
-                      <p className="font-bold">Zone 5: Peak / VO2 Max</p>
-                      <p className="text-sm text-muted-foreground">90-100% HRR (Sprinting)</p>
+
+                <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                  {[["Max Heart Rate", `${result.mhr} bpm`], ["Heart Rate Reserve", `${result.hrr} bpm`], ["Target Range", `${result.goalZone.low}–${result.goalZone.high}`]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
                     </div>
-                    <div className="font-black text-red-500">{results.z5}</div>
-                  </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-border bg-card">
-                    <div>
-                      <p className="font-bold">Zone 4: Anaerobic</p>
-                      <p className="text-sm text-muted-foreground">80-90% HRR (Hard interval training)</p>
-                    </div>
-                    <div className="font-black text-orange-500">{results.z4}</div>
-                  </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-border bg-card">
-                    <div>
-                      <p className="font-bold">Zone 3: Aerobic</p>
-                      <p className="text-sm text-muted-foreground">70-80% HRR (Tempo runs, cardio)</p>
-                    </div>
-                    <div className="font-black text-yellow-600">{results.z3}</div>
-                  </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-border bg-card">
-                    <div>
-                      <p className="font-bold">Zone 2: Fat Burn</p>
-                      <p className="text-sm text-muted-foreground">60-70% HRR (Light jogging, cycling)</p>
-                    </div>
-                    <div className="font-black text-green-500">{results.z2}</div>
-                  </div>
-                  <div className="flex justify-between items-center p-4 rounded-xl border border-border bg-card">
-                    <div>
-                      <p className="font-bold">Zone 1: Warm Up</p>
-                      <p className="text-sm text-muted-foreground">50-60% HRR (Brisk walking)</p>
-                    </div>
-                    <div className="font-black text-blue-500">{results.z1}</div>
+                  ))}
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Heart Rate Zones (Karvonen)</h3>
+                  <table className="w-full text-base"><tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 + result.zones.indexOf(result.goalZone) ? "bg-secondary/30 font-bold" : ""}`}>
+                        <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody></table>
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Zone Ranges</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} />
+                      <Tooltip formatter={(v: number) => [`${v} bpm`, ""]} />
+                      <Legend />
+                      <Bar dataKey="low" name="Zone Low" fill="#94a3b8" radius={[0, 0, 0, 0]} />
+                      <Bar dataKey="high" name="Zone High" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {result.summaryStats.map((s, i) => (
+                      <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                    ))}
                   </div>
                 </div>
               </>
@@ -147,19 +208,17 @@ const TargetHeartRateCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Why Train in Zones?</h2>
-              <p>Heart rate zone training ensures you are working out at the right intensity to achieve your specific goals. If you want to run a faster 5K, you need to spend time in Zones 3 and 4. If you want to build endurance for a marathon or burn fat efficiently, you should spend the majority of your time in Zone 2.</p>
-              <h3>The 80/20 Rule of Endurance Training</h3>
-              <p>Elite endurance athletes spend about 80% of their training time in Zone 2 (easy, aerobic effort) and only 20% in Zones 4 and 5 (hard, anaerobic effort). Amateurs often make the mistake of running every run in Zone 3—too fast to recover, but too slow to build high-end speed.</p>
-              <h3>Checking Your Max Heart Rate</h3>
-              <p>Formulas provide estimates. Your true maximum heart rate is determined genetically and can only be definitively found through a strenuous stress test (like running 400m intervals on a track until absolute exhaustion).</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/target-heart-rate" />
+            <h2 className="text-2xl font-bold mb-3">Why Train in Zones?</h2>
+            <p>Heart rate zone training ensures you work out at the right intensity for your goals. Running a faster 5K requires time in Zones 3 and 4; building endurance for a marathon or burning fat efficiently means spending most of your time in Zone 2.</p>
+            <h2 className="text-2xl font-bold mb-3">The 80/20 Rule of Endurance Training</h2>
+            <p>Elite endurance athletes spend about 80% of training time in Zone 2 (easy, aerobic) and only 20% in Zones 4–5 (hard, anaerobic). Amateurs often make the mistake of running every session in Zone 3 — too fast to recover, too slow to build high-end speed.</p>
+            <h2 className="text-2xl font-bold mb-3">Finding Your True Max Heart Rate</h2>
+            <p>Formulas provide estimates. Your true maximum heart rate is genetic and can only be definitively measured through a maximal stress test. The Karvonen method's advantage is that resting heart rate personalizes your zones to your current fitness.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/target-heart-rate-calculator" />
           <PopularCalculators exclude="/calculator/target-heart-rate-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default TargetHeartRateCalculator;
-
+}

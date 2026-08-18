@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Snowflake } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 const SOLVENTS = [
   { id: "water", label: "Water (Kf = 1.86 °C·kg/mol)", kf: 1.86 },
@@ -66,6 +67,8 @@ export default function FreezingPointDepressionCalculator() {
     setResult(calcFreeze("water", 58.44, 58.44, 1, 2));
   };
 
+  const currentMolality = (parseFloat(grams) / (parseFloat(molar) || 1)) / (parseFloat(kg) || 1);
+  const chartData = SOLVENTS.map((s) => ({ name: s.label.split(" (")[0], value: Number((result.i * s.kf * (isFinite(currentMolality) ? currentMolality : 0)).toFixed(3)) }));
   const breakdown = [
     { label: "Molality of Solution", value: `${result.molality.toFixed(3)} mol/kg`, highlight: false },
     { label: "Cryoscopic Constant (Kf)", value: `${result.kf.toFixed(2)} °C·kg/mol`, highlight: false },
@@ -133,6 +136,22 @@ export default function FreezingPointDepressionCalculator() {
               <p className="text-sm text-muted-foreground mt-1">
                 The solution freezes {result.deltaT.toFixed(2)} °C below the pure solvent's {result.solventFreeze} °C.
               </p>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Depression Across Solvents</h3>
+              <div className="h-[220px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip formatter={(value: number) => `${value} °C`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-center text-muted-foreground mt-3 italic">ΔTf = i · Kf · m for each solvent at the current molality.</p>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

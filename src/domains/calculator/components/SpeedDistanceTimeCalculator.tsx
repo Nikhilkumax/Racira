@@ -145,6 +145,23 @@ const SpeedDistanceTimeCalculator = () => {
                 <div className="text-4xl font-bold text-primary">{result.primary}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
               </div>
+
+              <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Speed</span>
+                  <span className="font-extrabold text-foreground">{result.rows[0].value}</span>
+                </div>
+                <div className="w-px h-8 bg-border" />
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Distance</span>
+                  <span className="font-extrabold text-foreground">{result.rows[1].value}</span>
+                </div>
+                <div className="w-px h-8 bg-border" />
+                <div className="flex flex-col">
+                  <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Time</span>
+                  <span className="font-extrabold text-foreground">{result.rows[2].value}</span>
+                </div>
+              </div>
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">Breakdown</h3>
                 <table className="w-full text-base"><tbody>

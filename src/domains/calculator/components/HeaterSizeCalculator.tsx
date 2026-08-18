@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
@@ -79,6 +79,10 @@ export default function HeaterSizeCalculator() {
     setResult(calcHeater(400, 8, "moderate", "average"));
   };
 
+  const aNum = parseFloat(area);
+  const hNum = parseFloat(height);
+  const hasErrors = isNaN(aNum) || aNum <= 0 || isNaN(hNum) || hNum <= 0;
+
   const breakdown = [
     { label: "Room Area", value: `${result.area.toLocaleString()} sq ft`, highlight: false },
     { label: "Ceiling Height", value: `${result.height} ft`, highlight: false },
@@ -126,21 +130,41 @@ export default function HeaterSizeCalculator() {
                 </select>
               </div>
             </div>
-            <div className="flex gap-2 pt-2">
-              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+            <div className="flex gap-2.5 pt-2 mt-1">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >
+                Calculate
+              </button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
-                <Flame className="w-4 h-4 text-primary" /> HEATING REQUIRED
-              </div>
-              <div className="flex items-baseline gap-2 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold text-primary">{result.btu.toLocaleString("en-US", { maximumFractionDigits: 0 })} BTU/hr</span>
-              </div>
-              <p className="text-sm text-muted-foreground mt-1">{result.recommendation}</p>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Heating Required</div>
+              <div className="text-4xl font-extrabold text-primary tracking-tight">{result.btu.toLocaleString("en-US", { maximumFractionDigits: 0 })} BTU/hr</div>
+              <div className="text-sm text-muted-foreground mt-1">{result.recommendation}</div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[
+                ["Watts", `${result.watts.toLocaleString("en-US", { maximumFractionDigits: 0 })} W`],
+                ["Kilowatts", `${result.kw.toFixed(2)} kW`],
+                ["Room Volume", `${result.volume.toLocaleString()} cu ft`],
+              ].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold text-foreground">{v}</div>
+                </div>
+              ))}
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

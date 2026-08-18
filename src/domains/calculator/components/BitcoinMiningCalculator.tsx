@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -120,12 +120,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, prefix, suffix,
 export default function BitcoinMiningCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<BitcoinMiningResults>(calculateBitcoinMining(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -133,6 +127,11 @@ export default function BitcoinMiningCalculator() {
       const r = calculateBitcoinMining(newInputs);
       if (!r.isError) setResults(r);
     }
+  };
+
+  const handleCalculate = () => {
+    const r = calculateBitcoinMining(inputs);
+    if (!r.isError) setResults(r);
   };
 
   const handleReset = () => {
@@ -147,8 +146,6 @@ export default function BitcoinMiningCalculator() {
     { question: "What was the 2024 Halving?", answer: "Every 210,000 blocks (roughly 4 years), the block reward paid to miners is cut in half. In April 2024, the reward dropped from 6.25 BTC to 3.125 BTC per block. This instantly cut miner revenue in half, forcing many older, less efficient machines to shut down." },
     { question: "Why do I need to pay a pool fee?", answer: "Solo mining is essentially playing the lottery; you might mine for years and never solve a block. By joining a mining pool, thousands of miners combine their hash power and share the rewards proportionally when the pool finds a block, ensuring steady, predictable payouts. Pools charge a small fee (1-3%) for managing this process." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -188,7 +185,10 @@ export default function BitcoinMiningCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

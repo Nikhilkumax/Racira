@@ -124,6 +124,11 @@ export default function BrakingDistanceCalculator() {
     if (!r.isError) setResults(r);
   };
 
+  const handleCalculate = () => {
+    const r = calculateBraking(inputs);
+    if (!r.isError) setResults(r);
+  };
+
   const handleReset = () => {
     setInputs(DEFAULTS);
     setResults(calculateBraking(DEFAULTS));
@@ -166,7 +171,10 @@ export default function BrakingDistanceCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

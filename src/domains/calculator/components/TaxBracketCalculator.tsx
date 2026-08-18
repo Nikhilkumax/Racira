@@ -1,104 +1,114 @@
 "use client";
-import { RotateCcw, Calculator, DollarSign, BarChart3 } from "lucide-react";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const TaxBracketCalculator = () => {
-  const [income, setIncome] = useState("85000");
-  const [filingStatus, setFilingStatus] = useState("single");
-  const [taxYear, setTaxYear] = useState("2024");
+import { RotateCcw, Scale } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
+interface NumInputProps {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  prefix?: string;
+}
+
+function NumInput({ label, value, onChange, min = 0, max = 9999999, step = 1, suffix, prefix }: NumInputProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1.5 text-foreground">{label}</label>
+      <div className="relative">
+        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{prefix}</span>}
+        <input
+          type="number"
+          value={Number.isFinite(value) ? value : ""}
+          min={min}
+          max={max}
+          step={step}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "") return onChange(min);
+            const n = parseFloat(raw);
+            if (Number.isNaN(n)) return;
+            onChange(Math.min(max, Math.max(min, n)));
+          }}
+          className={`input-calc ${prefix ? "pl-8" : ""} ${suffix ? "pr-10" : ""}`}
+        />
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+const fmt = (n: number) => "$" + Math.round(n).toLocaleString();
+
+const SINGLE = [
+  { min: 0, max: 11600, rate: 10 },
+  { min: 11601, max: 47150, rate: 12 },
+  { min: 47151, max: 100525, rate: 22 },
+  { min: 100526, max: 191950, rate: 24 },
+  { min: 191951, max: 243725, rate: 32 },
+  { min: 243726, max: 609350, rate: 35 },
+  { min: 609351, max: Infinity, rate: 37 },
+];
+const JOINT = [
+  { min: 0, max: 23200, rate: 10 },
+  { min: 23201, max: 94300, rate: 12 },
+  { min: 94301, max: 201050, rate: 22 },
+  { min: 201051, max: 383900, rate: 24 },
+  { min: 383901, max: 487450, rate: 32 },
+  { min: 487451, max: 731200, rate: 35 },
+  { min: 731201, max: Infinity, rate: 37 },
+];
+
+export default function TaxBracketCalculator() {
+  const [income, setIncome] = useState(85000);
+  const [filing, setFiling] = useState("single");
+  const [year, setYear] = useState("2024");
   const [showResults, setShowResults] = useState(false);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const totalIncome = parseFloat(income) || 0;
-    
-    // 2024 Standard Deductions
-    const standardDeduction = filingStatus === "single" ? 14600 : 29200;
-    const taxableIncome = Math.max(0, totalIncome - standardDeduction);
+  const stdDed = filing === "single" ? 14600 : 29200;
+  const taxable = Math.max(0, income - stdDed);
+  const brackets = filing === "single" ? SINGLE : JOINT;
+  let total = 0;
+  let marginal = 0;
+  const rows = brackets.map((b) => {
+    const amount = Math.max(0, Math.min(taxable, b.max) - b.min);
+    const tax = amount * (b.rate / 100);
+    total += tax;
+    if (taxable >= b.min) marginal = b.rate;
+    return { ...b, amount, tax };
+  });
+  const effective = income > 0 ? (total / income) * 100 : 0;
+  const takeHome = income - total;
 
-    // 2024 Brackets
-    const singleBrackets = [
-      { min: 0, max: 11600, rate: 10 },
-      { min: 11601, max: 47150, rate: 12 },
-      { min: 47151, max: 100525, rate: 22 },
-      { min: 100526, max: 191950, rate: 24 },
-      { min: 191951, max: 243725, rate: 32 },
-      { min: 243726, max: 609350, rate: 35 },
-      { min: 609351, max: Infinity, rate: 37 },
-    ];
+  const chartData = rows.filter((r) => r.amount > 0).map((r) => ({
+    name: `${r.rate}%`,
+    amount: Math.round(r.amount),
+    tax: Math.round(r.tax),
+  }));
 
-    const marriedBrackets = [
-      { min: 0, max: 23200, rate: 10 },
-      { min: 23201, max: 94300, rate: 12 },
-      { min: 94301, max: 201050, rate: 22 },
-      { min: 201051, max: 383900, rate: 24 },
-      { min: 383901, max: 487450, rate: 32 },
-      { min: 487451, max: 731200, rate: 35 },
-      { min: 731201, max: Infinity, rate: 37 },
-    ];
-
-    const brackets = filingStatus === "single" ? singleBrackets : marriedBrackets;
-    let totalTax = 0;
-    let marginalRate = 0;
-    const bracketBreakdown: any[] = [];
-
-    for (const bracket of brackets) {
-      if (taxableIncome > bracket.min) {
-        const taxableInThisBracket = Math.min(taxableIncome, bracket.max) - bracket.min;
-        const taxInThisBracket = taxableInThisBracket * (bracket.rate / 100);
-        totalTax += taxInThisBracket;
-        marginalRate = bracket.rate;
-        
-        bracketBreakdown.push({
-           rate: bracket.rate,
-           amount: taxableInThisBracket,
-           tax: taxInThisBracket,
-           isUserBracket: taxableIncome <= bracket.max
-        });
-      }
-    }
-
-    setResults({
-      taxableIncome,
-      totalTax,
-      marginalRate,
-      effectiveRate: totalIncome > 0 ? (totalTax / totalIncome) * 100 : 0,
-      standardDeduction,
-      bracketBreakdown
-    });
-  };
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setIncome("85000");
-    setFilingStatus("single");
-    setTaxYear("2024");
+    setIncome(85000);
+    setFiling("single");
+    setYear("2024");
+    setShowResults(false);
   };
 
   const faqs = [
-    {
-      question: "What is a marginal tax rate?",
-      answer: "A marginal tax rate is the percentage of tax applied to your last dollar of income. Because the U.S. uses a progressive tax system, you don't pay one single rate on your entire income; instead, different portions of your income are taxed at different rates as you move up the brackets."
-    },
-    {
-      question: "What is an effective tax rate?",
-      answer: "Your effective tax rate is the actual percentage of your total income that you pay in taxes. It is calculated by dividing your total tax liability by your total gross income. It is always lower than your marginal tax rate because of deductions and lower tax brackets."
-    },
-    {
-      question: "How do tax brackets work for married couples?",
-      answer: "Married couples filing jointly have different income thresholds for each tax bracket compared to single filers. Typically, the income limits for married couples are double those of single filers for the lower brackets, though this 'doubling' effect disappears at the highest income levels."
-    },
-    {
-      question: "Does moving into a higher tax bracket mean I take home less money?",
-      answer: "No. This is a common myth. Only the money earned above the threshold for the new bracket is taxed at the higher rate. You will always take home more total money if you earn a higher gross salary, even if you move into a higher tax bracket."
-    }
+    { question: "What is a marginal tax rate?", answer: "It is the rate applied to your last dollar of income — the highest bracket your taxable income reaches. Only the income within that bracket's range is taxed at that rate; everything below is taxed at lower rates. Earning more never pushes earlier dollars into a higher bracket." },
+    { question: "What is the difference between marginal and effective rate?", answer: "The marginal rate is the top bracket you land in; the effective rate is total tax divided by gross income. Because lower brackets tax the first dollars cheaply, the effective rate is always below the marginal rate — a single filer at the 22% marginal rate often pays around 12% effective." },
+    { question: "What are the 2024 federal brackets?", answer: "For single filers: 10% up to $11,600, 12% to $47,150, 22% to $100,525, 24% to $191,950, 32% to $243,725, 35% to $609,350, then 37%. Married filing jointly brackets are exactly double the 10–32% ranges, with the 35% and 37% thresholds adjusted differently." },
+    { question: "How does the standard deduction work?", answer: "It is subtracted from gross income before brackets apply — $14,600 for single and $29,200 for married filing jointly in 2024. Most taxpayers take it instead of itemizing; the result is that a single filer owes zero federal income tax until income passes $14,600." },
+    { question: "Does this include payroll or state taxes?", answer: "No — this calculates federal income tax only. Social Security and Medicare (7.65% employee share) and state income taxes are separate and would lower take-home pay further. Use it to understand bracket math, then combine with other calculators for a full picture." },
   ];
 
   return (
@@ -109,129 +119,175 @@ const TaxBracketCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <DollarSign className="h-5 w-5 text-primary" /> Your Income
-                  </h2>
-                  <InputField id="income" label="Total Annual Income" value={income} onChange={setIncome} prefix="$" tooltip="Your gross annual salary before any deductions." />
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Tax Year</label>
-                    <select value={taxYear} onChange={(e) => setTaxYear(e.target.value)} className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium">
-                      <option value="2024">2024 Tax Year</option>
-                      <option value="2023">2023 Tax Year</option>
-                    </select>
-                  </div>
-                </section>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <Scale className="w-4 h-4" /> Federal Income Tax
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <NumInput label="Total Annual Income" value={income} onChange={setIncome} min={0} max={5000000} step={1000} prefix="$" />
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-foreground">Filing Status</label>
+                <select
+                  value={filing}
+                  onChange={(e) => setFiling(e.target.value)}
+                  className="input-calc"
+                >
+                  <option value="single">Single</option>
+                  <option value="married">Married Filing Jointly</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-foreground">Tax Year</label>
+                <select
+                  value={year}
+                  onChange={(e) => setYear(e.target.value)}
+                  className="input-calc"
+                >
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
+            </div>
 
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calculator className="h-5 w-5 text-primary" /> Filing Details
-                  </h2>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Filing Status</label>
-                    <div className="grid grid-cols-1 gap-2">
-                      <button onClick={() => setFilingStatus("single")} className={`p-3 rounded-xl border font-bold text-sm text-left px-5 transition-all ${filingStatus === 'single' ? 'bg-primary text-primary-foreground border-primary' : 'bg-secondary/50 border-border text-muted-foreground hover:bg-secondary'}`}>
-                        Single
-                        <span className="block text-[10px] font-medium opacity-80">Standard Deduction: $14,600</span>
-                      </button>
-                      <button onClick={() => setFilingStatus("married")} className={`p-3 rounded-xl border font-bold text-sm text-left px-5 transition-all ${filingStatus === 'married' ? 'bg-primary text-primary-foreground border-primary' : 'bg-secondary/50 border-border text-muted-foreground hover:bg-secondary'}`}>
-                        Married Filing Jointly
-                        <span className="block text-[10px] font-medium opacity-80">Standard Deduction: $29,200</span>
-                      </button>
-                    </div>
-                  </div>
-                </section>
-              </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
-              </div>
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground">2024 standard deduction: {filing === "single" ? "$14,600" : "$29,200"} · {year} rates shown.</p>
           </div>
 
           <div className="flex flex-col gap-3">
-            {showResults && results && (
+            {showResults ? (
               <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Marginal Tax Bracket</p>
-                    <p className="text-7xl font-black text-foreground">{results.marginalRate}%</p>
-                    <p className="text-xs text-primary mt-2 font-bold uppercase tracking-widest">Highest rate applied</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Federal Tax</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{fmt(total)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {marginal}% marginal · {effective.toFixed(1)}% effective · {fmt(takeHome)} take-home
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Marginal Rate</p>
+                    <p className="text-2xl font-bold text-primary">{marginal}%</p>
                   </div>
-                  <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Effective Tax Rate</p>
-                    <p className="text-7xl font-black text-foreground">{results.effectiveRate.toFixed(1)}%</p>
-                    <p className="text-xs text-emerald-500 mt-2 font-bold uppercase tracking-widest">Your actual average tax</p>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Effective Rate</p>
+                    <p className="text-2xl font-bold text-orange-500">{effective.toFixed(1)}%</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Taxable Income</p>
+                    <p className="text-2xl font-bold text-green-600">{fmt(taxable)}</p>
                   </div>
                 </div>
 
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <BarChart3 className="h-5 w-5 text-primary" /> Progressive Breakdown
-                  </h2>
-                  <div className="space-y-4 mb-8">
-                    {results.bracketBreakdown.map((b: any, i: number) => (
-                      <div key={i} className={`p-4 rounded-2xl border transition-all ${b.isUserBracket ? 'bg-primary/5 border-primary/20 ring-1 ring-primary/20 shadow-lg' : 'bg-secondary/30 border-border opacity-60'}`}>
-                        <div className="flex justify-between items-center mb-2">
-                           <span className="font-black text-lg">{b.rate}% Bracket</span>
-                           {b.isUserBracket && <span className="bg-primary text-primary-foreground text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">Current Bracket</span>}
-                        </div>
-                        <div className="flex justify-between text-sm">
-                           <span className="text-muted-foreground">Income in this bracket:</span>
-                           <span className="font-bold">${Math.round(b.amount).toLocaleString()}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                           <span className="text-muted-foreground">Tax from this bracket:</span>
-                           <span className="font-bold text-primary">${Math.round(b.tax).toLocaleString()}</span>
-                        </div>
-                        <div className="mt-3 h-1.5 bg-secondary rounded-full overflow-hidden">
-                           <div className="h-full bg-primary" style={{ width: `${(b.amount / (results.taxableIncome || 1)) * 100}%` }}></div>
-                        </div>
-                      </div>
-                    ))}
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Bracket</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Income in Bracket</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Tax</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Total Federal Tax</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">—</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{fmt(total)}</td>
+                      </tr>
+                      {rows.map((r) => (
+                        <tr className={r.amount > 0 ? "border-b" : "border-b opacity-50"} key={r.rate}>
+                          <td className="py-2.5 px-3">
+                            {r.rate}% {marginal === r.rate && r.amount > 0 && <span className="text-primary font-semibold">(current)</span>}
+                          </td>
+                          <td className="py-2.5 px-3 text-right">{r.amount > 0 ? fmt(r.amount) : "—"}</td>
+                          <td className="py-2.5 px-3 text-right">{r.tax > 0 ? fmt(r.tax) : "—"}</td>
+                        </tr>
+                      ))}
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Standard Deduction</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(stdDed)}</td>
+                        <td className="py-2.5 px-3 text-right">0</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Take-Home (federal only)</td>
+                        <td className="py-2.5 px-3 text-right">—</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(takeHome)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Tax by Bracket</p>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip formatter={(v: number) => fmt(v)} />
+                        <Bar dataKey="amount" name="Income in Bracket" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
-                  <ResultDisplay items={[
-                    { label: "Total Federal Tax", value: results.totalTax },
-                    { label: "Taxable Income After Deduction", value: results.taxableIncome },
-                    { label: "Standard Deduction Used", value: results.standardDeduction },
-                    { label: "Annual Take-Home (Federal Only)", value: parseFloat(income) - results.totalTax },
-                  ]} />
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Gross Income</span>
+                      <span className="font-medium">{fmt(income)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Taxable Income</span>
+                      <span className="font-medium">{fmt(taxable)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Marginal Rate</span>
+                      <span className="font-medium">{marginal}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Effective Rate</span>
+                      <span className="font-medium">{effective.toFixed(1)}%</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Total Tax</span>
+                      <span className="font-medium">{fmt(total)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Take-Home</span>
+                      <span className="font-medium">{fmt(takeHome)}</span>
+                    </div>
+                  </div>
                 </div>
               </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Enter your income and filing status, then click <strong className="text-foreground">Calculate</strong> to see your total federal tax, marginal and effective rates, and bracket-by-bracket breakdown.
+              </div>
             )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How U.S. Tax Brackets Really Work</h2>
-              <p>One of the most common misconceptions about personal finance is how tax brackets work. Many people believe that moving into a higher bracket means their entire income is suddenly taxed at that higher rate. This is false. The United States uses a <strong>progressive tax system</strong>, which means your income is divided into "buckets," and each bucket is taxed at its own specific rate.</p>
-
-              <h3>The Bucket Analogy</h3>
-              <p>Imagine you have several buckets. The first bucket holds about $11,000. No matter how much you earn, that first $11,000 is always taxed at 10%. Once that bucket is full, the next dollar you earn goes into the 12% bucket. This continues until you reach the last dollar of your income. Your "tax bracket" is simply the rate of the very last bucket your money reached.</p>
-
-              <h3>Marginal vs. Effective Rate</h3>
-              <p>Because you pay 10%, 12%, and 22% on different parts of your income, your overall average tax rate (the effective rate) will always be lower than your highest tax bracket (the marginal rate). For example, if you are in the 24% bracket, your effective rate might only be 16%.</p>
-
-              <h3>The Power of Deductions</h3>
-              <p>Ductions like the <strong>Standard Deduction</strong> act like a "shield" for your income. For a single filer earning $85,000, the first $14,600 is completely untaxed. This means you aren't actually taxed on $85,000; you are taxed on $70,400. This is why contributing to a 401(k) or traditional IRA is so effective—it lowers your taxable income and can even push you down into a lower tax bracket.</p>
-
-              <h3>Common Tax Brackets for 2024</h3>
-              <p>While brackets are adjusted annually for inflation, the seven rates remain consistent: 10%, 12%, 22%, 24%, 32%, 35%, and 37%. As you earn more, each new dollar is taxed more heavily. This system is designed to place a larger relative tax burden on higher earners while protecting the basic living expenses of lower earners.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Strategies for Tax Bracket Management</h2>
-              <p>If you find yourself at the very bottom of a higher bracket (e.g., earning $105,000 when the 24% bracket starts at $100,525), you can use tax-deferred investments to drop your taxable income back into the 22% bracket. This is a common strategy for high-earners to maximize their long-term wealth.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Progressive Tax Brackets Work</h2>
+            <p>Taxable income is gross minus the standard deduction, then each dollar is taxed at the rate of the bracket it lands in (progressive "buckets"). The marginal rate applies only to the last dollar earned; the effective rate is total tax divided by gross income, which is always lower.</p>
+            <h3>Worked Example</h3>
+            <p>A single filer earning $85,000 pays $10,541 in 2024 federal tax: taxable income of $70,400 spans the 10%, 12%, and 22% brackets. Marginal rate is 22%, but the effective rate is just 12.4%.</p>
+            <h3>Why the Marginal Rate Matters</h3>
+            <p>Raises and side income are taxed at your marginal rate, so knowing it helps you estimate the true value of extra earnings, decide between Roth and traditional retirement accounts, and avoid sticker shock on bonuses. The effective rate is what you actually pay overall — useful for budgeting your total tax burden.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-bracket-calculator" />
           <PopularCalculators exclude="/calculator/tax-bracket-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default TaxBracketCalculator;
-
+}

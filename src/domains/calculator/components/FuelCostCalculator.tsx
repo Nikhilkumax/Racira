@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Fuel } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface FuelCostResult {
   totalCost: number;
@@ -83,6 +84,13 @@ const FuelCostCalculator = () => {
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+  const effN = parseFloat(efficiency) || 0;
+  const priceN = parseFloat(price) || 0;
+  const chartData = [250, 500, 750, 1000, 1500, 2000].map((d) => {
+    const fuel = unit === "imperial" ? d / effN : (d / 100) * effN;
+    return { name: `${d}${unit === "imperial" ? " mi" : " km"}`, cost: Number((fuel * priceN).toFixed(0)) };
+  });
 
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
@@ -171,6 +179,22 @@ const FuelCostCalculator = () => {
                   <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Fuel Burned</div>
                   <div className="text-2xl font-bold text-foreground font-mono">{result.gallonsUsed.toLocaleString()} <span className="text-sm font-normal text-muted-foreground font-sans">{unit === "imperial" ? "Gal" : "L"}</span></div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Fuel Cost by Distance</h3>
+                <div className="h-[220px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
+                      <RechartsTooltip formatter={(value: number) => `$${value.toLocaleString()}`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                      <Bar dataKey="cost" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={45} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-center text-muted-foreground mt-3 italic">Trip fuel cost at the current efficiency and price per unit of distance.</p>
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">

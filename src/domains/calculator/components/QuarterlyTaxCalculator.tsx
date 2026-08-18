@@ -1,211 +1,271 @@
 "use client";
-import { RotateCcw, Calculator, Calendar, ShieldCheck } from "lucide-react";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const QuarterlyTaxCalculator = () => {
-  const [expectedIncome, setExpectedIncome] = useState("100000");
-  const [estimatedExpenses, setEstimatedExpenses] = useState("20000");
-  const [lastYearTax, setLastYearTax] = useState("12000");
-  const [filingStatus, setFilingStatus] = useState("single");
+import { RotateCcw, CalendarClock } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
+interface NumInputProps {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  prefix?: string;
+}
+
+function NumInput({ label, value, onChange, min = 0, max = 9999999, step = 1, suffix, prefix }: NumInputProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1.5 text-foreground">{label}</label>
+      <div className="relative">
+        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{prefix}</span>}
+        <input
+          type="number"
+          value={Number.isFinite(value) ? value : ""}
+          min={min}
+          max={max}
+          step={step}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "") return onChange(min);
+            const n = parseFloat(raw);
+            if (Number.isNaN(n)) return;
+            onChange(Math.min(max, Math.max(min, n)));
+          }}
+          className={`input-calc ${prefix ? "pl-8" : ""} ${suffix ? "pr-10" : ""}`}
+        />
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+const fmt = (n: number) => "$" + Math.round(n).toLocaleString();
+
+export default function QuarterlyTaxCalculator() {
+  const [income, setIncome] = useState(100000);
+  const [expenses, setExpenses] = useState(20000);
+  const [lastYearTax, setLastYearTax] = useState(12000);
+  const [filing, setFiling] = useState("single");
   const [showResults, setShowResults] = useState(false);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const income = parseFloat(expectedIncome) || 0;
-    const expenses = parseFloat(estimatedExpenses) || 0;
-    const prevTax = parseFloat(lastYearTax) || 0;
-    const netProfit = Math.max(0, income - expenses);
+  const netProfit = Math.max(0, income - expenses);
+  const seBase = netProfit * 0.9235;
+  const ssTax = Math.min(seBase, 168600) * 0.124;
+  const medicareTax = seBase * 0.029;
+  const totalSeTax = ssTax + medicareTax;
+  const stdDed = filing === "single" ? 14600 : 29200;
+  const taxableIncome = Math.max(0, netProfit - totalSeTax / 2 - stdDed);
+  const estIncomeTax = taxableIncome * 0.18;
+  const totalLiability = totalSeTax + estIncomeTax;
+  const rule90 = totalLiability * 0.9;
+  const rule100 = lastYearTax * (lastYearTax > 150000 ? 1.1 : 1.0);
+  const requiredAnnual = Math.min(rule90, rule100);
+  const quarterly = requiredAnnual / 4;
+  const remaining = totalLiability - requiredAnnual;
 
-    // 1. Calculate Self-Employment Tax
-    const taxableSeEarnings = netProfit * 0.9235;
-    const ssTax = Math.min(taxableSeEarnings, 168600) * 0.124;
-    const medicareTax = taxableSeEarnings * 0.029;
-    const totalSeTax = ssTax + medicareTax;
+  const chartData = [
+    { name: "Self-Employment", value: Math.round(totalSeTax) },
+    { name: "Income Tax (est.)", value: Math.round(estIncomeTax) },
+  ];
 
-    // 2. Calculate Estimated Income Tax (Simplified)
-    const standardDeduction = filingStatus === "single" ? 14600 : 29200;
-    const taxableIncome = Math.max(0, netProfit - (totalSeTax / 2) - standardDeduction);
-    
-    // Simplified 20% average income tax rate for estimation
-    const estimatedIncomeTax = taxableIncome * 0.18; 
-    const totalCurrentLiability = totalSeTax + estimatedIncomeTax;
-
-    // 3. Safe Harbor Rules
-    // Rule 1: 90% of current year
-    const rule90 = totalCurrentLiability * 0.9;
-    // Rule 2: 100% of last year (110% if income > $150k)
-    const rule100 = prevTax * (prevTax > 150000 ? 1.1 : 1.0);
-
-    const requiredAnnualPayment = Math.min(rule90, rule100);
-    const quarterlyPayment = requiredAnnualPayment / 4;
-
-    setResults({
-      netProfit,
-      totalSeTax,
-      estimatedIncomeTax,
-      totalCurrentLiability,
-      requiredAnnualPayment,
-      quarterlyPayment
-    });
-  };
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setExpectedIncome("100000");
-    setEstimatedExpenses("20000");
-    setLastYearTax("12000");
-    setFilingStatus("single");
+    setIncome(100000);
+    setExpenses(20000);
+    setLastYearTax(12000);
+    setFiling("single");
+    setShowResults(false);
   };
 
   const faqs = [
-    {
-      question: "Who needs to pay quarterly estimated taxes?",
-      answer: "Generally, you must pay estimated taxes if you expect to owe at least $1,000 in tax for the current year after subtracting your withholding and credits, and your withholding and credits will be less than the smaller of 90% of your current year's tax or 100% of your previous year's tax."
-    },
-    {
-      question: "When are quarterly taxes due?",
-      answer: "Estimated tax payments are typically due on April 15, June 15, September 15, and January 15 of the following year. If these dates fall on a weekend or holiday, the deadline is moved to the next business day."
-    },
-    {
-      question: "What is the 'Safe Harbor' rule?",
-      answer: "Safe harbor rules protect you from underpayment penalties. You generally won't owe a penalty if you pay at least 90% of the tax you owe for the current year, or 100% of the tax shown on your return for the prior year (110% if your adjusted gross income was more than $150,000)."
-    },
-    {
-      question: "What happens if I don't pay quarterly taxes?",
-      answer: "If you don't pay enough tax through withholding and estimated tax payments, you may be charged an underpayment penalty by the IRS when you file your annual return. The penalty is calculated based on how much you underpaid and for how long."
-    }
+    { question: "Who must pay estimated quarterly taxes?", answer: "Self-employed individuals, freelancers, and anyone whose income is not subject to withholding — including gig workers, small business owners, and retirees with large non-payroll income. If you expect to owe $1,000 or more at filing, the IRS generally requires quarterly payments." },
+    { question: "When are quarterly payments due?", answer: "Four installments per year: April 15, June 15, September 15, and January 15 of the following year. Each covers roughly one quarter of your expected liability. If a due date falls on a weekend or holiday, it moves to the next business day." },
+    { question: "What is the safe harbor rule?", answer: "You avoid penalties if you pay the smaller of 90% of this year's tax liability or 100% of last year's tax (110% if your prior-year adjusted gross income exceeded $150,000). This calculator takes the lower of the two and splits it into four equal payments." },
+    { question: "How is self-employment tax calculated?", answer: "It is 15.3% — 12.4% Social Security (capped at $168,600 for 2024) plus 2.9% Medicare — applied to 92.35% of net profit. You also deduct half of the self-employment tax when computing taxable income for income tax." },
+    { question: "What happens if I underpay?", answer: "The IRS charges interest on the shortfall from each missed due date, plus a failure-to-pay penalty of 0.5% per month. Paying via the safe harbor protects you from penalties even if your final liability comes in higher than estimated." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Quarterly Estimated Tax Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Quarterly Tax Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Quarterly Estimated Tax Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Quarterly Tax Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calendar className="h-5 w-5 text-primary" /> Current Year Projection
-                  </h2>
-                  <InputField id="income" label="Expected Annual Revenue" value={expectedIncome} onChange={setExpectedIncome} prefix="$" tooltip="Your total projected gross income for the year." />
-                  <InputField id="expenses" label="Estimated Business Expenses" value={estimatedExpenses} onChange={setEstimatedExpenses} prefix="$" tooltip="Deductible expenses like supplies, software, and home office." />
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Filing Status</label>
-                    <select value={filingStatus} onChange={(e) => setFilingStatus(e.target.value)} className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium">
-                      <option value="single">Single</option>
-                      <option value="married">Married Filing Jointly</option>
-                    </select>
-                  </div>
-                </section>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <CalendarClock className="w-4 h-4" /> Estimated Payments
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <NumInput label="Expected Annual Revenue" value={income} onChange={setIncome} min={0} max={5000000} step={1000} prefix="$" />
+              <NumInput label="Estimated Business Expenses" value={expenses} onChange={setExpenses} min={0} max={3000000} step={1000} prefix="$" />
+              <NumInput label="Total Tax Paid Last Year" value={lastYearTax} onChange={setLastYearTax} min={0} max={2000000} step={100} prefix="$" />
+              <div>
+                <label className="block text-sm font-medium mb-1.5 text-foreground">Filing Status</label>
+                <select
+                  value={filing}
+                  onChange={(e) => setFiling(e.target.value)}
+                  className="input-calc"
+                >
+                  <option value="single">Single</option>
+                  <option value="married">Married Filing Jointly</option>
+                </select>
+              </div>
+            </div>
 
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <ShieldCheck className="h-5 w-5 text-primary" /> Safe Harbor Data
-                  </h2>
-                  <InputField id="last-tax" label="Total Tax Paid Last Year" value={lastYearTax} onChange={setLastYearTax} prefix="$" tooltip="Found on your previous year's Form 1040 (Line 24)." />
-                  <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 mt-4">
-                    <p className="text-[10px] font-bold text-primary uppercase mb-1">Projected Net Profit</p>
-                    <p className="text-3xl font-black text-foreground">${results ? results.netProfit.toLocaleString() : '0'}</p>
-                  </div>
-                </section>
-              </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
-              </div>
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            {showResults && results && (
+            {showResults ? (
               <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Recommended Quarterly Payment</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.quarterlyPayment).toLocaleString()}</p>
-                    <p className="text-[10px] text-primary mt-2 font-bold uppercase tracking-widest">Next Due: June 15, 2024</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Recommended Quarterly Payment</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{fmt(quarterly)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {fmt(requiredAnnual)}/year via safe harbor · due Apr 15, Jun 15, Sep 15, Jan 15
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Net Profit</p>
+                    <p className="text-2xl font-bold text-primary">{fmt(netProfit)}</p>
                   </div>
-                  <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Total Annual Liability</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.totalCurrentLiability).toLocaleString()}</p>
-                    <p className="text-xs text-emerald-500 mt-2 font-bold uppercase tracking-widest">SE Tax + Income Tax</p>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Self-Employment Tax</p>
+                    <p className="text-2xl font-bold text-orange-500">{fmt(totalSeTax)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Total Liability</p>
+                    <p className="text-2xl font-bold text-green-600">{fmt(totalLiability)}</p>
                   </div>
                 </div>
 
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calculator className="h-5 w-5 text-primary" /> Payment Breakdown
-                  </h2>
-                  <ResultDisplay items={[
-                    { label: "Estimated Self-Employment Tax", value: results.totalSeTax },
-                    { label: "Estimated Federal Income Tax", value: results.estimatedIncomeTax },
-                    { label: "Required Annual Payment (90%)", value: results.requiredAnnualPayment },
-                    { label: "Remaining Balance at Year-End", value: results.totalCurrentLiability - results.requiredAnnualPayment },
-                  ]} />
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Item</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Quarterly Payment (Safe Harbor)</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{fmt(quarterly)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Self-Employment Tax (SS + Medicare)</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(totalSeTax)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Estimated Federal Income Tax</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(estIncomeTax)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Total Current-Year Liability</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(totalLiability)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">90% Rule</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(rule90)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Prior-Year Safe Harbor</td>
+                        <td className="py-2.5 px-3 text-right">
+                          {fmt(rule100)}
+                          {lastYearTax > 150000 ? " (110%)" : ""}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Year-End Balance (if safe harbor)</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(remaining)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Liability Breakdown</p>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip formatter={(v: number) => fmt(v)} />
+                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Revenue − Expenses</span>
+                      <span className="font-medium">{fmt(netProfit)} net</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">SE Tax Rate</span>
+                      <span className="font-medium">15.3% of 92.35%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Quarterly Payment</span>
+                      <span className="font-medium">{fmt(quarterly)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Annual Payment</span>
+                      <span className="font-medium">{fmt(requiredAnnual)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Filing Status</span>
+                      <span className="font-medium">{filing === "single" ? "Single" : "MFJ"}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Safe Harbor Used</span>
+                      <span className="font-medium">{rule90 <= rule100 ? "90% of current year" : "Prior year"}</span>
+                    </div>
+                  </div>
                 </div>
               </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Enter your expected revenue, expenses, and last year's tax, then click <strong className="text-foreground">Calculate</strong> to see your recommended quarterly payment.
+              </div>
             )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Mastering Your Quarterly Estimated Taxes</h2>
-              <p>For freelancers, solopreneurs, and business owners, tax season happens four times a year. Because no employer is withholding taxes from your income, the IRS requires you to calculate and pay your own taxes as you earn them. This is known as "Estimated Tax."</p>
-
-              <h3>Why Quarterly Payments Are Required</h3>
-              <p>The U.S. has a "pay-as-you-go" tax system. This means the government wants its share of your income in real-time, not just once a year in April. If you wait until the end of the year to pay everything, the IRS will likely hit you with underpayment penalties, even if you pay your full balance on time.</p>
-
-              <h3>Understanding the 'Safe Harbor' Rules</h3>
-              <p>The IRS provides two 'safe harbors' that protect you from penalties. You won't be penalized if you pay at least:</p>
-              <ul>
-                <li><strong>90% of Your Current Year's Tax:</strong> This is a good option if your income is lower than last year.</li>
-                <li><strong>100% of Your Prior Year's Tax:</strong> Known as the 'Prior Year Safe Harbor,' this is the safest and easiest method if your income has increased. If your adjusted gross income (AGI) last year was over $150,000, you must pay 110% of last year's tax instead.</li>
-              </ul>
-
-              <h3>How to Pay Your Estimated Taxes</h3>
-              <p>You can pay your quarterly taxes in several ways:</p>
-              <ol>
-                <li><strong>IRS Direct Pay:</strong> The easiest way, allowing you to pay directly from your bank account for free on the IRS website.</li>
-                <li><strong>EFTPS:</strong> The Electronic Federal Tax Payment System, usually used by businesses.</li>
-                <li><strong>Payment Vouchers:</strong> You can mail a check with Form 1040-ES, though this is slower and less secure than electronic methods.</li>
-              </ol>
-
-              <h3>Strategies for Managing Tax Cash Flow</h3>
-              <p>The biggest challenge for the self-employed is having the cash ready when the quarterly deadline hits. Here are three tips for managing your tax funds:</p>
-              <ul>
-                <li><strong>The 'Percentage' Method:</strong> Set aside 25-30% of every client payment into a dedicated savings account.</li>
-                <li><strong>Pay Monthly:</strong> You don't have to wait for the quarterly deadline. You can make payments every month through IRS Direct Pay to smooth out your cash flow.</li>
-                <li><strong>Track Your Expenses:</strong> The more business expenses you track, the lower your net profit and the less tax you will owe. Ensure you are capturing every deductible dollar.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Common Deadlines</h2>
-              <p>Mark these dates on your calendar. If the 15th falls on a weekend or holiday, the payment is due the next business day:</p>
-              <ul>
-                <li><strong>Q1 (Jan 1 - Mar 31):</strong> Due April 15</li>
-                <li><strong>Q2 (Apr 1 - May 31):</strong> Due June 15</li>
-                <li><strong>Q3 (Jun 1 - Aug 31):</strong> Due September 15</li>
-                <li><strong>Q4 (Sep 1 - Dec 31):</strong> Due January 15 (following year)</li>
-              </ul>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Estimated Quarterly Taxes Work</h2>
+            <p>Self-employment tax is 15.3% (12.4% Social Security capped at $168,600 + 2.9% Medicare) applied to 92.35% of net profit. Income tax is estimated at 18% of taxable income after the standard deduction and half the SE tax. The safe-harbor rule lets you pay the smaller of 90% of this year's liability or 100% of last year's tax (110% if your prior tax exceeded $150,000), split into four payments.</p>
+            <h3>Worked Example</h3>
+            <p>With $100,000 revenue, $20,000 expenses, and $12,000 paid last year: net profit is $80,000, SE tax $11,304, and income tax $10,755 — a $22,058 total liability. The prior-year safe harbor ($12,000) beats the 90% rule ($19,852), so each quarterly payment is $3,000.</p>
+            <h3>Penalty Protection</h3>
+            <p>Payments are estimates, not exact bills — that is why the safe harbor exists. As long as you pay enough to satisfy the 90% or 100/110% rule, you owe no underpayment penalty even if your April 15 tax return shows a balance. If your income spikes mid-year, the annualized income installment method can lower required payments for early quarters.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/quarterly-tax-calculator" />
           <PopularCalculators exclude="/calculator/quarterly-tax-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default QuarterlyTaxCalculator;
-
+}

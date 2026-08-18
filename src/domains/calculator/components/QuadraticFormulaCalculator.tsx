@@ -84,7 +84,7 @@ const QuadraticFormulaCalculator = () => {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Quadratic Formula Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
           <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            <p className="text-sm text-muted-foreground -mt-2">Solve ax² + bx + c = 0</p>
+            
             <div>
               <label className="text-base font-medium block mb-1.5">a (coefficient of x²)</label>
               <input type="number" value={a} onChange={e => setA(e.target.value)}

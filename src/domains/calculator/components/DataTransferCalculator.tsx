@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, ArrowRightLeft } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface TransferResult {
   totalSeconds: number;
@@ -93,6 +94,19 @@ const DataTransferCalculator = () => {
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
+  let fileBytes = 0;
+  const sv = parseFloat(size) || 0;
+  switch (sUnit) {
+    case "MB": fileBytes = sv * 1024 * 1024; break;
+    case "GB": fileBytes = sv * 1024 * 1024 * 1024; break;
+    case "TB": fileBytes = sv * 1024 * 1024 * 1024 * 1024; break;
+    default: fileBytes = sv;
+  }
+  const chartData = [10, 50, 100, 250, 500, 1000].map((sp) => ({
+    name: `${sp} Mbps`,
+    seconds: Number(((fileBytes * 8) / (sp * 1000000) * 1.05).toFixed(0)),
+  }));
+
   const faqs = [
     { question: "Why is the calculation not exact?", answer: "When you download a file, you are not just receiving the raw file data. The internet uses the TCP/IP protocol, which wraps your file data in digital 'envelopes' (packets) containing routing information, checksums, and sequence numbers. This calculator adds a standard 5% overhead to account for this extra packet data and general network latency." },
     { question: "What is overhead?", answer: "Overhead refers to the mandatory extra data required to manage a network connection. If you have a 100 Mbps connection, you cannot use all 100 Mbps for your actual file. A small percentage of that bandwidth is consumed by your computer constantly saying 'I received packet 4, please send packet 5' to the server." },
@@ -168,6 +182,22 @@ const DataTransferCalculator = () => {
                     {result.timeFormatted}
                   </span>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Transfer Time at Common Speeds</h3>
+                <div className="h-[220px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${Math.round(v / 60)}m`} />
+                      <RechartsTooltip formatter={(value: number) => `${value} s`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                      <Bar dataKey="seconds" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={40} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-center text-muted-foreground mt-3 italic">Estimated transfer time for the current file size at common connection speeds.</p>
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">

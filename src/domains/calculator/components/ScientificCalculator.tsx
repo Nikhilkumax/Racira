@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Delete } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 const ScientificCalculator = () => {
   const [display, setDisplay] = useState("0");
@@ -229,7 +230,7 @@ const ScientificCalculator = () => {
               <button onClick={() => handleInput("2")} className={numBtn}>2</button>
               <button onClick={() => handleInput("3")} className={numBtn}>3</button>
               <button onClick={() => handleInput("+")} className={`${opBtn} row-span-2 h-full`}>+</button>
-              <button onClick={handleEqual} className={`${opBtn} row-span-2 h-full !bg-primary !text-primary-foreground shadow-md`}>=</button>
+              <button onClick={handleEqual} className={`${opBtn} row-span-2 h-full !bg-primary !text-primary-foreground shadow-md text-xs sm:text-sm leading-tight`}>Calculate<span className="block text-[9px] sm:text-[10px] font-semibold opacity-90">=</span></button>
 
               <button onClick={() => handleInput("0")} className={`${numBtn} col-span-2`}>0</button>
               <button onClick={() => handleInput(".")} className={numBtn}>.</button>
@@ -262,6 +263,21 @@ const ScientificCalculator = () => {
                   ))}
                 </div>
               )}
+            </div>
+
+            <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+              <h3 className="text-base font-bold text-foreground mb-4">Recent Results</h3>
+              <ResponsiveContainer width="100%" height={180}>
+                <BarChart data={history.length > 0 ? history.slice(0, 5).map((h, i) => ({ name: `#${history.length - i}`, value: parseFloat(h.res), fill: i === 0 ? "hsl(var(--primary))" : "#a3a3a3" })).reverse() : [{ name: "Current", value: parseFloat(display) || 0, fill: "hsl(var(--primary))" }]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                <YAxis tick={{ fontSize: 10 }} />
+                <Tooltip formatter={(v: number) => [v.toLocaleString(), "Result"]} />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {((history.length > 0 ? history.slice(0, 5).map((h) => parseFloat(h.res)) : [parseFloat(display) || 0])).map((_, i) => <Cell key={i} fill={i === 0 ? "hsl(var(--primary))" : "#a3a3a3"} />)}
+                </Bar>
+              </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </div>

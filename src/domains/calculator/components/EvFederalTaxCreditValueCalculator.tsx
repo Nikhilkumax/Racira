@@ -6,6 +6,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { ChevronDown, RotateCcw, Calculator, Printer } from "lucide-react";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 import { evTaxCredit, fmtUsd } from "@/lib/auto/autoFinance";
 
 type VehicleClass = "sedan" | "suv" | "pickup" | "van";
@@ -100,6 +101,14 @@ const EvFederalTaxCreditValueCalculator = () => {
     setResults(calculate(DEFAULTS));
   };
 
+  const creditAmt = results ? results.creditAmount : 0;
+  const currentLiability = parseFloat(taxLiability) || 0;
+  const chartData = [0, 2000, 4000, 6000, 8000, 10000, 12000].map((liab) => ({
+    name: `$${liab.toLocaleString()}`,
+    usable: Math.min(creditAmt, liab),
+    isCurrent: Math.abs(liab - currentLiability) < 1000,
+  }));
+
   const faqs = [
     { question: "How much is the federal EV tax credit worth?", answer: "New clean vehicles qualify for up to $7,500. Used clean vehicles qualify for up to $4,000 (30% of sale price, capped). The exact amount depends on MSRP, vehicle class, your income, and the vehicle's battery sourcing — only vehicles on the IRS eligible list receive the full credit." },
     { question: "Is the EV tax credit refundable?", answer: "For new vehicles, the credit is non-refundable — you can only use up to your federal tax liability. If your liability is $4,000 and the credit is $7,500, you only benefit by $4,000. For used vehicles (2024+), the credit is refundable — you receive the full amount even with zero tax liability." },
@@ -168,6 +177,26 @@ const EvFederalTaxCreditValueCalculator = () => {
                   <div className="text-sm text-muted-foreground font-medium">
                     {results.eligible ? `Up to $${Math.round(results.maxAmount).toLocaleString()} max · ${isNew ? "New vehicle" : "Used vehicle"}` : "See reason below"}
                   </div>
+                </div>
+
+                <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
+                  <h3 className="text-base font-semibold text-foreground mb-3">Usable Credit by Tax Liability</h3>
+                  <div className="h-[220px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                        <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v / 1000}k`} />
+                        <RechartsTooltip formatter={(value: number) => `$${value.toLocaleString()}`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                        <Bar dataKey="usable" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                          {chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.isCurrent ? "hsl(var(--primary))" : "hsl(var(--muted-foreground)/0.35)"} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <p className="text-xs text-center text-muted-foreground mt-3 italic">Highlighted bar is your liability — a non-refundable credit cannot exceed it.</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-0 rounded-lg border border-border overflow-hidden">

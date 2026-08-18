@@ -1,115 +1,94 @@
 "use client";
-import { RotateCcw, TrendingUp, Info, Calculator, AlertCircle } from "lucide-react";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const W4WithholdingCalculator = () => {
-  const [annualSalary, setAnnualSalary] = useState("75000");
-  const [currentWithholding, setCurrentWithholding] = useState("450"); // per paycheck
-  const [payFrequency, setPayFrequency] = useState("biweekly");
-  const [filingStatus, setFilingStatus] = useState("single");
-  const [dependents, setDependents] = useState("0");
-  const [otherIncome, setOtherIncome] = useState("0");
+import { RotateCcw, FileText } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
+function fmt(n: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
+  }).format(n);
+}
+
+export default function W4WithholdingCalculator() {
+  const [grossPay, setGrossPay] = useState("5200");
+  const [payFreq, setPayFreq] = useState("biweekly");
+  const [filingStatus, setFilingStatus] = useState("single");
+  const [allowances, setAllowances] = useState("2");
+  const [extraWithholding, setExtraWithholding] = useState("0");
   const [showResults, setShowResults] = useState(false);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const salary = parseFloat(annualSalary) || 0;
-    const income = salary + (parseFloat(otherIncome) || 0);
-    const withholding = parseFloat(currentWithholding) || 0;
-    const freq = getFrequencyMultiplier(payFrequency);
-    const numDeps = parseInt(dependents) || 0;
+  const gross = parseFloat(grossPay) || 0;
+  const extra = parseFloat(extraWithholding) || 0;
+  const perYear = payFreq === "weekly" ? 52 : payFreq === "biweekly" ? 26 : payFreq === "semimonthly" ? 24 : 12;
 
-    // 1. Estimate Annual Tax Liability
-    const standardDeduction = filingStatus === "single" ? 14600 : 29200;
-    const taxableIncome = Math.max(0, income - standardDeduction);
-    
-    // Federal Tax Calculation (2024 Simplified)
-    const annualTaxLiability = calculateAnnualTax(taxableIncome, filingStatus);
-    const childCredits = numDeps * 2000;
-    const netAnnualTax = Math.max(0, annualTaxLiability - childCredits);
+  const stdDeduction = filingStatus === "single" || filingStatus === "marriedSeparate" ? 14600 : 29200;
+  const allowanceValue = 4300;
+  const taxable = Math.max(0, gross * perYear - stdDeduction - parseFloat(allowances || "0") * allowanceValue);
 
-    // 2. Compare to Annual Withholding
-    const annualWithholding = withholding * freq;
-    const difference = annualWithholding - netAnnualTax;
+  // 2024 federal brackets
+  const brackets =
+    filingStatus === "single"
+      ? [
+          { max: 11600, rate: 0.1 },
+          { max: 47150, rate: 0.12 },
+          { max: 100525, rate: 0.22 },
+          { max: 191950, rate: 0.24 },
+          { max: 243725, rate: 0.32 },
+          { max: Infinity, rate: 0.35 },
+        ]
+      : [
+          { max: 23200, rate: 0.1 },
+          { max: 94300, rate: 0.12 },
+          { max: 201050, rate: 0.22 },
+          { max: 383900, rate: 0.24 },
+          { max: 487450, rate: 0.32 },
+          { max: Infinity, rate: 0.35 },
+        ];
 
-    setResults({
-      netAnnualTax,
-      annualWithholding,
-      difference,
-      isOverpaying: difference > 0,
-      monthlyAdjustment: Math.abs(difference) / 12,
-      paycheckAdjustment: Math.abs(difference) / freq
-    });
-  };
-
-  const calculateAnnualTax = (taxable: number, status: string) => {
-    const brackets = status === "single" ? [
-      { limit: 11600, rate: 0.10 },
-      { limit: 47150, rate: 0.12 },
-      { limit: 100525, rate: 0.22 },
-      { limit: 191950, rate: 0.24 },
-      { limit: Infinity, rate: 0.32 },
-    ] : [
-      { limit: 23200, rate: 0.10 },
-      { limit: 94300, rate: 0.12 },
-      { limit: 201050, rate: 0.22 },
-      { limit: 383900, rate: 0.24 },
-      { limit: Infinity, rate: 0.32 },
-    ];
-
-    let tax = 0;
-    let prevLimit = 0;
-    for (const b of brackets) {
-      const taxableInBracket = Math.min(taxable, b.limit - prevLimit);
-      tax += taxableInBracket * b.rate;
-      taxable -= taxableInBracket;
-      prevLimit = b.limit;
-      if (taxable <= 0) break;
+  let tax = 0;
+  let prev = 0;
+  for (const b of brackets) {
+    if (taxable > prev) {
+      tax += (Math.min(taxable, b.max) - prev) * b.rate;
     }
-    return tax;
-  };
+    if (taxable <= b.max) break;
+    prev = b.max === Infinity ? taxable : b.max;
+  }
 
-  const getFrequencyMultiplier = (freq: string) => {
-    if (freq === "weekly") return 52;
-    if (freq === "biweekly") return 26;
-    if (freq === "semimonthly") return 24;
-    return 12;
-  };
+  const annualWithholding = tax + extra * perYear;
+  const perPaycheck = annualWithholding / perYear;
+  const takeHome = gross - perPaycheck;
+  const effectiveRate = gross > 0 ? (annualWithholding / (gross * perYear)) * 100 : 0;
+
+  const chartData = [
+    { name: "Take-Home", value: Math.round(takeHome * 100) / 100 },
+    { name: "Withholding", value: Math.round(perPaycheck * 100) / 100 },
+  ];
+
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setAnnualSalary("75000");
-    setCurrentWithholding("450");
-    setPayFrequency("biweekly");
+    setGrossPay("5200");
+    setPayFreq("biweekly");
     setFilingStatus("single");
-    setDependents("0");
-    setOtherIncome("0");
+    setAllowances("2");
+    setExtraWithholding("0");
+    setShowResults(false);
   };
 
   const faqs = [
-    {
-      question: "What is Form W-4?",
-      answer: "Form W-4, Employee's Withholding Certificate, is an IRS form you complete for your employer to determine the amount of federal income tax to withhold from your paycheck. Accurate withholding ensures you don't owe a large amount or receive a massive refund at tax time."
-    },
-    {
-      question: "Should I aim for a $0 tax refund?",
-      answer: "Ideally, yes. A large tax refund means you overpaid the government throughout the year, essentially giving them an interest-free loan. Aiming for a $0 refund (or a very small one) puts more money in your monthly paychecks for saving, investing, or paying off debt."
-    },
-    {
-      question: "What happens if I under-withhold my taxes?",
-      answer: "If you don't withhold enough tax throughout the year, you will owe a balance when you file your return. If you owe more than $1,000 and haven't met certain 'safe harbor' rules, the IRS may also charge an underpayment penalty."
-    },
-    {
-      question: "When should I update my W-4?",
-      answer: "You should update your W-4 whenever you experience a major life event, such as marriage, divorce, the birth of a child, a significant change in income, or if you start a second job or side business."
-    }
+    { question: "What is a W-4?", answer: "Form W-4 tells your employer how much federal income tax to withhold from each paycheck. Your filing status, dependents, and any extra withholding you request on the form determine the amount — this calculator estimates the result of those choices." },
+    { question: "What is an allowance on the modern W-4?", answer: "Since 2020 the W-4 no longer uses allowances; it asks for dependents, other income, and deductions directly. This calculator models the older $4,300-per-allowance method, which still approximates the outcome for most filers." },
+    { question: "How do I avoid owing at tax time?", answer: "Withhold enough during the year to cover your liability. The IRS safe harbor waives penalties if you withhold at least 100% of last year's tax (110% above $150,000) or 90% of this year's. If this calculator shows low withholding and you owe, add extra withholding per check." },
+    { question: "Is withholding the same as my actual tax?", answer: "No — withholding is a running prepayment. Your actual liability is computed on the full return, accounting for credits, capital gains, and itemized deductions. Overwithholding produces a refund; underwithholding produces a bill. This is an estimate for planning." },
+    { question: "How do pay frequency and extra withholding interact?", answer: "Annual withholding = annual tax on your projected taxable income + extra-withholding dollars multiplied by the number of paychecks. Extra $50 per check adds $2,600/year on a biweekly schedule — a fast way to close a gap without changing your W-4 status." },
   ];
 
   return (
@@ -120,130 +99,176 @@ const W4WithholdingCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <TrendingUp className="h-5 w-5 text-primary" /> Current Situation
-                  </h2>
-                  <InputField id="salary" label="Annual Gross Salary" value={annualSalary} onChange={setAnnualSalary} prefix="$" />
-                  <InputField id="withholding" label="Current Federal Withholding" value={currentWithholding} onChange={setCurrentWithholding} prefix="$" tooltip="Found on your most recent paystub." />
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Pay Frequency</label>
-                    <select value={payFrequency} onChange={(e) => setPayFrequency(e.target.value)} className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium">
-                      <option value="weekly">Weekly</option>
-                      <option value="biweekly">Bi-Weekly</option>
-                      <option value="semimonthly">Semi-Monthly</option>
-                      <option value="monthly">Monthly</option>
-                    </select>
-                  </div>
-                </section>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <FileText className="w-4 h-4" /> Paycheck Withholding
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Gross Pay per Period ($)</label>
+                <input id="w4-gross" type="number" value={grossPay} onChange={(e) => setGrossPay(e.target.value)} min={0} className="input-calc" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Pay Frequency</label>
+                <select value={payFreq} onChange={(e) => setPayFreq(e.target.value)} className="input-calc">
+                  <option value="weekly">Weekly</option>
+                  <option value="biweekly">Biweekly</option>
+                  <option value="semimonthly">Semi-monthly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Filing Status</label>
+                <select value={filingStatus} onChange={(e) => setFilingStatus(e.target.value)} className="input-calc">
+                  <option value="single">Single</option>
+                  <option value="marriedJoint">Married filing jointly</option>
+                  <option value="marriedSeparate">Married filing separately</option>
+                  <option value="headOfHousehold">Head of household</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Allowances (line 3)</label>
+                <input id="w4-allowances" type="number" value={allowances} onChange={(e) => setAllowances(e.target.value)} min={0} max={20} className="input-calc" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Extra Withholding per Check ($)</label>
+                <input id="w4-extra" type="number" value={extraWithholding} onChange={(e) => setExtraWithholding(e.target.value)} min={0} className="input-calc" />
+              </div>
+            </div>
 
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Info className="h-5 w-5 text-primary" /> Adjustments
-                  </h2>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Filing Status</label>
-                    <select value={filingStatus} onChange={(e) => setFilingStatus(e.target.value)} className="w-full bg-secondary/50 border border-border p-3 rounded-xl outline-none focus:border-primary transition-all font-medium">
-                      <option value="single">Single</option>
-                      <option value="married">Married Filing Jointly</option>
-                    </select>
-                  </div>
-                  <InputField id="dependents" label="Number of Dependents" value={dependents} onChange={setDependents} suffix="kids" />
-                  <InputField id="other-income" label="Other Annual Income" value={otherIncome} onChange={setOtherIncome} prefix="$" tooltip="Investment income or side hustle profits." />
-                </section>
-              </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
-              </div>
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            {showResults && results && (
+            {showResults ? (
               <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card" style={{ borderColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)', backgroundColor: results.isOverpaying ? 'rgba(59, 130, 246, 0.05)' : 'rgba(239, 68, 68, 0.05)' }}>
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isOverpaying ? 'Projected Over-Withholding' : 'Projected Under-Withholding'}</p>
-                  <p className={`text-7xl font-black mb-4 ${results.isOverpaying ? 'text-blue-600' : 'text-red-600'}`}>${Math.round(results.difference).toLocaleString()}</p>
-                  
-                  <div className="max-w-md px-6 py-4 bg-white/50 backdrop-blur rounded-2xl border border-border shadow-sm">
-                     <p className="text-sm font-medium text-foreground mb-1">
-                        {results.isOverpaying 
-                          ? `You are overpaying by $${Math.round(results.paycheckAdjustment)} per paycheck.` 
-                          : `You may owe $${Math.round(results.paycheckAdjustment)} more per paycheck.`}
-                     </p>
-                     <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider italic">Recommendation: Adjust Form W-4 Step 3 or 4</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Withholding per Paycheck</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{fmt(perPaycheck)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {fmt(annualWithholding)}/year · effective {effectiveRate.toFixed(1)}% · {fmt(takeHome)} take-home per check
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Annual Withholding</p>
+                    <p className="text-2xl font-bold text-primary">{fmt(annualWithholding)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Taxable Income</p>
+                    <p className="text-2xl font-bold text-orange-500">{fmt(taxable)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Take-Home / Check</p>
+                    <p className="text-2xl font-bold text-green-600">{fmt(takeHome)}</p>
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                   <div className="card-calculator">
-                      <h3 className="font-bold flex items-center gap-2 mb-4"><Calculator className="h-4 w-4 text-primary" /> Annual Totals</h3>
-                      <ResultDisplay items={[
-                        { label: "Estimated Tax Liability", value: results.netAnnualTax },
-                        { label: "Projected Annual Withholding", value: results.annualWithholding },
-                        { label: "Difference", value: results.difference },
-                      ]} />
-                   </div>
-                   <div className="card-calculator flex flex-col justify-center">
-                      <div className="flex items-start gap-3 mb-4">
-                        <AlertCircle className="h-5 w-5 text-amber-500 shrink-0" />
-                        <p className="text-xs text-muted-foreground leading-relaxed italic">Adjusting your withholding allows you to control your cash flow. If you are over-withholding, you could be using that extra money to pay off high-interest debt or invest in your 401(k).</p>
-                      </div>
-                      <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500" style={{ width: `${Math.min(100, (results.annualWithholding / (results.netAnnualTax || 1)) * 100)}%` }}></div>
-                      </div>
-                      <p className="text-[10px] font-bold text-muted-foreground mt-2 uppercase text-center">Goal: 100% Alignment</p>
-                   </div>
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Item</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Withholding per Paycheck</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{fmt(perPaycheck)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Annual Taxable Income</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(taxable)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Annual Withholding</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(annualWithholding)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Gross per Paycheck</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(gross)}</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Estimated Take-Home per Check</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(takeHome)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Each Paycheck ($)</p>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip formatter={(v: number) => fmt(v)} />
+                        <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Pay Frequency</span>
+                      <span className="font-medium capitalize">{payFreq}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Filing Status</span>
+                      <span className="font-medium">{filingStatus === "single" ? "Single" : filingStatus === "marriedJoint" ? "MFJ" : filingStatus === "marriedSeparate" ? "MFS" : "Head of Household"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Allowances</span>
+                      <span className="font-medium">{allowances}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Extra Withholding</span>
+                      <span className="font-medium">{fmt(extra)}/check</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Annual Withholding</span>
+                      <span className="font-medium">{fmt(annualWithholding)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Effective Rate</span>
+                      <span className="font-medium">{effectiveRate.toFixed(1)}%</span>
+                    </div>
+                  </div>
                 </div>
               </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Enter your gross pay and W-4 selections, then click <strong className="text-foreground">Calculate</strong> to see the federal tax withheld from each paycheck.
+              </div>
             )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How to Use This W-4 Calculator</h2>
-              <p>The goal of tax withholding is to pay exactly what you owe to the government—no more and no less. This calculator helps you see if your current paycheck withholding is on track to meet your annual tax liability or if you need to make an adjustment to avoid a surprise bill in April.</p>
-
-              <h3>Step-by-Step Optimization</h3>
-              <ol>
-                <li><strong>Check Your Paystub:</strong> Find the line labeled "Federal Income Tax" to see how much is currently being withheld from every paycheck.</li>
-                <li><strong>Estimate Annual Taxes:</strong> Our calculator uses current 2024 tax brackets and the standard deduction to estimate what you will actually owe at the end of the year.</li>
-                <li><strong>Analyze the Gap:</strong> If you are projected to overpay by thousands of dollars, you are giving the government an interest-free loan. If you are underpaying, you could face underpayment penalties.</li>
-              </ol>
-
-              <h3>How to Adjust Form W-4</h3>
-              <p>If this calculator shows you need to change your withholding, you'll need to submit a new Form W-4 to your employer. Here is how the most common adjustments work:</p>
-              <ul>
-                <li><strong>To Decrease Withholding (Get more money now):</strong> Use <strong>Step 3 (Claim Dependents)</strong>. You can enter a dollar amount here even if you don't have children; it serves as a general credit to lower your withholding.</li>
-                <li><strong>To Increase Withholding (Avoid owing later):</strong> Use <strong>Step 4(c) (Extra Withholding)</strong>. This tells your employer to take a specific additional dollar amount from every paycheck. This is common for people with side income or investment gains.</li>
-              </ul>
-
-              <h3>Why Accuracy Matters</h3>
-              <p>The IRS requires you to pay at least 90% of your current year's tax or 100% of last year's tax (the "Safe Harbor" rule) throughout the year. If you fall short, you may be charged an underpayment penalty. On the other hand, the average tax refund is around $2,800. For many people, that $230 per month would be better served paying down a credit card or funding an emergency savings account.</p>
-
-              <h3>Life Changes and the W-4</h3>
-              <p>You should review your withholding every time you experience a major change:</p>
-              <ul>
-                <li><strong>Marriage:</strong> Combining incomes can sometimes push a couple into a higher tax bracket.</li>
-                <li><strong>New Child:</strong> You gain a $2,000 tax credit per child, which should be reflected on your W-4 to increase your take-home pay.</li>
-                <li><strong>Bonus/Raise:</strong> A large bonus might be withheld at a flat 22% rate, which could be higher or lower than your actual marginal rate.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Final Recommendation</h2>
-              <p>Aim for a slight over-withholding (a refund of $100-$300). This provides a small safety margin for unexpected income while ensuring you keep the majority of your hard-earned money in your own pocket throughout the year.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Paycheck Withholding Works</h2>
+            <p>Withholding is estimated by annualizing your per-period gross pay, subtracting the standard deduction plus $4,300 per allowance, and applying 2024 federal brackets. Your actual refund or amount owed depends on other income, credits, and deductions on your final return — this is an estimate to help avoid a big surprise in April.</p>
+            <h3>Worked Example</h3>
+            <p>A single filer earning $5,200 biweekly ($135,200/year) with 2 allowances has taxable income of $112,000 after the $14,600 standard deduction and $8,600 of allowances. The 2024 brackets withhold about $19,900 for the year — $766 per check — leaving $4,434 of take-home per paycheck. Adding $50 of extra withholding trims that to $4,384 but banks an extra $1,300 toward your April bill.</p>
+            <h3>Fine-Tuning Your W-4</h3>
+            <p>Owed a large amount last April? Add extra withholding per check. Got a refund you consider a 0% interest loan to the IRS? Reduce allowances. Recheck after life events — marriage, a child, or a raise — because each shifts the brackets your withholding is based on.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/w4-withholding-calculator" />
           <PopularCalculators exclude="/calculator/w4-withholding-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default W4WithholdingCalculator;
-
+}

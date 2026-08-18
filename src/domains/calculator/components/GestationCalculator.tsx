@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Baby } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 const ANIMALS = [
   { id: "cow", label: "Cow (Bos taurus)", days: 283 },
@@ -100,16 +101,26 @@ export default function GestationCalculator() {
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
-                <Baby className="w-4 h-4 text-primary" /> EXPECTED DUE DATE
+            <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-primary mb-1">
+                <Baby className="w-4 h-4" /> Expected Due Date
               </div>
-              <div className="flex items-baseline gap-2 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold text-primary">{result.dueDate}</span>
+              <div className="text-3xl md:text-4xl font-bold text-primary">{result.dueDate}</div>
+              <p className="text-sm text-muted-foreground mt-1">{result.days} days ({result.weeks.toFixed(1)} weeks) after {result.dateStr}.</p>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="card-calculator !p-4 border border-border bg-card text-center">
+                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Due Date</p>
+                <p className="text-lg md:text-xl font-black text-foreground leading-tight">{result.dueDate}</p>
               </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {result.days} days ({result.weeks.toFixed(1)} weeks) after {result.dateStr}.
-              </p>
+              <div className="card-calculator !p-4 border border-border bg-card text-center">
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Gestation</p>
+                <p className="text-2xl font-black text-foreground">{result.days} <span className="text-sm font-normal text-muted-foreground">days</span></p>
+              </div>
+              <div className="card-calculator !p-4 border border-border bg-card text-center">
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Weeks</p>
+                <p className="text-2xl font-black text-foreground">{result.weeks.toFixed(1)}</p>
+              </div>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">
@@ -134,7 +145,20 @@ export default function GestationCalculator() {
 
             <div className="bg-muted/30 rounded-lg p-5">
               <div className="text-sm font-bold mb-3">Gestation Lengths by Species</div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+              <ResponsiveContainer width="100%" height={240}>
+                <BarChart data={ANIMALS.map((a) => ({ name: a.label.split(" (")[0], days: a.days }))} layout="vertical" margin={{ top: 0, right: 20, left: 20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
+                  <XAxis type="number" tick={{ fontSize: 10 }} />
+                  <YAxis type="category" dataKey="name" width={70} tick={{ fontSize: 10 }} />
+                  <Tooltip formatter={(v: number) => `${v} days`} />
+                  <Bar dataKey="days" name="Gestation" radius={[0, 6, 6, 0]}>
+                    {ANIMALS.map((a) => (
+                      <Cell key={a.id} fill={a.id === animal ? "#f59e0b" : "hsl(var(--primary))"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mt-3">
                 {ANIMALS.map((a) => (
                   <div key={a.id} className="flex justify-between text-sm">
                     <span className="text-muted-foreground">{a.label.split(" (")[0]}</span>

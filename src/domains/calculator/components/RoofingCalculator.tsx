@@ -4,15 +4,21 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Home } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface RoofingResult {
   baseFootprint: number; // sq ft
-  roofArea: number; // sq ft
+  roofArea: number; // sq ft (with waste)
+  roofAreaExact: number; // sq ft (no waste)
+  pitchMultiplier: number;
   squares: number; // Roofing squares
   shingleBundles: number;
   underlaymentRolls: number; // 15lb or 30lb rolls (usually 4 or 2 squares per roll)
   nailsLbs: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
+  summaryStats: { label: string; value: string }[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -59,19 +65,55 @@ const calculateRoofing = (
     // A standard 5lb box of roofing nails covers about 1.5 to 2 squares.
     // Roughly 2.5 lbs per square.
     const nails = Math.ceil(squares * 2.5);
+    const wastePct = parseFloat(wasteStr);
+
+    const chartData = [
+      { name: "Footprint", value: parseFloat(baseArea.toFixed(1)) },
+      { name: "Roof Area", value: parseFloat(exactRoofArea.toFixed(1)) },
+      { name: "With Waste", value: parseFloat(roofAreaWithWaste.toFixed(1)) },
+    ];
+
+    const breakdown = [
+      { label: "House Footprint", value: `${baseArea.toFixed(1)} sq ft` },
+      { label: "Roof Pitch", value: `${rise}/12` },
+      { label: "Pitch Multiplier", value: `${pitchMultiplier.toFixed(2)}×` },
+      { label: "Waste Factor", value: `${wastePct}%` },
+      { label: "Roof Area (exact)", value: `${exactRoofArea.toFixed(1)} sq ft` },
+      { label: "Roof Area (with waste)", value: `${roofAreaWithWaste.toFixed(1)} sq ft` },
+      { label: "Roofing Squares (100 sq ft)", value: `${squares}`, highlight: true },
+      { label: "Shingle Bundles (3 per square)", value: `${bundles}`, isTotal: true },
+      { label: "Underlayment Rolls (30 lb felt)", value: `${rolls}` },
+      { label: "Roofing Nails", value: `${nails} lbs` },
+    ];
+
+    const summaryStats = [
+      { label: "House Footprint", value: `${baseArea.toFixed(1)} sq ft` },
+      { label: "Roof Pitch", value: `${rise}/12` },
+      { label: "Pitch Multiplier", value: `${pitchMultiplier.toFixed(2)}×` },
+      { label: "Roof Area (with waste)", value: `${roofAreaWithWaste.toFixed(1)} sq ft` },
+      { label: "Roofing Squares", value: `${squares}` },
+      { label: "Shingle Bundles", value: `${bundles}` },
+      { label: "Underlayment Rolls", value: `${rolls}` },
+      { label: "Roofing Nails", value: `${nails} lbs` },
+    ];
 
     return {
       baseFootprint: parseFloat(baseArea.toFixed(1)),
       roofArea: parseFloat(roofAreaWithWaste.toFixed(1)),
+      roofAreaExact: parseFloat(exactRoofArea.toFixed(1)),
+      pitchMultiplier,
       squares: squares,
       shingleBundles: bundles,
       underlaymentRolls: rolls,
       nailsLbs: nails,
+      chartData,
+      breakdown,
+      summaryStats,
       isError: false
     };
 
   } catch (err) {
-    return { baseFootprint: 0, roofArea: 0, squares: 0, shingleBundles: 0, underlaymentRolls: 0, nailsLbs: 0, isError: true, errorMsg: "Calculation error." };
+    return { baseFootprint: 0, roofArea: 0, roofAreaExact: 0, pitchMultiplier: 0, squares: 0, shingleBundles: 0, underlaymentRolls: 0, nailsLbs: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Calculation error." };
   }
 };
 
@@ -149,7 +191,10 @@ const RoofingCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setLength("40"); setWidth("30"); setPitch("6"); setWaste("10"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -174,6 +219,65 @@ const RoofingCalculator = () => {
                 <div className="bg-background border border-border/50 rounded-lg p-3 text-center md:w-40 shrink-0">
                   <div className="text-xs font-bold text-muted-foreground uppercase mb-1">True Roof Area</div>
                   <div className="text-2xl font-bold text-foreground font-mono">{result.roofArea.toLocaleString()} <span className="text-sm font-normal text-muted-foreground font-sans">sq ft</span></div>
+                </div>
+              </div>
+
+              {/* 2. 3-STAT BAR */}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Roofing Squares", `${result.squares}`], ["Shingle Bundles", `${result.shingleBundles}`], ["Roof Area", `${result.roofArea.toLocaleString()} sq ft`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground">{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3. BREAKDOWN TABLE */}
+              <div className="rounded-lg border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Roofing Breakdown</h3>
+                </div>
+                <table className="w-full text-base">
+                  <tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${r.isTotal ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 4. CHART */}
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-base font-bold mb-4">Area: Footprint vs Roof (sq ft)</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={45} />
+                    <Tooltip formatter={(v: number) => [`${v.toLocaleString()} sq ft`, "Area"]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, idx) => (
+                        <Cell key={idx} fill={idx === 2 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2 text-center">Steeper pitch = more roof surface area than the flat house footprint.</p>
+              </div>
+
+              {/* 5. SUMMARY STATISTICS */}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-muted-foreground">{s.label}:</span>
+                      <span className="font-semibold text-foreground">{s.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

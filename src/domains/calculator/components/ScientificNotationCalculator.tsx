@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, ArrowLeftRight } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface NotationResult {
   scientific: string;
@@ -217,6 +218,22 @@ const ScientificNotationCalculator = () => {
                   <span className="text-xs bg-secondary px-2 py-1 rounded text-muted-foreground font-medium">Exponent is multiple of 3</span>
                 </div>
                 <div className="text-2xl font-bold text-foreground font-mono">{result.engineering}</div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Exponents in Each Notation</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={[{ name: "Scientific", value: result.exponent, fill: "hsl(var(--primary))" }, { name: "Engineering", value: Math.floor(result.exponent / 3) * 3, fill: "#10b981" }]} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v, "Exponent"]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {[{ name: "Scientific", value: result.exponent }, { name: "Engineering", value: Math.floor(result.exponent / 3) * 3 }].map((d, i) => <Cell key={i} fill={d.name === "Scientific" ? "hsl(var(--primary))" : "#10b981"} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">Engineering rounds the exponent down to a multiple of 3, so the coefficient grows up to 100×.</p>
               </div>
 
               <div className="bg-muted/30 rounded-lg p-5">

@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Gauge } from "lucide-react";
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface MileageResult {
   mpg: number;
@@ -117,6 +118,14 @@ const GasMileageCalculator = () => {
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
+  const tankN = parseFloat(tankSize) || 0;
+  const mpgN = unit === "imperial" ? (parseFloat(distance) || 0) / (parseFloat(fuel) || 1) : ((parseFloat(distance) || 0) / 1.60934) / ((parseFloat(fuel) || 1) / 3.78541);
+  const chartData = [15, 20, 25, 30, 35, 40, 45].map((m) => ({
+    name: `${m} MPG`,
+    range: Math.round(m * tankN),
+    isCurrent: Math.abs(m - mpgN) < 1.5,
+  }));
+
   const formatCents = (val: number) => {
     return `${(val * 100).toFixed(1)}¢`;
   };
@@ -209,6 +218,26 @@ const GasMileageCalculator = () => {
                   <div className="text-2xl font-bold text-foreground font-mono">{formatCents(result.costPerMile)}</div>
                   <div className="text-xs text-muted-foreground">per {unit === "imperial" ? "mile" : "km"}</div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Range on a Full Tank by MPG</h3>
+                <div className="h-[220px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                      <RechartsTooltip formatter={(value: number) => `${value} ${unit === "imperial" ? "miles" : "km"}`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                      <Bar dataKey="range" radius={[4, 4, 0, 0]} maxBarSize={40}>
+                        {chartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.isCurrent ? "hsl(var(--primary))" : "hsl(var(--muted-foreground)/0.35)"} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-center text-muted-foreground mt-3 italic">Highlighted bar is your measured efficiency with a {tankN} {unit === "imperial" ? "gallon" : "liter"} tank.</p>
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">

@@ -1,174 +1,234 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-const EPFCalculator = () => {
-  const [basicSalary, setBasicSalary] = useState("25000");
-  const [employeeContrib, setEmployeeContrib] = useState("12");
-  const [employerContrib, setEmployerContrib] = useState("3.67");
-  const [rate, setRate] = useState("8.25");
-  const [currentAge, setCurrentAge] = useState("25");
-  const [retirementAge, setRetirementAge] = useState("58");
-  const [currentBalance, setCurrentBalance] = useState("0");
-  const [annualIncrement, setAnnualIncrement] = useState("5");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ employeeTotal: number; employerTotal: number; interest: number; maturity: number; yearData: { year: number; salary: number; contribution: number; balance: number }[] } | null>(null);
+interface EpfResult {
+  basic: number;
+  empPct: number;
+  empShare: number;
+  epsShare: number;
+  employerEpf: number;
+  monthlyTotal: number;
+  years: number;
+  rate: number;
+  epsCap: number;
+  totalContributions: number;
+  interestEarned: number;
+  corpus: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { year: number; corpus: number }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const salary = parseFloat(basicSalary) || 0;
-    const empPct = (parseFloat(employeeContrib) || 0) / 100;
-    const erPct = (parseFloat(employerContrib) || 0) / 100;
-    const r = (parseFloat(rate) || 0) / 100 / 12;
-    const age = parseInt(currentAge) || 25;
-    const retAge = parseInt(retirementAge) || 58;
-    const existing = parseFloat(currentBalance) || 0;
-    const increment = (parseFloat(annualIncrement) || 0) / 100;
+function fmtRs(v: number): string {
+  return `₹${Math.round(v).toLocaleString("en-IN")}`;
+}
 
-    const yearsLeft = retAge - age;
-    if (salary <= 0 || yearsLeft <= 0) return;
+function calcEpf(basic: number, empPct: number, years: number, rate: number, epsCap: number): EpfResult {
+  const empShare = basic * (empPct / 100);
+  const epsShare = Math.min(basic, epsCap) * (8.33 / 100);
+  const employerEpf = basic * 0.12 - epsShare;
+  const monthlyTotal = empShare + employerEpf;
 
-    let balance = existing;
-    let totalEmployee = 0;
-    let totalEmployer = 0;
-    let currentSalary = salary;
-    const data: { year: number; salary: number; contribution: number; balance: number }[] = [];
+  let balance = 0;
+  const chartData: { year: number; corpus: number }[] = [];
+  for (let y = 1; y <= years; y++) {
+    balance = balance * (1 + rate / 100) + 12 * monthlyTotal;
+    chartData.push({ year: y, corpus: Math.round(balance) });
+  }
+  const totalContributions = 12 * monthlyTotal * years;
+  const interestEarned = balance - totalContributions;
+  const corpus = balance;
 
-    for (let y = 1; y <= yearsLeft; y++) {
-      const monthlyContrib = currentSalary * (empPct + erPct);
-      for (let m = 0; m < 12; m++) {
-        totalEmployee += currentSalary * empPct;
-        totalEmployer += currentSalary * erPct;
-        balance = (balance + monthlyContrib) * (1 + r);
-      }
-      data.push({ year: y, salary: currentSalary, contribution: monthlyContrib * 12, balance });
-      currentSalary = currentSalary * (1 + increment);
-    }
+  const breakdown = [
+    { label: "Monthly Basic + DA", value: fmtRs(basic) },
+    { label: "Employee Contribution", value: `${empPct}% → ${fmtRs(empShare)}/mo` },
+    { label: "Employer EPF Share", value: fmtRs(employerEpf) + "/mo" },
+    { label: "Employer EPS Share", value: fmtRs(epsShare) + "/mo (8.33% capped)" },
+    { label: "Total Monthly EPF", value: fmtRs(monthlyTotal) },
+    { label: "Investment Period", value: `${years} years` },
+    { label: "Total Contributions", value: fmtRs(totalContributions) },
+    { label: "Interest Earned", value: fmtRs(interestEarned) },
+    { label: "EPF Corpus at Retirement", value: fmtRs(corpus) },
+  ];
+  const summaryStats = [
+    { label: "Corpus at Retirement", value: fmtRs(corpus) },
+    { label: "Total Contributions", value: fmtRs(totalContributions) },
+    { label: "Interest Earned", value: fmtRs(interestEarned) },
+    { label: "Monthly EPF", value: fmtRs(monthlyTotal) },
+    { label: "Employee Share", value: fmtRs(empShare) },
+    { label: "Employer EPF", value: fmtRs(employerEpf) },
+    { label: "EPS Share", value: fmtRs(epsShare) },
+    { label: "Interest Rate", value: `${rate}%` },
+  ];
+  return { basic, empPct, empShare, epsShare, employerEpf, monthlyTotal, years, rate, epsCap, totalContributions, interestEarned, corpus, breakdown, summaryStats, chartData };
+}
 
-    setResult({
-      employeeTotal: totalEmployee,
-      employerTotal: totalEmployer,
-      interest: balance - totalEmployee - totalEmployer - existing,
-      maturity: balance,
-      yearData: data,
-    });
-  };
+const DEFAULTS = { basic: "50000", empPct: "12", years: "20", rate: "8.25", epsCap: "15000" };
 
+export default function EpfCalculator() {
+  const [basic, setBasic] = useState(DEFAULTS.basic);
+  const [empPct, setEmpPct] = useState(DEFAULTS.empPct);
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [epsCap, setEpsCap] = useState(DEFAULTS.epsCap);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<EpfResult | null>(null);
+
+  const bs = parseFloat(basic) || 0;
+  const ep = parseFloat(empPct) || 0;
+  const yr = parseInt(years) || 0;
+  const rt = parseFloat(rate) || 0;
+  const cap = parseFloat(epsCap) || 0;
+  const errs: string[] = [];
+  if (bs <= 0) errs.push("Monthly basic + DA must be greater than 0.");
+  if (ep < 0 || ep > 100) errs.push("Employee contribution must be between 0% and 100%.");
+  if (yr < 1 || yr > 45) errs.push("Years to retirement must be 1–45.");
+  if (rt < 0 || rt > 20) errs.push("Interest rate must be between 0% and 20%.");
+  if (cap <= 0) errs.push("EPS wage ceiling must be greater than 0.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcEpf(bs, ep, yr, rt, cap)); };
   const reset = () => {
-    setShowResults(false);
-    setBasicSalary("25000"); setEmployeeContrib("12"); setEmployerContrib("3.67");
-    setRate("8.25"); setCurrentAge("25"); setRetirementAge("58");
-    setCurrentBalance("0"); setAnnualIncrement("5"); setResult(null);
+    setBasic(DEFAULTS.basic); setEmpPct(DEFAULTS.empPct); setYears(DEFAULTS.years); setRate(DEFAULTS.rate); setEpsCap(DEFAULTS.epsCap);
+    setResult(calcEpf(50000, 12, 20, 8.25, 15000));
   };
+  useEffect(() => { setResult(calcEpf(50000, 12, 20, 8.25, 15000)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is EPF?", answer: "EPF (Employee Provident Fund) is a mandatory retirement savings scheme for salaried employees in India. Both employee and employer contribute a percentage of basic salary monthly." },
-    { question: "What is the EPF interest rate?", answer: "The EPF interest rate is declared annually by EPFO. For FY 2023-24, it was 8.25%. The rate has historically ranged between 8-9%." },
-    { question: "How much does the employer contribute to EPF?", answer: "Employer contributes 12% of basic salary, but only 3.67% goes to EPF. The remaining 8.33% goes to EPS (Employee Pension Scheme), capped at ₹15,000 basic salary." },
-    { question: "Is EPF withdrawal tax-free?", answer: "EPF withdrawal after 5 continuous years of service is fully tax-free. Withdrawal before 5 years is taxable. The employee's contribution portion is not taxed." },
-    { question: "Can I withdraw EPF before retirement?", answer: "Partial withdrawal is allowed for specific purposes like home purchase, medical emergency, education, and marriage. Full withdrawal is possible 2 months after leaving employment." },
+    { question: "How is EPF interest calculated?", answer: "Interest is credited annually on the EPF balance, declared each financial year (8.25% for FY 2024-25). Contributions are assumed to earn that rate compounded yearly in this calculator." },
+    { question: "What is the EPS component?", answer: "Of the employer's 12% contribution, 8.33% of basic salary (capped at the EPS wage ceiling, ₹15,000) goes to the Employees' Pension Scheme; the remainder goes to your EPF account." },
+    { question: "Can I withdraw the full corpus at retirement?", answer: "At age 58 (or 55 in some cases) you can withdraw the full EPF balance plus interest. Withdrawals for retirement are tax-exempt; earlier withdrawals may be taxable." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "EPF Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "EPF Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">EPF Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">EPF Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="salary" label="Monthly Basic Salary" value={basicSalary} onChange={setBasicSalary} prefix="₹" />
-                <InputField id="empContrib" label="Employee Contribution" value={employeeContrib} onChange={setEmployeeContrib} suffix="%" />
-                <InputField id="erContrib" label="Employer EPF Contribution" value={employerContrib} onChange={setEmployerContrib} suffix="%" />
-                <InputField id="rate" label="EPF Interest Rate (p.a.)" value={rate} onChange={setRate} suffix="%" />
-                <InputField id="currentAge" label="Current Age" value={currentAge} onChange={setCurrentAge} suffix="Years" />
-                <InputField id="retAge" label="Retirement Age" value={retirementAge} onChange={setRetirementAge} suffix="Years" />
-                <InputField id="currentBal" label="Current EPF Balance" value={currentBalance} onChange={setCurrentBalance} prefix="₹" />
-                <InputField id="increment" label="Annual Salary Increment" value={annualIncrement} onChange={setAnnualIncrement} suffix="%" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Monthly Basic + DA</label>
+                <div className={inp}><input type="number" value={basic} onChange={e => setBasic(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹</span></div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className={lbl}>Employee Contribution</label>
+                <div className={inp}><input type="number" value={empPct} onChange={e => setEmpPct(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
               </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">EPF Corpus at Retirement</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Your Contribution", value: result.employeeTotal },
-                  { label: "Employer's Contribution", value: result.employerTotal },
-                  { label: "Total Interest Earned", value: result.interest, highlight: true },
-                  { label: "Total EPF Corpus", value: result.maturity, highlight: true },
-                ]} />
-
-                <div className="mt-6">
-                  <h3 className="font-semibold mb-3">Year-by-Year Growth</h3>
-                  <div className="overflow-x-auto max-h-80 overflow-y-auto">
-                    <table className="w-full text-sm">
-                      <thead className="sticky top-0 bg-card"><tr className="border-b border-border">
-                        <th className="text-left py-2 px-3 font-medium text-muted-foreground">Year</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Basic Salary</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Annual Contrib.</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Balance</th>
-                      </tr></thead>
-                      <tbody>
-                        {result.yearData.map((d) => (
-                          <tr key={d.year} className="border-b border-border/50">
-                            <td className="py-2 px-3">{d.year}</td>
-                            <td className="py-2 px-3 text-right">₹{d.salary.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            <td className="py-2 px-3 text-right">₹{d.contribution.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            <td className="py-2 px-3 text-right font-medium">₹{d.balance.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+              <div>
+                <label className={lbl}>Years to Retirement</label>
+                <div className={inp}><input type="number" value={years} onChange={e => setYears(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yrs</span></div>
+              </div>
+              <div>
+                <label className={lbl}>EPF Interest Rate</label>
+                <div className={inp}><input type="number" step="0.05" value={rate} onChange={e => setRate(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Statutory Details</div>
+                  <div>
+                    <label className={lbl}>EPS Wage Ceiling</label>
+                    <div className={inp}><input type="number" value={epsCap} onChange={e => setEpsCap(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹/mo</span></div>
+                    <p className="text-xs text-muted-foreground mt-1.5">8.33% of basic up to this ceiling funds the pension scheme; the balance of the employer's 12% goes to EPF.</p>
                   </div>
                 </div>
-              </>
+              </div>
             )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">EPF Corpus at Retirement</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtRs(result.corpus)}</div>
+                <div className="text-sm text-muted-foreground mt-1">₹{Math.round(result.monthlyTotal).toLocaleString("en-IN")}/mo saved · {result.years} years at {result.rate}%</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Total Contributions`, fmtRs(result.totalContributions)], ["Interest Earned", fmtRs(result.interestEarned)], ["Monthly EPF", fmtRs(result.monthlyTotal)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Contribution Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 8 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 8 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 8 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Corpus Growth</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <AreaChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="year" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `₹${(v / 100000).toFixed(0)}L`} />
+                    <Tooltip formatter={(v: number) => [fmtRs(v), "Corpus"]} labelFormatter={(l: number) => `Year ${l}`} />
+                    <Area type="monotone" dataKey="corpus" stroke="hsl(var(--primary))" strokeWidth={2.5} fill="hsl(var(--primary) / 0.15)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is an EPF Calculator?</h2>
-              <p>An EPF calculator estimates your Employee Provident Fund corpus at retirement based on your current salary, contribution rates, expected salary increments, and EPF interest rate. It helps you plan for retirement by projecting how your monthly EPF contributions will grow over time.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Understanding EPF Contributions</h2>
-              <p>Both employee and employer contribute to EPF:</p>
-              <ul>
-                <li><strong>Employee:</strong> 12% of basic salary + DA goes entirely to EPF.</li>
-                <li><strong>Employer:</strong> 12% of basic salary + DA, split as 3.67% to EPF and 8.33% to EPS (capped at ₹15,000 basic).</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">EPF Tax Benefits</h2>
-              <ul>
-                <li><strong>Section 80C:</strong> Employee contribution qualifies for ₹1.5L deduction.</li>
-                <li><strong>Tax-Free Interest:</strong> Interest is tax-free up to ₹2.5L annual contribution (excess taxable since FY 2021-22).</li>
-                <li><strong>Tax-Free Maturity:</strong> Withdrawal after 5 years of continuous service is fully tax-exempt.</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> EPF interest rate changes annually. This calculator assumes a constant rate. Actual corpus may vary. Consult your HR or EPFO for exact figures.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How EPF Works</h2>
+            <p>Under the Employees' Provident Fund scheme, you contribute 12% of basic salary and DA, and your employer matches it. Of the employer's 12%, 8.33% of basic (capped at ₹15,000) funds the Employees' Pension Scheme, with the remainder credited to your EPF account. This <strong>EPF calculator</strong> compounds both shares at the declared annual interest rate.</p>
+            <h2 className="text-2xl font-bold mb-3">Interest and Tax</h2>
+            <p>Interest is declared each financial year and credited annually. Contributions, interest, and the final corpus are tax-exempt under Section 80C and the EEE regime, provided the account has been active for five years.</p>
+            <h2 className="text-2xl font-bold mb-3">Building the Corpus</h2>
+            <p>The longer you stay in the scheme, the more compounding does the work — a 30-year horizon can triple the value of contributions alone. Voluntary contributions above 12% can accelerate growth further.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/epf-calculator" />
-          <PopularCalculators exclude="/epf-calculator" />
+          <PopularCalculators exclude="/calculator/epf-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default EPFCalculator;
-
-
+}

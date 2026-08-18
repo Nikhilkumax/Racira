@@ -1,198 +1,392 @@
 "use client";
 
 import { useState } from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import Link from "next/link";
 
-const RentVsBuyCalculator = () => {
-  // Buy Inputs
-  const [homePrice, setHomePrice] = useState("450000");
-  const [downPaymentPct, setDownPaymentPct] = useState("20");
-  const [interestRate, setInterestRate] = useState("6.5");
+export default function RentVsBuyCalculator() {
+  const [homePrice, setHomePrice] = useState("400000");
+  const [downPayment, setDownPayment] = useState("80000");
+  const [mortgageRate, setMortgageRate] = useState("6.5");
   const [loanTerm, setLoanTerm] = useState("30");
-  const [propertyTaxRate, setPropertyTaxRate] = useState("1.2");
-  const [insuranceAnnual, setInsuranceAnnual] = useState("1800");
-  const [maintenanceAnnualPct, setMaintenanceAnnualPct] = useState("1");
-  const [appreciationRate, setAppreciationRate] = useState("3");
-  const [sellingCostPct, setSellingCostPct] = useState("6");
-
-  // Rent Inputs
-  const [monthlyRent, setMonthlyRent] = useState("2500");
-  const [rentersInsurance, setRentersInsurance] = useState("20");
-  const [rentIncreaseRate, setRentIncreaseRate] = useState("3");
+  const [rent, setRent] = useState("1800");
+  const [rentIncrease, setRentIncrease] = useState("3");
   const [investmentReturn, setInvestmentReturn] = useState("7");
-
+  const [homeAppreciation, setHomeAppreciation] = useState("3");
   const [years, setYears] = useState("10");
-  const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const P = parseFloat(homePrice) || 0;
-    const DP_pct = (parseFloat(downPaymentPct) || 0) / 100;
-    const DP = P * DP_pct;
-    const loanAmount = P - DP;
-    const r = (parseFloat(interestRate) || 0) / 100 / 12;
-    const n = (parseFloat(loanTerm) || 0) * 12;
-    
-    const monthlyEMI = r > 0 
-      ? (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
-      : loanAmount / n;
+  const price = parseFloat(homePrice) || 0;
+  const down = parseFloat(downPayment) || 0;
+  const rate = (parseFloat(mortgageRate) || 0) / 100;
+  const term = parseFloat(loanTerm) || 30;
+  const monthlyRent = parseFloat(rent) || 0;
+  const rentInc = (parseFloat(rentIncrease) || 0) / 100;
+  const invReturn = (parseFloat(investmentReturn) || 0) / 100;
+  const appr = (parseFloat(homeAppreciation) || 0) / 100;
+  const horizon = parseFloat(years) || 10;
 
-    const numYears = parseInt(years) || 10;
-    
-    let totalBuyCost = DP; // Start with down payment
-    let currentHomeValue = P;
-    let remainingLoan = loanAmount;
-    let totalInterest = 0;
-    let totalTax = 0;
-    let totalInsurance = 0;
-    let totalMaintenance = 0;
+  const loanAmount = Math.max(price - down, 0);
+  const monthlyRate = rate / 12;
+  const months = term * 12;
+  const monthlyPayment =
+    monthlyRate > 0
+      ? (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months))
+      : loanAmount / months;
 
-    // Rent side
-    let currentRent = parseFloat(monthlyRent) || 0;
-    let totalRentCost = 0;
-    let investmentBalance = DP; // Renting allows investing the down payment
+  // Rent total: growing rent over horizon (rent kept separate from investment for buy side)
+  let rentTotal = 0;
+  for (let y = 1; y <= horizon; y++) {
+    const yrRent = monthlyRent * 12 * Math.pow(1 + rentInc, y - 1);
+    rentTotal += yrRent;
+  }
 
-    for (let i = 1; i <= numYears * 12; i++) {
-      // Buy calculations
-      const interestPayment = remainingLoan * r;
-      const principalPayment = monthlyEMI - interestPayment;
-      remainingLoan -= principalPayment;
-      totalInterest += interestPayment;
-      
-      if (i % 12 === 0) {
-        totalTax += currentHomeValue * ((parseFloat(propertyTaxRate) || 0) / 100);
-        totalInsurance += parseFloat(insuranceAnnual) || 0;
-        totalMaintenance += currentHomeValue * ((parseFloat(maintenanceAnnualPct) || 0) / 100);
-        currentHomeValue *= (1 + (parseFloat(appreciationRate) || 0) / 100);
-      }
+  // Buy side: principal paid down + appreciation vs. renting + investing the difference
+  let principalPaid = 0;
+  let interestPaid = 0;
+  let balance = loanAmount;
+  for (let m = 1; m <= Math.min(months, horizon * 12); m++) {
+    const interest = balance * monthlyRate;
+    const principal = monthlyPayment - interest;
+    balance -= principal;
+    principalPaid += principal;
+    interestPaid += interest;
+  }
+  const homeValue = price * Math.pow(1 + appr, horizon);
+  const equity = Math.max(homeValue - balance, 0);
 
-      // Rent calculations
-      totalRentCost += currentRent + (parseFloat(rentersInsurance) || 0);
-      investmentBalance *= (1 + (parseFloat(investmentReturn) || 0) / 100 / 12);
-      
-      if (i % 12 === 0) {
-        currentRent *= (1 + (parseFloat(rentIncreaseRate) || 0) / 100);
-      }
-    }
+  // Renter invests the down payment + monthly buy/rent difference
+  const buyMonthly = monthlyPayment + (price * 0.011) / 12; // ~1.1% property tax+insurance
+  const diffMonthly = Math.max(buyMonthly - monthlyRent, 0);
+  const monthlyInvRate = invReturn / 12;
+  const renterMonths = horizon * 12;
+  const investedPrincipal = down + diffMonthly * renterMonths;
+  const investedValue =
+    down * Math.pow(1 + invReturn, horizon) +
+    diffMonthly * ((Math.pow(1 + monthlyInvRate, renterMonths) - 1) / monthlyInvRate);
 
-    const buyEquity = currentHomeValue - remainingLoan;
-    const buySellingCosts = currentHomeValue * ((parseFloat(sellingCostPct) || 0) / 100);
-    const netBuyValue = buyEquity - buySellingCosts;
-    const netBuyCost = (totalBuyCost + (monthlyEMI * numYears * 12) + totalTax + totalInsurance + totalMaintenance) - netBuyValue;
+  const rentNetWorth = investedValue;
+  const buyNetWorth = equity;
 
-    const netRentCost = totalRentCost - (investmentBalance - DP);
-
-    setResults({
-      netBuyCost,
-      netRentCost,
-      buyEquity,
-      currentHomeValue,
-      remainingLoan,
-      totalInterest,
-      totalTax,
-      totalRentCost,
-      investmentBalance,
-      betterOption: netBuyCost < netRentCost ? "Buying" : "Renting",
-      difference: Math.abs(netBuyCost - netRentCost)
-    });
-  };
-
-  const reset = () => {
-    setShowResults(false);
-    setHomePrice("450000");
-    setDownPaymentPct("20");
-    setInterestRate("6.5");
-    setLoanTerm("30");
-    setResults(null);
-  };
-
-  const faqs = [
-    { question: "Is it better to rent or buy a home?", answer: "The decision depends on how long you plan to stay, local market conditions, and your financial goals. Buying typically builds equity and offers tax benefits, while renting provides flexibility and avoids maintenance costs. Our calculator helps compare the total cost of both over your expected stay." },
-    { question: "What is the 5% rule for rent vs buy?", answer: "The 5% rule suggests that the unrecoverable costs of homeownership (property tax, maintenance, and capital costs) average about 5% of the home's value annually. If monthly rent is less than 5% of the home price divided by 12, renting might be cheaper. However, this is just a rule of thumb; a detailed calculator is more accurate." },
-    { question: "How does appreciation affect the rent vs buy decision?", answer: "Home appreciation is a major benefit of buying. Even a 3% annual appreciation can add hundreds of thousands in equity over a decade. If homes in your area are appreciating rapidly, buying becomes significantly more attractive despite high interest rates." },
-    { question: "What are the hidden costs of buying a home?", answer: "Beyond the mortgage, owners pay property taxes, homeowners insurance, maintenance (typically 1% of home value annually), and selling costs (5-6%) when they eventually move. Renters avoid these but also miss out on the appreciation of the asset." }
+  const chartData = [
+    { name: "Net Worth at Year " + horizon, Rent: Math.round(rentNetWorth), Buy: Math.round(buyNetWorth) },
   ];
 
+  const handleCalculate = () => setShowResults(true);
+
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Rent vs Buy" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Rent vs Buy Calculator</h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Personal Finance", href: "/personal-finance" },
+          {
+            label: "Rent vs Buy Calculator",
+            href: "/calculator/rent-vs-buy-calculator",
+          },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg border-b pb-2">Buying Parameters</h3>
-                  <InputField id="homePrice" label="Home Price" value={homePrice} onChange={setHomePrice} prefix="$" />
-                  <InputField id="downPayment" label="Down Payment %" value={downPaymentPct} onChange={setDownPaymentPct} suffix="%" />
-                  <InputField id="interestRate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
-                  <InputField id="years" label="Time Horizon (Years)" value={years} onChange={setYears} />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="font-bold text-lg border-b pb-2">Renting Parameters</h3>
-                  <InputField id="monthlyRent" label="Monthly Rent" value={monthlyRent} onChange={setMonthlyRent} prefix="$" />
-                  <InputField id="rentIncrease" label="Annual Rent Increase" value={rentIncreaseRate} onChange={setRentIncreaseRate} suffix="%" />
-                  <InputField id="investmentReturn" label="Investment Return" value={investmentReturn} onChange={setInvestmentReturn} suffix="%" />
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold mb-3">Conclusion: {results.betterOption} is likely better</h2>
-                  <p className="text-muted-foreground">Estimated difference: <span className="font-bold text-primary">${Math.round(results.difference).toLocaleString()}</span> over {years} years</p>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg bg-secondary/30 border border-border">
-                    <h4 className="font-bold mb-2">Buy Scenario</h4>
-                    <p className="text-sm text-muted-foreground">Net Cost: <span className="text-foreground font-medium">${Math.round(results.netBuyCost).toLocaleString()}</span></p>
-                    <p className="text-sm text-muted-foreground">Home Value: <span className="text-foreground font-medium">${Math.round(results.currentHomeValue).toLocaleString()}</span></p>
-                    <p className="text-sm text-muted-foreground">Equity: <span className="text-foreground font-medium">${Math.round(results.buyEquity).toLocaleString()}</span></p>
-                  </div>
-                  <div className="p-4 rounded-lg bg-secondary/30 border border-border">
-                    <h4 className="font-bold mb-2">Rent Scenario</h4>
-                    <p className="text-sm text-muted-foreground">Net Cost: <span className="text-foreground font-medium">${Math.round(results.netRentCost).toLocaleString()}</span></p>
-                    <p className="text-sm text-muted-foreground">Total Rent Paid: <span className="text-foreground font-medium">${Math.round(results.totalRentCost).toLocaleString()}</span></p>
-                    <p className="text-sm text-muted-foreground">Invested DP Growth: <span className="text-foreground font-medium">${Math.round(results.investmentBalance).toLocaleString()}</span></p>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – Sidebar" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Renting vs. Buying: Which is the Smart Move?</h2>
-              <p>The "rent vs buy" debate is one of the most significant financial decisions you'll ever face. While the American Dream often emphasizes homeownership, the math doesn't always favor buying—especially in high-interest environments or expensive markets.</p>
-              <h3>When Buying Wins</h3>
-              <p>Buying usually becomes the better option if you plan to stay in the home for 7 years or longer. This allows time for the home's appreciation to outweigh the high upfront closing costs and the interest-heavy early years of a mortgage. Additionally, buying acts as a forced savings plan by building equity through principal payments.</p>
-              <h3>When Renting Wins</h3>
-              <p>Renting is often better if you prioritize mobility or have a short time horizon (less than 5 years). It also allows you to invest your down payment capital into the stock market, which historically often yields higher returns than real estate appreciation. Renting is also a "predictable" cost, as the landlord is responsible for all maintenance, taxes, and insurance.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/rent-vs-buy-calculator" />
-          <PopularCalculators exclude="/calculator/rent-vs-buy-calculator" />
-        </div>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2">Rent vs Buy Calculator</h1>
+        <p className="text-muted-foreground">
+          Compare the net-worth outcome of renting and investing versus buying a home over your
+          chosen horizon.
+        </p>
       </div>
-    </>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Scenario Inputs</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="price">Home Price</Label>
+              <Input
+                id="price"
+                type="number"
+                value={homePrice}
+                onChange={(e) => setHomePrice(e.target.value)}
+                placeholder="400000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="down">Down Payment</Label>
+              <Input
+                id="down"
+                type="number"
+                value={downPayment}
+                onChange={(e) => setDownPayment(e.target.value)}
+                placeholder="80000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="rate">Mortgage Rate (%)</Label>
+              <Input
+                id="rate"
+                type="number"
+                value={mortgageRate}
+                onChange={(e) => setMortgageRate(e.target.value)}
+                placeholder="6.5"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="term">Loan Term (years)</Label>
+              <Input
+                id="term"
+                type="number"
+                value={loanTerm}
+                onChange={(e) => setLoanTerm(e.target.value)}
+                placeholder="30"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="rent">Monthly Rent</Label>
+              <Input
+                id="rent"
+                type="number"
+                value={rent}
+                onChange={(e) => setRent(e.target.value)}
+                placeholder="1800"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="rentInc">Rent Increase (%/yr)</Label>
+              <Input
+                id="rentInc"
+                type="number"
+                value={rentIncrease}
+                onChange={(e) => setRentIncrease(e.target.value)}
+                placeholder="3"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="inv">Investment Return (%)</Label>
+              <Input
+                id="inv"
+                type="number"
+                value={investmentReturn}
+                onChange={(e) => setInvestmentReturn(e.target.value)}
+                placeholder="7"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="appr">Home Appreciation (%)</Label>
+              <Input
+                id="appr"
+                type="number"
+                value={homeAppreciation}
+                onChange={(e) => setHomeAppreciation(e.target.value)}
+                placeholder="3"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="years">Time Horizon (years)</Label>
+              <Input
+                id="years"
+                type="number"
+                value={years}
+                onChange={(e) => setYears(e.target.value)}
+                placeholder="10"
+              />
+            </div>
+          </div>
+          <Button onClick={handleCalculate} className="mt-6 w-full sm:w-auto">
+            Calculate
+          </Button>
+        </CardContent>
+      </Card>
+
+      {showResults && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card className="border-l-4 border-primary">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Buy: Net Worth in {horizon} yrs</p>
+                <p className="text-2xl font-bold">
+                  $
+                  {buyNetWorth.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+                <p className="text-xs text-muted-foreground">Home value − remaining loan</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Rent: Invested Portfolio</p>
+                <p className="text-2xl font-bold">
+                  $
+                  {rentNetWorth.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+                <p className="text-xs text-muted-foreground">Down payment + monthly savings, invested</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Better Deal</p>
+                <p className="text-2xl font-bold">
+                  {buyNetWorth > rentNetWorth ? "Buy" : "Rent"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {Math.abs(buyNetWorth - rentNetWorth).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    maximumFractionDigits: 0,
+                  })}{" "}
+                  difference at year {horizon}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Net Worth Comparison at Year {horizon}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
+                    <Tooltip formatter={(v) => `$${Number(v).toLocaleString()}`} />
+                    <Legend />
+                    <Bar dataKey="Rent" fill="#3b82f6" />
+                    <Bar dataKey="Buy" fill="#10b981" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Details</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-3 text-sm sm:grid-cols-2">
+              <div>
+                <p className="text-muted-foreground">Monthly Mortgage Payment</p>
+                <p className="font-semibold">
+                  $
+                  {monthlyPayment.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Principal Paid Down</p>
+                <p className="font-semibold">
+                  $
+                  {principalPaid.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Interest Paid</p>
+                <p className="font-semibold">
+                  $
+                  {interestPaid.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Total Rent Paid</p>
+                <p className="font-semibold">
+                  $
+                  {rentTotal.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                  })}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>How It Works</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                <strong>Buy side:</strong> you pay the mortgage (plus ~1.1%/yr in property tax and
+                insurance), build equity as principal is paid down, and your home appreciates at
+                the assumed rate. Net worth = home value minus the remaining loan balance.
+              </p>
+              <p>
+                <strong>Rent side:</strong> you keep your down payment invested and invest the
+                monthly difference between buying and renting at the assumed return.
+              </p>
+              <p>
+                This is a simplified model — it excludes transaction costs, maintenance, tax
+                benefits, and moving flexibility, which often favor renting over short horizons.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <p className="font-semibold">How many years until buying wins?</p>
+                <p className="text-muted-foreground">
+                  Usually 5–7 years once closing costs are included — the "breakeven horizon."
+                  Below that, renting and investing the difference typically comes out ahead.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Does the appreciation assumption matter?</p>
+                <p className="text-muted-foreground">
+                  Immensely — try 1% vs 5% and watch the verdict flip. Long-run US appreciation
+                  has averaged roughly 3–4%/yr including inflation.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">What costs are not included?</p>
+                <p className="text-muted-foreground">
+                  Closing costs (2–5%), agent fees on resale, maintenance (~1%/yr), HOA fees, and
+                  mortgage interest tax deductions. For a personal decision, factor those in
+                  manually.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-sm text-muted-foreground">
+            <Link href="/personal-finance" className="text-primary hover:underline">
+              ← More Personal Finance Calculators
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
   );
-};
-
-export default RentVsBuyCalculator;
-
+}

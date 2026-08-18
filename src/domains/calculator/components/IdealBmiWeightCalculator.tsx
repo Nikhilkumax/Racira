@@ -1,268 +1,206 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, AlertTriangle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-// 1. TypeScript Interfaces
-interface CalculatorInputs {
-  unitSystem: "imperial" | "metric";
-  heightFt: number;
-  heightIn: number;
+interface IdealBmiResult {
   heightCm: number;
-  targetBmi: number;
+  unit: string;
+  minKg: number;
+  maxKg: number;
+  idealKg: number;
+  overweightKg: number;
+  obeseKg: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-interface CalculatorResults {
-  exactTargetWeight: number;
-  minHealthyWeight: number;
-  maxHealthyWeight: number;
-  targetBmi: number;
-}
+function calcIdealBmi(heightCm: number, unit: string): IdealBmiResult {
+  const h = heightCm / 100;
+  const minKg = 18.5 * h * h;
+  const maxKg = 24.9 * h * h;
+  const idealKg = 21.7 * h * h;
+  const overweightKg = 25 * h * h;
+  const obeseKg = 30 * h * h;
 
-// 2. Pure Calculation Function
-const calculateIdealWeight = (inputs: CalculatorInputs): CalculatorResults | null => {
-  const { unitSystem, heightFt, heightIn, heightCm, targetBmi } = inputs;
-  
-  let heightMeters = 0;
-
-  if (unitSystem === "imperial") {
-    if (heightFt <= 0 && heightIn <= 0) return null;
-    const totalInches = heightFt * 12 + heightIn;
-    heightMeters = totalInches * 0.0254;
-  } else {
-    if (heightCm <= 0) return null;
-    heightMeters = heightCm / 100;
-  }
-
-  if (heightMeters <= 0 || targetBmi <= 0) return null;
-
-  const targetWeightKg = targetBmi * Math.pow(heightMeters, 2);
-  const minHealthyWeightKg = 18.5 * Math.pow(heightMeters, 2);
-  const maxHealthyWeightKg = 24.9 * Math.pow(heightMeters, 2);
-  
-  let exactTargetWeight = targetWeightKg;
-  let minHealthyWeight = minHealthyWeightKg;
-  let maxHealthyWeight = maxHealthyWeightKg;
-
-  if (unitSystem === "imperial") {
-    exactTargetWeight = targetWeightKg / 0.453592;
-    minHealthyWeight = minHealthyWeightKg / 0.453592;
-    maxHealthyWeight = maxHealthyWeightKg / 0.453592;
-  }
-
-  return {
-    exactTargetWeight: parseFloat(exactTargetWeight.toFixed(1)),
-    minHealthyWeight: parseFloat(minHealthyWeight.toFixed(1)),
-    maxHealthyWeight: parseFloat(maxHealthyWeight.toFixed(1)),
-    targetBmi: parseFloat(targetBmi.toFixed(1)),
+  const fmtW = (kg: number): string => {
+    if (unit === "metric") return `${kg.toFixed(1)} kg`;
+    return `${(kg * 2.20462).toFixed(1)} lb`;
   };
-};
+  const fmtH = (cm: number): string => {
+    if (unit === "metric") return `${cm} cm`;
+    const inches = cm / 2.54;
+    return `${Math.floor(inches / 12)}′${Math.round(inches % 12)}″ (${cm} cm)`;
+  };
 
-// 3. DEFAULTS Object
-const DEFAULTS = {
-  unitSystem: "imperial" as const,
-  heightFt: "5",
-  heightIn: "10",
-  heightCm: "178",
-  targetBmi: "22.0",
-};
+  const breakdown = [
+    { label: "Height", value: fmtH(heightCm) },
+    { label: "Healthy Range (BMI 18.5–24.9)", value: `${fmtW(minKg)} – ${fmtW(maxKg)}` },
+    { label: "Ideal Weight (BMI 21.7)", value: fmtW(idealKg) },
+    { label: "Overweight Threshold (BMI 25)", value: fmtW(overweightKg) },
+    { label: "Obese Threshold (BMI 30)", value: fmtW(obeseKg) },
+    { label: "Underweight Below", value: fmtW(minKg) },
+    { label: "Range Width", value: fmtW(maxKg - minKg) },
+    { label: "Method", value: "WHO BMI classifications" },
+  ];
+  const summaryStats = [
+    { label: "Ideal Weight", value: fmtW(idealKg) },
+    { label: "Healthy Min", value: fmtW(minKg) },
+    { label: "Healthy Max", value: fmtW(maxKg) },
+    { label: "Overweight At", value: fmtW(overweightKg) },
+    { label: "Obese At", value: fmtW(obeseKg) },
+    { label: "Height", value: fmtH(heightCm) },
+    { label: "BMI Ideal", value: "21.7" },
+    { label: "Healthy Band", value: "18.5 – 24.9" },
+  ];
+  const chartData = [
+    { name: "Under (18.5)", value: Math.round(minKg), fill: "#8b5cf6" },
+    { name: "Min (18.5)", value: Math.round(minKg), fill: "#8b5cf6" },
+    { name: "Ideal (21.7)", value: Math.round(idealKg), fill: "hsl(var(--primary))" },
+    { name: "Max (24.9)", value: Math.round(maxKg), fill: "#10b981" },
+    { name: "Over (25)", value: Math.round(overweightKg), fill: "#f59e0b" },
+    { name: "Obese (30)", value: Math.round(obeseKg), fill: "#ef4444" },
+  ];
+  return { heightCm, unit, minKg, maxKg, idealKg, overweightKg, obeseKg, breakdown, summaryStats, chartData };
+}
 
-// Input Component
-const CompactInput = ({ id, label, value, onChange, suffix, type = "number", step = "1", ...props }: any) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-      {label}
-    </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      <input
-        id={id}
-        type={type}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
-      />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
-    </div>
-  </div>
-);
+const DEFAULTS = { feet: "5", inches: "10", unit: "imperial" };
 
 export default function IdealBmiWeightCalculator() {
-  // 4. Component State
-  const [unitSystem, setUnitSystem] = useState<"imperial" | "metric">(DEFAULTS.unitSystem);
-  const [heightFt, setHeightFt] = useState(DEFAULTS.heightFt);
-  const [heightIn, setHeightIn] = useState(DEFAULTS.heightIn);
-  const [heightCm, setHeightCm] = useState(DEFAULTS.heightCm);
-  const [targetBmi, setTargetBmi] = useState(DEFAULTS.targetBmi);
-  const [errorMsg, setErrorMsg] = useState("");
-  
-  const [results, setResults] = useState<CalculatorResults | null>(null);
+  const [feet, setFeet] = useState(DEFAULTS.feet);
+  const [inches, setInches] = useState(DEFAULTS.inches);
+  const [unit, setUnit] = useState(DEFAULTS.unit);
+  const [result, setResult] = useState<IdealBmiResult | null>(null);
 
-  const handleCalculate = () => {
-    setErrorMsg("");
-    const ft = parseInt(heightFt, 10) || 0;
-    const inch = parseInt(heightIn, 10) || 0;
-    const cm = parseFloat(heightCm) || 0;
-    const bmi = parseFloat(targetBmi) || 0;
+  const ft = parseInt(feet) || 0;
+  const inch = parseInt(inches) || 0;
+  const heightCm = Math.round((ft * 12 + inch) * 2.54);
+  const errs: string[] = [];
+  if (ft < 3 || ft > 8) errs.push("Height (feet) must be between 3 and 8.");
+  if (inch < 0 || inch > 11) errs.push("Height (inches) must be between 0 and 11.");
+  const valid = errs.length === 0;
 
-    if (unitSystem === "imperial" && ft === 0 && inch === 0) return setErrorMsg("Please enter height.");
-    if (unitSystem === "metric" && cm === 0) return setErrorMsg("Please enter height.");
-    if (bmi <= 0 || bmi > 60) return setErrorMsg("Please enter a realistic target BMI.");
-
-    const res = calculateIdealWeight({ 
-      unitSystem, 
-      heightFt: ft, 
-      heightIn: inch, 
-      heightCm: cm, 
-      targetBmi: bmi
-    });
-    
-    if (!res) {
-      setErrorMsg("Unable to calculate. Please check your inputs.");
-    } else {
-      setResults(res);
-    }
+  const calculate = () => { if (valid) setResult(calcIdealBmi(heightCm, unit)); };
+  const reset = () => {
+    setFeet(DEFAULTS.feet); setInches(DEFAULTS.inches); setUnit(DEFAULTS.unit);
+    setResult(calcIdealBmi(178, "imperial"));
   };
+  useEffect(() => { setResult(calcIdealBmi(178, "imperial")); }, []);
 
-  const handleReset = () => {
-    setUnitSystem(DEFAULTS.unitSystem);
-    setHeightFt(DEFAULTS.heightFt);
-    setHeightIn(DEFAULTS.heightIn);
-    setHeightCm(DEFAULTS.heightCm);
-    setTargetBmi(DEFAULTS.targetBmi);
-    setErrorMsg("");
-    setTimeout(handleCalculate, 0);
-  };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, heightFt, heightIn, heightCm, targetBmi]);
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "How is this different from a standard BMI calculator?", answer: "A standard BMI calculator takes your weight and tells you your BMI. This tool works in reverse: you select the exact BMI you want to achieve, and it calculates the precise weight in pounds or kilograms you need to reach to hit that goal." },
-    { question: "Why is a BMI of 22 often considered 'Ideal'?", answer: "A BMI of 22 is exactly in the middle of the healthy range (18.5 - 24.9). Many medical studies and actuarial life insurance tables indicate that a BMI around 22 to 22.5 correlates with the lowest all-cause mortality rate for average adults." },
-    { question: "Is my 'Ideal Weight' a single number?", answer: "No. Your 'Ideal Weight' is a range, not a fixed point on the scale. Depending on hydration, glycogen stores, and muscle mass, your weight naturally fluctuates. This calculator provides both the exact number for your specific target BMI, and the wide boundary of the healthy range." },
-    { question: "Does the ideal weight change for men and women?", answer: "The mathematical formula for BMI is gender-neutral. However, men typically carry more lean muscle mass than women, meaning a healthy man might naturally sit closer to a BMI of 24, while a healthy woman might naturally sit closer to a BMI of 21. Your specific target should be discussed with a doctor." }
+    { question: "What BMI range is healthy?", answer: "The WHO classifies 18.5–24.9 kg/m² as normal weight. This calculator derives the weight range at your height from those BMI boundaries." },
+    { question: "What is the ideal BMI?", answer: "Mortality data suggests the lowest risk clusters near BMI 21–22; 21.7 is used here as the midpoint target weight." },
+    { question: "Why might my ideal weight differ?", answer: "BMI ignores muscle mass and frame size — a muscular athlete can exceed 25 with low body fat. Treat the range as a general guideline, not a verdict." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Ideal BMI Weight Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Ideal BMI Weight Calculator</h1>
-
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mt-4">
-          
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <div className="flex bg-muted p-1 rounded-lg">
-              <button
-                className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-all ${unitSystem === "imperial" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                onClick={() => setUnitSystem("imperial")}
-              >
-                Imperial
-              </button>
-              <button
-                className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-all ${unitSystem === "metric" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
-                onClick={() => setUnitSystem("metric")}
-              >
-                Metric
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 mt-2">
-              {unitSystem === "imperial" ? (
-                <>
-                  <div className="grid grid-cols-2 gap-2">
-                    <CompactInput id="ft" label="Height (ft)" value={heightFt} onChange={setHeightFt} suffix="ft" />
-                    <CompactInput id="in" label="Height (in)" value={heightIn} onChange={setHeightIn} suffix="in" />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <CompactInput id="cm" label="Height" value={heightCm} onChange={setHeightCm} suffix="cm" />
-                </>
-              )}
-              
-              <div className="border-t border-border mt-2 pt-4">
-                <CompactInput id="bmi" label="Target BMI" value={targetBmi} onChange={setTargetBmi} step="0.1" suffix="BMI" />
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Ideal BMI Weight Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Height (Feet)</label>
+                <div className={inp}><input type="number" value={feet} onChange={e => setFeet(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">ft</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Height (Inches)</label>
+                <div className={inp}><input type="number" value={inches} onChange={e => setInches(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">in</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Unit</label>
+                <select value={unit} onChange={e => setUnit(e.target.value)} className={sel}>
+                  <option value="imperial">Pounds (lb)</option>
+                  <option value="metric">Kilograms (kg)</option>
+                </select>
               </div>
             </div>
-
-            {errorMsg && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
-                <AlertTriangle className="h-4 w-4 inline mr-1 -mt-0.5" />
-                {errorMsg}
-              </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
             )}
-
-            <div className="flex gap-2 mt-4 pt-4 border-t border-border">
-              <Button
-                onClick={handleCalculate}
-                className="flex-1 h-10 bg-primary text-primary-foreground font-bold"
-              >
-                Calculate
-              </Button>
-
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 shrink-0"
-                aria-label="Reset"
-              >
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
                 <RotateCcw className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
           <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
-              <div className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* Result Card */}
-                <div className="bg-card border border-border shadow-sm rounded-xl overflow-hidden">
-                  <div className="p-6 md:p-8 flex flex-col items-center text-center">
-                    <p className="text-sm font-semibold text-muted-foreground mb-2 uppercase tracking-wider">
-                      Target Weight for BMI {results.targetBmi}
-                    </p>
-                    <h2 className="text-2xl font-bold mb-3">
-                      {results.exactTargetWeight} <span className="text-2xl md:text-3xl text-muted-foreground ml-1">{unitSystem === "imperial" ? "lbs" : "kg"}</span>
-                    </h2>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Healthy Weight Range</div>
+                <div className="text-3xl md:text-4xl font-extrabold tracking-tight">{(result.unit === "metric" ? result.minKg : result.minKg * 2.20462).toFixed(1)} – {(result.unit === "metric" ? result.maxKg : result.maxKg * 2.20462).toFixed(1)} {result.unit === "metric" ? "kg" : "lb"}</div>
+                <div className="text-sm text-muted-foreground mt-1">Ideal: {(result.unit === "metric" ? result.idealKg : result.idealKg * 2.20462).toFixed(1)} {result.unit === "metric" ? "kg" : "lb"} at BMI 21.7</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Ideal Weight`, `${(result.unit === "metric" ? result.idealKg : result.idealKg * 2.20462).toFixed(1)} ${result.unit === "metric" ? "kg" : "lb"}`], ["Overweight At", `${(result.unit === "metric" ? result.overweightKg : result.overweightKg * 2.20462).toFixed(1)} ${result.unit === "metric" ? "kg" : "lb"}`], ["Obese At", `${(result.unit === "metric" ? result.obeseKg : result.obeseKg * 2.20462).toFixed(1)} ${result.unit === "metric" ? "kg" : "lb"}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-
-                  <div className="bg-emerald-500/10 p-6 md:p-8 border-t border-emerald-500/20 text-center">
-                    <div className="text-sm font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-2">Total Healthy Weight Range (BMI 18.5 - 24.9)</div>
-                    <div className="text-2xl font-black text-emerald-600">
-                      {results.minHealthyWeight} - {results.maxHealthyWeight} {unitSystem === "imperial" ? "lbs" : "kg"}
-                    </div>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Weight Thresholds</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 2 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 2 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 2 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Weights at Each BMI</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}kg`} />
+                    <Tooltip formatter={(v: number) => [`${v} kg`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-
-                <AdPlaceholder />
               </div>
-            ) : (
-              <div className="flex items-center justify-center h-full min-h-[400px] border border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <p>Enter your height and target BMI to calculate your goal weight.</p>
-              </div>
-            )}
+            </>)}
           </div>
         </div>
-
-        <div className="mt-8 xl:mt-12">
-          <FAQSection faqs={faqs} />
-        </div>
-
-        <div className="mt-8 xl:mt-12">
-          <PopularCalculators />
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Deriving Weight from BMI</h2>
+            <p>This <strong>ideal BMI weight calculator</strong> inverts the BMI formula — weight = BMI × height² — to find the weight that lands you at each classification boundary. For a given height, healthy weight spans the BMI band 18.5 to 24.9, with 21.7 marking the low-risk midpoint.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading the Thresholds</h2>
+            <p>The overweight line (BMI 25) and obese line (BMI 30) mark where epidemiological risk rises in population data. The range between them and the healthy band is where most adults should aim — and where your clinician will expect to see you.</p>
+            <h2 className="text-2xl font-bold mb-3">Limitations</h2>
+            <p>BMI is a screening tool, not a body-composition measure. Muscular builds, pregnancy, and some ethnicities shift the interpretation; use this for general planning and discuss specifics with a healthcare provider.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ideal-bmi-weight-calculator" />
+          <PopularCalculators exclude="/calculator/ideal-bmi-weight-calculator" />
         </div>
       </div>
     </>

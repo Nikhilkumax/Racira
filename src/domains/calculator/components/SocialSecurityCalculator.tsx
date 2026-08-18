@@ -93,7 +93,15 @@ export default function SocialSecurityCalculator() {
   const [birthYear, setBirthYear] = useState("1965");
   const [result, setResult] = useState<SocialSecurityResult | null>(null);
 
+  const valErrors: Record<string, string> = {};
+  const piaNum = parseFloat(pia) || 0;
+  const byNum = parseInt(birthYear, 10) || 0;
+  if (piaNum <= 0) valErrors.global = "PIA must be greater than 0";
+  else if (byNum < 1943 || byNum > 2000) valErrors.global = "Birth year must be 1943–2000";
+  const hasErrors = Object.keys(valErrors).length > 0;
+
   const calculate = () => {
+    if (hasErrors) return;
     const p = parseFloat(pia) || 2000, by = parseInt(birthYear) || 1965;
     setResult(calcSocialSecurity(p, by));
   };
@@ -119,18 +127,25 @@ export default function SocialSecurityCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Social Security Claiming Age Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
-            <div>
-              <label className="text-base font-medium mb-1.5 block">Your Monthly PIA (Full Retirement Benefit)</label>
-              <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={pia} onChange={e => setPia(e.target.value)} className={ci} /></div>
-              <p className="text-xs text-muted-foreground mt-1.5">Find your PIA on SSA.gov (my Social Security). Avg. 2024 benefit ≈ $1,907/mo.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Monthly PIA (Full Retirement Benefit)</label>
+                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={pia} onChange={e => setPia(e.target.value)} className={ci} /></div>
+                <p className="text-xs text-muted-foreground mt-1.5">Find it on SSA.gov (my Social Security).</p>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1.5 block">Year of Birth</label>
+                <div className={inp}><input type="number" value={birthYear} onChange={e => setBirthYear(e.target.value)} min={1943} max={1960} className={ci} /></div>
+                <p className="text-xs text-muted-foreground mt-1.5">Determines your Full Retirement Age.</p>
+              </div>
             </div>
-            <div>
-              <label className="text-base font-medium mb-1.5 block">Year of Birth</label>
-              <div className={inp}><input type="number" value={birthYear} onChange={e => setBirthYear(e.target.value)} min={1943} max={1960} className={ci} /></div>
-              <p className="text-xs text-muted-foreground mt-1.5">Determines your Full Retirement Age (FRA). Born 1960+: FRA = 67.</p>
-            </div>
+            {hasErrors && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
+                ⚠️ {valErrors.global}
+              </div>
+            )}
             <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button disabled={hasErrors} onClick={calculate} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground"}`}>Calculate</button>
               <button onClick={() => { setPia("2000"); setBirthYear("1965"); setResult(calcSocialSecurity(2000, 1965)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>
@@ -197,21 +212,6 @@ export default function SocialSecurityCalculator() {
             <p>For married couples, the decision of when the higher-earning spouse claims affects not just their benefit but also the surviving spouse's benefit. When one spouse dies, the surviving spouse inherits the higher of the two benefits. This means the higher earner delaying to 70 can provide a significantly larger survivor benefit for their spouse — particularly important when one spouse earned considerably more than the other. This spousal/survivor dimension often makes delayed claiming even more valuable for couples. Related tools: <a href="/calculator/retirement-calculator">Retirement Calculator</a>, <a href="/calculator/early-retirement-calculator">FIRE Calculator</a>.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/social-security-calculator" />
-
-      <section className="mt-12 space-y-8 text-base text-foreground">
-        <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Social Security Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Social Security Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Social Security Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Social Security Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Social Security Calculator useful for both quick checks and deeper what-if analysis.</p>
-        </div>
-      </section>
           <PopularCalculators exclude="/calculator/social-security-calculator" />
         </div>
       </div>

@@ -24,7 +24,6 @@ adjustable-rate-mortgage-reset-calculator
 adjusted-body-weight-calculator
 adolescent-bmi-calculator
 adsense-revenue-calculator
-adsense-revenue-calculator_test
 age-calculator
 air-freight-cost-estimator
 alcohol-calories-calculator

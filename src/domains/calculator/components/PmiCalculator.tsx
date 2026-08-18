@@ -7,8 +7,8 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { calculatePmi, MONTHS, type PmiInputs, type LoanType, type PaymentFreq, type DpMode, type PmiMode } from "./pmiLogic";
-import PmiLtvChart from "./PmiLtvChart";
-import PmiAmortizationTable from "./PmiAmortizationTable";
+import { PmiLtvChart } from "./PmiLtvChart";
+import { PmiAmortizationTable } from "./PmiAmortizationTable";
 
 const fmt = (n: number, dec = 2) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
 const fmtInt = (n: number) => Math.round(n).toLocaleString("en-US");

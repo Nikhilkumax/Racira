@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, BookOpen } from "lucide-react";
+import { PieChart as RPie, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 interface GradeRow {
   name: string;
@@ -20,6 +21,7 @@ interface GradeResult {
   finalWeight: number;
   neededOnFinal: number | null;
   target: number;
+  chartData: { name: string; value: number; pct: number }[];
 }
 
 const LETTERS: [number, string][] = [
@@ -38,7 +40,27 @@ function calcGrade(rows: GradeRow[], finalWeight: number, target: number): Grade
   const neededOnFinal = finalWeight > 0 && remaining > 0
     ? (target - weighted * (remaining / 100)) / (finalWeight / 100)
     : null;
-  return { rows, totalWeight, weighted, letter: letterFor(weighted), finalWeight, neededOnFinal, target };
+
+  // Weight distribution for the donut chart (rows + final), normalized to sum to 100%
+  const pieRaw = [
+    ...rows.map((r) => ({ name: r.name, value: Math.max(0, r.weight) })),
+    { name: "Final Exam", value: Math.max(0, finalWeight) },
+  ].filter((d) => d.value > 0);
+  const totalW = pieRaw.reduce((p, d) => p + d.value, 0);
+  let acc = 0;
+  const piePcts = pieRaw.map((d) => {
+    const p = totalW > 0 ? (d.value / totalW) * 100 : 0;
+    acc += p;
+    return p;
+  });
+  if (totalW > 0 && pieRaw.length > 0) {
+    let maxIdx = 0;
+    for (let i = 1; i < piePcts.length; i++) if (piePcts[i] > piePcts[maxIdx]) maxIdx = i;
+    piePcts[maxIdx] += 100 - acc;
+  }
+  const chartData = pieRaw.map((d, i) => ({ name: d.name, value: d.value, pct: piePcts[i] }));
+
+  return { rows, totalWeight, weighted, letter: letterFor(weighted), finalWeight, neededOnFinal, target, chartData };
 }
 
 const DEFAULTS = {
@@ -122,17 +144,17 @@ export default function GradeCalculator() {
             </div>
             <div className="flex gap-2 pt-2">
               <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+              <button onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
-                <BookOpen className="w-4 h-4 text-primary" /> CURRENT GRADE
-              </div>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Current Grade</div>
               <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold text-primary">{result.weighted.toFixed(2)}%</span>
+                <span className="text-4xl font-extrabold text-primary tracking-tight">{result.weighted.toFixed(2)}%</span>
                 <span className="text-2xl font-bold text-muted-foreground">({result.letter})</span>
               </div>
               <p className="text-sm text-muted-foreground mt-1">
@@ -140,6 +162,16 @@ export default function GradeCalculator() {
                   ? `Score ${result.neededOnFinal.toFixed(1)}% or higher on the final to finish with ${result.target}%.`
                   : "Enter a final exam weight to see what you need on it."}
               </p>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+              {[["Weighted Average", `${result.weighted.toFixed(2)}%`], ["Letter Grade", `${result.letter}`], ["Needed on Final", result.neededOnFinal !== null ? `${result.neededOnFinal.toFixed(1)}%` : "—"]].map(([l, v], i) => (
+                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                  <div className="text-base font-bold text-foreground">{v}</div>
+                </div>
+              ))}
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">
@@ -153,13 +185,36 @@ export default function GradeCalculator() {
                 </thead>
                 <tbody className="divide-y divide-border/50">
                   {breakdown.map((row) => (
-                    <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
-                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
-                      <td className="p-2.5 pr-3 text-right font-semibold">{row.value}</td>
+                    <tr key={row.label} className={row.highlight ? "bg-amber-500/10" : ""}>
+                      <td className={`p-2.5 pl-3 ${row.highlight ? "text-amber-700 font-semibold" : "text-muted-foreground"}`}>{row.label}</td>
+                      <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.value}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* 4. CHART */}
+            <div className="rounded-lg border border-border bg-card p-5">
+              <h3 className="text-base font-bold mb-4">Weight Distribution</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <RPie>
+                  <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85} innerRadius={50} paddingAngle={2}>
+                    {result.chartData.map((d, idx) => (
+                      <Cell key={idx} fill={["hsl(var(--primary))", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"][idx % 5]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(v: number, n: string) => [`${v}%`, n]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                </RPie>
+              </ResponsiveContainer>
+              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-2">
+                {result.chartData.map((d, i) => (
+                  <span key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: ["hsl(var(--primary))", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"][i % 5] }} />
+                    {d.name} · {d.pct.toFixed(1)}%
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="bg-muted/30 rounded-lg p-5">

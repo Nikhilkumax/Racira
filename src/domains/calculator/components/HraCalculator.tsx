@@ -1,157 +1,207 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-const HRACalculator = () => {
-  const [basicSalary, setBasicSalary] = useState("40000");
-  const [da, setDa] = useState("5000");
-  const [hraReceived, setHraReceived] = useState("20000");
-  const [rentPaid, setRentPaid] = useState("15000");
-  const [isMetro, setIsMetro] = useState(true);
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ exempt: number; taxable: number; rule1: number; rule2: number; rule3: number } | null>(null);
+interface HraResult {
+  basic: number;
+  hraReceived: number;
+  rent: number;
+  metro: boolean;
+  tenPctBasic: number;
+  rentMinusTen: number;
+  halfBasic: number;
+  exemption: number;
+  taxableHra: number;
+  exemptPct: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const basic = parseFloat(basicSalary) || 0;
-    const daVal = parseFloat(da) || 0;
-    const hra = parseFloat(hraReceived) || 0;
-    const rent = parseFloat(rentPaid) || 0;
+function fmtRs(v: number): string {
+  return `₹${Math.round(v).toLocaleString("en-IN")}`;
+}
 
-    if (basic <= 0 || hra <= 0) return;
+function calcHra(basic: number, hraReceived: number, rent: number, metro: boolean): HraResult {
+  const tenPctBasic = basic * 0.10;
+  const rentMinusTen = Math.max(0, rent - tenPctBasic);
+  const halfBasic = basic * (metro ? 0.50 : 0.40);
+  const exemption = Math.max(0, Math.min(hraReceived, rentMinusTen, halfBasic));
+  const taxableHra = hraReceived - exemption;
+  const exemptPct = hraReceived > 0 ? (exemption / hraReceived) * 100 : 0;
 
-    const totalBasic = basic + daVal;
+  const breakdown = [
+    { label: "Basic Salary + DA", value: fmtRs(basic) + "/mo" },
+    { label: "HRA Received", value: fmtRs(hraReceived) + "/mo" },
+    { label: "Rent Paid", value: fmtRs(rent) + "/mo" },
+    { label: "10% of Basic", value: fmtRs(tenPctBasic) },
+    { label: "Limit 1 — Actual HRA", value: fmtRs(hraReceived) },
+    { label: "Limit 2 — Rent − 10% of Basic", value: fmtRs(rentMinusTen) },
+    { label: `Limit 3 — ${metro ? "50%" : "40%"} of Basic (${metro ? "metro" : "non-metro"})`, value: fmtRs(halfBasic) },
+    { label: "Exempt HRA (min of limits)", value: fmtRs(exemption) },
+    { label: "Taxable HRA", value: fmtRs(taxableHra) },
+  ];
+  const summaryStats = [
+    { label: "HRA Exemption", value: fmtRs(exemption) },
+    { label: "Taxable HRA", value: fmtRs(taxableHra) },
+    { label: "Exempt %", value: `${exemptPct.toFixed(1)}%` },
+    { label: "HRA Received", value: fmtRs(hraReceived) },
+    { label: "Rent Paid", value: fmtRs(rent) },
+    { label: "Basic + DA", value: fmtRs(basic) },
+    { label: "City Type", value: metro ? "Metro" : "Non-metro" },
+    { label: "Rent − 10% Limit", value: fmtRs(rentMinusTen) },
+  ];
+  const chartData = [
+    { name: "Exempt", value: Math.round(exemption), fill: "hsl(var(--primary))" },
+    { name: "Taxable", value: Math.round(taxableHra), fill: "#f59e0b" },
+  ];
+  return { basic, hraReceived, rent, metro, tenPctBasic, rentMinusTen, halfBasic, exemption, taxableHra, exemptPct, breakdown, summaryStats, chartData };
+}
 
-    // HRA exemption is LEAST of:
-    // 1. Actual HRA received
-    // 2. 50% of basic+DA (metro) or 40% (non-metro)
-    // 3. Rent paid - 10% of basic+DA
+const DEFAULTS = { basic: "50000", hra: "20000", rent: "18000", metro: true };
 
-    const rule1 = hra; // Actual HRA received
-    const rule2 = totalBasic * (isMetro ? 0.50 : 0.40); // 50%/40% of salary
-    const rule3 = Math.max(0, rent - totalBasic * 0.10); // Rent - 10% of salary
+export default function HraCalculator() {
+  const [basic, setBasic] = useState(DEFAULTS.basic);
+  const [hra, setHra] = useState(DEFAULTS.hra);
+  const [rent, setRent] = useState(DEFAULTS.rent);
+  const [metro, setMetro] = useState(DEFAULTS.metro);
+  const [result, setResult] = useState<HraResult | null>(null);
 
-    const exempt = Math.min(rule1, rule2, rule3);
-    const taxable = hra - exempt;
+  const bs = parseFloat(basic) || 0;
+  const hr = parseFloat(hra) || 0;
+  const rn = parseFloat(rent) || 0;
+  const errs: string[] = [];
+  if (bs <= 0) errs.push("Basic salary must be greater than 0.");
+  if (hr < 0) errs.push("HRA received cannot be negative.");
+  if (rn < 0) errs.push("Rent paid cannot be negative.");
+  if (rn <= bs * 0.10) errs.push("Rent must exceed 10% of basic to claim any HRA exemption.");
+  const valid = errs.length === 0;
 
-    setResult({ exempt, taxable, rule1, rule2, rule3 });
-  };
-
+  const calculate = () => { if (valid) setResult(calcHra(bs, hr, rn, metro)); };
   const reset = () => {
-    setShowResults(false); setBasicSalary("40000"); setDa("5000"); setHraReceived("20000"); setRentPaid("15000"); setIsMetro(true); setResult(null); };
+    setBasic(DEFAULTS.basic); setHra(DEFAULTS.hra); setRent(DEFAULTS.rent); setMetro(DEFAULTS.metro);
+    setResult(calcHra(50000, 20000, 18000, true));
+  };
+  useEffect(() => { setResult(calcHra(50000, 20000, 18000, true)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is HRA exemption?", answer: "HRA (House Rent Allowance) exemption is a tax benefit under Section 10(13A) for salaried employees who pay rent. The exempt portion reduces your taxable income." },
-    { question: "How is HRA exemption calculated?", answer: "HRA exemption is the minimum of: (1) Actual HRA received, (2) 50% of salary for metro cities or 40% for non-metro, (3) Rent paid minus 10% of salary." },
-    { question: "Which cities are considered metro for HRA?", answer: "Mumbai, Delhi, Chennai, and Kolkata are considered metro cities for HRA exemption calculation. All other cities fall under non-metro category." },
-    { question: "Can I claim HRA if I own a house?", answer: "Yes, you can claim HRA exemption even if you own a house in a different city and are paying rent where you work. You can also claim both HRA and home loan deduction simultaneously." },
-    { question: "What if my rent is less than 10% of salary?", answer: "If your rent is less than 10% of your basic salary + DA, the third rule gives zero, making the HRA exemption zero. You cannot claim any exemption in this case." },
+    { question: "How is HRA exemption calculated?", answer: "Under Section 10(13A), the exempt amount is the minimum of three limits: actual HRA received, rent paid minus 10% of basic salary, and 50% (metro) or 40% (non-metro) of basic salary." },
+    { question: "What if my rent is lower than 10% of basic?", answer: "Then limit 2 becomes zero or negative and no exemption is available — the HRA becomes fully taxable. This is common when living with parents and paying no rent." },
+    { question: "Do I need rent receipts?", answer: "Yes — keep rent receipts and, if annual rent exceeds ₹1,00,000, provide the landlord's PAN. Salaried employees claim the exemption through their employer's Form 12BB." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "HRA Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "HRA Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">HRA Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">HRA Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="basic" label="Monthly Basic Salary" value={basicSalary} onChange={setBasicSalary} prefix="₹" />
-                <InputField id="da" label="Dearness Allowance (DA)" value={da} onChange={setDa} prefix="₹" />
-                <InputField id="hra" label="HRA Received (Monthly)" value={hraReceived} onChange={setHraReceived} prefix="₹" />
-                <InputField id="rent" label="Rent Paid (Monthly)" value={rentPaid} onChange={setRentPaid} prefix="₹" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Basic Salary + DA</label>
+                <div className={inp}><input type="number" value={basic} onChange={e => setBasic(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹/mo</span></div>
               </div>
-
-              <div className="flex items-center gap-3 mb-6">
-                <label className="text-sm font-medium text-foreground">City Type:</label>
-                <button onClick={() => { setIsMetro(true); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isMetro ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Metro (50%)</button>
-                <button onClick={() => { setIsMetro(false); setResult(null); }} className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${!isMetro ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Non-Metro (40%)</button>
+              <div>
+                <label className={lbl}>HRA Received</label>
+                <div className={inp}><input type="number" value={hra} onChange={e => setHra(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹/mo</span></div>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className={lbl}>Rent Paid</label>
+                <div className={inp}><input type="number" value={rent} onChange={e => setRent(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹/mo</span></div>
               </div>
+              <div>
+                <label className={lbl}>City Type</label>
+                <select value={metro ? "metro" : "nonmetro"} onChange={e => setMetro(e.target.value === "metro")} className={sel}>
+                  <option value="metro">Metro (Delhi, Mumbai, Chennai, Kolkata)</option>
+                  <option value="nonmetro">Non-metro</option>
+                </select>
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">HRA Exemption Breakdown</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "HRA Exempt (Monthly)", value: result.exempt, highlight: true },
-                  { label: "Taxable HRA (Monthly)", value: result.taxable },
-                  { label: "Annual Exemption", value: result.exempt * 12, highlight: true },
-                ]} />
-
-                <div className="mt-6 bg-secondary rounded-lg p-4">
-                  <h3 className="font-semibold mb-3 text-sm">Exemption Rules (Least of the three):</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">1. Actual HRA Received</span>
-                      <span className={`font-medium ${result.exempt === result.rule1 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule1.toLocaleString("en-IN")}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">2. {isMetro ? "50%" : "40%"} of Basic + DA</span>
-                      <span className={`font-medium ${result.exempt === result.rule2 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule2.toLocaleString("en-IN")}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">3. Rent - 10% of Basic + DA</span>
-                      <span className={`font-medium ${result.exempt === result.rule3 ? "text-[hsl(217,91%,40%)] dark:text-primary" : ""}`}>₹{result.rule3.toLocaleString("en-IN")}</span>
-                    </div>
-                    <div className="border-t border-border pt-2 flex justify-between font-semibold">
-                      <span>Exempt Amount (Minimum)</span>
-                      <span className="text-primary">₹{result.exempt.toLocaleString("en-IN")}</span>
-                    </div>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">HRA Exemption</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtRs(result.exemption)}<span className="text-2xl">/mo</span></div>
+                <div className="text-sm text-muted-foreground mt-1">{fmtRs(result.taxableHra)}/mo taxable · {result.exemptPct.toFixed(1)}% exempt</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Taxable HRA`, fmtRs(result.taxableHra)], ["Limit 2 (Rent − 10%)", fmtRs(result.rentMinusTen)], [`Limit 3 (${result.metro ? "50%" : "40%"})`, fmtRs(result.halfBasic)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Exemption Calculation</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 7 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 7 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 7 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Exempt vs Taxable</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [fmtRs(v), ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Split of your received HRA</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is an HRA Calculator?</h2>
-              <p>An HRA (House Rent Allowance) calculator helps salaried employees determine how much of their HRA is exempt from income tax under Section 10(13A) of the Income Tax Act. The exempt portion depends on your salary, rent paid, and city of residence.</p>
-
-              <h2 className="text-2xl font-bold mb-3">HRA Exemption Formula</h2>
-              <p>HRA exemption is the <strong>minimum</strong> of these three amounts:</p>
-              <ul>
-                <li><strong>Rule 1:</strong> Actual HRA received from employer.</li>
-                <li><strong>Rule 2:</strong> 50% of (Basic + DA) for metro cities, or 40% for non-metro cities.</li>
-                <li><strong>Rule 3:</strong> Rent paid minus 10% of (Basic + DA).</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Metro vs Non-Metro Cities</h2>
-              <p>For HRA calculation, only four cities are classified as metro: <strong>Mumbai, Delhi, Chennai, and Kolkata</strong>. All other cities, including Bangalore, Hyderabad, Pune, etc., are classified as non-metro and qualify for the 40% rule.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Important Points</h2>
-              <ul>
-                <li>HRA exemption is only available under the <strong>old tax regime</strong>. The new regime does not allow HRA deduction.</li>
-                <li>If annual rent exceeds ₹1,00,000, you must provide your landlord's PAN.</li>
-                <li>Rent receipts are required as proof for claiming HRA exemption.</li>
-                <li>Self-employed individuals cannot claim HRA under Section 10(13A), but can claim rent deduction under Section 80GG.</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for tax planning purposes. Actual exemption depends on your specific employment terms and tax filing. Consult a tax advisor.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Section 10(13A) Exemption</h2>
+            <p>This <strong>HRA calculator</strong> applies the statutory formula: exempt HRA equals the minimum of actual HRA received, rent paid minus 10% of basic salary, and 50% of basic in metro cities (40% elsewhere). The balance is added to taxable income.</p>
+            <h2 className="text-2xl font-bold mb-3">Why the 10% Floor Exists</h2>
+            <p>The rent-minus-10% limit assumes you would spend roughly a tenth of basic salary on housing regardless. Only rent above that baseline is treated as incremental housing cost, so the exemption tracks genuine rent burden rather than HRA size.</p>
+            <h2 className="text-2xl font-bold mb-3">Claiming It</h2>
+            <p>Declare the exemption to your employer through Form 12BB with rent receipts. If you live with parents and pay them rent, that qualifies too — but the landlord's PAN is required once annual rent crosses ₹1,00,000.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hra-calculator" />
-          <PopularCalculators exclude="/hra-calculator" />
+          <PopularCalculators exclude="/calculator/hra-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default HRACalculator;
-
-
+}

@@ -90,7 +90,7 @@ export default function StudentLoanCalculator() {
   const [principal, setPrincipal] = useState("35000");
   const [rate, setRate] = useState("6.54");
   const [term, setTerm] = useState("10");
-  const [extra, setExtra] = useState("0");
+  const [extra, setExtra] = useState("100");
   const [result, setResult] = useState<StudentLoanResult | null>(null);
 
   const calculate = () => {
@@ -99,7 +99,7 @@ export default function StudentLoanCalculator() {
     if (p > 0) setResult(calcStudentLoan(p, r, t, e));
   };
 
-  useEffect(() => { setResult(calcStudentLoan(35000, 6.54, 10, 0)); }, []);
+  useEffect(() => { setResult(calcStudentLoan(35000, 6.54, 10, 100)); }, []);
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";

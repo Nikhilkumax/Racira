@@ -1,180 +1,300 @@
 "use client";
 
 import { useState } from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import Link from "next/link";
 
-const WorkingCapitalCalculator = () => {
-  const [currentAssets, setCurrentAssets] = useState("500000");
-  const [cash, setCash] = useState("100000");
-  const [receivables, setReceivables] = useState("150000");
-  const [inventory, setInventory] = useState("200000");
-  const [otherAssets, setOtherAssets] = useState("50000");
-  const [currentLiabilities, setCurrentLiabilities] = useState("300000");
-  const [payables, setPayables] = useState("120000");
-  const [shortTermDebt, setShortTermDebt] = useState("100000");
-  const [otherLiabilities, setOtherLiabilities] = useState("80000");
+const PIE_COLORS = ["#3b82f6", "#8b5cf6", "#10b981", "#f59e0b"];
+
+export default function WorkingCapitalCalculator() {
+  const [currentAssets, setCurrentAssets] = useState("150000");
+  const [currentLiabilities, setCurrentLiabilities] = useState("60000");
+  const [inventory, setInventory] = useState("30000");
+  const [receivables, setReceivables] = useState("40000");
+  const [payables, setPayables] = useState("20000");
   const [showResults, setShowResults] = useState(false);
-  const [mode, setMode] = useState<"simple" | "detailed">("simple");
-  const [result, setResult] = useState<{
-    workingCapital: number; currentRatio: number; quickRatio: number;
-    totalAssets: number; totalLiabilities: number;
-  } | null>(null);
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    let assets: number, liabilities: number, quickAssets: number;
+  const ca = parseFloat(currentAssets) || 0;
+  const cl = parseFloat(currentLiabilities) || 0;
+  const inv = parseFloat(inventory) || 0;
+  const recv = parseFloat(receivables) || 0;
+  const pay = parseFloat(payables) || 0;
 
-    if (mode === "simple") {
-      assets = parseFloat(currentAssets) || 0;
-      liabilities = parseFloat(currentLiabilities) || 0;
-      quickAssets = assets; // simplified
-    } else {
-      const c = parseFloat(cash) || 0;
-      const r = parseFloat(receivables) || 0;
-      const inv = parseFloat(inventory) || 0;
-      const oa = parseFloat(otherAssets) || 0;
-      assets = c + r + inv + oa;
+  const workingCapital = ca - cl;
+  const currentRatio = cl > 0 ? ca / cl : 0;
+  const quickAssets = ca - inv;
+  const quickRatio = cl > 0 ? quickAssets / cl : 0;
+  const cashRatio = cl > 0 ? (ca - inv - recv) / cl : 0;
+  const netWorkingCapitalRatio = ca > 0 ? workingCapital / ca : 0;
 
-      const p = parseFloat(payables) || 0;
-      const std = parseFloat(shortTermDebt) || 0;
-      const ol = parseFloat(otherLiabilities) || 0;
-      liabilities = p + std + ol;
+  const pieData = [
+    { name: "Cash & Equivalents", value: Math.max(ca - inv - recv, 0) },
+    { name: "Inventory", value: inv },
+    { name: "Receivables", value: recv },
+    { name: "Other Assets", value: Math.max(ca - (ca - inv - recv) - inv - recv, 0) },
+  ].filter((d) => d.value > 0);
 
-      quickAssets = c + r; // Quick ratio excludes inventory
-    }
-
-    if (liabilities <= 0) return;
-
-    setResult({
-      workingCapital: assets - liabilities,
-      currentRatio: Math.round((assets / liabilities) * 100) / 100,
-      quickRatio: Math.round((quickAssets / liabilities) * 100) / 100,
-      totalAssets: assets,
-      totalLiabilities: liabilities,
-    });
-  };
-
-  const reset = () => {
-    setShowResults(false);
-    setCurrentAssets("500000"); setCurrentLiabilities("300000");
-    setCash("100000"); setReceivables("150000"); setInventory("200000"); setOtherAssets("50000");
-    setPayables("120000"); setShortTermDebt("100000"); setOtherLiabilities("80000");
-    setResult(null);
-  };
-
-  const faqs = [
-    { question: "What is working capital?", answer: "Working capital is the difference between current assets and current liabilities. It measures a company's short-term financial health and its ability to cover day-to-day operating expenses." },
-    { question: "What is a good current ratio?", answer: "A current ratio between 1.5 and 2.0 is generally considered healthy. Below 1.0 means the company may struggle to meet short-term obligations. Above 3.0 may indicate inefficient use of assets." },
-    { question: "What is the quick ratio?", answer: "The quick ratio (acid-test ratio) is similar to the current ratio but excludes inventory, as inventory may not be quickly convertible to cash. Quick Ratio = (Cash + Receivables) ÷ Current Liabilities." },
-    { question: "Can working capital be negative?", answer: "Yes. Negative working capital means current liabilities exceed current assets. While risky for most businesses, some companies (like Amazon) operate with negative working capital by collecting payment before paying suppliers." },
-  ];
+  const handleCalculate = () => setShowResults(true);
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Working Capital Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Working Capital Calculator</h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Business", href: "/business" },
+          {
+            label: "Working Capital Calculator",
+            href: "/calculator/working-capital-calculator",
+          },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-6 flex gap-2">
-                <button onClick={() => setMode("simple")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "simple" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Simple</button>
-                <button onClick={() => setMode("detailed")} className={`flex-1 py-3 rounded-lg text-sm font-medium transition-colors ${mode === "detailed" ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"}`}>Detailed</button>
-              </div>
-
-              {mode === "simple" ? (
-                <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                  <InputField id="currentAssets" label="Total Current Assets" value={currentAssets} onChange={setCurrentAssets} prefix="$" />
-                  <InputField id="currentLiabilities" label="Total Current Liabilities" value={currentLiabilities} onChange={setCurrentLiabilities} prefix="$" />
-                </div>
-              ) : (
-                <>
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Current Assets</h3>
-                  <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                    <InputField id="cash" label="Cash & Equivalents" value={cash} onChange={setCash} prefix="$" />
-                    <InputField id="receivables" label="Accounts Receivable" value={receivables} onChange={setReceivables} prefix="$" />
-                    <InputField id="inventory" label="Inventory" value={inventory} onChange={setInventory} prefix="$" />
-                    <InputField id="otherAssets" label="Other Current Assets" value={otherAssets} onChange={setOtherAssets} prefix="$" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Current Liabilities</h3>
-                  <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                    <InputField id="payables" label="Accounts Payable" value={payables} onChange={setPayables} prefix="$" />
-                    <InputField id="shortTermDebt" label="Short-Term Debt" value={shortTermDebt} onChange={setShortTermDebt} prefix="$" />
-                    <InputField id="otherLiabilities" label="Other Current Liabilities" value={otherLiabilities} onChange={setOtherLiabilities} prefix="$" />
-                  </div>
-                </>
-              )}
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Working Capital Analysis</h2>
-                <ResultDisplay items={[
-                  { label: "Working Capital", value: result.workingCapital, highlight: true },
-                  { label: "Current Ratio", value: 0, textValue: `${result.currentRatio}:1`, highlight: true },
-                  { label: "Quick Ratio", value: 0, textValue: `${result.quickRatio}:1` },
-                  { label: "Total Current Assets", value: result.totalAssets },
-                  { label: "Total Current Liabilities", value: result.totalLiabilities },
-                ]} />
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is Working Capital?</h2>
-              <p>Working capital is a measure of a company's short-term financial health and operational efficiency. It represents the difference between current assets (cash, receivables, inventory) and current liabilities (payables, short-term debt). Positive working capital means the company can fund its day-to-day operations and invest in growth.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Working Capital Formulas</h2>
-              <ul>
-                <li><strong>Working Capital = Current Assets − Current Liabilities</strong></li>
-                <li><strong>Current Ratio = Current Assets ÷ Current Liabilities</strong></li>
-                <li><strong>Quick Ratio = (Cash + Receivables) ÷ Current Liabilities</strong></li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Interpreting the Ratios</h2>
-              <table className="w-full text-sm mb-4">
-                <thead><tr><th className="text-left py-1">Ratio</th><th className="text-left">Value</th><th className="text-left">Meaning</th></tr></thead>
-                <tbody>
-                  <tr><td>Current Ratio</td><td>&lt; 1.0</td><td>May struggle to pay short-term debts</td></tr>
-                  <tr><td>Current Ratio</td><td>1.5–2.0</td><td>Healthy — can comfortably cover obligations</td></tr>
-                  <tr><td>Current Ratio</td><td>&gt; 3.0</td><td>May indicate underutilized assets</td></tr>
-                  <tr><td>Quick Ratio</td><td>&gt; 1.0</td><td>Can cover liabilities without selling inventory</td></tr>
-                </tbody>
-              </table>
-
-              <h2 className="text-2xl font-bold mb-3">Improving Working Capital</h2>
-              <ul>
-                <li><strong>Accelerate receivables:</strong> Offer early payment discounts, tighten credit terms</li>
-                <li><strong>Optimize inventory:</strong> Reduce excess stock, use just-in-time systems</li>
-                <li><strong>Negotiate payables:</strong> Extend payment terms with suppliers</li>
-                <li><strong>Reduce unnecessary expenses:</strong> Cut overhead that doesn't generate revenue</li>
-                <li><strong>Increase revenue:</strong> Focus on profitable products and customers</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Working capital analysis is one part of financial assessment. Industry norms vary significantly. Consult an accountant for comprehensive financial analysis.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/working-capital-calculator" />
-          <PopularCalculators exclude="/working-capital-calculator" />
-        </div>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2">Working Capital Calculator</h1>
+        <p className="text-muted-foreground">
+          See how much cash your business has to run day-to-day after covering short-term
+          obligations — and how healthy your liquidity ratios are.
+        </p>
       </div>
-    </>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Current Assets &amp; Liabilities</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="ca">Total Current Assets</Label>
+              <Input
+                id="ca"
+                type="number"
+                value={currentAssets}
+                onChange={(e) => setCurrentAssets(e.target.value)}
+                placeholder="150000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="cl">Total Current Liabilities</Label>
+              <Input
+                id="cl"
+                type="number"
+                value={currentLiabilities}
+                onChange={(e) => setCurrentLiabilities(e.target.value)}
+                placeholder="60000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="inv">Inventory</Label>
+              <Input
+                id="inv"
+                type="number"
+                value={inventory}
+                onChange={(e) => setInventory(e.target.value)}
+                placeholder="30000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="recv">Accounts Receivable</Label>
+              <Input
+                id="recv"
+                type="number"
+                value={receivables}
+                onChange={(e) => setReceivables(e.target.value)}
+                placeholder="40000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="pay">Accounts Payable</Label>
+              <Input
+                id="pay"
+                type="number"
+                value={payables}
+                onChange={(e) => setPayables(e.target.value)}
+                placeholder="20000"
+              />
+            </div>
+          </div>
+          <Button onClick={handleCalculate} className="mt-6 w-full sm:w-auto">
+            Calculate
+          </Button>
+        </CardContent>
+      </Card>
+
+      {showResults && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card className="border-l-4 border-primary">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Working Capital</p>
+                <p className="text-2xl font-bold">
+                  $
+                  {workingCapital.toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </p>
+                <p className="text-xs text-muted-foreground">Assets − Liabilities</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Current Ratio</p>
+                <p className="text-2xl font-bold">{currentRatio.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {currentRatio >= 1.5
+                    ? "Healthy (≥1.5)"
+                    : currentRatio >= 1
+                      ? "Adequate (1.0–1.5)"
+                      : "Concerning (<1.0)"}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Quick Ratio</p>
+                <p className="text-2xl font-bold">{quickRatio.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {quickRatio >= 1 ? "Healthy (≥1.0)" : "Below 1.0 — relies on inventory"}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Cash Ratio</p>
+                <p className="text-2xl font-bold">{cashRatio.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground">Cash-only coverage</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">NWC / Assets</p>
+                <p className="text-2xl font-bold">{netWorkingCapitalRatio.toFixed(2)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {netWorkingCapitalRatio >= 0.25
+                    ? "Strong buffer"
+                    : netWorkingCapitalRatio >= 0
+                      ? "Positive but thin"
+                      : "Negative — shortfall"}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Liquidity Health</p>
+                <p className="text-2xl font-bold">
+                  {currentRatio >= 1.5 && quickRatio >= 1
+                    ? "Strong"
+                    : currentRatio >= 1
+                      ? "Stable"
+                      : "At Risk"}
+                </p>
+                <p className="text-xs text-muted-foreground">Combined ratios view</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Current Asset Mix</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={90}
+                      label={({ name, percent }) =>
+                        percent > 0.05 ? `${name} ${(percent * 100).toFixed(0)}%` : ""
+                      }
+                    >
+                      {pieData.map((entry, i) => (
+                        <Cell key={entry.name} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(v) => `$${Number(v).toLocaleString()}`} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>How It Works</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                <strong>Working Capital = Current Assets − Current Liabilities</strong>
+              </p>
+              <p>
+                Positive working capital means assets that convert to cash within a year exceed
+                debts due within a year — the classic buffer for payroll, suppliers, and
+                unexpected costs.
+              </p>
+              <p>
+                <strong>Current Ratio</strong> = assets ÷ liabilities (1.5–2 is typical target).
+                <strong> Quick Ratio</strong> strips out inventory (1.0+ is healthy).
+                <strong> Cash Ratio</strong> counts only cash-like assets (0.2–0.5 is common).
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <p className="font-semibold">What happens if working capital is negative?</p>
+                <p className="text-muted-foreground">
+                  Short-term liabilities exceed short-term assets — the business may struggle to
+                  pay bills on time and may need a credit line or invoice financing.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Can a business have too much working capital?</p>
+                <p className="text-muted-foreground">
+                  Yes — idle cash earns little. Excess working capital is often better invested in
+                  growth or returned to owners, as long as a prudent buffer is kept.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">How often should I track it?</p>
+                <p className="text-muted-foreground">
+                  Monthly is standard for small businesses; lenders and investors look at the
+                  trend over quarters, not a single snapshot.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-sm text-muted-foreground">
+            <Link href="/business" className="text-primary hover:underline">
+              ← More Business Calculators
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
   );
-};
-
-export default WorkingCapitalCalculator;
-
-
+}

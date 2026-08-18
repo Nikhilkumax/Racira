@@ -1,0 +1,214 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 28.1s (651 modules)
+ GET / 200 in 28418ms
+ GET / 200 in 79ms
+ GET / 200 in 168ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator in 69.4s (13237 modules)
+ GET /calculator/kendall-tau-calculator 404 in 12471ms
+ GET /calculator/kendall-tau-calculator 404 in 74036ms
+ GET /calculator/kendall-tau-calculator 404 in 97ms
+ GET /calculator/kendall-tau-calculator 404 in 117ms
+ GET /calculator/kendall-tau-calculator 404 in 92ms
+ GET /calculator/kendall-tau-calculator 404 in 59ms
+ GET /calculator/kendall-tau-calculator 404 in 98ms
+ GET /calculator/kendall-tau-calculator 404 in 106ms
+ GET /calculator/kendall-tau-calculator 404 in 141ms
+ GET /calculator/kendall-tau-calculator 404 in 110ms
+ GET /calculator/kendall-tau-calculator 404 in 111ms
+ GET /calculator/kendall-tau-calculator 404 in 92ms
+ GET /calculator/kendall-tau-calculator 404 in 3323ms
+ GET /calculator/kendall-tau-calculator 404 in 64ms
+ GET /calculator/kendall-tau-calculator 404 in 52ms
+ GET /calculator/kendall-tau-calculator 404 in 115ms
+ GET /calculator/kendall-tau-calculator 404 in 131ms
+ GET /calculator/kendall-tau-calculator 404 in 124ms
+ GET /calculator/kendall-tau-calculator 404 in 100ms
+ GET /calculator/kendall-tau-calculator 404 in 113ms
+ ○ Compiling /_error ...
+ GET /calculator/kendall-tau-calculator 500 in 4639ms
+ GET /calculator/credit-score-estimator 500 in 20ms
+ ✓ Compiled /_not-found in 2.5s (13470 modules)
+ ✓ Compiled in 2.1s (13459 modules)
+ GET /calculator/credit-score-estimator 200 in 4328ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 404 in 5758ms
+ ✓ Compiled in 3.7s (13473 modules)
+ GET /calculator/credit-score-estimator 200 in 2179ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 404 in 3042ms
+ GET /calculator/credit-score-estimator 200 in 54ms
+ GET /calculator/kendall-tau-calculator 200 in 41ms
+ GET /calculator/kendall-tau-calculator 200 in 82ms
+ ✓ Compiled in 30.4s (13471 modules)
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 24.5s (508 modules)
+ ✓ Compiled in 1029ms (260 modules)
+ ✓ Compiled in 1035ms (260 modules)
+ ✓ Compiled in 249ms (260 modules)
+ ✓ Compiled in 188ms (260 modules)
+ ✓ Compiled in 226ms (260 modules)
+ ✓ Compiled in 206ms (260 modules)
+ ✓ Compiled in 209ms (260 modules)
+ ✓ Compiled in 621ms (260 modules)
+ ✓ Compiled in 236ms (260 modules)
+ ✓ Compiled in 202ms (260 modules)
+ ✓ Compiled in 217ms (260 modules)
+ ✓ Compiled in 188ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 190ms (260 modules)
+ ✓ Compiled in 186ms (260 modules)
+ ✓ Compiled in 164ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 240ms (260 modules)
+ ✓ Compiled in 198ms (260 modules)
+ ✓ Compiled in 181ms (260 modules)
+ ✓ Compiled in 194ms (260 modules)
+ ✓ Compiled in 183ms (260 modules)
+ ✓ Compiled in 162ms (260 modules)
+ ✓ Compiled in 575ms (260 modules)
+ ✓ Compiled in 217ms (260 modules)
+ ✓ Compiled in 219ms (260 modules)
+ ✓ Compiled in 216ms (260 modules)
+ ✓ Compiled in 175ms (260 modules)
+ ✓ Compiled in 223ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 264ms (260 modules)
+ ✓ Compiled in 222ms (260 modules)
+ ✓ Compiled in 194ms (260 modules)
+ ✓ Compiled in 180ms (260 modules)
+ ✓ Compiled in 215ms (260 modules)
+ ✓ Compiled in 220ms (260 modules)
+ ✓ Compiled in 367ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 184ms (260 modules)
+ ✓ Compiled in 184ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 224ms (260 modules)
+ ✓ Compiled in 992ms (260 modules)
+ ✓ Compiled in 557ms (260 modules)
+ ✓ Compiled in 502ms (260 modules)
+ ✓ Compiled in 504ms (260 modules)
+ ✓ Compiled in 501ms (260 modules)
+ ✓ Compiled in 494ms (260 modules)
+ ✓ Compiled in 476ms (260 modules)
+ ✓ Compiled in 544ms (260 modules)
+ ✓ Compiled in 476ms (260 modules)
+ ✓ Compiled in 484ms (260 modules)
+ ✓ Compiled in 630ms (260 modules)
+ ✓ Compiled in 178ms (260 modules)
+ ✓ Compiled in 184ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 170ms (260 modules)
+ ✓ Compiled in 176ms (260 modules)
+ ✓ Compiled in 200ms (260 modules)
+ ✓ Compiled in 161ms (260 modules)
+ ✓ Compiled in 178ms (260 modules)
+ ✓ Compiled in 454ms (260 modules)
+ ✓ Compiled in 208ms (260 modules)
+ ✓ Compiled in 201ms (260 modules)
+ ✓ Compiled in 177ms (260 modules)
+ ✓ Compiled in 161ms (260 modules)
+ ✓ Compiled in 199ms (260 modules)
+ ✓ Compiled in 207ms (260 modules)
+ ✓ Compiled in 181ms (260 modules)
+ ✓ Compiled in 192ms (260 modules)
+ ✓ Compiled in 172ms (260 modules)
+ ✓ Compiled in 165ms (260 modules)
+ ✓ Compiled in 169ms (260 modules)
+ ✓ Compiled in 198ms (260 modules)
+ ✓ Compiled in 202ms (260 modules)
+ ✓ Compiled in 241ms (260 modules)
+ ✓ Compiled in 197ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 193ms (260 modules)
+ ✓ Compiled in 175ms (260 modules)
+ ✓ Compiled in 176ms (260 modules)
+ ✓ Compiled in 163ms (260 modules)
+ ✓ Compiled in 231ms (260 modules)
+ ✓ Compiled in 216ms (260 modules)
+ ✓ Compiled in 192ms (260 modules)
+ ✓ Compiled in 203ms (260 modules)
+ ✓ Compiled in 184ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 221ms (260 modules)
+ ✓ Compiled in 235ms (260 modules)
+ ✓ Compiled in 224ms (260 modules)
+ ✓ Compiled in 193ms (260 modules)
+ ✓ Compiled in 229ms (260 modules)
+ ✓ Compiled in 192ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 226ms (260 modules)
+ ✓ Compiled in 214ms (260 modules)
+ ✓ Compiled in 186ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 190ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 188ms (260 modules)
+ ✓ Compiled in 187ms (260 modules)
+ ✓ Compiled in 181ms (260 modules)
+ ✓ Compiled in 161ms (260 modules)
+ ✓ Compiled in 214ms (260 modules)
+ ✓ Compiled in 227ms (260 modules)
+ ✓ Compiled in 197ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 169ms (260 modules)
+ ✓ Compiled in 177ms (260 modules)
+ ✓ Compiled in 177ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 178ms (260 modules)
+ ✓ Compiled in 196ms (260 modules)
+ ✓ Compiled in 160ms (260 modules)
+ ✓ Compiled in 183ms (260 modules)
+ ✓ Compiled in 354ms (260 modules)
+ ✓ Compiled in 252ms (260 modules)
+ ✓ Compiled in 201ms (260 modules)
+ ✓ Compiled in 198ms (260 modules)
+ ✓ Compiled in 184ms (260 modules)
+ ✓ Compiled in 178ms (260 modules)
+ ✓ Compiled in 167ms (260 modules)
+ ✓ Compiled in 223ms (260 modules)
+ ✓ Compiled in 185ms (260 modules)
+ ✓ Compiled in 194ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 178ms (260 modules)
+ ✓ Compiled in 159ms (260 modules)
+ ✓ Compiled in 215ms (260 modules)
+ ✓ Compiled in 173ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 207ms (260 modules)
+ ✓ Compiled in 174ms (260 modules)
+ ✓ Compiled in 179ms (260 modules)
+ ✓ Compiled in 192ms (260 modules)
+ ✓ Compiled in 231ms (260 modules)
+ ✓ Compiled in 199ms (260 modules)
+ ✓ Compiled in 251ms (260 modules)
+ ✓ Compiled in 606ms (260 modules)
+ ✓ Compiled in 198ms (260 modules)
+ ✓ Compiled in 198ms (260 modules)
+ ✓ Compiled in 192ms (260 modules)
+ ✓ Compiled in 172ms (260 modules)
+ ✓ Compiled in 1240ms (260 modules)
+ ✓ Compiled in 244ms (260 modules)

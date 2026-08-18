@@ -4,214 +4,210 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Gauge } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-interface HorsepowerResult {
-  horsepower: number;
+interface HpResult {
   torque: number;
   rpm: number;
-  kw: number;
-  isError: boolean;
-  errorMsg?: string;
+  crankHp: number;
+  lossPct: number;
+  wheelHp: number;
+  weightLb: number;
+  hpPerTon: number;
+  curve: { rpm: number; hp: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { rpm: number; hp: number }[];
 }
 
-const calculateHorsepower = (mode: "find_hp" | "find_torque", torqueOrHpStr: string, rpmStr: string): HorsepowerResult | null => {
-  const val1 = parseFloat(torqueOrHpStr);
-  const rpm = parseFloat(rpmStr);
+function fmtHp(v: number): string {
+  return `${v.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} hp`;
+}
 
-  if (isNaN(val1) || isNaN(rpm) || val1 < 0 || rpm <= 0) return null;
+function calcHp(torque: number, rpm: number, lossPct: number, weightLb: number): HpResult {
+  const crankHp = (torque * rpm) / 5252;
+  const wheelHp = crankHp * (1 - lossPct / 100);
+  const hpPerTon = weightLb > 0 ? (crankHp / (weightLb / 2000)) : 0;
 
-  try {
-    let hp = 0;
-    let torque = 0;
-
-    // Formula: HP = (Torque * RPM) / 5252
-    if (mode === "find_hp") {
-      torque = val1;
-      hp = (torque * rpm) / 5252;
-    } else {
-      // Find Torque: Torque = (HP * 5252) / RPM
-      hp = val1;
-      torque = (hp * 5252) / rpm;
-    }
-
-    // 1 HP = 0.7457 kW
-    const kw = hp * 0.7457;
-
-    return {
-      horsepower: hp,
-      torque: torque,
-      rpm: rpm,
-      kw: kw,
-      isError: false
-    };
-
-  } catch (err) {
-    return { horsepower: 0, torque: 0, rpm: 0, kw: 0, isError: true, errorMsg: "Calculation error." };
+  const curve: { rpm: number; hp: number }[] = [];
+  for (let r = 1000; r <= 7000; r += 500) {
+    curve.push({ rpm: r, hp: Math.round(((torque * r) / 5252) * 10) / 10 });
   }
-};
 
-const EngineHorsepowerCalculator = () => {
-  const [mode, setMode] = useState<"find_hp" | "find_torque">("find_hp");
-  const [val1, setVal1] = useState("350"); // Torque or HP
-  const [rpm, setRpm] = useState("5000");
+  const breakdown = [
+    { label: "Engine Torque", value: `${torque.toLocaleString()} lb-ft` },
+    { label: "RPM at Peak Torque", value: `${rpm.toLocaleString()} rpm` },
+    { label: "Crank Horsepower (HP = T×RPM÷5252)", value: fmtHp(crankHp) },
+    { label: "Drivetrain Loss", value: `${lossPct}%` },
+    { label: "Wheel Horsepower", value: fmtHp(wheelHp) },
+    { label: "Power Lost to Drivetrain", value: `${(crankHp - wheelHp).toLocaleString("en-US", { maximumFractionDigits: 1 })} hp` },
+    { label: "Vehicle Weight", value: `${weightLb.toLocaleString()} lb` },
+    { label: "Power-to-Weight", value: `${hpPerTon.toFixed(1)} hp/ton` },
+  ];
+  const summaryStats = [
+    { label: "Crank HP", value: fmtHp(crankHp) },
+    { label: "Wheel HP", value: fmtHp(wheelHp) },
+    { label: "Drivetrain Loss", value: `${lossPct}%` },
+    { label: "Torque", value: `${torque.toLocaleString()} lb-ft` },
+    { label: "RPM", value: `${rpm.toLocaleString()}` },
+    { label: "Weight", value: `${weightLb.toLocaleString()} lb` },
+    { label: "Power-to-Weight", value: `${hpPerTon.toFixed(1)} hp/ton` },
+    { label: "Loss", value: `${(crankHp - wheelHp).toFixed(1)} hp` },
+  ];
+  return { torque, rpm, crankHp, lossPct, wheelHp, weightLb, hpPerTon, curve, breakdown, summaryStats, chartData: curve };
+}
 
-  const [result, setResult] = useState<HorsepowerResult | null>(null);
+const DEFAULTS = { torque: "350", rpm: "4000", loss: "15", weight: "3500" };
 
-  const calculate = () => {
-    setResult(calculateHorsepower(mode, val1, rpm));
+export default function EngineHorsepowerCalculator() {
+  const [torque, setTorque] = useState(DEFAULTS.torque);
+  const [rpm, setRpm] = useState(DEFAULTS.rpm);
+  const [loss, setLoss] = useState(DEFAULTS.loss);
+  const [weight, setWeight] = useState(DEFAULTS.weight);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<HpResult | null>(null);
+
+  const tq = parseFloat(torque) || 0;
+  const rp = parseFloat(rpm) || 0;
+  const ls = parseFloat(loss) || 0;
+  const wt = parseFloat(weight) || 0;
+  const errs: string[] = [];
+  if (tq <= 0) errs.push("Engine torque must be greater than 0.");
+  if (rp < 500 || rp > 12000) errs.push("RPM must be between 500 and 12,000.");
+  if (ls < 0 || ls > 50) errs.push("Drivetrain loss must be between 0% and 50%.");
+  if (wt <= 0) errs.push("Vehicle weight must be greater than 0.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcHp(tq, rp, ls, wt)); };
+  const reset = () => {
+    setTorque(DEFAULTS.torque); setRpm(DEFAULTS.rpm); setLoss(DEFAULTS.loss); setWeight(DEFAULTS.weight);
+    setResult(calcHp(350, 4000, 15, 3500));
   };
+  useEffect(() => { setResult(calcHp(350, 4000, 15, 3500)); }, []);
 
-  useEffect(() => { calculate(); }, [mode, val1, rpm]);
-
-  const handleModeChange = (newMode: "find_hp" | "find_torque") => {
-    setMode(newMode);
-    if (newMode === "find_hp") { setVal1("350"); setRpm("5000"); }
-    if (newMode === "find_torque") { setVal1("333"); setRpm("5000"); }
-  };
-
-  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the difference between Horsepower and Torque?", answer: "Torque is the physical twisting force generated by the engine (how hard the engine pushes you back in your seat). Horsepower is a measurement of how fast that torque can be delivered (how fast you hit 60mph). You can think of Torque as 'Work' and Horsepower as the 'Rate of Work'." },
-    { question: "Why is the number 5252 in the formula?", answer: "5252 is a mathematical constant derived from converting radians to revolutions, minutes to seconds, and foot-pounds to horsepower. Because of this constant, an engine's torque and horsepower will ALWAYS intersect exactly at 5,252 RPM on a dyno graph." },
-    { question: "Can an engine have high torque but low horsepower?", answer: "Yes, this is very common in diesel trucks and tractors. They generate massive twisting force (torque) to pull heavy loads, but they do it at very low RPMs. Because HP = (Torque × RPM) / 5252, a low RPM yields a low horsepower number, meaning they pull hard but accelerate slowly." },
-    { question: "What is a Kilowatt (kW) in cars?", answer: "Outside of the US, engine power is often measured in Kilowatts (kW) rather than Horsepower. 1 Horsepower is equal to exactly 0.7457 kW. As electric vehicles (which use kW natively) become more common, kW is replacing HP as the standard metric for vehicle power worldwide." },
+    { question: "Why is 5,252 in the horsepower formula?", answer: "Horsepower and torque are mathematically equal at 5,252 RPM by definition. HP = torque × RPM ÷ 5,252 converts rotational force at an engine speed into a power rate." },
+    { question: "What is drivetrain loss?", answer: "Power is consumed by the transmission, driveshaft, differential, and tires before reaching the wheels. Manual and automatic cars typically lose 12–20%; the loss is higher for AWD and older automatics." },
+    { question: "Dyno numbers: crank or wheel?", answer: "Manufacturers quote crank horsepower (engine output). Chassis dynamometers measure wheel horsepower, which is always lower. Adding back the estimated loss approximates the factory figure." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Engine Horsepower Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Science", href: "/calculator#science" }, { label: "Engine Horsepower Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Engine Horsepower Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Engine Horsepower Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5">What are you trying to find?</label>
-              <div className="flex flex-col gap-2 rounded-md border border-input p-1 bg-background">
-                <button type="button" onClick={() => handleModeChange("find_hp")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_hp" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate</button>
-                <button type="button" onClick={() => handleModeChange("find_torque")} className={`py-2 px-3 text-sm font-bold rounded transition-colors text-left ${mode === "find_torque" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Calculate</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Engine Torque</label>
+                <div className={inp}><input type="number" value={torque} onChange={e => setTorque(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">lb-ft</span></div>
+              </div>
+              <div>
+                <label className={lbl}>RPM at Peak Torque</label>
+                <div className={inp}><input type="number" value={rpm} onChange={e => setRpm(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">rpm</span></div>
               </div>
             </div>
-
-            <div className="h-px w-full bg-border/50"></div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>{mode === "find_hp" ? "Torque" : "Horsepower"}</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">{mode === "find_hp" ? "lb-ft" : "HP"}</span>
-              </label>
-              <div className={wrap}><input type="number" value={val1} onChange={e => setVal1(e.target.value)} className={ci} min="0" step="any" /></div>
-            </div>
-
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-foreground mb-1.5 flex justify-between">
-                <span>Engine Speed (RPM)</span>
-                <span className="text-xs text-muted-foreground font-normal self-end">Revs Per Minute</span>
-              </label>
-              <div className={wrap}><input type="number" value={rpm} onChange={e => setRpm(e.target.value)} className={ci} min="1" step="1" /></div>
-            </div>
-
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { handleModeChange(mode); }} className="w-12 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-12 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-5 w-5" />
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Drivetrain</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className={lbl}>Drivetrain Loss</label>
+                      <div className={inp}><input type="number" value={loss} onChange={e => setLoss(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+                    </div>
+                    <div>
+                      <label className={lbl}>Vehicle Weight</label>
+                      <div className={inp}><input type="number" value={weight} onChange={e => setWeight(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">lb</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">{result.errorMsg}</div>
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Crank Horsepower</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtHp(result.crankHp)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.torque.toLocaleString()} lb-ft @ {result.rpm.toLocaleString()} rpm · {result.wheelHp.toFixed(1)} hp at wheels</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Wheel Horsepower`, fmtHp(result.wheelHp)], ["Drivetrain Loss", `${result.lossPct}%`], ["Power-to-Weight", `${result.hpPerTon.toFixed(1)} hp/ton`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Horsepower Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 2 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 2 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 2 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Horsepower Curve (constant torque)</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <LineChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="rpm" tick={{ fontSize: 11 }} tickFormatter={v => `${v / 1000}k`} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v} hp`} />
+                    <Tooltip formatter={(v: number) => [`${v} hp`, "Power"]} labelFormatter={(l: number) => `${l.toLocaleString()} rpm`} />
+                    <Line type="monotone" dataKey="hp" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">HP rises linearly with RPM while torque stays constant</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-            ) : result && (<>
-              
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
-                <div className="text-sm font-bold text-primary mb-2 uppercase tracking-wider">
-                  Calculated {mode === "find_hp" ? "Horsepower" : "Torque"}
-                </div>
-                <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                  <span className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono">
-                    {mode === "find_hp" ? result.horsepower.toFixed(1) : result.torque.toFixed(1)}
-                  </span>
-                  <span className="text-2xl font-bold text-muted-foreground font-mono">
-                    {mode === "find_hp" ? "HP" : "lb-ft"}
-                  </span>
-                </div>
-                
-                {mode === "find_hp" && (
-                  <div className="mt-4 pt-4 border-t border-primary/20">
-                    <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Equivalent Power (Metric)</div>
-                    <div className="text-xl font-bold text-foreground font-mono">{result.kw.toFixed(1)} <span className="text-muted-foreground text-base">kW</span></div>
-                  </div>
-                )}
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">Complete Engine Profile</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  <div className="bg-secondary/30 rounded border border-border/50 p-3 text-center">
-                    <div className="text-xs text-muted-foreground font-bold uppercase mb-1">Torque</div>
-                    <div className="text-lg font-bold text-foreground font-mono">{result.torque.toFixed(1)} <span className="text-sm font-normal text-muted-foreground">lb-ft</span></div>
-                  </div>
-                  <div className="bg-secondary/30 rounded border border-border/50 p-3 text-center">
-                    <div className="text-xs text-muted-foreground font-bold uppercase mb-1">Speed</div>
-                    <div className="text-lg font-bold text-foreground font-mono">{result.rpm.toLocaleString()} <span className="text-sm font-normal text-muted-foreground">RPM</span></div>
-                  </div>
-                  <div className="bg-secondary/30 rounded border border-border/50 p-3 text-center col-span-2 md:col-span-1">
-                    <div className="text-xs text-muted-foreground font-bold uppercase mb-1">Horsepower</div>
-                    <div className="text-lg font-bold text-foreground font-mono">{result.horsepower.toFixed(1)} <span className="text-sm font-normal text-muted-foreground">HP</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
-                <h3 className="text-base font-bold text-foreground mb-4">The Formula</h3>
-                <div className="bg-background rounded border border-border/50 p-4 font-mono text-center">
-                  <div className="text-lg font-bold text-foreground mb-2">HP = (Torque × RPM) ÷ 5252</div>
-                  <div className="text-sm text-muted-foreground">
-                    {mode === "find_hp" 
-                      ? `${result.horsepower.toFixed(1)} = (${result.torque.toFixed(1)} × ${result.rpm}) ÷ 5252` 
-                      : `${result.torque.toFixed(1)} = (${result.horsepower.toFixed(1)} × 5252) ÷ ${result.rpm}`
-                    }
-                  </div>
-                </div>
-              </div>
-
             </>)}
           </div>
         </div>
-        
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Horsepower vs. Torque</h2>
-            <p>In the automotive world, there is an old saying: <em>"Horsepower sells cars, but torque wins races."</em> To understand how an engine truly performs, you must understand the mathematical relationship between the two.</p>
-            <ul>
-              <li><strong>Torque (lb-ft)</strong> is the physical, twisting force the engine generates. Imagine using a wrench to tighten a bolt; the rotational force you apply is torque. In a car, torque is what pushes you back into your seat when you step on the gas. It represents <em>Work</em>.</li>
-              <li><strong>Horsepower (HP)</strong> is a calculated measurement of how fast that work can be delivered. An engine might be capable of generating a lot of torque, but if it can't spin very fast, it won't produce much horsepower. HP represents the <em>Rate of Work</em>.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">The Formula: HP = (Torque × RPM) / 5252</h2>
-            <p>Because horsepower is a mathematical derivative of torque and engine speed, you cannot have one without the other. This exact formula applies to every internal combustion engine on earth, from a lawnmower to a Formula 1 car.</p>
-            
-            <h3>What is 5252?</h3>
-            <p>If you look at the dyno graph (the chart showing power delivery) of any engine, the Horsepower curve and the Torque curve will <strong>always perfectly intersect at exactly 5,252 RPM</strong>. Why? Because of the number 5,252 in the denominator.</p>
-            <p>James Watt (who invented the concept of horsepower) defined 1 HP as 33,000 foot-pounds of work per minute. To calculate rotational engine power, you must convert linear distance to a circle (using Pi). When you do the math: <code>33,000 / (2 × π) = 5252.11</code>. That constant anchors the physics of engine rotation.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Tractors and F1 Cars are Different</h2>
-            <p>Understanding this formula explains why different vehicles feel completely different:</p>
-            <ul>
-              <li><strong>Semi-Trucks:</strong> A diesel truck might have 1,500 lb-ft of torque but only 400 HP. How? Because diesel engines spin very slowly (redlining around 2,000 RPM). A massive torque number divided by 5252, multiplied by a tiny RPM number, yields low horsepower. They pull massive weight, but accelerate very slowly.</li>
-              <li><strong>Formula 1 Cars:</strong> An F1 engine might only produce 300 lb-ft of torque (less than many pickup trucks). However, because the engine can spin at a screaming 15,000 RPM, it generates massive horsepower. They can't tow a boat, but they accelerate blisteringly fast.</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-3">Horsepower from Torque</h2>
+            <p>This <strong>engine horsepower calculator</strong> applies the standard dynamometer equation: HP = torque (lb-ft) × RPM ÷ 5,252. At 5,252 RPM the two curves cross by definition — torque and horsepower are numerically equal there, which is why the constant appears in every dyno formula.</p>
+            <h2 className="text-2xl font-bold mb-3">Crank vs Wheel Power</h2>
+            <p>Manufacturers rate engines at the crankshaft, before the transmission and differential consume energy. This calculator estimates wheel horsepower by subtracting a drivetrain loss percentage typical for the layout — roughly 10–15% for RWD manuals and 15–20% for AWD or automatic cars.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading the Curve</h2>
+            <p>With constant torque, horsepower rises linearly with RPM. Real engines have a torque peak and a falling torque curve at high RPM, so the true power curve peaks and drops — the shape tells you where the engine likes to run for maximum acceleration.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/engine-horsepower-calculator" />
           <PopularCalculators exclude="/calculator/engine-horsepower-calculator" />
@@ -219,5 +215,4 @@ const EngineHorsepowerCalculator = () => {
       </div>
     </>
   );
-};
-export default EngineHorsepowerCalculator;
+}

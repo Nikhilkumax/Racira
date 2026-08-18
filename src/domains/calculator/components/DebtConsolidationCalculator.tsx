@@ -24,11 +24,6 @@ const DebtConsolidationCalculator = () => {
   const [showAdv, setShowAdv] = useState(false);
   const [results, setResults] = useState<any>(null);
   const [showResults, setShowResults] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  import("react").then(React => {
-    React.useEffect(() => { setMounted(true); }, []);
-  });
 
   const updateDebt = (i: number, field: keyof Debt, val: string) => {
     setDebts(prev => prev.map((d, idx) => idx === i ? { ...d, [field]: val } : d));
@@ -142,8 +137,7 @@ const DebtConsolidationCalculator = () => {
                   </div>
                 </div>
 
-                {mounted && (
-                  <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
                     <h3 className="text-sm font-bold mb-4 w-full text-left">New Loan Cost Breakdown</h3>
                     <ResponsiveContainer width="100%" height={220}>
                       <PieChart>
@@ -161,7 +155,6 @@ const DebtConsolidationCalculator = () => {
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
-                )}
 
                 <ResultDisplay items={[
                   { label: "Total Debt Consolidated", value: 0, textValue: "$" + results.totalBalance.toLocaleString() },

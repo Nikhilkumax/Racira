@@ -124,7 +124,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Convert the manufacturer's advertised engine horsepower into actual power delivered to the wheels.</p>
+            
 
             <div className="grid grid-cols-1 gap-4">
               <CompactInput id="crank" label="Advertised Engine HP (Crank/BHP)" value={inputs.crankHp} onChange={(v: string) => handleChange("crankHp", v)} suffix="HP" placeholder="400" />

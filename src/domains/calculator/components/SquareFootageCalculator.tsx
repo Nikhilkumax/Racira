@@ -4,13 +4,22 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Maximize } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface SqFtResult {
   sqFt: number;
   sqYards: number;
   sqMeters: number;
   acres: number;
+  shapeLabel: string;
+  dim1Label: string;
+  dim2Label: string;
+  dim1: number;
+  dim2: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean }[];
+  summaryStats: { label: string; value: string }[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -45,16 +54,54 @@ const calculateSqFt = (
     const sqMeters = areaSqFt * 0.092903;
     const acres = areaSqFt / 43560;
 
+    const shapeLabel = shape === "rectangle" ? "Rectangle" : shape === "triangle" ? "Triangle" : "Circle";
+    const dim1Label = shape === "rectangle" ? "Length" : shape === "triangle" ? "Base Length" : "Diameter";
+    const dim2Label = shape === "rectangle" ? "Width" : "Perpendicular Height";
+
+    const chartData = [
+      { name: "Square Feet", value: parseFloat(areaSqFt.toFixed(1)) },
+      { name: "Square Yards", value: parseFloat(sqYards.toFixed(1)) },
+      { name: "Square Meters", value: parseFloat(sqMeters.toFixed(1)) },
+    ];
+
+    const breakdown = [
+      { label: "Shape", value: shapeLabel },
+      { label: dim1Label, value: `${L1} ft` },
+      { label: dim2Label, value: shape === "circle" ? "—" : `${L2} ft` },
+      { label: "Area (Square Feet)", value: `${areaSqFt.toFixed(2)} sq ft`, highlight: true },
+      { label: "Area (Square Yards)", value: `${sqYards.toFixed(2)} sq yd` },
+      { label: "Area (Square Meters)", value: `${sqMeters.toFixed(2)} sq m` },
+      { label: "Area (Acres)", value: `${acres.toFixed(5)} ac` },
+    ];
+
+    const summaryStats = [
+      { label: "Shape", value: shapeLabel },
+      { label: dim1Label, value: `${L1} ft` },
+      { label: dim2Label, value: shape === "circle" ? "—" : `${L2} ft` },
+      { label: "Square Feet", value: `${areaSqFt.toFixed(2)}` },
+      { label: "Square Yards", value: sqYards.toFixed(2) },
+      { label: "Square Meters", value: sqMeters.toFixed(2) },
+      { label: "Acres", value: acres.toFixed(5) },
+    ];
+
     return {
       sqFt: parseFloat(areaSqFt.toFixed(2)),
       sqYards: parseFloat(sqYards.toFixed(2)),
       sqMeters: parseFloat(sqMeters.toFixed(2)),
       acres: parseFloat(acres.toFixed(5)),
+      shapeLabel,
+      dim1Label,
+      dim2Label,
+      dim1: L1,
+      dim2: L2,
+      chartData,
+      breakdown,
+      summaryStats,
       isError: false
     };
 
   } catch (err) {
-    return { sqFt: 0, sqYards: 0, sqMeters: 0, acres: 0, isError: true, errorMsg: "Calculation error." };
+    return { sqFt: 0, sqYards: 0, sqMeters: 0, acres: 0, shapeLabel: "", dim1Label: "", dim2Label: "", dim1: 0, dim2: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Calculation error." };
   }
 };
 
@@ -138,7 +185,10 @@ const SquareFootageCalculator = () => {
             )}
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setShape("rectangle"); setVal1("20"); setVal2("15"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -159,6 +209,64 @@ const SquareFootageCalculator = () => {
                     {result.sqFt.toLocaleString()}
                   </div>
                   <div className="text-sm text-muted-foreground font-bold uppercase mt-1">Square Feet (sq ft)</div>
+                </div>
+              </div>
+
+              {/* 2. 3-STAT BAR */}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Square Feet", `${result.sqFt.toLocaleString()}`], ["Square Yards", `${result.sqYards.toLocaleString()}`], ["Square Meters", `${result.sqMeters.toLocaleString()}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground">{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3. BREAKDOWN TABLE */}
+              <div className="rounded-lg border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Area Breakdown</h3>
+                </div>
+                <table className="w-full text-base">
+                  <tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 4. CHART */}
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-base font-bold mb-4">Area in Different Units</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={45} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString(), "Area"]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, idx) => (
+                        <Cell key={idx} fill={idx === 0 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* 5. SUMMARY STATISTICS */}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-muted-foreground">{s.label}:</span>
+                      <span className="font-semibold text-foreground">{s.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

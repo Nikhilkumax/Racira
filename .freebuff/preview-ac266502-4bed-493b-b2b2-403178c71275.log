@@ -1,0 +1,151 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 9.3s (651 modules)
+ GET / 200 in 9567ms
+ GET / 200 in 54ms
+ GET / 200 in 54ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator in 64.2s (13225 modules)
+ GET /calculator/random-number-generator 200 in 18560ms
+ GET /calculator/random-number-generator 200 in 68470ms
+ GET /calculator/basic-arithmetic 200 in 190ms
+ GET /calculator/random-number-generator 200 in 74ms
+ ✓ Compiled in 3s (13225 modules)
+ ✓ Compiled in 902ms (5132 modules)
+ GET / 200 in 248ms
+ GET /calculator/random-number-generator 200 in 79ms
+ ✓ Compiled in 4.3s (5132 modules)
+ ✓ Compiled in 3.2s (13222 modules)
+ ✓ Compiled in 3s (13222 modules)
+ ✓ Compiled in 5.7s (13222 modules)
+ ✓ Compiled in 2.9s (13222 modules)
+ ○ Compiling /calculator ...
+ ✓ Compiled /calculator in 6.5s (8093 modules)
+ ✓ Compiled in 2.6s (13225 modules)
+ ✓ Compiled in 944ms (5132 modules)
+ ✓ Compiled in 3.4s (13225 modules)
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling / ...
+ ✓ Compiled / in 11s (651 modules)
+ GET / 200 in 11211ms
+ GET / 200 in 65ms
+ GET / 200 in 63ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 43.7s (13221 modules)
+ GET /calculator/reverse-mortgage-calculator 200 in 7219ms
+ GET /calculator/reverse-mortgage-calculator 200 in 50417ms
+ GET /calculator/reverse-mortgage-calculator 200 in 136ms
+ ○ Compiling /_error ...
+ GET /calculator/reverse-mortgage-calculator 500 in 18ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 500 in 2778ms
+ GET /calculator/reverse-mortgage-calculator 500 in 17ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 500 in 5626ms
+ GET /calculator/reverse-mortgage-calculator 500 in 9ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 500 in 13634ms
+ GET /calculator/reverse-mortgage-calculator 200 in 8ms
+ GET /calculator/reverse-mortgage-calculator 500 in 11ms
+ ✓ Compiled /_not-found in 13s (13447 modules)
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling / ...
+ ✓ Compiled / in 10.1s (651 modules)
+ GET / 200 in 10424ms
+ GET / 200 in 67ms
+ GET / 200 in 63ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 27.6s (13225 modules)
+ GET /calculator/salary-calculator 200 in 33076ms
+ GET /calculator/salary-calculator 200 in 68ms
+ GET /calculator/salary-calculator 200 in 37ms
+ ✓ Compiled in 3.3s (13225 modules)
+ ✓ Compiled in 2.4s (13227 modules)
+ ✓ Compiled in 2.5s (13229 modules)
+ ✓ Compiled in 2.5s (13231 modules)
+ ✓ Compiled in 702ms (5136 modules)
+ GET / 200 in 208ms
+ GET / 200 in 81ms
+ GET /calculator/tax-bracket-calculator 200 in 101ms
+ ✓ Compiled in 7.9s (13233 modules)
+ ✓ Compiled in 2.5s (13233 modules)
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling / ...
+ ✓ Compiled / in 9s (651 modules)
+ GET / 200 in 9341ms
+ GET / 200 in 91ms
+ GET / 200 in 47ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator in 36.6s (13225 modules)
+ GET /calculator/tds-calculator 200 in 647ms
+ GET /calculator/tds-calculator 200 in 40262ms
+ GET /calculator/tds-calculator 200 in 64ms
+ GET / 200 in 137ms
+ ✓ Compiled in 3.7s (13238 modules)
+ ✓ Compiled in 2.5s (13238 modules)
+ ✓ Compiled in 2.4s (13238 modules)
+ ✓ Compiled in 2.5s (13238 modules)
+ ✓ Compiled in 2.5s (13238 modules)
+ ✓ Compiled in 1357ms (5140 modules)
+ GET / 200 in 191ms
+ GET /calculator/stamp-duty-calculator 200 in 53ms
+ ✓ Compiled in 3.4s (13238 modules)
+ ✓ Compiled in 7.2s (13240 modules)
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 9.8s (508 modules)
+ ✓ Compiled in 400ms (260 modules)
+ ✓ Compiled in 382ms (260 modules)
+ ✓ Compiled in 389ms (260 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 669ms (652 modules)
+ GET / 200 in 815ms
+ GET / 200 in 73ms
+ GET / 200 in 58ms
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 25.2s (13226 modules)
+ GET /calculator/savings-calculator 200 in 30975ms
+ GET /calculator/savings-calculator 200 in 41ms
+ GET /calculator/savings-calculator 200 in 57ms
+ ✓ Compiled in 3.2s (13240 modules)
+ ✓ Compiled in 2.5s (13240 modules)
+ ✓ Compiled in 3.8s (13240 modules)
+ GET /calculator/property-appreciation-calculator 200 in 689ms
+ ✓ Compiled in 1556ms (5141 modules)
+ GET /calculator/property-appreciation-calculator 200 in 34ms
+ ✓ Compiled in 7.1s (13240 modules)
+ ✓ Compiled in 3s (13240 modules)
+ GET /calculator/ppf-calculator 200 in 1013ms
+ ✓ Compiled in 1274ms (5141 modules)
+ GET /calculator/ppf-calculator 200 in 41ms
+ ✓ Compiled in 12s (13240 modules)
+[?25h

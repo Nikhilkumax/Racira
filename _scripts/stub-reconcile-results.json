@@ -1,0 +1,1455 @@
+{
+  "remove": [
+    {
+      "slug": "adsense-revenue-calculator_test",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "charles-law-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "clothing-size-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "clothing-size-converter-advanced",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "coefficient-of-variation-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "coffee-strength-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "combined-gas-law-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "completing-the-square-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "complex-numbers-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "concentration-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "cone-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "conversion-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "convexity-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "cooking-measurement-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "debt-coverage-ratio-mortgage-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "food-cold-chain-energy-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "fuel-burn-rate-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "hip-to-waist-ratio-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "home-cooling-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "home-heating-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "home-improvement-loan-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "hotel-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "hourly-to-annual-salary-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "hourly-wage-to-annual-salary-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "humidity-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ib-grade-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ice-hockey-shooting-percentage-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ideal-gas-law-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "illuminance-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "inductance-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "inequality-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "integral-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "inverse-variation-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "kendall-tau-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "knitting-needle-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "kruskal-wallis-test-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "labor-cost-burn-rate-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "law-of-cosines-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "law-of-sines-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "lawn-mowing-time-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "lawn-seeding-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "lc-resonance-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "leap-year-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "lighting-lumens-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "limit-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "limiting-reagent-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "linear-regression-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "loan-to-income-ratio-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "loan-to-value-ltv-ratio-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "loan-to-value-ratio-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "logarithm-change-of-base-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "logistic-regression-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "loyalty-points-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "lsat-score-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "luminance-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "magnetic-field-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "mann-whitney-u-test-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "margin-of-error-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "mass-defect-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "matrix-determinant-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "matrix-inverse-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "matrix-multiplication-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "mcat-score-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "meal-prep-calorie-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "meeting-time-zone-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "microwave-wattage-conversion-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "modified-duration-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "molality-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "molar-mass-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "months-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "morse-code-translator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "mulch-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "multiple-regression-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "net-calorie-balance-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "net-promoter-score-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "night-eating-calorie-redistribution-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "normality-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "number-to-words-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "osmolarity-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "oven-temperature-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "oxbridge-interview-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "packing-weight-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "percent-yield-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "percentile-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pet-food-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pet-food-daily-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pet-insurance-cost-benefit-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ph-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "photon-energy-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "plant-spacing-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "plywood-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "poisson-distribution-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "polygon-area-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "polygon-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pool-volume-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "portion-size-to-calorie-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "potting-soil-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "power-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "power-factor-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pregnancy-calorie-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pressure-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "pressure-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "project-burn-rate-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "projectile-motion-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "projector-screen-size-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "put-call-parity-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "qb-rating-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "race-time-predictor",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "radiation-dose-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "radioactive-decay-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "radioactivity-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "rainwater-collection-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "rc-time-constant-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "reading-time-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "recipe-scale-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "refeeding-calorie-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "refrigerator-energy-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "resistors-in-parallel-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "resistors-in-series-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "riemann-sum-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "right-angle-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ring-size-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "ring-size-converter-advanced",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "rl-time-constant-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "road-trip-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "roman-numeral-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "roof-shingle-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "room-volume-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "root-mean-square-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "running-cadence-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "running-stride-length-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "sales-price-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "scientific-notation-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "second-mortgage-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "sector-area-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "set-operations-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "shoe-size-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "shopping-budget-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "simple-pendulum-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "sinclair-coefficient-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "snells-law-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "snow-shoveling-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "solar-panel-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "speaker-placement-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "spearman-rank-correlation-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "specific-heat-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "sphere-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "spring-constant-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "stoichiometry-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "stormwater-credit-score-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "student-budget-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "swimming-pace-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "swimming-split-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "swimming-time-conversion",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "swolf-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "symmetric-strength-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "system-of-equations-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "t-test-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "taylor-series-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "tennis-serve-speed-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "text-binary-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "thermal-expansion-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "time-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "time-difference-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "title-loan-cost-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "titration-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "token-burn-rate-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "torque-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "travel-budget-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "travel-insurance-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "treadmill-pace-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "triathlon-time-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "truth-table-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "tss-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "tuition-roi-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "tv-viewing-distance-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "two-complement-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "typing-speed-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "uc-gpa-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "url-decoder",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "url-encoder",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "uv-index-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "vapor-pressure-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "vector-cross-product-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "vector-operations-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "visa-fee-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "viscosity-dynamic-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "viscosity-kinematic-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "voltage-divider-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "volume-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wall-area-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wallpaper-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "water-bill-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wavelength-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wedding-loan-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "weeks-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "weighted-average-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wells-score-for-dvt-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wilcoxon-signed-rank-test-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wilks-score-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "wind-speed-power-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "window-curtain-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "work-hours-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "work-power-calculator",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    },
+    {
+      "slug": "yarn-weight-converter",
+      "wired": "yes",
+      "scanStatus": "APPROVED & COMPLETE",
+      "decision": "REMOVE",
+      "reason": "passes all core checks"
+    }
+  ],
+  "keep": [
+    {
+      "slug": "tidal-prediction-calculator",
+      "wired": "yes",
+      "scanStatus": "NEEDS REBUILD",
+      "decision": "KEEP",
+      "reason": "missing primary result card"
+    },
+    {
+      "slug": "transformer-calculator",
+      "wired": "yes",
+      "scanStatus": "NEEDS REBUILD",
+      "decision": "KEEP",
+      "reason": "missing primary result card"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Droplets } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface DewPointResult {
   dewPointF: number;
@@ -100,6 +101,15 @@ const DewPointCalculator = () => {
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
+  const chartData = [20, 40, 60, 80, 100].map((rh) => {
+    const a = 17.27;
+    const b = 237.7;
+    const tC = unit === "imperial" ? ((parseFloat(temp) || 0) - 32) * 5 / 9 : parseFloat(temp) || 0;
+    const alpha = (a * tC) / (b + tC) + Math.log(rh / 100);
+    const dpC = (b * alpha) / (a - alpha);
+    return { name: `${rh}%`, "Dew Point": unit === "imperial" ? Number(((dpC * 9 / 5) + 32).toFixed(1)) : Number(dpC.toFixed(1)) };
+  });
+
   const faqs = [
     { question: "What exactly is Dew Point?", answer: "Dew point is the absolute temperature to which air must be cooled for water vapor to condense into liquid water (dew). If the air temperature drops to the dew point, you get fog, dew on the grass, or condensation on your windows. It is an absolute measurement of how much moisture is physically in the air." },
     { question: "Why is Dew Point better than Relative Humidity?", answer: "Relative Humidity (RH) is misleading because it changes with temperature. If the actual amount of water in the air stays exactly the same, but the sun comes out and heats up the air, the RH will drop rapidly (because hot air can 'hold' more water). The Dew Point, however, will not change at all. Meteorologists prefer Dew Point because it is an absolute metric for human comfort." },
@@ -175,6 +185,22 @@ const DewPointCalculator = () => {
                     {unit === "imperial" ? `${result.dewPointC} °C` : `${result.dewPointF} °F`}
                   </div>
                 </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-3">Dew Point vs Relative Humidity</h3>
+                <div className="h-[220px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                      <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                      <RechartsTooltip formatter={(value: number) => `${value}°`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                      <Bar dataKey="Dew Point" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={45} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-center text-muted-foreground mt-3 italic">Dew point at the current air temperature across humidity levels.</p>
               </div>
 
               <div className={`card-calculator !p-5 border shadow-sm ${result.dewPointF >= 70 ? 'bg-orange-500/5 border-orange-500/30' : result.dewPointF <= 55 ? 'bg-sky-500/5 border-sky-500/30' : 'bg-card border-border'}`}>

@@ -55,7 +55,12 @@ export default function ClosingCostCalculator() {
     };
   };
 
-  const results = calculateCosts();
+  const [results, setResults] = useState(calculateCosts());
+  const handleCalculate = () => setResults(calculateCosts());
+  const handleReset = () => {
+    setHomePrice(350000);
+    setDownPaymentPercent(20);
+  };
 
   return (
     <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -102,6 +107,15 @@ export default function ClosingCostCalculator() {
                   Amount: ${(homePrice * downPaymentPercent / 100).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                 </div>
               </div>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button type="button" onClick={handleCalculate} className="flex-1 h-11 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-colors flex items-center justify-center gap-2 shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 h-11 rounded-xl border border-border/50 bg-background hover:bg-secondary text-foreground font-semibold transition-colors flex items-center justify-center gap-2">
+                Reset
+              </button>
             </div>
           </div>
         </div>

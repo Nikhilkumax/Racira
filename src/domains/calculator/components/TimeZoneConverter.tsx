@@ -1,13 +1,9 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RotateCcw, Calculator } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
 const zones = [
   { key: "UTC-12", label: "UTC−12 (Baker Island)", offset: -12 },
@@ -36,194 +32,331 @@ const zones = [
   { key: "UTC+10", label: "UTC+10 (AEST/Sydney)", offset: 10 },
   { key: "UTC+11", label: "UTC+11 (Magadan)", offset: 11 },
   { key: "UTC+12", label: "UTC+12 (Auckland)", offset: 12 },
-];
+]
 
-const formatTime = (hours: number, minutes: number) => {
-  let h = hours % 24;
-  if (h < 0) h += 24;
-  const dayShift = hours < 0 ? " (prev day)" : hours >= 24 ? " (next day)" : "";
-  const period = h >= 12 ? "PM" : "AM";
-  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-  return `${h12}:${minutes.toString().padStart(2, "0")} ${period}${dayShift}`;
-};
-
-const format24 = (hours: number, minutes: number) => {
-  let h = hours % 24;
-  if (h < 0) h += 24;
-  return `${h.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-};
-
-interface ConversionResult {
-  sourceTime12: string;
-  sourceTime24: string;
-  sourceZoneLabel: string;
-  convertedTime12: string;
-  convertedTime24: string;
-  targetZoneLabel: string;
-  diff: number;
-  h: number;
-  m: number;
+interface Inputs {
+  hour: string
+  minute: string
+  fromZone: string
+  toZone: string
 }
 
-const TimeZoneConverter = () => {
-  const [hour, setHour] = useState("12");
-  const [minute, setMinute] = useState("0");
-  const [fromZone, setFromZone] = useState("UTC-5");
-  const [toZone, setToZone] = useState("UTC+5.5");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<ConversionResult | null>(null);
+interface Result {
+  sourceTime12: string
+  convertedTime12: string
+  convertedTime24: string
+  diff: number
+  targetZoneLabel: string
+  worldClock: { name: string; hour: number; minute: number; time12: string; isFrom: boolean; isTo: boolean }[]
+}
 
-  const handleCalculate = () => {
-    const h = parseInt(hour) || 0;
-    const m = parseInt(minute) || 0;
-    const fromOffset = zones.find(z => z.key === fromZone)?.offset ?? 0;
-    const toOffset = zones.find(z => z.key === toZone)?.offset ?? 0;
-    const diff = toOffset - fromOffset;
-    const totalMinutes = h * 60 + m + diff * 60;
-    const resultH = Math.floor(totalMinutes / 60);
-    const resultM = Math.round(totalMinutes % 60);
+const DEFAULTS: Inputs = { hour: "12", minute: "0", fromZone: "UTC-5", toZone: "UTC+5.5" }
 
-    setResult({
-      sourceTime12: formatTime(h, m),
-      sourceTime24: format24(h, m),
-      sourceZoneLabel: zones.find(z => z.key === fromZone)?.label ?? fromZone,
-      convertedTime12: formatTime(resultH, resultM),
-      convertedTime24: format24(resultH, resultM),
-      targetZoneLabel: zones.find(z => z.key === toZone)?.label ?? toZone,
-      diff,
-      h,
-      m,
-    });
-    setShowResults(true);
-  };
+function formatTime(hours: number, minutes: number): string {
+  let h = hours % 24
+  if (h < 0) h += 24
+  const dayShift = hours < 0 ? " (prev day)" : hours >= 24 ? " (next day)" : ""
+  const period = h >= 12 ? "PM" : "AM"
+  const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h
+  return `${h12}:${minutes.toString().padStart(2, "0")} ${period}${dayShift}`
+}
 
-  const reset = () => {
-    setShowResults(false);
-    setHour("12");
-    setMinute("0");
-    setFromZone("UTC-5");
-    setToZone("UTC+5.5");
-    setResult(null);
-  };
+function calculate(inputs: Inputs): Result {
+  const h = parseInt(inputs.hour) || 0
+  const m = parseInt(inputs.minute) || 0
+  const fromOffset = zones.find((z) => z.key === inputs.fromZone)?.offset ?? 0
+  const toOffset = zones.find((z) => z.key === inputs.toZone)?.offset ?? 0
+  const diff = toOffset - fromOffset
+  const totalMinutes = h * 60 + m + diff * 60
+  const resultH = Math.floor(totalMinutes / 60)
+  const resultM = Math.round(totalMinutes % 60)
 
-  const faqs = [
-    { question: "How does time zone conversion work?", answer: "Time zones are defined as offsets from Coordinated Universal Time (UTC). To convert between two zones, calculate the difference between their offsets and add it to the source time. For example, EST (UTC−5) to IST (UTC+5:30) is a +10.5 hour shift." },
-    { question: "What is UTC?", answer: "UTC (Coordinated Universal Time) is the global time standard from which all time zones are derived. It does not observe daylight saving time and serves as the zero reference point (UTC+0) for all other offsets." },
-    { question: "Does this tool account for daylight saving time?", answer: "This converter uses fixed UTC offsets rather than named time zones with DST rules. During daylight saving periods, you may need to adjust the offset manually (e.g., use UTC−4 instead of UTC−5 for EDT instead of EST)." },
-    { question: "What is the International Date Line?", answer: "The International Date Line runs roughly along the 180° meridian in the Pacific Ocean. When you cross it heading westward you skip forward a day; heading eastward you go back a day. Our converter handles this by showing '(next day)' or '(prev day)' labels." },
-    { question: "How many time zones are there?", answer: "There are 38 time zones in practice, ranging from UTC−12 to UTC+14. Most are whole-hour offsets, but India (UTC+5:30), Nepal (UTC+5:45), and several others use fractional-hour offsets." },
-  ];
+  const worldClock = zones.map((z) => {
+    const zm = h * 60 + m + (z.offset - fromOffset) * 60
+    const zh = Math.floor(zm / 60)
+    const zmin = Math.round(zm % 60)
+    let hh = zh % 24
+    if (hh < 0) hh += 24
+    const period = hh >= 12 ? "PM" : "AM"
+    const h12 = hh === 0 ? 12 : hh > 12 ? hh - 12 : hh
+    return {
+      name: z.key,
+      hour: hh,
+      minute: zmin,
+      time12: `${h12}:${zmin.toString().padStart(2, "0")} ${period}`,
+      isFrom: z.key === inputs.fromZone,
+      isTo: z.key === inputs.toZone,
+    }
+  })
+
+  return {
+    sourceTime12: formatTime(h, m),
+    convertedTime12: formatTime(resultH, resultM),
+    convertedTime24: `${(resultH % 24 + 24) % 24 < 10 ? "0" : ""}${(resultH % 24 + 24) % 24}:${resultM.toString().padStart(2, "0")}`,
+    diff,
+    targetZoneLabel: zones.find((z) => z.key === inputs.toZone)?.label ?? inputs.toZone,
+    worldClock,
+  }
+}
+
+export default function TimeZoneConverter() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
+
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
+
+  const invalid = useMemo(() => {
+    const h = parseInt(inputs.hour)
+    const m = parseInt(inputs.minute)
+    return isNaN(h) || h < 0 || h > 23 || isNaN(m) || m < 0 || m > 59
+  }, [inputs])
+
+  const chartData = useMemo(
+    () =>
+      result.worldClock.map((z) => ({
+        name: z.name,
+        hour: z.hour,
+        time: z.time12,
+        isFrom: z.isFrom,
+        isTo: z.isTo,
+      })),
+    [result]
+  )
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Time Zone Converter" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Zone Converter</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Tools</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">Time Zone Converter</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="tz-hour" label="Hour (0-23)" value={hour} onChange={setHour} min="0" step="1" />
-                <InputField id="tz-minute" label="Minute" value={minute} onChange={setMinute} min="0" step="1" />
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">From Time Zone</label>
-                  <Select value={fromZone} onValueChange={setFromZone}>
-                    <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                    <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-1.5 block">To Time Zone</label>
-                  <Select value={toZone} onValueChange={setToZone}>
-                    <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                    <SelectContent>{zones.map(z => <SelectItem key={z.key} value={z.key}>{z.label}</SelectItem>)}</SelectContent>
-                  </Select>
-                </div>
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        Time Zone Converter
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Hour (0–23)</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={23}
+                  value={inputs.hour}
+                  onChange={(e) => setInputs({ ...inputs, hour: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="12"
+                />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className="block text-sm font-medium mb-1">Minute</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={59}
+                  value={inputs.minute}
+                  onChange={(e) => setInputs({ ...inputs, minute: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="0"
+                />
               </div>
-          </div>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">From Time Zone</label>
+                <select
+                  value={inputs.fromZone}
+                  onChange={(e) => setInputs({ ...inputs, fromZone: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {zones.map((z) => (
+                    <option key={z.key} value={z.key}>{z.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">To Time Zone</label>
+                <select
+                  value={inputs.toZone}
+                  onChange={(e) => setInputs({ ...inputs, toZone: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {zones.map((z) => (
+                    <option key={z.key} value={z.key}>{z.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            {invalid && <p className="text-xs text-red-500 mt-2">Hour must be 0–23 and minute 0–59.</p>}
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Result</h2>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <div className="result-card">
-                    <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Source Time</p>
-                    <p className="text-xl font-bold text-foreground">{result.sourceTime12}</p>
-                    <p className="text-sm text-muted-foreground">{result.sourceTime24} • {result.sourceZoneLabel}</p>
-                  </div>
-                  <div className="result-card">
-                    <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Converted Time</p>
-                    <p className="text-xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">{result.convertedTime12}</p>
-                    <p className="text-sm text-muted-foreground">{result.convertedTime24} • {result.targetZoneLabel}</p>
-                  </div>
-                </div>
-                <div className="result-card mt-3">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Time Difference</p>
-                  <p className="text-xl font-bold text-foreground">{result.diff >= 0 ? "+" : ""}{result.diff} hours</p>
-                </div>
-
-                {/* Popular Conversions */}
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-3">Popular Conversions</h3>
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {[
-                      { from: "UTC-5", to: "UTC+0", label: "EST → GMT" },
-                      { from: "UTC-8", to: "UTC+5.5", label: "PST → IST" },
-                      { from: "UTC+0", to: "UTC+9", label: "GMT → JST" },
-                      { from: "UTC-5", to: "UTC+1", label: "EST → CET" },
-                      { from: "UTC+5.5", to: "UTC+8", label: "IST → SGT" },
-                      { from: "UTC-8", to: "UTC+0", label: "PST → GMT" },
-                    ].map(conv => {
-                      const fOff = zones.find(z => z.key === conv.from)?.offset ?? 0;
-                      const tOff = zones.find(z => z.key === conv.to)?.offset ?? 0;
-                      const d = tOff - fOff;
-                      const tMin = result.h * 60 + result.m + d * 60;
-                      const tH = Math.floor(tMin / 60);
-                      const tM = Math.round(tMin % 60);
-                      return (
-                        <div key={conv.label} className="result-card">
-                          <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{conv.label}</p>
-                          <p className="text-lg font-bold text-foreground">{formatTime(result.h, result.m)} → {formatTime(tH, tM)}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </>
-            )}
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">World Time Zones Explained</h2>
-              <p>The Earth is divided into 24 primary time zones, each roughly 15° of longitude wide — corresponding to one hour of Earth's rotation. In practice, political boundaries create 38 distinct zones ranging from UTC−12 (Baker Island) to UTC+14 (Line Islands, Kiribati).</p>
-              <p>Several zones use half-hour or 45-minute offsets. India (UTC+5:30), Iran (UTC+3:30), Nepal (UTC+5:45), and parts of Australia (UTC+9:30) are the most notable examples. Our converter supports all major offsets.</p>
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Converted Time</p>
+            <p className="text-4xl font-bold text-primary mt-1">{result.convertedTime12}</p>
+            <p className="text-sm text-muted-foreground mt-1">{result.convertedTime24} · {result.targetZoneLabel}</p>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">Daylight Saving Time (DST)</h2>
-              <p>Approximately 70 countries observe daylight saving time, shifting clocks forward by one hour in spring and back in autumn. DST transitions typically occur at 2:00 AM local time. Because different countries transition on different dates, the offset between two cities can change multiple times per year.</p>
-              <p>For the most accurate conversion during DST transitions, verify which offset each location is currently observing and select the corresponding UTC offset manually.</p>
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Source Time</p>
+              <p className="text-lg font-bold text-foreground mt-1">{result.sourceTime12}</p>
+              <p className="text-xs text-muted-foreground">{inputs.fromZone}</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Time Difference</p>
+              <p className={`text-lg font-bold mt-1 ${result.diff >= 0 ? "text-primary" : "text-amber-600"}`}>
+                {result.diff >= 0 ? "+" : ""}{result.diff} h
+              </p>
+              <p className="text-xs text-muted-foreground">target − source</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Zones Covered</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">{zones.length}</p>
+              <p className="text-xs text-muted-foreground">UTC−12 to UTC+12</p>
+            </div>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">Tips for International Scheduling</h2>
-              <ul>
-                <li><strong>Use UTC as the anchor:</strong> When coordinating across 3+ time zones, express the meeting time in UTC first, then let each participant convert locally.</li>
-                <li><strong>Respect business hours:</strong> Avoid scheduling before 9 AM or after 6 PM in any participant's zone when possible.</li>
-                <li><strong>Rotate inconvenience:</strong> For recurring meetings spanning very different zones, alternate the meeting time so the same team doesn't always have an early or late call.</li>
-              </ul>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-zone-converter" />
-          <PopularCalculators exclude="/calculator/time-zone-converter" />
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Key Region Times</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="text-left py-2 px-3 font-medium">Zone</th>
+                  <th className="text-right py-2 px-3 font-medium">Local Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.worldClock
+                  .filter((z) => ["UTC-8", "UTC-5", "UTC+0", "UTC+1", "UTC+5.5", "UTC+8", "UTC+9", "UTC+10"].includes(z.name))
+                  .map((z) => (
+                    <tr
+                      key={z.name}
+                      className={`border-b border-border ${
+                        z.isFrom ? "bg-primary/10 font-semibold text-primary" : z.isTo ? "bg-primary/5 font-semibold" : ""
+                      }`}
+                    >
+                      <td className="py-2.5 px-3">{z.name}{z.isFrom ? " · from" : z.isTo ? " · to" : ""}</td>
+                      <td className="py-2.5 px-3 text-right tabular-nums">{z.time12}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">World Clock (hour of day)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={chartData} layout="vertical" margin={{ top: 5, right: 40, left: 10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis type="number" domain={[0, 24]} tick={{ fontSize: 10 }} ticks={[0, 6, 12, 18, 24]} />
+                <YAxis type="category" dataKey="name" width={55} tick={{ fontSize: 10 }} />
+                <Tooltip
+                  formatter={(v: number, name: string) => [v, "Hour"]}
+                  labelFormatter={(l) => {
+                    const z = result.worldClock.find((w) => w.name === l)
+                    return z ? `${l} · ${z.time12}` : String(l)
+                  }}
+                  contentStyle={{ fontSize: 12, borderRadius: 8, border: "1px solid hsl(var(--border))" }}
+                />
+                <Bar dataKey="hour" radius={[0, 4, 4, 0]}>
+                  {chartData.map((d) => (
+                    <Cell
+                      key={d.name}
+                      fill={d.isFrom ? "hsl(var(--primary))" : d.isTo ? "hsl(var(--primary) / 0.6)" : "hsl(var(--primary) / 0.3)"}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">Bar length = local hour of day for each zone (0–24).</p>
+          </div>
+
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Source</p>
+                <p className="font-semibold text-foreground">{result.sourceTime12} {inputs.fromZone}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Target</p>
+                <p className="font-semibold text-foreground">{result.convertedTime12} {inputs.toZone}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Offset Difference</p>
+                <p className="font-semibold text-foreground">{result.diff >= 0 ? "+" : ""}{result.diff} hours</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">24h Format</p>
+                <p className="font-semibold text-foreground font-mono">{result.convertedTime24}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">DST Handling</p>
+                <p className="font-semibold text-foreground">Fixed offsets — adjust for DST manually</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Zones</p>
+                <p className="font-semibold text-foreground">{zones.length} offsets, UTC−12 → UTC+12</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default TimeZoneConverter;
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/time-zone-converter" />
+      </div>
+    </div>
+  )
+}

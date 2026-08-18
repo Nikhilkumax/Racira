@@ -10,14 +10,6 @@ export const orphanedCalculators: CalculatorDef[] = [
     status: "live"
   },
   {
-    slug: "adsense-revenue-calculator_test",
-    name: "AdSense Revenue Calculator",
-    description: "Estimated Monthly Revenue",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
     slug: "amazon-fba-calculator",
     name: "Amazon FBA Profit Calculator",
     description: "Selling physical products on the internet through the Amazon platform utilizing the Fulfillment by Amazon program is widely considered one of the most powerful and structurally scalable methods for constructing a modern e-commerce enterprise. However, the absolute reality of this business model is that it operates strictly on exceptionally thin, highly sensitive profit margins. Amazon systematically extracts a significant portion of every single transaction to cover their massive logistical overhead and customer acquisition costs. To successfully build a sustainable, highly profitable brand on this hyper competitive marketplace, a seller must aggressively move far beyond intuition or estimating. You must possess a mathematically flawless, crystal clear understanding of your precise unit economics down to the absolute final cent. This proprietary, algorithmically accurate Amazon FBA Profit Calculator was explicitly engineered to empower sellers by granularly analyzing every conceivable fraction of their revenue against their inbound and outbound logistical expenses.",

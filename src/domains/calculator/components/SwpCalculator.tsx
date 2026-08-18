@@ -1,120 +1,203 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
-const SWPCalculator = () => {
-  const [corpus, setCorpus] = useState("1000000");
-  const [withdrawal, setWithdrawal] = useState("10000");
-  const [rate, setRate] = useState("8");
-  const [years, setYears] = useState("10");
-  const [showResults, setShowResults] = useState(false);
-  const [result, setResult] = useState<{ totalWithdrawn: number; remainingCorpus: number; totalReturns: number; yearData: { year: number; withdrawn: number; returns: number; balance: number }[] } | null>(null);
+interface SwpInput {
+  corpus: number;
+  monthlyWithdrawal: number;
+  annualReturn: number;
+  horizonYears: number;
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const C = parseFloat(corpus) || 0;
-    const W = parseFloat(withdrawal) || 0;
-    const r = (parseFloat(rate) || 0) / 100 / 12;
-    const n = (parseInt(years) || 0) * 12;
-    if (C <= 0 || W <= 0 || n <= 0) return;
+interface SwpResult {
+  monthsToDeplete: number;
+  yearsOfIncome: string;
+  totalWithdrawn: number;
+  endingBalance: number;
+  depleted: boolean;
+  chartData: { month: number; balance: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-    let balance = C;
-    let totalWithdrawn = 0;
-    let totalReturns = 0;
-    const data: { year: number; withdrawn: number; returns: number; balance: number }[] = [];
+function calcSwp(input: SwpInput): SwpResult {
+  const monthlyRate = input.annualReturn / 12 / 100;
+  const months = Math.min(input.horizonYears * 12, 600);
+  let balance = input.corpus;
+  let totalWithdrawn = 0;
+  const chartData: { month: number; balance: number }[] = [{ month: 0, balance: Math.round(balance) }];
+  let depleted = false;
+  let monthsToDeplete = months;
 
-    for (let month = 1; month <= n; month++) {
-      const monthReturn = balance * r;
-      totalReturns += monthReturn;
-      balance = balance + monthReturn - W;
-      totalWithdrawn += W;
-
-      if (balance <= 0) {
-        balance = 0;
-        data.push({ year: Math.ceil(month / 12), withdrawn: totalWithdrawn, returns: totalReturns, balance: 0 });
-        break;
-      }
-
-      if (month % 12 === 0) {
-        data.push({ year: month / 12, withdrawn: totalWithdrawn, returns: totalReturns, balance });
-      }
+  for (let m = 1; m <= months; m++) {
+    balance = balance * (1 + monthlyRate) - input.monthlyWithdrawal;
+    totalWithdrawn += input.monthlyWithdrawal;
+    if (balance <= 0) {
+      depleted = true;
+      monthsToDeplete = m;
+      balance = 0;
+      chartData.push({ month: m, balance: 0 });
+      break;
     }
+    chartData.push({ month: m, balance: Math.round(balance) });
+  }
 
-    if (balance > 0 && n % 12 !== 0) {
-      data.push({ year: Math.ceil(n / 12), withdrawn: totalWithdrawn, returns: totalReturns, balance });
-    }
+  const yearsOfIncome = depleted ? `${(monthsToDeplete / 12).toFixed(1)} years` : "Full horizon";
+  const endingBalance = depleted ? 0 : Math.round(balance);
 
-    setResult({ totalWithdrawn, remainingCorpus: balance, totalReturns, yearData: data });
+  const breakdown = [
+    { label: "Initial Corpus", value: `$${input.corpus.toLocaleString()}` },
+    { label: "Monthly Withdrawal", value: `$${input.monthlyWithdrawal.toLocaleString()}` },
+    { label: "Annual Return", value: `${input.annualReturn.toFixed(1)}%` },
+    { label: "Withdrawal Horizon", value: `${input.horizonYears} years` },
+    { label: "Income Duration", value: yearsOfIncome },
+    { label: "Total Withdrawn", value: `$${totalWithdrawn.toLocaleString()}` },
+    { label: "Ending Balance", value: `$${endingBalance.toLocaleString()}` },
+    { label: "Initial Withdrawal Rate", value: `${input.corpus > 0 ? ((input.monthlyWithdrawal * 12 / input.corpus) * 100).toFixed(1) : 0}%` },
+  ];
+
+  const summaryStats = [
+    { label: "Income Duration", value: yearsOfIncome },
+    { label: "Total Withdrawn", value: `$${totalWithdrawn.toLocaleString()}` },
+    { label: "Ending Balance", value: `$${endingBalance.toLocaleString()}` },
+    { label: "Monthly Withdrawal", value: `$${input.monthlyWithdrawal.toLocaleString()}` },
+    { label: "Withdrawal Rate", value: `${input.corpus > 0 ? ((input.monthlyWithdrawal * 12 / input.corpus) * 100).toFixed(1) : 0}%` },
+    { label: "Months Covered", value: `${monthsToDeplete} / ${months}` },
+  ];
+
+  return { monthsToDeplete, yearsOfIncome, totalWithdrawn, endingBalance, depleted, chartData, breakdown, summaryStats };
+}
+
+const DEFAULTS: SwpInput = { corpus: 500000, monthlyWithdrawal: 2000, annualReturn: 7, horizonYears: 20 };
+
+const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary";
+const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+export default function SwpCalculator() {
+  const [corpus, setCorpus] = useState(String(DEFAULTS.corpus));
+  const [withdrawal, setWithdrawal] = useState(String(DEFAULTS.monthlyWithdrawal));
+  const [returnRate, setReturnRate] = useState(String(DEFAULTS.annualReturn));
+  const [horizon, setHorizon] = useState(String(DEFAULTS.horizonYears));
+  const [result, setResult] = useState<SwpResult | null>(null);
+
+  const parse = (s: string, fallback: number) => {
+    const n = parseFloat(s);
+    return Number.isFinite(n) && n >= 0 ? n : fallback;
   };
 
+  const calculate = () =>
+    setResult(calcSwp({ corpus: parse(corpus, DEFAULTS.corpus), monthlyWithdrawal: parse(withdrawal, DEFAULTS.monthlyWithdrawal), annualReturn: parse(returnRate, DEFAULTS.annualReturn), horizonYears: Math.max(1, parse(horizon, DEFAULTS.horizonYears)) }));
   const reset = () => {
-    setShowResults(false); setCorpus("1000000"); setWithdrawal("10000"); setRate("8"); setYears("10"); setResult(null); };
+    setCorpus(String(DEFAULTS.corpus));
+    setWithdrawal(String(DEFAULTS.monthlyWithdrawal));
+    setReturnRate(String(DEFAULTS.annualReturn));
+    setHorizon(String(DEFAULTS.horizonYears));
+    setResult(calcSwp(DEFAULTS));
+  };
+  useEffect(() => {
+    setResult(calcSwp(DEFAULTS));
+  }, []);
 
   const faqs = [
-    { question: "What is SWP?", answer: "SWP (Systematic Withdrawal Plan) allows you to withdraw a fixed amount from your mutual fund investment at regular intervals while the remaining corpus continues to earn returns." },
-    { question: "How does SWP differ from SIP?", answer: "SIP is for investing regularly into mutual funds, while SWP is for withdrawing regularly from an existing investment. SWP is commonly used for generating regular income from a lump sum investment." },
-    { question: "Is SWP taxable?", answer: "SWP withdrawals are subject to capital gains tax. For equity funds held >1 year, LTCG above ₹1.25 lakh is taxed at 12.5%. For debt funds, gains are taxed at your slab rate." },
-    { question: "Can my SWP corpus get exhausted?", answer: "Yes, if the withdrawal rate exceeds the return rate, your corpus will eventually deplete. The sustainable withdrawal rate depends on the expected returns of your investment." },
+    { question: "What is an SWP?", answer: "A Systematic Withdrawal Plan (SWP) is a strategy for drawing a fixed amount from an investment corpus at regular intervals — typically monthly — while the remainder stays invested. It's the natural companion to a SIP (Systematic Investment Plan): SIP builds the corpus, SWP draws it down in retirement." },
+    { question: "How much can I withdraw safely?", answer: "The classic 4% rule suggests withdrawing 4% of the corpus in year one, adjusted for inflation — on $500,000 that's $20,000/year ($1,667/month). At a 7% annual return, that rate keeps the corpus intact over 20 years. Withdrawing faster, like 6%+, risks depletion before the horizon ends." },
+    { question: "What happens if my withdrawal exceeds returns?", answer: "When monthly withdrawals outpace monthly returns, the corpus shrinks — and as the base shrinks, the returns it generates shrink too, accelerating depletion. This calculator simulates month by month so you can see exactly when a too-high withdrawal rate runs the corpus to zero." },
+    { question: "How does the return rate affect SWP longevity?", answer: "Dramatically. At 7% annual return, a 4.8% withdrawal rate survives 20 years comfortably. At 4% return, the same withdrawal rate depletes the corpus in about 15 years. Be conservative with your assumed return — actual market returns vary year to year, and sequence-of-returns risk matters." },
+    { question: "Is an SWP the same as an annuity?", answer: "No. An annuity guarantees income for life through an insurance contract. An SWP is self-managed: you control the corpus, can vary withdrawals, and keep the balance invested. The tradeoff is longevity risk — you must manage the withdrawal rate yourself, and returns aren't guaranteed." },
+    { question: "Should I adjust withdrawals for inflation?", answer: "Most retirement plans increase withdrawals by inflation (2–3% annually) to preserve purchasing power. That raises the depletion risk meaningfully. This calculator assumes a fixed nominal withdrawal; for inflation-adjusted plans, plan on a lower initial withdrawal rate by roughly 1–1.5%." },
   ];
+
+  const depleteColor = result ? (result.depleted ? "text-red-500" : "text-emerald-600") : "";
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "SWP Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "SWP Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">SWP Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">SWP Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="corpus" label="Total Investment" value={corpus} onChange={setCorpus} prefix="₹" />
-                <InputField id="withdrawal" label="Monthly Withdrawal" value={withdrawal} onChange={setWithdrawal} prefix="₹" />
-                <InputField id="rate" label="Expected Return (p.a.)" value={rate} onChange={setRate} suffix="%" />
-                <InputField id="years" label="Withdrawal Period" value={years} onChange={setYears} suffix="Years" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Initial Corpus</label>
+                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={corpus} onChange={(e) => setCorpus(e.target.value)} className={ci} /></div>
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Monthly Withdrawal</label>
+                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={withdrawal} onChange={(e) => setWithdrawal(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Expected Annual Return</label>
+                <div className={inp}><input type="number" value={returnRate} onChange={(e) => setReturnRate(e.target.value)} step={0.5} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+              </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Withdrawal Horizon</label>
+                <div className={inp}><input type="number" value={horizon} onChange={(e) => setHorizon(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yrs</span></div>
+              </div>
+            </div>
 
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
+          <div className="flex flex-col gap-4">
+            {result && (
               <>
-                <h2 className="text-2xl font-bold mb-3">SWP Summary</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Total Withdrawn", value: result.totalWithdrawn },
-                  { label: "Total Returns Earned", value: result.totalReturns, highlight: true },
-                  { label: "Remaining Corpus", value: result.remainingCorpus, highlight: true },
-                ]} />
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Income Duration</div>
+                  <div className={`text-4xl font-extrabold tracking-tight ${depleteColor}`}>{result.yearsOfIncome}</div>
+                  <div className="text-sm text-muted-foreground mt-1">Total withdrawn: ${result.totalWithdrawn.toLocaleString()} · Ending balance: ${result.endingBalance.toLocaleString()}</div>
+                </div>
 
-                <div className="mt-6">
-                  <h3 className="font-semibold mb-3">Year-by-Year Summary</h3>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead><tr className="border-b border-border">
-                        <th className="text-left py-2 px-3 font-medium text-muted-foreground">Year</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Withdrawn</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Returns</th>
-                        <th className="text-right py-2 px-3 font-medium text-muted-foreground">Balance</th>
-                      </tr></thead>
-                      <tbody>
-                        {result.yearData.map((d) => (
-                          <tr key={d.year} className="border-b border-border/50">
-                            <td className="py-2 px-3">{d.year}</td>
-                            <td className="py-2 px-3 text-right">₹{d.withdrawn.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            <td className="py-2 px-3 text-right text-[hsl(217,91%,40%)] dark:text-primary">₹{d.returns.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                            <td className="py-2 px-3 text-right font-medium">₹{d.balance.toLocaleString("en-IN", { maximumFractionDigits: 0 })}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                  {[["Monthly Income", `$${result.breakdown[1].value}`], ["Total Withdrawn", `$${result.totalWithdrawn.toLocaleString()}`], ["Ending Balance", `$${result.endingBalance.toLocaleString()}`]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Withdrawal Breakdown</h3>
+                  <table className="w-full text-base"><tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-secondary/30 font-bold" : ""}`}>
+                        <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody></table>
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Corpus Balance Over Time</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <AreaChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="month" tick={{ fontSize: 10 }} label={{ value: "Month", position: "insideBottom", offset: -2, fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}K`} />
+                      <Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, "Balance"]} />
+                      <Area type="monotone" dataKey="balance" stroke="hsl(var(--primary))" fill="hsl(var(--primary)/0.15)" strokeWidth={2} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {result.summaryStats.map((s, i) => (
+                      <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                    ))}
                   </div>
                 </div>
               </>
@@ -123,30 +206,19 @@ const SWPCalculator = () => {
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is an SWP Calculator?</h2>
-              <p>An SWP (Systematic Withdrawal Plan) calculator helps you plan regular withdrawals from your mutual fund investment. It shows how your corpus behaves over time as you withdraw fixed amounts while the remaining balance continues to earn returns.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How SWP Works</h2>
-              <p>In an SWP, you invest a lump sum and withdraw a fixed amount monthly. The remaining corpus stays invested and earns returns. If returns exceed withdrawals, your corpus can actually grow. If withdrawals exceed returns, the corpus gradually depletes.</p>
-
-              <h2 className="text-2xl font-bold mb-3">SWP vs Fixed Deposit Interest</h2>
-              <ul>
-                <li><strong>SWP:</strong> Market-linked returns, potential for capital growth, tax-efficient (only gains are taxed).</li>
-                <li><strong>FD:</strong> Fixed returns, no capital growth, entire interest is taxable at slab rate.</li>
-              </ul>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> Mutual fund returns are not guaranteed. Actual returns may vary significantly from expected rates. This calculator assumes constant returns for estimation.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">What Is a Systematic Withdrawal Plan?</h2>
+            <p>An SWP converts a lump-sum investment into a steady monthly income stream. Each month the plan redeems a fixed amount from the corpus while the remainder continues earning returns. It's the standard way retirees and long-term investors fund living expenses without selling everything at once.</p>
+            <h2 className="text-2xl font-bold mb-3">The Withdrawal Rate Math</h2>
+            <p>The sustainable withdrawal rate depends on the gap between your withdrawal and your return. Withdraw 4.8% per year against a 7% return and the corpus grows. Withdraw 8% against 5% and depletion is inevitable. This calculator runs the month-by-month simulation so you can see the depletion month precisely.</p>
+            <h2 className="text-2xl font-bold mb-3">Planning for the Long Run</h2>
+            <p>Keep the initial withdrawal rate at or below 4–5% for a 20+ year horizon. Model conservative returns (5–6%) to stress-test your plan, and consider inflation-indexed withdrawals only after confirming the base rate is sustainable. A well-planned SWP should survive both bear markets and rising costs.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/swp-calculator" />
-          <PopularCalculators exclude="/swp-calculator" />
+          <PopularCalculators exclude="/calculator/swp-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default SWPCalculator;
-
-
+}

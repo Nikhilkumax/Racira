@@ -164,7 +164,7 @@ export default function BarometricPressureCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <p className="text-sm text-muted-foreground mb-1">Convert barometric pressure between units and adjust it for altitude and temperature.</p>
+            
 
             <div className="grid grid-cols-2 gap-3">
               <CompactInput id="pressure" label="Pressure" value={inputs.pressure} onChange={(v: string) => handleChange("pressure", v)} suffix={UNIT_LABEL[inputs.fromUnit]} />

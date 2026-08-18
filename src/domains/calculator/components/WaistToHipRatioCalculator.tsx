@@ -1,102 +1,182 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Activity } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-const WaistToHipRatioCalculator = () => {
-  const [waist, setWaist] = useState("32");
-  const [hip, setHip] = useState("38");
-  const [gender, setGender] = useState("female");
-  const [unit, setUnit] = useState("in");
+interface WaistHipInput {
+  waist: number;
+  hip: number;
+  sex: "male" | "female";
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface WaistHipResult {
+  ratio: number;
+  status: string;
+  statusColor: string;
+  threshold: number;
+  chartData: { name: string; inches: number; fill: string }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const w = parseFloat(waist);
-    const h = parseFloat(hip);
-    const ratio = w / h;
+function calcWaistHip(input: WaistHipInput): WaistHipResult {
+  const ratio = input.hip > 0 ? input.waist / input.hip : 0;
+  const threshold = input.sex === "male" ? 0.9 : 0.85;
+  const status = ratio > 0 && ratio < threshold ? "Low Risk" : "Increased Risk";
+  const statusColor = ratio > 0 && ratio < threshold ? "text-emerald-600" : "text-red-500";
 
-    let risk = "";
-    let color = "";
-    if (gender === "male") {
-      if (ratio < 0.90) { risk = "Low Risk"; color = "green"; }
-      else if (ratio < 1.0) { risk = "Moderate Risk"; color = "yellow"; }
-      else { risk = "High Risk"; color = "red"; }
-    } else {
-      if (ratio < 0.80) { risk = "Low Risk"; color = "green"; }
-      else if (ratio < 0.85) { risk = "Moderate Risk"; color = "yellow"; }
-      else { risk = "High Risk"; color = "red"; }
-    }
+  const chartData = [
+    { name: "Waist", inches: Math.max(0, input.waist), fill: "hsl(var(--primary))" },
+    { name: "Hip", inches: Math.max(0, input.hip), fill: "#10b981" },
+  ];
 
-    setResults({ ratio, risk, color });
+  const breakdown = [
+    { label: "Waist Circumference", value: `${input.waist.toFixed(1)} in` },
+    { label: "Hip Circumference", value: `${input.hip.toFixed(1)} in` },
+    { label: "Sex", value: input.sex === "male" ? "Male" : "Female" },
+    { label: "Waist-to-Hip Ratio", value: ratio > 0 ? ratio.toFixed(2) : "—" },
+    { label: "WHO Risk Threshold", value: threshold.toFixed(2) },
+    { label: "Health Risk Level", value: status },
+  ];
+
+  const summaryStats = [
+    { label: "Waist-to-Hip Ratio", value: ratio > 0 ? ratio.toFixed(2) : "—" },
+    { label: "Health Risk Level", value: status },
+    { label: "WHO Threshold", value: `> ${threshold.toFixed(2)}` },
+    { label: "Waist", value: `${input.waist.toFixed(1)} in` },
+    { label: "Hip", value: `${input.hip.toFixed(1)} in` },
+    { label: "Waist-Hip Difference", value: `${(input.hip - input.waist).toFixed(1)} in` },
+  ];
+
+  return { ratio, status, statusColor, threshold, chartData, breakdown, summaryStats };
+}
+
+const DEFAULTS: WaistHipInput = { waist: 32, hip: 40, sex: "female" };
+
+const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary";
+const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+export default function WaistToHipRatioCalculator() {
+  const [waist, setWaist] = useState(String(DEFAULTS.waist));
+  const [hip, setHip] = useState(String(DEFAULTS.hip));
+  const [sex, setSex] = useState<WaistHipInput["sex"]>(DEFAULTS.sex);
+  const [result, setResult] = useState<WaistHipResult | null>(null);
+
+  const parse = (s: string, fallback: number) => {
+    const n = parseFloat(s);
+    return Number.isFinite(n) && n > 0 ? n : fallback;
   };
 
+  const calculate = () =>
+    setResult(calcWaistHip({ waist: parse(waist, DEFAULTS.waist), hip: parse(hip, DEFAULTS.hip), sex }));
   const reset = () => {
-    setShowResults(false); setWaist("32"); setHip("38"); setGender("female"); setUnit("in"); setResults(null); };
+    setWaist(String(DEFAULTS.waist));
+    setHip(String(DEFAULTS.hip));
+    setSex(DEFAULTS.sex);
+    setResult(calcWaistHip(DEFAULTS));
+  };
+  useEffect(() => {
+    setResult(calcWaistHip(DEFAULTS));
+  }, []);
 
   const faqs = [
-    { question: "What is waist-to-hip ratio?", answer: "WHR is the ratio of your waist circumference to your hip circumference. It measures fat distribution and is a better predictor of cardiovascular disease than BMI alone." },
-    { question: "What is a healthy waist-to-hip ratio?", answer: "For women, a ratio below 0.80 is low risk; 0.80-0.85 is moderate; above 0.85 is high. For men, below 0.90 is low risk; 0.90-1.0 is moderate; above 1.0 is high." },
-    { question: "Why is waist-to-hip ratio important?", answer: "Apple-shaped bodies (excess belly fat) carry significantly higher risk of heart disease, type 2 diabetes, and stroke than pear-shaped bodies (fat carried in hips and thighs). WHR helps identify this risk pattern." }
+    { question: "What is a waist-to-hip ratio?", answer: "Waist-to-hip ratio (WHR) divides waist circumference by hip circumference. It measures where you store body fat — apple-shaped (central) fat carries higher metabolic risk than fat stored around the hips and thighs." },
+    { question: "What is a healthy waist-to-hip ratio?", answer: "The WHO classifies WHR above 0.90 for men and 0.85 for women as substantially increased health risk. Lower values indicate lower cardiovascular and metabolic risk. These thresholds vary slightly by ethnicity and age." },
+    { question: "How does WHR compare to BMI?", answer: "BMI measures overall body size but ignores fat distribution. Two people can share a BMI while one carries dangerous central fat and the other does not. WHR captures central adiposity directly, making it a useful complement to BMI." },
+    { question: "How can I improve my waist-to-hip ratio?", answer: "Losing abdominal fat lowers WHR — caloric deficit, resistance training, and aerobic exercise all reduce waist circumference. Building glute and hip muscle also increases the denominator, improving the ratio from the other side." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Waist-to-Hip Ratio Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Waist-to-Hip Ratio Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Waist-to-Hip Ratio Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Waist-to-Hip Ratio Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="waist" label={`Waist (${unit})`} value={waist} onChange={setWaist} />
-                <InputField id="hip" label={`Hip (${unit})`} value={hip} onChange={setHip} />
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Gender</label>
-                  <select value={gender} onChange={e => setGender(e.target.value)} className="input-calc">
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Unit</label>
-                  <select value={unit} onChange={e => setUnit(e.target.value)} className="input-calc">
-                    <option value="in">Inches</option>
-                    <option value="cm">Centimeters</option>
-                  </select>
-                </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-sm font-medium mb-1 block">Waist Circumference</label>
+                <div className={inp}><input type="number" value={waist} onChange={(e) => setWaist(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">in</span></div>
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Hip Circumference</label>
+                <div className={inp}><input type="number" value={hip} onChange={(e) => setHip(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">in</span></div>
               </div>
+              <div>
+                <label className="text-sm font-medium mb-1 block">Sex</label>
+                <select value={sex} onChange={(e) => setSex(e.target.value as WaistHipInput["sex"])} className="w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground">
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
+          <div className="flex flex-col gap-4">
+            {result && (
               <>
-                <h2 className="text-2xl font-bold mb-3">WHR Analysis</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Your WHR</p>
-                    <p className="text-5xl font-black text-foreground">{results.ratio.toFixed(2)}</p>
-                  </div>
-                  <div className={`p-6 rounded-2xl text-center flex flex-col justify-center ${results.color === "green" ? "bg-green-500/10 border border-green-500/20" : results.color === "yellow" ? "bg-yellow-500/10 border border-yellow-500/20" : "bg-red-500/10 border border-red-500/20"}`}>
-                    <p className="text-sm font-bold uppercase tracking-widest mb-1">Risk Level</p>
-                    <p className={`text-3xl font-black ${results.color === "green" ? "text-green-600" : results.color === "yellow" ? "text-yellow-600" : "text-red-600"}`}>{results.risk}</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Waist-to-Hip Ratio</div>
+                  <div className={`text-4xl font-extrabold tracking-tight ${result.statusColor}`}>{result.ratio > 0 ? result.ratio.toFixed(2) : "—"}</div>
+                  <div className="text-sm text-muted-foreground mt-1">Risk level: {result.status} · WHO threshold: {result.threshold.toFixed(2)}</div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                  {[["Ratio", result.ratio > 0 ? result.ratio.toFixed(2) : "—"], ["Waist", `${result.chartData[0].inches.toFixed(1)} in`], ["Hip", `${result.chartData[1].inches.toFixed(1)} in`]].map(([l, v], i) => (
+                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                      <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                      <div className="text-base font-bold">{v}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Measurement Breakdown</h3>
+                  <table className="w-full text-base"><tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-secondary/30 font-bold" : ""}`}>
+                        <td className="py-2.5 px-3 text-muted-foreground">{r.label}</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody></table>
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card">
+                  <h3 className="text-base font-bold mb-4">Circumference Comparison</h3>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} />
+                      <Tooltip formatter={(v: number) => [`${v.toFixed(1)} in`, ""]} />
+                      <Bar dataKey="inches" radius={[4, 4, 0, 0]}>
+                        {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {result.summaryStats.map((s, i) => (
+                      <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                    ))}
                   </div>
                 </div>
-                <ResultDisplay items={[
-                  { label: "Waist", value: 0, textValue: waist + " " + unit },
-                  { label: "Hip", value: 0, textValue: hip + " " + unit },
-                  { label: "WHO Standard (Low Risk)", value: 0, textValue: gender === "male" ? "< 0.90" : "< 0.80" },
-                ]} />
               </>
             )}
           </div>
@@ -105,19 +185,17 @@ const WaistToHipRatioCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Waist-to-Hip Ratio</h2>
-              <p>The WHO uses WHR as a key indicator of abdominal obesity and associated health risks. Fat stored around the abdomen (visceral fat) is metabolically active and linked to insulin resistance, inflammation, and cardiovascular disease.</p>
-              <h3>Apple vs. Pear Body Shape</h3>
-              <p>"Apple-shaped" individuals carry weight in the abdomen (high WHR). "Pear-shaped" individuals carry weight in the hips and thighs (low WHR). Research consistently shows that apple-shaped body composition carries significantly higher health risks.</p>
-              <h3>How to Measure Correctly</h3>
-              <p>Measure your waist at its narrowest point (usually just above the belly button). Measure your hip at the widest point (around the hip bones and buttocks). Breathe normally during measurement — don't suck in.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waist-to-hip-ratio" />
+            <h2 className="text-2xl font-bold mb-3">What the Ratio Tells You</h2>
+            <p>Waist-to-hip ratio is a marker of central obesity — fat stored around the abdomen. Central fat is metabolically active and strongly associated with cardiovascular disease, type 2 diabetes, and hypertension, independent of total body weight.</p>
+            <h2 className="text-2xl font-bold mb-3">WHO Classification</h2>
+            <p>The World Health Organization defines a waist-to-hip ratio above 0.90 for men and 0.85 for women as substantially increased health risk. Ratios below these thresholds are classified as low risk. Measure at the narrowest waist point and the widest hip point, breathing normally.</p>
+            <h2 className="text-2xl font-bold mb-3">Improving Your Ratio</h2>
+            <p>Abdominal fat responds well to a caloric deficit combined with resistance and aerobic training. Hip circumference can be increased with glute-focused strength work. Monitoring WHR alongside waist circumference alone gives a fuller picture of metabolic health than either metric by itself.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/waist-to-hip-ratio-calculator" />
           <PopularCalculators exclude="/calculator/waist-to-hip-ratio-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default WaistToHipRatioCalculator;
-
+}

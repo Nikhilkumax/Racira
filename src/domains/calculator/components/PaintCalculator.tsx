@@ -106,7 +106,7 @@ export default function PaintCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Paint Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
-            <p className="text-sm text-muted-foreground">Enter room dimensions to calculate paint needed for walls + ceiling.</p>
+            
             <div className="grid grid-cols-3 gap-3">
               <div>
                 <label className="text-sm font-semibold mb-1 block">Length (ft)</label>

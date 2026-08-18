@@ -176,8 +176,11 @@ export default function SpeedometerErrorCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
-                <RotateCcw className="h-4 w-4" /> Reset Calculator
+              <button type="button" onClick={() => setResults(calculateSpeedoError(inputs))} className="flex-1 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="h-11 w-11 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none shadow-sm">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
 
@@ -261,6 +264,37 @@ export default function SpeedometerErrorCalculator() {
                   </div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Factory Tire Diameter</p>
+                      <p className="font-semibold text-foreground">{format2(results.factoryDiameter)}"</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">New Tire Diameter</p>
+                      <p className="font-semibold text-foreground">{format2(results.newDiameter)}"</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Diameter Difference</p>
+                      <p className={`font-semibold ${results.isDangerous ? 'text-destructive' : 'text-emerald-600'}`}>{results.diameterDiffPct > 0 ? '+' : ''}{format2(results.diameterDiffPct)}%</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Actual Speed @ 60 mph Speedo</p>
+                      <p className="font-semibold text-foreground">{format1(results.actualSpeedAt60)} mph</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Speed Error</p>
+                      <p className={`font-semibold ${isReadingSlow ? 'text-orange-500' : 'text-emerald-600'}`}>{results.speedDifferencePct > 0 ? '+' : ''}{format2(results.speedDifferencePct)}%</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Safe Threshold</p>
+                      <p className="font-semibold text-foreground">±3% diameter difference</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 3. Breakdown Table */}
                 <div className="card-calculator !p-0 overflow-hidden border border-border bg-card shadow-sm mt-2">
                   <div className="px-4 py-3 bg-muted/30 border-b border-border flex justify-between items-center">
@@ -316,7 +350,7 @@ export default function SpeedometerErrorCalculator() {
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/speedometer-error-calculator" />
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/speedometer-error-calculator" />
         </div>
       </div>
     </>

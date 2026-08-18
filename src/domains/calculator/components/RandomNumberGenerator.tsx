@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Copy, Check } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 const generateRandomNumbers = (
   min: number,
@@ -201,6 +202,22 @@ const RandomNumberGenerator = () => {
                     </div>
                   </div>
                 )}
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Distribution of This Draw</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={result.slice(0, 60).map((num, i) => ({ name: `#${i + 1}`, value: num, fill: i === 0 ? "hsl(var(--primary))" : i % 2 === 0 ? "#a3a3a3" : "#d4d4d4" }))} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={Math.ceil(result.slice(0, 60).length / 12)} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString(), "Value"]} />
+                    <Bar dataKey="value" radius={[3, 3, 0, 0]}>
+                      {result.slice(0, 60).map((_, i) => <Cell key={i} fill={i === 0 ? "hsl(var(--primary))" : i % 2 === 0 ? "#a3a3a3" : "#d4d4d4"} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">{result.length > 60 ? `Showing the first 60 of ${result.length} numbers. ` : ""}Uniform draws spread roughly evenly across the range; small samples naturally show gaps.</p>
               </div>
             </>)}
           </div>

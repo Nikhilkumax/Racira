@@ -8,6 +8,7 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
 import { RotateCcw, ShieldCheck, Lock, Globe, Calculator, AlertCircle, CheckCircle2 } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 export default function SslCostCalculator() {
   const [numDomains, setNumDomains] = useState("1");
@@ -135,14 +136,18 @@ export default function SslCostCalculator() {
             {showResults && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Cost & Protection Summary</h2>
-                <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 text-center">
                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Budget ({years} Years)</p>
-                    <p className="text-4xl font-black text-foreground">${results.totalCost.toLocaleString()}</p>
+                    <p className="text-3xl font-black text-foreground">${results.totalCost.toLocaleString()}</p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Annual Average</p>
-                    <p className="text-2xl font-black text-foreground">${results.annualCost.toLocaleString()}/yr</p>
+                    <p className="text-xl font-black text-foreground">${results.annualCost.toLocaleString()}/yr</p>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Price / Domain</p>
+                    <p className="text-xl font-black text-foreground">${sslType === "multi" ? 50 + ((parseInt(numDomains) || 1) * 25) : results.annualCost}/yr</p>
                   </div>
                 </div>
                 <ResultDisplay items={[
@@ -150,6 +155,29 @@ export default function SslCostCalculator() {
                   { label: "Relying Party Warranty", value: 0, textValue: results.warrantyLevel },
                   { label: "Trust Indicator", value: 0, textValue: results.trustLevel, highlight: true },
                 ]} />
+                <div className="mt-6 p-4 rounded-2xl border border-border bg-card">
+                  <p className="text-sm font-bold text-foreground mb-3">Typical Annual Price by Certificate Type</p>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={[
+                      { name: "DV", price: 15 },
+                      { name: "Multi", price: 75 },
+                      { name: "Wildcard", price: 120 },
+                      { name: "OV", price: 90 },
+                      { name: "EV", price: 250 },
+                    ]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} />
+                      <Tooltip formatter={(v: number) => `$${v}/yr`} />
+                      <Bar dataKey="price" name="Annual Price" radius={[6, 6, 0, 0]}>
+                        {["dv", "multi", "wildcard", "ov", "ev"].map((key, i) => (
+                          <Cell key={i} fill={key === sslType ? "#f59e0b" : "hsl(var(--primary))"} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2">Your selection is highlighted. Multi-domain pricing shown for 1 domain; each additional domain adds $25/yr.</p>
+                </div>
                 <div className="mt-6 p-4 rounded-xl bg-amber-50 border border-amber-200 flex gap-3">
                   <AlertCircle className="h-5 w-5 text-amber-600 shrink-0" />
                   <p className="text-sm text-amber-800">Note: Browser standards require certificates to be re-issued every 13 months, even if you pay for multiple years upfront.</p>
@@ -163,7 +191,7 @@ export default function SslCostCalculator() {
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
               <h2 className="text-2xl font-bold mb-3">Why Your Website Needs an SSL Certificate</h2>
-              <p>SSL (Secure Sockets Layer) is the standard technology for keeping an internet connection secure and safeguarding any sensitive data that is being sent between two systems. It prevents criminals from reading and modifying any information transferred, including potential personal details like credit card numbers or login credentials. Today, SSL is not just a luxury; it is a fundamental requirement for any professional website.</p>
+              <p>SSL (Secure Sockets Layer) is the standard technology for keeping an internet connection secure and safeguarding sensitive data that is being sent between two systems. It prevents criminals from reading and modifying information transferred, including potential personal details like credit card numbers or login credentials. Today, SSL is not just a luxury; it is a fundamental requirement for a professional website.</p>
 
               <h3>Technical Security vs. Visual Trust</h3>
               <p>From a purely technical standpoint, a free $0 SSL certificate from Let's Encrypt provides the exact same 256-bit encryption as a $500 Enterprise EV certificate. The difference lies in <strong>identity verification</strong> and <strong>visual trust indicators</strong>. High-value websites (e-commerce, banking, healthcare) pay for expensive certificates because they want a Certificate Authority to manually verify their business identity, which provides a higher level of legal assurance to their customers.</p>
@@ -180,7 +208,7 @@ export default function SslCostCalculator() {
               <p>One of the most misunderstood parts of paid SSL certificates is the <strong>warranty</strong>. If a Certificate Authority improperly issues a certificate to a hacker who then uses it to spoof your site and steal money from a customer, the CA's insurance will cover the customer's loss up to the warranty limit. Free certificates come with $0 warranty, while high-end certs offer up to $1.75 million in protection.</p>
 
               <h3>Impact on SEO and User Experience</h3>
-              <p>Google has officially stated that HTTPS is a ranking signal. Beyond SEO, browsers like Chrome and Firefox now display 'Not Secure' warnings for any page served over HTTP. Studies show that up to 85% of users will abandon a website if they see a 'Not Secure' warning, especially if the site asks for any form of data input. Investing in a stable, trusted SSL certificate is a direct investment in your conversion rate and brand reputation.</p>
+              <p>Google has officially stated that HTTPS is a ranking signal. Beyond SEO, browsers like Chrome and Firefox now display 'Not Secure' warnings for every page served over HTTP. Studies show that up to 85% of users will abandon a website if they see a 'Not Secure' warning, especially if the site asks for data input. Investing in a stable, trusted SSL certificate is a direct investment in your conversion rate and brand reputation.</p>
             </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ssl-certificate-cost-calculator" />
           <PopularCalculators exclude="/calculator/ssl-certificate-cost-calculator" />

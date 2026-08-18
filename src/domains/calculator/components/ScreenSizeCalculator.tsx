@@ -1,126 +1,297 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
-const ScreenSizeCalculator = () => {
-  const [diagonal, setDiagonal] = useState("27");
-  const [ratioWidth, setRatioWidth] = useState("16");
-  const [ratioHeight, setRatioHeight] = useState("9");
+interface Inputs {
+  diagonal: string
+  ratioWidth: string
+  ratioHeight: string
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface Result {
+  width: number
+  height: number
+  area: number
+  k: number
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const d = parseFloat(diagonal) || 0;
-    const rw = parseFloat(ratioWidth) || 16;
-    const rh = parseFloat(ratioHeight) || 9;
+const DEFAULTS: Inputs = { diagonal: "27", ratioWidth: "16", ratioHeight: "9" }
 
-    // d^2 = w^2 + h^2
-    // w = rh_w * k, h = rh_h * k
-    // d^2 = (rw*k)^2 + (rh*k)^2
-    // d^2 = k^2 * (rw^2 + rh^2)
-    // k = sqrt(d^2 / (rw^2 + rh^2))
-    
-    const k = Math.sqrt(Math.pow(d, 2) / (Math.pow(rw, 2) + Math.pow(rh, 2)));
-    const width = rw * k;
-    const height = rh * k;
-    const area = width * height;
+const RATIO_PRESETS = [
+  { label: "16:9", w: "16", h: "9" },
+  { label: "21:9", w: "21", h: "9" },
+  { label: "16:10", w: "16", h: "10" },
+  { label: "4:3", w: "4", h: "3" },
+  { label: "3:2", w: "3", h: "2" },
+]
 
-    setResults({
-      width,
-      height,
-      area,
-      ppi: 0 // Would need resolution for PPI
-    });
-  };
+function calculate(inputs: Inputs): Result {
+  const d = parseFloat(inputs.diagonal) || 0
+  const rw = parseFloat(inputs.ratioWidth) || 16
+  const rh = parseFloat(inputs.ratioHeight) || 9
+  const k = Math.sqrt(Math.pow(d, 2) / (Math.pow(rw, 2) + Math.pow(rh, 2)))
+  const width = rw * k
+  const height = rh * k
+  return { width, height, area: width * height, k }
+}
 
-  const reset = () => {
-    setShowResults(false);
-    setDiagonal("27");
-    setRatioWidth("16");
-    setRatioHeight("9");
-    setResults(null);
-  };
+export default function ScreenSizeCalculator() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
 
-  const faqs = [
-    { question: "How is screen size measured?", answer: "Screen size is always measured diagonally from one corner of the viewing area to the opposite corner. This measurement does not include the bezels (the plastic frame) around the screen." },
-    { question: "What is aspect ratio?", answer: "Aspect ratio is the proportional relationship between the width and height of a screen. Common ratios include 16:9 (standard widescreen TV/monitor), 21:9 (ultrawide), and 4:3 (older TVs)." },
-    { question: "Why does a 16:9 screen look smaller than a 4:3 screen of the same diagonal?", answer: "For a fixed diagonal, the closer a rectangle is to a square, the more area it has. A 4:3 screen is more 'square' than a 16:9 screen, so a 27-inch 4:3 screen actually has more physical surface area than a 27-inch 16:9 screen." }
-  ];
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
+
+  const invalid = useMemo(() => {
+    const d = parseFloat(inputs.diagonal)
+    const rw = parseFloat(inputs.ratioWidth)
+    const rh = parseFloat(inputs.ratioHeight)
+    return [d, rw, rh].some((x) => isNaN(x) || x <= 0)
+  }, [inputs])
+
+  const chartData = useMemo(
+    () => [
+      { name: "Width", value: result.width, fill: "hsl(var(--primary))" },
+      { name: "Height", value: result.height, fill: "hsl(var(--primary) / 0.6)" },
+      { name: "Diagonal", value: parseFloat(inputs.diagonal) || 0, fill: "hsl(var(--primary) / 0.3)" },
+    ],
+    [result, inputs]
+  )
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
+
+  const cm = (inches: number) => (inches * 2.54).toFixed(1)
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Screen Size" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Screen Size Calculator</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Technology</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">Screen Size Calculator</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-3 gap-5 mb-6">
-                <InputField id="diagonal" label="Diagonal Size" value={diagonal} onChange={setDiagonal} suffix="in" />
-                <InputField id="ratioW" label="Ratio Width" value={ratioWidth} onChange={setRatioWidth} />
-                <InputField id="ratioH" label="Ratio Height" value={ratioHeight} onChange={setRatioHeight} />
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        Screen Size Calculator
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">Diagonal Size (inches)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={inputs.diagonal}
+                  onChange={(e) => setInputs({ ...inputs, diagonal: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="27"
+                />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className="block text-sm font-medium mb-1">Ratio Width</label>
+                <input
+                  type="number"
+                  value={inputs.ratioWidth}
+                  onChange={(e) => setInputs({ ...inputs, ratioWidth: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="16"
+                />
               </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <div className="grid sm:grid-cols-2 gap-8 items-center">
-                  <div className="relative aspect-video bg-secondary/30 rounded-lg border border-border flex items-center justify-center overflow-hidden">
-                     {/* Dynamic Visual representation */}
-                     <div 
-                       className="border-2 border-primary bg-primary/10 rounded"
-                       style={{ 
-                         aspectRatio: `${ratioWidth}/${ratioHeight}`,
-                         width: '80%'
-                       }}
-                     />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold mb-3">Physical Dimensions</h2>
-                    <ResultDisplay items={[
-                      { label: "Width", value: 0, textValue: `${results.width.toFixed(2)} in (${(results.width * 2.54).toFixed(1)} cm)` },
-                      { label: "Height", value: 0, textValue: `${results.height.toFixed(2)} in (${(results.height * 2.54).toFixed(1)} cm)` },
-                      { label: "Total Area", value: 0, textValue: `${results.area.toFixed(1)} sq in` },
-                      { label: "Aspect Ratio", value: 0, textValue: `${ratioWidth}:${ratioHeight}` },
-                    ]} />
-                  </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Ratio Height</label>
+                <input
+                  type="number"
+                  value={inputs.ratioHeight}
+                  onChange={(e) => setInputs({ ...inputs, ratioHeight: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="9"
+                />
+              </div>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">Common Ratios</label>
+                <div className="flex flex-wrap gap-1.5">
+                  {RATIO_PRESETS.map((p) => (
+                    <button
+                      key={p.label}
+                      type="button"
+                      onClick={() => setInputs({ ...inputs, ratioWidth: p.w, ratioHeight: p.h })}
+                      className={`px-2.5 py-1 rounded text-[11px] font-bold border transition-colors ${
+                        inputs.ratioWidth === p.w && inputs.ratioHeight === p.h
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-secondary hover:bg-primary/10 border-border text-foreground"
+                      }`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-              </>
-            )}
+            </div>
+            {invalid && <p className="text-xs text-red-500 mt-2">Enter positive numbers for diagonal and ratio.</p>}
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Sidebar Ad" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Choosing the Right Screen Size</h2>
-              <p>When buying a new monitor or TV, diagonal size is only half the story. The aspect ratio significantly changes how much usable space you have for work or entertainment.</p>
-              <h3>Area vs. Diagonal</h3>
-              <p>Because screen sizes are marketed by diagonal, manufacturers can make a screen 'sound' bigger while providing less surface area by making it wider (increasing aspect ratio). For example, a 34-inch ultrawide (21:9) actually has a similar height to a 27-inch standard widescreen (16:9), but with extra width on the sides.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/screen-size-calculator" />
-          <PopularCalculators exclude="/calculator/screen-size-calculator" />
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Screen Area</p>
+            <p className="text-4xl font-bold text-primary mt-1">{result.area.toFixed(1)} <span className="text-xl font-semibold">in²</span></p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {result.width.toFixed(2)} × {result.height.toFixed(2)} in at {inputs.ratioWidth}:{inputs.ratioHeight}
+            </p>
+          </div>
+
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Width</p>
+              <p className="text-lg font-bold text-foreground mt-1">{result.width.toFixed(2)} in</p>
+              <p className="text-xs text-muted-foreground">{cm(result.width)} cm</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Height</p>
+              <p className="text-lg font-bold text-primary mt-1">{result.height.toFixed(2)} in</p>
+              <p className="text-xs text-muted-foreground">{cm(result.height)} cm</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Aspect Ratio</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">{inputs.ratioWidth}:{inputs.ratioHeight}</p>
+              <p className="text-xs text-muted-foreground">{parseFloat(inputs.ratioWidth) / parseFloat(inputs.ratioHeight) > 0 ? (parseFloat(inputs.ratioWidth) / (parseFloat(inputs.ratioHeight) || 1)).toFixed(2) : "—"}:1</p>
+            </div>
+          </div>
+
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Physical Dimensions</h2>
+            <table className="w-full text-sm">
+              <tbody>
+                {[
+                  ["Width", `${result.width.toFixed(2)} in`, `${cm(result.width)} cm`],
+                  ["Height", `${result.height.toFixed(2)} in`, `${cm(result.height)} cm`],
+                  ["Area", `${result.area.toFixed(1)} in²`, `${(result.area * 6.4516).toFixed(0)} cm²`],
+                  ["Diagonal", `${(parseFloat(inputs.diagonal) || 0).toFixed(1)} in`, `${cm(parseFloat(inputs.diagonal) || 0)} cm`],
+                  ["Aspect Ratio", `${inputs.ratioWidth}:${inputs.ratioHeight}`, `${(parseFloat(inputs.ratioWidth) / (parseFloat(inputs.ratioHeight) || 1)).toFixed(2)}:1`],
+                ].map((row, i) => (
+                  <tr key={row[0] as string} className={`border-b border-border ${i === 2 ? "bg-primary/10 font-semibold text-primary" : ""}`}>
+                    <td className="py-2.5 px-3">{row[0] as string}</td>
+                    <td className="py-2.5 px-3 text-right tabular-nums">{row[1] as string}</td>
+                    <td className="py-2.5 px-3 text-right text-muted-foreground">{row[2] as string}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Visual representation */}
+            <div className="mt-4 rounded-lg bg-secondary/30 border border-border flex items-center justify-center p-4">
+              <div
+                className="border-2 border-primary bg-primary/10 rounded"
+                style={{ aspectRatio: `${inputs.ratioWidth}/${inputs.ratioHeight}`, width: "80%" }}
+              />
+            </div>
+          </div>
+
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Dimensions (inches)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 11 }} />
+                <Tooltip formatter={(v: number) => [`${v.toFixed(2)} in`, ""]} />
+                <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                  {chartData.map((d) => (
+                    <Cell key={d.name} fill={d.fill} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">
+              For a fixed diagonal, squarer ratios (4:3) give more area than widescreen (16:9).
+            </p>
+          </div>
+
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Diagonal</p>
+                <p className="font-semibold text-foreground">{parseFloat(inputs.diagonal) || 0} in</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Aspect Ratio</p>
+                <p className="font-semibold text-foreground">{inputs.ratioWidth}:{inputs.ratioHeight}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Width</p>
+                <p className="font-semibold text-foreground">{result.width.toFixed(2)} in ({cm(result.width)} cm)</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Height</p>
+                <p className="font-semibold text-foreground">{result.height.toFixed(2)} in ({cm(result.height)} cm)</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Area</p>
+                <p className="font-semibold text-foreground">{result.area.toFixed(1)} in² ({(result.area * 6.4516).toFixed(0)} cm²)</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Scale Factor</p>
+                <p className="font-semibold text-foreground">{result.k.toFixed(3)} in/unit</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default ScreenSizeCalculator;
-
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/screen-size-calculator" />
+      </div>
+    </div>
+  )
+}

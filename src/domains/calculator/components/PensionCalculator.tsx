@@ -1,173 +1,168 @@
 "use client";
-import { RotateCcw, Calendar, TrendingUp, DollarSign } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const PensionCalculator = () => {
-  const [currentAge, setCurrentAge] = useState("40");
-  const [retirementAge, setRetirementAge] = useState("65");
-  const [currentService, setCurrentService] = useState("10");
-  const [finalSalary, setFinalSalary] = useState("95000");
-  const [multiplier, setMultiplier] = useState("2.0");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+function fmtUSD(n: number): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const age = parseInt(currentAge) || 0;
-    const retireAge = parseInt(retirementAge) || 0;
-    const service = parseFloat(currentService) || 0;
-    const salary = parseFloat(finalSalary) || 0;
-    const mult = (parseFloat(multiplier) || 0) / 100;
+const DEFAULTS = { years: "25", salary: "90000", accrual: "1.5", cola: "2", retireAge: "65", lifeExp: "88", lumpRate: "5" };
 
-    const totalServiceYears = service + (retireAge - age);
-    const annualBenefit = totalServiceYears * salary * mult;
-    const monthlyBenefit = annualBenefit / 12;
+export default function PensionCalculator() {
+  const [years, setYears] = useState(DEFAULTS.years);
+  const [salary, setSalary] = useState(DEFAULTS.salary);
+  const [accrual, setAccrual] = useState(DEFAULTS.accrual);
+  const [cola, setCola] = useState(DEFAULTS.cola);
+  const [retireAge, setRetireAge] = useState(DEFAULTS.retireAge);
+  const [lifeExp, setLifeExp] = useState(DEFAULTS.lifeExp);
+  const [lumpRate, setLumpRate] = useState(DEFAULTS.lumpRate);
+  const [calculated, setCalculated] = useState(false);
 
-    setResults({
-      totalServiceYears,
-      annualBenefit,
-      monthlyBenefit,
-      replacementRatio: salary > 0 ? (annualBenefit / salary) * 100 : 0
-    });
-  };
+  const y = Math.max(0, parseFloat(years) || 0);
+  const s = Math.max(0, parseFloat(salary) || 0);
+  const a = Math.max(0, Math.min(10, parseFloat(accrual) || 0)) / 100;
+  const c = Math.max(0, Math.min(10, parseFloat(cola) || 0)) / 100;
+  const ra = Math.max(45, Math.min(75, parseFloat(retireAge) || 65));
+  const le = Math.max(ra + 1, Math.min(100, parseFloat(lifeExp) || 88));
+  const r = Math.max(0, Math.min(15, parseFloat(lumpRate) || 0)) / 100;
 
-  const reset = () => {
-    setCurrentAge("40");
-    setRetirementAge("65");
-    setCurrentService("10");
-    setFinalSalary("95000");
-    setMultiplier("2.0");
-  };
+  const annualPension = y * a * s;
+  const monthly = annualPension / 12;
+  const yearsInPayout = le - ra;
+  // lump-sum PV of a growing annuity (COLA) discounted at the lump rate
+  const g = c;
+  const lumpPV = r === g
+    ? annualPension * yearsInPayout / (1 + r)
+    : annualPension * (1 - Math.pow((1 + g) / (1 + r), yearsInPayout)) / (r - g);
+  const nominalTotal = annualPension * yearsInPayout;
+
+  const chartData = Array.from({ length: yearsInPayout }, (_, i) => ({
+    name: `${ra + i}`,
+    annual: Math.round(annualPension * Math.pow(1 + c, i)),
+  }));
+
+  const calc = () => setCalculated(true);
+  useEffect(() => { if (calculated) setCalculated(true); }, [calculated]);
+
+  const reset = () => { setYears(DEFAULTS.years); setSalary(DEFAULTS.salary); setAccrual(DEFAULTS.accrual); setCola(DEFAULTS.cola); setRetireAge(DEFAULTS.retireAge); setLifeExp(DEFAULTS.lifeExp); setLumpRate(DEFAULTS.lumpRate); setCalculated(false); };
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What is a defined benefit pension?",
-      answer: "A defined benefit pension is a retirement plan where an employer promises a specific monthly benefit upon retirement. This benefit is usually based on a formula that considers your years of service and your salary history, rather than on investment returns like a 401(k)."
-    },
-    {
-      question: "How does the pension multiplier work?",
-      answer: "The multiplier is a fixed percentage (often between 1% and 2.5%) used in the pension formula. For example, if you have a 2% multiplier and 30 years of service, your pension would be 60% (2% × 30) of your final average salary."
-    },
-    {
-      question: "What is 'vesting' in a pension plan?",
-      answer: "Vesting means you have earned a non-forfeitable right to your pension benefits. Most plans require you to work for a minimum number of years (often 5 to 10 years) before you are 'fully vested' and eligible to receive a pension at retirement age."
-    },
-    {
-      question: "Can I take my pension as a lump sum?",
-      answer: "Many plans allow you to choose between a monthly annuity (payments for life) or a one-time lump sum payment. While a lump sum gives you more control, a monthly annuity provides a guaranteed income stream that you cannot outlive."
-    }
+    { question: "How is the pension calculated?", answer: "Most defined-benefit plans use years of service × accrual rate × final average salary. This calculator uses that formula with a 1.5% default accrual — many plans pay 1.5–2% per year of service, and some use an average of your last 3–5 years of salary instead of a single final figure." },
+    { question: "What does the lump-sum value mean?", answer: "It is the present value of the expected payout stream, discounted at your chosen rate. Plans often offer a real lump-sum option at retirement; comparing it against this present value tells you whether the offer is fair. Higher discount rates shrink the lump sum." },
+    { question: "How does COLA affect the payout?", answer: "A 2% cost-of-living adjustment compounds the annual payment each year. Over a 23-year payout that is a large difference — the later years' checks are far bigger in nominal dollars, which is exactly what a retiree needs to preserve purchasing power." },
+    { question: "Should I take the lump sum or the annuity?", answer: "Rule of thumb: if the plan's lump-sum offer is close to the present value at a reasonable discount rate, take the annuity for guaranteed income. If you have a strong investment plan and need flexibility, the lump sum can win — run the comparison here first." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Pension Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Pension Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pension Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Pension Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calendar className="h-5 w-5 text-primary" /> Service & Age
-                  </h2>
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputField id="age" label="Current Age" value={currentAge} onChange={setCurrentAge} />
-                    <InputField id="retire-age" label="Retirement Age" value={retirementAge} onChange={setRetirementAge} />
-                  </div>
-                  <InputField id="service" label="Current Years of Service" value={currentService} onChange={setCurrentService} suffix="yrs" />
-                </section>
-
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <DollarSign className="h-5 w-5 text-primary" /> Salary & Formula
-                  </h2>
-                  <InputField id="salary" label="Final Average Salary" value={finalSalary} onChange={setFinalSalary} prefix="$" tooltip="The average of your highest earning years (e.g., top 3 or 5 years)." />
-                  <InputField id="multiplier" label="Pension Multiplier (%)" value={multiplier} onChange={setMultiplier} suffix="%" step="0.1" tooltip="The percentage assigned per year of service (e.g., 2.0%)." />
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={lbl}>Years of service</label>
+                <input type="number" min={0} value={years} onChange={e => setYears(e.target.value)} className={inp} placeholder="25" />
               </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+              <div>
+                <label className={lbl}>Final average salary</label>
+                <input type="number" min={0} value={salary} onChange={e => setSalary(e.target.value)} className={inp} placeholder="90000" />
               </div>
+              <div>
+                <label className={lbl}>Accrual rate % per year</label>
+                <input type="number" min={0} max={10} step={0.1} value={accrual} onChange={e => setAccrual(e.target.value)} className={inp} placeholder="1.5" />
+              </div>
+              <div>
+                <label className={lbl}>COLA % per year</label>
+                <input type="number" min={0} max={10} step={0.1} value={cola} onChange={e => setCola(e.target.value)} className={inp} placeholder="2" />
+              </div>
+              <div>
+                <label className={lbl}>Retirement age</label>
+                <input type="number" min={45} max={75} value={retireAge} onChange={e => setRetireAge(e.target.value)} className={inp} placeholder="65" />
+              </div>
+              <div>
+                <label className={lbl}>Life expectancy</label>
+                <input type="number" min={46} max={100} value={lifeExp} onChange={e => setLifeExp(e.target.value)} className={inp} placeholder="88" />
+              </div>
+              <div className="col-span-2">
+                <label className={lbl}>Lump-sum discount rate %</label>
+                <input type="number" min={0} max={15} step={0.1} value={lumpRate} onChange={e => setLumpRate(e.target.value)} className={inp} placeholder="5" />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calc} className="flex-1 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/90 text-primary-foreground">Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                  <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Estimated Monthly Pension</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.monthlyBenefit).toLocaleString()}</p>
-                    <p className="text-xs text-primary mt-2 font-bold uppercase tracking-widest">{results.totalServiceYears} Total Service Years</p>
+          {calculated && (
+            <div className="flex flex-col gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Annual Pension at Retirement</div>
+                <div className="text-3xl font-extrabold tracking-tight">{fmtUSD(annualPension)}/yr</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmtUSD(monthly)}/month · {y} yrs × {a * 100}% × {fmtUSD(s)}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Lump-sum value", fmtUSD(lumpPV), `${lumpRate}% discount`], ["Nominal total paid", fmtUSD(nominalTotal), `${yearsInPayout} yrs of checks`], ["First check (COLA)", fmtUSD(annualPension), `${c * 100}%/yr growth`]].map(([l, v, s], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{s}</div>
                   </div>
-                  <div className="card-calculator bg-emerald-500/5 border-emerald-500/20 text-center flex flex-col justify-center py-8">
-                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Estimated Annual Benefit</p>
-                    <p className="text-5xl font-black text-foreground">${Math.round(results.annualBenefit).toLocaleString()}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Payout Stream with COLA</h3>
+                <ResponsiveContainer width="100%" height={240}>
+                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" tickFormatter={(v: number) => `${Math.round(v / 1000)}k`} />
+                    <Tooltip formatter={(v: number) => [fmtUSD(Number(v)), "Annual payout"]} />
+                    <Bar dataKey="annual" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Each bar shows that year's check — COLA compounds, so later years pay more</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Plan Summary</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">Years of service:</span><span className="font-semibold">{y} yrs</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Accrual rate:</span><span className="font-semibold">{a * 100}%/yr</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Final avg salary:</span><span className="font-semibold">{fmtUSD(s)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">COLA:</span><span className="font-semibold">{c * 100}%/yr</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Years in payout:</span><span className="font-semibold">{yearsInPayout}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Lump-sum PV:</span><span className="font-semibold">{fmtUSD(lumpPV)}</span></div>
                 </div>
-
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <TrendingUp className="h-5 w-5 text-primary" /> Formula Breakdown
-                  </h2>
-                  <div className="mb-8 p-6 bg-secondary/30 rounded-2xl text-center border border-border italic font-medium">
-                     "${results.totalServiceYears} Years" × "${results.multiplier}% Multiplier" × "${parseFloat(finalSalary).toLocaleString()} Salary" = "${Math.round(results.annualBenefit).toLocaleString()}"
-                  </div>
-                  <ResultDisplay items={[
-                    { label: "Total Years of Service", value: results.totalServiceYears },
-                    { label: "Income Replacement Ratio", value: 0, textValue: `${results.replacementRatio.toFixed(1)}%` },
-                    { label: "Current Vested Years", value: parseFloat(currentService) },
-                    { label: "Years Remaining to Retire", value: parseInt(retirementAge) - parseInt(currentAge) },
-                  ]} />
-                </div>
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How Defined Benefit Pensions Work</h2>
-              <p>While 401(k) plans have become the standard in the private sector, many public sector employees (teachers, police officers, government workers) still have access to defined benefit pensions. These plans offer a high level of retirement security because the employer bears all the investment risk, promising a set income for the rest of your life.</p>
-
-              <h3>The Three Pillars of the Pension Formula</h3>
-              <p>Most pension plans use a simple but powerful formula to determine your benefit:</p>
-              <ol>
-                <li><strong>Years of Service:</strong> The total number of years you have worked for the employer and participated in the plan. Even a few extra months can sometimes make a significant difference.</li>
-                <li><strong>Final Average Salary (FAS):</strong> Instead of using your starting salary, pensions usually average your highest earning years (often the 'Highest 3' or 'Highest 5' consecutive years).</li>
-                <li><strong>The Multiplier:</strong> This is a percentage determined by the plan's rules. A 2% multiplier is common in many public plans, while some 'high-risk' roles like firefighters might have a 3% multiplier.</li>
-              </ol>
-
-              <h3>Cost of Living Adjustments (COLA)</h3>
-              <p>One of the most valuable features of many pensions is the Cost of Living Adjustment. This ensures that your monthly check increases over time to keep up with inflation. Without a COLA, the purchasing power of your pension would slowly erode over a 20 or 30-year retirement.</p>
-
-              <h3>Survivor Benefits</h3>
-              <p>When you retire, you will often be asked to choose how your pension is paid. You can take a "Single Life" annuity, which provides the highest possible payment but stops when you die. Alternatively, you can choose a "Joint and Survivor" option, which provides a slightly smaller payment but continues to pay your spouse a percentage (usually 50%, 75%, or 100%) after your death.</p>
-
-              <h3>The "Rule of 80" or "Rule of 90"</h3>
-              <p>Some plans allow for early retirement without penalty if your age plus your years of service reach a certain number. For example, under a 'Rule of 80,' if you are 55 years old and have 25 years of service (55+25=80), you could retire with your full earned benefit even if you haven't reached the plan's 'normal' retirement age.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Pension Safety and the PBGC</h2>
-              <p>If you work for a private company with a pension, your benefits are likely insured by the **Pension Benefit Guaranty Corporation (PBGC)**. This federal agency ensures that even if your company goes bankrupt, you will still receive at least a portion of your promised pension benefits, up to certain legal limits.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">The Defined-Benefit Formula</h2>
+            <p>Traditional pensions pay a guaranteed stream: years of service times an accrual rate times your final average salary. This <strong>pension calculator</strong> applies that formula and then values the result two ways — as an annuity with cost-of-living adjustments, and as the lump-sum present value.</p>
+            <h2 className="text-2xl font-bold mb-3">COLA Changes Everything</h2>
+            <p>A 2% adjustment may sound small, but compounded over a 20+ year retirement it is the difference between a check that buys less every year and one that holds its purchasing power. The chart shows the payout stream rising year over year.</p>
+            <h2 className="text-2xl font-bold mb-3">Lump Sum vs. Annuity</h2>
+            <p>When a plan offers a lump sum, compare it to the present value at a discount rate that reflects how you would actually invest it. If the offer is at or above the present value, taking the cash can be reasonable; if it is well below, the annuity is usually the better deal.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pension-calculator" />
           <PopularCalculators exclude="/calculator/pension-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default PensionCalculator;
-
+}

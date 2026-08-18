@@ -257,7 +257,7 @@ export default function FourierTransformCalculator() {
 
             <div className="flex gap-3 pt-2">
               <button onClick={handleCalculate} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold flex items-center justify-center transition-colors">
-                Compute FFT
+                Calculate
               </button>
               <button onClick={reset} className="w-10 h-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary">
                 <RotateCcw className="h-4 w-4" />

@@ -1,147 +1,224 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+
+interface OptResult {
+  type: string;
+  strike: number;
+  premium: number;
+  contracts: number;
+  currentPrice: number;
+  breakEven: number;
+  maxLoss: number;
+  maxGain: string;
+  profit: number;
+  roc: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { price: number; pl: number }[];
+}
+
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
+
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
+
+function calcOpt(type: string, strike: number, premium: number, contracts: number, currentPrice: number): OptResult {
+  const multiplier = 100;
+  const cost = premium * multiplier * contracts;
+  let profit: number;
+  if (type === "call") {
+    profit = (Math.max(0, currentPrice - strike) - premium) * multiplier * contracts;
+  } else {
+    profit = (Math.max(0, strike - currentPrice) - premium) * multiplier * contracts;
+  }
+  const breakEven = type === "call" ? strike + premium : strike - premium;
+  const maxLoss = cost;
+  const maxGain = type === "call" ? "Unlimited" : money((strike - premium) * multiplier * contracts);
+  const roc = (profit / Math.max(1, cost)) * 100;
+  const breakdown = [
+    { label: "Type", value: type === "call" ? "Call Option" : "Put Option" },
+    { label: "Strike Price", value: money(strike) },
+    { label: "Premium per Share", value: `$${fmt(premium)}` },
+    { label: "Contracts (×100 shares)", value: `${contracts}` },
+    { label: "Cost to Open", value: money(cost) },
+    { label: "Price at Expiry", value: money(currentPrice) },
+    { label: "Intrinsic Value", value: money(type === "call" ? Math.max(0, currentPrice - strike) : Math.max(0, strike - currentPrice)) },
+    { label: "Profit / Loss", value: `${profit >= 0 ? "+" : "−"} ${money(Math.abs(profit))}` },
+    { label: "Return on Capital", value: `${fmt(roc)}%` },
+    { label: "Break-Even Price", value: money(breakEven) },
+    { label: "Max Loss", value: money(maxLoss) },
+    { label: "Max Gain", value: maxGain },
+  ];
+  const summaryStats = [
+    { label: "P/L at Expiry", value: `${profit >= 0 ? "+" : "−"} ${money(Math.abs(profit))}` },
+    { label: "Break-Even", value: money(breakEven) },
+    { label: "Max Loss", value: money(maxLoss) },
+    { label: "Max Gain", value: maxGain },
+    { label: "ROI", value: `${fmt(roc)}%` },
+  ];
+  const chartData: { price: number; pl: number }[] = [];
+  const lo = Math.min(strike, currentPrice) * 0.6;
+  const hi = Math.max(strike, currentPrice) * 1.4;
+  for (let p = lo; p <= hi; p += Math.max(1, (hi - lo) / 40)) {
+    const pl = type === "call"
+      ? (Math.max(0, p - strike) - premium) * multiplier * contracts
+      : (Math.max(0, strike - p) - premium) * multiplier * contracts;
+    chartData.push({ price: Number(p.toFixed(2)), pl: Number(pl.toFixed(0)) });
+  }
+  return { type, strike, premium, contracts, currentPrice, breakEven, maxLoss, maxGain, profit, roc, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { type: "call", strike: "100", premium: "4.5", contracts: "1", price: "110" };
 
 export default function OptionsProfitCalculator() {
-  const [optionType, setOptionType] = useState("call");
-  const [stockPrice, setStockPrice] = useState("150");
-  const [strikePrice, setStrikePrice] = useState("155");
-  const [premium, setPremium] = useState("2.50");
-  const [contracts, setContracts] = useState("1");
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState({
-    breakEven: 0,
-    maxProfitText: "",
-    maxLoss: 0,
-    currentProfit: 0,
-  });
+  const [type, setType] = useState<string>(DEFAULTS.type);
+  const [strike, setStrike] = useState(DEFAULTS.strike);
+  const [premium, setPremium] = useState(DEFAULTS.premium);
+  const [contracts, setContracts] = useState(DEFAULTS.contracts);
+  const [price, setPrice] = useState(DEFAULTS.price);
+  const [result, setResult] = useState<OptResult | null>(null);
 
-  const handleCalculate = () => {
-    const sp = parseFloat(stockPrice) || 0;
-    const strike = parseFloat(strikePrice) || 0;
-    const prem = parseFloat(premium) || 0;
-    const cont = parseFloat(contracts) || 1;
-    const totalPremium = prem * cont * 100;
+  const s = parseFloat(strike);
+  const p = parseFloat(premium);
+  const c = parseFloat(contracts);
+  const cp = parseFloat(price);
+  const errs: string[] = [];
+  if (!s || s <= 0) errs.push("Strike price must be greater than 0.");
+  if (isNaN(p) || p <= 0) errs.push("Premium must be greater than 0.");
+  if (!c || c <= 0) errs.push("Contracts must be greater than 0.");
+  if (isNaN(cp) || cp <= 0) errs.push("Price at expiry must be greater than 0.");
+  const valid = errs.length === 0;
 
-    let breakEven = 0;
-    let maxProfitText = "";
-    let currentProfit = 0;
-
-    if (optionType === "call") {
-      breakEven = strike + prem;
-      currentProfit = (Math.max(0, sp - strike) - prem) * cont * 100;
-      maxProfitText = "Unlimited";
-    } else {
-      breakEven = strike - prem;
-      currentProfit = (Math.max(0, strike - sp) - prem) * cont * 100;
-      maxProfitText = `$${((strike - prem) * cont * 100).toLocaleString()}`;
-    }
-
-    setResults({ breakEven, maxProfitText, maxLoss: totalPremium, currentProfit });
-    setShowResults(true);
-  };
-
+  const calculate = () => { if (valid) setResult(calcOpt(type, s, p, c, cp)); };
   const reset = () => {
-    setOptionType("call"); setStockPrice("150"); setStrikePrice("155");
-    setPremium("2.50"); setContracts("1"); setShowResults(false);
+    setType(DEFAULTS.type); setStrike(DEFAULTS.strike); setPremium(DEFAULTS.premium); setContracts(DEFAULTS.contracts); setPrice(DEFAULTS.price);
+    setResult(calcOpt("call", 100, 4.5, 1, 110));
   };
+  useEffect(() => { setResult(calcOpt("call", 100, 4.5, 1, 110)); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is an options profit calculator?", answer: "An options profit calculator estimates the potential profit or loss of an options contract based on changes in the underlying stock price, strike price, and premium paid." },
-    { question: "How is the break-even price calculated for a call option?", answer: "For a long call option, the break-even price is the strike price plus the premium paid per share. For example, a $155 strike with a $2.50 premium has a break-even of $157.50." },
-    { question: "What is the maximum loss on a long call or put?", answer: "The maximum loss for a long option buyer is strictly limited to the total premium paid for the contract — this is one of the key advantages of buying options vs. shorting stocks." },
-    { question: "How does the number of contracts affect the calculation?", answer: "Each standard U.S. options contract represents 100 shares. So the total premium paid is: premium per share × number of contracts × 100." },
-    { question: "What is a strike price?", answer: "The strike price is the fixed price at which the option holder can buy (call) or sell (put) the underlying security when exercising the option." },
-    { question: "What does 'premium' mean in options trading?", answer: "The premium is the price the buyer pays to the seller for the rights granted by the options contract. It is quoted on a per-share basis, so a $2.50 premium costs $250 per contract." },
-    { question: "What is the difference between intrinsic and extrinsic value in options?", answer: "Intrinsic value is the real in-the-money value of the option. Extrinsic value (time value) is the extra amount paid above intrinsic value, reflecting time remaining and implied volatility." },
+    { question: "How is options profit calculated at expiry?", answer: "A call's value at expiry is max(0, price − strike); a put's is max(0, strike − price). Subtract the premium paid and multiply by 100 shares per contract to get the total dollar profit or loss." },
+    { question: "What is the break-even price?", answer: "The underlying price at which you neither gain nor lose: strike + premium for a call, strike − premium for a put. Below break-even for a call (above for a put) the position loses money up to the premium paid." },
+    { question: "What is the risk profile?", answer: "Buying options caps your loss at the premium — the maximum you can lose is the cost to open. Gains are unlimited for calls and large but bounded for puts (strike − premium). That asymmetry is why options are used for defined-risk speculation." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Options Profit Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Options Profit Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Options Profit Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Options Profit Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="mb-4">
-                <label className="block text-sm font-medium text-foreground mb-1.5">Option Type</label>
-                <div className="flex rounded-lg border border-input overflow-hidden">
-                  <button type="button" onClick={() => setOptionType("call")} className={`flex-1 py-3 text-sm font-medium transition-colors ${optionType === "call" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Call (Bullish)</button>
-                  <button type="button" onClick={() => setOptionType("put")} className={`flex-1 py-3 text-sm font-medium transition-colors ${optionType === "put" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Put (Bearish)</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className={lbl}>Option Type</label>
+              <select value={type} onChange={e => setType(e.target.value)} className={inp}>
+                <option value="call">Call Option</option>
+                <option value="put">Put Option</option>
+              </select>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Strike Price ($)</label>
+                <input type="number" value={strike} onChange={e => setStrike(e.target.value)} className={inp} placeholder="100" />
+              </div>
+              <div>
+                <label className={lbl}>Premium ($/share)</label>
+                <input type="number" value={premium} onChange={e => setPremium(e.target.value)} className={inp} placeholder="4.50" />
+              </div>
+              <div>
+                <label className={lbl}>Contracts (×100)</label>
+                <input type="number" value={contracts} onChange={e => setContracts(e.target.value)} className={inp} placeholder="1" />
+              </div>
+              <div>
+                <label className={lbl}>Stock Price at Expiry ($)</label>
+                <input type="number" value={price} onChange={e => setPrice(e.target.value)} className={inp} placeholder="110" />
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className={`${result.profit >= 0 ? "bg-primary/10 border-l-4 border-primary" : "bg-destructive/10 border-l-4 border-destructive"} rounded-lg p-5`}>
+                <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.profit >= 0 ? "text-primary" : "text-destructive"}`}>Profit / Loss at Expiry</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.profit >= 0 ? "+" : "−"} {money(Math.abs(result.profit))}</div>
+                <div className="text-sm text-muted-foreground mt-1">ROI {fmt(result.roc)}% · break-even {money(result.breakEven)}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Break-Even", money(result.breakEven)], ["Max Loss", money(result.maxLoss)], ["Max Gain", result.maxGain]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 7 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 7 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 7 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">P/L Across Expiry Prices</h3>
+                <ResponsiveContainer width="100%" height={240}>
+                  <LineChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="price" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" label={{ value: "Stock Price at Expiry", position: "insideBottom", offset: -2, fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [money(v), "P/L"]} labelFormatter={(l) => `Price $${l}`} />
+                    <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
+                    <ReferenceLine x={result.breakEven} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: "Break-even", position: "top", fontSize: 12 }} />
+                    <Line type="monotone" dataKey="pl" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Loss is capped at the premium; the line's slope is ±100/share beyond the strike</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="stock-price" label="Current Stock Price" value={stockPrice} onChange={setStockPrice} prefix="$" tooltip="The current market price of the underlying stock." />
-                <InputField id="strike-price" label="Strike Price" value={strikePrice} onChange={setStrikePrice} prefix="$" tooltip="The price at which the option can be exercised." />
-                <InputField id="premium" label="Premium Paid (per share)" value={premium} onChange={setPremium} prefix="$" tooltip="The cost of one share's worth of the option contract." />
-                <InputField id="contracts" label="Number of Contracts" value={contracts} onChange={setContracts} tooltip="Each contract = 100 shares." />
-              </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Results</h2>
-                <ResultDisplay items={[
-                  { label: "Break-Even Price", value: results.breakEven, highlight: true },
-                  { label: "Max Profit", value: 0, textValue: results.maxProfitText, highlight: true },
-                  { label: "Maximum Loss (Premium Paid)", value: results.maxLoss },
-                  { label: "Current P&L at Stock Price", value: results.currentProfit, highlight: true },
-                ]} />
-              </>
-            )}
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Options Profit and Loss</h2>
-              <p>Options trading offers investors a powerful way to profit from price movements in stocks, ETFs, and other securities with a defined and limited risk. Unlike buying shares outright, purchasing an option grants you the right — but not the obligation — to buy or sell an underlying asset at a predetermined price (the strike price) before a specified expiration date. This Options Profit Calculator helps you visualize the exact profit, loss, and break-even points for your trade before you commit capital.</p>
-
-              <h2 className="text-2xl font-bold mb-3">The Mechanics of a Call Option</h2>
-              <p>A call option is a bullish strategy. You buy a call when you believe the underlying stock price will rise above the strike price before expiration. For example, if a stock trades at $150 and you buy a call with a $155 strike for a $2.50 premium, your break-even is $157.50. Above that price, every dollar of stock appreciation translates to $100 of profit per contract (since each contract covers 100 shares). Below $157.50 at expiration, your maximum loss is the $250 premium paid.</p>
-
-              <h2 className="text-2xl font-bold mb-3">The Mechanics of a Put Option</h2>
-              <p>A put option is the bearish counterpart. You buy a put when you expect the stock to fall. If the same $150 stock has a $145 put with a $2.50 premium, your break-even is $142.50. Below that, the option gains value. The maximum profit for a put is capped at the strike price minus the premium (times 100 shares), occurring when the stock goes to zero. The maximum loss is again the premium paid.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Risk Management with Options</h2>
-              <p>One of the most appealing features of buying options is that risk is defined and limited. Unlike short-selling a stock where losses can be theoretically infinite, an option buyer cannot lose more than the premium invested. This makes options an attractive tool for hedging an existing stock portfolio or speculating with limited downside. However, it's critical to understand that the probability of losing 100% of the premium is often higher than the probability of the trade being profitable.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Time Decay: The Silent Killer</h2>
-              <p>Options are wasting assets — they lose value every day simply due to the passage of time. This is called Theta decay. An option with 60 days left has more time value than one with 5 days left. For option buyers, time is the enemy. If the stock doesn't move in your direction quickly enough, time decay will erode your option's value even if you are eventually proven right about the direction.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Implied Volatility and Its Impact</h2>
-              <p>Implied Volatility (IV) represents the market's consensus on how much a stock's price will move. High IV means options are expensive; low IV means they are cheap. Buying options when IV is extremely high (e.g., right before an earnings announcement) is risky because the "volatility crush" after the event can destroy an option's value even if the stock moves in the right direction. This is why experienced options traders pay close attention to IV rank and IV percentile.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Calculating Your True Cost</h2>
-              <p>Always think in terms of total cost, not per-share cost. A $2.50 premium might seem small, but one contract controls 100 shares and costs $250. If you buy 10 contracts, your total premium is $2,500. This total premium is your maximum possible loss. When calculating expected return, the percentage gain on the premium can be very high (e.g., 200-300%), but the absolute dollar amount must justify the risk.</p>
-
-              <h2 className="text-2xl font-bold mb-3">The Role of the Greeks in Options Trading</h2>
-              <p>Beyond the basic P&L at expiration, options traders use "The Greeks" to measure sensitivity:</p>
-              <ul>
-                <li><strong>Delta:</strong> How much the option price changes per $1 move in the stock (0 to 1 for calls, -1 to 0 for puts).</li>
-                <li><strong>Gamma:</strong> The rate of change of delta, showing how quickly your exposure shifts.</li>
-                <li><strong>Theta:</strong> Daily time decay in dollars, always working against the buyer.</li>
-                <li><strong>Vega:</strong> Sensitivity to changes in implied volatility.</li>
-              </ul>
-              <p>Understanding the Greeks allows traders to construct sophisticated multi-leg strategies like spreads, straddles, and iron condors that profit from specific market conditions.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Common Options Strategies Beyond Simple Calls and Puts</h2>
-              <p>Once you master the basics, you can combine options contracts into complex strategies. A <strong>covered call</strong> involves owning 100 shares and selling a call against them to generate income. A <strong>protective put</strong> involves buying a put on shares you own to insure against downside. A <strong>bull call spread</strong> involves buying one call and selling another at a higher strike to reduce the cost of the trade, capping both your profit and loss.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">The Payoff Diagram, Computed</h2>
+            <p>An option's value at expiry is a simple piecewise function — intrinsic value minus premium. This <strong>options profit calculator</strong> computes the exact profit or loss for calls and puts at any stock price, and draws the classic payoff diagram.</p>
+            <h2 className="text-2xl font-bold mb-3">The Three Key Prices</h2>
+            <p>The strike defines where the option gains value; the break-even (strike ± premium) defines where you stop losing; and the chart shows the whole line in between. Each contract represents 100 shares, so premiums compound by a factor of 100 × contracts.</p>
+            <h2 className="text-2xl font-bold mb-3">Risk in One Look</h2>
+            <p>Buying options is defined-risk: the maximum loss is the premium paid, visible as the flat floor of the payoff line. The chart's slope beyond the strike shows the leverage — every dollar of stock movement translates one-for-one into option value.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/options-profit-calculator" />
           <PopularCalculators exclude="/calculator/options-profit-calculator" />
         </div>

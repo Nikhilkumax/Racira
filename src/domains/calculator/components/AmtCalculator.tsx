@@ -131,10 +131,7 @@ const COLORS = ['hsl(var(--primary))', 'hsl(var(--destructive))'];
 export default function AmtCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<AmtResults | null>(null);
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
     setResults(calculateAmt(inputs));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -159,8 +156,6 @@ export default function AmtCalculator() {
     { question: "Do Incentive Stock Options (ISOs) trigger AMT?", answer: "Yes, frequently. When you exercise an ISO and hold the stock, the difference between the fair market value of the stock at exercise and the strike price you paid is a tax preference item for AMT purposes, even though it's not subject to regular income tax until you sell the stock." },
     { question: "Can I get the AMT money back?", answer: "In some cases, yes. If you pay AMT due to a deferral item (like an ISO exercise), you generate an AMT credit. You can use this credit in future years to lower your regular tax liability down to your AMT liability level." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>

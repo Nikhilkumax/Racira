@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -120,12 +120,6 @@ const COLORS = ['hsl(var(--emerald-500))', 'hsl(var(--destructive))'];
 export default function BackdoorRothIraCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<BackdoorRothResults>(calculateBackdoorRoth(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string | boolean) => {
     const newInputs = { ...inputs, [key]: val };
     setInputs(newInputs);
@@ -133,6 +127,11 @@ export default function BackdoorRothIraCalculator() {
       const r = calculateBackdoorRoth(newInputs);
       if (!r.isError) setResults(r);
     }
+  };
+
+  const handleCalculate = () => {
+    const r = calculateBackdoorRoth(inputs);
+    if (!r.isError) setResults(r);
   };
 
   const handleReset = () => {
@@ -147,8 +146,6 @@ export default function BackdoorRothIraCalculator() {
     { question: "What is the contribution limit for 2024?", answer: "The maximum IRA contribution limit for 2024 is $7,000, or $8,000 if you are age 50 or older." },
     { question: "Can I do a Backdoor Roth if I already maxed out my 401(k)?", answer: "Yes! IRA contribution limits are completely separate from 401(k) contribution limits. You can max out your 401(k) and still execute a Backdoor Roth IRA conversion." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>
@@ -191,7 +188,10 @@ export default function BackdoorRothIraCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
                 <RotateCcw className="h-4 w-4" /> Reset
               </button>
             </div>

@@ -1,197 +1,234 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Globe, Search, Tag, Calculator, TrendingUp, ShieldCheck } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
+
+interface DomainResult {
+  name: string;
+  tld: string;
+  length: number;
+  visitors: number;
+  baseValue: number;
+  lengthAdj: number;
+  keywordMult: number;
+  trafficValue: number;
+  ageMult: number;
+  estimatedValue: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
+
+type Keyword = "none" | "moderate" | "high";
+
+const TLD_BASE: Record<string, number> = { com: 1000, net: 500, org: 500, io: 400, co: 350, ai: 300, app: 300, dev: 250, me: 250, info: 200, biz: 200, other: 150 };
+const KEYWORD_MULT: Record<Keyword, number> = { none: 1, moderate: 1.5, high: 2.5 };
+
+function calcDomain(name: string, tld: string, visitors: number, keyword: Keyword, ageYears: number): DomainResult {
+  const length = name.length;
+  const baseValue = TLD_BASE[tld] || TLD_BASE.other;
+  const lengthAdj = length <= 5 ? 3 : length <= 8 ? 1.8 : length <= 12 ? 1.2 : 0.7;
+  const keywordMult = KEYWORD_MULT[keyword];
+  const trafficValue = visitors * 0.1 * 12 * 20; // $0.10 RPM * 12 months * 20x multiple
+  const ageMult = ageYears >= 5 ? 1.3 : ageYears >= 2 ? 1.15 : 1;
+  const estimatedValue = Math.round((baseValue * lengthAdj * keywordMult + trafficValue) * ageMult);
+
+  const breakdown = [
+    { label: "Domain Name", value: `${name}.${tld}` },
+    { label: "Length", value: `${length} characters` },
+    { label: "TLD Base Value", value: `$${baseValue.toLocaleString()}` },
+    { label: "Length Multiplier", value: `×${lengthAdj}` },
+    { label: "Keyword Multiplier", value: `×${keywordMult} (${keyword})` },
+    { label: "Traffic Component", value: `$${trafficValue.toLocaleString()}` },
+    { label: "Age Multiplier", value: `×${ageMult} (${ageYears} yrs)` },
+    { label: "Estimated Market Value", value: `$${estimatedValue.toLocaleString()}` },
+  ];
+  const summaryStats = [
+    { label: "Estimated Value", value: `$${estimatedValue.toLocaleString()}` },
+    { label: "TLD", value: `.${tld}` },
+    { label: "Length", value: `${length} chars` },
+    { label: "Traffic", value: `${visitors}/mo` },
+    { label: "Keyword", value: keyword },
+    { label: "Age", value: `${ageYears} years` },
+    { label: "Base", value: `$${baseValue.toLocaleString()}` },
+    { label: "Traffic Value", value: `$${trafficValue.toLocaleString()}` },
+  ];
+  const chartData = [
+    { name: "Base + Length", value: Math.round(baseValue * lengthAdj * keywordMult), fill: "hsl(var(--primary))" },
+    { name: "Traffic", value: Math.round(trafficValue), fill: "#10b981" },
+    { name: "Age Boost", value: Math.max(0, Math.round((baseValue * lengthAdj * keywordMult + trafficValue) * (ageMult - 1))), fill: "#f59e0b" },
+  ];
+  return { name, tld, length, visitors, baseValue, lengthAdj, keywordMult, trafficValue, ageMult, estimatedValue, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { name: "financehub", tld: "com", visitors: "1000", keyword: "moderate" as Keyword, age: "5" };
 
 export default function DomainValuationCalculator() {
-  const [domainName, setDomainName] = useState("");
-  const [domainLength, setDomainLength] = useState("8");
-  const [extension, setExtension] = useState(".com");
-  const [monthlyTraffic, setMonthlyTraffic] = useState("0");
-  const [keywordsCount, setKeywordsCount] = useState("1");
-  const [isDictionaryWord, setIsDictionaryWord] = useState(false);
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState({
-    baseValue: 0,
-    extensionMultiplier: 0,
-    lengthAdjustment: 0,
-    trafficValue: 0,
-    totalValuation: 0,
-    confidenceScore: 0,
-  });
+  const [name, setName] = useState(DEFAULTS.name);
+  const [tld, setTld] = useState(DEFAULTS.tld);
+  const [visitors, setVisitors] = useState(DEFAULTS.visitors);
+  const [keyword, setKeyword] = useState<Keyword>("moderate");
+  const [age, setAge] = useState(DEFAULTS.age);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<DomainResult | null>(null);
 
-  const handleCalculate = () => {
-    const length = parseInt(domainLength) || 8;
-    const traffic = parseFloat(monthlyTraffic) || 0;
-    const keywords = parseInt(keywordsCount) || 1;
+  const cleanName = name.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const v = parseFloat(visitors) || 0;
+  const a = parseInt(age) || 0;
+  const errs: string[] = [];
+  if (cleanName.length < 2) errs.push("Domain name must be at least 2 characters.");
+  if (v < 0) errs.push("Monthly visitors cannot be negative.");
+  if (a < 0 || a > 50) errs.push("Domain age must be 0–50 years.");
+  const valid = errs.length === 0;
 
-    let baseValue = 50; // Starting point for any domain
-
-    // Extension Multipliers
-    const extensionMap: Record<string, number> = {
-      ".com": 10,
-      ".net": 2.5,
-      ".org": 2,
-      ".io": 5,
-      ".ai": 8,
-      ".co": 3,
-      ".me": 1.5,
-      ".info": 0.5,
-    };
-    const extensionMultiplier = extensionMap[extension] || 1;
-
-    // Length Adjustment (Shorter is better)
-    let lengthAdjustment = 1;
-    if (length <= 3) lengthAdjustment = 20;
-    else if (length <= 4) lengthAdjustment = 10;
-    else if (length <= 6) lengthAdjustment = 5;
-    else if (length <= 10) lengthAdjustment = 2;
-    else lengthAdjustment = 0.5;
-
-    // Word quality
-    const wordBonus = isDictionaryWord ? 10 : 1;
-    const keywordFactor = keywords > 0 ? 1 + (keywords * 0.2) : 1;
-
-    // Traffic Value (Rough estimate of $1 per monthly visitor value)
-    const trafficValue = traffic * 12 * 0.5; // Value based on 6 months of revenue
-
-    const estimatedValue = baseValue * extensionMultiplier * lengthAdjustment * wordBonus * keywordFactor + trafficValue;
-    
-    // Confidence score based on data provided
-    const confidenceScore = domainName ? 85 : 40;
-
-    setResults({
-      baseValue,
-      extensionMultiplier,
-      lengthAdjustment,
-      trafficValue,
-      totalValuation: Math.round(estimatedValue),
-      confidenceScore,
-    });
-    setShowResults(true);
-  };
-
+  const calculate = () => { if (valid) setResult(calcDomain(cleanName, tld, v, keyword, a)); };
   const reset = () => {
-    setDomainName("");
-    setDomainLength("8");
-    setExtension(".com");
-    setMonthlyTraffic("0");
-    setKeywordsCount("1");
-    setIsDictionaryWord(false);
-    setShowResults(false);
+    setName(DEFAULTS.name); setTld(DEFAULTS.tld); setVisitors(DEFAULTS.visitors); setKeyword("moderate"); setAge(DEFAULTS.age);
+    setResult(calcDomain("financehub", "com", 1000, "moderate", 5));
   };
+  useEffect(() => { setResult(calcDomain("financehub", "com", 1000, "moderate", 5)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "How are domain names valued?", answer: "Domain valuation is based on several factors: length (shorter is better), top-level domain extension (.com is king), search engine visibility (keywords), traffic volume, and brandability (dictionary words or easy-to-pronounce made-up words)." },
-    { question: "Why is .com the most valuable extension?", answer: ".com is the original and most recognized TLD. It carries the most trust, has high global recognition, and is the 'default' extension people type when they guess a website name." },
-    { question: "What is a 'liquid' domain?", answer: "Liquid domains are those that can be sold quickly at a predictable market price. This includes 3-letter .coms, 2-letter .coms, and high-value single dictionary words." },
-    { question: "Do keywords in domain names still help with SEO?", answer: "Keywords in a domain name (Exact Match Domains) provide less SEO benefit than they used to, but they still help with user trust and click-through rates because users immediately understand what the site is about." },
-    { question: "How does traffic affect domain value?", answer: "If a domain already has natural type-in traffic or existing search rankings, its value increases significantly because it is effectively a revenue-generating asset rather than just an address." },
-    { question: "What is the most expensive domain ever sold?", answer: "Voice.com was sold for $30 million in 2019. Other high-value sales include Business.com ($345 million as part of a company sale) and LasVegas.com ($90 million over time)." },
-    { question: "Should I buy .ai or .io domains?", answer: "For technology and artificial intelligence startups, .ai and .io have become very valuable and highly 'brandable.' However, they often lack the mass-market trust of a .com extension." },
+    { question: "How are domain names valued?", answer: "Domain value comes from three buckets: the name itself (short, memorable, dictionary words in a strong TLD), the traffic it receives (estimated from ads, parking, and search volume), and its history (age, backlinks, authority). Valuations are heuristics — actual sales range widely." },
+    { question: "What makes a domain valuable?", answer: "Length is king: 5 characters or fewer with a .com is rare and valuable. Generic keywords (insurance.com, loans.com) command seven figures because they monetize via type-in traffic. Premium TLDs (.com, .io, .ai, .app) carry a base premium; obscure TLDs subtract from it." },
+    { question: "How does traffic affect value?", answer: "A domain with 1,000 monthly visitors monetized at ~$0.10 per visit earns ~$1,200/year. At a 20× revenue multiple, that adds ~$24,000 to the price. Domains with established backlinks also pass SEO authority to their next owner." },
+    { question: "What is this valuation worth?", answer: "It is a transparent scoring heuristic, not an appraisal. Real sales depend on buyer demand, comparable transactions, and negotiation. For serious valuation, check recent sales at NameBio and marketplaces, and consider a professional appraisal for high-value names." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Domain Valuation Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Domain Name Valuation Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Domain Name Valuation Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Domain Name Valuation Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="domain-name" label="Domain Name (Optional)" value={domainName} onChange={setDomainName} placeholder="e.g., racira.com" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Domain Name</label>
+                <div className={inp}><input type="text" value={name} onChange={e => setName(e.target.value)} className={ci} placeholder="financehub" /></div>
+              </div>
+              <div>
+                <label className={lbl}>TLD</label>
+                <select value={tld} onChange={e => setTld(e.target.value)} className={sel}>
+                  {Object.keys(TLD_BASE).filter(t => t !== "other").map(t => <option key={t} value={t}>.{t}</option>)}
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className={lbl}>Monthly Visitors</label>
+              <div className={inp}><input type="number" value={visitors} onChange={e => setVisitors(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">/mo</span></div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Extension (TLD)</label>
-                  <select 
-                    value={extension} 
-                    onChange={(e) => setExtension(e.target.value)}
-                    className="w-full h-12 px-4 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                  >
-                    <option value=".com">.com (Most Valuable)</option>
-                    <option value=".net">.net</option>
-                    <option value=".org">.org</option>
-                    <option value=".io">.io / .ai (Premium Tech)</option>
-                    <option value=".co">.co</option>
-                    <option value=".info">.info / .biz</option>
-                  </select>
-                </div>
-                <InputField id="length" label="Character Length (No extension)" value={domainLength} onChange={setDomainLength} tooltip="Number of characters in the domain name (excluding .com)." />
-                <InputField id="traffic" label="Est. Monthly Traffic" value={monthlyTraffic} onChange={setMonthlyTraffic} tooltip="How many visitors per month does the domain already receive?" />
-              </div>
-
-              <div className="flex items-center gap-2 mb-6">
-                <input 
-                  type="checkbox" 
-                  id="dict-word" 
-                  checked={isDictionaryWord} 
-                  onChange={(e) => setIsDictionaryWord(e.target.checked)}
-                  className="w-5 h-5 rounded border-border text-primary focus:ring-primary"
-                />
-                <label htmlFor="dict-word" className="text-sm font-medium text-foreground cursor-pointer">Is it a single dictionary word?</label>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Valuation Summary</h2>
-                <div className="p-8 rounded-3xl bg-primary/5 border border-primary/20 text-center mb-8">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Estimated Market Value</p>
-                  <p className="text-6xl font-black text-foreground mb-4">${results.totalValuation.toLocaleString()}</p>
-                  <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                    <span>Confidence Score: {results.confidenceScore}%</span>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Name Quality</div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className={lbl}>Keyword Value</label>
+                      <select value={keyword} onChange={e => setKeyword(e.target.value as Keyword)} className={sel}>
+                        <option value="none">None / Brandable</option>
+                        <option value="moderate">Moderate (semi-generic)</option>
+                        <option value="high">High (generic keyword)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className={lbl}>Domain Age</label>
+                      <div className={inp}><input type="number" value={age} onChange={e => setAge(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yrs</span></div>
+                    </div>
                   </div>
                 </div>
-                <ResultDisplay items={[
-                  { label: "TLD Quality Multiplier", value: 0, textValue: `${results.extensionMultiplier}x` },
-                  { label: "Length Scarcity Score", value: 0, textValue: results.lengthAdjustment > 5 ? "Rare" : "Common" },
-                  { label: "Existing Traffic Value", value: results.trafficValue },
-                ]} />
-              </>
+              </div>
             )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Estimated Market Value</div>
+                <div className="text-4xl font-extrabold tracking-tight">${result.estimatedValue.toLocaleString()}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.name}.{result.tld} · {result.length} chars · {result.visitors}/mo traffic</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["TLD", `.${result.tld}`], ["Length", `${result.length} chars`], ["Traffic", `${result.visitors}/mo`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Valuation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 7 ? "bg-amber-500/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 7 ? "text-amber-700 font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 7 ? "text-amber-700" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Value Components</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${v / 1000}K`} />
+                    <Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Makes a Domain Name Valuable?</h2>
-              <p>In the digital age, a domain name is more than just a website address — it is virtual real estate. Just like physical property, some addresses are worth more than others because of their location (extension), accessibility (length), and development (traffic). This calculator uses professional appraisal methodologies to give you a realistic window into what your domain might be worth on the open market.</p>
-
-              <h3>1. The .com Dominance</h3>
-              <p>While hundreds of new domain extensions (gTLDs) have launched in recent years (like .club, .store, and .site), the <strong>.com</strong> extension remains the undisputed king of the internet. It accounts for over 50% of all registrations and nearly 95% of high-value secondary market sales. If you have a choice between a great word on .net or a slightly worse word on .com, the .com is almost always the better long-term investment.</p>
-
-              <h3>2. The Length Factor: Brevity is Value</h3>
-              <p>There is a finite number of short domain names. There are only 17,576 possible 3-letter .com domains, and every single one of them was registered decades ago. Because short domains are easier to remember, harder to mistype, and look more professional on branding, they command massive premiums. A 3-letter .com domain is considered a 'liquid' asset that can often be sold for $10,000 to $50,000 even if the letters don't spell a word.</p>
-
-              <h3>3. Brandability vs. Keyword Match</h3>
-              <p>Domainers generally look at two types of value:</p>
-              <ul>
-                <li><strong>Brandable Domains:</strong> These are made-up words that are easy to pronounce and remember (like Google, Skype, or Racira). Their value depends on how 'commercial' they sound.</li>
-                <li><strong>Keyword Domains:</strong> These are domains that match what people search for (like Hotels.com, CarInsurance.com, or Bitcoin.com). These are valuable because they provide instant authority and organic search traffic in high-value industries.</li>
-              </ul>
-
-              <h3>4. Traffic and Revenue History</h3>
-              <p>If a domain has been active for years and has established backlink profiles or natural type-in traffic, its value skyrockets. Type-in traffic is the 'holy grail' of domaining — it refers to users who type the domain directly into their browser bar without using a search engine. A domain that receives 1,000 type-in visitors a month is essentially a billboard that never stops working.</p>
-
-              <h3>5. Scarcity and Liquid Assets</h3>
-              <p>Certain domains are considered 'liquid,' meaning they have a known floor price and can be sold quickly to other investors. This includes 2-letter .coms, 3-letter .coms, and short numeric domains (like 88.com). These assets are often used as stores of value, similar to gold or fine art, because their supply is strictly limited by the architecture of the DNS system.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Domains Are Valued</h2>
+            <p>Domain value = (TLD base × length multiplier × keyword multiplier) + traffic component, all scaled by age. This <strong>domain name valuation calculator</strong> makes the model transparent: short generic names in .com with real traffic and history are worth the most; long obscure names in niche TLDs are worth the least.</p>
+            <h2 className="text-2xl font-bold mb-3">The Drivers</h2>
+            <p>Length: 5 characters or fewer commands up to 3× a longer name. Keywords: generic, money-adjacent words (insurance, loans, crypto) multiply value. Traffic: 1,000 visitors/month ≈ $1,200/year of parking revenue ≈ $24,000 of value at a 20× multiple. Age: 5+ years with backlinks adds authority.</p>
+            <h2 className="text-2xl font-bold mb-3">Selling Your Domain</h2>
+            <p>List on Afternic, Sedo, and Dan with a realistic asking price around 2–5× your target (negotiation headroom). Brokerage takes 10–15%. If a buyer's offer beats 80% of your ask, take it — domain markets are thin and the next buyer may be years away.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/domain-name-valuation-calculator" />
           <PopularCalculators exclude="/calculator/domain-name-valuation-calculator" />
         </div>

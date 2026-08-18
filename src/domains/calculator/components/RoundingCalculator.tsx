@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface RoundingResult {
   original: string;
@@ -91,6 +92,11 @@ const performRounding = (numStr: string, mode: string, precision: string): Round
   };
 };
 
+const chartFor = (r: RoundingResult) => [
+  { name: "Original", value: parseFloat(r.original), fill: "#a3a3a3" },
+  { name: "Rounded", value: parseFloat(r.rounded), fill: "hsl(var(--primary))" },
+];
+
 const RoundingCalculator = () => {
   const [number, setNumber] = useState("142.645");
   const [precision, setPrecision] = useState("0.01"); // Hundredths
@@ -130,7 +136,7 @@ const RoundingCalculator = () => {
             
             <div className="flex flex-col">
               <label className="text-base font-medium text-foreground mb-1.5">Number to Round</label>
-              <div className={wrap}><input type="number" value={number} onChange={e => setNumber(e.target.value)} className={ci} step="any" /></div>
+              <div className={wrap}><input type="number" value={number} onChange={e => setNumber(e.target.value)} className={ci} step="0.000001" /></div>
             </div>
 
             <div className="flex flex-col">
@@ -219,6 +225,34 @@ const RoundingCalculator = () => {
                     </li>
                   ))}
                 </ol>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Original vs Rounded</h3>
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={chartFor(result)} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [v.toLocaleString(), "Value"]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {chartFor(result).map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">Bar heights show how far the rounded value moved from the original.</p>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold text-foreground mb-4">Summary</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">Original:</span><span className="font-semibold">{result.original}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Rounded:</span><span className="font-semibold">{result.rounded}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Difference:</span><span className="font-semibold">{result.difference}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Direction:</span><span className="font-semibold">{result.direction === "up" ? "Rounded up" : result.direction === "down" ? "Rounded down" : "Unchanged"}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Precision:</span><span className="font-semibold">{precision}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Mode:</span><span className="font-semibold">{mode === "nearest" ? "Nearest" : mode === "half_even" ? "Banker's" : mode === "half_up" ? "Half away from zero" : mode === "up" ? "Ceiling" : "Floor"}</span></div>
+                </div>
               </div>
 
             </>)}

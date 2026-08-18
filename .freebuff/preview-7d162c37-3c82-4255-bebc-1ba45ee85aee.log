@@ -1,0 +1,27 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3.3s
+ ○ Compiling /calculator/[slug] ...
+ ✓ Compiled /calculator/[slug] in 39.4s (13183 modules)
+ GET /calculator/pregnancy-calculator 200 in 47006ms
+ ○ Compiling / ...
+ ✓ Compiled / in 10.1s (13189 modules)
+ GET / 200 in 4819ms
+ GET / 200 in 103ms
+ GET / 200 in 62ms
+ GET /calculator/pregnancy-calculator 200 in 1415ms
+[?25h

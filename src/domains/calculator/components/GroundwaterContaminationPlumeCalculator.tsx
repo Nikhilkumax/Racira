@@ -1,249 +1,227 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { RotateCcw, Printer } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Legend } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { Calculator, RefreshCw } from "lucide-react";
+import FAQSection from "@/components/FAQSection";
 
-const fmt = (n: number, d = 4) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: d });
+const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const NumInput = ({ id, label, value, onChange, min, step, hint }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; min?: string; step?: string; hint?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" min={min} step={step} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+interface Inputs {
+  sourceConcentration: string;
+  conductivity: string;
+  gradient: string;
+  porosity: string;
+  decayRate: string;
+  distance: string;
+  limitConcentration: string;
+}
+
+interface Result {
+  velocity: number;
+  travelTime: number;
+  concentration: number;
+  plumeLength: number;
+  chart: { distance: number; concentration: number }[];
+}
+
+const DEFAULTS: Inputs = {
+  sourceConcentration: "100",
+  conductivity: "1",
+  gradient: "0.01",
+  porosity: "0.3",
+  decayRate: "0.001",
+  distance: "10",
+  limitConcentration: "5",
+};
+
+function calculate(inputs: Inputs): Result | null {
+  const C0 = parseFloat(inputs.sourceConcentration);
+  const K = parseFloat(inputs.conductivity);
+  const i = parseFloat(inputs.gradient);
+  const n = parseFloat(inputs.porosity);
+  const lambda = parseFloat(inputs.decayRate);
+  const x = parseFloat(inputs.distance);
+  const Climit = parseFloat(inputs.limitConcentration);
+  if ([C0, K, i, n, lambda, x, Climit].some((v) => isNaN(v))) return null;
+  if (K <= 0 || i < 0 || n <= 0 || x < 0 || C0 < 0 || lambda < 0 || Climit <= 0) return null;
+  const velocity = (K * i) / n; // m/d
+  const travelTime = x / velocity; // days
+  const concentration = C0 * Math.exp(-lambda * travelTime); // mg/L
+  // Plume length: distance where concentration falls to the limit (first-order decay)
+  const plumeLength = C0 > Climit && lambda > 0 ? (velocity / lambda) * Math.log(C0 / Climit) : (C0 > Climit ? Infinity : 0);
+  const maxDist = isFinite(plumeLength) ? plumeLength : x * 2 || 10;
+  const samples = 30;
+  const chart = Array.from({ length: samples + 1 }, (_, k) => {
+    const d = (maxDist * k) / samples;
+    return { distance: Math.round(d * 100) / 100, concentration: Math.round(C0 * Math.exp(-(lambda * d) / velocity) * 1000) / 1000 };
+  });
+  return { velocity, travelTime, concentration, plumeLength, chart };
+}
 
 const GroundwaterContaminationPlumeCalculator = () => {
-  const DEFAULTS = {
-    sourceConcentration: "100",
-    hydraulicConductivity: "1",
-    hydraulicGradient: "0.01",
-    porosity: "0.3",
-    dispersivity: "1",
-    decayRate: "0.001",
-    distance: "10",
-    time: "365",
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result | null>(() => calculate(DEFAULTS));
+  const set = (k: keyof Inputs) => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
+
+  const num = (v: string) => parseFloat(v) || 0;
+  const hasErrors = num(inputs.conductivity) <= 0 || num(inputs.porosity) <= 0 || num(inputs.limitConcentration) <= 0 || num(inputs.gradient) < 0 || num(inputs.sourceConcentration) < 0 || num(inputs.decayRate) < 0 || num(inputs.distance) < 0;
+
+  const handleCalculate = () => {
+    const r = calculate(inputs);
+    if (r) setResult(r);
   };
+  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
+  const handlePrint = () => window.print();
 
-  const [sourceConcentration, setSourceConcentration] = useState(DEFAULTS.sourceConcentration);
-  const [hydraulicConductivity, setHydraulicConductivity] = useState(DEFAULTS.hydraulicConductivity);
-  const [hydraulicGradient, setHydraulicGradient] = useState(DEFAULTS.hydraulicGradient);
-  const [porosity, setPorosity] = useState(DEFAULTS.porosity);
-  const [dispersivity, setDispersivity] = useState(DEFAULTS.dispersivity);
-  const [decayRate, setDecayRate] = useState(DEFAULTS.decayRate);
-  const [distance, setDistance] = useState(DEFAULTS.distance);
-  const [time, setTime] = useState(DEFAULTS.time);
-  const [result, setResult] = useState<{
-    concentration: number;
-    velocity: number;
-    travelTime: number;
-  } | null>(null);
-
-  const calculate = () => {
-    const C0 = parseFloat(sourceConcentration);
-    const K = parseFloat(hydraulicConductivity);
-    const i = parseFloat(hydraulicGradient);
-    const n = parseFloat(porosity);
-    const lambda = parseFloat(decayRate);
-    const x = parseFloat(distance);
-    const tInput = parseFloat(time);
-
-    if (isNaN(C0) || isNaN(K) || isNaN(i) || isNaN(n) || isNaN(lambda) || isNaN(x) || isNaN(tInput)) {
-      setResult(null);
-      return;
-    }
-
-    // average linear velocity
-    const v = (K * i) / n; // m/d
-    // travel time based on distance
-    const travelTime = x / v; // days
-    // concentration using first-order decay over travel time
-    const C = C0 * Math.exp(-lambda * travelTime);
-
-    setResult({ concentration: C, velocity: v, travelTime });
-  };
-
-  useEffect(() => {
-    calculate();
-  }, [
-    sourceConcentration,
-    hydraulicConductivity,
-    hydraulicGradient,
-    porosity,
-    decayRate,
-    distance,
-    time,
-  ]);
-
-  const reset = () => {
-    setSourceConcentration(DEFAULTS.sourceConcentration);
-    setHydraulicConductivity(DEFAULTS.hydraulicConductivity);
-    setHydraulicGradient(DEFAULTS.hydraulicGradient);
-    setPorosity(DEFAULTS.porosity);
-    setDispersivity(DEFAULTS.dispersivity);
-    setDecayRate(DEFAULTS.decayRate);
-    setDistance(DEFAULTS.distance);
-    setTime(DEFAULTS.time);
-  };
+  const r = result;
+  const plumeText = r ? (r.plumeLength === Infinity ? "Exceeds modeled range" : fmt(r.plumeLength, 1) + " m") : "—";
+  const rows = r ? [
+    { label: "Source Concentration (C₀)", value: fmt(num(inputs.sourceConcentration)) + " mg/L" },
+    { label: "Hydraulic Conductivity (K)", value: fmt(num(inputs.conductivity), 2) + " m/d" },
+    { label: "Hydraulic Gradient (i)", value: fmt(num(inputs.gradient), 3) },
+    { label: "Effective Porosity (n)", value: fmt(num(inputs.porosity), 2) },
+    { label: "Decay Rate (λ)", value: fmt(num(inputs.decayRate), 4) + " /day" },
+    { label: "Groundwater Velocity", value: fmt(r.velocity, 2) + " m/d", highlight: true },
+    { label: "Travel Time to " + fmt(num(inputs.distance)) + " m", value: fmt(r.travelTime, 1) + " days" },
+    { label: "Plume Length (to limit)", value: plumeText, total: true },
+  ] : [];
 
   const faqs = [
-    {
-      question: "What is a contaminant plume?",
-      answer:
-        "A contaminant plume is the body of contaminated groundwater that emanates from a source of pollution. Its shape and concentration distribution are governed by advection, dispersion, and chemical reactions such as decay.",
-    },
-    {
-      question: "How is plume length estimated?",
-      answer:
-        "Plume length can be estimated using analytical solutions of the advection-dispersion-reaction equation. For a continuous source with first-order decay, the concentration declines exponentially with travel time: C = C₀·exp(−λ·t), where t = x/v is the travel time from the source to a point x downstream.",
-    },
-    {
-      question: "What parameters control plume migration?",
-      answer:
-        "Key parameters include hydraulic conductivity (K), hydraulic gradient (i), porosity (n) which together determine groundwater velocity; longitudinal dispersivity (αL) which affects spreading; decay rate (λ) representing biodegradation or decay; and the source concentration C₀.",
-    },
+    { question: "What is a contaminant plume?", answer: "A contaminant plume is the body of contaminated groundwater moving downstream from a pollution source. Its extent is governed by advection (groundwater velocity), dispersion, and attenuation such as first-order decay." },
+    { question: "How is plume length estimated?", answer: "For a continuous source with first-order decay, concentration declines as C = C₀·exp(−λ·t), where travel time t = x/v and v = (K·i)/n. The plume length is the distance where C falls to the regulatory limit: L = (v/λ)·ln(C₀/C_limit)." },
+    { question: "What do the parameters mean?", answer: "Hydraulic conductivity K and gradient i push the plume downstream, porosity n slows it down, and the decay rate λ (biodegradation, sorption, dilution) shrinks it. This calculator uses Darcy's law for velocity and the exponential decay model for a screening-level estimate — dispersion is ignored." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[
-        { label: "Home", href: "/" },
-        { label: "Calculators", href: "/calculator" },
-        { label: "Groundwater Contamination Plume Calculator" },
-      ]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Engineering", href: "/calculator#engineering" }, { label: "Groundwater Contamination Plume Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">
-          Groundwater Contamination Plume Calculator
-        </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            <div className="space-y-4">
-              <div>
-                <label className="text-base font-medium block mb-1.5">Source Concentration (mg/L)</label>
-                <input
-                  type="number"
-                  value={sourceConcentration}
-                  onChange={(e) => setSourceConcentration(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter source concentration"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Hydraulic Conductivity (m/d)</label>
-                <input
-                  type="number"
-                  value={hydraulicConductivity}
-                  onChange={(e) => setHydraulicConductivity(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter hydraulic conductivity"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Hydraulic Gradient</label>
-                <input
-                  type="number"
-                  value={hydraulicGradient}
-                  onChange={(e) => setHydraulicGradient(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter hydraulic gradient"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Porosity</label>
-                <input
-                  type="number"
-                  value={porosity}
-                  onChange={(e) => setPorosity(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter porosity"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Longitudinal Dispersivity (m)</label>
-                <input
-                  type="number"
-                  value={dispersivity}
-                  onChange={(e) => setDispersivity(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter longitudinal dispersivity"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Decay Rate (1/day)</label>
-                <input
-                  type="number"
-                  value={decayRate}
-                  onChange={(e) => setDecayRate(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter decay rate"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Distance from Source (m)</label>
-                <input
-                  type="number"
-                  value={distance}
-                  onChange={(e) => setDistance(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter distance"
-                />
-              </div>
-              <div>
-                <label className="text-base font-medium block mb-1.5">Time (days) (optional, for reference)</label>
-                <input
-                  type="number"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="w-full h-10 px-3 text-base rounded-md border border-input bg-background outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="Enter time"
-                />
-              </div>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Groundwater Contamination Plume Calculator</h1>
 
-              <div className="flex gap-3">
-                <button
-                  type="button"
-                  onClick={calculate}
-                  className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm"
-                >
-                  Calculate
-                </button>
-                <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RefreshCw className="w-4 h-4" />
-                </button>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold">Aquifer & Source</div>
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="sourceConcentration" label="Source Concentration (mg/L)" value={inputs.sourceConcentration} onChange={set("sourceConcentration")} min="0" />
+              <NumInput id="conductivity" label="Hydraulic Conductivity (m/d)" value={inputs.conductivity} onChange={set("conductivity")} min="0.0001" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="gradient" label="Hydraulic Gradient" value={inputs.gradient} onChange={set("gradient")} min="0" step="0.001" />
+              <NumInput id="porosity" label="Effective Porosity" value={inputs.porosity} onChange={set("porosity")} min="0.01" step="0.01" />
+            </div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Transport & Attenuation</div>
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="decayRate" label="Decay Rate (1/day)" value={inputs.decayRate} onChange={set("decayRate")} min="0" step="0.0001" />
+              <NumInput id="distance" label="Distance from Source (m)" value={inputs.distance} onChange={set("distance")} min="0" />
+            </div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div>
+              <NumInput id="limitConcentration" label="Cleanup Limit (mg/L)" value={inputs.limitConcentration} onChange={set("limitConcentration")} min="0.001" hint="Concentration threshold used for plume-length estimate." />
+            </div>
+            {hasErrors && (
+              <p className="text-xs text-red-500 font-medium">Conductivity, porosity, and cleanup limit must be positive; other values must be ≥ 0.</p>
+            )}
+            <div className="flex gap-2.5 mt-1">
+              <button type="button" onClick={handleCalculate} disabled={hasErrors} className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground active:scale-[0.98]"}`}>Calculate</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"><RotateCcw className="h-4 w-4" /></button>
             </div>
           </div>
 
-          <div className="space-y-4">
-            {result && (
+          <div className="flex flex-col gap-4">
+            {r && (
               <>
-                <div className="card-calculator !p-4 border border-border bg-card">
-                  <h3 className="text-base font-semibold mb-3">Results</h3>
-                  <div className="space-y-2 text-base">
-                    <p>
-                      <span className="font-medium">Source Concentration (C₀):</span> {fmt(parseFloat(sourceConcentration))} mg/L
-                    </p>
-                    <p>
-                      <span className="font-medium">Groundwater Velocity (v):</span> {fmt(result.velocity)} m/d
-                    </p>
-                    <p>
-                      <span className="font-medium">Travel Time to {fmt(parseFloat(distance))} m:</span> {fmt(result.travelTime)} days
-                    </p>
-                    <p>
-                      <span className="font-medium">Decay Rate (λ):</span> {fmt(parseFloat(decayRate), 6)} 1/day
-                    </p>
-                    <p>
-                      <span className="font-medium">Concentration at Distance (C):</span>{" "}
-                      <span className="font-mono text-lg">{fmt(result.concentration)}</span> mg/L
-                    </p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
+                  </div>
+                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Concentration at {fmt(num(inputs.distance))} m</div>
+                  <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{fmt(r.concentration, 2)} <span className="text-2xl">mg/L</span></div>
+                  <div className="text-sm text-muted-foreground font-medium">after {fmt(r.travelTime, 1)} days of transport</div>
+                </div>
+
+                <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Groundwater Velocity</span>
+                    <span className="font-extrabold text-primary">{fmt(r.velocity, 2)} m/d</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Travel Time</span>
+                    <span className="font-extrabold text-emerald-600">{fmt(r.travelTime, 1)} days</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Plume Length</span>
+                    <span className="font-extrabold text-foreground">{plumeText}</span>
                   </div>
                 </div>
 
-                <div className="bg-muted/30 rounded-lg p-4">
-                  <h3 className="text-sm font-semibold mb-3">Formula</h3>
-                  <p className="text-sm">
-                    C = C₀ × exp(−λ × t)<br />
-                    where t = x / v, v = (K × i) / n
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    C₀ = source concentration (mg/L), λ = decay rate (1/day), t = travel time (days), x = distance (m), v = groundwater velocity (m/d), K = hydraulic conductivity (m/d), i = hydraulic gradient, n = porosity.
-                  </p>
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Parameter</th>
+                        <th className="p-2.5 pr-3 text-right w-[140px]">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {rows.map((row) => (
+                        <tr key={row.label} className={`hover:bg-secondary/20 transition-colors ${row.total ? "border-t-2 font-bold bg-secondary/30" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                          <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                          <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="text-sm font-bold text-foreground mb-3">Concentration vs Distance from Source</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <LineChart data={r.chart} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="distance" tick={{ fontSize: 11 }} label={{ value: "Distance (m)", position: "insideBottom", offset: -2, fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                      <YAxis tick={{ fontSize: 11 }} label={{ value: "mg/L", angle: -90, position: "insideLeft", fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                      <Tooltip formatter={(v: number) => [fmt(v, 2) + " mg/L", "Concentration"]} labelFormatter={(l) => `Distance: ${l} m`} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                      {isFinite(r.plumeLength) && <ReferenceLine x={r.plumeLength} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: "Plume length", fontSize: 10, fill: "#d97706", position: "insideTopRight" }} />}
+                      <Line type="monotone" dataKey="concentration" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} name="Concentration" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-semibold mb-4">Summary</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                    {[
+                      { label: "Source Conc.", value: fmt(num(inputs.sourceConcentration)) + " mg/L" },
+                      { label: "Velocity", value: fmt(r.velocity, 2) + " m/d", bold: true },
+                      { label: "Travel Time", value: fmt(r.travelTime, 1) + " days" },
+                      { label: "Conc. at " + fmt(num(inputs.distance)) + " m", value: fmt(r.concentration, 2) + " mg/L", bold: true },
+                      { label: "Cleanup Limit", value: fmt(num(inputs.limitConcentration)) + " mg/L" },
+                      { label: "Plume Length", value: plumeText, bold: true },
+                    ].map((s) => (
+                      <div key={s.label} className="flex flex-col">
+                        <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
+                        <span className={`text-sm font-extrabold ${s.bold ? "text-primary" : "text-foreground"}`}>{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </>
             )}
@@ -253,16 +231,10 @@ const GroundwaterContaminationPlumeCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Contaminant Plume Modeling</h2>
-            <p>
-              Contaminant plume modeling is essential for assessing the extent of groundwater pollution and designing effective remediation strategies. The simplest analytical approach assumes one-dimensional, steady-state flow with uniform transport properties and first‑order decay. Under these assumptions, the concentration downstream of a continuous source declines exponentially with travel time, which itself depends on the groundwater velocity and the distance from the source.
-            </p>
-            <p>
-              The groundwater velocity (v) is determined by the hydraulic conductivity (K), hydraulic gradient (i), and effective porosity (n) via Darcy’s law: v = (K·i)/n. The travel time (t) to a point at distance x is t = x/v. Incorporating first‑order decay with rate constant λ gives the concentration at distance x as:C = C₀·exp(−λ·x/v). This equation neglects dispersion, which would cause spreading of the plume; however, for many screening‑level assessments the exponential decay term provides a reasonable estimate of the plume’s central‑line concentration.
-            </p>
-            <p>
-              Users can adjust the source concentration, hydraulic conductivity, gradient, porosity, decay rate, and distance to see how these factors influence the predicted concentration. The calculator also outputs the groundwater velocity and travel time for reference. While more sophisticated models incorporate dispersion, transient flow, and reactive transport, this tool offers a quick, transparent estimate for preliminary evaluations.
-            </p>
+            <h2 className="text-2xl font-bold mb-3">What the Numbers Mean</h2>
+            <p>With the defaults (C₀=100 mg/L, K=1 m/d, gradient 0.01, porosity 0.3, λ=0.001/day), groundwater moves at <strong>0.033 m/d</strong>, so a monitoring well 10 m downgradient sees contamination after about 300 days at a concentration near <strong>74.1 mg/L</strong> — still well above the 5 mg/L cleanup limit.</p>
+            <h2 className="text-2xl font-bold mb-3">The Decay Model</h2>
+            <p>This screening-level estimate uses C = C₀·exp(−λ·x/v) with v = K·i/n. The plume length to a 5 mg/L limit works out to about <strong>100 m</strong> here. Real sites need dispersion, transient flow, and site-specific reactive-transport modeling, but this gives a fast first-order check.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/groundwater-contamination-plume-calculator" />
           <PopularCalculators exclude="/calculator/groundwater-contamination-plume-calculator" />
@@ -271,5 +243,4 @@ const GroundwaterContaminationPlumeCalculator = () => {
     </>
   );
 };
-
 export default GroundwaterContaminationPlumeCalculator;

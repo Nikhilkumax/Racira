@@ -1,198 +1,224 @@
 "use client";
-import { RotateCcw, HardDrive, GitBranch, AlertTriangle } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-const GitRepoSizeCalculator = () => {
-  const [fileCount, setFileCount] = useState("500");
-  const [avgFileSize, setAvgFileSize] = useState("50"); // KB
-  const [commitCount, setCommitCount] = useState("1000");
-  const [avgChangePerCommit, setAvgChangePerCommit] = useState("5"); // %
-  const [binaryFileCount, setBinaryFileCount] = useState("10");
-  const [avgBinarySize, setAvgBinarySize] = useState("5"); // MB
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface GitSizeResult {
+  files: number;
+  avgFileKb: number;
+  commits: number;
+  avgCommitKb: number;
+  compressPct: number;
+  workingTreeMb: number;
+  gitObjectsMb: number;
+  totalMb: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const files = parseFloat(fileCount) || 0;
-    const fileSizeKB = parseFloat(avgFileSize) || 0;
-    const commits = parseFloat(commitCount) || 0;
-    const changePct = (parseFloat(avgChangePerCommit) || 0) / 100;
-    
-    const binaryFiles = parseFloat(binaryFileCount) || 0;
-    const binarySizeMB = parseFloat(avgBinarySize) || 0;
+function fmtMb(mb: number): string {
+  return mb >= 1024 ? `${(mb / 1024).toFixed(2)} GB` : `${mb.toFixed(1)} MB`;
+}
 
-    // Source code calculations
-    const initialSourceSizeMB = (files * fileSizeKB) / 1024;
-    // Git compresses text very well (often 70% reduction in object store)
-    const compressedSourceSizeMB = initialSourceSizeMB * 0.3;
-    
-    // Growth from commits. Each commit adds deltas. 
-    // Roughly: (Total Size * % Changed) * Compress Ratio * Number of Commits
-    const sourceGrowthMB = (initialSourceSizeMB * changePct) * 0.3 * commits;
+function calcGitSize(files: number, avgFileKb: number, commits: number, avgCommitKb: number, compressPct: number): GitSizeResult {
+  const workingTreeMb = (files * avgFileKb) / 1024;
+  const gitObjectsMb = (commits * avgCommitKb * (compressPct / 100)) / 1024;
+  const totalMb = workingTreeMb + gitObjectsMb;
 
-    // Binary file calculations (Git does not delta-compress binaries well)
-    // A changed binary often results in a full copy being stored.
-    // Assume 10% of commits touch a binary file
-    const binaryCommits = commits * 0.10;
-    const binaryTotalMB = (binaryFiles * binarySizeMB) + (binaryFiles * binarySizeMB * binaryCommits);
+  const breakdown = [
+    { label: "Files in Working Tree", value: `${files.toLocaleString()} files` },
+    { label: "Average File Size", value: `${avgFileKb} KB` },
+    { label: "Working Tree Size", value: fmtMb(workingTreeMb) },
+    { label: "Commits in History", value: `${commits.toLocaleString()} commits` },
+    { label: "Avg Commit Change Size", value: `${avgCommitKb} KB` },
+    { label: "Pack Compression", value: `${compressPct}%` },
+    { label: ".git Object Store", value: fmtMb(gitObjectsMb) },
+    { label: "Estimated Clone Size", value: fmtMb(totalMb) },
+  ];
+  const summaryStats = [
+    { label: "Clone Size", value: fmtMb(totalMb) },
+    { label: "Working Tree", value: fmtMb(workingTreeMb) },
+    { label: ".git Objects", value: fmtMb(gitObjectsMb) },
+    { label: "Files", value: `${files.toLocaleString()}` },
+    { label: "Commits", value: `${commits.toLocaleString()}` },
+    { label: "Avg File", value: `${avgFileKb} KB` },
+    { label: "Avg Commit", value: `${avgCommitKb} KB` },
+    { label: "Compression", value: `${compressPct}%` },
+  ];
+  const chartData = [
+    { name: "Working Tree", value: Math.round(workingTreeMb), fill: "hsl(var(--primary))" },
+    { name: ".git Objects", value: Math.round(gitObjectsMb), fill: "#8b5cf6" },
+  ];
+  return { files, avgFileKb, commits, avgCommitKb, compressPct, workingTreeMb, gitObjectsMb, totalMb, breakdown, summaryStats, chartData };
+}
 
-    const totalRepoSizeMB = compressedSourceSizeMB + sourceGrowthMB + binaryTotalMB;
-    const cloneSizeMB = totalRepoSizeMB; // Clone pulls the entire .git directory
-    
-    const workingTreeSizeMB = initialSourceSizeMB + (binaryFiles * binarySizeMB);
+const DEFAULTS = { files: "1500", avgFile: "50", commits: "2000", avgCommit: "20", compress: "60" };
 
-    setResults({
-      cloneSizeMB,
-      workingTreeSizeMB,
-      sourceGrowthMB,
-      binaryTotalMB,
-      isBloated: binaryTotalMB > (cloneSizeMB * 0.5) && binaryTotalMB > 100
-    });
-  };
+export default function GitRepoSizeCalculator() {
+  const [files, setFiles] = useState(DEFAULTS.files);
+  const [avgFile, setAvgFile] = useState(DEFAULTS.avgFile);
+  const [commits, setCommits] = useState(DEFAULTS.commits);
+  const [avgCommit, setAvgCommit] = useState(DEFAULTS.avgCommit);
+  const [compress, setCompress] = useState(DEFAULTS.compress);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<GitSizeResult | null>(null);
 
+  const fl = parseInt(files) || 0;
+  const af = parseFloat(avgFile) || 0;
+  const cm = parseInt(commits) || 0;
+  const ac = parseFloat(avgCommit) || 0;
+  const cp = parseFloat(compress) || 0;
+  const errs: string[] = [];
+  if (fl < 1 || fl > 1000000) errs.push("File count must be 1–1,000,000.");
+  if (af <= 0) errs.push("Average file size must be greater than 0.");
+  if (cm < 1 || cm > 1000000) errs.push("Commit count must be 1–1,000,000.");
+  if (ac < 0) errs.push("Avg commit change size cannot be negative.");
+  if (cp < 10 || cp > 100) errs.push("Compression must be between 10% and 100%.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcGitSize(fl, af, cm, ac, cp)); };
   const reset = () => {
-    setFileCount("500");
-    setAvgFileSize("50");
-    setCommitCount("1000");
-    setAvgChangePerCommit("5");
-    setBinaryFileCount("10");
-    setAvgBinarySize("5");
+    setFiles(DEFAULTS.files); setAvgFile(DEFAULTS.avgFile); setCommits(DEFAULTS.commits); setAvgCommit(DEFAULTS.avgCommit); setCompress(DEFAULTS.compress);
+    setResult(calcGitSize(1500, 50, 2000, 20, 60));
   };
+  useEffect(() => { setResult(calcGitSize(1500, 50, 2000, 20, 60)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "Why is my .git folder so large?", answer: "The .git folder contains the entire history of your project. Every commit you've ever made, including files you've deleted or overwritten, is stored there. If you ever committed a large binary file (like an MP4 or a database dump), it stays in the history forever, bloating the repository." },
-    { question: "How does Git compress files?", answer: "Git uses zlib to compress files (blobs) and creates 'deltas' (differences between file versions) in 'packfiles'. It is highly efficient at compressing plain text source code, often reducing it to 30% of its original size." },
-    { question: "How do I fix a bloated repository?", answer: "If large files were accidentally committed, you must use tools like 'git filter-repo' or 'BFG Repo-Cleaner' to rewrite your Git history and purge the large files from all past commits. Moving forward, use Git LFS (Large File Storage) for binaries." }
+    { question: "Why is a repo clone bigger than my files?", answer: "A clone includes the entire commit history and every changed blob, not just the current checkout. The .git directory often rivals or exceeds the working tree size on long-lived projects." },
+    { question: "How does pack compression work?", answer: "Git stores commits as deltas against previous versions and zlib-compresses them, typically cutting raw history to 40–70% of its uncompressed size. Large binary files defeat this — they don't delta well." },
+    { question: "How can I shrink a large repo?", answer: "Remove large binaries with git-filter-repo or BFG, shallow-clone with --depth, use sparse checkout, or split monorepos. GitHub also limits individual files to 100 MB." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Git Repository Size Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Git Repository Size Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Git Repo Size Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Git Repository Size Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <GitBranch className="h-5 w-5 text-primary" /> Repository Data
-                  </h2>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Number of Files</label>
-                      <input type="number" value={fileCount} onChange={(e) => setFileCount(e.target.value)} className="input-calc" min="0" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Avg Size (KB)</label>
-                      <input type="number" value={avgFileSize} onChange={(e) => setAvgFileSize(e.target.value)} className="input-calc" min="0" />
-                    </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Files in Working Tree</label>
+                <div className={inp}><input type="number" value={files} onChange={e => setFiles(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Average File Size</label>
+                <div className={inp}><input type="number" value={avgFile} onChange={e => setAvgFile(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">KB</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Commits in History</label>
+                <div className={inp}><input type="number" value={commits} onChange={e => setCommits(e.target.value)} className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Avg Commit Change Size</label>
+                <div className={inp}><input type="number" value={avgCommit} onChange={e => setAvgCommit(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">KB</span></div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
+                <div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Storage Efficiency</div>
+                  <div>
+                    <label className={lbl}>Pack Compression Factor</label>
+                    <div className={inp}><input type="number" value={compress} onChange={e => setCompress(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+                    <p className="text-xs text-muted-foreground mt-1.5">Share of raw commit data remaining after delta + zlib compression.</p>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Total Commits</label>
-                      <input type="number" value={commitCount} onChange={(e) => setCommitCount(e.target.value)} className="input-calc" min="0" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">% Changed</label>
-                      <div className="relative">
-                         <input type="number" value={avgChangePerCommit} onChange={(e) => setAvgChangePerCommit(e.target.value)} className="input-calc" min="0" max="100" />
-                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">%</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-border pt-4 mt-2">
-                     <h3 className="text-sm font-bold text-foreground mb-4">Binary Assets (Images, Video, Zips)</h3>
-                     <div className="grid grid-cols-2 gap-4">
-                       <div>
-                         <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Binary Count</label>
-                         <input type="number" value={binaryFileCount} onChange={(e) => setBinaryFileCount(e.target.value)} className="input-calc" min="0" />
-                       </div>
-                       <div>
-                         <label className="block text-xs font-bold text-muted-foreground uppercase mb-2">Avg Size (MB)</label>
-                         <input type="number" value={avgBinarySize} onChange={(e) => setAvgBinarySize(e.target.value)} className="input-calc" min="0" />
-                       </div>
-                     </div>
-                  </div>
-
-                  <div className="pt-2 flex gap-3">
-                    <button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center justify-center gap-2 font-bold text-sm">
-                      <RotateCcw className="h-4 w-4" />
-                    </button>
-                  </div>
-                </section>
+                </div>
+              </div>
+            )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">
-                     <HardDrive className="h-5 w-5 text-primary" /> Size Estimates
-                  </h2>
-                  
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center mb-6">
-                     <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Clone Size (.git folder)</p>
-                     <p className="text-5xl font-black text-foreground">{results.cloneSizeMB > 1024 ? (results.cloneSizeMB/1024).toFixed(2) : results.cloneSizeMB.toFixed(1)} <span className="text-2xl font-normal text-muted-foreground">{results.cloneSizeMB > 1024 ? 'GB' : 'MB'}</span></p>
-                     <p className="text-xs text-muted-foreground mt-2">What users download when running `git clone`</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Estimated Clone Size</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtMb(result.totalMb)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmtMb(result.workingTreeMb)} working tree + {fmtMb(result.gitObjectsMb)} history</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Working Tree`, fmtMb(result.workingTreeMb)], [".git Objects", fmtMb(result.gitObjectsMb)], ["History Share", `${((result.gitObjectsMb / Math.max(result.totalMb, 0.001)) * 100).toFixed(0)}%`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-
-                  <div className="space-y-4 flex-1">
-                     <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Working Directory Size</span>
-                        <span className="font-bold">{results.workingTreeSizeMB.toFixed(1)} MB</span>
-                     </div>
-                     <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Historical Source Deltas</span>
-                        <span className="font-bold">{results.sourceGrowthMB.toFixed(1)} MB</span>
-                     </div>
-                     <div className="flex justify-between text-sm pb-4 border-b border-border">
-                        <span className="text-muted-foreground">Binary History Blob Size</span>
-                        <span className="font-bold text-rose-500">{results.binaryTotalMB.toFixed(1)} MB</span>
-                     </div>
-                     
-                     {results.isBloated && (
-                        <div className="bg-rose-500/10 border border-rose-500/20 text-rose-700 p-4 rounded-xl text-sm flex items-start gap-2 mt-4">
-                          <AlertTriangle className="h-5 w-5 shrink-0" />
-                          <div>
-                            <strong>Binary Bloat Detected</strong>
-                            <p className="mt-1 opacity-90">Binary files represent more than 50% of your repository size. Git cannot efficiently delta-compress binaries. Consider using Git LFS (Large File Storage) for these assets.</p>
-                          </div>
-                        </div>
-                     )}
-                  </div>
-              </>
-            )}
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Size Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 7 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 7 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 7 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">What You Download</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}MB`} />
+                    <Tooltip formatter={(v: number) => [`${v} MB`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Mechanics of Git Storage</h2>
-              <p>Git is incredibly efficient at storing source code. Instead of saving a full copy of a file every time you make a commit, it uses compression and deltas. A delta only stores the lines of text that changed between commits. This allows a repository with thousands of commits to remain remarkably small.</p>
-              
-              <h3>The Problem with Binaries</h3>
-              <p>Git's delta compression breaks down when dealing with binary files (like images, compiled binaries, videos, or PDFs). Because these files are not line-based text, changing a single pixel in an image usually changes the entire binary structure of the file.</p>
-              <p>Consequently, Git often stores a complete, uncompressed copy of the binary file for every commit it was changed in. Over time, this leads to immense repository bloat, causing `git clone` and `git fetch` operations to become painfully slow.</p>
-
-              <h3>The Solution: Git LFS</h3>
-              <p>Git Large File Storage (LFS) solves this by replacing large files in your repository with tiny text pointers. The actual file contents are stored on a remote server. When you clone a repository, Git LFS only downloads the versions of the large files needed for your currently checked-out commit, rather than downloading the entire history of every large file.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/git-repo-size" />
+            <h2 className="text-2xl font-bold mb-3">What a Clone Contains</h2>
+            <p>Cloning a repository downloads two things: the current working tree and the entire .git object database. This <strong>git repository size calculator</strong> estimates the clone size as working tree (files × average size) plus packed history (commits × average change size × compression factor).</p>
+            <h2 className="text-2xl font-bold mb-3">Why History Dominates</h2>
+            <p>Every commit stores a snapshot of the changes it introduced. Git delta-compresses similar versions and zlib-compresses everything, but repositories with long histories, generated artifacts, or committed binaries grow without bound — history rarely shrinks once pushed.</p>
+            <h2 className="text-2xl font-bold mb-3">Keeping Repos Lean</h2>
+            <p>Use .gitignore aggressively, keep binaries in package registries or object storage, and prune history with filter-repo when it bloats. CI caches and shallow clones for ephemeral jobs reduce the download cost further.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/git-repo-size-calculator" />
           <PopularCalculators exclude="/calculator/git-repo-size-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default GitRepoSizeCalculator;
-
+}

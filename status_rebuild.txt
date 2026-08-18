@@ -1,543 +1,89 @@
-debt-service-coverage-ratio-calculator — missing primary result card
-lifetime-value-calculator — file < 8KB (6.9KB), no Recharts import, missing primary result card
-supply-chain-cost-as-of-sales-calculator — file < 8KB (5.9KB), no Recharts import, missing primary result card
-tariff-classification-cost-estimator — no Recharts import
-vessel-turnaround-cost-calculator — file < 8KB (6.7KB), no Recharts import, missing primary result card
-warehouse-cost-per-pallet-calculator — file < 8KB (6.8KB), no Recharts import, missing primary result card
-return-on-marketing-investment-calculator — file < 8KB (5.6KB), no Recharts import, missing primary result card
-operating-profit-margin-calculator — file < 8KB (5.2KB), no Recharts import, missing primary result card
-logistics-cost-as-of-revenue-calculator — file < 8KB (6.5KB), no Recharts import, missing primary result card
-average-revenue-per-user-arpu-calculator — no Calculate button
-annual-recurring-revenue-arr-calculator — no Calculate button
-average-revenue-per-user-calculator — no Calculate button
-annual-recurring-revenue-calculator — no Calculate button
-gravel-calculator — no Recharts import
-mulch-calculator — no Recharts import
-stair-calculator — no Recharts import
-flooring-calculator — no Recharts import
-square-footage-calculator — no Recharts import
-tile-calculator — no Recharts import
-roofing-calculator — no Recharts import
-cumulative-gpa-calculator — no Recharts import, missing primary result card
-percentage-to-cgpa-converter — file < 8KB (5.6KB), no Recharts import, missing primary result card
-gpa-calculator — no Recharts import, missing primary result card
-final-grade-calculator — no Recharts import, missing primary result card
-weighted-grade-calculator — no Recharts import, missing primary result card
-test-grade-calculator — no Recharts import, missing primary result card
-grade-calculator — no Recharts import
-sat-score-calculator — no Recharts import, missing primary result card
-gre-score-calculator — no Recharts import, missing primary result card
-reading-speed-calculator — no Recharts import, no Calculate button, missing primary result card
-study-time-calculator — no Recharts import, missing primary result card
-uc-gpa-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-tuition-roi-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-student-budget-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-teacher-preparation-time-calculator — file < 8KB (2.9KB), no Recharts import, missing primary result card
-school-day-minutes-calculator — file < 8KB (2.7KB), no Recharts import, missing primary result card
-ib-grade-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-lsat-score-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-mcat-score-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-typing-speed-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-pomodoro-calculator — no Recharts import, missing primary result card
-oxbridge-interview-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-groundwater-contamination-plume-calculator — no Recharts import, missing primary result card
-energy-efficient-appliance-calculator — no Recharts import, no Calculate button, missing primary result card
-food-carbon-footprint-calculator — no Recharts import, missing primary result card
-carbon-footprint-calculator — no Recharts import, missing primary result card
-meatless-monday-impact-calculator — no Recharts import, missing primary result card
-solar-energy-savings-calculator — no Recharts import, missing primary result card
-led-savings-calculator — no Recharts import, no Calculate button, missing primary result card
-wind-turbine-energy-calculator — no Recharts import, missing primary result card
-home-energy-emissions-calculator — no Recharts import, missing primary result card
-water-footprint-calculator — no Recharts import, missing primary result card
-vehicle-emissions-calculator — no Recharts import, missing primary result card
-plastic-footprint-calculator — no Recharts import, missing primary result card
-ecological-footprint-calculator — no Recharts import, no Calculate button, missing primary result card
-flight-emissions-calculator — no Recharts import, missing primary result card
-compost-ratio-calculator — no Recharts import, missing primary result card
-population-growth-ecology-calculator — no Recharts import, missing primary result card
-rain-barrel-calculator — no Recharts import, missing primary result card
-waste-diversion-calculator — no Recharts import, missing primary result card
-paper-savings-calculator — file < 8KB (7.9KB), no Recharts import, no Calculate button, missing primary result card
-tree-planting-offset-calculator — no Recharts import, missing primary result card
-cat-calorie-calculator — no Recharts import, missing primary result card
-cat-pregnancy-calculator — no Recharts import, missing primary result card
-dog-pregnancy-calculator — no Recharts import, missing primary result card
-coffee-brewing-calculator — no Recharts import, missing primary result card
-dog-chocolate-toxicity-calculator — no Recharts import, missing primary result card
-dog-size-predictor — no Recharts import, missing primary result card
-tip-and-split-calculator — file < 8KB (6.4KB), no Recharts import, missing primary result card
-time-duration-calculator — no Recharts import, missing primary result card
-water-boiling-time-calculator — no Recharts import, missing primary result card
-tea-steeping-time-calculator — file < 8KB (7.6KB), no Recharts import, missing primary result card
-turkey-roasting-time-calculator — no Recharts import, missing primary result card
-pizza-size-calculator — no Recharts import, missing primary result card
-travel-insurance-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-road-trip-cost-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-hotel-cost-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-home-heating-cost-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-home-cooling-cost-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-mulch-cost-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-gift-cost-per-person-calculator — no Recharts import
-visa-fee-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-travel-budget-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-coffee-strength-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-shopping-budget-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-sales-price-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-packing-weight-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-wallpaper-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-lawn-seeding-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-pool-volume-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-solar-panel-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-rainwater-collection-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-plywood-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-water-bill-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-potting-soil-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-plant-spacing-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-lawn-mowing-time-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-recipe-scale-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-freelance-design-rate-calculator — no Recharts import
-clothing-size-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-ring-size-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-reading-time-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-loyalty-points-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-pet-food-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-dice-roller — no Calculate button
-height-calculator — no Recharts import, missing primary result card
-roman-numeral-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-hours-calculator — no Recharts import
-shoe-size-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-time-calculator — no Recharts import
-love-calculator — no Recharts import, missing primary result card
-conversion-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-microwave-wattage-conversion-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-time-difference-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-leap-year-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-months-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-meeting-time-zone-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-work-hours-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-weeks-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-roof-shingle-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-wall-area-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-projector-screen-size-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-lighting-lumens-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-heater-size-calculator — missing primary result card
-snow-shoveling-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-room-volume-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-speaker-placement-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-window-curtain-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-refrigerator-energy-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-tv-viewing-distance-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-gestation-calculator — no Recharts import
-dog-walk-calorie-burn-calculator — no Calculate button
-hamster-calorie-calculator — no Calculate button
-parrot-calorie-calculator — no Calculate button
-horse-calorie-calculator — no Calculate button
-hard-money-loan-calculator — no Recharts import
-canadian-mortgage-calculator — no Recharts import
-points-break-even-calculator — no Recharts import, missing primary result card
-mortgage-affordability-calculator — no Recharts import, missing primary result card
-reverse-mortgage-calculator — no Recharts import, missing primary result card
-interest-only-mortgage-calculator — no Recharts import, missing primary result card
-credit-score-estimator — no Recharts import, missing primary result card
-marriage-tax-calculator — no Recharts import, missing primary result card
-sales-tax-calculator — file < 8KB (7.9KB), no Recharts import, missing primary result card
-income-tax-calculator-india — no Recharts import, missing primary result card
-salary-calculator — no Recharts import, missing primary result card
-quarterly-tax-calculator — no Recharts import, missing primary result card
-tax-bracket-calculator — no Recharts import, missing primary result card
-payroll-tax-calculator — no Recharts import, missing primary result card
-estate-tax-calculator — no Recharts import, missing primary result card
-professional-tax-calculator — no Recharts import, missing primary result card
-self-employment-tax-calculator — no Recharts import, missing primary result card
-take-home-salary-calculator — no Recharts import, missing primary result card
-hourly-to-salary-calculator — no Recharts import, missing primary result card
-interest-rate-calculator — no Recharts import, missing primary result card
-subscription-cost-calculator — no Recharts import, missing primary result card
-dividend-reinvestment-calculator — no Recharts import, missing primary result card
-dollar-cost-averaging-calculator — no Recharts import, missing primary result card
-investment-property-calculator — no Recharts import, missing primary result card
-roi-calculator — no Recharts import, missing primary result card
-profit-margin-calculator — no Recharts import, missing primary result card
-minimum-payment-calculator — no Recharts import, missing primary result card
-options-profit-calculator — no Recharts import, missing primary result card
-inflation-calculator — no Recharts import, missing primary result card
-hra-calculator — no Recharts import, missing primary result card
-gst-calculator — no Recharts import, missing primary result card
-tds-calculator — no Recharts import, missing primary result card
-w4-withholding-calculator — no Recharts import, missing primary result card
-overtime-calculator — file < 8KB (7.4KB), no Recharts import, missing primary result card
-bonus-calculator — no Recharts import
-commission-calculator — no Recharts import, missing primary result card
-pension-calculator — no Recharts import, missing primary result card
-stamp-duty-calculator — no Recharts import, missing primary result card
-net-pay-calculator — no Recharts import, missing primary result card
-debt-to-income-calculator — no Recharts import, missing primary result card
-dti-calculator — no Recharts import, missing primary result card
-1031-exchange-timeline-calculator — no Recharts import
-traditional-ira-calculator — file < 8KB (7.7KB), no Recharts import, missing primary result card
-roth-ira-calculator — no Recharts import, missing primary result card
-savings-calculator — no Recharts import, missing primary result card
-pe-ratio-calculator — no Recharts import, missing primary result card
-sharpe-ratio-calculator — no Recharts import, missing primary result card
-swp-calculator — no Recharts import, missing primary result card
-stock-calculator — file < 8KB (7.1KB), no Recharts import, missing primary result card
-expected-return-calculator — no Recharts import, missing primary result card
-dcf-calculator — no Recharts import, missing primary result card
-portfolio-rebalancing-calculator — no Recharts import, missing primary result card
-rule-of-70-calculator — file < 8KB (6.5KB), no Recharts import, missing primary result card
-home-affordability-calculator — no Recharts import, missing primary result card
-rent-affordability-calculator — file < 8KB (6.9KB), no Recharts import, missing primary result card
-irr-calculator — file < 8KB (7.0KB), no Recharts import, no Calculate button, missing primary result card
-property-appreciation-calculator — file < 8KB (7.0KB), no Recharts import, missing primary result card
-depreciation-calculator — no Recharts import, missing primary result card
-markup-calculator — no Recharts import, missing primary result card
-working-capital-calculator — no Recharts import, missing primary result card
-ebitda-calculator — no Recharts import, missing primary result card
-rent-vs-buy-calculator — no Recharts import, missing primary result card
-house-affordability-calculator — file < 8KB (7.7KB), no Recharts import, missing primary result card
-ppf-calculator — no Recharts import, missing primary result card
-epf-calculator — no Recharts import, missing primary result card
-nps-calculator — no Recharts import, missing primary result card
-money-market-calculator — no Recharts import, missing primary result card
-sukanya-samriddhi-calculator — no Recharts import, missing primary result card
-treasury-bill-calculator — no Recharts import, missing primary result card
-certificate-of-deposit-calculator — no Recharts import, missing primary result card
-lease-vs-buy-calculator — no Recharts import, missing primary result card
-da-calculator — no Recharts import, missing primary result card
-leave-encashment-calculator — no Recharts import, missing primary result card
-loan-origination-points-to-apr-calculator — no Recharts import
-student-loan-payoff-calculator — no Recharts import, missing primary result card
-freelancer-tax-calculator — no Recharts import
-closing-cost-calculator — no Calculate button
-price-to-book-ratio-calculator — file < 8KB (4.7KB), no Recharts import, missing primary result card
-supply-and-demand-equilibrium-price-calculator — file < 8KB (2.2KB), no Recharts import, missing primary result card
-ltv-calculator — no Calculate button, missing primary result card
-freelancer-rate-calculator — no Recharts import
-bitcoin-mining-calculator — no Calculate button
-barista-fire-calculator — no Calculate button
-backdoor-roth-ira-calculator — no Calculate button
-unrealized-gainloss-calculator — file < 8KB (2.6KB), no Recharts import, missing primary result card
-modified-duration-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-put-call-parity-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-market-neutral-return-calculator — file < 8KB (1.9KB), no Recharts import, missing primary result card
-convexity-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-inventory-turnover-ratio-calculator — file < 8KB (4.7KB), no Recharts import, missing primary result card
-pregnancy-calculator — no Recharts import, no Calculate button
-pregnancy-weight-gain-calculator — no Recharts import, missing primary result card
-running-calorie-calculator — file < 8KB (7.8KB), no Recharts import, missing primary result card
-walking-calorie-calculator — no Recharts import, missing primary result card
-ovulation-calculator — file < 8KB (8.0KB), no Recharts import, missing primary result card
-fertility-calculator — no Recharts import, missing primary result card
-period-calculator — file < 8KB (7.1KB), no Recharts import, missing primary result card
-due-date-calculator — no Recharts import, missing primary result card
-conception-calculator — file < 8KB (6.2KB), no Recharts import, missing primary result card
-water-intake-calculator — file < 8KB (7.5KB), no Recharts import, missing primary result card
-protein-intake-calculator — no Recharts import, missing primary result card
-waist-to-hip-ratio-calculator — file < 8KB (7.3KB), no Recharts import, missing primary result card
-ideal-weight-calculator — no Recharts import, missing primary result card
-lean-mass-calculator — file < 8KB (6.9KB), no Recharts import, missing primary result card
-lean-body-mass-calculator — file < 8KB (6.6KB), no Recharts import, missing primary result card
-tdee-calculator — no Recharts import, missing primary result card
-child-height-predictor — no Calculate button
-gfr-calculator — no Recharts import, missing primary result card
-target-heart-rate-calculator — no Recharts import, missing primary result card
-one-rep-max-calculator — file < 8KB (7.3KB), no Recharts import, missing primary result card
-sleep-calculator — no Recharts import, missing primary result card
-pace-calculator — file < 8KB (7.9KB), no Recharts import, missing primary result card
-vo2-max-calculator — no Recharts import, missing primary result card
-hydration-calculator — file < 8KB (7.2KB), no Recharts import, missing primary result card
-chads2-score-calculator — no Calculate button
-pulse-ox-calculator — no Calculate button
-blood-donation-calculator — no Calculate button
-hemoglobin-calculator — no Calculate button
-fever-calculator — no Calculate button
-pace-converter — file < 8KB (7.7KB), no Recharts import, missing primary result card
-cycling-power-calculator — no Recharts import, missing primary result card
-daily-calorie-need-calculator — no Calculate button
-breastfeeding-calorie-calculator — no Calculate button
-elliptical-calorie-calculator — no Calculate button
-circuit-training-calorie-calculator — no Calculate button
-dancing-calorie-calculator — no Calculate button
-gym-session-calorie-burn-calculator — no Calculate button
-boxing-calorie-calculator — no Calculate button
-crossfit-wod-calorie-calculator — no Calculate button
-hiking-calorie-calculator — no Calculate button
-athlete-bmi-calculator — no Calculate button
-hiit-calorie-burn-calculator — no Calculate button
-floors-climbed-calorie-calculator — no Calculate button
-cardio-vs-weights-calorie-calculator — no Calculate button
-hot-yoga-calorie-calculator — no Calculate button
-cardio-vs-strength-calorie-comparison-calculator — no Calculate button
-alcohol-calories-calculator — no Calculate button
-daily-calorie-burn-calculator — no Calculate button
-body-fat-percentage-navy-method-calculator — no Calculate button
-body-fat-percentage-skinfold-calculator — no Calculate button
-overweight-percentage-calculator — no Recharts import, missing primary result card
-senior-bmi-calculator — no Recharts import, missing primary result card
-ideal-bmi-weight-calculator — no Recharts import, missing primary result card
-steroid-equivalence-calculator — no Recharts import, no Calculate button
-dead-space-fraction-calculator — no Calculate button
-insulin-to-carb-ratio-calculator — no Recharts import, no Calculate button
-symmetric-strength-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-wilks-score-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-sinclair-coefficient-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-soccer-goals-per-game-calculator — file < 8KB (3.9KB), missing primary result card
-cholesterol-ratio-calculator — no Calculate button
-covid-symptom-calculator — no Calculate button
-has-bled-score-calculator — no Calculate button
-wells-score-for-dvt-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-running-cadence-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-running-stride-length-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-race-time-predictor — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-treadmill-pace-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-sird-epidemic-model-calculator — file < 8KB (4.1KB), no Recharts import, missing primary result card
-tss-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-qb-rating-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-tennis-serve-speed-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-swimming-split-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-swolf-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-swimming-pace-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-swimming-time-conversion — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-triathlon-time-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-fraction-calculator — no Recharts import
-ratio-calculator — file < 8KB (7.1KB), no Recharts import, missing primary result card
-log-calculator — file < 8KB (5.3KB), no Recharts import, missing primary result card
-matrix-calculator — file < 8KB (7.7KB), no Recharts import, missing primary result card
-linear-equation-calculator — no Recharts import, missing primary result card
-volume-calculator — file < 8KB (5.8KB), no Recharts import, missing primary result card
-surface-area-calculator — file < 8KB (6.2KB), no Recharts import, missing primary result card
-circle-calculator — file < 8KB (5.2KB), no Recharts import, missing primary result card
-slope-calculator — file < 8KB (5.7KB), no Recharts import, missing primary result card
-triangle-calculator — file < 8KB (5.3KB), no Recharts import, missing primary result card
-polynomial-calculator — file < 8KB (7.5KB), no Recharts import, missing primary result card
-pythagorean-theorem-calculator — file < 8KB (6.0KB), no Recharts import, missing primary result card
-percent-error-calculator — file < 8KB (4.8KB), no Recharts import, missing primary result card
-statistics-calculator — file < 8KB (5.8KB), no Recharts import, missing primary result card
-lcm-gcd-calculator — no Recharts import, missing primary result card
-margin-of-error-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-completing-the-square-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-geometric-progression-calculator — no Recharts import
-matrix-multiplication-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-matrix-determinant-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-logarithm-change-of-base-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-inverse-variation-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-function-composition-calculator — no Recharts import
-matrix-inverse-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-vector-cross-product-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-system-of-equations-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-inequality-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-exponential-equation-solver — no Calculate button
-law-of-sines-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-polygon-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-polygon-area-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-sphere-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-right-angle-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-law-of-cosines-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-sector-area-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-midpoint-calculator — file < 8KB (5.6KB), missing primary result card
-cone-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-t-test-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-coefficient-of-variation-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-probability-calculator — no Recharts import
-sample-size-calculator — no Recharts import
-linear-regression-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-poisson-distribution-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-geometric-mean-calculator — no Recharts import
-kendall-tau-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-weighted-average-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-root-mean-square-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-percentile-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-mann-whitney-u-test-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-kruskal-wallis-test-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-wilcoxon-signed-rank-test-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-spearman-rank-correlation-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-logistic-regression-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-multiple-regression-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-vector-operations-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-integral-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-limit-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-riemann-sum-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-fourier-transform-calculator — no Calculate button
-taylor-series-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-random-number-generator — no Recharts import
-lcm-calculator — no Recharts import
-gcf-calculator — no Recharts import
-factor-calculator — no Recharts import
-rounding-calculator — no Recharts import
-number-to-words-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-scientific-calculator — no Recharts import, no Calculate button, missing primary result card
-significant-figures-calculator — no Recharts import
-scientific-notation-calculator — no Recharts import
-prime-factorization-calculator — no Recharts import
-root-calculator — no Recharts import
-set-operations-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-truth-table-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-hex-calculator — no Recharts import
-complex-numbers-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-arm-vs-fixed-rate-calculator — no Calculate button
-asset-coverage-ratio-calculator — no Calculate button
-body-fat-navy-method-calculator — no Calculate button
-body-fat-skinfold-calculator — no Calculate button
-cardio-vs-strength-comparison-calculator — no Calculate button
-cooling-system-calculator — no Calculate button
-cross-fit-wod-calorie-calculator — no Calculate button
-differential-calculator — no Calculate button
-dyno-calculator — no Calculate button
-election83b-calculator — no Calculate button
-emissions-test-calculator — no Calculate button
-escrow-calculator — no Calculate button
-exchange1031-timeline-calculator — no Recharts import
-fuel-injector-calculator — no Calculate button
-piti-calculator — no Calculate button, missing primary result card
-pmi-amortization-table — file < 8KB (6.3KB), no Recharts import, no Calculate button, missing primary result card
-pmi-ltv-chart — file < 8KB (5.4KB), no Calculate button, missing primary result card
-force-calculator — no Recharts import, no Calculate button, missing primary result card
-density-calculator — no Recharts import, no Calculate button, missing primary result card
-molarity-calculator — no Recharts import, no Calculate button, missing primary result card
-electricity-cost-calculator — no Recharts import
-fractional-distillation-calculator — no Recharts import
-simple-pendulum-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-voltage-drop-calculator — no Recharts import
-work-power-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-spring-constant-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-resistors-in-parallel-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-voltage-divider-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-lc-resonance-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-resistor-calculator — no Recharts import, no Calculate button
-engine-horsepower-calculator — no Recharts import
-projectile-motion-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-pressure-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-mass-defect-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-mass-calculator — no Recharts import, no Calculate button
-specific-heat-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-frequency-wavelength-calculator — no Recharts import
-resistors-in-series-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-inductance-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-rc-time-constant-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-rl-time-constant-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-wavelength-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-photon-energy-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-titration-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-concentration-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-normality-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-ph-calculator — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-molality-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-vapor-pressure-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-molecular-weight-calculator — no Recharts import
-ideal-gas-law-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-combined-gas-law-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-stoichiometry-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-percent-yield-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-limiting-reagent-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-osmolarity-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-molar-mass-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-freezing-point-depression-calculator — no Recharts import
-power-factor-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-wind-speed-power-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-thermal-expansion-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-radioactive-decay-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-humidity-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-uv-index-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-magnetic-field-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-transformer-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-tidal-prediction-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-dew-point-calculator — no Recharts import
-wind-chill-calculator — no Recharts import
-heat-index-calculator — no Recharts import
-podcast-hosting-cost-calculator — no Recharts import, missing primary result card
-website-hosting-cost-calculator — file < 8KB (7.1KB), no Recharts import, missing primary result card
-ssl-certificate-cost-calculator — no Recharts import, missing primary result card
-vps-pricing-calculator — no Recharts import, missing primary result card
-twitch-earnings-calculator — file < 8KB (7.0KB), no Recharts import, missing primary result card
-tiktok-earnings-calculator — no Recharts import, missing primary result card
-instagram-engagement-calculator — no Recharts import, missing primary result card
-domain-name-valuation-calculator — no Recharts import, missing primary result card
-hash-calculator — no Recharts import, no Calculate button, missing primary result card
-password-entropy-calculator — no Recharts import, no Calculate button, missing primary result card
-uptime-calculator — no Recharts import, missing primary result card
-subnet-calculator — no Recharts import, missing primary result card
-data-transfer-rate-calculator — no Recharts import, missing primary result card
-mac-address-generator — no Recharts import, no Calculate button, missing primary result card
-image-file-size-calculator — no Recharts import, missing primary result card
-video-file-size-calculator — no Recharts import, missing primary result card
-data-storage-converter — no Recharts import, no Calculate button, missing primary result card
-raid-calculator — no Recharts import, missing primary result card
-jitter-calculator — file < 8KB (6.9KB), no Recharts import, no Calculate button, missing primary result card
-upload-time-calculator — file < 8KB (7.9KB), no Recharts import, missing primary result card
-packet-loss-calculator — file < 8KB (6.2KB), no Recharts import, missing primary result card
-cron-expression-calculator — no Recharts import, no Calculate button, missing primary result card
-docker-image-size-calculator — no Recharts import, missing primary result card
-regex-test-calculator — no Recharts import, missing primary result card
-git-repo-size-calculator — no Recharts import, no Calculate button, missing primary result card
-power-supply-calculator — no Recharts import, missing primary result card
-server-rack-units-calculator — no Recharts import, missing primary result card
-stepper-motor-calculator — no Recharts import, missing primary result card
-ups-battery-runtime-calculator — file < 8KB (7.3KB), no Recharts import, missing primary result card
-hard-drive-capacity-calculator — missing primary result card
-ssd-tbw-calculator — file < 8KB (6.9KB), no Recharts import, missing primary result card
-monitor-dpi-calculator — file < 8KB (6.7KB), no Recharts import, missing primary result card
-pixel-density-calculator — file < 8KB (7.6KB), no Recharts import, missing primary result card
-rgb-to-hex-converter — no Recharts import, no Calculate button, missing primary result card
-contrast-ratio-calculator — no Recharts import, no Calculate button, missing primary result card
-font-size-converter — no Recharts import, missing primary result card
-mouse-sensitivity-calculator — file < 8KB (7.1KB), no Recharts import, missing primary result card
-screen-size-calculator — file < 8KB (6.4KB), no Recharts import, missing primary result card
-password-generator — no Recharts import, missing primary result card
-conversion-rate-calculator — file < 8KB (6.2KB), no Recharts import, missing primary result card
-roas-calculator — file < 8KB (5.6KB), no Recharts import, no Calculate button, missing primary result card
-data-transfer-calculator — no Recharts import
-net-promoter-score-calculator — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-ev-federal-tax-credit-value-calculator — no Recharts import
-vanity-license-plate-cost-calculator — file < 8KB (5.0KB), missing primary result card
-fleet-fuel-cost-calculator — no Calculate button
-driver-cost-per-mile-calculator — no Calculate button
-fuel-cost-calculator — no Recharts import
-fleet-depreciation-calculator — no Calculate button
-break-even-mileage-calculator — no Calculate button
-commercial-vehicle-load-calculator — no Calculate button
-battery-life-calculator — no Calculate button
-starter-motor-calculator — no Calculate button
-tire-size-calculator — no Calculate button
-gas-mileage-calculator — no Recharts import
-horsepower-calculator — no Calculate button
-wheel-offset-calculator — no Recharts import, no Calculate button
-speedometer-error-calculator — no Calculate button
-gear-ratio-calculator — no Calculate button
-brake-horsepower-calculator — no Calculate button
-drag-coefficient-calculator — no Calculate button
-miles-per-gallon-calculator — file < 8KB (7.7KB), no Recharts import
-trailer-tongue-weight-calculator — no Calculate button
-stopping-distance-calculator — no Calculate button, missing primary result card
-braking-distance-calculator — no Calculate button
-weight-converter — no Recharts import, missing primary result card
-time-zone-converter — no Recharts import, missing primary result card
-horsepower-to-kilowatts-calculator — file < 8KB (6.9KB), no Recharts import, missing primary result card
-charles-law-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-clothing-size-converter-advanced — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-cooking-measurement-converter — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-fraction-to-decimal-converter — no Recharts import, missing primary result card
-hex-to-decimal-converter — no Recharts import, missing primary result card
-illuminance-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-ip-subnet-calculator — no Recharts import
-knitting-needle-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-luminance-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-morse-code-translator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-oven-temperature-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-power-converter — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-pressure-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-radiation-dose-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-radioactivity-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-ring-size-converter-advanced — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-scientific-notation-converter — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-snells-law-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-text-binary-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-time-converter — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-torque-converter — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-two-complement-calculator — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-url-decoder — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-url-encoder — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-viscosity-dynamic-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
-viscosity-kinematic-converter — stub placeholder (Value A/B), file < 8KB (4.3KB), no Recharts import, missing primary result card
-volume-converter — stub placeholder (Value A/B), file < 8KB (4.1KB), no Recharts import, missing primary result card
-yarn-weight-converter — stub placeholder (Value A/B), file < 8KB (4.2KB), no Recharts import, missing primary result card
+customer-acquisition-cost-calculator — missing Primary Result Card
+gross-margin-calculator — missing Primary Result Card
+business-valuation-calculator — missing Primary Result Card
+debt-to-equity-calculator — missing Primary Result Card
+cash-conversion-cycle-calculator — missing Primary Result Card
+free-cash-flow-calculator — missing Primary Result Card
+asset-turnover-ratio-calculator — missing Primary Result Card
+cash-ratio-calculator — missing Primary Result Card
+equity-multiplier-calculator — missing Primary Result Card
+free-cash-flow-to-firm-calculator — missing Primary Result Card
+insurance-cost-per-shipment-calculator — missing Primary Result Card
+break-bulk-cargo-cost-calculator — missing Primary Result Card
+carrying-cost-of-inventory-calculator — missing Primary Result Card
+carbon-footprint-per-shipment-calculator — missing Primary Result Card
+carrier-rate-comparison-calculator — missing Primary Result Card
+carrier-performance-score-calculator — missing Primary Result Card
+depreciation-tax-shield-calculator — missing Primary Result Card
+interest-coverage-ratio-calculator — missing Primary Result Card
+bonus-percentage-calculator — missing Primary Result Card
+employer-payroll-tax-calculator — missing Primary Result Card
+employer-national-insurance-contribution-calculator — missing Primary Result Card
+freight-cost-to-revenue-ratio-calculator — missing Primary Result Card
+bonded-warehouse-cost-calculator — missing Primary Result Card
+customs-clearance-cost-estimator — missing Primary Result Card
+incoterms-landed-cost-calculator — missing Primary Result Card
+cost-per-shipment-calculator — missing Primary Result Card
+dead-freight-cost-calculator — missing Primary Result Card
+demurrage-cost-calculator — missing Primary Result Card
+import-clearance-time-cost-calculator — missing Primary Result Card
+expedited-shipping-cost-premium-calculator — missing Primary Result Card
+attendance-calculator — missing Primary Result Card
+inflation-adjusted-return-calculator — missing Primary Result Card
+aquarium-volume-calculator — missing Primary Result Card
+credit-card-payoff-calculator — missing Primary Result Card
+tax-refund-calculator — missing Primary Result Card
+budget-calculator — missing Primary Result Card
+discounted-payback-period-calculator — missing Primary Result Card
+debt-consolidation-calculator — missing Primary Result Card
+debt-avalanche-calculator — missing Primary Result Card
+debt-snowball-calculator — missing Primary Result Card
+annuity-payout-calculator — missing Primary Result Card
+dividend-yield-calculator — missing Primary Result Card
+rule-of-70-calculator — stub placeholder (Value A)
+vat-calculator — stub placeholder (Value A)
+lease-vs-buy-calculator — stub placeholder (Value A)
+apr-to-ear-calculator — missing Primary Result Card
+ear-to-apr-calculator — missing Primary Result Card
+continuous-compounding-calculator — missing Primary Result Card
+auto-loan-refinance-savings-calculator — missing Primary Result Card
+biweekly-vs-monthly-loan-comparison — missing Primary Result Card
+crypto-tax-calculator — missing Primary Result Card
+gift-tax-calculator — missing Primary Result Card
+crypto-profit-calculator — missing Primary Result Card
+earnings-per-share-calculator — missing Primary Result Card
+equivalent-annual-annuity-calculator — missing Primary Result Card
+auto-loan-vs-lease-comparison-calculator — missing Primary Result Card
+pregnancy-calculator — missing Primary Result Card
+pregnancy-weight-gain-calculator — missing Primary Result Card
+calorie-deficit-calculator — missing Primary Result Card
+conception-date-calculator — missing Primary Result Card
+glycemic-load-calculator — missing Primary Result Card
+child-height-predictor — missing Primary Result Card
+infant-milk-calculator — missing Primary Result Card
+bac-calculator — missing Primary Result Card
+chads2-score-calculator — missing Primary Result Card
+blood-donation-calculator — missing Primary Result Card
+hemoglobin-calculator — missing Primary Result Card
+fever-calculator — missing Primary Result Card
+breastfeeding-calorie-calculator — missing Primary Result Card
+cardio-vs-weights-calorie-calculator — missing Primary Result Card
+daily-calorie-burn-calculator — missing Primary Result Card
+fat-burning-zone-calculator — missing Primary Result Card
+cholesterol-ratio-calculator — missing Primary Result Card
+covid-symptom-calculator — missing Primary Result Card
+has-bled-score-calculator — missing Primary Result Card
+child-pugh-score-calculator — missing Primary Result Card
+angle-converter — missing Primary Result Card
+cooling-system-calculator — missing Primary Result Card
+cycling-calorie-calculator — missing Primary Result Card
+doppler-effect-calculator — missing Primary Result Card
+transformer-calculator — missing Primary Result Card
+tidal-prediction-calculator — missing Primary Result Card
+website-hosting-cost-calculator — missing Primary Result Card
+contrast-ratio-calculator — missing Primary Result Card
+ssl-cost-calculator — missing Primary Result Card
+fleet-insurance-cost-calculator — missing Primary Result Card
+car-depreciation-calculator — stub placeholder (Value A)
+braking-distance-calculator — missing Primary Result Card
+reaction-time-calculator — missing Primary Result Card

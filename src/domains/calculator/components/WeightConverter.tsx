@@ -1,292 +1,324 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RotateCcw, Calculator } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
-type WeightUnit = "mg" | "g" | "kg" | "ton" | "oz" | "lb" | "st";
+interface UnitOption {
+  key: string
+  label: string
+  short: string
+  toGrams: number
+}
 
-const units: { key: WeightUnit; label: string; shortLabel: string; toGrams: number }[] = [
-  { key: "mg", label: "Milligrams (mg)", shortLabel: "mg", toGrams: 0.001 },
-  { key: "g", label: "Grams (g)", shortLabel: "g", toGrams: 1 },
-  { key: "kg", label: "Kilograms (kg)", shortLabel: "kg", toGrams: 1000 },
-  { key: "ton", label: "Metric Tons (t)", shortLabel: "t", toGrams: 1_000_000 },
-  { key: "oz", label: "Ounces (oz)", shortLabel: "oz", toGrams: 28.3495 },
-  { key: "lb", label: "Pounds (lb)", shortLabel: "lb", toGrams: 453.592 },
-  { key: "st", label: "Stones (st)", shortLabel: "st", toGrams: 6350.29 },
-];
+const UNITS: UnitOption[] = [
+  { key: "mg", label: "Milligrams (mg)", short: "mg", toGrams: 0.001 },
+  { key: "g", label: "Grams (g)", short: "g", toGrams: 1 },
+  { key: "kg", label: "Kilograms (kg)", short: "kg", toGrams: 1000 },
+  { key: "ton", label: "Metric Tons (t)", short: "t", toGrams: 1000000 },
+  { key: "oz", label: "Ounces (oz)", short: "oz", toGrams: 28.349523125 },
+  { key: "lb", label: "Pounds (lb)", short: "lb", toGrams: 453.59237 },
+  { key: "st", label: "Stones (st)", short: "st", toGrams: 6350.29318 },
+]
 
-const fmt = (n: number) => {
+interface Inputs {
+  value: string
+  from: string
+  to: string
+  digits: string
+}
+
+interface Result {
+  converted: number
+  convertedFormatted: string
+  perUnit: { unit: string; value: number }[]
+  grams: number
+}
+
+const DEFAULTS: Inputs = {
+  value: "70",
+  from: "kg",
+  to: "lb",
+  digits: "4",
+}
+
+function fmt(n: number, digits: number): string {
   if (Math.abs(n) >= 0.01 || n === 0)
-    return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 6 });
-  return n.toExponential(4);
-};
+    return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: digits })
+  return n.toExponential(4)
+}
 
-const faqs = [
-  {
-    question: "What is a weight converter?",
-    answer:
-      "A weight converter is a tool that lets you instantly convert a measurement of weight or mass from one unit to another — for example, from kilograms to pounds, grams to ounces, or stones to kilograms. Our converter supports seven commonly used metric and imperial units and shows all conversions simultaneously so you can compare at a glance.",
-  },
-  {
-    question: "How many grams are in a pound?",
-    answer:
-      "There are exactly 453.592 grams in one pound (lb). Conversely, one gram equals approximately 0.002205 pounds. This conversion factor is the international standard and is used in both scientific and everyday contexts. For quick mental math, you can remember that 1 lb ≈ 454 g.",
-  },
-  {
-    question: "How do I convert kilograms to pounds?",
-    answer:
-      "To convert kilograms (kg) to pounds (lb), multiply the kilogram value by 2.20462. For example, 70 kg × 2.20462 = 154.32 lb. To go the other direction — pounds to kilograms — divide the pound value by 2.20462, or equivalently multiply by 0.453592. Our calculator performs this conversion instantly with up to 6 decimal places of precision.",
-  },
-  {
-    question: "What is the difference between weight and mass?",
-    answer:
-      "Mass is the amount of matter in an object and does not change regardless of location. Weight is the gravitational force acting on that mass — it varies depending on where you are (e.g., on the Moon you weigh less but your mass stays the same). In everyday usage, 'weight' and 'mass' are used interchangeably, and units like kilograms and pounds are used to measure both. Technically, kilograms (kg) measure mass, while Newtons (N) measure force (weight). For practical purposes on Earth, this distinction rarely matters.",
-  },
-  {
-    question: "How many pounds are in a stone?",
-    answer:
-      "One stone (st) equals exactly 14 pounds (lb). Stones are a traditional British and Irish unit of weight still commonly used in those countries for measuring body weight. For example, a person who weighs 11 stone is 154 pounds, or approximately 69.85 kilograms. Our calculator supports stones for easy conversion.",
-  },
-  {
-    question: "What is a metric ton and how does it compare to other units?",
-    answer:
-      "A metric ton (also called a tonne) equals exactly 1,000 kilograms, or 2,204.62 pounds, or approximately 1.102 US short tons. It is the standard large-mass unit in the metric system and is widely used in shipping, trade, and industry. Do not confuse it with the US short ton (2,000 lb) or the UK long ton (2,240 lb), which are different measurements.",
-  },
-  {
-    question: "How accurate is this weight converter?",
-    answer:
-      "Our weight converter uses internationally recognized, high-precision conversion factors for all units. Results are displayed with up to 6 decimal places, and very small numbers are shown in scientific notation for clarity. The converter is suitable for everyday use, cooking, fitness tracking, and scientific applications. For certified laboratory or trade purposes, always use a calibrated physical scale.",
-  },
-  {
-    question: "Can I convert between imperial and metric units?",
-    answer:
-      "Yes, absolutely. Our converter supports seamless conversion between all metric units (milligrams, grams, kilograms, metric tons) and all imperial units (ounces, pounds, stones). Simply enter your value, select the source unit and the target unit, click Calculate, and instantly see the converted result — plus a table showing all seven unit equivalents at once.",
-  },
-];
+function calculate(inputs: Inputs): Result {
+  const value = parseFloat(inputs.value)
+  const digits = Math.max(0, Math.min(10, parseInt(inputs.digits) || 4))
+  const fromUnit = UNITS.find((u) => u.key === inputs.from) ?? UNITS[2]
+  const toUnit = UNITS.find((u) => u.key === inputs.to) ?? UNITS[5]
+  const grams = (isNaN(value) ? 0 : value) * fromUnit.toGrams
+  const converted = grams / toUnit.toGrams
 
-const WeightConverter = () => {
-  const [value, setValue] = useState("1");
-  const [from, setFrom] = useState<WeightUnit>("kg");
-  const [to, setTo] = useState<WeightUnit>("lb");
-  const [showResults, setShowResults] = useState(false);
+  return {
+    converted,
+    convertedFormatted: fmt(converted, digits),
+    perUnit: UNITS.map((u) => ({ unit: u.short, value: grams / u.toGrams })),
+    grams,
+  }
+}
 
-  // Computed
-  const v = parseFloat(value) || 0;
-  const fromUnit = units.find((u) => u.key === from)!;
-  const toUnit = units.find((u) => u.key === to)!;
-  const grams = v * fromUnit.toGrams;
-  const result = grams / toUnit.toGrams;
+export default function WeightConverter() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
+  const [showAdvanced, setShowAdvanced] = useState(false)
 
-  const handleCalculate = () => {
-    if (!value || isNaN(parseFloat(value))) return;
-    setShowResults(true);
-  };
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
 
-  const reset = () => {
-    setValue("1");
-    setFrom("kg");
-    setTo("lb");
-    setShowResults(false);
-  };
+  const invalid = useMemo(() => isNaN(parseFloat(inputs.value)), [inputs.value])
+
+  const chartData = useMemo(() => {
+    const max = Math.max(...result.perUnit.map((d) => d.value))
+    return result.perUnit.map((d) => ({
+      ...d,
+      log: d.value > 0 ? Math.log10(d.value) : 0,
+      isMax: d.value === max,
+    }))
+  }, [result])
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
+
+  const fromUnit = UNITS.find((u) => u.key === inputs.from) ?? UNITS[2]
+  const toUnit = UNITS.find((u) => u.key === inputs.to) ?? UNITS[5]
 
   return (
-    <>
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Calculators", href: "/calculator" },
-          { label: "Weight Converter" },
-        ]}
-      />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Weight Converter</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Converters</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">Weight Converter</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField
-                  id="wt-value"
-                  label="Weight Value"
-                  value={value}
-                  onChange={setValue}
-                  tooltip="Enter the numeric value you want to convert."
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        Weight Converter
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium mb-1">Weight Value</label>
+                <input
+                  type="number"
+                  value={inputs.value}
+                  onChange={(e) => setInputs({ ...inputs, value: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="70"
                 />
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">From Unit</label>
-                  <Select value={from} onValueChange={(v) => setFrom(v as WeightUnit)}>
-                    <SelectTrigger className="input-calc" id="wt-from">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {units.map((u) => (
-                        <SelectItem key={u.key} value={u.key}>
-                          {u.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">To Unit</label>
-                  <Select value={to} onValueChange={(v) => setTo(v as WeightUnit)}>
-                    <SelectTrigger className="input-calc" id="wt-to">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {units.map((u) => (
-                        <SelectItem key={u.key} value={u.key}>
-                          {u.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                {invalid && <p className="text-xs text-red-500 mt-1">Enter a numeric value.</p>}
               </div>
-
-              {/* Buttons */}
-              <div className="flex gap-3">
-                <button
-                  id="wt-calculate"
-                  onClick={handleCalculate}
-                  className="btn-calculate flex-1 flex items-center justify-center gap-2"
-                >Calculate</button>
-                <button
-                  onClick={reset}
-                  className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors"
-                  aria-label="Reset"
-                  id="wt-reset"
+              <div>
+                <label className="block text-sm font-medium mb-1">From Unit</label>
+                <select
+                  value={inputs.from}
+                  onChange={(e) => setInputs({ ...inputs, from: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Result</h2>
-
-                <div className="result-card mb-6">
-                  <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">
-                    {fromUnit.label} → {toUnit.label}
-                  </p>
-                  <p className="text-2xl font-bold text-[hsl(217,91%,40%)] dark:text-primary">
-                    {fmt(v)} {fromUnit.shortLabel} = {fmt(result)} {toUnit.shortLabel}
-                  </p>
-                </div>
-
-                <h3 className="text-md font-semibold text-foreground mb-3">All Conversions for {fmt(v)} {fromUnit.shortLabel}</h3>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {units.map((u) => (
-                    <div key={u.key} className="result-card">
-                      <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">{u.label}</p>
-                      <p className="text-lg font-bold text-foreground">
-                        {fmt(grams / u.toGrams)} {u.shortLabel}
-                      </p>
-                    </div>
+                  {UNITS.map((u) => (
+                    <option key={u.key} value={u.key}>{u.label}</option>
                   ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">To Unit</label>
+                <select
+                  value={inputs.to}
+                  onChange={(e) => setInputs({ ...inputs, to: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-2 focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  {UNITS.map((u) => (
+                    <option key={u.key} value={u.key}>{u.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* ADVANCED OPTIONS */}
+            <div className="mt-4">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="text-sm text-primary font-medium inline-flex items-center gap-1"
+              >
+                Advanced Options {showAdvanced ? "▲" : "▼"}
+              </button>
+              {showAdvanced && (
+                <div className="mt-3 rounded-md border border-border p-3 bg-background">
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Precision</p>
+                    <label className="block text-sm font-medium mb-1">Decimal Places</label>
+                    <input
+                      type="number"
+                      min={0}
+                      max={10}
+                      value={inputs.digits}
+                      onChange={(e) => setInputs({ ...inputs, digits: e.target.value })}
+                      className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
                 </div>
-              </>
-            )}
+              )}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is a Weight Converter?</h2>
-              <p>
-                A weight converter is an online tool designed to instantly translate a measurement of weight or mass from one unit to another. Whether you need to know how many pounds are in 5 kilograms, how many grams are in an ounce, or how many stones you weigh based on your kilogram measurement, a weight converter eliminates manual calculation errors and saves time.
-              </p>
-              <p>
-                Our weight converter supports seven of the most commonly used weight units: milligrams, grams, kilograms, metric tons (tonnes), ounces, pounds, and stones. It covers both the metric system (used in most of the world) and the imperial or US customary system (used primarily in the United States, United Kingdom, and a few other countries). After entering your value and selecting units, the tool displays the direct conversion and an all-units table in seconds.
-              </p>
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Converted Weight</p>
+            <p className="text-4xl font-bold text-primary mt-1">{result.convertedFormatted}</p>
+            <p className="text-sm text-muted-foreground mt-1">{toUnit.short}</p>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">How Weight Is Measured</h2>
-              <p>
-                Weight measurement systems have evolved over centuries, leading to the coexistence of metric and imperial units in the modern world. The metric system — adopted by most countries globally — is based on multiples of 10, making conversions between milligrams, grams, kilograms, and metric tons straightforward. One kilogram equals 1,000 grams; one metric ton equals 1,000 kilograms.
-              </p>
-              <p>
-                The imperial system, still used in everyday life in the United States and the United Kingdom, is based on more arbitrary historical standards. Sixteen ounces make one pound; 14 pounds make one stone (used primarily in the UK for body weight). These irregular ratios are exactly why a reliable converter is so useful — there is no simple mental shortcut for all conversions.
-              </p>
-              <ul>
-                <li><strong>Milligram (mg):</strong> One thousandth of a gram. Used in medicine, pharmacology, and nutrition labeling.</li>
-                <li><strong>Gram (g):</strong> The base unit of mass in the metric system. Used in cooking, chemistry, and food packaging.</li>
-                <li><strong>Kilogram (kg):</strong> 1,000 grams. The standard unit for body weight and most everyday measurements worldwide.</li>
-                <li><strong>Metric Ton (t):</strong> 1,000 kilograms or 2,204.62 pounds. Used in industrial, commercial, and shipping contexts.</li>
-                <li><strong>Ounce (oz):</strong> 1/16 of a pound, approximately 28.35 grams. Common in US recipes and food portion sizes.</li>
-                <li><strong>Pound (lb):</strong> 453.592 grams. Standard US unit for body weight, grocery items, and shipping.</li>
-                <li><strong>Stone (st):</strong> 14 pounds or approximately 6.35 kilograms. Widely used in the UK and Ireland for body weight.</li>
-              </ul>
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Input</p>
+              <p className="text-lg font-bold text-foreground mt-1">{fmt(parseFloat(inputs.value) || 0, 4)}</p>
+              <p className="text-xs text-muted-foreground">{fromUnit.short}</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">In Grams</p>
+              <p className="text-lg font-bold text-primary mt-1">{fmt(result.grams, 2)}</p>
+              <p className="text-xs text-muted-foreground">base unit</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">In Kilograms</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">{fmt(result.grams / 1000, 4)}</p>
+              <p className="text-xs text-muted-foreground">SI unit</p>
+            </div>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
-              <p>
-                Using the weight converter is straightforward. Begin by entering the numeric value you want to convert into the "Weight Value" field. Next, select the unit you are converting <em>from</em> using the "From Unit" dropdown — for example, kilograms. Then select the unit you want to convert <em>to</em> using the "To Unit" dropdown — for example, pounds. Click the <strong>Convert</strong> button to see your result.
-              </p>
-              <p>
-                The results section shows your direct conversion prominently at the top, followed by a full table displaying your input value converted into all seven supported units simultaneously. This is especially useful when you need to communicate a measurement to people using different unit systems — such as sharing a recipe with both metric and imperial measurements.
-              </p>
-              <p>
-                To start a new conversion, click the reset button (↺) to clear all fields and return to the default settings. There is no limit to the number of conversions you can perform.
-              </p>
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Equivalent Values</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="text-left py-2 px-3 font-medium">Unit</th>
+                  <th className="text-right py-2 px-3 font-medium">Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.perUnit.map((row) => (
+                  <tr
+                    key={row.unit}
+                    className={`border-b border-border ${row.unit === toUnit.short ? "bg-primary/10 font-semibold text-primary" : ""}`}
+                  >
+                    <td className="py-2.5 px-3">{row.unit}</td>
+                    <td className="py-2.5 px-3 text-right tabular-nums">{fmt(row.value, 6)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">Understanding Weight vs Mass</h2>
-              <p>
-                In everyday language, the terms "weight" and "mass" are used interchangeably — and for almost all practical purposes, this is perfectly acceptable. However, in physics, they refer to distinct concepts.
-              </p>
-              <p>
-                <strong>Mass</strong> is the quantity of matter contained in an object. It is an intrinsic property that does not change based on location. Whether you are on Earth, the Moon, or in deep space, your mass remains constant. Mass is measured in kilograms (kg) in the International System of Units (SI).
-              </p>
-              <p>
-                <strong>Weight</strong>, on the other hand, is the gravitational force exerted on an object's mass. It is measured in Newtons (N) in the SI system. Because gravitational acceleration varies by location — about 9.81 m/s² on Earth's surface but only 1.62 m/s² on the Moon — your weight changes depending on where you are, even though your mass does not.
-              </p>
-              <p>
-                For everyday contexts like weighing food, tracking body weight, or shipping packages, this distinction is irrelevant. Scales measure the gravitational force on your mass and display the result in kilograms or pounds, which we conventionally call your "weight." Our converter operates in this everyday sense, treating kg, lb, g, oz, and other units as measures of how heavy something is under standard Earth gravity.
-              </p>
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Equivalent Values (log scale)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis dataKey="unit" tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 11 }} />
+                <Tooltip
+                  formatter={(v: number) => [v.toLocaleString("en-US", { maximumFractionDigits: 6 }), "Value"]}
+                />
+                <Bar dataKey="log" radius={[4, 4, 0, 0]}>
+                  {chartData.map((d) => (
+                    <Cell key={d.unit} fill={d.isMax ? "hsl(var(--primary))" : "hsl(var(--primary) / 0.45)"} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">Logarithmic scale shows orders of magnitude across units.</p>
+          </div>
 
-              <h2 className="text-2xl font-bold mb-3">Example</h2>
-              <p>
-                Suppose you weigh yourself and the scale reads <strong>75 kilograms</strong>. You want to know what this is in pounds for a US-based health application, and also in stones for reference with a UK friend.
-              </p>
-              <ul>
-                <li>75 kg × 2.20462 = <strong>165.35 pounds</strong></li>
-                <li>75 kg ÷ 6.35029 = <strong>11.81 stones</strong> (or approximately 11 stones and 11 pounds)</li>
-                <li>75 kg × 1,000 = <strong>75,000 grams</strong></li>
-                <li>75 kg × 1,000,000 = <strong>75,000,000 milligrams</strong></li>
-                <li>75 kg ÷ 1,000 = <strong>0.075 metric tons</strong></li>
-                <li>75 kg × 35.274 = <strong>2,645.55 ounces</strong></li>
-              </ul>
-              <p>
-                Our converter performs all of these calculations simultaneously the moment you click Convert, saving you from needing to look up each conversion factor individually.
-              </p>
-
-              <h2 className="text-2xl font-bold mb-3">Tips for Accurate Weight Measurement</h2>
-              <p>
-                For the most reliable weight measurements in everyday life, keep these practical tips in mind:
-              </p>
-              <ul>
-                <li><strong>Use a calibrated scale:</strong> Digital scales are generally more accurate than analog (spring-based) scales. Ensure yours is calibrated and zeroed before use.</li>
-                <li><strong>Measure on a flat, hard surface:</strong> Scales placed on carpet or uneven surfaces can give inaccurate readings due to uneven force distribution.</li>
-                <li><strong>Weigh yourself consistently:</strong> For body weight tracking, weigh yourself at the same time of day (ideally in the morning, after using the bathroom, before eating) for comparable readings over time.</li>
-                <li><strong>Account for container weight:</strong> When measuring ingredients, use the "tare" function on kitchen scales to subtract the weight of the bowl or container.</li>
-                <li><strong>Check unit settings:</strong> Many digital scales can switch between kg and lb. Always confirm which unit your scale is displaying before recording or converting a measurement.</li>
-                <li><strong>Use appropriate precision:</strong> For cooking, rounding to the nearest gram or 0.1 oz is usually sufficient. For pharmaceutical or laboratory work, use a scale accurate to 0.001 g (milligram precision).</li>
-              </ul>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-converter" />
-          <PopularCalculators exclude="/calculator/weight-converter" />
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Input Value</p>
+                <p className="font-semibold text-foreground">{fmt(parseFloat(inputs.value) || 0, 4)} {fromUnit.short}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Converted To</p>
+                <p className="font-semibold text-foreground">{result.convertedFormatted} {toUnit.short}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">In Grams</p>
+                <p className="font-semibold text-foreground">{fmt(result.grams, 2)} g</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">In Pounds</p>
+                <p className="font-semibold text-foreground">{fmt(result.grams / 453.59237, 4)} lb</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">In Kilograms</p>
+                <p className="font-semibold text-foreground">{fmt(result.grams / 1000, 4)} kg</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Units Covered</p>
+                <p className="font-semibold text-foreground">{UNITS.length} metric + imperial</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default WeightConverter;
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/weight-converter" />
+      </div>
+    </div>
+  )
+}

@@ -1,194 +1,205 @@
 "use client";
-import { RotateCcw, TrendingUp, Hammer, DollarSign, AlertTriangle, ChevronDown } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const HardMoneyLoanCalculator = () => {
-  const [purchasePrice, setPurchasePrice] = useState("250000");
-  const [renovationCost, setRenovationCost] = useState("50000");
-  const [arv, setArv] = useState("400000");
-  const [ltc, setLtc] = useState("80");
-  const [interestRate, setInterestRate] = useState("12");
-  const [points, setPoints] = useState("2");
-  const [loanTerm, setLoanTerm] = useState("6");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface HardMoneyResult {
+  principal: number;
+  rate: number;
+  months: number;
+  points: number;
+  monthlyPayment: number;
+  pointsCost: number;
+  totalInterest: number;
+  totalCost: number;
+  balloon: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const purchase = parseFloat(purchasePrice) || 0;
-    const reno = parseFloat(renovationCost) || 0;
-    const valueAfter = parseFloat(arv) || 0;
-    const ltcPercent = (parseFloat(ltc) || 0) / 100;
-    const rate = (parseFloat(interestRate) || 0) / 100 / 12;
-    const pts = (parseFloat(points) || 0) / 100;
-    const term = parseFloat(loanTerm) || 0;
+function fmt$(v: number): string {
+  return `$${Math.round(v).toLocaleString("en-US")}`;
+}
 
-    const totalProjectCost = purchase + reno;
-    const loanAmount = totalProjectCost * ltcPercent;
-    const totalPoints = loanAmount * pts;
-    const monthlyInterest = loanAmount * rate;
-    const totalInterest = monthlyInterest * term;
+function calcHardMoney(principal: number, rate: number, months: number, points: number): HardMoneyResult {
+  const monthlyPayment = principal * (rate / 100 / 12);
+  const pointsCost = principal * (points / 100);
+  const totalInterest = monthlyPayment * months;
+  const totalCost = pointsCost + totalInterest;
+  const balloon = principal;
 
-    const totalHoldingCost = totalInterest + totalPoints;
-    const profit = valueAfter - totalProjectCost - totalHoldingCost;
-    const roi = (profit / (totalProjectCost - loanAmount + totalHoldingCost)) * 100;
+  const breakdown = [
+    { label: "Loan Amount", value: fmt$(principal) },
+    { label: "Interest Rate", value: `${rate}% APR (interest-only)` },
+    { label: "Term", value: `${months} months` },
+    { label: "Origination Points", value: `${points}% → ${fmt$(pointsCost)}` },
+    { label: "Monthly Payment", value: fmt$(monthlyPayment) },
+    { label: "Total Interest Paid", value: fmt$(totalInterest) },
+    { label: "Total Cost (points + interest)", value: fmt$(totalCost) },
+    { label: "Balloon Payment at Maturity", value: fmt$(balloon) },
+  ];
+  const summaryStats = [
+    { label: "Monthly Payment", value: fmt$(monthlyPayment) },
+    { label: "Total Cost", value: fmt$(totalCost) },
+    { label: "Interest Paid", value: fmt$(totalInterest) },
+    { label: "Points", value: fmt$(pointsCost) },
+    { label: "Balloon", value: fmt$(balloon) },
+    { label: "APR", value: `${rate}%` },
+    { label: "Term", value: `${months} mo` },
+    { label: "Cost as % of Loan", value: `${((totalCost / principal) * 100).toFixed(1)}%` },
+  ];
+  const chartData = [
+    { name: "Principal", value: Math.round(principal), fill: "hsl(var(--primary))" },
+    { name: "Interest", value: Math.round(totalInterest), fill: "#f59e0b" },
+    { name: "Points", value: Math.round(pointsCost), fill: "#ef4444" },
+  ];
+  return { principal, rate, months, points, monthlyPayment, pointsCost, totalInterest, totalCost, balloon, breakdown, summaryStats, chartData };
+}
 
-    setResults({
-      loanAmount,
-      totalPoints,
-      monthlyInterest,
-      totalInterest,
-      totalHoldingCost,
-      profit,
-      roi,
-      equityRequired: totalProjectCost - loanAmount
-    });
-  };
+const DEFAULTS = { principal: "250000", rate: "10", months: "12", points: "3" };
 
+export default function HardMoneyLoanCalculator() {
+  const [principal, setPrincipal] = useState(DEFAULTS.principal);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [months, setMonths] = useState(DEFAULTS.months);
+  const [points, setPoints] = useState(DEFAULTS.points);
+  const [result, setResult] = useState<HardMoneyResult | null>(null);
+
+  const pr = parseFloat(principal) || 0;
+  const rt = parseFloat(rate) || 0;
+  const mo = parseInt(months) || 0;
+  const pt = parseFloat(points) || 0;
+  const errs: string[] = [];
+  if (pr <= 0) errs.push("Loan amount must be greater than 0.");
+  if (rt <= 0 || rt > 50) errs.push("Interest rate must be between 0% and 50%.");
+  if (mo < 1 || mo > 60) errs.push("Term must be 1–60 months.");
+  if (pt < 0 || pt > 20) errs.push("Points must be between 0% and 20%.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcHardMoney(pr, rt, mo, pt)); };
   const reset = () => {
-    setPurchasePrice("250000");
-    setRenovationCost("50000");
-    setArv("400000");
-    setLtc("80");
-    setInterestRate("12");
-    setPoints("2");
-    setLoanTerm("6");
+    setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setMonths(DEFAULTS.months); setPoints(DEFAULTS.points);
+    setResult(calcHardMoney(250000, 10, 12, 3));
   };
+  useEffect(() => { setResult(calcHardMoney(250000, 10, 12, 3)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What is a hard money loan?",
-      answer: "A hard money loan is a short-term, asset-based loan where the property itself serves as the primary collateral. These loans are typically provided by private investors or companies rather than banks and are commonly used by real estate 'flippers' to fund quick purchases and renovations."
-    },
-    {
-      question: "What are 'points' in a hard money loan?",
-      answer: "Points are upfront fees paid to the lender at closing. One point is equal to 1% of the total loan amount. Hard money lenders typically charge 1 to 4 points in addition to high interest rates."
-    },
-    {
-      question: "What is LTC vs. LTV?",
-      answer: "LTC (Loan-to-Cost) is the ratio of the loan amount to the total project cost (purchase + renovation). LTV (Loan-to-Value) is the ratio of the loan amount to the estimated After Repair Value (ARV). Hard money lenders often use both to limit their risk."
-    },
-    {
-      question: "How long do hard money loans last?",
-      answer: "Hard money loans are designed for short durations, usually ranging from 6 to 24 months. They are intended to be paid off once the property is sold or refinanced with a traditional mortgage."
-    }
+    { question: "What is a hard money loan?", answer: "A short-term, asset-backed loan from a private lender, used mainly by house flippers and developers who can't get bank financing quickly. Rates run 8–15% with 1–5 points upfront." },
+    { question: "Why are payments interest-only?", answer: "Hard money is bridging capital: the borrower expects to refinance or sell within months. Interest-only payments keep monthly carrying costs low, with the full principal due as a balloon at maturity." },
+    { question: "What are points?", answer: "Points are upfront fees — 1 point is 1% of the loan amount. Three points on a $250,000 loan costs $7,500 before any interest, so points materially raise the effective cost of short-term loans." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hard Money Loan Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Hard Money Loan Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hard Money Loan Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Hard Money Loan Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <div className="flex flex-col gap-4">
-              <InputField id="purchase" label="Purchase Price" value={purchasePrice} onChange={setPurchasePrice} prefix="$" />
-              <InputField id="reno" label="Renovation Cost" value={renovationCost} onChange={setRenovationCost} prefix="$" />
-              <InputField id="arv" label="After Repair Value (ARV)" value={arv} onChange={setArv} prefix="$" tooltip="Estimated market value after all renovations are complete." />
-              <InputField id="rate" label="Interest Rate (Annual %)" value={interestRate} onChange={setInterestRate} suffix="%" step="0.1" />
-            </div>
-
-            <div>
-              <button
-                type="button"
-                onClick={() => setShowResults((prev) => !prev)}
-                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
-              >
-                Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showResults ? "rotate-180" : ""}`} />
-              </button>
-
-              {showResults && (
-                <div className="grid grid-cols-1 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Loan Details</div>
-                  <InputField id="ltc" label="Loan-to-Cost (%)" value={ltc} onChange={setLtc} suffix="%" tooltip="Percentage of total costs funded by the lender." />
-                  <InputField id="points" label="Points" value={points} onChange={setPoints} suffix="pts" />
-                  <InputField id="term" label="Term" value={loanTerm} onChange={setLoanTerm} suffix="mo" />
-                </div>
-              )}
-            </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Loan Amount</label>
+                <div className={inp}><input type="number" value={principal} onChange={e => setPrincipal(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
               </div>
+              <div>
+                <label className={lbl}>Interest Rate</label>
+                <div className={inp}><input type="number" value={rate} onChange={e => setRate(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Term</label>
+                <div className={inp}><input type="number" value={months} onChange={e => setMonths(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">months</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Origination Points</label>
+                <div className={inp}><input type="number" step="0.5" value={points} onChange={e => setPoints(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 mb-6">
-                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Projected Net Profit</div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.profit).toLocaleString()}</div>
-                  <div className="text-sm text-muted-foreground font-medium">Total Loan Amount: ${Math.round(results.loanAmount).toLocaleString()} ({ltc}% of Cost)</div>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Monthly Payment (Interest-Only)</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt$(result.monthlyPayment)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmt$(result.principal)} at {result.rate}% · {result.months} months · {fmt$(result.totalCost)} total cost</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Total Interest`, fmt$(result.totalInterest)], ["Points Cost", fmt$(result.pointsCost)], ["Balloon at Maturity", fmt$(result.balloon)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Loan Cost Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 6 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 6 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 6 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Where the Money Goes</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}k`} />
+                    <Tooltip formatter={(v: number) => [fmt$(v), ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Principal, interest, and points on the loan</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <TrendingUp className="h-5 w-5 text-primary" /> Deal Breakdown
-                  </h2>
-                  <ResultDisplay items={[
-                    { label: "Cash Required (Equity)", value: results.equityRequired },
-                    { label: "Upfront Points Cost", value: results.totalPoints },
-                    { label: "Monthly Interest Payment", value: results.monthlyInterest },
-                    { label: "Total Holding Costs", value: results.totalHoldingCost },
-                  ]} />
-                </div>
-
-                <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 flex gap-3 items-start">
-                  <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-                  <p className="text-sm text-amber-800">
-                    <strong>Investor Tip:</strong> Hard money is expensive. Every extra month the project takes reduces your profit by <strong>${Math.round(results.monthlyInterest).toLocaleString()}</strong> in interest costs.
-                  </p>
-                </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Fix-and-Flip with Hard Money</h2>
-              <p>Hard money loans are the lifeblood of real estate investors. Because these loans focus on the property's potential value rather than the borrower's credit score, they allow for rapid funding of distressed properties that traditional banks won't touch.</p>
-
-              <h2 className="text-2xl font-bold mb-3">The Mechanics of the Loan</h2>
-              <p>Hard money lenders care most about the <strong>ARV (After Repair Value)</strong>. They typically lend up to 70-75% of the ARV, which should cover both the purchase price and the renovation costs. This "70% Rule" is a standard benchmark used to ensure there is enough profit margin to cover high interest rates and unexpected costs.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Understanding the Costs</h2>
-              <p>Because hard money is high-risk for the lender, it is high-cost for the borrower. You should expect:</p>
-              <p><strong>High Interest:</strong> Rates typically range from 10% to 15%, depending on your experience and the market.</p>
-              <p><strong>Points:</strong> Upfront fees of 1-4% of the loan amount are common.</p>
-              <p><strong>Closing Costs:</strong> In addition to points, you'll pay for appraisals, title work, and legal fees.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Managing the 'Holding Period'</h2>
-              <p>Time is money in real estate flipping. Since hard money interest is charged monthly on the full loan balance, every day the house sits on the market or every week the contractor is delayed directly eats into your net profit. This calculator helps you see exactly how much each month of 'holding' costs you.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Why Use Hard Money?</h2>
-              <p>If it's so expensive, why use it? The answer is <strong>speed and leverage</strong>. Hard money lenders can often fund a deal in 7-10 days, allowing you to beat out other buyers who are waiting for bank approvals. Additionally, using a lender's capital allows you to flip multiple houses simultaneously with less of your own cash tied up in any single deal.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Critical Success Factors</h2>
-              <p>To maximize your ROI when using hard money, focus on these three areas:</p>
-              <p><strong>Accurate ARV:</strong> Overestimating the final sale price is the most common reason flippers lose money. Always use conservative 'Comps' (comparable sales).</p>
-              <p><strong>Tight Renovation Budget:</strong> Get multiple quotes and add a 10-20% contingency fund for 'surprises' behind the walls.</p>
-              <p><strong>Speed:</strong> Have your contractors ready to go the day you close. Every day the house is empty is a day you are losing interest.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Hard Money Loans Work</h2>
+            <p>This <strong>hard money loan calculator</strong> models the standard structure: an interest-only monthly payment at the stated rate, an upfront points fee, and the full principal due as a balloon at maturity. Borrowers typically refinance or sell the property before the term ends.</p>
+            <h2 className="text-2xl font-bold mb-3">Why the Cost Adds Up Fast</h2>
+            <p>At 10% with 3 points, a $250,000, 12-month loan costs $32,500 — a 13% cost of capital for the year. Because the term is short, points dominate: they amortize over only 12 months rather than 30 years.</p>
+            <h2 className="text-2xl font-bold mb-3">When It Makes Sense</h2>
+            <p>Hard money suits flips and bridge situations where speed outweighs cost. Run the numbers before committing: the exit must cover the interest, points, and rehab budget, or the spread disappears.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hard-money-loan-calculator" />
           <PopularCalculators exclude="/calculator/hard-money-loan-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default HardMoneyLoanCalculator;
-
+}

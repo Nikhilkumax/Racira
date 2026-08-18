@@ -1,238 +1,225 @@
 "use client";
-import { RotateCcw, Calculator, Users, TrendingDown } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const MarriageTaxCalculator = () => {
-  const [income1, setIncome1] = useState("85000");
-  const [income2, setIncome2] = useState("45000");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+// 2025 federal income tax brackets and standard deductions
+const BRACKETS_SINGLE: [number, number][] = [
+  [11925, 0.10], [48475, 0.12], [103350, 0.22], [197300, 0.24], [250525, 0.32], [626350, 0.35], [Infinity, 0.37],
+];
+const BRACKETS_MFJ: [number, number][] = [
+  [23850, 0.10], [96950, 0.12], [206700, 0.22], [394600, 0.24], [501050, 0.32], [751600, 0.35], [Infinity, 0.37],
+];
+const STD_SINGLE = 15000;
+const STD_MFJ = 30000;
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const i1 = parseFloat(income1) || 0;
-    const i2 = parseFloat(income2) || 0;
+interface MtResult {
+  incomeA: number;
+  incomeB: number;
+  singlesTax: number;
+  mfjTax: number;
+  penalty: number;
+  penaltyPct: number;
+  marginalA: number;
+  marginalB: number;
+  marginalMfj: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-    // 2024 Standard Deductions
-    const singleDed = 14600;
-    const jointDed = 29200;
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-    // Calculate Joint Tax
-    const jointTaxable = Math.max(0, i1 + i2 - jointDed);
-    const jointTax = calculateFederalTax(jointTaxable, "joint");
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+}
 
-    // Calculate Separate Tax
-    const p1Taxable = Math.max(0, i1 - singleDed);
-    const p1Tax = calculateFederalTax(p1Taxable, "single");
-    
-    const p2Taxable = Math.max(0, i2 - singleDed);
-    const p2Tax = calculateFederalTax(p2Taxable, "single");
-    
-    const totalSeparateTax = p1Tax + p2Tax;
-    const difference = totalSeparateTax - jointTax;
+function taxOn(income: number, brackets: [number, number][]): number {
+  const taxable = Math.max(0, income);
+  let tax = 0;
+  let prev = 0;
+  for (const [cap, rate] of brackets) {
+    if (taxable <= prev) break;
+    tax += (Math.min(taxable, cap) - prev) * rate;
+    prev = cap;
+  }
+  return tax;
+}
 
-    setResults({
-      jointTax,
-      totalSeparateTax,
-      p1Tax,
-      p2Tax,
-      difference,
-      isJointBetter: difference > 0,
-      savingsPercentage: Math.abs(difference / (jointTax || 1)) * 100
-    });
-  };
+function marginalRate(income: number, brackets: [number, number][]): number {
+  const taxable = Math.max(0, income);
+  for (const [cap, rate] of brackets) {
+    if (taxable <= cap) return rate;
+  }
+  return 0.37;
+}
 
-  const calculateFederalTax = (taxable: number, status: string) => {
-    const singleBrackets = [
-      { limit: 11600, rate: 0.10 },
-      { limit: 47150, rate: 0.12 },
-      { limit: 100525, rate: 0.22 },
-      { limit: 191950, rate: 0.24 },
-      { limit: 243725, rate: 0.32 },
-      { limit: 609350, rate: 0.35 },
-      { limit: Infinity, rate: 0.37 },
-    ];
-    const jointBrackets = [
-      { limit: 23200, rate: 0.10 },
-      { limit: 94300, rate: 0.12 },
-      { limit: 201050, rate: 0.22 },
-      { limit: 383900, rate: 0.24 },
-      { limit: 487450, rate: 0.32 },
-      { limit: 731200, rate: 0.35 },
-      { limit: Infinity, rate: 0.37 },
-    ];
-    const brackets = status === "single" ? singleBrackets : jointBrackets;
-    let tax = 0;
-    let prevLimit = 0;
-    for (const b of brackets) {
-      const taxableInBracket = Math.min(taxable, b.limit - prevLimit);
-      tax += taxableInBracket * b.rate;
-      taxable -= taxableInBracket;
-      prevLimit = b.limit;
-      if (taxable <= 0) break;
-    }
-    return tax;
-  };
+function calcMt(a: number, b: number): MtResult {
+  const taxA = taxOn(a - STD_SINGLE, BRACKETS_SINGLE);
+  const taxB = taxOn(b - STD_SINGLE, BRACKETS_SINGLE);
+  const singlesTax = taxA + taxB;
+  const mfjTax = taxOn(a + b - STD_MFJ, BRACKETS_MFJ);
+  const penalty = mfjTax - singlesTax;
+  const penaltyPct = singlesTax > 0 ? (penalty / singlesTax) * 100 : 0;
+  const marginalA = marginalRate(a - STD_SINGLE, BRACKETS_SINGLE);
+  const marginalB = marginalRate(b - STD_SINGLE, BRACKETS_SINGLE);
+  const marginalMfj = marginalRate(a + b - STD_MFJ, BRACKETS_MFJ);
+  const breakdown = [
+    { label: "Spouse 1 Income", value: money(a) },
+    { label: "Spouse 2 Income", value: money(b) },
+    { label: "Combined Income", value: money(a + b) },
+    { label: "Tax as Two Singles", value: money(singlesTax) },
+    { label: "Tax as Married Filing Jointly", value: money(mfjTax) },
+    { label: "Marriage Penalty / Bonus", value: `${penalty >= 0 ? "+" : "−"} ${money(Math.abs(penalty))}` },
+    { label: "Penalty as % of Singles Tax", value: `${fmt(Math.abs(penaltyPct))}%` },
+    { label: "Marginal Rate (A / B)", value: `${fmt(marginalA * 100, 0)}% / ${fmt(marginalB * 100, 0)}%` },
+    { label: "Marginal Rate (MFJ)", value: `${fmt(marginalMfj * 100, 0)}%` },
+  ];
+  const summaryStats = [
+    { label: "Marriage Penalty", value: `${penalty >= 0 ? "+" : "−"} ${money(Math.abs(penalty))}` },
+    { label: "Tax as Singles", value: money(singlesTax) },
+    { label: "Tax as MFJ", value: money(mfjTax) },
+    { label: "Penalty % of Singles Tax", value: `${fmt(Math.abs(penaltyPct))}%` },
+    { label: "MFJ Marginal Rate", value: `${fmt(marginalMfj * 100, 0)}%` },
+  ];
+  const chartData = [
+    { name: "Two Singles", value: Number(singlesTax.toFixed(0)), fill: "hsl(var(--primary))" },
+    { name: "Married (MFJ)", value: Number(mfjTax.toFixed(0)), fill: "#f59e0b" },
+  ];
+  return { incomeA: a, incomeB: b, singlesTax, mfjTax, penalty, penaltyPct, marginalA, marginalB, marginalMfj, breakdown, summaryStats, chartData };
+}
 
+const DEFAULTS = { a: "120000", b: "80000" };
+
+export default function MarriageTaxCalculator() {
+  const [a, setA] = useState(DEFAULTS.a);
+  const [b, setB] = useState(DEFAULTS.b);
+  const [result, setResult] = useState<MtResult | null>(null);
+
+  const aNum = parseFloat(a);
+  const bNum = parseFloat(b);
+  const errs: string[] = [];
+  if (isNaN(aNum) || aNum < 0) errs.push("Spouse 1 income must be 0 or greater.");
+  if (isNaN(bNum) || bNum < 0) errs.push("Spouse 2 income must be 0 or greater.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcMt(aNum, bNum)); };
   const reset = () => {
-    setIncome1("85000");
-    setIncome2("45000");
+    setA(DEFAULTS.a); setB(DEFAULTS.b);
+    setResult(calcMt(120000, 80000));
   };
+  useEffect(() => { setResult(calcMt(120000, 80000)); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What is the 'marriage penalty'?",
-      answer: "The marriage penalty occurs when a couple's total tax bill is higher when filing jointly than it would be if they were single. This typically happens when both spouses have high, similar incomes. However, for most couples, marriage results in a 'bonus' or a lower total tax bill."
-    },
-    {
-      question: "Why is filing jointly usually better?",
-      answer: "Filing jointly is usually better because it provides a higher standard deduction and wider tax brackets. If one spouse earns significantly more than the other, the higher earner's income can be 'pushed down' into the lower earner's tax brackets, resulting in substantial savings."
-    },
-    {
-      question: "When should a couple file separately?",
-      answer: "Filing separately may be beneficial if one spouse has very high out-of-pocket medical expenses or other itemized deductions that are subject to an AGI threshold. It can also be used if one spouse has student loans on an income-driven repayment plan, as it may lower their monthly payments."
-    },
-    {
-      question: "Does this calculator include state taxes?",
-      answer: "No, this calculator only estimates Federal Income Tax. State tax laws vary significantly; some states follow federal filing status rules, while others have completely different systems."
-    }
+    { question: "What is the marriage penalty?", answer: "It is the extra federal income tax a married couple pays compared with the same two people filing as singles. It occurs when the double-income couple is pushed into higher brackets than two separate singles would be. When the opposite happens — MFJ is cheaper — it is called a marriage bonus." },
+    { question: "Why does the penalty exist?", answer: "The married filing jointly brackets are not always exactly double the single brackets, and the standard deduction for a couple is less than two individual deductions. The tax code was deliberately reshaped in 2017 to make MFJ brackets nearly double the single ones for most income levels, shrinking but not eliminating the penalty." },
+    { question: "Which filing status should we use?", answer: "For most married couples, filing jointly produces the lowest tax because the brackets are wider and credits phase out more slowly. Filing separately only makes sense in narrow situations — like income-driven student loan repayment or when one spouse owes back taxes or has high medical deductions." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Marriage Tax Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Marriage Tax Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Marriage Tax Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Marriage Tax Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Users className="h-5 w-5 text-primary" /> Spouses' Income
-                  </h2>
-                  <InputField id="income1" label="Spouse 1 Gross Income" value={income1} onChange={setIncome1} prefix="$" />
-                  <InputField id="income2" label="Spouse 2 Gross Income" value={income2} onChange={setIncome2} prefix="$" />
-                </section>
-
-                <section className="space-y-4">
-                   <h2 className="text-2xl font-bold mb-3">
-                    <TrendingDown className="h-5 w-5 text-primary" /> Quick Summary
-                  </h2>
-                  <div className="p-4 bg-primary/5 rounded-xl border border-primary/10">
-                    <p className="text-[10px] font-bold text-primary uppercase mb-1">Total Combined Income</p>
-                    <p className="text-3xl font-black text-foreground">${(parseFloat(income1) + parseFloat(income2)).toLocaleString()}</p>
-                  </div>
-                  <div className="p-4 bg-secondary/30 rounded-xl border border-border">
-                    <p className="text-[10px] font-bold text-muted-foreground uppercase mb-1">Standard Deduction (Joint)</p>
-                    <p className="text-xl font-bold">$29,200</p>
-                  </div>
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Spouse 1 Income ($/yr)</label>
+                <input type="number" value={a} onChange={e => setA(e.target.value)} className={inp} placeholder="120000" />
               </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+              <div>
+                <label className={lbl}>Spouse 2 Income ($/yr)</label>
+                <input type="number" value={b} onChange={e => setB(e.target.value)} className={inp} placeholder="80000" />
               </div>
+            </div>
+            <p className="text-xs text-muted-foreground">Uses 2025 federal brackets and standard deductions (single $15,000, MFJ $30,000). Itemized deductions and credits are not modeled.</p>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <div className="card-calculator border-solid border-2 py-12 text-center mb-8" style={{ borderColor: results.isJointBetter ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)', backgroundColor: results.isJointBetter ? 'rgba(16, 185, 129, 0.05)' : 'rgba(239, 68, 68, 0.05)' }}>
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{results.isJointBetter ? 'Potential Marriage Bonus' : 'Potential Marriage Penalty'}</p>
-                  <p className={`text-8xl font-black mb-2 ${results.isJointBetter ? 'text-emerald-600' : 'text-red-600'}`}>${Math.abs(Math.round(results.difference)).toLocaleString()}</p>
-                  <p className={`text-xl font-bold uppercase ${results.isJointBetter ? 'text-emerald-500' : 'text-red-500'}`}>{results.isJointBetter ? 'Saved by Filing Jointly' : 'Extra Cost of Filing Jointly'}</p>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="card-calculator">
-                    <h3 className="font-bold flex items-center gap-2 mb-6">
-                      <Calculator className="h-4 w-4 text-primary" /> Filing Jointly
-                    </h3>
-                    <div className="space-y-4">
-                       <div className="flex justify-between items-center text-sm font-medium">
-                          <span className="text-muted-foreground">Total Joint Tax</span>
-                          <span className="text-lg font-black text-emerald-600">${Math.round(results.jointTax).toLocaleString()}</span>
-                       </div>
-                       <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                          <div className="h-full bg-emerald-500" style={{ width: `${(results.jointTax / (results.totalSeparateTax || 1)) * 100}%` }}></div>
-                       </div>
-                    </div>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className={`${result.penalty >= 0 ? "bg-primary/10 border-l-4 border-primary" : "bg-emerald-500/10 border-l-4 border-emerald-500"} rounded-lg p-5`}>
+                <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.penalty >= 0 ? "text-primary" : "text-emerald-600"}`}>{result.penalty >= 0 ? "Marriage Penalty" : "Marriage Bonus"}</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.penalty >= 0 ? "+" : "−"} {money(Math.abs(result.penalty))}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.penalty >= 0 ? "More" : "Less"} tax married than single · {fmt(Math.abs(result.penaltyPct))}% of the singles tax</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Tax as Singles", money(result.singlesTax)], ["Tax as MFJ", money(result.mfjTax)], ["Difference", `${result.penalty >= 0 ? "+" : "−"} ${money(Math.abs(result.penalty))}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-
-                  <div className="card-calculator">
-                    <h3 className="font-bold flex items-center gap-2 mb-6">
-                      <Calculator className="h-4 w-4 text-primary" /> Filing Separately
-                    </h3>
-                    <div className="space-y-3 text-sm">
-                       <div className="flex justify-between">
-                          <span className="text-muted-foreground">Spouse 1 Tax</span>
-                          <span className="font-bold">${Math.round(results.p1Tax).toLocaleString()}</span>
-                       </div>
-                       <div className="flex justify-between">
-                          <span className="text-muted-foreground">Spouse 2 Tax</span>
-                          <span className="font-bold">${Math.round(results.p2Tax).toLocaleString()}</span>
-                       </div>
-                       <div className="pt-2 border-t border-border flex justify-between font-black text-foreground">
-                          <span>Total Separate Tax</span>
-                          <span>${Math.round(results.totalSeparateTax).toLocaleString()}</span>
-                       </div>
-                    </div>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 5 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 5 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 5 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Singles vs Married Filing Jointly</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [money(v), ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Compare the same income under both filing statuses</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Marriage and the IRS: How Your Filing Status Affects Your Taxes</h2>
-              <p>For most couples, getting married is a significant financial event. The "marriage bonus" or "marriage penalty" is the difference between what a couple pays in taxes as a married unit versus what they would have paid as two single individuals. Understanding how these calculations work can help you choose the best filing status every year.</p>
-
-              <h3>What is a Marriage Bonus?</h3>
-              <p>A marriage bonus occurs when a couple's total tax bill is lower after they marry. This is most common when one spouse earns much more than the other. When they file jointly, the higher earner's income is spread across the lower brackets of both spouses, effectively pulling some of the income out of higher tax brackets. This can save couples thousands of dollars annually.</p>
-
-              <h3>What is a Marriage Penalty?</h3>
-              <p>A marriage penalty happens when a couple pays more in taxes together than they would have separately. This typically occurs when both spouses are high earners with similar incomes. Because the income thresholds for the highest tax brackets (32%, 35%, and 37%) for married couples are not always exactly double the single thresholds, combining two large incomes can push more of their money into a higher bracket.</p>
-
-              <h3>Married Filing Jointly (MFJ) vs. Married Filing Separately (MFS)</h3>
-              <p>Almost all married couples file jointly because it offers the most tax advantages. However, there are specific scenarios where filing separately might be beneficial:</p>
-              <ul>
-                <li><strong>Income-Driven Repayment (IDR) Plans:</strong> If one spouse has significant student loans, filing separately may keep their monthly payments lower by excluding the other spouse's income from the calculation.</li>
-                <li><strong>Itemized Deductions:</strong> If one spouse has very high medical expenses (which must exceed 7.5% of AGI to be deductible), filing separately might allow them to meet that threshold more easily.</li>
-                <li><strong>Legal/Financial Separation:</strong> If you are in the process of a divorce or have concerns about your spouse's tax compliance, filing separately protects you from "joint and several liability" for any errors on the return.</li>
-              </ul>
-
-              <h3>Loss of Credits when Filing Separately</h3>
-              <p>It is important to note that filing separately (MFS) makes you ineligible for several valuable tax breaks, including:</p>
-              <ol>
-                <li>Student loan interest deduction.</li>
-                <li>Earned Income Tax Credit (EITC).</li>
-                <li>Education credits (AOTC and Lifetime Learning Credit).</li>
-                <li>The Credit for the Elderly or the Disabled.</li>
-              </ol>
-
-              <h2 className="text-2xl font-bold mb-3">Planning Your Strategy</h2>
-              <p>For the vast majority of taxpayers, the "Married Filing Jointly" status is the clear winner. This calculator provides a high-level estimate of the federal tax impact, but we recommend running your actual numbers through professional tax software before making a final decision, especially if you have significant deductions, credits, or state tax considerations.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Does Marriage Cost You at Tax Time?</h2>
+            <p>This <strong>marriage tax calculator</strong> answers one question: would the same two incomes owe less tax as singles or as a married couple filing jointly? It runs 2025 federal brackets and standard deductions under both statuses and reports the penalty or bonus.</p>
+            <h2 className="text-2xl font-bold mb-3">Where the Penalty Comes From</h2>
+            <p>Two singles each get their own $15,000 standard deduction and their own low brackets. A married couple shares one $30,000 deduction — often a wash — but the second income stacks on top of the first, and the marginal dollars can land in higher brackets than they would separately. Dual high earners feel this most.</p>
+            <h2 className="text-2xl font-bold mb-3">Reading Your Result</h2>
+            <p>A positive number is a penalty — you pay more married. A negative number is a bonus — the law favors your union. The percentage row scales it against your singles tax so you can judge materiality, and the marginal-rate row shows which bracket your combined income actually sits in.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/marriage-tax-calculator" />
           <PopularCalculators exclude="/calculator/marriage-tax-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default MarriageTaxCalculator;
-
+}

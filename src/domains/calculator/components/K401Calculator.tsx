@@ -285,7 +285,7 @@ const K401Calculator = () => {
               />
             </div>
             
-            <div className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <CompactInput
                 id="current-balance"
                 label="Current Balance"
@@ -300,14 +300,14 @@ const K401Calculator = () => {
                 onChange={setAnnualSalary}
                 prefix="$"
               />
-              <CompactInput
-                id="contribution-pct"
-                label="Your Contribution"
-                value={contributionPct}
-                onChange={setContributionPct}
-                suffix="%"
-              />
             </div>
+            <CompactInput
+              id="contribution-pct"
+              label="Your Contribution"
+              value={contributionPct}
+              onChange={setContributionPct}
+              suffix="%"
+            />
 
             {/* Advanced Tier */}
             <div>
@@ -486,6 +486,28 @@ const K401Calculator = () => {
                     <div className="p-3 text-center text-xs text-muted-foreground bg-muted/20 border-t border-border mt-auto">
                       Showing 5-year milestones
                     </div>
+                  </div>
+                </div>
+
+                {/* 6. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-bold mb-3 text-foreground">Summary Statistics</p>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {[
+                      ["Final Balance", `$${results.finalBalance.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Inflation-Adjusted", `$${results.inflationAdjusted.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Your Contributions", `$${results.totalEmployeeContribs.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Employer Match", `$${results.totalEmployerContribs.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Total Contributions", `$${results.totalContribs.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Investment Growth", `$${results.interestGained.toLocaleString(undefined, { maximumFractionDigits: 0 })}`],
+                      ["Years of Growth", `${results.years} years`],
+                      ["Monthly Income (4% Rule)", `$${results.monthlyWithdrawal4pct.toLocaleString(undefined, { maximumFractionDigits: 0 })}/mo`],
+                    ].map(([l, v]) => (
+                      <div key={l} className="flex justify-between">
+                        <span className="text-muted-foreground">{l}:</span>
+                        <span className="font-semibold text-foreground">{v}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 

@@ -1,218 +1,221 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-type Mode = "molarity" | "dilution";
+interface MolarResult {
+  mode: string;
+  target: string;
+  molarity: number;
+  moles: number;
+  volumeL: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-const MolarityCalculator = () => {
-  const [mode, setMode] = useState<Mode>("molarity");
+function fmt(v: number, d = 4): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-  // Molarity mode
-  const [moles, setMoles] = useState("");
-  const [volumeL, setVolumeL] = useState("");
-  const [massG, setMassG] = useState("");
-  const [molarMass, setMolarMass] = useState("");
+function calcMolar(mode: string, a: number, b: number, c: number): MolarResult {
+  if (mode === "dilution") {
+    // M1V1 = M2V2; a=M1, b=V1, c=M2 -> V2
+    const m2 = c, v2 = c > 0 ? (a * b) / c : 0;
+    const breakdown = [
+      { label: "Stock Concentration (M₁)", value: `${fmt(a)} M` },
+      { label: "Stock Volume (V₁)", value: `${fmt(b)} L` },
+      { label: "Final Concentration (M₂)", value: `${fmt(c)} M` },
+      { label: "Required Final Volume (V₂)", value: `${fmt(v2)} L` },
+      { label: "Water to Add (V₂ − V₁)", value: `${fmt(v2 - b)} L` },
+    ];
+    const summaryStats = [
+      { label: "Final Volume (V₂)", value: `${fmt(v2)} L` },
+      { label: "Water to Add", value: `${fmt(v2 - b)} L` },
+      { label: "M₁·V₁", value: `${fmt(a * b)} mol` },
+      { label: "M₂·V₂ (check)", value: `${fmt(c * v2)} mol` },
+    ];
+    const chartData = [
+      { name: "Stock (M₁)", value: Number(a.toFixed(3)), fill: "hsl(var(--primary))" },
+      { name: "Final (M₂)", value: Number(c.toFixed(3)), fill: "#f59e0b" },
+    ];
+    return { mode, target: "v2", molarity: c, moles: a * b, volumeL: v2, breakdown, summaryStats, chartData };
+  }
+  // target: molarity, moles, or volume
+  let molarity = a, moles = b, volumeL = c;
+  if (mode === "molarity") molarity = b / c;
+  else if (mode === "moles") moles = a * c;
+  else volumeL = b / a;
+  const breakdown = [
+    { label: "Mode", value: mode === "molarity" ? "Solve for Molarity" : mode === "moles" ? "Solve for Moles" : "Solve for Volume" },
+    { label: "Moles of Solute", value: `${fmt(moles)} mol` },
+    { label: "Volume of Solution", value: `${fmt(volumeL)} L` },
+    { label: "Molarity (M)", value: `${fmt(molarity)} mol/L` },
+  ];
+  const summaryStats = [
+    { label: "Molarity", value: `${fmt(molarity)} M` },
+    { label: "Moles", value: `${fmt(moles)} mol` },
+    { label: "Volume", value: `${fmt(volumeL)} L` },
+    { label: "Definition", value: "mol ÷ L" },
+  ];
+  const chartData = [
+    { name: "Moles", value: Number(moles.toFixed(3)), fill: "hsl(var(--primary))" },
+    { name: "Volume (L)", value: Number(volumeL.toFixed(3)), fill: "#f59e0b" },
+    { name: "Molarity", value: Number(molarity.toFixed(3)), fill: "#10b981" },
+  ];
+  return { mode, target: mode, molarity, moles, volumeL, breakdown, summaryStats, chartData };
+}
 
-  // Dilution mode (C1V1 = C2V2)
-  const [c1, setC1] = useState("");
-  const [v1, setV1] = useState("");
-  const [c2, setC2] = useState("");
-  const [v2, setV2] = useState("");
+const DEFAULTS = { mode: "molarity", a: "2", b: "0.5", c: "1" };
 
-  const molarityResult = () => {
-    if (massG && molarMass && volumeL) {
-      const m = parseFloat(massG);
-      const mm = parseFloat(molarMass);
-      const v = parseFloat(volumeL);
-      if (mm > 0 && v > 0) {
-        const mol = m / mm;
-        const M = mol / v;
-        return { molarity: M, moles: mol };
-      }
-    }
-    if (moles && volumeL) {
-      const n = parseFloat(moles);
-      const v = parseFloat(volumeL);
-      if (v > 0) return { molarity: n / v, moles: n };
-    }
-    return null;
+export default function MolarityCalculator() {
+  const [mode, setMode] = useState<string>(DEFAULTS.mode);
+  const [a, setA] = useState(DEFAULTS.a);
+  const [b, setB] = useState(DEFAULTS.b);
+  const [c, setC] = useState(DEFAULTS.c);
+  const [result, setResult] = useState<MolarResult | null>(null);
+
+  const va = parseFloat(a), vb = parseFloat(b), vc = parseFloat(c);
+  const errs: string[] = [];
+  if (isNaN(va) || va < 0) errs.push("First value must be 0 or greater.");
+  if (isNaN(vb) || vb < 0) errs.push("Second value must be 0 or greater.");
+  if (isNaN(vc) || vc < 0) errs.push("Third value must be 0 or greater.");
+  if (mode === "molarity" && (!vb || vb <= 0)) errs.push("Volume must be greater than 0.");
+  if (mode === "volume" && (!va || va <= 0)) errs.push("Molarity must be greater than 0.");
+  if (mode === "dilution" && (vc === 0)) errs.push("Final concentration must be greater than 0.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcMolar(mode, va, vb, vc)); };
+  const reset = () => {
+    setMode(DEFAULTS.mode); setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c);
+    setResult(calcMolar("molarity", 2, 0.5, 1));
   };
+  useEffect(() => { setResult(calcMolar("molarity", 2, 0.5, 1)); }, []);
 
-  const dilutionResult = () => {
-    const vals = [parseFloat(c1), parseFloat(v1), parseFloat(c2), parseFloat(v2)];
-    const missing = vals.map((v, i) => isNaN(v) ? i : -1).filter(i => i !== -1);
-    if (missing.length !== 1) return null;
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
-    const [C1, V1, C2, V2] = vals;
-    switch (missing[0]) {
-      case 0: return { c1: (C2 * V2) / V1, v1: V1, c2: C2, v2: V2, solved: "c1" };
-      case 1: return { c1: C1, v1: (C2 * V2) / C1, c2: C2, v2: V2, solved: "v1" };
-      case 2: return { c1: C1, v1: V1, c2: (C1 * V1) / V2, v2: V2, solved: "c2" };
-      case 3: return { c1: C1, v1: V1, c2: C2, v2: (C1 * V1) / C2, solved: "v2" };
-    }
-    return null;
+  const labels: Record<string, [string, string, string]> = {
+    molarity: ["Moles of Solute", "Volume (L)", "Unused"],
+    moles: ["Molarity (M)", "Volume (L)", "Unused"],
+    volume: ["Molarity (M)", "Moles of Solute", "Unused"],
+    dilution: ["Stock Concentration M₁ (M)", "Stock Volume V₁ (L)", "Final Concentration M₂ (M)"],
   };
-
-  const molRes = mode === "molarity" ? molarityResult() : null;
-  const dilRes = mode === "dilution" ? dilutionResult() : null;
 
   const faqs = [
-    { question: "What is molarity?", answer: "Molarity (M) is the number of moles of solute per liter of solution. It is the most common measure of solution concentration in chemistry." },
-    { question: "What is the dilution equation?", answer: "C\u2081V\u2081 = C\u2082V\u2082, where C is concentration and V is volume. It calculates the new concentration or volume when diluting a solution." },
-    { question: "How do I calculate moles from mass?", answer: "Moles = mass (g) / molar mass (g/mol). For example, 36 g of water (molar mass 18 g/mol) = 2 moles." },
+    { question: "What is molarity?", answer: "Molarity (M) is moles of solute per liter of solution — the most common concentration unit in chemistry. M = moles ÷ liters. It is temperature-sensitive because solution volume changes with temperature." },
+    { question: "How do I make a solution of a given molarity?", answer: "Weigh out moles × molar mass grams of solute, dissolve in less than the final volume, then top up to the mark with solvent. For example, 0.5 mol NaCl (29.22 g) in a final volume of 1 L gives 0.5 M." },
+    { question: "How does dilution work?", answer: "Dilution conserves moles: M₁V₁ = M₂V₂. Adding water to a stock solution lowers the concentration exactly in proportion — take 100 mL of 2 M stock and dilute to 200 mL and you get 1 M. This calculator solves that equation for V₂." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[
-        { label: "Home", href: "/" },
-        { label: "Calculators", href: "/calculator" },
-        { label: "Molarity Calculator" }
-      ]} />
-
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Science", href: "/calculator#science" }, { label: "Molarity Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Molarity Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Molarity Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* Inputs */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div>
-              <label className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2 block">Mode</label>
-              <Select value={mode} onValueChange={(v) => setMode(v as Mode)}>
-                <SelectTrigger className="input-calc"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="molarity">Molarity (M = n / V)</SelectItem>
-                  <SelectItem value="dilution">Dilution (C₁V₁ = C₂V₂)</SelectItem>
-                </SelectContent>
-              </Select>
+              <label className={lbl}>What do you want to calculate?</label>
+              <select value={mode} onChange={e => setMode(e.target.value)} className={inp}>
+                <option value="molarity">Molarity from moles &amp; volume</option>
+                <option value="moles">Moles from molarity &amp; volume</option>
+                <option value="volume">Volume from molarity &amp; moles</option>
+                <option value="dilution">Dilution (M₁V₁ = M₂V₂)</option>
+              </select>
             </div>
-
-            {mode === "molarity" && (
-              <>
-                <p className="text-xs text-muted-foreground">Enter moles + volume, or mass + molar mass + volume.</p>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="massG" className="text-sm font-medium text-foreground mb-1 block">Mass of Solute</label>
-                    <div className="relative">
-                      <input id="massG" type="number" value={massG} onChange={e => setMassG(e.target.value)} className="input-calc pr-10" placeholder="0" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">g</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="molarMass" className="text-sm font-medium text-foreground mb-1 block">Molar Mass</label>
-                    <div className="relative">
-                      <input id="molarMass" type="number" value={molarMass} onChange={e => setMolarMass(e.target.value)} className="input-calc pr-16" placeholder="0" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">g/mol</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="moles" className="text-sm font-medium text-foreground mb-1 block">Moles</label>
-                    <div className="relative">
-                      <input id="moles" type="number" value={moles} onChange={e => setMoles(e.target.value)} className="input-calc pr-14" placeholder="0" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">mol</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="volumeL" className="text-sm font-medium text-foreground mb-1 block">Volume of Solution</label>
-                    <div className="relative">
-                      <input id="volumeL" type="number" value={volumeL} onChange={e => setVolumeL(e.target.value)} className="input-calc pr-10" placeholder="0" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">L</span>
-                    </div>
-                  </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>{labels[mode][0]}</label>
+                <input type="number" value={a} onChange={e => setA(e.target.value)} className={inp} placeholder={mode === "dilution" ? "2" : "0.5"} />
+              </div>
+              <div>
+                <label className={lbl}>{labels[mode][1]}</label>
+                <input type="number" value={b} onChange={e => setB(e.target.value)} className={inp} placeholder="1" />
+              </div>
+              {mode === "dilution" && (
+                <div className="col-span-2">
+                  <label className={lbl}>{labels[mode][2]}</label>
+                  <input type="number" value={c} onChange={e => setC(e.target.value)} className={inp} placeholder="1" />
                 </div>
-              </>
+              )}
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
             )}
-
-            {mode === "dilution" && (
-              <>
-                <p className="text-xs text-muted-foreground">Leave one field empty to solve for it.</p>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="c1" className="text-sm font-medium text-foreground mb-1 block">C₁ (Initial Conc.)</label>
-                    <div className="relative">
-                      <input id="c1" type="number" value={c1} onChange={e => setC1(e.target.value)} className="input-calc pr-10" placeholder="?" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">M</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="v1" className="text-sm font-medium text-foreground mb-1 block">V₁ (Initial Volume)</label>
-                    <div className="relative">
-                      <input id="v1" type="number" value={v1} onChange={e => setV1(e.target.value)} className="input-calc pr-10" placeholder="?" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">L</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="c2" className="text-sm font-medium text-foreground mb-1 block">C₂ (Final Conc.)</label>
-                    <div className="relative">
-                      <input id="c2" type="number" value={c2} onChange={e => setC2(e.target.value)} className="input-calc pr-10" placeholder="?" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">M</span>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="v2" className="text-sm font-medium text-foreground mb-1 block">V₂ (Final Volume)</label>
-                    <div className="relative">
-                      <input id="v2" type="number" value={v2} onChange={e => setV2(e.target.value)} className="input-calc pr-10" placeholder="?" />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">L</span>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          {/* Results */}
-          <div className="flex flex-col gap-3">
-            {molRes && (
-              <>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Molarity</p>
-                  <p className="text-5xl font-black text-foreground">{molRes.molarity.toFixed(4)} <span className="text-2xl">M</span></p>
-                </div>
-                <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Moles of Solute</p>
-                  <p className="text-3xl font-black text-foreground">{molRes.moles.toFixed(4)} mol</p>
-                </div>
-              </>
-            )}
-            {dilRes && (
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Dilution Result (C₁V₁ = C₂V₂)</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className={`p-3 rounded-xl border ${dilRes.solved === "c1" ? "bg-primary/10 border-primary/30" : "bg-secondary/30 border-border"}`}>
-                    <p className="text-xs text-muted-foreground uppercase">C₁</p>
-                    <p className="text-xl font-bold text-foreground">{dilRes.c1.toFixed(4)} M</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">{result.mode === "dilution" ? "Final Volume (V₂)" : result.mode === "molarity" ? "Molarity" : result.mode === "moles" ? "Moles of Solute" : "Volume of Solution"}</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt(result.mode === "dilution" ? result.volumeL : result.mode === "molarity" ? result.molarity : result.mode === "moles" ? result.moles : result.volumeL)} {result.mode === "dilution" ? "L" : result.mode === "molarity" ? "mol/L" : result.mode === "moles" ? "mol" : "L"}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.breakdown[0].value}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Molarity", `${fmt(result.molarity)} M`], ["Moles", `${fmt(result.moles)} mol`], ["Volume", `${fmt(result.volumeL)} L`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                  <div className={`p-3 rounded-xl border ${dilRes.solved === "v1" ? "bg-primary/10 border-primary/30" : "bg-secondary/30 border-border"}`}>
-                    <p className="text-xs text-muted-foreground uppercase">V₁</p>
-                    <p className="text-xl font-bold text-foreground">{dilRes.v1.toFixed(4)} L</p>
-                  </div>
-                  <div className={`p-3 rounded-xl border ${dilRes.solved === "c2" ? "bg-primary/10 border-primary/30" : "bg-secondary/30 border-border"}`}>
-                    <p className="text-xs text-muted-foreground uppercase">C₂</p>
-                    <p className="text-xl font-bold text-foreground">{dilRes.c2.toFixed(4)} M</p>
-                  </div>
-                  <div className={`p-3 rounded-xl border ${dilRes.solved === "v2" ? "bg-primary/10 border-primary/30" : "bg-secondary/30 border-border"}`}>
-                    <p className="text-xs text-muted-foreground uppercase">V₂</p>
-                    <p className="text-xl font-bold text-foreground">{dilRes.v2.toFixed(4)} L</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === result.breakdown.length - 1 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === result.breakdown.length - 1 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === result.breakdown.length - 1 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">{result.mode === "dilution" ? "Concentration Before vs After" : "Moles, Volume, and Molarity"}</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [fmt(v), ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">{result.mode === "dilution" ? "M₁V₁ = M₂V₂ — moles conserved through dilution" : "Molarity = moles ÷ liters"}</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
               </div>
-            )}
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Molarity and Solution Chemistry</h2>
-            <p>Molarity is the most widely used measure of concentration in chemistry. It tells you how many moles of a dissolved substance (solute) are present in exactly one liter of solution.</p>
-            <h3>The Molarity Formula</h3>
-            <p>Molarity (M) = moles of solute / liters of solution. If you know the mass and molar mass of the solute, you can first convert: moles = mass (g) / molar mass (g/mol).</p>
-            <h3>Dilution Equation (C₁V₁ = C₂V₂)</h3>
-            <p>When you dilute a solution, the amount of solute stays constant even though the volume increases. This relationship is captured by C₁V₁ = C₂V₂. Leave any one variable unknown and this calculator will solve for it.</p>
+            <h2 className="text-2xl font-bold mb-3">Concentration, Quantified</h2>
+            <p><strong>Molarity</strong> is the workhorse concentration unit: moles of solute per liter of solution. This <strong>molarity calculator</strong> solves the triangle — molarity, moles, volume — whichever piece is missing, and handles the dilution equation M₁V₁ = M₂V₂.</p>
+            <h2 className="text-2xl font-bold mb-3">The Formula Triangle</h2>
+            <p>M = mol ÷ L. Two known values give the third: weigh out moles × molar mass grams of solute, dissolve to the calibration mark, and you have a precise solution. The calculator's four modes cover every rearrangement plus dilutions.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Dilution Is Free</h2>
+            <p>Diluting never changes how many moles are present, so M₁V₁ = M₂V₂ always holds. Stock solutions are sold concentrated precisely so labs can dilute — the calculator tells you the final volume and the water to add in one step.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/molarity-calculator" />
           <PopularCalculators exclude="/calculator/molarity-calculator" />
@@ -220,6 +223,4 @@ const MolarityCalculator = () => {
       </div>
     </>
   );
-};
-
-export default MolarityCalculator;
+}

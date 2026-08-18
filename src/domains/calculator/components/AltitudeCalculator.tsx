@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
@@ -70,12 +70,6 @@ const CompactInput = ({ id, label, value, onChange, placeholder, suffix, step }:
 export default function AltitudeCalculator() {
   const [inputs, setInputs] = useState(DEFAULTS);
   const [results, setResults] = useState<AltitudeResults>(calculateAltitude(DEFAULTS));
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const handleChange = (key: keyof typeof DEFAULTS, val: string) => {
     setInputs(prev => ({ ...prev, [key]: val }));
   };
@@ -95,8 +89,6 @@ export default function AltitudeCalculator() {
     { question: "What is Pressure Altitude?", answer: "Pressure altitude is the height above a standard datum plane where the atmospheric pressure is precisely 29.92 inches of mercury. It serves as the foundational baseline calculation before factoring in ambient temperature variations to determine the final density altitude." },
     { question: "Why is 29.92 inHg significant?", answer: "29.92 inches of mercury is the internationally recognized standard atmospheric pressure at sea level under standard atmospheric conditions. Altimeters are calibrated against this absolute baseline to ensure global standardization in altitude reporting and aircraft separation." }
   ];
-
-  if (!mounted) return null;
 
   return (
     <>

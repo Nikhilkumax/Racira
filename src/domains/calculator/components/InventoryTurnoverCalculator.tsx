@@ -1,230 +1,295 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Calculator, RefreshCw } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
-
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: {
-  id: string; label: string; value: string; onChange: (v: string) => void;
-  prefix?: string; suffix?: string; type?: string; [key: string]: any;
-}) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-semibold text-foreground mb-1">{label}</label>
-    <div className="relative flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none shrink-0">{prefix}</span>}
-      <input id={id} type={type} value={value} onChange={e => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" {...props} />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none shrink-0">{suffix}</span>}
-    </div>
-  </div>
-);
-
-const fmtVal = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
-const fmtRatio = (n: number) => `${n.toFixed(2)}x`;
-
-const INDUSTRY_TURNOVER = [
-  { sector: "Grocery / Supermarket", median: 14.5 },
-  { sector: "Automotive Retail", median: 3.2 },
-  { sector: "Clothing & Apparel", median: 4.8 },
-  { sector: "Consumer Electronics", median: 6.2 },
-  { sector: "Wholesale Distribution", median: 8.5 },
-  { sector: "Manufacturing", median: 5.0 },
-];
+import Link from "next/link";
 
 export default function InventoryTurnoverCalculator() {
   const [cogs, setCogs] = useState("500000");
-  const [beginInv, setBeginInv] = useState("45000");
-  const [endInv, setEndInv] = useState("55000");
-  const [periodDays, setPeriodDays] = useState("365");
-  const [sector, setSector] = useState("Clothing & Apparel");
+  const [begInv, setBegInv] = useState("100000");
+  const [endInv, setEndInv] = useState("150000");
+  const [period, setPeriod] = useState("year");
+  const [showResults, setShowResults] = useState(false);
 
-  const [res, setRes] = useState<{
-    avgInv: number;
-    turnover: number;
-    dio: number;
-    ratingLabel: string;
-    benchmark: number;
-  } | null>(null);
+  const cogsNum = parseFloat(cogs) || 0;
+  const begNum = parseFloat(begInv) || 0;
+  const endNum = parseFloat(endInv) || 0;
+  const avgInv = (begNum + endNum) / 2;
 
-  const [mounted, setMounted] = useState(false);
+  const daysInPeriod = period === "year" ? 365 : period === "quarter" ? 91.25 : 30.42;
+  const turnover = avgInv > 0 ? cogsNum / avgInv : 0;
+  const daysToSell = turnover > 0 ? daysInPeriod / turnover : 0;
+  const turnoverAnnualized = turnover * (365 / daysInPeriod);
 
-  useEffect(() => { setMounted(true); calc(); }, []);
+  const daysInInventory = daysToSell;
+  const benchmark = daysInPeriod === 365 ? 45 : daysInPeriod === 91.25 ? 11.25 : 3.75;
+  const rating =
+    daysInInventory <= 0
+      ? "—"
+      : daysInInventory <= benchmark * 0.6
+        ? "Excellent"
+        : daysInInventory <= benchmark
+          ? "Good"
+          : daysInInventory <= benchmark * 1.5
+            ? "Fair"
+            : "Poor";
 
-  const calc = () => {
-    const c = parseFloat(cogs) || 0;
-    const bi = parseFloat(beginInv) || 0;
-    const ei = parseFloat(endInv) || 0;
-    const days = parseFloat(periodDays) || 365;
+  // Chart: inventory turnover over a 12-month window (monthly projection)
+  const chartData = Array.from({ length: 12 }, (_, i) => {
+    const month = i + 1;
+    const monthlyCogs = cogsNum / 12;
+    const inv = Math.max(begNum + ((endNum - begNum) * i) / 11, 1);
+    return {
+      month: `M${month}`,
+      "Avg Inventory": Math.round(inv),
+      Turnover: Number(((monthlyCogs * 12) / avgInv).toFixed(2)),
+    };
+  });
 
-    const avgInv = (bi + ei) / 2;
-    const turnover = avgInv > 0 ? c / avgInv : 0;
-    const dio = turnover > 0 ? days / turnover : 0;
-
-    const bench = INDUSTRY_TURNOVER.find(s => s.sector === sector)?.median || 5;
-    let ratingLabel = "Average";
-    if (turnover >= bench * 1.3) {
-      ratingLabel = "Excellent / Highly Efficient";
-    } else if (turnover >= bench * 0.9) {
-      ratingLabel = "Good (Industry Standard)";
-    } else if (turnover >= bench * 0.6) {
-      ratingLabel = "Sub-Optimal / Slow-moving";
-    } else {
-      ratingLabel = "Caution (Risk of Obsolescence)";
-    }
-
-    setRes({ avgInv, turnover, dio, ratingLabel, benchmark: bench });
-  };
-
-  const reset = () => {
-    setCogs("500000");
-    setBeginInv("45000");
-    setEndInv("55000");
-    setPeriodDays("365");
-    setSector("Clothing & Apparel");
-  };
-
-  const ratingColor = (r: string) => {
-    if (r.startsWith("Excellent")) return "text-emerald-600";
-    if (r.startsWith("Good")) return "text-primary";
-    if (r.startsWith("Sub-Optimal")) return "text-amber-600";
-    return "text-red-600";
-  };
-
-  const faqs = [
-    { question: "What is Inventory Turnover?", answer: "Inventory Turnover is an efficiency ratio that measures how many times a company sells and replaces its inventory over a specific period. It is calculated by dividing Cost of Goods Sold (COGS) by Average Inventory." },
-    { question: "What is Days Inventory Outstanding (DIO)?", answer: "Days Inventory Outstanding (DIO), also known as Days Sales of Inventory (DSI), measures the average number of days it takes for a company to convert its inventory into sales. The formula is: DIO = Period Days (typically 365) ÷ Inventory Turnover. A lower DIO is generally preferred." },
-    { question: "What is a good inventory turnover ratio?", answer: "A healthy inventory turnover ratio varies greatly by sector. Grocery stores have very high turnover (12x to 15x+ per year) because products are perishable. High-value luxury retailers or car dealerships have much lower turnover (2x to 4x per year). The ratio should be compared against historical company figures and industry averages." },
-  ];
+  const handleCalculate = () => setShowResults(true);
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Inventory Turnover Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Inventory Turnover Calculator</h1>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Business", href: "/business" },
+          {
+            label: "Inventory Turnover Calculator",
+            href: "/calculator/inventory-turnover-calculator",
+          },
+        ]}
+      />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <h2 className="text-2xl font-bold mb-3">Inventory details</h2>
-            <CompactInput id="cogs" label="Cost of Goods Sold (COGS)" value={cogs} onChange={setCogs} prefix="$" />
-            <CompactInput id="bi" label="Beginning Inventory" value={beginInv} onChange={setBeginInv} prefix="$" />
-            <CompactInput id="ei" label="Ending Inventory" value={endInv} onChange={setEndInv} prefix="$" />
-            <CompactInput id="pd" label="Period Duration" value={periodDays} onChange={setPeriodDays} suffix="Days" />
-            
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-semibold text-foreground">Industry Sector</label>
-              <select value={sector} onChange={e => setSector(e.target.value)} className="w-full h-10 px-3 rounded-md border border-input bg-background text-foreground text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
-                {INDUSTRY_TURNOVER.map(s => <option key={s.sector} value={s.sector}>{s.sector} (Median: {s.median}x)</option>)}
-              </select>
-            </div>
-
-            <div className="flex gap-2.5 mt-2">
-              <button type="button" onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset} className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-3">
-            {res && (
-              <>
-                <>
-
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <div className="flex items-center justify-between pb-2 border-b border-border">
-                  <h2 className="text-2xl font-bold mb-3">Inventory Performance</h2>
-                  <RefreshCw className="h-5 w-5 text-primary" />
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
-                    <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Inventory Turnover Ratio</div>
-                    <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmtRatio(res.turnover)}</div>
-                    <div className={`text-sm font-bold ${ratingColor(res.ratingLabel)}`}>{res.ratingLabel}</div>
-                  </div>
-                  <div className="bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 border border-emerald-500/20 rounded-xl p-5 text-center">
-                    <div className="text-[13px] font-bold text-emerald-600 mb-1 uppercase tracking-wider">Days Inventory Outstanding (DIO)</div>
-                    <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{res.dio.toFixed(1)} Days</div>
-                  </div>
-                </div>
-
-                <div className="overflow-x-auto rounded-lg border border-border">
-                  <table className="w-full text-left text-sm">
-                    <thead><tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                      <th className="p-2.5 pl-3">Metric</th><th className="p-2.5 pr-3 text-right">Value</th>
-                    </tr></thead>
-                    <tbody className="divide-y divide-border/50">
-                      {[
-                        { label: "Cost of Goods Sold (COGS)", value: fmtVal(parseFloat(cogs) || 0) },
-                        { label: "Average Inventory Balance", value: fmtVal(res.avgInv) },
-                        { label: "Inventory Turnover Ratio", value: fmtRatio(res.turnover), bold: true },
-                        { label: "Days Inventory Outstanding", value: `${res.dio.toFixed(1)} Days`, bold: true },
-                        { label: "Sector Median Benchmark", value: fmtRatio(res.benchmark) },
-                      ].map(r => (
-                        <tr key={r.label} className={`hover:bg-secondary/20 ${r.bold ? "font-bold bg-secondary/30" : ""}`}>
-                          <td className="p-2.5 pl-3 font-semibold text-muted-foreground">{r.label}</td>
-                          <td className="p-2.5 pr-3 text-right font-bold text-foreground">{r.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {mounted && (<>
-
-                  <div className="p-4 rounded-xl border border-border bg-card">
-                    <h3 className="text-sm font-bold text-foreground mb-3">Turnover Ratio vs Sector Medians</h3>
-                    <ResponsiveContainer width="100%" height={200}>
-                      <BarChart data={INDUSTRY_TURNOVER.map(s => ({ name: s.sector, median: s.median }))} margin={{ top: 4, right: 8, left: 0, bottom: 20 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="name" tick={{ fontSize: 9 }} angle={-25} textAnchor="end" interval={0} />
-                        <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${v}x`} />
-                        <Tooltip formatter={(v: any) => [`${Number(v).toFixed(1)}x`, "Median Turnover"]} />
-                        <ReferenceLine y={res.turnover} stroke="#f59e0b" strokeDasharray="4 4" label={{ value: `Your Ratio: ${res.turnover.toFixed(1)}x`, position: "right", fontSize: 10, fill: "#f59e0b" }} />
-                        <Bar dataKey="median" fill="hsl(var(--primary) / 0.5)" name="Industry Median" radius={[2, 2, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                
-</>)}
-              </div>
-            
-</>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Inventory Turnover</h2>
-            <p>Inventory turnover is a fundamental efficiency ratio that measures how many times a business sells and replaces its physical inventory over a given period (usually a year). It acts as an indicator of product demand and warehouse supply-chain efficiency. A high turnover ratio suggests strong customer demand and optimal inventory levels, while a low ratio warns of excess stock, slow-moving items, or obsolescence.</p>
-            
-            <h2 className="text-2xl font-bold mb-3">Why Inventory Turnover Differs by Sector</h2>
-            <p>Because businesses operate on different business models, turnover benchmarks vary dramatically. Grocery stores operate on narrow margins with highly perishable stock, meaning they must turn over inventory 15 to 20 times a year to remain profitable. Conversely, an auto retailer or high-end watch store sells fewer products at much higher gross margins, yielding a low turnover ratio (2x to 4x) but generating high dollars of gross profit per transaction.</p>
-          </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/inventory-turnover-calculator" />
-
-      <section className="mt-12 space-y-8 text-base text-foreground">
-        <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Inventory Turnover Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Inventory Turnover Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Inventory Turnover Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Inventory Turnover Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Inventory Turnover Calculator useful for both quick checks and deeper what-if analysis.</p>
-        </div>
-      </section>
-          <PopularCalculators exclude="/calculator/inventory-turnover-calculator" />
-        </div>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2">Inventory Turnover Calculator</h1>
+        <p className="text-muted-foreground">
+          Measure how efficiently your business sells and replaces inventory — how many times your
+          average stock is sold in a period.
+        </p>
       </div>
-    </>
+
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Inventory Turnover</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="cogs">Cost of Goods Sold (COGS)</Label>
+              <Input
+                id="cogs"
+                type="number"
+                value={cogs}
+                onChange={(e) => setCogs(e.target.value)}
+                placeholder="500000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="period">Period</Label>
+              <Select value={period} onValueChange={setPeriod}>
+                <SelectTrigger id="period">
+                  <SelectValue placeholder="Period" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="year">Yearly</SelectItem>
+                  <SelectItem value="quarter">Quarterly</SelectItem>
+                  <SelectItem value="month">Monthly</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="begInv">Beginning Inventory</Label>
+              <Input
+                id="begInv"
+                type="number"
+                value={begInv}
+                onChange={(e) => setBegInv(e.target.value)}
+                placeholder="100000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="endInv">Ending Inventory</Label>
+              <Input
+                id="endInv"
+                type="number"
+                value={endInv}
+                onChange={(e) => setEndInv(e.target.value)}
+                placeholder="150000"
+              />
+            </div>
+          </div>
+          <Button onClick={handleCalculate} className="mt-6 w-full sm:w-auto">
+            Calculate
+          </Button>
+        </CardContent>
+      </Card>
+
+      {showResults && (
+        <>
+          <div className="grid gap-4 sm:grid-cols-3 mb-6">
+            <Card className="border-l-4 border-primary">
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Inventory Turnover</p>
+                <p className="text-2xl font-bold">{turnover.toFixed(2)}×</p>
+                <p className="text-xs text-muted-foreground">times per {period}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Avg Inventory</p>
+                <p className="text-2xl font-bold">
+                  $
+                  {avgInv.toLocaleString("en-US", {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2,
+                  })}
+                </p>
+                <p className="text-xs text-muted-foreground">(beginning + ending) ÷ 2</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <p className="text-sm text-muted-foreground">Days to Sell Inventory</p>
+                <p className="text-2xl font-bold">{daysToSell.toFixed(1)} days</p>
+                <p className="text-xs text-muted-foreground">DSI — {daysInPeriod.toFixed(0)}-day {period}</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <p className="text-sm text-muted-foreground mb-2">Annualized Turnover</p>
+              <p className="text-3xl font-bold">{turnoverAnnualized.toFixed(2)}×</p>
+              <p className="text-sm mt-2">
+                Rating:{" "}
+                <span
+                  className={
+                    rating === "Excellent" || rating === "Good"
+                      ? "text-green-600 font-semibold"
+                      : rating === "Fair"
+                        ? "text-yellow-600 font-semibold"
+                        : "text-red-600 font-semibold"
+                  }
+                >
+                  {rating}
+                </span>
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Typical healthy DSI is {benchmark.toFixed(0)} days or less for this period.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="text-lg">Turnover &amp; Inventory Over the Period</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis yAxisId="left" />
+                    <YAxis yAxisId="right" orientation="right" />
+                    <Tooltip />
+                    <Line
+                      yAxisId="left"
+                      type="monotone"
+                      dataKey="Avg Inventory"
+                      stroke="#8884d8"
+                      name="Avg Inventory"
+                    />
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="Turnover"
+                      stroke="#82ca9d"
+                      name="Turnover"
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>How It Works</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <p>
+                <strong>Inventory Turnover = COGS ÷ Average Inventory</strong>
+              </p>
+              <p>
+                Average inventory is (beginning + ending) ÷ 2. The ratio shows how many times the
+                average stock level was sold and replaced during the period.
+              </p>
+              <p>
+                <strong>Days to Sell (DSI) = Days in Period ÷ Turnover</strong> — a lower number
+                means faster-moving stock and less cash tied up on shelves.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Frequently Asked Questions</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <p className="font-semibold">What is a good inventory turnover ratio?</p>
+                <p className="text-muted-foreground">
+                  It depends on the industry — groceries turn 10–15× a year, auto dealerships
+                  closer to 3×. Compare against your own sector rather than a universal number.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">How can I improve my turnover?</p>
+                <p className="text-muted-foreground">
+                  Trim slow-moving lines, run promotions on stale stock, negotiate shorter lead
+                  times with suppliers, and forecast demand more tightly.
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Is higher always better?</p>
+                <p className="text-muted-foreground">
+                  Not necessarily — extremely high turnover can mean you are frequently out of
+                  stock and losing sales. Balance turnover against stock availability.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-sm text-muted-foreground">
+            <Link href="/business" className="text-primary hover:underline">
+              ← More Business Calculators
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

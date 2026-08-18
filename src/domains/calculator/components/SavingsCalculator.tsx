@@ -1,97 +1,74 @@
-﻿"use client";
+"use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import PieChart from "@/domains/calculator/components/ui/PieChart";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, PiggyBank } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
-const SavingsCalculator = () => {
+function fmt(n: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(n);
+}
+
+export default function SavingsCalculator() {
   const [initialDeposit, setInitialDeposit] = useState("5000");
   const [monthlyContribution, setMonthlyContribution] = useState("500");
   const [annualRate, setAnnualRate] = useState("7");
   const [years, setYears] = useState("20");
-  const [compoundFreq, setCompoundFreq] = useState<"12" | "4" | "2" | "1" | "365">("12");
+  const [compoundFreq, setCompoundFreq] = useState("12");
   const [inflationRate, setInflationRate] = useState("3");
-  const [showInflation, setShowInflation] = useState(false);
+  const [showResults, setShowResults] = useState(false);
 
-  const [results, setResults] = useState<any>(null);
-  const freqLabels: Record<string, string> = {
-    "365": "Daily",
-    "12": "Monthly",
-    "4": "Quarterly",
-    "2": "Semi-Annual",
-    "1": "Annual",
-  };
+  const P = parseFloat(initialDeposit) || 0;
+  const PMT = parseFloat(monthlyContribution) || 0;
+  const r = (parseFloat(annualRate) || 0) / 100;
+  const t = parseFloat(years) || 0;
+  const n = parseInt(compoundFreq) || 12;
+  const inf = (parseFloat(inflationRate) || 0) / 100;
 
-  useEffect(() => { handleCalculate(); }, []);
+  const rn = r / n;
+  const periods = n * t;
+  const fvInitial = P * Math.pow(1 + rn, periods);
+  const contributionPerPeriod = PMT * (12 / n);
+  const fvContributions = rn > 0 ? contributionPerPeriod * ((Math.pow(1 + rn, periods) - 1) / rn) : contributionPerPeriod * periods;
+  const totalSavings = fvInitial + fvContributions;
+  const totalContributions = P + PMT * 12 * t;
+  const interestEarned = totalSavings - totalContributions;
+  const inflationAdjusted = totalSavings / Math.pow(1 + inf, t);
+  const contributionShare = totalSavings > 0 ? (totalContributions / totalSavings) * 100 : 0;
+  const interestShare = totalSavings > 0 ? (interestEarned / totalSavings) * 100 : 0;
 
-  const handleCalculate = () => {
-    const P = parseFloat(initialDeposit) || 0;
-    const PMT = parseFloat(monthlyContribution) || 0;
-    const r = parseFloat(annualRate) || 0;
-    const t = parseFloat(years) || 0;
-    const n = parseInt(compoundFreq) || 12;
-    const inf = parseFloat(inflationRate) || 0;
+  const chartData = [];
+  for (let y = 0; y <= t; y++) {
+    const p2 = n * y;
+    const bal = P * Math.pow(1 + rn, p2) + (rn > 0 ? contributionPerPeriod * ((Math.pow(1 + rn, p2) - 1) / rn) : contributionPerPeriod * p2);
+    chartData.push({ year: y, balance: Math.round(bal), contributed: Math.round(P + PMT * 12 * y) });
+  }
 
-    const rn = r / 100 / n;
-    const periods = n * t;
-
-    // Future value of initial deposit
-    const fvInitial = P * Math.pow(1 + rn, periods);
-
-    // Future value of regular contributions (per period, annuity formula)
-    const contributionPerPeriod = PMT * (12 / n); // convert monthly contribution to per-period
-    const fvContributions = rn > 0
-      ? contributionPerPeriod * ((Math.pow(1 + rn, periods) - 1) / rn)
-      : contributionPerPeriod * periods;
-
-    const totalSavings = fvInitial + fvContributions;
-    const totalContributions = P + PMT * 12 * t;
-    const interestEarned = totalSavings - totalContributions;
-    const inflationAdjusted = totalSavings / Math.pow(1 + inf / 100, t);
-
-    // Year-by-year data
-    const yearlyData = Array.from({ length: Math.ceil(t) }, (_, i) => {
-      const yr = i + 1;
-      const p = n * yr;
-      const fvI = P * Math.pow(1 + rn, p);
-      const fvC = rn > 0
-        ? contributionPerPeriod * ((Math.pow(1 + rn, p) - 1) / rn)
-        : contributionPerPeriod * p;
-      const total = fvI + fvC;
-      const contrib = P + PMT * 12 * yr;
-      return { year: yr, total, contributions: contrib, interest: total - contrib };
-    });
-
-    setResults({
-      totalSavings, totalContributions, interestEarned,
-      inflationAdjusted, fvInitial, fvContributions,
-      yearlyData, t,
-    });
-  };
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setInitialDeposit("5000"); setMonthlyContribution("500");
-    setAnnualRate("7"); setYears("20");
-    setCompoundFreq("12"); setInflationRate("3");
-    setShowInflation(false); setResults(null);
-    setTimeout(() => handleCalculate(), 0);
+    setInitialDeposit("5000");
+    setMonthlyContribution("500");
+    setAnnualRate("7");
+    setYears("20");
+    setCompoundFreq("12");
+    setInflationRate("3");
+    setShowResults(false);
   };
 
   const faqs = [
-    { question: "How is savings growth calculated?", answer: "Savings growth uses compound interest with regular contributions. The future value formula for regular deposits is: FV = P(1+r/n)^(nt) + PMT × [((1+r/n)^(nt) − 1) / (r/n)], where P is initial principal, r is annual rate, n is compounding frequency, t is years, and PMT is contribution per period. Our calculator applies this formula with year-by-year breakdowns." },
-    { question: "What is compound interest and why does it matter for savings?", answer: "Compound interest means you earn interest on your original principal AND on all the interest you've previously earned. Over long periods, this creates exponential growth. For example, $5,000 growing at 7% annually for 20 years becomes $19,348 from compounding alone — nearly 4× without adding a single extra dollar. Regular contributions amplify this effect dramatically." },
-    { question: "What compounding frequency should I choose?", answer: "Most savings accounts and investments compound monthly or daily. Daily compounding gives slightly more growth than monthly, which gives more than annual. The difference is small: $10,000 at 5% for 10 years compounds to $16,470 (annual), $16,534 (monthly), or $16,553 (daily). Choose the frequency that matches your actual account's terms." },
-    { question: "How much should I save per month?", answer: "A common guideline is to save 15–20% of your gross income. For retirement specifically, financial planners often recommend saving enough to replace 70–80% of your pre-retirement income. Use our calculator to work backward from your savings goal: enter the target amount as the final value and try different monthly contribution amounts to find what's needed." },
-    { question: "What rate of return is realistic for savings?", answer: "Realistic rates of return depend on the investment type: high-yield savings accounts (4–5%), CDs (4–5%), bonds (3–6%), balanced mutual funds (6–8%), equity index funds (8–10% historically). These are nominal rates; inflation (averaging 3% historically) reduces the real purchasing power of returns." },
-    { question: "What is the Rule of 72?", answer: "The Rule of 72 is a quick way to estimate how long it takes to double your money. Divide 72 by the annual interest rate: at 6%, your money doubles in approximately 72/6 = 12 years. At 9%, it doubles in 8 years. This rule works well for rates between 6% and 12% and helps you quickly evaluate different investment scenarios." },
-    { question: "How does inflation affect my savings?", answer: "Inflation erodes the purchasing power of your savings over time. If inflation averages 3% annually and your savings earn 7%, your real rate of return is approximately 7% − 3% = 4%. Over 20 years at 3% inflation, $500,000 in future savings has the purchasing power of only about $277,000 in today's dollars. Our calculator shows the inflation-adjusted value of your savings." },
-    { question: "Should I pay off debt or save?", answer: "If your debt carries a higher interest rate than your expected investment returns, paying off debt first is mathematically optimal. Credit card debt at 20% APR costs more than any realistic investment return. However, if your employer offers a 401(k) match, always contribute enough to capture the full match first — that's a guaranteed 50–100% instant return on your contribution." },
+    { question: "What is compound interest?", answer: "Interest earned on both your principal and previously earned interest. The frequency matters: monthly compounding (this calculator's default) adds interest 12 times a year, so each month's interest begins earning interest itself — the engine behind long-term growth." },
+    { question: "How much should I save each month?", answer: "A common target is 15–20% of gross income including any employer match. What matters more than the percentage is consistency — $500/month at 7% for 20 years becomes $280,000, while waiting five years to start halves the compounding runway." },
+    { question: "What is a realistic long-term return?", answer: "The S&P 500 has historically averaged about 10% per year before inflation, roughly 7% after. CDs and high-yield savings pay 4–5% today but are effectively risk-free. Use 7% for a diversified stock-heavy portfolio and 3–5% for conservative goals." },
+    { question: "How does inflation affect my savings?", answer: "A 7% nominal return with 3% inflation is only a 4% real return. $280,000 in 20 years buys roughly what $155,000 buys today at 3% inflation. This calculator shows both numbers so your goal is measured in today's dollars, not tomorrow's." },
+    { question: "Should I invest or keep it in savings?", answer: "Keep 3–6 months of expenses in liquid savings for emergencies, then invest the rest according to your time horizon. Money needed within 3–5 years belongs in savings or bonds; money for retirement decades away belongs in equities, where compounding does the heavy lifting." },
   ];
 
   return (
@@ -102,135 +79,184 @@ const SavingsCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-3 mb-6">
-                <InputField id="init-deposit" label="Initial Deposit" value={initialDeposit} onChange={setInitialDeposit} prefix="$" />
-                <InputField id="monthly-contrib" label="Monthly Contribution" value={monthlyContribution} onChange={setMonthlyContribution} prefix="$" />
-                <InputField id="annual-rate" label="Annual Interest Rate" value={annualRate} onChange={setAnnualRate} suffix="%" />
-                <InputField id="years" label="Time Period (Years)" value={years} onChange={setYears} />
-                <div>
-                  <label className="flex items-center text-sm font-medium text-foreground mb-1">Compounding Frequency</label>
-                  <select value={compoundFreq} onChange={(e) => setCompoundFreq(e.target.value as any)} className="input-calc" aria-label="Compounding frequency">
-                    {Object.entries(freqLabels).map(([v, l]) => (
-                      <option key={v} value={v}>{l}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex items-center gap-3 pt-6">
-                  <input
-                    id="show-inflation"
-                    type="checkbox"
-                    checked={showInflation}
-                    onChange={(e) => setShowInflation(e.target.checked)}
-                    className="h-4 w-4 rounded border-border"
-                  />
-                  <label htmlFor="show-inflation" className="text-sm font-medium text-foreground">Adjust for inflation</label>
-                </div>
-                {showInflation && (<>
-
-                  <InputField id="inflation-rate" label="Inflation Rate" value={inflationRate} onChange={setInflationRate} suffix="%" />
-                
-</>)}
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <PiggyBank className="w-4 h-4" /> Compound Growth
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Initial Deposit ($)</label>
+                <input id="sv-initial" type="number" value={initialDeposit} onChange={(e) => setInitialDeposit(e.target.value)} min={0} className="input-calc" />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Monthly Contribution ($)</label>
+                <input id="sv-monthly" type="number" value={monthlyContribution} onChange={(e) => setMonthlyContribution(e.target.value)} min={0} className="input-calc" />
               </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Annual Interest Rate (%)</label>
+                <input id="sv-rate" type="number" value={annualRate} onChange={(e) => setAnnualRate(e.target.value)} min={0} max={25} className="input-calc" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Time Period (years)</label>
+                <input id="sv-years" type="number" value={years} onChange={(e) => setYears(e.target.value)} min={1} max={60} className="input-calc" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Compounding Frequency</label>
+                <select value={compoundFreq} onChange={(e) => setCompoundFreq(e.target.value)} className="input-calc">
+                  <option value="365">Daily</option>
+                  <option value="12">Monthly</option>
+                  <option value="4">Quarterly</option>
+                  <option value="2">Semi-annual</option>
+                  <option value="1">Annual</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-foreground">Inflation Rate (%)</label>
+                <input id="sv-inflation" type="number" value={inflationRate} onChange={(e) => setInflationRate(e.target.value)} min={0} max={15} className="input-calc" />
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            {results && (<>
-
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                <h2 className="text-2xl font-bold mb-3">Your Savings Projection</h2>
-
-                <ResultDisplay items={[
-                  { label: "Total Savings", value: results.totalSavings, highlight: true },
-                  { label: "Interest Earned", value: results.interestEarned, highlight: true },
-                  { label: "Total Contributions", value: results.totalContributions },
-                  { label: "From Initial Deposit", value: results.fvInitial },
-                  { label: "From Monthly Savings", value: results.fvContributions },
-                  ...(showInflation ? [{ label: "Inflation-Adjusted Value", value: results.inflationAdjusted }] : []),
-                ]} />
-
-                <div className="mt-6 flex justify-center">
-                  <PieChart
-                    segments={[
-                      { label: "Contributions", value: results.totalContributions, color: "hsl(211, 100%, 50%)" },
-                      { label: "Interest Earned", value: results.interestEarned, color: "hsl(142, 71%, 45%)" },
-                    ]}
-                    size={180}
-                  />
+            {showResults ? (
+              <>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Savings</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{fmt(totalSavings)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {fmt(interestEarned)} interest earned · {fmt(inflationAdjusted)} in today's dollars
+                  </p>
                 </div>
 
-                <div className="mt-6">
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Year-by-Year Savings Growth</h3>
-                  <div className="overflow-x-auto rounded-lg border border-border">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="bg-secondary text-foreground">
-                          <th className="px-3 py-2 text-left font-medium">Year</th>
-                          <th className="px-3 py-2 text-right font-medium">Total Saved</th>
-                          <th className="px-3 py-2 text-right font-medium">Contributions</th>
-                          <th className="px-3 py-2 text-right font-medium">Interest</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {results.yearlyData.map((row: any) => (
-                          <tr key={row.year} className="border-t border-border hover:bg-secondary/30">
-                            <td className="px-3 py-2 text-muted-foreground">Year {row.year}</td>
-                            <td className="px-3 py-2 text-right font-medium">${row.total.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                            <td className="px-3 py-2 text-right">${row.contributions.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                            <td className="px-3 py-2 text-right text-primary">${row.interest.toLocaleString("en-US", { maximumFractionDigits: 0 })}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Total Contributed</p>
+                    <p className="text-2xl font-bold text-primary">{fmt(totalContributions)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Interest Earned</p>
+                    <p className="text-2xl font-bold text-orange-500">{fmt(interestEarned)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Inflation-Adjusted</p>
+                    <p className="text-2xl font-bold text-green-600">{fmt(inflationAdjusted)}</p>
                   </div>
                 </div>
-              
+
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Component</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Amount</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Share</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Total Savings</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{fmt(totalSavings)}</td>
+                        <td className="py-2.5 px-3 text-right">100%</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">From Initial Deposit</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(fvInitial)}</td>
+                        <td className="py-2.5 px-3 text-right">{totalSavings > 0 ? ((fvInitial / totalSavings) * 100).toFixed(0) : 0}%</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">From Monthly Contributions</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(fvContributions)}</td>
+                        <td className="py-2.5 px-3 text-right">{totalSavings > 0 ? ((fvContributions / totalSavings) * 100).toFixed(0) : 0}%</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Total Contributed</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(totalContributions)}</td>
+                        <td className="py-2.5 px-3 text-right">{contributionShare.toFixed(0)}%</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Interest Earned</td>
+                        <td className="py-2.5 px-3 text-right font-medium">{fmt(interestEarned)}</td>
+                        <td className="py-2.5 px-3 text-right">{interestShare.toFixed(0)}%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Balance vs. Contributions Over Time</p>
+                  <div className="h-[220px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={chartData} margin={{ top: 5, right: 15, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis dataKey="year" tick={{ fontSize: 10 }} label={{ value: "Year", position: "insideBottom", offset: -2, fontSize: 11 }} />
+                        <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => "$" + (v / 1000).toFixed(0) + "k"} />
+                        <Tooltip formatter={(v: number) => fmt(v)} labelFormatter={(l) => `Year ${l}`} />
+                        <Line type="monotone" dataKey="balance" name="Balance" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={false} />
+                        <Line type="monotone" dataKey="contributed" name="Contributed" stroke="#f59e0b" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">The gap between the two lines is the compounding payoff.</p>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Initial Deposit</span>
+                      <span className="font-medium">{fmt(P)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Monthly Contribution</span>
+                      <span className="font-medium">{fmt(PMT)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Annual Rate</span>
+                      <span className="font-medium">{r * 100}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Compounding</span>
+                      <span className="font-medium capitalize">{n === 365 ? "Daily" : n === 12 ? "Monthly" : n === 4 ? "Quarterly" : n === 2 ? "Semi-annual" : "Annual"}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Interest Share</span>
+                      <span className="font-medium">{interestShare.toFixed(0)}% of total</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Inflation-Adjusted</span>
+                      <span className="font-medium">{fmt(inflationAdjusted)}</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Enter your deposit, monthly contribution, and rate, then click <strong className="text-foreground">Calculate</strong> to project your savings with compound interest.
               </div>
-            
-</>)}
+            )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is a Savings Calculator?</h2>
-              <p>A savings calculator projects how much money you'll accumulate over time based on your initial deposit, regular contributions, interest rate, and compounding frequency. It's an essential planning tool for anyone building an emergency fund, saving for a down payment, funding a college education, or growing long-term wealth.</p>
-              <p>Our advanced savings calculator goes beyond basic projections by including compounding frequency options (daily, monthly, quarterly, annually), optional inflation adjustment to show real purchasing power, and a complete year-by-year breakdown table that reveals exactly how compound interest and regular savings work together over time.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How Savings Growth Is Calculated</h2>
-              <p>Savings growth uses the future value formula for compound interest with regular contributions. The total future value is the sum of two parts:</p>
-              <ul>
-                <li><strong>Initial deposit growth:</strong> FV = P × (1 + r/n)^(n×t), where P is principal, r is annual rate, n is compounds per year, and t is years</li>
-                <li><strong>Regular contribution growth:</strong> FV = PMT × [((1 + r/n)^(n×t) − 1) / (r/n)], where PMT is the contribution per compounding period</li>
-              </ul>
-              <p>The total future value is the sum of these two components. The interest earned is the difference between the total future value and all contributions made (initial + regular).</p>
-
-              <h2 className="text-2xl font-bold mb-3">How to Use This Calculator</h2>
-              <p>Enter your initial deposit (can be $0 if starting fresh), your planned monthly contribution, the expected annual interest rate, and how many years you'll save. Select the compounding frequency matching your account — most savings accounts and investments compound monthly. Enable inflation adjustment to see what your future balance is worth in today's purchasing power. Click Calculate to see your full savings projection with the year-by-year growth table.</p>
-
-              <h2 className="text-2xl font-bold mb-3">The Power of Consistent Monthly Savings</h2>
-              <p>Consider two investors: Investor A contributes $500/month starting at age 25. Investor B waits until age 35 to start. Both earn 7% annually and retire at 65. Investor A accumulates approximately $1.31 million. Investor B accumulates approximately $607,000 — less than half, despite only 10 fewer years of saving. The extra decade of compounding is worth over $700,000. Starting early is the single most powerful factor in savings accumulation.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Example Scenario</h2>
-              <p>Emily wants to build a college fund for her newborn. She starts with $5,000 and adds $300/month to a 529 plan expecting 7% annual returns (monthly compounding). After 18 years: Initial deposit grows to $5,000 × (1.0058)^216 = $17,218. Monthly contributions grow to $300 × ((1.0058^216 − 1) / 0.0058) = $117,895. Total college fund: $135,113. Total contributions: $5,000 + ($300 × 216) = $69,800. Interest earned: $65,313 — nearly matching the total contributions.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Savings Tips to Maximize Growth</h2>
-              <p>Automate contributions so you save before spending. Take advantage of tax-advantaged accounts (401k, Roth IRA, 529) to keep more of your returns. Reinvest all interest and dividends to maximize compound growth. Increase contributions by 1% each year or with every raise. Consider high-yield savings accounts (currently 4–5%) versus traditional banks (0.01–0.5%) — the difference is enormous over time. Keep emergency savings in liquid accounts; invest longer-term savings in diversified portfolios for better growth.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Compound Interest Works</h2>
+            <p>$5,000 growing at 7% for 20 years with $500/month reaches about $280,000 — more than double the $125,000 contributed, with compounding doing the heavy lifting. Inflation at 3% trims the real purchasing power to roughly $155,000 in today's dollars.</p>
+            <h3>The Eighth Wonder</h3>
+            <p>Compounding rewards time more than amount: the same $500/month for 40 years at 7% produces about $1.3M, roughly five times the 20-year result — even though you only doubled your contributions. Starting early is the single most powerful lever in personal finance, because the last decade of growth dwarfs the first.</p>
+            <h3>Nominal vs. Real</h3>
+            <p>Always compare goals in real (inflation-adjusted) dollars. A $280,000 nominal balance in 2044 buys what $155,000 buys today at 3% inflation. Planning with the real number prevents the classic error of hitting your nominal target and discovering it funds far less than expected.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/savings-calculator" />
           <PopularCalculators exclude="/calculator/savings-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default SavingsCalculator;
-
-
+}

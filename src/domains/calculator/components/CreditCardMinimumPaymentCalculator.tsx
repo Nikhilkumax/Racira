@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
@@ -16,14 +16,17 @@ const CreditCardMinimumPaymentCalculator = () => {
   const [minPct, setMinPct] = useState("2");
   const [minFloor, setMinFloor] = useState("25");
 
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<{
+    months: number;
+    years: string;
+    totalInterest: number;
+    totalPaid: number;
+  } | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [showAdv, setShowAdv] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  import("react").then(React => {
-    React.useEffect(() => { setMounted(true); }, []);
-  });
+  useEffect(() => { setMounted(true); }, []);
 
   const handleCalculate = () => {
     setShowResults(true);
@@ -108,15 +111,23 @@ const CreditCardMinimumPaymentCalculator = () => {
             {showResults && results && (
               <>
                 <h2 className="text-2xl font-bold mb-3">Minimum Payment Analysis</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                  <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-center">
-                    <p className="text-sm font-bold text-red-600 uppercase tracking-widest mb-1">Time to Pay Off</p>
-                    <p className="text-5xl font-black text-foreground">{results.years} yrs</p>
-                    <p className="text-sm text-muted-foreground mt-1">({results.months} months)</p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 mb-6">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Time to Pay Off with Minimums</p>
+                  <p className="text-4xl font-bold text-primary">{results.years} years</p>
+                  <p className="text-sm text-muted-foreground mt-1">{results.months} months of minimum payments</p>
+                </div>
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Total Interest Paid</p>
+                    <p className="text-2xl font-black text-foreground">${results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Total Interest Paid</p>
-                    <p className="text-3xl font-black text-foreground">${results.totalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Total Paid</p>
+                    <p className="text-2xl font-black text-foreground">${results.totalPaid.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  </div>
+                  <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Original Balance</p>
+                    <p className="text-2xl font-black text-foreground">${parseFloat(balance).toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>
                 </div>
                 

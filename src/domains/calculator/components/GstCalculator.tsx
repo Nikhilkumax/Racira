@@ -1,191 +1,208 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-type GSTMode = "exclusive" | "inclusive";
+interface GstResult {
+  amount: number;
+  rate: number;
+  inclusive: boolean;
+  interState: boolean;
+  gstAmount: number;
+  taxableValue: number;
+  total: number;
+  cgst: number;
+  sgst: number;
+  igst: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-const GSTCalculator = () => {
-  const [mode, setMode] = useState<GSTMode>("exclusive");
-  const [amount, setAmount] = useState("10000");
-  const [gstRate, setGstRate] = useState("18");
-  const [showSplit, setShowSplit] = useState(false);
-  const [isIGST, setIsIGST] = useState(false);
-  const [showResults, setShowResults] = useState(false);
+function fmtRs(v: number): string {
+  return `₹${v.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
 
-  const [result, setResult] = useState<{
-    gstAmount: number;
-    netAmount: number;
-    totalAmount: number;
-    cgst: number;
-    sgst: number;
-    igst: number;
-  } | null>(null);
+function calcGst(amount: number, rate: number, inclusive: boolean, interState: boolean): GstResult {
+  const gstAmount = inclusive ? amount - amount / (1 + rate / 100) : amount * (rate / 100);
+  const taxableValue = inclusive ? amount / (1 + rate / 100) : amount;
+  const total = inclusive ? amount : amount + gstAmount;
+  const half = gstAmount / 2;
+  const cgst = interState ? 0 : half;
+  const sgst = interState ? 0 : half;
+  const igst = interState ? gstAmount : 0;
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const amt = parseFloat(amount) || 0;
-    const rate = (parseFloat(gstRate) || 0) / 100;
-    if (amt <= 0) return;
+  const breakdown = [
+    { label: "Amount", value: fmtRs(amount) },
+    { label: "GST Rate", value: `${rate}%` },
+    { label: "Mode", value: inclusive ? "GST inclusive" : "GST exclusive" },
+    { label: "Supply Type", value: interState ? "Inter-state (IGST)" : "Intra-state (CGST + SGST)" },
+    { label: "Taxable Value", value: fmtRs(taxableValue) },
+    { label: "GST Amount", value: fmtRs(gstAmount) },
+    { label: interState ? "IGST" : "CGST", value: fmtRs(cgst) },
+    { label: interState ? "—" : "SGST", value: fmtRs(sgst) },
+    { label: "Total (incl. GST)", value: fmtRs(total) },
+  ];
+  const summaryStats = [
+    { label: "GST Amount", value: fmtRs(gstAmount) },
+    { label: "Taxable Value", value: fmtRs(taxableValue) },
+    { label: "Total", value: fmtRs(total) },
+    { label: "Rate", value: `${rate}%` },
+    { label: interState ? "IGST" : "CGST", value: fmtRs(cgst) },
+    { label: interState ? "—" : "SGST", value: fmtRs(sgst) },
+    { label: "Mode", value: inclusive ? "Inclusive" : "Exclusive" },
+    { label: "Supply", value: interState ? "IGST" : "CGST+SGST" },
+  ];
+  const chartData = [
+    { name: "Taxable", value: Math.round(taxableValue), fill: "hsl(var(--primary))" },
+    { name: "GST", value: Math.round(gstAmount), fill: "#f59e0b" },
+  ];
+  return { amount, rate, inclusive, interState, gstAmount, taxableValue, total, cgst, sgst, igst, breakdown, summaryStats, chartData };
+}
 
-    let gstAmount: number, netAmount: number, totalAmount: number;
+const DEFAULTS = { amount: "50000", rate: "18", inclusive: true, interState: false };
 
-    if (mode === "exclusive") {
-      gstAmount = amt * rate;
-      netAmount = amt;
-      totalAmount = amt + gstAmount;
-    } else {
-      totalAmount = amt;
-      netAmount = amt / (1 + rate);
-      gstAmount = totalAmount - netAmount;
-    }
+export default function GstCalculator() {
+  const [amount, setAmount] = useState(DEFAULTS.amount);
+  const [rate, setRate] = useState(DEFAULTS.rate);
+  const [inclusive, setInclusive] = useState(DEFAULTS.inclusive);
+  const [interState, setInterState] = useState(DEFAULTS.interState);
+  const [result, setResult] = useState<GstResult | null>(null);
 
-    setResult({
-      gstAmount,
-      netAmount,
-      totalAmount,
-      cgst: isIGST ? 0 : gstAmount / 2,
-      sgst: isIGST ? 0 : gstAmount / 2,
-      igst: isIGST ? gstAmount : 0,
-    });
-  };
+  const am = parseFloat(amount) || 0;
+  const rt = parseFloat(rate) || 0;
+  const errs: string[] = [];
+  if (am <= 0) errs.push("Amount must be greater than 0.");
+  if (rt < 0 || rt > 50) errs.push("GST rate must be between 0% and 50%.");
+  const valid = errs.length === 0;
 
+  const calculate = () => { if (valid) setResult(calcGst(am, rt, inclusive, interState)); };
   const reset = () => {
-    setShowResults(false); setAmount("10000"); setGstRate("18"); setResult(null); };
+    setAmount(DEFAULTS.amount); setRate(DEFAULTS.rate); setInclusive(DEFAULTS.inclusive); setInterState(DEFAULTS.interState);
+    setResult(calcGst(50000, 18, true, false));
+  };
+  useEffect(() => { setResult(calcGst(50000, 18, true, false)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is GST?", answer: "Goods and Services Tax (GST) is a comprehensive indirect tax levied on the manufacture, sale, and consumption of goods and services. India implemented GST in July 2017, replacing multiple cascading taxes with a unified system." },
-    { question: "What are CGST, SGST, and IGST?", answer: "For intra-state transactions, GST is split equally between CGST (Central GST) and SGST (State GST). For inter-state transactions, IGST (Integrated GST) applies at the full rate. The total tax amount is the same regardless." },
-    { question: "How do I add GST to a price?", answer: "Use the 'GST Exclusive' mode: enter the base price and GST rate. The calculator adds the GST amount to give you the total price including tax." },
-    { question: "How do I remove GST from a price?", answer: "Use the 'GST Inclusive' mode: enter the total price and GST rate. The calculator extracts the GST amount to show you the net (pre-tax) price." },
-    { question: "What are the GST rate slabs in India?", answer: "India has four main GST slabs: 5%, 12%, 18%, and 28%. Essential goods like food grains are exempt (0%). Most services and manufactured goods fall under 18%. Luxury items and sin goods are taxed at 28%, sometimes with additional cess." },
-    { question: "Is GST similar to VAT?", answer: "Yes, GST is a type of Value Added Tax (VAT). Like VAT used in EU countries, GST is collected at each stage of the supply chain with input tax credits, preventing cascading taxation." },
+    { question: "What is the difference between inclusive and exclusive?", answer: "Exclusive means GST is added on top of the base price (₹50,000 + 18%). Inclusive means the quoted price already contains GST (₹50,000 total, with ₹7,627.12 of it being tax)." },
+    { question: "When is IGST used instead of CGST + SGST?", answer: "Intra-state supplies split GST equally into CGST (central) and SGST (state). Inter-state supplies charge a single IGST, which the central government then apportions to the destination state." },
+    { question: "What are the common GST rates in India?", answer: "Most goods fall under 18% or 12%. Essentials like food grains are 0–5%, while luxury items attract 28%." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "GST Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "GST Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GST Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">GST Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex rounded-lg border border-input overflow-hidden mb-6">
-                <button onClick={() => { setMode("exclusive"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "exclusive" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Add GST (Exclusive)</button>
-                <button onClick={() => { setMode("inclusive"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "inclusive" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Remove GST (Inclusive)</button>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Amount</label>
+                <div className={inp}><input type="number" value={amount} onChange={e => setAmount(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹</span></div>
               </div>
-
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="amount" label={mode === "exclusive" ? "Amount (Before GST)" : "Amount (Including GST)"} value={amount} onChange={setAmount} prefix="₹" />
-                <InputField id="gstRate" label="GST Rate" value={gstRate} onChange={setGstRate} suffix="%" min="0" step="0.01" placeholder="e.g. 18" />
+              <div>
+                <label className={lbl}>GST Rate</label>
+                <div className={inp}><input type="number" value={rate} onChange={e => setRate(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
               </div>
-
-              <div className="flex flex-wrap gap-4 mb-6 text-sm">
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" checked={isIGST} onChange={(e) => setIsIGST(e.target.checked)} className="h-4 w-4 rounded border-input text-primary" />
-                  <span className="text-foreground">Inter-State (IGST)</span>
-                </label>
+              <div>
+                <label className={lbl}>Amount Includes GST?</label>
+                <select value={inclusive ? "yes" : "no"} onChange={e => setInclusive(e.target.value === "yes")} className={sel}>
+                  <option value="no">No — add GST</option>
+                  <option value="yes">Yes — GST included</option>
+                </select>
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
+              <div>
+                <label className={lbl}>Supply Type</label>
+                <select value={interState ? "inter" : "intra"} onChange={e => setInterState(e.target.value === "inter")} className={sel}>
+                  <option value="intra">Intra-state (CGST + SGST)</option>
+                  <option value="inter">Inter-state (IGST)</option>
+                </select>
               </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">GST Breakdown</h2>
-                <ResultDisplay currency="₹" items={[
-                  { label: "Net Amount", value: result.netAmount },
-                  { label: "GST Amount", value: result.gstAmount, highlight: true },
-                  { label: "Total Amount", value: result.totalAmount, highlight: true },
-                ]} />
-
-                {/* Invoice-style breakdown */}
-                <div className="mt-6 overflow-x-auto rounded-lg border border-border">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="bg-secondary text-foreground">
-                        <th className="px-4 py-3 text-left font-medium">Component</th>
-                        <th className="px-4 py-3 text-right font-medium">Amount (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-t border-border">
-                        <td className="px-4 py-3 text-muted-foreground">Taxable Amount</td>
-                        <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.netAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                      </tr>
-                      {!isIGST ? (
-                        <>
-                          <tr className="border-t border-border">
-                            <td className="px-4 py-3 text-muted-foreground">CGST @ {parseFloat(gstRate) / 2}%</td>
-                            <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.cgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                          </tr>
-                          <tr className="border-t border-border">
-                            <td className="px-4 py-3 text-muted-foreground">SGST @ {parseFloat(gstRate) / 2}%</td>
-                            <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.sgst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                          </tr>
-                        </>
-                      ) : (
-                        <tr className="border-t border-border">
-                          <td className="px-4 py-3 text-muted-foreground">IGST @ {gstRate}%</td>
-                          <td className="px-4 py-3 text-right text-foreground font-medium">₹{result.igst.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                        </tr>
-                      )}
-                      <tr className="border-t border-border bg-secondary/30">
-                        <td className="px-4 py-3 font-semibold text-foreground">Total</td>
-                        <td className="px-4 py-3 text-right font-bold text-[hsl(217,91%,40%)] dark:text-primary">₹{result.totalAmount.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">GST Amount</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtRs(result.gstAmount)}</div>
+                <div className="text-sm text-muted-foreground mt-1">on {fmtRs(result.taxableValue)} taxable value · {result.inclusive ? "inclusive" : "exclusive"} mode</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Taxable Value`, fmtRs(result.taxableValue)], [result.interState ? "IGST" : "CGST", fmtRs(result.cgst)], [result.interState ? "Total GST" : "SGST", fmtRs(result.sgst)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">GST Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 5 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 5 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 5 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Taxable vs Tax</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [fmtRs(v), ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Composition of the total amount</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is a GST Calculator?</h2>
-              <p>A GST (Goods and Services Tax) calculator helps you add or remove GST from any amount. It's essential for businesses and consumers in India and other countries that use the GST system. Our calculator provides a complete breakdown including CGST, SGST, and IGST splits.</p>
-              <p>Whether you're preparing invoices, checking bills, or calculating the tax component of a purchase, this tool gives you instant, accurate results with an invoice-ready format.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Understanding GST in India</h2>
-              <p>India implemented GST on July 1, 2017, unifying dozens of central and state taxes into a single, comprehensive indirect tax system. GST is levied at every stage of the supply chain, with input tax credits preventing cascading (tax-on-tax) effects.</p>
-
-              <h2 className="text-2xl font-bold mb-3">GST Rate Slabs</h2>
-              <ul>
-                <li><strong>0% (Exempt):</strong> Essential items like fresh food, milk, bread, and healthcare services.</li>
-                <li><strong>5%:</strong> Common goods like packaged food, economy transport, and some textiles.</li>
-                <li><strong>12%:</strong> Processed food, business-class flights, and certain services.</li>
-                <li><strong>18%:</strong> Most goods and services including electronics, restaurants, and professional services.</li>
-                <li><strong>28%:</strong> Luxury and sin goods like automobiles, tobacco, and aerated drinks.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">CGST, SGST, and IGST Explained</h2>
-              <p>For transactions within the same state (intra-state), GST is split equally between CGST (Central GST, going to the central government) and SGST (State GST, going to the state government). For transactions across state borders (inter-state), IGST (Integrated GST) applies at the full rate, with the revenue later distributed between central and destination state governments.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Using GST Calculator for Business</h2>
-              <p>Businesses use GST calculators for invoice preparation, pricing decisions, and tax compliance. When quoting prices to customers, you can start with your desired net amount and add GST to determine the total invoice value. When receiving invoices, you can extract the tax component for input tax credit claims.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates for general purposes. GST rules are complex and subject to change. For official tax compliance, consult a chartered accountant or tax professional.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How GST Is Computed</h2>
+            <p>This <strong>GST calculator</strong> supports both modes: exclusive adds the tax to the base price (amount × rate ÷ 100), while inclusive extracts it from the quoted total (amount − amount ÷ (1 + rate ÷ 100)). Intra-state sales split the tax equally into CGST and SGST; inter-state sales charge a single IGST.</p>
+            <h2 className="text-2xl font-bold mb-3">Why the Split Matters</h2>
+            <p>CGST funds the central government and SGST the state, so every intra-state invoice must show both components. For inter-state supplies, IGST replaces the pair and is later apportioned to the destination state under the GST compensation mechanism.</p>
+            <h2 className="text-2xl font-bold mb-3">Filing and Input Credit</h2>
+            <p>Businesses claim input tax credit for GST paid on purchases, offsetting it against GST collected on sales. Keeping the taxable value and tax split accurate on every invoice is what makes the credit chain work end to end.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gst-calculator" />
-          <PopularCalculators exclude="/gst-calculator" />
+          <PopularCalculators exclude="/calculator/gst-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default GSTCalculator;
-
-
+}

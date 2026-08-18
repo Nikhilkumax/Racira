@@ -221,7 +221,9 @@ export default function DeadSpaceFractionCalculator() {
             )}
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
+              
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-10 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">Calculate</button>
+<button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
                 <RotateCcw className="h-4 w-4 mr-2" /> Reset Values
               </button>
             </div>

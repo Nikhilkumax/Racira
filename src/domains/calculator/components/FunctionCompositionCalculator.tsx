@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, FunctionSquare } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
 
 // Safe polynomial evaluator: accepts terms like "3x^2", "-2x", "5", "+4x^3", separated by +/-
 // e.g. "2x^2 + 3x - 5". No eval() — parsed term-by-term.
@@ -110,6 +111,7 @@ export default function FunctionCompositionCalculator() {
     setResult(compose("2x + 1", "x^2 - 3", 2)!);
   };
 
+  const chartData = result.table.map((r) => ({ name: `x=${r.x}`, "g(x)": r.gx, "f(g(x))": r.fgx }));
   const breakdown = [
     { label: "f(x) (simplified)", value: result.f, highlight: false },
     { label: "g(x) (simplified)", value: result.g, highlight: false },
@@ -181,6 +183,24 @@ export default function FunctionCompositionCalculator() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Composition Curves</h3>
+              <div className="h-[240px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                    <Legend wrapperStyle={{ fontSize: '13px' }} />
+                    <Line type="monotone" dataKey="g(x)" stroke="hsl(var(--chart-1))" strokeWidth={2} dot={{ r: 4 }} />
+                    <Line type="monotone" dataKey="f(g(x))" stroke="hsl(var(--primary))" strokeWidth={2} dot={{ r: 4 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-center text-muted-foreground mt-3 italic">g(x) and the composed f(g(x)) across the value table.</p>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

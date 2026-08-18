@@ -1,140 +1,221 @@
 "use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
+import { RotateCcw, Printer } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Cat } from "lucide-react";
+
+const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const NumInput = ({ id, label, value, onChange, min, hint }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; min?: string; hint?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" min={min} step="any" value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SelectInput = ({ id, label, value, onChange, options }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; options: { value: string; label: string }[];
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground">
+        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+    </div>
+  </div>
+);
+
+// Veterinary-standard factors (WSAVA / FEDIAF)
+const LIFESTAGE_MULT: Record<string, number> = { kitten: 2.5, adult: 1.2, senior: 1.1, obese_prone: 1.0, lactating: 2.0 };
+
+interface Inputs { weight: string; unit: string; lifestage: string; neutered: string; }
+
+interface Result {
+  rer: number;
+  mer: number;
+  multiplier: number;
+  treatKcal: number;
+  mealKcal: number;
+  chart: { name: string; value: number }[];
+}
+
+const DEFAULTS: Inputs = { weight: "4", unit: "kg", lifestage: "adult", neutered: "yes" };
+
+function calculate(inputs: Inputs): Result | null {
+  let wKg = Math.max(0, parseFloat(inputs.weight) || 0);
+  if (inputs.unit === "lbs") wKg /= 2.20462;
+  if (wKg <= 0) return null;
+  const rer = 70 * Math.pow(wKg, 0.75);
+  let multiplier = LIFESTAGE_MULT[inputs.lifestage] ?? 1.2;
+  if (inputs.lifestage === "adult" && inputs.neutered === "no") multiplier = 1.4;
+  const mer = rer * multiplier;
+  return {
+    rer,
+    mer,
+    multiplier,
+    treatKcal: mer * 0.1,
+    mealKcal: mer * 0.9,
+    chart: [
+      { name: "RER", value: Math.round(rer) },
+      { name: "MER", value: Math.round(mer) },
+    ],
+  };
+}
 
 const CatCalorieCalculator = () => {
-  const [weight, setWeight] = useState("4");
-  const [unit, setUnit] = useState("kg");
-  const [lifestage, setLifestage] = useState("adult");
-  const [isNeutered, setIsNeutered] = useState("yes");
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result | null>(() => calculate(DEFAULTS));
+  const set = (k: keyof Inputs) => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+  const num = (v: string) => parseFloat(v) || 0;
+  const hasErrors = num(inputs.weight) <= 0;
 
   const handleCalculate = () => {
-    setShowResults(true);
-    let wKg = parseFloat(weight) || 0;
-    if (unit === "lbs") wKg /= 2.20462;
-    if (wKg <= 0) return;
-
-    // RER for cats = 70 * (weight)^0.75
-    const rer = 70 * Math.pow(wKg, 0.75);
-
-    let multiplier = 1.2; // neutered adult
-    if (isNeutered === "no") multiplier = 1.4;
-    if (lifestage === "kitten") multiplier = 2.5;
-    if (lifestage === "senior") multiplier = 1.1;
-    if (lifestage === "obese_prone") multiplier = 1.0;
-    if (lifestage === "lactating") multiplier = 2.0;
-
-    const mer = rer * multiplier;
-
-    setResults({
-      rer: Math.round(rer),
-      mer: Math.round(mer),
-      multiplier,
-      treatAllowance: Math.round(mer * 0.1),
-      mealCalories: Math.round(mer * 0.9),
-    });
+    const r = calculate(inputs);
+    if (r) setResult(r);
   };
+  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
+  const handlePrint = () => window.print();
 
-  const reset = () => {
-    setShowResults(false);
-    setWeight("4"); setUnit("kg"); setLifestage("adult"); setIsNeutered("yes");
-    setResults(null);
-  };
+  const r = result;
+  const rows = r ? [
+    { label: "Body Weight", value: inputs.unit === "kg" ? fmt(num(inputs.weight), 1) + " kg" : fmt(num(inputs.weight), 1) + " lbs" },
+    { label: "Life Stage", value: inputs.lifestage === "kitten" ? "Kitten" : inputs.lifestage === "senior" ? "Senior" : inputs.lifestage === "obese_prone" ? "Obesity-Prone" : inputs.lifestage === "lactating" ? "Lactating" : inputs.neutered === "yes" ? "Adult (Neutered)" : "Adult (Intact)" },
+    { label: "Life Stage Multiplier", value: fmt(r.multiplier, 1) + "× RER" },
+    { label: "Resting Energy (RER)", value: fmt(r.rer) + " kcal/day", highlight: true },
+    { label: "Daily Target (MER)", value: fmt(r.mer) + " kcal/day", highlight: true },
+    { label: "Treat Allowance (10%)", value: fmt(r.treatKcal) + " kcal" },
+    { label: "Main Meals (90%)", value: fmt(r.mealKcal) + " kcal", total: true },
+  ] : [];
 
   const faqs = [
-    {
-      question: "How many calories does a cat need per day?",
-      answer: "An average 4kg (8.8lb) neutered adult cat needs about 200–250 calories per day. Kittens and lactating mothers need significantly more — up to 2.5x the resting energy requirement."
-    },
-    {
-      question: "Why is my cat always hungry?",
-      answer: "Cats are obligate carnivores and naturally graze throughout the day. If your cat seems perpetually hungry, consider splitting their daily calorie allowance across 3–4 small meals instead of 1–2 large ones."
-    },
-    {
-      question: "How do I convert cat food labels to calories?",
-      answer: "Look for 'kcal/kg' or 'kcal/can' on the food label. Divide that by the number of grams per serving to get kcal per gram. Then multiply by grams fed to find total calories per serving."
-    },
-    {
-      question: "Does spaying or neutering reduce caloric needs?",
-      answer: "Yes. Neutered cats have lower metabolic rates and a reduced tendency to roam, which cuts energy expenditure. Their daily caloric needs drop by approximately 20–30% compared to intact adults."
-    },
+    { question: "How many calories does a cat need per day?", answer: "An average 4 kg (8.8 lb) neutered adult cat needs about 200-250 kcal/day. Kittens and lactating queens need up to 2.5× the resting energy requirement (RER)." },
+    { question: "Why is my cat always hungry?", answer: "Cats are obligate carnivores that naturally graze. Split the daily allowance across 3-4 small meals rather than 1-2 large ones, and make sure the food is high in animal protein." },
+    { question: "How do I convert food labels to calories?", answer: "Find kcal/kg or kcal/can on the label. Divide by grams per serving for kcal per gram, then multiply by the grams you feed. This calculator gives the total budget; split it between food and treats (≤10%)." },
+    { question: "Does spaying or neutering reduce caloric needs?", answer: "Yes — neutered cats have lower metabolic rates and roam less, so needs drop roughly 20-30% versus intact adults. That's why this calculator uses 1.2× for neutered and 1.4× for intact adults." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Cat Calorie Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Cat Calorie Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cat Calorie Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <div className="flex gap-2">
-                  <div className="flex-1">
-                    <InputField id="weight" label="Weight" value={weight} onChange={setWeight} />
-                  </div>
-                  <div className="w-20 mt-7">
-                    <select value={unit} onChange={(e) => setUnit(e.target.value)} className="input-calc">
-                      <option value="kg">kg</option>
-                      <option value="lbs">lbs</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Life Stage</label>
-                  <select value={lifestage} onChange={(e) => setLifestage(e.target.value)} className="input-calc">
-                    <option value="kitten">Kitten (0–1 yr)</option>
-                    <option value="adult">Adult (1–7 yr)</option>
-                    <option value="senior">Senior (7+ yr)</option>
-                    <option value="obese_prone">Obesity-Prone</option>
-                    <option value="lactating">Lactating</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Neutered / Spayed?</label>
-                  <select value={isNeutered} onChange={(e) => setIsNeutered(e.target.value)} className="input-calc">
-                    <option value="yes">Yes</option>
-                    <option value="no">No (Intact)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold">Cat Profile</div>
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="weight" label="Body Weight" value={inputs.weight} onChange={set("weight")} min="0" />
+              <SelectInput id="unit" label="Weight Unit" value={inputs.unit} onChange={set("unit")} options={[{ value: "kg", label: "Kilograms (kg)" }, { value: "lbs", label: "Pounds (lbs)" }]} />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <SelectInput id="lifestage" label="Life Stage" value={inputs.lifestage} onChange={set("lifestage")} options={[
+                { value: "kitten", label: "Kitten (0-1 yr)" },
+                { value: "adult", label: "Adult (1-7 yr)" },
+                { value: "senior", label: "Senior (7+ yr)" },
+                { value: "obese_prone", label: "Obesity-Prone" },
+                { value: "lactating", label: "Lactating" },
+              ]} />
+              <SelectInput id="neutered" label="Neutered / Spayed?" value={inputs.neutered} onChange={set("neutered")} options={[{ value: "yes", label: "Yes" }, { value: "no", label: "No (Intact)" }]} />
+            </div>
+            {hasErrors && (
+              <p className="text-xs text-red-500 font-medium">Weight must be greater than zero.</p>
+            )}
+            <div className="flex gap-2.5 mt-1">
+              <button type="button" onClick={handleCalculate} disabled={hasErrors} className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground active:scale-[0.98]"}`}>Calculate</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
+          <div className="flex flex-col gap-4">
+            {r && (
               <>
-                <h2 className="text-2xl font-bold mb-3">Daily Nutrition Plan</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Daily Target (MER)</p>
-                    <p className="text-5xl font-black text-foreground">{results.mer} <span className="text-xl">kcal</span></p>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+                  <div className="flex justify-end absolute top-3 right-3">
+                    <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Resting Energy (RER)</p>
-                    <p className="text-3xl font-black text-foreground">{results.rer} <span className="text-sm font-normal text-muted-foreground">kcal</span></p>
+                  <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Daily Calorie Target (MER)</div>
+                  <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{fmt(r.mer)} <span className="text-2xl">kcal</span></div>
+                  <div className="text-sm text-muted-foreground font-medium">≈ {fmt(r.mer * 0.9 / 4, 0)} kcal per meal × 4 · <span className="font-bold text-foreground">{fmt(r.multiplier, 1)}×</span> RER</div>
+                </div>
+
+                <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Resting Energy</span>
+                    <span className="font-extrabold text-primary">{fmt(r.rer)} kcal</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Treats (10%)</span>
+                    <span className="font-extrabold text-emerald-600">{fmt(r.treatKcal)} kcal</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Meals (90%)</span>
+                    <span className="font-extrabold text-foreground">{fmt(r.mealKcal)} kcal</span>
                   </div>
                 </div>
-                <ResultDisplay items={[
-                  { label: "Life Stage Multiplier", value: 0, textValue: results.multiplier.toFixed(1) + "×" },
-                  { label: "Treat Allowance (10%)", value: 0, textValue: results.treatAllowance + " kcal" },
-                  { label: "Main Meals (90%)", value: 0, textValue: results.mealCalories + " kcal" },
-                ]} />
+
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Detail</th>
+                        <th className="p-2.5 pr-3 text-right w-[140px]">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {rows.map((row) => (
+                        <tr key={row.label} className={`hover:bg-secondary/20 transition-colors ${row.total ? "border-t-2 font-bold bg-secondary/30" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                          <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                          <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-4">
+                  <h3 className="text-sm font-bold text-foreground mb-3">RER vs MER (kcal/day)</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={r.chart} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 11 }} />
+                      <Tooltip formatter={(v: number) => [fmt(v) + " kcal", ""]} />
+                      <Legend wrapperStyle={{ fontSize: 11 }} />
+                      <Bar dataKey="value" name="kcal/day" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-semibold mb-4">Summary</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                    {[
+                      { label: "Weight", value: inputs.unit === "kg" ? fmt(num(inputs.weight), 1) + " kg" : fmt(num(inputs.weight), 1) + " lbs" },
+                      { label: "Multiplier", value: fmt(r.multiplier, 1) + "×" },
+                      { label: "RER", value: fmt(r.rer) + " kcal", bold: true },
+                      { label: "MER", value: fmt(r.mer) + " kcal", bold: true },
+                      { label: "Treats (10%)", value: fmt(r.treatKcal) + " kcal" },
+                      { label: "Meals (90%)", value: fmt(r.mealKcal) + " kcal" },
+                    ].map((s) => (
+                      <div key={s.label} className="flex flex-col">
+                        <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
+                        <span className={`text-sm font-extrabold ${s.bold ? "text-primary" : "text-foreground"}`}>{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </>
             )}
           </div>
@@ -143,45 +224,16 @@ const CatCalorieCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">Understanding Your Cat's Caloric Needs</h2>
-              <p>Feeding a cat the right amount is one of the most important things you can do for their long-term health. Unlike dogs, cats are <strong>obligate carnivores</strong> — their bodies are optimised to derive energy from animal protein and fat rather than carbohydrates. This has a direct impact on how their caloric needs are calculated.</p>
-
-              <h3>Resting Energy Requirement (RER)</h3>
-              <p>The RER represents the number of calories a cat would burn if it stayed completely still all day — essentially the energy needed to power their vital organs. The formula used by veterinary nutritionists worldwide is:</p>
-              <p><strong>RER (kcal/day) = 70 × (body weight in kg)^0.75</strong></p>
-
-              <h3>Maintenance Energy Requirement (MER)</h3>
-              <p>The MER is the RER multiplied by a factor that accounts for the cat's life stage and reproductive status:</p>
-              <ul>
-                <li><strong>Kittens (under 1 year):</strong> 2.5× RER — rapid growth demands huge energy</li>
-                <li><strong>Intact adults:</strong> 1.4× RER</li>
-                <li><strong>Neutered adults:</strong> 1.2× RER — the most common adult factor</li>
-                <li><strong>Seniors (7+ years):</strong> 1.1× RER — metabolism slows with age</li>
-                <li><strong>Obesity-prone:</strong> 1.0× RER — strict caloric control is critical</li>
-                <li><strong>Lactating queens:</strong> 2.0× RER — nursing kittens is extremely energy-intensive</li>
-              </ul>
-
-              <h3>Indoor vs Outdoor Cats</h3>
-              <p>Indoor cats lead a much more sedentary lifestyle than outdoor cats. An outdoor cat that hunts, climbs trees, and patrols a territory can burn 20–30% more calories than its indoor counterpart of the same weight. If your cat has indoor-only access, consider reducing their intake by 10% from the calculated MER.</p>
-
-              <h3>Signs Your Cat Is Getting Too Many Calories</h3>
-              <ul>
-                <li>You can no longer feel their ribs easily</li>
-                <li>They have a visible belly pouch (the "primordial pouch" is normal, but excessive fat is not)</li>
-                <li>They become lethargic or reluctant to play</li>
-                <li>They have difficulty grooming their back end</li>
-              </ul>
-
-              <h3>Reading Commercial Cat Food Labels</h3>
-              <p>When comparing cat foods, always check the <strong>caloric content per 100g or per can</strong>, not just the protein percentages. A food with 40% protein on a "dry matter basis" from a tiny can might deliver far fewer calories than expected. The gold standard is kcal/cup or kcal/100g listed under the Guaranteed Analysis section of the label.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-calorie" />
+            <h2 className="text-2xl font-bold mb-3">What the Numbers Mean</h2>
+            <p>For a <strong>4 kg neutered adult</strong>, RER = 70 × 4^0.75 ≈ <strong>198 kcal</strong> and MER = 198 × 1.2 ≈ <strong>238 kcal/day</strong>. About 21 kcal can go to treats; the rest — roughly 214 kcal — should come from meals, split across the day.</p>
+            <h2 className="text-2xl font-bold mb-3">The Formulas</h2>
+            <p>Veterinary nutritionists use RER = 70 × (weight in kg)^0.75, then scale by life stage: kittens 2.5×, intact adults 1.4×, neutered adults 1.2×, seniors 1.1×, obesity-prone 1.0×, lactating queens 2.0×. Indoor cats typically need about 10% less than outdoor cats.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cat-calorie-calculator" />
           <PopularCalculators exclude="/calculator/cat-calorie-calculator" />
         </div>
       </div>
     </>
   );
 };
-
 export default CatCalorieCalculator;
-

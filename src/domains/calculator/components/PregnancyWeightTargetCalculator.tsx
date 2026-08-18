@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, Baby, TrendingUp, CalendarDays } from "lucide-react";
+import { Printer, RotateCcw, ActivitySquare, AlertTriangle, TrendingUp, CalendarDays } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceDot, ReferenceLine } from "recharts";
 import { Button } from "@/components/ui/button";
 
@@ -364,35 +364,30 @@ export default function PregnancyWeightTargetCalculator() {
             {results && !errorMsg ? (
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
-                {/* Primary Metric Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Status Box */}
-                  <div 
-                    className="text-white rounded-lg p-5 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
-                  >
-                    <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Trajectory Status (Week {currentWeek})</div>
-                      <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-3xl font-black">{results.trajectoryStatus}</div>
-                      </div>
-                      <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4" /> Total Gained: {results.totalGained} {results.unitLabel}
-                      </div>
-                    </div>
-                    <Baby className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                {/* 1. PRIMARY RESULT CARD */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Weight Gained (Week {currentWeek})</div>
+                  <div className="text-4xl font-extrabold text-primary tracking-tight">{results.totalGained} {results.unitLabel}</div>
+                  <div className="text-sm text-muted-foreground mt-1">
+                    Trajectory: <span className="font-bold" style={{ color: results.colorClass }}>{results.trajectoryStatus}</span> — safe channel is {results.expectedMinGainAtWeek} to {results.expectedMaxGainAtWeek} {results.unitLabel}.
                   </div>
+                </div>
 
-                  {/* Target Range Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Safe Biological Channel (Week {currentWeek})</div>
-                    <div className="flex items-baseline gap-2">
-                      <div className="text-3xl font-black text-white">{results.expectedMinGainAtWeek}</div>
-                      <div className="text-slate-400 font-bold">to</div>
-                      <div className="text-3xl font-black text-white">{results.expectedMaxGainAtWeek}</div>
-                      <div className="text-xs text-slate-400">{results.unitLabel}</div>
-                    </div>
-                    <div className="text-[10px] text-slate-500 mt-2 font-mono">STARTING BMI: {results.startBmi} ({results.classification})</div>
+                {/* 2. THREE-STAT BAR */}
+                <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Starting BMI</span>
+                    <span className="font-extrabold text-foreground">{results.startBmi}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border" />
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Classification</span>
+                    <span className="font-extrabold text-foreground">{results.classification}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border" />
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Safe Range (Week {currentWeek})</span>
+                    <span className="font-extrabold text-foreground">{results.expectedMinGainAtWeek} – {results.expectedMaxGainAtWeek} {results.unitLabel}</span>
                   </div>
                 </div>
 
@@ -421,6 +416,54 @@ export default function PregnancyWeightTargetCalculator() {
                         })}
                       </AreaChart>
                     </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* 3. BREAKDOWN TABLE */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-base">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="py-2.5 px-3">Item</th>
+                        <th className="py-2.5 px-3 text-right w-[220px]">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {[
+                        { label: "Starting Weight", value: `${startWeight} ${results.unitLabel}` },
+                        { label: "Current Weight", value: `${currentWeight} ${results.unitLabel}` },
+                        { label: "Total Gained", value: `${results.totalGained} ${results.unitLabel}`, highlight: true },
+                        { label: "Safe Minimum at Week", value: `${results.expectedMinGainAtWeek} ${results.unitLabel}` },
+                        { label: "Safe Maximum at Week", value: `${results.expectedMaxGainAtWeek} ${results.unitLabel}` },
+                        { label: "Starting BMI", value: String(results.startBmi) },
+                        { label: "Trajectory Status", value: results.trajectoryStatus, isTotal: true },
+                      ].map((row, idx) => (
+                        <tr key={idx} className={`transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : row.highlight ? "bg-amber-500/10" : "hover:bg-secondary/20"}`}>
+                          <td className={`py-2.5 px-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                          <td className={`py-2.5 px-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* 4. SUMMARY STATISTICS */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-3 text-foreground">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                    {[
+                      { label: "Starting BMI", value: String(results.startBmi) },
+                      { label: "Classification", value: results.classification },
+                      { label: "Total Gained", value: `${results.totalGained} ${results.unitLabel}` },
+                      { label: "Safe Range", value: `${results.expectedMinGainAtWeek} – ${results.expectedMaxGainAtWeek} ${results.unitLabel}` },
+                      { label: "Status", value: results.trajectoryStatus },
+                      { label: "Gestation Week", value: `${currentWeek} wks` },
+                    ].map((s, i) => (
+                      <div key={i} className="flex flex-col">
+                        <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
+                        <span className="text-sm font-extrabold text-foreground">{s.value}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
 

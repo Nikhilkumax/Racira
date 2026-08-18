@@ -149,7 +149,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Calculate exactly how fast your vehicle will travel at a specific engine RPM based on your gear and differential ratios.</p>
+            
 
             <div className="grid grid-cols-2 gap-4">
               <CompactInput id="rpm" label="Engine Speed" value={inputs.rpm} onChange={(v: string) => handleChange("rpm", v)} suffix="RPM" placeholder="3000" />

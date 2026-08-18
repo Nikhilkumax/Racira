@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Hash } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 const gcd = (a: number, b: number): number => (b === 0 ? Math.abs(a) : gcd(b, a % b));
 
@@ -94,6 +95,11 @@ export default function FractionCalculator() {
   };
 
   const denZero = result.den === 0;
+  const chartData = [
+    { name: "1st Fraction", value: result.d1 !== 0 ? Number((result.n1 / result.d1).toFixed(4)) : 0 },
+    { name: "2nd Fraction", value: result.d2 !== 0 ? Number((result.n2 / result.d2).toFixed(4)) : 0 },
+    { name: "Result", value: denZero || isNaN(result.decimal) ? 0 : Number(result.decimal.toFixed(4)) },
+  ];
   const breakdown = [
     { label: "Expression", value: `${result.n1}/${result.d1} ${result.op} ${result.n2}/${result.d2}`, highlight: false },
     { label: "Result (simplified)", value: denZero ? "Undefined (division by zero)" : `${result.num}/${result.den}`, highlight: true },
@@ -169,6 +175,22 @@ export default function FractionCalculator() {
               <p className="text-sm text-muted-foreground mt-1">
                 {denZero ? "The denominator of the result is zero — check your inputs." : `${result.num}/${result.den} is the simplified form of ${result.n1}/${result.d1} ${result.op} ${result.n2}/${result.d2}.`}
               </p>
+            </div>
+
+            <div className="card-calculator !p-4 border border-border bg-card">
+              <h3 className="text-base font-bold mb-3">Value Comparison</h3>
+              <div className="h-[220px] w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip formatter={(value: number) => Number(value).toFixed(4)} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                    <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={60} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="text-xs text-center text-muted-foreground mt-3 italic">Decimal values of each fraction and the simplified result.</p>
             </div>
 
             <div className="card-calculator !p-4 border border-border bg-card">

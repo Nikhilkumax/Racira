@@ -1,171 +1,303 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
-import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Server, ShieldAlert, Clock, Info } from "lucide-react";
+import { useState, useEffect, useMemo } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
+import { RotateCcw, Printer } from "lucide-react"
+import PopularCalculators from "@/components/PopularCalculators"
 
-const UptimeCalculator = () => {
-  const [sla, setSla] = useState("99.9"); // %
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface Inputs {
+  sla: string
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const uptime = parseFloat(sla);
-    if (isNaN(uptime) || uptime < 0 || uptime > 100) return;
+interface Result {
+  downtimePct: number
+  dailySeconds: number
+  weeklySeconds: number
+  monthlySeconds: number
+  yearlySeconds: number
+  category: string
+  perTier: { tier: string; label: string; yearlySec: number; isSel: boolean }[]
+}
 
-    const downtimePercent = 100 - uptime;
-    const totalSecondsYear = 365.25 * 24 * 3600;
-    
-    const yearlySeconds = (downtimePercent / 100) * totalSecondsYear;
-    const monthlySeconds = yearlySeconds / 12;
-    const weeklySeconds = yearlySeconds / 52.17;
-    const dailySeconds = yearlySeconds / 365.25;
+const DEFAULTS: Inputs = { sla: "99.9" }
 
-    const formatTime = (totalSeconds: number) => {
-      const d = Math.floor(totalSeconds / 86400);
-      const h = Math.floor((totalSeconds % 86400) / 3600);
-      const m = Math.floor((totalSeconds % 3600) / 60);
-      const s = Math.floor(totalSeconds % 60);
-      
-      const parts = [];
-      if (d > 0) parts.push(`${d}d`);
-      if (h > 0) parts.push(`${h}h`);
-      if (m > 0) parts.push(`${m}m`);
-      if (s > 0 || parts.length === 0) parts.push(`${s}s`);
-      
-      return parts.join(" ");
-    };
+const PRESETS = ["99.0", "99.9", "99.95", "99.99", "99.999"]
 
-    setResults({
-      daily: formatTime(dailySeconds),
-      weekly: formatTime(weeklySeconds),
-      monthly: formatTime(monthlySeconds),
-      yearly: formatTime(yearlySeconds),
-      downtimePercent: downtimePercent.toFixed(4)
-    });
-  };
+const SECONDS_YEAR = 365.25 * 24 * 3600
 
-  const reset = () => {
-    setShowResults(false);
-    setSla("99.9");
-    setResults(null);
-  };
+function formatTime(totalSeconds: number): string {
+  const d = Math.floor(totalSeconds / 86400)
+  const h = Math.floor((totalSeconds % 86400) / 3600)
+  const m = Math.floor((totalSeconds % 3600) / 60)
+  const s = Math.floor(totalSeconds % 60)
+  const parts: string[] = []
+  if (d > 0) parts.push(`${d}d`)
+  if (h > 0) parts.push(`${h}h`)
+  if (m > 0) parts.push(`${m}m`)
+  if (s > 0 || parts.length === 0) parts.push(`${s}s`)
+  return parts.join(" ")
+}
 
-  const faqs = [
-    { question: "What does 'Three Nines' mean?", answer: "In industry terms, 'Three Nines' refers to 99.9% uptime. This allows for roughly 8.77 hours of downtime per year. 'Five Nines' (99.999%) is considered high availability, allowing only 5.26 minutes of downtime per year." },
-    { question: "What is an SLA?", answer: "A Service Level Agreement (SLA) is a contract between a service provider and a customer that defines the level of service expected, often including a minimum uptime percentage and penalties if that target is missed." },
-    { question: "Does scheduled maintenance count as downtime?", answer: "This depends on the specific SLA. Many providers exclude 'Scheduled Maintenance Windows' from their uptime calculations, provided they give customers enough advance notice." }
-  ];
+function calculate(inputs: Inputs): Result {
+  const uptime = parseFloat(inputs.sla)
+  const downtimePct = Math.max(0, 100 - uptime)
+  const yearlySeconds = (downtimePct / 100) * SECONDS_YEAR
+
+  const tiers = [99, 99.9, 99.95, 99.99, 99.999].map((t) => ({
+    tier: t.toFixed(3),
+    label: `${t}%`,
+    yearlySec: ((100 - t) / 100) * SECONDS_YEAR,
+    isSel: Math.abs(t - uptime) < 0.0001,
+  }))
+
+  return {
+    downtimePct,
+    dailySeconds: yearlySeconds / 365.25,
+    weeklySeconds: yearlySeconds / 52.1775,
+    monthlySeconds: yearlySeconds / 12,
+    yearlySeconds,
+    category: uptime >= 99.999 ? "High Availability" : uptime >= 99.9 ? "Standard Enterprise" : uptime >= 99 ? "Basic Service" : "Below Standard",
+    perTier: tiers,
+  }
+}
+
+export default function UptimeCalculator() {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
+
+  useEffect(() => {
+    setResult(calculate(inputs))
+  }, [inputs])
+
+  const invalid = useMemo(() => {
+    const v = parseFloat(inputs.sla)
+    return isNaN(v) || v < 0 || v > 100
+  }, [inputs.sla])
+
+  const chartData = useMemo(
+    () => [
+      { name: "Daily", minutes: result.dailySeconds / 60, fill: "hsl(var(--primary) / 0.45)" },
+      { name: "Weekly", minutes: result.weeklySeconds / 60, fill: "hsl(var(--primary) / 0.6)" },
+      { name: "Monthly", minutes: result.monthlySeconds / 60, fill: "hsl(var(--primary) / 0.75)" },
+      { name: "Yearly", minutes: result.yearlySeconds / 60, fill: "hsl(var(--primary))" },
+    ],
+    [result]
+  )
+
+  function run() {
+    setResult(calculate(inputs))
+  }
+
+  function reset() {
+    setInputs(DEFAULTS)
+    setResult(calculate(DEFAULTS))
+  }
+
+  const uptime = parseFloat(inputs.sla)
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Uptime Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Server Uptime SLA Calculator</h1>
+    <div className="w-full">
+      {/* BREADCRUMB */}
+      <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
+        <span className="hover:text-primary transition-colors">Technology</span>
+        <span className="mx-2">/</span>
+        <span className="text-foreground">Uptime Calculator</span>
+      </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="max-w-md">
-                <label className="block text-sm font-medium text-foreground mb-3 text-center">Desired Uptime Percentage</label>
-                <div className="relative mb-8">
-                  <input 
-                    type="number" 
-                    step="0.001"
-                    value={sla} 
-                    onChange={(e) => setSla(e.target.value)} 
-                    className="w-full text-5xl font-black text-center bg-transparent border-b-4 border-primary pb-2 focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                  <span className="absolute right-0 bottom-4 text-2xl font-bold text-muted-foreground">%</span>
-                </div>
-                
-                <div className="flex flex-wrap gap-2 justify-center mb-8">
-                  {["99.0", "99.9", "99.95", "99.99", "99.999"].map(val => (
-                    <button 
-                      key={val} 
-                      onClick={() => {setSla(val); handleCalculate();}}
-                      className="px-3 py-1.5 rounded-full text-xs font-bold bg-secondary hover:bg-primary hover:text-white transition-all border border-border"
+      {/* H1 — no subtitle */}
+      <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+        Uptime Calculator
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* LEFT: INPUTS */}
+        <div className="flex flex-col gap-4">
+          <div className="bg-card border border-border rounded-lg p-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">Target Uptime (%)</label>
+                <input
+                  type="number"
+                  step="0.001"
+                  value={inputs.sla}
+                  onChange={(e) => setInputs({ ...inputs, sla: e.target.value })}
+                  className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="99.9"
+                />
+                {invalid && <p className="text-xs text-red-500 mt-1">Enter an uptime between 0 and 100%.</p>}
+              </div>
+              <div className="col-span-2">
+                <label className="block text-sm font-medium mb-1">Common SLA Tiers</label>
+                <div className="flex flex-wrap gap-2">
+                  {PRESETS.map((val) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => setInputs({ ...inputs, sla: val })}
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
+                        inputs.sla === val
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-secondary hover:bg-primary/10 border-border text-foreground"
+                      }`}
                     >
                       {val}%
                     </button>
                   ))}
                 </div>
-
-                <div className="flex gap-3">
-                  <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                    <RotateCcw className="h-5 w-5" />
-                  </button>
-                </div>
               </div>
-          </div>
+            </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Allowed Downtime Limits</h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                  {[
-                    { label: "Daily", value: results.daily },
-                    { label: "Weekly", value: results.weekly },
-                    { label: "Monthly", value: results.monthly },
-                    { label: "Yearly", value: results.yearly },
-                  ].map((item, i) => (
-                    <div key={i} className="p-4 rounded-2xl bg-secondary/10 border border-border/50 text-center">
-                      <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">{item.label}</p>
-                      <p className="text-xl font-black text-foreground">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><ShieldAlert className="h-6 w-6 text-primary" /></div>
-                    <div className="flex-1">
-                      <h3 className="font-bold mb-1">Impact Summary</h3>
-                      <p className="text-sm text-muted-foreground mb-4">A target of <strong>{sla}%</strong> uptime means your systems can be unavailable for no more than <strong>{results.yearly}</strong> over the course of a full year.</p>
-                      <ResultDisplay items={[
-                        { label: "Downtime Percentage", value: 0, textValue: results.downtimePercent + "%" },
-                        { label: "Availability Category", value: 0, textValue: parseFloat(sla) >= 99.999 ? "High Availability" : parseFloat(sla) >= 99.9 ? "Standard Enterprise" : "Basic Service" },
-                      ]} />
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-4">
+              <button
+                type="button"
+                onClick={run}
+                disabled={invalid}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Cost of Downtime</h2>
-              <p>For modern businesses, every minute of downtime translates directly to lost revenue, decreased employee productivity, and potential damage to brand reputation. Calculating your allowed downtime is the first step in designing a resilient infrastructure.</p>
-              
-              <h3>High Availability (HA)</h3>
-              <p>High availability refers to systems that are designed to remain operational for long periods, typically targeting "Five Nines" (99.999%). Achieving this level of reliability usually requires redundant hardware, geographic distribution (multiple data centers), and automated failover systems.</p>
-              
-              <h3>The Law of Diminishing Returns</h3>
-              <p>The cost of increasing uptime follows an exponential curve. Moving from 99% to 99.9% might be relatively inexpensive, but moving from 99.99% to 99.999% often requires massive investments in infrastructure and engineering that may not be justifiable for all types of services.</p>
-              
-              <h3>MTBF and MTTR</h3>
-              <ul>
-                <li><strong>MTBF (Mean Time Between Failures):</strong> A measure of how reliable a single component is.</li>
-                <li><strong>MTTR (Mean Time To Repair):</strong> How long it takes to bring a system back online after it fails.</li>
-              </ul>
-              <p>To maximize uptime, you must simultaneously work to increase your MTBF and decrease your MTTR.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/uptime" />
-          <PopularCalculators exclude="/calculator/uptime-calculator" />
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-4 print-section">
+          {/* 1. PRIMARY RESULT CARD */}
+          <div className="relative bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+            <button
+              type="button"
+              onClick={() => window.print()}
+              aria-label="Print"
+              className="absolute top-3 right-3 h-8 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center"
+            >
+              <Printer className="h-4 w-4" />
+            </button>
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">Allowed Downtime Per Year</p>
+            <p className="text-4xl font-bold text-primary mt-1">{formatTime(result.yearlySeconds)}</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {uptime}% uptime = {result.downtimePct.toFixed(4)}% downtime · {result.category}
+            </p>
+          </div>
+
+          {/* 2. 3-STAT BAR */}
+          <div className="bg-card border border-border rounded-lg p-4 grid grid-cols-3 divide-x divide-border">
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Daily</p>
+              <p className="text-lg font-bold text-foreground mt-1">{formatTime(result.dailySeconds)}</p>
+              <p className="text-xs text-muted-foreground">allowed per day</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Weekly</p>
+              <p className="text-lg font-bold text-primary mt-1">{formatTime(result.weeklySeconds)}</p>
+              <p className="text-xs text-muted-foreground">allowed per week</p>
+            </div>
+            <div className="px-3">
+              <p className="text-xs uppercase tracking-wide text-muted-foreground">Monthly</p>
+              <p className="text-lg font-bold text-amber-600 mt-1">{formatTime(result.monthlySeconds)}</p>
+              <p className="text-xs text-muted-foreground">allowed per month</p>
+            </div>
+          </div>
+
+          {/* 3. BREAKDOWN TABLE */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">SLA Tier Comparison (Yearly Downtime)</h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="text-left py-2 px-3 font-medium">Tier</th>
+                  <th className="text-right py-2 px-3 font-medium">Downtime / Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.perTier.map((row) => (
+                  <tr
+                    key={row.tier}
+                    className={`border-b border-border ${row.isSel ? "bg-primary/10 font-semibold text-primary" : ""}`}
+                  >
+                    <td className="py-2.5 px-3">
+                      {row.label} {row.isSel && "· selected"}
+                    </td>
+                    <td className="py-2.5 px-3 text-right tabular-nums">{formatTime(row.yearlySec)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* 4. CHART */}
+          <div className="bg-card border border-border rounded-lg p-4">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Allowed Downtime per Period (minutes)</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 11 }} />
+                <Tooltip formatter={(v: number) => [`${v.toFixed(2)} min`, "Downtime"]} />
+                <Bar dataKey="minutes" radius={[4, 4, 0, 0]}>
+                  {chartData.map((d) => (
+                    <Cell key={d.name} fill={d.fill} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <p className="text-xs text-muted-foreground mt-2">
+              {uptime >= 99.999
+                ? "Five nines — high availability. Only ~5.26 min downtime per year."
+                : uptime >= 99.99
+                ? "Four nines — ~52.6 min downtime per year."
+                : uptime >= 99.9
+                ? "Three nines — ~8.77 hours downtime per year."
+                : "Below three nines — downtime exceeds a day per year."}
+            </p>
+          </div>
+
+          {/* 5. SUMMARY STATISTICS */}
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h2 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h2>
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p className="text-muted-foreground">Target Uptime</p>
+                <p className="font-semibold text-foreground">{uptime}%</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Downtime Percentage</p>
+                <p className="font-semibold text-foreground">{result.downtimePct.toFixed(4)}%</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Yearly Downtime</p>
+                <p className="font-semibold text-foreground">{formatTime(result.yearlySeconds)}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Availability Category</p>
+                <p className="font-semibold text-foreground">{result.category}</p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Nines Rating</p>
+                <p className="font-semibold text-foreground">
+                  {uptime >= 99.999 ? "Five nines" : uptime >= 99.99 ? "Four nines" : uptime >= 99.9 ? "Three nines" : uptime >= 99 ? "Two nines" : "Below 99%"}
+                </p>
+              </div>
+              <div>
+                <p className="text-muted-foreground">Year Basis</p>
+                <p className="font-semibold text-foreground">365.25 days</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export default UptimeCalculator;
-
+      <div className="mt-10">
+        <PopularCalculators exclude="/calculator/uptime-calculator" />
+      </div>
+    </div>
+  )
+}

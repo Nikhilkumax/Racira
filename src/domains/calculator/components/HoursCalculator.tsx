@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator, Briefcase } from "lucide-react";
+import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 interface HoursResult {
   totalHours: number; // decimal hours
@@ -108,7 +109,7 @@ const HoursCalculator = () => {
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Hours Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hours & Payroll Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hours Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           
           <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
@@ -160,8 +161,11 @@ const HoursCalculator = () => {
               </div>
             </div>
 
-            <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+            <div className="flex gap-2.5 mt-2">
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setSh("9"); setSm("0"); setSampm("AM"); setEh("5"); setEm("30"); setEampm("PM"); setBm("30"); setWage("20"); }} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -175,6 +179,27 @@ const HoursCalculator = () => {
               </div>
             ) : result && (<>
               
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Gross Shift Pay</div>
+                <div className="text-4xl font-extrabold text-primary tracking-tight font-mono">{formatCurrency(result.grossPay)}</div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {result.timeFormatted} on the clock · {result.totalHours} decimal hours at ${wage}/hr
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[
+                  ["Time on Clock", result.timeFormatted],
+                  ["Decimal Hours", `${result.totalHours}`],
+                  ["Unpaid Break", `${bm} min`],
+                ].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground font-mono">{v}</div>
+                  </div>
+                ))}
+              </div>
+
               <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                   <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Gross Shift Pay</div>
@@ -204,6 +229,43 @@ const HoursCalculator = () => {
               </div>
 
             </>)}
+            {result && !result.isError && (
+              <>
+                <div className="rounded-lg border border-border bg-card p-5">
+                  <h3 className="text-base font-bold mb-4">Shift Composition</h3>
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie data={[{ name: "Worked", value: result.totalHours * 60 }, { name: "Break", value: parseInt(bm, 10) || 0 }]} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={2}>
+                        <Cell fill="hsl(var(--primary))" />
+                        <Cell fill="#f59e0b" />
+                      </Pie>
+                      <Tooltip formatter={(v: number, n: string) => [`${v} min`, n]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2 text-center">Of {Math.round(result.totalHours * 60 + (parseInt(bm, 10) || 0))} minutes on the clock, {Math.round(parseInt(bm, 10) || 0)} are the unpaid break.</p>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                    {[
+                      ["Gross Pay", formatCurrency(result.grossPay)],
+                      ["Time on Clock", result.timeFormatted],
+                      ["Decimal Hours", `${result.totalHours}`],
+                      ["Unpaid Break", `${bm} min`],
+                      ["Hourly Wage", `${formatCurrency(parseFloat(wage) || 0)}/hr`],
+                      ["Payroll Multiplier", `${result.totalHours} × ${formatCurrency(parseFloat(wage) || 0)}`],
+                    ].map(([l, v]) => (
+                      <div key={l} className="flex justify-between">
+                        <span className="text-muted-foreground">{l}:</span>
+                        <span className="font-semibold text-foreground font-mono">{v}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
         

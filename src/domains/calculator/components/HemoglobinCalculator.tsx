@@ -172,7 +172,7 @@ export default function HemoglobinCalculator() {
 
             <div className="flex gap-3 mt-4">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <Activity className="h-5 w-5" /> Analyze Result
+                <Activity className="h-5 w-5" /> Calculate
               </button>
               <button onClick={() => { setSex("male"); setAgeGroup("adult"); setPregnant(false); setHb("14.5"); setResult(calcHemoglobin("male", "adult", false, 14.5)); }} className="w-11 h-11 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />

@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { Calculator, Printer, RotateCcw, CalendarClock } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface TimelineResults {
   closingDateStr: string;
@@ -233,6 +234,24 @@ export default function Exchange1031TimelineCalculator() {
                   </div>
                   <div className="mt-2 text-xs text-muted-foreground italic">
                     *Or the due date of your income tax return for the year in which the relinquished property was sold, whichever is earlier.
+                  </div>
+                </div>
+
+                <div className="bg-card border border-border rounded-lg p-5 shadow-sm mt-2 hidden-print">
+                  <h3 className="text-base font-semibold mb-4">Days Remaining Until Deadlines</h3>
+                  <div className="h-[200px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={[
+                        { name: "Identification", days: results.daysRemaining45 },
+                        { name: "Purchase", days: results.daysRemaining180 },
+                      ]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+                        <XAxis dataKey="name" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                        <YAxis tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} axisLine={false} tickLine={false} />
+                        <RechartsTooltip formatter={(value: number) => `${value} days`} cursor={{ fill: 'hsl(var(--muted)/0.5)' }} contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} />
+                        <Bar dataKey="days" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} maxBarSize={80} />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
 

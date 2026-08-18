@@ -1,148 +1,161 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Mic, HardDrive, Users, Calculator, Headphones } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-export default function PodcastHostingCalculator() {
-  const [monthlyEpisodes, setMonthlyEpisodes] = useState("4");
-  const [avgEpisodeSize, setAvgEpisodeSize] = useState("60");
-  const [monthlyDownloads, setMonthlyDownloads] = useState("5000");
-  const [storageCostPerGB, setStorageCostPerGB] = useState("0.10");
-  const [bandwidthCostPerGB, setBandwidthCostPerGB] = useState("0.05");
-  const [platformFee, setPlatformFee] = useState("15");
-  const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState({
-    monthlyStorage: 0,
-    monthlyBandwidth: 0,
-    storageCost: 0,
-    bandwidthCost: 0,
-    totalMonthlyCost: 0,
-    costPerDownload: 0,
-  });
+function fmt(n: number, digits = 1): string {
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n);
+}
+function fmtGB(n: number): string {
+  if (n >= 1024) return `${fmt(n / 1024, 2)} TB`;
+  return `${fmt(n, 1)} GB`;
+}
+function fmtUSD(n: number): string {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 }).format(n);
+}
 
-  const handleCalculate = () => {
-    const episodes = parseFloat(monthlyEpisodes) || 0;
-    const size = parseFloat(avgEpisodeSize) || 0; // in MB
-    const downloads = parseFloat(monthlyDownloads) || 0;
-    const sCost = parseFloat(storageCostPerGB) || 0;
-    const bCost = parseFloat(bandwidthCostPerGB) || 0;
-    const pFee = parseFloat(platformFee) || 0;
+const DEFAULTS = { episodes: "4", size: "80", downloads: "2500", price: "0.08", retention: "24" };
 
-    const monthlyNewStorageGB = (episodes * size) / 1024;
-    const monthlyBandwidthGB = (downloads * size) / 1024;
+export default function PodcastHostingCostCalculator() {
+  const [episodes, setEpisodes] = useState(DEFAULTS.episodes);
+  const [size, setSize] = useState(DEFAULTS.size);
+  const [downloads, setDownloads] = useState(DEFAULTS.downloads);
+  const [price, setPrice] = useState(DEFAULTS.price);
+  const [retention, setRetention] = useState(DEFAULTS.retention);
+  const [calculated, setCalculated] = useState(false);
 
-    const storageCost = monthlyNewStorageGB * sCost; // Simplified: only charging for new storage this month
-    const bandwidthCost = monthlyBandwidthGB * bCost;
-    const totalMonthlyCost = pFee + storageCost + bandwidthCost;
-    const costPerDownload = downloads > 0 ? totalMonthlyCost / downloads : 0;
+  const eps = Math.max(0, Math.round(parseFloat(episodes) || 0));
+  const sz = Math.max(0, parseFloat(size) || 0); // MB
+  const dl = Math.max(0, Math.round(parseFloat(downloads) || 0));
+  const p = Math.max(0, parseFloat(price) || 0); // $/GB
+  const ret = Math.max(1, Math.round(parseFloat(retention) || 24)); // months
 
-    setResults({
-      monthlyStorage: monthlyNewStorageGB,
-      monthlyBandwidth: monthlyBandwidthGB,
-      storageCost,
-      bandwidthCost,
-      totalMonthlyCost,
-      costPerDownload,
-    });
-    setShowResults(true);
-  };
+  // bandwidth: each download fetches the full episode size
+  const monthlyBwGB = (eps * dl * sz) / 1024;
+  const bwCost = monthlyBwGB * p;
+  // storage: episodes accumulate over the retention window
+  const storedGB = (eps * sz * ret) / 1024;
+  const storageCost = storedGB * p * 0.15; // storage is a fraction of transfer cost on most plans
+  const totalCost = bwCost + storageCost;
+  const monthlyDownloads = eps * dl;
 
-  const reset = () => {
-    setMonthlyEpisodes("4");
-    setAvgEpisodeSize("60");
-    setMonthlyDownloads("5000");
-    setPlatformFee("15");
-    setShowResults(false);
-  };
+  const chartData = [
+    { name: "Bandwidth", value: Number(monthlyBwGB.toFixed(1)), fill: "hsl(var(--primary))" },
+    { name: "Storage", value: Number(storedGB.toFixed(1)), fill: "#f59e0b" },
+  ];
+
+  const calc = () => setCalculated(true);
+  useEffect(() => { if (calculated) setCalculated(true); }, [calculated]);
+
+  const reset = () => { setEpisodes(DEFAULTS.episodes); setSize(DEFAULTS.size); setDownloads(DEFAULTS.downloads); setPrice(DEFAULTS.price); setRetention(DEFAULTS.retention); setCalculated(false); };
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "How much does it cost to host a podcast?", answer: "Podcast hosting typically ranges from $0 (free plans with limits) to $50+ per month for professional features. Most mid-range plans for weekly episodes cost between $15 and $25 per month." },
-    { question: "What is the biggest cost in podcast hosting?", answer: "For most podcasters, the flat platform fee is the primary cost. However, for high-traffic shows, bandwidth (data transfer) costs can become the dominant expense if the platform doesn't offer 'unlimited' downloads." },
-    { question: "How large is the average podcast episode file?", answer: "A 60-minute MP3 file at 128kbps (standard quality) is approximately 60MB. Higher quality bitrates (like 192kbps) will result in larger files (around 90MB for 60 minutes)." },
-    { question: "What is the difference between storage and bandwidth?", answer: "Storage is the space required to keep your audio files on the server. Bandwidth (or Data Transfer) is the amount of data moved from the server to your listeners' devices when they stream or download an episode." },
-    { question: "Should I use a free podcast host?", answer: "Free hosts like Spotify for Podcasters (formerly Anchor) are great for beginners. However, professional shows often prefer paid hosts for better analytics, more control over the RSS feed, and dedicated support." },
-    { question: "How many downloads does a typical podcast get?", answer: "The median podcast receives about 150 downloads per episode within the first 30 days. Top 1% podcasts receive over 40,000 downloads per episode." },
-    { question: "Do I need to pay for a CDN?", answer: "Most podcast hosting platforms include a CDN (Content Delivery Network) in their monthly fee. A CDN ensures your audio files are delivered quickly to listeners regardless of their geographic location." },
+    { question: "What drives podcast hosting costs?", answer: "Bandwidth — every download moves the full episode file, so cost scales with listeners × episode size × episode count. Storage matters less but accumulates: episodes stay on the server for the retention window, and most plans charge a fraction of the transfer rate for it." },
+    { question: "Why do downloads cost more than storage?", answer: "Serving a file to thousands of listeners requires traffic through content delivery networks, which is billed per gigabyte transferred. Storing the file is cheap — disks are plentiful; moving data is not. That is why the calculator prices bandwidth at the full rate and storage at ~15% of it." },
+    { question: "How accurate is this estimate?", answer: "It models a metered, pay-per-GB hosting plan — the raw infrastructure cost. Most podcast hosts bundle bandwidth into flat monthly tiers, so compare the estimate against tier pricing: if your usage exceeds a tier, the difference is what you'd pay to the next tier up." },
+    { question: "Does streaming count like a download?", answer: "Mostly yes. Whether a listener downloads or streams, the file is transferred over the network and billed the same way. What differs is behavior: streamers may replay clips (more transfers) while downloaders fetch once and listen offline." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Podcast Hosting Cost Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Podcast Hosting Cost Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Podcast Hosting Cost Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Podcast Hosting Cost Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
-                <InputField id="episodes" label="Episodes Per Month" value={monthlyEpisodes} onChange={setMonthlyEpisodes} tooltip="How many new episodes do you plan to publish each month?" />
-                <InputField id="size" label="Avg Episode Size (MB)" value={avgEpisodeSize} onChange={setAvgEpisodeSize} tooltip="Average file size of your episodes. A 128kbps 60min MP3 is ~60MB." />
-                <InputField id="downloads" label="Monthly Downloads" value={monthlyDownloads} onChange={setMonthlyDownloads} tooltip="Total combined downloads across all your episodes in a month." />
-                <InputField id="fee" label="Monthly Platform Fee ($)" value={platformFee} onChange={setPlatformFee} prefix="$" tooltip="The fixed monthly price of your hosting provider (e.g., Libsyn, Buzzsprout)." />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className={lbl}>Episodes / month</label>
+                <input type="number" min={0} value={episodes} onChange={e => setEpisodes(e.target.value)} className={inp} placeholder="4" />
               </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
+              <div>
+                <label className={lbl}>Avg episode size (MB)</label>
+                <input type="number" min={0} value={size} onChange={e => setSize(e.target.value)} className={inp} placeholder="80" />
               </div>
+              <div>
+                <label className={lbl}>Downloads / episode</label>
+                <input type="number" min={0} value={downloads} onChange={e => setDownloads(e.target.value)} className={inp} placeholder="2500" />
+              </div>
+              <div>
+                <label className={lbl}>Hosting rate ($/GB)</label>
+                <input type="number" min={0} step={0.005} value={price} onChange={e => setPrice(e.target.value)} className={inp} placeholder="0.08" />
+              </div>
+              <div className="col-span-2">
+                <label className={lbl}>Storage retention (months)</label>
+                <input type="number" min={1} value={retention} onChange={e => setRetention(e.target.value)} className={inp} placeholder="24" />
+              </div>
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calc} className="flex-1 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/90 text-primary-foreground">Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">Models metered pay-per-GB hosting. Compare the result against flat-tier plans — most hosts bundle bandwidth.</p>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Monthly Cost Breakdown</h2>
-                <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Monthly Cost</p>
-                    <p className="text-3xl font-black text-foreground">${results.totalMonthlyCost.toFixed(2)}</p>
+          {calculated && (
+            <div className="flex flex-col gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Estimated Monthly Hosting Cost</div>
+                <div className="text-3xl font-extrabold tracking-tight">{fmtUSD(totalCost)}/mo</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmtUSD(bwCost)} bandwidth + {fmtUSD(storageCost)} storage</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Bandwidth", fmtGB(monthlyBwGB), "per month served"], ["Storage", fmtGB(storedGB), `${ret} months retained`], ["Downloads", fmt(monthlyDownloads, 0), "per month total"]].map(([l, v, s], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{s}</div>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Cost Per Download</p>
-                    <p className="text-3xl font-black text-foreground">${results.costPerDownload.toFixed(4)}</p>
-                  </div>
-                  <div className="p-6 rounded-2xl bg-blue-500/5 border border-blue-500/10 text-center">
-                    <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Bandwidth Used</p>
-                    <p className="text-3xl font-black text-foreground">{results.monthlyBandwidth.toFixed(1)} GB</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Bandwidth vs. Storage</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" tickFormatter={(v: number) => fmtGB(Number(v))} />
+                    <Tooltip formatter={(v: number) => [fmtGB(Number(v)), ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Bandwidth is billed every month; storage grows only until the retention window fills</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Cost Breakdown</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">Monthly transfers:</span><span className="font-semibold">{fmtGB(monthlyBwGB)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Transfer cost:</span><span className="font-semibold">{fmtUSD(bwCost)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Stored episodes:</span><span className="font-semibold">{eps * ret} files</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Storage cost:</span><span className="font-semibold">{fmtUSD(storageCost)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Cost per download:</span><span className="font-semibold">{fmtUSD((sz / 1024) * p)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Cost per episode:</span><span className="font-semibold">{fmtUSD((dl * sz / 1024) * p)}</span></div>
                 </div>
-                <ResultDisplay items={[
-                  { label: "New Monthly Storage", value: 0, textValue: `${results.monthlyStorage.toFixed(2)} GB` },
-                  { label: "Fixed Platform Fee", value: 0, textValue: `$${parseFloat(platformFee).toFixed(2)}` },
-                  { label: "Variable Infrastructure Cost", value: 0, textValue: `$${(results.storageCost + results.bandwidthCost).toFixed(2)}` },
-                ]} />
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
+          <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Hidden Economics of Podcast Hosting</h2>
-              <p>Choosing a podcast host is one of the first and most critical technical decisions for any creator. While it might seem like a simple matter of uploading an MP3 file, the infrastructure required to serve high-fidelity audio to thousands of listeners simultaneously is complex and costly. This calculator helps you understand exactly where your money is going and how your costs will scale as your show grows.</p>
-
-              <h3>1. The Monthly Platform Fee</h3>
-              <p>Most podcasters use specialized hosting services like Libsyn, Buzzsprout, Transistor, or Captivate. These platforms charge a monthly subscription fee that usually covers the core features: an RSS feed, a basic website, analytics, and an audio player. These fees typically start around $15 to $20 per month and increase based on the amount of audio you upload or the number of downloads you receive.</p>
-
-              <h3>2. Storage vs. Bandwidth: What You're Paying For</h3>
-              <p>In the world of web hosting, there's a major difference between storage and bandwidth. <strong>Storage</strong> is the 'closet space' where your audio files live. Once you upload an episode, it stays in storage forever (or until you delete it). <strong>Bandwidth</strong> (also called Data Transfer) is the 'shipping cost' of moving that file from the host's server to a listener's phone. If 1,000 people download a 60MB file, you have used 60,000MB (60GB) of bandwidth. Professional hosts often have 'fair use' policies for bandwidth, but if you become a mega-hit, you may find yourself needing custom enterprise pricing.</p>
-
-              <h3>3. File Sizes and Quality Trade-offs</h3>
-              <p>The size of your podcast file is determined by its duration and its <strong>bitrate</strong>. Bitrate is measured in kilobits per second (kbps). Most podcasts use 128kbps, which offers a great balance between sound quality and file size. If you switch to 192kbps (higher quality), your file sizes will increase by 50%, which means your storage and bandwidth usage will also increase by 50%. For spoken-word content, 128kbps is usually the industry standard, while music-heavy shows might opt for 192kbps or higher.</p>
-
-              <h3>4. The Cost of Success: Scaling Your Show</h3>
-              <p>One of the beautiful things about podcasting is that your costs don't scale linearly with your audience. A show with 10,000 downloads might cost the same to host as a show with 1,000 downloads, provided you stay within the limits of your hosting plan. However, once you cross into the 'Elite' territory (50,000+ downloads per month), you may need to upgrade to Pro or Enterprise plans, which can cost $50 to $150 per month. This is usually when podcasters start looking at sponsorships to cover their increasing infrastructure costs.</p>
-
-              <h3>5. Free vs. Paid Hosting</h3>
-              <p>Services like Spotify for Podcasters offer free hosting because they benefit from having your content on their platform. While free hosting is an excellent way to start, paid hosts offer significant advantages: ownership of your RSS feed, advanced IAB-certified analytics (which advertisers require), private podcasting features, and better customer support. For serious creators, the $15-$20 monthly investment is usually worth the peace of mind and data accuracy.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Where Hosting Money Goes</h2>
+            <p>Every podcast listener downloads a file, and every download moves megabytes through a content network that bills per gigabyte. This <strong>podcast hosting cost calculator</strong> models the two bills — bandwidth and storage — behind your show's infrastructure.</p>
+            <h2 className="text-2xl font-bold mb-3">Bandwidth Grows With Success</h2>
+            <p>Downloads scale linearly with audience: double the listeners, double the transfer, double the bandwidth bill. Episode size matters just as much — cutting an 80 MB file to 60 MB trims 25% off transfer costs before a single new listener arrives.</p>
+            <h2 className="text-2xl font-bold mb-3">Compare Against Flat Tiers</h2>
+            <p>Most podcast hosts sell flat monthly tiers that bundle generous bandwidth. Run your usage through this calculator to find your raw cost, then compare it to tier pricing — the tier that covers your usage with room to grow is usually the right pick.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/podcast-hosting-cost-calculator" />
           <PopularCalculators exclude="/calculator/podcast-hosting-cost-calculator" />
         </div>

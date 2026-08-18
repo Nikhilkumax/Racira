@@ -8,13 +8,19 @@ import FAQSection from "@/components/FAQSection";
 import InputField from "@/domains/calculator/components/ui/InputField";
 import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
 import { RotateCcw, Globe } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 const WebsiteHostingCostCalculator = () => {
   const [traffic, setTraffic] = useState("10000"); // 10k visitors
   const [pageSize, setPageSize] = useState("2"); // 2MB avg page size
   const [hostingType, setHostingType] = useState("shared");
 
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<{
+    bandwidthGB: number;
+    estLow: number;
+    estHigh: number;
+    hostingLabel: string;
+  } | null>(null);
   const [showResults, setShowResults] = useState(false);
 
   const handleCalculate = () => {
@@ -25,7 +31,7 @@ const WebsiteHostingCostCalculator = () => {
     // Est. Bandwidth = Traffic * Page Size
     const bandwidthGB = (t * p) / 1024;
 
-    const costs: any = {
+    const costs: Record<string, { low: number; high: number; label: string }> = {
       shared: { low: 3, high: 12, label: "Shared Hosting" },
       vps: { low: 20, high: 80, label: "Managed VPS" },
       dedicated: { low: 100, high: 400, label: "Dedicated Server" },
@@ -103,6 +109,29 @@ const WebsiteHostingCostCalculator = () => {
                   { label: "SSL Certificate", value: 0, textValue: "Free (Let's Encrypt)" },
                   { label: "Scalability", value: 0, textValue: hostingType === "cloud" ? "Excellent" : "Limited" },
                 ]} />
+                <div className="mt-6 p-4 rounded-2xl border border-border bg-card">
+                  <p className="text-sm font-bold text-foreground mb-3">Monthly Cost Range by Hosting Type</p>
+                  <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={[
+                      { name: "Shared", low: 3, high: 12 },
+                      { name: "VPS", low: 20, high: 80 },
+                      { name: "Cloud", low: 5, high: 100 },
+                      { name: "Dedicated", low: 100, high: 400 },
+                    ]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} />
+                      <Tooltip formatter={(v: number) => `$${v}/mo`} />
+                      <Bar dataKey="low" name="Low" fill="hsl(var(--primary))" opacity={0.75} />
+                      <Bar dataKey="high" name="High" radius={[6, 6, 0, 0]}>
+                        {["shared", "vps", "cloud", "dedicated"].map((key, i) => (
+                          <Cell key={i} fill={key === hostingType ? "#f59e0b" : "hsl(var(--primary))"} />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2">Your selection: <span className="font-semibold text-foreground">{results.hostingLabel}</span> — bars show the typical low-to-high monthly range.</p>
+                </div>
               </>
             )}
           </div>

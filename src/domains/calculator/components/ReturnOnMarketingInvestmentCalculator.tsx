@@ -1,162 +1,211 @@
-"use client"
+"use client";
+import React, { useState } from "react";
+import { RotateCcw, Printer } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
+import FAQSection from "@/components/FAQSection";
 
-// 1. TypeScript interfaces — no 'any'
-// 2. Pure calculation function — zero React, fully typed
-// 3. DEFAULTS object — realistic values
-// 4. Component:
-//    → useState(DEFAULTS)
-//    → useState<Result>(calculate(DEFAULTS))
-//    → useEffect(() => setResult(calculate(inputs)), [])
-//    → LEFT col: inputs (2 per row) + second tier + Calculate + Reset
-//    → RIGHT col: 4 result components
-//    → PopularCalculators
+const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const fmtMoney = (n: number) => "$" + fmt(Math.round(n));
 
-// Domain-specific interfaces
-export interface ReturnOnMarketingInvestmentInput {
-  campaignCost: number;
-  campaignRevenue: number;
-  campaignDurationWeeks: number;
+const NumInput = ({ id, label, value, onChange, prefix, suffix, min }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; prefix?: string; suffix?: string; min?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      <input id={id} type="number" min={min} step="any" value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+    </div>
+  </div>
+);
+
+interface Inputs {
+  weeklyCost: string;
+  weeklyRevenue: string;
+  weeks: string;
 }
 
-// Pure calculation function — zero React, fully typed
-export function calculateReturnOnMarketingInvestment(
-  input: ReturnOnMarketingInvestmentInput
-): number {
-  // Calculate total revenue over campaign duration
-  const totalRevenue = input.campaignRevenue * input.campaignDurationWeeks;
-  
-  // Calculate total cost over campaign duration
-  const totalCost = input.campaignCost * input.campaignDurationWeeks;
-  
-  // Calculate ROI (Return on Investment)
-  const roi = (totalRevenue - totalCost) / totalCost;
-  
-  return Math.round(roi * 100); // Round to nearest whole number (percentage)
+interface Result {
+  totalCost: number;
+  totalRevenue: number;
+  netProfit: number;
+  roiPct: number;
+  roas: number;
+  weekly: { week: number; revenue: number; cost: number }[];
 }
 
-// DEFAULTS object — realistic values
-const DEFAULTS: ReturnOnMarketingInvestmentInput = {
-  campaignCost: 5000,
-  campaignRevenue: 15000,
-  campaignDurationWeeks: 4
-};
+const DEFAULTS: Inputs = { weeklyCost: "5000", weeklyRevenue: "15000", weeks: "4" };
 
-// Component
-import { useState, useEffect } from 'react';
+function calculate(inputs: Inputs): Result {
+  const weeklyCost = Math.max(0, parseFloat(inputs.weeklyCost) || 0);
+  const weeklyRevenue = Math.max(0, parseFloat(inputs.weeklyRevenue) || 0);
+  const weeks = Math.max(1, Math.min(52, Math.round(parseFloat(inputs.weeks) || 1)));
+  const totalCost = weeklyCost * weeks;
+  const totalRevenue = weeklyRevenue * weeks;
+  const netProfit = totalRevenue - totalCost;
+  const roiPct = totalCost > 0 ? (netProfit / totalCost) * 100 : 0;
+  const roas = totalCost > 0 ? totalRevenue / totalCost : 0;
+  const weekly = Array.from({ length: weeks }, (_, i) => ({ week: i + 1, revenue: weeklyRevenue, cost: weeklyCost }));
+  return { totalCost, totalRevenue, netProfit, roiPct, roas, weekly };
+}
 
-export default function ReturnOnMarketingInvestmentCalculator() {
-  const [inputs, setInputs] = useState(DEFAULTS);
-  const [result, setResult] = useState<number>(calculateReturnOnMarketingInvestment(DEFAULTS));
-  
-  useEffect(() => {
-    setResult(calculateReturnOnMarketingInvestment(inputs));
-  }, [inputs]);
-  
-  const calculate = () => {
-    setResult(calculateReturnOnMarketingInvestment(inputs));
-  };
-  
-  const reset = () => {
-    setInputs(DEFAULTS);
-    setResult(calculateReturnOnMarketingInvestment(DEFAULTS));
-  };
-  
+const ReturnOnMarketingInvestmentCalculator = () => {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS));
+  const set = (k: keyof Inputs) => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
+
+  const num = (v: string) => parseFloat(v) || 0;
+  const hasErrors = num(inputs.weeklyCost) <= 0 || num(inputs.weeklyRevenue) < 0 || num(inputs.weeks) <= 0;
+
+  const handleCalculate = () => { if (!hasErrors) setResult(calculate(inputs)); };
+  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
+  const handlePrint = () => window.print();
+
+  const roiColor = result.roiPct >= 100 ? "text-emerald-600" : result.roiPct >= 50 ? "text-amber-600" : "text-red-600";
+
+  const rows = [
+    { label: "Campaign Cost per Week", value: fmtMoney(num(inputs.weeklyCost)) },
+    { label: "Campaign Revenue per Week", value: fmtMoney(num(inputs.weeklyRevenue)) },
+    { label: "Campaign Duration", value: fmt(num(inputs.weeks)) + " weeks" },
+    { label: "Total Campaign Cost", value: fmtMoney(result.totalCost) },
+    { label: "Total Campaign Revenue", value: fmtMoney(result.totalRevenue) },
+    { label: "Net Profit", value: fmtMoney(result.netProfit), highlight: true },
+    { label: "Return on Marketing Investment (ROMI)", value: result.roiPct.toFixed(0) + "%", highlight: true },
+    { label: "Return on Ad Spend (ROAS)", value: result.roas.toFixed(2) + "x", total: true },
+  ];
+
+  const faqs = [
+    { question: "What is Return on Marketing Investment (ROMI)?", answer: "ROMI measures the profit generated by a marketing campaign relative to its cost: (Revenue − Cost) ÷ Cost × 100. With the defaults, $60,000 of revenue on $20,000 of spend returns 200% — $2 of net profit for every $1 invested." },
+    { question: "What is the difference between ROMI and ROAS?", answer: "ROAS is Revenue ÷ Ad Spend (a revenue multiple), while ROMI subtracts the spend first to show net profit return. ROAS of 3.0x means $3 of revenue per $1 of spend; ROMI of 200% means $2 of profit per $1 of spend after the cost is recovered." },
+    { question: "What is a good ROMI?", answer: "A positive ROMI means the campaign is profitable, but the target depends on your gross margin — businesses with thin margins need higher revenue multiples. A common benchmark is ROAS of 3.0–4.0x (ROMI 200–300%) for e-commerce, and 4.0x+ for high-funnel awareness spend." },
+    { question: "Why is campaign duration included?", answer: "Marketing returns compound over time. A $5,000/week campaign that generates $15,000/week yields the same weekly ratio whether it runs 2 or 10 weeks, but total profit scales with duration — so the calculator shows both the per-week economics and the campaign total." },
+  ];
+
   return (
-    <div className="calculator-container">
-      <div className="input-grid">
-        <div className="input-row">
-          <input
-            type="number"
-            name="campaignCost"
-            defaultValue={inputs.campaignCost}
-            onChange={(e) => setInputs({...inputs, campaignCost: parseFloat(e.target.value)})}
-            placeholder="Campaign Cost ($)"
-            min="0"
-          />
-          <input
-            type="number"
-            name="campaignRevenue"
-            defaultValue={inputs.campaignRevenue}
-            onChange={(e) => setInputs({...inputs, campaignRevenue: parseFloat(e.target.value)})}
-            placeholder="Campaign Revenue ($/week)"
-            min="0"
-          />
-          <input
-            type="number"
-            name="campaignDurationWeeks"
-            defaultValue={inputs.campaignDurationWeeks}
-            onChange={(e) => setInputs({...inputs, campaignDurationWeeks: parseFloat(e.target.value)})}
-            placeholder="Duration (Weeks)"
-            min="1"
-          />
-        </div>
-        
-        <div className="input-row">
-          <button 
-            className="calculate-button" 
-            onClick={calculate}
-            disabled={!inputs.campaignCost || !inputs.campaignRevenue || !inputs.campaignDurationWeeks}
-          >
-            Calculate
-          </button>
-          <button 
-            className="reset-button" 
-            onClick={reset}
-            disabled={!inputs.campaignCost || !inputs.campaignRevenue || !inputs.campaignDurationWeeks}
-          >
-            ↺
-          </button>
-        </div>
-      </div>
-      
-      <div className="result-grid">
-        <div className="result-card">
-          <div className="result-label">Primary Result</div>
-          <div className="result-value text-4xl font-bold text-primary">
-            {result}%
+    <>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Business", href: "/calculator#business" }, { label: "Return on Marketing Investment Calculator" }]} />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Return on Marketing Investment Calculator</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-3">
+              <NumInput id="cost" label="Campaign Cost / Week" value={inputs.weeklyCost} onChange={set("weeklyCost")} prefix="$" />
+              <NumInput id="revenue" label="Revenue / Week" value={inputs.weeklyRevenue} onChange={set("weeklyRevenue")} prefix="$" />
+            </div>
+            <div>
+              <NumInput id="weeks" label="Campaign Duration" value={inputs.weeks} onChange={set("weeks")} suffix="weeks" />
+            </div>
+            {hasErrors && (
+              <p className="text-xs text-red-500 font-medium">Campaign cost and duration must be &gt; 0.</p>
+            )}
+            <div className="flex gap-2.5 mt-1">
+              <button type="button" onClick={handleCalculate} disabled={hasErrors} className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground active:scale-[0.98]"}`}>Calculate</button>
+              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"><RotateCcw className="h-4 w-4" /></button>
+            </div>
           </div>
-          <div className="result-subtext text-sm text-muted-foreground">
-            ROI (%)
-          </div>
-        </div>
-        
-        <div className="result-card">
-          <div className="result-label">3-Stat Bar</div>
-          <div className="stat-bar">
-            <div className="stat-bar-segment" style={{ 
-              width: `${Math.min(100, result / 50)}%`, 
-              backgroundColor: result >= 100 ? 'green' : result >= 50 ? 'orange' : 'red'
-            }}>
-              {result}%
+
+          <div className="flex flex-col gap-4">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
+              </div>
+              <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Return on Marketing Investment</div>
+              <div className="text-4xl font-bold text-primary mb-1 tracking-tight">{result.roiPct.toFixed(0)}%</div>
+              <div className={`text-sm font-semibold ${roiColor}`}>Net profit of {fmtMoney(result.netProfit)} on {fmtMoney(result.totalCost)} of spend</div>
+            </div>
+
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Revenue</span>
+                <span className="font-extrabold text-emerald-600">{fmtMoney(result.totalRevenue)}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Cost</span>
+                <span className="font-extrabold text-red-600">{fmtMoney(result.totalCost)}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">ROAS</span>
+                <span className="font-extrabold text-primary">{result.roas.toFixed(2)}x</span>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Metric</th>
+                    <th className="p-2.5 pr-3 text-right w-[140px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {rows.map((r) => (
+                    <tr key={r.label} className={`hover:bg-secondary/20 transition-colors ${r.total ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.label}</td>
+                      <td className={`p-2.5 pr-3 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4">
+              <h3 className="text-sm font-bold text-foreground mb-3">Revenue vs Cost by Week</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={result.weekly} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="week" tick={{ fontSize: 11 }} label={{ value: "Week", position: "insideBottom", offset: -2, fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} tickFormatter={(v: number) => "$" + fmt(Math.round(v / 1000)) + "k"} />
+                  <Tooltip formatter={(v: number, n: string) => [fmtMoney(v), n]} />
+                  <Legend wrapperStyle={{ fontSize: 12 }} />
+                  <Bar dataKey="revenue" name="Revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="cost" name="Cost" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-semibold mb-4">Summary</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                {[
+                  { label: "Campaign Cost / Week", value: fmtMoney(num(inputs.weeklyCost)) },
+                  { label: "Revenue / Week", value: fmtMoney(num(inputs.weeklyRevenue)) },
+                  { label: "Duration", value: fmt(num(inputs.weeks)) + " weeks" },
+                  { label: "Total Revenue", value: fmtMoney(result.totalRevenue) },
+                  { label: "Total Cost", value: fmtMoney(result.totalCost) },
+                  { label: "Net Profit", value: fmtMoney(result.netProfit) },
+                  { label: "ROMI", value: result.roiPct.toFixed(0) + "%", bold: true },
+                  { label: "ROAS", value: result.roas.toFixed(2) + "x", bold: true },
+                ].map((s) => (
+                  <div key={s.label} className="flex flex-col">
+                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
+                    <span className={`text-sm font-extrabold ${s.bold ? "text-primary" : "text-foreground"}`}>{s.value}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-        
-        <div className="result-card">
-          <div className="result-label">Breakdown</div>
-          <div className="breakdown-table">
-            <div>Campaign Cost: ${inputs.campaignCost.toLocaleString()}</div>
-            <div>Campaign Revenue: ${inputs.campaignRevenue.toLocaleString()}/week</div>
-            <div>Duration: {inputs.campaignDurationWeeks} weeks</div>
-            <div>Total Revenue: ${(inputs.campaignRevenue * inputs.campaignDurationWeeks).toLocaleString()}</div>
-            <div>Total Cost: ${(inputs.campaignCost * inputs.campaignDurationWeeks).toLocaleString()}</div>
-            <div>Net Profit: ${(inputs.campaignRevenue * inputs.campaignDurationWeeks - inputs.campaignCost * inputs.campaignDurationWeeks).toLocaleString()}</div>
-          </div>
-        </div>
-        
-        <div className="result-card">
-          <div className="result-label">Chart</div>
-          <div className="chart-placeholder">[Chart will render here]</div>
-        </div>
-        
-        <div className="result-card">
-          <div className="result-label">Summary Statistics</div>
-          <div className="summary-stats">
-            <div>ROI: {result}%</div>
-            <div>Calculated: {new Date().toLocaleDateString()} {new Date().toLocaleTimeString()}</div>
-          </div>
+
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">Measuring Marketing Profitability</h2>
+            <p>Return on Marketing Investment answers the question every CFO asks: is the ad budget making money? With the defaults — $5,000/week of spend generating $15,000/week of revenue over 4 weeks — the campaign returns $40,000 of net profit on $20,000 of spend, a 200% ROMI with a 3.0x ROAS.</p>
+            <h2 className="text-2xl font-bold mb-3">ROMI vs ROAS</h2>
+            <p>ROAS (revenue ÷ spend) is the media-planning view: it tells you how much revenue each ad dollar generates. ROMI (net profit ÷ spend) is the finance view: it tells you what is left after the spend itself. A campaign can look strong on ROAS yet lose money once product costs are included, so track both — this calculator shows them side by side.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/return-on-marketing-investment-calculator" />
+          <PopularCalculators exclude="/calculator/return-on-marketing-investment-calculator" />
         </div>
       </div>
-    </div>
+    </>
   );
-}
+};
+export default ReturnOnMarketingInvestmentCalculator;

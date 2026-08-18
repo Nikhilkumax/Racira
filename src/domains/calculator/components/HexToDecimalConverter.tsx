@@ -1,154 +1,181 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Binary } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-interface BaseResult {
+interface HexToDecResult {
   hex: string;
-  decimal: string;
+  decimal: bigint;
   binary: string;
   octal: string;
-  valid: boolean;
+  bitLength: number;
+  byteLength: number;
+  highByte: number;
+  lowByte: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
 }
 
-function normalizeHex(input: string): string {
-  return input.trim().toLowerCase().replace(/^0x/, "").replace(/\s+/g, "");
+function parseHex(s: string): bigint | null {
+  const clean = s.trim().replace(/^0x/i, "");
+  if (!/^[0-9a-fA-F]+$/.test(clean) || clean.length === 0) return null;
+  return BigInt(`0x${clean}`);
 }
 
-function fromHex(input: string): BaseResult {
-  const hex = normalizeHex(input);
-  const valid = /^[0-9a-f]+$/.test(hex);
-  if (!valid) return { hex, decimal: "—", binary: "—", octal: "—", valid: false };
-  const dec = parseInt(hex, 16);
-  return {
-    hex: hex.toUpperCase(),
-    decimal: dec.toLocaleString("en-US"),
-    binary: dec.toString(2).padStart(Math.ceil(dec.toString(2).length / 4) * 4, "0"),
-    octal: dec.toString(8),
-    valid: true,
-  };
+function calcHexToDec(s: string): HexToDecResult {
+  const clean = s.trim().replace(/^0x/i, "").toUpperCase();
+  const decimal = parseHex(s)!;
+  const binary = decimal.toString(2);
+  const octal = decimal.toString(8);
+  const bitLength = binary.length;
+  const byteLength = Math.ceil(bitLength / 8);
+  const num = Number(decimal);
+  const highByte = byteLength <= 2 ? Math.floor(num / 256) : 0;
+  const lowByte = byteLength <= 2 ? num % 256 : 0;
+
+  const breakdown = [
+    { label: "Hexadecimal", value: `0x${clean}` },
+    { label: "Decimal", value: decimal.toString() },
+    { label: "Binary", value: binary },
+    { label: "Octal", value: octal },
+    { label: "Bit Length", value: `${bitLength} bits (${byteLength} byte${byteLength > 1 ? "s" : ""})` },
+    { label: "High Byte", value: byteLength <= 2 ? `0x${highByte.toString(16).toUpperCase()} (${highByte})` : "—" },
+    { label: "Low Byte", value: byteLength <= 2 ? `0x${lowByte.toString(16).toUpperCase()} (${lowByte})` : "—" },
+    { label: "Signed 16-bit", value: byteLength <= 4 ? `${num > 32767 ? num - 65536 : num}` : "—" },
+  ];
+  const summaryStats = [
+    { label: "Decimal", value: decimal.toString() },
+    { label: "Binary", value: binary },
+    { label: "Octal", value: octal },
+    { label: "Bits", value: `${bitLength}` },
+    { label: "Bytes", value: `${byteLength}` },
+    { label: "Hex", value: `0x${clean}` },
+    { label: "High Byte", value: byteLength <= 2 ? `0x${highByte.toString(16).toUpperCase()}` : "—" },
+    { label: "Low Byte", value: byteLength <= 2 ? `0x${lowByte.toString(16).toUpperCase()}` : "—" },
+  ];
+  const chartData = byteLength <= 2
+    ? [
+        { name: "High Byte", value: highByte, fill: "#8b5cf6" },
+        { name: "Low Byte", value: lowByte, fill: "hsl(var(--primary))" },
+      ]
+    : [{ name: "Value", value: Math.min(Number(decimal), 1000000), fill: "hsl(var(--primary))" }];
+  return { hex: `0x${clean}`, decimal, binary, octal, bitLength, byteLength, highByte, lowByte, breakdown, summaryStats, chartData };
 }
 
-const DEFAULTS = { hex: "FF" };
-
-const faqs = [
-  { question: "What is hexadecimal?", answer: "Base-16 uses digits 0–9 plus A–F for 10–15. Each hex digit encodes 4 binary bits, so FF = 15×16 + 15 = 255. Hex is the standard shorthand for bytes — two digits per byte — in programming, color codes, and memory addresses." },
-  { question: "How do I convert hex to decimal by hand?", answer: "Multiply each digit by 16 raised to its position (from the right, starting at 0) and sum: 2F = 2×16 + 15 = 47. Position values are 1, 16, 256, 4096… moving left." },
-  { question: "Why do programmers use hex?", answer: "A byte is 8 bits, which is exactly two hex digits — 0xFF = 11111111 = 255. Hex is compact and maps cleanly to binary, unlike decimal, which doesn't align with bit boundaries. Memory addresses and color values are naturally written in hex." },
-];
+const DEFAULTS = { hex: "1A3F" };
 
 export default function HexToDecimalConverter() {
   const [hex, setHex] = useState(DEFAULTS.hex);
-  const [result, setResult] = useState<BaseResult>(() => fromHex("FF"));
+  const [result, setResult] = useState<HexToDecResult | null>(null);
 
-  const handleCalculate = () => {
-    setResult(fromHex(hex));
-  };
+  const errs: string[] = [];
+  if (!parseHex(hex)) errs.push("Enter a valid hexadecimal number (0–9, A–F).");
+  const valid = errs.length === 0;
 
+  const calculate = () => { if (valid) setResult(calcHexToDec(hex)); };
   const reset = () => {
     setHex(DEFAULTS.hex);
-    setResult(fromHex("FF"));
+    setResult(calcHexToDec("1A3F"));
   };
+  useEffect(() => { setResult(calcHexToDec("1A3F")); }, []);
 
-  const breakdown = [
-    { label: "Hexadecimal", value: result.valid ? `0x${result.hex}` : "Invalid input", highlight: false },
-    { label: "Decimal", value: result.decimal, highlight: true },
-    { label: "Binary", value: result.binary, highlight: false },
-    { label: "Octal", value: result.octal, highlight: false },
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
+
+  const faqs = [
+    { question: "How do I convert hex to decimal?", answer: "Treat each position as a power of 16. For 1A3F: 1×4096 + 10×256 + 3×16 + 15 = 6719. This calculator does the expansion for you." },
+    { question: "Why does hex map so cleanly to binary?", answer: "Sixteen is a power of two, so every hex digit equals exactly four bits: 0x1A3F → 0001 1010 0011 1111. Reading binary in hex is like reading it in 4-bit groups." },
+    { question: "What does the signed 16-bit row mean?", answer: "A 16-bit value can be interpreted as unsigned (0–65,535) or two's-complement signed (−32,768 to 32,767). Values above 32,767 wrap negative in the signed interpretation." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Hex to Decimal Converter" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Hex to Decimal Converter" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hex to Decimal Converter</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Hex to Decimal Converter</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
-              <Binary className="w-4 h-4" /> Base Conversion
-            </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div>
-              <label className="text-sm font-semibold text-foreground mb-1 block">Hexadecimal Value</label>
-              <input
-                type="text"
-                value={hex}
-                onChange={(e) => setHex(e.target.value)}
-                className="input-calc font-mono"
-                placeholder="FF or 0xFF"
-              />
-              <p className="text-xs text-muted-foreground mt-1">Accepts 0x prefix, case-insensitive.</p>
+              <label className={lbl}>Hexadecimal Value</label>
+              <div className={inp}><input value={hex} onChange={e => setHex(e.target.value)} placeholder="e.g. 1A3F" className={ci} /></div>
             </div>
-            <div className="flex gap-2 pt-2">
-              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} className="px-4 py-2 rounded-lg border border-border hover:bg-secondary text-sm font-medium transition-colors">Reset</button>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
-                <Binary className="w-4 h-4 text-primary" /> DECIMAL VALUE
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Decimal Value</div>
+                <div className="text-4xl font-extrabold tracking-tight break-all">{result.decimal.toString()}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.hex} · {result.bitLength} bits / {result.byteLength} bytes</div>
               </div>
-              <div className="flex items-baseline gap-2 flex-wrap">
-                <span className="text-3xl md:text-4xl font-bold text-primary font-mono">{result.decimal}</span>
-              </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {result.valid ? `0x${result.hex} = ${result.binary}₂ in binary.` : "Enter valid hex digits (0–9, A–F)."}
-              </p>
-            </div>
-
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <h3 className="text-base font-bold mb-3">All Representations</h3>
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Base</th>
-                    <th className="p-2.5 pr-3 text-right">Value</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/50">
-                  {breakdown.map((row) => (
-                    <tr key={row.label} className={row.highlight ? "bg-primary/10 font-bold" : ""}>
-                      <td className="p-2.5 pl-3 text-muted-foreground">{row.label}</td>
-                      <td className="p-2.5 pr-3 text-right font-semibold font-mono">{row.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="bg-muted/30 rounded-lg p-5">
-              <div className="text-sm font-bold mb-3">Common Byte Values</div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
-                {[
-                  { label: "0x00", value: "0 (all bits off)" },
-                  { label: "0x0F", value: "15 (low nibble set)" },
-                  { label: "0x7F", value: "127 (max signed byte)" },
-                  { label: "0xFF", value: "255 (max byte)" },
-                  { label: "0x100", value: "256" },
-                  { label: "0xFFFF", value: "65,535 (max 16-bit)" },
-                ].map((s) => (
-                  <div key={s.label} className="flex justify-between text-sm">
-                    <span className="text-muted-foreground font-mono">{s.label}</span>
-                    <span className="font-semibold">{s.value}</span>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Binary`, result.binary.length > 24 ? `${result.binary.slice(0, 24)}…` : result.binary], ["Octal", result.octal], ["Bits", `${result.bitLength}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold break-all">{v}</div>
                   </div>
                 ))}
               </div>
-            </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Conversion Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 1 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 1 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold break-all ${i === 1 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Byte Breakdown</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
+                    <Tooltip formatter={(v: number) => [`${v}`, ""]} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">About the Hex to Decimal Converter</h2>
-            <p>Hexadecimal is base 16: digits 0–9 cover zero through nine, and A–F stand for ten through fifteen. Because 16 is a power of two, every hex digit maps to exactly four binary bits — 0xF = 1111, 0xA = 1010 — which is why hex is the lingua franca of computing. A byte is two hex digits, a 16-bit word is four, and so on.</p>
-            <h3>Converting by hand</h3>
-            <p>To read a hex number, multiply each digit by powers of 16 from the right: 2F = 2×16 + 15 = 47; A3 = 10×16 + 3 = 163; FF = 15×16 + 15 = 255. The "0x" prefix simply marks the number as hex — 0xFF and FF are the same value. This converter handles arbitrary-length inputs and reports the same number in decimal, binary (nibble-padded), and octal, so you can cross-check any base conversion.</p>
+            <h2 className="text-2xl font-bold mb-3">Hex to Decimal Expansion</h2>
+            <p>This <strong>hex to decimal converter</strong> expands each hex digit as a power of 16 — 1A3F = 1×16³ + A×16² + 3×16 + F — and reports the result in decimal, binary, and octal simultaneously. The arithmetic uses arbitrary precision, so even hundreds of hex digits convert exactly.</p>
+            <h2 className="text-2xl font-bold mb-3">The 4-Bit Mapping</h2>
+            <p>Because 16 = 2⁴, every hex digit is exactly four bits. 0x1A3F reads as binary 0001 1010 0011 1111, which is why hex is the standard notation for firmware dumps, color values, and memory addresses.</p>
+            <h2 className="text-2xl font-bold mb-3">Byte and Word Views</h2>
+            <p>For values up to two bytes, the calculator splits the high and low bytes and shows the signed 16-bit interpretation — useful when checking endianness, struct layouts, or protocol fields.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/hex-to-decimal-converter" />
           <PopularCalculators exclude="/calculator/hex-to-decimal-converter" />

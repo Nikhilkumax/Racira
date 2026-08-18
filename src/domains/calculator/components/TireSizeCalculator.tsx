@@ -185,8 +185,11 @@ export default function TireSizeCalculator() {
             </div>
 
             <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-10 transition-colors flex items-center justify-center gap-2 focus:outline-none">
-                <RefreshCw className="h-4 w-4" /> Reset Inputs
+              <button type="button" onClick={() => setResults(calculateTireSize(inputs))} className="flex-1 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+                <RefreshCw className="h-4 w-4" />
               </button>
             </div>
             
@@ -286,6 +289,37 @@ export default function TireSizeCalculator() {
                   </div>
                 </div>
 
+                {/* 5. Summary Statistics */}
+                <div className="bg-muted/30 rounded-lg p-5 mt-2">
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Summary Statistics</h3>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <p className="text-muted-foreground">Tire 1 Diameter</p>
+                      <p className="font-semibold text-foreground">{format2(results.tire1.diameterIn)}"</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Tire 2 Diameter</p>
+                      <p className="font-semibold text-foreground">{format2(results.tire2.diameterIn)}"</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Diameter Difference</p>
+                      <p className={`font-semibold ${isSignificantChange ? 'text-destructive' : 'text-emerald-600'}`}>{results.diameterDiff > 0 ? '+' : ''}{format2(results.diameterDiff)}" ({results.diameterDiffPct > 0 ? '+' : ''}{format2(results.diameterDiffPct)}%)</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Actual Speed @ 60 mph Speedo</p>
+                      <p className="font-semibold text-primary">{format1(results.speedoError)} mph</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Tire 1 Revs/Mile</p>
+                      <p className="font-semibold text-foreground">{format0(results.tire1.revsPerMile)}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Tire 2 Revs/Mile</p>
+                      <p className="font-semibold text-foreground">{format0(results.tire2.revsPerMile)}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 4. Chart */}
                 <div className="card-calculator !p-5 border border-border bg-card shadow-sm mt-2">
                   <h3 className="text-base font-semibold text-foreground mb-4">Dimensional Comparison</h3>
@@ -334,7 +368,7 @@ export default function TireSizeCalculator() {
           </section>
           
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tire-size-calculator" />
-          <PopularCalculators />
+          <PopularCalculators exclude="/calculator/tire-size-calculator" />
         </div>
       </div>
     </>

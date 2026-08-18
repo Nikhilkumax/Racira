@@ -188,7 +188,7 @@ export default function CovidSymptomCalculator() {
 
             <div className="flex gap-3 mt-2">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-11 text-base transition-all shadow-sm">
-                <Stethoscope className="h-5 w-5" /> Run Triage Assessment
+                <Stethoscope className="h-5 w-5" /> Calculate
               </button>
               <button onClick={reset} className="w-11 h-11 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
@@ -241,7 +241,7 @@ export default function CovidSymptomCalculator() {
               <div className="flex flex-col items-center justify-center h-full min-h-[300px] border-2 border-dashed border-border rounded-lg bg-card/50 text-muted-foreground p-8 text-center">
                 <Stethoscope className="w-12 h-12 mb-4 text-muted-foreground/50" />
                 <p className="text-lg font-medium mb-2">Awaiting Assessment</p>
-                <p className="text-sm max-w-[280px]">Select your symptoms and risk factors on the left, then click "Run Triage Assessment" to view clinical recommendations.</p>
+                <p className="text-sm max-w-[280px]">Select your symptoms and risk factors on the left, then click "Calculate" to view clinical recommendations.</p>
               </div>
             )}
           </div>

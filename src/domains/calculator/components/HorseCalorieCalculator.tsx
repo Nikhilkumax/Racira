@@ -1,11 +1,10 @@
 "use client";
-
 import { useState, useRef, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Tent } from "lucide-react"; // Using Tent as a stand-in for stable/horse theme
+import { RotateCcw, Printer } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
 // 1. TypeScript Interfaces
@@ -18,24 +17,21 @@ interface EquineInputs {
 interface EquineResults {
   digestibleEnergyMcal: number; // Daily Mcal
   dailyKcal: number; // Equivalent kcal
-  
   forageMcal: number;
   grainMcal: number;
-
   lbsHayNeeded: number; // if fed 100% forage, how much hay?
   recommendedHayMinLbs: number; // Absolute minimum hay (1.5% of body weight)
-
   chartData: { name: string; value: number; color: string }[];
   summaryStats: { label: string; value: string; colorClass?: string }[];
 }
 
 // 2. Pure Calculation Function
-const calculateEquineDiet = (inputs: EquineInputs): EquineResults | null => {
+const calculateEquineDiet = (inputs: EquineInputs): EquineResults => {
   const { weightLbs, workload, forageEnergy } = inputs;
-  
-  if (weightLbs <= 0) return null;
+  const safeWeight = weightLbs > 0 ? weightLbs : 0;
+  const safeForageEnergy = forageEnergy > 0 ? forageEnergy : 0.9;
 
-  const weightKg = weightLbs / 2.20462;
+  const weightKg = safeWeight / 2.20462;
 
   // NRC Equations for Adult Horses (Digestible Energy in Mcal/day)
   const multipliers = {
@@ -51,46 +47,44 @@ const calculateEquineDiet = (inputs: EquineInputs): EquineResults | null => {
   const digestibleEnergyMcal = weightKg * multipliers[workload];
   const dailyKcal = digestibleEnergyMcal * 1000;
 
-  // Equine Diet Rule of Thumb: Forage First
-  // A horse MUST eat at least 1.5% of its body weight in forage daily for gut motility
-  const recommendedHayMinLbs = weightLbs * 0.015;
-  const maxForageIntakeLbs = weightLbs * 0.025; // rarely eat more than 2.5% BW in hay
+  // A horse MUST eat at least 1.5% of its body weight in forage daily
+  const recommendedHayMinLbs = safeWeight * 0.015;
+  const maxForageIntakeLbs = safeWeight * 0.025;
 
-  // Total pounds of hay needed if 100% of diet is forage
-  let lbsHayNeeded = digestibleEnergyMcal / forageEnergy;
+  let lbsHayNeeded = digestibleEnergyMcal / safeForageEnergy;
 
   let forageMcal = digestibleEnergyMcal;
   let grainMcal = 0;
 
-  // If the Mcal requirement exceeds what they can physically eat in hay, they need grain/concentrate
+  // If the Mcal requirement exceeds what they can physically eat in hay, they need grain
   if (lbsHayNeeded > maxForageIntakeLbs) {
-    const maxForageMcal = maxForageIntakeLbs * forageEnergy;
+    const maxForageMcal = maxForageIntakeLbs * safeForageEnergy;
     forageMcal = maxForageMcal;
     grainMcal = digestibleEnergyMcal - maxForageMcal;
     lbsHayNeeded = maxForageIntakeLbs;
   }
 
-  // Also enforce standard ratios based on workload
+  // Elite athletes often need a 60/40 or 50/50 split
   if (workload === "heavy" || workload === "very_heavy") {
-    // Elite athletes often need a 60/40 or 50/50 split to get enough calories without gut impaction
     const maxForageRatio = workload === "heavy" ? 0.65 : 0.50;
-    if ((forageMcal / digestibleEnergyMcal) > maxForageRatio) {
+    if (digestibleEnergyMcal > 0 && (forageMcal / digestibleEnergyMcal) > maxForageRatio) {
       forageMcal = digestibleEnergyMcal * maxForageRatio;
       grainMcal = digestibleEnergyMcal * (1 - maxForageRatio);
-      lbsHayNeeded = forageMcal / forageEnergy;
+      lbsHayNeeded = forageMcal / safeForageEnergy;
     }
   }
 
   const chartData = [
-    { name: "Forage (Hay/Pasture)", value: forageMcal, color: "#10b981" },
-    { name: "Concentrates (Grain)", value: grainMcal, color: "#f59e0b" }
+    { name: "Forage (Hay/Pasture)", value: Math.round(forageMcal), color: "#10b981" },
+    { name: "Concentrates (Grain)", value: Math.round(grainMcal), color: "#f59e0b" }
   ];
 
-  let dietType = grainMcal > 0 ? "Mixed Forage/Concentrate Diet" : "100% Forage Diet";
+  const dietType = grainMcal > 0 ? "Mixed Forage/Concentrate Diet" : "100% Forage Diet";
 
   const summaryStats = [
     { label: "Daily Digestible Energy", value: `${digestibleEnergyMcal.toFixed(1)} Mcal`, colorClass: "text-primary font-bold" },
-    { label: "Minimum Hay Requirement", value: `${recommendedHayMinLbs.toFixed(1)} lbs/day`, colorClass: "text-muted-foreground" },
+    { label: "Kilocalorie Equivalent", value: `${Math.round(dailyKcal).toLocaleString("en-US")} kcal` },
+    { label: "Minimum Hay Requirement", value: `${recommendedHayMinLbs.toFixed(1)} lbs/day` },
     { label: "Estimated Hay Needed", value: `${lbsHayNeeded.toFixed(1)} lbs/day` },
     { label: "Concentrate Mcal Needed", value: `${grainMcal.toFixed(1)} Mcal/day`, colorClass: grainMcal > 0 ? "text-amber-500 font-medium" : "text-muted-foreground" },
     { label: "Diet Classification", value: dietType }
@@ -115,6 +109,8 @@ const DEFAULTS = {
   forageEnergy: "0.9" // Avg Mcal per lb of grass hay
 };
 
+const fmt = (n: number, dec = 1) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
 // Custom Chart Tooltip
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
@@ -122,7 +118,7 @@ const CustomTooltip = ({ active, payload }: any) => {
     return (
       <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
         <p className="font-bold mb-0.5" style={{ color: payload[0].payload.color }}>{payload[0].name}</p>
-        <p className="text-muted-foreground">{payload[0].value.toFixed(1)} Mcal / day</p>
+        <p className="text-muted-foreground">{payload[0].value.toFixed(0)} Mcal / day</p>
       </div>
     );
   }
@@ -130,60 +126,87 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  min,
+  error
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+  min?: string;
+  error?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {prefix}
+        </span>
+      )}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
+        min={min}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
+    {error && <p className="text-[11px] text-red-500 font-medium mt-1">{error}</p>}
   </div>
 );
 
 export default function HorseCalorieCalculator() {
   // 4. Component State
   const [weightLbs, setWeightLbs] = useState(DEFAULTS.weightLbs);
-  const [workload, setWorkload] = useState<"maint_min" | "maint_avg" | "maint_high" | "light" | "moderate" | "heavy" | "very_heavy">(DEFAULTS.workload);
+  const [workload, setWorkload] = useState<EquineInputs["workload"]>(DEFAULTS.workload);
   const [forageEnergy, setForageEnergy] = useState(DEFAULTS.forageEnergy);
-  
-  const [results, setResults] = useState<EquineResults | null>(null);
+
+  const getInputs = (): EquineInputs => ({
+    weightLbs: parseFloat(weightLbs) || 0,
+    workload,
+    forageEnergy: parseFloat(forageEnergy) || 0.9
+  });
+
+  const [results, setResults] = useState<EquineResults>(() => calculateEquineDiet(getInputs()));
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setResults(calculateEquineDiet(getInputs()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const wl = parseFloat(weightLbs) || 0;
+  const hasErrors = wl <= 0;
+
   const handleCalculate = () => {
-    const inputs: EquineInputs = {
-      weightLbs: parseFloat(weightLbs) || 0,
-      workload,
-      forageEnergy: parseFloat(forageEnergy) || 0.9
-    };
-    setResults(calculateEquineDiet(inputs));
+    if (hasErrors) return;
+    setResults(calculateEquineDiet(getInputs()));
   };
 
   const handleReset = () => {
     setWeightLbs(DEFAULTS.weightLbs);
     setWorkload(DEFAULTS.workload);
     setForageEnergy(DEFAULTS.forageEnergy);
-    
-    setResults(calculateEquineDiet({
-      weightLbs: parseFloat(DEFAULTS.weightLbs),
-      workload: DEFAULTS.workload,
-      forageEnergy: parseFloat(DEFAULTS.forageEnergy)
-    }));
+    setResults(calculateEquineDiet(getInputs()));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weightLbs, workload, forageEnergy]);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -195,6 +218,16 @@ export default function HorseCalorieCalculator() {
     w.document.close();
     w.print();
   };
+
+  const breakdown = [
+    { label: "Daily DE Requirement", value: `${fmt(results.digestibleEnergyMcal)} Mcal` },
+    { label: "Kilocalorie Equivalent", value: `${Math.round(results.dailyKcal).toLocaleString("en-US")} kcal` },
+    { label: "Forage Allocation", value: `${fmt(results.forageMcal)} Mcal`, highlight: true },
+    { label: "Concentrate Allocation", value: results.grainMcal > 0 ? `${fmt(results.grainMcal)} Mcal` : "None needed" },
+    { label: "Minimum Hay (1.5% BW)", value: `${fmt(results.recommendedHayMinLbs)} lbs/day` },
+    { label: "Estimated Hay Needed", value: `${fmt(results.lbsHayNeeded)} lbs/day` },
+    { label: "Total Daily DE", value: `${fmt(results.digestibleEnergyMcal)} Mcal`, isTotal: true }
+  ];
 
   const faqs = [
     { question: "What is a Megacalorie (Mcal)?", answer: "A Megacalorie is equal to 1,000 kilocalories (the standard 'Calories' humans use). Because horses are massive animals that consume tens of thousands of kilocalories a day, equine nutritionists use Mcal to keep the numbers manageable. An average 1,100 lb horse needs about 16.6 Mcal per day at maintenance." },
@@ -208,138 +241,183 @@ export default function HorseCalorieCalculator() {
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Horse Calorie Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Equine Diet & Calorie Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Horse Calorie Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          {/* LEFT 460px: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Tent className="h-4 w-4" /> Equine Nutrition Planner
+          {/* LEFT: INPUT PANEL */}
+          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
+            <div className="grid grid-cols-2 gap-4">
+              <CompactInput
+                id="weight"
+                label="Horse's Weight"
+                value={weightLbs}
+                onChange={setWeightLbs}
+                suffix="lbs"
+                min="1"
+                error={wl <= 0 ? "Must be > 0" : undefined}
+              />
+              <div className="flex flex-col">
+                <label htmlFor="workload" className="flex items-center text-sm font-semibold text-foreground mb-1">
+                  Workload / Life Stage
+                </label>
+                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+                  <select
+                    id="workload"
+                    value={workload}
+                    onChange={(e) => setWorkload(e.target.value as EquineInputs["workload"])}
+                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
+                  >
+                    <option value="maint_min">Maintenance - Minimum (Easy Keeper)</option>
+                    <option value="maint_avg">Maintenance - Average</option>
+                    <option value="maint_high">Maintenance - Elevated (Nervous/Active)</option>
+                    <option value="light">Light Work (1-3 hrs/wk: Pleasure/Trail)</option>
+                    <option value="moderate">Moderate Work (3-5 hrs/wk: Schooling/Ranch)</option>
+                    <option value="heavy">Heavy Work (4-5 hrs/wk: Polo/Low-level Racing)</option>
+                    <option value="very_heavy">Very Heavy Work (Elite Racing/3-Day Eventing)</option>
+                  </select>
+                </div>
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Calculate exact Digestible Energy (DE) requirements in Megacalories (Mcal) based on National Research Council (NRC) equations.</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <CompactInput id="weight" label="Horse's Weight" value={weightLbs} onChange={setWeightLbs} suffix="lbs" />
+              <CompactInput
+                id="forage"
+                label="Forage Energy Density"
+                value={forageEnergy}
+                onChange={setForageEnergy}
+                suffix="Mcal / lb"
+                min="0.1"
+              />
+              <p className="text-[11px] text-muted-foreground -mt-1">Standard grass hay is ~0.9 Mcal/lb. High-quality Alfalfa is ~1.1 Mcal/lb.</p>
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="workload" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
-                Workload / Life Stage
-              </label>
-              <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                <select
-                  id="workload"
-                  value={workload}
-                  onChange={(e) => setWorkload(e.target.value as any)}
-                  className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
-                >
-                  <option value="maint_min">Maintenance - Minimum (Easy Keeper)</option>
-                  <option value="maint_avg">Maintenance - Average</option>
-                  <option value="maint_high">Maintenance - Elevated (Nervous/Active)</option>
-                  <option value="light">Light Work (1-3 hrs/wk: Pleasure/Trail)</option>
-                  <option value="moderate">Moderate Work (3-5 hrs/wk: Schooling/Ranch)</option>
-                  <option value="heavy">Heavy Work (4-5 hrs/wk: Polo/Low-level Racing)</option>
-                  <option value="very_heavy">Very Heavy Work (Elite Racing/3-Day Eventing)</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 mt-2">
-              <CompactInput id="forage" label="Forage Energy Density" value={forageEnergy} onChange={setForageEnergy} suffix="Mcal / lb" />
-              <p className="text-[10px] text-muted-foreground mt-0">Standard grass hay is ~0.9 Mcal/lb. High-quality Alfalfa is ~1.1 Mcal/lb.</p>
-            </div>
-
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleReset} className="w-full rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Values
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >Calculate</button>
+              <button
+                type="button"
+                onClick={handleReset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT fluid: Results */}
-          <div className="flex flex-col gap-4">
-            {results ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* 1. Primary Result Card */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden z-10" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="relative z-10">
-                    <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Daily Digestible Energy Requirement</div>
-                    <div className="flex items-baseline gap-2 mb-2">
-                      <div className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">{results.digestibleEnergyMcal.toFixed(1)}</div>
-                      <div className="text-xl font-bold text-muted-foreground">Mcal</div>
-                    </div>
-                    <div className="text-sm font-medium text-foreground/80 leading-relaxed max-w-md">
-                      Equivalent to <strong className="text-primary">{Math.round(results.dailyKcal).toLocaleString()} kilocalories</strong> per day.
-                    </div>
-                  </div>
-                  <Tent className="absolute -bottom-4 -right-4 h-32 w-32 text-primary/10" />
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  {/* 3. Summary Statistics */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full">
-                    <h3 className="text-base font-bold mb-4">Nutritional Allocation</h3>
-                    <div className="grid grid-cols-1 gap-y-4 text-base">
-                      {results.summaryStats.map((stat, i) => (
-                        <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0 last:pb-0">
-                          <span className="text-muted-foreground">{stat.label}:</span>
-                          <span className={`font-semibold ${stat.colorClass || ''}`}>{stat.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 4. Chart / Visualization */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[260px]">
-                    <h3 className="text-base font-bold mb-2 w-full text-left">Forage vs Concentrate Balance</h3>
-                    <ResponsiveContainer width="100%" height={160}>
-                      <PieChart>
-                        <Pie
-                          data={results.chartData.filter(d => d.value > 0)}
-                          cx="50%" cy="50%"
-                          innerRadius={50} outerRadius={70}
-                          paddingAngle={3} dataKey="value"
-                        >
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={<CustomTooltip />} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <div className="flex flex-col gap-2 mt-2 w-full">
-                      {results.chartData.map((d, i) => (
-                        <div key={i} className="flex justify-between items-center text-xs font-medium">
-                          <div className="flex items-center gap-1.5 text-muted-foreground">
-                            <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
-                            <span className={d.value === 0 ? "opacity-40 line-through" : ""}>{d.name}</span>
-                          </div>
-                          {d.value > 0 && <span className="font-bold">{d.value.toFixed(1)} Mcal</span>}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
+            {/* 1. Primary Result Card */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Tent className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium">Enter your horse's weight and workload to calculate their daily Megacalorie requirements and forage needs.</p>
+              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Daily Digestible Energy Requirement</div>
+              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">
+                {fmt(results.digestibleEnergyMcal)} <span className="text-xl font-bold text-muted-foreground">Mcal</span>
               </div>
-            )}
+              <div className="text-sm text-muted-foreground font-medium">
+                Equivalent to {Math.round(results.dailyKcal).toLocaleString("en-US")} kilocalories per day.
+              </div>
+            </div>
+
+            {/* 2. 3-Stat Bar */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Minimum Hay</span>
+                <span className="font-extrabold text-emerald-600">{fmt(results.recommendedHayMinLbs)} lbs/day</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Hay Needed</span>
+                <span className="font-extrabold text-foreground">{fmt(results.lbsHayNeeded)} lbs/day</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Concentrates</span>
+                <span className={`font-extrabold ${results.grainMcal > 0 ? "text-amber-600" : "text-emerald-600"}`}>{fmt(results.grainMcal)} Mcal</span>
+              </div>
+            </div>
+
+            {/* 3. Breakdown Table */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Breakdown</th>
+                    <th className="p-2.5 pr-3 text-right w-[160px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {breakdown.map((row, idx) => (
+                    <tr key={idx} className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
+                      <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
+                      <td className={`p-2.5 pr-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. Chart */}
+            <div className="rounded-lg border border-border bg-card p-4">
+              <h3 className="text-sm font-bold text-foreground mb-3">Forage vs Concentrate Balance</h3>
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={results.chartData.filter(d => d.value > 0)}
+                    cx="50%" cy="50%"
+                    innerRadius={60} outerRadius={85}
+                    paddingAngle={3} dataKey="value"
+                  >
+                    {results.chartData.filter(d => d.value > 0).map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="flex flex-col gap-2 mt-2">
+                {results.chartData.map((d, i) => {
+                  const total = results.forageMcal + results.grainMcal;
+                  const pct = total > 0 ? (d.value / total) * 100 : 0;
+                  return (
+                    <div key={i} className="flex justify-between items-center text-xs font-medium">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
+                        <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
+                        <span className={d.value === 0 ? "opacity-40 line-through" : ""}>{d.name}</span>
+                      </div>
+                      {d.value > 0 && <span className="font-bold">{pct.toFixed(0)}% · {d.value} Mcal</span>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 5. Summary Statistics */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-sm font-bold text-foreground mb-4">Nutritional Allocation</h3>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                {results.summaryStats.map((stat, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{stat.label}</span>
+                    <span className={`text-base font-extrabold ${stat.colorClass || "text-foreground"}`}>{stat.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
@@ -383,7 +461,7 @@ export default function HorseCalorieCalculator() {
             <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
             <p>Equine nutrition does not have to be a guessing game based on how many "scoops" the previous owner fed. By applying the scientific principles of Digestible Energy, strictly enforcing the 1.5% minimum forage rule, and accurately assessing your horse's workload, you can create a diet that supports optimal gut health, peak athletic performance, and long-term metabolic stability.</p>
           </section>
-          
+
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/horse-calorie-calculator" />
           <PopularCalculators exclude="/calculator/horse-calorie-calculator" />
         </div>

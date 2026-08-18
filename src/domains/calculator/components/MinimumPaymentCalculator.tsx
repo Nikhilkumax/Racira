@@ -1,223 +1,247 @@
 "use client";
-import { RotateCcw, Calendar, TrendingUp, Clock, CreditCard, AlertTriangle } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import InputField from "@/domains/calculator/components/ui/InputField";
-const MinimumPaymentCalculator = () => {
-  const [balance, setBalance] = useState("5000");
-  const [apr, setApr] = useState("18.9");
-  const [minPaymentPercent, setMinPaymentPercent] = useState("2.5");
-  const [minPaymentFixed, setMinPaymentFixed] = useState("25");
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+interface MinPayResult {
+  months: number;
+  yearsLabel: string;
+  totalInterest: number;
+  totalPaid: number;
+  firstPayment: number;
+  lastPayment: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { month: number; balance: number }[];
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const startBal = parseFloat(balance) || 0;
-    const rate = (parseFloat(apr) || 0) / 100 / 12;
-    const minPct = (parseFloat(minPaymentPercent) || 0) / 100;
-    const minFix = parseFloat(minPaymentFixed) || 0;
+function fmt(v: number, d = 2): string {
+  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+}
 
-    if (startBal <= 0 || rate < 0) return;
+function money(v: number): string {
+  return v.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+}
 
-    let currentBal = startBal;
-    let months = 0;
-    let totalInterest = 0;
-    let totalPaid = 0;
-    const monthlyData: any[] = [];
-
-    // Safety break at 100 years
-    while (currentBal > 0 && months < 1200) {
-      const interest = currentBal * rate;
-      const minPay = Math.max(minFix, currentBal * minPct + interest);
-      const payment = Math.min(currentBal + interest, minPay);
-
-      totalInterest += interest;
-      totalPaid += payment;
-      currentBal = currentBal + interest - payment;
-      months++;
-
-      if (months % 12 === 0 || currentBal <= 0) {
-        monthlyData.push({
-           month: months,
-           balance: currentBal,
-           totalPaid
-        });
-      }
-
-      // Detect if payment is less than interest
-      if (months > 1 && interest >= minPay && currentBal > 0) {
-        setResults({ infinite: true });
-        return;
-      }
+function calcMinPay(balance: number, apr: number, minPct: number, minFixed: number, extra: number): MinPayResult {
+  const monthly = apr / 100 / 12;
+  let bal = balance;
+  let months = 0;
+  let totalInterest = 0;
+  let totalPaid = 0;
+  let firstPayment = 0;
+  let lastPayment = 0;
+  const chartData: { month: number; balance: number }[] = [];
+  const MAX_MONTHS = 1200;
+  while (bal > 0 && months < MAX_MONTHS) {
+    const interest = bal * monthly;
+    let payment = Math.max(bal * (minPct / 100), minFixed) + extra;
+    if (months === 0) firstPayment = payment;
+    if (payment >= bal + interest) {
+      payment = bal + interest;
+      lastPayment = payment;
+      bal = 0;
+    } else {
+      bal = bal + interest - payment;
     }
+    totalInterest += interest;
+    totalPaid += payment;
+    months++;
+    if (months % 6 === 0 || bal <= 0) chartData.push({ month: months, balance: Math.max(0, bal) });
+  }
+  if (months >= MAX_MONTHS) {
+    const yearsLabel = "100+ years";
+    const breakdown = [
+      { label: "Starting Balance", value: money(balance) },
+      { label: "APR", value: `${fmt(apr)}%` },
+      { label: "Minimum Payment", value: `${minPct}% of balance or ${money(minFixed)} (whichever is greater)${extra > 0 ? ` + ${money(extra)} extra` : ""}` },
+      { label: "First Payment", value: money(firstPayment) },
+      { label: "Time to Pay Off", value: "More than 100 years" },
+      { label: "Total Interest Paid (100 yr window)", value: money(totalInterest) },
+      { label: "Total Amount Paid (100 yr window)", value: money(totalPaid) },
+    ];
+    const summaryStats = [
+      { label: "Payoff Time", value: "100+ years" },
+      { label: "Total Interest (window)", value: money(totalInterest) },
+      { label: "Total Paid (window)", value: money(totalPaid) },
+      { label: "Interest Share", value: `${fmt((totalInterest / Math.max(1, totalPaid)) * 100)}%` },
+      { label: "First Payment", value: money(firstPayment) },
+    ];
+    return { months: MAX_MONTHS, yearsLabel, totalInterest, totalPaid, firstPayment, lastPayment, breakdown, summaryStats, chartData };
+  }
+  const years = months / 12;
+  const yearsLabel = years >= 2 ? `${Math.floor(years)} yr ${Math.round((years % 1) * 12)} mo` : `${months} months`;
+  const breakdown = [
+    { label: "Starting Balance", value: money(balance) },
+    { label: "APR", value: `${fmt(apr)}%` },
+    { label: "Minimum Payment", value: `${minPct}% of balance or ${money(minFixed)} (whichever is greater)${extra > 0 ? ` + ${money(extra)} extra` : ""}` },
+    { label: "First Payment", value: money(firstPayment) },
+    { label: "Time to Pay Off", value: `${months} months (${yearsLabel})` },
+    { label: "Total Interest Paid", value: money(totalInterest) },
+    { label: "Total Amount Paid", value: money(totalPaid) },
+    { label: "Last Payment", value: money(lastPayment) },
+  ];
+  const summaryStats = [
+    { label: "Payoff Time", value: yearsLabel },
+    { label: "Total Interest", value: money(totalInterest) },
+    { label: "Total Paid", value: money(totalPaid) },
+    { label: "Interest Share", value: `${fmt((totalInterest / Math.max(1, totalPaid)) * 100)}%` },
+    { label: "First Payment", value: money(firstPayment) },
+  ];
+  return { months, yearsLabel, totalInterest, totalPaid, firstPayment, lastPayment, breakdown, summaryStats, chartData };
+}
 
-    setResults({
-      months,
-      totalInterest,
-      totalPaid,
-      years: months / 12,
-      infinite: false,
-      monthlyData
-    });
-  };
+const DEFAULTS = { bal: "5000", apr: "22.9", pct: "2", fixed: "25", extra: "0" };
 
+export default function MinimumPaymentCalculator() {
+  const [bal, setBal] = useState(DEFAULTS.bal);
+  const [apr, setApr] = useState(DEFAULTS.apr);
+  const [pct, setPct] = useState(DEFAULTS.pct);
+  const [fixed, setFixed] = useState(DEFAULTS.fixed);
+  const [extra, setExtra] = useState(DEFAULTS.extra);
+  const [result, setResult] = useState<MinPayResult | null>(null);
+
+  const balance = parseFloat(bal);
+  const rate = parseFloat(apr);
+  const p = parseFloat(pct);
+  const f = parseFloat(fixed);
+  const e = parseFloat(extra);
+  const errs: string[] = [];
+  if (!balance || balance <= 0) errs.push("Balance must be greater than 0.");
+  if (isNaN(rate) || rate < 0) errs.push("APR must be 0 or greater.");
+  if (p < 0 || f < 0) errs.push("Minimum payment amounts cannot be negative.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcMinPay(balance, rate, p, f, e || 0)); };
   const reset = () => {
-    setBalance("5000");
-    setApr("18.9");
-    setMinPaymentPercent("2.5");
-    setMinPaymentFixed("25");
+    setBal(DEFAULTS.bal); setApr(DEFAULTS.apr); setPct(DEFAULTS.pct); setFixed(DEFAULTS.fixed); setExtra(DEFAULTS.extra);
+    setResult(calcMinPay(5000, 22.9, 2, 25, 0));
   };
+  useEffect(() => { setResult(calcMinPay(5000, 22.9, 2, 25, 0)); }, []);
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    {
-      question: "What is a minimum credit card payment?",
-      answer: "A minimum payment is the lowest amount you are required to pay each month to keep your account in good standing. It is usually calculated as a percentage of your total balance (typically 1% to 3%) plus any interest and fees charged during that billing cycle."
-    },
-    {
-      question: "Why does it take so long to pay off a balance with minimum payments?",
-      answer: "Because minimum payments are designed to cover the interest first and only a very small portion of the principal balance. As your balance decreases, your minimum payment also decreases, meaning you are always paying off only a tiny fraction of what you owe."
-    },
-    {
-      question: "What is the Credit Card Accountability Responsibility and Disclosure (CARD) Act?",
-      answer: "Passed in 2009, this law requires credit card companies to include a 'Minimum Payment Warning' on your monthly statement, showing exactly how long it would take to pay off your balance and how much interest you would pay if you only made the minimum payments."
-    },
-    {
-      question: "How much faster can I pay off my debt by paying more than the minimum?",
-      answer: "Even small increases can have a massive impact. Adding just $50 or $100 to your minimum payment each month can often cut your payoff time by years and save you thousands of dollars in interest charges."
-    }
+    { question: "How does minimum payment work?", answer: "Each month you pay the greater of a percentage of the balance (commonly 1–3%) or a fixed dollar floor. Because interest accrues on the remaining balance, minimum payments shrink the debt very slowly — most of the payment goes to interest early on." },
+    { question: "Why does it take so long to pay off?", answer: "With a 2% minimum and 22.9% APR, the interest each month is roughly equal to the payment's interest share, so the principal barely moves. The simulation here compounds monthly to show the real timeline — often decades for large balances." },
+    { question: "How much does paying extra help?", answer: "Every extra dollar above the minimum goes straight to principal, avoiding future interest. A small fixed extra payment can cut the payoff time by years and the total interest by a large fraction — try adding $25 or $50 in the extra field." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Minimum Payment Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Minimum Payment Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Minimum Payment Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Minimum Payment Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-8">
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <CreditCard className="h-5 w-5 text-primary" /> Credit Card Info
-                  </h2>
-                  <InputField id="balance" label="Current Balance" value={balance} onChange={setBalance} prefix="$" />
-                  <InputField id="apr" label="Interest Rate (APR %)" value={apr} onChange={setApr} suffix="%" step="0.1" />
-                </section>
-
-                <section className="space-y-6">
-                  <h2 className="text-2xl font-bold mb-3">
-                    <Calendar className="h-5 w-5 text-primary" /> Payment Formula
-                  </h2>
-                  <InputField id="min-pct" label="Minimum Payment %" value={minPaymentPercent} onChange={setMinPaymentPercent} suffix="%" step="0.1" tooltip="Usually between 1.5% and 3.0% of your balance." />
-                  <InputField id="min-fix" label="Minimum Fixed Amount" value={minPaymentFixed} onChange={setMinPaymentFixed} prefix="$" tooltip="The absolute lowest amount the bank will accept (e.g., $25)." />
-                </section>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Credit Card Balance ($)</label>
+                <input type="number" value={bal} onChange={e => setBal(e.target.value)} className={inp} placeholder="5000" />
               </div>
-              <div className="mt-8 flex gap-3 items-center">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-<button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground flex items-center gap-2 font-bold text-sm">
-                  <RotateCcw className="h-4 w-4" /> Reset 
-                </button>
+              <div>
+                <label className={lbl}>APR (%)</label>
+                <input type="number" value={apr} onChange={e => setApr(e.target.value)} className={inp} placeholder="22.9" />
               </div>
+              <div>
+                <label className={lbl}>Min Payment (% of balance)</label>
+                <input type="number" value={pct} onChange={e => setPct(e.target.value)} className={inp} placeholder="2" />
+              </div>
+              <div>
+                <label className={lbl}>Min Payment Floor ($)</label>
+                <input type="number" value={fixed} onChange={e => setFixed(e.target.value)} className={inp} placeholder="25" />
+              </div>
+              <div className="col-span-2">
+                <label className={lbl}>Extra Payment / Month ($) — optional</label>
+                <input type="number" value={extra} onChange={e => setExtra(e.target.value)} className={inp} placeholder="0" />
+              </div>
+            </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                {results.infinite ? (
-                  <div className="bg-red-500/10 border border-red-500/20 text-red-700 p-8 rounded-2xl text-center">
-                    <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-red-500" />
-                    <p className="text-2xl font-black mb-2">Negative Amortization!</p>
-                    <p className="font-medium">Your minimum payment is not enough to cover the monthly interest. Your balance will grow forever unless you increase your payments.</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Time to Pay Off</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.yearsLabel}</div>
+                <div className="text-sm text-muted-foreground mt-1">{fmt(result.totalInterest, 0)} total interest on {money(result.totalPaid)} total paid</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Total Interest", money(result.totalInterest)], ["Total Paid", money(result.totalPaid)], ["First Payment", money(result.firstPayment)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                ) : (
-                  <>
-                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
-                      <div className="card-calculator bg-red-500/5 border-red-500/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-red-600 uppercase tracking-widest mb-1">Time to Pay Off</p>
-                        <p className="text-5xl font-black text-foreground">{Math.floor(results.years)}y {Math.round(results.months % 12)}m</p>
-                        <p className="text-xs text-red-500 mt-2 font-bold uppercase tracking-widest">({results.months} months)</p>
-                      </div>
-                      <div className="card-calculator bg-primary/5 border-solid border-primary/20 text-center flex flex-col justify-center py-8">
-                        <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Interest Cost</p>
-                        <p className="text-5xl font-black text-foreground">${Math.round(results.totalInterest).toLocaleString()}</p>
-                        <p className="text-xs text-primary mt-2 font-bold uppercase tracking-widest">({Math.round((results.totalInterest / parseFloat(balance)) * 100)}% of Balance)</p>
-                      </div>
-                    </div>
-
-                    <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-                      <h2 className="text-2xl font-bold mb-3">
-                        <TrendingUp className="h-5 w-5 text-primary" /> Cost Summary
-                      </h2>
-                      <ResultDisplay items={[
-                        { label: "Total Amount Paid", value: results.totalPaid },
-                        { label: "Original Balance", value: parseFloat(balance) },
-                        { label: "First Minimum Payment", value: Math.max(parseFloat(minPaymentFixed), (parseFloat(balance) * (parseFloat(minPaymentPercent) / 100)) + (parseFloat(balance) * (parseFloat(apr) / 1200))) },
-                      ]} />
-                    </div>
-
-                    <div className="card-calculator">
-                       <h3 className="font-bold mb-4 flex items-center gap-2"><Clock className="h-4 w-4 text-primary" /> Payoff Progression</h3>
-                       <div className="space-y-3">
-                          {results.monthlyData.map((data: any, i: number) => (
-                             <div key={i} className="flex justify-between items-center text-sm">
-                                <span className="text-muted-foreground">Year {data.month / 12}</span>
-                                <div className="flex items-center gap-4 flex-1 gap-3 items-center">
-                                   <div className="h-1.5 bg-secondary rounded-full overflow-hidden w-24 hidden sm:block">
-                                      <div className="h-full bg-red-500" style={{ width: `${(data.balance / parseFloat(balance)) * 100}%` }}></div>
-                                   </div>
-                                   <span className="font-mono w-24 text-right">${Math.round(data.balance).toLocaleString()}</span>
-                                </div>
-                             </div>
-                          ))}
-                       </div>
-                    </div>
-                  </>
-                )}
-              </>
-            )}
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Calculation Breakdown</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Balance Over Time</h3>
+                <ResponsiveContainer width="100%" height={240}>
+                  <AreaChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="balGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity={0.5} />
+                        <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity={0.05} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <Tooltip formatter={(v: number) => [money(v), "Balance"]} labelFormatter={(l) => `Month ${l}`} />
+                    <Area type="monotone" dataKey="balance" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#balGrad)" />
+                  </AreaChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">The long flat early section is interest outpacing the minimum — extra payments steepen the drop</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Danger of Minimum Payments</h2>
-              <p>Minimum payments are one of the most effective ways for credit card companies to maximize their profits. While they allow you to avoid late fees and keep your account active, they are mathematically structured to keep you in debt for as long as possible—often decades.</p>
-
-              <h3>How Lenders Calculate the Minimum</h3>
-              <p>Most banks use a formula that is the greater of two numbers: a fixed dollar amount (like $25 or $35) or a small percentage of your outstanding balance (usually 1% to 2%) plus any interest and fees. As your balance goes down, the percentage-based payment also goes down, meaning you are always paying off less and less of the actual debt.</p>
-
-              <h3>Why the 'Interest Trap' Happens</h3>
-              <p>In the early months of paying off a large balance, your minimum payment might be $150, but $100 of that could be going straight to interest. This leaves only $50 to reduce the principal. If you continue to use the card for new purchases, your balance might actually increase even if you make your minimum payments on time.</p>
-
-              <h3>The CARD Act Warning</h3>
-              <p>Since 2009, credit card issuers have been required to show you a 'Minimum Payment Warning' on your monthly statement. This table shows you two scenarios: how long it will take to pay off the balance making only minimum payments, and how much you would need to pay each month to be debt-free in exactly three years. Most people are shocked to see that paying just a little bit more each month can save them thousands of dollars and years of time.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Strategies to Escape the Minimum Payment Cycle</h2>
-              <p>If you find yourself only making minimum payments, here are three ways to break the cycle:</p>
-              <ol>
-                <li><strong>The 'Fixed Payment' Strategy:</strong> Instead of letting your payment drop as your balance drops, keep paying the same amount you paid in month one. This effectively turns your credit card into an amortizing loan.</li>
-                <li><strong>Debt Consolidation:</strong> If your credit score is still decent, you might qualify for a personal loan with a much lower interest rate than your credit card. This simplifies your payments and ensures a definitive end date for the debt.</li>
-                <li><strong>Balance Transfer:</strong> Moving your debt to a 0% APR card for 12-18 months can give you the breathing room needed to pay down the principal without the anchor of high interest charges.</li>
-              </ol>
-
-              <h3>A Rule of Thumb</h3>
-              <p>Financial experts generally suggest that if your credit card debt exceeds 50% of your annual income and you can only afford minimum payments, you may need to seek professional help from a non-profit credit counseling agency to explore debt management plans.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">The Minimum Payment Trap</h2>
+            <p>Credit card issuers set minimums low — usually 1–3% of the balance or a flat floor — so the debt stays profitable. This <strong>minimum payment calculator</strong> simulates month by month what that really costs: the payoff timeline, the interest, and the total you hand the bank.</p>
+            <h2 className="text-2xl font-bold mb-3">How the Simulation Works</h2>
+            <p>Each month, interest accrues on the current balance at APR/12, the payment is the greater of the percentage minimum and the floor, and the remainder carries forward. Paying only the minimum on a $5,000 balance at 22.9% APR means decades of payments and thousands in interest.</p>
+            <h2 className="text-2xl font-bold mb-3">Escaping Faster</h2>
+            <p>Add a fixed extra payment and watch the chart bend: extra dollars attack principal directly, skipping future interest. The difference between minimum-only and minimum-plus-$50 is usually measured in years — and the interest saved can rival the balance itself.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/minimum-payment-calculator" />
           <PopularCalculators exclude="/calculator/minimum-payment-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default MinimumPaymentCalculator;
-
+}

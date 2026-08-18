@@ -1,4 +1,10 @@
 import Breadcrumb from "@/components/Breadcrumb";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Disclaimer — Racira",
+  description: "Racira's disclaimer: our tools provide estimates for informational purposes only and do not constitute professional advice.",
+};
 
 const Disclaimer = () => (
   <>

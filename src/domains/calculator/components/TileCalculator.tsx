@@ -4,13 +4,18 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, LayoutGrid } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface TileResult {
   totalTiles: number;
   areaSqFt: number;
   boxCount: number;
   totalCost: number;
+  purchasedTiles: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
+  summaryStats: { label: string; value: string }[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -61,12 +66,43 @@ const calculateTiles = (
 
       const boxes = Math.ceil(totalTilesWithWaste / tilesPerBox);
       const cost = boxes * pricePerBox;
+      const purchasedTiles = boxes * tilesPerBox;
+      const wastePct = parseFloat(wasteStr);
+      const chartData = [
+        { name: "Tiles Needed (+waste)", value: totalTilesWithWaste },
+        { name: "Tiles Purchased", value: purchasedTiles },
+      ];
+      const breakdown = [
+        { label: "Room Area", value: `${area.toFixed(2)} sq ft` },
+        { label: "Tile Size", value: `${tileL}×${tileW} in` },
+        { label: "Grout Gap", value: `${gap} in` },
+        { label: "Waste Factor", value: `${wastePct}%` },
+        { label: "Tiles Needed (with waste)", value: `${totalTilesWithWaste}`, highlight: true },
+        { label: "Tiles Per Box", value: `${tilesPerBox}` },
+        { label: "Total Tiles Purchased", value: `${purchasedTiles}` },
+        { label: "Price Per Box", value: `$${pricePerBox.toFixed(2)}` },
+        { label: "Total Cost", value: `$${cost.toFixed(2)}`, isTotal: true },
+      ];
+      const summaryStats = [
+        { label: "Room Area", value: `${area.toFixed(2)} sq ft` },
+        { label: "Tile Size", value: `${tileL}×${tileW} in` },
+        { label: "Grout Gap", value: `${gap} in` },
+        { label: "Waste Factor", value: `${wastePct}%` },
+        { label: "Tiles Needed", value: `${totalTilesWithWaste}` },
+        { label: "Boxes to Purchase", value: `${boxes}` },
+        { label: "Tiles Purchased", value: `${purchasedTiles}` },
+        { label: "Total Cost", value: `$${cost.toFixed(2)}` },
+      ];
 
       return {
         totalTiles: totalTilesWithWaste,
         areaSqFt: parseFloat(area.toFixed(2)),
         boxCount: boxes,
         totalCost: parseFloat(cost.toFixed(2)),
+        purchasedTiles,
+        chartData,
+        breakdown,
+        summaryStats,
         isError: false
       };
     } else {
@@ -87,18 +123,49 @@ const calculateTiles = (
 
       const boxes = Math.ceil(totalTilesWithWaste / tilesPerBox);
       const cost = boxes * pricePerBox;
+      const purchasedTiles = boxes * tilesPerBox;
+      const wastePct = parseFloat(wasteStr);
+      const chartData = [
+        { name: "Tiles Needed (+waste)", value: totalTilesWithWaste },
+        { name: "Tiles Purchased", value: purchasedTiles },
+      ];
+      const breakdown = [
+        { label: "Room Area", value: `${area.toFixed(2)} sq m` },
+        { label: "Tile Size", value: `${tileL}×${tileW} mm` },
+        { label: "Grout Gap", value: `${gap} mm` },
+        { label: "Waste Factor", value: `${wastePct}%` },
+        { label: "Tiles Needed (with waste)", value: `${totalTilesWithWaste}`, highlight: true },
+        { label: "Tiles Per Box", value: `${tilesPerBox}` },
+        { label: "Total Tiles Purchased", value: `${purchasedTiles}` },
+        { label: "Price Per Box", value: `$${pricePerBox.toFixed(2)}` },
+        { label: "Total Cost", value: `$${cost.toFixed(2)}`, isTotal: true },
+      ];
+      const summaryStats = [
+        { label: "Room Area", value: `${area.toFixed(2)} sq m` },
+        { label: "Tile Size", value: `${tileL}×${tileW} mm` },
+        { label: "Grout Gap", value: `${gap} mm` },
+        { label: "Waste Factor", value: `${wastePct}%` },
+        { label: "Tiles Needed", value: `${totalTilesWithWaste}` },
+        { label: "Boxes to Purchase", value: `${boxes}` },
+        { label: "Tiles Purchased", value: `${purchasedTiles}` },
+        { label: "Total Cost", value: `$${cost.toFixed(2)}` },
+      ];
 
       return {
         totalTiles: totalTilesWithWaste,
         areaSqFt: parseFloat(area.toFixed(2)), // Storing sq m in this field when metric
         boxCount: boxes,
         totalCost: parseFloat(cost.toFixed(2)),
+        purchasedTiles,
+        chartData,
+        breakdown,
+        summaryStats,
         isError: false
       };
     }
 
   } catch (err) {
-    return { totalTiles: 0, areaSqFt: 0, boxCount: 0, totalCost: 0, isError: true, errorMsg: "Calculation error." };
+    return { totalTiles: 0, areaSqFt: 0, boxCount: 0, totalCost: 0, purchasedTiles: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Calculation error." };
   }
 };
 
@@ -233,7 +300,10 @@ const TileCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setUnit("imperial"); setRoomL("10"); setRoomW("12"); setTileL("12"); setTileW("12"); setGap("0.25"); setWaste("10"); setTilesPerBox("10"); setPrice("25"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -257,6 +327,65 @@ const TileCalculator = () => {
                 <div className="bg-background border border-border/50 rounded-lg p-3 text-center md:w-40 shrink-0">
                   <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Room Area</div>
                   <div className="text-2xl font-bold text-foreground font-mono">{result.areaSqFt} <span className="text-sm font-normal text-muted-foreground">{unit === "imperial" ? "sq ft" : "sq m"}</span></div>
+                </div>
+              </div>
+
+              {/* 2. 3-STAT BAR */}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Room Area", `${result.areaSqFt} ${unit === "imperial" ? "sq ft" : "sq m"}`], ["Tiles Needed", `${result.totalTiles.toLocaleString()}`], ["Boxes to Buy", `${result.boxCount}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground">{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3. BREAKDOWN TABLE */}
+              <div className="rounded-lg border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Material Breakdown</h3>
+                </div>
+                <table className="w-full text-base">
+                  <tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${r.isTotal ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 4. CHART */}
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-base font-bold mb-4">Tiles Needed vs Purchased</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={45} />
+                    <Tooltip formatter={(v: number) => [`${v.toLocaleString()} tiles`, "Tiles"]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, idx) => (
+                        <Cell key={idx} fill={idx === 0 ? "hsl(var(--primary))" : "#10b981"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2 text-center">You buy in whole boxes, so purchased tiles round up to cover the needed count plus waste.</p>
+              </div>
+
+              {/* 5. SUMMARY STATISTICS */}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-muted-foreground">{s.label}:</span>
+                      <span className="font-semibold text-foreground">{s.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

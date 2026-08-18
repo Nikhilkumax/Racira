@@ -1,209 +1,190 @@
 "use client";
+import { useState, useEffect } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import FAQSection from "@/components/FAQSection";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-import React, { useState } from "react";
-import { Calculator } from "lucide-react";
-import {
-  Area,
-  AreaChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+interface LtvResult {
+  value: number;
+  loan: number;
+  ltv: number;
+  equity: number;
+  downPayment: number;
+  maxLoan80: number;
+  pmi: boolean;
+  pmiExtra: number;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
+
+function fmt$(v: number): string {
+  return `$${v.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+}
+
+function fmtPct(v: number, d = 1): string {
+  return `${v.toFixed(d)}%`;
+}
+
+function calcLtv(value: number, loan: number): LtvResult {
+  const ltv = value > 0 ? (loan / value) * 100 : 0;
+  const equity = Math.max(0, value - loan);
+  const downPayment = Math.max(0, value - loan);
+  const maxLoan80 = value * 0.8;
+  const pmi = ltv > 80;
+  const pmiExtra = pmi ? value * 0.0035 / 12 : 0; // typical 0.35% annual PMI on the loan
+  const breakdown = [
+    { label: "Property Value", value: fmt$(value) },
+    { label: "Loan Amount", value: fmt$(loan) },
+    { label: "Down Payment / Equity", value: fmt$(downPayment) },
+    { label: "Loan-to-Value Ratio", value: fmtPct(ltv) },
+    { label: "Equity Share", value: `${fmtPct(100 - ltv)}` },
+    { label: "Max Loan at 80% LTV", value: fmt$(maxLoan80) },
+    { label: "PMI Required", value: pmi ? `Yes — ~${fmt$(pmiExtra)}/month` : "No — LTV at or below 80%" },
+    { label: "Room to 80% LTV", value: ltv > 80 ? `${fmt$(loan - maxLoan80)} over` : `${fmt$(maxLoan80 - loan)} below` },
+  ];
+  const summaryStats = [
+    { label: "LTV", value: fmtPct(ltv) },
+    { label: "Equity", value: fmt$(equity) },
+    { label: "Loan Amount", value: fmt$(loan) },
+    { label: "Property Value", value: fmt$(value) },
+    { label: "PMI", value: pmi ? `Yes (~${fmt$(pmiExtra)}/mo)` : "No" },
+    { label: "Down Payment %", value: fmtPct(100 - ltv) },
+    { label: "Max Loan (80%)", value: fmt$(maxLoan80) },
+    { label: "Equity Share", value: fmtPct(100 - ltv) },
+  ];
+  const chartData = [
+    { name: "Loan", value: Math.round(loan), fill: "hsl(var(--primary))" },
+    { name: "Equity", value: Math.max(0, Math.round(value - loan)), fill: "#10b981" },
+  ];
+  return { value, loan, ltv, equity, downPayment, maxLoan80, pmi, pmiExtra, breakdown, summaryStats, chartData };
+}
+
+const DEFAULTS = { value: "400000", loan: "300000" };
 
 export default function LtvCalculator() {
-  const [propertyValue, setPropertyValue] = useState<number>(300000);
-  const [loanAmount, setLoanAmount] = useState<number>(240000);
-  const [downPayment, setDownPayment] = useState<number>(60000);
-  const [isInputDownPayment, setIsInputDownPayment] = useState<boolean>(true);
+  const [value, setValue] = useState(DEFAULTS.value);
+  const [loan, setLoan] = useState(DEFAULTS.loan);
+  const [result, setResult] = useState<LtvResult | null>(null);
 
-  const calculateLTV = () => {
-    let currentLoanAmount = loanAmount;
-    if (isInputDownPayment) {
-      currentLoanAmount = propertyValue - downPayment;
-    }
-    const ltv = (currentLoanAmount / propertyValue) * 100;
-    
-    // Chart data showing the ratio
-    const chartData = [
-      { name: "0", value: 0 },
-      { name: "Down Payment", value: (propertyValue - currentLoanAmount) / propertyValue * 100 },
-      { name: "LTV", value: ltv }
-    ];
+  const v = parseFloat(value) || 0;
+  const l = parseFloat(loan) || 0;
+  const errs: string[] = [];
+  if (v <= 0 || l <= 0) errs.push("Property value and loan amount must both be greater than 0.");
+  if (l > v) errs.push("Loan amount exceeds property value — LTV above 100% is not a standard mortgage.");
+  const valid = errs.length === 0;
 
-    return {
-      ltv: isNaN(ltv) ? 0 : ltv,
-      currentLoanAmount: isNaN(currentLoanAmount) ? 0 : currentLoanAmount,
-      chartData,
-    };
+  const calculate = () => { if (valid) setResult(calcLtv(v, l)); };
+  const reset = () => {
+    setValue(DEFAULTS.value); setLoan(DEFAULTS.loan);
+    setResult(calcLtv(400000, 300000));
   };
+  useEffect(() => { setResult(calcLtv(400000, 300000)); }, []);
 
-  const results = calculateLTV();
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
+
+  const faqs = [
+    { question: "What is the loan-to-value ratio?", answer: "LTV is the loan amount divided by the property's appraised value, expressed as a percentage. A $300,000 loan on a $400,000 home is 75% LTV — the higher the LTV, the less equity you hold and the riskier the loan for the lender." },
+    { question: "When is PMI required?", answer: "Conventional lenders generally require private mortgage insurance when LTV exceeds 80%, because the borrower has less than 20% equity. PMI protects the lender and typically costs about 0.3-0.5% of the loan per year until LTV falls to 80%." },
+    { question: "How can I remove PMI?", answer: "Pay the loan down until LTV reaches 80%, wait for home appreciation to push LTV below 80% and request removal, or refinance. Recent federal rules also allow automatic PMI cancellation once LTV hits 78% of the original value." },
+  ];
 
   return (
-    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-12 text-center">
-        <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
-          <Calculator className="h-8 w-8 text-primary" />
-        </div>
-        <h1 className="text-4xl font-extrabold text-foreground mb-4 tracking-tight">
-          LTV Calculator
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Input Section */}
-        <div className="lg:col-span-5 w-full">
-          <div className="bg-card rounded-3xl border border-border/50 shadow-xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-2xl">
-            <div className="p-8 space-y-8">
+    <>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "LTV Calculator" }]} />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">LTV Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-2">
-                  Property Value ($)
-                </label>
-                <input
-                  type="number"
-                  value={propertyValue || ""}
-                  onChange={(e) => setPropertyValue(Number(e.target.value))}
-                  className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-                  placeholder="e.g. 300000"
-                />
+                <label className={lbl}>Property Value</label>
+                <div className={inp}><input type="number" value={value} onChange={e => setValue(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
               </div>
-
-              <div className="flex gap-4">
-                <button
-                  onClick={() => setIsInputDownPayment(true)}
-                  className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isInputDownPayment
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  Enter Down Payment
-                </button>
-                <button
-                  onClick={() => setIsInputDownPayment(false)}
-                  className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    !isInputDownPayment
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  Enter Loan Amount
-                </button>
+              <div>
+                <label className={lbl}>Loan Amount</label>
+                <div className={inp}><input type="number" value={loan} onChange={e => setLoan(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">$</span></div>
               </div>
-
-              {isInputDownPayment ? (
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
-                    Down Payment ($)
-                  </label>
-                  <input
-                    type="number"
-                    value={downPayment || ""}
-                    onChange={(e) => setDownPayment(Number(e.target.value))}
-                    className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-                    placeholder="e.g. 60000"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">
-                    Loan Amount ($)
-                  </label>
-                  <input
-                    type="number"
-                    value={loanAmount || ""}
-                    onChange={(e) => setLoanAmount(Number(e.target.value))}
-                    className="w-full px-4 py-3 bg-background border border-border/50 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
-                    placeholder="e.g. 240000"
-                  />
-                </div>
-              )}
             </div>
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Loan-to-Value Ratio</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtPct(result.ltv)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.pmi ? "Above 80% — private mortgage insurance applies" : "At or below 80% — no PMI required"}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Equity`, fmt$(result.equity)], ["Down Payment %", fmtPct(100 - result.ltv)], ["PMI", result.pmi ? `~${fmt$(result.pmiExtra)}/mo` : "None"]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Loan Details</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 3 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 3 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 3 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Property Ownership Split</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [fmt$(v), ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Loan vs equity share of the property value</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
+                </div>
+              </div>
+            </>)}
           </div>
         </div>
-
-        {/* Results Section */}
-        <div className="lg:col-span-7 w-full space-y-6">
-          <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl overflow-hidden relative">
-            <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-white/10 rounded-full blur-3xl opacity-50"></div>
-            <div className="relative z-10">
-              <h3 className="text-lg font-medium opacity-90 mb-2">Loan-to-Value (LTV) Ratio</h3>
-              <div className="text-5xl font-bold tracking-tight mb-4">
-                {results.ltv.toFixed(2)}%
-              </div>
-              <div className="text-sm opacity-80 mb-6 max-w-sm">
-                {results.ltv > 80 
-                  ? "Since your LTV is over 80%, you will likely be required to pay Private Mortgage Insurance (PMI)."
-                  : "Your LTV is 80% or below, which means you typically won't need Private Mortgage Insurance (PMI)."}
-              </div>
-
-              <div className="pt-6 border-t border-white/20">
-                <h3 className="text-lg font-medium opacity-90 mb-2">Total Loan Amount</h3>
-                <div className="text-3xl font-semibold">
-                  ${results.currentLoanAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-card rounded-3xl border border-border/50 shadow-lg p-8">
-            <h3 className="text-xl font-bold text-foreground mb-6">LTV Breakdown</h3>
-            <div className="h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={results.chartData}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `${v}%`} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: 'hsl(var(--card))', borderRadius: '12px', border: '1px solid hsl(var(--border))', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                    itemStyle={{ color: 'hsl(var(--foreground))', fontWeight: 600 }}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="value"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth={3}
-                    fillOpacity={1}
-                    fill="url(#colorValue)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">The LTV Formula</h2>
+            <p>This <strong>LTV calculator</strong> divides the loan amount by the property's appraised value: a $300,000 loan on a $400,000 home is 75% LTV. The complement — 100% minus LTV — is your equity share, which grows as you pay down the loan or the home appreciates.</p>
+            <h2 className="text-2xl font-bold mb-3">The 80% Threshold</h2>
+            <p>Crossing 80% LTV is the critical line: below it you have 20% equity and no PMI; above it, conventional lenders require private mortgage insurance. The calculator flags the threshold and estimates the monthly PMI cost at a typical 0.35% annual rate.</p>
+            <h2 className="text-2xl font-bold mb-3">Why Lenders Care</h2>
+            <p>Higher LTV means more leverage and less cushion if prices fall, so lenders price in the risk with PMI, higher rates, or stricter terms. Knowing your LTV — before buying or refinancing — tells you what kind of deal you can expect.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ltv-calculator" />
+          <PopularCalculators exclude="/calculator/ltv-calculator" />
         </div>
       </div>
-
-      {/* Educational Content */}
-      <div className="mt-16 max-w-4xl prose prose-slate dark:prose-invert">
-        <h2 className="text-2xl font-bold mb-3">What is a Loan-to-Value (LTV) Ratio?</h2>
-        <p className="text-lg text-muted-foreground mb-6">
-          The Loan-to-Value (LTV) ratio is a financial term used by lenders to express the ratio of a loan to the value of an asset purchased. The term is commonly used by banks and building societies to represent the ratio of the first mortgage line as a percentage of the total appraised value of real property.
-        </p>
-        
-        <div className="bg-card p-6 rounded-2xl border border-border/50 my-8">
-          <h3 className="text-xl font-semibold mb-4">LTV Formula</h3>
-          <p className="text-lg font-mono bg-muted p-4 rounded-xl text-center">
-            LTV = (Mortgage Amount / Appraised Property Value) × 100
-          </p>
-        </div>
-
-        <h3 className="text-2xl font-bold mb-4">Why Does LTV Matter?</h3>
-        <p className="text-lg text-muted-foreground mb-4">
-          LTV is one of the key risk factors that lenders assess when qualifying borrowers for a mortgage. 
-        </p>
-        <ul className="list-disc pl-6 space-y-2 text-lg text-muted-foreground">
-          <li><strong>Interest Rates:</strong> A lower LTV generally qualifies you for better interest rates because it represents less risk to the lender.</li>
-          <li><strong>PMI Requirement:</strong> If your LTV is higher than 80% (meaning your down payment is less than 20%), conventional lenders will usually require you to pay for Private Mortgage Insurance (PMI).</li>
-          <li><strong>Loan Approval:</strong> Some loan programs have maximum LTV limits. For example, conventional loans typically max out at 97% LTV, while FHA loans can go up to 96.5%.</li>
-        </ul>
-      </div>
-    </div>
+    </>
   );
 }

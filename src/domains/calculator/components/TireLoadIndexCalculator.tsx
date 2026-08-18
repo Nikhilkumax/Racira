@@ -132,12 +132,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Find the maximum weight capacity of your tires by entering the 2 or 3-digit load index code found on the sidewall.</p>
-
-            <div className="bg-primary/5 p-4 rounded-lg border border-primary/20 mb-2">
-              <h4 className="text-sm font-bold text-primary mb-1">Example Code</h4>
-              <p className="text-xs text-muted-foreground">In <strong>225/45R18 91W</strong>, the load index is <strong>91</strong>.</p>
-            </div>
+            
 
             <div className="grid grid-cols-1 gap-5">
               <CompactInput id="index" label="Tire Load Index (70-130)" value={inputs.loadIndex} onChange={(v: string) => handleChange("loadIndex", v)} placeholder="91" />

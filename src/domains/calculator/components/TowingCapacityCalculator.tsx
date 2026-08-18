@@ -128,7 +128,7 @@ const handleCalculate = () => {
           {/* LEFT 460px */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             
-            <p className="text-sm text-muted-foreground mb-2">Determine the maximum weight your trailer can safely be without exceeding your vehicle's GCWR.</p>
+            
 
             <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 pb-1">Manufacturer Limits</div>
             <div className="grid grid-cols-1 gap-4">

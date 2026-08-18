@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface SigFigResult {
   original: string;
@@ -156,6 +157,47 @@ const countSignificantFigures = (numStr: string): SigFigResult | null => {
   };
 };
 
+// Per-digit significance breakdown for the visual chart
+const digitBreakdownFor = (numStr: string): { char: string; significant: boolean }[] => {
+  const clean = numStr.trim().toLowerCase();
+  const coeff = clean.includes("e") ? clean.split("e")[0] : clean;
+  const isNegative = coeff.startsWith("-");
+  const abs = isNegative ? coeff.slice(1) : coeff;
+  const hasDecimal = abs.includes(".");
+  const chars = coeff.split("");
+
+  // Significant range: from first non-zero digit to last non-zero digit
+  let firstNZ = -1;
+  let lastNZ = -1;
+  for (let i = 0; i < abs.length; i++) {
+    const ch = abs[i];
+    if (ch !== "0" && ch !== ".") {
+      if (firstNZ === -1) firstNZ = i;
+      lastNZ = i;
+    }
+  }
+  if (firstNZ === -1) return chars.map((c) => ({ char: c, significant: false }));
+
+  const result: { char: string; significant: boolean }[] = [];
+  for (let i = 0; i < chars.length; i++) {
+    const ch = chars[i];
+    if (ch === "-" || ch === ".") {
+      result.push({ char: ch, significant: false });
+      continue;
+    }
+    if (ch !== "0") {
+      result.push({ char: ch, significant: true });
+      continue;
+    }
+    // Zero: significant if it sits inside or after the significant range
+    const absIdx = i - (isNegative ? 1 : 0);
+    const significant =
+      absIdx > firstNZ && (hasDecimal ? true : absIdx < lastNZ);
+    result.push({ char: ch, significant });
+  }
+  return result;
+};
+
 const SignificantFiguresCalculator = () => {
   const [number, setNumber] = useState("0.004050");
   const [result, setResult] = useState<SigFigResult | null>(null);
@@ -175,7 +217,7 @@ const SignificantFiguresCalculator = () => {
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
   const faqs = [
-    { question: "What are significant figures?", answer: "Significant figures (or sig figs) are the digits in a number that carry meaning contributing to its measurement resolution. They include all non-zero digits, any zeros between non-zero digits, and any trailing zeros in a decimal number." },
+    { question: "What are significant figures?", answer: "Significant figures (or sig figs) are the digits in a number that carry meaning contributing to its measurement resolution. They include all non-zero digits, zeros between non-zero digits, and trailing zeros in a decimal number." },
     { question: "Are leading zeros significant?", answer: "No. Leading zeros (zeros before the first non-zero digit) are never significant. They simply serve as placeholders to indicate the position of the decimal point. For example, 0.004 has only one significant figure." },
     { question: "Are trailing zeros significant?", answer: "It depends. If the number has a decimal point, trailing zeros ARE significant (e.g., 4.500 has four sig figs). If the number does NOT have a decimal point, trailing zeros are generally considered NOT significant placeholders (e.g., 4500 has two sig figs)." },
     { question: "What are 'captive' zeros?", answer: "Captive zeros are zeros caught between two non-zero digits. They are always significant. For example, in the number 4005, the two middle zeros are captive, making all four digits significant." },
@@ -218,6 +260,22 @@ const SignificantFiguresCalculator = () => {
               </div>
 
               <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Digit Significance</h3>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={digitBreakdownFor(number)} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="char" tick={{ fontSize: 13 }} />
+                    <YAxis hide domain={[0, 1]} />
+                    <Tooltip formatter={(v: number, _n, item) => [String(item.payload.significant ? "Significant" : "Not significant"), "Digit"]} />
+                    <Bar dataKey="significant" radius={[4, 4, 0, 0]}>
+                      {digitBreakdownFor(number).map((d, i) => <Cell key={i} fill={d.significant ? "hsl(var(--primary))" : "#d4d4d4"} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2">Highlighted digits are significant; the rest are placeholders.</p>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
                 <h3 className="text-base font-bold text-foreground mb-4">Rules Applied</h3>
                 <ul className="space-y-3">
                   {result.rulesApplied.map((rule, idx) => (
@@ -227,6 +285,16 @@ const SignificantFiguresCalculator = () => {
                     </li>
                   ))}
                 </ul>
+              </div>
+
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold text-foreground mb-4">Summary</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">Significant Figures:</span><span className="font-semibold">{result.count}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Scientific Notation:</span><span className="font-semibold font-mono">{result.scientificNotation}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Original Input:</span><span className="font-semibold">{result.original}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Rules Applied:</span><span className="font-semibold">{result.rulesApplied.length}</span></div>
+                </div>
               </div>
 
             </>) : (
@@ -247,7 +315,7 @@ const SignificantFiguresCalculator = () => {
             <p><strong>Significant figures</strong> (often called "sig figs" or "significant digits") are the digits in a measured or calculated number that carry reliable, meaningful information about the precision of that measurement. In science, chemistry, and engineering, no measurement is perfectly exact. Significant figures ensure that the mathematical results of a calculation do not imply a false sense of precision that wasn't present in the original data.</p>
 
             <h2 className="text-2xl font-bold mb-3">The Core Rules of Significant Figures</h2>
-            <p>Determining how many significant figures are in a number comes down to a few standardized rules. Our calculator applies these rules instantly to any number you input:</p>
+            <p>Determining how many significant figures are in a number comes down to a few standardized rules. Our calculator applies these rules instantly to every number you input:</p>
             <ul>
               <li><strong>Rule 1: Non-zero digits.</strong> Every digit from 1 to 9 is always considered significant. In the number <code>456</code>, there are 3 significant figures.</li>
               <li><strong>Rule 2: Captive zeros.</strong> Any zeros trapped between two non-zero digits are always significant. In <code>4005</code>, there are 4 significant figures.</li>

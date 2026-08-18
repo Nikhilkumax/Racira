@@ -1,145 +1,239 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Heart } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-const FertilityCalculator = () => {
-  const [lmpDate, setLmpDate] = useState("");
-  const [cycleLength, setCycleLength] = useState("28");
+interface FertilityResult {
+  lmp: string;
+  cycleLength: number;
+  luteal: number;
+  nextPeriod: string;
+  ovulation: string;
+  fertileStart: string;
+  fertileEnd: string;
+  cycleDay: number;
+  daysUntilFertile: number;
+  inWindow: boolean;
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+function parseDate(s: string): Date | null {
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(s.trim());
+  if (!m) return null;
+  const month = parseInt(m[1], 10), day = parseInt(m[2], 10), year = parseInt(m[3], 10);
+  const d = new Date(year, month - 1, day);
+  if (d.getFullYear() !== year || d.getMonth() !== month - 1 || d.getDate() !== day) return null;
+  return d;
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    if (!lmpDate) return;
+function addDays(d: Date, n: number): Date {
+  const x = new Date(d);
+  x.setDate(x.getDate() + n);
+  return x;
+}
 
-    const lmp = new Date(lmpDate);
-    const cycle = parseInt(cycleLength);
+function daysBetween(a: Date, b: Date): number {
+  return Math.round((b.getTime() - a.getTime()) / 86400000);
+}
 
-    const nextPeriod = new Date(lmp);
-    nextPeriod.setDate(lmp.getDate() + cycle);
+function fmtDate(d: Date): string {
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
 
-    const ovulationDate = new Date(nextPeriod);
-    ovulationDate.setDate(nextPeriod.getDate() - 14);
+function fmtShort(d: Date): string {
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
 
-    const windowStart = new Date(ovulationDate);
-    windowStart.setDate(ovulationDate.getDate() - 5);
+function calcFertility(lmpS: string, cycle: number, luteal: number): FertilityResult {
+  const today = new Date();
+  const lmp = parseDate(lmpS)!;
+  const nextPeriod = addDays(lmp, cycle);
+  const ovulation = addDays(nextPeriod, -luteal);
+  const fertileStart = addDays(ovulation, -5);
+  const fertileEnd = addDays(ovulation, 1);
+  const cycleDay = daysBetween(lmp, today) % cycle + 1;
+  const daysUntilFertile = daysBetween(today, fertileStart);
+  const inWindow = daysBetween(today, fertileStart) <= 0 && daysBetween(today, fertileEnd) >= 0;
 
-    const windowEnd = new Date(ovulationDate);
-    windowEnd.setDate(ovulationDate.getDate() + 1);
+  const breakdown = [
+    { label: "First Day of Last Period", value: fmtDate(lmp) },
+    { label: "Cycle Length", value: `${cycle} days` },
+    { label: "Luteal Phase", value: `${luteal} days` },
+    { label: "Predicted Ovulation", value: fmtDate(ovulation) },
+    { label: "Fertile Window", value: `${fmtShort(fertileStart)} – ${fmtShort(fertileEnd)}` },
+    { label: "Next Period Expected", value: fmtDate(nextPeriod) },
+    { label: "Cycle Day Today", value: `Day ${cycleDay} of ${cycle}` },
+    { label: "Fertility Status", value: inWindow ? "In fertile window" : daysUntilFertile > 0 ? `${daysUntilFertile} days until window` : "Window passed this cycle" },
+  ];
+  const summaryStats = [
+    { label: "Ovulation", value: fmtShort(ovulation) },
+    { label: "Fertile Window", value: `${fmtShort(fertileStart)} – ${fmtShort(fertileEnd)}` },
+    { label: "Next Period", value: fmtShort(nextPeriod) },
+    { label: "Cycle Day", value: `Day ${cycleDay}` },
+    { label: "Luteal Phase", value: `${luteal} days` },
+    { label: "Cycle Length", value: `${cycle} days` },
+    { label: "Window Days", value: "7 (5 before + 1 after)" },
+    { label: "Status", value: inWindow ? "In window" : daysUntilFertile > 0 ? `${daysUntilFertile}d to go` : "Passed" },
+  ];
+  const chartData = [
+    { name: "Fertile Days", value: 7, fill: "hsl(var(--primary))" },
+    { name: "Non-Fertile Days", value: Math.max(1, cycle - 7), fill: "var(--border)" },
+  ];
+  return { lmp: fmtDate(lmp), cycleLength: cycle, luteal, nextPeriod: fmtDate(nextPeriod), ovulation: fmtDate(ovulation), fertileStart: fmtShort(fertileStart), fertileEnd: fmtShort(fertileEnd), cycleDay, daysUntilFertile, inWindow, breakdown, summaryStats, chartData };
+}
 
-    // Provide next 3 months
-    const periods = [];
-    const windows = [];
-    
-    let currentLmp = new Date(lmp);
-    for (let i = 0; i < 3; i++) {
-      const pNext = new Date(currentLmp);
-      pNext.setDate(currentLmp.getDate() + cycle);
-      
-      const pOvul = new Date(pNext);
-      pOvul.setDate(pNext.getDate() - 14);
-      
-      const pStart = new Date(pOvul);
-      pStart.setDate(pOvul.getDate() - 5);
-      
-      const pEnd = new Date(pOvul);
-      pEnd.setDate(pOvul.getDate() + 1);
+const DEFAULTS = { lmp: "06/01/2026", cycle: "28", luteal: "14" };
 
-      periods.push(pNext);
-      windows.push({ start: pStart, end: pEnd, ovulation: pOvul });
-      
-      currentLmp = pNext;
-    }
+export default function FertilityCalculator() {
+  const [lmp, setLmp] = useState(DEFAULTS.lmp);
+  const [cycle, setCycle] = useState(DEFAULTS.cycle);
+  const [luteal, setLuteal] = useState(DEFAULTS.luteal);
+  const [showAdv, setShowAdv] = useState(false);
+  const [result, setResult] = useState<FertilityResult | null>(null);
 
-    setResults({ 
-      currentOvulation: ovulationDate.toLocaleDateString(undefined, { weekday: 'short', month: 'long', day: 'numeric' }),
-      currentWindow: `${windowStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${windowEnd.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`,
-      windows: windows.map(w => ({
-        range: `${w.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} to ${w.end.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`,
-        ovulation: w.ovulation.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-      }))
-    });
-  };
+  const cy = parseInt(cycle) || 0;
+  const lu = parseInt(luteal) || 0;
+  const errs: string[] = [];
+  if (!parseDate(lmp)) errs.push("Enter the first day of your last period as MM/DD/YYYY.");
+  else if (daysBetween(parseDate(lmp)!, new Date()) < 0) errs.push("LMP date cannot be in the future.");
+  if (cy < 21 || cy > 45) errs.push("Cycle length must be between 21 and 45 days.");
+  if (lu < 10 || lu > 17) errs.push("Luteal phase must be between 10 and 17 days.");
+  const valid = errs.length === 0;
 
+  const calculate = () => { if (valid) setResult(calcFertility(lmp, cy, lu)); };
   const reset = () => {
-    setShowResults(false); setLmpDate(""); setCycleLength("28"); setResults(null); };
+    setLmp(DEFAULTS.lmp); setCycle(DEFAULTS.cycle); setLuteal(DEFAULTS.luteal);
+    setResult(calcFertility("06/01/2026", 28, 14));
+  };
+  useEffect(() => { setResult(calcFertility("06/01/2026", 28, 14)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is the fertile window?", answer: "The fertile window is the 6 days leading up to and including ovulation. Because sperm can survive in the reproductive tract for up to 5 days, intercourse during this time provides the best chance of conception." },
-    { question: "When are my chances highest?", answer: "Your chances are highest in the 2 days immediately preceding ovulation, and the day of ovulation itself. This is often referred to as peak fertility." },
-    { question: "Can I get pregnant outside the fertile window?", answer: "It is highly unlikely. An egg only survives for 12-24 hours after ovulation. However, because cycle lengths can vary, it is possible to miscalculate the window, leading to unexpected conception." }
+    { question: "What is the fertile window?", answer: "The fertile window spans the 5 days before ovulation plus the day after — sperm can survive up to 5 days in the reproductive tract, and the egg lives about 24 hours after release." },
+    { question: "How is ovulation predicted?", answer: "Ovulation typically occurs about 14 days before your next period starts. This calculator predicts the next period from your cycle length, then counts back your luteal phase to find ovulation day." },
+    { question: "How accurate is this?", answer: "Cycle lengths vary, so treat these dates as estimates. Tracking basal temperature, cervical mucus, or ovulation test strips can confirm the actual window." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Fertility Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Fertility Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fertility Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Fertility Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-6 mb-6">
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>First Day of Last Period</label>
+                <div className={inp}><input value={lmp} onChange={e => setLmp(e.target.value)} placeholder="MM/DD/YYYY" className={ci} /></div>
+              </div>
+              <div>
+                <label className={lbl}>Cycle Length</label>
+                <div className={inp}><input type="number" value={cycle} onChange={e => setCycle(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">days</span></div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowAdv(o => !o)}
+              className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 self-start"
+            >
+              Advanced Options
+              <span className={`transition-transform ${showAdv ? "rotate-180" : ""}`}>▼</span>
+            </button>
+            {showAdv && (
+              <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-1">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">First Day of Last Period</label>
-                  <input type="date" value={lmpDate} onChange={e => setLmpDate(e.target.value)} className="input-calc w-full" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1.5">Average Cycle Length (Days)</label>
-                  <input type="number" value={cycleLength} onChange={e => setCycleLength(e.target.value)} className="input-calc w-full" />
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Refinements</div>
+                  <div>
+                    <label className={lbl}>Luteal Phase Length</label>
+                    <div className={inp}><input type="number" value={luteal} onChange={e => setLuteal(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">days</span></div>
+                    <p className="text-xs text-muted-foreground mt-1.5">The days from ovulation to the next period — usually 14, but 10–16 is normal.</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            )}
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Your Upcoming Fertile Window</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-pink-500/10 border border-pink-500/20 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-pink-600 uppercase tracking-widest mb-1">Fertile Window</p>
-                    <p className="text-3xl font-black text-foreground">{results.currentWindow}</p>
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Fertile Window</div>
+                <div className="text-4xl font-extrabold tracking-tight">{result.fertileStart} – {result.fertileEnd}</div>
+                <div className="text-sm text-muted-foreground mt-1">Ovulation ~{result.ovulation.split(", ")[0] === result.fertileStart.split(", ")[0] ? result.ovulation : result.ovulation} · {result.inWindow ? "You are in your fertile window" : result.daysUntilFertile > 0 ? `${result.daysUntilFertile} days until it opens` : "Window passed this cycle"}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Predicted Ovulation`, result.ovulation.split(", 20")[0]], ["Next Period", result.nextPeriod.split(", 20")[0]], ["Cycle Day", `Day ${result.cycleDay}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
                   </div>
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Estimated Ovulation</p>
-                    <p className="text-2xl sm:text-3xl font-black text-foreground">{results.currentOvulation}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Cycle Timeline</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 4 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 4 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 4 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Cycle Days</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <PieChart>
+                    <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={55} outerRadius={85} paddingAngle={2}>
+                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Pie>
+                    <Tooltip formatter={(v: number) => [`${v} days`, ""]} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Fertile vs non-fertile days per cycle</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-                <h3 className="text-lg font-bold mb-4">Next 3 Months Forecast</h3>
-                <ResultDisplay items={[
-                  { label: "Cycle 1 Window", value: 0, textValue: results.windows[0].range + " (Ovulation: " + results.windows[0].ovulation + ")" },
-                  { label: "Cycle 2 Window", value: 0, textValue: results.windows[1].range + " (Ovulation: " + results.windows[1].ovulation + ")" },
-                  { label: "Cycle 3 Window", value: 0, textValue: results.windows[2].range + " (Ovulation: " + results.windows[2].ovulation + ")" },
-                ]} />
-              </>
-            )}
+              </div>
+            </>)}
           </div>
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">How Fertility Tracking Works</h2>
-              <p>For pregnancy to occur, live sperm must be present in the fallopian tubes when an egg is released. Because sperm can live in optimal conditions for up to 5 days, a woman's fertile window is roughly 6 days long: the 5 days before ovulation, plus the day of ovulation.</p>
-              <h3>Why Ovulation Day Matters</h3>
-              <p>An egg typically survives for only 12 to 24 hours after being released. If intercourse happens after ovulation, the chances of conception drop to near zero for that cycle.</p>
-              <h3>Increasing Accuracy</h3>
-              <p>Because this calculator relies on standard averages (a 14-day luteal phase), cycles that vary due to stress, travel, or illness may cause the actual window to shift. For higher accuracy, combine these dates with tracking your Basal Body Temperature (BBT) and using Ovulation Predictor Kits (OPKs).</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility" />
+            <h2 className="text-2xl font-bold mb-3">Finding Your Fertile Window</h2>
+            <p>This <strong>fertility calculator</strong> predicts ovulation by counting back the luteal phase from your expected next period — ovulation happens about 14 days before menstruation in a typical cycle. The fertile window extends 5 days before ovulation through 1 day after, covering sperm survival and egg viability.</p>
+            <h2 className="text-2xl font-bold mb-3">Why the Window Is Six to Seven Days</h2>
+            <p>Sperm can remain fertile inside the reproductive tract for up to 5 days, while the released egg survives only about 24 hours. That asymmetry is why conception is most likely when intercourse happens in the days leading up to ovulation, not on ovulation day itself.</p>
+            <h2 className="text-2xl font-bold mb-3">Confirming with Tracking</h2>
+            <p>Cycle lengths shift month to month. Basal body temperature rises after ovulation, cervical mucus becomes clear and stretchy beforehand, and LH test strips surge 24–48 hours before release — combine a couple of these methods for the most reliable window.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/fertility-calculator" />
           <PopularCalculators exclude="/calculator/fertility-calculator" />
         </div>
       </div>
     </>
   );
-};
-export default FertilityCalculator;
-
+}

@@ -9,6 +9,7 @@ import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
 import PieChart from "@/domains/calculator/components/ui/PieChart";
 import AmortizationTable, { type AmortRow } from "@/domains/calculator/components/ui/AmortizationTable";
 import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface CanadianResults {
   monthlyPayment: number;
@@ -25,7 +26,24 @@ interface CanadianResults {
   yearlyRows: AmortRow[];
 }
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+  type = "number",
+  ...props
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  prefix?: string;
+  suffix?: string;
+  type?: string;
+}) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -316,6 +334,23 @@ const CanadianMortgageCalculator = () => {
                     <span>Total Cost Over {amortization} Years</span>
                     <span>${Math.round(results.totalCost).toLocaleString()}</span>
                   </div>
+                </div>
+
+                <div className="card-calculator border border-border bg-card !p-5">
+                  <h3 className="text-base font-bold mb-3">Remaining Balance Over Time</h3>
+                  <ResponsiveContainer width="100%" height={240}>
+                    <LineChart
+                      data={results.yearlyRows.map((r) => ({ year: r.period, balance: Math.round(r.balance) }))}
+                      margin={{ top: 5, right: 15, left: 0, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis dataKey="year" tick={{ fontSize: 10 }} label={{ value: "Year", position: "insideBottom", offset: -2, fontSize: 11 }} />
+                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`} />
+                      <Tooltip formatter={(v: number) => `$${v.toLocaleString()}`} labelFormatter={(l) => `Year ${l}`} />
+                      <Line type="monotone" dataKey="balance" stroke="hsl(var(--primary))" strokeWidth={2.5} dot={{ r: 3 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <p className="text-xs text-muted-foreground mt-2">Outstanding principal by year-end under the current amortization schedule.</p>
                 </div>
               </div>
             )}

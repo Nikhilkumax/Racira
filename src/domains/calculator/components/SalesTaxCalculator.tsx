@@ -5,45 +5,82 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Receipt } from "lucide-react";
+import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
-type Mode = "add" | "reverse";
+interface NumInputProps {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  suffix?: string;
+  prefix?: string;
+}
 
-const SalesTaxCalculator = () => {
-  const [mode, setMode] = useState<Mode>("add");
-  const [price, setPrice] = useState("100");
-  const [taxRate, setTaxRate] = useState("8.25");
+function NumInput({ label, value, onChange, min = 0, max = 999999, step = 1, suffix, prefix }: NumInputProps) {
+  return (
+    <div>
+      <label className="block text-sm font-medium mb-1.5 text-foreground">{label}</label>
+      <div className="relative">
+        {prefix && <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{prefix}</span>}
+        <input
+          type="number"
+          value={Number.isFinite(value) ? value : ""}
+          min={min}
+          max={max}
+          step={step}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "") return onChange(min);
+            const n = parseFloat(raw);
+            if (Number.isNaN(n)) return;
+            onChange(Math.min(max, Math.max(min, n)));
+          }}
+          className={`input-calc ${prefix ? "pl-8" : ""} ${suffix ? "pr-10" : ""}`}
+        />
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">{suffix}</span>}
+      </div>
+    </div>
+  );
+}
+
+const fmt = (n: number) => "$" + n.toFixed(2);
+
+export default function SalesTaxCalculator() {
+  const [mode, setMode] = useState<"add" | "reverse">("add");
+  const [price, setPrice] = useState(100);
+  const [rate, setRate] = useState(8.25);
   const [showResults, setShowResults] = useState(false);
 
-  const [result, setResult] = useState<{ taxAmount: number; beforeTax: number; afterTax: number } | null>(null);
+  const r = rate / 100;
+  const d =
+    mode === "add"
+      ? { beforeTax: price, tax: price * r, afterTax: price + price * r, effective: r * 100 }
+      : { beforeTax: price / (1 + r), tax: price - price / (1 + r), afterTax: price, effective: r * 100 };
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const p = parseFloat(price) || 0;
-    const r = (parseFloat(taxRate) || 0) / 100;
-    if (p <= 0) return;
+  const taxShare = d.afterTax > 0 ? (d.tax / d.afterTax) * 100 : 0;
+  const chartData = [
+    { name: "Pre-Tax Price", value: Math.round(d.beforeTax) },
+    { name: "Sales Tax", value: Math.round(d.tax) },
+  ];
 
-    if (mode === "add") {
-      const tax = p * r;
-      setResult({ taxAmount: tax, beforeTax: p, afterTax: p + tax });
-    } else {
-      const beforeTax = p / (1 + r);
-      const tax = p - beforeTax;
-      setResult({ taxAmount: tax, beforeTax, afterTax: p });
-    }
-  };
+  const handleCalculate = () => setShowResults(true);
 
   const reset = () => {
-    setShowResults(false); setPrice("100"); setTaxRate("8.25"); setResult(null); };
+    setMode("add");
+    setPrice(100);
+    setRate(8.25);
+    setShowResults(false);
+  };
 
   const faqs = [
-    { question: "How is sales tax calculated?", answer: "Sales tax is calculated by multiplying the pre-tax price by the tax rate. For example, an item priced at $100 with an 8.25% tax rate would have $8.25 in sales tax, for a total of $108.25." },
-    { question: "How do I find the pre-tax price from a total?", answer: "Divide the total price by (1 + tax rate). For example, if the total is $108.25 and the tax rate is 8.25%, the pre-tax price is $108.25 ÷ 1.0825 = $100.00." },
-    { question: "Do all states have sales tax?", answer: "No. Five US states have no state sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon. However, some cities in Alaska do levy local sales taxes." },
-    { question: "What is the average US sales tax rate?", answer: "The average combined state and local sales tax rate in the US is approximately 7.12%. Rates range from 0% (in tax-free states) to over 10% in some jurisdictions." },
-    { question: "Is sales tax included in the listed price?", answer: "In the US, sales tax is typically added at checkout and not included in the listed price. In many other countries (EU, UK, Australia), tax (VAT/GST) is included in the displayed price." },
+    { question: "How do I add sales tax to a price?", answer: "Multiply the pre-tax price by 1 + the rate. At 8.25%, a $100 item becomes $108.25. The tax itself is price × rate — $8.25 in this case. This is the 'add tax' mode of this calculator." },
+    { question: "How do I remove tax from a total?", answer: "Divide the after-tax total by 1 + the rate to recover the pre-tax price, then subtract. A $108.25 total at 8.25% contains $100 of pre-tax price and $8.25 of tax. This is the 'reverse' mode." },
+    { question: "What is the average US sales tax rate?", answer: "Combined state and local rates average about 7.12% nationally. Five states (Alaska, Delaware, Montana, New Hampshire, Oregon) have no state sales tax, while combined rates in some cities exceed 10%." },
+    { question: "Do I pay sales tax on services?", answer: "It varies by state. Many states tax services like repair work, haircuts, and software, while others exempt them. Business-to-business services are often exempt when the buyer resells or uses them in production." },
+    { question: "Is sales tax the same as VAT?", answer: "No. Sales tax is charged once, at the final retail sale, and is usually not shown in the listed price. VAT is charged at every stage of production with credits for tax already paid, and is included in the displayed price — common in most countries outside the US." },
   ];
 
   return (
@@ -54,31 +91,154 @@ const SalesTaxCalculator = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex rounded-lg border border-input overflow-hidden mb-6">
-                <button onClick={() => { setMode("add"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "add" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Add Tax to Price</button>
-                <button onClick={() => { setMode("reverse"); setResult(null); }} className={`flex-1 py-3 text-sm font-medium transition-colors ${mode === "reverse" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-secondary"}`}>Remove Tax from Total</button>
+            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
+              <Receipt className="w-4 h-4" /> Add or Remove Tax
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-lg border border-input overflow-hidden flex col-span-2">
+                <button
+                  onClick={() => setMode("add")}
+                  className={`flex-1 py-2.5 text-sm font-medium transition-colors ${mode === "add" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}
+                >
+                  Add Tax to Price
+                </button>
+                <button
+                  onClick={() => setMode("reverse")}
+                  className={`flex-1 py-2.5 text-sm font-medium transition-colors ${mode === "reverse" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}
+                >
+                  Remove Tax from Total
+                </button>
               </div>
+              <NumInput
+                label={mode === "add" ? "Before-Tax Price" : "After-Tax Total"}
+                value={price}
+                onChange={setPrice}
+                min={0.01}
+                max={999999}
+                step={0.01}
+                prefix="$"
+              />
+              <NumInput label="Sales Tax Rate" value={rate} onChange={setRate} min={0} max={30} step={0.01} suffix="%" />
+            </div>
 
-              <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <InputField id="price" label={mode === "add" ? "Before-Tax Price" : "After-Tax Total"} value={price} onChange={setPrice} prefix="$" />
-                <InputField id="rate" label="Sales Tax Rate" value={taxRate} onChange={setTaxRate} suffix="%" />
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button><button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            <div className="flex gap-3">
+              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
+              <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset">
+                <RotateCcw className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            {showResults && result && (
+            {showResults ? (
               <>
-                <h2 className="text-2xl font-bold mb-3">Results</h2>
-                <ResultDisplay items={[
-                  { label: "Before-Tax Price", value: result.beforeTax },
-                  { label: "Sales Tax", value: result.taxAmount, highlight: true },
-                  { label: "After-Tax Total", value: result.afterTax, highlight: true },
-                ]} />
+                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Sales Tax Amount</p>
+                  <p className="text-4xl font-bold text-primary mt-1">{fmt(d.tax)}</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {mode === "add" ? "added to the pre-tax price" : "hidden inside the total"} · {d.effective.toFixed(2)}% rate
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-3 divide-x divide-border rounded-lg border bg-card">
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Before-Tax</p>
+                    <p className="text-2xl font-bold text-primary">{fmt(d.beforeTax)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">Sales Tax</p>
+                    <p className="text-2xl font-bold text-orange-500">{fmt(d.tax)}</p>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground">After-Tax Total</p>
+                    <p className="text-2xl font-bold text-green-600">{fmt(d.afterTax)}</p>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border border-border overflow-hidden">
+                  <table className="w-full text-base">
+                    <thead>
+                      <tr className="border-b text-left text-xs uppercase tracking-wide text-muted-foreground">
+                        <th className="py-2.5 px-3 font-medium">Item</th>
+                        <th className="py-2.5 px-3 font-medium text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b bg-primary/5">
+                        <td className="py-2.5 px-3 font-medium">Sales Tax</td>
+                        <td className="py-2.5 px-3 text-right font-semibold">{fmt(d.tax)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Before-Tax Price</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(d.beforeTax)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">After-Tax Total</td>
+                        <td className="py-2.5 px-3 text-right">{fmt(d.afterTax)}</td>
+                      </tr>
+                      <tr className="border-b">
+                        <td className="py-2.5 px-3">Tax Rate</td>
+                        <td className="py-2.5 px-3 text-right">{d.effective.toFixed(2)}%</td>
+                      </tr>
+                      <tr>
+                        <td className="py-2.5 px-3">Tax Share of Total</td>
+                        <td className="py-2.5 px-3 text-right">{taxShare.toFixed(1)}%</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="rounded-lg border border-border p-4">
+                  <p className="text-sm font-medium mb-3">Price Composition</p>
+                  <div className="h-[200px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={75} label>
+                          {chartData.map((_, i) => (
+                            <Cell key={i} fill={["#2563eb", "#f59e0b"][i]} />
+                          ))}
+                        </Pie>
+                        <Tooltip formatter={(v: number) => fmt(v)} />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <p className="text-sm font-medium mb-3">Summary</p>
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Mode</span>
+                      <span className="font-medium">{mode === "add" ? "Add Tax" : "Remove Tax"}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Tax Rate</span>
+                      <span className="font-medium">{rate}%</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">Before-Tax</span>
+                      <span className="font-medium">{fmt(d.beforeTax)}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-border/60 py-1.5">
+                      <span className="text-muted-foreground">After-Tax</span>
+                      <span className="font-medium">{fmt(d.afterTax)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Tax Amount</span>
+                      <span className="font-medium">{fmt(d.tax)}</span>
+                    </div>
+                    <div className="flex justify-between py-1.5">
+                      <span className="text-muted-foreground">Tax Share</span>
+                      <span className="font-medium">{taxShare.toFixed(1)}%</span>
+                    </div>
+                  </div>
+                </div>
               </>
+            ) : (
+              <div className="card-calculator border border-border bg-card !p-5 text-center text-muted-foreground">
+                Choose add or remove mode, enter your numbers, and click <strong className="text-foreground">Calculate</strong> to see the tax amount, before-tax price, and after-tax total.
+              </div>
             )}
           </div>
         </div>
@@ -86,36 +246,17 @@ const SalesTaxCalculator = () => {
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">What Is a Sales Tax Calculator?</h2>
-              <p>A sales tax calculator helps you determine the amount of sales tax on a purchase, or reverse-calculate the pre-tax price from a total that includes tax. It's useful for budgeting, price comparisons across states, and verifying receipts.</p>
-              <p>Our calculator offers two modes: forward calculation (add tax to a pre-tax price) and reverse calculation (extract tax from a total amount). Simply enter the price and your local tax rate to get instant results.</p>
-
-              <h2 className="text-2xl font-bold mb-3">How Sales Tax Works</h2>
-              <p>Sales tax is a consumption tax imposed by state and local governments on retail transactions. The rate varies by jurisdiction and can range from 0% to over 10% when combining state and local rates.</p>
-              <p>The forward formula is straightforward: Total = Price × (1 + Tax Rate). For reverse calculation: Pre-tax Price = Total ÷ (1 + Tax Rate).</p>
-
-              <h2 className="text-2xl font-bold mb-3">US Sales Tax Overview</h2>
-              <p>The United States has a complex sales tax system where rates vary by state, county, and city. Some key points:</p>
-              <ul>
-                <li><strong>No federal sales tax:</strong> Unlike many countries, the US has no national sales tax or VAT.</li>
-                <li><strong>State rates:</strong> Range from 0% (tax-free states) to 7.25% (California).</li>
-                <li><strong>Local surcharges:</strong> Cities and counties may add their own taxes, pushing combined rates over 10% in some areas.</li>
-                <li><strong>Exemptions:</strong> Many states exempt groceries, medicine, and clothing from sales tax.</li>
-              </ul>
-
-              <h2 className="text-2xl font-bold mb-3">Sales Tax vs. VAT</h2>
-              <p>Sales tax (used in the US) is collected only at the point of final sale. Value Added Tax (VAT), used in most other countries, is collected at every stage of production and distribution. While both ultimately tax consumption, the mechanism and compliance requirements differ significantly.</p>
-
-              <p className="text-xs mt-8 p-3 bg-secondary rounded-lg"><strong>Disclaimer:</strong> This calculator provides estimates. Actual tax rates vary by location and product category. Verify rates with your local tax authority.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">How Sales Tax Works</h2>
+            <p>Add mode: tax = price × rate, total = price + tax. Reverse mode extracts the pre-tax price from a tax-inclusive total: before-tax = total ÷ (1 + rate), tax = total − before-tax.</p>
+            <h3>Worked Example</h3>
+            <p>A $100 item at 8.25% carries $8.25 of tax for a $108.25 total. Working backward, a $108.25 total at 8.25% reveals a $100 pre-tax price. Combined US state-and-local rates average about 7.12%, from 0% in tax-free states to over 10% in some cities.</p>
+            <h3>Who Collects It</h3>
+            <p>Sales tax is collected by the retailer at the point of sale and remitted to the state and local governments. Online sellers now collect it in most states following the 2018 Wayfair ruling, which allowed states to require out-of-state sellers to charge tax on remote sales — closing a long-standing e-commerce loophole.</p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/sales-tax-calculator" />
-          <PopularCalculators exclude="/sales-tax-calculator" />
+          <PopularCalculators exclude="/calculator/sales-tax-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default SalesTaxCalculator;
-
-
+}

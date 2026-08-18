@@ -1,231 +1,227 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, ChevronDown } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
+import { RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
-interface TaxResult { federalTax: number; stateTax: number; ficaTax: number; totalTax: number; effectiveRate: number; marginalRate: number; takeHome: number; monthlyTakeHome: number; }
-const DEFAULTS = { income: "85000", state: "CA", filingStatus: "single", stateRate: "9.3", k401: "0", ira: "0", hsa: "0" };
+interface TaxResult {
+  income: number;
+  regime: string;
+  deductions: number;
+  standardDeduction: number;
+  taxable: number;
+  tax: number;
+  cess: number;
+  totalTax: number;
+  marginalRate: number;
+  effectiveRate: number;
+  rebate: number;
+  takeHome: number;
+  slabs: { label: string; value: number }[];
+  breakdown: { label: string; value: string }[];
+  summaryStats: { label: string; value: string }[];
+  chartData: { name: string; value: number; fill: string }[];
+}
 
-const BRACKETS_SINGLE_2024 = [
-  { min: 0, max: 11600, rate: 0.10 }, { min: 11600, max: 47150, rate: 0.12 },
-  { min: 47150, max: 100525, rate: 0.22 }, { min: 100525, max: 191950, rate: 0.24 },
-  { min: 191950, max: 243725, rate: 0.32 }, { min: 243725, max: 609350, rate: 0.35 },
-  { min: 609350, max: Infinity, rate: 0.37 },
-];
-const BRACKETS_MFJ_2024 = [
-  { min: 0, max: 23200, rate: 0.10 }, { min: 23200, max: 94300, rate: 0.12 },
-  { min: 94300, max: 201050, rate: 0.22 }, { min: 201050, max: 383900, rate: 0.24 },
-  { min: 383900, max: 487450, rate: 0.32 }, { min: 487450, max: 731200, rate: 0.35 },
-  { min: 731200, max: Infinity, rate: 0.37 },
-];
+function fmtRs(v: number): string {
+  return `₹${Math.round(v).toLocaleString("en-IN")}`;
+}
 
-function calcFederal(income: number, status: string): { tax: number; marginalRate: number } {
-  const standardDeduction = status === "mfj" ? 29200 : status === "hoh" ? 21900 : 14600;
-  const taxableIncome = Math.max(0, income - standardDeduction);
-  const brackets = status === "mfj" ? BRACKETS_MFJ_2024 : BRACKETS_SINGLE_2024;
-  let tax = 0, marginalRate = 0;
-  for (const b of brackets) {
-    if (taxableIncome > b.min) {
-      tax += Math.min(taxableIncome - b.min, b.max - b.min) * b.rate;
-      marginalRate = b.rate;
+const NEW_SLABS: [number, number][] = [[400000, 0], [800000, 0.05], [1200000, 0.10], [1600000, 0.15], [2000000, 0.20], [2400000, 0.25], [Infinity, 0.30]];
+const OLD_SLABS: [number, number][] = [[250000, 0], [500000, 0.05], [1000000, 0.20], [Infinity, 0.30]];
+
+function slabTax(taxable: number, slabs: [number, number][]): number {
+  let tax = 0;
+  let prev = 0;
+  for (const [limit, rate] of slabs) {
+    if (taxable > prev) {
+      tax += (Math.min(taxable, limit) - prev) * rate;
     }
+    prev = limit;
   }
-  return { tax: Math.round(tax), marginalRate };
+  return tax;
 }
 
-function calculate(d: typeof DEFAULTS): TaxResult {
-  const income = parseFloat(d.income)||0;
-  const preTaxDeductions = (parseFloat(d.k401)||0) + (parseFloat(d.ira)||0) + (parseFloat(d.hsa)||0);
-  const adjustedIncome = Math.max(0, income - preTaxDeductions);
-  const { tax: federalTax, marginalRate } = calcFederal(adjustedIncome, d.filingStatus);
-  const stateTax = Math.round(adjustedIncome * (parseFloat(d.stateRate)||0) / 100);
-  const ficaTax = Math.round(Math.min(income, 168600) * 0.062 + income * 0.0145);
-  const totalTax = federalTax + stateTax + ficaTax;
-  const effectiveRate = income > 0 ? totalTax / income : 0;
-  return { federalTax, stateTax, ficaTax, totalTax, effectiveRate, marginalRate, takeHome: income - totalTax - preTaxDeductions, monthlyTakeHome: Math.round((income - totalTax - preTaxDeductions) / 12) };
+function calcTax(income: number, regime: string, deductions: number): TaxResult {
+  const standardDeduction = regime === "new" ? 75000 : 50000;
+  const taxable = Math.max(0, income - standardDeduction - (regime === "new" ? 0 : Math.min(deductions, 150000)));
+  const rawTax = slabTax(taxable, regime === "new" ? NEW_SLABS : OLD_SLABS);
+  const rebate = regime === "new" ? (taxable <= 1200000 ? rawTax : 0) : (taxable <= 500000 ? rawTax : 0);
+  const tax = Math.max(0, rawTax - rebate);
+  const cess = tax * 0.04;
+  const totalTax = tax + cess;
+  const marginalRate = slabTax(taxable + 1, regime === "new" ? NEW_SLABS : OLD_SLABS) - rawTax;
+  const effectiveRate = income > 0 ? (totalTax / income) * 100 : 0;
+  const takeHome = income - totalTax;
+
+  const slabs = (regime === "new" ? NEW_SLABS : OLD_SLABS).map(([limit, rate]) => ({
+    label: limit === Infinity ? `Above ${prevL(regime)}` : `Up to ₹${(limit / 100000).toFixed(0)}L`,
+    value: rate * 100,
+  }));
+  function prevL(r: string): string {
+    return r === "new" ? "₹24L" : "₹10L";
+  }
+
+  const breakdown = [
+    { label: "Annual Income", value: fmtRs(income) },
+    { label: "Regime", value: regime === "new" ? "New (FY 2025-26)" : "Old (FY 2025-26)" },
+    { label: "Standard Deduction", value: `−${fmtRs(standardDeduction)}` },
+    { label: regime === "new" ? "Section 80C Deductions" : "Deductions (80C etc., capped)", value: regime === "new" ? "Not applicable (old-regime only)" : `−${fmtRs(Math.min(deductions, 150000))}` },
+    { label: "Taxable Income", value: fmtRs(taxable) },
+    { label: "Tax Before Rebate", value: fmtRs(rawTax) },
+    { label: "87A Rebate", value: rebate > 0 ? fmtRs(rebate) : "None" },
+    { label: "Income Tax", value: fmtRs(tax) },
+    { label: "Health & Education Cess (4%)", value: fmtRs(cess) },
+    { label: "Total Tax Payable", value: fmtRs(totalTax) },
+  ];
+  const summaryStats = [
+    { label: "Total Tax", value: fmtRs(totalTax) },
+    { label: "Effective Rate", value: `${effectiveRate.toFixed(1)}%` },
+    { label: "Marginal Rate", value: `${marginalRate * 100}%` },
+    { label: "Taxable Income", value: fmtRs(taxable) },
+    { label: "Cess", value: fmtRs(cess) },
+    { label: "Rebate", value: rebate > 0 ? fmtRs(rebate) : "None" },
+    { label: "Take-Home", value: fmtRs(takeHome) },
+    { label: "Monthly Tax", value: fmtRs(totalTax / 12) },
+  ];
+  const chartData = [
+    { name: "Take-Home", value: Math.max(0, Math.round(takeHome)), fill: "hsl(var(--primary))" },
+    { name: "Income Tax", value: Math.max(0, Math.round(totalTax)), fill: "#ef4444" },
+  ];
+  return { income, regime, deductions, standardDeduction, taxable, tax, cess, totalTax, marginalRate, effectiveRate, rebate, takeHome, slabs, breakdown, summaryStats, chartData };
 }
 
-const fmt = (n: number) => `$${Math.round(n).toLocaleString()}`;
-const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
+const DEFAULTS = { income: "1500000", regime: "new", deductions: "150000" };
 
 export default function IncomeTaxCalculator() {
-  const [f, setF] = useState(DEFAULTS);
-  const [r, setR] = useState<TaxResult>(() => calculate(DEFAULTS));
-  const [showAdv, setShowAdv] = useState(false);
-  const set = (k: keyof typeof DEFAULTS) => (v: string) => setF(p => ({ ...p, [k]: v }));
-  const calc = () => setR(calculate(f));
-  const reset = () => { setF(DEFAULTS); setR(calculate(DEFAULTS)); setShowAdv(false); };
+  const [income, setIncome] = useState(DEFAULTS.income);
+  const [regime, setRegime] = useState(DEFAULTS.regime);
+  const [deductions, setDeductions] = useState(DEFAULTS.deductions);
+  const [result, setResult] = useState<TaxResult | null>(null);
 
-  const income = parseFloat(f.income)||0;
-  const pieData = [
-    { name: "Federal Tax", value: r.federalTax, fill: "#ef4444" },
-    { name: "State Tax", value: r.stateTax, fill: "#f59e0b" },
-    { name: "FICA", value: r.ficaTax, fill: "#8b5cf6" },
-    { name: "Take-Home", value: r.takeHome, fill: "hsl(var(--primary))" },
-  ];
+  const inc = parseFloat(income) || 0;
+  const dd = parseFloat(deductions) || 0;
+  const errs: string[] = [];
+  if (inc <= 0) errs.push("Annual income must be greater than 0.");
+  if (dd < 0) errs.push("Deductions cannot be negative.");
+  const valid = errs.length === 0;
+
+  const calculate = () => { if (valid) setResult(calcTax(inc, regime, dd)); };
+  const reset = () => {
+    setIncome(DEFAULTS.income); setRegime(DEFAULTS.regime); setDeductions(DEFAULTS.deductions);
+    setResult(calcTax(1500000, "new", 150000));
+  };
+  useEffect(() => { setResult(calcTax(1500000, "new", 150000)); }, []);
+
+  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const sel = "w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground cursor-pointer font-medium";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "How is US federal income tax calculated?", answer: "The US uses progressive marginal tax brackets. Only income within each bracket is taxed at that rate — not all income. For 2024 (single): 10% on $0–$11,600, 12% on $11,600–$47,150, 22% on $47,150–$100,525, etc. The standard deduction ($14,600 for single in 2024) reduces taxable income first." },
-    { question: "What is the difference between effective and marginal tax rate?", answer: "Marginal rate: the rate applied to your last dollar of income (your highest bracket). Effective rate: total tax divided by total income — your average rate. Always consider both: the marginal rate affects decisions about additional income; the effective rate shows actual tax burden. Most people's effective rate is significantly lower than their marginal rate." },
-    { question: "What is FICA tax?", answer: "FICA = Federal Insurance Contributions Act. It includes: Social Security tax (6.2% on wages up to $168,600 in 2024) + Medicare tax (1.45% on all wages, plus 0.9% Additional Medicare Tax on wages above $200K for single filers). Employers pay an equal amount, making total FICA contribution 15.3% (split 50/50)." },
-    { question: "Should I take the standard deduction or itemize?", answer: "Take whichever is larger. Standard deduction (2024): $14,600 single, $29,200 MFJ. Itemize if: mortgage interest + property taxes + state income taxes (SALT cap $10K) + charitable contributions + medical expenses above 7.5% AGI > standard deduction. About 90% of filers take the standard deduction post-2017 TCJA." },
-    { question: "How can I reduce my federal tax liability?", answer: "Contribute to pre-tax retirement accounts (401(k), Traditional IRA) — reduces taxable income dollar for dollar. Maximize HSA contributions if eligible. Use FSA for medical and childcare expenses. Harvest tax losses in brokerage accounts to offset gains. Defer income to lower-income years. These strategies can reduce effective rate by 3–8 percentage points." },
-    { question: "What is the 2024 standard deduction?", answer: "2024 standard deductions: Single / Married Filing Separately: $14,600. Married Filing Jointly: $29,200. Head of Household: $21,900. Add $1,550 per person over 65 or blind. The standard deduction is adjusted annually for inflation." },
+    { question: "What changed in the new regime?", answer: "For FY 2025-26 the new regime offers six slabs from 0% to 30%, a ₹75,000 standard deduction, and a full rebate for taxable income up to ₹12 lakh — effectively tax-free below that." },
+    { question: "New or old regime?", answer: "The new regime wins for most salaried taxpayers unless you use heavy 80C, HRA, and other deductions (typically ₹3L+). Compare both sides with your actual deduction numbers." },
+    { question: "What is the 87A rebate?", answer: "Section 87A cancels the entire tax liability when taxable income stays under the rebate threshold — ₹12 lakh in the new regime, ₹5 lakh in the old. Above it, tax applies from the first slab." },
   ];
 
   return (
     <>
       <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Income Tax Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Income Tax Calculator 2024</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Income Tax Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 border border-border bg-card shadow-sm">
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-1">Annual Gross Income</label>
-              <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
-                <span className="pl-3 pr-1 text-sm text-muted-foreground">$</span>
-                <input type="number" value={f.income} onChange={e => set("income")(e.target.value)} className="w-full h-full px-2 text-base bg-transparent outline-none border-none text-foreground" />
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={lbl}>Annual Income</label>
+                <div className={inp}><input type="number" value={income} onChange={e => setIncome(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹</span></div>
+              </div>
+              <div>
+                <label className={lbl}>Tax Regime</label>
+                <select value={regime} onChange={e => setRegime(e.target.value)} className={sel}>
+                  <option value="new">New Regime (FY 2025-26)</option>
+                  <option value="old">Old Regime</option>
+                </select>
+              </div>
+              <div>
+                <label className={lbl}>Deductions (80C etc.)</label>
+                <div className={inp}><input type="number" value={deductions} onChange={e => setDeductions(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">₹</span></div>
+                <p className="text-xs text-muted-foreground mt-1.5">Old regime only — capped at ₹1.5L.</p>
               </div>
             </div>
-            <div className="flex flex-col"><label className="text-sm font-semibold mb-1">Filing Status</label>
-              <select value={f.filingStatus} onChange={e => set("filingStatus")(e.target.value)} className="h-9 px-3 rounded-md border border-input bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/20">
-                <option value="single">Single</option>
-                <option value="mfj">Married Filing Jointly</option>
-                <option value="mfs">Married Filing Separately</option>
-                <option value="hoh">Head of Household</option>
-              </select></div>
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold mb-1">State Income Tax Rate (%)</label>
-              <p className="text-xs text-muted-foreground mb-1">Enter your state&apos;s effective rate (0% for TX, FL, WA, etc.)</p>
-              <div className="flex items-center rounded-md border border-input bg-background h-10 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
-                <input type="number" value={f.stateRate} onChange={e => set("stateRate")(e.target.value)} className="w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground" />
-                <span className="pr-3 text-sm text-muted-foreground">%</span>
-              </div>
-            </div>
-
-            {/* Advanced Options */}
-            <div>
-              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
-                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
-              </button>
-              {showAdv && (
-                <div className="mt-3 p-4 rounded-lg bg-secondary/20 border border-border animate-fade-in-up grid grid-cols-1 gap-3">
-                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Pre-Tax Deductions (reduce taxable income)</p>
-                  {[
-                    { key: "k401" as const, label: "401(k) Contribution", max: 23000 },
-                    { key: "ira" as const, label: "Traditional IRA", max: 7000 },
-                    { key: "hsa" as const, label: "HSA Contribution", max: 4150 },
-                  ].map(({ key, label, max }) => (
-                    <div key={key} className="flex flex-col">
-                      <label className="text-xs font-semibold mb-1">{label} <span className="text-muted-foreground font-normal">(max ${max.toLocaleString()})</span></label>
-                      <div className="flex items-center rounded-md border border-input bg-background h-9 overflow-hidden focus-within:ring-2 focus-within:ring-primary/20">
-                        <span className="pl-3 pr-1 text-sm text-muted-foreground">$</span>
-                        <input type="number" value={f[key]} onChange={e => set(key)(e.target.value)} className="w-full h-full px-2 text-sm bg-transparent outline-none border-none text-foreground" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="flex gap-2.5 mt-1">
-              <button onClick={calc} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
-              <button onClick={reset} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-5 w-5" />
+            {errs.length > 0 && (
+              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
+            )}
+            <div className="flex gap-3 mt-1">
+              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
-              <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Annual Take-Home Pay</div>
-              <div className="text-4xl font-extrabold text-foreground">{fmt(r.takeHome)}</div>
-              <div className="text-sm text-muted-foreground mt-1">{fmt(r.monthlyTakeHome)}/month · Effective rate: {pct(r.effectiveRate)} · Marginal: {pct(r.marginalRate)}</div>
-            </div>
-            <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
-              <div className="grid grid-cols-3 divide-x divide-border">
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Federal Tax</div><div className="font-bold text-red-600">{fmt(r.federalTax)}</div></div>
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">State + FICA</div><div className="font-bold text-amber-600">{fmt(r.stateTax + r.ficaTax)}</div></div>
-                <div className="p-3 text-center"><div className="text-xs text-muted-foreground mb-1">Total Tax</div><div className="font-bold">{fmt(r.totalTax)}</div></div>
+
+          <div className="flex flex-col gap-4">
+            {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Income Tax Payable (FY 2025-26)</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmtRs(result.totalTax)}</div>
+                <div className="text-sm text-muted-foreground mt-1">{result.effectiveRate.toFixed(1)}% effective on {fmtRs(result.income)} · {result.regime === "new" ? "New" : "Old"} regime</div>
               </div>
-            </div>
-            <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
-              <h3 className="font-semibold text-sm mb-3">Tax & Take-Home Breakdown</h3>
-              <div className="h-[180px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={pieData} barSize={50}>
-                    <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                    <YAxis tickFormatter={v => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 10 }} />
-                    <RTooltip formatter={(v: number) => [fmt(v), ""]} contentStyle={{ borderRadius: "8px", fontSize: "12px" }} />
-                    <Bar dataKey="value" radius={[4,4,0,0]}>
-                      {pieData.map((e, i) => <Cell key={i} fill={e.fill} />)}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[[`Marginal Rate`, `${result.marginalRate * 100}%`], ["Cess (4%)", fmtRs(result.cess)], ["Take-Home", fmtRs(result.takeHome)]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                  </div>
+                ))}
               </div>
-            </div>
-            <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
-              <div className="bg-secondary/50 px-4 py-2.5 border-b border-border/50"><h3 className="font-bold text-sm">Tax Summary 2024</h3></div>
-              {[
-                { label: "Gross Income", val: fmt(income) },
-                { label: "Standard Deduction", val: fmt(f.filingStatus === "mfj" ? 29200 : f.filingStatus === "hoh" ? 21900 : 14600) },
-                { label: "Federal Taxable Income", val: fmt(Math.max(0, income - (f.filingStatus === "mfj" ? 29200 : f.filingStatus === "hoh" ? 21900 : 14600))) },
-                { label: "Federal Income Tax", val: fmt(r.federalTax), bold: true },
-                { label: "State Income Tax", val: fmt(r.stateTax) },
-                { label: "FICA (SS + Medicare)", val: fmt(r.ficaTax) },
-                { label: "Total Tax Burden", val: fmt(r.totalTax), bold: true, highlight: true },
-                { label: "Effective Tax Rate", val: pct(r.effectiveRate), bold: true },
-                { label: "Marginal Tax Rate", val: pct(r.marginalRate) },
-                { label: "Annual Take-Home", val: fmt(r.takeHome), bold: true },
-                { label: "Monthly Take-Home", val: fmt(r.monthlyTakeHome), bold: true },
-              ].map((row, i) => (
-                <div key={i} className={`grid grid-cols-2 px-4 py-2 border-b border-border/30 last:border-0 ${row.highlight ? "bg-primary/5" : "hover:bg-secondary/20"}`}>
-                  <span className="text-muted-foreground text-sm">{row.label}</span>
-                  <span className={`text-right text-sm ${row.bold ? "font-bold text-foreground" : ""}`}>{row.val}</span>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Tax Calculation</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.breakdown.map((r, i) => (
+                    <tr key={i} className={`border-b border-border/50 last:border-0 ${i === 9 ? "bg-primary/10" : ""}`}>
+                      <td className={`py-2.5 ${i === 9 ? "text-primary font-bold" : "text-muted-foreground"}`}>{r.label}</td>
+                      <td className={`py-2.5 text-right font-semibold ${i === 9 ? "text-primary" : ""}`}>{r.value}</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Slab Rates ({result.regime === "new" ? "New" : "Old"} Regime)</h3>
+                <table className="w-full text-base"><tbody>
+                  {result.slabs.map((s, i) => (
+                    <tr key={i} className="border-b border-border/50 last:border-0">
+                      <td className="py-2.5 text-muted-foreground">{s.label}</td>
+                      <td className="py-2.5 text-right font-semibold">{s.value.toFixed(0)}%</td>
+                    </tr>
+                  ))}
+                </tbody></table>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            </>)}
           </div>
         </div>
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
-            <div>
-              <h2 className="text-2xl font-bold mb-3">How US Federal Income Tax Works (2024)</h2>
-              <p className="text-muted-foreground leading-relaxed">The United States uses a progressive federal income tax system with seven brackets. The key insight most people misunderstand is that you do not pay your highest bracket rate on all income. You pay 10% on the first $11,600, 12% on the next portion, and so forth. Only income within each bracket is taxed at that bracket rate. The standard deduction ($14,600 for single filers in 2024) is subtracted before any brackets apply, significantly reducing taxable income for most people.</p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">2024 Federal Tax Brackets (Single Filers)</h2>
-              <p className="text-muted-foreground leading-relaxed">10% on $0–$11,600. 12% on $11,601–$47,150. 22% on $47,151–$100,525. 24% on $100,526–$191,950. 32% on $191,951–$243,725. 35% on $243,726–$609,350. 37% on over $609,350. These brackets are indexed for inflation annually. Married Filing Jointly brackets are approximately double the single filer thresholds. Understanding where your income falls within these brackets determines both your marginal and effective tax rates.</p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">FICA Taxes Explained</h2>
-              <p className="text-muted-foreground leading-relaxed">Social Security: 6.2% on wages up to $168,600 (2024 wage base). Medicare: 1.45% on all wages with no cap. Additional Medicare: 0.9% on wages above $200,000 for single filers. Self-employed individuals pay the full 15.3% themselves (employer and employee share combined) but may deduct half as a business expense. FICA taxes fund Social Security retirement benefits and Medicare health insurance, representing a form of forced savings for future retirement and healthcare needs.</p>
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Tax Reduction Strategies</h2>
-              <p className="text-muted-foreground leading-relaxed">401(k) contributions reduce federal taxable income dollar-for-dollar (max $23,000 in 2024, $30,500 if 50 or older). Traditional IRA contributions are deductible if income limits allow (max $7,000, $8,000 if 50 or older). Health Savings Accounts offer a triple tax advantage: deductible contributions, tax-free growth, and tax-free medical withdrawals (max $4,150 individual, $8,300 family for 2024). These accounts combined can reduce taxable income by $30,000 to $40,000 or more for a single filer, potentially dropping a bracket and saving thousands in federal taxes annually.</p>
-            </div>
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">How the New Regime Works</h2>
+            <p>This <strong>income tax calculator</strong> applies the FY 2025-26 slab structure — 0% up to ₹4L, then 5/10/15/20/25/30% — with the ₹75,000 standard deduction and the ₹12 lakh 87A rebate. The old regime is modeled with its classic slabs, ₹50,000 standard deduction, and 80C deductions up to ₹1.5L.</p>
+            <h2 className="text-2xl font-bold mb-3">Effective vs Marginal Rate</h2>
+            <p>Marginal rate is the tax on your next rupee; effective rate is total tax divided by income. At ₹15L in the new regime the marginal rate is 20% but the effective rate is far lower because the first ₹12L are taxed lightly or not at all.</p>
+            <h2 className="text-2xl font-bold mb-3">Choosing a Regime</h2>
+            <p>Run both numbers with your real deductions. The new regime wins when deductions stay below roughly ₹3L; heavy investors and renters may still do better in the old regime. Either way, the 4% cess applies on top.</p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/income-tax-calculator" />
-
-      <section className="mt-12 space-y-8 text-base text-foreground">
-        <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Income Tax Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Income Tax Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Income Tax Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Income Tax Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Income Tax Calculator useful for both quick checks and deeper what-if analysis.</p>
-        </div>
-      </section>
           <PopularCalculators exclude="/calculator/income-tax-calculator" />
         </div>
       </div>

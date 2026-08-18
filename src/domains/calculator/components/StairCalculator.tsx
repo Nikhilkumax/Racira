@@ -4,7 +4,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, ArrowUpRight } from "lucide-react";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
 interface StairResult {
   stepCount: number;
@@ -12,6 +13,10 @@ interface StairResult {
   exactRun: number;
   totalRunLength: number;
   stringerLength: number;
+  numTreads: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
+  summaryStats: { label: string; value: string }[];
   isError: boolean;
   errorMsg?: string;
 }
@@ -33,7 +38,7 @@ const calculateStairs = (
     const exactStepsRaw = totalRise / targetRise;
     const stepCount = Math.round(exactStepsRaw);
 
-    if (stepCount <= 0) return { stepCount: 0, exactRise: 0, exactRun: 0, totalRunLength: 0, stringerLength: 0, isError: true, errorMsg: "Total rise is too small." };
+    if (stepCount <= 0) return { stepCount: 0, exactRise: 0, exactRun: 0, totalRunLength: 0, stringerLength: 0, numTreads: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Total rise is too small." };
 
     // 2. Calculate the exact mathematical rise per step to make them all perfectly equal
     const exactRise = totalRise / stepCount;
@@ -57,17 +62,48 @@ const calculateStairs = (
     // Add 15% extra to stringer length for waste and mounting cuts
     const stringerLength = stringerLengthRaw * 1.15;
 
+    const chartData = [
+      { name: "Total Rise", value: parseFloat(totalRise.toFixed(1)) },
+      { name: "Total Run", value: parseFloat(totalRunLength.toFixed(1)) },
+      { name: "Stringer Length", value: parseFloat(stringerLength.toFixed(1)) },
+    ];
+
+    const breakdown = [
+      { label: "Total Rise", value: `${totalRise}` },
+      { label: "Target Rise", value: `${targetRise}` },
+      { label: "Target Run", value: `${targetRun}` },
+      { label: "Steps (Risers)", value: `${stepCount}` },
+      { label: "Treads (Runs)", value: `${numTreads}` },
+      { label: "Exact Rise per Step", value: `${exactRise.toFixed(2)}`, highlight: true },
+      { label: "Total Run Length", value: `${totalRunLength.toFixed(2)}` },
+      { label: "Stringer Length (+15% margin)", value: `${stringerLength.toFixed(2)}`, isTotal: true },
+    ];
+
+    const summaryStats = [
+      { label: "Total Rise", value: `${totalRise}` },
+      { label: "Steps (Risers)", value: `${stepCount}` },
+      { label: "Treads (Runs)", value: `${numTreads}` },
+      { label: "Exact Rise per Step", value: exactRise.toFixed(2) },
+      { label: "Target Run", value: `${targetRun}` },
+      { label: "Total Run Length", value: totalRunLength.toFixed(2) },
+      { label: "Stringer Length", value: stringerLength.toFixed(2) },
+    ];
+
     return {
       stepCount: stepCount,
       exactRise: parseFloat(exactRise.toFixed(2)),
       exactRun: parseFloat(exactRun.toFixed(2)),
       totalRunLength: parseFloat(totalRunLength.toFixed(2)),
       stringerLength: parseFloat(stringerLength.toFixed(2)),
+      numTreads,
+      chartData,
+      breakdown,
+      summaryStats,
       isError: false
     };
 
   } catch (err) {
-    return { stepCount: 0, exactRise: 0, exactRun: 0, totalRunLength: 0, stringerLength: 0, isError: true, errorMsg: "Calculation error." };
+    return { stepCount: 0, exactRise: 0, exactRun: 0, totalRunLength: 0, stringerLength: 0, numTreads: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Calculation error." };
   }
 };
 
@@ -159,7 +195,10 @@ const StairCalculator = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-12 text-lg transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setUnit("imperial"); setTotalRise("108"); setTargetRise("7.5"); setTargetRun("10"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
@@ -184,6 +223,64 @@ const StairCalculator = () => {
                 <div className="bg-background border border-border/50 rounded-lg p-3 text-center md:w-40 shrink-0">
                   <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Exact Rise per Step</div>
                   <div className="text-2xl font-bold text-foreground font-mono">{result.exactRise} <span className="text-sm font-normal text-muted-foreground">{unit === "imperial" ? "in" : "cm"}</span></div>
+                </div>
+              </div>
+
+              {/* 2. 3-STAT BAR */}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Steps (Risers)", `${result.stepCount}`], ["Exact Rise / Step", `${result.exactRise} ${unit === "imperial" ? "in" : "cm"}`], ["Total Run Length", `${result.totalRunLength} ${unit === "imperial" ? "in" : "cm"}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground">{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3. BREAKDOWN TABLE */}
+              <div className="rounded-lg border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Staircase Breakdown</h3>
+                </div>
+                <table className="w-full text-base">
+                  <tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${r.isTotal ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value} <span className="text-xs text-muted-foreground font-normal">{unit === "imperial" ? "in" : "cm"}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 4. CHART */}
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-base font-bold mb-4">Staircase Dimensions ({unit === "imperial" ? "inches" : "cm"})</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={45} />
+                    <Tooltip formatter={(v: number) => [`${v} ${unit === "imperial" ? "in" : "cm"}`, "Length"]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, idx) => (
+                        <Cell key={idx} fill={idx === 2 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* 5. SUMMARY STATISTICS */}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-muted-foreground">{s.label}:</span>
+                      <span className="font-semibold text-foreground">{s.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 

@@ -1,134 +1,147 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import InputField from "@/domains/calculator/components/ui/InputField";
-import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
-import { RotateCcw, Monitor, Maximize, Smartphone, Info } from "lucide-react";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-const PpiCalculator = () => {
-  const [width, setWidth] = useState("1920");
-  const [height, setHeight] = useState("1080");
-  const [diagonal, setDiagonal] = useState("24");
+function fmt(n: number, digits = 1): string {
+  return new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n);
+}
 
-  const [results, setResults] = useState<any>(null);
-  const [showResults, setShowResults] = useState(false);
+const DEFAULTS = { width: "2560", height: "1440", diagonal: "27" };
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    const w = parseFloat(width);
-    const h = parseFloat(height);
-    const d = parseFloat(diagonal);
+export default function PpiCalculator() {
+  const [width, setWidth] = useState(DEFAULTS.width);
+  const [height, setHeight] = useState(DEFAULTS.height);
+  const [diagonal, setDiagonal] = useState(DEFAULTS.diagonal);
+  const [calculated, setCalculated] = useState(false);
 
-    if (w <= 0 || h <= 0 || d <= 0) return;
+  const w = Math.max(1, Math.round(parseFloat(width) || 0));
+  const h = Math.max(1, Math.round(parseFloat(height) || 0));
+  const d = Math.max(0.1, parseFloat(diagonal) || 0);
+  const valid = w > 0 && h > 0 && d > 0;
 
-    // Diagonal resolution in pixels
-    const diagonalPixels = Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2));
-    const ppi = diagonalPixels / d;
-    
-    // Pixel pitch (distance between pixels in mm)
-    const dotPitch = (d * 25.4) / diagonalPixels;
+  const ppi = Math.sqrt(w * w + h * h) / d;
+  const dotPitchIn = 1 / ppi;
+  const dotPitchMm = dotPitchIn * 25.4;
+  const megapixels = (w * h) / 1e6;
+  const aspect = w / h;
+  // derived screen width/height at this PPI
+  const screenW = w / ppi;
+  const screenH = h / ppi;
 
-    setResults({
-      ppi,
-      totalPixels: (w * h).toLocaleString(),
-      dotPitch,
-      aspectRatio: `${w / gcd(w, h)}:${h / gcd(w, h)}`,
-      rating: ppi > 300 ? "Retina / High Density" : ppi > 150 ? "Sharp / Desktop Standard" : "Low Density"
-    });
-  };
+  const verdict = ppi >= 300 ? "Retina-class — text is crisp at arm's length" : ppi >= 150 ? "Sharp — fine for desktop and photo work" : ppi >= 100 ? "Standard — noticeable pixels up close" : "Coarse — pixels visible at normal distance";
 
-  const gcd = (a: number, b: number): number => {
-    return b === 0 ? a : gcd(b, a % b);
-  };
+  const chartData = [
+    { name: "Width", value: w, fill: "hsl(var(--primary))" },
+    { name: "Height", value: h, fill: "#f59e0b" },
+    { name: "Total pixels", value: w * h, fill: "#10b981" },
+  ];
 
-  const reset = () => {
-    setShowResults(false);
-    setWidth("1920"); setHeight("1080"); setDiagonal("24");
-    setResults(null);
-  };
+  const calc = () => setCalculated(true);
+  useEffect(() => { if (calculated) setCalculated(true); }, [calculated]);
+
+  const reset = () => { setWidth(DEFAULTS.width); setHeight(DEFAULTS.height); setDiagonal(DEFAULTS.diagonal); setCalculated(false); };
+
+  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
+  const lbl = "text-sm font-medium mb-1 block";
 
   const faqs = [
-    { question: "What is PPI?", answer: "PPI stands for Pixels Per Inch. It is a measurement of the pixel density of a digital display, such as a computer monitor or smartphone screen. The higher the PPI, the more detail the screen can display and the sharper images and text will appear." },
-    { question: "What is a 'Retina' display?", answer: "Retina is a brand name used by Apple for screens with a pixel density high enough that the human eye cannot distinguish individual pixels at a typical viewing distance. This is usually around 300 PPI for phones and 220 PPI for laptops." },
-    { question: "Does a higher PPI always mean a better screen?", answer: "Generally yes, but there are diminishing returns. Once you reach the limit of human vision, adding more pixels just increases the load on the graphics processor without a visible benefit. Color accuracy, contrast ratio, and refresh rate are also critical for screen quality." }
+    { question: "What is PPI?", answer: "Pixels per inch — the number of pixels packed into each linear inch of a display. It is computed by dividing the screen's diagonal resolution (√(width² + height²)) by its physical diagonal size in inches. Higher PPI means finer detail." },
+    { question: "What PPI do I need?", answer: "For a screen you hold at arm's length, roughly 150 PPI is fine and 300+ (Apple's 'Retina' threshold) is indistinguishable at typical viewing distances. Phones sit closer, so 400+ PPI is common there; a 65\" 4K TV viewed from 8 feet needs far less." },
+    { question: "What is dot pitch?", answer: "The physical distance between the centers of adjacent pixels — the reciprocal of PPI. A 0.25 mm dot pitch is standard desktop territory; the smaller the number, the tighter the pixels and the sharper the image." },
+    { question: "Why do same-resolution screens differ in sharpness?", answer: "Resolution is only half the story. A 27\" and a 32\" monitor can both be 2560×1440, but the 32\" spreads those pixels over more area — lower PPI, visibly coarser text. PPI is what actually measures perceived sharpness." },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "PPI Calculator" }]} />
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Technology", href: "/calculator#technology" }, { label: "Pixel Density Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Pixel Density (PPI) Calculator</h1>
-
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Pixel Density (PPI) Calculator</h1>
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-3 gap-6 mb-6">
-                <InputField id="width" label="Width (Pixels)" value={width} onChange={setWidth} />
-                <InputField id="height" label="Height (Pixels)" value={height} onChange={setHeight} />
-                <InputField id="diagonal" label="Diagonal Size (Inches)" value={diagonal} onChange={setDiagonal} />
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button><button onClick={reset} className="p-3 rounded-xl border border-border hover:bg-secondary transition-colors text-muted-foreground">
-                  <RotateCcw className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+            <div>
+              <label className={lbl}>Resolution width (px)</label>
+              <input type="number" min={1} value={width} onChange={e => setWidth(e.target.value)} className={inp} placeholder="2560" />
+            </div>
+            <div>
+              <label className={lbl}>Resolution height (px)</label>
+              <input type="number" min={1} value={height} onChange={e => setHeight(e.target.value)} className={inp} placeholder="1440" />
+            </div>
+            <div>
+              <label className={lbl}>Diagonal screen size (inches)</label>
+              <input type="number" min={0.1} step={0.1} value={diagonal} onChange={e => setDiagonal(e.target.value)} className={inp} placeholder="27" />
+            </div>
+            <div className="flex gap-3 mt-1">
+              <button onClick={calc} className="flex-1 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/90 text-primary-foreground">Calculate</button>
+              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && results && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Display Specifications</h2>
-                <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Pixel Density</p>
-                    <p className="text-5xl font-black text-foreground">{results.ppi.toFixed(2)} <span className="text-xl font-normal text-muted-foreground">PPI</span></p>
+          {calculated && valid && (
+            <div className="flex flex-col gap-4">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Pixel Density</div>
+                <div className="text-4xl font-extrabold tracking-tight">{fmt(ppi)} PPI</div>
+                <div className="text-sm text-muted-foreground mt-1">{verdict}</div>
+              </div>
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Dot pitch", `${fmt(dotPitchMm, 3)} mm`, "between pixels"], ["Resolution", `${w}×${h}`, `${fmt(megapixels, 2)} MP`], ["Screen size", `${fmt(screenW, 2)}" × ${fmt(screenH, 2)}"`, `${d}" diagonal`]].map(([l, v, s], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold">{v}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{s}</div>
                   </div>
-                  <div className="p-6 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-1">Visual Rating</p>
-                    <p className="text-2xl font-black text-foreground">{results.rating}</p>
-                  </div>
+                ))}
+              </div>
+              <div className="card-calculator !p-5 border border-border bg-card">
+                <h3 className="text-base font-bold mb-4">Resolution Breakdown</h3>
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
+                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" tickFormatter={(v: number) => `${Math.round(v / 1e3)}k`} />
+                    <Tooltip formatter={(v: number) => [fmt(Number(v), 0), ""]} />
+                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                      {chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-center text-sm text-muted-foreground mt-1">Total pixel count determines how much detail the panel holds — PPI decides how visible it is</p>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Display Summary</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  <div className="flex justify-between"><span className="text-muted-foreground">PPI:</span><span className="font-semibold">{fmt(ppi)}</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Dot pitch:</span><span className="font-semibold">{fmt(dotPitchMm, 3)} mm</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Aspect ratio:</span><span className="font-semibold">{fmt(aspect, 2)}:1</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Megapixels:</span><span className="font-semibold">{fmt(megapixels, 2)} MP</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Viewable width:</span><span className="font-semibold">{fmt(screenW, 2)}"</span></div>
+                  <div className="flex justify-between"><span className="text-muted-foreground">Viewable height:</span><span className="font-semibold">{fmt(screenH, 2)}"</span></div>
                 </div>
-
-                <div className="bg-secondary/10 rounded-2xl p-6 border border-border/50">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-white rounded-xl shadow-sm"><Smartphone className="h-6 w-6 text-primary" /></div>
-                    <div className="flex-1">
-                      <h3 className="font-bold mb-2 text-sm uppercase tracking-wider text-muted-foreground">Technical Details</h3>
-                      <ResultDisplay items={[
-                        { label: "Total Resolution", value: 0, textValue: `${width} x ${height}` },
-                        { label: "Total Pixels", value: 0, textValue: results.totalPixels },
-                        { label: "Aspect Ratio", value: 0, textValue: results.aspectRatio },
-                        { label: "Pixel Pitch (Dot Pitch)", value: 0, textValue: results.dotPitch.toFixed(4) + " mm" },
-                      ]} />
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+              </div>
+            </div>
+          )}
         </div>
-
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">PPI vs. Resolution</h2>
-              <p>Many people confuse resolution with pixel density. Resolution is simply the total count of pixels (e.g., 1920x1080), while PPI describes how tightly those pixels are packed together on a physical surface. A 50-inch 4K TV and a 5-inch 4K smartphone have the same resolution, but vastly different PPIs.</p>
-              <h3>Viewing Distance Matters</h3>
-              <p>The "required" PPI for a sharp image depends on how far away you are from the screen. Because you hold a phone closer to your face than a computer monitor, you need a higher PPI on the phone for the screen to look equally sharp.</p>
-              <h3>The Impact on Performance</h3>
-              <p>Higher density displays require more processing power and battery life to drive the extra pixels. This is why some laptop and phone users choose to run their devices at a lower "logical" resolution than the native physical resolution of the screen.</p>
-            </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/ppi" />
+            <h2 className="text-2xl font-bold mb-3">Sharpness Is Density, Not Resolution</h2>
+            <p>A 4K screen on a phone and a 4K screen on a 65\" TV have identical pixel counts but wildly different sharpness. This <strong>pixel density calculator</strong> computes the PPI — resolution spread over physical size — which is the number that actually determines perceived crispness.</p>
+            <h2 className="text-2xl font-bold mb-3">One Formula, Three Answers</h2>
+            <p>Diagonal resolution divided by diagonal size gives PPI; its reciprocal is the dot pitch in inches, which is easier to think about in millimeters. The calculator also derives the physical width and height of the panel, so you can picture exactly how big that 27\" really is.</p>
+            <h2 className="text-2xl font-bold mb-3">Buying With PPI in Mind</h2>
+            <p>Before buying, check the PPI at your intended viewing distance. Desktop monitors around 110 PPI (1080p at 24\") are fine; 1440p at 27\" (~109 PPI) is the sweet spot for most; and 4K at 27\" (~163 PPI) starts to approach the limit of what eyes can resolve.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/pixel-density-calculator" />
           <PopularCalculators exclude="/calculator/pixel-density-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default PpiCalculator;
-
+}
