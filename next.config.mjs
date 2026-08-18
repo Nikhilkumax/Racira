@@ -3,6 +3,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  typescript: {
+    // Type-checking is done separately via `tsc --noEmit` in CI.
+    // Skipping it during `next build` prevents OOM on Vercel (2-core / 8 GB)
+    // when 1,450+ calculator components are compiled for SSR simultaneously.
+    ignoreBuildErrors: true,
+  },
   trailingSlash: false,
   transpilePackages: ['onnxruntime-web', 'kokoro-js', '@huggingface/transformers'],
   images: {

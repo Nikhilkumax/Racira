@@ -1481,11 +1481,17 @@ const calculatorComponents: Record<string, () => Promise<any>> = {
   "pregnancy-calorie-calculator": () => import("@/domains/calculator/components/PregnancyCalorieCalculator"),
 };
 
-// Pre-build lazy components at module level to avoid re-creating them on every render.
-// Creating dynamic() inside a render function causes unnecessary remounting.
-export const lazyComponents: Record<string, React.ComponentType> = Object.fromEntries(
-  Object.entries(calculatorComponents).map(([slug, importFn]) => [
-    slug,
-    dynamic(importFn, { loading: () => <CalculatorSkeleton /> }),
-  ])
-);
+// Lazily create dynamic() wrappers on first access to avoid building all 1,450+
+// wrappers at module-load time (which spikes peak memory on constrained CI/CD).
+const dynamicCache = new Map<string, React.ComponentType>();
+
+export const lazyComponents: Record<string, React.ComponentType> = new Proxy({} as Record<string, React.ComponentType>, {
+  get(_, slug: string) {
+    if (!dynamicCache.has(slug)) {
+      const importFn = calculatorComponents[slug];
+      if (!importFn) return undefined as unknown as React.ComponentType;
+      dynamicCache.set(slug, dynamic(importFn, { loading: () => <CalculatorSkeleton /> }));
+    }
+    return dynamicCache.get(slug)!;
+  },
+});
