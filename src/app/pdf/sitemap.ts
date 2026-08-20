@@ -23,7 +23,7 @@ import { tools } from "@/domains/pdf/registry/tools";
 const BASE_URL = "https://racira.com";
 
 /**
- * Homepage + /pdf hub + all 193 PDF tool pages.
+ * Homepage + /pdf hub + all live PDF tool pages (excludes status: "soon" tools).
  *
  * Priority tiers:
  *  - Homepage:           1.0
@@ -31,7 +31,8 @@ const BASE_URL = "https://racira.com";
  *  - All tool pages:     0.8
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pdfTools = tools.filter((t) => (t as any).category === "pdf");
+  // Only include tools that are live — soon/unbuilt tools should not be in the sitemap
+  const pdfTools = tools.filter((t) => (t as any).category === "pdf" && (t as any).status === "live");
 
   const toolEntries: MetadataRoute.Sitemap = pdfTools.map((tool) => ({
     url: `${BASE_URL}/pdf/${tool.slug}`,

@@ -26,7 +26,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return { title: `${catName} — Racira PDF`, description: `Free browser-based ${catName} PDF tools.`, alternates: { canonical: `/pdf/${slug}` } };
   }
   const tool = toolBySlug.get(slug);
-  if (tool) return { title: `${tool.name} — Racira PDF`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
+  if (tool) {
+    // Soon tools should not have canonical URLs or indexable metadata
+    if (tool.status === 'soon') return { title: "Not Found — Racira", robots: { index: false, follow: false } };
+    return { title: `${tool.name} — Racira PDF`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
+  }
   return { title: "Not Found — Racira" };
 }
 
@@ -105,6 +109,9 @@ export default async function PolymorphicPage({ params }: PageProps) {
   // Tool route — delegate to existing ToolPage client component
   const tool = toolBySlug.get(slug);
   if (!tool) notFound();
+
+  // Soon tools should not resolve to a live page
+  if (tool.status === 'soon') notFound();
 
   return <ToolPage />;
 }

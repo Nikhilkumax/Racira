@@ -12,7 +12,8 @@
     "copy:ffmpeg": "node scripts/copy-ffmpeg-core.cjs",
     "copy:espeak": "node scripts/copy-espeak-core.cjs",
     "copy:ort": "node scripts/copy-ort-wasm.cjs",
-    "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs"
+    "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -108,6 +109,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.15",
     "eslint-plugin-boundaries": "^7.0.0",
+    "husky": "^9.1.7",
     "patch-package": "^8.0.1",
     "postcss": "^8.4.47",
     "prettier": "^3.9.1",

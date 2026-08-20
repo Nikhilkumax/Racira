@@ -357,6 +357,7 @@ const ToolPage = () => {
     return (
       <DefaultToolOptions
         tool={tool}
+        onChange={setToolOptions}
         onProcess={() => workflowProcess(slug!)}
         onReset={handleReset}
         processing={processing}

@@ -1334,12 +1334,11 @@ export async function processFiles(
   const isTextCreationTool = ["text-to-pdf", "txt-to-pdf", "markdown-to-pdf", "json-to-pdf", "html-to-pdf", "base64-to-pdf"].includes(slug);
   if (!file && !isTextCreationTool) {
     throw new Error("No file selected.");
-  }
+  }    switch (slug) {
+      // ── ORGANIZE ────────────────────────────────────────────
 
-  switch (slug) {
-    // ── ORGANIZE ────────────────────────────────────────────
-
-
+    case "merge":
+      return pdfOut(mergePDFs(files), "merged.pdf");
 
     case "extract-pages": {
       const total = await getPageCount(file);
@@ -2212,6 +2211,9 @@ export async function processFiles(
     }
 
 
+    case "pdf-to-image":
+      return zipOut(pdfToJPG(file, onProgress), "pdf-to-image.zip");
+
     case "pdf-to-svg":
 
     case "extract-images":
@@ -2579,8 +2581,13 @@ export async function processFiles(
 
 
 
-    case "flatten-forms":
-      return pdfOut(loadPdf(await fileToBytes(file)).then((d) => d.save()), "flattened.pdf");
+    case "flatten-forms": {
+      const bytes = await fileToBytes(file);
+      const doc = await PDFDocument.load(bytes);
+      const form = doc.getForm();
+      form.flatten();
+      return pdfOut(doc.save(), "flattened.pdf");
+    }
 
     case "draw-signature":
     case "draw-on-pdf":
@@ -3041,8 +3048,52 @@ export async function processFiles(
 
 
     case "font-inspector":
-    case "attachment-viewer":
-    case "version-detector":
+    case "attachment-viewer": {
+      const pdfjs = await getPdfjs();
+      const bytes = await fileToBytes(file);
+      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
+      const attachments: any[] = [];
+      for (let i = 1; i <= doc.numPages; i++) {
+        const page = await doc.getPage(i);
+        const annos = await page.getAnnotations();
+        for (const a of annos as any[]) {
+          if (a.subtype === "FileAttachment") {
+            attachments.push({ page: i, filename: a.filename || a.name || "unknown", description: a.description || "" });
+          }
+        }
+      }
+      const result = attachments.length > 0
+        ? JSON.stringify({ count: attachments.length, attachments }, null, 2)
+        : JSON.stringify({ count: 0, message: "No file attachments found in this PDF." });
+      const encoder = new TextEncoder();
+      return { type: "application/json", data: encoder.encode(result), filename: "attachments.json" };
+    }
+
+    case "version-detector": {
+      const bytes = await fileToBytes(file);
+      const header = new TextDecoder().decode(bytes.slice(0, 1024));
+      const versionMatch = header.match(/%PDF-(\d+\.\d+)/);
+      const version = versionMatch ? versionMatch[1] : "unknown";
+      // Try to count pages via cross-ref or object count
+      const doc = await PDFDocument.load(bytes);
+      const pageCount = doc.getPageCount();
+      const title = doc.getTitle() || "(none)";
+      const author = doc.getAuthor() || "(none)";
+      const result = [
+        "PDF Version Report",
+        "==================",
+        "",
+        `Version:    PDF ${version}`,
+        `Pages:      ${pageCount}`,
+        `Title:      ${title}`,
+        `Author:     ${author}`,
+        `File size:  ${bytes.length} bytes`,
+        `Producer:   ${doc.getProducer() || "(none)"}`,
+        `Creator:    ${doc.getCreator() || "(none)"}`,
+      ].join("\n");
+      const encoder = new TextEncoder();
+      return { type: "text/plain", data: encoder.encode(result), filename: "version-report.txt" };
+    }
 
     // ── TEXT TOOLS ──────────────────────────────────────────
 
@@ -3248,7 +3299,8 @@ export async function processFiles(
     }
     
     case "pdf-to-text": {
-      return { type: "coming-soon", message: "PDF to Text is not yet available. Check back soon.", eta: undefined };
+      const text = await extractText(file, onProgress);
+      return textOut(new TextEncoder().encode(text), "pdf-to-text.txt", "text/plain");
     }
     
     case "make-searchable": {
