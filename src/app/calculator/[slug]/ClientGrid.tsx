@@ -45,7 +45,8 @@ export function ClientGrid({ tools, subcategoryName, slug }: { tools: any[]; sub
               name: tool.name,
               description: tool.description || "Free online calculator.",
               icon: Icon,
-              status: tool.status || "live"
+              status: tool.status || "live",
+              category: tool.category
             };
             return (
               <ToolCard

@@ -12,6 +12,7 @@ export interface CalculatorDef {
   priorityScore?: number;
   updatedAt?: string;
   isBuilt?: boolean;
+  indexable?: boolean;
 }
 
 import { financeCalculators } from "./registry/finance";

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Tool } from "@/domains/_types";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -19,10 +20,11 @@ interface ToolCardProps {
 }
 
 export function ToolCard({ tool, basePath, domain }: ToolCardProps) {
-  // Live tools link to their tool page. Non-live tools render the same card
-  // (icon, name, description, "Soon" badge) but as a plain, non-navigating
-  // element — no href, no click-through to a coming-soon page.
+  // Live tools link to their tool page. Non-live tools that have a Coming
+  // Soon page (currently Education only) also link through. All other
+  // non-live tools render as a plain, non-navigating element.
   const isLive = domain ? isLiveTool(tool, domain) : tool.status === "live";
+  const isClickable = isLive || hasComingSoonPage(tool, domain);
   const Icon = tool.icon;
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [showDescription, setShowDescription] = useState(true);
@@ -81,7 +83,7 @@ export function ToolCard({ tool, basePath, domain }: ToolCardProps) {
     </>
   );
 
-  if (!isLive) {
+  if (!isClickable) {
     return (
       <div className="tool-card group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-5 cursor-default">
         {cardBody}

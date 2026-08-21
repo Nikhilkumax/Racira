@@ -23,6 +23,7 @@ import { calculatorRegistry } from "@/domains/calculator/registry";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { hasComingSoonPage } from "@/lib/tools/comingSoonPage";
 import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 
 // Full browsable scope — every registry calculator except stub-tagged entries
@@ -48,6 +49,7 @@ import CalculatorSkeleton from "@/domains/calculator/components/ui/CalculatorSke
 import { lazyComponents } from "@/app/calculator/lazyComponents";
 import SearchCalculators from "@/components/SearchCalculators";
 import { ClientGrid } from "./ClientGrid";
+import ComingSoonView from "@/domains/calculator/components/ComingSoonView";
 
 const categoryMap: Record<string, string> = {
   "FINANCE": "Finance",
@@ -115,6 +117,10 @@ export async function generateStaticParams() {
     }
   });
 
+  // Soon-status tools are NOT pre-rendered — they rely on on-demand
+  // rendering via the Coming Soon route branch. This keeps the static
+  // page count manageable at scale (~10k+ entries).
+
   return params;
 }
 
@@ -157,7 +163,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Calculators that are not genuinely built (soon, or stub-tagged "live")
     // render the coming-soon template — browsable but excluded from the index.
     if (!isLiveTool(tool, "calculator")) {
-      meta.robots = { index: false, follow: false };
+      // Education "soon" pages: noindex but follow (related-calc links should be crawled)
+      meta.robots = { index: false, follow: true };
     }
     return meta;
   }
@@ -416,6 +423,20 @@ export default async function PolymorphicPage({ params }: Props) {
     return <ToolView slug={slug} tool={tool} />;
   }
 
-  // 4. Not found
+  // 4. Tools with a real Coming Soon page (all calculator categories)
+  if (tool && hasComingSoonPage(tool, "calculator")) {
+    return (
+      <ComingSoonView
+        tool={{
+          slug: tool.slug,
+          name: tool.name,
+          category: (tool as any).category,
+          subcategory: tool.subcategory || "General",
+        }}
+      />
+    );
+  }
+
+  // 5. Not found
   notFound();
 }
