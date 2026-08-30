@@ -1,0 +1,260 @@
+// Self-contained Form Filler logic for standalone page
+import { getPDFDocument } from '../utils/helpers';
+import { loadPdfWithPasswordPrompt } from '../utils/password-prompt';
+
+let viewerIframe: HTMLIFrameElement | null = null;
+let viewerReady = false;
+let currentFile: File | null = null;
+
+// UI helpers
+function updateFileDisplay() {
+  const displayArea = document.getElementById('file-display-area');
+  if (!displayArea || !currentFile) return;
+
+  const fileSize =
+    currentFile.size < 1024 * 1024
+      ? `${(currentFile.size / 1024).toFixed(1)} KB`
+      : `${(currentFile.size / 1024 / 1024).toFixed(2)} MB`;
+
+  displayArea.textContent = '';
+
+  const card = document.createElement('div');
+  card.className =
+    'bg-gray-700 p-3 rounded-lg border border-gray-600 hover:border-indigo-500 transition-colors';
+
+  const row = document.createElement('div');
+  row.className = 'flex items-center justify-between';
+
+  const info = document.createElement('div');
+  info.className = 'flex-1 min-w-0';
+
+  const nameP = document.createElement('p');
+  nameP.className = 'truncate font-medium text-white';
+  nameP.textContent = currentFile.name;
+
+  const sizeP = document.createElement('p');
+  sizeP.className = 'text-gray-400 text-sm';
+  sizeP.textContent = fileSize;
+
+  info.append(nameP, sizeP);
+
+  const removeBtn = document.createElement('button');
+  removeBtn.id = 'remove-file';
+  removeBtn.className =
+    'text-red-400 hover:text-red-300 p-2 flex-shrink-0 ml-2';
+  removeBtn.title = 'Remove file';
+
+  const removeIcon = document.createElement('i');
+  removeIcon.setAttribute('data-lucide', 'trash-2');
+  removeIcon.className = 'w-4 h-4';
+  removeBtn.appendChild(removeIcon);
+
+  row.append(info, removeBtn);
+  card.appendChild(row);
+  displayArea.appendChild(card);
+
+
+  document
+    .getElementById('remove-file')
+    ?.addEventListener('click', () => resetState());
+}
+
+function resetState() {
+  viewerIframe = null;
+  viewerReady = false;
+  currentFile = null;
+  const displayArea = document.getElementById('file-display-area');
+  if (displayArea) displayArea.innerHTML = '';
+  document.getElementById('form-filler-options')?.classList.add('hidden');
+  const fileInput = document.getElementById('file-input') as HTMLInputElement;
+  if (fileInput) fileInput.value = '';
+
+  // Clear viewer
+  const viewerContainer = document.getElementById('pdf-viewer-container');
+  if (viewerContainer) {
+    viewerContainer.innerHTML = '';
+    viewerContainer.style.height = '';
+    viewerContainer.style.aspectRatio = '';
+  }
+
+  const toolUploader = document.getElementById('tool-uploader');
+  const isFullWidth = localStorage.getItem('fullWidthMode') !== 'false';
+  if (toolUploader && !isFullWidth) {
+    toolUploader.classList.remove('max-w-6xl');
+    toolUploader.classList.add('max-w-2xl');
+  }
+}
+
+// File handling
+async function handleFileUpload(file: File) {
+  if (!file || file.type !== 'application/pdf') {
+
+    return;
+  }
+
+  try {
+    const result = await loadPdfWithPasswordPrompt(file);
+    if (!result) return;
+    result.pdf.destroy();
+    currentFile = result.file;
+    updateFileDisplay();
+    await setupFormViewer();
+  } catch (error) {
+    console.error(error);
+
+  }
+}
+
+async function adjustViewerHeight(file: File) {
+  const viewerContainer = document.getElementById('pdf-viewer-container');
+  if (!viewerContainer) return;
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const loadingTask = getPDFDocument({ data: arrayBuffer });
+    const pdf = await loadingTask.promise;
+    const page = await pdf.getPage(1);
+    const viewport = page.getViewport({ scale: 1 });
+
+    // Add ~50px for toolbar height
+    const aspectRatio = viewport.width / (viewport.height + 50);
+
+    viewerContainer.style.height = 'auto';
+    viewerContainer.style.aspectRatio = `${aspectRatio}`;
+  } catch (e) {
+    console.error('Error adjusting viewer height:', e);
+    viewerContainer.style.height = '80vh';
+  }
+}
+
+async function setupFormViewer() {
+  if (!currentFile) return;
+
+
+  const pdfViewerContainer = document.getElementById('pdf-viewer-container');
+
+  if (!pdfViewerContainer) {
+    console.error('PDF viewer container not found');
+
+    return;
+  }
+
+  const toolUploader = document.getElementById('tool-uploader');
+  // Default to true if not set
+  const isFullWidth = localStorage.getItem('fullWidthMode') !== 'false';
+  if (toolUploader && !isFullWidth) {
+    toolUploader.classList.remove('max-w-2xl');
+    toolUploader.classList.add('max-w-6xl');
+  }
+
+  try {
+    // Apply dynamic height
+    await adjustViewerHeight(currentFile);
+
+    pdfViewerContainer.innerHTML = '';
+
+    const arrayBuffer = await currentFile.arrayBuffer();
+    const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+    const blobUrl = URL.createObjectURL(blob);
+
+    viewerIframe = document.createElement('iframe');
+    viewerIframe.src = `${'/'}pdfjs-viewer/viewer.html?file=${encodeURIComponent(blobUrl)}`;
+    viewerIframe.style.width = '100%';
+    viewerIframe.style.height = '100%';
+    viewerIframe.style.border = 'none';
+
+    viewerIframe.onload = () => {
+      viewerReady = true;
+
+    };
+
+    pdfViewerContainer.appendChild(viewerIframe);
+
+    const formFillerOptions = document.getElementById('form-filler-options');
+    if (formFillerOptions) formFillerOptions.classList.remove('hidden');
+  } catch (e) {
+    console.error('Critical error setting up form filler:', e);
+
+  }
+}
+
+async function processAndDownloadForm() {
+  if (!viewerIframe || !viewerReady) {
+
+    return;
+  }
+
+  try {
+    const viewerWindow = viewerIframe.contentWindow;
+    if (!viewerWindow) {
+      console.error('Cannot access iframe window');
+
+      return;
+    }
+
+    const viewerDoc = viewerWindow.document;
+    if (!viewerDoc) {
+      console.error('Cannot access iframe document');
+
+      return;
+    }
+
+    const downloadBtn = viewerDoc.getElementById(
+      'downloadButton'
+    ) as HTMLButtonElement | null;
+
+    if (downloadBtn) {
+      console.log('Clicking download button...');
+      downloadBtn.click();
+    } else {
+      console.error('Download button not found in viewer');
+      const secondaryDownload = viewerDoc.getElementById(
+        'secondaryDownload'
+      ) as HTMLButtonElement | null;
+      if (secondaryDownload) {
+        console.log('Clicking secondary download button...');
+        secondaryDownload.click();
+      } else {
+
+      }
+    }
+  } catch (e) {
+    console.error('Failed to trigger download:', e);
+
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  const fileInput = document.getElementById('file-input') as HTMLInputElement;
+  const dropZone = document.getElementById('drop-zone');
+  const processBtn = document.getElementById('process-btn');
+  const backBtn = document.getElementById('back-to-tools');
+
+  fileInput?.addEventListener('change', (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) handleFileUpload(file);
+  });
+
+  dropZone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('border-indigo-500');
+  });
+
+  dropZone?.addEventListener('dragleave', () => {
+    dropZone.classList.remove('border-indigo-500');
+  });
+
+  dropZone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('border-indigo-500');
+    const file = e.dataTransfer?.files[0];
+    if (file) handleFileUpload(file);
+  });
+
+  processBtn?.addEventListener('click', processAndDownloadForm);
+
+  backBtn?.addEventListener('click', () => {
+    window.location.href = '../../index.html';
+  });
+});

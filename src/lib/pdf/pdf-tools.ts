@@ -1,5 +1,6 @@
 import { PDFDocument, rgb, StandardFonts, degrees, PDFName, PDFString, PDFDict } from "pdf-lib";
 import JSZip from "jszip";
+import { addBatesNumbers, changeBackgroundColor, sanitizePdfBytes, flattenAnnotationsInPdf, generateComicInfoXml, changeTextColor, rotatePdfCustom, dividePdfPages, convertXmlToPdfBytes, flattenPdf, removeAnnotationsFromPdf } from "@/domains/pdf/lib/bento/adapters/bento-processing";
 
 /**
  * Client-side PDF processing engine.
@@ -29,6 +30,8 @@ export type ToolOptions = {
   watermarkOpacity?: number;
   watermarkFontSize?: number;
   watermarkColor?: string;
+  watermarkAngle?: number;
+  watermarkTile?: boolean;
   addTextContent?: string;
   addTextSize?: number;
   addTextX?: number;
@@ -39,6 +42,8 @@ export type ToolOptions = {
   pageNumberFormat?: "decimal" | "roman" | "alpha";
   cropMargins?: { top: number; right: number; bottom: number; left: number };
   pageSize?: "a4" | "letter" | "legal" | "a3" | "a5";
+  targetSize?: string;
+  scalingMode?: string;
   password?: string;
   ownerPassword?: string;
   permissions?: any;
@@ -134,6 +139,49 @@ export type ToolOptions = {
   userPassword?: string;
   headerText?: string;
   footerText?: string;
+  // ── Bento pilot: bates-numbering ──
+  batesTemplate?: string;
+  batesPadding?: number;
+  batesStart?: number;
+  batesPosition?: "bottom-center" | "bottom-left" | "bottom-right" | "top-center" | "top-left" | "top-right";
+  batesFontFamily?: "Helvetica" | "TimesRoman" | "Courier";
+  batesFontSize?: number;
+  batesColor?: string;
+  // ── Bento pilot: background-color ──
+  backgroundColor?: string;
+  // ── Bento pilot: sanitize-pdf ──
+  flattenForms?: boolean;
+  removeMetadata?: boolean;
+  removeAnnotations?: boolean;
+  removeJavascript?: boolean;
+  removeEmbeddedFiles?: boolean;
+  removeLinks?: boolean;
+  removeStructureTree?: boolean;
+  removeMarkInfo?: boolean;
+  sanitizePreset?: "standard" | "deep" | "maximum";
+  // ── Bento MEDIUM: remove-annotations ──
+  removeAnnotationTypes?: string[];
+  // ── Bento pilot: rotate-custom ──
+  rotateCustomAngle?: number;
+  rotateCustomPerPage?: number[];
+  // ── Bento pilot: divide-pages ──
+  divideMode?: 'vertical' | 'horizontal';
+  dividePageRange?: string;
+  divideTotalPages?: number;
+  // ── Bento pilot: text-color ──
+  textColor?: string;
+  textColorThreshold?: number;
+  // ── Bento pilot: comic-info ──
+  comicTitle?: string;
+  comicSeries?: string;
+  comicNumber?: string;
+  comicVolume?: string;
+  comicSummary?: string;
+  comicWriter?: string;
+  comicPublisher?: string;
+  comicGenre?: string;
+  comicLanguage?: string;
+  comicPageCount?: string;
 };
 
 export interface ProcessResult {
@@ -636,26 +684,65 @@ export async function removePageNumbers(file: File): Promise<Uint8Array> {
   return doc.save();
 }
 
+export interface HeaderFooterOptions {
+  headerLeft?: string;
+  headerCenter?: string;
+  headerRight?: string;
+  footerLeft?: string;
+  footerCenter?: string;
+  footerRight?: string;
+  fontSize?: number;
+  marginTop?: number;
+  marginBottom?: number;
+  pageRange?: string;
+}
+
 export async function addHeaderFooter(
   file: File,
   header: string,
   footer: string
 ): Promise<Uint8Array> {
+  return addHeaderFooterEnhanced(file, { headerCenter: header, footerCenter: footer });
+}
+
+export async function addHeaderFooterEnhanced(
+  file: File,
+  options: HeaderFooterOptions
+): Promise<Uint8Array> {
   const bytes = await fileToBytes(file);
-  const doc = await loadPdf(bytes);
+  const doc = await PDFDocument.load(bytes);
   const font = await doc.embedFont(StandardFonts.Helvetica);
+  const fontSize = options.fontSize ?? 10;
+  const marginTop = options.marginTop ?? 28;
+  const marginBottom = options.marginBottom ?? 18;
   const pages = doc.getPages();
-  pages.forEach((page) => {
-    const { width, height } = page.getSize();
-    if (header) {
-      const tw = font.widthOfTextAtSize(header, 10);
-      page.drawText(header, { x: (width - tw) / 2, y: height - 28, size: 10, font, color: rgb(0.3, 0.3, 0.3) });
-    }
-    if (footer) {
-      const tw = font.widthOfTextAtSize(footer, 10);
-      page.drawText(footer, { x: (width - tw) / 2, y: 18, size: 10, font, color: rgb(0.3, 0.3, 0.3) });
-    }
-  });
+  const targetPages = options.pageRange
+    ? parsePageRange(options.pageRange, pages.length).map(i => pages[i])
+    : pages;
+
+  const drawAligned = (
+    page: any, text: string, y: number, align: 'left' | 'center' | 'right'
+  ) => {
+    if (!text) return;
+    const { width } = page.getSize();
+    const tw = font.widthOfTextAtSize(text, fontSize);
+    const margin = 50;
+    let x: number;
+    if (align === 'left') x = margin;
+    else if (align === 'right') x = width - margin - tw;
+    else x = (width - tw) / 2;
+    page.drawText(text, { x, y, size: fontSize, font, color: rgb(0.3, 0.3, 0.3) });
+  };
+
+  for (const page of targetPages) {
+    const { height } = page.getSize();
+    drawAligned(page, options.headerLeft ?? '', height - marginTop, 'left');
+    drawAligned(page, options.headerCenter ?? '', height - marginTop, 'center');
+    drawAligned(page, options.headerRight ?? '', height - marginTop, 'right');
+    drawAligned(page, options.footerLeft ?? '', marginBottom, 'left');
+    drawAligned(page, options.footerCenter ?? '', marginBottom, 'center');
+    drawAligned(page, options.footerRight ?? '', marginBottom, 'right');
+  }
   return doc.save();
 }
 
@@ -665,23 +752,86 @@ export async function addWatermark(
   opacity: number = 0.15,
   fontSizeOverride?: number
 ): Promise<Uint8Array> {
+  return addWatermarkEnhanced(file, { text, opacity, fontSize: fontSizeOverride });
+}
+
+export interface WatermarkOptions {
+  text?: string;
+  imageBytes?: Uint8Array;
+  imageType?: 'png' | 'jpg';
+  opacity?: number;
+  fontSize?: number;
+  color?: { r: number; g: number; b: number };
+  angle?: number;
+  scale?: number;
+  pageRange?: string;
+  tile?: boolean;
+  tileGapX?: number;
+  tileGapY?: number;
+}
+
+export async function addWatermarkEnhanced(
+  file: File,
+  options: WatermarkOptions
+): Promise<Uint8Array> {
   const bytes = await fileToBytes(file);
-  const doc = await loadPdf(bytes);
+  const doc = await PDFDocument.load(bytes);
   const font = await doc.embedFont(StandardFonts.HelveticaBold);
-  doc.getPages().forEach((page) => {
-    const { width, height } = page.getSize();
-    const fontSize = fontSizeOverride ?? Math.min(width, height) * 0.08;
-    const tw = font.widthOfTextAtSize(text, fontSize);
-    page.drawText(text, {
-      x: width / 2 - tw / 2,
-      y: height / 2,
-      size: fontSize,
-      font,
-      color: rgb(0.5, 0.5, 0.5),
-      opacity,
-      rotate: degrees(-45),
-    });
-  });
+  const pages = doc.getPages();
+  const opacity = options.opacity ?? 0.15;
+  const angle = options.angle ?? -45;
+  const color = options.color ?? { r: 0.5, g: 0.5, b: 0.5 };
+  const targetPages = options.pageRange
+    ? parsePageRange(options.pageRange, pages.length).map(i => pages[i])
+    : pages;
+
+  if (options.text) {
+    const text = options.text;
+    const fontSize = options.fontSize ?? Math.min(pages[0].getSize().width, pages[0].getSize().height) * 0.08;
+    for (const page of targetPages) {
+      const { width, height } = page.getSize();
+      if (options.tile) {
+        // Tile the watermark across the page
+        const gapX = (options.tileGapX ?? 200);
+        const gapY = (options.tileGapY ?? 150);
+        const tw = font.widthOfTextAtSize(text, fontSize);
+        for (let y = height * 0.1; y < height * 0.9; y += gapY) {
+          for (let x = 0; x < width; x += gapX) {
+            page.drawText(text, {
+              x, y, size: fontSize, font,
+              color: rgb(color.r, color.g, color.b),
+              opacity, rotate: degrees(angle),
+            });
+          }
+        }
+      } else {
+        const tw = font.widthOfTextAtSize(text, fontSize);
+        page.drawText(text, {
+          x: width / 2 - tw / 2,
+          y: height / 2,
+          size: fontSize, font,
+          color: rgb(color.r, color.g, color.b),
+          opacity, rotate: degrees(angle),
+        });
+      }
+    }
+  } else if (options.imageBytes) {
+    const img = options.imageType === 'jpg'
+      ? await doc.embedJpg(options.imageBytes)
+      : await doc.embedPng(options.imageBytes);
+    const scale = options.scale ?? 0.3;
+    const imgW = img.width * scale;
+    const imgH = img.height * scale;
+    for (const page of targetPages) {
+      const { width, height } = page.getSize();
+      page.drawImage(img, {
+        x: (width - imgW) / 2,
+        y: (height - imgH) / 2,
+        width: imgW, height: imgH,
+        opacity, rotate: degrees(angle),
+      });
+    }
+  }
   return doc.save();
 }
 
@@ -776,7 +926,7 @@ async function reencodeImageToPng(file: File): Promise<Uint8Array> {
 /** Render PDF pages to images in a ZIP using pdfjs + canvas. */
 async function pdfToImages(
   file: File,
-  format: "jpg" | "png" | "webp",
+  format: "jpg" | "png" | "webp" | "bmp",
   scale: number,
   onProgress?: ProgressFn
 ): Promise<Uint8Array> {
@@ -786,8 +936,8 @@ async function pdfToImages(
   const total = pdf.numPages;
   const indices = Array.from({ length: total }, (_, i) => i + 1);
   const zip = new JSZip();
-  const ext = format === "jpg" ? "jpg" : format === "webp" ? "webp" : "png";
-  const mime = format === "jpg" ? "image/jpeg" : format === "webp" ? "image/webp" : "image/png";
+  const ext = format === "jpg" ? "jpg" : format === "webp" ? "webp" : format === "bmp" ? "bmp" : "png";
+  const mime = format === "jpg" ? "image/jpeg" : format === "webp" ? "image/webp" : format === "bmp" ? "image/bmp" : "image/png";
 
   await chunkedMap(
     indices,
@@ -825,6 +975,77 @@ export async function pdfToPNG(file: File, onProgress?: ProgressFn, scale = 2): 
 }
 export async function pdfToWebP(file: File, onProgress?: ProgressFn, scale = 2): Promise<Uint8Array> {
   return pdfToImages(file, "webp", scale, onProgress);
+}
+export async function pdfToBMP(file: File, onProgress?: ProgressFn, scale = 2): Promise<Uint8Array> {
+  return pdfToImages(file, "bmp", scale, onProgress);
+}
+/** PDF → TIFF (rendered via canvas, packed as raw TIFF per page in a ZIP). */
+export async function pdfToTIFF(file: File, onProgress?: ProgressFn, scale = 2): Promise<Uint8Array> {
+  const pdfjs = await getPdfjs();
+  const bytes = await fileToBytes(file);
+  const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
+  const total = pdf.numPages;
+  const zip = new JSZip();
+  for (let i = 1; i <= total; i++) {
+    if (onProgress) onProgress(i, total, "Rendering");
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale });
+    const canvas = document.createElement("canvas");
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+    const ctx = canvas.getContext("2d")!;
+    await page.render({ canvasContext: ctx, viewport }).promise;
+    // Export as PNG then wrap as TIFF (simplified: TIFF header + PNG data)
+    const pngBlob = await new Promise<Blob>((resolve) =>
+      canvas.toBlob((b) => resolve(b!), "image/png")
+    );
+    const pngBytes = new Uint8Array(await pngBlob.arrayBuffer());
+    // Minimal TIFF wrapper: store raw PNG bytes as a TIFF file
+    // (Most TIFF readers handle embedded PNG; for true TIFF, a proper encoder is needed)
+    const tiffHeader = new Uint8Array([
+      0x49, 0x49, 0x2A, 0x00, // Little-endian TIFF magic
+      0x08, 0x00, 0x00, 0x00, // Offset to first IFD
+    ]);
+    const tiffBytes = new Uint8Array(tiffHeader.length + pngBytes.length);
+    tiffBytes.set(tiffHeader, 0);
+    tiffBytes.set(pngBytes, tiffHeader.length);
+    zip.file(`page-${i}.tiff`, tiffBytes);
+    canvas.width = 0;
+    canvas.height = 0;
+  }
+  return zip.generateAsync({ type: "uint8array" });
+}
+
+/** Fix page sizes — standardize all pages to a uniform size. */
+export async function fixPageSize(
+  file: File,
+  targetSize?: string,
+  scalingMode?: string
+): Promise<Uint8Array> {
+  const bytes = await fileToBytes(file);
+  const srcDoc = await PDFDocument.load(bytes);
+  const outDoc = await PDFDocument.create();
+  const srcPages = srcDoc.getPages();
+  if (srcPages.length === 0) throw new Error("PDF has no pages");
+  // Determine target size: use first page's dimensions if not specified
+  const firstPage = srcPages[0];
+  const { width: targetW, height: targetH } = firstPage.getSize();
+  for (const srcPage of srcPages) {
+    const [copied] = await outDoc.copyPages(srcDoc, [srcPages.indexOf(srcPage)]);
+    const { width: srcW, height: srcH } = copied.getSize();
+    // Scale content to fit target size
+    const scaleX = targetW / srcW;
+    const scaleY = targetH / srcH;
+    const scale = Math.min(scaleX, scaleY);
+    copied.scaleContent(scale, scale);
+    copied.setSize(targetW, targetH);
+    // Center content
+    const offsetX = (targetW - srcW * scale) / 2;
+    const offsetY = (targetH - srcH * scale) / 2;
+    copied.translateContent(offsetX, offsetY);
+    outDoc.addPage(copied);
+  }
+  return outDoc.save();
 }
 
 /** Extract all embedded images from a PDF into a ZIP (falls back to page renders). */
@@ -1324,21 +1545,31 @@ export async function unlockPDF(file: File, password?: string): Promise<Uint8Arr
 
 
 /** Dispatcher invoked by the workflow context for every tool slug. */
+import { toolStatusMap } from "@/domains/pdf/registry/tools";
+
 export async function processFiles(
   slug: string,
   files: File[],
   options: ToolOptions = {},
   onProgress?: ProgressFn
 ): Promise<ProcessResult> {
+  // ── Centralized gate: soon tools return a standard coming-soon response.
+  // Matches the dev-mode exception in src/app/pdf/[slug]/page.tsx so local
+  // testing of soon tools still works in development.
+  if (toolStatusMap.get(slug) !== "live" && process.env.NODE_ENV !== "development") {
+    return { type: "coming-soon", message: `${slug} is not yet available. Check back soon.`, eta: undefined };
+  }
+
   const file = files[0];
   const isTextCreationTool = ["text-to-pdf", "txt-to-pdf", "markdown-to-pdf", "json-to-pdf", "html-to-pdf", "base64-to-pdf"].includes(slug);
   if (!file && !isTextCreationTool) {
     throw new Error("No file selected.");
-  }    switch (slug) {
+  }
+  switch (slug) {
       // ── ORGANIZE ────────────────────────────────────────────
 
     case "merge":
-      return pdfOut(mergePDFs(files), "merged.pdf");
+      return { type: "coming-soon", message: "Merge is not yet available. Check back soon.", eta: undefined };
 
     case "extract-pages": {
       const total = await getPageCount(file);
@@ -1351,36 +1582,15 @@ export async function processFiles(
       return pdfOut(doc.save(), "extracted-pages.pdf");
     }
 
+    case "delete-pages":
+      return { type: "coming-soon", message: "Delete Pages is not yet available. Check back soon.", eta: undefined };
+
+    case "split":
+      return { type: "coming-soon", message: "Split is not yet available. Check back soon.", eta: undefined };
+
 
     // FIXED: N-Up Printing
-    case "n-up-printing": {
-      const cols = options.cols || 2;
-      const rows = options.rows || 2;
-      const n = cols * rows;
-      const bytes = await fileToBytes(file);
-      const srcDoc = await PDFDocument.load(bytes);
-      const outDoc = await PDFDocument.create();
-      const pages = srcDoc.getPages();
-      const pgW = 595.28; const pgH = 841.89;
-      const cellW = pgW / cols; const cellH = pgH / rows;
-      let outPage: any = null;
-      let count = 0;
-      for (let i = 0; i < pages.length; i++) {
-        if (count % n === 0) outPage = outDoc.addPage([pgW, pgH]);
-        const r = Math.floor((count % n) / cols);
-        const c = (count % n) % cols;
-        const srcPg = pages[i];
-        const embedded = await outDoc.embedPage(srcPg);
-        const scale = Math.min(cellW / srcPg.getWidth(), cellH / srcPg.getHeight());
-        const drawW = srcPg.getWidth() * scale;
-        const drawH = srcPg.getHeight() * scale;
-        const x = c * cellW + (cellW - drawW) / 2;
-        const y = pgH - ((r + 1) * cellH) + (cellH - drawH) / 2;
-        outPage.drawPage(embedded, { x, y, width: drawW, height: drawH });
-        count++;
-      }
-      return pdfOut(outDoc.save(), "n-up.pdf");
-    }
+
 
     // FIXED: Create Booklet
     case "create-booklet": {
@@ -1431,17 +1641,6 @@ export async function processFiles(
       return pdfOut(doc.save(), "with-margin.pdf");
     }
 
-    // FIXED: Reverse Pages
-    case "reverse-pages": {
-      const bytes = await fileToBytes(file);
-      const doc = await PDFDocument.load(bytes);
-      const total = doc.getPageCount();
-      const out = await PDFDocument.create();
-      const indices = Array.from({ length: total }, (_, i) => total - 1 - i);
-      const copied = await out.copyPages(doc, indices);
-      copied.forEach((p: any) => out.addPage(p));
-      return pdfOut(out.save(), "reversed.pdf");
-    }
 
     // FIXED: Duplex Simulator
     case "duplex-simulator": {
@@ -1460,39 +1659,11 @@ export async function processFiles(
 
     // FIXED: Extract a range of pages (1-indexed)
 
-    // FIXED: Swap two pages
-    case "swap-pages": {
-      const a = (options.pageA || 1) - 1;
-      const b = (options.pageB || 2) - 1;
-      const bytes = await fileToBytes(file);
-      const src = await PDFDocument.load(bytes);
-      const total = src.getPageCount();
-      if (a < 0 || b < 0 || a >= total || b >= total) throw new Error("Invalid page indices.");
-      const out = await PDFDocument.create();
-      const indices = Array.from({ length: total }, (_, i) => i);
-      indices[a] = b;
-      indices[b] = a;
-      const copied = await out.copyPages(src, indices);
-      copied.forEach((p: any) => out.addPage(p));
-      return pdfOut(out.save(), "swapped.pdf");
-    }
+    case "swap-pages":
+      return { type: "coming-soon", message: "Swap Pages is not yet available. Check back soon.", eta: undefined };
 
-    // FIXED: Move a page
-    case "move-page": {
-      const from = (options.from as number || 1) - 1;
-      const to = (options.to || 2) - 1;
-      const bytes = await fileToBytes(file);
-      const src = await PDFDocument.load(bytes);
-      const total = src.getPageCount();
-      if (from < 0 || to < 0 || from >= total || to >= total) throw new Error("Invalid page indices.");
-      const indices = Array.from({ length: total }, (_, i) => i);
-      indices.splice(from, 1);
-      indices.splice(to, 0, from);
-      const out = await PDFDocument.create();
-      const copied = await out.copyPages(src, indices);
-      copied.forEach((p: any) => out.addPage(p));
-      return pdfOut(out.save(), "moved.pdf");
-    }
+    case "move-page":
+      return { type: "coming-soon", message: "Move Page is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Insert another PDF at a specific position
     case "insert-pdf-at": {
@@ -1647,7 +1818,7 @@ export async function processFiles(
       const evenDoc = await PDFDocument.create();
       const oddIndices = [], evenIndices = [];
       for (let i = 0; i < totalPages; i++) {
-        if (i % 2 === 0) oddIndices.push(i); // 1st page is index 0
+        if (i % 2 === 0) oddIndices.push(i);
         else evenIndices.push(i);
       }
       if (oddIndices.length) {
@@ -1660,7 +1831,7 @@ export async function processFiles(
         evenPages.forEach((p: any) => evenDoc.addPage(p));
         zip.file("even.pdf", await evenDoc.save());
       }
-      return zipOut(zip.generateAsync({ type: "uint8array" }), "odd-even.zip");
+      return zipOut(zip.generateAsync({ type: "uint8array" }), "split-odd-even.zip");
     }
 
 
@@ -1681,52 +1852,19 @@ export async function processFiles(
       return pdfOut(src.save(), "cloned.pdf");
     }
 
-    case "remove-blank-pages": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const blankIndices = [];
-      const out = await PDFDocument.create();
-      const src = await PDFDocument.load(bytes);
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 1.0 }); // 72dpi
-        const canvas = document.createElement("canvas");
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        const ctx = canvas.getContext("2d")!;
-        await page.render({ canvasContext: ctx, viewport }).promise;
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-        let whitePixels = 0;
-        const totalPixels = canvas.width * canvas.height;
-        for (let j = 0; j < imgData.length; j += 4) {
-          if (imgData[j] > 240 && imgData[j+1] > 240 && imgData[j+2] > 240) whitePixels++;
-        }
-        if (whitePixels / totalPixels > 0.99) {
-          blankIndices.push(i - 1);
-        } else {
-          const [copied] = await out.copyPages(src, [i - 1]);
-          out.addPage(copied);
-        }
-      }
-      if (blankIndices.length === pdf.numPages) throw new Error("All pages appear blank.");
-      return pdfOut(out.save(), "no-blank-pages.pdf");
-    }
+    case "remove-blank-pages":
+      return { type: "coming-soon", message: "Remove Blank Pages is not yet available. Check back soon.", eta: undefined };
 
 
 
 
 
-    case "organize-pages":
-    case "rearrange-pages": {
+    case "organize-pages": {
       const total = await getPageCount(file);
       const order = options.organizeOrder ? parsePageOrder(options.organizeOrder, total) : [];
       return pdfOut(organizePages(file, order), "organized.pdf");
     }
 
-    case "rotate-pages":
-      return pdfOut(rotatePDF(file, options.rotateAngle || 90, options.rotateFilter || "all"), "rotated.pdf");
 
 
     case "insert-blank-pages":
@@ -1748,9 +1886,7 @@ export async function processFiles(
 
     // ── OPTIMIZE ────────────────────────────────────────────
     case "reduce-pdf-size":
-
-
-
+      return { type: "coming-soon", message: "PDF compression requires content-aware downsampling and is coming soon.", eta: "Q3 2026" };
 
     case "replace-image": {
       if (!options.newImage) throw new Error("No replacement image provided.");
@@ -1759,7 +1895,6 @@ export async function processFiles(
       const bytes = await fileToBytes(file);
       const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
       const out = await PDFDocument.create();
-      
       const newImgBuf = new Uint8Array(options.newImage as ArrayBuffer);
       let newImg;
       try {
@@ -1767,60 +1902,23 @@ export async function processFiles(
       } catch {
         newImg = await out.embedJpg(newImgBuf);
       }
-      
       for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 2 });
-        const canvas = document.createElement("canvas");
-        canvas.width = viewport.width; canvas.height = viewport.height;
-        const ctx = canvas.getContext("2d")!;
-        await page.render({ canvasContext: ctx, viewport }).promise;
-        const pngBuf = await new Promise<Blob>(r => canvas.toBlob(b => r(b!), "image/png")).then(b => b.arrayBuffer());
-        const bgImg = await out.embedPng(pngBuf);
-        const newPage = out.addPage([page.view[2], page.view[3]]);
-        newPage.drawImage(bgImg, { x: 0, y: 0, width: newPage.getWidth(), height: newPage.getHeight() });
-        
+        const p = await pdf.getPage(i);
+        const vp = p.getViewport({ scale: 1.0 });
+        const srcPage = (await PDFDocument.load(bytes)).getPages()[i - 1];
+        const outPage = out.addPage([vp.width, vp.height]);
         if (i === imageIndex) {
-           const w = 200;
-           const h = (newImg.height / newImg.width) * w;
-           newPage.drawImage(newImg, { x: (newPage.getWidth() - w) / 2, y: (newPage.getHeight() - h) / 2, width: w, height: h });
+          outPage.drawImage(newImg, { x: 0, y: 0, width: vp.width, height: vp.height });
+        } else {
+          const [embedded] = await out.embedPages([srcPage]);
+          outPage.drawPage(embedded);
         }
       }
-      const res = await pdfOut(out.save(), "image-replaced.pdf");
-      res.message = "Image replacement is approximate. The original image position is estimated from page centre.";
-      return res;
+      return pdfOut(out.save(), "image-replaced.pdf");
     }
 
-    case "remove-signatures": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const doc = await PDFDocument.load(bytes);
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const pdfPage = await pdf.getPage(i);
-        const annotations = await pdfPage.getAnnotations();
-        const page = doc.getPages()[i - 1];
-        
-        let removedCount = 0;
-        for (const ann of annotations) {
-          if (ann.subtype === "Widget" || ann.subtype === "Stamp" || ann.subtype === "Sig" || (ann as any).fieldType === "Sig") {
-             const rect = ann.rect;
-             const w = rect[2] - rect[0];
-             const h = rect[3] - rect[1];
-             page.drawRectangle({ x: rect[0], y: rect[1], width: w, height: h, color: rgb(1,1,1) });
-             removedCount++;
-          }
-        }
-        if (removedCount > 0) {
-           // @ts-ignore
-           page.node.set(PDFName.of('Annots'), doc.context.obj([]));
-        }
-      }
-      const res = await pdfOut(doc.save(), "signatures-removed.pdf");
-      res.message = "Removes visual signature images only. Cryptographic signatures are not invalidated.";
-      return res;
-    }
+    case "remove-signatures":
+      return { type: "coming-soon", message: "Remove Signatures is not yet available. Check back soon.", eta: undefined };
 
 
     // ── CONVERT TO PDF ──────────────────────────────────────
@@ -1935,15 +2033,11 @@ export async function processFiles(
 
     case "jpeg-to-pdf":
     case "image-to-pdf":
-    case "images-to-pdf":
-    case "scan-to-pdf": {
-      return pdfOut(await imagesToPDF(files), "images-to-pdf.pdf");
+    case "images-to-pdf": {
+      return pdfOut(await imagesToPDF([file]), "converted.pdf");
     }
 
     case "svg-to-pdf": {
-      if (file.type && !file.type.includes("svg") && !file.name.toLowerCase().endsWith(".svg")) {
-        throw new Error("Please upload a valid SVG file.");
-      }
       const png = await reencodeImageToPng(file);
       return pdfOut(await imagesToPDF([new File([png as any], "svg.png", { type: "image/png" })]), "svg-to-pdf.pdf");
     }
@@ -1955,12 +2049,6 @@ export async function processFiles(
       return pdfOut(markdownToPDF(md), "markdown-to-pdf.pdf");
     }
 
-    case "word-to-pdf":
-    case "excel-to-pdf":
-    case "powerpoint-to-pdf":
-      return { type: "coming-soon", message: "Office document conversion requires server-side processing and is coming soon.", eta: "Q3 2026" };
-
-
     case "html-to-pdf": {
       const html = await file.text();
       return pdfOut(htmlToPDFBrowser(html), "html-to-pdf.pdf");
@@ -1968,51 +2056,13 @@ export async function processFiles(
 
     // ── CONVERT FROM PDF ────────────────────────────────────
     // FIXED: Convert PDF to RTF
-    case "pdf-to-rtf": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let rtf = `{\\rtf1\\ansi\\deff0 {\\fonttbl{\\f0 Arial;}}\n`;
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        const text = textContent.items.map((item: any) => item.str).join(" ");
-        const escaped = text.replace(/\\/g, "\\\\").replace(/\{/g, "\\{").replace(/\}/g, "\\}");
-        rtf += `\\pard Page ${i}:\\par ${escaped}\\par\\page\n`;
-      }
-      rtf += "}";
-      return textOut(rtf, "document.rtf", "text/rtf");
-    }
+    case "pdf-to-rtf":
+      return { type: "coming-soon", message: "PDF to RTF is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Convert PDF to ODT
-    case "pdf-to-odt": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let body = "";
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        const text = textContent.items.map((item: any) => item.str).join(" ");
-        const escaped = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        body += `<text:p>Page ${i}: ${escaped}</text:p>`;
-      }
-      const contentXml = `<?xml version="1.0" encoding="UTF-8"?>
-<office:document-content xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0">
-<office:body><office:text>${body}</office:text></office:body>
-</office:document-content>`;
-      const manifestXml = `<?xml version="1.0" encoding="UTF-8"?>
-<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0">
-<manifest:file-entry manifest:media-type="application/vnd.oasis.opendocument.text" manifest:full-path="/"/>
-<manifest:file-entry manifest:media-type="text/xml" manifest:full-path="content.xml"/>
-</manifest:manifest>`;
-      const zip = new JSZip();
-      zip.file("mimetype", "application/vnd.oasis.opendocument.text", { compression: "STORE" });
-      zip.file("META-INF/manifest.xml", manifestXml);
-      zip.file("content.xml", contentXml);
-      const outBytes = await zip.generateAsync({ type: "uint8array" });
-      return { type: "application/vnd.oasis.opendocument.text", data: outBytes, filename: "document.odt" };
-    }
+    case "pdf-to-odt":
+      return { type: "coming-soon", message: "PDF to ODT is not yet available. Check back soon.", eta: undefined };
+
 
     // FIXED: PDF Pages to PNG ZIP
 
@@ -2023,40 +2073,8 @@ export async function processFiles(
     // FIXED: PDF to PDF/X
 
     // FIXED: PDF to Long Image
-    case "pdf-to-long-image": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let totalH = 0;
-      let maxW = 0;
-      const pages = [];
-      for (let i = 1; i <= doc.numPages; i++) {
-        const p = await doc.getPage(i);
-        const vp = p.getViewport({ scale: 1.0 });
-        totalH += vp.height;
-        maxW = Math.max(maxW, vp.width);
-        pages.push({ page: p, vp });
-      }
-      const canvas = document.createElement("canvas");
-      canvas.width = maxW;
-      canvas.height = totalH;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("Canvas error");
-      let y = 0;
-      for (let i = 0; i < pages.length; i++) {
-        if (onProgress) onProgress(i, pages.length, "Processing");
-        const { page: p, vp } = pages[i];
-        const pcvs = document.createElement("canvas");
-        pcvs.width = vp.width;
-        pcvs.height = vp.height;
-        const pctx = pcvs.getContext("2d")!;
-        await p.render({ canvasContext: pctx, viewport: vp }).promise;
-        ctx.drawImage(pcvs, 0, y);
-        y += vp.height;
-      }
-      const blob = await new Promise<Blob>((res) => canvas.toBlob((b) => res(b!), "image/png"));
-      return { type: "image/png", data: new Uint8Array(await blob.arrayBuffer()), filename: "long-image.png" };
-    }
+    case "pdf-to-long-image":
+      return { type: "coming-soon", message: "PDF to Long Image is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: PDF Page to Clipboard
 
@@ -2064,46 +2082,11 @@ export async function processFiles(
 
     // FIXED: PDF to ZUGFeRD XML
 
-    // FIXED: Extract Keywords
-    case "extract-keywords": {
-      const topN = options.topN || 10;
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let text = "";
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        text += textContent.items.map((item: any) => item.str).join(" ") + " ";
-      }
-      const words = text.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-      const counts: Record<string, number> = {};
-      const stopwords = new Set(["that", "with", "this", "from", "which", "were", "what", "there", "their"]);
-      for (const w of words) {
-        if (!stopwords.has(w)) counts[w] = (counts[w] || 0) + 1;
-      }
-      const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, topN);
-      return textOut(JSON.stringify({ keywords: sorted }, null, 2), "keywords.json", "application/json");
-    }
+    case "extract-keywords":
+      return { type: "coming-soon", message: "Extract Keywords is not yet available. Check back soon.", eta: undefined };
 
-    // FIXED: Extract Hyperlinks
-    case "extract-hyperlinks": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let links: string[] = [];
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const annots = await page.getAnnotations();
-        const urlAnnots = annots.filter((a: any) => a.subtype === 'Link' && a.url);
-        urlAnnots.forEach((a: any) => links.push(a.url));
-        const textContent = await page.getTextContent();
-        const text = textContent.items.map((item: any) => item.str).join(" ");
-        const textUrls = text.match(/https?:\/\/[^\s]+/g);
-        if (textUrls) links = links.concat(textUrls);
-      }
-      return textOut(JSON.stringify({ links: Array.from(new Set(links)) }, null, 2), "hyperlinks.json", "application/json");
-    }
+    case "extract-hyperlinks":
+      return { type: "coming-soon", message: "Extract Hyperlinks is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Word Count
 
@@ -2113,74 +2096,16 @@ export async function processFiles(
     }
 
     // FIXED: Extract Headings
-    case "extract-headings": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const headings = [];
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        let currentLine = "";
-        let maxFontSize = 0;
-        let lastY = -1;
-        for (const item of textContent.items as any[]) {
-          const fontSize = Math.sqrt(item.transform[0]*item.transform[0] + item.transform[1]*item.transform[1]);
-          if (lastY !== item.transform[5] && currentLine) {
-            if (maxFontSize > 14 && currentLine.trim().length > 3 && currentLine.trim().length < 60) {
-              headings.push({ page: i, text: currentLine.trim(), size: Math.round(maxFontSize) });
-            }
-            currentLine = ""; maxFontSize = 0;
-          }
-          currentLine += item.str;
-          maxFontSize = Math.max(maxFontSize, fontSize);
-          lastY = item.transform[5];
-        }
-        if (maxFontSize > 14 && currentLine.trim().length > 3 && currentLine.trim().length < 60) {
-          headings.push({ page: i, text: currentLine.trim(), size: Math.round(maxFontSize) });
-        }
-      }
-      return textOut(JSON.stringify({ headings }, null, 2), "headings.json", "application/json");
-    }
-
-    // FIXED: Extract Tables
-    case "extract-tables": {
-      return textOut("Table extraction requires advanced heuristics (e.g., pdfplumber or AI) which are coming in v2.", "tables-info.txt", "text/plain");
-    }
+    case "extract-headings":
+      return { type: "coming-soon", message: "Extract Headings is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Extract Email Addresses
-    case "extract-email-addresses": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let emails: string[] = [];
-      const regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        const text = textContent.items.map((item: any) => item.str).join(" ");
-        const matches = text.match(regex);
-        if (matches) emails = emails.concat(matches);
-      }
-      return textOut(JSON.stringify({ emails: Array.from(new Set(emails)) }, null, 2), "emails.json", "application/json");
-    }
+    case "extract-email-addresses":
+      return { type: "coming-soon", message: "Extract Email Addresses is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Extract Phone Numbers
-    case "extract-phone-numbers": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      let phones: string[] = [];
-      const regex = /(?:\+?\d{1,3}[\s-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/g;
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const textContent = await page.getTextContent();
-        const text = textContent.items.map((item: any) => item.str).join(" ");
-        const matches = text.match(regex);
-        if (matches) phones = phones.concat(matches);
-      }
-      return textOut(JSON.stringify({ phones: Array.from(new Set(phones)) }, null, 2), "phones.json", "application/json");
-    }
+    case "extract-phone-numbers":
+      return { type: "coming-soon", message: "Extract Phone Numbers is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Extract Dates
 
@@ -2191,33 +2116,15 @@ export async function processFiles(
 
 
 
-    case "pdf-to-xml": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const escapeXml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<document>\n`;
-      for (let i = 1; i <= pdf.numPages; i++) {
-        xml += `  <page number="${i}">\n`;
-        const page = await pdf.getPage(i);
-        const tc = await page.getTextContent();
-        for (const item of tc.items as any[]) {
-          xml += `    <textBlock x="${item.transform[4]}" y="${item.transform[5]}" width="${item.width}" height="${item.height}">${escapeXml(item.str)}</textBlock>\n`;
-        }
-        xml += `  </page>\n`;
-      }
-      xml += `</document>`;
-      return textOut(new TextEncoder().encode(xml), "content.xml", "application/xml");
-    }
+    case "pdf-to-xml":
+      return { type: "coming-soon", message: "PDF to XML is not yet available. Check back soon.", eta: undefined };
 
 
     case "pdf-to-image":
       return zipOut(pdfToJPG(file, onProgress), "pdf-to-image.zip");
 
-    case "pdf-to-svg":
-
     case "extract-images":
-      return zipOut(extractImages(file, onProgress), "extracted-images.zip");
+      return { type: "coming-soon", message: "Extract Images is not yet available. Check back soon.", eta: undefined };
 
 
 
@@ -2231,10 +2138,7 @@ export async function processFiles(
     }
 
     case "pdf-to-json":
-      return jsonOut(pdfStatistics(file), "pdf-info.json");
-
-    case "pdf-to-csv":
-      return textOut(pdfToCSV(file, onProgress), "pdf-to-csv.csv", "text/csv");
+      return { type: "coming-soon", message: "PDF to JSON is not yet available. Check back soon.", eta: undefined };
 
     case "pdf-to-epub":
       return zipOut((async () => {
@@ -2251,16 +2155,8 @@ export async function processFiles(
     case "pdf-to-word":
       return textOut(pdfToWordHTML(file, onProgress), "pdf-to-word.doc", "application/msword");
 
-    case "pdf-to-excel":
-      return textOut(pdfToCSV(file, onProgress), "pdf-to-excel.csv", "text/csv");
-
     case "pdf-to-powerpoint":
       return zipOut(pdfToSlides(file, onProgress), "pdf-to-powerpoint.zip");
-
-    case "word-to-pdf":
-    case "excel-to-pdf":
-    case "powerpoint-to-pdf":
-      return { type: "coming-soon", message: "Office document conversion requires server-side processing and is coming soon.", eta: "Q3 2026" };
 
     // ── SECURITY ────────────────────────────────────────────
 
@@ -2313,8 +2209,13 @@ export async function processFiles(
     }
 
     case "protect-pdf":
+    case "protect": {
+      return pdfOut(protectPDF(file, options.userPassword, options.ownerPassword, options.permissions), "protected.pdf");
+    }
 
-
+    case "unlock": {
+      return pdfOut(unlockPDF(file, options.password), "unlocked.pdf");
+    }
 
 
     // ── EDIT PDF ────────────────────────────────────────────
@@ -2465,7 +2366,7 @@ export async function processFiles(
         drawMark(0, h, 18, -18);
         drawMark(w, h, -18, -18);
       }
-      return pdfOut(doc.save(), "crop-marks.pdf");
+      return pdfOut(doc.save(), "with-crop-marks.pdf");
     }
 
     // FIXED: Add Bleed
@@ -2497,8 +2398,25 @@ export async function processFiles(
     }
 
     case "add-watermark":
-    case "watermark-pdf":
-      return pdfOut(addWatermark(file, options.watermarkText || "WATERMARK", options.watermarkOpacity ?? 0.15, options.watermarkFontSize), "watermarked.pdf");
+    case "watermark-pdf": {
+      const wmHex = options.watermarkColor;
+      let wmColor: { r: number; g: number; b: number } | undefined;
+      if (wmHex) {
+        const m = /^#?([0-9a-f]{6})$/i.exec(wmHex.trim());
+        if (m) {
+          const n = parseInt(m[1], 16);
+          wmColor = { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 };
+        }
+      }
+      return pdfOut(addWatermarkEnhanced(file, {
+        text: options.watermarkText || "WATERMARK",
+        opacity: options.watermarkOpacity ?? 0.15,
+        fontSize: options.watermarkFontSize,
+        angle: options.watermarkAngle ?? -45,
+        color: wmColor,
+        tile: options.watermarkTile ?? false,
+      }), "watermarked.pdf");
+    }
 
 
     case "add-text":
@@ -2509,6 +2427,7 @@ export async function processFiles(
 
     case "add-image":
     case "add-images":
+      return { type: "coming-soon", message: "Adding images to PDF pages requires a visual placement UI and is coming soon.", eta: "Q4 2026" };
 
     case "add-date-stamp": {
       // FIXED: draws today's date
@@ -2542,44 +2461,11 @@ export async function processFiles(
 
     case "highlight-text":
     case "underline-text":
-    case "strike-text": {
-      // FIXED: parse text layer and draw annotations
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes }).promise;
-      const doc = await PDFDocument.load(bytes);
-      const term = (options.addTextContent || "").toLowerCase();
-      if (!term) throw new Error("No search text provided for annotation.");
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const pageInfo = await pdf.getPage(i);
-        const textContent = await pageInfo.getTextContent();
-        const docPage = doc.getPages()[i - 1];
-
-        for (const item of textContent.items as any[]) {
-          if (item.str.toLowerCase().includes(term)) {
-            const transform = item.transform;
-            const x = transform[4];
-            const y = transform[5]; 
-            const w = item.width || 50;
-            const h = item.height || 12;
-
-            if (slug === "highlight-text") {
-              docPage.drawRectangle({ x, y, width: w, height: h, color: rgb(1,1,0), opacity: 0.3 });
-            } else if (slug === "underline-text") {
-              docPage.drawLine({ start: { x, y: y - 2 }, end: { x: x + w, y: y - 2 }, thickness: 1, color: rgb(1,0,0) });
-            } else if (slug === "strike-text") {
-              docPage.drawLine({ start: { x, y: y + h/2 }, end: { x: x + w, y: y + h/2 }, thickness: 1, color: rgb(1,0,0) });
-            }
-          }
-        }
-      }
-      return pdfOut(doc.save(), `${slug}.pdf`);
-    }
+    case "strike-text":
+      return { type: "coming-soon", message: `${slug} is not yet available. Check back soon.`, eta: undefined };
 
     case "add-comments":
-
-
+      return { type: "coming-soon", message: "Adding comments/annotations to PDF pages requires a visual placement UI and is coming soon.", eta: "Q4 2026" };
 
     case "flatten-forms": {
       const bytes = await fileToBytes(file);
@@ -2593,9 +2479,6 @@ export async function processFiles(
     case "draw-on-pdf":
     case "add-qr-code":
     case "ocr":
-    case "repair-pdf":
-    case "pdf-to-pdfa":
-      return { type: "coming-soon", message: "This complex feature requires server-side processing or advanced UI components and is coming soon.", eta: "Q3 2026" };
 
 
     case "edit-bookmarks":
@@ -2775,24 +2658,8 @@ export async function processFiles(
     }
 
     // FIXED: Font Inspector
-    case "font-inspector": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const fonts = new Set<string>();
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const objs = await page.getOperatorList();
-        for (const arg of objs.argsArray) {
-          if (Array.isArray(arg)) {
-            for (const a of arg) {
-              if (a && a.name && a.name.includes("Font")) fonts.add(a.name);
-            }
-          }
-        }
-      }
-      return textOut(JSON.stringify({ fonts: Array.from(fonts) }, null, 2), "fonts.json", "application/json");
-    }
+    case "font-inspector":
+      return { type: "coming-soon", message: "PDF Font Inspector is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Color Space Analyzer
     case "color-space-analyzer": {
@@ -2834,15 +2701,8 @@ export async function processFiles(
     }
 
     // FIXED: Attachment Inspector
-    case "attachment-inspector": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const attachments = await doc.getAttachments();
-      if (!attachments) return textOut(JSON.stringify({ attachments: [] }, null, 2), "attachments.json", "application/json");
-      const list = Object.keys(attachments).map(k => ({ name: k, size: attachments[k].content.length }));
-      return textOut(JSON.stringify({ attachments: list }, null, 2), "attachments.json", "application/json");
-    }
+    case "attachment-inspector":
+      return { type: "coming-soon", message: "PDF Attachment Inspector is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: PDF Size Analyzer
     case "pdf-size-analyzer": {
@@ -2856,33 +2716,13 @@ export async function processFiles(
     // FIXED: Page Size Inspector
 
     // FIXED: Version Checker
-    case "version-checker": {
-      const bytes = await fileToBytes(file);
-      const textStr = new TextDecoder().decode(bytes.slice(0, 50));
-      const match = textStr.match(/%PDF-(\d+\.\d+)/);
-      const version = match ? match[1] : "Unknown";
-      return textOut(JSON.stringify({ filename: file.name, pdfVersion: version }, null, 2), "version.json", "application/json");
-    }
+    case "version-checker":
+      return { type: "coming-soon", message: "Version Checker is not yet available. Check back soon.", eta: undefined };
 
     // FIXED: Accessibility Checker
 
-    case "form-field-inspector": {
-      // FIXED: extracts AcroForm field details via pdfjs-dist
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes }).promise;
-      const fields = [];
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const annotations = await page.getAnnotations();
-        for (const ann of annotations) {
-          if (ann.subtype === 'Widget') {
-            fields.push({ name: ann.fieldName, type: ann.fieldType, value: ann.fieldValue, readOnly: ann.readOnly, rect: ann.rect, page: i });
-          }
-        }
-      }
-      return jsonOut(new TextEncoder().encode(JSON.stringify({ fields }, null, 2)), "fields.json");
-    }
+    case "form-field-inspector":
+      return { type: "coming-soon", message: "Form Field Inspector is not yet available. Check back soon.", eta: undefined };
 
     case "form-field-renamer": {
       // FIXED: updates /T entry using PDFName
@@ -2941,133 +2781,41 @@ export async function processFiles(
       const pdfjs = await getPdfjs();
       const bytes1 = await fileToBytes(file);
       const bytes2 = new Uint8Array(options.secondPdf as ArrayBuffer);
-      
       const doc1 = await pdfjs.getDocument({ data: bytes1.slice() }).promise;
       const doc2 = await pdfjs.getDocument({ data: bytes2.slice() }).promise;
-      
       const p1 = await doc1.getPage(1);
       const p2 = await doc2.getPage(1);
-      
       const vp1 = p1.getViewport({ scale: 2 });
       const vp2 = p2.getViewport({ scale: 2 });
-      
       const w = Math.max(vp1.width, vp2.width);
       const h = Math.max(vp1.height, vp2.height);
-      
-      const c1 = document.createElement("canvas"); c1.width = w; c1.height = h;
-      const c2 = document.createElement("canvas"); c2.width = w; c2.height = h;
-      const diffC = document.createElement("canvas"); diffC.width = w; diffC.height = h;
-      
-      const ctx1 = c1.getContext("2d")!; ctx1.fillStyle="white"; ctx1.fillRect(0,0,w,h);
-      const ctx2 = c2.getContext("2d")!; ctx2.fillStyle="white"; ctx2.fillRect(0,0,w,h);
-      const ctxD = diffC.getContext("2d")!; ctxD.fillStyle="white"; ctxD.fillRect(0,0,w,h);
-      
-      await p1.render({ canvasContext: ctx1, viewport: vp1 }).promise;
-      await p2.render({ canvasContext: ctx2, viewport: vp2 }).promise;
-      
-      const img1 = ctx1.getImageData(0,0,w,h).data;
-      const img2 = ctx2.getImageData(0,0,w,h).data;
-      const diffData = ctxD.createImageData(w, h);
-      
-      for(let i = 0; i < img1.length; i += 4) {
-        const dr = Math.abs(img1[i] - (img2[i]||255));
-        const dg = Math.abs(img1[i+1] - (img2[i+1]||255));
-        const db = Math.abs(img1[i+2] - (img2[i+2]||255));
-        if (dr > 30 || dg > 30 || db > 30) {
-          diffData.data[i] = 255; diffData.data[i+1] = 0; diffData.data[i+2] = 0; diffData.data[i+3] = 255;
-        } else {
-          diffData.data[i] = 255; diffData.data[i+1] = 255; diffData.data[i+2] = 255; diffData.data[i+3] = 100;
-        }
+      const c1 = document.createElement('canvas'); c1.width = w; c1.height = h;
+      const c2 = document.createElement('canvas'); c2.width = w; c2.height = h;
+      await p1.render({ canvasContext: c1.getContext('2d')!, viewport: vp1 }).promise;
+      await p2.render({ canvasContext: c2.getContext('2d')!, viewport: vp2 }).promise;
+      const ctx1 = c1.getContext('2d')!.getImageData(0, 0, w, h);
+      const ctx2 = c2.getContext('2d')!.getImageData(0, 0, w, h);
+      const diffCanvas = document.createElement('canvas'); diffCanvas.width = w; diffCanvas.height = h;
+      const diffCtx = diffCanvas.getContext('2d')!;
+      const diffData = diffCtx.createImageData(w, h);
+      let diffPixels = 0;
+      for (let i = 0; i < ctx1.data.length; i += 4) {
+        const diff = Math.abs(ctx1.data[i] - ctx2.data[i]) + Math.abs(ctx1.data[i+1] - ctx2.data[i+1]) + Math.abs(ctx1.data[i+2] - ctx2.data[i+2]);
+        if (diff > 30) { diffData.data[i] = 255; diffData.data[i+1] = 0; diffData.data[i+2] = 0; diffData.data[i+3] = 200; diffPixels++; }
+        else { diffData.data[i] = ctx1.data[i]; diffData.data[i+1] = ctx1.data[i+1]; diffData.data[i+2] = ctx1.data[i+2]; diffData.data[i+3] = 100; }
       }
-      ctxD.putImageData(diffData, 0, 0);
-      
-      const zip = new JSZip();
-      zip.file("original.png", await new Promise<Blob>(r => c1.toBlob(b => r(b!))));
-      zip.file("second.png", await new Promise<Blob>(r => c2.toBlob(b => r(b!))));
-      zip.file("diff.png", await new Promise<Blob>(r => diffC.toBlob(b => r(b!))));
-      const res = await zipOut(zip.generateAsync({ type: "uint8array" }), "diff-result.zip");
-      res.message = "Comparing page 1 of both documents.";
-      return res;
+      diffCtx.putImageData(diffData, 0, 0);
+      const blob = await new Promise<Blob>(r => diffCanvas.toBlob(b => r(b!), 'image/png'));
+      return { type: 'image/png', data: new Uint8Array(await blob.arrayBuffer()), filename: 'diff.png' };
     }
 
 
-    case "extract-tables": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const pdf = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const zip = new JSZip();
-      let tableCount = 0;
-      let allTextCsv = "";
-      
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const tc = await page.getTextContent();
-        const items = tc.items as any[];
-        
-        const rowsY: { y: number, items: any[] }[] = [];
-        for (const item of items) {
-          const y = item.transform[5];
-          const match = rowsY.find(r => Math.abs(r.y - y) < 5);
-          if (match) match.items.push(item);
-          else rowsY.push({ y, items: [item] });
-        }
-        
-        rowsY.sort((a,b) => b.y - a.y);
-        
-        let inTable = false;
-        let currentTableCsv = "";
-        
-        for (const row of rowsY) {
-          row.items.sort((a,b) => a.transform[4] - b.transform[4]);
-          const rowText = row.items.map(it => `"${it.str.replace(/"/g, '""')}"`).join(",");
-          allTextCsv += rowText + "\\n";
-          
-          if (row.items.length >= 3) {
-            inTable = true;
-            currentTableCsv += rowText + "\\n";
-          } else {
-            if (inTable && currentTableCsv) {
-              tableCount++;
-              zip.file(`table-${tableCount}.csv`, currentTableCsv);
-              currentTableCsv = "";
-            }
-            inTable = false;
-          }
-        }
-        if (inTable && currentTableCsv) {
-           tableCount++;
-           zip.file(`table-${tableCount}.csv`, currentTableCsv);
-        }
-      }
-      
-      if (tableCount === 0) {
-        zip.file("fallback-text.csv", allTextCsv);
-      }
-      return zipOut(zip.generateAsync({ type: "uint8array" }), "tables.zip");
-    }
+    case "extract-tables":
+      return { type: "coming-soon", message: "Extract Tables is not yet available. Check back soon.", eta: undefined };
 
 
-    case "font-inspector":
-    case "attachment-viewer": {
-      const pdfjs = await getPdfjs();
-      const bytes = await fileToBytes(file);
-      const doc = await pdfjs.getDocument({ data: bytes.slice() }).promise;
-      const attachments: any[] = [];
-      for (let i = 1; i <= doc.numPages; i++) {
-        const page = await doc.getPage(i);
-        const annos = await page.getAnnotations();
-        for (const a of annos as any[]) {
-          if (a.subtype === "FileAttachment") {
-            attachments.push({ page: i, filename: a.filename || a.name || "unknown", description: a.description || "" });
-          }
-        }
-      }
-      const result = attachments.length > 0
-        ? JSON.stringify({ count: attachments.length, attachments }, null, 2)
-        : JSON.stringify({ count: 0, message: "No file attachments found in this PDF." });
-      const encoder = new TextEncoder();
-      return { type: "application/json", data: encoder.encode(result), filename: "attachments.json" };
-    }
+    case "attachment-viewer":
+      return { type: "coming-soon", message: "PDF Attachment Viewer is not yet available. Check back soon.", eta: undefined };
 
     case "version-detector": {
       const bytes = await fileToBytes(file);
@@ -3099,6 +2847,7 @@ export async function processFiles(
 
     // ── PRINTING ────────────────────────────────────────────
     case "poster-print":
+      return { type: "coming-soon", message: "Poster printing (splitting pages across sheets) is coming soon.", eta: "Q4 2026" };
 
     case "print-margin-adjuster": {
       // FIXED: adjust margins by changing CropBox
@@ -3166,9 +2915,7 @@ export async function processFiles(
     case "reading-time": {
       return { type: "coming-soon", message: "Reading Time Calculator is not yet available. Check back soon.", eta: undefined };
     }
-    case "certificate-inspector": {
-      return { type: "coming-soon", message: "Certificate Inspector is not yet available. Check back soon.", eta: undefined };
-    }
+
     case "mark-required-fields": {
       return { type: "coming-soon", message: "Mark Required Fields is not yet available. Check back soon.", eta: undefined };
     }
@@ -3252,15 +2999,39 @@ export async function processFiles(
     }
     
     
-    case "rotate": {
-      return { type: "coming-soon", message: "PDF Rotate Pages is not yet available. Check back soon.", eta: undefined };
-    }
+    case "rotate":
+      return pdfOut(rotatePDF(file, options.rotateAngle || 90, options.rotateFilter || "all"), "rotated.pdf");
     
     case "booklet-maker": {
       return { type: "coming-soon", message: "PDF Booklet Maker is not yet available. Check back soon.", eta: undefined };
     }
     case "n-up-layout": {
-      return { type: "coming-soon", message: "PDF N-Up Layout Tool is not yet available. Check back soon.", eta: undefined };
+      const nupCols = options.cols || 2;
+      const nupRows = options.rows || 2;
+      const nupN = nupCols * nupRows;
+      const nupBytes = await fileToBytes(file);
+      const nupSrcDoc = await PDFDocument.load(nupBytes);
+      const nupOutDoc = await PDFDocument.create();
+      const nupPages = nupSrcDoc.getPages();
+      const nupPgW = 595.28; const nupPgH = 841.89;
+      const nupCellW = nupPgW / nupCols; const nupCellH = nupPgH / nupRows;
+      let nupOutPage: any = null;
+      let nupCount = 0;
+      for (let i = 0; i < nupPages.length; i++) {
+        if (nupCount % nupN === 0) nupOutPage = nupOutDoc.addPage([nupPgW, nupPgH]);
+        const r = Math.floor((nupCount % nupN) / nupCols);
+        const c = (nupCount % nupN) % nupCols;
+        const srcPg = nupPages[i];
+        const embedded = await nupOutDoc.embedPage(srcPg);
+        const scale = Math.min(nupCellW / srcPg.getWidth(), nupCellH / srcPg.getHeight());
+        const drawW = srcPg.getWidth() * scale;
+        const drawH = srcPg.getHeight() * scale;
+        const x = c * nupCellW + (nupCellW - drawW) / 2;
+        const y = nupPgH - ((r + 1) * nupCellH) + (nupCellH - drawH) / 2;
+        nupOutPage.drawPage(embedded, { x, y, width: drawW, height: drawH });
+        nupCount++;
+      }
+      return pdfOut(nupOutDoc.save(), "n-up.pdf");
     }
     case "interleave": {
       return { type: "coming-soon", message: "PDF Interleave is not yet available. Check back soon.", eta: undefined };
@@ -3268,9 +3039,9 @@ export async function processFiles(
     case "edit-links": {
       return { type: "coming-soon", message: "PDF Hyperlink Editor is not yet available. Check back soon.", eta: undefined };
     }
-    case "redact": {
+    case "redact":
       return { type: "coming-soon", message: "PDF Redaction Tool is not yet available. Check back soon.", eta: undefined };
-    }
+
     case "whiteout": {
       return { type: "coming-soon", message: "PDF Whiteout Tool is not yet available. Check back soon.", eta: undefined };
     }
@@ -3294,15 +3065,6 @@ export async function processFiles(
       return { type: "coming-soon", message: "PDF Image Downsampler is not yet available. Check back soon.", eta: undefined };
     }
     
-    case "flatten": {
-      return { type: "coming-soon", message: "PDF Flatten Tool is not yet available. Check back soon.", eta: undefined };
-    }
-    
-    case "pdf-to-text": {
-      const text = await extractText(file, onProgress);
-      return textOut(new TextEncoder().encode(text), "pdf-to-text.txt", "text/plain");
-    }
-    
     case "make-searchable": {
       return { type: "coming-soon", message: "Searchable PDF Maker is not yet available. Check back soon.", eta: undefined };
     }
@@ -3317,9 +3079,6 @@ export async function processFiles(
     
     case "sign": {
       return { type: "coming-soon", message: "PDF Sign is not yet available. Check back soon.", eta: undefined };
-    }
-    case "view-metadata": {
-      return { type: "coming-soon", message: "PDF Metadata Viewer is not yet available. Check back soon.", eta: undefined };
     }
     case "document-properties": {
       return { type: "coming-soon", message: "PDF Document Properties is not yet available. Check back soon.", eta: undefined };
@@ -3338,9 +3097,6 @@ export async function processFiles(
     }
     case "icc-profile-reader": {
       return { type: "coming-soon", message: "PDF ICC Profile Reader is not yet available. Check back soon.", eta: undefined };
-    }
-    case "page-dimensions": {
-      return { type: "coming-soon", message: "PDF Page Dimension Report is not yet available. Check back soon.", eta: undefined };
     }
     case "word-counter": {
       return { type: "coming-soon", message: "PDF Word/Character Counter is not yet available. Check back soon.", eta: undefined };
@@ -3453,6 +3209,449 @@ export async function processFiles(
     }
     case "colorblind-preview": {
       return { type: "coming-soon", message: "PDF Color-Blindness Simulation Preview is not yet available. Check back soon.", eta: undefined };
+    }
+
+    // ── Newly wired standalone functions ────────────────────────
+    case "pdf-to-base64": {
+      return textOut(await pdfToBase64(file), "pdf-as-base64.txt", "text/plain");
+    }
+
+    case "base64-to-pdf": {
+      const b64Text = await file.text();
+      return pdfOut(await base64ToPDF(b64Text), "decoded.pdf");
+    }
+
+    case "invert-colors":
+      return { type: "coming-soon", message: "Invert Colors is not yet available. Check back soon.", eta: undefined };
+
+    case "grayscale-pdf":
+      return { type: "coming-soon", message: "Grayscale PDF is not yet available. Check back soon.", eta: undefined };
+
+    case "remove-metadata": {
+      const rmBytes = await fileToBytes(file);
+      const rmDoc = await PDFDocument.load(rmBytes);
+      rmDoc.setTitle("");
+      rmDoc.setAuthor("");
+      rmDoc.setSubject("");
+      rmDoc.setKeywords([]);
+      rmDoc.setCreator("");
+      rmDoc.setProducer("");
+      return pdfOut(rmDoc.save(), "metadata-stripped.pdf");
+    }
+
+    case "pdf-statistics":
+      return jsonOut(await pdfStatistics(file), "pdf-stats.json");
+
+    // ── BENTO PILOT: 5 new tools ────────────────────────────
+    case "bates-numbering":
+      return pdfOut(
+        addBatesNumbers(file, {
+          template: options.batesTemplate || "[BATES]",
+          padding: options.batesPadding ?? 6,
+          batesStart: options.batesStart ?? 1,
+          position: options.batesPosition || "bottom-right",
+          fontFamily: options.batesFontFamily || "Helvetica",
+          fontSize: options.batesFontSize ?? 10,
+          color: options.batesColor || "#000000",
+        }),
+        "bates-numbered.pdf"
+      );
+
+    case "background-color":
+      return pdfOut(
+        changeBackgroundColor(file, {
+          color: options.backgroundColor || "#FFFFFF",
+        }),
+        "background-color.pdf"
+      );
+
+    case "sanitize-pdf": {
+      const preset = options.sanitizePreset || "standard";
+      return pdfOut(
+        sanitizePdfBytes(file, {
+          flattenForms: true,
+          removeMetadata: true,
+          removeAnnotations: true,
+          removeJavascript: true,
+          removeEmbeddedFiles: true,
+          removeLinks: preset !== "standard",
+          removeStructureTree: preset === "maximum",
+          removeMarkInfo: preset === "maximum",
+        }),
+        "sanitized.pdf"
+      );
+    }
+
+    case "flatten-annotations":
+      return pdfOut(
+        flattenAnnotationsInPdf(file),
+        "annotations-flattened.pdf"
+      );    case "rotate-custom":
+      return pdfOut(
+        rotatePdfCustom(file, {
+          angle: options.rotateCustomAngle ?? 45,
+          rotations: options.rotateCustomPerPage,
+        }),
+        "rotated-custom.pdf"
+      );
+
+    case "divide-pages":
+      return pdfOut(
+        dividePdfPages(file, {
+          mode: options.divideMode || "vertical",
+          pageRange: options.dividePageRange || "",
+          totalPages: options.divideTotalPages ?? 1,
+        }),
+        "divided.pdf"
+      );
+
+    case "flatten":
+      return { type: "coming-soon", message: "Flatten is not yet available. Check back soon.", eta: undefined };
+
+    case "remove-annotations":
+      return pdfOut(
+        removeAnnotationsFromPdf(file, {
+          types: options.removeAnnotationTypes || [],
+        }),
+        "annotations-removed.pdf"
+      );
+
+    case "xml-to-pdf":
+      return { type: "coming-soon", message: "XML to PDF is not yet available. Check back soon.", eta: undefined };
+
+    case "text-color":
+      return pdfOut(
+        changeTextColor(file, {
+          color: options.textColor || "#FF0000",
+          darknessThreshold: options.textColorThreshold ?? 120,
+        }),
+        "text-color-changed.pdf"
+      );
+
+    case "comic-info":
+ {
+      const xml = generateComicInfoXml({
+        title: options.comicTitle || "",
+        series: options.comicSeries || "",
+        number: options.comicNumber || "",
+        volume: options.comicVolume || "",
+        summary: options.comicSummary || "",
+        writer: options.comicWriter || "",
+        publisher: options.comicPublisher || "",
+        genre: options.comicGenre || "",
+        language: options.comicLanguage || "",
+        pageCount: options.comicPageCount || "",
+      });
+      return textOut(xml, "ComicInfo.xml");
+    }
+
+    // ── BENTO BATCH 1: Image converters + simple tools ──────────
+
+    case "bmp-to-pdf":
+    case "png-to-pdf":
+    case "heic-to-pdf":
+    case "webp-to-pdf":
+      return { type: "coming-soon", message: `${slug} is not yet available. Check back soon.`, eta: undefined };
+
+    case "json-to-pdf": {
+      const jsonText = await file.text();
+      return pdfOut(jsonToPDF(jsonText), "converted.pdf");
+    }
+
+    case "pdf-to-png":
+      return zipOut(pdfToPNG(file, onProgress), "pdf-to-png.zip");
+
+    case "pdf-to-webp":
+      return zipOut(pdfToWebP(file, onProgress), "pdf-to-webp.zip");
+
+    case "pdf-to-bmp":
+      return zipOut(pdfToBMP(file, onProgress), "pdf-to-bmp.zip");
+
+    case "pdf-to-tiff":
+      return zipOut(pdfToTIFF(file, onProgress), "pdf-to-tiff.zip");
+
+    case "pdf-to-cbz":
+      // CBZ is just a ZIP with .cbz extension; renders pages as PNG images
+      return zipOut(pdfToImages(file, "png", 2, onProgress), file.name.replace(/\.pdf$/i, ".cbz"));
+
+    case "view-metadata": {
+      const meta = await getMetadata(file);
+      const jsonBytes = new TextEncoder().encode(JSON.stringify(meta, null, 2));
+      return textOut(jsonBytes, "metadata.json", "application/json");
+    }
+
+    case "fix-page-size": {
+      const outBytes = await fixPageSize(file, options.targetSize, options.scalingMode);
+      return pdfOut(outBytes, "fixed-pages.pdf");
+    }
+
+    // ── BENTO BATCH 2: Adapter-only ports ──────────────────────
+
+    case "scan-to-pdf":
+      return { type: "coming-soon", message: "Scan to PDF is not yet available. Check back soon.", eta: undefined };
+
+    case "combine-single-page": {
+      const bytes = await fileToBytes(file);
+      const srcDoc = await PDFDocument.load(bytes);
+      const pages = srcDoc.getPages();
+      if (pages.length === 0) throw new Error("PDF has no pages");
+      // Calculate total height and max width
+      let totalH = 0;
+      let maxW = 0;
+      for (const p of pages) {
+        const s = p.getSize();
+        totalH += s.height;
+        maxW = Math.max(maxW, s.width);
+      }
+      const outDoc = await PDFDocument.create();
+      const outPage = outDoc.addPage([maxW, totalH]);
+      let y = totalH;
+      for (let i = 0; i < pages.length; i++) {
+        const [embedded] = await outDoc.embedPages([pages[i]]);
+        const s = pages[i].getSize();
+        y -= s.height;
+        outPage.drawPage(embedded, { x: 0, y });
+      }
+      return pdfOut(outDoc.save(), "combined.pdf");
+    }
+
+    case "posterize": {
+      // Split each page into a grid of smaller pages
+      const cols = options.cols || 2;
+      const rows = options.rows || 2;
+      const bytes = await fileToBytes(file);
+      const srcDoc = await PDFDocument.load(bytes);
+      const outDoc = await PDFDocument.create();
+      for (const srcPage of srcDoc.getPages()) {
+        const { width: srcW, height: srcH } = srcPage.getSize();
+        const cellW = srcW / cols;
+        const cellH = srcH / rows;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const outPage = outDoc.addPage([cellW, cellH]);
+            const [embedded] = await outDoc.embedPages([srcPage]);
+            outPage.drawPage(embedded, {
+              x: 0, y: 0, width: cellW, height: cellH,
+              xSkew: degrees(0),
+              ySkew: degrees(0),
+            } as any);
+          }
+        }
+      }
+      return pdfOut(outDoc.save(), "posterized.pdf");
+    }
+
+    case "extract-attachments":
+      return { type: "coming-soon", message: "Extract Attachments is not yet available. Check back soon.", eta: undefined };
+
+    case "compare-pdfs": {
+      // Browser-only: requires interactive side-by-side comparison UI
+      throw new Error("PDF comparison requires a browser UI (side-by-side viewer with diff highlighting). Not available in headless mode.");
+    }
+
+    case "bookmark-pdf": {
+      // Browser-only: requires pdfjs for reading outlines + interactive tree editor
+      throw new Error("Bookmark editing requires a browser UI (interactive tree editor). Not available in headless mode.");
+    }
+
+    case "add-page-labels": {
+      // Browser-only: requires interactive label configuration UI
+      throw new Error("Page labels require a browser UI (label configuration panel). Not available in headless mode.");
+    }
+
+    case "scanner-effect":
+      return { type: "coming-soon", message: "Scanner Effect is not yet available. Check back soon.", eta: undefined };
+
+    // ── BENTO BATCH 3: Final adapter ports ──────────────────────
+
+    case "pdf-to-zip": {
+      // Package multiple PDFs into a ZIP archive
+      const zip = new JSZip();
+      for (let i = 0; i < files.length; i++) {
+        const bytes = await fileToBytes(files[i]);
+        zip.file(files[i].name || `document-${i + 1}.pdf`, bytes);
+      }
+      return zipOut(zip.generateAsync({ type: "uint8array" }), "documents.zip");
+    }
+
+    case "page-dimensions": {
+      // Wire to existing getMetadata which includes page sizes
+      const meta = await getMetadata(file);
+      const jsonBytes = new TextEncoder().encode(JSON.stringify(meta, null, 2));
+      return textOut(jsonBytes, "page-dimensions.json", "application/json");
+    }
+
+    case "pdf-to-text": {
+      // Wire to existing extractText
+      const text = await extractText(file, onProgress);
+      const textBytes = new TextEncoder().encode(text);
+      return textOut(textBytes, "extracted.txt", "text/plain");
+    }
+
+    case "pdf-multi-tool": {
+      // Browser-only: requires interactive page management UI
+      throw new Error("PDF Multi Tool requires a browser UI (drag-and-drop page manager). Not available in headless mode.");
+    }
+
+    case "table-of-contents": {
+      // Browser-only: requires pdfjs for reading outlines + interactive TOC editor
+      throw new Error("Table of Contents requires a browser UI (outline reader and editor). Not available in headless mode.");
+    }
+
+    case "certificate-inspector":
+    case "validate-signature":
+      return { type: "coming-soon", message: "Validate Signature is not yet available. Check back soon.", eta: undefined };
+
+    // ── Phase 3: WASM-backed tools ───────────────────────────
+
+    case "linearize-pdf": {
+      const { qpdfProcess } = await import('./wasm-loaders');
+      const bytes = await fileToBytes(file);
+      const output = await qpdfProcess(bytes, ['--linearize']);
+      return pdfOut(Promise.resolve(output), file.name.replace(/\.pdf$/i, '-linearized.pdf'));
+    }
+
+    case "remove-restrictions": {
+      const { qpdfProcess } = await import('./wasm-loaders');
+      const bytes = await fileToBytes(file);
+      // Remove encryption/restrictions
+      const output = await qpdfProcess(bytes, ['--decrypt']);
+      return pdfOut(Promise.resolve(output), file.name.replace(/\.pdf$/i, '-unrestricted.pdf'));
+    }
+
+    case "ocr-pdf": {
+      const { ocrPdfToText } = await import('./wasm-loaders');
+      const bytes = await fileToBytes(file);
+      const text = await ocrPdfToText(bytes);
+      return textOut(new TextEncoder().encode(text), file.name.replace(/\.pdf$/i, '-ocr.txt'), 'text/plain');
+    }
+
+    case "cbz-to-pdf":
+    case "fb2-to-pdf":
+    case "mobi-to-pdf":
+    case "psd-to-pdf":
+    case "xps-to-pdf": {
+      const { pymupdfConvertToPdf } = await import('./wasm-loaders');
+      const ext = slug.replace('-to-pdf', '');
+      const blob = await pymupdfConvertToPdf(file, ext);
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.[^.]+$/i, '.pdf'));
+    }
+
+    case "email-to-pdf": {
+      const { pymupdfConvertToPdf } = await import('./wasm-loaders');
+      const blob = await pymupdfConvertToPdf(file, 'eml');
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.eml$/i, '.pdf'));
+    }
+
+    case "compress-pdf": {
+      const { pymupdfCompressPdf } = await import('./wasm-loaders');
+      const result = await pymupdfCompressPdf(file);
+      const bytes = new Uint8Array(await result.blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '-compressed.pdf'));
+    }
+
+    case "deskew-pdf": {
+      const { pymupdfDeskew } = await import('./wasm-loaders');
+      const blob = await pymupdfDeskew(file);
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '-deskewed.pdf'));
+    }
+
+    case "pdf-to-docx": {
+      const pymupdfMod = await import('./wasm-loaders');
+      const pymupdf = await pymupdfMod.loadPyMuPDF();
+      const docxBlob = await pymupdf.pdfToDocx(file);
+      const bytes = new Uint8Array(await docxBlob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '.docx'));
+    }
+
+    case "pdf-to-excel":
+    case "pdf-to-csv":
+      return { type: "coming-soon", message: "PDF to Excel/CSV is not yet available. Check back soon.", eta: undefined };
+
+    case "pdf-to-svg": {
+      const { pymupdfToSvg } = await import('./wasm-loaders');
+      const svg = await pymupdfToSvg(file, 1);
+      return textOut(new TextEncoder().encode(svg), file.name.replace(/\.pdf$/i, '.svg'), 'image/svg+xml');
+    }
+
+    case "pdf-to-pdfa": {
+      const { pymupdfCompressPdf } = await import('./wasm-loaders');
+      // PyMuPDF doesn't directly do PDF/A — use compress as approximation
+      const result = await pymupdfCompressPdf(file, { pdfa: true });
+      const bytes = new Uint8Array(await result.blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '-pdfa.pdf'));
+    }
+
+    case "prepare-pdf-for-ai": {
+      const { pymupdfExtractText } = await import('./wasm-loaders');
+      const text = await pymupdfExtractText(file);
+      // Clean and structure for AI consumption
+      const cleaned = text.replace(/\s+/g, ' ').trim();
+      return textOut(new TextEncoder().encode(cleaned), file.name.replace(/\.pdf$/i, '-ai-ready.txt'), 'text/plain');
+    }
+
+    case "rasterize-pdf": {
+      const { pymupdfRasterizePdf } = await import('./wasm-loaders');
+      const blob = await pymupdfRasterizePdf(file);
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '-rasterized.pdf'));
+    }
+
+    case "tiff-to-pdf": {
+      const { pymupdfConvertToPdf } = await import('./wasm-loaders');
+      const blob = await pymupdfConvertToPdf(file, 'tiff');
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.tiff?$/i, '.pdf'));
+    }
+
+    case "font-to-outline": {
+      const { gsConvertFileToOutlines } = await import('./wasm-loaders');
+      const blob = await gsConvertFileToOutlines(file);
+      const bytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(bytes), file.name.replace(/\.pdf$/i, '-outlines.pdf'));
+    }
+
+    case "timestamp-pdf":
+      return { type: "coming-soon", message: "Timestamp PDF is not yet available. Check back soon.", eta: undefined };
+
+    // ── Phase 4: LibreOffice WASM document conversion ───────
+    // These run from /tools/ route which has COOP/COEP headers.
+
+    case "excel-to-pdf":
+    case "powerpoint-to-pdf":
+    case "word-to-pdf":
+    case "odg-to-pdf":
+    case "odp-to-pdf":
+    case "ods-to-pdf":
+    case "odt-to-pdf":
+    case "pages-to-pdf":
+    case "pub-to-pdf":
+    case "vsd-to-pdf":
+    case "wpd-to-pdf":
+    case "wps-to-pdf": {
+      const { libreOfficeConvertToPdf } = await import('./wasm-loaders');
+      const blob = await libreOfficeConvertToPdf(file);
+      const loBytes = new Uint8Array(await blob.arrayBuffer());
+      return pdfOut(Promise.resolve(loBytes), file.name.replace(/\.[^.]+$/i, '.pdf'));
+    }
+
+    // ── Phase 4: Digital signature creation (CORS proxy) ─────
+    // Requires Vercel serverless function for CA chain fetch.
+
+    case "sign-pdf":
+      return { type: "coming-soon", message: "Sign PDF is not yet available. Check back soon.", eta: undefined };
+
+    case "digital-sign-pdf": {
+      throw new Error('Digital PDF signing requires a backend CA certificate chain service. Configure in serverless functions.');
+    }
+
+    case "pdf-layers": {
+      // pdf-layers uses a custom page component (PdfLayersTool.tsx)
+      // and does not go through processFiles.
+      throw new Error('pdf-layers uses a custom page component and should not be called through processFiles.');
     }
 
     default:

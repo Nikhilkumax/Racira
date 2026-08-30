@@ -78,7 +78,7 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
               </p>
             </>
           );
-          return isLive ? (
+          return (
             <Link
               key={(t as any).slug}
               href={`/pdf/${(t as any).slug}`}
@@ -86,13 +86,6 @@ const RelatedTools = ({ currentSlug, currentCategory }: RelatedToolsProps) => {
             >
               {cardBody}
             </Link>
-          ) : (
-            <div
-              key={(t as any).slug}
-              className="tool-card group shrink-0 sm:shrink min-w-[220px] sm:min-w-0 cursor-default"
-            >
-              {cardBody}
-            </div>
           );
         })}
       </div>

@@ -23,21 +23,56 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react'],
   },
   async headers() {
+    // LibreOffice WASM requires SharedArrayBuffer → COOP/COEP headers.
+    // Scoped per-slug so only LibreOffice-dependent tools get cross-origin
+    // isolation — does NOT affect other PDF tools, iframes, or embeds.
+    const libreOfficeSlugs = [
+      'excel-to-pdf', 'powerpoint-to-pdf', 'word-to-pdf',
+      'odg-to-pdf', 'odp-to-pdf', 'ods-to-pdf', 'odt-to-pdf',
+      'pages-to-pdf', 'pub-to-pdf', 'vsd-to-pdf',
+      'wpd-to-pdf', 'wps-to-pdf',
+    ];
+    const coepHeaders = [
+      { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+      { key: 'Cross-Origin-Embedder-Policy', value: 'require-corp' },
+    ];
     return [
+      // /tools/ route (general — unused but preserved for future)
       {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "Cross-Origin-Opener-Policy",
-            value: "same-origin",
-          },
-          {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "require-corp",
-          },
-        ],
+        source: '/tools/:path*',
+        headers: coepHeaders,
       },
-    ]
+      // Individual /pdf/ slug entries for LibreOffice tools
+      ...libreOfficeSlugs.map((slug) => ({
+        source: `/pdf/${slug}`,
+        headers: coepHeaders,
+      })),
+      // LibreOffice WASM assets also need COOP/COEP for worker context
+      {
+        source: '/libreoffice-wasm/:path*',
+        headers: coepHeaders,
+      },
+      // Edit-PDF WASM (bentopdf-pdfium) needs SharedArrayBuffer in the iframe
+      {
+        source: '/edit-pdf-viewer/:path*',
+        headers: coepHeaders,
+      },
+      // Edit-PDF page route also needs COOP/COEP for the iframe
+      {
+        source: '/pdf/edit-pdf-text',
+        headers: coepHeaders,
+      },
+      // Kokoro TTS (WASM via ORT) and FFmpeg audio tools need
+      // SharedArrayBuffer, which requires cross-origin isolation.
+      {
+        source: '/voice/:path*',
+        headers: coepHeaders,
+      },
+      {
+        source: '/audio/:path*',
+        headers: coepHeaders,
+      },
+    ];
   },
   async rewrites() {
     return [

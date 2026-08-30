@@ -1,0 +1,234 @@
+{
+  "timestamp": "2026-08-24T05:58:41.795Z",
+  "total": 33,
+  "passed": 3,
+  "failed": 0,
+  "skipped": 30,
+  "results": [
+    {
+      "slug": "linearize-pdf",
+      "success": true,
+      "duration": 320
+    },
+    {
+      "slug": "remove-restrictions",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "cbz-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "cbz-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "compress-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "compress-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "deskew-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "deskew-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "email-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "email-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "fb2-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "fb2-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "mobi-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "mobi-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "pdf-to-cbz",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pdf-to-cbz requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "pdf-to-docx",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pdf-to-docx requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "pdf-to-excel",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pdf-to-excel requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "pdf-to-pdfa",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pdf-to-pdfa requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "pdf-to-svg",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pdf-to-svg requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "psd-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "psd-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "prepare-pdf-for-ai",
+      "success": true,
+      "skipped": true,
+      "skipReason": "prepare-pdf-for-ai requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "rasterize-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "rasterize-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "tiff-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "tiff-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "xps-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "xps-to-pdf requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "font-to-outline",
+      "success": true,
+      "skipped": true,
+      "skipReason": "font-to-outline requires CDN-loaded WASM (PyMuPDF/Ghostscript) — tested via Playwright browser tests",
+      "duration": 0
+    },
+    {
+      "slug": "ocr-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "ocr-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "excel-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "excel-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "powerpoint-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "powerpoint-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "word-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "word-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "odg-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "odg-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "odp-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "odp-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "ods-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "ods-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "odt-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "odt-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "pages-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pages-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "pub-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "pub-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "vsd-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "vsd-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "wpd-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "wpd-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "wps-to-pdf",
+      "success": true,
+      "skipped": true,
+      "skipReason": "wps-to-pdf requires browser environment (SharedArrayBuffer/COOP/COEP or CDN WASM)",
+      "duration": 0
+    },
+    {
+      "slug": "digital-sign-pdf",
+      "success": true,
+      "duration": 1
+    }
+  ]
+}

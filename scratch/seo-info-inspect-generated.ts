@@ -1,0 +1,482 @@
+const seoExtractHyperlinks: ToolSeo = {
+  sections: [
+    { heading: "What is Extract Hyperlinks?", content: [
+      { type: "paragraph", text: `Extract Hyperlinks scans a PDF for all embedded URLs and outputs them as a deduplicated JSON list. The tool searches two sources: Link annotations (clickable links in the PDF) and text content (URLs that appear as plain text on the page).` },
+      { type: "paragraph", text: `Using pdf.js, the tool iterates over every page, extracts Link annotations with their URL properties, and also performs regex matching on the text content for http:// and https:// URLs. Both sources are merged and deduplicated to produce the final list.` },
+      { type: "paragraph", text: `The output is a JSON file containing a single array of unique URLs, one per line. This is useful for link auditing, verifying hyperlink integrity, and cataloging references in research documents or legal filings.` },
+      { type: "paragraph", text: `The regex matching covers both http:// and https:// protocols, as well as URLs starting with www. that may not have an explicit protocol prefix. URLs with special characters like query parameters, fragments, and encoded characters are captured as long as they appear on a single text line.` },
+    ]},
+    { heading: "How to Use Extract Hyperlinks", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Extract Links</strong>. The tool scans every page for Link annotations and text-based URLs.`,
+        `A download button appears with <code>hyperlinks.json</code> containing the deduplicated list of all URLs found.`,
+      ]},
+    ]},
+    { heading: "Why Use Extract Hyperlinks?", content: [
+      { type: "paragraph", text: `Legal teams reviewing contracts and agreements need to identify all referenced URLs for compliance verification. Extracting hyperlinks creates a complete inventory of external references in the document.` },
+      { type: "paragraph", text: `Web archivists and researchers collecting PDF sources need to extract all cited URLs for further analysis, link checking, or inclusion in reference databases.` },
+      { type: "paragraph", text: `IT security teams scanning documents for potentially malicious links use hyperlink extraction to identify all URLs before the document is distributed to employees or clients.` },
+      { type: "paragraph", text: `SEO auditors analyzing PDF marketing materials need to verify that all embedded links point to live, correct destinations. Bulk extraction followed by automated link checking is faster than manually clicking each link in a PDF reader.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — parsing the PDF, extracting Link annotations, scanning text content for URLs, and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Does it extract URLs from Link annotations AND text content?", content: [
+      { type: "paragraph", text: `Yes. Both sources are searched. Link annotations are clickable links embedded in the PDF. Text-based URLs are plain-text URLs that appear on the page but aren't clickable. Both are merged into a single deduplicated list.` },
+    ]},
+    { heading: "", subHeading: "Are the URLs deduplicated?", content: [
+      { type: "paragraph", text: `Yes. If the same URL appears as both a Link annotation and as text, or appears on multiple pages, it appears only once in the output. The deduplication uses exact string matching.` },
+    ]},
+    { heading: "", subHeading: "What if the PDF has no hyperlinks?", content: [
+      { type: "paragraph", text: `The tool returns an empty array: { links: [] }. This is common for scanned documents or text-only PDFs that contain no interactive elements or URL text.` },
+    ]},
+    { heading: "", subHeading: "Does it extract mailto: links from annotations?", content: [
+      { type: "paragraph", text: `Not currently. Only http/https URLs from Link annotations and text content are extracted. Mailto: links in annotations are a different annotation subtype and are not included in this extraction.` },
+    ]},
+  ],
+};
+
+const seoExtractHeadings: ToolSeo = {
+  sections: [
+    { heading: "What is Extract Headings?", content: [
+      { type: "paragraph", text: `Extract Headings identifies heading-like text in a PDF by detecting lines with larger-than-normal font sizes. The tool uses pdf.js to extract text content, calculates the font size of each text item, and flags lines where the maximum font size exceeds 14pt.` },
+      { type: "paragraph", text: `For each detected heading, the output includes the page number, the heading text, and the font size. The detection heuristic looks for text lines that are shorter than 60 characters and longer than 3 characters — filtering out body text that happens to use a large font.` },
+      { type: "paragraph", text: `The output is a JSON array of heading objects, sorted by page number. This is useful for understanding document structure, generating tables of contents, or verifying that heading hierarchy is consistent across the document.` },
+      { type: "paragraph", text: `The font size calculation uses the Euclidean norm of the text matrix transformation vectors, which correctly handles rotated and scaled text. This means headings that are rotated 90 degrees or scaled non-uniformly are still detected by their effective font size.` },
+    ]},
+    { heading: "How to Use Extract Headings", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Extract Headings</strong>. The tool scans every page, calculates font sizes, and identifies lines with font sizes above 14pt.`,
+        `A download button appears with <code>headings.json</code> containing the list of detected headings with page numbers and font sizes.`,
+      ]},
+    ]},
+    { heading: "Why Use Extract Headings?", content: [
+      { type: "paragraph", text: `Document analysts reviewing long reports need to understand the document's structure without reading every page. The heading extraction provides a quick overview of sections, subsections, and their page locations.` },
+      { type: "paragraph", text: `Accessibility auditors checking heading hierarchy need to verify that headings follow a logical sequence (H1, H2, H3) without manually inspecting each page. The font size data helps identify heading levels.` },
+      { type: "paragraph", text: `Automated document processing pipelines use heading extraction to segment long PDFs into chapters or sections for individual processing, indexing, or routing.` },
+      { type: "paragraph", text: `Technical documentation teams verifying that their PDF export maintains proper heading hierarchy use the extraction output to compare against the source document outline. Discrepancies indicate export issues with heading detection.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — rendering the PDF, extracting text content, calculating font sizes, and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What font size threshold determines a heading?", content: [
+      { type: "paragraph", text: `Lines with a maximum font size above 14pt are flagged as potential headings. This threshold works for most standard documents where body text is 10-12pt and headings are 14pt or larger. Documents with unusual font sizes may need manual adjustment of the threshold.` },
+    ]},
+    { heading: "", subHeading: "Does it detect heading levels (H1, H2, H3)?", content: [
+      { type: "paragraph", text: `Not explicitly. The tool reports the font size for each heading, which can be used to infer relative levels (larger font = higher-level heading). It does not map to specific HTML heading levels.` },
+    ]},
+    { heading: "", subHeading: "What about multi-line headings?", content: [
+      { type: "paragraph", text: `The tool detects headings line by line. If a heading spans multiple lines, each line is reported separately. The output can be post-processed to group consecutive lines on the same page as a single heading.` },
+    ]},
+    { heading: "", subHeading: "Why the 14pt threshold?", content: [
+      { type: "paragraph", text: `14pt is a common minimum for heading text in standard documents where body text is typically 10-12pt. Documents with larger body text may produce false positives. The threshold is hardcoded and cannot be adjusted per-document.` },
+    ]},
+  ],
+};
+
+const seoExtractEmailAddresses: ToolSeo = {
+  sections: [
+    { heading: "What is Extract Email Addresses?", content: [
+      { type: "paragraph", text: `Extract Email Addresses scans all text content in a PDF and identifies email addresses using a regex pattern. The tool uses pdf.js to extract text from every page, then matches against the standard email pattern (user@domain.tld).` },
+      { type: "paragraph", text: `The output is a JSON file containing a deduplicated array of all email addresses found in the document. Both annotated email links and plain-text email addresses visible on the page are captured.` },
+      { type: "paragraph", text: `This is a read-only extraction tool — it does not modify the PDF or send any data externally. The email list is useful for contact harvesting from documents, compliance audits, and data processing workflows.` },
+      { type: "paragraph", text: `The regex pattern matches standard email formats with at least one character before the @ symbol, a domain with at least one dot, and a top-level domain of at least 2 characters. This filters out most false positives while catching legitimate addresses in the document text.` },
+    ]},
+    { heading: "How to Use Extract Email Addresses", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Extract Emails</strong>. The tool scans every page's text content for email patterns.`,
+        `A download button appears with <code>emails.json</code> containing the deduplicated list of email addresses.`,
+      ]},
+    ]},
+    { heading: "Why Use Extract Email Addresses?", content: [
+      { type: "paragraph", text: `Legal teams processing contracts, NDAs, and partnership agreements need to extract contact information for all parties involved. The email list provides a quick inventory of contacts referenced in the document.` },
+      { type: "paragraph", text: `Compliance teams auditing documents for PII (Personally Identifiable Information) use email extraction to identify all email addresses that may need to be redacted before external distribution.` },
+      { type: "paragraph", text: `Marketing teams analyzing competitor whitepapers or industry reports extract email addresses to build prospect lists or identify key contacts in the organization.` },
+      { type: "paragraph", text: `Privacy compliance teams auditing PDFs for GDPR or CCPA requirements use email extraction to identify all personal data that may need to be redacted or disclosed in data subject access requests.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — extracting text from the PDF, matching email patterns, and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Does it extract emails from annotations or only text?", content: [
+      { type: "paragraph", text: `Text content only. Mailto: link annotations are not currently extracted — only email addresses that appear as visible text on the page are matched.` },
+    ]},
+    { heading: "", subHeading: "How accurate is the email detection?", content: [
+      { type: "paragraph", text: `The regex pattern matches standard email formats (user@domain.tld). It may produce false positives for text that looks like an email but isn't (like code snippets or configuration strings). It may miss emails split across text items by pdf.js rendering.` },
+    ]},
+    { heading: "", subHeading: "Does it handle internationalized email addresses?", content: [
+      { type: "paragraph", text: `The pattern matches ASCII email addresses. Internationalized email addresses with non-ASCII characters in the domain or local part may not be detected by the current regex.` },
+    ]},
+    { heading: "", subHeading: "What about email addresses split across text items?", content: [
+      { type: "paragraph", text: `pdf.js may split a single email address across multiple text items if the PDF was created with individual character positioning. In that case, the email may not be detected because the @ symbol and domain are in separate text items. This is a known limitation of text-based extraction from PDFs.` },
+    ]},
+  ],
+};
+
+const seoExtractPhoneNumbers: ToolSeo = {
+  sections: [
+    { heading: "What is Extract Phone Numbers?", content: [
+      { type: "paragraph", text: `Extract Phone Numbers scans all text content in a PDF and identifies phone numbers using a regex pattern that matches common international and domestic formats. The tool uses pdf.js to extract text from every page, then matches against patterns like (555) 123-4567, +1-555-123-4567, and 555.123.4567.` },
+      { type: "paragraph", text: `The output is a JSON file containing a deduplicated array of all phone numbers found in the document. The tool handles various separators (dashes, dots, spaces, parentheses) and optional country codes.` },
+      { type: "paragraph", text: `This is a read-only extraction tool. The phone number list is useful for contact harvesting, PII audits, and building contact databases from documents.` },
+      { type: "paragraph", text: `The regex pattern handles US phone number formats with various separators including parentheses, dashes, dots, and spaces. The optional country code prefix is captured when present. The pattern requires exactly 10 digits for the main number after stripping formatting characters.` },
+    ]},
+    { heading: "How to Use Extract Phone Numbers", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Extract Phone Numbers</strong>. The tool scans every page's text content for phone number patterns.`,
+        `A download button appears with <code>phones.json</code> containing the deduplicated list of phone numbers.`,
+      ]},
+    ]},
+    { heading: "Why Use Extract Phone Numbers?", content: [
+      { type: "paragraph", text: `Legal teams processing contracts and agreements need to extract contact information for all parties. Phone numbers are often embedded in signature blocks, letterheads, and contact sections.` },
+      { type: "paragraph", text: `Compliance teams auditing documents for PII need to identify all phone numbers that may need redaction before external distribution or archival.` },
+      { type: "paragraph", text: `Business development teams analyzing vendor proposals, RFPs, or partnership documents extract phone numbers to build prospect contact lists.` },
+      { type: "paragraph", text: `HR departments processing employment applications or contact forms exported as PDFs need to extract phone numbers for their applicant tracking system. Bulk extraction eliminates manual data entry from PDF documents.` },
+      { type: "paragraph", text: `Insurance companies processing claim forms exported as PDF need to extract contact information for all parties involved. Automated phone number extraction feeds directly into their customer relationship management system.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — extracting text from the PDF, matching phone number patterns, and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What phone number formats are detected?", content: [
+      { type: "paragraph", text: `The pattern matches US-style numbers with optional country code: (555) 123-4567, 555-123-4567, 555.123.4567, +1-555-123-4567, and variations. International formats with different digit groupings may not be fully matched.` },
+    ]},
+    { heading: "", subHeading: "Can it detect fax numbers separately from phone numbers?", content: [
+      { type: "paragraph", text: `No. The tool extracts all numbers matching the phone pattern regardless of context. If the document labels some numbers as fax, you would need to review the output manually or use text search to filter.` },
+    ]},
+    { heading: "", subHeading: "What about extension numbers?", content: [
+      { type: "paragraph", text: `The pattern does not capture extensions (like x1234 or ext. 123). Only the main phone number is extracted. Extensions that appear as separate text items after the number are not included.` },
+    ]},
+    { heading: "", subHeading: "Does it handle international formats like +44 20 7946 0958?", content: [
+      { type: "paragraph", text: `The pattern primarily matches US-style formats. International numbers with different digit groupings like UK 11-digit numbers or German area codes may not be fully matched. The pattern is designed for common North American formats.` },
+    ]},
+    { heading: "", subHeading: "What about toll-free numbers like 1-800-FLOWERS?", content: [
+      { type: "paragraph", text: `The pattern matches numeric formats only. Vanity numbers with letters (1-800-FLOWERS) are not matched because the letters are not converted to digits. Only purely numeric phone number patterns are detected.` },
+    ]},
+  ],
+};
+
+const seoExtractTables: ToolSeo = {
+  sections: [
+    { heading: "What is Extract Tables?", content: [
+      { type: "paragraph", text: `Extract Tables identifies tabular data in a PDF and exports each detected table as a separate CSV file. The tool uses pdf.js to extract text items, groups them by vertical position (Y coordinate) to identify rows, and detects tables by counting rows with 3 or more items.` },
+      { type: "paragraph", text: `Rows with 3 or more text items on the same horizontal line are treated as table rows. Consecutive table rows are grouped into a single table. When no tables are detected, the tool falls back to exporting all text as a single CSV.` },
+      { type: "paragraph", text: `The output is a zip archive containing one CSV file per detected table (table-1.csv, table-2.csv, etc.). Each CSV contains the table rows with cells quoted and comma-separated.` },
+      { type: "paragraph", text: `The row grouping uses a 5-point Y-coordinate tolerance to handle slight vertical misalignment between text items on the same logical row. Text items within 5 points of the same Y position are grouped together, then sorted left-to-right by their X coordinate to preserve column order.` },
+    ]},
+    { heading: "How to Use Extract Tables", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Extract Tables</strong>. The tool scans every page, groups text items by Y position, and identifies table structures.`,
+        `A download button appears with <code>tables.zip</code> containing one CSV file per detected table, or a fallback text CSV if no tables are found.`,
+      ]},
+    ]},
+    { heading: "Why Use Extract Tables?", content: [
+      { type: "paragraph", text: `Data analysts receiving PDF reports with embedded tables need the data in a spreadsheet-compatible format for analysis. CSV extraction converts tabular PDF content into a format that Excel, Google Sheets, and data tools can process directly.` },
+      { type: "paragraph", text: `Financial teams extracting balance sheets, income statements, or transaction logs from PDF reports use table extraction to import the data into accounting software or analysis pipelines.` },
+      { type: "paragraph", text: `Research teams processing academic papers or technical reports with data tables need structured exports for statistical analysis, visualization, or inclusion in meta-analyses.` },
+      { type: "paragraph", text: `Financial analysts extracting data from annual reports or SEC filings need structured data from tables that appear as images or complex layouts in the PDF. The CSV output provides a machine-readable format for analysis in Excel or Python.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — extracting text content, grouping by position, detecting table structures, and generating CSV files — happens on your own device using pdf.js and JSZip. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "How does the tool detect table boundaries?", content: [
+      { type: "paragraph", text: `Text items on the same horizontal line (within 5 points of the same Y coordinate) are grouped into a row. Rows with 3 or more items are flagged as table rows. Consecutive table rows are grouped into a single table. A non-table row (fewer than 3 items) breaks the table boundary.` },
+    ]},
+    { heading: "", subHeading: "What about merged cells or complex table layouts?", content: [
+      { type: "paragraph", text: `The tool does not detect merged cells. Each text item becomes its own cell. Merged cells may appear as a single cell spanning what should be multiple columns, or as separate cells with repeated content.` },
+    ]},
+    { heading: "", subHeading: "What happens if no tables are found?", content: [
+      { type: "paragraph", text: `The tool falls back to exporting all text content as a single CSV file (fallback-text.csv), with each row containing all text items from that line. This ensures you always get output, even if the table detection heuristic doesn't match the document layout.` },
+    ]},
+    { heading: "", subHeading: "How does it handle tables with borders or lines?", content: [
+      { type: "paragraph", text: `The tool does not detect table borders or lines - it only uses text item positions. Tables defined by visual borders but containing sparse text may not be detected as tables. The tool works best with text-heavy tables where items are clearly aligned in rows and columns.` },
+    ]},
+  ],
+};
+
+const seoPdfSizeAnalyzer: ToolSeo = {
+  sections: [
+    { heading: "What is PDF Size Analyzer?", content: [
+      { type: "paragraph", text: `PDF Size Analyzer reports the file size of a PDF document in both bytes and megabytes. The tool reads the file metadata to provide a quick size assessment without processing the document content.` },
+      { type: "paragraph", text: `The output is a JSON file containing the filename, total bytes, and total megabytes. This basic metadata is useful for quick file assessment before processing, upload size verification, and storage planning.` },
+      { type: "paragraph", text: `For more detailed analysis including page count, image sizes, and font information, use the PDF Statistics tool which provides comprehensive document metrics.` },
+      { type: "paragraph", text: `While this tool only reports file size, understanding what drives PDF size is useful context. The largest contributors to PDF file size are typically embedded images especially uncompressed or high-resolution ones, embedded fonts where full font subsets can add hundreds of KB per font, XMP metadata streams, and embedded attachments. A 10-page text-only PDF is usually under 100KB, while the same document with high-resolution images can easily exceed 10MB.` },
+    ]},
+    { heading: "How to Use PDF Size Analyzer", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Analyze Size</strong>. The tool reads the file metadata instantly.`,
+        `A download button appears with <code>size-report.json</code> containing the filename, byte count, and megabyte count.`,
+      ]},
+    ]},
+    { heading: "Why Use PDF Size Analyzer?", content: [
+      { type: "paragraph", text: `Email and messaging platforms have file size limits. Quick size analysis before sending prevents upload failures and helps you decide whether compression is needed.` },
+      { type: "paragraph", text: `Web developers optimizing document delivery need to know exact file sizes for caching headers, CDN configuration, and bandwidth estimation.` },
+      { type: "paragraph", text: `Archival teams managing document repositories use size analysis to estimate storage requirements and identify unusually large files that may need optimization.` },
+      { type: "paragraph", text: `Help desk teams receiving oversized PDF uploads need a quick size check before directing users to compression tools. Knowing the exact byte count helps determine whether the file exceeds email attachment limits typically 25MB or upload restrictions.` },
+      { type: "paragraph", text: `Cloud storage billing teams tracking document upload sizes use file size reports to estimate monthly storage costs. Knowing exact byte counts per document enables accurate cost projection for document management platforms.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. The file size is read from the local file metadata. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Does this analyze the content or just report file size?", content: [
+      { type: "paragraph", text: `Just file size. For content analysis (page count, image sizes, font usage), use the PDF Statistics tool instead. This tool is designed for quick size assessment without processing the document.` },
+    ]},
+    { heading: "", subHeading: "What if the file is very large?", content: [
+      { type: "paragraph", text: `File size is read from metadata, so even very large files (hundreds of MB) are processed instantly. The tool does not read the file content, only its size.` },
+    ]},
+    { heading: "", subHeading: "Why would a simple text PDF be large?", content: [
+      { type: "paragraph", text: `Text PDFs can be large if they embed full font subsets including glyphs not used in the document, contain high-resolution scanned page images behind the text, or include embedded attachments and metadata streams. The file size reflects the total of all embedded resources, not just the visible text.` },
+    ]},
+    { heading: "", subHeading: "How does compressed vs uncompressed PDF affect size?", content: [
+      { type: "paragraph", text: `PDFs using FlateDecode compression (the standard) are typically 5-10x smaller than uncompressed equivalents. PDFs with embedded JPEG images compress well, while those with uncompressed bitmaps or full font subsets remain large regardless of text content.` },
+    ]},
+  ],
+};
+
+const seoVersionChecker: ToolSeo = {
+  sections: [
+    { heading: "What is Version Checker?", content: [
+      { type: "paragraph", text: `Version Checker reads the PDF header to determine the PDF specification version used to create the document. The tool reads the first 50 bytes of the file, looks for the %PDF-X.Y signature, and reports the version number.` },
+      { type: "paragraph", text: `The output is a JSON file containing the filename and PDF version (like 1.4, 1.5, 1.7, or 2.0). The version indicates which PDF specification features the document may use, which is important for compatibility with PDF readers and processing tools.` },
+      { type: "paragraph", text: `This is a lightweight inspection that reads only the file header — it does not parse the full document structure. The check completes instantly regardless of file size.` },
+      { type: "paragraph", text: `Different PDF versions enable different features: PDF 1.4 (Acrobat 5) introduced transparency and layers; PDF 1.5 (Acrobat 6) added JPEG2000 compression, object streams, and XMP metadata; PDF 1.6 (Acrobat 7) added extended security and 3D annotations; PDF 1.7 (Acrobat 8) added improved compression and annotation support; PDF 2.0 (ISO 32000-2) added rich media, 3D, and improved encryption. Knowing the version helps predict which features a document may use.` },
+    ]},
+    { heading: "How to Use Version Checker", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Check Version</strong>. The tool reads the first 50 bytes of the file header.`,
+        `A download button appears with <code>version.json</code> containing the filename and detected PDF version.`,
+      ]},
+    ]},
+    { heading: "Why Use Version Checker?", content: [
+      { type: "paragraph", text: `Compatibility testing teams need to verify which PDF version a document was created with before processing it through version-sensitive pipelines. Older tools may not support features from newer PDF versions.` },
+      { type: "paragraph", text: `Archival workflows require specific PDF versions for long-term preservation (PDF/A mandates version 1.4 or 1.7). Version checking confirms compliance before archival submission.` },
+      { type: "paragraph", text: `Debugging PDF rendering issues often starts with checking the version — certain visual artifacts are specific to particular PDF versions and their feature sets.` },
+      { type: "paragraph", text: `Software compatibility teams testing PDF rendering across different viewers need to know the version to predict which features will render correctly. A PDF 2.0 document may not display properly in older readers that only support PDF 1.4.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Only the first 50 bytes of the file are read to extract the version header. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What PDF versions are detected?", content: [
+      { type: "paragraph", text: `Any version specified in the PDF header: 1.0 through 2.0. The most common versions are 1.4 (Acrobat 5), 1.5 (Acrobat 6), 1.6 (Acrobat 7), 1.7 (Acrobat 8), and 2.0 (ISO 32000-2).` },
+    ]},
+    { heading: "", subHeading: "What if the version shows as Unknown?", content: [
+      { type: "paragraph", text: `The file may not be a valid PDF, or the header may be corrupted. Non-PDF files uploaded by mistake will show Unknown since they lack the %PDF-X.Y signature.` },
+    ]},
+    { heading: "", subHeading: "Does the version affect how the PDF renders?", content: [
+      { type: "paragraph", text: `Yes. Higher versions support more features (transparency, layers, JPEG2000 compression, XMP metadata). A PDF created with version 1.7 features may not render correctly in readers that only support version 1.4.` },
+    ]},
+    { heading: "", subHeading: "Can a PDF claim a version but use features from a different version?", content: [
+      { type: "paragraph", text: `Yes. Some PDF producers set the version header higher than necessary, or embed features from newer versions in an older-version document. The header version indicates what the creator declared, not necessarily what features are actually used.` },
+    ]},
+    { heading: "", subHeading: "Does PDF/A compliance require a specific version?", content: [
+      { type: "paragraph", text: `Yes. PDF/A-1 requires PDF 1.4, PDF/A-2 allows PDF 1.5-1.7, and PDF/A-3 allows PDF 1.5-1.7. PDF/A-4 is based on PDF 2.0. The version check helps determine which PDF/A level a document might conform to.` },
+    ]},
+  ],
+};
+
+const seoAttachmentInspector: ToolSeo = {
+  sections: [
+    { heading: "What is Attachment Inspector?", content: [
+      { type: "paragraph", text: `Attachment Inspector lists all file attachments embedded in a PDF document, reporting each attachment's filename and size in bytes. The tool uses pdf.js to parse the PDF's EmbeddedFiles name tree and extract the attachment metadata.` },
+      { type: "paragraph", text: `The output is a JSON file containing an array of attachment objects with name and size properties. If the PDF has no attachments, the output is an empty array.` },
+      { type: "paragraph", text: `This is a read-only inspection tool — it does not extract, download, or modify the attachments. For extracting attachment files, use the Extract Attachments tool instead.` },
+      { type: "paragraph", text: `PDF attachments are stored in the document EmbeddedFiles name tree, which maps filenames to file data streams. The inspector reads this tree structure and reports each entry filename and byte count without downloading the actual file data.` },
+    ]},
+    { heading: "How to Use Attachment Inspector", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Inspect Attachments</strong>. The tool parses the PDF's embedded file dictionary.`,
+        `A download button appears with <code>attachments.json</code> listing each attachment's name and size.`,
+      ]},
+    ]},
+    { heading: "Why Use Attachment Inspector?", content: [
+      { type: "paragraph", text: `Security teams scanning PDFs for hidden content need to know what files are embedded before distributing the document. Attachments can contain malware, sensitive data, or unexpected content.` },
+      { type: "paragraph", text: `Document managers auditing PDF archives need to verify which documents contain attachments and how large they are, to plan storage and extraction workflows.` },
+      { type: "paragraph", text: `When receiving PDFs from external sources, inspecting attachments before opening them provides a safety check — you can see what's embedded without executing or downloading the attachment files.` },
+      { type: "paragraph", text: `Security Operations teams scanning inbound PDFs for potential threats use attachment inspection to identify embedded executables, scripts, or suspicious file types before allowing the document into the corporate environment.` },
+      { type: "paragraph", text: `Legal teams processing discovery documents need to catalog all embedded files before review. The attachment inventory helps prioritize which documents contain supplementary materials that may be relevant to the case.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — parsing the PDF attachment dictionary and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Does it extract the attachment files?", content: [
+      { type: "paragraph", text: `No. This tool only lists attachment metadata (name and size). To actually download the embedded files, use the Extract Attachments tool.` },
+    ]},
+    { heading: "", subHeading: "What if the PDF has no attachments?", content: [
+      { type: "paragraph", text: `The tool returns an empty array: { attachments: [] }. This is the standard response for PDFs without embedded files.` },
+    ]},
+    { heading: "", subHeading: "Can attachments contain malware?", content: [
+      { type: "paragraph", text: `Yes. PDF attachments can contain any file type, including executables. Never open attachments from untrusted sources without scanning them with antivirus software first. This tool helps you identify what's embedded so you can make an informed decision.` },
+    ]},
+    { heading: "", subHeading: "Can attachments be hidden or obfuscated?", content: [
+      { type: "paragraph", text: `Attachments are visible in the PDF structure but may not be obvious to casual users. Some PDFs embed attachments without obvious UI indicators. This tool reveals all attachments regardless of whether the PDF reader displays them prominently.` },
+    ]},
+    { heading: "", subHeading: "What is the maximum attachment size?", content: [
+      { type: "paragraph", text: `There is no PDF specification limit on attachment size, but some PDF readers may struggle with very large attachments (over 100MB). The inspector reports the size so you can assess whether extraction will be practical.` },
+    ]},
+  ],
+};
+
+const seoPdfStatistics: ToolSeo = {
+  sections: [
+    { heading: "What is PDF Statistics?", content: [
+      { type: "paragraph", text: `PDF Statistics computes comprehensive metrics about a PDF document including page count, total text characters, image count, font count, annotation count, and form field count. The tool uses pdf.js to parse the document structure and aggregate statistics across all pages.` },
+      { type: "paragraph", text: `The output is a JSON file containing all computed metrics. This provides a complete overview of the document's composition without needing to open it in a PDF reader.` },
+      { type: "paragraph", text: `The statistics are computed by iterating over every page and its content streams, counting text items, image resources, font references, annotations, and form widgets. The results give a quantitative profile of the document.` },
+      { type: "paragraph", text: `The text character count is calculated by summing the length of all text items across all pages. Image count includes both inline images and XObject references. Font count tracks unique font names, meaning the same font referenced on multiple pages counts once. Annotation and form field counts include all subtypes found in the document.` },
+    ]},
+    { heading: "How to Use PDF Statistics", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Analyze</strong>. The tool parses every page and aggregates content statistics.`,
+        `A download button appears with <code>pdf-stats.json</code> containing the full document statistics.`,
+      ]},
+    ]},
+    { heading: "Why Use PDF Statistics?", content: [
+      { type: "paragraph", text: `Document processing pipelines need to pre-screen PDFs before ingestion. Statistics like page count, image density, and form field count help route documents to appropriate processing workflows.` },
+      { type: "paragraph", text: `Optimization teams assessing PDFs for compression need to know the composition — image-heavy documents benefit from image recompression, while text-heavy documents benefit from font subsetting.` },
+      { type: "paragraph", text: `Quality assurance teams comparing versions of the same document use statistics to quantify changes: added pages, new annotations, inserted images, or modified form fields.` },
+      { type: "paragraph", text: `Document processing pipelines use statistics to classify incoming PDFs: text-heavy documents go to text extraction, image-heavy documents go to OCR, and form-heavy documents go to form processing. Statistics-based routing is faster than full content analysis.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — parsing the PDF structure, counting content elements, and generating the statistics JSON — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What metrics are included in the statistics?", content: [
+      { type: "paragraph", text: `Page count, total text characters, image count, unique font count, annotation count, form field count, and file size. The specific metrics depend on the pdf.js parsing capabilities and the document structure.` },
+    ]},
+    { heading: "", subHeading: "How long does the analysis take?", content: [
+      { type: "paragraph", text: `Analysis time scales with document complexity. Simple text PDFs analyze in under a second. Complex documents with hundreds of pages, many images, and extensive annotations may take a few seconds. The tool processes all pages sequentially.` },
+    ]},
+    { heading: "", subHeading: "Does it detect image compression types?", content: [
+      { type: "paragraph", text: `The tool counts images but does not report compression types (JPEG, PNG, etc.). For compression-specific analysis, you would need a more specialized tool that inspects individual image streams.` },
+    ]},
+    { heading: "", subHeading: "Does it count images inside annotations or form fields?", content: [
+      { type: "paragraph", text: `The tool counts images referenced as page resources (XObject references). Images embedded in annotations or form field appearances may or may not be counted depending on how they are referenced in the PDF structure. The count represents a best-effort approximation.` },
+    ]},
+  ],
+};
+
+const seoViewMetadata: ToolSeo = {
+  sections: [
+    { heading: "What is View Metadata?", content: [
+      { type: "paragraph", text: `View Metadata extracts and displays the complete metadata dictionary from a PDF document, including title, author, subject, keywords, creation date, modification date, and producer. The tool uses pdf-lib to read the document information dictionary.` },
+      { type: "paragraph", text: `The output is a JSON file containing all metadata fields found in the PDF. Fields that are not set in the document are reported as null. The metadata provides a complete profile of the document's authorship and history.` },
+      { type: "paragraph", text: `This is a read-only inspection tool — it does not modify any metadata. For editing metadata values, use the Metadata Editor tool instead.` },
+      { type: "paragraph", text: `The metadata dictionary, also called the Document Information Dictionary, stores key-value pairs in the PDF trailer. Standard fields include Title, Author, Subject, Keywords, Creator (the application that created the source document), Producer (the application that generated the PDF), CreationDate, and ModDate. Custom fields may also be present depending on the PDF producer.` },
+    ]},
+    { heading: "How to Use View Metadata", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>View Metadata</strong>. The tool reads the PDF's document information dictionary.`,
+        `A download button appears with <code>metadata.json</code> containing all metadata fields.`,
+      ]},
+    ]},
+    { heading: "Why Use View Metadata?", content: [
+      { type: "paragraph", text: `Legal teams verifying document authenticity need to check creation dates, author information, and modification history. Metadata provides a chain of custody for document provenance.` },
+      { type: "paragraph", text: `Publishers managing document libraries use metadata to verify title, author, and keyword fields are correctly set for search indexing and catalog management.` },
+      { type: "paragraph", text: `Security teams reviewing documents from external sources check metadata for hidden information — author names, organization details, or software identifiers that may reveal information about the document's origin.` },
+      { type: "paragraph", text: `Forensic document analysts use metadata to establish document provenance - when it was created, what software was used, and whether it has been modified. Metadata timestamps and software identifiers provide clues about the document history.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — reading the PDF metadata dictionary and generating the JSON output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What metadata fields are extracted?", content: [
+      { type: "paragraph", text: `Title, author, subject, keywords, creator (application that created the PDF), producer (application that produced it), creation date, modification date, and any custom metadata entries in the document information dictionary.` },
+    ]},
+    { heading: "", subHeading: "Can metadata be faked or misleading?", content: [
+      { type: "paragraph", text: `Yes. PDF metadata is user-editable and can be modified by any PDF editor. Creation dates, author names, and other fields should not be relied upon as proof of authenticity without additional verification. For authenticated timestamps, use the Timestamp PDF tool.` },
+    ]},
+    { heading: "", subHeading: "Does it extract XMP metadata?", content: [
+      { type: "paragraph", text: `The tool extracts the standard document information dictionary. XMP metadata (stored in a separate metadata stream) may not be fully captured by this tool. For comprehensive XMP extraction, a specialized XMP parser would be needed.` },
+    ]},
+    { heading: "", subHeading: "What date format is used?", content: [
+      { type: "paragraph", text: `PDF metadata dates follow the D:YYYYMMDDHHmmSS format (for example D:20240115143000 for January 15, 2024 at 2:30 PM). Timezone offsets may be appended. The tool preserves the original format in the JSON output.` },
+    ]},
+  ],
+};
+
+const seoPageDimensions: ToolSeo = {
+  sections: [
+    { heading: "What is Page Dimensions?", content: [
+      { type: "paragraph", text: `Page Dimensions reports the width and height of every page in a PDF, measured in points (1 point = 1/72 inch). The tool uses pdf-lib to read each page's MediaBox and report its dimensions.` },
+      { type: "paragraph", text: `The output is a JSON file containing an array of page dimension objects, each with page number, width, height, and the standard size name (A4, Letter, Legal, etc.) if it matches a known format.` },
+      { type: "paragraph", text: `This is useful for verifying that all pages have consistent dimensions, identifying mixed-size documents, and determining the correct output settings for printing or further processing.` },
+      { type: "paragraph", text: `PDF dimensions are measured in points where 1 point equals 1/72 inch. Common sizes include A4 at 595.28 x 841.89 points (210 x 297mm), US Letter at 612 x 792 points (8.5 x 11 inches), and US Legal at 612 x 1008 points (8.5 x 14 inches). The tool reads the MediaBox array from each page dictionary, which defines the physical page boundaries.` },
+    ]},
+    { heading: "How to Use Page Dimensions", content: [
+      { type: "list", items: [
+        `Drop a PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Check Dimensions</strong>. The tool reads the MediaBox of every page.`,
+        `A download button appears with <code>page-dimensions.json</code> listing each page's width, height, and detected size.`,
+      ]},
+    ]},
+    { heading: "Why Use Page Dimensions?", content: [
+      { type: "paragraph", text: `Print shops need exact page dimensions to configure their RIP (Raster Image Processor) settings. Incorrect dimensions cause scaling errors, cropped content, or wasted paper.` },
+      { type: "paragraph", text: `Document preparers merging PDFs from different sources need to verify that page sizes are consistent. Mixed dimensions in a merged document can cause layout issues in viewers and printers.` },
+      { type: "paragraph", text: `PDF/A compliance requires specific page dimension ranges. Checking dimensions before submission ensures the document meets archival format requirements.` },
+      { type: "paragraph", text: `Print production teams need exact dimensions to configure imposition software, cutting templates, and binding equipment. Even small dimension mismatches can cause content to be trimmed or misaligned in the final printed product.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — reading page MediaBox values and generating the JSON output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What standard sizes are detected?", content: [
+      { type: "paragraph", text: `A4 (595.28 x 841.89 pt), US Letter (612 x 792 pt), US Legal (612 x 1008 pt), A3 (841.89 x 1190.55 pt), and A5 (419.53 x 595.28 pt). Pages that don't match standard sizes are reported as Custom.` },
+    ]},
+    { heading: "", subHeading: "Does it report CropBox or just MediaBox?", content: [
+      { type: "paragraph", text: `The tool reports MediaBox dimensions, which represent the physical page size. CropBox, TrimBox, and BleedBox (which define visible and print areas) are not separately reported.` },
+    ]},
+    { heading: "", subHeading: "What if pages have different sizes?", content: [
+      { type: "paragraph", text: `Each page is reported individually. If a document has mixed page sizes, the output will show different dimensions for different pages, making it easy to identify which pages need resizing.` },
+    ]},
+    { heading: "", subHeading: "What about pages with different orientations?", content: [
+      { type: "paragraph", text: `Each page is reported independently. A document with mixed portrait and landscape pages will show different dimensions for different pages. The tool does not detect or report orientation - only raw width and height values.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between MediaBox and CropBox?", content: [
+      { type: "paragraph", text: `MediaBox defines the physical page size. CropBox defines the visible area (what the user sees). If CropBox is set and smaller than MediaBox, only the CropBox area is displayed. This tool reports MediaBox, which is the actual page size.` },
+    ]},
+  ],
+};
+
+const seoCertificateInspector: ToolSeo = {
+  sections: [
+    { heading: "What is Certificate Inspector?", content: [
+      { type: "paragraph", text: `Certificate Inspector extracts and displays detailed information about digital certificates embedded in a PDF document. The tool uses node-forge to parse X.509 certificates from the PDF's signature dictionaries and reports the certificate chain, issuer, subject, validity dates, and key information.` },
+      { type: "paragraph", text: `The output is a JSON file containing certificate details for each digital signature found in the document. This includes the certificate hierarchy, trust chain status, expiration information, and the signing algorithm used.` },
+      { type: "paragraph", text: `This tool complements the Validate Signature tool by providing the raw certificate data rather than just a validity verdict. It is useful for detailed certificate chain analysis and trust verification.` },
+      { type: "paragraph", text: `The certificate chain typically has 2-3 levels: the end-entity certificate used to sign the document, one or more intermediate CA certificates, and the root CA certificate. The inspector reports each level separately, showing the issuer-subject relationship that forms the trust chain. Self-signed certificates where issuer equals subject appear at the root level.` },
+    ]},
+    { heading: "How to Use Certificate Inspector", content: [
+      { type: "list", items: [
+        `Drop a signed PDF onto the upload zone, or click to browse and select it.`,
+        `Click <strong>Inspect Certificates</strong>. The tool parses the signature dictionaries and extracts X.509 certificate data.`,
+        `A download button appears with <code>certificates.json</code> containing the certificate chain details for each signature.`,
+      ]},
+    ]},
+    { heading: "Why Use Certificate Inspector?", content: [
+      { type: "paragraph", text: `Security teams verifying document signatures need to examine the certificate chain to determine whether the signing certificate was issued by a trusted CA. The inspector provides the raw data needed for this analysis.` },
+      { type: "paragraph", text: `Compliance auditors verifying digital signature validity check certificate expiration dates, key sizes, and signing algorithms against organizational policies. The inspector provides all this data in a structured format.` },
+      { type: "paragraph", text: `PKI administrators debugging signature verification failures use the certificate inspector to identify which certificate in the chain is causing the issue — expired, revoked, or untrusted.` },
+      { type: "paragraph", text: `PKI administrators validating signing certificates against their organization trust store need the full certificate chain data to verify that each link in the chain is valid and trusted. The inspector provides the raw data needed for this verification.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `Your files never leave your browser. Every step — parsing PDF signature dictionaries, extracting X.509 certificates, and generating the JSON output — happens on your own device using node-forge. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What certificate information is extracted?", content: [
+      { type: "paragraph", text: `Subject distinguished name, issuer distinguished name, serial number, validity period (not-before and not-after dates), public key algorithm and size, signature algorithm, and certificate chain hierarchy.` },
+    ]},
+    { heading: "", subHeading: "Does it verify the certificate against a CA store?", content: [
+      { type: "paragraph", text: `The tool extracts and displays the certificate data but does not perform online OCSP (Online Certificate Status Protocol) or CRL (Certificate Revocation List) checks. Trust verification against a CA store would require a separate PKI verification step.` },
+    ]},
+    { heading: "", subHeading: "What if the PDF has no digital signatures?", content: [
+      { type: "paragraph", text: `The tool reports that no digital signatures were found. Note that visual signatures (stamped images) do not contain certificates — only cryptographic digital signatures have embedded X.509 certificates.` },
+    ]},
+    { heading: "", subHeading: "What if the certificate chain is incomplete?", content: [
+      { type: "paragraph", text: `The tool reports whatever certificates are present in the signature. If intermediate certificates are missing, which is a common issue, the chain will appear truncated. Incomplete chains may cause validation failures in strict PDF readers.` },
+    ]},
+  ],
+};

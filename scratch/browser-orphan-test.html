@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head><title>PDF Orphan Test</title></head>
+<body>
+<h1>PDF Orphan Dispatcher Test</h1>
+<pre id="output">Loading...</pre>
+<script type="module">
+const output = document.getElementById("output");
+function log(msg) { output.textContent += msg + "\n"; }
+
+async function run() {
+  try {
+    // Import the production dispatcher
+    const { processFiles } = await import("/src/lib/pdf/pdf-tools.ts");
+    log("✅ processFiles imported");
+
+    // Create a test PDF using pdf-lib (dynamic import)
+    const pdfLib = await import("pdf-lib");
+    const { PDFDocument, StandardFonts, rgb } = pdfLib;
+    const doc = await PDFDocument.create();
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    for (let i = 1; i <= 3; i++) {
+      const p = doc.addPage([612, 792]);
+      p.drawText("Hello World Page " + i, { x: 50, y: 700, size: 16, font, color: rgb(0,0,0) });
+      p.drawText("This is test content for audit verification.", { x: 50, y: 670, size: 12, font });
+    }
+    // Add a URL to page 1 for extract-hyperlinks test
+    const p1 = doc.getPages()[0];
+    p1.drawText("Visit https://example.com for more info", { x: 50, y: 640, size: 12, font });
+    const bytes = await doc.save();
+    const file = new File([new Uint8Array(bytes)], "test.pdf", { type: "application/pdf" });
+    log("✅ Test PDF created (" + bytes.length + " bytes, 3 pages)");
+
+    // Test each browser-only tool
+    const tools = [
+      { slug: "extract-headings", desc: "Extract headings by font size" },
+      { slug: "extract-email-addresses", desc: "Extract email addresses" },
+      { slug: "extract-phone-numbers", desc: "Extract phone numbers" },
+      { slug: "extract-keywords", desc: "Extract keyword frequencies", opts: { topN: 10 } },
+      { slug: "extract-hyperlinks", desc: "Extract hyperlinks from annotations/text" },
+      { slug: "pdf-to-rtf", desc: "Convert PDF text to RTF format" },
+    ];
+
+    for (const tool of tools) {
+      log("\n── Testing: " + tool.slug + " ──");
+      try {
+        const result = await processFiles(tool.slug, [file], tool.opts || {});
+        if (result.type === "coming-soon") {
+          log("❌ STUB: " + result.message);
+        } else if (result.data) {
+          const text = new TextDecoder().decode(result.data);
+          log("✅ PASS — " + result.filename + " (" + result.data.length + " bytes)");
+          log("   Preview: " + text.substring(0, 200));
+        } else {
+          log("⚠️ PASS but no data");
+        }
+      } catch (err) {
+        log("❌ ERROR: " + err.message);
+      }
+    }
+
+    log("\n═══════════════════════════════════════");
+    log("DONE — all tests complete");
+  } catch (err) {
+    log("FATAL: " + err.message);
+    log(err.stack);
+  }
+}
+run();
+</script>
+</body>
+</html>

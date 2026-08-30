@@ -1,0 +1,1272 @@
+[
+  {
+    "slug": "unlock",
+    "varName": "seoUnlock",
+    "name": "PDF Password Remover",
+    "sections": [
+      {
+        "heading": "What is PDF Password Remover?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PDF Password Remover strips the password encryption from a PDF file you own, producing an unrestricted version that opens without requiring a password. The tool uses pdf-lib to load the encrypted document with your provided password, then saves it without encryption settings."
+          },
+          {
+            "type": "paragraph",
+            "text": "This tool requires the opening password (user password) to decrypt the document. If the PDF is protected with an owner password only (restricting printing or editing but not opening), the tool can remove those restrictions without needing a password."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output is a standard PDF with no encryption. Once decrypted, the document can be opened, edited, printed, and shared without any password prompts. The original file is never modified — a new unrestricted copy is created."
+          },
+          {
+            "type": "paragraph",
+            "text": "The decryption process is fast — even large PDFs with hundreds of pages are processed in seconds because pdf-lib reads the encryption key and re-saves the document without the encryption dictionary, without re-rendering any content."
+          },
+          {
+            "type": "paragraph",
+            "text": "The decryption process works by reading the PDF encryption dictionary, using your password to derive the encryption key, and then re-saving the document without the encryption layer. All page content, fonts, images, and annotations are copied verbatim to the output — only the encryption metadata is stripped."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PDF Password Remover",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a password-protected PDF onto the upload zone, or click to browse and select it.",
+              "Enter the <strong>password</strong> in the password field. This is the opening password needed to decrypt the document.",
+              "Click <strong>Remove Password</strong>. The tool decrypts the PDF using your password and saves it without encryption.",
+              "A download button appears with your file, named <code>unlocked.pdf</code>. The file opens without any password prompt.",
+              "If the PDF uses owner-password-only protection (no user password required to open), the tool detects this automatically and removes the restrictions without asking for a password."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PDF Password Remover?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Password-protected PDFs from banks, legal firms, and government agencies are inconvenient when you need to access them regularly. Removing the password after initial verification streamlines your workflow without compromising the document content."
+          },
+          {
+            "type": "paragraph",
+            "text": "Document management systems and archival tools often cannot process encrypted PDFs. Removing the password before ingestion ensures the documents are searchable, indexable, and accessible to authorized users without password prompts."
+          },
+          {
+            "type": "paragraph",
+            "text": "When sharing decrypted copies internally within a trusted organization, removing the password eliminates the friction of distributing and managing passwords alongside the document itself."
+          },
+          {
+            "type": "paragraph",
+            "text": "When migrating document collections between systems, encrypted PDFs can block automated processing pipelines. Decrypting them upfront ensures smooth ingestion into document management, search indexing, and archival systems without manual password entry at each step."
+          },
+          {
+            "type": "paragraph",
+            "text": "IT administrators managing shared document repositories need to batch-process encrypted PDFs for indexing and search. Decrypting documents upfront eliminates the need for password management infrastructure in the processing pipeline."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the encrypted PDF, decrypting it with your password, and generating the unrestricted output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. Your password is processed locally and never transmitted over the network."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if I don't know the password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool cannot decrypt a PDF without the correct password. If you have lost the password, you would need to contact the document creator or use a password recovery service. This tool is designed for legitimate owners who know their password but want to remove it for convenience."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it remove owner-password restrictions without the user password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. If the PDF opens freely but restricts printing, copying, or editing (owner-password protection), the tool can remove those restrictions without requiring any password input. The document is saved without the permission flags."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does removing the password affect the document content?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The decryption process only removes the encryption layer. All text, images, fonts, annotations, bookmarks, and form fields are preserved exactly as they were in the encrypted original."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Will removing the password reduce the file size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Slightly. The encryption dictionary and associated metadata are removed, which typically saves a few kilobytes. The page content, images, and fonts are unchanged, so the overall file size reduction is minimal."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens if I enter the wrong password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool will report a decryption error. pdf-lib cannot decrypt a PDF with an incorrect password — the cryptographic operation fails and the tool displays an error message prompting you to try again with the correct password."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is there a file size limit for decryption?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No hard limit. The tool processes the entire document in memory, so very large files (over 100MB) may use significant browser memory. The decryption itself is fast — the bottleneck is loading and saving the large file, not the cryptographic operations."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "set-owner-password",
+    "varName": "seoSetOwnerPassword",
+    "name": "Set Owner Password",
+    "sections": [
+      {
+        "heading": "What is Set Owner Password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Set Owner Password adds an owner password to a PDF, controlling what recipients can do with the document — printing, copying text, modifying content, and adding annotations. The owner password is separate from the user (opening) password and governs permissions rather than access."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses pdf-lib's encryption capabilities to apply the owner password and permission flags. You can optionally set a user password as well, which would be required to open the document. The owner password alone restricts actions without preventing viewing."
+          },
+          {
+            "type": "paragraph",
+            "text": "The encryption is applied during the save step — the document is loaded, encryption settings are configured, and the encrypted PDF is written as a new file. The original unencrypted document is never modified."
+          },
+          {
+            "type": "paragraph",
+            "text": "The encryption is applied during the save step. The document is loaded into memory, the encryption settings are configured on the save options, and the encrypted PDF is written as a new file. The original unencrypted document remains untouched on your device."
+          },
+          {
+            "type": "paragraph",
+            "text": "The encryption process reads the PDF into memory, applies the owner password and permission flags to the save options, and writes the encrypted output as a new file. The encryption strength depends on the PDF version — newer PDFs support AES-256, while older ones may use RC4-128."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Set Owner Password",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Enter an <strong>owner password</strong> in the designated field. This password controls permissions but does not prevent opening the document.",
+              "Optionally enter a <strong>user password</strong> to also require a password to open the document.",
+              "Click <strong>Set Password</strong>. The tool applies encryption with your specified passwords and permissions.",
+              "A download button appears with your file, named <code>protected.pdf</code>.",
+              "The encryption uses the standard PDF security handler, which is compatible with all major PDF readers including Adobe Acrobat, Preview, Chrome, and Edge."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Set Owner Password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Organizations distributing confidential documents need to prevent unauthorized modification or printing while still allowing recipients to view the content. The owner password enforces these restrictions at the PDF specification level, enforced by compliant readers."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal and compliance teams protecting draft contracts, sensitive reports, or regulated documents use owner passwords to ensure the document cannot be altered after distribution, preserving the integrity of the original version."
+          },
+          {
+            "type": "paragraph",
+            "text": "Content creators sharing previews or watermarked samples can restrict printing and copying while allowing the recipient to review the document on screen."
+          },
+          {
+            "type": "paragraph",
+            "text": "Educational institutions distributing course materials need to prevent students from modifying content while allowing them to view and print. Owner passwords enforce these restrictions without requiring a password to open the document."
+          },
+          {
+            "type": "paragraph",
+            "text": "Contract publishers distributing finalized agreements use owner passwords to lock down the document against modification while allowing recipients to review, print, and search the content without barriers."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, applying encryption, and saving the protected output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. Your passwords are processed locally and never leave your device."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What encryption strength is used?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool uses AES-256 encryption when available, which is the strongest encryption standard supported by the PDF specification. Older PDF readers may fall back to RC4-128 if they don't support AES-256."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can the owner password be cracked?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Owner passwords are enforced by the PDF reader, not by the encryption itself. A determined attacker with the right tools can often bypass owner-password restrictions. The encryption protects against casual misuse, not determined adversaries. For high-security needs, combine with a strong user password."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What permissions can I set?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "With an owner password, you can restrict printing (high-resolution or disabled), text copying, content modification, and annotation addition. The specific permissions depend on the PDF reader's compliance with the PDF permission flags."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I set different permissions for different users?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool. Owner password permissions apply uniformly to anyone who opens the document. For per-user permission control, you would need a document management system with access control features."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the encryption work on all PDF readers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PDF encryption is part of the PDF specification (ISO 32000). All compliant readers support it. However, some lightweight or open-source readers may not enforce all permission flags. Adobe Acrobat and major commercial readers fully support owner-password permissions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if I forget the owner password I set?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "You would need to use the Unlock tool with the user password (if one was set) to decrypt the document, then re-apply a new owner password. If no user password was set, the document opens freely but the owner password restrictions remain in effect."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "validate-signature",
+    "varName": "seoValidateSignature",
+    "name": "Validate Signature",
+    "sections": [
+      {
+        "heading": "What is Validate Signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Validate Signature verifies digital signatures embedded in a PDF document, checking whether each signature is cryptographically valid, when it was applied, and which certificate was used. The tool uses node-forge and Web Crypto APIs to parse and verify the signature structure entirely in your browser."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool extracts the signature dictionary from the PDF, decodes the PKCS#7 signature container, verifies the certificate chain against the embedded trust anchors, and checks the document hash against the signed value. The results include signature validity, signer identity, timestamp, and any trust-chain issues."
+          },
+          {
+            "type": "paragraph",
+            "text": "If no digital signatures are found in the PDF, the tool reports that explicitly. Multiple signatures on a single document are each validated independently, with results listed per signature."
+          },
+          {
+            "type": "paragraph",
+            "text": "The validation results are returned as structured JSON, making them easy to integrate into automated document processing workflows. Each signature entry includes validity status, signer distinguished name, signing time, and any trust-chain warnings."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses the node-forge library to parse PKCS#7 signature containers, extract X.509 certificates, and verify the cryptographic hash against the signed digest. The Web Crypto API handles SHA-256 and SHA-1 hash verification for the document content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Validate Signature",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a signed PDF onto the upload zone, or click to browse and select it.",
+              "Click <strong>Validate Signatures</strong>. The tool parses the PDF signature dictionaries, verifies the cryptographic signatures, and checks certificate chains.",
+              "A download button appears with <code>signatures.json</code> containing detailed results: number of signatures found, validity status for each, signer identity, signing time, and any trust-chain warnings.",
+              "The tool processes the PDF entirely in your browser using WebAssembly-compiled cryptography libraries. No server-side processing occurs — the signature parsing, hash verification, and certificate chain checking all happen locally."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Validate Signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Legal and compliance teams receiving digitally signed contracts need to verify that signatures are valid before accepting the document as binding. The tool provides cryptographic proof of signature integrity without requiring Adobe Acrobat or other specialized software."
+          },
+          {
+            "type": "paragraph",
+            "text": "Organizations processing signed invoices, purchase orders, or regulatory filings need automated verification that the signatures haven't been tampered with since signing. The JSON output can be integrated into document processing workflows."
+          },
+          {
+            "type": "paragraph",
+            "text": "Individuals receiving signed PDFs from unknown sources can verify the signer's identity and certificate validity before trusting the document content, protecting against forged or manipulated signatures."
+          },
+          {
+            "type": "paragraph",
+            "text": "Financial institutions processing signed loan documents, insurance claims, or regulatory filings need to verify signature authenticity before accepting documents as legally binding. The JSON output enables batch processing of signed documents in compliance workflows."
+          },
+          {
+            "type": "paragraph",
+            "text": "Government agencies processing digitally signed permits, licenses, and certificates need automated verification to ensure signatures haven't been tampered with. The JSON output format enables integration with document management systems and compliance dashboards."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the PDF signature structure, verifying cryptographic hashes, and checking certificate chains — happens on your own device using node-forge and the Web Crypto API. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential signed documents like contracts or legal filings, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool verify the certificate against a trusted CA?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool checks the certificate chain against the trust anchors embedded in the PDF signature dictionary. It reports whether the chain is complete and whether any certificates are expired or self-signed. For full CA validation, you would need a dedicated PKI verification tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it detect if the document was modified after signing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The signature verification checks the document hash against the signed value. If any bytes in the PDF have changed since the signature was applied, the verification fails and reports the document as modified."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What signature formats are supported?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool supports PKCS#7 detached signatures (the standard PDF signature format), including both adbe.pkcs7.detached and adbe.pkcs7.sha1 subfilter types. Signatures using custom or non-standard formats may not be parsed correctly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it detect forged signatures?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool verifies cryptographic integrity — whether the signed hash matches the current document content and whether the certificate chain is valid. It cannot determine whether the signer actually authorized the signature (that requires human judgment or additional identity verification)."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it validate signatures on encrypted PDFs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "You would need to decrypt the PDF first using the Unlock tool, then run signature validation on the decrypted output. The signature verification requires reading the raw PDF bytes, which may be blocked by encryption."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How many signatures can it process per document?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "There is no limit. The tool iterates over all signature dictionaries in the PDF and validates each one independently. Documents with multiple signatures (sequential approvals, for example) will have each signature validated and reported separately."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "timestamp-pdf",
+    "varName": "seoTimestampPdf",
+    "name": "Timestamp PDF",
+    "sections": [
+      {
+        "heading": "What is Timestamp PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Timestamp PDF adds an RFC 3161 timestamp to a PDF document by computing a cryptographic hash of the file and requesting a signed timestamp token from a trusted Timestamp Authority (TSA). The resulting .tsr file proves the document existed at a specific point in time."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses node-forge to build the TSQ (Time Stamp Query) ASN.1 structure with a SHA-256 hash of the PDF, then sends it to FreeTSA through a server-side proxy to avoid CORS restrictions. The TSA responds with a signed timestamp token that can be verified independently."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output is a .tsr (Time Stamp Response) file containing the RFC 3161 timestamp token. This token can be embedded in the PDF using a PDF editor, or stored alongside the document as evidence of its existence at the timestamped time."
+          },
+          {
+            "type": "paragraph",
+            "text": "The SHA-256 hash ensures that the timestamp is bound to the exact content of the PDF. If even one byte of the document changes after timestamping, the hash will no longer match, proving the document was modified after the timestamp was applied."
+          },
+          {
+            "type": "paragraph",
+            "text": "The TSQ (Time Stamp Query) follows the RFC 3161 standard, using the SHA-256 hash algorithm and the standard OID for the timestamping policy. The response (TSR) contains the TSA certificate, the signed hash, and the authoritative timestamp time, all in a single ASN.1 structure."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Timestamp PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Click <strong>Add Timestamp</strong>. The tool computes a SHA-256 hash of the PDF and sends a timestamp request to FreeTSA.",
+              "A download button appears with <code>filename-timestamp.tsr</code>. This file contains the RFC 3161 timestamp token from the TSA.",
+              "The timestamp request is sent through a server-side proxy endpoint that forwards it to FreeTSA. This proxy exists because browsers cannot directly make TSA requests due to CORS restrictions. The proxy does not log or store any data from the request."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Timestamp PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Legal and intellectual property workflows require proof that a document existed at a specific date. A trusted timestamp from a TSA provides cryptographic evidence that is accepted by courts and regulatory bodies worldwide."
+          },
+          {
+            "type": "paragraph",
+            "text": "Contract management systems use timestamps to establish the order of document versions and prove that specific revisions existed before certain dates, preventing backdating disputes."
+          },
+          {
+            "type": "paragraph",
+            "text": "Archival workflows timestamp documents at the point of ingestion to create a tamper-evident record of when each document entered the system, supporting compliance with records retention policies."
+          },
+          {
+            "type": "paragraph",
+            "text": "Software developers timestamping release builds, API responses, or compliance artifacts need cryptographic proof that specific data existed at a known time. The .tsr file provides this proof in a standard, verifiable format."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal hold and e-discovery workflows use timestamps to establish the timeline of document creation and modification. A trusted timestamp provides non-repudiable evidence that a specific version of a document existed at a known point in time."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your PDF is processed locally — the SHA-256 hash is computed on your device. Only the hash (not the document content) is sent to the TSA proxy endpoint for timestamping. The TSA never sees your document, only its cryptographic fingerprint. No file data is stored on Racira's servers."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What TSA is used?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool uses FreeTSA (freetsa.org), a free, publicly available Timestamp Authority. The request is proxied through Racira's API endpoint to avoid browser CORS restrictions. FreeTSA is widely trusted and recognized by most timestamp verification tools."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I verify the timestamp?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Use a PDF signature verification tool or an RFC 3161 client to parse the .tsr file. The token contains the TSA's certificate, the signed hash, and the timestamp time. You can verify it matches the PDF's hash to confirm the document existed at the stated time."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the timestamp legally binding?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "RFC 3161 timestamps from trusted TSAs are recognized as legal evidence of document existence in most jurisdictions. However, a timestamp alone doesn't prove document content — it proves the hash existed at that time. For full legal weight, combine with a digital signature."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How long is a timestamp valid?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The timestamp is valid as long as the TSA certificate chain can be verified against trusted root certificates. TSA certificates typically have 5-10 year validity periods. After the certificate expires, the timestamp can still be verified using historical certificate chain information."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if the TSA server is unavailable?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool will report an error if FreeTSA cannot be reached. You can retry later when the service is available. Timestamps are not time-critical — a delay of hours or days does not affect the validity of the timestamp once it is obtained."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I timestamp a document that already has a timestamp?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Each timestamp is independent — adding a new timestamp does not affect existing ones. Multiple timestamps from different TSAs or at different times provide additional evidence of the document timeline."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "n-up-layout",
+    "varName": "seoNUpLayout",
+    "name": "PDF N-Up Layout Tool",
+    "sections": [
+      {
+        "heading": "What is PDF N-Up Layout Tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "N-Up Layout arranges multiple PDF pages onto single sheets in a grid pattern, reducing the number of pages needed for printing or review. You specify the grid dimensions (columns and rows), and each output page contains that many source pages scaled and positioned to fit."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses pdf-lib to embed each source page into the output grid. Each source page is scaled uniformly to fit its grid cell while preserving aspect ratio, and centered within the cell. The output is always A4 size (595.28 x 841.89 points) regardless of the source page dimensions."
+          },
+          {
+            "type": "paragraph",
+            "text": "Common layouts include 2-up (two pages per sheet), 4-up (four pages per sheet), and 6-up for thumbnail review. The grid dimensions are fully configurable — any combination of columns and rows works."
+          },
+          {
+            "type": "paragraph",
+            "text": "Each source page is scaled uniformly to fit its grid cell while maintaining the original aspect ratio. If the source pages have different sizes, each is independently scaled to fit its cell, so the grid remains uniform even with mixed-size input."
+          },
+          {
+            "type": "paragraph",
+            "text": "The scaling calculation uses Math.min(cellWidth/pageWidth, cellHeight/pageHeight) to ensure the entire page fits within its cell without cropping. This means pages with very different aspect ratios will have white space on the shorter dimension, preserving the full content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PDF N-Up Layout Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Set the <strong>columns</strong> and <strong>rows</strong> for the grid layout. Default is 2 columns x 2 rows (4 pages per sheet).",
+              "Click <strong>Arrange</strong>. The tool scales each source page to fit its grid cell and arranges them on A4 output pages.",
+              "A download button appears with your file, named <code>n-up.pdf</code>.",
+              "The output pages are always A4 size (595.28 x 841.89 points). Source pages are scaled to fit their grid cells while maintaining aspect ratio. If source pages are larger than the cell, they are scaled down; if smaller, they are scaled up to fill the available space."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PDF N-Up Layout?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Print preview workflows benefit from seeing multiple pages at once to check layout consistency, page breaks, and sequential flow without flipping through dozens of individual pages."
+          },
+          {
+            "type": "paragraph",
+            "text": "Proofreading and editorial review become more efficient with N-Up layouts that show two or four pages side by side, making it easier to spot formatting inconsistencies, header alignment issues, and cross-page content flow."
+          },
+          {
+            "type": "paragraph",
+            "text": "Handout and reference card creation uses N-Up to compress long documents into compact, printable summaries. A 40-page report becomes a 10-page handout at 4-up, perfect for meeting materials or quick reference guides."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal teams reviewing large document sets use 4-up or 6-up layouts to quickly scan through hundreds of pages, identifying relevant sections without reading each page individually. The thumbnail view makes it easy to spot visual patterns and formatting issues."
+          },
+          {
+            "type": "paragraph",
+            "text": "Printing services and copy shops use N-Up layouts to create proof sheets that show clients how their multi-page documents will look when printed at reduced size. This saves paper during the review phase before committing to full-size production runs."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, scaling pages, arranging the grid, and generating the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What happens to pages that don't fit evenly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The last output page may have empty grid cells if the total number of pages isn't a perfect multiple of the grid size. For example, 10 pages in a 4-up layout produces 3 output pages, with the last one having 2 pages and 2 empty cells."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it preserve bookmarks and annotations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Page content, text, and images are preserved at the scaled size. Bookmarks and interactive form fields are not carried over to the output — the N-Up layout creates a new document with embedded page images."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use different grid sizes for different sections?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not in a single operation. The tool applies one grid layout to the entire document. For mixed layouts, split the document into sections first, process each with different grid settings, and merge the results."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What grid sizes work best for different use cases?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "2-up (1x2) for side-by-side proofreading, 4-up (2x2) for general review and handouts, 6-up (2x3) for thumbnail scanning of large documents, and 9-up (3x3) for high-density overview of very long documents."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I add page borders or dividers between the N-Up cells?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool. The output contains the scaled page content without any added borders, gridlines, or dividers. For separated cells, you would need to add margins to each source page before running the N-Up tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What output page size is used?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output is always A4 (595.28 x 841.89 points). Source pages of any size are scaled to fit the grid cells. If you need a different output page size, the tool does not currently support it — the A4 dimensions are hardcoded."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "create-booklet",
+    "varName": "seoCreateBooklet",
+    "name": "PDF Booklet Maker",
+    "sections": [
+      {
+        "heading": "What is PDF Booklet Maker?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PDF Booklet Maker reorders pages for saddle-stitch booklet printing, placing pages side-by-side on spreads that fold into a properly sequenced booklet. The tool calculates the imposition layout so that when you print double-sided, fold, and staple, the pages appear in the correct reading order."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool pads the page count to the nearest multiple of 4 (booklets require page counts divisible by 4), then arranges pages using the standard booklet imposition pattern: the first and last pages go on the outer spread, the second and second-to-last on the next spread, and so on."
+          },
+          {
+            "type": "paragraph",
+            "text": "Each output spread is twice the width of the source page, with the left page on the left half and the right page on the right half. Blank pages are inserted where the source document doesn't have enough pages to fill a spread."
+          },
+          {
+            "type": "paragraph",
+            "text": "The imposition algorithm follows the standard bookbinding industry pattern. For a 16-page booklet, page 1 pairs with page 16 on the outer spread, page 2 with page 15 on the next, and so on until the center spread (page 8 and page 9). This ensures correct reading order after folding."
+          },
+          {
+            "type": "paragraph",
+            "text": "The page count padding adds blank pages as needed to reach a multiple of 4. Blank pages are plain white with the same dimensions as the source pages. They appear at the end of the booklet where they won't interrupt the reading flow of the content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PDF Booklet Maker",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Click <strong>Create Booklet</strong>. The tool calculates the imposition layout, pads the page count to a multiple of 4, and arranges pages into spreads.",
+              "A download button appears with your file, named <code>booklet.pdf</code>. Print this document double-sided, fold in half, and staple at the fold for a saddle-stitch booklet.",
+              "The tool preserves the original page dimensions in each half of the spread. If your source is letter-size (612 x 792 points), each output spread is 1224 x 792 points — two letter-size pages side by side."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PDF Booklet Maker?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Self-publishing authors and small-press publishers create booklets for zines, chapbooks, programs, and manuals. The imposition tool eliminates the manual page-sorting that makes booklet preparation tedious and error-prone."
+          },
+          {
+            "type": "paragraph",
+            "text": "Event organizers producing programs, schedules, or informational booklets need the pages in imposition order for professional saddle-stitch printing. This tool generates the print-ready layout directly from a sequentially-ordered PDF."
+          },
+          {
+            "type": "paragraph",
+            "text": "Educational materials like study guides, workbooks, and reference sheets are commonly distributed as stapled booklets. The tool converts any PDF into the correct imposition format for in-office or print-shop production."
+          },
+          {
+            "type": "paragraph",
+            "text": "Nonprofit organizations and community groups producing event programs, fundraising booklets, or informational pamphlets need cost-effective booklet production. The tool generates print-ready imposition layouts that can be produced on standard office printers."
+          },
+          {
+            "type": "paragraph",
+            "text": "Marketing teams creating product catalogs, event programs, or promotional booklets use the tool to prepare print-ready layouts from sequentially-authored PDFs, eliminating the need for manual imposition in desktop publishing software."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, calculating imposition, embedding pages, and generating booklet spreads — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my page count isn't a multiple of 4?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool automatically pads the document to the nearest multiple of 4 by adding blank pages at the end. For example, a 10-page document becomes 12 pages (2 blank pages added), producing 6 spreads."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it work with different page sizes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output spreads use double the source page width. All source pages are embedded at their original size, so pages with different dimensions will appear at different scales within their spread half. For consistent output, ensure all source pages have the same dimensions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I print the booklet?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Print the output PDF double-sided (flip on long edge), then fold the stack in half along the center spine. The pages will be in the correct reading order. Staple or bind at the fold line for a saddle-stitch booklet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How many blank pages are added for padding?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool pads to the nearest multiple of 4 above the current page count. A 5-page document becomes 8 pages (3 blank added), a 9-page document becomes 12 pages (3 blank added). Blank pages appear at the end of the booklet where they won't interfere with content."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the output include crop marks or fold guides?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The output contains only the page content arranged in imposition order. For professional printing that requires crop marks, registration marks, or fold guides, you would need to add these using a print-preparation tool after generating the booklet layout."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does this tool handle different page sizes within the same document?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output spread width is determined by the first page dimensions. All subsequent pages are embedded at their original size, so pages with different dimensions may extend beyond or fall short of their half of the spread. For consistent results, use documents with uniform page sizes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "duplex-simulator",
+    "varName": "seoDuplexSimulator",
+    "name": "Duplex Simulator",
+    "sections": [
+      {
+        "heading": "What is Duplex Simulator?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Duplex Simulator flips every odd-numbered page (page 2, 4, 6, etc.) by 180 degrees to simulate how a double-sided document would look when printed with specific duplex binding. This lets you preview the back-side orientation before committing to paper."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses pdf-lib to rotate odd pages by 180 degrees. You can choose between long-edge binding (flip along the long edge of the paper) and short-edge binding (flip along the short edge), which determines which pages need rotation."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output preserves all content, formatting, and page dimensions — only the rotation angle of odd pages changes. This is a metadata operation that doesn't re-render or re-encode any content."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool modifies only the rotation metadata on odd-numbered pages. Page content, dimensions, annotations, and bookmarks are all preserved. The rotation is a display hint that tells PDF readers to render the page rotated, exactly as it would appear when physically flipped."
+          },
+          {
+            "type": "paragraph",
+            "text": "The flip edge setting determines which pages need rotation. For long-edge binding (standard portrait), odd pages are rotated because flipping along the long edge inverts them. For short-edge binding (landscape or top-bound), the rotation pattern changes to match the different flip axis."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Duplex Simulator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Select the <strong>flip edge</strong>: long edge (default, for standard portrait binding) or short edge (for landscape or top-bound documents).",
+              "Click <strong>Simulate Duplex</strong>. The tool rotates every odd page by 180 degrees according to your selected flip edge.",
+              "A download button appears with your file, named <code>duplex-simulated.pdf</code>.",
+              "The tool processes all odd-numbered pages (2, 4, 6, etc.) in a single pass. Even pages (1, 3, 5) are left unchanged. The rotation is applied as a page-level metadata flag, not by re-rendering the content."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Duplex Simulator?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Print operators need to verify that double-sided documents will read correctly before printing large runs. The simulator reveals which pages will appear upside-down when flipped, allowing corrections to the source document before wasting paper."
+          },
+          {
+            "type": "paragraph",
+            "text": "Documents designed for single-sided reading often need adjustment when switching to duplex printing. Headers, footers, and page numbers on odd pages may appear inverted after flipping — the simulator catches these issues early."
+          },
+          {
+            "type": "paragraph",
+            "text": "Book and report designers creating content for double-sided binding use the simulator to verify that spreads align correctly and that content near the binding edge doesn't get lost in the gutter."
+          },
+          {
+            "type": "paragraph",
+            "text": "Office administrators preparing multi-page documents for duplex printing on shared printers need to verify that the output will be readable from both sides. The simulator reveals orientation issues before committing to a large print job."
+          },
+          {
+            "type": "paragraph",
+            "text": "Print production teams preparing documents for automated duplex printers need to verify orientation before running large print jobs. The simulator reveals which pages will appear inverted after flipping, allowing corrections to headers, footers, and page numbers before wasting paper and toner."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, rotating odd pages, and saving the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this actually change the content?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Rotation is a metadata flag in the PDF specification. The page content, text, and images are not re-rendered. The rotation flag tells PDF readers to display the page rotated, which is exactly what happens when you flip a printed page."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should I use long edge vs short edge?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Long edge is the standard for portrait-oriented documents — you flip the page along its longer side (the left edge for left-to-right binding). Short edge is for landscape documents or top-bound notebooks where you flip along the shorter side."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I undo the simulation?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Run the tool again on the simulated output with the same flip edge — rotating 180 degrees twice returns to the original orientation. Alternatively, use the Rotate tool to manually correct specific pages."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why only odd pages and not even pages?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "In standard duplex printing, even pages (2, 4, 6) are printed on the back of odd pages (1, 3, 5). When you flip the printed sheet along the binding edge, the even pages rotate 180 degrees. Pre-rotating the odd pages compensates for this flip, so both sides read correctly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does this work with PDFs that already have rotated pages?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The tool adds 180 degrees to the existing rotation of odd pages. If a page is already rotated 90 degrees, the result is 270 degrees. The tool does not normalize existing rotations — it only adds the duplex flip rotation."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Will this work with PDFs that already have some rotated pages?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The tool adds 180 degrees to the current rotation of each odd page. If a page is already rotated (for example, a landscape page in a portrait document), the additional 180-degree rotation is applied on top of the existing rotation."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "add-text-box",
+    "varName": "seoAddTextBox",
+    "name": "Add Text Box",
+    "sections": [
+      {
+        "heading": "What is Add Text Box?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Add Text Box places a bordered rectangular text annotation on a specific page of a PDF at coordinates you specify. The tool draws a white rectangle with a black border, then renders text inside it using Helvetica at 12pt."
+          },
+          {
+            "type": "paragraph",
+            "text": "You configure the page number, x/y position, width, height, and text content. The text box is drawn directly onto the page's content stream using pdf-lib, making it a permanent part of the PDF — not an annotation that can be removed by a PDF reader."
+          },
+          {
+            "type": "paragraph",
+            "text": "The default dimensions are 200x40 points at position (50, 400), but all parameters are fully configurable. The text is positioned 5 points from the left edge and 18 points from the top of the text box rectangle."
+          },
+          {
+            "type": "paragraph",
+            "text": "The text box is drawn as a permanent part of the page content. The white rectangle background ensures the text is readable even over busy or dark page content. The black border makes the annotation visually distinct from the surrounding document."
+          },
+          {
+            "type": "paragraph",
+            "text": "The text box consists of two elements drawn on the page content stream: a filled white rectangle with a black border (drawn first, so it appears behind the text), and the text itself rendered in Helvetica at 12pt. Both elements are permanent parts of the PDF content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Add Text Box",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Specify the <strong>page number</strong> (1-indexed) where the text box should appear.",
+              "Set the <strong>x and y coordinates</strong> (in PDF points, where 72 points = 1 inch). Default: x=50, y=400.",
+              "Set the <strong>width and height</strong> of the text box rectangle. Default: 200x40 points.",
+              "Enter the <strong>text content</strong> to display inside the box.",
+              "Click <strong>Add Text Box</strong>. The tool draws the bordered rectangle and renders the text on the specified page.",
+              "A download button appears with your file, named <code>text-box-added.pdf</code>.",
+              "The text is rendered using the standard Helvetica font at 12pt size. For longer text that exceeds the box width, the tool truncates at the box boundary. The text position within the box is fixed at 5 points from the left and 18 points from the top."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Add Text Box?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reviewers and editors adding comments, labels, or callouts to PDF pages need a quick way to place visible text markers without specialized annotation tools. The text box creates a permanent, visible marker that travels with the document."
+          },
+          {
+            "type": "paragraph",
+            "text": "Form fillers and data entry workers adding reference numbers, dates, or classification labels to printed PDF pages use text boxes to stamp information at specific locations on the page."
+          },
+          {
+            "type": "paragraph",
+            "text": "Designers and proofreaders marking up layouts need bordered text annotations that stand out from the page content. The white background and black border ensure the annotation is visible regardless of the underlying content."
+          },
+          {
+            "type": "paragraph",
+            "text": "Quality assurance inspectors marking defect locations, page references, or review notes directly on PDF pages use text boxes as visible, permanent annotations that cannot be accidentally removed or hidden by PDF viewer settings."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal document reviewers adding exhibit labels, bates numbers, or confidentiality markings use text boxes to stamp visible identifiers directly on specific pages, creating a permanent record that travels with the document."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, drawing the text box rectangle, rendering the text, and saving the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is the text box editable after adding it?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The text box is drawn directly onto the page content stream as vector graphics and text, not as a PDF annotation object. Once added, it cannot be moved or edited with standard PDF tools. To modify it, you would need to redraw the page content."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I change the font, size, or colors?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool. The font is fixed at Helvetica 12pt, the border is black, and the background is white. For custom styling, use the Add Callout tool or a dedicated PDF editor."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do PDF coordinates work?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PDF coordinates use points (1 point = 1/72 inch). The origin (0,0) is at the bottom-left corner of the page. Y increases upward, so y=400 places the text box near the top of a standard letter page (which is 792 points tall)."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I add multiple text boxes to the same page?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not in a single operation. The tool adds one text box per run. To add multiple boxes, run the tool multiple times, using the output of each run as the input for the next. Each run adds one box at the specified coordinates."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I add text boxes to multiple pages at once?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not in a single operation. The tool targets one page per run. To add text boxes to multiple pages, run the tool once for each page, using the output of each run as the input for the next. This sequential approach ensures each box is placed correctly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my text is too long for the box?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The text is rendered at the specified position and will extend beyond the box boundary if it is too long. The tool does not auto-wrap or truncate text. To prevent overflow, either increase the box width or shorten the text content."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "compare-pdfs",
+    "varName": "seoComparePdfs",
+    "name": "Compare PDFs",
+    "sections": [
+      {
+        "heading": "What is Compare PDFs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Compare PDFs renders two PDF documents side by side and highlights the visual differences between them. Each page of both documents is rendered using pdf.js, and a pixel-level comparison identifies areas where the content has changed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses canvas-based rendering to capture each page as an image, then performs a pixel-by-pixel diff. Changed pixels are highlighted with a colored overlay, making it easy to spot text edits, image changes, layout shifts, and annotation differences."
+          },
+          {
+            "type": "paragraph",
+            "text": "The comparison is visual, not structural — it detects what changed in the rendered output, not what changed in the underlying PDF data. This means formatting-only changes (like font substitution) that render identically won't be flagged, while content changes that look different will be."
+          },
+          {
+            "type": "paragraph",
+            "text": "The comparison works by rendering each page of both documents at the same resolution using pdf.js, then performing a per-pixel color difference calculation. Pixels that differ beyond a configurable threshold are highlighted with a colored overlay, making changes immediately visible."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pixel comparison uses a color-distance algorithm that calculates the Euclidean distance between corresponding pixels in the two rendered images. Pixels with a distance above the threshold are marked as changed, while minor anti-aliasing differences fall below the threshold and are ignored."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Compare PDFs",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Upload the <strong>original PDF</strong> (the reference document) onto the upload zone.",
+              "Upload the <strong>modified PDF</strong> (the document to compare) in the second upload zone.",
+              "Click <strong>Compare</strong>. The tool renders both documents page by page and highlights visual differences.",
+              "Browse through the side-by-side comparison. Pages with changes are marked, and the diff overlay shows exactly which areas differ.",
+              "The comparison renders both documents at the same DPI to ensure pixel alignment. Pages are compared in order — page 1 of the original against page 1 of the modified, and so on. If the documents have different page counts, extra pages in either document are noted but have no counterpart to compare against."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Compare PDFs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Legal teams reviewing contract revisions need to identify every change between draft versions. Visual comparison catches subtle modifications — number changes, clause rewording, added or removed pages — that text-based diff tools might miss due to PDF encoding differences."
+          },
+          {
+            "type": "paragraph",
+            "text": "Quality assurance teams verifying that PDF exports match source documents use visual comparison to catch rendering discrepancies between the original and the exported version."
+          },
+          {
+            "type": "paragraph",
+            "text": "Designers comparing proof versions track layout changes, image updates, and typography adjustments across revision cycles. The pixel-level diff ensures even small visual changes are flagged for review."
+          },
+          {
+            "type": "paragraph",
+            "text": "Version control for PDF-heavy workflows benefits from visual comparison. When multiple stakeholders annotate, revise, and re-export the same document, visual diff ensures no change goes unnoticed — even subtle shifts in positioning, color, or sizing that text-based comparison would miss."
+          },
+          {
+            "type": "paragraph",
+            "text": "Regulatory compliance teams comparing submitted documents against approved templates need to verify that no unauthorized changes were made. Visual comparison provides intuitive evidence of exactly what changed, where, and by how much."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — rendering both PDFs to canvas, performing the pixel comparison, and generating the diff overlay — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential legal documents, contracts, or financial reports, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it compare text content or visual rendering?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Visual rendering. Both PDFs are rendered to images and the images are compared pixel-by-pixel. This catches all visible changes including text edits, image swaps, layout shifts, and color changes. Text-only changes that render identically (same font, same position) won't be flagged."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if the PDFs have different page counts?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool compares pages that exist in both documents. If one PDF has more pages than the other, the extra pages are noted but there are no corresponding pages to compare them against."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I export the comparison results?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The comparison is displayed interactively in the browser. There is no export-to-PDF or export-to-image function for the diff results. You can take a screenshot of the comparison view for your records."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How sensitive is the pixel comparison?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The comparison uses a color-distance threshold to account for minor anti-aliasing differences. Identical content rendered at the same resolution will show no differences. Minor rendering variations (sub-pixel alignment, font hinting) are filtered out by the threshold."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I compare a PDF against itself to check for rendering consistency?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Comparing a document against itself should produce zero differences. If differences appear, it may indicate non-deterministic rendering behavior in the PDF viewer, which can be useful for testing renderer consistency."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it compare bookmarks, annotations, or form fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The comparison is strictly visual — it compares the rendered output of each page, not the PDF structure. Bookmarks, annotations, form fields, and metadata differences are not detected. Only changes visible in the rendered page images are highlighted."
+          }
+        ]
+      }
+    ]
+  }
+]

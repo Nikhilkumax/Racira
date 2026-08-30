@@ -40,6 +40,10 @@
   "exclude": [
     "node_modules",
     "scratch",
-    "scripts"
+    "scripts",
+    "src/domains/pdf/lib/bento",
+    ".next",
+    "public/edit-pdf-viewer",
+    "racira-quarantine"
   ]
 }

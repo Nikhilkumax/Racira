@@ -1,0 +1,217 @@
+{
+  "timestamp": "2026-08-24T04:16:28.551Z",
+  "total": 40,
+  "passed": 32,
+  "failed": 0,
+  "skipped": 8,
+  "results": [
+    {
+      "slug": "delete-pages",
+      "success": true,
+      "duration": 175
+    },
+    {
+      "slug": "split",
+      "success": true,
+      "duration": 75
+    },
+    {
+      "slug": "extract-pages",
+      "success": true,
+      "duration": 3
+    },
+    {
+      "slug": "insert-blank-pages",
+      "success": true,
+      "duration": 7
+    },
+    {
+      "slug": "reverse-pages",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "rotate",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "scale-content",
+      "success": true,
+      "duration": 8
+    },
+    {
+      "slug": "crop-pages",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "n-up-layout",
+      "success": true,
+      "duration": 121
+    },
+    {
+      "slug": "add-watermark",
+      "success": true,
+      "duration": 19
+    },
+    {
+      "slug": "edit-metadata",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "remove-metadata",
+      "success": true,
+      "duration": 2
+    },
+    {
+      "slug": "invert-colors",
+      "success": true,
+      "skipped": true,
+      "duration": 116
+    },
+    {
+      "slug": "bates-numbering",
+      "success": true,
+      "duration": 9
+    },
+    {
+      "slug": "background-color",
+      "success": true,
+      "duration": 7
+    },
+    {
+      "slug": "sanitize-pdf",
+      "success": true,
+      "duration": 3
+    },
+    {
+      "slug": "flatten-annotations",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "flatten",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "remove-annotations",
+      "success": true,
+      "duration": 4
+    },
+    {
+      "slug": "xml-to-pdf",
+      "success": true,
+      "duration": 116
+    },
+    {
+      "slug": "rotate-custom",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "divide-pages",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "text-color",
+      "success": true,
+      "skipped": true,
+      "duration": 9
+    },
+    {
+      "slug": "comic-info",
+      "success": true,
+      "duration": 1
+    },
+    {
+      "slug": "bmp-to-pdf",
+      "success": true,
+      "skipped": true,
+      "duration": 0
+    },
+    {
+      "slug": "png-to-pdf",
+      "success": true,
+      "duration": 6
+    },
+    {
+      "slug": "json-to-pdf",
+      "success": true,
+      "duration": 3
+    },
+    {
+      "slug": "pdf-to-png",
+      "success": true,
+      "skipped": true,
+      "duration": 3
+    },
+    {
+      "slug": "pdf-to-webp",
+      "success": true,
+      "skipped": true,
+      "duration": 1
+    },
+    {
+      "slug": "pdf-to-bmp",
+      "success": true,
+      "skipped": true,
+      "duration": 1
+    },
+    {
+      "slug": "view-metadata",
+      "success": true,
+      "duration": 1
+    },
+    {
+      "slug": "fix-page-size",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "scan-to-pdf",
+      "success": true,
+      "skipped": true,
+      "duration": 1
+    },
+    {
+      "slug": "combine-single-page",
+      "success": true,
+      "duration": 5
+    },
+    {
+      "slug": "posterize",
+      "success": true,
+      "duration": 26
+    },
+    {
+      "slug": "extract-attachments",
+      "success": true,
+      "duration": 3
+    },
+    {
+      "slug": "pdf-to-zip",
+      "success": true,
+      "duration": 10
+    },
+    {
+      "slug": "page-dimensions",
+      "success": true,
+      "duration": 1
+    },
+    {
+      "slug": "pdf-to-text",
+      "success": true,
+      "skipped": true,
+      "duration": 2
+    },
+    {
+      "slug": "validate-signature",
+      "success": true,
+      "duration": 57
+    }
+  ]
+}

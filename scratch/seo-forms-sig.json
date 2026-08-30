@@ -1,0 +1,611 @@
+[
+  {
+    "slug": "form-field-extract",
+    "varName": "seoFormFieldExtract",
+    "name": "Form Field Extract",
+    "sections": [
+      {
+        "heading": "What is Form Field Extract?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Form Field Extract identifies and lists all interactive form fields in a PDF document, showing each field's name, type, current value, and page location. The tool uses pdf.js to parse the AcroForm structure and extracts the complete field inventory."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output is a structured summary of every form field found in the document — text inputs, checkboxes, radio buttons, dropdowns, and signature fields. For each field, the tool reports the field name (T entry), field type (Tx, Btn, Ch, Sig), current value, and the page number where it appears."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is a read-only inspection tool — it does not modify the PDF or fill in any fields. The extraction is useful for auditing forms, verifying field names before automation, and understanding the structure of PDF forms you receive from external sources."
+          },
+          {
+            "type": "paragraph",
+            "text": "The JSON output includes nested structure for fields with parents (like radio button groups), field flags that indicate read-only, required, or no-print status, and the page index where each field widget is rendered."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Form Field Extract",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF with form fields onto the upload zone, or click to browse and select it.",
+              "Click <strong>Extract Fields</strong>. The tool parses the AcroForm dictionary and extracts every form field's metadata.",
+              "A download button appears with <code>form-fields.json</code> containing the complete field inventory: names, types, values, and page locations."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Form Field Extract?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Developers building PDF form automation need to know the exact field names and types before writing scripts to fill forms programmatically. Extracting the field inventory first prevents errors from guessing field names or types."
+          },
+          {
+            "type": "paragraph",
+            "text": "Compliance teams auditing PDF forms need to verify that all required fields are present, correctly named, and properly typed. The JSON output provides a machine-readable inventory that can be compared against form specifications."
+          },
+          {
+            "type": "paragraph",
+            "text": "When receiving filled forms from clients or partners, extracting the field data lets you verify what was entered without opening the PDF in a form-capable reader. The current values are included in the extraction output."
+          },
+          {
+            "type": "paragraph",
+            "text": "Data migration teams converting paper forms to digital need to understand the existing form structure before building automation scripts. The field inventory provides the exact names and types needed for programmatic form filling."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the PDF form structure, extracting field metadata, and generating the JSON output — happens on your own device using pdf.js. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What form field types are detected?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool detects all standard AcroForm field types: text fields (Tx), checkboxes and radio buttons (Btn), dropdowns and list boxes (Ch), and signature fields (Sig). Custom or non-standard field types may appear with generic type labels."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it extract the field values?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The current value of each field is included in the extraction output. For text fields, this is the entered text. For checkboxes, it is the checked/unchecked state. For dropdowns, it is the selected option."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if the PDF has no form fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reports an empty field list with a message indicating no interactive form fields were found. This is common for PDFs that look like forms but are actually flat images or static text without interactive elements."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it extract field appearances or just metadata?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Metadata only — field names, types, values, and page locations. Visual appearances (fonts, colors, borders) are not extracted. For visual inspection, use the Highlight Form Fields tool instead."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does it handle encrypted PDFs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the PDF requires a password to open, the extraction will fail until the document is decrypted. Use the Unlock tool first to remove the password, then run field extraction on the decrypted output."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "remove-signatures",
+    "varName": "seoRemoveSignatures",
+    "name": "Remove Signatures",
+    "sections": [
+      {
+        "heading": "What is Remove Signatures?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Remove Signatures covers visual signature images and signature field annotations from a PDF by drawing white rectangles over their bounding boxes and clearing the annotation list. The tool uses pdf.js to locate signature annotations and pdf-lib to white them out."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool specifically targets Widget, Stamp, and Sig annotation subtypes — the three annotation types that PDF signatures use. For each detected signature, it calculates the bounding rectangle and draws a white filled rectangle over it, effectively erasing the visual signature from the page."
+          },
+          {
+            "type": "paragraph",
+            "text": "Important: this tool removes visual signature images only. Cryptographic (digital) signatures embedded in the PDF are not invalidated or removed — the signature data remains in the document structure. The tool includes a message noting this limitation in its output."
+          },
+          {
+            "type": "paragraph",
+            "text": "The white-out approach ensures that even if the annotation metadata is cleared, the visual signature image is still covered by a white rectangle. This double-layer removal provides confidence that the signature is no longer visible in any PDF viewer."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Remove Signatures",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a signed PDF onto the upload zone, or click to browse and select it.",
+              "Click <strong>Remove Signatures</strong>. The tool scans every page for Widget, Stamp, and Sig annotations, draws white rectangles over them, and clears the annotation list.",
+              "A download button appears with your file, named <code>signatures-removed.pdf</code>. The output includes a note that visual signatures were removed but cryptographic signatures remain."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Remove Signatures?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Legal teams processing signed documents need to create unsigned copies for redaction, re-distribution, or internal review. Removing visual signatures creates a clean document while preserving the original page content."
+          },
+          {
+            "type": "paragraph",
+            "text": "Document preparers who receive forms with signature images stamped on them need to clean up the visual appearance before re-processing or archiving. The white-out approach removes the signature without affecting the underlying form content."
+          },
+          {
+            "type": "paragraph",
+            "text": "When testing form filling workflows, existing signature images on test documents can interfere with the visual layout. Removing them creates a clean baseline for testing new signature placements."
+          },
+          {
+            "type": "paragraph",
+            "text": "Organizations processing signed legal filings need to create clean versions for internal distribution. The white-out approach ensures the signature is visually removed even in PDF readers that might still render cleared annotations."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing annotations, drawing white rectangles, and clearing the annotation list — happens on your own device using pdf.js and pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this invalidate digital signatures?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool removes visual signature images (the picture of a handwritten signature). Cryptographic digital signatures — the encrypted verification data embedded in the PDF — are not modified. If the document had a cryptographic signature, it will likely report as invalid after visual modification."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens to form fields near the signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool only targets signature annotations. Other form fields (text inputs, checkboxes, dropdowns) are not affected. However, if a signature annotation overlaps with other annotations, the white rectangle may visually cover part of those overlapping elements."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it remove all signatures at once?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The tool scans every page and removes all detected signature annotations in a single pass. Documents with multiple signatures on different pages will have all of them removed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it remove signature form fields or just annotations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both. The tool targets Widget annotations (form fields), Stamp annotations (stamped images), and Sig annotations (signature dictionaries). All three are cleared from the annotation list and visually covered."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Will the white rectangles be visible in all PDF readers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The white rectangles are drawn as page content, not annotations, so they render identically in every PDF reader. The signature area appears as a blank white space."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "sign-pdf",
+    "varName": "seoSignPdf",
+    "name": "Sign PDF",
+    "sections": [
+      {
+        "heading": "What is Sign PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Sign PDF provides an interactive signature placement tool that lets you draw, type, or upload a signature and position it anywhere on a PDF page. The tool renders the PDF in a built-in viewer and overlays a draggable signature element that you can resize and move before finalizing."
+          },
+          {
+            "type": "paragraph",
+            "text": "The signature is captured as a canvas drawing or uploaded image, then embedded into the PDF's annotation layer using pdf.js's annotation storage system. The final PDF includes the signature as a permanent stamp annotation at the position and size you specified."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is a visual signature tool — it places an image of your signature on the document but does not create a cryptographic digital signature. For legally binding digital signatures with certificate-based verification, use the Validate Signature tool to check existing digital signatures instead."
+          },
+          {
+            "type": "paragraph",
+            "text": "The built-in PDF viewer uses pdf.js to render each page at high resolution, providing a pixel-perfect preview of where your signature will appear. The signature overlay is rendered at the same resolution for accurate placement."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Sign PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it. The document opens in a built-in PDF viewer.",
+              "Choose your signature method: <strong>Draw</strong> (freehand drawing on a canvas), <strong>Type</strong> (text rendered in a signature-style font), or <strong>Upload</strong> (import an image of your signature).",
+              "Position the signature on the desired page by dragging it to the correct location. Resize using the corner handles if needed.",
+              "Click <strong>Apply Signature</strong>. The tool embeds the signature as a stamp annotation and saves the modified PDF.",
+              "A download button appears with your signed PDF."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Sign PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Contract review workflows often require a quick signature on documents that don't need cryptographic verification. Internal approvals, acknowledgement forms, and non-binding agreements benefit from the speed of visual signature placement without the complexity of certificate management."
+          },
+          {
+            "type": "paragraph",
+            "text": "Remote workers signing documents on shared computers need a fast way to add their signature without installing specialized software. The browser-based tool works on any device with a screen and input device."
+          },
+          {
+            "type": "paragraph",
+            "text": "When you receive a PDF that needs your signature but you don't have a dedicated PDF editor installed, this tool provides immediate signature capability through the browser without any software installation or account creation."
+          },
+          {
+            "type": "paragraph",
+            "text": "Real estate agents, insurance adjusters, and field service workers who need to sign documents on-site use the browser-based tool on tablets and phones without requiring a dedicated PDF signing application installed on the device."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. The PDF is rendered using pdf.js, your signature is captured locally, and the final signed document is generated entirely on your device. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. Your signature image never leaves your device."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this a legally binding signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Visual signatures placed with this tool are equivalent to a printed signature — they show intent but do not provide cryptographic verification of identity. For legally binding digital signatures with certificate-based verification, you would need a dedicated digital signing service."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I place multiple signatures on the same document?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. After applying the first signature, re-upload the signed PDF and add another signature. Each pass adds one signature annotation. Signatures from different people can be placed on different pages or the same page."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What image formats are accepted for upload?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PNG and JPG images are supported. The image should have a transparent or white background for best results. Images with complex backgrounds may appear as a rectangular stamp on the document."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I resize the signature after placing it?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Before clicking Apply, you can drag the signature to reposition it and use the corner handles to resize. Once applied, the signature is embedded as a permanent annotation and cannot be moved without re-signing."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool save the original PDF or overwrite it?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool creates a new PDF with the signature embedded. The original file is never modified. You download the new signed version, leaving the original untouched on your device."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "uniform-page-size",
+    "varName": "seoUniformPageSize",
+    "name": "Uniform Page Size",
+    "sections": [
+      {
+        "heading": "What is Uniform Page Size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Uniform Page Size resizes every page in a PDF to a standard page dimension (A4, Letter, A3, or Legal). Pages that are already the target size pass through unchanged. Pages that are larger or smaller are resized and their content is centered on the new page."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses pdf-lib to set each page's dimensions and translate the content stream so the original content is centered within the new page bounds. If a page is smaller than the target, the content shifts to center it. If larger, the content shifts inward."
+          },
+          {
+            "type": "paragraph",
+            "text": "The content is not scaled — only the page boundaries and content position change. This means a page larger than the target will have content that extends beyond the new page edges if the original content was close to the original page boundaries."
+          },
+          {
+            "type": "paragraph",
+            "text": "The content translation uses the formula (newSize - oldSize) / 2 to calculate the offset. This centers the content on the new page. If the original page was wider than the target, the content shifts inward horizontally. If taller, it shifts inward vertically."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Uniform Page Size",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF onto the upload zone, or click to browse and select it.",
+              "Select the target <strong>page size</strong>: A4 (595.28 x 841.89 pt), Letter (612 x 792 pt), A3 (841.89 x 1190.55 pt), or Legal (612 x 1008 pt).",
+              "Click <strong>Resize</strong>. The tool sets every page to the target dimensions and centers the content.",
+              "A download button appears with your file, named <code>uniform-size.pdf</code>."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Uniform Page Size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Documents combining pages from multiple sources often have inconsistent page sizes — a mix of letter, legal, and A4 pages that looks unprofessional when printed or viewed. Standardizing the page size creates a consistent document."
+          },
+          {
+            "type": "paragraph",
+            "text": "Print shops and commercial printers require documents in a specific page size for their workflows. Resizing to the required standard before submission prevents print errors, scaling issues, and unexpected margins."
+          },
+          {
+            "type": "paragraph",
+            "text": "PDF archiving standards (like PDF/A) often require consistent page dimensions. Resizing mixed-size documents to a single standard ensures compliance with archival requirements."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal document compilers merging filings from multiple courts need consistent page sizes for filing. Different courts may use letter, legal, or A4 — standardizing before submission prevents rejection for formatting non-compliance."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, resizing pages, centering content, and saving the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Will resizing cut off content on larger pages?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Content is centered, not scaled. If a page is significantly larger than the target size, content near the edges may extend beyond the new page boundaries. For a safer approach, use the Add Margin tool first to create padding, then resize."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it preserve bookmarks and annotations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Bookmarks, links, and annotations are preserved during the resize. Form fields may shift position if they were near page edges, since the content translation affects their coordinates."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I resize to a custom page size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool — only the four standard sizes (A4, Letter, A3, Legal) are available. For custom dimensions, use the Add Margin tool to adjust page sizes manually, or use a dedicated PDF editor with custom page size support."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if some pages are much larger than the target?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Content near the edges of large pages may extend beyond the new page boundaries since only position (not scale) is adjusted. For mixed-size documents, consider adding margins first with the Add Margin tool to ensure content fits within the target dimensions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it handle pages with different orientations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Each page is resized independently. A landscape page and a portrait page in the same document will both be resized to the target dimensions, but their content orientation is preserved. The tool does not rotate pages."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "highlight-form-fields",
+    "varName": "seoHighlightFormFields",
+    "name": "Highlight Form Fields",
+    "sections": [
+      {
+        "heading": "What is Highlight Form Fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Highlight Form Fields draws semi-transparent colored rectangles over every interactive form field in a PDF, making it easy to see where fillable fields are located. The tool uses pdf-lib to iterate over all AcroForm fields and draw colored overlays on each widget rectangle."
+          },
+          {
+            "type": "paragraph",
+            "text": "The default highlight color is yellow (#ffff00) at 30% opacity, but any hex color can be specified. The overlay is drawn directly on the page content, creating a permanent visual indicator of every form field's position and size."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is a visual inspection tool — it does not modify the form fields themselves. After highlighting, you can clearly see which areas of the document are interactive (fillable) versus static content, useful for form auditing and quality assurance."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool iterates over every AcroForm field in the document, extracts each widget rectangle (position and dimensions), and draws a semi-transparent filled rectangle at that location. Fields with multiple widgets (like radio button groups) have each widget highlighted individually."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Highlight Form Fields",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a PDF with form fields onto the upload zone, or click to browse and select it.",
+              "Optionally specify a <strong>highlight color</strong> as a hex code (default: #ffff00 yellow).",
+              "Click <strong>Highlight Fields</strong>. The tool iterates over all AcroForm fields and draws semi-transparent colored rectangles over each widget.",
+              "A download button appears with your file, named <code>highlighted-fields.pdf</code>. All form fields are now visually highlighted."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Highlight Form Fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Quality assurance teams reviewing PDF forms need to verify that all expected fields are present and correctly positioned. Highlighting makes invisible form fields visible, ensuring no field is missing or misaligned."
+          },
+          {
+            "type": "paragraph",
+            "text": "When training users on form-filling workflows, highlighted fields make it immediately obvious where input is expected. The visual guide reduces confusion about which areas are interactive."
+          },
+          {
+            "type": "paragraph",
+            "text": "Form designers verifying their PDF output use highlighting to confirm that field positions match the intended layout, especially when fields overlap with static content or are positioned near page edges."
+          },
+          {
+            "type": "paragraph",
+            "text": "Accessibility auditors reviewing PDF forms need to verify that form fields have appropriate sizes, are logically ordered, and are positioned correctly for screen reader navigation. Visual highlighting makes the field layout immediately apparent."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — loading the PDF, iterating form fields, drawing highlight rectangles, and saving the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I change the highlight color?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Specify any hex color code (like #ff0000 for red, #00ff00 for green, or #0000ff for blue) in the color field. The default is yellow (#ffff00). The highlight is drawn at 30% opacity so the underlying content remains visible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does this affect the form fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The highlight rectangles are drawn on the page content layer, behind the form field widgets. The form fields remain fully functional — users can still click, type, and interact with them normally. The highlight is purely visual."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if the PDF has no form fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reports that no interactive form fields were found and returns the document unchanged. Common reasons for no fields: the PDF is a flat image, the form was created as static text rather than interactive widgets, or the fields use a non-standard form system."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I highlight only certain types of fields?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool — it highlights all form fields uniformly. To highlight specific field types, you would need to extract the field inventory first (using Form Field Extract), identify the fields you want, and manually add highlights using a PDF editor."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I print the highlighted version?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The highlight rectangles are part of the page content, so they print just like any other content. The semi-transparent yellow overlays will appear on the printed output, making form fields visible on paper."
+          }
+        ]
+      }
+    ]
+  }
+]

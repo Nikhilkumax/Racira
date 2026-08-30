@@ -1,0 +1,13 @@
+slug,canonical,reason
+"add-pdf-properties","metadata-editor","duplicate resolution table"
+"booklet-maker","create-booklet","duplicate resolution table"
+"compress","compress-pdf","duplicate resolution table"
+"draw-signature","sign-pdf","duplicate resolution table"
+"duplex-prep","duplex-simulator","duplicate resolution table"
+"edit-bookmarks","bookmark-pdf","duplicate resolution table"
+"edit-metadata","metadata-editor","duplicate resolution table"
+"grayscale","grayscale-pdf","duplicate resolution table"
+"ocr","ocr-pdf","duplicate resolution table"
+"pdf-to-excel","pdf-to-csv","duplicate resolution table"
+"sign","sign-pdf","duplicate resolution table"
+"version-checker","version-detector","duplicate resolution table"

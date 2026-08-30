@@ -2,8 +2,9 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ChevronRight, Sparkles } from "lucide-react";
-import { tools } from "@/domains/pdf/registry/tools";
+import { ChevronRight, Sparkles, Clock, ArrowLeft } from "lucide-react";
+import { tools, type Tool } from "@/domains/pdf/registry/tools";
+import { IMPLEMENTED_SLUGS } from "@/domains/pdf/registry/implementedSlugs";
 import { toSlug } from "@/lib/utils/slug";
 
 // Dynamic imports for client-side ToolPage
@@ -27,8 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
   const tool = toolBySlug.get(slug);
   if (tool) {
-    // Soon tools should not have canonical URLs or indexable metadata
-    if (tool.status === 'soon') return { title: "Not Found — Racira", robots: { index: false, follow: false } };
+    // Soon tools get real titles for SEO but are noindexed
+    if (tool.status === 'soon') return { title: `${tool.name} — Coming Soon — Racira PDF`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
     return { title: `${tool.name} — Racira PDF`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
   }
   return { title: "Not Found — Racira" };
@@ -39,6 +40,56 @@ export async function generateStaticParams() {
   for (const cat of subcategoryNames) params.push({ slug: toSlug(cat) });
   for (const tool of tools) params.push({ slug: tool.slug });
   return params;
+}
+
+function ComingSoonView({ tool }: { tool: Tool }) {
+  const Icon = tool.icon;
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <main className="flex-1">
+        <div className="racira-page-container pt-8 pb-0">
+          <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
+            <Link href="/pdf" className="hover:text-foreground transition-colors">PDF</Link>
+            <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
+            <span className="text-foreground font-medium">{tool.name}</span>
+          </nav>
+        </div>
+        <section className="pt-8 pb-8 sm:pt-12 sm:pb-10">
+          <div className="racira-page-container text-center max-w-2xl mx-auto">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-medium text-muted-foreground">
+              <Clock className="h-4 w-4" />
+              Coming Soon
+            </div>
+            <div className="mb-6 grid h-16 w-16 place-items-center rounded-2xl bg-primary/10 text-primary mx-auto">
+              <Icon className="h-8 w-8" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 leading-tight text-foreground">
+              {tool.name}
+            </h1>
+            <p className="text-base text-muted-foreground mb-8">
+              {tool.description}
+            </p>
+            <div className="rounded-xl border border-border bg-card p-8 mb-8">
+              <Sparkles className="h-8 w-8 text-primary mx-auto mb-4" />
+              <h2 className="text-lg font-semibold text-foreground mb-2">This tool is under development</h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                We&apos;re working hard to bring you {tool.name.toLowerCase()}. Check back soon — it&apos;s one of our next releases.
+              </p>
+              <Link
+                href="/pdf"
+                className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Browse all PDF tools
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
 
 function SubcategoryView({ catName }: { catName: string }) {
@@ -80,14 +131,10 @@ function SubcategoryView({ catName }: { catName: string }) {
                   <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{tool.description}</p>
                 </>
               );
-              return isLive ? (
+              return (
                 <Link key={tool.slug} href={`/pdf/${tool.slug}`} className="tool-card group hover:-translate-y-[3px]">
                   {cardBody}
                 </Link>
-              ) : (
-                <div key={tool.slug} className="tool-card group hover:-translate-y-[3px] relative cursor-default">
-                  {cardBody}
-                </div>
               );
             })}
           </div>
@@ -110,8 +157,13 @@ export default async function PolymorphicPage({ params }: PageProps) {
   const tool = toolBySlug.get(slug);
   if (!tool) notFound();
 
-  // Soon tools should not resolve to a live page
-  if (tool.status === 'soon') notFound();
+  // Soon tools show a coming-soon page — but in dev mode, tools with real
+  // implementations still render the working ToolPage so they can be tested.
+  // Stubs (engine_tag="none") show ComingSoonView in both dev and prod.
+  const isStub = !IMPLEMENTED_SLUGS.has(slug);
+  if (tool.status === 'soon' && (isStub || process.env.NODE_ENV !== 'development')) {
+    return <ComingSoonView tool={tool} />;
+  }
 
   return <ToolPage />;
 }

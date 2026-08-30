@@ -2,7 +2,7 @@
  * Single source of truth: does this tool have a real Coming Soon page
  * that users should be able to navigate to?
  *
- * Only the calculator domain currently has Coming Soon destination pages.
+ * The calculator and pdf domains have Coming Soon destination pages.
  * Other domains' non-live tools must remain non-clickable — their routes
  * call notFound() for non-live slugs.
  *
@@ -12,7 +12,7 @@
  * When a new domain gets Coming Soon pages, add its key to the allowed
  * set below — both routing and card-linking stay in sync automatically.
  */
-const DOMAINS_WITH_COMING_SOON = new Set(["calculator"]);
+const DOMAINS_WITH_COMING_SOON = new Set(["calculator", "pdf"]);
 
 export function hasComingSoonPage(
   tool: { status?: string } | undefined | null,

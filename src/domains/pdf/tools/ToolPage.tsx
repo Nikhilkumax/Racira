@@ -2,7 +2,8 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState, useCallback, useRef } from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useState, useCallback, useRef, type ComponentType } from "react";
 import { tools } from "@/domains/pdf/registry/tools";
 import { getToolConfig } from "@/domains/pdf/registry/tool-config";
 import { getToolSeo } from "@/domains/pdf/registry/tool-seo";
@@ -13,6 +14,62 @@ import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
 import ToolWorkArea from "@/domains/pdf/components/tool/ToolWorkArea";
 import RelatedTools from "@/domains/pdf/components/tool/RelatedTools";
 import SeoContent from "@/domains/pdf/components/tool/SeoContent";
+
+/**
+ * Custom page components for tools that need a dedicated UI
+ * beyond the generic upload/process/download flow.
+ * Lazy-loaded to avoid bloating the main bundle.
+ */
+const CUSTOM_PAGES: Record<string, React.LazyExoticComponent<ComponentType>> = {
+  "sign-pdf": dynamic(() => import("@/domains/pdf/tools/SignPdfTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "pdf-layers": dynamic(() => import("@/domains/pdf/tools/PdfLayersTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "edit-pdf-text": dynamic(() => import("@/domains/pdf/tools/EditPdfTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "bookmark-pdf": dynamic(() => import("@/domains/pdf/tools/BookmarkPdfTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "scanner-effect": dynamic(() => import("@/domains/pdf/tools/ScannerEffectTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "table-of-contents": dynamic(() => import("@/domains/pdf/tools/TableOfContentsTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "edit-attachments": dynamic(() => import("@/domains/pdf/tools/EditAttachmentsTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "add-page-labels": dynamic(() => import("@/domains/pdf/tools/AddPageLabelsTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "compare-pdfs": dynamic(() => import("@/domains/pdf/tools/ComparePdfsTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "pdf-multi-tool": dynamic(() => import("@/domains/pdf/tools/PdfMultiTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "redact": dynamic(() => import("@/domains/pdf/tools/RedactTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+  "form-field-extract": dynamic(() => import("@/domains/pdf/tools/FormCreatorExtractionTool"), {
+    ssr: false,
+    loading: () => <div className="text-center py-12 text-muted-foreground">Loading tool…</div>,
+  }) as React.LazyExoticComponent<ComponentType>,
+};
 
 import MergePdfOptions from "@/domains/pdf/components/tool-options/MergePdfOptions";
 import SplitPdfOptions from "@/domains/pdf/components/tool-options/SplitPdfOptions";
@@ -114,7 +171,7 @@ const ToolPage = () => {
     if (isEditorTool) {
       const handleProcess = async () => {
         if (!slug) return;
-        const needsEngine = ["add-text", "headers-footers", "add-watermark", "crop-pages"].includes(slug);
+        const needsEngine = ["add-text", "headers-footers", "add-watermark", "crop-pages", "split"].includes(slug);
         if (needsEngine) {
           await workflowProcess(slug);
         } else {
@@ -364,6 +421,32 @@ const ToolPage = () => {
       />
     );
   };
+
+  // ── Custom page override ───────────────────────────────────
+  const CustomPage = slug ? CUSTOM_PAGES[slug] : undefined;
+  if (CustomPage) {
+    return (
+      <main className="pb-16">
+        <ToolPageHeader
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "PDF Tools", href: "/pdf" },
+            { label: tool.subCategory || "PDF Tools", href: "/pdf" },
+            { label: tool.name, href: null },
+          ]}
+          title={tool.name}
+        />
+        <div className="racira-page-container">
+          <CustomPage />
+          <RelatedTools
+            currentSlug={tool.slug}
+            currentCategory={config.category}
+          />
+          <SeoContent seo={seo} />
+        </div>
+      </main>
+    );
+  }
 
   // ── Page render ─────────────────────────────────────────────
   return (

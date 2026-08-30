@@ -1,0 +1,949 @@
+[
+  {
+    "slug": "text-to-pdf",
+    "varName": "seoTextToPdf",
+    "name": "Text to PDF",
+    "sections": [
+      {
+        "heading": "What is Text to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Text to PDF converts plain text files into properly formatted PDF documents. The tool reads your .txt file, parses the content into lines, and renders each line as text on PDF pages using pdf-lib with the Helvetica font at 12pt size. Page breaks occur automatically when text reaches the bottom margin."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conversion preserves your original line breaks and paragraph spacing. Each page starts with a 50-point top margin and ends at a 50-point bottom margin, with 16 points of line spacing. Lines longer than 80 characters are automatically truncated with an ellipsis to prevent overflow."
+          },
+          {
+            "type": "paragraph",
+            "text": "This is a text-only conversion — formatting like bold, italics, colors, and fonts from the source file are not preserved. The output is a clean, readable PDF suitable for sharing, printing, or archival where a consistent format matters more than visual styling."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool creates pages on-demand as content flows, using a consistent layout across the entire document. Each page has generous margins that make the text comfortable to read both on screen and when printed, with a clean typographic style that prioritizes legibility over decoration."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Text to PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a <strong>.txt</strong> file onto the upload zone, or click to browse and select it. The tool accepts any plain text file regardless of size.",
+              "Click <strong>Convert to PDF</strong>. The tool reads the file content, splits it into lines, and renders each line onto PDF pages using Helvetica at 12pt with automatic page breaks.",
+              "A download button appears with your file, named <code>converted.pdf</code>. The PDF preserves your original line breaks and paragraph structure.",
+              "The output filename defaults to <code>converted.pdf</code>. The PDF is a single file with all pages using the same Helvetica font and consistent layout."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Text to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Shared notes, meeting minutes, and documentation often circulate as .txt files because they're universal, but many recipients prefer PDFs for consistent rendering across devices. Converting to PDF ensures the text looks identical on every screen and printer without requiring the recipient to have a specific text editor."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal and compliance teams frequently need to submit plain-text drafts, logs, or reports as PDFs for official records. The conversion creates a clean, paginated document from raw text without introducing any visual artifacts or formatting inconsistencies."
+          },
+          {
+            "type": "paragraph",
+            "text": "Academic and technical workflows benefit too — converting code snippets, terminal output, or data dumps to PDF creates a stable reference document that won't be accidentally edited or reformatted when opened on a different system."
+          },
+          {
+            "type": "paragraph",
+            "text": "Data scientists and analysts who export results as .txt files from command-line tools need a portable format for including in presentations or reports. The PDF conversion ensures tables of numbers, log outputs, and generated reports look identical regardless of the viewers font settings or operating system."
+          },
+          {
+            "type": "paragraph",
+            "text": "Personal journals, logs, and reading lists maintained as plain text files benefit from PDF conversion for long-term preservation. The PDF format is self-contained and does not depend on any specific application to render, making it ideal for documents you want to access years from now without worrying about software compatibility."
+          },
+          {
+            "type": "paragraph",
+            "text": "Educators distributing handouts, worksheets, or assignment instructions as text files often need PDF versions for printing. The consistent formatting ensures every student sees the same layout regardless of their device or text editor settings."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — reading the text file, rendering lines onto PDF pages, and generating the output — happens on your own device using pdf-lib compiled to JavaScript. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential documents like source code, internal reports, or sensitive notes, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Will the PDF preserve my text formatting like bold or italics?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The tool renders all text in Helvetica at 12pt — formatting markers like asterisks for bold or underscores for italic are treated as literal characters. For formatted output from Markdown, use the Markdown to PDF tool instead, which interprets basic Markdown syntax."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is there a file size limit?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "There is no hard limit, but very large text files (over 10MB) may take longer to process since every line must be measured and rendered individually. The tool handles files with thousands of pages by automatically creating new pages as needed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens to long lines?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Lines longer than 80 characters are truncated and an ellipsis (...) is appended. This prevents text from overflowing the page margins. If you need full lines preserved, consider preprocessing the text to add line breaks at appropriate points, or use the Markdown to PDF tool which may handle wrapping differently."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I customize the font or page size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool. The output uses Helvetica at 12pt on A4-style pages with fixed 50-point margins. If you need custom fonts, colors, or page dimensions, use a dedicated document editor or the HTML to PDF tool where you can control styling through CSS."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How many pages will the output have?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool creates a new page every time text reaches the bottom margin. A file with 50 lines of text typically fits on one page, while a file with 500 lines produces roughly 10 pages. The exact count depends on line length and content density."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I merge multiple text files into one PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not in a single operation. Each text file produces its own PDF. To combine multiple files, convert each one separately and then use the Merge PDF tool to combine them into a single document."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What encoding does the tool support?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reads the file as UTF-8, which covers ASCII, Western European, and most common character sets. Characters outside UTF-8 may not render correctly. If your file uses a different encoding like Windows-1252, convert it to UTF-8 first."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the PDF support bookmarks or navigation?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The output is a flat text document with no bookmarks, hyperlinks, or table of contents. If you need navigation features, consider converting the text to Markdown first, then using the Markdown to PDF tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the PDF include metadata like title or author?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The output PDF has minimal metadata. If you need custom metadata, consider using a dedicated PDF editor after conversion, or use the Metadata Editor tool to add title, author, and other fields."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does the tool handle very long lines?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Lines exceeding 80 characters are truncated with an ellipsis. This prevents text from extending beyond the page margins. For content that needs to wrap rather than truncate, convert the text to HTML first with manual line breaks, then use the HTML to PDF tool."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "html-to-pdf",
+    "varName": "seoHtmlToPdf",
+    "name": "HTML to PDF",
+    "sections": [
+      {
+        "heading": "What is HTML to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "HTML to PDF extracts the text content from HTML files and renders it as a clean PDF document. The tool parses the HTML markup, strips all tags and attributes, and outputs the visible text as a formatted PDF using pdf-lib with Helvetica at 12pt."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conversion is text-only — it extracts what you can read, not how it looks. Headings become plain text lines, links become visible text without clickability, and images are skipped entirely. The result is a readable, paginated PDF suitable for archival or sharing where the text content matters more than the visual layout."
+          },
+          {
+            "type": "paragraph",
+            "text": "This tool uses a browser-based HTML parser (DOMParser) when available, which handles malformed HTML gracefully. On the server side, it falls back to regex-based tag stripping. Both paths produce the same clean-text output."
+          },
+          {
+            "type": "paragraph",
+            "text": "The browser-based parser handles malformed HTML gracefully, including unclosed tags, missing attributes, and improperly nested elements. This makes it suitable for processing real-world HTML files that may not validate against strict standards."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output preserves paragraph breaks and line structure from the source HTML, creating a clean, readable document that captures the informational essence of the original web content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use HTML to PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop an <strong>.html</strong> or <strong>.htm</strong> file onto the upload zone, or click to browse and select it.",
+              "Click <strong>Convert to PDF</strong>. The tool parses the HTML, extracts visible text content by stripping all markup tags, and renders it onto PDF pages with automatic line breaks.",
+              "A download button appears with your file, named <code>html-to-pdf.pdf</code>. The output contains the readable text from your HTML document, paginated and formatted for printing.",
+              "The output uses Helvetica at 12pt with automatic line breaks, creating a clean text document from your HTML markup.",
+              "If your HTML file contains entities, special characters, or non-Latin text, the tool handles them correctly through the browser built-in character decoding, producing accurate text output regardless of the source encoding."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use HTML to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Web pages and HTML emails often need to be shared as PDFs for record-keeping, but saving a webpage as PDF through the browser captures the visual layout including ads, sidebars, and navigation. This tool extracts just the text content — the actual information — into a clean document."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers and technical writers frequently generate HTML reports, API documentation, or generated output that needs to be distributed as PDF. Converting the HTML to a text-based PDF ensures the content is readable without requiring the recipient to open an HTML file in a browser."
+          },
+          {
+            "type": "paragraph",
+            "text": "Compliance teams processing HTML-formatted emails, contracts, or notices need to create PDF records of the text content. The extraction preserves the reading order and paragraph structure while stripping formatting that would be irrelevant in an archival document."
+          },
+          {
+            "type": "paragraph",
+            "text": "Web archiving workflows benefit from text extraction when the goal is to preserve information rather than appearance. Converting HTML pages to text-based PDFs creates searchable, indexable documents that integrate with document management systems without the overhead of full visual rendering."
+          },
+          {
+            "type": "paragraph",
+            "text": "Researchers collecting web content for analysis need the text extracted without the visual noise of navigation bars, advertisements, sidebars, and cookie banners. The text extraction produces a clean document containing only the informational content."
+          },
+          {
+            "type": "paragraph",
+            "text": "Compliance teams processing HTML-formatted regulatory filings, patent documents, or government notices need PDF records that preserve the text content for archival. The conversion creates a stable, non-editable document from dynamic HTML sources."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the HTML, stripping markup, rendering text onto PDF pages, and generating the output — happens on your own device. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential HTML documents like internal reports, emails, or draft web pages, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Will the PDF look like the original HTML page?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool extracts text content only — it does not preserve visual styling, layout, images, or CSS. The output is clean text rendered in Helvetica at 12pt. For a visual-faithful PDF that preserves the HTML layout, you would need a headless browser renderer, which is not available in this browser-based tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle malformed or broken HTML?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The browser-based parser (DOMParser) handles common HTML issues like unclosed tags, missing attributes, and nested incorrectly. The regex fallback also tolerates most malformed markup. However, extremely broken HTML may produce unexpected text extraction results."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it extract content from <script> or <style> tags?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The HTML parser naturally excludes content inside script and style elements — these are not part of the visible document text. Only the readable content that would appear in the browser viewport is extracted."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I convert HTML with images to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not with this tool — it extracts text only. Images, charts, and graphical elements in the HTML are skipped. If you need images preserved, consider using a screenshot-to-PDF workflow or a dedicated HTML-to-PDF renderer that supports visual output."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens to HTML tables?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Table data is extracted as sequential text. Cell contents appear in reading order (left to right, top to bottom) without the original table structure. For tables that need to be preserved visually, a dedicated HTML-to-PDF renderer would be required."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it handle HTML entities correctly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. HTML entities like &amp; (&amp;amp;), &lt; (&amp;lt;), &amp;nbsp; (non-breaking space), and &amp;quot; (quote) are decoded to their actual characters before text extraction. Numeric character references are also handled correctly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it process HTML files with embedded CSS?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS is ignored during text extraction. The tool reads the DOM content, not the visual rendering. Inline styles, external stylesheets, and style blocks have no effect on the output. Only the visible text content is extracted."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What HTML elements are extracted as text?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "All visible text elements are extracted: paragraphs, headings (h1-h6), lists, links (text only, not URLs), table cells, preformatted text, and blockquotes. Elements like script, style, meta, and head content are naturally excluded."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle frames and iframes in HTML?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The tool processes a single HTML document. Content loaded via iframes or frames is not included in the extraction. To capture iframe content, you would need to extract the inner HTML of each frame separately."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What about HTML5 semantic elements?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Semantic elements like article, section, nav, header, footer, and aside are all treated as containers for their text content. The semantic meaning is lost in the output, but the text content is preserved in document order."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it extract alt text from images?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The text extraction only reads visible text content. Image elements and their alt attributes are skipped entirely. The tool produces a text-only output without any reference to visual elements in the HTML."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "csv-to-pdf",
+    "varName": "seoCsvToPdf",
+    "name": "CSV to PDF",
+    "sections": [
+      {
+        "heading": "What is CSV to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSV to PDF converts comma-separated value spreadsheets into formatted PDF table documents. The tool uses PapaParse to read the CSV data, then jsPDF with the autotable plugin to render a properly structured table on landscape A4 pages."
+          },
+          {
+            "type": "paragraph",
+            "text": "The first row of the CSV is treated as table headers and rendered in bold at the top of each page. Data rows follow with automatic line wrapping for long cell content. Empty rows are filtered out, and the table auto-paginates when it exceeds a single page."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output PDF is in landscape orientation by default — better suited for the wide column layouts typical of spreadsheet data. Each cell has 3mm of padding, and the font size is 9pt to maximize the amount of data visible per page."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses the jsPDF library with the autotable plugin to create properly structured PDF tables. Headers are styled distinctly from data rows, and the table auto-paginates with headers repeated on each new page for readability in multi-page datasets."
+          },
+          {
+            "type": "paragraph",
+            "text": "For single-file conversions, the output downloads directly as a PDF. When multiple CSV files are loaded, each is converted independently and all outputs are bundled into a convenient zip archive for batch processing workflows."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSV to PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop a <strong>.csv</strong> file onto the upload zone, or click to browse and select it. The tool accepts any standard CSV file.",
+              "Optionally add more CSV files using the <strong>Add File</strong> button — multiple files are converted individually and packaged into a zip archive.",
+              "Click <strong>Convert to PDF</strong>. The tool parses the CSV with PapaParse, extracts headers and data rows, and generates a landscape A4 PDF table using jsPDF and autotable.",
+              "A download button appears with your file. Single files download as <code>filename.pdf</code>; multiple files download as <code>csv-converted.zip</code>.",
+              "Multiple files can be added and will be converted individually into separate PDFs, then packaged into a single zip download.",
+              "The conversion preserves the logical structure of your spreadsheet. Column alignment, row ordering, and data types (as text) are maintained in the PDF output. Numeric values, dates, and text strings all appear exactly as they do in the source CSV."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSV to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Spreadsheet data exported as CSV is lightweight and universal, but not ideal for sharing with stakeholders who need a formatted, print-ready document. Converting to PDF creates a professional table layout that looks consistent across all devices without requiring Excel or Google Sheets."
+          },
+          {
+            "type": "paragraph",
+            "text": "Financial reports, inventory lists, and data exports often need to be included in PDF presentations or reports. The landscape orientation and auto-pagination handle wide datasets that would wrap awkwardly on a portrait page."
+          },
+          {
+            "type": "paragraph",
+            "text": "Compliance and audit workflows frequently require data snapshots as immutable PDF records. Converting CSV exports to PDF creates a fixed document that preserves the data at a point in time, suitable for attaching to official reports or filing alongside other PDF documents."
+          },
+          {
+            "type": "paragraph",
+            "text": "Financial analysts exporting data from accounting software need to attach formatted tables to PDF reports. The landscape layout accommodates the wide column structures typical of financial spreadsheets without truncating data."
+          },
+          {
+            "type": "paragraph",
+            "text": "Survey results and form submissions exported as CSV need to be formatted into presentable tables for stakeholder review. The PDF conversion creates a professional, print-ready table from raw data without requiring manual formatting in a spreadsheet application."
+          },
+          {
+            "type": "paragraph",
+            "text": "Database administrators exporting query results as CSV often need to attach formatted data snapshots to incident reports or change requests. The landscape PDF output preserves the full width of multi-column result sets."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the CSV, generating the PDF table, and packaging multi-file outputs — happens on your own device using PapaParse and jsPDF. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential datasets like financial records, patient data, or proprietary analytics, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What CSV delimiters are supported?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PapaParse auto-detects the delimiter — commas, semicolons, tabs, and pipes all work. If auto-detection fails on an unusual delimiter, the tool defaults to comma-separated parsing. The first row is always treated as column headers."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are very wide tables handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The landscape A4 layout gives approximately 277mm of usable width. Columns are auto-sized based on content, with cell padding of 3mm. Very wide tables (more than 10-12 columns) may still overflow — in that case, long cell content wraps to multiple lines within the cell."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I convert Excel (.xlsx) files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not directly — this tool reads CSV format only. Export your Excel file as CSV first (File > Save As > CSV), then convert the CSV to PDF. This also applies to Google Sheets exports."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens to special characters and encoding?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PapaParse handles UTF-8 encoding, so accented characters, non-Latin scripts, and special symbols are preserved correctly in the PDF output. However, the Helvetica font used for rendering has limited glyph support — characters outside Western European may appear as placeholders."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are very large CSV files handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Files with thousands of rows are paginated automatically. The table continues onto new pages as needed with headers repeated on each page. There is no hard row limit, but files over 5MB may take longer to process since every cell must be measured and rendered."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it support TSV (tab-separated) files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PapaParse auto-detects the delimiter, so tab-separated files work without any configuration change. Semicolons, pipes, and other delimiters are also auto-detected from the file content."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my CSV has quoted fields with commas inside?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PapaParse handles standard CSV quoting correctly. Fields enclosed in double quotes that contain commas are parsed as single cells. Newlines within quoted fields are also handled properly, preserving multi-line cell content."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are empty rows and columns handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Empty rows (where all cells are blank) are filtered out before rendering. Empty cells within a row are preserved as blank table cells. This prevents sparse datasets from producing pages of empty space."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it handle CSV with a BOM (byte order mark)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. PapaParse handles UTF-8 BOM correctly, stripping it before parsing. The first row is still treated as column headers even if preceded by a BOM character."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are multi-line cell values displayed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Cells containing newline characters have their content wrapped within the cell boundaries. The autotable plugin calculates the required cell height based on wrapped text, ensuring all content is visible without overflow."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my CSV has inconsistent column counts?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Rows with fewer columns than the header are padded with empty cells. Rows with more columns than the header have extra cells appended. PapaParse handles these variations gracefully, ensuring the table structure remains intact."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "rtf-to-pdf",
+    "varName": "seoRtfToPdf",
+    "name": "RTF to PDF",
+    "sections": [
+      {
+        "heading": "What is RTF to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "RTF to PDF extracts the readable text from Rich Text Format files and renders it as a plain-text PDF document. The tool strips RTF control words, font tables, and formatting groups, then renders the remaining text onto PDF pages using pdf-lib with Helvetica at 12pt."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conversion is text-only — bold, italic, font sizes, colors, images, and table formatting defined in the RTF are not preserved. The tool extracts what the RTF says, not how it looks. Each line is rendered at 50-point margins with 16-point line spacing, and lines exceeding 80 characters are truncated."
+          },
+          {
+            "type": "paragraph",
+            "text": "RTF files use a markup syntax with backslash-prefixed control words (like \\b for bold, \\fs for font size) wrapped in curly-brace groups. The tool strips these systematically — removing brace groups, control words, and control symbols — leaving only the plain text content."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool systematically strips RTF control sequences: backslash-prefixed control words that define formatting, brace-delimited groups that scope formatting changes, and font table declarations. What remains is the pure text content, rendered cleanly on PDF pages."
+          },
+          {
+            "type": "paragraph",
+            "text": "The approach is similar to copy-pasting from an RTF viewer into a plain text editor, but automated and paginated. The result is a consistent, printer-ready document that captures the full text content without requiring the original RTF-capable application."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use RTF to PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop an <strong>.rtf</strong> file onto the upload zone, or click to browse and select it.",
+              "Click <strong>Convert to PDF</strong>. The tool strips RTF formatting markup, extracts the plain text content, and renders it onto PDF pages with automatic pagination.",
+              "A download button appears with your file, named <code>converted.pdf</code>. The output contains the readable text from your RTF document.",
+              "The output preserves paragraph structure from the original RTF while stripping all formatting markup.",
+              "The conversion process is lossless for text content. Every character that would appear as readable text in an RTF viewer is captured in the output PDF. Only formatting information (fonts, sizes, colors, styles) is discarded."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use RTF to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Rich Text Format was widely used for cross-platform document exchange before DOCX became standard. Many legacy documents, email archives, and government filings still exist as .rtf files that need to be converted to the universally readable PDF format."
+          },
+          {
+            "type": "paragraph",
+            "text": "Legal teams processing archived correspondence often encounter RTF files from older email systems. Converting to PDF creates a consistent, searchable document format that integrates with modern document management workflows."
+          },
+          {
+            "type": "paragraph",
+            "text": "When the text content is what matters — not the visual formatting — this tool creates a clean, readable PDF without the overhead of preserving RTF styling. The output is ideal for text search, archival, and situations where consistent rendering across devices is more important than font choices."
+          },
+          {
+            "type": "paragraph",
+            "text": "Institutional archives often contain decades of correspondence in RTF format from legacy email systems. Bulk conversion to PDF creates a uniform, searchable archive that modern document management systems can index and retrieve."
+          },
+          {
+            "type": "paragraph",
+            "text": "Help desk and IT teams maintaining knowledge bases from legacy RTF files need to consolidate documentation into a modern, universally readable format. PDF conversion ensures the text content remains accessible even as older software becomes obsolete."
+          },
+          {
+            "type": "paragraph",
+            "text": "Publishing workflows that originated in WordPerfect or early Microsoft Word often produced RTF as an interchange format. Converting these historical documents to PDF preserves the text for editorial review and typesetting while discarding outdated formatting."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the RTF markup, stripping formatting, rendering text onto PDF pages, and generating the output — happens on your own device using pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential documents like legal correspondence, contracts, or internal memos, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Will the PDF preserve the original formatting?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Bold, italic, font sizes, colors, and images defined in the RTF are not preserved. The output is plain text in Helvetica at 12pt. If you need formatting preserved, use a dedicated RTF editor (like Word or LibreOffice) to convert to PDF instead."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it handle images embedded in the RTF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. RTF files can embed images as hex-encoded data, but this tool only extracts text content. Embedded images, drawings, and OLE objects are stripped along with the formatting markup."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle non-English RTF files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, for the most part. The text extraction preserves Unicode characters that appear as literal text in the RTF. However, RTF files that use font-specific character mappings (common in older RTF editors) may produce garbled output for non-Latin characters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does this differ from Word's RTF import?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Word and LibreOffice render RTF with full formatting — fonts, styles, images, tables, and page layout. This tool extracts text only. Use those applications when visual fidelity matters; use this tool when you need quick text extraction or when the formatting is irrelevant to the document's purpose."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does the tool handle RTF groups (curly braces)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "RTF uses curly braces to group formatting changes. The tool strips everything inside braces that starts with a backslash (control words), keeping only the plain text that falls between formatting groups. Nested groups are handled correctly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle RTF with tables?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Table content is extracted as text in reading order, with cells appearing sequentially. The visual table structure is not preserved. For formatted table output, use Word or LibreOffice to convert the RTF to PDF with formatting intact."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What RTF version is supported?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool handles RTF 1.0 through 1.9.x control words, which covers the vast majority of RTF files produced by Word, LibreOffice, and email clients. Very new or proprietary RTF extensions may produce incomplete extraction."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are special RTF characters handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Characters that are escaped in RTF (like escaped braces, backslashes, and non-ASCII characters represented as Unicode escape sequences) are decoded to their actual characters in the PDF output."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How are escaped characters in RTF handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "RTF escapes special characters with backslash sequences (like \\\\ for backslash, \\{ for open brace, \\} for close brace). The tool decodes these to their literal characters in the output PDF."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can the tool handle encrypted or password-protected RTF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Standard RTF files are not encrypted. If an RTF file has been modified with non-standard encryption, the text extraction may fail or produce garbled output. In that case, use the original application to decrypt the file first."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does it handle mixed-language RTF documents?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The text extraction preserves all Unicode characters present in the RTF file. However, the Helvetica font used for PDF rendering has limited glyph support for non-Western scripts. Characters outside the Latin range may appear as placeholder boxes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-to-pdf",
+    "varName": "seoSvgToPdf",
+    "name": "SVG to PDF",
+    "sections": [
+      {
+        "heading": "What is SVG to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG to PDF converts Scalable Vector Graphics files into PDF documents. The tool renders the SVG onto a canvas at 2x resolution to capture every detail, converts the canvas to a PNG image, and then embeds that image into a PDF page using pdf-lib's imagesToPDF function."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conversion is image-based — the SVG's vector data is rasterized to pixels during the canvas rendering step. The 2x resolution ensures that text, lines, and fine details remain sharp in the output PDF. The resulting PDF page dimensions match the SVG's viewBox or explicit width/height attributes."
+          },
+          {
+            "type": "paragraph",
+            "text": "This approach handles the full SVG specification — gradients, filters, clip paths, masks, and embedded text all render correctly because the browser's SVG engine handles the actual rendering. The PDF output is a faithful rasterized capture of exactly what the SVG looks like when displayed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The canvas-based rendering approach means the output faithfully captures exactly what the SVG looks like when displayed in a browser, including complex features like CSS animations (frozen at their current state), JavaScript-generated content, and dynamically loaded resources."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG to PDF",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "Drop an <strong>.svg</strong> file onto the upload zone, or click to browse and select it. The tool validates that the file is a valid SVG before processing.",
+              "Click <strong>Convert to PDF</strong>. The tool renders the SVG onto an offscreen canvas at 2x resolution, converts it to a PNG image, and embeds it into a PDF page with matching dimensions.",
+              "A download button appears with your file, named <code>svg-to-pdf.pdf</code>. The PDF contains a high-resolution rasterized image of your SVG.",
+              "The tool validates the SVG file type before processing and will reject non-SVG uploads with an informative error message.",
+              "The 2x resolution multiplier means a 400x300 SVG produces an 800x600 pixel raster image in the PDF, providing sufficient detail for print at standard sizes while keeping file sizes manageable."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG to PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Vector diagrams, icons, and illustrations created as SVGs are perfect for screen display but many document workflows require PDF. Converting SVG to PDF embeds the graphic into a format that can be included in reports, printed, or archived alongside other PDF documents."
+          },
+          {
+            "type": "paragraph",
+            "text": "Design teams sharing wireframes, flowcharts, or technical diagrams often need to include them in PDF deliverables. The 2x rendering resolution ensures the output is print-quality even for detailed diagrams with small text or fine lines."
+          },
+          {
+            "type": "paragraph",
+            "text": "Data visualization outputs from tools like D3.js, Chart.js, or matplotlib's SVG export often need to be embedded in PDF reports. This conversion preserves the exact visual appearance of the chart as rendered by the browser, ensuring what you see is what ends up in the PDF."
+          },
+          {
+            "type": "paragraph",
+            "text": "Technical documentation teams embedding architecture diagrams, sequence diagrams, or UML charts need these vector graphics in PDF format for inclusion in formal reports and compliance documentation."
+          },
+          {
+            "type": "paragraph",
+            "text": "Marketing teams creating social media graphics, email headers, or banner designs in SVG format need PDF versions for print campaigns. The 2x resolution output ensures the graphics look sharp on both screen and print at standard sizes."
+          },
+          {
+            "type": "paragraph",
+            "text": "Scientific publications frequently require figures in PDF format for submission. Graphs and charts generated as SVGs from tools like matplotlib, gnuplot, or D3.js can be converted to PDF for inclusion in LaTeX or Word documents."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your files never leave your browser. Every step — parsing the SVG, rendering it onto a canvas, converting to PNG, and embedding in a PDF — happens on your own device using the browser's built-in SVG renderer and pdf-lib. Nothing is uploaded to Racira's servers, no copies are stored in the cloud, and no file data is transmitted at any point. For confidential diagrams like network architectures, proprietary designs, or internal process flows, this means the tool is suitable for material you would not trust to an upload service."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the output preserve vector quality?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG is rendered to a bitmap (PNG) at 2x resolution before embedding in the PDF, so the output is rasterized, not vector. At 2x, the quality is sufficient for most printing and display use cases. For true vector output in PDF, you would need a dedicated SVG-to-PDF converter that translates SVG paths to PDF path objects."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What SVG features are supported?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Since the browser's SVG engine does the actual rendering, all standard SVG features work: shapes, text, gradients, patterns, clip paths, masks, filters, animations (rendered as their final state), and embedded images. The tool captures the fully-rendered output as a bitmap."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I convert multiple SVGs to a single PDF?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not in a single operation — each SVG produces one PDF page. To combine multiple SVGs, convert each one separately and then use the Merge PDF tool to combine the resulting PDFs into a single document."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is the 2x resolution important?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "At 1x resolution, small text and thin lines in the SVG may appear aliased or blurry in the PDF. The 2x rendering doubles the pixel dimensions, producing a crisp capture that holds up well at standard print sizes (up to about 8.5 x 11 inches for an A4-sized SVG)."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my SVG has animation elements?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Animations are rendered as their final state. The tool captures a static snapshot of the SVG as displayed by the browser. SMIL animations, CSS animations, and JavaScript-driven animations all resolve to their end state in the output."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle SVGs with embedded fonts?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the SVG references fonts that are available in the browser, the text renders correctly. If the fonts are missing, the browser substitutes a fallback font, and the output reflects that substitution. Embedded web fonts in SVG are not loaded."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What SVG dimensions does the tool support?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The PDF page dimensions match the SVGs viewBox or explicit width/height attributes. SVGs without explicit dimensions default to the browser default rendering size (typically 300x150). Very large SVGs over 4000px may be clipped by canvas limits."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the output vector or raster?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output is rasterized at 2x resolution. The SVG is rendered to a canvas bitmap, converted to PNG, then embedded in the PDF. For true vector PDF output, the SVG paths would need to be translated to PDF path objects, which requires a specialized converter."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What color space does the output use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The canvas renders in sRGB color space, which is the default for web content. If you need CMYK color space for professional printing, the SVG would need to be converted using a specialized print workflow tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can it handle SVGs with transparency?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The canvas renders with a white background by default. Semi-transparent elements in the SVG are composited against this white background. Fully transparent areas appear as white in the output PDF."
+          }
+        ]
+      }
+    ]
+  }
+]

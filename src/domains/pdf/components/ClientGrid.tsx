@@ -2,14 +2,18 @@
 
 import { tools } from "@/domains/pdf/registry/tools";
 import { CategorySection } from "@/components/shared/CategorySection";
+import { onlyLive } from "@/lib/tools/liveToolFilters";
 import { useMemo } from "react";
+
+/** Only live tools per subcategory — counts always match the hero total. */
+const LIVE_TOOLS = onlyLive(tools);
 
 export default function ClientGrid() {
   const sections = useMemo(() => {
-    return Array.from(new Set(tools.map((t) => t.subCategory).filter(Boolean))).map(
+    return Array.from(new Set(LIVE_TOOLS.map((t) => t.subCategory).filter(Boolean))).map(
       (subCategory) => ({
         title: subCategory as string,
-        tools: tools.filter((t) => t.subCategory === subCategory) as any, // Cast to any to align with Tool type if needed
+        tools: LIVE_TOOLS.filter((t) => t.subCategory === subCategory) as any,
       })
     );
   }, []);

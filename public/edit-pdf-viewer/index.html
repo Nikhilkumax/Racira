@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Edit PDF Text</title>
+  <link href="./edit-pdf-text.css" rel="stylesheet" />
+  <style>
+    /* Minimal base styles for the editor (from Bento's styles.css) */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'DM Sans', system-ui, -apple-system, sans-serif; background: #111827; color: #e5e7eb; }
+    button { font-family: inherit; cursor: pointer; }
+    .hidden { display: none !important; }
+    /* Spinner */
+    .solid-spinner { width: 32px; height: 32px; border: 3px solid #374151; border-top-color: #6366f1; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body class="antialiased bg-gray-900">
+
+  <!-- Loader modal -->
+  <div id="loader-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-gray-800 p-8 rounded-lg flex flex-col items-center gap-4 border border-gray-700 shadow-xl">
+      <div class="solid-spinner"></div>
+      <p id="loader-text" class="text-white text-lg font-medium">Processing...</p>
+    </div>
+  </div>
+
+  <!-- Alert modal -->
+  <div id="alert-modal" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-800 rounded-lg shadow-xl p-6 max-w-sm w-full border border-gray-700">
+      <h3 id="alert-title" class="text-xl font-bold text-white mb-2">Alert</h3>
+      <p id="alert-message" class="text-gray-300 mb-6"></p>
+      <button id="alert-ok" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">OK</button>
+    </div>
+  </div>
+
+  <!-- Hidden compatibility elements for page logic -->
+  <div id="uploader" class="hidden"></div>
+  <div id="tool-landing" class="hidden"></div>
+  <div id="drop-zone" class="hidden">
+    <input id="file-input" type="file" accept="application/pdf" />
+  </div>
+
+  <!-- Editor App (from Bento's edit-pdf-text.html) -->
+  <div id="text-editor-app">
+    <div id="toolbar">
+      <div class="tgroup">
+        <button id="exitEditor" class="btn icon" title="Back to upload">
+          <i class="ph ph-arrow-left"></i>
+        </button>
+        <label class="btn" for="file" title="Open another PDF">
+          <i class="ph ph-folder-open"></i><span>Open</span>
+        </label>
+        <input id="file" type="file" accept="application/pdf" hidden />
+        <button id="save" class="btn" disabled title="Export (Cmd+S)">
+          <i class="ph ph-export"></i><span>Export</span>
+        </button>
+        <button id="undo" class="btn icon" disabled hidden title="Undo (Cmd+Z)">
+          <i class="ph ph-arrow-u-up-left"></i>
+        </button>
+        <button id="redo" class="btn icon" disabled hidden title="Redo (Shift+Cmd+Z)">
+          <i class="ph ph-arrow-u-up-right"></i>
+        </button>
+      </div>
+      <button id="docName" class="docname" hidden title="File details"></button>
+      <span class="sep"></span>
+      <div id="tools" class="segmented">
+        <button data-tool="edit" class="on" title="Edit existing content">
+          <i class="ph ph-pencil-simple"></i><span id="editLabel">Edit All</span><i class="ph ph-caret-down editcaret"></i>
+        </button>
+        <select id="editScope" hidden title="What the Edit tool touches">
+          <option value="all" selected>All</option>
+          <option value="text">Text</option>
+          <option value="image">Images</option>
+          <option value="shape">Shapes</option>
+        </select>
+        <button data-tool="addText" title="Click the page to add a text box">
+          <i class="ph ph-textbox"></i><span>Add Text</span>
+        </button>
+      </div>
+      <input id="imgFile" type="file" accept="image/*" hidden />
+      <div class="tgroup viewopts" hidden>
+        <label class="chk"><input id="spellchk" type="checkbox" /> Spelling</label>
+        <select id="spellLang" title="Spell-check language">
+          <option value="">Auto</option>
+          <option value="en">English (US)</option>
+          <option value="en-GB">English (UK)</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="es">Español</option>
+        </select>
+        <label class="chk"><input id="rulersChk" type="checkbox" /> Rulers</label>
+      </div>
+      <span id="info" class="info"></span>
+      <div class="tgroup toolright">
+        <button id="find" class="btn icon" title="Find & replace">
+          <i class="ph ph-magnifying-glass"></i>
+        </button>
+        <button id="addImage" class="btn icon" title="Add an image">
+          <i class="ph ph-image"></i>
+        </button>
+        <span class="sep"></span>
+        <button id="toggleInspector" class="btn icon" title="Show or hide the format panel">
+          <i class="ph ph-sidebar-simple"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="spellbar" hidden>
+      <i class="ph ph-text-aa barlead"></i>
+      <span id="spellWord" class="info">—</span>
+      <input id="spellFix" placeholder="Replace with" />
+      <button id="spellChange" class="btn">Change</button>
+      <button id="spellIgnore" class="btn">Ignore</button>
+      <button id="spellAdd" class="btn" title="Add to your dictionary">Add</button>
+      <button id="spellNext" class="btn">Next</button>
+      <span id="spellStatus" class="info"></span>
+      <button id="spellDone" class="btn icon" title="Close">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+
+    <div id="main">
+      <div id="findbar" hidden>
+        <div class="findhead">
+          <span class="findtitle"><i class="ph ph-magnifying-glass barlead"></i> Find &amp; Replace</span>
+          <button id="findDone" class="btn icon" title="Close">
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+        <div class="findfield">
+          <input id="findText" placeholder="Find" />
+          <button id="findPrev" class="btn icon" title="Previous match">
+            <i class="ph ph-caret-up"></i>
+          </button>
+          <button id="findNext" class="btn icon" title="Next match">
+            <i class="ph ph-caret-down"></i>
+          </button>
+        </div>
+        <input id="replText" placeholder="Replace with" />
+        <div class="findrow">
+          <button id="replOne" class="btn grow">Replace</button>
+          <button id="replAll" class="btn grow">Replace All</button>
+        </div>
+        <label class="chk"><input id="caseSens" type="checkbox" /> Match case</label>
+        <label class="chk"><input id="wholeWord" type="checkbox" /> Whole word</label>
+        <label class="chk"><input id="noAccents" type="checkbox" /> Ignore accents</label>
+        <span id="findStatus" class="findstatus"></span>
+      </div>
+
+      <div id="stage">
+        <div id="empty">
+          <h1>Edit PDF Text</h1>
+          <p>Open a PDF to edit its text, images and shapes.</p>
+          <p class="hint">Everything runs locally in your browser — nothing is uploaded.</p>
+        </div>
+        <div id="pageWrap" hidden>
+          <canvas id="page"></canvas>
+          <div id="overlay"></div>
+        </div>
+      </div>
+
+      <div id="zoomHud" hidden></div>
+
+      <div id="contextbar">
+        <div class="tgroup">
+          <button id="rotL" class="btn icon objbtn" hidden title="Rotate left 90°">
+            <i class="ph ph-arrow-counter-clockwise"></i>
+          </button>
+          <button id="rotR" class="btn icon objbtn" hidden title="Rotate right 90°">
+            <i class="ph ph-arrow-clockwise"></i>
+          </button>
+          <button id="flipH" class="btn icon objbtn" hidden title="Flip horizontal">
+            <i class="ph ph-flip-horizontal"></i>
+          </button>
+          <button id="flipV" class="btn icon objbtn" hidden title="Flip vertical">
+            <i class="ph ph-flip-vertical"></i>
+          </button>
+          <span class="sep objsep" hidden></span>
+          <button id="replImg" class="btn icon objbtn" hidden title="Replace this image">
+            <i class="ph ph-image-square"></i>
+          </button>
+          <button id="extEdit" class="btn icon objbtn" hidden title="Save this image as PNG">
+            <i class="ph ph-arrow-square-out"></i>
+          </button>
+          <input id="replImgFile" type="file" accept="image/*" hidden />
+          <span class="sep objsep" hidden></span>
+          <button id="front" class="btn icon objbtn" hidden title="Bring to front">
+            <i class="ph ph-arrow-line-up"></i>
+          </button>
+          <button id="back" class="btn icon objbtn" hidden title="Send to back">
+            <i class="ph ph-arrow-line-down"></i>
+          </button>
+          <button id="dupe" class="btn icon objbtn" hidden title="Duplicate">
+            <i class="ph ph-copy"></i>
+          </button>
+          <button id="del" class="btn icon objbtn" hidden title="Delete">
+            <i class="ph ph-trash"></i>
+          </button>
+        </div>
+        <div id="alignTools" class="segmented" hidden>
+          <button data-al="left" title="Align left edges"><i class="ph ph-align-left"></i></button>
+          <button data-al="hcenter" title="Align horizontal centers"><i class="ph ph-align-center-horizontal"></i></button>
+          <button data-al="right" title="Align right edges"><i class="ph ph-align-right"></i></button>
+          <button data-al="top" title="Align tops"><i class="ph ph-align-top"></i></button>
+          <button data-al="vcenter" title="Align vertical centers"><i class="ph ph-align-center-vertical"></i></button>
+          <button data-al="bottom" title="Align bottoms"><i class="ph ph-align-bottom"></i></button>
+        </div>
+      </div>
+
+      <!-- Inspector / Format Panel -->
+      <aside id="inspector" hidden>
+        <h2><i class="ph ph-sliders-horizontal"></i> Format</h2>
+        <h3 class="sect">Font</h3>
+        <div class="row">
+          <select id="fFamily"></select>
+          <input id="fSize" type="number" min="1" max="400" step="1" class="num" title="Font size" />
+        </div>
+        <div class="row">
+          <button id="sysFonts" class="btn grow" title="List system fonts (Chromium)">
+            <i class="ph ph-download-simple"></i><span>System fonts</span>
+          </button>
+        </div>
+        <h3 class="sect">Color</h3>
+        <div class="row swatchrow">
+          <div class="swatches" id="fSwatches"></div>
+          <input id="fColor" type="color" value="#000000" title="Custom text color" />
+        </div>
+        <h3 class="sect">Alignment</h3>
+        <div class="row">
+          <div class="segmented small grow" id="fAlign">
+            <button data-a="0" title="Align left"><i class="ph ph-text-align-left"></i></button>
+            <button data-a="1" title="Align center"><i class="ph ph-text-align-center"></i></button>
+            <button data-a="2" title="Align right"><i class="ph ph-text-align-right"></i></button>
+            <button data-a="3" title="Justify"><i class="ph ph-text-align-justify"></i></button>
+          </div>
+        </div>
+        <h3 class="sect">Style</h3>
+        <div class="row toggles" id="fToggles">
+          <button data-t="bold" title="Bold"><i class="ph ph-text-b"></i></button>
+          <button data-t="italic" title="Italic"><i class="ph ph-text-italic"></i></button>
+          <button data-t="underline" title="Underline"><i class="ph ph-text-underline"></i></button>
+          <button data-t="strike" title="Strikethrough"><i class="ph ph-text-strikethrough"></i></button>
+          <button data-t="sup" title="Superscript"><i class="ph ph-text-superscript"></i></button>
+          <button data-t="sub" title="Subscript"><i class="ph ph-text-subscript"></i></button>
+        </div>
+        <h3 class="sect">Lists</h3>
+        <div class="row">
+          <div class="segmented small" id="fList">
+            <button data-l="bullet" title="Toggle bulleted item"><i class="ph ph-list-bullets"></i></button>
+            <button data-l="number" title="Toggle numbered item"><i class="ph ph-list-numbers"></i></button>
+          </div>
+          <select id="fMarkerStyle" title="Numbered-list marker style">
+            <option value="1">1. 2. 3.</option>
+            <option value="a">a. b. c.</option>
+            <option value="A">A. B. C.</option>
+            <option value="i">i. ii. iii.</option>
+            <option value="I">I. II. III.</option>
+          </select>
+          <div class="segmented small" id="fLevel">
+            <button data-lv="-1" title="Decrease list indent"><i class="ph ph-text-outdent"></i></button>
+            <button data-lv="1" title="Increase list indent"><i class="ph ph-text-indent"></i></button>
+          </div>
+        </div>
+        <h3 class="sect">Outline</h3>
+        <div class="row">
+          <input id="fStrokeColor" type="color" value="#000000" title="Text outline color" />
+          <input id="fStrokeW" type="number" min="0" max="20" step="0.1" class="num" title="Outline width (0 = none)" />
+        </div>
+        <h3 class="sect">Spacing</h3>
+        <label class="field">Line Spacing <input id="fLine" type="number" min="0.6" max="4" step="0.05" class="num" /></label>
+        <label class="field">Paragraph Spacing <input id="fPara" type="number" min="0" max="200" step="1" class="num" /></label>
+        <label class="field">Character Spacing <input id="fChar" type="number" min="-3" max="30" step="0.1" class="num" /></label>
+        <label class="field">Word Spacing <input id="fWordSp" type="number" min="-10" max="100" step="0.5" class="num" /></label>
+        <label class="field">Horizontal Scale % <input id="fHScale" type="number" min="10" max="400" step="1" class="num" /></label>
+        <label class="field">First-line Indent <input id="fFirstInd" type="number" min="0" max="300" step="1" class="num" /></label>
+        <label class="field">Hanging Indent <input id="fHangInd" type="number" min="0" max="300" step="1" class="num" /></label>
+        <h3 class="sect">Direction</h3>
+        <div class="row">
+          <div class="segmented small grow" id="fDir">
+            <button data-d="0" title="From content">Auto</button>
+            <button data-d="1" title="Left to right">LTR</button>
+            <button data-d="2" title="Right to left">RTL</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Viewbar (zoom + page nav) -->
+    <div id="viewbar">
+      <div class="vbzoom">
+        <button id="zoomMenuBtn" class="btn vbzoomlabel" title="Zoom presets">
+          <span id="zoomLabel" class="label">100%</span><i class="ph ph-caret-down editcaret"></i>
+        </button>
+        <button id="zoomOut" class="btn icon" title="Zoom out"><i class="ph ph-minus-circle"></i></button>
+        <button id="zoomIn" class="btn icon" title="Zoom in"><i class="ph ph-plus-circle"></i></button>
+        <button id="zoomFit" class="btn icon" title="Fit page"><i class="ph ph-frame-corners"></i></button>
+      </div>
+      <div class="vbcenter">
+        <button id="prev" class="btn icon" title="Previous page"><i class="ph ph-caret-left"></i></button>
+        <span id="pageLabel" class="label">– / –</span>
+        <input id="pageInput" class="pagebox" type="number" min="1" step="1" title="Type a page number and press Enter" />
+        <span id="pageTotal" class="label pagetotal">/ –</span>
+        <button id="next" class="btn icon" title="Next page"><i class="ph ph-caret-right"></i></button>
+      </div>
+      <div class="vbright">
+        <button id="docInfoBtn" class="btn icon" title="Document properties"><i class="ph ph-info"></i></button>
+        <button id="vbCollapse" class="btn icon" title="Hide bar"><i class="ph ph-caret-double-down"></i></button>
+      </div>
+    </div>
+    <button id="vbRestore" class="btn icon" hidden title="Show bar">
+      <i class="ph ph-caret-double-up"></i>
+    </button>
+    <div id="toast" hidden></div>
+  </div>
+
+  <!-- Phosphor Icons CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <!-- Vendored WASM engine -->
+
+  <!-- Editcore engine (ES module) -->
+  <script type="module">
+    // Wire up WASM engine for core.js to find
+    import createPdfium from './bentopdf-pdfium.js';
+    window.createEditCoreModule = createPdfium;
+
+    // Now load the editor logic
+    import './edit-pdf-text-page.js';
+
+    // Tell parent we're ready
+    window.parent.postMessage({ type: 'edit-pdf-ready' }, '*');
+
+    // Listen for PDF file from parent
+    window.addEventListener('message', async (event) => {
+      const data = event.data;
+      if (!data || data.type !== 'edit-pdf-open') return;
+
+      // Convert ArrayBuffer to File
+      const buffer = new Uint8Array(data.buffer);
+      const file = new File([buffer], data.fileName || 'document.pdf', { type: 'application/pdf' });
+
+      // Trigger file open through the page's file-input change handler
+      const fileInput = document.getElementById('file-input');
+      if (fileInput) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        fileInput.files = dt.files;
+        fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+
+    // Override exitEditor to tell parent we're closing
+    setTimeout(() => {
+      const exitBtn = document.getElementById('exitEditor');
+      if (exitBtn) {
+        exitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.parent.postMessage({ type: 'edit-pdf-exit' }, '*');
+        }, { capture: true });
+      }
+    }, 1000);
+
+    // Override save to send saved PDF back to parent
+    setTimeout(() => {
+      const origSetOnSaved = window._origSetOnSaved;
+      // Intercept the save — the page logic calls setOnSaved with a callback
+      // We'll hook into the export button instead
+      const saveBtn = document.getElementById('save');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', async () => {
+          // After the page's own save handler runs, capture the blob
+          // The page uses downloadFile which creates an <a> and clicks it
+          // Override that to postMessage instead
+        }, { capture: true });
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

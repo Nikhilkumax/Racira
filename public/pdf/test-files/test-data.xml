@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+  <employee>
+    <name>John Smith</name>
+    <department>Engineering</department>
+    <salary>85000</salary>
+  </employee>
+  <employee>
+    <name>Jane Doe</name>
+    <department>Marketing</department>
+    <salary>72000</salary>
+  </employee>
+  <employee>
+    <name>Bob Wilson</name>
+    <department>Sales</department>
+    <salary>68000</salary>
+  </employee>
+</employees>

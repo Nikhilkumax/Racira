@@ -293,36 +293,9 @@ const toolConfigs: Record<string, Partial<ToolConfig>> = {
   },
 
   // ── Convert from PDF (PDF → office + images) ──────────────────
-  "pdf-to-word": {
-    actionLabel: "Convert to Word",
-    accept: ".pdf",
-    multiFile: false,
-    fileKindLabel: "PDF",
-    outputExt: "docx",
-    mode: "pdf-to-office",
-    hint: "Best results with text-based PDFs. Scanned/image PDFs need OCR first.",
-    metaDescription: meta("Convert PDF to editable Word (.docx) in your browser. Extract text into an editable document — free, private, no uploads, no signup."),
-  },
-  "pdf-to-excel": {
-    actionLabel: "Convert to Excel",
-    accept: ".pdf",
-    multiFile: false,
-    fileKindLabel: "PDF",
-    outputExt: "xlsx",
-    mode: "pdf-to-office",
-    hint: "Best results with tabular, text-based PDFs.",
-    metaDescription: meta("Convert PDF tables to Excel (.xlsx) in your browser. Extract tabular data into a spreadsheet — free, private, no uploads, no signup."),
-  },
-  "pdf-to-powerpoint": {
-    actionLabel: "Convert to PowerPoint",
-    accept: ".pdf",
-    multiFile: false,
-    fileKindLabel: "PDF",
-    outputExt: "pptx",
-    mode: "pdf-to-office",
-    hint: "Creates an image-based slide per PDF page. Best for presentations of existing PDF content.",
-    metaDescription: meta("Convert PDF to PowerPoint (.pptx) in your browser. Each page becomes a slide — free, private, no uploads, no signup."),
-  },
+  "pdf-to-word": { actionLabel: "Extract Text as HTML", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "doc", mode: "pdf-to-office", hint: "Outputs an HTML file with .doc extension — extractable text, not native Word format.", metaDescription: meta("Extract PDF text into an HTML document. Free, private, browser-based.") },
+  "pdf-to-excel": { actionLabel: "Extract Text as CSV", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "csv", mode: "pdf-to-office", hint: "Outputs a CSV file — extracted text lines, not native Excel format.", metaDescription: meta("Extract PDF text as CSV rows. Free, private, browser-based.") },
+  "pdf-to-powerpoint": { actionLabel: "Render Pages as Images", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "zip", mode: "pdf-to-image", hint: "Each PDF page becomes a PNG image in a ZIP — not native PowerPoint format.", metaDescription: meta("Render each PDF page as a PNG image in a ZIP. Free, private, browser-based.") },
   "pdf-to-jpg": {
     actionLabel: "Convert to JPG",
     accept: ".pdf",
@@ -340,6 +313,15 @@ const toolConfigs: Record<string, Partial<ToolConfig>> = {
     outputExt: "zip",
     mode: "pdf-to-image",
     metaDescription: meta("Convert PDF pages to PNG images. Download all pages as a zip — processed instantly in your browser. Free, private, no signup."),
+  },
+  "pdf-to-cbz": {
+    actionLabel: "Convert to CBZ",
+    accept: ".pdf",
+    multiFile: false,
+    fileKindLabel: "PDF",
+    outputExt: "cbz",
+    mode: "pdf-to-image",
+    metaDescription: meta("Convert PDF pages to comic book archive (CBZ). Each page becomes a PNG image in the archive."),
   },
 
   // ── Security ──────────────────────────────────────────────────
@@ -458,7 +440,7 @@ const toolConfigs: Record<string, Partial<ToolConfig>> = {
   "pdf-to-epub": { actionLabel: "Convert to EPUB", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "epub", mode: "pdf-to-office", metaDescription: meta("Convert a PDF into an EPUB ebook in your browser. Free, private, no signup.") },
 
   // ── Optimize / color ───────────────────────────────────────────
-  "grayscale-pdf": { actionLabel: "Grayscale PDF", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Convert every PDF page to grayscale in your browser. Free, private, no signup.") },
+  "grayscale-pdf": { actionLabel: "Convert to Grayscale", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Convert every PDF page to grayscale in your browser. Free, private, no signup.") },
   "invert-colors": { actionLabel: "Invert Colors", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Invert the colors of a PDF in your browser. Free, private, no signup.") },
   "remove-metadata": { actionLabel: "Remove Metadata", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Erase author, title and other metadata from a PDF. Client-side, private, free.") },
 
@@ -502,6 +484,44 @@ const toolConfigs: Record<string, Partial<ToolConfig>> = {
 
   // ── Chapter split (zip output) ─────────────────────────────────
   "chapter-splitter": { actionLabel: "Split by Chapter", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "zip", mode: "default", metaDescription: meta("Split a PDF by bookmarks/chapters in your browser. Free, private, no signup.") },
+
+  // ── Newly registered orphan implementations ─────────────────
+  "split-every-n": { actionLabel: "Split into Chunks", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "zip", mode: "default", metaDescription: meta("Split a PDF into equal chunks of N pages each. Download as a ZIP — free, private, browser-based.") },
+  "add-arrow": { actionLabel: "Draw Arrow", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Draw an arrow annotation on a PDF page. Position and size configurable — free, private, browser-based.") },
+  "create-booklet": { actionLabel: "Create Booklet", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Reorder pages for saddle-stitch booklet printing. Free, private, browser-based.") },
+  "add-margin": { actionLabel: "Add Margins", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Add uniform margins around all pages. Free, private, browser-based.") },
+  "duplex-simulator": { actionLabel: "Simulate Duplex", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Flip odd pages for duplex printing simulation. Free, private, browser-based.") },
+  "version-checker": { actionLabel: "Detect Version", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "json", mode: "info", metaDescription: meta("Detect the PDF specification version. Free, private, browser-based.") },
+  "add-pdf-properties": { actionLabel: "Set Properties", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Set title, author, subject and metadata properties. Free, private, browser-based.") },
+  "optimize-fonts": { actionLabel: "Optimize Fonts", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Optimize embedded fonts with object streams for smaller file size. Free, private, browser-based.") },
+  "edit-metadata": { actionLabel: "Edit Metadata", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Edit title, author, subject and keywords. Free, private, browser-based.") },
+  "add-page-numbers": { actionLabel: "Add Page Numbers", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Add page numbers to every page at your chosen position. Free, private, browser-based.") },
+  "attachment-inspector": { actionLabel: "Inspect Attachments", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "json", mode: "info", metaDescription: meta("List file attachments embedded in a PDF. Free, private, browser-based.") },
+  "pdf-size-analyzer": { actionLabel: "Analyze Size", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "json", mode: "info", metaDescription: meta("Analyze PDF file size breakdown. Free, private, browser-based.") },
+  "highlight-form-fields": { actionLabel: "Highlight Fields", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Draw colored rectangles over form field widgets. Free, private, browser-based.") },
+
+  // ── Browser-only orphan implementations ────────────────────────
+  "extract-headings": jsonOutCfg("Extract Headings"),
+  "extract-email-addresses": jsonOutCfg("Extract Emails"),
+  "extract-phone-numbers": jsonOutCfg("Extract Phone Numbers"),
+  "extract-keywords": jsonOutCfg("Extract Keywords"),
+  "extract-hyperlinks": jsonOutCfg("Extract Hyperlinks"),
+  "pdf-to-rtf": { actionLabel: "Convert to RTF", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "rtf", mode: "pdf-to-office", metaDescription: meta("Convert PDF text to RTF format in your browser. Free, private, no signup.") },
+
+
+  // ── Sign / interactive tools (custom page components) ────────
+  "sign-pdf": { actionLabel: "Sign PDF", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Draw, type, or upload a signature and place it on your PDF. Free, private, browser-based — your files never leave your device.") },
+  "pdf-layers": { actionLabel: "Manage Layers", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("View, toggle, add, and delete PDF layers (OCG). Free, private, browser-based — your files never leave your device.") },
+  "edit-pdf-text": { actionLabel: "Edit Text", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Click any paragraph and edit it in place with live reflow, fonts, and styling. Free, private, browser-based — your files never leave your device.") },
+  "add-page-labels": { actionLabel: "Apply Labels", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Add custom page number labels to your PDF with flexible numbering styles. Free, private, browser-based — your files never leave your device.") },
+  "compare-pdfs": { actionLabel: "Compare", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Compare two PDFs side by side and see what changed. Free, private, browser-based — your files never leave your device.") },
+  "pdf-multi-tool": { actionLabel: "Export", accept: ".pdf", multiFile: true, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Merge, reorder, rotate, and delete pages from multiple PDFs. Free, private, browser-based — your files never leave your device.") },
+  "redact": { actionLabel: "Redact", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "pdf", mode: "default", metaDescription: meta("Redact sensitive content from PDFs. Draw black boxes over text and download the redacted file. Free, private, browser-based.") },
+  "form-field-extract": { actionLabel: "Extract Fields", accept: ".pdf", multiFile: false, fileKindLabel: "PDF", outputExt: "json", mode: "default", metaDescription: meta("Extract all interactive form fields from a PDF. View field names, types, and properties in a table. Free, private, browser-based.") },
+
+  // ── Image-to-PDF (browser-only conversion) ────────
+  "heic-to-pdf": { actionLabel: "Convert to PDF", accept: ".heic,.heif", multiFile: true, fileKindLabel: "HEIC", outputExt: "pdf", mode: "default", metaDescription: meta("Convert HEIC and HEIF images to PDF. Free, private, browser-based — your files never leave your device.") },
+  "webp-to-pdf": { actionLabel: "Convert to PDF", accept: ".webp", multiFile: true, fileKindLabel: "WebP", outputExt: "pdf", mode: "default", metaDescription: meta("Convert WebP images to PDF. Free, private, browser-based — your files never leave your device.") },
 };
 
 /** Default config for any catalog tool without an explicit override. */
