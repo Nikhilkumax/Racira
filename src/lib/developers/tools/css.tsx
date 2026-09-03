@@ -322,11 +322,9 @@ const cssToTailwindConverter: ToolDefinition = {
   },
 };
 
-const cssClampCalcTool: ToolDefinition = { ...clampCalculator, slug: "clamp-calculator" };
-
 export const cssTools: ToolDefinition[] = [
   cssFormatter, cssMinifier, boxShadowGenerator, textShadowGenerator, borderRadiusGenerator,
   cssTriangleGenerator, cssFilterGenerator, cubicBezierGenerator, cssUnitConverter,
-  remPxConverter, clampGenerator, clampCalculator, cssClampCalcTool, cssSpecificityCalculator,
+  remPxConverter, clampGenerator, clampCalculator,
   tailwindClassSorter, tailwindClassMerger, cssToTailwindConverter,
 ];

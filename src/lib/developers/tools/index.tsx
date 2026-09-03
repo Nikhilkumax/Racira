@@ -12,7 +12,7 @@ import { registerMany } from "@/components/developers/tools/registry";
 // ── Core data & format ────────────────────────────────────────────
 // json.ts exports both jsonTools and encodingTools (hex/base32/base58/etc).
 // encoding.ts exports base64/url/url-parser (the three not covered in json.ts).
-import { jsonTools } from "./json";
+import { jsonTools, encodingTools as jsonEncodingTools } from "./json";
 import { encodingTools as baseEncodingTools } from "./encoding";
 
 // ── Security & crypto ───────────────────────────────────────────────
@@ -74,6 +74,7 @@ import { aiTools } from "./ai";
 // Actually they ARE separate — json.ts encodingTools are hex/base32/base58 etc,
 // encoding.ts encodingTools are base64/url/url-parser. No overlap at all.
 registerMany(jsonTools);
+registerMany(jsonEncodingTools);
 registerMany(baseEncodingTools);
 registerMany(securityTools);
 registerMany(regexTools);

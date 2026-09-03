@@ -1,12 +1,9 @@
 import Link from "next/link";
 import type { Tool } from "@/domains/developers/registry";
-import { categorySlug } from "@/domains/developers/registry";
 
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 export function ToolCard({ tool }: { tool: Tool }) {
-  // No developers tool page renders a real tool (the domain is component-gated),
-  // so every card is a plain, non-navigating element with the "Soon" badge.
   const isLive = isLiveTool(tool, "developers");
   const Icon = tool.icon;
 
@@ -29,14 +26,8 @@ export function ToolCard({ tool }: { tool: Tool }) {
     </>
   );
 
-  if (!isLive) {
-    return (
-      <div className="tool-card group cursor-default">
-        {cardBody}
-      </div>
-    );
-  }
-
+  // All tools link — live tools go to the working tool page,
+  // soon tools go to the Coming Soon page.
   return (
     <Link href={`/developers/${tool.slug}`} className="tool-card group">
       {cardBody}

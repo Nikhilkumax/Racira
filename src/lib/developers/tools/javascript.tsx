@@ -409,5 +409,5 @@ export const jsTools: ToolDefinition[] = [
   jsRegexBuilder, lodashToNativeConverter, promiseVisualizer, es6ToEs5Converter,
   asyncAwaitConverter, debounceThrottleGenerator, stackTraceBeautifier,
   errorDecoder, graphqlQueryFormatter, graphqlSchemaValidator, openApiValidator,
-  esmCommonjsConverter, jsObfuscator,
+  esmCommonjsConverter, jsObfuscator, importSorter,
 ];

@@ -292,6 +292,8 @@ function apiTesterSlug(suffix: string): ToolDefinition {
         const testFn = async () => {
           const tests: Record<string, () => Promise<string>> = {
             "web-workers-playground": async () => { const w = new Worker(URL.createObjectURL(new Blob(["self.onmessage=e=>self.postMessage('pong')"], { type: "text/javascript" }))); const p = new Promise<string>((res) => { w.onmessage = (e) => res(String(e.data)); setTimeout(() => res("timeout"), 2000); }); w.postMessage("ping"); const r = await p; w.terminate(); return `Worker response: ${r}`; },
+            "service-worker-inspector": async () => { if (!('serviceWorker' in navigator)) return "Service Worker API not supported."; const regs = await navigator.serviceWorker.getRegistrations(); if (regs.length === 0) return "No service workers registered."; return regs.map((r, i) => `${i + 1}. scope: ${r.scope}\n   active: ${r.active?.state ?? 'none'}\n   installing: ${r.installing?.state ?? 'none'}\n   waiting: ${r.waiting?.state ?? 'none'}`).join("\n\n"); },
+            "device-orientation-tester": async () => { return new Promise<string>((res) => { if (!('DeviceOrientationEvent' in window)) { res("Device Orientation API not supported."); return; } const handler = (e: DeviceOrientationEvent) => { window.removeEventListener('deviceorientation', handler); res(`Alpha: ${e.alpha?.toFixed(2)}°\nBeta: ${e.beta?.toFixed(2)}°\nGamma: ${e.gamma?.toFixed(2)}°`); }; window.addEventListener('deviceorientation', handler); setTimeout(() => { window.removeEventListener('deviceorientation', handler); res("Waiting for device orientation data… (no data received in 5s. On desktop, try a mobile device.)"); }, 5000); }); },
             "web-share-api-tester": async () => { if (!navigator.share) return "Web Share API not supported in this browser."; try { await navigator.share({ title: "Test", text: "Hello" }); return "Share dialog opened!"; } catch (e: unknown) { return `Share cancelled or error: ${e instanceof Error ? e.message : String(e)}`; } },
             "notification-api-tester": async () => { if (!("Notification" in window)) return "Notification API not supported."; const perm = await Notification.requestPermission(); return `Permission: ${perm}`; },
             "geolocation-tester": async () => new Promise((res) => navigator.geolocation.getCurrentPosition((p) => res(`Lat: ${p.coords.latitude}, Lng: ${p.coords.longitude}`), (e) => res(`Error: ${e.message}`))),
@@ -371,4 +373,5 @@ export const browserTools: ToolDefinition[] = [
   apiTesterSlug("network-information-api-tester"),
   apiTesterSlug("screen-orientation-tester"),
   apiTesterSlug("picture-in-picture-tester"),
+  apiTesterSlug("device-orientation-tester"),
 ];

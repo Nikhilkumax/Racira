@@ -17,12 +17,13 @@ const COMPONENT_GATED_DOMAINS = new Set([
   "seo",
   "writing",
   "productivity",
-  "developers",
 ]);
 
 /**
  * Domains whose [slug] ToolView renders the "Coming soon" template for every
  * tool (no status check, no component) — i.e. all tool pages are coming-soon.
+ * NOTE: "developers" was removed from both sets because it now has a real
+ * ToolPageClient wired into [slug]/page.tsx (Phase 1 unblock).
  */
 const ALWAYS_COMING_SOON_DOMAINS = new Set([
   ...COMPONENT_GATED_DOMAINS,

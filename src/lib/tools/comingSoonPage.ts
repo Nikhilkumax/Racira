@@ -12,7 +12,7 @@
  * When a new domain gets Coming Soon pages, add its key to the allowed
  * set below — both routing and card-linking stay in sync automatically.
  */
-const DOMAINS_WITH_COMING_SOON = new Set(["calculator", "pdf"]);
+const DOMAINS_WITH_COMING_SOON = new Set(["calculator", "pdf", "developers"]);
 
 export function hasComingSoonPage(
   tool: { status?: string } | undefined | null,

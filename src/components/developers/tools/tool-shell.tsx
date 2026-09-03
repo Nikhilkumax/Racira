@@ -12,11 +12,12 @@ import {
   Play,
   AlertTriangle,
   Check,
-  ArrowLeft,
+  ChevronRight,
 } from "lucide-react";
 import { ToolCard } from "@/components/developers/tool-card";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { toSlug } from "@/lib/utils/slug";
 
 interface ToolShellProps {
   tool: ToolDefinition;
@@ -131,13 +132,28 @@ export function ToolShell({ tool, toolMeta, categoryName, relatedTools }: ToolSh
   const isTextOut = tool.mode === "text" || isGenerator || tool.mode === "dual";
   const isTableOut = tool.mode === "table" && Array.isArray(result.data);
 
-  return (
-    <div className="racira-page-container py-8 lg:py-12">
-      <Link href="/developers" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-6">
-        <ArrowLeft className="h-4 w-4" /> All tools
-      </Link>
+  const categorySlugStr = toSlug(categoryName);
 
-      <div className="mt-2 flex items-start gap-4">
+  return (
+    <div className="racira-page-container pt-3 pb-8 lg:pb-12">
+      <nav aria-label="breadcrumb" className="md:hidden flex items-center mb-6">
+        <Link href={`/developers/${categorySlugStr}`} className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors">
+          <span aria-hidden="true">←</span>{categoryName}
+        </Link>
+      </nav>
+      <nav aria-label="breadcrumb" className="hidden md:flex items-center flex-wrap text-sm text-muted-foreground mb-6">
+        <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+        <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
+        <Link href="/developers" className="hover:text-foreground transition-colors">Developers</Link>
+        <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
+        <Link href={`/developers/${categorySlugStr}`} className="hover:text-foreground transition-colors">
+          {categoryName}
+        </Link>
+        <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
+        <span className="text-foreground font-medium">{toolMeta.name}</span>
+      </nav>
+
+      <div className="flex items-start gap-4">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
           <Icon className="h-6 w-6" />
         </div>
