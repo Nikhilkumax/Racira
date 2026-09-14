@@ -9,86 +9,8 @@ import InputField from "@/domains/calculator/components/ui/InputField";
 import { Calculator, RotateCcw, Printer } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// 1. TypeScript Interfaces
-interface ApyInputs {
-  nominalRate: number;
-  compounding: number;
-  initialDeposit: number;
-}
+import { calculateApy, type ApyInputs, type ApyResults } from "./aprApyLogic";
 
-interface ApyResults {
-  apy: number;
-  dailyRate: number;
-  monthlyRate: number;
-  effectiveDailyRate: number;
-  chartData: Array<{ year: string; nominal: number; withCompounding: number }>;
-  schedule: Array<{ year: number; balance: number; interestEarned: number }>;
-  totalInterest: number;
-  finalBalance: number;
-}
-
-// 2. Pure Calculation Function
-const calculateApy = (inputs: ApyInputs): ApyResults => {
-  const r = inputs.nominalRate / 100;
-  const n = inputs.compounding;
-  const p = inputs.initialDeposit;
-
-  if (r < 0 || n <= 0 || p < 0) {
-    return {
-      apy: 0,
-      dailyRate: 0,
-      monthlyRate: 0,
-      effectiveDailyRate: 0,
-      chartData: [],
-      schedule: [],
-      totalInterest: 0,
-      finalBalance: p
-    };
-  }
-
-  const apy = (Math.pow(1 + r / n, n) - 1) * 100;
-  const dailyRate = (r / 365) * 100;
-  const monthlyRate = (r / 12) * 100;
-  const effectiveDailyRate = (Math.pow(1 + r / n, n / 365) - 1) * 100;
-
-  // Chart data: 5 years comparison (Nominal simple vs Compounded)
-  const chartData = [];
-  const schedule = [];
-  let currentBalance = p;
-
-  for (let year = 1; year <= 5; year++) {
-    const nominalBalance = p + (p * r * year);
-    currentBalance = p * Math.pow(1 + r / n, n * year);
-    
-    chartData.push({
-      year: `Year ${year}`,
-      nominal: Math.round(nominalBalance),
-      withCompounding: Math.round(currentBalance)
-    });
-
-    schedule.push({
-      year,
-      balance: currentBalance,
-      interestEarned: currentBalance - p
-    });
-  }
-
-  const finalBalance = currentBalance;
-  const totalInterest = currentBalance - p;
-
-  return {
-    apy,
-    dailyRate,
-    monthlyRate,
-    effectiveDailyRate,
-    chartData,
-    schedule,
-    totalInterest,
-    finalBalance
-  };
-};
-
-// 3. Realistic Industry Standard Defaults
 const DEFAULTS = {
   nominalRate: "5",
   compounding: "365",

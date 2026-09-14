@@ -2,9 +2,10 @@ import Link from "next/link";
 import { calculatorRegistry, getCategoryIcon } from "@/domains/calculator/registry";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
-const PopularCalculators = ({ exclude }: { exclude?: string }) => {
+const PopularCalculators = ({ exclude, currentSlug }: { exclude?: string; currentSlug?: string }) => {
+  const excludeSlug = currentSlug ? `/calculator/${currentSlug}` : exclude;
   const items = calculatorRegistry
-    .filter(c => `/calculator/${c.slug}` !== exclude)
+    .filter(c => `/calculator/${c.slug}` !== excludeSlug && c.slug !== currentSlug)
     .filter((c) => isLiveTool(c, "calculator"))
     .slice(0, 8);
 

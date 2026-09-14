@@ -67,9 +67,9 @@ export default function CpmCalculator() {
     const i = parseFloat(impressions);
     const c = parseFloat(clicks);
     if (!isNaN(s) && !isNaN(i) && !isNaN(c)) setResult(calcCpm(s, i, c));
-  }, [spend, impressions, clicks]);
+  }, []);
 
-  const reset = () => { setSpend(DEFAULTS.spend); setImpressions(DEFAULTS.impressions); setClicks(DEFAULTS.clicks); };
+  const reset = () => { setSpend(DEFAULTS.spend); setImpressions(DEFAULTS.impressions); setClicks(DEFAULTS.clicks); setResult(calcCpm(parseFloat(DEFAULTS.spend), parseFloat(DEFAULTS.impressions), parseFloat(DEFAULTS.clicks))); };
   const invalid = isNaN(parseFloat(spend)) || isNaN(parseFloat(impressions)) || isNaN(parseFloat(clicks));
 
   const faqs = [

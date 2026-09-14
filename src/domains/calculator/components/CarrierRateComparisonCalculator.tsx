@@ -209,7 +209,7 @@ export default function CarrierRateComparisonCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.winner.includes('A') ? 'bg-blue-500/10 border-blue-500/30' : results.winner.includes('B') ? 'bg-amber-500/10 border-amber-500/30' : 'bg-secondary/20 border-border'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

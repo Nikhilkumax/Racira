@@ -56,9 +56,9 @@ export default function DecileCalculator() {
   useEffect(() => {
     const r = calcDeciles(values, parseInt(decile) || 5);
     if (r) setResult(r);
-  }, [values, decile]);
+  }, []);
 
-  const reset = () => { setValues(DEFAULTS.values); setDecile(DEFAULTS.decile); };
+  const reset = () => { setValues(DEFAULTS.values); setDecile(DEFAULTS.decile); setResult(calcDeciles(DEFAULTS.values, parseInt(DEFAULTS.decile) || 5)); };
   const parsed = useMemo(() => values.split(/[,;\s]+/).map(s => parseFloat(s.trim())).filter(v => !isNaN(v)), [values]);
   const invalid = parsed.length < 2;
 

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "material-selection-guide-mechanical",
+    "varName": "material_selection_guide_mechanicalSeo",
+    "name": "Material Selection Guide (mechanical)",
+    "sections": [
+      {
+        "heading": "What is Material Selection Guide (mechanical)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Material Selection Guide (mechanical) is a quick-comparison table of the engineering materials a mechanical design reaches for most: density, representative strength, elastic modulus and the typical use each material serves. The fourteen rows span the metals — the aluminium alloys 6061-T6 and 7075-T6, the steels A36, 1045 and 4140, stainless 304 and 316, titanium 6Al-4V, brass C360 and copper C110 — and the engineering polymers and composites: nylon 6/6, acetal, ABS and glass-fibre laminate."
+          },
+          {
+            "type": "paragraph",
+            "text": "The columns answer the three questions every early material decision asks: how heavy is it, how strong is it, and how stiff is it. Aluminium 6061-T6 sits at 2.70 grams per cubic centimetre with a 276 MPa yield, steel A36 at 7.85 with 250, titanium 6Al-4V at 4.43 with 880 — the strength-to-weight champion on the table — and the polymers below 1.5 with tensile strengths in the tens of megapascals. The modulus column separates the families: steels near 200 GPa, aluminiums near 70, titanium at 114, and the polymers at 2 to 3, which is why a plastic part must be proportioned so differently from a metal one."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Material Selection Guide (mechanical)",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Screen by the dominant requirement first. If weight drives the design, compare the density column — aluminium at 2.70 and titanium at 4.43 against steel at 7.85. If corrosion drives it, the stainless and titanium rows carry that in their use notes.",
+              "<strong>Step 2:</strong> Check the strength column against the load. The value is the yield strength for the metals and tensile strength for the polymers; note that the 4140 row shows a range because its yield depends on temper.",
+              "<strong>Step 3:</strong> Check the modulus column for stiffness-critical parts. A shaft or beam that must not deflect needs the high-modulus families — steel, stainless, titanium — while a snap-fit housing can work in acetal at 2.6 GPa with the right geometry.",
+              "<strong>Step 4:</strong> Use the search box to filter the table to one material family while comparing candidates side by side, or to find which row carries a property you need.",
+              "<strong>Step 5:</strong> Verify against the material specification before release: the values are typical published figures for the most common condition, and certified minimums from the exact ASTM or ISO spec — A36 versus A572-50, for example — are what a load-bearing part must be checked against."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Material Selection Guide (mechanical)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Material selection mistakes rarely fail the obvious way — the wrong family is usually caught by weight or corrosion. They fail on the less visible axes: a part designed in steel proportions copied into aluminium without accounting for the third of the modulus, or a strength quoted from a heat-treat datasheet that the specified condition never reaches. A table that puts density, strength and modulus side by side for the standard conditions makes those comparisons explicit before the geometry is locked."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table is equally a reminder of what each material costs in design terms beyond price: 7075-T6 gives high strength but poor weldability, 304 work-hardens when machined, titanium is expensive and chips poorly, nylon absorbs moisture and changes properties, and glass-fibre laminate is anisotropic — its properties follow the fibre direction. The use notes carry those caveats so the selection considers manufacturability and environment, not just the numbers in the first three columns."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does 4140 show a strength range while A36 shows a single value?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because A36 is a structural steel sold in the as-rolled condition with a certified minimum yield near 250 MPa, while 4140 is a medium-carbon alloy steel whose strength is set by heat treatment — the same bar can be delivered with a yield anywhere from roughly 655 MPa in a modest quench-and-temper up to about 1200 MPa at a higher temper. The range is the material's capability envelope; the actual number depends on the heat-treat specification on the drawing."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When is titanium worth its cost?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When strength-to-weight and corrosion resistance are required together and nothing cheaper will do. At 4.43 grams per cubic centimetre with an 880 MPa yield, titanium 6Al-4V beats steel on strength per unit weight by a wide margin while resisting the chloride attack that would force an expensive stainless or a coating on a steel part. The cost shows up in the material price and in machining — titanium is expensive and chips poorly — so the aerospace, marine and medical applications that justify it are the ones where a kilogram saved or a corrosion failure avoided is worth real money."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is aluminium much less stiff than steel even pound for pound?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Stiffness is set by the elastic modulus, and aluminium's is about 69 GPa against steel's 200 — roughly a third. Since modulus does not scale with strength or weight, an aluminium replacement for a steel part must be proportioned for roughly three times the section to resist the same deflection, which is why aluminium parts in stiffness-critical roles end up chunky despite being light. For strength-limited parts the comparison is kinder — 6061-T6 at 276 MPa yield holds up far better against A36 than the modulus comparison suggests."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How should I read the polymer strength values?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The polymer rows report tensile strength rather than yield, and the values — roughly 83 MPa for dry nylon 6/6, 62 for acetal, 40 for ABS — come with conditions attached. Nylon absorbs moisture and its properties change as it does, so the dry value is optimistic in a humid environment. Polymer strength also depends on temperature, strain rate and how the part is moulded, and the table's modulus values in the 2 to 3 GPa range are the reminder that plastics are for geometry-rich, lightly loaded parts, not substitutes for structural metal."
+          }
+        ]
+      }
+    ]
+  }
+]

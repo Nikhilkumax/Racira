@@ -54,9 +54,9 @@ export default function DotsScoreCalculator() {
     const w = parseFloat(weight);
     const t = parseFloat(total);
     if (!isNaN(w) && !isNaN(t) && w > 0 && t >= 0) setResult(calcDots(gender, w, t));
-  }, [gender, weight, total]);
+  }, []);
 
-  const reset = () => { setGender(DEFAULTS.gender); setWeight(DEFAULTS.weight); setTotal(DEFAULTS.total); };
+  const reset = () => { setGender(DEFAULTS.gender); setWeight(DEFAULTS.weight); setTotal(DEFAULTS.total); setResult(calcDots(DEFAULTS.gender, parseFloat(DEFAULTS.weight), parseFloat(DEFAULTS.total))); };
   const invalid = isNaN(parseFloat(weight)) || isNaN(parseFloat(total)) || parseFloat(weight) <= 0 || parseFloat(total) < 0;
 
   const breakdown = [

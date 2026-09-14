@@ -262,6 +262,7 @@ export default function LeaseVsFinanceCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes & Lease Fees</div>
                   <CompactInput id="tax" label="Sales Tax Rate" value={inputs.salesTaxRate} onChange={(v: string) => handleChange("salesTaxRate", v)} suffix="%" />
                   <CompactInput id="fees" label="Lease Acq. Fees" value={inputs.leaseFees} onChange={(v: string) => handleChange("leaseFees", v)} prefix="$" />
                 </div>

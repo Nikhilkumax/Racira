@@ -158,7 +158,7 @@ export default function Omega3Calculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="rounded-lg p-5 shadow-sm border-l-4 border-primary bg-primary/5">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Marine Target (EPA + DHA)</div>
                 <div className="flex items-baseline gap-2">
                   <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.epaDhaTarget}</div>

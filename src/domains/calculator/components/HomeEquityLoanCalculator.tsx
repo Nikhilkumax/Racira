@@ -267,10 +267,12 @@ export default function HomeEquityLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Loan Terms</div>
                   <div className="grid grid-cols-2 gap-4">
                     <CompactInput id="rate" label="Interest Rate" value={interestRate} onChange={setInterestRate} suffix="%" />
                     <CompactInput id="term" label="Loan Term" value={termYears} onChange={setTermYears} suffix="yrs" />
                   </div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Disbursement Details</div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex flex-col">
                       <label className="text-sm font-semibold text-foreground mb-1.5">Start Date</label>

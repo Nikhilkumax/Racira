@@ -97,7 +97,7 @@ const TimeCalculator = () => {
     setResult(calculateTime(op, d1, h1, m1, s1, d2, h2, m2, s2));
   };
 
-  useEffect(() => { calculate(); }, [op, d1, h1, m1, s1, d2, h2, m2, s2]);
+  useEffect(() => { calculate(); }, []);
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground font-mono text-center";

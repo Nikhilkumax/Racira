@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "foundation-type-reference",
+    "varName": "foundation_type_referenceSeo",
+    "name": "Foundation Type Reference",
+    "sections": [
+      {
+        "heading": "What is Foundation Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Foundation Type Reference compares the six foundation families a structural designer chooses between, each explained by how it carries load, the situation that suits it, and the notes that matter early in design. The shallow end holds the spread footing, the continuous strip footing and the raft or mat foundation; the deep end holds driven piles, bored piles or drilled piers, and caissons."
+          },
+          {
+            "type": "paragraph",
+            "text": "The load-carrying mechanism is the organizing idea: a spread footing takes a column load and spreads it onto bearing soil at shallow depth; a strip footing does the same for a wall; a raft spreads the whole building footprint over weak soil and controls differential settlement; piles carry past weak upper soils to deep competent strata through friction and end bearing; and bored piers do the same cast in place, with low vibration that suits urban sites. Caissons are the heavy-civil outlier — large dry enclosures sunk to bearing depth for bridges and deep basements."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Foundation Type Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Start with the soil, not the structure: read the geotechnical report's bearing capacity and settlement numbers at the candidate depths. The tool's note is explicit — shallow foundations are almost always tried first, and soil conditions are what push a design deep.",
+              "<strong>Step 2:</strong> Match the load path to the family. A column on competent soil points to an isolated spread footing; a bearing wall points to a continuous strip; weak soil under a whole building — or a basement fighting water pressure — points to a raft.",
+              "<strong>Step 3:</strong> If the shallow options fail the bearing or settlement check, go deep: driven piles where noise and vibration are acceptable and end bearing or friction in deep strata is available, or bored piers on urban sites where low vibration matters and large column loads need big shafts.",
+              "<strong>Step 4:</strong> Use the search box to filter the table when comparing two families, such as driven piles against bored piers for the same column grid.",
+              "<strong>Step 5:</strong> Carry the surviving family into the code design: the geotechnical report, groundwater, frost depth, seismic site class and the governing code determine the final footing size, depth and reinforcement — this table selects the family, not the footing."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Foundation Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The foundation family decision is made once and paid for forever: it sets the excavation depth, the construction method, the cost and the schedule, and reversing it means moving soil that is already in place. A reference that frames each family by its load-carrying mechanism and the soil situation that suits it keeps the decision anchored to the two things that actually drive it — the ground and the load — rather than to what the last project used."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table also draws the line between the deep options that novices blur. Driven piles are preformed members installed by hammering or vibration, suited to weak upper soils, heavy structures and scour risk but constrained by noise on urban sites; bored piers are cast in place with quiet rotary drilling, suited to city sites and large column loads but with necking risk in soft soils. Choosing between them is a site-and-logistics decision as much as a structural one, which the notes make explicit."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "When does a raft or mat foundation beat spread footings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the soil is too weak for individual footings or the settlement between them would be unacceptable — a raft spreads the entire building load over the full footprint, lowering the bearing pressure and acting as one giant footing that ties the structure together and controls differential settlement. Rafts also earn their place under heavy basement water pressure, where the slab doubles as the waterproofing floor. Below a few storeys on weak soil, a raft is often cheaper than the deep alternative it avoids."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between a driven pile and a bored pier?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A driven pile is a preformed member — concrete, steel or timber — hammered or vibrated into the ground to reach competent strata, carrying load through end bearing, friction, or both. A bored pier is drilled out and cast in place, forming a shaft that can be very large in diameter. Driven piles suit heavy structures and weak upper soils but bring noise and vibration that constrain urban sites; bored piers drill quietly, suit city sites and large column loads, but risk necking when the hole passes through soft soils before the concrete is placed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How deep do spread footings usually go?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Typically 1 to 3 metres below grade, which is shallow enough to count as a shallow foundation but deep enough to sit below the frost line and above a competent bearing stratum. The depth is set by three things: bearing capacity of the soil at the footing level, frost depth in cold climates, and the settlement the structure can tolerate. The reference's caution is that a spread footing's economy falls fast as soil weakens or loads grow — at some point the footing gets so large that a raft or piles become cheaper."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why are caissons rarely used for ordinary buildings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a caisson is a large, watertight enclosure sunk to bearing depth with the soil excavated from inside it — a heavy-civil construction method for bridges, deep basements and waterfront structures where the ground is too wet or too deep to excavate openly. The cost and complexity of sinking and sealing an enclosure is out of proportion for an ordinary building, which will use footings, a raft or piles instead. Caissons appear in this reference so the family is complete, not because they are a routine building option."
+          }
+        ]
+      }
+    ]
+  }
+]

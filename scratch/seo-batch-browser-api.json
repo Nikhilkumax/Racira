@@ -1,0 +1,314 @@
+[
+  {
+    "slug": "geolocation-tester",
+    "whatIs": "The Geolocation Tester lets you instantly check whether the browser Geolocation API is available and, if so, retrieve your device's current latitude and longitude. The tool makes a single call to navigator.geolocation.getCurrentPosition and displays the raw coordinates on success or a descriptive error on failure. This is useful during front-end development when you need to confirm that geolocation permissions are granted, that the browser exposes the API at all (some corporate environments disable it), and that the coordinate values are plausible for the target device. Because geolocation is a permission-gated API, the first invocation will typically trigger the browser's permission prompt. The tool does not store, transmit, or log any coordinates — the entire round-trip happens inside your browser.",
+    "howToUse": [
+      "Open the Geolocation Tester page — a single button and an output area are visible.",
+      "Click the **Test API** button. If this is the first time the site requests geolocation, the browser shows a permission dialog asking whether to allow location access.",
+      "Grant permission. Within a few seconds the tool displays the latitude and longitude of your device, rounded to two decimal places.",
+      "If geolocation is blocked or unavailable, the output area shows a descriptive error message explaining the reason (e.g., 'Permission denied' or 'API not supported').",
+      "On mobile devices the coordinates reflect GPS or Wi-Fi positioning; on desktop they are typically derived from IP geolocation and may be less precise."
+    ],
+    "whyUse": "Front-end developers building location-aware features — maps, store finders, ride-sharing UIs, weather apps — need a quick way to confirm that the Geolocation API is reachable from their current browser and permission state. The Geolocation Tester provides that confirmation in seconds without writing any code or setting up a test environment. QA engineers use it to reproduce permission-related bugs on different browsers and devices. Privacy-conscious users can verify what level of precision the browser exposes before deciding whether to grant permission to a third-party site.",
+    "faq": [
+      {
+        "q": "Why does the browser ask for permission?",
+        "a": "The Geolocation API is classified as a powerful browser feature under the Permissions Policy. Browsers require explicit user consent before sharing device location with a web page, so every first-time request triggers a permission dialog. Once granted for a given origin, subsequent requests on the same origin may proceed without a prompt."
+      },
+      {
+        "q": "How accurate are the coordinates on desktop versus mobile?",
+        "a": "On mobile devices with GPS hardware, latitude and longitude are typically accurate to within a few meters. On desktops the browser often relies on Wi-Fi access point databases or IP-based geolocation, which can be off by hundreds of meters or more. The tool displays whatever the browser provides — it does not apply any additional precision."
+      },
+      {
+        "q": "Is my location data sent to any server?",
+        "a": "No. The coordinates are obtained from the browser's native Geolocation API and rendered entirely client-side. No network request is made to Racira or any third-party service."
+      }
+    ]
+  },
+  {
+    "slug": "picture-in-picture-tester",
+    "whatIs": "The Picture-in-Picture Tester checks whether your browser supports the Picture-in-Picture (PiP) API and attempts to open a small floating video player overlay. PiP allows video content to continue playing in a small always-on-top window while the user navigates other tabs or applications. The tool creates a temporary video element, calls requestPictureInPicture on it, and reports whether the operation succeeded or failed. This is invaluable for front-end developers building custom video players, streaming platforms, or e-learning interfaces where PiP is an expected feature. The test runs entirely in the browser with no data leaving your device.",
+    "howToUse": [
+      "Navigate to the Picture-in-Picture Tester page. The page shows the API name, a test button, and an output area.",
+      "Click the **Test API** button. The tool creates a temporary video element and attempts to activate Picture-in-Picture mode.",
+      "If PiP is supported and a playing video is available, a small floating video window appears in the bottom-right corner of the screen.",
+      "If PiP is not supported or no playing video is available, the output area displays a descriptive error message such as 'PiP failed — needs a playing video' or 'API not supported'.",
+      "Note that most browsers require the video element to be playing before PiP can be activated; the tool accounts for this internally."
+    ],
+    "whyUse": "Developers building custom video players need to verify PiP support across browsers before shipping. The Picture-in-Picture API is supported in Chrome, Edge, and Opera but has limited or no support in Firefox and Safari. This tool provides instant feedback on whether PiP works in the current browser environment, saving developers from debugging issues that are actually browser-level incompatibilities. Content creators and QA engineers can also use it to confirm that the PiP overlay renders correctly on their specific display setup.",
+    "faq": [
+      {
+        "q": "Why does the test say 'PiP failed — needs a playing video'?",
+        "a": "The Picture-in-Picture API requires a video element that is actively playing before requestPictureInPicture can be called. The tool creates a temporary video element but may not have a source stream available. In a real application, you would call requestPictureInPicture on a video element that is already playing user-visible content."
+      },
+      {
+        "q": "Which browsers support Picture-in-Picture?",
+        "a": "As of 2024, Chrome, Edge, and Chromium-based browsers fully support the PiP API. Safari has experimental support behind a feature flag. Firefox supports PiP through its own built-in implementation but does not expose the standard JavaScript API in all versions."
+      },
+      {
+        "q": "Can I use this tool to test PiP with my own video URL?",
+        "a": "The current version uses a built-in test video. To test PiP with your own video, you would need to modify the source and set the video element's src attribute to your URL before calling requestPictureInPicture."
+      }
+    ]
+  },
+  {
+    "slug": "web-workers-playground",
+    "whatIs": "The Web Workers Playground verifies that the browser can spawn a Web Worker, send a message to it, and receive a response. Web Workers enable JavaScript to run computations on a background thread, keeping the main UI thread responsive. The tool creates an inline Worker from a Blob URL containing a simple echo script, sends a 'ping' message, waits for the 'pong' reply, and displays the round-trip result. If the Worker fails to start or times out within two seconds, the tool reports the error. This is a quick smoke test for environments where Workers might be blocked — for example, when serving files from a local filesystem via file:// protocol or when Content Security Policy restrictions prohibit Blob-based Workers.",
+    "howToUse": [
+      "Open the Web Workers Playground page, which shows a test button and a result area.",
+      "Click the **Test API** button. The tool creates a tiny Web Worker from an inline Blob, sends a 'ping' message, and waits for the response.",
+      "If the Worker responds within two seconds, the output shows 'Worker response: pong'.",
+      "If the Worker cannot be created (e.g., CSP blocks Blob Workers), the output displays a descriptive error or 'timeout'.",
+      "No data is persisted or transmitted — the Worker is created, tested, and terminated in a single cycle."
+    ],
+    "whyUse": "Web Workers are a foundational API for building responsive single-page applications, but they can fail silently in restricted environments. This playground gives developers a one-click way to confirm Worker support without scaffolding a test project. It is especially useful when debugging builds served from file:// URLs (where Workers are often blocked), when testing Content Security Policy configurations, or when verifying that a build pipeline hasn't accidentally stripped Worker support.",
+    "faq": [
+      {
+        "q": "Why does the test fail on file:// URLs?",
+        "a": "Most browsers restrict Web Workers (and other powerful APIs) when the page is served from a file:// origin for security reasons. You need to serve the page through an HTTP or HTTPS server — even a local development server — for Workers to function."
+      },
+      {
+        "q": "What is a Blob URL Worker?",
+        "a": "A Blob URL Worker is created by passing a Blob containing JavaScript code to URL.createObjectURL and using that URL as the Worker's script source. This avoids needing an external .js file and is useful for self-contained tools and quick tests."
+      },
+      {
+        "q": "Does this test use Shared Workers or just dedicated Workers?",
+        "a": "The playground uses a dedicated Worker (new Worker(blobUrl)), which is the simplest and most widely supported Worker type. Shared Workers and Service Workers have different APIs and are tested by their respective tools."
+      }
+    ]
+  },
+  {
+    "slug": "service-worker-inspector",
+    "whatIs": "The Service Worker Inspector queries the browser's Service Worker registry and displays all currently registered service workers along with their scope URLs and lifecycle states. Service Workers are background scripts that enable push notifications, offline caching, and background sync for web applications. The tool calls navigator.serviceWorker.getRegistrations() and renders each registration's active, installing, and waiting Worker states. This is essential for debugging Progressive Web Apps (PWAs) where a stale or incorrectly scoped service worker can cause caching issues, broken offline modes, or unexpected content updates.",
+    "howToUse": [
+      "Navigate to the Service Worker Inspector page. The page shows a test button and an output area.",
+      "Click the **Test API** button. The tool queries the browser's service worker registry.",
+      "If service workers are registered, the output lists each one with its scope URL, active state, installing state, and waiting state.",
+      "If no service workers are registered, the output shows 'No service workers registered.'",
+      "If the Service Worker API is not available (e.g., insecure context), the output indicates the API is not supported."
+    ],
+    "whyUse": "When a PWA misbehaves — serving stale cached content, failing to update, or throwing offline errors — the first diagnostic step is checking which service workers are active and what scope they cover. The Service Worker Inspector gives this visibility instantly without opening browser DevTools. Developers can verify that their service worker registered with the correct scope, confirm it is in the 'activated' state, and detect if multiple workers are competing for the same scope. QA teams use it during regression testing to ensure new deployments don't leave orphaned service workers behind.",
+    "faq": [
+      {
+        "q": "Why does it say 'no service workers registered' even though I have a PWA?",
+        "a": "Service workers are scoped to their registration origin and path. If the current page is served from a different origin or path than where the service worker was registered, it will not appear in the list. Also, service workers are per-origin, so a service worker registered on https://example.com will not show up when inspecting from https://app.example.com."
+      },
+      {
+        "q": "Can I unregister service workers from this tool?",
+        "a": "The current version is read-only — it inspects the registry without modifying it. To unregister a service worker, use your browser's DevTools Application panel or call navigator.serviceWorker.getRegistrations() in the console."
+      },
+      {
+        "q": "What do the 'active', 'installing', and 'waiting' states mean?",
+        "a": "Installing means the service worker script is being fetched and its install event has not yet fired. Waiting means installation is complete but the new worker is not yet controlling the page (usually because an older worker is still active). Active means the service worker is installed and actively handling fetch and other events for its scope."
+      }
+    ]
+  },
+  {
+    "slug": "device-orientation-tester",
+    "whatIs": "The Device Orientation Tester listens for device orientation events and displays the alpha, beta, and gamma rotation values of the device. Alpha represents rotation around the z-axis (compass direction), beta is the tilt front-to-back, and gamma is the tilt left-to-right. This API powers augmented reality experiences, motion-controlled games, compass apps, and other interactions that depend on how the user is holding their device. The tool sets up a one-shot event listener, waits up to five seconds for data, and displays the results or a timeout message. On desktop browsers without an accelerometer, the timeout message is expected — the tool is designed for mobile-first testing.",
+    "howToUse": [
+      "Open the Device Orientation Tester page, which displays a test button and an output area.",
+      "Click the **Test API** button. On a mobile device, the tool begins listening for orientation sensor data.",
+      "Tilt or rotate the device. Within five seconds, the output displays the alpha, beta, and gamma values in degrees.",
+      "On desktop browsers without accelerometer hardware, the output shows a timeout message suggesting you test on a mobile device.",
+      "Each subsequent click re-initializes the listener and waits for fresh sensor data."
+    ],
+    "whyUse": "Developers building motion-responsive interfaces need to know what raw sensor values their target devices produce before writing transform logic. The Device Orientation Tester provides instant access to the alpha, beta, and gamma values without any custom code. This is particularly useful for calibrating tilt thresholds in games, validating that a device's accelerometer is functioning correctly, and understanding why orientation-based features work on one device but not another — different hardware produces different value ranges.",
+    "faq": [
+      {
+        "q": "Why does the tool time out on my desktop browser?",
+        "a": "Desktop computers typically do not have accelerometer or gyroscope hardware, so the DeviceOrientationEvent never fires. The tool is designed primarily for mobile devices with motion sensors."
+      },
+      {
+        "q": "Do I need to grant any permissions on iOS?",
+        "a": "Yes. Starting with iOS 13, Apple requires explicit permission via DeviceOrientationEvent.requestPermission(). The tool handles this automatically when called from a user gesture (the button click)."
+      },
+      {
+        "q": "What are alpha, beta, and gamma?",
+        "a": "Alpha is the compass direction (0–360°) measuring rotation around the vertical axis. Beta (−180° to 180°) measures front-to-back tilt. Gamma (−90° to 90°) measures left-to-right tilt. Together they describe the device's orientation in 3D space."
+      }
+    ]
+  },
+  {
+    "slug": "clipboard-api-tester",
+    "whatIs": "The Clipboard API Tester writes a test string to the system clipboard using the modern Clipboard API (navigator.clipboard.writeText) and reports whether the operation succeeded. This verifies that the Clipboard API is available, that the page has the required clipboard-write permission, and that the browser environment permits clipboard access. The Clipboard API replaced the deprecated document.execCommand('copy') approach and requires a secure context (HTTPS) and a user gesture (like a button click) to function. The tool does not read from the clipboard — it only writes a fixed test string, making it safe to run in any environment.",
+    "howToUse": [
+      "Navigate to the Clipboard API Tester page. A test button and output area are displayed.",
+      "Click the **Test API** button. The tool attempts to write the string 'Racira Developers test' to the system clipboard.",
+      "If the operation succeeds, the output confirms: 'Wrote Racira Developers test to clipboard'.",
+      "If the Clipboard API is unavailable (insecure context, permission denied, or unsupported browser), the output shows the specific error.",
+      "After testing, paste somewhere (Ctrl+V / Cmd+V) to verify the content was actually written."
+    ],
+    "whyUse": "Clipboard operations are a common source of bugs in web applications because they depend on secure contexts, user gestures, and browser-specific permission policies. The Clipboard API Tester isolates the copy operation into a single click, letting developers quickly confirm that their environment supports the modern Clipboard API. This eliminates an entire category of debugging when 'copy to clipboard' features fail — the problem is often a missing HTTPS certificate or a restrictive Content Security Policy rather than application code.",
+    "faq": [
+      {
+        "q": "Why does it fail on localhost or file:// URLs?",
+        "a": "The Clipboard API requires a secure context, which means HTTPS or localhost (127.0.0.1). Pages served over plain HTTP or from file:// URLs are not secure contexts and cannot access the Clipboard API."
+      },
+      {
+        "q": "Does this read from my clipboard?",
+        "a": "No. The tool only writes a fixed test string to the clipboard. It does not call navigator.clipboard.readText() or access any existing clipboard content."
+      },
+      {
+        "q": "What browsers support the modern Clipboard API?",
+        "a": "Chrome 66+, Firefox 63+, Safari 13.1+, and Edge 79+ support the Clipboard API in secure contexts. Older browsers fall back to document.execCommand('copy'), which this tool does not use."
+      }
+    ]
+  },
+  {
+    "slug": "vibration-api-tester",
+    "whatIs": "The Vibration API Tester triggers a 200-millisecond vibration on devices that support the navigator.vibrate() API and reports whether the operation succeeded. The Vibration API is primarily available on mobile devices with vibration motors and is commonly used in mobile web games, notification systems, and haptic feedback for touch interfaces. The tool performs a simple vibrate(200) call and displays the result. On desktop browsers without vibration hardware, the tool reports that the API is not supported. This is a quick hardware-capability check — the vibration happens physically on the device, not visually on screen.",
+    "howToUse": [
+      "Open the Vibration API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. On a device with vibration hardware, the device vibrates briefly (200 milliseconds).",
+      "The output confirms 'Vibrated 200ms' on success, or 'Vibration API not supported' on desktop browsers without vibration hardware.",
+      "On mobile browsers that block the API (e.g., iOS Safari), the output indicates the API is not available.",
+      "No data is transmitted — the vibration is triggered entirely locally."
+    ],
+    "whyUse": "Mobile web developers building games, messaging apps, or interactive experiences need to verify that the Vibration API is accessible from their page before integrating haptic feedback. The Vibration API Tester provides instant confirmation without writing any integration code. It is also useful for device testing — confirming that a specific phone model's vibration motor responds to web API calls, which can vary across manufacturers and Android versions.",
+    "faq": [
+      {
+        "q": "Why doesn't it work on my iPhone?",
+        "a": "Apple does not support the navigator.vibrate() API in Safari or WebKit-based browsers. The Vibration API is primarily available on Android Chrome and Firefox. This is a platform limitation, not a bug in the tool."
+      },
+      {
+        "q": "Can I test custom vibration patterns?",
+        "a": "The current version uses a fixed 200ms vibration. To test patterns (e.g., vibrate(100, 50, 200) for a short-long pulse), you would need to modify the source code's vibrate() call."
+      },
+      {
+        "q": "Does vibration drain battery?",
+        "a": "A single 200ms vibration has negligible battery impact. Prolonged or continuous vibration patterns (such as those used in games) can contribute to battery drain over time, but a quick test is harmless."
+      }
+    ]
+  },
+  {
+    "slug": "battery-api-checker",
+    "whatIs": "The Battery API Checker queries the browser's Battery Status API and displays the current charging state, battery level percentage, and estimated charging or discharging times. The Battery API (navigator.getBattery()) returns a BatteryManager object that provides real-time information about the device's power source. This is useful for building adaptive web experiences — for example, a video streaming app might reduce bitrate when the battery is low, or a navigation app might warn the user before starting a long trip. The tool does not modify any battery settings or send data to any server — it reads status information that the browser already tracks.",
+    "howToUse": [
+      "Navigate to the Battery API Checker page. The page shows a test button and output area.",
+      "Click the **Test API** button. The tool calls navigator.getBattery() and reads the battery status.",
+      "If supported, the output displays charging state (true/false), battery level (percentage), and estimated times.",
+      "If the Battery API is not supported (iOS Safari, some desktop browsers), the output indicates the API is unavailable.",
+      "On Android Chrome, the tool shows real-time battery data that updates as you charge or discharge the device."
+    ],
+    "whyUse": "Developers building progressive web apps, streaming platforms, or resource-intensive web applications need to adapt their behavior based on the user's power state. The Battery API Checker lets you verify that the Battery API is accessible and see exactly what data it provides — charging status, level percentage, and time estimates — without writing any application code. This is particularly valuable for testing across devices, since browser support varies significantly (Android Chrome supports it, iOS Safari does not).",
+    "faq": [
+      {
+        "q": "Why does the tool say the Battery API is not supported?",
+        "a": "Apple removed Battery API support from Safari and WebKit in 2019 for privacy reasons. Some desktop browsers also do not expose the API. It is primarily available on Android Chrome and Firefox on Android."
+      },
+      {
+        "q": "Is battery data accurate?",
+        "a": "The data comes from the operating system's battery monitor and is generally accurate to within a few percent for charge level. Time estimates (chargingTime, dischargingTime) are rough approximations that depend on current usage patterns."
+      },
+      {
+        "q": "Does this tool affect my battery?",
+        "a": "No. The tool reads battery status without modifying any power management settings. The API call itself has negligible energy cost."
+      }
+    ]
+  },
+  {
+    "slug": "screen-orientation-tester",
+    "whatIs": "The Screen Orientation Tester reads and displays the current screen orientation type (portrait-primary, landscape-secondary, etc.) and angle using the Screen Orientation API. This API is particularly relevant for mobile web applications and PWAs that need to detect or lock screen rotation — for example, a mobile game that should only run in landscape mode, or a checkout flow that locks to portrait to prevent accidental rotation. The tool provides a snapshot of the current orientation state, showing both the human-readable type and the numeric angle in degrees.",
+    "howToUse": [
+      "Open the Screen Orientation Tester page, which shows a test button and output area.",
+      "Click the **Test API** button. The tool reads the current screen orientation from the Screen Orientation API.",
+      "The output displays the orientation type (e.g., 'portrait-primary') and the angle in degrees.",
+      "Rotate your device to see how the values change — click the button again after each rotation.",
+      "If the API is not available (desktop browsers, older mobile browsers), the output indicates it is not supported."
+    ],
+    "whyUse": "Mobile web developers building games, media players, or full-screen experiences need to detect and respond to screen orientation changes. The Screen Orientation Tester shows exactly what values the API returns for each physical orientation, helping developers understand the mapping between device position and API values. This is especially important because the angle and type values can be confusing — for example, 'landscape-secondary' means the device is rotated 270 degrees from portrait-primary, not simply 'in landscape'.",
+    "faq": [
+      {
+        "q": "What is the difference between landscape-primary and landscape-secondary?",
+        "a": "Landscape-primary (90°) means the device is held with the home button (or notch) on the right. Landscape-secondary (270°) means it is held with the home button on the left. Both are landscape, but they represent opposite rotations."
+      },
+      {
+        "q": "Can this tool lock the orientation?",
+        "a": "The current version only reads the current orientation — it does not call screen.orientation.lock(). To lock orientation, developers use screen.orientation.lock('landscape') inside a full-screen context."
+      },
+      {
+        "q": "Does this work on desktop browsers?",
+        "a": "Desktop monitors do not typically rotate, so screen.orientation.type is usually 'landscape-primary' with angle 0. The API is most useful on mobile devices and tablets."
+      }
+    ]
+  },
+  {
+    "slug": "notification-api-tester",
+    "whatIs": "The Notification API Tester requests permission to send desktop or mobile notifications and displays the resulting permission state. Web notifications allow web applications to show system-level alerts even when the tab is not focused — useful for chat apps, email clients, build monitors, and calendar reminders. The tool calls Notification.requestPermission() on button click (which must happen inside a user gesture to comply with browser policies) and reports whether the permission was granted, denied, or dismissed. This is the first step in any notification integration — if permission is denied, no notification code will work regardless of implementation quality.",
+    "howToUse": [
+      "Navigate to the Notification API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. The browser displays a permission dialog asking whether to allow notifications from this site.",
+      "Choose Allow, Deny, or dismiss the dialog. The output area reports the resulting permission state: 'granted', 'denied', or 'default' (dismissed).",
+      "If the Notification API is not available (insecure context, unsupported browser), the output indicates the API is not supported.",
+      "The tool does not send a test notification — it only checks the permission state. Sending notifications requires additional code."
+    ],
+    "whyUse": "Before integrating notifications into a web application, developers need to understand the permission flow and confirm their browser environment supports it. The Notification API Tester isolates the permission request into a single click, letting you test the dialog behavior without building notification infrastructure. This is especially valuable for understanding browser-specific differences — Chrome shows a lightweight permission prompt, while Safari requires the page to be a registered web app. QA teams use it to verify that permission states are correctly handled in the application's onboarding flow.",
+    "faq": [
+      {
+        "q": "Why does the browser block the notification permission request?",
+        "a": "Browsers require that Notification.requestPermission() be called from a user gesture (click, tap, or keypress). If called from a script that runs on page load or from a timer, the browser may block or ignore the request. The tool calls it from a button click to comply with this requirement."
+      },
+      {
+        "q": "Can I test notification content with this tool?",
+        "a": "The current version only tests permission state. To test actual notification content, you would need to extend the tool to call new Notification('title', { body: 'message' }) after permission is granted."
+      },
+      {
+        "q": "What happens if I deny permission?",
+        "a": "If you click Deny, the permission state is set to 'denied' and the site cannot send notifications until the user manually resets the permission in the browser's site settings. This is a one-way operation — the site cannot re-request permission after denial."
+      }
+    ]
+  },
+  {
+    "slug": "web-share-api-tester",
+    "whatIs": "The Web Share API Tester invokes the browser's native share dialog using navigator.share() and reports whether the share was completed, cancelled, or errored. The Web Share API provides a consistent, platform-native way for web pages to share content — text, URLs, or files — to other apps on the device (messaging, email, social media, etc.). Instead of implementing individual share buttons for every platform, developers can use a single Web Share API call that delegates to the operating system's share sheet. The tool triggers a share dialog with a test title and text, then displays the result. This is only available in secure contexts and requires a user gesture.",
+    "howToUse": [
+      "Open the Web Share API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. If the Web Share API is available, the operating system's native share dialog opens.",
+      "In the share dialog, choose a target app or action. The output reports 'Share dialog opened!' on success.",
+      "If the user cancels the share dialog, the output shows 'Share cancelled' with the cancellation reason.",
+      "If the Web Share API is not supported (desktop browsers, iOS Safari in non-PWA context), the output indicates it is not supported."
+    ],
+    "whyUse": "The Web Share API is the modern replacement for custom share buttons, but its availability varies by platform and context. This tester lets developers quickly confirm whether their target browsers support the API and what the share flow looks like on each device. On Android Chrome, the share dialog appears as a bottom sheet; on iOS Safari, it requires the page to be added to the home screen as a PWA. Understanding these platform differences is critical before committing to Web Share as the primary sharing mechanism.",
+    "faq": [
+      {
+        "q": "Why does the Web Share API only work on mobile?",
+        "a": "The Web Share API delegates to the operating system's native share sheet, which is a mobile-first concept. Desktop browsers have not widely implemented it because desktops typically have multiple windows open and a different sharing paradigm. Chrome on desktop may support it in some configurations."
+      },
+      {
+        "q": "Does this share actual content to social media?",
+        "a": "The tool shares a test string ('Test' title with 'Hello' text). The share dialog lets the user choose the target app, but nothing is posted automatically — the user must complete the action in the chosen app."
+      },
+      {
+        "q": "Can I share files with this API?",
+        "a": "Yes, navigator.share() supports a files property that accepts File objects. The current tool only shares text and a URL, but the API supports file sharing on compatible platforms."
+      }
+    ]
+  },
+  {
+    "slug": "network-information-api-tester",
+    "whatIs": "The Network Information API Tester reads the device's current network connection details using the Network Information API (navigator.connection). It displays the effective connection type (slow-2g, 2g, 3g, 4g), estimated downlink bandwidth in megabits per second, and round-trip time in milliseconds. This data enables adaptive web experiences — for example, a streaming app might serve lower-resolution video on 3g connections, or a news app might defer loading non-critical images. The tool provides a snapshot of the network state at the moment of the button click; values update automatically on some browsers as the connection changes.",
+    "howToUse": [
+      "Navigate to the Network Information API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. The tool reads the current network connection data.",
+      "The output displays the effective type (e.g., '4g'), downlink speed in Mbps, and round-trip time in milliseconds.",
+      "If the API is not supported (Firefox, Safari, most desktop browsers), the output indicates it is not supported.",
+      "On supported browsers, try switching between Wi-Fi and cellular data, then click again to see the values change."
+    ],
+    "whyUse": "Adaptive loading is a core performance strategy for modern web applications, but developers need to know what network data is actually available before building adaptive logic. The Network Information API Tester shows the exact values and format that the API returns, letting developers understand the difference between 'effectiveType' and actual throughput, and whether the downlink value is reliable enough for adaptive decisions. This eliminates guesswork about what a '4g' effectiveType actually means in terms of real bandwidth.",
+    "faq": [
+      {
+        "q": "Why doesn't this work on Firefox or Safari?",
+        "a": "Firefox and Safari have not implemented the Network Information API due to privacy concerns about exposing detailed network information to web pages. It is primarily supported in Chromium-based browsers (Chrome, Edge, Opera) on mobile devices."
+      },
+      {
+        "q": "What is the difference between effectiveType and downlink?",
+        "a": "effectiveType is a coarse classification (slow-2g, 2g, 3g, 4g) based on observed network performance. downlink is an estimated bandwidth in megabits per second. The downlink value is more useful for adaptive loading decisions, but effectiveType is simpler for basic branching logic."
+      },
+      {
+        "q": "Does the network data update automatically?",
+        "a": "On some browsers, you can listen for 'change' events on navigator.connection to detect network transitions. The tool takes a snapshot on each button click rather than continuously monitoring."
+      }
+    ]
+  }
+]

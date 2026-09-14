@@ -1,378 +1,418 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronDown, RotateCcw, Printer } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, TrendingDown, TrendingUp, Target } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 
-// 1. TypeScript Interfaces
+// ── 1. TypeScript interfaces ──────────────────────────────────────────────
 interface WeightChangeInputs {
   unitSystem: "imperial" | "metric";
   startWeight: number;
   currentWeight: number;
-  goalWeight?: number; // Optional
+  goalWeight: number;
 }
 
-interface WeightChangeResults {
+interface WeightChangeResult {
   absoluteChange: number;
   percentageChange: number;
   direction: "Loss" | "Gain" | "Maintenance";
-  colorClass: string;
-  
-  // Goal metrics
   hasGoal: boolean;
   distanceToGoal: number;
-  progressPctToGoal: number; // 0 to 100%
-  
-  chartData: { name: string; weight: number }[];
+  progressPctToGoal: number;
+  totalDistance: number;
 }
 
-// 2. Pure Calculation Function
-const calculateWeightChange = (inputs: WeightChangeInputs): WeightChangeResults | null => {
-  const { startWeight, currentWeight, goalWeight } = inputs;
-  
-  if (startWeight <= 0 || currentWeight <= 0) return null;
+// ── 2. Pure calculation function ──────────────────────────────────────────
+const calculate = (i: WeightChangeInputs): WeightChangeResult => {
+  const absoluteChange = i.currentWeight - i.startWeight;
+  const percentageChange = i.startWeight > 0 ? (absoluteChange / i.startWeight) * 100 : 0;
+  const direction: "Loss" | "Gain" | "Maintenance" =
+    absoluteChange < 0 ? "Loss" : absoluteChange > 0 ? "Gain" : "Maintenance";
 
-  const absoluteChange = currentWeight - startWeight;
-  const percentageChange = (absoluteChange / startWeight) * 100;
-
-  let direction: "Loss" | "Gain" | "Maintenance" = "Maintenance";
-  let colorClass = "#3b82f6"; // Default blue
-
-  if (absoluteChange < 0) {
-    direction = "Loss";
-    colorClass = "#10b981"; // Emerald
-  } else if (absoluteChange > 0) {
-    direction = "Gain";
-    colorClass = "#f59e0b"; // Amber (could be muscle gain, not necessarily bad)
-  }
-
-  // Goal logic
-  const hasGoal = !!goalWeight && goalWeight > 0;
+  const hasGoal = i.goalWeight > 0;
   let distanceToGoal = 0;
   let progressPctToGoal = 0;
+  let totalDistance = 0;
 
-  if (hasGoal && goalWeight) {
-    distanceToGoal = Math.abs(goalWeight - currentWeight);
-    
-    // Total distance needed
-    const totalDistance = Math.abs(goalWeight - startWeight);
-    const distanceCovered = Math.abs(currentWeight - startWeight);
-    
-    // Check if moving in the right direction
-    const movingTowardsGoal = (goalWeight < startWeight && currentWeight < startWeight) || 
-                              (goalWeight > startWeight && currentWeight > startWeight);
-
+  if (hasGoal) {
+    distanceToGoal = Math.abs(i.goalWeight - i.currentWeight);
+    totalDistance = Math.abs(i.goalWeight - i.startWeight);
+    const movingTowardsGoal =
+      (i.goalWeight < i.startWeight && i.currentWeight < i.startWeight) ||
+      (i.goalWeight > i.startWeight && i.currentWeight > i.startWeight);
     if (totalDistance === 0) {
       progressPctToGoal = 100;
     } else if (movingTowardsGoal) {
-      progressPctToGoal = (distanceCovered / totalDistance) * 100;
-      // Cap at 100 if they overshot the goal
-      if (progressPctToGoal > 100) progressPctToGoal = 100;
-    } else {
-      progressPctToGoal = 0; // Moving in the wrong direction
+      progressPctToGoal = Math.min(100, (Math.abs(i.currentWeight - i.startWeight) / totalDistance) * 100);
     }
   }
 
-  // Generate Chart Data
-  const chartData = [
-    { name: "Starting", weight: startWeight }
-  ];
-  
-  // Only add Current if it's different enough or if there is no goal, otherwise it gets crowded
-  chartData.push({ name: "Current", weight: currentWeight });
-
-  if (hasGoal && goalWeight) {
-    chartData.push({ name: "Target Goal", weight: goalWeight });
-  }
-
   return {
-    absoluteChange: parseFloat(Math.abs(absoluteChange).toFixed(1)),
-    percentageChange: parseFloat(Math.abs(percentageChange).toFixed(2)),
+    absoluteChange: Math.abs(absoluteChange),
+    percentageChange: Math.abs(percentageChange),
     direction,
-    colorClass,
     hasGoal,
-    distanceToGoal: parseFloat(distanceToGoal.toFixed(1)),
-    progressPctToGoal: parseFloat(progressPctToGoal.toFixed(1)),
-    chartData
+    distanceToGoal,
+    progressPctToGoal,
+    totalDistance,
   };
 };
 
-// 3. DEFAULTS Object
+// ── 3. DEFAULTS ────────────────────────────────────────────────────────────
 const DEFAULTS = {
   unitSystem: "imperial" as const,
   startWeight: "220",
   currentWeight: "195",
-  goalWeight: "180"
+  goalWeight: "180",
 };
 
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
-        <p className="font-bold mb-1 border-b border-border pb-1">{payload[0].payload.name}</p>
-        <p className="text-muted-foreground mt-1"><span className="font-bold text-foreground">{payload[0].value}</span> units</p>
-      </div>
-    );
-  }
-  return null;
+const fmt = (n: number, dec = 2) =>
+  n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const parse = (v: string, fallback: number) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
 };
 
-// Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const unitLabel = (u: "imperial" | "metric") => (u === "imperial" ? "lbs" : "kg");
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  suffix,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  suffix?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="text-sm font-medium text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
   </div>
 );
 
+// ── 4. Component ───────────────────────────────────────────────────────────
+type InputState = {
+  unitSystem: "imperial" | "metric";
+  startWeight: string;
+  currentWeight: string;
+  goalWeight: string;
+};
+
 export default function WeightChangePercentageCalculator() {
-  // 4. Component State
-  const [unitSystem, setUnitSystem] = useState<"imperial" | "metric">(DEFAULTS.unitSystem);
-  const [startWeight, setStartWeight] = useState(DEFAULTS.startWeight);
-  const [currentWeight, setCurrentWeight] = useState(DEFAULTS.currentWeight);
-  const [goalWeight, setGoalWeight] = useState(DEFAULTS.goalWeight);
-  
-  const [errorMsg, setErrorMsg] = useState("");
-  const [results, setResults] = useState<WeightChangeResults | null>(null);
+  const [inputs, setInputs] = useState<InputState>({
+    unitSystem: DEFAULTS.unitSystem,
+    startWeight: DEFAULTS.startWeight,
+    currentWeight: DEFAULTS.currentWeight,
+    goalWeight: DEFAULTS.goalWeight,
+  });
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [result, setResult] = useState<WeightChangeResult>(() =>
+    calculate({
+      unitSystem: DEFAULTS.unitSystem,
+      startWeight: 220,
+      currentWeight: 195,
+      goalWeight: 180,
+    })
+  );
   const printRef = useRef<HTMLDivElement>(null);
 
-  const handleCalculate = () => {
-    setErrorMsg("");
-    const s = parseFloat(startWeight);
-    const c = parseFloat(currentWeight);
-    const g = goalWeight ? parseFloat(goalWeight) : undefined;
-
-    if (isNaN(s) || s <= 0) return setErrorMsg("Please enter a valid starting weight.");
-    if (isNaN(c) || c <= 0) return setErrorMsg("Please enter a valid current weight.");
-
-    const res = calculateWeightChange({ unitSystem, startWeight: s, currentWeight: c, goalWeight: g });
-    
-    if (!res) {
-      setErrorMsg("Unable to calculate. Please check your inputs.");
-    } else {
-      setResults(res);
-    }
-  };
-
-  const handleReset = () => {
-    setUnitSystem(DEFAULTS.unitSystem);
-    setStartWeight(DEFAULTS.startWeight);
-    setCurrentWeight(DEFAULTS.currentWeight);
-    setGoalWeight(DEFAULTS.goalWeight);
-    setErrorMsg("");
-    setTimeout(handleCalculate, 0);
-  };
-
   useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, startWeight, currentWeight, goalWeight]);
+    setResult(calculate({ unitSystem: DEFAULTS.unitSystem, startWeight: 220, currentWeight: 195, goalWeight: 180 }));
+  }, []);
+
+  const parsed: WeightChangeInputs = {
+    unitSystem: inputs.unitSystem,
+    startWeight: parse(inputs.startWeight, 0),
+    currentWeight: parse(inputs.currentWeight, 0),
+    goalWeight: inputs.goalWeight.trim() === "" ? 0 : parse(inputs.goalWeight, 0),
+  };
+
+  const valErrors: Record<string, string> = {};
+  if (parsed.startWeight <= 0) valErrors.startWeight = "Starting weight must be greater than 0";
+  if (parsed.currentWeight <= 0) valErrors.currentWeight = "Current weight must be greater than 0";
+  const hasErrors = Object.keys(valErrors).length > 0;
+
+  const handleCalculate = () => {
+    setResult(calculate(parsed));
+  };
+
+  const reset = () => {
+    setInputs({ ...DEFAULTS });
+    setShowAdvanced(false);
+    setResult(calculate({ unitSystem: DEFAULTS.unitSystem, startWeight: 220, currentWeight: 195, goalWeight: 180 }));
+  };
 
   const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Weight Change Percentage Analysis</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+    window.print();
   };
 
+  const r = result;
+  const unit = unitLabel(inputs.unitSystem);
+
   const faqs = [
-    { question: "Why is tracking percentage more important than raw pounds?", answer: "Raw poundage is completely relative to the size of the organism. If a 130-pound woman loses 10 pounds, she has lost nearly 8% of her total body mass—a massive, visually striking physiological change. If a 350-pound offensive lineman loses 10 pounds, he has lost less than 3% of his body mass; it might not even be visually noticeable. Calculating your loss as a strict percentage provides an objective mathematical assessment of your progress, neutralizing the psychological frustration of comparing yourself to heavier individuals." },
-    { question: "What is a safe percentage of weight to lose per week?", answer: "Clinical guidelines universally recommend losing between 0.5% and 1.0% of your total body weight per week. For a 200-pound person, this is 1 to 2 pounds per week. Losing weight faster than 1% per week almost guarantees that you are cannibalizing functional muscle tissue (Lean Body Mass) rather than strictly burning adipose tissue (Fat Mass). Rapid weight loss also drastically lowers your BMR (metabolism), making rebound weight gain highly likely." },
-    { question: "Why does the progress bar say 0% even though my weight changed?", answer: "If you entered a Target Goal Weight, the calculator checks the direction of your movement. If your starting weight was 200 lbs and your goal is 180 lbs, but your current weight is 205 lbs, you are moving in the wrong mathematical direction. The calculator will log a negative absolute change (a gain) and register 0% progress toward your stated target." },
-    { question: "Is this calculator only for weight loss?", answer: "No. This tool is mathematically agnostic and can calculate weight gain trajectories. If you are an athlete or a bodybuilder attempting a 'bulking' phase, you can enter a starting weight of 170 lbs and a goal weight of 190 lbs. The calculator will detect the upward trajectory, shift the UI to track 'Gain,' and accurately map your percentage of mass accrued." },
-    { question: "Why do doctors ask for a 5% to 10% weight loss?", answer: "In the medical community, the '5% to 10%' threshold is considered a critical clinical milestone. Research shows that an obese individual does not need to achieve a 'perfect' BMI to see massive health benefits. Losing just 5% to 10% of total body weight drastically improves blood pressure, significantly lowers cholesterol, and vastly improves insulin sensitivity, dramatically reducing the risk of Type 2 Diabetes." }
+    {
+      question: "Why is tracking percentage more important than raw pounds?",
+      answer:
+        "Raw poundage is relative to body size. A 130-pound person losing 10 pounds has lost nearly 8% of their mass — a massive change — while a 350-pound person losing the same 10 pounds has lost under 3%. Percentage neutralizes that distortion and gives an objective measure of progress.",
+    },
+    {
+      question: "What is a safe percentage of weight to lose per week?",
+      answer:
+        "Clinical guidelines recommend losing 0.5% to 1.0% of total body weight per week. For a 200-pound person that is 1 to 2 pounds. Losing faster than 1% per week usually means losing muscle along with fat and often triggers rebound gain.",
+    },
+    {
+      question: "Why does progress show 0% even though my weight changed?",
+      answer:
+        "If a target goal is entered, the calculator checks direction. Starting at 200 lbs with a goal of 180 lbs while currently at 205 lbs means you are moving away from the goal, so progress registers as 0%.",
+    },
+    {
+      question: "Is this calculator only for weight loss?",
+      answer:
+        "No. It tracks gain as well. Athletes bulking from 170 lbs toward a 190 lb goal get the same percentage progress mapping, just in the upward direction.",
+    },
+    {
+      question: "Why do doctors ask for a 5% to 10% weight loss?",
+      answer:
+        "The 5% to 10% threshold is a critical clinical milestone. Losing even 5% of total body weight measurably improves blood pressure, cholesterol, and insulin sensitivity, dramatically reducing Type 2 diabetes and cardiovascular risk.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Weight Change Percentage Calculator" }]} />
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          .print-section, .print-section * { visibility: visible; }
+          .print-section { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+        }
+      `}</style>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator/health" }, { label: "Weight Change Percentage Calculator" }]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Weight Change Percentage Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
-          
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div
+            className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible"
+            onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
+          >
             <div className="flex bg-secondary p-1 rounded-lg border border-border">
-              <button type="button" onClick={() => setUnitSystem("imperial")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "imperial" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Imperial (lbs)</button>
-              <button type="button" onClick={() => setUnitSystem("metric")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "metric" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Metric (kg)</button>
+              <button
+                type="button"
+                onClick={() => setInputs({ ...inputs, unitSystem: "imperial" })}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${inputs.unitSystem === "imperial" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}
+              >
+                Imperial (lbs)
+              </button>
+              <button
+                type="button"
+                onClick={() => setInputs({ ...inputs, unitSystem: "metric" })}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${inputs.unitSystem === "metric" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}
+              >
+                Metric (kg)
+              </button>
             </div>
 
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mt-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Target className="h-4 w-4" /> Trajectory Tracking
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <CompactInput id="start-weight" label="Starting Weight" value={inputs.startWeight} onChange={(v) => setInputs({ ...inputs, startWeight: v })} suffix={unit} />
+                {valErrors.startWeight && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.startWeight}</p>}
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Enter your starting weight and current weight. Optionally, enter a target goal to calculate your exact percentage of progress completed.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="start" label="Starting Weight" value={startWeight} onChange={setStartWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-              <CompactInput id="current" label="Current Weight" value={currentWeight} onChange={setCurrentWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 mt-2 border-t border-border pt-4">
-              <CompactInput id="goal" label="Target Goal Weight (Optional)" value={goalWeight} onChange={setGoalWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-            </div>
-
-            {errorMsg && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
-                <AlertTriangle className="h-4 w-4 inline mr-1 -mt-0.5" />
-                {errorMsg}
+              <div className="flex flex-col">
+                <CompactInput id="current-weight" label="Current Weight" value={inputs.currentWeight} onChange={(v) => setInputs({ ...inputs, currentWeight: v })} suffix={unit} />
+                {valErrors.currentWeight && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.currentWeight}</p>}
               </div>
-            )}
+            </div>
 
-            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+              </button>
+              {showAdvanced && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Goal Tracking</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <CompactInput id="goal-weight" label="Target Goal Weight (Optional)" value={inputs.goalWeight} onChange={(v) => setInputs({ ...inputs, goalWeight: v })} suffix={unit} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex gap-3 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
-          <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* Primary Metric Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  
-                  {/* Percentage Box */}
-                  <div 
-                    className="text-white rounded-lg p-5 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
-                  >
-                    <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Total {results.direction} Percentage</div>
-                      <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.percentageChange}%</div>
-                      </div>
-                      <div className="text-sm font-bold text-white mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        {results.direction === "Loss" ? <TrendingDown className="h-4 w-4" /> : results.direction === "Gain" ? <TrendingUp className="h-4 w-4" /> : <ActivitySquare className="h-4 w-4" />}
-                        Absolute Change: {results.absoluteChange} {unitSystem === "imperial" ? "lbs" : "kg"}
-                      </div>
-                    </div>
-                    <Target className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
-                  </div>
-
-                  {/* Goal Progress Box (If applicable) */}
-                  {results.hasGoal ? (
-                    <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm relative flex flex-col justify-center">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2">Goal Completion Status</div>
-                      
-                      {/* Progress Bar UI */}
-                      <div className="w-full bg-slate-800 h-4 rounded-full overflow-hidden mb-2 border border-slate-700">
-                        <div 
-                          className="h-full transition-all duration-1000 ease-out"
-                          style={{ 
-                            width: `${results.progressPctToGoal}%`, 
-                            backgroundColor: results.colorClass 
-                          }}
-                        />
-                      </div>
-                      
-                      <div className="flex justify-between items-center text-xs">
-                        <span className="font-bold text-white">{results.progressPctToGoal}% Complete</span>
-                        <span className="text-slate-400">{results.distanceToGoal} {unitSystem === "imperial" ? "lbs" : "kg"} remaining</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="bg-slate-50 border border-slate-200 dark:bg-slate-900 dark:border-slate-800 rounded-lg p-5 shadow-sm flex flex-col justify-center items-center text-center opacity-50">
-                      <Target className="h-6 w-6 text-muted-foreground mb-2" />
-                      <div className="text-xs text-muted-foreground font-semibold">No Goal Target Set</div>
-                    </div>
-                  )}
-
-                </div>
-
-                <div className="grid lg:grid-cols-1 gap-4">
-                  {/* Chart Panel */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[300px]">
-                    <h3 className="text-base font-bold w-full text-left mb-1">Trajectory Visualization</h3>
-                    <p className="text-xs text-muted-foreground w-full text-left mb-4">A visual comparison mapping your starting mass against your current location and ultimate target destination.</p>
-                    <ResponsiveContainer width="100%" height={220}>
-                      <BarChart data={results.chartData} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="name" tick={{ fontSize: 12, fontWeight: 'bold', fill: 'hsl(var(--foreground))' }} axisLine={false} tickLine={false} />
-                        <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
-                        <Bar dataKey="weight" radius={[4, 4, 0, 0]} maxBarSize={80}>
-                          {results.chartData.map((entry, index) => {
-                            let fill = "hsl(var(--muted))";
-                            if (entry.name === "Current") fill = results.colorClass;
-                            if (entry.name === "Target Goal") fill = "hsl(var(--primary))";
-                            return <Cell key={`cell-${index}`} fill={fill} />;
-                          })}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-4 print-section" ref={printRef}>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Target className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium max-w-xs">Enter your starting weight and current weight to calculate the exact, objective percentage of body mass you have successfully modified.</p>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Weight Change</div>
+              <div className="text-4xl font-bold text-primary">{fmt(r.percentageChange)}%</div>
+              <div className="text-sm text-muted-foreground">{r.direction === "Maintenance" ? "No change detected" : `${r.direction} of ${fmt(r.absoluteChange)} ${unit} — ${fmt(r.percentageChange)}% of starting weight`}</div>
+            </div>
+
+            {/* 2. THREE-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Absolute Change</span>
+                <span className={`font-extrabold ${r.direction === "Loss" ? "text-emerald-600" : r.direction === "Gain" ? "text-orange-500" : "text-foreground"}`}>
+                  {r.direction === "Loss" ? "−" : r.direction === "Gain" ? "+" : ""}{fmt(r.absoluteChange)} {unit}
+                </span>
               </div>
-            )}
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Distance to Goal</span>
+                <span className="font-extrabold text-foreground">{r.hasGoal ? `${fmt(r.distanceToGoal)} ${unit}` : "No goal set"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Progress to Goal</span>
+                <span className={`font-extrabold ${r.progressPctToGoal >= 50 ? "text-emerald-600" : r.progressPctToGoal > 0 ? "text-orange-500" : "text-muted-foreground"}`}>
+                  {r.hasGoal ? `${fmt(r.progressPctToGoal)}%` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-base">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-3 pl-4">Metric</th>
+                    <th className="p-3 pr-4 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Starting Weight</td>
+                    <td className="py-2.5 px-4 text-right font-semibold">{fmt(parsed.startWeight)} {unit}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Current Weight</td>
+                    <td className="py-2.5 px-4 text-right font-semibold">{fmt(parsed.currentWeight)} {unit}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Absolute Change</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{r.direction === "Loss" ? "−" : r.direction === "Gain" ? "+" : ""}{fmt(r.absoluteChange)} {unit}</td>
+                  </tr>
+                  <tr className="bg-amber-500/10 border-t-2 border-border font-bold">
+                    <td className="py-2.5 px-4 text-amber-700">Percentage Change</td>
+                    <td className="py-2.5 px-4 text-right text-amber-700">{fmt(r.percentageChange)}%</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Target Goal Weight</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{r.hasGoal ? `${fmt(parsed.goalWeight)} ${unit}` : "Not set"}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Distance to Goal</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{r.hasGoal ? `${fmt(r.distanceToGoal)} ${unit}` : "—"}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Progress to Goal</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{r.hasGoal ? `${fmt(r.progressPctToGoal)}%` : "—"}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                <div className="flex justify-between"><span className="text-muted-foreground">Direction:</span><span className="font-semibold">{r.direction}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Absolute Change:</span><span className="font-semibold">{fmt(r.absoluteChange)} {unit}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Percentage Change:</span><span className="font-semibold">{fmt(r.percentageChange)}%</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Distance to Goal:</span><span className="font-semibold">{r.hasGoal ? `${fmt(r.distanceToGoal)} ${unit}` : "—"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Progress to Goal:</span><span className="font-semibold">{r.hasGoal ? `${fmt(r.progressPctToGoal)}%` : "—"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Total Journey:</span><span className="font-semibold">{r.hasGoal ? `${fmt(r.totalDistance)} ${unit}` : "—"}</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Relativity</h2>
-            <p>One of the most psychologically frustrating aspects of the fitness journey is comparing yourself to others. A 130-pound woman might spend three months dieting rigorously to lose 6 pounds, while her 300-pound husband stops drinking soda for a month and drops 15 pounds. The woman feels defeated because she only looks at the absolute number on the scale. However, the laws of biology operate on relativity, not absolute numbers. Losing 6 pounds on a 130-pound frame is an incredibly difficult, massive physiological shift (nearly 5% of total body mass). Losing 15 pounds on a 300-pound frame is mathematically much easier and represents a smaller percentage. The <strong>Weight Change Percentage Calculator</strong> eliminates emotional bias by translating your progress into a strict, objective mathematical ratio.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Doctors Track Percentages</h2>
-            <p>In a clinical setting, your physician does not care about raw pounds; they care about percentage thresholds. </p>
-            <p>A massive body of medical literature confirms that an obese individual does not need to achieve a "perfect" magazine-cover physique to drastically improve their health. The magic number in the medical community is the <strong>5% to 10% threshold</strong>. Losing just 5% to 10% of your total starting body weight creates a profound biological cascade: it drastically lowers systolic blood pressure, dramatically improves cellular insulin sensitivity, and significantly reduces the visceral fat wrapping around your liver. If you start at 250 pounds, a 10% loss is 25 pounds. You are still mathematically overweight at 225 pounds, but your risk of cardiovascular disease and Type 2 Diabetes has plummeted.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Danger of the "Biggest Loser" Fallacy</h2>
-            <p>The fitness industry and reality television have programmed society to believe that healthy weight loss looks like dropping 10 pounds in a single week. This is mathematically absurd and physiologically destructive.</p>
-            <p>The clinical gold standard for safe, sustainable weight loss is <strong>0.5% to 1.0% of your body weight per week</strong>. For a 200-pound person, that means a maximum safe loss of 1 to 2 pounds per week. If you lose weight faster than 1% per week, the laws of thermodynamics dictate that you are not just burning fat. You are violently dehydrating your cells and cannibalizing your own functional Lean Body Mass (muscle tissue) for rapid fuel. Destroying your muscle mass permanently lowers your basal metabolic rate, virtually guaranteeing that you will suffer a massive "rebound" weight gain the moment you resume normal eating habits.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Tracking Gain: The Science of Bulking</h2>
-            <p>While society focuses obsessively on weight loss, this calculator is mathematically agnostic. It is equally valuable for athletes, bodybuilders, and individuals recovering from severe illness who need to track mass accumulation (hypertrophy).</p>
-            <p>When "bulking" to build muscle, the percentage rule still applies, but in reverse. If an athlete attempts to gain weight too quickly (e.g., gaining 3% of their body weight per week), the body cannot physically synthesize muscle tissue that fast. The vast majority of that rapid weight gain will be stored as unnecessary body fat. A controlled, clinical "lean bulk" targets a slow, deliberate percentage increase (roughly 0.25% to 0.5% per week) to ensure the newly acquired mass is primarily dense, functional muscle tissue rather than adipose fat.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Psychology of the Goal Progress Bar</h2>
-            <p>Motivation is notoriously unreliable. It is a fleeting emotion that vanishes the moment you are tired or stressed. Discipline is what builds physiques, and discipline requires objective data tracking.</p>
-            <p>When you use the "Target Goal" feature in this calculator, the interface generates a strict visual progress bar. Seeing that you are "42% Complete" triggers the brain's dopamine reward system. It gamifies the difficult process of body recomposition. It prevents you from focusing on the massive mountain left to climb and forces you to acknowledge the mathematical reality of the ground you have already conquered.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion: Trust the Math, Ignore the Mirror</h2>
-            <p>When you stare at yourself in the mirror every single day, you suffer from "change blindness." The gradual shifts in your physique are impossible for your brain to detect in real-time. Do not trust the mirror, and do not let the raw poundage on the scale dictate your mood. Use the Weight Change Percentage Calculator to anchor your progress in cold, objective mathematics. Hit the 5% clinical milestone, push toward the 10% threshold, and permanently alter the trajectory of your metabolic health.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is Weight Change Percentage?</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Weight change percentage expresses how much of your original body weight you have gained or lost as a ratio rather than a raw number. It is calculated by dividing the absolute change in pounds or kilograms by your starting weight and multiplying by 100. A 130-pound person losing 10 pounds has lost 7.7% of their body weight, while a 350-pound person losing the same 10 pounds has lost only 2.9% — identical on a scale, very different physiologically. Health professionals rely on percentages for exactly this reason: the same absolute loss means far more to a smaller frame, and clinical milestones such as the 5% and 10% thresholds only make sense as percentages of starting mass.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Enter your starting weight and your current weight, choose pounds or kilograms, and press Calculate. The calculator subtracts the starting weight from the current weight to find the absolute change, then divides by the starting weight to find the percentage. A negative result is a loss, a positive result is a gain. The optional target goal activates progress tracking: the distance remaining is the absolute difference between your current weight and the goal, and progress is the portion of the total journey already completed, capped at 100%. Progress only counts when you are moving toward the goal — if you have drifted past it in the wrong direction, progress reads 0% until you reverse course. Because the math is unit-agnostic, results are identical whether you weigh yourself in pounds or kilograms.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Read the percentage first, then the absolute change. A 5% loss is the first clinical milestone — blood pressure, cholesterol, and insulin sensitivity all improve measurably at that threshold — and a 10% loss brings systemic changes that can reverse prediabetes and improve sleep apnea. Safe, sustainable progress runs between 0.5% and 1.0% per week; faster rates typically cost muscle and invite rebound gain. The progress-to-goal figure is the most motivating number: it converts a distant target into a fraction you have already conquered. Weigh yourself under consistent conditions, ideally the same time of day on the same scale, and let the trend across weeks — not any single reading — guide your decisions.
+              </p>
+            </div>
           </section>
-          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-change-percentage-calculator" />
           <PopularCalculators exclude="/calculator/weight-change-percentage-calculator" />
         </div>
       </div>
     </>
   );
-}
+}

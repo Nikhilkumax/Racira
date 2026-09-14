@@ -116,7 +116,7 @@ const HomeEnergyEmissionsCalculator = () => {
               <NumInput id="electricity" label="Electricity" value={inputs.electricity} onChange={set("electricity")} min="0" suffix="kWh" />
               <NumInput id="gas" label="Natural Gas" value={inputs.gas} onChange={set("gas")} min="0" suffix="therms" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div className="grid grid-cols-2 gap-3">
               <NumInput id="oil" label="Heating Oil" value={inputs.oil} onChange={set("oil")} min="0" suffix="gal" />
               <NumInput id="propane" label="Propane" value={inputs.propane} onChange={set("propane")} min="0" suffix="gal" />

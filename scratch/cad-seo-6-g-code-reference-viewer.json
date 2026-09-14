@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "g-code-reference-viewer",
+    "varName": "g_code_reference_viewerSeo",
+    "name": "G-Code Reference Viewer",
+    "sections": [
+      {
+        "heading": "What is G-Code Reference Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "G-Code Reference Viewer is a searchable table of the twenty-one everyday G and M codes a milling-centre user actually sees in posted CAM output — the ISO 6983 / Fanuc-style dialect that dominates the industry. Each row gives the code, its group, its meaning, a worked example line, and the note that keeps people out of trouble: never position with G00, confirm G21 before running, always cancel a canned cycle with G80."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table is deliberately the common core rather than the full control's vocabulary — rapid and feed motion, arcs, dwell, plane and unit selection, home return, cutter compensation, tool length, work offsets, the drill cycles, positioning and feed modes, spindle and coolant commands, stops and program end. The note reminds the reader that this is a Fanuc-style summary: dialects differ, and the control's own manual is the final authority."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use G-Code Reference Viewer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Search by code (G83, M06) or by keyword (peck, coolant, offset) — the search filters the whole table including the meaning and notes columns.",
+              "<strong>Step 2:</strong> Read the group column to see what kind of thing the code controls: motion, units, offsets, cycles, spindle, coolant, program flow.",
+              "<strong>Step 3:</strong> Study the example line for the codes you are proving out — the argument structure of G81, the I/J offsets of G02, the Q peck of G83.",
+              "<strong>Step 4:</strong> Heed the notes column when posting or editing: they carry the failure modes — no G00 to a feature, no cut without G43, cancel cycles after the last use.",
+              "<strong>Step 5:</strong> Confirm the modal state of the whole program before running: an early G21 or G90 without a later switch applies to every line that follows."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Modal codes are the table's underlying theme: G00 and G01, G90 and G91, G21, cutter compensation and the work offsets all stay active until changed. Because a program is read top-down, a single G21 early in the file sets units for the entire program — which is why the units row carries the table's most repeated warning."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use G-Code Reference Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A CAM user's relationship with G-code is mostly reading, not writing: posted output has to be checked before it runs, and the check is only as good as the reader's command of the codes that appear in it. A reference that names each code's group, shows its argument structure in a real line, and states its failure mode turns the prove-out pass from decoding into verification."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table also settles the disagreements that waste shop time — I/J versus R for arcs, when G95 is standard, what G28 actually does with G91 Z0 — by stating the convention and the reason for it in the same row. That makes it a useful teaching reference as well as a lookup: the example lines are written the way posted code actually reads."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does it mean for a code to be modal?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A modal code stays active until another code in its group replaces it, rather than applying to only the line it appears on. The motion group is the clearest example: once G01 is commanded, every subsequent coordinate move cuts at feed rate until G00 or G02 or G03 appears. The same applies to positioning mode (G90 absolute versus G91 incremental), units (G20 inch versus G21 metric), cutter compensation and the work offsets. Reading a program means tracking modal state line by line, because an early modal setting governs the whole rest of the file."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should an arc use I/J offsets instead of the R format?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "I and J specify the arc centre as offsets from the start point, which is unambiguous: the centre is exactly one position. The R format (G02 X.. Y.. R..) lets the control compute the centre from the radius, but a given radius and endpoint admit two arcs — one going one way, one the other — and past 180 degrees the ambiguity becomes a real problem. Posted CAM output for milling normally uses I/J, and the R format is best reserved for simple, small arcs where the direction is obvious."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must a canned cycle be cancelled with G80?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The drill cycles G81, G83 and G84 are modal — once commanded, the control repeats the cycle at every subsequent position block until something cancels it. G80 cancels the cycle so the next motion block behaves as a normal move. Leaving a cycle active is a classic source of surprise holes: a positioning block after the cycle gets drilled instead of moved to. The table's rule is to cancel immediately after the cycle's last use."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is a missing G21 the most common unit mistake?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because units are modal and inherited from program state, not from the drawing. If a program never issues G21, the control keeps whatever unit mode was active from the previous program or from setup — often inch. A 10-millimetre hole posted without G21 machines as a 10-inch feature, or vice versa. The table's warning to confirm G21 before running is the cheapest possible insurance against a unit error that would otherwise scrap the first part."
+          }
+        ]
+      }
+    ]
+  }
+]

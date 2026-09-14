@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "valve-type-reference",
+    "varName": "valve_type_referenceSeo",
+    "name": "Valve Type Reference",
+    "sections": [
+      {
+        "heading": "What is Valve Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Valve Type Reference is a selection table of the ten valve families a piping designer meets most: gate, globe, ball, butterfly, check, needle, diaphragm, plug, pressure-reducing, and relief or safety valves. Each row names the valve's primary function, its flow behaviour, and the applications it suits, so the difference between an isolation valve and a throttling valve — and the cost of confusing them — is explicit rather than assumed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table's spine is the function split. Gate, ball, butterfly and plug valves are on/off devices: they isolate with low pressure drop when fully open and throttle poorly. Globe, needle and diaphragm valves modulate: they control flow at partial opening at the price of a higher drop. Check valves act automatically to prevent reverse flow, pressure-reducing valves regulate downstream pressure, and relief or safety valves protect the system by opening at a set pressure. The applications column grounds each family — ball valves for isolation in most services including gas, butterflies for large water and HVAC mains, needles for instrumentation, diaphragms for slurry and corrosive duty."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Valve Type Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Name the duty first: is the valve isolating a line, modulating a flow, preventing reverse flow, regulating pressure, or protecting the system? The Primary function column maps each family to one of those jobs.",
+              "<strong>Step 2:</strong> For isolation duty, compare the on/off families. A ball valve gives near-zero drop, tight shut-off and fast quarter-turn action for most services including gas; a gate valve suits large mains where slow operation is acceptable; a butterfly wins on compactness and cost at big diameters.",
+              "<strong>Step 3:</strong> For throttling duty, pick a modulating family — globe for steam and control bypasses, needle for fine small-flow metering, diaphragm where the fluid must stay away from the mechanism. Do not throttle with a ball or butterfly valve: the note warns that seat erosion and poor control follow.",
+              "<strong>Step 4:</strong> For the automatic duties, match the mechanism: swing check for low drop on pump discharge, lift or spring checks where the higher drop is acceptable, a PRV where downstream pressure must stay regulated, and a relief valve where overpressure protection is the requirement.",
+              "<strong>Step 5:</strong> Use the search box to filter the table while comparing two candidates, then take the shortlist to the project specification — the reference selects the family; the spec and the process data select the size and trim."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Valve Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Valve mis-selection usually is not a sizing error — it is a function error: an isolation valve pressed into throttling duty, or a check valve where the system needed a relief valve. Those mistakes fail slowly and expensively, through eroded seats, surging lines or an overpressure event the system had no protection for. A table that leads with each family's primary function makes the duty-versus-device match the first thing checked rather than an afterthought."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table also carries the operational knowledge that drawings rarely state: a gate valve left partly open chatters and erodes, a butterfly throttled at small openings cavitates, and a swing check needs gravity to close, so its orientation on the line matters. Knowing the behaviour behind each family — not just its name — is what turns a valve schedule into a system that survives contact with the process."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why should I not throttle with a ball or butterfly valve?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ball and butterfly valves are isolation devices: their seats and seals are designed for fully open or fully closed service. Held at a partial opening, the high-velocity flow across the partially exposed seat erodes it and the flow control is coarse and unstable — the valve neither isolates well later nor modulates well now. Globe, needle and diaphragm valves have trim geometry built for sustained partial opening, which is why they carry the higher pressure drop that makes them poor isolation choices but good control choices."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between a relief valve and a safety valve?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both open at a set pressure to protect a system, but the service differs. A relief valve opens gradually and proportionally as pressure rises, used on liquid systems where overpressure builds slowly. A safety valve pops fully open almost instantly, used on compressible services like steam and air where pressure can spike explosively — full discharge is the only adequate response. The combined term safety relief valve covers both. Selecting the wrong opening characteristic can leave a system protected on paper but not in the transient it actually faces."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When does a check valve need to be a specific type?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the flow conditions demand it. A swing check has a low pressure drop and suits clean fluids in horizontal or upward flow, but its disc needs gravity and time to close — in a pulsating flow it slams. Lift and spring-loaded checks close faster and suit vertical or pulsating service at the cost of a higher drop. For pump discharge, the check must also be sized so the disc fully lifts at normal flow; an oversized check that never opens fully flutters and wears out its seat prematurely."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is a gate valve a poor choice for frequent operation?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A gate valve's sealing element is a wedge or disc that travels a long distance from fully closed to fully open — often several turns of a rising stem — so frequent operation is slow, and a gate cycled often wears its seats and stem packing faster than a quarter-turn valve would. Gate valves earn their place on large mains and block valves that open and close rarely, where their low pressure drop when fully open matters more than speed. For frequent isolation, a quarter-turn ball or butterfly valve is the faster, longer-lived choice."
+          }
+        ]
+      }
+    ]
+  }
+]

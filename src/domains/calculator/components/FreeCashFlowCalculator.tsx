@@ -117,7 +117,7 @@ export default function FreeCashFlowCalculator() {
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className={`bg-gradient-to-br ${result.fcf >= 0 ? "from-primary/10 to-primary/5 border-primary/20" : "from-red-500/10 to-red-500/5 border-red-500/20"} border rounded-xl p-5 text-center`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Free Cash Flow</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmtCurrency(result.fcf)}</div>
                   <div className="text-sm text-muted-foreground font-medium">{result.rating}</div>

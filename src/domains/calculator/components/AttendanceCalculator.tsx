@@ -188,7 +188,7 @@ const AttendanceCalculator = () => {
           <div className="flex flex-col gap-4">
             {result.totalDays > 0 && (
               <>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Attendance Percentage</div>
                   <div className="text-4xl font-extrabold text-foreground tracking-tight">{fmt(result.attendancePct)}</div>
                   <div className="text-sm text-muted-foreground font-medium mt-1">

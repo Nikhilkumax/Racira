@@ -36,7 +36,7 @@ const COLORS = ["hsl(var(--primary))", "#10b981", "#f59e0b"];
 export default function PreferredStockValuationCalculator() {
   const [dividend, setDividend] = useState("5.50");
   const [requiredReturn, setRequiredReturn] = useState("7");
-  const [growthRate, setGrowthRate] = useState("0");
+  const [growthRate, setGrowthRate] = useState("3");
   const [parValue, setParValue] = useState("100");
   const [marketPrice, setMarketPrice] = useState("78.57");
   const [res, setRes] = useState<ReturnType<typeof calcPSV> | null>(null);
@@ -46,7 +46,7 @@ export default function PreferredStockValuationCalculator() {
 
   const run = () => setRes(calcPSV(parseFloat(dividend) || 0, parseFloat(requiredReturn) || 7, parseFloat(growthRate) || 0));
   const reset = () => {
-    setDividend("5.50"); setRequiredReturn("7"); setGrowthRate("0"); setParValue("100"); setMarketPrice("78.57");
+    setDividend("5.50"); setRequiredReturn("7"); setGrowthRate("3"); setParValue("100"); setMarketPrice("78.57");
     setRes(calcPSV(5.50, 7, 0));
   };
 
@@ -97,7 +97,7 @@ export default function PreferredStockValuationCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Valuation Results</h2>
                   <DollarSign className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`bg-primary/10 border-l-4 rounded-xl p-5 text-center ${res.valuePerShare >= market && market > 0 ? "border-green-500" : "border-red-500"}`}>
+                <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center ${res.valuePerShare >= market && market > 0 ? "border-green-500" : "border-red-500"}`}>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Intrinsic Value Per Share</div>
                   <div className="text-4xl font-extrabold text-primary tracking-tight">${fmt(res.valuePerShare)}</div>
                   <div className="text-sm text-muted-foreground mt-1">

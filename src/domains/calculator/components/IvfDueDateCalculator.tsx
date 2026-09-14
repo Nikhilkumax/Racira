@@ -115,7 +115,7 @@ export default function IvfDueDateCalculator() {
     setResult(calcIVF(transferDate, transferType));
   };
 
-  useEffect(() => { setResult(calcIVF(defaultDateStr, "day5")); }, [defaultDateStr]);
+  useEffect(() => { setResult(calcIVF(defaultDateStr, "day5")); }, []);
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
@@ -162,7 +162,7 @@ export default function IvfDueDateCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Estimated Due Date (EDD)</div>
                 <div className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-2">
                   {result.edd.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'})}

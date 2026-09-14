@@ -92,10 +92,6 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           Supply &amp; Demand Equilibrium Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Solve for the market-clearing price and quantity from linear demand and supply curves —
-          the point where quantity demanded equals quantity supplied.
-        </p>
       </div>
 
       <Card className="mb-6">

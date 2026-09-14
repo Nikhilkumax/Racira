@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "hvac-equipment-selector-guide",
+    "varName": "hvac_equipment_selector_guideSeo",
+    "name": "HVAC Equipment Selector Guide",
+    "sections": [
+      {
+        "heading": "What is HVAC Equipment Selector Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "HVAC Equipment Selector Guide matches eight building and zone types to the equipment family that usually serves them, with the typical capacity range and the selection notes that matter early in design. It covers the spread of commercial HVAC: packaged rooftop units for one-zone retail, VAV with a central air handler for multi-zone buildings, VRF for retrofit and part-load diversity, CRAC and CRAH units for server rooms, split heat pumps for residential suites, make-up air for industrial plants, DOAS for schools and assembly halls, exhaust hoods for kitchens, and hundred-percent-outdoor-air units for laboratories."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is deliberately a concept-stage tool. Each row pairs an application with the equipment family and its capacity band — AHUs 5 to 100-plus tons, VRF 1 to 60 tons, rooftop units 2 to 50 tons — and the notes carry the design rules that shape the real selection: chilled-water VAV is the workhorse above 50,000 square feet, server rooms are sensible-only loads with tight supply ranges, kitchen make-up air must track the hood exhaust, and fume-hood labs stay net negative against corridors. The tool's own disclaimer is the operative one: final selection follows the load calculation and the ventilation and energy codes, not the application alone."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use HVAC Equipment Selector Guide",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the building or zone type from the Application selector — the eight options cover small commercial, multi-zone commercial, server rooms, residential, industrial, schools, kitchens and laboratories.",
+              "<strong>Step 2:</strong> Read the Suggested equipment panel. The equipment family appears first, the Typical capacity band gives the working range to sanity-check against the rough load, and the Selection notes carry the rule that most shapes the design — from matching EER and SEER to code minimums to keeping a lab net negative.",
+              "<strong>Step 3:</strong> Use the capacity band to test the early arithmetic. A 30,000-square-foot office with a plausible load of 300 tons is already outside the single-AHU band on the chart and points to a chilled-water plant rather than a rooftop — the guide catches that mismatch before the load model is built.",
+              "<strong>Step 4:</strong> Note the code hooks each row names: ACCA Manual J for residential sizing, ASHRAE 62.1 for ventilation air in schools and assembly halls, ASHRAE classes for server-room conditions, Type I hood requirements for cooking.",
+              "<strong>Step 5:</strong> Treat the result as the starting family, then size with a real load calculation and verify the equipment against the governing energy and ventilation codes before it reaches the schedule."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use HVAC Equipment Selector Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The equipment family decision shapes everything downstream — the shaft space for ductwork, the plant room footprint, the refrigerant choice, the controls strategy — and it is usually made from experience and habit rather than from the load. A guide that forces the application to be named and then states the conventional family, capacity band and governing rule makes the early decision explicit, which is exactly where a wrong family choice is still cheap to reverse."
+          },
+          {
+            "type": "paragraph",
+            "text": "The notes also carry the non-obvious rules that separate a workable concept from a rework: laboratory systems need energy recovery as effectively mandatory because hundred-percent outdoor air is ruinously expensive without it; kitchen make-up air must be tempered and tracked to the exhaust; server-room cooling is a sensible-load problem where humidity and supply temperature matter more than total tonnage. Having those rules attached to the application row keeps them in front of the designer at the moment of choice."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "When is VRF a better choice than chilled-water VAV?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chilled-water VAV with a central air handler is the workhorse for new buildings above about 50,000 square feet, where its plant efficiency, ventilation control and service life pay off. VRF suits retrofit projects and buildings with strong part-load diversity — many zones running at different loads at once — where its inverter-driven refrigerant flow and small pipe risers beat a full hydronic plant. The crossover depends on climate, energy code and first-cost goals, which is why the guide frames the choice by application and leaves the final call to the load and life-cycle analysis."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why do server rooms need special cooling rather than comfort AC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Server loads are almost entirely sensible heat — the equipment does not add moisture — and the room needs tight control of both temperature and humidity to protect the electronics. Comfort equipment is sized for mixed sensible and latent loads and runs poorly at the steady high-sensible fraction a server room presents. CRAC and CRAH units are built for that duty, with supply temperatures in the 19 to 25 degrees Celsius range and humidity held within the ASHRAE A1 to A4 classes, typically 20 to 80 percent relative humidity depending on the class."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much make-up air does a commercial kitchen need?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The exhaust hood sets the number: hood exhaust runs roughly 250 to 600 CFM per linear foot of hood, and the make-up air system should temper and supply 80 to 100 percent of that exhaust to keep the room from going negative. A Type I hood is required over cooking equipment that produces grease, and the make-up air should be introduced so it does not short-circuit across the hood opening — typically keeping 15 to 20 percent of the supply from ambient or un-tempered sources to balance first cost against comfort."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What makes laboratory HVAC different from office HVAC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Laboratories ventilate for safety, not comfort: fume-hood labs run 6 to 15 air changes per hour depending on hazard class and must stay net negative against corridors so contaminants never flow out. That means hundred-percent outdoor-air systems with no recirculation, which makes energy recovery effectively mandatory — the exhaust and supply streams exchange heat before the air is thrown away. The result is a very different plant from a recirculating office system, which is why the guide lists lab equipment as its own family rather than as a variant of the commercial one."
+          }
+        ]
+      }
+    ]
+  }
+]

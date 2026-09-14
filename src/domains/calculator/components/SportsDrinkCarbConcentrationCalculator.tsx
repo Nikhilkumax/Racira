@@ -102,7 +102,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -114,6 +114,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -167,7 +168,7 @@ export default function SportsDrinkCarbConcentrationCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carbs, volume, volumeUnit]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -207,13 +208,13 @@ export default function SportsDrinkCarbConcentrationCalculator() {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <CompactInput id="carbs" label="Total Carbohydrates in Drink" value={carbs} onChange={setCarbs} suffix="grams" />
+              <CompactInput id="carbs" label="Total Carbohydrates in Drink" value={carbs} onChange={setCarbs} suffix="grams" onEnter={handleCalculate} />
               <p className="text-[10px] text-muted-foreground -mt-3 ml-1">Check the nutrition label on your powder/mix.</p>
             </div>
 
             <div className="grid grid-cols-[1fr_auto] gap-3 mt-2">
               <div className="grid grid-cols-1 gap-3">
-                <CompactInput id="vol" label="Total Fluid Volume" value={volume} onChange={setVolume} />
+                <CompactInput id="vol" label="Total Fluid Volume" value={volume} onChange={setVolume} onEnter={handleCalculate} />
               </div>
               <div className="flex flex-col">
                 <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">&nbsp;</label>
@@ -246,7 +247,7 @@ export default function SportsDrinkCarbConcentrationCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className={`${results.classification === 'Hypertonic' ? 'bg-red-500/10 border-red-500' : results.classification === 'Isotonic' ? 'bg-green-500/10 border-green-500' : 'bg-blue-500/10 border-blue-500'} border rounded-lg p-5 relative overflow-hidden shadow-sm transition-colors`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
@@ -255,7 +256,7 @@ export default function SportsDrinkCarbConcentrationCalculator() {
                       Gastric Emptying Profile
                     </div>
                     <div className="flex items-baseline gap-2 mb-2">
-                      <div className="text-5xl font-extrabold tracking-tight text-foreground">{results.concentrationPct.toFixed(1)}</div>
+                      <div className="text-4xl font-bold tracking-tight text-primary">{results.concentrationPct.toFixed(1)}</div>
                       <div className="text-xl font-bold text-muted-foreground">% Concentration</div>
                     </div>
                     <div className="inline-flex gap-2 text-xs font-bold mt-1 bg-background/50 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border">

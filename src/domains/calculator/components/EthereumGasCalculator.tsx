@@ -47,9 +47,15 @@ export default function EthereumGasCalculator() {
     const p = parseFloat(price);
     const e = parseFloat(eth);
     if (!isNaN(l) && !isNaN(p) && !isNaN(e) && l >= 0 && p >= 0 && e >= 0) setResult(calcGas(l, p, e));
-  }, [limit, price, eth]);
+  }, []);
 
-  const reset = () => { setLimit(DEFAULTS.limit); setPrice(DEFAULTS.price); setEth(DEFAULTS.eth); };
+  const handleCalculate = () => {
+    const l = parseFloat(limit);
+    const p = parseFloat(price);
+    const e = parseFloat(eth);
+    if (!isNaN(l) && !isNaN(p) && !isNaN(e) && l >= 0 && p >= 0 && e >= 0) setResult(calcGas(l, p, e));
+  };
+  const reset = () => { setLimit(DEFAULTS.limit); setPrice(DEFAULTS.price); setEth(DEFAULTS.eth); setResult(calcGas(parseFloat(DEFAULTS.limit), parseFloat(DEFAULTS.price), parseFloat(DEFAULTS.eth))); };
   const invalid = isNaN(parseFloat(limit)) || isNaN(parseFloat(price)) || isNaN(parseFloat(eth)) || parseFloat(limit) < 0 || parseFloat(price) < 0 || parseFloat(eth) < 0;
 
   const breakdown = [
@@ -96,7 +102,7 @@ export default function EthereumGasCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Fuel className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

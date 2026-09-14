@@ -169,6 +169,7 @@ export default function LoanOriginationFeeCalculator() {
             </button>
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Closing & Financing Details</div>
                 <CompactInput id="otherClosingCosts" label="Other Closing Costs" value={inputs.otherClosingCosts} onChange={(v: string) => handleChange("otherClosingCosts", v)} prefix="$" />
                 <div className="col-span-2 text-xs text-muted-foreground mb-1">Used to calculate financing impact (if rolled into loan):</div>
                 <CompactInput id="interestRate" label="Interest Rate" value={inputs.interestRate} onChange={(v: string) => handleChange("interestRate", v)} suffix="%" />

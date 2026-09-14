@@ -294,12 +294,7 @@ export default function LowCarbDietAdherenceScoreCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative overflow-hidden ${
-                  results.adherenceScore >= 90 ? "bg-[#10b981]/10 border-[#10b981]" :
-                  results.adherenceScore >= 70 ? "bg-[#3b82f6]/10 border-[#3b82f6]" :
-                  results.adherenceScore >= 50 ? "bg-[#f59e0b]/10 border-[#f59e0b]" :
-                  "bg-[#ef4444]/10 border-[#ef4444]"
-                }`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

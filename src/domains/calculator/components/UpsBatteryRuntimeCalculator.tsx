@@ -56,7 +56,7 @@ export default function UpsBatteryRuntimeCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const ah = parseFloat(inputs.batteryCapacity)

@@ -1,0 +1,369 @@
+const spring_rate_calculatorSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Spring Rate Calculator", content: [
+      { type: "paragraph", text: `Spring Rate Calculator computes the rate of a coil compression spring and the deflection it shows under load. The rate formula is the classic spring equation — the rate k equals the shear modulus G times the wire diameter to the fourth power, divided by eight times the mean coil diameter cubed times the number of active coils. With a music-wire spring of 2 mm wire, 20 mm mean diameter and 5 active coils, that works out to 4 N per millimetre: each newton of load compresses the spring one quarter of a millimetre.` },
+      { type: "paragraph", text: `The material selector carries the shear moduli of the common spring wires — music wire at 80,000 N/mm², oil-tempered and hard-drawn at 79,400, chrome-vanadium and chrome-silicon at 79,300, the stainless grades lower, and the copper alloys lower still at 45,000 to 48,000. Picking a material fills in its modulus, and the shear modulus field stays editable for a wire not on the list. The tool also reports the spring index — the mean diameter divided by the wire diameter — which should sit between 4 and 12 for a manufacturable spring.` },
+    ]},
+    { heading: "How to Use Spring Rate Calculator", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Pick the Material from the selector — music wire, oil-tempered, hard-drawn, chrome-vanadium, chrome-silicon, 302 or 17-7 PH stainless, phosphor bronze or beryllium copper. The Shear modulus G field fills in automatically and stays editable.`,
+        `<strong>Step 2:</strong> Enter the Wire diameter d — the diameter of the wire the spring is wound from, in millimetres. Rate scales with the fourth power of this number, so it is the most sensitive input on the page.`,
+        `<strong>Step 3:</strong> Enter the Mean coil diameter D — the outside diameter minus one wire diameter, which is the dimension the formula uses. If you only know the outside diameter, subtract d first.`,
+        `<strong>Step 4:</strong> Enter the Active coils n — the coils that actually deflect. For squared-and-ground ends, subtract about two from the total coil count. Then enter the Applied load F in newtons if you want the deflection.`,
+        `<strong>Step 5:</strong> Read the Result panel: Spring rate k in N/mm, Deflection at the applied load in millimetres, and the Spring index. Check the index lands between 4 and 12 — outside that band the spring is hard to wind or prone to buckling.`,
+      ]},
+    ]},
+    { heading: "Why Use Spring Rate Calculator", content: [
+      { type: "paragraph", text: `Spring rate is the specification that makes a spring interchangeable: it is the number a springmaker quotes and a designer verifies, and it is what the rest of the mechanism calculation consumes — a valve return spring needs enough rate to close against pressure, a suspension spring needs the rate that puts ride frequency in the right band. Computing it by hand means tracking the fourth power of the wire diameter through a five-term formula, which is tedious and error-prone exactly when the number matters most.` },
+      { type: "paragraph", text: `Because the wire diameter enters to the fourth power, the calculator makes the design iteration visible: going from 2 mm to 3 mm wire on the default spring raises the rate from 4 to 20.25 N/mm — a fivefold change from a fifty percent size increase. Watching the rate respond to each input is the fastest way to develop a feel for which dimension actually controls the spring, which is the difference between a design that converges and one that chases its own tail.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why does the wire diameter enter to the fourth power?", content: [
+      { type: "paragraph", text: `Because the spring formula derives from the torsion of a round wire: the rate constant contains the wire's polar moment of inertia, which is proportional to the diameter to the fourth power. The practical consequence is that the wire diameter dominates the design — increasing it from 2 mm to 3 mm on an otherwise unchanged spring raises the rate from 4 to 20.25 N/mm, roughly a fivefold gain for a fifty percent size increase. If a spring needs to be much stiffer, change the wire before changing anything else.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between active coils and total coils?", content: [
+      { type: "paragraph", text: `Total coils is the full count including the ends that sit against the seats; active coils are the ones that deflect as the spring compresses. For ends that are squared and ground — the standard finish — the two end coils are closed and do not contribute, so subtract about two from the total count to get the active coils the formula needs. Entering the total count instead of the active count makes the computed rate too soft by roughly the ratio of total to active coils.` },
+    ]},
+    { heading: "", subHeading: "Why does the spring index matter?", content: [
+      { type: "paragraph", text: `The spring index is the mean coil diameter divided by the wire diameter. Below about 4 the wire is wound too tightly around the mandrel, stressing the inner fibres and making the spring hard to manufacture; above about 12 the spring is slender and prone to buckling and to tangling with adjacent coils. The tool reports the index beside the rate so the geometry check happens in the same pass as the strength calculation rather than as a separate step.` },
+    ]},
+    { heading: "", subHeading: "Does the rate alone tell me if the spring is strong enough?", content: [
+      { type: "paragraph", text: `No — rate is a stiffness property, not a strength check. A spring of the right rate can still yield or fatigue if the corrected shear stress at full deflection exceeds what the material allows. The full check applies the Wahl curvature correction to the stress formula — shear stress equals the Wahl factor times eight times the load times the mean diameter over pi times the wire diameter cubed — which is a separate analysis this tool deliberately leaves to a dedicated stress calculation.` },
+    ]},
+  ],
+};
+
+const stress_concentration_factor_referenceSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Stress Concentration Factor Reference", content: [
+      { type: "paragraph", text: `Stress Concentration Factor Reference is a lookup of representative Kt values for the geometric features that raise stress on a part: holes in plates, grooves, shoulder fillets, thread roots, keyways and sharp internal corners. Kt is the elastic stress concentration factor — the number the peak stress at the feature multiplies the nominal stress by — so a hole in a plate under tension with a Kt of about 2.5 sees a local stress two and a half times the average stress in the section.` },
+      { type: "paragraph", text: `The table pairs each feature with its geometry parameter and the Kt that goes with it, and the notes carry the engineering insight: Kt falls toward 3 as a hole gets small relative to the plate width and rises toward about 2.2 as the hole grows to half the width; a groove's Kt climbs fast as its radius ratio drops below 0.05, which is why adding radius is the cheapest fix; torsion Kt is lower than bending Kt for the same shoulder; and a thread root at 2.1 to 3.0 is where fatigue cracks start on bolts.` },
+    ]},
+    { heading: "How to Use Stress Concentration Factor Reference", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Identify the feature on your part — a hole in a plate, a circular groove on a shaft, a shoulder fillet, a thread, a keyway or an internal corner — and find its row in the table.`,
+        `<strong>Step 2:</strong> Match your geometry parameter to the row's value: a hole's diameter-to-width ratio, a groove or fillet's radius-to-shaft-diameter ratio. The table gives Kt at the listed parameter; interpolate between rows for an estimate.`,
+        `<strong>Step 3:</strong> Apply the multiplier in your stress estimate: the peak stress at the feature is roughly Kt times the nominal stress in the section. A 2.5 Kt hole means the part sees two and a half times the average stress right at the hole edge.`,
+        `<strong>Step 4:</strong> Read the notes column for the design lever each feature offers — increasing the fillet radius, reducing the diameter step, or avoiding a zero-radius corner on a load path altogether.`,
+        `<strong>Step 5:</strong> For a real design, take the exact value from Peterson's Stress Concentration Factors or Pilkey's handbook using your precise d/D and r/d ratios — this table gives representative magnitudes for quick estimates and early layout, not the final analysis value.`,
+      ]},
+    ]},
+    { heading: "Why Use Stress Concentration Factor Reference", content: [
+      { type: "paragraph", text: `Stress raisers are where real parts break: a nominal stress comfortably inside the material's capability can be multiplied past yield or past the fatigue limit at a hole edge, a thread root or a sharp corner. Because Kt depends only on geometry and not on material, a small table of representative values catches the dangerous features at the layout stage — the moment when a radius is still free to add — rather than after the part is drawn and machined.` },
+      { type: "paragraph", text: `The geometry insight in the notes is the part that prevents the mistakes from recurring. Knowing that a groove's Kt climbs sharply below a radius ratio of 0.05, or that a keyway's corner adds a local raiser on top of the keyway's own Kt, turns a vague awareness of “stress concentrations” into specific rules applied at each feature. That is the difference between a drawing that inherits stress raisers and one that designs them out.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What is the difference between Kt and Kf?", content: [
+      { type: "paragraph", text: `Kt is the theoretical elastic stress concentration factor — a pure geometry effect that assumes perfectly elastic material. Real materials blunt the peak through local yielding and micro-plasticity, so the fatigue world uses Kf, the fatigue stress concentration factor, which reduces Kt's effect through the material's notch sensitivity q: Kf equals 1 plus q times Kt minus 1. A ductile metal with high notch sensitivity keeps most of Kt's severity; a material like cast iron with internal notches of its own behaves differently and benefits less from adding external radius.` },
+    ]},
+    { heading: "", subHeading: "Why does a smaller fillet radius raise the stress so quickly?", content: [
+      { type: "paragraph", text: `A fillet radius concentrates stress because the load must flow around the corner, and the smaller the radius, the more abruptly the flow must turn — in the limit of a zero radius, the theoretical stress goes to infinity. A groove's Kt climbs fast as the radius ratio drops below 0.05, which is why the notes call radius the cheapest fix: increasing the fillet radius and softening the diameter step at a shoulder can cut the concentration factor by a third without changing the shaft size.` },
+    ]},
+    { heading: "", subHeading: "Why is torsion Kt lower than bending Kt for the same shoulder?", content: [
+      { type: "paragraph", text: `Because the two loadings distribute stress across the section differently. Bending puts its peak at the outer fibres and demands a sharp turn in the stress flow at the shoulder, producing a higher concentration; torsion shears the section more uniformly and the transition is less abrupt, so the same geometry concentrates less — about 1.4 to 1.5 under torsion versus 1.7 to 1.9 under bending for a typical shoulder fillet. The practical rule is to use the bending value when a shaft sees both, since it is the conservative one.` },
+    ]},
+    { heading: "", subHeading: "How do I reduce the stress concentration at a hole in a plate?", content: [
+      { type: "paragraph", text: `Move the hole away from the loaded edge and control its size relative to the plate width — the concentration rises as the hole diameter approaches the plate width. Adding reinforcement around the hole, such as a pad or a boss, spreads the load path, and deburring and radiusing the hole edges removes the local scratches that act as their own stress raisers on top of the hole's Kt. Under fatigue loading, consider cold-working the hole edge — processes like cold expansion put the edge in residual compression and dramatically extend crack-initiation life.` },
+    ]},
+  ],
+};
+
+const material_selection_guide_mechanicalSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Material Selection Guide (mechanical)", content: [
+      { type: "paragraph", text: `Material Selection Guide (mechanical) is a quick-comparison table of the engineering materials a mechanical design reaches for most: density, representative strength, elastic modulus and the typical use each material serves. The fourteen rows span the metals — the aluminium alloys 6061-T6 and 7075-T6, the steels A36, 1045 and 4140, stainless 304 and 316, titanium 6Al-4V, brass C360 and copper C110 — and the engineering polymers and composites: nylon 6/6, acetal, ABS and glass-fibre laminate.` },
+      { type: "paragraph", text: `The columns answer the three questions every early material decision asks: how heavy is it, how strong is it, and how stiff is it. Aluminium 6061-T6 sits at 2.70 grams per cubic centimetre with a 276 MPa yield, steel A36 at 7.85 with 250, titanium 6Al-4V at 4.43 with 880 — the strength-to-weight champion on the table — and the polymers below 1.5 with tensile strengths in the tens of megapascals. The modulus column separates the families: steels near 200 GPa, aluminiums near 70, titanium at 114, and the polymers at 2 to 3, which is why a plastic part must be proportioned so differently from a metal one.` },
+    ]},
+    { heading: "How to Use Material Selection Guide (mechanical)", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Screen by the dominant requirement first. If weight drives the design, compare the density column — aluminium at 2.70 and titanium at 4.43 against steel at 7.85. If corrosion drives it, the stainless and titanium rows carry that in their use notes.`,
+        `<strong>Step 2:</strong> Check the strength column against the load. The value is the yield strength for the metals and tensile strength for the polymers; note that the 4140 row shows a range because its yield depends on temper.`,
+        `<strong>Step 3:</strong> Check the modulus column for stiffness-critical parts. A shaft or beam that must not deflect needs the high-modulus families — steel, stainless, titanium — while a snap-fit housing can work in acetal at 2.6 GPa with the right geometry.`,
+        `<strong>Step 4:</strong> Use the search box to filter the table to one material family while comparing candidates side by side, or to find which row carries a property you need.`,
+        `<strong>Step 5:</strong> Verify against the material specification before release: the values are typical published figures for the most common condition, and certified minimums from the exact ASTM or ISO spec — A36 versus A572-50, for example — are what a load-bearing part must be checked against.`,
+      ]},
+    ]},
+    { heading: "Why Use Material Selection Guide (mechanical)", content: [
+      { type: "paragraph", text: `Material selection mistakes rarely fail the obvious way — the wrong family is usually caught by weight or corrosion. They fail on the less visible axes: a part designed in steel proportions copied into aluminium without accounting for the third of the modulus, or a strength quoted from a heat-treat datasheet that the specified condition never reaches. A table that puts density, strength and modulus side by side for the standard conditions makes those comparisons explicit before the geometry is locked.` },
+      { type: "paragraph", text: `The table is equally a reminder of what each material costs in design terms beyond price: 7075-T6 gives high strength but poor weldability, 304 work-hardens when machined, titanium is expensive and chips poorly, nylon absorbs moisture and changes properties, and glass-fibre laminate is anisotropic — its properties follow the fibre direction. The use notes carry those caveats so the selection considers manufacturability and environment, not just the numbers in the first three columns.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why does 4140 show a strength range while A36 shows a single value?", content: [
+      { type: "paragraph", text: `Because A36 is a structural steel sold in the as-rolled condition with a certified minimum yield near 250 MPa, while 4140 is a medium-carbon alloy steel whose strength is set by heat treatment — the same bar can be delivered with a yield anywhere from roughly 655 MPa in a modest quench-and-temper up to about 1200 MPa at a higher temper. The range is the material's capability envelope; the actual number depends on the heat-treat specification on the drawing.` },
+    ]},
+    { heading: "", subHeading: "When is titanium worth its cost?", content: [
+      { type: "paragraph", text: `When strength-to-weight and corrosion resistance are required together and nothing cheaper will do. At 4.43 grams per cubic centimetre with an 880 MPa yield, titanium 6Al-4V beats steel on strength per unit weight by a wide margin while resisting the chloride attack that would force an expensive stainless or a coating on a steel part. The cost shows up in the material price and in machining — titanium is expensive and chips poorly — so the aerospace, marine and medical applications that justify it are the ones where a kilogram saved or a corrosion failure avoided is worth real money.` },
+    ]},
+    { heading: "", subHeading: "Why is aluminium much less stiff than steel even pound for pound?", content: [
+      { type: "paragraph", text: `Stiffness is set by the elastic modulus, and aluminium's is about 69 GPa against steel's 200 — roughly a third. Since modulus does not scale with strength or weight, an aluminium replacement for a steel part must be proportioned for roughly three times the section to resist the same deflection, which is why aluminium parts in stiffness-critical roles end up chunky despite being light. For strength-limited parts the comparison is kinder — 6061-T6 at 276 MPa yield holds up far better against A36 than the modulus comparison suggests.` },
+    ]},
+    { heading: "", subHeading: "How should I read the polymer strength values?", content: [
+      { type: "paragraph", text: `The polymer rows report tensile strength rather than yield, and the values — roughly 83 MPa for dry nylon 6/6, 62 for acetal, 40 for ABS — come with conditions attached. Nylon absorbs moisture and its properties change as it does, so the dry value is optimistic in a humid environment. Polymer strength also depends on temperature, strain rate and how the part is moulded, and the table's modulus values in the 2 to 3 GPa range are the reminder that plastics are for geometry-rich, lightly loaded parts, not substitutes for structural metal.` },
+    ]},
+  ],
+};
+
+const fastener_reference_librarySeo: ToolSeo = {
+  sections: [
+    { heading: "What is Fastener Reference Library", content: [
+      { type: "paragraph", text: `Fastener Reference Library is the three lookups a drawing office performs most, in one place: metric coarse thread pitches under ISO 261 and 262, metric property classes under ISO 898-1, and SAE grades under SAE J429. The pitch table spans M3 through M36 with the standard coarse pitch for each — M6 at 1.0 millimetres, M10 at 1.5, M16 at 2.0 — so a tapped hole or a thread callout never carries a guessed pitch.` },
+      { type: "paragraph", text: `The property-class table carries the two numbers that define a metric bolt's strength — the yield and tensile strengths of classes 4.6 through 12.9 — with the role each class serves: 8.8 at 640 yield and 800 tensile is the standard structural high-strength choice, 10.9 at 900 and 1040 serves critical automotive joints, and 12.9 at 1080 and 1220 is the maximum metric strength with its hydrogen-embrittlement caveat if plated. The SAE table matches the imperial world: Grade 2 at 74 ksi tensile, Grade 5 at 120, Grade 8 at 150.` },
+    ]},
+    { heading: "How to Use Fastener Reference Library", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Start with the question you are answering. For a thread callout or a tapped hole, use the Metric coarse thread pitch table. For a strength requirement, use the ISO property classes if the fastener is metric or the SAE grades if it is imperial.`,
+        `<strong>Step 2:</strong> In the pitch table, find the thread size and read its coarse pitch. When the drawing does not state a pitch on a metric thread, the coarse pitch from this table is what the shop will assume.`,
+        `<strong>Step 3:</strong> In the property-class table, match the required strength to a class. A structural joint working near 600 MPa tensile needs at least 8.8; a critical automotive joint above 900 needs 10.9.`,
+        `<strong>Step 4:</strong> Note the caveats attached to the top classes: 12.9 is maximum-strength metric but is hydrogen-embrittlement sensitive if plated, so specify it with care — and remember the classes state strength, not that the bolt is suitable for every load at that strength.`,
+        `<strong>Step 5:</strong> Use the search box to filter any table to the single thread, class or grade you are checking.`,
+      ]},
+    ]},
+    { heading: "Why Use Fastener Reference Library", content: [
+      { type: "paragraph", text: `Fastener strength is a two-system language on most projects: metric drawings cite property classes like 8.8, imperial drawings cite SAE grades like Grade 5, and the two are not interchangeable — a drawing that calls a metric 8.8 where a Grade 8 was intended, or vice versa, can under-specify a joint by a wide margin. Keeping the ISO and SAE tables together makes the cross-system comparison explicit instead of a lookup across two catalogs.` },
+      { type: "paragraph", text: `The pitch table carries the quieter but equally expensive class of error: a tapped hole drilled and tapped at the wrong pitch binds or strips, and thread pitch is the dimension most often assumed rather than checked. Twelve sizes from M3 to M36 cover essentially every structural and mechanical metric thread a drawing office specifies, which is why the library is complete enough to be a working reference rather than a sampler.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What do the two numbers in a property class such as 8.8 mean?", content: [
+      { type: "paragraph", text: `The first number is the nominal tensile strength in hundreds of megapascals — 8.8 means 800 — and the second is the ratio of yield to tensile strength in tenths — the second 8 means the yield sits at 80 percent of the tensile, or 640 MPa. Class 10.9 reads the same way: 1000 MPa nominal tensile with a 0.9 ratio, giving 900 MPa yield. The class is marked on the bolt head, so the strength is readable on the fastener itself rather than only on the drawing.` },
+    ]},
+    { heading: "", subHeading: "When should I use 10.9 or 12.9 instead of 8.8?", content: [
+      { type: "paragraph", text: `When the joint demands it — the load divided by the bolt area exceeds what 8.8 provides, or the design needs the smaller envelope of a higher-strength bolt at the same load. 10.9 is the automotive and critical-joint workhorse above 8.8, and 12.9 is the maximum metric strength, used where nothing else fits. The cost is real: higher classes are more brittle and more sensitive to hydrogen embrittlement, especially 12.9 when plated, so specify the highest class only when the joint actually needs it.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between a property class and an SAE grade?", content: [
+      { type: "paragraph", text: `They are the two strength-marking systems for the same product: ISO 898-1 property classes for metric bolts, SAE J429 grades for imperial ones. Class 8.8 (800 MPa tensile) sits in the same strength region as Grade 5 (120 ksi, about 827 MPa), and class 10.9 (1040 MPa) near Grade 8 (150 ksi, about 1034 MPa) — close but not identical, which is precisely why substituting across systems without checking is dangerous. A drawing must state which system it is specifying in, or the shop cannot know which marking to look for.` },
+    ]},
+    { heading: "", subHeading: "Why is the coarse pitch assumed when none is stated?", content: [
+      { type: "paragraph", text: `Metric threads come in coarse and fine series, and the coarse pitch is the default: it is what a standard bolt of that diameter carries unless the drawing says otherwise, and it is what most applications use because it is stronger in the thread and faster to assemble. Fine pitches exist for vibration resistance and for adjusting applications, but they must be specified explicitly. When a drawing writes M10 with no pitch, the shop taps and threads 1.5 millimetres — the coarse value this table lists.` },
+    ]},
+  ],
+};
+
+const shaft_design_referenceSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Shaft Design Reference", content: [
+      { type: "paragraph", text: `Shaft Design Reference gathers the three things a designer reaches for when starting a shaft layout: the minimum-diameter formulas for the common loading cases, the preferred metric shaft sizes to round up to, and the keyway and step guidance that keeps a shaft from failing where it looks strongest. The formula table covers torsion-only solid rounds, the ASME elliptic criterion for combined bending and torsion, and the stiffness-limited case where deflection rather than stress sets the diameter.` },
+      { type: "paragraph", text: `The torsion formula is the cube root of sixteen times the torque over pi times the allowable shear stress; the ASME combined case adds the bending moment and torque through the elliptic interaction with their shock-and-fatigue factors; and the stiffness case applies the twist relation — angle of twist equals torque times length over the shear modulus times the polar moment of inertia — which is where designers discover that a shaft sized by stress alone can still twist too much for the application. Below the formulas sits the normalized metric size series from 6 to 250 millimetres, with the rule to round the calculated diameter up, never down.` },
+    ]},
+    { heading: "How to Use Shaft Design Reference", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Identify the loading case in the Sizing formulas table. A shaft carrying torque alone with no significant bending — a short coupling shaft — uses the torsion-only formula; a shaft carrying a gear or pulley load between bearings uses the bending-plus-torsion ASME criterion; a long shaft in a precision mechanism may be stiffness-limited.`,
+        `<strong>Step 2:</strong> Apply the formula with your allowable stress. For mild steel shafts a typical allowable shear stress runs 40 to 60 MPa, which the table states as the working range behind its example.`,
+        `<strong>Step 3:</strong> Round the computed diameter UP to the nearest value in the Preferred metric shaft sizes table — the normalized series from 6 to 250 millimetres — since a shaft cut to a non-standard diameter costs more and matches nothing.`,
+        `<strong>Step 4:</strong> Walk the Keyway & step notes before finalizing: check the shaft at the keyway root with a Kt near 1.6 for a profile key rather than at the plain diameter, keep fillet radii at step changes at or above 0.1 times the smaller diameter where fatigue matters, and match each diameter to the bearing and seal bores available in supplier catalogues.`,
+        `<strong>Step 5:</strong> Re-check the shoulders and transitions for stress concentration, and verify the final diameters against the bearings, seals, gears and couplings that mount on them.`,
+      ]},
+    ]},
+    { heading: "Why Use Shaft Design Reference", content: [
+      { type: "paragraph", text: `Shaft failures concentrate at the places the sizing formula does not see: the keyway that interrupts the section, the step where the diameter changes, and the fillet that sharpens the transition. A shaft correctly sized at its mid-span can still crack at a keyway corner or a tight shoulder fillet under fatigue, which is why the reference pairs the diameter formulas with the stress-riser rules instead of pretending sizing is the whole story.` },
+      { type: "paragraph", text: `The preferred-sizes table and the bearing-matching note keep the design from drifting into custom territory: a calculated 21.4 millimetre shaft rounds up to 22, and a shaft drawn at 21.4 would match no standard bearing bore and no stock bar. Rounding up to the normalized series is what keeps the rest of the supply chain — bearings, seals, couplings, key stock — standard as well, which is where the cost of a shaft design is actually made or lost.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why is the keyway checked with a higher stress than the plain shaft?", content: [
+      { type: "paragraph", text: `Because the keyway removes material from the section and its corners concentrate stress. For fatigue analysis the shaft is evaluated at the keyway root with a stress concentration factor of roughly 1.6 for a profile key rather than at the plain diameter, which can push the governing stress well above the mid-span value. The keyway corner adds a local raiser on top of the keyway's own effect, which is why the note about the keyway root exists — a shaft can be sized correctly at its body and still start its fatigue crack at the keyway.` },
+    ]},
+    { heading: "", subHeading: "When is a shaft stiffness-limited rather than stress-limited?", content: [
+      { type: "paragraph", text: `When the allowable twist or deflection is tighter than the stress allows. The twist of a shaft grows with torque, length and inversely with the polar moment of inertia, so long shafts and precision mechanisms often fail a deflection or twist limit long before the stress reaches the allowable — a lead screw that must index accurately, or a long shaft carrying a scanning element, is sized by how much it twists or sags, not by whether it will break. The stiffness formula row exists because designers routinely size by stress first and discover the deflection problem only at assembly.` },
+    ]},
+    { heading: "", subHeading: "Why should I avoid two keys on the same shaft section?", content: [
+      { type: "paragraph", text: `Because two keys on one section do not reliably double the torque capacity — the load sharing between them depends on manufacturing tolerances that cannot be guaranteed, so one key typically carries most of the load while the second adds a second stress raiser to the shaft. A single key sized for the full torque, with the hub and shaft checked for the resulting bearing stress, is the standard practice. If one key is not enough, the usual answer is a larger shaft or a spline rather than a second parallel key.` },
+    ]},
+    { heading: "", subHeading: "How large should the fillet radius be at a shaft step?", content: [
+      { type: "paragraph", text: `Where fatigue matters, keep fillet radii at step changes at or above about 0.1 times the smaller of the two diameters. Below that ratio the stress concentration climbs steeply as the radius shrinks — a shaft that passes its stress check at the body can fail right at the step shoulder if the fillet is too tight. The radius must also clear the bearing or seal that butts against the shoulder, which is why the reference pairs the radius rule with the note to match diameters to supplier catalogue parts before the steps are final.` },
+    ]},
+  ],
+};
+
+const foundation_type_referenceSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Foundation Type Reference", content: [
+      { type: "paragraph", text: `Foundation Type Reference compares the six foundation families a structural designer chooses between, each explained by how it carries load, the situation that suits it, and the notes that matter early in design. The shallow end holds the spread footing, the continuous strip footing and the raft or mat foundation; the deep end holds driven piles, bored piles or drilled piers, and caissons.` },
+      { type: "paragraph", text: `The load-carrying mechanism is the organizing idea: a spread footing takes a column load and spreads it onto bearing soil at shallow depth; a strip footing does the same for a wall; a raft spreads the whole building footprint over weak soil and controls differential settlement; piles carry past weak upper soils to deep competent strata through friction and end bearing; and bored piers do the same cast in place, with low vibration that suits urban sites. Caissons are the heavy-civil outlier — large dry enclosures sunk to bearing depth for bridges and deep basements.` },
+    ]},
+    { heading: "How to Use Foundation Type Reference", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Start with the soil, not the structure: read the geotechnical report's bearing capacity and settlement numbers at the candidate depths. The tool's note is explicit — shallow foundations are almost always tried first, and soil conditions are what push a design deep.`,
+        `<strong>Step 2:</strong> Match the load path to the family. A column on competent soil points to an isolated spread footing; a bearing wall points to a continuous strip; weak soil under a whole building — or a basement fighting water pressure — points to a raft.`,
+        `<strong>Step 3:</strong> If the shallow options fail the bearing or settlement check, go deep: driven piles where noise and vibration are acceptable and end bearing or friction in deep strata is available, or bored piers on urban sites where low vibration matters and large column loads need big shafts.`,
+        `<strong>Step 4:</strong> Use the search box to filter the table when comparing two families, such as driven piles against bored piers for the same column grid.`,
+        `<strong>Step 5:</strong> Carry the surviving family into the code design: the geotechnical report, groundwater, frost depth, seismic site class and the governing code determine the final footing size, depth and reinforcement — this table selects the family, not the footing.`,
+      ]},
+    ]},
+    { heading: "Why Use Foundation Type Reference", content: [
+      { type: "paragraph", text: `The foundation family decision is made once and paid for forever: it sets the excavation depth, the construction method, the cost and the schedule, and reversing it means moving soil that is already in place. A reference that frames each family by its load-carrying mechanism and the soil situation that suits it keeps the decision anchored to the two things that actually drive it — the ground and the load — rather than to what the last project used.` },
+      { type: "paragraph", text: `The table also draws the line between the deep options that novices blur. Driven piles are preformed members installed by hammering or vibration, suited to weak upper soils, heavy structures and scour risk but constrained by noise on urban sites; bored piers are cast in place with quiet rotary drilling, suited to city sites and large column loads but with necking risk in soft soils. Choosing between them is a site-and-logistics decision as much as a structural one, which the notes make explicit.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "When does a raft or mat foundation beat spread footings?", content: [
+      { type: "paragraph", text: `When the soil is too weak for individual footings or the settlement between them would be unacceptable — a raft spreads the entire building load over the full footprint, lowering the bearing pressure and acting as one giant footing that ties the structure together and controls differential settlement. Rafts also earn their place under heavy basement water pressure, where the slab doubles as the waterproofing floor. Below a few storeys on weak soil, a raft is often cheaper than the deep alternative it avoids.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between a driven pile and a bored pier?", content: [
+      { type: "paragraph", text: `A driven pile is a preformed member — concrete, steel or timber — hammered or vibrated into the ground to reach competent strata, carrying load through end bearing, friction, or both. A bored pier is drilled out and cast in place, forming a shaft that can be very large in diameter. Driven piles suit heavy structures and weak upper soils but bring noise and vibration that constrain urban sites; bored piers drill quietly, suit city sites and large column loads, but risk necking when the hole passes through soft soils before the concrete is placed.` },
+    ]},
+    { heading: "", subHeading: "How deep do spread footings usually go?", content: [
+      { type: "paragraph", text: `Typically 1 to 3 metres below grade, which is shallow enough to count as a shallow foundation but deep enough to sit below the frost line and above a competent bearing stratum. The depth is set by three things: bearing capacity of the soil at the footing level, frost depth in cold climates, and the settlement the structure can tolerate. The reference's caution is that a spread footing's economy falls fast as soil weakens or loads grow — at some point the footing gets so large that a raft or piles become cheaper.` },
+    ]},
+    { heading: "", subHeading: "Why are caissons rarely used for ordinary buildings?", content: [
+      { type: "paragraph", text: `Because a caisson is a large, watertight enclosure sunk to bearing depth with the soil excavated from inside it — a heavy-civil construction method for bridges, deep basements and waterfront structures where the ground is too wet or too deep to excavate openly. The cost and complexity of sinking and sealing an enclosure is out of proportion for an ordinary building, which will use footings, a raft or piles instead. Caissons appear in this reference so the family is complete, not because they are a routine building option.` },
+    ]},
+  ],
+};
+
+const ramp_slope_calculatorSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Ramp Slope Calculator", content: [
+      { type: "paragraph", text: `Ramp Slope Calculator converts a ramp's rise and run into the three ways slope is expressed — percentage, run-to-rise ratio and angle in degrees — and then applies the accessibility rules that decide whether the ramp is legal. A 300 millimetre rise over a 3600 millimetre run comes out as 8.33 percent, a 1:12 ratio and a 4.76 degree angle, which is exactly the maximum slope the ADA and the IBC allow.` },
+      { type: "paragraph", text: `The accessibility checks are built in rather than left to the reader. The tool compares the slope against the 1:12 maximum — the value of 8.333 percent is stored with the precision to accept an exact 1:12 ramp — and reports Meets 1:12 or Exceeds 1:12. It also applies the intermediate-landing rule: once the total rise passes 30 inches (762 millimetres), the ramp needs a rest platform, which the tool reports as Required or Not required.` },
+    ]},
+    { heading: "How to Use Ramp Slope Calculator", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Enter the Vertical rise — the height the ramp must climb, from the lower landing to the upper one, in the unit you select.`,
+        `<strong>Step 2:</strong> Enter the Horizontal run — the horizontal length of the ramp between landings, not the length along the slope. These two are the dimensions a floor plan actually shows.`,
+        `<strong>Step 3:</strong> Pick the Unit — millimetres, centimetres, metres, inches or feet. The arithmetic is unit-free since rise and run share the unit; the unit only labels the inputs and the landing message.`,
+        `<strong>Step 4:</strong> Read the Result panel. Slope shows the percentage, Run : rise ratio shows the 1:X form, Angle shows degrees, Accessibility gives the pass or fail verdict against 1:12, and Intermediate landing states whether the rise triggers a rest platform requirement.`,
+        `<strong>Step 5:</strong> Verify with the exact boundary case: a 300 mm rise over a 3600 mm run must read 8.33 %, 1 : 12.00, 4.76°, Meets 1:12 ✓ and Not required — and a 400 mm rise over the same run must fail with Exceeds 1:12 ✗.`,
+      ]},
+    ]},
+    { heading: "Why Use Ramp Slope Calculator", content: [
+      { type: "paragraph", text: `Ramp slope is an accessibility compliance number with a hard boundary: a ramp at 1:11.9 is legal and one at 1:11.8 is not, and the difference between them is invisible on a floor plan. Computing the percentage, ratio and angle from the rise and run — and testing them against the 1:12 limit with floating-point care — is exactly the arithmetic that decides whether a design passes plan review, which is why the tool checks it rather than merely displaying it.` },
+      { type: "paragraph", text: `The landing rule is the check that catches real designs: a long ramp that looks fine on paper can exceed the 30 inch rise between rest platforms, which changes the layout, the handrail runs and the guardrails. Because the tool reports the landing requirement from the same rise input as the slope, the two code checks stay consistent — a ramp can never pass the slope check while silently failing the one the drawing does not show.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why is 1:12 exactly 8.333 percent and how close is close enough?", content: [
+      { type: "paragraph", text: `A 1:12 ramp rises one unit for every twelve of run, which is a percentage of one divided by twelve times one hundred — 8.333 percent repeating. The code limit is that ratio, not a rounded 8.3, so the tool compares the computed slope against one hundred over twelve with a small floating-point allowance: an exact 300 over 3600 ramp computes to 8.3333 and must pass, while anything genuinely steeper must fail. That precision is the difference between a ramp that is exactly legal and one that is not.` },
+    ]},
+    { heading: "", subHeading: "When does a ramp need an intermediate landing?", content: [
+      { type: "paragraph", text: `When the total rise exceeds 30 inches — 762 millimetres — a rest platform is required at the point where the rise reaches that limit, and every further 30 inches of rise needs another. The landing must be at least as long as the ramp is wide, typically 60 inches, so a ramp that climbs more than 30 inches in one run is actually two or more ramps joined by landings. The tool reports Required when the entered rise passes 762 millimetres so the check happens before the layout is drawn.` },
+    ]},
+    { heading: "", subHeading: "Are steeper ramps ever allowed?", content: [
+      { type: "paragraph", text: `The 1:12 maximum applies to the general case, and steeper slopes appear only through narrow exceptions — existing-building alterations where 1:10 or 1:8 may be permitted under limited conditions, and curb ramps and short thresholds with their own specific rules. The tool tests against the standard 1:12 because that is the number new construction must meet; if a project qualifies for an exception, the slope is verified against the exception's limit with the same percentage, ratio and angle readouts.` },
+    ]},
+    { heading: "", subHeading: "How is the angle in degrees derived?", content: [
+      { type: "paragraph", text: `The angle is the arctangent of the rise divided by the run, converted to degrees — the angle the ramp surface makes with the horizontal. A 1:12 ramp therefore sits at about 4.76 degrees. The angle is the readout that makes slope tangible on site: a builder setting up with a level and a laser can check a 4.76 degree ramp directly, whereas the percentage is the number on the plan. The tool shows all three forms because each one gets used by a different person on the project.` },
+    ]},
+  ],
+};
+
+const wind_load_reference_toolSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Wind Load Reference Tool", content: [
+      { type: "paragraph", text: `Wind Load Reference Tool computes the simplified velocity pressure of the wind on a structure — the qz term of the ASCE 7 wind load procedure — from the basic wind speed. The formula is the code's velocity-pressure expression with the simplified coefficients applied: velocity pressure equals 0.00256 times the wind speed squared, in miles per hour, giving the pressure in pounds per square foot. A 115 mph design wind speed produces a velocity pressure of about 33.9 psf.` },
+      { type: "paragraph", text: `The simplified form sets the height and exposure factor Kz to 1.0, representing a 10 metre height under Exposure C, and holds the topographic and directionality factors at 1.0 as well. The tool is explicit that this is the reference magnitude, not the design pressure: a real design multiplies this velocity pressure by the gust effect factor and the building pressure coefficients — positive on windward walls, negative on leeward and side walls and roofs — per ASCE 7 Chapters 26 through 30. A quick-reference table beneath the calculator lists the velocity pressure for design speeds from 90 to 150 mph.` },
+    ]},
+    { heading: "How to Use Wind Load Reference Tool", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Enter the Basic wind speed V in miles per hour — the design wind speed for the site from the ASCE 7 wind speed maps or the local code, typically between about 90 and 150 mph for most of the United States.`,
+        `<strong>Step 2:</strong> Read the Result panel. Velocity pressure qz is the simplified value computed from 0.00256 times the speed squared, in psf.`,
+        `<strong>Step 3:</strong> Compare against the Quick reference table below, which lists the same calculation for the standard design speeds — 100 mph yields 25.6 psf, 150 mph yields 57.6 psf — to sanity-check the computed result and to quote values for the common speeds without typing.`,
+        `<strong>Step 4:</strong> Remember what this number is not: the velocity pressure is only the first term of the wind load. The actual pressure on a wall or roof face multiplies it by the gust effect factor and the appropriate pressure coefficient for that face.`,
+        `<strong>Step 5:</strong> For a real design, carry the analysis into the full ASCE 7 procedure with the exposure coefficient for the actual site terrain and height, the topographic factor where the site is on a hill or escarpment, and the building-specific coefficients.`,
+      ]},
+    ]},
+    { heading: "Why Use Wind Load Reference Tool", content: [
+      { type: "paragraph", text: `The velocity pressure is the number that anchors every wind calculation, and it is worth having instantly checkable: when a project moves to a different wind speed zone, or a reviewer asks whether a 33.9 psf reference pressure is right for a 115 mph site, the arithmetic behind it should not need a re-derivation. The 0.00256 constant embeds the air density and the conversion from miles per hour to feet per second, which is why the tool exists — the constant is easy to misremember and hard to verify by hand.` },
+      { type: "paragraph", text: `The tool's honesty about its own scope is part of its value: it labels the simplified coefficients and points to the full procedure instead of implying that velocity pressure is the design load. That framing keeps the reference number useful for early sizing and cross-checks without letting it masquerade as the final wind load on the structure — the distinction that separates a quick check from an incorrectly closed analysis.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Where does the 0.00256 constant come from?", content: [
+      { type: "paragraph", text: `The constant bundles the physics of wind pressure — half the air density times the velocity squared — with the unit conversions that turn miles per hour into the consistent units of pounds per square foot. The code's simplified velocity-pressure expression is qz equals 0.00256 times Kz times Kzt times Kd times V squared, with the speed in miles per hour and the result in psf. This tool sets the three coefficient factors to 1.0, leaving the speed-squared term that the table and the calculator both compute.` },
+    ]},
+    { heading: "", subHeading: "Why is this not the final design wind load?", content: [
+      { type: "paragraph", text: `Because the velocity pressure is the wind's kinetic energy reference, not the pressure a building face feels. The actual design pressure on a surface multiplies the velocity pressure by the gust effect factor and a pressure coefficient that depends on the face — windward walls see positive pressure, leeward and side walls and most roofs see negative, and the coefficients vary with building geometry. The full ASCE 7 procedure also applies the exposure coefficient that varies with terrain and height, the topographic factor for hills and escarpments, and the directionality factor — all set to 1.0 in this simplified reference.` },
+    ]},
+    { heading: "", subHeading: "What does the exposure and height factor do in a real calculation?", content: [
+      { type: "paragraph", text: `The factor Kz accounts for how wind speed grows with height above ground and how much the terrain roughens the flow — open Exposure C terrain lets wind build faster than the urban Exposure B with its buildings and trees. This tool fixes Kz at 1.0, the value for a 10 metre height in Exposure C, which is the reference case the code uses for simplified procedures. A taller structure or a different exposure changes Kz substantially, which is one of the main reasons the simplified number here is a magnitude check rather than a design value.` },
+    ]},
+    { heading: "", subHeading: "How does wind speed convert to the 25.6 psf at 100 mph?", content: [
+      { type: "paragraph", text: `Apply the velocity-pressure formula directly: 0.00256 times the speed squared. At 100 mph the square is 10,000, and 0.00256 times 10,000 is exactly 25.6 psf. The same arithmetic gives 33.9 psf at 115 mph and 57.6 psf at 150 mph, which is why the quick-reference table can be read without a calculator — each standard design speed maps to a single velocity-pressure value under the simplified coefficients.` },
+    ]},
+  ],
+};
+
+const seismic_zone_referenceSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Seismic Zone Reference", content: [
+      { type: "paragraph", text: `Seismic Zone Reference explains the two classifications that govern seismic design under the modern codes: the Seismic Design Category from ASCE 7 and the IBC, and the Risk Category from IBC Table 1604.5. The seismic design category runs from A, very low hazard, through F, extreme hazard requiring site-specific ground motion, and it determines how much seismic detailing a structure needs — from minimal requirements in category A up to the special detailing and system restrictions of D, E and F.` },
+      { type: "paragraph", text: `The hazard indicators give each category its anchor: category A applies where the mapped spectral accelerations are below 0.15 g for the short-period value or 0.04 g for the one-second value, category D covers the higher accelerations common on the US West Coast where most California design happens, E kicks in where the one-second acceleration reaches 0.75 g, and F applies near very large faults where a site-specific ground-motion study is mandatory. The risk categories sit alongside — I for low-hazard buildings, II the default for most buildings, III for schools and assembly occupancies with substantial hazard to life, and IV for essential facilities like hospitals.` },
+    ]},
+    { heading: "How to Use Seismic Zone Reference", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Determine the Risk Category first from the Risk categories table: I for low-occupancy or low-hazard buildings such as agricultural and minor storage, II as the default for most buildings, III for substantial hazard to life or high occupancy like schools over 250 or assembly over 300, IV for essential facilities including hospitals, fire stations and emergency communications.`,
+        `<strong>Step 2:</strong> Find the site's mapped spectral accelerations — the short-period Ss and one-second S1 values from the ASCE 7 maps or the USGS seismic design tools for the project location.`,
+        `<strong>Step 3:</strong> Locate the resulting Seismic Design Category in the first table using those accelerations and the site class. The indicator column gives the shorthand: accelerations below the category-A thresholds, moderate mapped values for C, higher values for D, 0.75 g and above for E.`,
+        `<strong>Step 4:</strong> Read the Meaning for design column to see what the category demands — ordinary detailing for C, special detailing for D, additional system restrictions and prohibitions for E, and site-specific ground-motion study for F.`,
+        `<strong>Step 5:</strong> Note the table's caution: it summarizes the outcome of the SDC lookup, not the lookup itself — the actual category comes from the mapped accelerations, site class and risk category, and it is not the same as the old UBC seismic zone numbers 1 through 4.`,
+      ]},
+    ]},
+    { heading: "Why Use Seismic Zone Reference", content: [
+      { type: "paragraph", text: `Seismic design category is the single most consequential label on a structural drawing in seismic regions — it selects the detailing requirements, the system types that are even permitted, the height limits, and the analysis method. Misreading it in either direction is costly: calling a category D building a C under-details a structure in a real earthquake, and over-classifying adds steel and connections the project never needed. A reference that states what each category means and what triggers it keeps the classification legible.` },
+      { type: "paragraph", text: `The risk category half of the tool matters because it feeds the whole process upstream: the risk category determines which seismic design category applies in the first place, since essential facilities in category IV are held to a higher standard than the default category II. Keeping the two tables together reflects that dependency — a hospital in a moderate zone can end up requiring more than a warehouse in a high zone, which is the kind of inversion that surprises designers trained on the old zone maps.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What is the difference between the old UBC seismic zones and the SDC?", content: [
+      { type: "paragraph", text: `The old Uniform Building Code numbered seismic zones 1 through 4 on a coarse map, and the number carried a simplified relationship to design force. The modern system replaced it with the Seismic Design Category, which is derived from the mapped spectral accelerations at the actual site, the soil site class, and the building's risk category — a finer, site-specific classification rather than a zone on a map. The reference's note makes the point deliberately: a structure cannot be designed by looking up “zone 3” anymore, because the SDC is the code's language.` },
+    ]},
+    { heading: "", subHeading: "Which buildings fall into Risk Category IV?", content: [
+      { type: "paragraph", text: `Essential facilities whose function must survive an earthquake: hospitals and other health-care facilities with surgery or emergency treatment, fire and police stations, emergency communications centres, and buildings that house critical national defence or emergency-response functions. Because these buildings must remain operable after a seismic event, they are assigned a higher risk category, which raises their seismic design category and with it the detailing and performance requirements — the mechanism by which a hospital gets designed to a higher standard than the office building next door.` },
+    ]},
+    { heading: "", subHeading: "What does SDC E add beyond SDC D?", content: [
+      { type: "paragraph", text: `SDC E marks very high hazard — the one-second spectral acceleration reaches 0.75 g — and it adds restrictions beyond D's special detailing. Certain structural systems permitted in D are prohibited in E, height limits tighten for others, and the design must account for the near-fault ground motion that produces the high long-period accelerations. SDC E and F are the categories where the code's menu of acceptable systems shrinks visibly, which is why the reference flags the restrictions rather than treating E as merely a stronger D.` },
+    ]},
+    { heading: "", subHeading: "How do I actually find the SDC for my site?", content: [
+      { type: "paragraph", text: `Start with the mapped spectral accelerations for the site coordinates — the ASCE 7 seismic maps or the USGS seismic design tools return Ss and S1 for any location. Combine those with the site class from the geotechnical report (A through F, determined by soil properties) and the building's risk category, then apply the code's SDC tables. This tool summarizes what each resulting category means and what it demands of the design; the lookup itself follows the code's procedure and is worth doing in the code's own tables so nothing is interpolated away.` },
+    ]},
+  ],
+};
+
+const building_code_checklistSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Building Code Checklist", content: [
+      { type: "paragraph", text: `Building Code Checklist is a live, interactive checklist of the common code-review items for a set of architectural drawings, organized into four groups: egress and exits, accessibility under the ADA and IBC Chapter 11, fire and separation, and general drawing review. Twenty items span the checks that come up on nearly every plan review — two means of egress, exit travel distances, door swing direction, accessible routes, ramp landings, fire-resistance ratings, firestopping at penetrations, and the title-block and dimension-set basics.` },
+      { type: "paragraph", text: `It is a working checklist, not a static list: each item has a checkbox, and a progress bar at the top tracks how many of the twenty are satisfied. Checking two items moves the bar to ten percent. The items carry the code's actual numbers where a number exists — door clear width of at least 32 inches, corridor width of 44 or per occupancy, ramp slope of 1:12 with landings every 30 inches of rise, 30 by 48 inch clear floor space at doors, and a 60 inch turning space in restrooms.` },
+    ]},
+    { heading: "How to Use Building Code Checklist", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Work through the four groups in order — Egress & exits, Accessibility, Fire & separation, then General drawing review — treating each item as a question to answer against the current drawing set.`,
+        `<strong>Step 2:</strong> Check each item off only when the drawing set actually demonstrates it: the egress path shown on the plan, the door swing indicated on the enlarged plans, the ramp slope and landings dimensioned on the section.`,
+        `<strong>Step 3:</strong> Use the item text as the specification. Door clear width of 32 inches and corridor width of 44 inches are the working numbers; ramp slope of 1:12 with landings at top, bottom and every 30 inches of rise is the accessibility rule the ramp tools verify numerically.`,
+        `<strong>Step 4:</strong> Watch the progress bar as the review proceeds — it is the visual score of how close the set is to a clean review, which makes the remaining work visible at a glance when the set is handed to the next reviewer.`,
+        `<strong>Step 5:</strong> Treat the list as a generalized starting point: every item must be verified against the edition of the code the jurisdiction has adopted and any local amendments, as the tool's note states — the checklist finds the gaps, the adopted code closes them.`,
+      ]},
+    ]},
+    { heading: "Why Use Building Code Checklist", content: [
+      { type: "paragraph", text: `Code review failures cluster in the same recurring categories — an exit path that passes through a lockable room, a missing accessible route, a fire damper omitted at a penetration of a rated assembly — and those are exactly the items a checklist catches before the drawings leave the office. A structured list turns the review from what the reviewer happens to remember into a repeatable pass over the items the code actually checks, which is what keeps the same finding from appearing on project after project.` },
+      { type: "paragraph", text: `The interactive form matters because review is a stateful process: items get resolved as drawings are revised, and the progress bar keeps that state honest. A checklist that tracks completion makes the difference between “we looked at egress” and a set where every egress item is demonstrably checked — the distinction an owner's representative or a plan reviewer can see at a glance when the set is submitted.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Is this checklist a substitute for the code itself?", content: [
+      { type: "paragraph", text: `No — it is a review aid that points at the code, not a restatement of it. The items are generalized from the IBC and its companion standards, and jurisdictions adopt specific editions with local amendments that can change numbers, thresholds and applicability. The tool's own note makes the point: verify every item against the adopted code edition. What the checklist provides is the structure of a competent review — the categories and the common findings — so the code gets consulted systematically rather than reactively.` },
+    ]},
+    { heading: "", subHeading: "Why do exit doors need to swing in the direction of travel?", content: [
+      { type: "paragraph", text: `So an exiting crowd cannot push a door closed against itself. In a panic, people press against the doors ahead of them, and a door that swings away from the exit path opens with that pressure while one that swings into it is held shut. The code requires doors serving spaces with occupant loads above 50 to swing in the direction of egress travel, which is why the checklist item carries that threshold — small rooms can keep inward-swinging doors, high-occupancy spaces cannot.` },
+    ]},
+    { heading: "", subHeading: "What is the 30-inch landing rule for ramps?", content: [
+      { type: "paragraph", text: `Accessibility codes limit a ramp run to a maximum rise of 30 inches before a level landing is required — the same 762 millimetre boundary the ramp calculators use. The landing must be at least as long as the ramp is wide, typically 60 inches, to give a wheelchair user room to stop and rest. A ramp that climbs more than 30 inches in one run is therefore really several ramps joined by landings, and the checklist item makes sure the drawing set shows them rather than one long unbroken slope.` },
+    ]},
+    { heading: "", subHeading: "Why does the checklist care about firestopping at penetrations?", content: [
+      { type: "paragraph", text: `Because a penetration is where a fire-resistance-rated assembly stops being rated. A wall or floor rated for two hours of fire resistance keeps fire and smoke in check only if every pipe, duct, cable tray and conduit passing through it is sealed back to the rating with tested firestop materials — and where ducts are involved, with fire dampers that close when the duct heats. The checklist item exists because penetrations are the most commonly omitted detail in rated assemblies: the wall is specified correctly, and the hole cut through it is not.` },
+    ]},
+  ],
+};

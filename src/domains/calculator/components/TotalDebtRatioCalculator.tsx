@@ -131,7 +131,7 @@ export default function TotalDebtRatioCalculator() {
           </div>
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.isHealthy ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500" : "bg-red-50 dark:bg-red-950/20 border-red-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.isHealthy ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500" : "bg-red-50 dark:bg-red-950/20 border-red-500"}`}>
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.isHealthy ? "text-emerald-600" : "text-red-600"}`}>Total Debt Ratio</div>
                 <div className={`text-4xl font-extrabold tracking-tight ${result.isHealthy ? "text-emerald-600" : "text-red-600"}`}>{result.debtRatio.toFixed(2)}%</div>
                 <div className="text-sm text-muted-foreground mt-1">Total Assets: ${result.totalAssets.toLocaleString()} · Total Debt: ${result.totalDebt.toLocaleString()}</div>

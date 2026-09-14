@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "cylindricity-reference",
+    "varName": "cylindricity_referenceSeo",
+    "name": "Cylindricity Reference",
+    "sections": [
+      {
+        "heading": "What is Cylindricity Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Cylindricity Reference explains the cylindricity form control: what it limits, what its tolerance zone looks like, how it is measured, when to use it, and the mistakes that show up most often in real drawings. Cylindricity is the form control that limits the combined out-of-roundness and out-of-straightness of a cylindrical surface in a single tolerance value — the whole surface evaluated at once rather than slice by slice."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tolerance zone is the space between two coaxial cylinders a radial distance apart, containing the entire surface. Because the zone follows the actual axis of the feature rather than a datum axis, cylindricity takes no datum reference, and because it measures form rather than size, it does not control the diameter — a part can be perfectly cylindrical and still out of its size tolerance, or within size and badly bowed. A component can even be round in every cross-section yet curved along its length, and only a whole-surface control like cylindricity would catch that."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Cylindricity Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Read the four panels in order. The control panel defines what cylindricity does and its zone; the zone and verification panel explains how it is inspected; the practical guidance panel gives selection guidance and typical values; the common mistakes panel lists the errors to avoid.",
+              "<strong>Step 2:</strong> Decide whether cylindricity is the right control by comparing it with the alternatives. If only the roundness of each slice matters, circularity is cheaper to inspect. If the feature must run true to a datum axis — a rotating part — circular or total runout is the functional control, because runout also catches coaxiality errors that cylindricity ignores by design.",
+              "<strong>Step 3:</strong> Set the tolerance from function, using the typical ranges only as a starting point: 0.01 to 0.05 mm for precision fits, 0.05 to 0.1 mm for general sealing surfaces. Derive the final value from what the surface actually does, not from habit.",
+              "<strong>Step 4:</strong> Write the callout as the cylindricity symbol followed by the tolerance — with no datum reference, since form controls take none.",
+              "<strong>Step 5:</strong> Before issuing, run the checklist in the common mistakes panel: no datum in the frame, size toleranced separately, and the cylindricity value looser than a circularity callout on the same feature, because a whole-surface control cannot realistically be tighter than a per-section one."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Cylindricity Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Cylindricity is one of the most misused GD&T controls because its failure mode is invisible to the tools people reach for first. A two-point micrometer measures diameter in one orientation — it cannot see a bowed axis or a lobed cross-section, and it certainly cannot verify a three-dimensional zone. Specifying cylindricity commits the shop to a CMM or a roundness machine with a straightness traverse, so the reference exists to make sure that commitment is justified by the function of the part."
+          },
+          {
+            "type": "paragraph",
+            "text": "It also settles the sizing question that trips up reviewers: cylindricity and diameter size are independent. The zone floats on the actual axis, so the callout adds no size constraint — which means the drawing needs both a size tolerance and the cylindricity control, and neither substitutes for the other. Getting that separation right is what keeps a sealing surface callout honest."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why can cylindricity not have a datum reference?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because cylindricity is a form control: it measures the surface against an idealised cylinder fitted to itself, not against any external reference. A datum would imply the zone is oriented or located to something else, which would make it an orientation or location control instead. If the functional requirement involves a datum axis — a shaft running in bearings, a bore locating a spool — use runout, which combines form with coaxiality to that axis."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is cylindricity actually measured?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "With a coordinate measuring machine taking many points around and along the surface, or with a roundness machine equipped with a straightness traverse that sweeps the probe along the axis as the part rotates. A two-point micrometer alone cannot verify cylindricity: it measures only one diameter at one position and cannot detect lobing, taper or bow along the length. The measurement cost is the main reason cylindricity is reserved for surfaces where the whole form genuinely matters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between cylindricity and circularity?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Circularity controls one cross-section at a time — each circle of the surface must lie between two concentric circles. Cylindricity controls the entire surface at once, combining roundness with straightness along the axis between two coaxial cylinders. A part can satisfy circularity in every slice yet fail cylindricity if it bows along its length. In practice, a cylindricity callout should be looser than a circularity callout on the same feature, because controlling the whole surface is harder than controlling any one slice."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does cylindricity control the diameter size of the feature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The tolerance zone follows the actual axis of the surface, so it constrains how far the surface may depart from a perfect cylinder around that axis — not where the axis sits or how big the cylinder is. Diameter size is toleranced separately by the size dimension. Expecting cylindricity to act as a size limit is one of the most common misunderstandings of the control and produces parts that pass the GD&T callout while failing the fit requirement, or vice versa."
+          }
+        ]
+      }
+    ]
+  }
+]

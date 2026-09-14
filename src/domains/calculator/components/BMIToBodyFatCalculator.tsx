@@ -300,31 +300,31 @@ export default function BMIToBodyFatCalculator() {
                 
                 {/* Primary Metric Box */}
                 <div 
-                  className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                  style={{ backgroundColor: results.colorClass }}
+                  className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden"
+                  
                 >
                   <div className="relative z-10">
-                    <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Estimated Adipose Tissue</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Estimated Body Fat</div>
                     <div className="flex items-baseline gap-1 mt-1">
-                      <div className="text-5xl font-black">{results.estimatedBodyFat}%</div>
-                      <div className="text-xl font-medium text-white/80 ml-2">Body Fat</div>
+                      <div className="text-4xl font-bold text-primary">{results.estimatedBodyFat}%</div>
+                      <div className="text-sm text-muted-foreground ml-2">Body Fat</div>
                     </div>
-                    <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style={{ backgroundColor: `${results.colorClass}1A`, color: results.colorClass }}>
                       <Fingerprint className="h-4 w-4" /> {results.fatClassification} Classification
                     </div>
                   </div>
-                  <Activity className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
+                  <Activity className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10 text-primary" />
                 </div>
 
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex items-center justify-between">
+                  <div className="bg-muted/30 border border-border rounded-lg p-4 flex items-center justify-between">
                     <div>
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Raw BMI Score</div>
-                      <div className="text-2xl font-black text-white">{results.bmi}</div>
+                      <div className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">Raw BMI Score</div>
+                      <div className="text-2xl font-bold text-foreground">{results.bmi}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">BMI Category</div>
-                      <div className="text-sm font-bold text-emerald-400">{results.bmiClassification}</div>
+                      <div className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">BMI Category</div>
+                      <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{results.bmiClassification}</div>
                     </div>
                   </div>
                 </div>

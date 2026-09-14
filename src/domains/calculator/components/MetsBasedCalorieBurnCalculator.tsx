@@ -241,33 +241,33 @@ export default function MetsBasedCalorieBurnCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-slate-300 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-slate-300 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         Total Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-slate-300">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-slate-200 mt-2 bg-slate-800/80 inline-block px-3 py-1.5 rounded-full flex items-center gap-2 border border-slate-600">
-                        <Flame className="h-4 w-4 text-blue-400" /> Based on MET: {parseFloat(metValue).toFixed(1)}
+                      <div className="text-sm font-bold text-slate-600 mt-2 bg-slate-500/10 inline-block px-3 py-1.5 rounded-full flex items-center gap-2 border border-slate-500/20">
+                        <Flame className="h-4 w-4 text-blue-500" /> Based on MET: {parseFloat(metValue).toFixed(1)}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-slate-300 mb-1">Burn Rate</div>
-                      <div className="text-2xl font-black text-white">
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Burn Rate</div>
+                      <div className="text-2xl font-black text-foreground">
                         {results.caloriesPerMinute}
                       </div>
-                      <div className="text-xs text-slate-400 font-medium">kcal / min</div>
+                      <div className="text-xs text-muted-foreground font-medium">kcal / min</div>
                     </div>
                   </div>
-                  <Beaker className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Beaker className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-slate-500" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

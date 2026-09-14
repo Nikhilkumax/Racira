@@ -58,9 +58,9 @@ export default function DistanceCalculator() {
     const c = parseFloat(x2);
     const d = parseFloat(y2);
     if (!isNaN(a) && !isNaN(b) && !isNaN(c) && !isNaN(d)) setResult(calcDistance(a, b, c, d));
-  }, [x1, y1, x2, y2]);
+  }, []);
 
-  const reset = () => { setX1(DEFAULTS.x1); setY1(DEFAULTS.y1); setX2(DEFAULTS.x2); setY2(DEFAULTS.y2); };
+  const reset = () => { setX1(DEFAULTS.x1); setY1(DEFAULTS.y1); setX2(DEFAULTS.x2); setY2(DEFAULTS.y2); setResult(calcDistance(parseFloat(DEFAULTS.x1), parseFloat(DEFAULTS.y1), parseFloat(DEFAULTS.x2), parseFloat(DEFAULTS.y2))); };
   const invalid = [x1, y1, x2, y2].some(v => isNaN(parseFloat(v)));
 
   const breakdown = [

@@ -240,33 +240,33 @@ export default function HikingCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-green-700 to-emerald-900 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-green-300 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-green-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         Total Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-green-200">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-green-100 mt-2 bg-green-950/40 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        <Flame className="h-4 w-4 text-orange-400" /> {results.terrainName}
+                      <div className="text-sm font-bold text-green-700 mt-2 bg-green-500/10 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                        <Flame className="h-4 w-4 text-orange-500" /> {results.terrainName}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-green-200 mb-1">Total Mass Propelled</div>
-                      <div className="text-2xl font-black text-white">
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Total Mass Propelled</div>
+                      <div className="text-2xl font-black text-foreground">
                         {unitSystem === "imperial" ? results.totalMassMovedLbs : results.totalMassMovedKg}
                       </div>
-                      <div className="text-xs text-green-300 font-medium">{unitSystem === "imperial" ? "LBS" : "KG"}</div>
+                      <div className="text-xs text-muted-foreground font-medium">{unitSystem === "imperial" ? "LBS" : "KG"}</div>
                     </div>
                   </div>
-                  <Mountain className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Mountain className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-green-700" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

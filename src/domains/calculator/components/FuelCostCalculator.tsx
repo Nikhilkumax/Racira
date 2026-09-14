@@ -71,14 +71,17 @@ const FuelCostCalculator = () => {
     setResult(calculateFuelCost(unit, distance, efficiency, price));
   };
 
-  useEffect(() => { calculate(); }, [unit, distance, efficiency, price]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
     if (newUnit === "imperial") {
       setDistance("1200"); setEfficiency("25"); setPrice("3.50");
+      setResult(calculateFuelCost("imperial", "1200", "25", "3.50"));
     } else {
       setDistance("2000"); setEfficiency("8.5"); setPrice("1.60");
+      setResult(calculateFuelCost("metric", "2000", "8.5", "1.60"));
     }
   };
 

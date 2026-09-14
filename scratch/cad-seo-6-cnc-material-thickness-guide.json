@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "cnc-material-thickness-guide",
+    "varName": "cnc_material_thickness_guideSeo",
+    "name": "CNC Material Thickness Guide",
+    "sections": [
+      {
+        "heading": "What is CNC Material Thickness Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CNC Material Thickness Guide is a per-process reference for how thick a part can practically be cut, across the six cutting processes that dominate fabrication: fibre laser, CO₂ laser, plasma, abrasive waterjet, CNC router and wire EDM. For each process it lists the materials it can handle with their practical maximum thickness, the kerf to expect, and the note that explains why the process behaves that way — fibre's sweet spot under 10 millimetres of steel, plasma's wide kerf and heat-affected zone, waterjet's thickness limited by speed rather than physics."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is built around the decision that happens before quoting: which process can physically cut this part at this thickness, and what will the edge look like. The rows are not exhaustive material lists — they are the representative thickness ceilings, with the kerf column feeding directly into the CAD model's compensation."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CNC Material Thickness Guide",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select the cutting process under consideration — fibre laser, CO₂ laser, plasma, abrasive waterjet, CNC router or wire EDM.",
+              "<strong>Step 2:</strong> Find the material in that process's table and compare the part thickness against the practical maximum.",
+              "<strong>Step 3:</strong> Read the kerf column for the edge width to budget in the CAD model — laser kerfs are fractions of a millimetre, plasma kerfs are millimetres wide.",
+              "<strong>Step 4:</strong> Read the notes column for the process-specific caveat: nitrogen assist for clean steel edges, flame-polished acrylic, no heat-affected zone on waterjet and EDM parts.",
+              "<strong>Step 5:</strong> Repeat for the alternative processes when a part is near a ceiling — the reference is designed to compare processes side by side before committing."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The per-process notes carry the physics that decides the pick: fibre sources cut thin sheet fast and handle reflective metals; the CO₂ wavelength suits organics and thin steel but is a poor match for aluminium; plasma beats laser on cost per metre above 20 millimetres but its kerf rules out fine features; wire EDM cuts hardened tooling with no cutting force at all."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CNC Material Thickness Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Thickness ceilings are the first filter in fabrication quoting, and they are easy to get wrong by extrapolating one process's behaviour to another. The same 20 millimetre steel part is routine for fibre, plasma and waterjet but beyond a CO₂ laser's practical range — and a 150 millimetre plate is waterjet or EDM territory entirely. Having the ceilings per process, side by side, turns the process choice into a lookup before any quote maths starts."
+          },
+          {
+            "type": "paragraph",
+            "text": "The kerf column does real work for the designer: a plasma-cut part's model has to allow 1.5 to 3 millimetres of kerf, which changes fillet radii and hole sizes, while a laser kerf of 0.1 to 0.2 millimetres is often within drawing tolerance. Knowing the kerf band up front is what lets the CAD model be drawn for the actual process rather than reworked after quoting."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is copper and brass only cut with a fibre laser?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because copper and brass reflect the 10.6 micrometre wavelength of a CO₂ laser — the beam bounces off the surface instead of being absorbed, so a CO₂ source simply cannot couple energy into the material. Fibre lasers run at 1.06 micrometres, which these metals absorb readily, making fibre the only laser option for them. The same reflectivity reasoning appears in the laser power reference: the source selection is decided by the material's absorption, not by available power."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is acrylic the classic CO₂ material?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CO₂ wavelength of 10.6 micrometres is absorbed strongly by organic materials, which is why acrylic — an organic polymer — cuts cleanly with edges that come out flame-polished below about 10 millimetres. That absorption is also why the table lists acrylic at 30 millimetres, the thickest ceiling in the CO₂ table: for organics, the CO₂ source is the natural match. The same reason works in reverse for metals, where the wavelength couples far less efficiently."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What sets a waterjet's thickness limit, and why is it so different from a laser's?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A waterjet cuts by abrasion and has no heat-affected zone, so nothing about the process physically stops it at a thickness — the limit is set by speed: cutting 200 millimetres of steel is possible, it just gets slow enough that the process stops being economical. The table's note states it directly: thickness limits are set by speed, not physics. That is why waterjet ceilings (150 to 200 millimetres of metal) dwarf laser ceilings — a laser's limit is beam and gas physics, a waterjet's is time."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does plasma have a millimetre-scale kerf?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Plasma cuts with a hot gas jet that is physically wide — the kerf runs 1.5 to 3.0 millimetres on common plate, and the heat-affected zone and edge taper go with it. That wide kerf is what rules plasma out for fine features and tight tolerances; the table's ±0.5 millimetre figure for high-definition plasma is the accuracy class you get with the premium variant. For heavy plate above 20 millimetres it is often the right process anyway, because laser cutting there gets slow and expensive while plasma's cost per metre of cut stays low."
+          }
+        ]
+      }
+    ]
+  }
+]

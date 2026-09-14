@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { compoundInterestCore } from "./logicCore";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
 const CompoundInterestCalculator = () => {
@@ -23,11 +24,7 @@ const CompoundInterestCalculator = () => {
 
     const rN = r / n;
     const periods = n * y;
-    const principalGrowth = P * Math.pow(1 + rN, periods);
-    const contribGrowth = c * ((Math.pow(1 + rN, periods) - 1) / rN);
-    const total = principalGrowth + contribGrowth;
-    const totalContrib = c * periods;
-    const totalInterest = total - P - totalContrib;
+    const { principalGrowth, contribGrowth, total, totalContrib, totalInterest } = compoundInterestCore(P, r * 100, y, n, c);
 
     const chartData = Array.from({ length: Math.min(Math.ceil(y) + 1, 21) }, (_, i) => {
       const t = (y / Math.min(y, 20)) * i;
@@ -76,7 +73,7 @@ const CompoundInterestCalculator = () => {
 
   const faqs = [
     { question: "What is the compound interest formula?", answer: "A = P(1 + r/n)^(nt) where P = principal, r = annual rate (decimal), n = compounds per year, t = years. With regular contributions: add C × [(1+r/n)^(nt)−1]/(r/n) where C is the contribution per period." },
-    { question: "How does compound frequency affect returns?", answer: "More frequent compounding = slightly higher returns. $10,000 at 7% for 20 years: annual compounding = $38,697; monthly = $40,064; daily = $40,136. The difference between monthly and daily is minimal." },
+    { question: "How does compound frequency affect returns?", answer: "More frequent compounding = slightly higher returns. $10,000 at 7% for 20 years: annual = $38,697; quarterly = $40,064; monthly = $40,387; daily = $40,547. The difference between monthly and daily is about $159." },
     { question: "What is the Rule of 72?", answer: "Divide 72 by the annual interest rate to estimate years to double. At 7%: 72/7 ≈ 10.3 years. At 10%: 72/10 ≈ 7.2 years. This is a quick mental approximation." },
     { question: "What does 'compounding' mean?", answer: "Compounding means interest is calculated on the accumulated interest from previous periods, not just the original principal. This creates exponential — rather than linear — growth." },
     { question: "How much difference do regular contributions make?", answer: "Enormous. $10,000 at 7% for 20 years grows to ~$40,000. Adding just $200/month grows to over $150,000 — contributions account for more than the initial principal in long-term growth." },
@@ -202,15 +199,15 @@ const CompoundInterestCalculator = () => {
             <h2 className="text-2xl font-bold mb-3">The Compound Interest Formula</h2>
             <p><strong>Without contributions:</strong> A = P × (1 + r/n)^(n×t)</p>
             <p><strong>With regular contributions:</strong> A = P(1 + r/n)^(nt) + C × [(1 + r/n)^(nt) − 1] / (r/n)</p>
-            <p>Where P = principal, r = annual rate (decimal), n = compounds per year, t = years, C = contribution per period. For the default: A = 10000(1 + 0.07/12)^240 + 200 × [(1.00583)^240 − 1] / 0.00583 ≈ $152,000+.</p>
+            <p>Where P = principal, r = annual rate (decimal), n = compounds per year, t = years, C = contribution per period. For the default: A = 10000(1 + 0.07/12)^240 + 200 × [(1.00583)^240 − 1] / 0.00583 ≈ $144,573.</p>
             <h2 className="text-2xl font-bold mb-3">The Rule of 72</h2>
             <p>A quick mental math shortcut: divide 72 by your annual interest rate to estimate the years needed to double your money. At 7%: 72/7 ≈ 10.3 years. At 10%: 72/10 = 7.2 years. At 1% (savings account): 72/1 = 72 years. This approximation works because ln(2) ≈ 0.693, and at typical interest rates, the continuous compounding formula simplifies to this ratio.</p>
             <h2 className="text-2xl font-bold mb-3">Compound Frequency Comparison</h2>
-            <p>More frequent compounding produces higher effective yields. $10,000 at 7% for 20 years: Annual (n=1): $38,697. Quarterly (n=4): $39,858. Monthly (n=12): $40,064. Daily (n=365): $40,136. The effective annual yield (APY) for 7% monthly compounded: (1 + 0.07/12)^12 − 1 = 7.229%. The difference between monthly and daily compounding is less than $75 over 20 years — frequency matters most when you compare annual vs monthly.</p>
+            <p>More frequent compounding produces higher effective yields. $10,000 at 7% for 20 years: Annual (n=1): $38,697. Quarterly (n=4): $40,064. Monthly (n=12): $40,387. Daily (n=365): $40,547. The effective annual yield (APY) for 7% monthly compounded: (1 + 0.07/12)^12 − 1 = 7.229%. The difference between monthly and daily compounding is about $159 over 20 years — frequency matters most when you compare annual vs monthly.</p>
             <h2 className="text-2xl font-bold mb-3">The Power of Regular Contributions</h2>
-            <p>The contribution term in the formula grows explosively. With $10,000 at 7% for 20 years (no contributions): ~$40,000. Add $200/month: ~$152,000. The $48,000 in contributions ($200 × 240 months) generates over $60,000 in interest — more than the original $10,000 principal generated. Starting early matters even more: $200/month for 30 years at 7% grows to over $242,000.</p>
+            <p>The contribution term in the formula grows explosively. With $10,000 at 7% for 20 years (no contributions): ~$40,000. Add $200/month: ~$144,600. The $48,000 in contributions ($200 × 240 months) generates over $86,500 in interest — more than the original $10,000 principal generated. Starting early matters even more: $200/month for 30 years at 7% grows to over $242,000.</p>
             <h2 className="text-2xl font-bold mb-3">Real-World Applications</h2>
-            <p><strong>Retirement planning:</strong> A 25-year-old investing $500/month at 7% for 40 years accumulates over $1.3 million. A 35-year-old investing the same amount for 30 years accumulates only $567,000 — the 10-year head start more than doubles the outcome. <strong>Emergency fund:</strong> Keeping $10,000 in a 4.5% high-yield savings account for 5 years grows to about $12,462. <strong>Debt payoff:</strong> The same formula works in reverse for credit card debt at 20% APR. Pair with the <a href="/calculator/loan-calculator">loan calculator</a> for debt analysis.</p>
+            <p><strong>Retirement planning:</strong> A 25-year-old investing $500/month at 7% for 40 years accumulates over $1.3 million. A 35-year-old investing the same amount for 30 years accumulates about $610,000 — the 10-year head start more than doubles the outcome. <strong>Emergency fund:</strong> Keeping $10,000 in a 4.5% high-yield savings account for 5 years grows to about $12,462. <strong>Debt payoff:</strong> The same formula works in reverse for credit card debt at 20% APR. Pair with the <a href="/calculator/loan-calculator">loan calculator</a> for debt analysis.</p>
             <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
             <p>Use the frequency toggle to compare compounding intervals. Adjust the contribution field to model different savings scenarios. The orange dashed line on the chart marks your initial principal, showing clearly when the compounding effect begins to dominate. For retirement-specific planning including employer match and tax-advantaged accounts, see the <a href="/calculator/retirement-calculator">retirement calculator</a>.</p>
           </section>

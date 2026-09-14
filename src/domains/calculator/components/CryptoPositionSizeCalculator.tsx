@@ -69,10 +69,14 @@ export default function CryptoPositionSizeCalculator() {
   useEffect(() => {
     const v = Object.values(inputs).map(parseFloat);
     if (v.every((n) => !isNaN(n)) && v[0] > 0 && v[2] > 0 && v[3] > 0 && v[2] !== v[3]) setResult(calcPosition(v[0], v[1], v[2], v[3], v[4]));
-  }, [inputs]);
+  }, []);
 
   const set = (k: keyof typeof DEFAULTS) => (val: string) => setInputs((p) => ({ ...p, [k]: val }));
-  const reset = () => setInputs(DEFAULTS);
+  const handleCalculate = () => {
+    const v = Object.values(inputs).map(parseFloat);
+    if (v.every((n) => !isNaN(n)) && v[0] > 0 && v[2] > 0 && v[3] > 0 && v[2] !== v[3]) setResult(calcPosition(v[0], v[1], v[2], v[3], v[4]));
+  };
+  const reset = () => { setInputs(DEFAULTS); const v = Object.values(DEFAULTS).map(parseFloat); if (v.every((n) => !isNaN(n)) && v[0] > 0 && v[2] > 0 && v[3] > 0 && v[2] !== v[3]) setResult(calcPosition(v[0], v[1], v[2], v[3], v[4])); };
   const v = Object.values(inputs).map(parseFloat);
   const invalid = v.some((n) => isNaN(n)) || v[0] <= 0 || v[2] <= 0 || v[3] <= 0 || v[2] === v[3];
 
@@ -114,7 +118,7 @@ export default function CryptoPositionSizeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Scale className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

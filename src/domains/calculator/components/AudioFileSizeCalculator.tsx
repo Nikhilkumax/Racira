@@ -176,7 +176,7 @@ export default function AudioFileSizeCalculator() {
 
               {vals.showAdvanced && (
                 <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1.5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 flex items-center gap-1.5">
                     <Settings className="h-3.5 w-3.5" /> Format Details
                   </div>
                   <SelectInput

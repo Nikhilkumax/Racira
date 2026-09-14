@@ -100,7 +100,7 @@ const BraSizeCalculator = () => {
     setResult(calculateBraSize(unit, underbust, bust));
   };
 
-  useEffect(() => { calculate(); }, [unit, underbust, bust]);
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "inches" | "cm") => {
     setUnit(newUnit);

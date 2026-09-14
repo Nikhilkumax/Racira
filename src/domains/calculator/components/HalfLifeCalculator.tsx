@@ -99,14 +99,15 @@ const HalfLifeCalculator = () => {
     setResult(calculateHalfLife(mode, initial, final, halfLife, time));
   };
 
-  useEffect(() => { calculate(); }, [mode, initial, final, halfLife, time]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const handleModeChange = (newMode: "find_final" | "find_time" | "find_halflife" | "find_initial") => {
     setMode(newMode);
-    if (newMode === "find_final") { setInitial("100"); setHalfLife("10"); setTime("20"); }
-    if (newMode === "find_time") { setInitial("100"); setFinal("25"); setHalfLife("10"); }
-    if (newMode === "find_halflife") { setInitial("100"); setFinal("25"); setTime("20"); }
-    if (newMode === "find_initial") { setFinal("25"); setHalfLife("10"); setTime("20"); }
+    if (newMode === "find_final") { setInitial("100"); setHalfLife("10"); setTime("20"); setResult(calculateHalfLife(newMode, "100", final, "10", "20")); }
+    if (newMode === "find_time") { setInitial("100"); setFinal("25"); setHalfLife("10"); setResult(calculateHalfLife(newMode, "100", "25", "10", time)); }
+    if (newMode === "find_halflife") { setInitial("100"); setFinal("25"); setTime("20"); setResult(calculateHalfLife(newMode, "100", "25", halfLife, "20")); }
+    if (newMode === "find_initial") { setFinal("25"); setHalfLife("10"); setTime("20"); setResult(calculateHalfLife(newMode, initial, "25", "10", "20")); }
   };
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";

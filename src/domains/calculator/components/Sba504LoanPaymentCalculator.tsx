@@ -66,7 +66,7 @@ export default function Sba504LoanPaymentCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">SBA Debenture Details</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">SBA Debenture Details</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className="text-sm font-medium mb-1 block">SBA Rate (%)</label><div className={i}><input type="number" value={sbaDebentureRate} onChange={e => setSbaDebentureRate(e.target.value)} step="0.1" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>
                   <div><label className="text-sm font-medium mb-1 block">SBA Term</label><div className={i}><input type="number" value={sbaDebentureTerm} onChange={e => setSbaDebentureTerm(e.target.value)} className={c} /><span className="pr-3 text-muted-foreground text-sm">years</span></div></div>

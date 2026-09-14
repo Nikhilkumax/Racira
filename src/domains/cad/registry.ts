@@ -1,6 +1,6 @@
 import { ToolResult } from "@/components/CategorySearch";
 
-// Centralized tool catalog: 108 CAD tools across 10 categories.
+// Centralized tool catalog: 118 CAD tools across 10 categories.
 import { ToolStatus } from "@/domains/_types";
 import { inferIcon } from "@/components/shared/icon-map";
 
@@ -22,7 +22,83 @@ import { toSlug } from "@/lib/utils/slug";
 
 const slug = toSlug;
 
-const ACTIVE_SLUGS = new Set(["2d-cad-sketch-tool"]);
+const ACTIVE_SLUGS = new Set([
+  // Phase A: canvas sketch tool.
+  "2d-cad-sketch-tool",
+  // Phase B batch 1 — CAD Utilities (Easy).
+  "scale-factor-calculator",
+  "revision-history-table",
+  "cad-layer-naming-convention-builder",
+  "hatch-pattern-reference",
+  "line-type-reference",
+  "drawing-number-generator",
+  "tolerance-notation-formatter",
+  "engineering-change-order-template",
+  // Phase B batch 2 — Measurement & Geometry (Easy).
+  "distance-calculator-2d",
+  "perimeter-calculator",
+  "arc-length-calculator",
+  "cad-unit-converter",
+  "hole-and-slot-dimensioner",
+  "gdandt-symbol-reference",
+  "true-position-calculator",
+  // Phase B batch 3 — GD&T & Standards + Piping & HVAC (Easy).
+  "gdandt-symbol-reference-standards",
+  "cylindricity-reference",
+  "parallelism-and-perpendicularity-guide",
+  "surface-roughness-ra-reference",
+  "drawing-standards-comparator-ansi-vs-iso",
+  "fluid-flow-rate-calculator",
+  "pipe-material-reference",
+  "valve-type-reference",
+  "hvac-equipment-selector-guide",
+  "refrigerant-properties-reference",
+  "air-change-rate-calculator",
+  // Phase B batch 4 — Mechanical Engineering CAD + Structural & Civil CAD (Easy).
+  "spring-rate-calculator",
+  "stress-concentration-factor-reference",
+  "material-selection-guide-mechanical",
+  "fastener-reference-library",
+  "shaft-design-reference",
+  "foundation-type-reference",
+  "ramp-slope-calculator",
+  "wind-load-reference-tool",
+  "seismic-zone-reference",
+  "building-code-checklist",
+  // Phase B batch 5 — Electrical & PCB Schematic + Architecture & Planning (Easy).
+  "schematic-symbol-library-browser",
+  "wire-gauge-reference",
+  "via-current-capacity-calculator",
+  "component-footprint-reference",
+  "smd-component-identifier",
+  "pcb-design-checklist",
+  "building-footprint-calculator",
+  "zoning-setback-calculator",
+  "ada-clearance-reference",
+  "ceiling-height-reference",
+  "staircase-code-reference",
+  // Phase B batch 6 — 2D Drafting + CNC & Fabrication (Easy).
+  "line-weight-manager",
+  "scale-bar-tool",
+  "scale-paper-tool",
+  "cad-grid-planner",
+  "material-cutting-reference",
+  "tooling-library-browser",
+  "g-code-reference-viewer",
+  "machining-operation-selector",
+  "chip-load-calculator",
+  "cnc-material-thickness-guide",
+  "laser-cutter-power-reference",
+  "waterjet-cutting-reference",
+  // Phase B batch 7 — Medium tier: remaining Measurement & Geometry + CAD Utilities.
+  "area-calculator-polygon",
+  "angle-bisector-tool",
+  "coordinate-input-tool",
+  "tolerance-stack-up-analyzer",
+  "thread-fit-calculator",
+  "drawing-title-block-generator",
+  "parts-list-bom-builder",
+]);
 
 const cat = (title: string, items: [string, string][]): Category => ({
   key: slug(title),
@@ -54,6 +130,7 @@ export const categories: Category[] = [
     ["Line Weight Manager", "Manage line weights and pen mapping"],
     ["Title Block Builder", "Create reusable drawing title blocks"],
     ["Scale Bar Tool", "Insert graphical scale bars for any scale"],
+    ["Scale Paper Tool", "Compare paper sizes and compute magnification factors"],
     ["CAD Grid Planner", "Plan grid spacing, snap and reference lines"],
   ]),
   cat("Measurement & Geometry", [

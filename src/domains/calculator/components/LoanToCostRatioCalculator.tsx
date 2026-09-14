@@ -238,8 +238,8 @@ const LoanToCostRatioCalculator = () => {
 
               {showAdvanced && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="col-span-full mb-1">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">Project Refinements</span>
+                  <div className="col-span-full">
+                    <span className="block text-xs uppercase tracking-wide text-muted-foreground mb-2 font-semibold">Project Refinements</span>
                   </div>
                   <CompactInput
                     id="estimated-arv"

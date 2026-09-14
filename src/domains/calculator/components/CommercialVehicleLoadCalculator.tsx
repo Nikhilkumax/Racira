@@ -207,7 +207,7 @@ export default function CommercialVehicleLoadCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className={`border-l-4 rounded-lg p-6 relative overflow-hidden shadow-sm ${results.isOverweight ? 'bg-destructive/10 border-destructive ring-2 ring-destructive ring-offset-2 ring-offset-background' : 'bg-primary/10 border-primary'}`}>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
                     <div className={`text-xs uppercase tracking-wide mb-2 font-bold ${results.isOverweight ? 'text-destructive' : 'text-muted-foreground'}`}>
                       {results.isOverweight ? "WARNING: DOT VIOLATION" : "DOT Compliant Status"}
                     </div>

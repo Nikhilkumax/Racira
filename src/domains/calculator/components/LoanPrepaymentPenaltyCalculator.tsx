@@ -179,6 +179,7 @@ export default function LoanPrepaymentPenaltyCalculator() {
           <details className="group">
             <summary className="text-sm text-primary font-medium cursor-pointer select-none flex items-center gap-1">Advanced Options <span className="text-xs group-open:rotate-180 transition-transform">▼</span></summary>
             <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Penalty Details</div>
               <div className="grid grid-cols-2 gap-4">
                 <div><label className="text-sm font-medium mb-1 block">Penalty % (if percentage)</label><div className={i}><input type="number" value={penaltyPercent} onChange={e => setPenaltyPercent(e.target.value)} step="0.1" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1 block">Reinvestment Rate</label><div className={i}><input type="number" value={reinvestmentRate} onChange={e => setReinvestmentRate(e.target.value)} step="0.1" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>

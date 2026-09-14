@@ -44,7 +44,7 @@ export default function ScreenSizeCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const d = parseFloat(inputs.diagonal)

@@ -111,9 +111,9 @@ export default function FTestCalculator() {
     const c = parseFloat(n1);
     const d = parseFloat(n2);
     if (!isNaN(a) && !isNaN(b) && !isNaN(c) && !isNaN(d) && a >= 0 && b > 0 && c >= 2 && d >= 2) setResult(calcFTest(a, b, c, d));
-  }, [v1, v2, n1, n2]);
+  }, []);
 
-  const reset = () => { setV1(DEFAULTS.v1); setV2(DEFAULTS.v2); setN1(DEFAULTS.n1); setN2(DEFAULTS.n2); };
+  const reset = () => { setV1(DEFAULTS.v1); setV2(DEFAULTS.v2); setN1(DEFAULTS.n1); setN2(DEFAULTS.n2); setResult(calcFTest(parseFloat(DEFAULTS.v1), parseFloat(DEFAULTS.v2), parseFloat(DEFAULTS.n1), parseFloat(DEFAULTS.n2))); };
   const invalid = isNaN(parseFloat(v1)) || isNaN(parseFloat(v2)) || isNaN(parseFloat(n1)) || isNaN(parseFloat(n2)) || parseFloat(v1) < 0 || parseFloat(v2) <= 0 || parseFloat(n1) < 2 || parseFloat(n2) < 2;
 
   const breakdown = [

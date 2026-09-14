@@ -52,9 +52,16 @@ export default function ElectricityBillCalculator() {
     const d = parseFloat(days);
     const r = parseFloat(rate);
     if (!isNaN(p) && !isNaN(h) && !isNaN(d) && !isNaN(r) && p >= 0 && h >= 0 && d >= 0 && r >= 0) setResult(calcBill(p, h, d, r));
-  }, [power, hours, days, rate]);
+  }, []);
 
-  const reset = () => { setPower(DEFAULTS.power); setHours(DEFAULTS.hours); setDays(DEFAULTS.days); setRate(DEFAULTS.rate); };
+  const handleCalculate = () => {
+    const p = parseFloat(power);
+    const h = parseFloat(hours);
+    const d = parseFloat(days);
+    const r = parseFloat(rate);
+    if (!isNaN(p) && !isNaN(h) && !isNaN(d) && !isNaN(r) && p >= 0 && h >= 0 && d >= 0 && r >= 0) setResult(calcBill(p, h, d, r));
+  };
+  const reset = () => { setPower(DEFAULTS.power); setHours(DEFAULTS.hours); setDays(DEFAULTS.days); setRate(DEFAULTS.rate); setResult(calcBill(parseFloat(DEFAULTS.power), parseFloat(DEFAULTS.hours), parseFloat(DEFAULTS.days), parseFloat(DEFAULTS.rate))); };
   const invalid = isNaN(parseFloat(power)) || isNaN(parseFloat(hours)) || isNaN(parseFloat(days)) || isNaN(parseFloat(rate)) || parseFloat(power) < 0 || parseFloat(hours) < 0 || parseFloat(days) < 0 || parseFloat(rate) < 0;
 
   const breakdown = [
@@ -105,7 +112,7 @@ export default function ElectricityBillCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Receipt className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

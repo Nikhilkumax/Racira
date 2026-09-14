@@ -53,9 +53,9 @@ export default function ExponentialDecayCalculator() {
     const h = parseFloat(halfLife);
     const e = parseFloat(elapsed);
     if (!isNaN(i) && !isNaN(h) && !isNaN(e) && i >= 0 && h > 0 && e >= 0) setResult(calcDecay(i, h, e));
-  }, [initial, halfLife, elapsed]);
+  }, []);
 
-  const reset = () => { setInitial(DEFAULTS.initial); setHalfLife(DEFAULTS.halfLife); setElapsed(DEFAULTS.elapsed); };
+  const reset = () => { setInitial(DEFAULTS.initial); setHalfLife(DEFAULTS.halfLife); setElapsed(DEFAULTS.elapsed); setResult(calcDecay(parseFloat(DEFAULTS.initial), parseFloat(DEFAULTS.halfLife), parseFloat(DEFAULTS.elapsed))); };
   const invalid = isNaN(parseFloat(initial)) || isNaN(parseFloat(halfLife)) || isNaN(parseFloat(elapsed)) || parseFloat(initial) < 0 || parseFloat(halfLife) <= 0 || parseFloat(elapsed) < 0;
 
   const breakdown = [

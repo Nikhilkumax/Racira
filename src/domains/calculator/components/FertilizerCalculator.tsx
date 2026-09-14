@@ -63,9 +63,18 @@ export default function FertilizerCalculator() {
     if (!isNaN(a) && !isNaN(nv) && !isNaN(pv) && !isNaN(kv) && !isNaN(t) && !isNaN(b) && a > 0 && nv > 0 && pv >= 0 && kv >= 0 && t >= 0 && b > 0) {
       setResult(calcFertilizer(a, nv, pv, kv, t, b));
     }
-  }, [area, n, p, k, target, bag]);
+  }, []);
 
-  const reset = () => { setArea(DEFAULTS.area); setN(DEFAULTS.n); setP(DEFAULTS.p); setK(DEFAULTS.k); setTarget(DEFAULTS.target); setBag(DEFAULTS.bag); };
+  const handleCalculate = () => {
+    const a = parseFloat(area);
+    const nv = parseFloat(n);
+    const pv = parseFloat(p);
+    const kv = parseFloat(k);
+    const t = parseFloat(target);
+    const b = parseFloat(bag);
+    if (!isNaN(a) && !isNaN(nv) && !isNaN(pv) && !isNaN(kv) && !isNaN(t) && !isNaN(b) && a > 0 && nv > 0 && pv >= 0 && kv >= 0 && t >= 0 && b > 0) setResult(calcFertilizer(a, nv, pv, kv, t, b));
+  };
+  const reset = () => { setArea(DEFAULTS.area); setN(DEFAULTS.n); setP(DEFAULTS.p); setK(DEFAULTS.k); setTarget(DEFAULTS.target); setBag(DEFAULTS.bag); setResult(calcFertilizer(parseFloat(DEFAULTS.area), parseFloat(DEFAULTS.n), parseFloat(DEFAULTS.p), parseFloat(DEFAULTS.k), parseFloat(DEFAULTS.target), parseFloat(DEFAULTS.bag))); };
   const invalid = [area, n, p, k, target, bag].some(v => isNaN(parseFloat(v))) || parseFloat(area) <= 0 || parseFloat(n) <= 0 || parseFloat(p) < 0 || parseFloat(k) < 0 || parseFloat(target) < 0 || parseFloat(bag) <= 0;
 
   const breakdown = [
@@ -126,7 +135,7 @@ export default function FertilizerCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Sprout className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

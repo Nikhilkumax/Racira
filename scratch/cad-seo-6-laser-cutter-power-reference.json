@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "laser-cutter-power-reference",
+    "varName": "laser_cutter_power_referenceSeo",
+    "name": "Laser Cutter Power Reference",
+    "sections": [
+      {
+        "heading": "What is Laser Cutter Power Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Laser Cutter Power Reference returns indicative laser cutting settings for a material and thickness on either a CO₂ or a fibre machine: the machine power in kilowatts, the cut speed in metres per minute at that power, the kerf to budget in the CAD model, and the assist gas. The settings tables cover five materials on CO₂ — mild steel, stainless steel, aluminium, acrylic and wood — and five on fibre, where mild steel, stainless, aluminium and the reflective copper and brass all cut."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is explicit that these are indicative settings for a modern flatbed cutter at best-cut quality with nitrogen assist on metals, and that real machines vary with optics, nozzle and gas pressure — the guidance is to run a corner trial before nesting a full sheet. The kerf quoted is the top-surface value, with the note that the bottom edge can run about 30 percent narrower on thick plate."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Laser Cutter Power Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose the laser source: CO₂ at 10.6 micrometres or fibre at 1.06 micrometres — the wavelength decides which materials can be cut at all.",
+              "<strong>Step 2:</strong> Choose the material. Materials that cannot be cut with the selected source are labelled as such; copper and brass, for example, are fibre-only because they reflect the CO₂ beam.",
+              "<strong>Step 3:</strong> Choose the thickness from the options available for that material and source — switching source or material may reset the thickness to the first available row.",
+              "<strong>Step 4:</strong> Read the indicative settings: machine power, cut speed, kerf to budget in CAD, and the assist gas (nitrogen for clean metal edges, air or none for organics).",
+              "<strong>Step 5:</strong> Dial the speed plus or minus about 20 percent on the machine during the trial cut, and verify the kerf against the model before nesting."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also enforces the physics of the source: when you switch to CO₂ while copper is selected, the material resets to a cuttable one, and the selector is labelled to show which materials the current source cannot cut. That behaviour mirrors the shop-floor rule — the source is chosen for the material, not the other way around."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Laser Cutter Power Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Laser settings are where quoting and programming meet, and the two common errors are both expensive: quoting a reflective material on the wrong source, and nesting a sheet with a kerf that was never allowed for in the model. The tool removes the first error by labelling uncuttable materials and resetting the selection, and the second by returning the kerf explicitly with instructions to budget it in CAD."
+          },
+          {
+            "type": "paragraph",
+            "text": "The indicative bands are also the sanity check between the power a machine has and the power a job needs: a 3 millimetre mild steel part needs 1.5 kilowatts on CO₂, while 20 millimetre needs 6 — a job that will simply not fit a 2 kilowatt machine. Checking the settings before quoting is the cheapest way to learn a part is outside the shop's capability."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why can copper and brass only be cut with a fibre laser?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the CO₂ wavelength of 10.6 micrometres is reflected by copper and brass rather than absorbed — the beam bounces off the surface and the material barely heats. Fibre lasers run at 1.06 micrometres, which these metals absorb, so the reflective metals are fibre-only. This is why the tool labels copper and brass as not cut with a CO₂ source and resets the material if you switch to CO₂ while one is selected."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does acrylic cut at such low power on CO₂?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Acrylic absorbs the 10.6 micrometre CO₂ wavelength strongly, so the beam couples almost fully into the material instead of reflecting or passing through — 3 millimetre acrylic needs only about 0.12 kilowatts, and its edges come out flame-polished. The contrast with metals is the whole story of source selection: an organic material that absorbs the wavelength needs a fraction of the power a reflective metal does."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does a fibre laser cut aluminium so much faster than CO₂?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "At 1.06 micrometres aluminium absorbs the beam far more efficiently than at 10.6 micrometres, so more of the fibre laser's energy goes into cutting rather than bouncing off. The tables make it concrete: 3 millimetre aluminium cuts at about 5 metres per minute on fibre versus about 2 on CO₂ — and the tool's own note adds that CO₂ on aluminium is inefficient above 3 millimetres, where fibre or waterjet becomes the right choice."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the kerf need to be budgeted in the CAD model?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The kerf is material the beam removes — typically 0.1 to 0.3 millimetres — so a part drawn to nominal size comes out undersized by the kerf unless the model compensates. For a sheet with many parts, the kerf also decides whether the spacing between parts closes up during nesting. The tool quotes the kerf explicitly for this reason, and notes that it is a top-surface value: the bottom edge runs about 30 percent narrower on thick plate, so the through-thickness cut is slightly tapered."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -345,20 +345,17 @@ export default function PediatricBMICalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric Box */}
-                <div 
-                  className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                  style={{ backgroundColor: results.colorClass }}
-                >
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 shadow-sm relative overflow-hidden">
                   <div className="relative z-10">
-                    <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Clinical Assessment</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: results.colorClass }}>Clinical Assessment</div>
                     <div className="flex items-baseline gap-1 mt-1">
-                      <div className="text-4xl md:text-5xl font-black">{results.percentileRange}</div>
+                      <div className="text-4xl md:text-5xl font-black text-foreground">{results.percentileRange}</div>
                     </div>
-                    <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <div className="text-sm font-bold mt-3 inline-block px-3 py-1.5 rounded-full flex items-center gap-2" style={{ backgroundColor: `${results.colorClass}1A`, color: results.colorClass }}>
                       <Ruler className="h-4 w-4" /> Raw BMI Score: {results.bmi}
                     </div>
                   </div>
-                  <LineChart className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
+                  <LineChart className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10 text-primary" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

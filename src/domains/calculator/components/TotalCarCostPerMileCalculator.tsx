@@ -212,6 +212,7 @@ export default function TotalCarCostPerMileCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Fixed Annual Fees</div>
                   <CompactInput id="registration-fee" label="Annual Registration & Fees" value={inputs.registrationFee} onChange={(v: string) => handleChange("registrationFee", v)} prefix="$" />
                 </div>
               )}

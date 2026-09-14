@@ -65,12 +65,18 @@ export default function CurrencyConverter() {
   const [to, setTo] = useState<CurrencyCode>("EUR");
   const [result, setResult] = useState<CurrencyResult>(() => calcConversion(1000, "USD", "EUR"));
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const v = parseFloat(value);
     if (!isNaN(v) && v >= 0) setResult(calcConversion(v, from, to));
-  }, [value, from, to]);
+  }, []);
 
-  const reset = () => { setValue("1000"); setFrom("USD"); setTo("EUR"); };
+  const handleCalculate = () => {
+    const v = parseFloat(value);
+    if (!isNaN(v) && v >= 0) setResult(calcConversion(v, from, to));
+  };
+
+  const reset = () => { setValue("1000"); setFrom("USD"); setTo("EUR"); setResult(calcConversion(1000, "USD", "EUR")); };
   const invalid = isNaN(parseFloat(value)) || parseFloat(value) < 0;
 
   const breakdown = [
@@ -124,7 +130,7 @@ export default function CurrencyConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <ArrowRightLeft className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

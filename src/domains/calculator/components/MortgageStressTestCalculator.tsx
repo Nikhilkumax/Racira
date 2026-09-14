@@ -174,7 +174,7 @@ export default function MortgageStressTestCalculator() {
         </div>
         <div className="flex flex-col gap-4">
           {result && (<>
-            <div className={`border-l-4 rounded-lg p-5 ${result.canAffordStress ? "bg-primary/10 border-primary" : "bg-red-50 border-red-500 dark:bg-red-950"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.canAffordStress ? "text-primary" : "text-red-600"}`}>Stress Test {result.canAffordStress ? "PASSED ✓" : "FAILED ✗"}</div>
               <div className="text-4xl font-extrabold tracking-tight text-foreground">${result.stressedPayment.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}<span className="text-base font-normal text-muted-foreground">/mo at {DEFAULTS.stressRate}%</span></div>
               <div className="text-sm text-muted-foreground mt-1">Initial: ${result.initialPayment.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo · Increase: +${result.paymentIncrease.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo</div>

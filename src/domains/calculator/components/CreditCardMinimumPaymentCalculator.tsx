@@ -93,6 +93,7 @@ const CreditCardMinimumPaymentCalculator = () => {
                 </button>
                 {showAdv && (
                   <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up grid sm:grid-cols-2 gap-4">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold sm:col-span-2">Payment Terms</div>
                     <InputField id="minpct" label="Min Payment Rate (%)" value={minPct} onChange={setMinPct} tooltip="Usually 1-3% of balance." />
                     <InputField id="floor" label="Minimum Floor ($)" value={minFloor} onChange={setMinFloor} tooltip="Minimum dollar amount, usually $25." />
                   </div>

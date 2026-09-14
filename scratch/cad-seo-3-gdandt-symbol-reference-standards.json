@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "gdandt-symbol-reference-standards",
+    "varName": "gdandt_symbol_reference_standardsSeo",
+    "name": "GD&T Symbol Reference (Standards)",
+    "sections": [
+      {
+        "heading": "What is GD&T Symbol Reference (Standards)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "GD&T Symbol Reference (Standards) is the full geometric tolerancing symbol set with the governing rule for each control — the tolerance zone shape and the datum requirement — annotated from ASME Y14.5-2018. Where the plain GD&T Symbol Reference tells you what each characteristic means, this table tells you how each one is applied: what zone the tolerance creates, whether the control needs a datum, and how material condition modifiers change the picture."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table covers all fourteen symbols across the five characteristic families — form, profile, orientation, location and runout. Each row pairs the symbol with its zone rule, written in the shorthand of the standard: “t” stands for the tolerance value in the feature control frame, so a flatness entry of “two parallel planes, distance t” means the whole surface must fit between two planes separated by the number written in the frame. The companion note reminds you that ISO 1101 uses the same symbols, with differences concentrated in zone definitions and modifiers rather than in the pictograms themselves."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use GD&T Symbol Reference (Standards)",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Find the characteristic you intend to call out in the table, either by scrolling the single grouped table or by using the search box to filter to one symbol such as Cylindricity.",
+              "<strong>Step 2:</strong> Read the rule column for that symbol before writing the frame. It tells you the two things that determine whether your callout is legal: the zone shape (two planes, a cylinder, two concentric circles) and whether a datum reference is required.",
+              "<strong>Step 3:</strong> Apply the datum rule to your frame. Form controls — straightness, flatness, circularity, cylindricity — take no datum, because they measure the feature against itself. Orientation and location controls require datums, because they measure the feature against something else.",
+              "<strong>Step 4:</strong> Check the material condition note. MMC and LMC modifiers apply only to size-related controls such as position; applying an MMC modifier to flatness is a classic error this table is designed to catch.",
+              "<strong>Step 5:</strong> If the drawing must work under ISO rules rather than ASME, treat the zone and modifier differences flagged in the note — ISO 1101 marks regardless-of-feature-size differently and has its own modifier conventions — as the areas to double-check against the governing standard."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use GD&T Symbol Reference (Standards)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Most GD&T errors are not symbol mix-ups but rule violations: a datum written on a form control that cannot take one, an MMC modifier on a control where it has no meaning, or a zone described as if it were a size limit. A reference that states the zone and datum rule next to each symbol makes those violations visible before the drawing goes to the shop — cheaper by orders of magnitude than discovering them on a nonconforming part."
+          },
+          {
+            "type": "paragraph",
+            "text": "The same table serves the reader side of the drawing. When you inherit a part with an unfamiliar control frame, looking up the symbol here tells you what zone the machinist must produce and what datum the inspector will set up on, which is exactly the information needed to judge whether the callout is achievable and how it will be verified."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which controls require a datum and which do not?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The form controls — straightness, flatness, circularity and cylindricity — take no datum because each measures a feature against an idealised version of itself. Every other family does: profile controls can be datum-referenced when they locate a surface, and orientation, location and runout controls always require at least one datum because they relate the feature to something else. If a control needs a datum and your frame has none, the callout is incomplete; if it forbids one and your frame has one, it is invalid."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the encircled t mean in the zone descriptions?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The “t” is a placeholder for the tolerance value written in the feature control frame — the table describes zones generically because the same symbol serves every tolerance size. A flatness callout with t equal to 0.05 means two parallel planes 0.05 apart; the identical callout with 0.005 means two planes 0.005 apart. The symbol never changes, only the zone width, which is why the standard defines each control by its zone shape rather than by any particular number."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why can position use MMC when flatness cannot?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Material condition modifiers grant bonus tolerance as a feature departs from its maximum or least material condition, and that bonus only makes sense when size and location interact — the classic case of a hole at maximum material condition having the least room for positional error. Flatness and the other form controls measure shape alone and never trade against size, so a modifier has nothing to act on. Applying one there is meaningless and will be read as an error by anyone checking the drawing against Y14.5."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does ISO 1101 differ from what this table shows?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The symbols are identical between ASME Y14.5 and ISO 1101; the differences sit in the rules. ISO treats regardless-of-feature-size differently — the encircled S symbol is marked explicitly rather than being the default assumption the way it is under ASME for position — and ISO's GPS system spreads related rules across more documents. If a drawing must be manufactured and inspected under ISO, confirm zone and modifier conventions against ISO 1101 and its companion GPS standards rather than assuming the ASME reading carries over."
+          }
+        ]
+      }
+    ]
+  }
+]

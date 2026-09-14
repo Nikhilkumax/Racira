@@ -215,7 +215,7 @@ const CanadianMortgageCalculator = () => {
               </button>
               <div className={`transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[500px] opacity-100 p-4 pt-1 border-t border-border" : "max-h-0 opacity-0 px-4 overflow-hidden"}`}>
                 <div className="mt-2">
-                  <label className="block text-sm font-medium text-foreground mb-2">Compounding Frequency</label>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Compounding Frequency</div>
                   <div className="flex flex-col gap-2">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="radio" checked={compounding === "semiAnnual"} onChange={() => setCompounding("semiAnnual")} className="w-4 h-4 text-primary" />

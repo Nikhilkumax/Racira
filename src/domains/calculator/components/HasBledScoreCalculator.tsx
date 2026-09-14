@@ -99,7 +99,7 @@ export default function HasBledScoreCalculator() {
 
   useEffect(() => {
     setResult(calcHasBled(htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol));
-  }, [htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol]);
+  }, []);
 
   const handleCalculate = () => {
     setResult(calcHasBled(htn, renal, liver, stroke, bleeding, labile, elderly, drugs, alcohol));
@@ -115,6 +115,7 @@ export default function HasBledScoreCalculator() {
     setElderly(false);
     setDrugs(false);
     setAlcohol(false);
+    setResult(calcHasBled(false, false, false, false, false, false, false, false, false));
   };
 
   const Switch = ({ checked, onChange, label, subtext = "" }: { checked: boolean, onChange: (c: boolean) => void, label: string, subtext?: string }) => (
@@ -179,7 +180,7 @@ export default function HasBledScoreCalculator() {
           <div className="flex flex-col gap-6">
             {result && (<>
               
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.statusColor }}>HAS-BLED Score</div>

@@ -125,7 +125,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -137,6 +137,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -196,7 +197,7 @@ export default function TwinPregnancyWeightGainCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, heightFt, heightIn, heightCm]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -241,17 +242,17 @@ export default function TwinPregnancyWeightGainCalculator() {
             </div>
 
             <div className="grid grid-cols-1 gap-3 mt-2">
-              <CompactInput id="weight" label="Pre-Pregnancy Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
+              <CompactInput id="weight" label="Pre-Pregnancy Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
             </div>
 
             {unitSystem === "imperial" ? (
               <div className="grid grid-cols-2 gap-3">
-                <CompactInput id="heightFt" label="Height (Feet)" value={heightFt} onChange={setHeightFt} suffix="ft" />
-                <CompactInput id="heightIn" label="Height (Inches)" value={heightIn} onChange={setHeightIn} suffix="in" />
+                <CompactInput id="heightFt" label="Height (Feet)" value={heightFt} onChange={setHeightFt} suffix="ft" onEnter={handleCalculate} />
+                <CompactInput id="heightIn" label="Height (Inches)" value={heightIn} onChange={setHeightIn} suffix="in" onEnter={handleCalculate} />
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-3">
-                <CompactInput id="heightCm" label="Height (cm)" value={heightCm} onChange={setHeightCm} suffix="cm" />
+                <CompactInput id="heightCm" label="Height (cm)" value={heightCm} onChange={setHeightCm} suffix="cm" onEnter={handleCalculate} />
               </div>
             )}
 
@@ -275,27 +276,27 @@ export default function TwinPregnancyWeightGainCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-pink-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-pink-100 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         Twin Target Weight Gain Range
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-5xl font-extrabold tracking-tight">
+                        <div className="text-4xl font-bold text-primary">
                           {unitSystem === "imperial" ? `${results.minGainLbs} - ${results.maxGainLbs}` : `${results.minGainKg} - ${results.maxGainKg}`}
                         </div>
-                        <div className="text-xl font-bold text-pink-200">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
+                        <div className="text-xl font-bold text-muted-foreground">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
                       </div>
-                      <div className="text-sm font-medium text-pink-100 mt-3 bg-pink-900/30 inline-block px-3 py-1.5 rounded-full">
+                      <div className="text-sm text-muted-foreground mt-3">
                         Based on your pre-pregnancy BMI of {results.bmi} ({results.bmiCategory})
                       </div>
                     </div>
                   </div>
-                  <Users className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Users className="absolute -bottom-6 -right-6 h-40 w-40 opacity-5 text-foreground" />
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-4">

@@ -172,14 +172,6 @@ export default function CrossFitWodCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">CrossFit WOD Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
-            <strong>Accuracy Warning:</strong> Only input your <strong>ACTIVE WOD</strong> time. If you attend a 60-minute class but the final MetCon is a 12-minute AMRAP, you must enter 12 minutes. Entering your total 60-minute class time will result in a massive, mathematically false overestimation of your caloric expenditure.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -233,30 +225,30 @@ export default function CrossFitWodCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-slate-900 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         Active WOD Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-slate-400">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-slate-300 mt-2 bg-slate-800/80 border border-slate-700 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold text-slate-600 mt-2 bg-slate-500/10 border border-slate-500/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                         <Flame className="h-4 w-4 text-red-500" /> {results.wodName}
                       </div>
                     </div>
 
-                    <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 text-center min-w-[120px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">MET Intensity</div>
-                      <div className="text-2xl font-black text-white">{results.metValue.toFixed(1)}</div>
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[120px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">MET Intensity</div>
+                      <div className="text-2xl font-black text-foreground">{results.metValue.toFixed(1)}</div>
                     </div>
                   </div>
-                  <Target className="absolute -bottom-6 -right-6 h-40 w-40 opacity-5" />
+                  <Target className="absolute -bottom-6 -right-6 h-40 w-40 opacity-5 text-primary" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">
@@ -291,6 +283,14 @@ export default function CrossFitWodCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
+            <strong>Accuracy Warning:</strong> Only input your <strong>ACTIVE WOD</strong> time. If you attend a 60-minute class but the final MetCon is a 12-minute AMRAP, you must enter 12 minutes. Entering your total 60-minute class time will result in a massive, mathematically false overestimation of your caloric expenditure.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

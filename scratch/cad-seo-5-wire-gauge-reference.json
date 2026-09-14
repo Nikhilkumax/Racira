@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "wire-gauge-reference",
+    "varName": "wire_gauge_referenceSeo",
+    "name": "Wire Gauge Reference",
+    "sections": [
+      {
+        "heading": "What is Wire Gauge Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wire Gauge Reference computes the defining properties of any AWG wire from the standard formula — diameter in millimetres equals 0.127 times 92 raised to the power of 36 minus the gauge number over 39 — and reports the cross-section, the circular-mil area, the resistance per kilometre at 20 degrees Celsius, and the ampacity where the NEC tables cover the gauge. A default 18 AWG wire reads 1.024 millimetres in diameter, 0.82 square millimetres of copper, about 20.9 ohms per kilometre, and is small enough that the NEC ampacity table does not cover it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The underlying AWG logic is built into the numbers: smaller gauge numbers mean thicker wire, each step of three gauge numbers doubles the cross-section — roughly doubling the current for the same temperature rise — and each step of ten multiplies the area by ten. The ampacity column draws from the NEC 310.16 75-degree column for copper where the code tables list the gauge: 14 AWG at 20 amps, 12 at 25, 10 at 35, up through 4/0 at 230."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Wire Gauge Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the AWG number in the calculator — 18 for the default, or any gauge from 0 to 40. The result panel updates as you type.",
+              "<strong>Step 2:</strong> Read the Result panel: Diameter in millimetres from the defining formula, Cross-section in square millimetres, Area in circular mils, Resistance at 20 degrees Celsius in ohms per kilometre, and the NEC 75-degree ampacity where the code tables list that gauge.",
+              "<strong>Step 3:</strong> Check the ampacity row carefully: gauges below the NEC table start — 16 to 30 — read “not tabled”, which means the current rating comes from other code articles and uses, not from this reference.",
+              "<strong>Step 4:</strong> Use the full AWG table beneath the calculator for the rapid lookups — 27 rows from 4 AWG to 30 AWG with the diameter, area, resistance and ampacity side by side.",
+              "<strong>Step 5:</strong> Apply the derating note before sizing a real run: the tabulated ampacity assumes single conductors in the open at 30 degrees Celsius ambient — bundling, higher ambient temperatures and termination temperature ratings all reduce the allowed current."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Wire Gauge Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wire sizing decisions live at the boundary between two systems: the AWG number describes the geometry, and the ampacity tables describe the thermal limit, and neither is derivable from the other by memory. The gauge formula is awkward enough that hand conversion invites errors — the fractional exponent and the 92-ratio base — while the ampacity values are code tables that must be read, not guessed. Putting the formula and the table in one pass removes the conversion step between them."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference is equally a design-thinking aid: the built-in relationships — three gauge steps double the area, ten steps multiply it by ten — let a designer move between gauges without a calculator, which is how the right wire gets picked in the first iteration instead of the third. Knowing that 12 AWG carries 25 amps under NEC 75-degree rules while 10 AWG carries 35 turns a rough current requirement into a candidate gauge immediately."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is 12 AWG rated at 25 amps while 18 AWG is not tabled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The NEC ampacity table covers the conductor sizes used for power wiring — typically 14 AWG and larger in the 75-degree column, where 12 AWG copper carries 25 amps. Smaller gauges like 18 AWG are real conductors, but they are not covered by that table because their uses are governed by other code articles and other design rules, so the tool reports “not tabled” rather than inventing a number. If a small-gauge wire must carry current, the rating comes from the governing article, not from this reference."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does the gauge formula relate diameter to gauge number?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The defining formula is diameter equals 0.127 millimetres times 92 raised to the power of 36 minus the gauge over 39. The constants encode the system's history: 36 AWG is defined at 0.127 millimetres, 0000 is defined at 92 times that, and 39 gauge steps span the ratio. The formula means each gauge step multiplies the diameter by 92 to the power of one thirty-ninth, which is about 1.123 — so three steps multiply it by about 1.414, doubling the cross-section."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does every three gauge numbers double the cross-section?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the diameter ratio per gauge step is 92 to the power of one thirty-ninth, and raising that ratio to the third power gives the ratio for three steps — 92 to the power of three thirty-ninths, which is 92 to the power of one thirteenth, about 1.414. Since the area scales with the diameter squared, three steps multiply the area by about 2. That is why the cross-section roughly doubles every three gauges, and why the ampacity steps in the same rhythm: each three-gauge jump roughly doubles the current for the same temperature rise."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the 75 degrees Celsius in the ampacity column mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is the conductor temperature rating of the table the values come from — the NEC 310.16 75-degree column for copper. The same wire has different ampacity at 60 degrees and 90 degrees ratings, and the governing value for a run is set by the lowest rating in the termination chain: a 90-degree-rated wire terminated into a 75-degree-rated breaker lug is still limited to the 75-degree ampacity. The tool quotes the 75-degree column because it is the most common default for power wiring terminations."
+          }
+        ]
+      }
+    ]
+  }
+]

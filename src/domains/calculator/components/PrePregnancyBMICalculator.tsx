@@ -281,35 +281,32 @@ export default function PrePregnancyBMICalculator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* BMI Baseline Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Pre-Pregnancy Baseline BMI</div>
+                      <div className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">Pre-Pregnancy Baseline BMI</div>
                       <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-4xl font-black">{results.bmi}</div>
+                        <div className="text-4xl font-black text-foreground">{results.bmi}</div>
                       </div>
-                      <div className="text-sm font-bold text-white mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1 rounded-full">
+                      <div className="text-sm font-bold mt-2 bg-slate-500/10 border border-slate-500/20 inline-block px-3 py-1 rounded-full text-slate-600">
                         {results.classification}
                       </div>
                     </div>
-                    <HeartPulse className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-slate-500" />
+                    <HeartPulse className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-slate-400" />
                   </div>
 
                   {/* Target Range Box */}
-                  <div 
-                    className="text-white rounded-lg p-5 shadow-sm flex flex-col justify-center relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
-                  >
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-2">ACOG Maximum Target Gain</div>
+                      <div className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: results.colorClass }}>ACOG Maximum Target Gain</div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-3xl font-black text-white">{results.targetGainLow}</div>
-                        <div className="text-white/60 font-bold">to</div>
-                        <div className="text-3xl font-black text-white">{results.targetGainHigh}</div>
-                        <div className="text-xs text-white/80">{results.unitLabel}</div>
+                        <div className="text-3xl font-black text-foreground">{results.targetGainLow}</div>
+                        <div className="font-bold text-muted-foreground">to</div>
+                        <div className="text-3xl font-black text-foreground">{results.targetGainHigh}</div>
+                        <div className="text-xs text-muted-foreground">{results.unitLabel}</div>
                       </div>
-                      <div className="text-[10px] text-white/90 mt-2 font-medium">Safe total weight increase for entire 9-month term.</div>
+                      <div className="text-[10px] text-muted-foreground mt-2 font-medium">Safe total weight increase for entire 9-month term.</div>
                     </div>
-                    <Baby className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Baby className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-primary" />
                   </div>
                 </div>
 

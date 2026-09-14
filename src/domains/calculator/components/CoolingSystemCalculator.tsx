@@ -169,7 +169,7 @@ export default function CoolingSystemCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-blue-500/10 border-l-4 border-blue-500 rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
                     <div className="text-xs uppercase tracking-wide text-blue-600 dark:text-blue-500 mb-2 font-bold">Required Heat Rejection</div>
                     <div className="flex items-end gap-3 mb-1">
                       <div className="text-5xl font-black text-blue-600 dark:text-blue-500 tracking-tighter">{results.heatToCoolantBTU.toLocaleString()}</div>

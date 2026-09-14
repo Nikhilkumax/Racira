@@ -49,9 +49,9 @@ export default function CylinderCalculator() {
     const r = parseFloat(radius);
     const h = parseFloat(height);
     if (!isNaN(r) && !isNaN(h) && r > 0 && h > 0) setResult(calcCylinder(r, h));
-  }, [radius, height]);
+  }, []);
 
-  const reset = () => { setRadius(DEFAULTS.radius); setHeight(DEFAULTS.height); };
+  const reset = () => { setRadius(DEFAULTS.radius); setHeight(DEFAULTS.height); setResult(calcCylinder(parseFloat(DEFAULTS.radius), parseFloat(DEFAULTS.height))); };
   const invalid = isNaN(parseFloat(radius)) || isNaN(parseFloat(height)) || parseFloat(radius) <= 0 || parseFloat(height) <= 0;
 
   const breakdown = [

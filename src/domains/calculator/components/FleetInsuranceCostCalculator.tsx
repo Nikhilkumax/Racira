@@ -232,7 +232,7 @@ const FleetInsuranceCostCalculator = () => {
                   <button className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
                 </div>
 
-                <div className="bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-blue-600 mb-1 uppercase tracking-wider">Total Fleet Insurance</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">${Math.round(results.totalAnnual).toLocaleString()}</div>
                   <div className="text-sm text-muted-foreground font-medium">${Math.round(results.totalMonthly).toLocaleString()}/mo · ${results.perMileCost.toFixed(2)}/mile · {vehicles.length} vehicles</div>

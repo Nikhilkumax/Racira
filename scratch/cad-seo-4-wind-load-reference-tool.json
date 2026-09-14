@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "wind-load-reference-tool",
+    "varName": "wind_load_reference_toolSeo",
+    "name": "Wind Load Reference Tool",
+    "sections": [
+      {
+        "heading": "What is Wind Load Reference Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wind Load Reference Tool computes the simplified velocity pressure of the wind on a structure — the qz term of the ASCE 7 wind load procedure — from the basic wind speed. The formula is the code's velocity-pressure expression with the simplified coefficients applied: velocity pressure equals 0.00256 times the wind speed squared, in miles per hour, giving the pressure in pounds per square foot. A 115 mph design wind speed produces a velocity pressure of about 33.9 psf."
+          },
+          {
+            "type": "paragraph",
+            "text": "The simplified form sets the height and exposure factor Kz to 1.0, representing a 10 metre height under Exposure C, and holds the topographic and directionality factors at 1.0 as well. The tool is explicit that this is the reference magnitude, not the design pressure: a real design multiplies this velocity pressure by the gust effect factor and the building pressure coefficients — positive on windward walls, negative on leeward and side walls and roofs — per ASCE 7 Chapters 26 through 30. A quick-reference table beneath the calculator lists the velocity pressure for design speeds from 90 to 150 mph."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Wind Load Reference Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Basic wind speed V in miles per hour — the design wind speed for the site from the ASCE 7 wind speed maps or the local code, typically between about 90 and 150 mph for most of the United States.",
+              "<strong>Step 2:</strong> Read the Result panel. Velocity pressure qz is the simplified value computed from 0.00256 times the speed squared, in psf.",
+              "<strong>Step 3:</strong> Compare against the Quick reference table below, which lists the same calculation for the standard design speeds — 100 mph yields 25.6 psf, 150 mph yields 57.6 psf — to sanity-check the computed result and to quote values for the common speeds without typing.",
+              "<strong>Step 4:</strong> Remember what this number is not: the velocity pressure is only the first term of the wind load. The actual pressure on a wall or roof face multiplies it by the gust effect factor and the appropriate pressure coefficient for that face.",
+              "<strong>Step 5:</strong> For a real design, carry the analysis into the full ASCE 7 procedure with the exposure coefficient for the actual site terrain and height, the topographic factor where the site is on a hill or escarpment, and the building-specific coefficients."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Wind Load Reference Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The velocity pressure is the number that anchors every wind calculation, and it is worth having instantly checkable: when a project moves to a different wind speed zone, or a reviewer asks whether a 33.9 psf reference pressure is right for a 115 mph site, the arithmetic behind it should not need a re-derivation. The 0.00256 constant embeds the air density and the conversion from miles per hour to feet per second, which is why the tool exists — the constant is easy to misremember and hard to verify by hand."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's honesty about its own scope is part of its value: it labels the simplified coefficients and points to the full procedure instead of implying that velocity pressure is the design load. That framing keeps the reference number useful for early sizing and cross-checks without letting it masquerade as the final wind load on the structure — the distinction that separates a quick check from an incorrectly closed analysis."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Where does the 0.00256 constant come from?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The constant bundles the physics of wind pressure — half the air density times the velocity squared — with the unit conversions that turn miles per hour into the consistent units of pounds per square foot. The code's simplified velocity-pressure expression is qz equals 0.00256 times Kz times Kzt times Kd times V squared, with the speed in miles per hour and the result in psf. This tool sets the three coefficient factors to 1.0, leaving the speed-squared term that the table and the calculator both compute."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is this not the final design wind load?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the velocity pressure is the wind's kinetic energy reference, not the pressure a building face feels. The actual design pressure on a surface multiplies the velocity pressure by the gust effect factor and a pressure coefficient that depends on the face — windward walls see positive pressure, leeward and side walls and most roofs see negative, and the coefficients vary with building geometry. The full ASCE 7 procedure also applies the exposure coefficient that varies with terrain and height, the topographic factor for hills and escarpments, and the directionality factor — all set to 1.0 in this simplified reference."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the exposure and height factor do in a real calculation?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The factor Kz accounts for how wind speed grows with height above ground and how much the terrain roughens the flow — open Exposure C terrain lets wind build faster than the urban Exposure B with its buildings and trees. This tool fixes Kz at 1.0, the value for a 10 metre height in Exposure C, which is the reference case the code uses for simplified procedures. A taller structure or a different exposure changes Kz substantially, which is one of the main reasons the simplified number here is a magnitude check rather than a design value."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does wind speed convert to the 25.6 psf at 100 mph?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Apply the velocity-pressure formula directly: 0.00256 times the speed squared. At 100 mph the square is 10,000, and 0.00256 times 10,000 is exactly 25.6 psf. The same arithmetic gives 33.9 psf at 115 mph and 57.6 psf at 150 mph, which is why the quick-reference table can be read without a calculator — each standard design speed maps to a single velocity-pressure value under the simplified coefficients."
+          }
+        ]
+      }
+    ]
+  }
+]

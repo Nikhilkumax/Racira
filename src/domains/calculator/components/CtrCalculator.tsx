@@ -65,9 +65,9 @@ export default function CtrCalculator() {
     const i = parseFloat(impressions);
     const s = parseFloat(spend);
     if (!isNaN(c) && !isNaN(i) && !isNaN(s)) setResult(calcCtr(c, i, s));
-  }, [clicks, impressions, spend]);
+  }, []);
 
-  const reset = () => { setClicks(DEFAULTS.clicks); setImpressions(DEFAULTS.impressions); setSpend(DEFAULTS.spend); };
+  const reset = () => { setClicks(DEFAULTS.clicks); setImpressions(DEFAULTS.impressions); setSpend(DEFAULTS.spend); setResult(calcCtr(parseFloat(DEFAULTS.clicks), parseFloat(DEFAULTS.impressions), parseFloat(DEFAULTS.spend))); };
   const invalid = isNaN(parseFloat(clicks)) || isNaN(parseFloat(impressions)) || isNaN(parseFloat(spend));
 
   const faqs = [

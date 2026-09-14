@@ -128,6 +128,7 @@ export default function BusinessLoanPaymentCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Loan Details</div>
                   <CompactInput id="fee" label="Origination Fee" value={originationFee} onChange={setOriginationFee} prefix="$" />
                   <CompactInput id="revenue" label="Monthly Revenue" value={monthlyRevenue} onChange={setMonthlyRevenue} prefix="$" />
                 </div>

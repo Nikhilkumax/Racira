@@ -48,9 +48,9 @@ export default function DisplacementCalculator() {
     const ac = parseFloat(a);
     const tm = parseFloat(t);
     if (!isNaN(iv) && !isNaN(ac) && !isNaN(tm) && tm >= 0) setResult(calcDisplacement(iv, ac, tm));
-  }, [u, a, t]);
+  }, []);
 
-  const reset = () => { setU(DEFAULTS.u); setA(DEFAULTS.a); setT(DEFAULTS.t); };
+  const reset = () => { setU(DEFAULTS.u); setA(DEFAULTS.a); setT(DEFAULTS.t); setResult(calcDisplacement(parseFloat(DEFAULTS.u), parseFloat(DEFAULTS.a), parseFloat(DEFAULTS.t))); };
   const invalid = isNaN(parseFloat(u)) || isNaN(parseFloat(a)) || isNaN(parseFloat(t)) || parseFloat(t) < 0;
 
   const breakdown = [

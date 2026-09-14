@@ -93,12 +93,15 @@ export default function CrochetHookConverter() {
   const [system, setSystem] = useState(DEFAULTS.system);
   const [result, setResult] = useState<HookResult>(() => calcHook("H/8", "us"));
 
-  useEffect(() => {
+  const handleCalculate = () => {
     if (system === "mm" && isNaN(parseFloat(input))) return;
     setResult(calcHook(input, system));
-  }, [input, system]);
+  };
 
-  const reset = () => { setInput(DEFAULTS.input); setSystem(DEFAULTS.system); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setInput(DEFAULTS.input); setSystem(DEFAULTS.system); setResult(calcHook(DEFAULTS.input, DEFAULTS.system)); };
   const invalid = system === "mm" && isNaN(parseFloat(input));
 
   const faqs = [
@@ -131,7 +134,7 @@ export default function CrochetHookConverter() {
             <p className="text-xs text-muted-foreground">Enter a US letter (H/8, G/6) or a metric size (5.0 mm).</p>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Ruler className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

@@ -698,6 +698,7 @@ export const constructionCalculators: CalculatorDef[] = [
   { slug: "shadow-length-calculator", name: "Shadow Length Calculator", description: "Calculate shadow length calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, status: "soon", indexable: false },
   { slug: "sight-line-calculator", name: "Sight Line Calculator", description: "Calculate sight line calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, status: "soon", indexable: false },
   { slug: "ramp-slope-calculator", name: "Ramp Slope Calculator", description: "Calculate ramp slope calculator online with our free tool.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier3", priorityScore: 38, status: "soon", indexable: false },
+  { slug: "scale-calculator", name: "Scale Calculator", description: "Convert drawing measurements to real-world dimensions and calculate architectural, engineering, and model scale ratios.", category: "CONSTRUCTION", subcategory: "Measurement & Layout", tier: "Tier1", priorityScore: 90, status: "live", indexable: true },
   {
     slug: "cement-calculator", name: "Cement Calculator", description: "Calculate cement, sand, and aggregate quantities for concrete mix.", category: "CONSTRUCTION", subcategory: "Materials & Quantities", tier: "Tier3", priorityScore: 38, status: "live" },
   {

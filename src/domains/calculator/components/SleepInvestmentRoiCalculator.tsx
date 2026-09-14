@@ -103,7 +103,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -115,6 +115,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -159,7 +160,7 @@ export default function SleepInvestmentRoiCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hoursSlept, hourlyWage]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -201,7 +202,7 @@ export default function SleepInvestmentRoiCalculator() {
             <div className="grid grid-cols-1 gap-3 mt-2">
               <div className="flex flex-col">
                 <label className="text-sm font-semibold text-foreground mb-1.5">Average Nightly Sleep</label>
-                <select value={hoursSlept} onChange={(e: any) => setHoursSlept(e.target.value)} className="w-full h-10 px-3 bg-background border border-input rounded-md text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                <select value={hoursSlept} onChange={(e: any) => setHoursSlept(e.target.value)} onKeyDown={(e: any) => { if (e.key === "Enter") handleCalculate(); }} className="w-full h-10 px-3 bg-background border border-input rounded-md text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                   <option value="8">8+ Hours (Optimal, 0% Impairment)</option>
                   <option value="7">7 Hours (Mild Impairment)</option>
                   <option value="6">6 Hours (Significant Brain Fog)</option>
@@ -209,7 +210,7 @@ export default function SleepInvestmentRoiCalculator() {
                   <option value="4">4 Hours or less (Legally Intoxicated Cognitive State)</option>
                 </select>
               </div>
-              <CompactInput id="wage" label="Your Estimated Hourly Value" value={hourlyWage} onChange={setHourlyWage} prefix="$" />
+              <CompactInput id="wage" label="Your Estimated Hourly Value" value={hourlyWage} onChange={setHourlyWage} prefix="$" onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -233,29 +234,31 @@ export default function SleepInvestmentRoiCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric Grid */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
+                    <Printer className="h-4 w-4" />
+                  </button>
+                  <div className="relative z-10">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Yearly Financial Loss</div>
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <div className="text-4xl font-bold text-primary">-${results.yearlyValueLostDollars.toLocaleString()}</div>
+                    </div>
+                    <div className="text-sm text-muted-foreground mt-1">Cost of daily inefficiency & brain fog</div>
+                  </div>
+                  <Zap className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-foreground" />
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Cognitive Loss Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-muted/30 border border-border rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Cognitive Impairment</div>
+                      <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">Cognitive Impairment</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold text-red-400">-{results.cognitiveImpairmentPct}%</div>
+                        <div className="text-3xl font-extrabold text-red-500 dark:text-red-400">-{results.cognitiveImpairmentPct}%</div>
                       </div>
-                      <div className="text-xs font-medium text-slate-500 mt-1">Reduction in problem-solving speed</div>
+                      <div className="text-xs text-muted-foreground mt-1">Reduction in problem-solving speed</div>
                     </div>
                     <Battery className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-red-500" />
-                  </div>
-
-                  {/* Financial Loss Box */}
-                  <div className="bg-gradient-to-br from-red-600 to-rose-900 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Yearly Financial Loss</div>
-                      <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">-${results.yearlyValueLostDollars.toLocaleString()}</div>
-                      </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">Cost of daily inefficiency & brain fog</div>
-                    </div>
-                    <Zap className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
                   </div>
                 </div>
 

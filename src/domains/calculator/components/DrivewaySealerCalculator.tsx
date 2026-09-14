@@ -54,9 +54,16 @@ export default function DrivewaySealerCalculator() {
     const c = parseFloat(coats);
     const p = parseFloat(price);
     if (!isNaN(l) && !isNaN(w) && !isNaN(c) && !isNaN(p) && l > 0 && w > 0 && c >= 1 && p >= 0) setResult(calcSealer(l, w, c, 100, p));
-  }, [length, width, coats, price]);
+  }, []);
 
-  const reset = () => { setLength(DEFAULTS.length); setWidth(DEFAULTS.width); setCoats(DEFAULTS.coats); setPrice(DEFAULTS.price); };
+  const handleCalculate = () => {
+    const l = parseFloat(length);
+    const w = parseFloat(width);
+    const c = parseFloat(coats);
+    const p = parseFloat(price);
+    if (!isNaN(l) && !isNaN(w) && !isNaN(c) && !isNaN(p) && l > 0 && w > 0 && c >= 1 && p >= 0) setResult(calcSealer(l, w, c, 100, p));
+  };
+  const reset = () => { setLength(DEFAULTS.length); setWidth(DEFAULTS.width); setCoats(DEFAULTS.coats); setPrice(DEFAULTS.price); setResult(calcSealer(parseFloat(DEFAULTS.length), parseFloat(DEFAULTS.width), parseFloat(DEFAULTS.coats), 100, parseFloat(DEFAULTS.price))); };
   const invalid = isNaN(parseFloat(length)) || isNaN(parseFloat(width)) || isNaN(parseFloat(coats)) || isNaN(parseFloat(price)) || parseFloat(length) <= 0 || parseFloat(width) <= 0 || parseFloat(coats) < 1 || parseFloat(price) < 0;
 
   const breakdown = [
@@ -111,7 +118,7 @@ export default function DrivewaySealerCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <PaintBucket className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

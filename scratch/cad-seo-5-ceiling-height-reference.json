@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "ceiling-height-reference",
+    "varName": "ceiling_height_referenceSeo",
+    "name": "Ceiling Height Reference",
+    "sections": [
+      {
+        "heading": "What is Ceiling Height Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ceiling Height Reference is a lookup of the minimum ceiling-height rules in the model codes: the IRC for residential work and the IBC for commercial. The residential rules cluster at 7 feet 0 inches — habitable rooms, hallways and corridors, bathrooms and toilet rooms, and basements with habitable use all carry the 7 foot minimum under IRC R305.1, measured to the lowest ceiling point. The commercial rules step up to 7 feet 6 inches for habitable spaces and corridors under IBC 1208.2."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table also carries the exceptions that catch real designs: obstructions like beams and ducts may project below the ceiling line but not below the 6 foot 4 inch minimum at any point; mechanical and equipment rooms are set by the installed equipment's access and clearance needs rather than a fixed number; and sloped ceilings must average at least the minimum height, with at least half the room at full height and the low side held to a floor minimum. The note frames the measurement convention: heights are to the finished ceiling or the underside of the structural element, at the room's lowest point."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Ceiling Height Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the room type and the governing code — residential projects follow the IRC, commercial and most multi-family projects follow the IBC — and find the matching row.",
+              "<strong>Step 2:</strong> Read the Minimum column: 7 feet 0 inches for residential habitable rooms, hallways, bathrooms and habitable basements; 7 feet 6 inches for commercial habitable spaces and corridors.",
+              "<strong>Step 3:</strong> Check the Source column to cite the right section in the drawings — IRC R305.1 versus IBC 1208.2 — since plan reviewers expect the section reference, not just the number.",
+              "<strong>Step 4:</strong> Verify the measurement convention from the note: the height is to the finished ceiling or the underside of the structural element at the lowest point of the room, which is the number the reviewer will measure.",
+              "<strong>Step 5:</strong> Check the exception rows before finalizing: beams and ducts may project but not below the 6 foot 4 inch minimum, and sloped ceilings follow the average rule — then verify everything against the adopted code edition, since the summary is not the authority."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Ceiling Height Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ceiling height is a code minimum that looks self-evident and is easy to miss in the details: a basement finished to 6 feet 10 inches fails a habitable room, a corridor that ducks under a duct to 7 feet 2 inches fails the commercial minimum, and a sloped ceiling that averages above the minimum can still fail if the low side is too low. The reference keeps the minimums, the sources and the measurement convention in one row so the check is made against the right number the first time."
+          },
+          {
+            "type": "paragraph",
+            "text": "The residential-versus-commercial split is where most confusion lives: the same room type carries a different minimum in the two codes, and a project that straddles them — a mixed-use building with residential units over commercial — needs both tables read correctly. Seeing the IRC and IBC columns side by side makes the distinction explicit instead of assuming one number applies everywhere."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the residential minimum 7 feet but the commercial minimum 7 feet 6 inches?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The codes set different expectations for the two occupancies: IRC R305.1 requires 7 feet 0 inches in residential habitable rooms, while IBC 1208.2 requires 7 feet 6 inches in commercial habitable spaces. The higher commercial minimum reflects the larger rooms, higher occupancy and different expectations of non-residential space. A residential unit above a commercial ground floor must meet the commercial minimum in the commercial portion and the residential minimum in the units — which is why the reference keeps both columns visible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can beams and ducts project below the ceiling height?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, with a floor: obstructions such as beams and ducts may project below the ceiling line, but not below the 6 foot 4 inch minimum at any point, per the IRC exception. The practical effect is that a room can have its nominal 7 foot ceiling interrupted by a beam that dips to 6 foot 6 inches — acceptable — but not one that dips below 6 foot 4. The reference lists the 6 foot 4 inch figure explicitly because the exception is where residential designs most often cross the line unnoticed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is a sloped ceiling measured against the minimum?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A sloped ceiling must average at least the minimum height for the room, with at least half the room at full height and the low side held to a floor minimum — the specific arithmetic lives in the IRC and IBC sloped-ceiling provisions. The average rule is what allows an attic bedroom or a cathedral space to qualify: the room is measured by its average height rather than its lowest point, as long as the low side stays above the absolute floor. The note points to the code edition for the exact proportions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does ceiling height apply to mechanical and equipment rooms?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not as a fixed number — the reference row for mechanical and equipment rooms says the height is set by the access and clearance requirements of the installed equipment. The governing consideration is that a person can reach and service the equipment, and the manufacturer's clearances plus the code's service-access rules set the space. This is the row that reads differently from the habitable-space minimums, which is why it appears separately rather than under a universal height."
+          }
+        ]
+      }
+    ]
+  }
+]

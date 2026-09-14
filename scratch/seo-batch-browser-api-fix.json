@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "screen-orientation-tester",
+    "whatIs": "The Screen Orientation Tester reads and displays the current screen orientation type (portrait-primary, landscape-secondary, etc.) and angle using the Screen Orientation API. This API is particularly relevant for mobile web applications and PWAs that need to detect or lock screen rotation — for example, a mobile game that should only run in landscape mode, or a checkout flow that locks to portrait to prevent accidental rotation. The tool provides a snapshot of the current orientation state, showing both the human-readable type and the numeric angle in degrees.",
+    "howToUse": [
+      "Open the Screen Orientation Tester page, which shows a test button and output area.",
+      "Click the **Test API** button. The tool reads the current screen orientation from the Screen Orientation API.",
+      "The output displays the orientation type (e.g., 'portrait-primary') and the angle in degrees.",
+      "Rotate your device to see how the values change — click the button again after each rotation.",
+      "If the API is not available (desktop browsers, older mobile browsers), the output indicates it is not supported."
+    ],
+    "whyUse": "Mobile web developers building games, media players, or full-screen experiences need to detect and respond to screen orientation changes. The Screen Orientation Tester shows exactly what values the API returns for each physical orientation, helping developers understand the mapping between device position and API values. This is especially important because the angle and type values can be confusing — for example, 'landscape-secondary' means the device is rotated 270 degrees from portrait-primary, not simply 'in landscape'.",
+    "faq": [
+      {
+        "q": "What is the difference between landscape-primary and landscape-secondary?",
+        "a": "Landscape-primary (90°) means the device is held with the home button or notch on the right side. Landscape-secondary (270°) means the home button or notch is on the left side. Both are landscape orientations, but they represent opposite rotations from the default portrait-primary position. The angle value confirms which way the device is rotated."
+      },
+      {
+        "q": "Can I lock the screen orientation with this API?",
+        "a": "Yes, but only within a full-screen context. After requesting full-screen via Element.requestFullscreen(), you can call screen.orientation.lock('landscape') or screen.orientation.lock('portrait') to prevent the screen from rotating. This is commonly used in mobile games and video players that need a fixed orientation. The lock is automatically released when the element exits full-screen mode."
+      },
+      {
+        "q": "Does this work on desktop browsers?",
+        "a": "Desktop monitors do not typically rotate, so screen.orientation.type is usually 'landscape-primary' with angle 0. The API is most useful on mobile devices and tablets where the accelerometer detects physical rotation."
+      },
+      {
+        "q": "What happens if I call lock() outside of full-screen mode?",
+        "a": "The lock() call will fail with a NotSupportedError. The Screen Orientation API only allows orientation locking when the document is in full-screen mode. This is a security and usability restriction to prevent web pages from trapping users in an unexpected orientation."
+      }
+    ]
+  },
+  {
+    "slug": "vibration-api-tester",
+    "whatIs": "The Vibration API Tester triggers a 200-millisecond vibration on devices that support the navigator.vibrate() API and reports whether the operation succeeded. The Vibration API is primarily available on mobile devices with vibration motors and is commonly used in mobile web games, notification systems, and haptic feedback for touch interfaces. The tool performs a simple vibrate(200) call and displays the result. On desktop browsers without vibration hardware, the tool reports that the API is not supported. This is a quick hardware-capability check — the vibration happens physically on the device, not visually on screen.",
+    "howToUse": [
+      "Open the Vibration API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. On a device with vibration hardware, the device vibrates briefly (200 milliseconds).",
+      "The output confirms 'Vibrated 200ms' on success, or 'Vibration API not supported' on desktop browsers without vibration hardware.",
+      "On mobile browsers that block the API (e.g., iOS Safari), the output indicates the API is not available.",
+      "No data is transmitted — the vibration is triggered entirely locally."
+    ],
+    "whyUse": "Mobile web developers building games, messaging apps, or interactive experiences need to verify that the Vibration API is accessible from their page before integrating haptic feedback. The Vibration API Tester provides instant confirmation without writing any integration code. It is also useful for device testing — confirming that a specific phone model's vibration motor responds to web API calls, which can vary across manufacturers and Android versions.",
+    "faq": [
+      {
+        "q": "Why doesn't it work on my iPhone?",
+        "a": "Apple does not support the navigator.vibrate() API in Safari or WebKit-based browsers. The Vibration API is primarily available on Android Chrome and Firefox. This is a platform limitation, not a bug in the tool."
+      },
+      {
+        "q": "Can I create custom vibration patterns?",
+        "a": "Yes, the navigator.vibrate() method accepts an array of numbers representing alternating vibration and pause durations in milliseconds. For example, vibrate([200, 100, 200]) creates two short vibrations with a pause between them. You can also cancel an ongoing vibration by calling vibrate(0). The tool uses a single 200ms pulse for simplicity, but the API supports complex patterns for game feedback and notification differentiation."
+      },
+      {
+        "q": "Does vibration drain battery?",
+        "a": "A single 200ms vibration has negligible battery impact. Prolonged or continuous vibration patterns, such as those used in games, can contribute to battery drain over time, but a quick test is harmless."
+      },
+      {
+        "q": "What is the maximum vibration duration?",
+        "a": "The Vibration API does not enforce a maximum duration, but browsers may cap extremely long vibrations for safety and battery reasons. Common patterns range from 10ms for subtle feedback to 500ms for notifications. Continuous vibration is generally discouraged for user experience reasons."
+      }
+    ]
+  },
+  {
+    "slug": "clipboard-api-tester",
+    "whatIs": "The Clipboard API Tester writes a test string to the system clipboard using the modern Clipboard API (navigator.clipboard.writeText) and reports whether the operation succeeded. This verifies that the Clipboard API is available, that the page has the required clipboard-write permission, and that the browser environment permits clipboard access. The Clipboard API replaced the deprecated document.execCommand('copy') approach and requires a secure context (HTTPS) and a user gesture (like a button click) to function. The tool does not read from the clipboard — it only writes a fixed test string, making it safe to run in any environment.",
+    "howToUse": [
+      "Navigate to the Clipboard API Tester page. A test button and output area are displayed.",
+      "Click the **Test API** button. The tool attempts to write the string 'Racira Developers test' to the system clipboard.",
+      "If the operation succeeds, the output confirms: 'Wrote Racira Developers test to clipboard'.",
+      "If the Clipboard API is unavailable (insecure context, permission denied, or unsupported browser), the output shows the specific error.",
+      "After testing, paste somewhere (Ctrl+V / Cmd+V) to verify the content was actually written."
+    ],
+    "whyUse": "Clipboard operations are a common source of bugs in web applications because they depend on secure contexts, user gestures, and browser-specific permission policies. The Clipboard API Tester isolates the copy operation into a single click, letting developers quickly confirm that their environment supports the modern Clipboard API. This eliminates an entire category of debugging when 'copy to clipboard' features fail — the problem is often a missing HTTPS certificate or a restrictive Content Security Policy rather than application code.",
+    "faq": [
+      {
+        "q": "Why does it fail on localhost or file:// URLs?",
+        "a": "The Clipboard API requires a secure context, which means HTTPS or localhost (127.0.0.1). Pages served over plain HTTP or from file:// URLs are not secure contexts and cannot access the Clipboard API."
+      },
+      {
+        "q": "Does this read from my clipboard?",
+        "a": "No. The tool only writes a fixed test string to the clipboard. It does not call navigator.clipboard.readText() or access any existing clipboard content."
+      },
+      {
+        "q": "What is the difference between clipboard.writeText and the old execCommand approach?",
+        "a": "The modern Clipboard API uses a Promise-based interface that works in secure contexts without requiring a hidden input element or text selection. The deprecated document.execCommand('copy') approach required temporary DOM manipulation and had inconsistent behavior across browsers. The Clipboard API is cleaner, more reliable, and supports writing binary data (blobs) in addition to plain text."
+      },
+      {
+        "q": "What browsers support the modern Clipboard API?",
+        "a": "Chrome 66+, Firefox 63+, Safari 13.1+, and Edge 79+ support the Clipboard API in secure contexts. Older browsers fall back to document.execCommand('copy'), which this tool does not use."
+      }
+    ]
+  },
+  {
+    "slug": "battery-api-checker",
+    "whatIs": "The Battery API Checker queries the browser's Battery Status API and displays the current charging state, battery level percentage, and estimated charging or discharging times. The Battery API (navigator.getBattery()) returns a BatteryManager object that provides real-time information about the device's power source. This is useful for building adaptive web experiences — for example, a video streaming app might reduce bitrate when the battery is low, or a navigation app might warn the user before starting a long trip. The tool does not modify any battery settings or send data to any server — it reads status information that the browser already tracks.",
+    "howToUse": [
+      "Navigate to the Battery API Checker page. The page shows a test button and output area.",
+      "Click the **Test API** button. The tool calls navigator.getBattery() and reads the battery status.",
+      "If supported, the output displays charging state (true/false), battery level (percentage), and estimated times.",
+      "If the Battery API is not supported (iOS Safari, some desktop browsers), the output indicates the API is unavailable.",
+      "On Android Chrome, the tool shows real-time battery data that updates as you charge or discharge the device."
+    ],
+    "whyUse": "Developers building progressive web apps, streaming platforms, or resource-intensive web applications need to adapt their behavior based on the user's power state. The Battery API Checker lets you verify that the Battery API is accessible and see exactly what data it provides — charging status, level percentage, and time estimates — without writing any application code. This is particularly valuable for testing across devices, since browser support varies significantly (Android Chrome supports it, iOS Safari does not).",
+    "faq": [
+      {
+        "q": "Why does the tool say the Battery API is not supported?",
+        "a": "Apple removed Battery API support from Safari and WebKit in 2019 for privacy reasons. Some desktop browsers also do not expose the API. It is primarily available on Android Chrome and Firefox on Android."
+      },
+      {
+        "q": "Is battery data accurate?",
+        "a": "The data comes from the operating system's battery monitor and is generally accurate to within a few percent for charge level. Time estimates (chargingTime, dischargingTime) are rough approximations that depend on current usage patterns and may not reflect actual time to full charge."
+      },
+      {
+        "q": "Does the Battery API affect device power management?",
+        "a": "No, the Battery API is purely read-only. It accesses the same battery information that the operating system displays in its status bar or settings panel. The API does not change charging behavior, wake locks, or power-saving modes. The BatteryManager object also fires chargingchange, levelchange, chargingtimechange, and dischargingtimechange events, letting applications react to power state changes without polling."
+      }
+    ]
+  },
+  {
+    "slug": "device-orientation-tester",
+    "whatIs": "The Device Orientation Tester listens for device orientation events and displays the alpha, beta, and gamma rotation values of the device. Alpha represents rotation around the z-axis (compass direction), beta is the tilt front-to-back, and gamma is the tilt left-to-right. This API powers augmented reality experiences, motion-controlled games, compass apps, and other interactions that depend on how the user is holding their device. The tool sets up a one-shot event listener, waits up to five seconds for data, and displays the results or a timeout message. On desktop browsers without an accelerometer, the timeout message is expected — the tool is designed for mobile-first testing.",
+    "howToUse": [
+      "Open the Device Orientation Tester page, which displays a test button and an output area.",
+      "Click the **Test API** button. On a mobile device, the tool begins listening for orientation sensor data.",
+      "Tilt or rotate the device. Within five seconds, the output displays the alpha, beta, and gamma values in degrees.",
+      "On desktop browsers without accelerometer hardware, the output shows a timeout message suggesting you test on a mobile device.",
+      "Each subsequent click re-initializes the listener and waits for fresh sensor data."
+    ],
+    "whyUse": "Developers building motion-responsive interfaces need to know what raw sensor values their target devices produce before writing transform logic. The Device Orientation Tester provides instant access to the alpha, beta, and gamma values without any custom code. This is particularly useful for calibrating tilt thresholds in games, validating that a device's accelerometer is functioning correctly, and understanding why orientation-based features work on one device but not another — different hardware produces different value ranges.",
+    "faq": [
+      {
+        "q": "Why does the tool time out on my desktop browser?",
+        "a": "Desktop computers typically do not have accelerometer or gyroscope hardware, so the DeviceOrientationEvent never fires. The tool is designed primarily for mobile devices with motion sensors."
+      },
+      {
+        "q": "Do I need to grant any permissions on iOS?",
+        "a": "On iOS 13 and later, Apple requires an explicit call to DeviceOrientationEvent.requestPermission() before the browser will deliver orientation data. This call must originate from a user gesture such as a button click. The tool handles this automatically when you click the Test API button. On older iOS versions and on Android, no explicit permission request is needed for the orientation API itself, though the general motion permission may apply."
+      },
+      {
+        "q": "What are alpha, beta, and gamma?",
+        "a": "Alpha is the compass direction (0 to 360 degrees) measuring rotation around the vertical axis. Beta (negative 180 to positive 180 degrees) measures front-to-back tilt. Gamma (negative 90 to positive 90 degrees) measures left-to-right tilt. Together they describe the device's orientation in 3D space relative to the Earth's frame of reference."
+      },
+      {
+        "q": "Can I use this data for augmented reality?",
+        "a": "Yes, device orientation values are the foundation for many AR experiences. By combining alpha, beta, and gamma with the device's camera feed, you can overlay virtual objects on the real world. However, for more precise AR tracking, developers typically use the WebXR Device API or libraries like AR.js, which build on top of raw orientation data."
+      }
+    ]
+  }
+]

@@ -51,9 +51,9 @@ export default function CustomerRetentionRateCalculator() {
     const e = parseFloat(end);
     const n = parseFloat(acquired);
     if (!isNaN(s) && !isNaN(e) && !isNaN(n) && s > 0 && e >= 0 && n >= 0) setResult(calcRetention(s, e, n));
-  }, [start, end, acquired]);
+  }, []);
 
-  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); setAcquired(DEFAULTS.acquired); };
+  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); setAcquired(DEFAULTS.acquired); setResult(calcRetention(parseFloat(DEFAULTS.start), parseFloat(DEFAULTS.end), parseFloat(DEFAULTS.acquired))); };
   const invalid = isNaN(parseFloat(start)) || isNaN(parseFloat(end)) || isNaN(parseFloat(acquired)) || parseFloat(start) <= 0 || parseFloat(end) < 0 || parseFloat(acquired) < 0;
 
   const breakdown = [

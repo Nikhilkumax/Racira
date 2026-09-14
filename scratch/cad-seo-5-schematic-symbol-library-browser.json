@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "schematic-symbol-library-browser",
+    "varName": "schematic_symbol_library_browserSeo",
+    "name": "Schematic Symbol Library Browser",
+    "sections": [
+      {
+        "heading": "What is Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Schematic Symbol Library Browser is a searchable reference of seventeen common schematic symbols, each with how it is sketched and the note that matters when placing it in a real drawing. The table spans the passive components — resistors, capacitors in both polarities, inductors — through the semiconductors — diodes, LEDs, zeners, NPN transistors, MOSFETs — and the logic, power and timing elements: operational amplifiers, AND and OR gates, inverters, grounds, fuses, switches, transformers and crystals."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conventions column carries the real drawing decisions: a resistor is a zigzag under ANSI but a rectangle under IEC; a diode's triangle points at its cathode bar and the band on the physical part matches it; an NPN transistor's arrow points out of the emitter while a PNP's points in; an op-amp triangle has its output at the apex with supply pins often omitted. The tool's note carries the governing rule — pick one convention, ANSI or IEC 60617, and stay consistent across the whole drawing set."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Find the component you are placing in the table — resistor, diode, MOSFET, op-amp, gate or otherwise — and read its row's sketched-as column for the shape convention in use.",
+              "<strong>Step 2:</strong> Read the notes column for the placement-critical details: the LED's forward drop of roughly 2 to 3.5 volts means a series resistor is required, the zener operates in reverse breakdown for regulation, and the op-amp's output is at the triangle's apex.",
+              "<strong>Step 3:</strong> Type into the search box to filter the table when you are checking one symbol — searching zener narrows to a single row, which is a useful way to confirm the symbol's exact convention.",
+              "<strong>Step 4:</strong> Apply the style decision from the tool's note: choose the ANSI or IEC convention for the drawing set before placing parts, and do not mix zigzag resistors with rectangle resistors in the same schematic.",
+              "<strong>Step 5:</strong> Treat the table as the reference conventions, not artwork to copy literally — in a real schematic tool, place the parts from the tool's own library and use this reference to confirm the standard shape and its meaning."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A schematic's value is that anyone trained in the standard can read it, and that contract breaks the moment symbols diverge from the convention: a rectangle where the reader expects a zigzag, or a missing polarity marker on a part that has one. The reference keeps the shape-to-meaning mapping explicit, so the drawing stays legible to the next engineer, the reviewer and the assembler who builds from it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The notes column carries the functional reminders that are easy to lose in a large schematic — the LED's series resistor, the polarized capacitor's positive lead at the straight plate, the crystal's external load capacitance. Those are the details that make a schematic not just readable but correct, and keeping them attached to the symbol they belong to is what a symbol reference is for."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between the ANSI and IEC resistor symbols?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ANSI style draws a resistor as a zigzag line, while IEC 60617 draws it as a rectangle. Both mean the same component and both carry the same value in ohms, but a drawing set should use one style throughout — the tool's note makes consistency the rule because a mixed set forces the reader to re-learn the convention at every symbol. The same split applies elsewhere: gates drawn as the IEC rectangle with the function inside versus the ANSI distinctive shapes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I tell NPN from PNP on a schematic?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "By the arrow on the emitter. An NPN transistor's emitter arrow points outward, away from the base, while a PNP's points inward toward the base. The same convention repeats on the physical package's pinout, so the schematic arrow and the part's datasheet pinout should agree. MOSFETs use the same idea with their channel symbol — the arrow direction differs between N-channel and P-channel, and the body diode is drawn to show polarity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the LED symbol need a series resistor?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An LED is a diode with a forward voltage drop of roughly 2 to 3.5 volts depending on its color and chemistry, and once forward-biased past that drop its current rises steeply with voltage — the current is limited only by the circuit. Without a series resistor sized for the supply and the LED's forward voltage, the LED draws as much current as the supply can push and burns out. The symbol's outward arrows mean light, and the note reminds you that the resistor is part of the circuit, not an option."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is a zener drawn with a bent bar?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The bent Z-shaped bar distinguishes the zener's operating mode from an ordinary diode: instead of blocking reverse current until breakdown, the zener is designed to conduct in reverse breakdown and hold a stable voltage across it, which is how it regulates. The bent bar is the schematic shorthand for that behavior, and the same shape convention appears on the physical part's cathode marking so the reader can map symbol to component."
+          }
+        ]
+      }
+    ]
+  }
+]

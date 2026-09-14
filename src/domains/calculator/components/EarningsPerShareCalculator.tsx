@@ -104,7 +104,7 @@ export default function EarningsPerShareCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Diluted EPS</div>
               <div className="text-5xl font-extrabold text-foreground">{f2(result.dilutedEPS)}</div>
               <div className="text-sm text-muted-foreground mt-1">{result.peRatio!==null?`P/E Ratio: ${result.peRatio.toFixed(1)}×`:"Enter stock price for P/E"}</div>

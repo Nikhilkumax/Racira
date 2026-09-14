@@ -1,0 +1,443 @@
+[
+  {
+    "slug": "bcrypt-generator",
+    "varName": "bcryptGeneratorSeo",
+    "name": "Bcrypt Generator",
+    "sections": [
+      {
+        "heading": "What is Bcrypt Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Bcrypt Generator creates bcrypt password hashes directly in your browser. Bcrypt is a key derivation function designed specifically for password hashing — it applies the Blowfish cipher with a configurable cost factor (work factor) that determines how computationally expensive each hash computation is. The default cost factor of 10 means each hash requires 2^10 (1024) rounds of key setup, making brute-force attacks significantly slower than with fast hash functions like MD5 or SHA-256."
+          },
+          {
+            "type": "paragraph",
+            "text": "The output is a standard bcrypt hash string in the format <code>$2b$cost$salt+hash</code>, which is compatible with bcrypt libraries in Node.js, Python, Ruby, PHP, Go, and virtually every server-side language. The salt is generated automatically using the Web Crypto API's random number generator, ensuring each hash is unique even for identical passwords."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Bcrypt Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Enter the password</strong> you want to hash in the input panel. This is the plain-text password that would be stored in a user's browser or entered during registration.",
+              "<strong>Adjust the cost factor</strong> if needed. The default of 10 is appropriate for most web applications. Increase to 12-14 for high-security systems (slower hashing but harder to brute-force). Decrease to 8-9 only for development/testing where speed matters more than security.",
+              "<strong>Read the output hash</strong> — a 60-character string starting with <code>$2b$</code>. This is what you store in your database. Never store the plain-text password.",
+              "<strong>Copy the hash</strong> using the copy button. Paste it into your database migration, user creation script, or password update query."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Bcrypt Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Bcrypt is the <strong>industry standard for password storage</strong> in web applications. Unlike raw hash functions, bcrypt includes a built-in salt (preventing rainbow table attacks) and an adjustable cost factor (allowing you to increase computational expense as hardware gets faster). Major frameworks — Django, Rails, Laravel, Express — all use bcrypt or its close cousin scrypt as their default password hashing scheme."
+          },
+          {
+            "type": "paragraph",
+            "text": "This browser-based generator is useful for <strong>testing password hashing workflows</strong> without setting up a server, <strong>migrating existing password databases</strong> where you need to generate hashes for a batch of users, and <strong>verifying that your application's bcrypt configuration</strong> produces compatible hash strings. It is also valuable for <strong>security demonstrations</strong> — showing stakeholders why bcrypt is slow by design, and why that slowness is a feature, not a bug."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What cost factor should I use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For production web applications, <strong>cost factor 10-12</strong> is the standard range. Cost 10 takes roughly 100ms on modern hardware, which is fast enough for login flows but slow enough to deter brute-force attacks. Cost 12 takes roughly 400ms — use it for high-value accounts (admin panels, financial systems). Cost 14+ takes several seconds and is typically reserved for offline hashing (like background job processors). The key insight: bcrypt's slowness is intentional — it makes each guess expensive for an attacker."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is bcrypt still considered secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Bcrypt remains one of the two recommended password hashing algorithms (alongside Argon2, which won the Password Hashing Competition in 2015). Bcrypt has no known practical attacks when used with an adequate cost factor. Its main limitation is a 72-byte password truncation — passwords longer than 72 bytes are silently truncated. For most use cases, this is not an issue since strong passwords rarely exceed 72 characters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I verify a password against a bcrypt hash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool generates hashes only. To verify a password against an existing bcrypt hash, use your application's bcrypt library (e.g., <code>bcrypt.compare(password, hash)</code> in Node.js). The verification function extracts the salt from the stored hash, re-hashes the candidate password with that salt, and compares the results. The Hash Comparison Tool in this domain can also help with constant-time comparison workflows."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-generator",
+    "varName": "jwtGeneratorSeo",
+    "name": "JWT Generator",
+    "sections": [
+      {
+        "heading": "What is JWT Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Generator creates JSON Web Tokens signed with HMAC-SHA256 (HS256) using the Web Crypto API. You provide the payload claims (user ID, roles, expiration, etc.) and a secret key, and the tool produces a standard three-segment JWT string (<code>header.payload.signature</code>) that can be used in API authentication, session management, and OAuth flows. The signing happens entirely in your browser — the secret key never leaves your device."
+          },
+          {
+            "type": "paragraph",
+            "text": "The generated token follows the RFC 7519 standard and is compatible with JWT libraries in every major language. The header automatically includes <code>{\"alg\":\"HS256\",\"typ\":\"JWT\"}</code>, and the payload is Base64Url-encoded with your specified claims. The signature is computed as HMAC-SHA256 over the encoded header and payload using your secret."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Enter your payload claims</strong> as JSON in the input panel. At minimum, include <code>sub</code> (subject/user ID) and <code>exp</code> (expiration as a Unix timestamp). The tool adds <code>iat</code> (issued-at) automatically.",
+              "<strong>Provide your secret key</strong> in the options panel. This is the symmetric key used to sign the token — the same key your server uses to verify it. Use a strong, randomly generated string (at least 32 characters).",
+              "<strong>Read the output</strong> — a three-segment dot-separated string. This is the JWT you include in the <code>Authorization: Bearer</code> header of API requests.",
+              "<strong>Copy the token</strong> and use it in your API client, Postman collection, or cURL command."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The most common use case is <strong>testing authenticated API endpoints</strong>. When developing or debugging an API that requires JWT authentication, you need to generate valid tokens with specific claims — a user ID, certain roles, a future expiration. Instead of hitting your auth endpoint (which may require a full login flow), you can generate a token directly with the exact claims you need."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers also use this tool for <strong>prototyping authentication flows</strong> before implementing token generation in their application, <strong>creating test fixtures</strong> for automated test suites, and <strong>debugging token-related issues</strong> by generating tokens with known payloads to isolate whether problems are in signing, encoding, or claim validation."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Should I use this for production tokens?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool is designed for <strong>development, testing, and debugging</strong>. In production, token generation should happen in your application's auth service, where the secret is stored securely (in environment variables or a secrets manager, not typed into a browser). The cryptographic operation itself is identical — the difference is secret management, not algorithm."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if I need RS256 (asymmetric) tokens?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This generator produces HS256 (symmetric) tokens where the same secret signs and verifies. For RS256 tokens (signed with a private key, verified with a public key), use the JWT RS256 Verifier tool to understand the verification side, and generate RS256 tokens using your application's JWT library with an RSA key pair from the RSA Key Generator tool."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I set the expiration time?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Include an <code>exp</code> claim in your payload as a Unix timestamp (seconds since January 1, 1970). For example, a token that expires in 1 hour would have <code>\"exp\": </code> followed by the current time plus 3600. The tool provides a helper to calculate this — enter a duration like '1h' or '24h' and it computes the timestamp automatically."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "random-password-generator",
+    "varName": "randomPasswordGeneratorSeo",
+    "name": "Random Password Generator",
+    "sections": [
+      {
+        "heading": "What is Random Password Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Random Password Generator creates cryptographically strong passwords using the Web Crypto API's <code>getRandomValues</code> function, which provides true randomness from your operating system's entropy pool. Unlike pseudo-random number generators (Math.random), this produces passwords that are unpredictable and resistant to pattern-based attacks. You can configure length (8-128 characters) and character sets (uppercase, lowercase, digits, symbols) to match your target system's password policy."
+          },
+          {
+            "type": "paragraph",
+            "text": "The generator produces a new random password each time you click Generate, and displays entropy information showing how many bits of randomness the password contains. A 16-character password using all four character sets contains approximately 95 bits of entropy — well above the 80-bit threshold considered resistant to brute-force attacks with current hardware."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Random Password Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Set the password length</strong> using the slider or number input. 16 characters is the recommended minimum for general use; 20+ for high-security accounts.",
+              "<strong>Toggle character sets</strong> — uppercase (A-Z), lowercase (a-z), digits (0-9), and symbols (!@#$%). All four are enabled by default for maximum entropy.",
+              "<strong>Click Generate</strong> to create a new random password. Each click produces a completely different result.",
+              "<strong>Review the entropy score</strong> displayed below the password. This tells you the effective security in bits — higher is better.",
+              "<strong>Copy the password</strong> using the copy button, or click Generate again if you want a different option."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Random Password Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The primary use case is <strong>creating new passwords for accounts and services</strong>. When signing up for a service, changing an expired password, or creating credentials for a new system, this tool generates a password that is genuinely random — not a pattern your brain might choose (like substituting @ for a). Passwords that humans choose tend to follow predictable patterns; passwords generated from cryptographic randomness do not."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers use it to <strong>generate API keys, database credentials, and service account passwords</strong> during infrastructure setup. Security teams use it for <strong>creating temporary access credentials</strong> that need to be strong but short-lived. It is also useful for <strong>demonstrating password entropy</strong> to non-technical stakeholders — showing that a 20-character random password has 128 bits of entropy (impossible to brute-force) while an 8-character password with mixed case has only 47 bits (crackable in hours)."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How long should a password be?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For most accounts, <strong>16 characters</strong> using all four character sets provides strong security (95+ bits of entropy). For high-value accounts (email, banking, admin panels), <strong>20-24 characters</strong> is better. For passphrases (lowercase words with separators), <strong>25+ characters</strong> is recommended since each word contributes less entropy than a random character. The key principle: length matters more than complexity — a 24-character lowercase passphrase is stronger than an 8-character password with every special character."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should I use a password manager instead?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — password managers are the recommended solution for managing multiple strong passwords. This generator is useful for creating the <strong>master password</strong> for your password manager, generating passwords for systems where you cannot use a password manager (like SSH passphrases or database credentials), and understanding how random password generation works. For everyday password creation, your password manager's built-in generator is more convenient."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why not just use Math.random()?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>Math.random()</code> uses a pseudo-random number generator (PRNG) that is <strong>not cryptographically secure</strong>. Its output can be predicted if an attacker knows the algorithm and a few previous outputs. The Web Crypto API's <code>getRandomValues</code> uses your operating system's entropy pool (which collects randomness from hardware events like mouse movements, keyboard timing, and disk I/O), producing output that is computationally indistinguishable from true randomness."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "sha-256-generator",
+    "varName": "sha256GeneratorSeo",
+    "name": "SHA-256 Generator",
+    "sections": [
+      {
+        "heading": "What is SHA-256 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SHA-256 Generator computes the SHA-256 (Secure Hash Algorithm, 256-bit) hash of any text input using the browser's native SubtleCrypto API. SHA-256 is part of the SHA-2 family designed by the NSA and published by NIST as a federal information processing standard. It produces a fixed 256-bit (32-byte) digest, displayed as a 64-character hexadecimal string. SHA-256 is the most widely used hash algorithm in modern computing — it underpins Bitcoin mining, TLS certificate validation, Git commit checksums, and AWS request signing."
+          },
+          {
+            "type": "paragraph",
+            "text": "Unlike the general Hash Generator which supports five algorithms, this tool is purpose-built for SHA-256 with a streamlined interface. The hash computation is deterministic (same input always produces the same output), one-way (cannot be reversed), and collision-resistant (no two different inputs are known to produce the same SHA-256 hash)."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SHA-256 Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste or type your input</strong> in the input panel. This can be a file hash, a string to verify, a Git commit message, or any UTF-8 text.",
+              "<strong>Read the 64-character hex string</strong> in the output panel. The hash appears instantly as you type (live mode).",
+              "<strong>Compare against a known hash</strong> — paste the expected hash next to the generated one to verify file integrity or confirm a Git checksum.",
+              "<strong>Copy the hash</strong> using the copy button for use in configuration files, security policies, or verification scripts."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SHA-256 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The most common use case is <strong>file integrity verification</strong>. After downloading software, libraries, or firmware, you compare the SHA-256 hash of the downloaded file against the hash published by the vendor. If they match, the file was not tampered with in transit. This is how Linux distributions, package managers (npm, pip, cargo), and security advisories verify download integrity."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers use SHA-256 for <strong>Git commit and blob checksums</strong> (Git internally uses SHA-1 but is migrating to SHA-256), <strong>AWS Signature Version 4 request signing</strong>, <strong>Docker image layer verification</strong>, and <strong>content-addressable storage</strong> systems. It is also used in <strong>proof-of-work systems</strong> (Bitcoin, Ethereum) where the deterministic, uniform distribution of outputs makes it suitable for mining puzzles."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between SHA-256 and MD5?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "MD5 produces a 128-bit hash and is <strong>cryptographically broken</strong> — researchers have demonstrated practical collision attacks where two different inputs produce the same MD5 hash. SHA-256 produces a 256-bit hash and has <strong>no known practical attacks</strong>. For security-critical applications (password storage, digital signatures, certificate validation), always use SHA-256 or stronger. MD5 is still acceptable for non-security checksums (like detecting accidental file corruption)."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can SHA-256 be reversed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. SHA-256 is a <strong>one-way function</strong> — given a hash, it is computationally infeasible to find the original input. The best known attack requires approximately 2^255 operations, which would take longer than the age of the universe on current hardware. This is why SHA-256 is used for password hashing (though specialized password hashers like bcrypt are preferred for that specific use case) and digital signatures."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is SHA-256 quantum-resistant?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Quantum computers could theoretically use Grover's algorithm to find SHA-256 collisions in approximately 2^128 operations (instead of 2^256 for classical computers). While this is a significant reduction, 2^128 operations is still practically impossible with any foreseeable quantum computer. NIST considers SHA-256 adequate for the near term but recommends SHA-384 or SHA-512 for post-quantum security margins. For most current applications, SHA-256 remains secure."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-decoder",
+    "varName": "jwtDecoderSeo2",
+    "name": "JWT Decoder",
+    "sections": [
+      {
+        "heading": "What is JWT Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Decoder inspects JSON Web Tokens by parsing their three Base64Url-encoded components — header, payload, and signature — and displaying the decoded JSON in a human-readable format. JWTs are compact, self-contained tokens used for authentication and authorization in web applications. The header specifies the signing algorithm (e.g., HS256, RS256), the payload carries the claims (user ID, expiration, roles), and the signature proves the token was issued by a trusted party."
+          },
+          {
+            "type": "paragraph",
+            "text": "This tool performs <strong>decoding only</strong> — it does not verify the signature against a secret or public key. Verification requires access to the signing key, which this tool intentionally does not request. For signature verification, use the dedicated JWT HS256 Verifier or JWT RS256 Verifier tools instead. The decoder is useful for quickly inspecting unfamiliar tokens, debugging authentication flows, and understanding what claims a token contains."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Decoder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste the full JWT string</strong> into the input panel. A valid JWT has the format <code>header.payload.signature</code> — three dot-separated Base64Url-encoded segments.",
+              "<strong>Read the decoded output</strong>. The tool displays the header (algorithm and type), the payload (claims and metadata), and notes whether a signature is present.",
+              "<strong>Check the expiration</strong>. If the payload contains an <code>exp</code> claim, the tool highlights whether the token is currently valid, expired, or not yet active.",
+              "<strong>Inspect specific claims</strong>. Common claims like <code>sub</code> (subject), <code>iss</code> (issuer), <code>aud</code> (audience), and <code>roles</code> are displayed with clear labels."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When <strong>debugging authentication issues</strong>, the first step is always to decode the JWT and confirm its contents. Is the user ID correct? Has the token expired? Does it carry the expected roles? A JWT that looks valid on the surface may contain stale claims, a wrong issuer, or missing permissions — and decoding it takes seconds versus minutes of log diving."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers working with <strong>OAuth 2.0 flows</strong> use this tool to inspect access tokens returned by identity providers. API testers use it to <strong>verify token payloads</strong> before making authenticated requests. Security auditors use it to <strong>check for sensitive data leaks</strong> — if a JWT payload contains PII (personally identifiable information), that is a design issue worth flagging, since JWTs are only encoded, not encrypted."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool verify the JWT signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This decoder performs <strong>decoding only</strong> — it Base64Url-decodes the three segments and pretty-prints the JSON. Signature verification requires the signing secret or public key, which is a separate operation. Use the JWT HS256 Verifier (for symmetric keys) or JWT RS256 Verifier (for asymmetric keys) if you need to confirm a token's authenticity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my JWT has only two segments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A standard JWT always has three segments separated by dots: <code>header.payload.signature</code>. If you see only two segments, the token may be a <strong>JWS (JSON Web Signature) with an empty signature</strong>, or it may be a different token format entirely (like a simple Base64-encoded session token). The decoder will still attempt to parse whatever you paste, but it will flag the missing signature."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is it safe to paste production JWTs here?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Since the tool runs entirely in your browser with no network requests, pasting a JWT is as safe as opening it in any client-side tool. However, be aware that JWT payloads are <strong>encoded, not encrypted</strong> — anyone with the token can already read its contents. The risk is not in decoding but in who has access to the token itself. For highly sensitive tokens, consider using a local development tool rather than a shared browser session."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between JWT Decoder and JWT Visualizer?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The <strong>JWT Decoder</strong> shows the raw decoded JSON in a structured format, which is what you need for debugging and inspection. The <strong>JWT Visualizer</strong> renders the token's structure as a visual diagram, showing the three segments color-coded with metadata like algorithm and expiration. Use the Decoder for quick inspection; use the Visualizer when you want a presentable overview for documentation or presentations."
+          }
+        ]
+      }
+    ]
+  }
+]

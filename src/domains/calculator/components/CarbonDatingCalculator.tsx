@@ -82,10 +82,10 @@ export default function CarbonDatingCalculator() {
     const i = parseFloat(inputs.initial);
     const h = parseFloat(inputs.halflife);
     if (!isNaN(r) && !isNaN(i) && i > 0 && !isNaN(h) && h > 0) setResult(calcCarbon(r, i, h));
-  }, [inputs]);
+  }, []);
 
   const set = (k: keyof typeof DEFAULTS) => (v: string) => setInputs((p) => ({ ...p, [k]: v }));
-  const reset = () => setInputs(DEFAULTS);
+  const reset = () => { setInputs(DEFAULTS); setResult(calcCarbon(parseFloat(DEFAULTS.remaining), parseFloat(DEFAULTS.initial), parseFloat(DEFAULTS.halflife))); };
 
   const invalid = isNaN(parseFloat(inputs.remaining)) || isNaN(parseFloat(inputs.initial)) || parseFloat(inputs.initial) <= 0 || isNaN(parseFloat(inputs.halflife)) || parseFloat(inputs.halflife) <= 0;
 

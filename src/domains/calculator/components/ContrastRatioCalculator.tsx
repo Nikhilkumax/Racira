@@ -192,7 +192,7 @@ export default function ContrastRatioCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`rounded-lg p-5 border-l-4 ${selectedPass ? "bg-emerald-500/10 border-emerald-500" : "bg-red-500/10 border-red-500"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${selectedPass ? "text-emerald-600" : "text-red-500"}`}>Contrast Ratio</div>
                 <div className="text-4xl font-extrabold tracking-tight">{result.ratio}:1</div>
                 <div className="text-sm text-muted-foreground mt-1">

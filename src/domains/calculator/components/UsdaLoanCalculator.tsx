@@ -137,6 +137,7 @@ export default function UsdaLoanCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Guarantee Fees & Escrow</div>
                 <div><label className="text-sm font-medium mb-1.5 block">Upfront Fee (%)</label><div className={inp}><input type="number" value={upfrontFeePct} onChange={e => setUpfrontFeePct(e.target.value)} step={0.1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Annual Fee (%)</label><div className={inp}><input type="number" value={annualFeePct} onChange={e => setAnnualFeePct(e.target.value)} step={0.01} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Property Tax (%)</label><div className={inp}><input type="number" value={propertyTaxRate} onChange={e => setPropertyTaxRate(e.target.value)} step={0.1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>

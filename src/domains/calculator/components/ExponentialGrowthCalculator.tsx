@@ -53,9 +53,9 @@ export default function ExponentialGrowthCalculator() {
     const r = parseFloat(rate);
     const t = parseFloat(periods);
     if (!isNaN(p) && !isNaN(r) && !isNaN(t) && p >= 0 && t >= 0) setResult(calcGrowth(p, r, t));
-  }, [principal, rate, periods]);
+  }, []);
 
-  const reset = () => { setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setPeriods(DEFAULTS.periods); };
+  const reset = () => { setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setPeriods(DEFAULTS.periods); setResult(calcGrowth(parseFloat(DEFAULTS.principal), parseFloat(DEFAULTS.rate), parseFloat(DEFAULTS.periods))); };
   const invalid = isNaN(parseFloat(principal)) || isNaN(parseFloat(rate)) || isNaN(parseFloat(periods)) || parseFloat(principal) < 0 || parseFloat(periods) < 0;
 
   const fmtMoney = (n: number) => n.toLocaleString("en-US", { maximumFractionDigits: 2 });

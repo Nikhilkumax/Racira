@@ -352,6 +352,7 @@ export default function UkMortgageCalculator() {
               </button>
               <div className={`transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[500px] opacity-100 p-4 pt-1 border-t border-border" : "max-h-0 opacity-0 px-4 overflow-hidden"}`}>
                 <div className="flex flex-col gap-4 mt-2">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Buyer & Repayment Details</div>
                   <div className="flex flex-col">
                     <label htmlFor="buyerType" className="flex items-center text-sm font-semibold text-foreground mb-1.5">
                       Buyer Type (For Stamp Duty)

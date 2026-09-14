@@ -250,12 +250,7 @@ export default function LowCarbThresholdCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className={`border rounded-lg p-5 relative overflow-hidden shadow-sm transition-colors
-                  ${results.classification.includes('Keto') ? 'bg-purple-500/10 border-purple-500/50' : 
-                    results.classification.includes('Strict') ? 'bg-blue-500/10 border-blue-500/50' : 
-                    results.classification.includes('Liberal') ? 'bg-green-500/10 border-green-500/50' : 
-                    'bg-amber-500/10 border-amber-500/50'}`}
-                >
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

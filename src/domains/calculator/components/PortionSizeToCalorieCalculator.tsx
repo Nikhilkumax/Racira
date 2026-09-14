@@ -37,7 +37,7 @@ export default function PortionSizeToCalorieCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const c = parseFloat(inputs.servingCal)

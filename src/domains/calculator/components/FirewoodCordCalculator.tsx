@@ -52,9 +52,16 @@ export default function FirewoodCordCalculator() {
     const d = parseFloat(depth);
     const p = parseFloat(price);
     if (!isNaN(l) && !isNaN(h) && !isNaN(d) && !isNaN(p) && l > 0 && h > 0 && d > 0 && p >= 0) setResult(calcCord(l, h, d, p));
-  }, [length, height, depth, price]);
+  }, []);
 
-  const reset = () => { setLength(DEFAULTS.length); setHeight(DEFAULTS.height); setDepth(DEFAULTS.depth); setPrice(DEFAULTS.price); };
+  const handleCalculate = () => {
+    const l = parseFloat(length);
+    const h = parseFloat(height);
+    const d = parseFloat(depth);
+    const p = parseFloat(price);
+    if (!isNaN(l) && !isNaN(h) && !isNaN(d) && !isNaN(p) && l > 0 && h > 0 && d > 0 && p >= 0) setResult(calcCord(l, h, d, p));
+  };
+  const reset = () => { setLength(DEFAULTS.length); setHeight(DEFAULTS.height); setDepth(DEFAULTS.depth); setPrice(DEFAULTS.price); setResult(calcCord(parseFloat(DEFAULTS.length), parseFloat(DEFAULTS.height), parseFloat(DEFAULTS.depth), parseFloat(DEFAULTS.price))); };
   const invalid = isNaN(parseFloat(length)) || isNaN(parseFloat(height)) || isNaN(parseFloat(depth)) || isNaN(parseFloat(price)) || parseFloat(length) <= 0 || parseFloat(height) <= 0 || parseFloat(depth) <= 0 || parseFloat(price) < 0;
 
   const breakdown = [
@@ -110,7 +117,7 @@ export default function FirewoodCordCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Flame className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

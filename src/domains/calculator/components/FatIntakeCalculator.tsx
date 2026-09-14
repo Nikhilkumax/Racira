@@ -57,9 +57,13 @@ export default function FatIntakeCalculator() {
   useEffect(() => {
     const c = parseFloat(calories);
     if (!isNaN(c) && c > 0) setResult(calcFat(c, diet));
-  }, [calories, diet]);
+  }, []);
 
-  const reset = () => { setCalories(DEFAULTS.calories); setDiet(DEFAULTS.diet); };
+  const handleCalculate = () => {
+    const c = parseFloat(calories);
+    if (!isNaN(c) && c > 0) setResult(calcFat(c, diet));
+  };
+  const reset = () => { setCalories(DEFAULTS.calories); setDiet(DEFAULTS.diet); setResult(calcFat(parseFloat(DEFAULTS.calories), DEFAULTS.diet)); };
   const invalid = isNaN(parseFloat(calories)) || parseFloat(calories) <= 0;
 
   const breakdown = [
@@ -101,7 +105,7 @@ export default function FatIntakeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Droplet className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

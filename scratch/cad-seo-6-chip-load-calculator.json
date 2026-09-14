@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "chip-load-calculator",
+    "varName": "chip_load_calculatorSeo",
+    "name": "Chip Load Calculator",
+    "sections": [
+      {
+        "heading": "What is Chip Load Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chip Load Calculator works out the chip load per tooth for a milling cut — the thickness of the chip each cutting edge takes — from the feed rate, spindle speed and flute count, using the relation chip load equals feed divided by the product of speed and flutes. It also derives the material removal rate from the radial and axial engagement, and compares the chip load against typical ranges for common cutter diameters and materials."
+          },
+          {
+            "type": "paragraph",
+            "text": "The typical-range table covers four cutter diameters — 3, 6, 10 and 12 millimetres — across aluminium, steel, stainless and plastic, with each combination giving a low and high band in millimetres per tooth. The tool then reports where the programmed cut sits: within the typical band, below it, or above it, which is the shop-floor distinction between a conservative feed and a tool-breakage risk."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Chip Load Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the feed rate in millimetres per minute as programmed in the CAM system.",
+              "<strong>Step 2:</strong> Enter the spindle speed in revolutions per minute and the flute count of the cutter.",
+              "<strong>Step 3:</strong> Select the tool diameter and material — these pick the typical chip-load band the result is compared against.",
+              "<strong>Step 4:</strong> Enter the radial engagement and axial depth in millimetres to get the material removal rate.",
+              "<strong>Step 5:</strong> Read the result: the chip load per tooth, the typical band for the tool and material, the status — within, below or above range — and the removal rate."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "Most CAM feeds are set by choosing a target chip load and working backwards; this tool checks in the direction that matters — whether the programmed feed actually cuts the chip the tool was designed for. The working example is built in: the default cut of 600 millimetres per minute at 8000 revolutions with a 2-flute cutter gives 0.0375 millimetres per tooth."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Chip Load Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chip load is the single number that explains both failure modes of a milling feed. Too low and the tool rubs instead of cutting — generating heat and work-hardening the surface without removing material. Too high and the flute overloads and snaps. Checking the programmed feed against a typical band converts 'it sounded bad' into a specific diagnosis: below range, above range, or within."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also makes the trade visible across the table: the same 6 millimetre cutter in aluminium carries a 0.04 to 0.08 millimetre band while in stainless it drops to 0.02 to 0.04, and smaller cutters take proportionally less chip load. Material and diameter are not optional inputs here — they are the whole reason the band exists."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is chip load per tooth calculated?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chip load per tooth is the feed rate divided by the product of spindle speed and flute count: 600 millimetres per minute divided by 8000 revolutions per minute times 2 flutes gives 0.0375 millimetres per tooth. The result is the thickness of the chip each flute takes on each revolution — the number the toolmaker's feed-per-tooth recommendations are quoted in. Raising the feed raises the chip load proportionally; raising the speed or flute count lowers it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does a below-range status actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Below range means the chip is thinner than the tool is designed for, so the cutting edge tends to rub rather than bite — heat builds up in the edge, the surface can work-harden, and finish suffers, while very little material is removed. The tool labels it a conservative feed, which is the safe direction: it will not break the tool, but it is not the efficient operating point. Ramping the feed up toward the band's low edge is usually the right next move."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does an above-range status risk?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Above range means each flute is being asked to take a thicker chip than the tool size and material are typically run at — the risk is tool breakage, especially with smaller cutters and harder materials. The status text says it plainly: above range is a risk of tool breakage, not a marginal suggestion. Bring the feed down into the band or use a larger cutter before running the cut."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the typical range change with tool diameter and material?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A bigger cutter has a stronger body and a longer cutting edge, so it can take a thicker chip: the 6 millimetre aluminium band is 0.04 to 0.08 millimetres per tooth while the 12 millimetre band is 0.08 to 0.15. Material changes the band because hardness and chip behaviour differ — steel and stainless take thinner chips than aluminium at the same diameter, with stainless the thinnest of the four. The tool's range table encodes both effects, which is why both selectors exist."
+          }
+        ]
+      }
+    ]
+  }
+]

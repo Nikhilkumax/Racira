@@ -56,9 +56,9 @@ export default function EdpiCalculator() {
     const d = parseFloat(dpi);
     const s = parseFloat(sens);
     if (!isNaN(d) && !isNaN(s) && d > 0 && s > 0) setResult(calcEdpi(d, s, game));
-  }, [dpi, sens, game]);
+  }, []);
 
-  const reset = () => { setDpi(DEFAULTS.dpi); setSens(DEFAULTS.sens); setGame(DEFAULTS.game); };
+  const reset = () => { setDpi(DEFAULTS.dpi); setSens(DEFAULTS.sens); setGame(DEFAULTS.game); setResult(calcEdpi(parseFloat(DEFAULTS.dpi), parseFloat(DEFAULTS.sens), DEFAULTS.game)); };
   const invalid = isNaN(parseFloat(dpi)) || isNaN(parseFloat(sens)) || parseFloat(dpi) <= 0 || parseFloat(sens) <= 0;
 
   const breakdown = [

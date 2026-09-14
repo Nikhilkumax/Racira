@@ -248,9 +248,10 @@ export default function EVRangeCalculator() {
               <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
                 Advanced Options (Weight & Elevation) <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
-              {showAdvanced && (
-                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <CompactInput id="payload" label="Extra Passenger/Cargo Wt" value={inputs.payloadWeight} onChange={(v: string) => handleChange("payloadWeight", v)} suffix="lbs" />
+            {showAdvanced && (
+              <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Conditions & Load</div>
+                <CompactInput id="payload" label="Extra Passenger/Cargo Wt" value={inputs.payloadWeight} onChange={(v: string) => handleChange("payloadWeight", v)} suffix="lbs" />
                   <CompactInput id="elevation" label="Net Elevation Change" value={inputs.elevationChange} onChange={(v: string) => handleChange("elevationChange", v)} suffix="ft" tooltip="Enter positive number for uphill gain" />
                 </div>
               )}

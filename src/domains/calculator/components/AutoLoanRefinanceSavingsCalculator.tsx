@@ -224,11 +224,11 @@ export default function AutoLoanRefinanceSavingsCalculator() {
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className={`border-l-4 rounded-lg p-5 ${result.shouldRefinance ? 'bg-green-500/10 border-green-500' : 'bg-destructive/10 border-destructive'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">
                     {result.shouldRefinance ? "Total Net Savings" : "Total Net Cost (Do Not Refinance)"}
                   </p>
-                  <p className={`text-4xl font-black ${result.shouldRefinance ? 'text-green-600 dark:text-green-400' : 'text-destructive'}`}>
+                  <p className="text-4xl font-bold text-primary">
                     {formatCurrency(Math.abs(result.netSavings))}
                   </p>
                   <p className="text-sm text-muted-foreground mt-1">

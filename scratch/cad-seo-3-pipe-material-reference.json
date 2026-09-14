@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "pipe-material-reference",
+    "varName": "pipe_material_referenceSeo",
+    "name": "Pipe Material Reference",
+    "sections": [
+      {
+        "heading": "What is Pipe Material Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Pipe Material Reference is a comparison table of ten common piping materials — carbon steel, stainless steel, copper, PVC, CPVC, PEX, HDPE, ductile iron, cast iron and galvanized steel — with each one's common schedule or type, typical service, nominal temperature limit and joining method. It is a concept-stage tool: enough to narrow a material family before the code work begins, with the values labelled as indicative rather than as code ratings."
+          },
+          {
+            "type": "paragraph",
+            "text": "The temperature limits capture the real selection boundaries: PVC is done at 60 degrees Celsius, CPVC stretches to about 93, PEX to about 82, carbon steel to roughly 425 depending on grade, and stainless derates above 400. The service column does the heavier lifting — carbon steel is the default industrial pipe for water, steam, oil and gas; stainless takes corrosive, food, pharma and ultrapure duty; copper owns potable water and HVAC refrigerant; and the plastics are split by temperature into cold-water PVC, hot-water CPVC, and PEX for distribution and radiant heat."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Pipe Material Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Start from the Typical service column: name the fluid and the service, and the table narrows the field. Potable water distribution points to copper, PEX or CPVC; steam and high-pressure industrial service points to carbon steel; corrosive or ultrapure chemical duty points to stainless.",
+              "<strong>Step 2:</strong> Check the temperature limit column against your maximum operating temperature. The table's nominal limits are where most material eliminations happen — a hot-water line above 60 °C rules out PVC before any other comparison is needed.",
+              "<strong>Step 3:</strong> Read the Joining column with your installation in mind. Solvent-welded PVC and CPVC need the right cement; PEX uses crimp, expansion or press fittings with none buried; HDPE is butt- or electrofusion-welded; ductile iron is push-on with restrained joints where thrust demands.",
+              "<strong>Step 4:</strong> Use the search box to filter to one material or one service when comparing two candidates side by side.",
+              "<strong>Step 5:</strong> Take the surviving candidate to the governing code — ASME B31.1, B31.3 or B31.9 for industrial, IPC for plumbing, NFPA 13 for sprinkler — and to the manufacturer's published ratings for the real pressure-temperature envelope. The table is the shortlist, not the approval."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Pipe Material Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Material selection mistakes in piping are expensive twice: once when the wrong material is bought and installed, and again when it fails in service or fails inspection. Most of those mistakes come from the boundaries between materials, not from the materials themselves — reaching for PVC on a line that will see hot water, or specifying galvanized for new potable work where scale build-up makes it the wrong answer. A table that puts the temperature limits and service niches next to each other catches those boundary errors at the concept stage."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference is deliberately honest about its own scope: temperature values are nominal, pressure ratings are absent, and the note points to the codes that actually govern. That framing matters because piping reference data pulled from memory or a vendor snippet is how plausible-looking but wrong ratings get onto drawings. Knowing which material family is right is the table's job; confirming the code rating is the engineer's."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is PVC never used for hot water or compressed air?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PVC's maximum service temperature is about 60 degrees Celsius, which hot water systems routinely exceed, and above that the material softens and loses pressure capability. Compressed air is a different failure mode: PVC is brittle, and a rupture under compressed air can shatter into flying fragments, so most codes and industry practices prohibit PVC for compressed air regardless of pressure. CPVC is the hot-water plastic — rated to about 93 °C — and metal or HDPE serves compressed air duty."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between copper K, L and M?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are wall-thickness grades of the same ASTM B88 copper tubing. Type M has the thinnest wall and the lowest pressure rating, used for most residential water distribution; type L is the middle grade and the default for most plumbing as well as many commercial systems; type K has the thickest wall and is specified for buried and underground service where corrosion allowance matters. The grade is printed along the tube, so the reference table's note — L for most plumbing, K for buried — is the shorthand for a selection that the local code ultimately governs."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should I choose HDPE over ductile iron for a water main?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both serve water mains, but they suit different conditions. HDPE is fusion-welded, corrosion-resistant and forgiving of ground movement, which makes it strong for trenchless installation and aggressive soils — but it has a lower pressure-temperature envelope and needs special handling for thrust restraint. Ductile iron carries higher working pressures, is the traditional choice where mechanical joints and tapping are routine, and needs corrosion protection in some soils plus restrained joints where thrust could separate push-on joints. Soil corrosivity, installation method and pressure drive the choice, and the utility's own standard usually settles it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does schedule mean and why does it matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Schedule is the wall-thickness designation — Sch 40 and Sch 80 are the common ones, with 80 having a thicker wall and higher pressure rating for the same nominal size. The table lists the schedules each material is commonly made in: carbon steel in Sch 40 and 80, stainless in Sch 10S through 40S, PVC in Sch 40 and 80 under ASTM D1785. Because the internal bore shrinks as the wall thickens, the schedule also changes the flow area, which is why a flow calculation needs the actual bore for the chosen schedule rather than the nominal size."
+          }
+        ]
+      }
+    ]
+  }
+]

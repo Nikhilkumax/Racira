@@ -154,8 +154,10 @@ export default function FirstHomeBuyerCalculator() {
             </button>
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Upfront Costs</div>
                 <CompactInput id="fhbGrant" label="FHB Grant/Credit" value={inputs.fhbGrant} onChange={(v: string) => handleChange("fhbGrant", v)} prefix="$" />
                 <CompactInput id="closingCosts" label="Estimated Closing Costs" value={inputs.closingCosts} onChange={(v: string) => handleChange("closingCosts", v)} prefix="$" />
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Annual Carrying Costs</div>
                 <CompactInput id="annualTax" label="Annual Property Tax" value={inputs.annualTax} onChange={(v: string) => handleChange("annualTax", v)} prefix="$" />
                 <CompactInput id="annualInsurance" label="Annual Insurance" value={inputs.annualInsurance} onChange={(v: string) => handleChange("annualInsurance", v)} prefix="$" />
               </div>

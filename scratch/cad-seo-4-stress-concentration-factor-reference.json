@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "stress-concentration-factor-reference",
+    "varName": "stress_concentration_factor_referenceSeo",
+    "name": "Stress Concentration Factor Reference",
+    "sections": [
+      {
+        "heading": "What is Stress Concentration Factor Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Stress Concentration Factor Reference is a lookup of representative Kt values for the geometric features that raise stress on a part: holes in plates, grooves, shoulder fillets, thread roots, keyways and sharp internal corners. Kt is the elastic stress concentration factor — the number the peak stress at the feature multiplies the nominal stress by — so a hole in a plate under tension with a Kt of about 2.5 sees a local stress two and a half times the average stress in the section."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table pairs each feature with its geometry parameter and the Kt that goes with it, and the notes carry the engineering insight: Kt falls toward 3 as a hole gets small relative to the plate width and rises toward about 2.2 as the hole grows to half the width; a groove's Kt climbs fast as its radius ratio drops below 0.05, which is why adding radius is the cheapest fix; torsion Kt is lower than bending Kt for the same shoulder; and a thread root at 2.1 to 3.0 is where fatigue cracks start on bolts."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Stress Concentration Factor Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the feature on your part — a hole in a plate, a circular groove on a shaft, a shoulder fillet, a thread, a keyway or an internal corner — and find its row in the table.",
+              "<strong>Step 2:</strong> Match your geometry parameter to the row's value: a hole's diameter-to-width ratio, a groove or fillet's radius-to-shaft-diameter ratio. The table gives Kt at the listed parameter; interpolate between rows for an estimate.",
+              "<strong>Step 3:</strong> Apply the multiplier in your stress estimate: the peak stress at the feature is roughly Kt times the nominal stress in the section. A 2.5 Kt hole means the part sees two and a half times the average stress right at the hole edge.",
+              "<strong>Step 4:</strong> Read the notes column for the design lever each feature offers — increasing the fillet radius, reducing the diameter step, or avoiding a zero-radius corner on a load path altogether.",
+              "<strong>Step 5:</strong> For a real design, take the exact value from Peterson's Stress Concentration Factors or Pilkey's handbook using your precise d/D and r/d ratios — this table gives representative magnitudes for quick estimates and early layout, not the final analysis value."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Stress Concentration Factor Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Stress raisers are where real parts break: a nominal stress comfortably inside the material's capability can be multiplied past yield or past the fatigue limit at a hole edge, a thread root or a sharp corner. Because Kt depends only on geometry and not on material, a small table of representative values catches the dangerous features at the layout stage — the moment when a radius is still free to add — rather than after the part is drawn and machined."
+          },
+          {
+            "type": "paragraph",
+            "text": "The geometry insight in the notes is the part that prevents the mistakes from recurring. Knowing that a groove's Kt climbs sharply below a radius ratio of 0.05, or that a keyway's corner adds a local raiser on top of the keyway's own Kt, turns a vague awareness of “stress concentrations” into specific rules applied at each feature. That is the difference between a drawing that inherits stress raisers and one that designs them out."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between Kt and Kf?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Kt is the theoretical elastic stress concentration factor — a pure geometry effect that assumes perfectly elastic material. Real materials blunt the peak through local yielding and micro-plasticity, so the fatigue world uses Kf, the fatigue stress concentration factor, which reduces Kt's effect through the material's notch sensitivity q: Kf equals 1 plus q times Kt minus 1. A ductile metal with high notch sensitivity keeps most of Kt's severity; a material like cast iron with internal notches of its own behaves differently and benefits less from adding external radius."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does a smaller fillet radius raise the stress so quickly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A fillet radius concentrates stress because the load must flow around the corner, and the smaller the radius, the more abruptly the flow must turn — in the limit of a zero radius, the theoretical stress goes to infinity. A groove's Kt climbs fast as the radius ratio drops below 0.05, which is why the notes call radius the cheapest fix: increasing the fillet radius and softening the diameter step at a shoulder can cut the concentration factor by a third without changing the shaft size."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is torsion Kt lower than bending Kt for the same shoulder?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the two loadings distribute stress across the section differently. Bending puts its peak at the outer fibres and demands a sharp turn in the stress flow at the shoulder, producing a higher concentration; torsion shears the section more uniformly and the transition is less abrupt, so the same geometry concentrates less — about 1.4 to 1.5 under torsion versus 1.7 to 1.9 under bending for a typical shoulder fillet. The practical rule is to use the bending value when a shaft sees both, since it is the conservative one."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I reduce the stress concentration at a hole in a plate?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Move the hole away from the loaded edge and control its size relative to the plate width — the concentration rises as the hole diameter approaches the plate width. Adding reinforcement around the hole, such as a pad or a boss, spreads the load path, and deburring and radiusing the hole edges removes the local scratches that act as their own stress raisers on top of the hole's Kt. Under fatigue loading, consider cold-working the hole edge — processes like cold expansion put the edge in residual compression and dramatically extend crack-initiation life."
+          }
+        ]
+      }
+    ]
+  }
+]

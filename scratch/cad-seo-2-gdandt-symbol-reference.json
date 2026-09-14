@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "gdandt-symbol-reference",
+    "varName": "gdandt_symbol_referenceSeo",
+    "name": "GD&T Symbol Reference",
+    "sections": [
+      {
+        "heading": "What is GD&T Symbol Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "GD&T Symbol Reference is a plain-language browse of the geometric dimensioning and tolerancing symbols used on engineering drawings, grouped by characteristic type. The five groups follow the ASME Y14.5 structure: Form tolerances — straightness, flatness, circularity and cylindricity — control how perfect a surface is; Profile covers profile of a line and profile of a surface; Orientation covers angularity, perpendicularity and parallelism; Location covers position, concentricity and symmetry; and Runout covers circular and total runout."
+          },
+          {
+            "type": "paragraph",
+            "text": "Each symbol row shows the characteristic's name and a one-line meaning in plain language rather than a formal definition. The symbols themselves are drawn as vector graphics in the page, so they render identically on every device and never depend on a font that might be missing — what you see is the actual symbol geometry as it appears in the standard."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use GD&T Symbol Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Scroll through the five groups in order — Form, Profile, Orientation, Location, Runout — each introduced by a labelled heading so you can jump to the family you need.",
+              "<strong>Step 2:</strong> Find the characteristic you are applying. If a flat surface must sit within a tolerance zone of two parallel planes, that is Flatness in the Form group; if a hole must sit at its basic location, that is Position in the Location group.",
+              "<strong>Step 3:</strong> Read the plain-language meaning next to each symbol to confirm you have the right characteristic, and note which group it belongs to — this matters because the same geometric idea can appear in different groups with different meanings.",
+              "<strong>Step 4:</strong> Use the companion tools for the calculations: the True Position Calculator turns measured X and Y deviations into an actual position diameter, and the standards comparator explains how the same symbol is handled under ASME versus ISO rules.",
+              "<strong>Step 5:</strong> Copy the symbol into your drawing from the rendered glyph — either by matching it in your CAD software's GD&T palette or by reproducing the geometry you see here."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use GD&T Symbol Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The GD&T symbol set is small but unforgiving: fourteen symbols carry a large amount of meaning, and mixing them up — calling out perpendicularity when the requirement is parallelism, or using circularity when cylindricity controls the whole surface — sends the wrong instruction to the shop. A quick reference that groups symbols by what they control makes the correct choice visible in seconds, which is the point of a reference table rather than a full textbook."
+          },
+          {
+            "type": "paragraph",
+            "text": "The plain-language meanings bridge the gap for engineers and detailers who read GD&T drawings but do not write them daily. Understanding that circular runout limits the combined error of roundness and concentricity in one cross-section, while total runout sweeps the whole surface, is the difference between a callout that prevents a wobble and one that misses it entirely."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between circularity and cylindricity?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Circularity controls the roundness of a single cross-section — every point on that circle must lie between two concentric circles a specified distance apart. Cylindricity extends the idea along the whole feature: it controls roundness and straightness simultaneously, with all points of the cylindrical surface between two coaxial cylinders. Use circularity when only one section matters; use cylindricity when the entire length of the bore or shaft must be controlled."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When do I choose position instead of concentricity or symmetry?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Position locates the axis or centre plane of a feature at a basic location relative to datums, and it is the modern default for locating holes and pins because it is easy to measure and generous in practice. Concentricity and symmetry are stricter and harder to measure — they compare the median points of the feature against the datum axis or centre plane — and ASME guidance recommends position over concentricity for most coaxial applications. Reserve the median-point controls for rotating parts where balance genuinely matters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between circular runout and total runout?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Circular runout controls the composite variation — roundness plus concentricity — in one circular cross-section as the part rotates about the datum axis. Total runout applies the same composite control over the entire surface in a single pass, which also captures straightness along the length. Circular runout is cheaper to measure and often sufficient; total runout is specified when the full surface must run true, such as a sealing face on a rotating shaft."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Which standard do these symbols follow, ASME or ISO?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The symbol set shown here is shared between the ASME Y14.5 and ISO 1101 systems, which is why the tool groups them by characteristic type rather than by standard. The differences between the two systems live mostly in the rules around datums, material condition modifiers and how tolerances are applied, not in the symbols themselves. For the differences, see the Drawing Standards Comparator tool, which walks through the ASME-versus-ISO distinctions point by point."
+          }
+        ]
+      }
+    ]
+  }
+]

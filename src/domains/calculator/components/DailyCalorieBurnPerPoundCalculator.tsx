@@ -238,29 +238,26 @@ export default function DailyCalorieBurnPerPoundCalculator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Energy Density Box */}
-                  <div 
-                    className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
-                  >
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Metabolic Energy Density</div>
+                      <div className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: results.colorClass }}>Metabolic Energy Density</div>
                       <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.caloriesPerUnit}</div>
-                        <div className="text-xl font-medium text-white/80 ml-2">kcal / {results.unitLabel}</div>
+                        <div className="text-5xl font-black text-foreground">{results.caloriesPerUnit}</div>
+                        <div className="text-xl font-medium text-muted-foreground ml-2">kcal / {results.unitLabel}</div>
                       </div>
-                      <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold mt-3 inline-block px-3 py-1.5 rounded-full flex items-center gap-2" style={{ backgroundColor: `${results.colorClass}1A`, color: results.colorClass }}>
                         <Zap className="h-4 w-4" /> {results.classification}
                       </div>
                     </div>
-                    <Flame className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
+                    <Flame className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10 text-primary" />
                   </div>
 
                   {/* Context Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Physiological Translation</div>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      For every single {results.unitLabel} of tissue on your body, your cellular engine is forced to process <strong className="text-white">{results.caloriesPerUnit} calories</strong> of energy every 24 hours. 
-                      This places you squarely in the <strong className="text-white">{results.classification.toLowerCase()}</strong> classification for thermodynamic output.
+                  <div className="bg-muted/30 border border-border rounded-lg p-5 shadow-sm flex flex-col justify-center">
+                    <div className="text-emerald-600 text-[10px] font-bold uppercase tracking-wider mb-2">Physiological Translation</div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      For every single {results.unitLabel} of tissue on your body, your cellular engine is forced to process <strong className="text-foreground">{results.caloriesPerUnit} calories</strong> of energy every 24 hours. 
+                      This places you squarely in the <strong className="text-foreground">{results.classification.toLowerCase()}</strong> classification for thermodynamic output.
                     </p>
                   </div>
                 </div>

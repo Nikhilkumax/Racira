@@ -160,7 +160,7 @@ export default function CholesterolRatioCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.totalHdlColor}10`, borderColor: result.totalHdlColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.totalHdlColor }}>Primary Total/HDL Ratio</div>

@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "machining-operation-selector",
+    "varName": "machining_operation_selectorSeo",
+    "name": "Machining Operation Selector",
+    "sections": [
+      {
+        "heading": "What is Machining Operation Selector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Machining Operation Selector plans the operation sequence for a milled feature. You choose the feature type — flat face, pocket, slot or keyway, through hole, blind hole, or external profile — the material, and the tolerance class, and the tool returns the recommended sequence of operations with the parameter detail for each step, plus the tooling note for that material."
+          },
+          {
+            "type": "paragraph",
+            "text": "The governing idea is that tolerance class decides whether a separate finish pass is added, and nothing else: roughing parameters stay the same whether the part is a rough envelope or a tight-tolerance feature, because the finish pass — not the roughing pass — sets the final size. Rough classes get a single operation set; general and tight classes add the finishing step that carries the accuracy."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Machining Operation Selector",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose the feature type from the six options — the sequence logic is keyed to feature geometry first.",
+              "<strong>Step 2:</strong> Choose the material — the tooling note changes with it, from climb milling for stainless and aluminium to high-pressure coolant for titanium.",
+              "<strong>Step 3:</strong> Choose the tolerance class: rough (±0.2 millimetres or looser), general (±0.1 millimetres), or tight (±0.03 millimetres).",
+              "<strong>Step 4:</strong> Read the recommended sequence — the ordered steps with their parameter detail, such as ramp or helical entry for a pocket and spot-before-drill for a hole.",
+              "<strong>Step 5:</strong> Read the tooling-for-material note and the finish-pass result to confirm the operation family and whether a separate finish pass is part of the plan."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The sequences encode conventional shop practice: a tight through-hole is spot, drill, then ream or interpolate; a pocket with a finish requirement is a rough pocket with ramp or helical entry, then a 0.1 to 0.3 millimetre radial finish pass around the wall; a slot roughs at axial engagement no more than half the tool diameter per pass before its finish pass."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Machining Operation Selector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The sequence is where machining plans are decided, and it is easy to get the middle steps wrong — drilling a tight hole without a spot, or finishing a pocket wall without cutter compensation. The selector makes the conventional sequence explicit per feature, so the plan starts from known-good practice and the parameter detail gives the numbers that matter: engagement, depth, stock, and the drill-point allowance for a blind hole."
+          },
+          {
+            "type": "paragraph",
+            "text": "It also separates the two decisions people conflate: how to rough and whether to finish. Roughing parameters stay constant across tolerance classes — a deliberate design — because the finish pass sets the final size. That single rule removes a whole class of planning errors where a tighter tolerance is 'handled' by slowing the roughing pass, which does nothing for size accuracy and wastes machine time."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the tolerance class only add or remove a finish pass?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because roughing and finishing have different jobs. The roughing pass removes the bulk of the material and its parameters are set by tool strength and machine power; the finish pass removes the last 0.1 to 0.3 millimetres and it is that pass that sets the final size and surface. Tightening the tolerance therefore never means cutting the roughing pass differently — it means adding the finish step that carries the accuracy. That is why the tool keeps roughing identical across the rough, general and tight classes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What are the three tolerance classes based on?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are the standard shop categories of feature accuracy: rough, at ±0.2 millimetres or looser, where a single operation set suffices; general, at ±0.1 millimetres, the everyday default for machined parts; and tight, at ±0.03 millimetres, where the finish pass is mandatory and processes like reaming or interpolation carry the accuracy. The class selection drives whether the plan adds a finish face, finish walls, a finish profile or a ream-and-interpolate step."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does a tight through-hole get spot, drill, then ream or interpolate?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Each step exists because the one before it cannot do its job alone. The spot drill starts the hole on location — a twist drill walking off the mark ruins position before size matters. The drill then opens the hole through the part, and because a twist drill is not a size-accurate tool, the final step either reams with 0.2 to 0.4 millimetres of stock at two-thirds drill speed, or interpolates the bore with an end mill for position accuracy. Rough classes stop after the drill; tight classes add the last step."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When does a slot need a finish pass on both walls?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Whenever the slot width is a functional dimension, which is most of the time — a keyway or a bearing seat is sized by its width. The rough slot at axial engagement up to half the tool diameter per pass leaves both walls slightly off, so the finish pass takes 0.1 to 0.2 millimetres off each wall in the same climb direction. Cutting both walls in the same direction is the point: alternating direction produces a width error equal to the tool's deflection, while a consistent climb direction makes both walls share the same deflection and the width comes out correct."
+          }
+        ]
+      }
+    ]
+  }
+]

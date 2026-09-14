@@ -105,7 +105,7 @@ export default function TimeZoneConverter() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const h = parseInt(inputs.hour)

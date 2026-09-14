@@ -1,0 +1,258 @@
+const distance_calculator_2dSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Distance Calculator (2D)", content: [
+      { type: "paragraph", text: `Distance Calculator (2D) works out the straight-line distance between two points, the X and Y separation between them, and the bearing of the line measured from the +X axis. You enter the four coordinates of the two points and the tool applies the standard formula — distance equals the square root of delta-X squared plus delta-Y squared — so a 30-by-40 millimetre offset returns exactly 50 millimetres.` },
+      { type: "paragraph", text: `The unit selector covers millimetres, centimetres, metres, inches and feet. Units never change the arithmetic because the deltas are subtracted in the coordinates you give them; they only decide how the result is labelled. The angle output is the direction from point 1 to point 2 in degrees, measured counter-clockwise from the positive X axis and normalised to a full 0 to 360 degree circle, so a point straight above the start reads 90 degrees rather than a negative number.` },
+    ]},
+    { heading: "How to Use Distance Calculator (2D)", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Pick the Unit you are measuring in — millimetres, centimetres, metres, inches or feet. Both points are interpreted in that unit.`,
+        `<strong>Step 2:</strong> Enter the X and Y coordinates of Point 1 — the start of the measurement — in the four coordinate fields. The default example places point 1 at the origin.`,
+        `<strong>Step 3:</strong> Enter the X and Y coordinates of Point 2 — the end of the measurement. A common way to use the tool is copying coordinates straight from a CAD properties palette or an inspection report.`,
+        `<strong>Step 4:</strong> Read the Result panel. Distance is the straight-line separation between the points, Δx and Δy show how far point 2 sits from point 1 in each axis, and Bearing from +X axis gives the direction of the line in degrees.`,
+        `<strong>Step 5:</strong> Sanity-check with the classic 3-4-5 case: points (0,0) and (30,40) must return a distance of 50 in the selected unit and a bearing of about 53.13 degrees. If they do, your coordinate order is correct.`,
+      ]},
+    ]},
+    { heading: "Why Use Distance Calculator (2D)", content: [
+      { type: "paragraph", text: `Reading a distance off a drawing by scaling is only as accurate as the ruler and the print, and the error multiplies when the line is diagonal — measuring the 50-millimetre hypotenuse of a 30-by-40 delta with a scale is guesswork. Computing from coordinates gives the exact answer, which matters whenever the number feeds a tolerance check or a fabrication cut list rather than a rough layout sketch.` },
+      { type: "paragraph", text: `The delta and bearing outputs are what make the tool useful beyond plain distance. Δx and Δy tell you how much a feature drifted from its nominal position in each axis — the raw inputs to a true-position calculation — and the bearing gives the direction of a wall, a row of holes or a property line when you are working from survey coordinates. Because it runs entirely in the browser, you can check a measurement without exporting the model or opening a second application.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why is the bearing measured from the +X axis instead of north?", content: [
+      { type: "paragraph", text: `CAD and Cartesian coordinate systems conventionally treat the positive X axis as zero degrees and measure angles counter-clockwise, which is the convention this tool follows — a horizontal line to the right is 0 degrees and a vertical line up is 90 degrees. Survey bearings, by contrast, are measured clockwise from north. If you are working from a survey, add 90 degrees to the angle reported here to convert from the +X convention to a north-based bearing, then adjust for your quadrant.` },
+    ]},
+    { heading: "", subHeading: "Does the order of the two points change the result?", content: [
+      { type: "paragraph", text: `The distance is the same either way because it squares the deltas. The deltas and the bearing do flip: entering the points in the opposite order negates both Δx and Δy and adds 180 degrees to the bearing, which reverses the direction of the line. If your bearing comes out 180 degrees from what you expected, the two points are simply entered in the reverse order.` },
+    ]},
+    { heading: "", subHeading: "Can I mix units between the points?", content: [
+      { type: "paragraph", text: `No — and that is deliberate. Both points are interpreted in the unit you select, and mixing units is the single most common source of 25.4-times distance errors in practice. If your coordinates came from a model drawn in millimetres but your title block is in inches, convert everything to one unit first using the CAD Unit Converter, then run the distance check.` },
+    ]},
+    { heading: "", subHeading: "What if I only know the distance and one point?", content: [
+      { type: "paragraph", text: `The tool needs both endpoints because distance alone does not locate a point — every distance describes a circle of possible second points around the first. If you have a distance and a direction, you can compute the second point's coordinates from the distance times the cosine and sine of the bearing, then enter that point here to confirm the geometry.` },
+    ]},
+  ],
+};
+
+const perimeter_calculatorSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Perimeter Calculator", content: [
+      { type: "paragraph", text: `Perimeter Calculator finds the total boundary length of a rectangle, a circle or any closed polygon you define by its vertices. For a rectangle it applies twice the width plus twice the height; for a circle it returns the circumference, two pi times the radius; and for a polygon it walks the vertex list, measuring each edge with the straight-line distance formula and closing the shape back to the first vertex so nothing is missed.` },
+      { type: "paragraph", text: `The polygon mode is the flexible one: you can add and remove vertices freely, down to the minimum of three that a closed shape needs. The polygon is always treated as closed — the last vertex connects back to the first — which matches how a real outline works, so you never have to remember to duplicate your starting point at the end of the list.` },
+    ]},
+    { heading: "How to Use Perimeter Calculator", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Pick the Shape from the selector — Rectangle, Circle or Polygon (vertices). The input panel changes to match the shape you choose.`,
+        `<strong>Step 2:</strong> For a rectangle, enter the Width and Height. For a circle, enter the Radius. Both accept negative-free values and the result is labelled in the unit you pick from the Unit selector.`,
+        `<strong>Step 3:</strong> For a polygon, enter the X and Y coordinates of each vertex in the vertex list, then press + Add vertex for every corner beyond the starting three. Remove a vertex with − Remove if you added one too many.`,
+        `<strong>Step 4:</strong> Read the Result panel. The perimeter — labelled Circumference for a circle — is the total boundary length, and the second row confirms how many sides were counted, or that the boundary is curved.`,
+        `<strong>Step 5:</strong> Check a known case to confirm your input order: a 3-by-4 rectangle must return 14, a radius-25 circle must return about 157.08, and a triangle with vertices at (0,0), (30,0) and (0,40) must return 120.`,
+      ]},
+    ]},
+    { heading: "Why Use Perimeter Calculator", content: [
+      { type: "paragraph", text: `Perimeters feed real quantities: the length of edging or trim around a panel, the weld length around a stiffener, the path of a water jet cutting a profile, or the boundary of a floor finish. Adding edge lengths by hand for an irregular polygon is where arithmetic errors hide — the tool measures each edge from coordinates with the same formula a CAD system uses, so the answer matches the model.` },
+      { type: "paragraph", text: `The polygon mode earns its keep on irregular shapes that have no formula. Measure the corners of the outline from the drawing — or read them from the CAD model — type them in order, and the closed walk does the rest. Because each edge is computed independently and summed, the shape can be concave or convex without any special handling, which is exactly the case a rectangle formula cannot cover.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Do I need to repeat the first vertex at the end of the list?", content: [
+      { type: "paragraph", text: `No. The polygon is closed automatically — the last vertex you enter connects back to the first, so a triangle needs exactly three vertices, not four. Repeating the first vertex would create a zero-length closing edge, which is harmless but unnecessary. Enter each corner of the outline exactly once, in order around the shape.` },
+    ]},
+    { heading: "", subHeading: "Does the perimeter change if the polygon is concave?", content: [
+      { type: "paragraph", text: `No. Perimeter is the sum of the edge lengths regardless of shape, and the edge lengths do not care whether the interior angle at a corner is less than or greater than 180 degrees. A concave notch adds boundary length exactly like a convex bump does — which is why perimeter and area behave differently: the notched shape loses area but keeps its full boundary.` },
+    ]},
+    { heading: "", subHeading: "Why does the polygon mode not show a unit selector?", content: [
+      { type: "paragraph", text: `Polygon coordinates are unitless numbers in the same way CAD coordinates are — the unit is whatever your drawing says it is. Whether the vertices are millimetres or inches, the math is identical because the tool only sums distances between the points. Interpret the result in the unit of your coordinate system, exactly as you would read a dimension from a CAD file.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between perimeter and circumference?", content: [
+      { type: "paragraph", text: `None mathematically — both are the length of the boundary of a shape. Circumference is simply the traditional name for the perimeter of a circle, and this tool uses that label when you select Circle so the result reads the way a drawing would phrase it. For a circle the value is two pi times the radius, about 6.2832 times the radius, since a radius of 1 yields a boundary of about 6.28.` },
+    ]},
+  ],
+};
+
+const arc_length_calculatorSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Arc Length Calculator", content: [
+      { type: "paragraph", text: `Arc Length Calculator derives the full geometry of a circular arc from just two inputs — the radius and the included angle. The arc length itself is radius times the angle in radians, so a 60-degree arc on a 50-millimetre radius measures 52.36 millimetres. Around that central result the tool also reports the chord length, the sagitta (bow height) and the sector area, so one entry produces everything a drawing or a fabrication layout might ask about that arc.` },
+      { type: "paragraph", text: `The included angle is entered in degrees, between zero and 360, and converted internally to radians for the calculations. The supporting results follow the standard circular relationships: the chord spans the two ends of the arc, the sagitta is the height of the arc above its chord, and the sector area is half the radius squared times the angle — the pie-slice area bounded by the two radii and the arc.` },
+    ]},
+    { heading: "How to Use Arc Length Calculator", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Pick the Unit — millimetres, centimetres, metres, inches or feet — so the results are labelled consistently.`,
+        `<strong>Step 2:</strong> Enter the Radius of the arc in the Radius field. This is the radius of the circle the arc belongs to, which in CAD is the value in the properties palette of the arc entity.`,
+        `<strong>Step 3:</strong> Enter the Included angle in degrees in the angle field — the sweep between the two radii that bound the arc. A quarter circle is 90 degrees, a semicircle is 180 degrees.`,
+        `<strong>Step 4:</strong> Read the Result panel. Arc length is the distance along the curve, Chord length is the straight line between its endpoints, Sagitta is the arc's height above that chord, and Sector area is the pie-slice area.`,
+        `<strong>Step 5:</strong> Verify with a semicircle: a 180-degree arc on a 50 radius must give an arc length of about 157.08 (half of 2πr) and a chord of exactly 100 — the diameter.`,
+      ]},
+    ]},
+    { heading: "Why Use Arc Length Calculator", content: [
+      { type: "paragraph", text: `Arc length is a quantity you cannot measure with a straight scale: it runs along the curve, so it must be computed from the radius and angle. It is the number behind practical jobs — the length of a curved bend in a sheet-metal part, the developed length of a pipe elbow's centreline, the amount of edge trim around an arched opening, or the tool path length of a profile cut.` },
+      { type: "paragraph", text: `Having the chord, sagitta and sector area in the same pass saves a second round of calculation when the same arc appears in several roles: the chord locates the endpoints for drilling, the sagitta checks the clearance under the arc, and the sector area feeds an area take-off. All four come from the same radius and angle, so they are guaranteed consistent — the chord can never disagree with the arc length the way separately hand-computed values can.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Can the angle exceed 360 degrees?", content: [
+      { type: "paragraph", text: `No — the tool accepts angles above zero and up to 360 degrees, and a full circle is exactly 360. Angles beyond a full turn describe the same geometry as their remainder within one turn, so allowing them would only invite confusion. For a full circle, enter 360 degrees and the arc length equals the circumference, 2πr, with a chord of zero since the endpoints coincide.` },
+    ]},
+    { heading: "", subHeading: "What is the sagitta used for in practice?", content: [
+      { type: "paragraph", text: `The sagitta — also called the bow height or rise — is the distance from the midpoint of the chord straight up to the arc. It is the dimension you would use to check the clearance of an arc over a feature below it, to set up a curved form from a straight reference line, or to verify a curved edge with a height gauge. For a given radius it grows with the angle, reaching the full radius at 180 degrees when the chord becomes the diameter.` },
+    ]},
+    { heading: "", subHeading: "Why is the angle in degrees but the formula in radians?", content: [
+      { type: "paragraph", text: `Because degrees are what people type and radians are what the math needs. The length of an arc is the radius times the angle measured in radians — that is the definition of a radian, the angle whose arc length equals the radius. The tool converts your degrees to radians internally, multiplies by the radius, and reports the length, so you get the exact arc length without converting by hand.` },
+    ]},
+    { heading: "", subHeading: "How do I find the radius if I only know the chord and the sagitta?", content: [
+      { type: "paragraph", text: `You can back it out: the radius equals the sagitta squared plus the square of half the chord, all divided by twice the sagitta. If a curve has a 100-millimetre chord and rises 10 millimetres, the radius works out to 130 millimetres. Enter 130 with the angle that fits the geometry — about 45.24 degrees for this case — and the tool confirms it: a 130-millimetre radius at that angle returns a 100.000 mm chord and a 10.000 mm sagitta.` },
+    ]},
+  ],
+};
+
+const cad_unit_converterSeo: ToolSeo = {
+  sections: [
+    { heading: "What is CAD Unit Converter", content: [
+      { type: "paragraph", text: `CAD Unit Converter converts a length between the units a CAD model or drawing actually mixes: micrometres, millimetres, centimetres, metres, inches and feet. The millimetre is the pivot unit — every conversion runs through it using the exact factors 1 inch equals 25.4 millimetres, 1 foot equals 304.8 millimetres and 1 metre equals 1000 millimetres — so no conversion in the tool inherits rounding from an intermediate step.` },
+      { type: "paragraph", text: `Beyond the converted value, the tool shows the conversion factor — how many of the target unit one source unit equals — and the millimetre equivalent of one source unit. Those two readouts are the ones you actually need when a CAD file is mis-scaled: they tell you at a glance what factor to apply to rescale geometry that was drawn in the wrong unit.` },
+    ]},
+    { heading: "How to Use CAD Unit Converter", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Enter the Value you want to convert — for example 1 for a single unit, or 25.4 to see what an inch is in millimetres.`,
+        `<strong>Step 2:</strong> Pick the From unit — the unit the value is currently in. This is the unit the CAD file or drawing claims to be in.`,
+        `<strong>Step 3:</strong> Pick the To unit — the unit you want the answer in, such as millimetres when the rest of the project is metric.`,
+        `<strong>Step 4:</strong> Read the Result panel. The top row is the converted value. The factor row tells you how many of the target unit one source unit equals, and the mm per unit row shows the source unit's exact millimetre size.`,
+        `<strong>Step 5:</strong> Verify against the known constant: 1 inch to millimetres must read exactly 25.4, and 1 foot to millimetres must read exactly 304.8. Those two checks confirm you selected the From and To units the right way around.`,
+      ]},
+    ]},
+    { heading: "Why Use CAD Unit Converter", content: [
+      { type: "paragraph", text: `The 25.4-times scaling error is one of the most common and most destructive mistakes in CAD: a part modeled in inches is interpreted as millimetres, or a millimetre model is inserted into an inch drawing, and every dimension on the affected geometry is off by the inch-to-millimetre ratio. Catching and correcting that error starts with knowing the exact factor, which is what this tool answers in one line.` },
+      { type: "paragraph", text: `The converter also serves the everyday case of quoting a dimension in the unit your supplier or collaborator works in. Model in millimetres, cut the sheet in inches, or annotate a drawing for a client who thinks in feet — the conversion is instant and exact, and because everything runs in the browser there is no risk of a web service rounding a factor or logging the dimensions you typed.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "My model imported at the wrong size — how do I fix the scale?", content: [
+      { type: "paragraph", text: `Find the conversion factor between the unit the file was actually drawn in and the unit it was interpreted as. If an inch-model was read as millimetres, the geometry is 25.4 times too small, so scale everything up by 25.4; if a millimetre model was read as inches, it is 25.4 times too large, so scale down. The factor row of this tool gives you that number exactly for any unit pair before you touch the model.` },
+    ]},
+    { heading: "", subHeading: "Why does the tool convert through millimetres?", content: [
+      { type: "paragraph", text: `Using millimetres as the pivot keeps every conversion exact. The inch, foot and metre are all defined in terms of the millimetre — 25.4, 304.8 and 1000 of them respectively — and micrometres and centimetres are simple decimal fractions of it. Routing every conversion through the millimetre means each step uses a definitional constant rather than a rounded intermediate, so converting inches to centimetres gives exactly 2.54, never 2.5399.` },
+    ]},
+    { heading: "", subHeading: "What units does the tool not cover?", content: [
+      { type: "paragraph", text: `The six units here — micrometres through feet — cover what CAD geometry actually mixes, including the tolerance range where micrometres matter. Yards and miles are omitted because they are almost never used inside CAD models, but both are simple multiples of the foot if you need them: a yard is 3 feet and a mile is 5280 feet, so you can convert to feet here and multiply.` },
+    ]},
+    { heading: "", subHeading: "Does the result keep full precision?", content: [
+      { type: "paragraph", text: `The converted value is displayed to four significant decimal places and the factor to six, which is far beyond what any drawing needs — a 25.4 conversion displays as exactly 25.4 because the underlying factor is exact. The internal arithmetic is not rounded before display, so there is no accumulating error if you chain the result into a second calculation.` },
+    ]},
+  ],
+};
+
+const hole_and_slot_dimensionerSeo: ToolSeo = {
+  sections: [
+    { heading: "What is Hole & Slot Dimensioner", content: [
+      { type: "paragraph", text: `Hole & Slot Dimensioner produces the standard dimension callout for a hole pattern or a slot feature, the way it would be written on a drawing: a hole pattern reads as a quantity times the diameter with either a depth — 4× Ø10 × 20 DEEP — or a THRU flag for a through hole, and a slot reads as a quantity times width by overall length — 4× 10 × 30 SLOT. Alongside the callout the tool derives the key geometry of the feature.` },
+      { type: "paragraph", text: `For a hole it reports the diameter, the section area of each hole computed from pi times the radius squared, the quantity and, for a blind hole, the drill depth. For a slot it reports the end radius — half the slot width — the straight parallel length between the two semicircular ends, and the overall area of each slot combining the rectangle and the two end caps.` },
+    ]},
+    { heading: "How to Use Hole & Slot Dimensioner", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Pick the Type — Hole or Slot. The fields switch to match the feature you are dimensioning.`,
+        `<strong>Step 2:</strong> Enter the Quantity — how many identical instances of the feature appear in the pattern, such as 4 for a bolt pattern of four holes.`,
+        `<strong>Step 3:</strong> For a hole, enter the Nominal diameter and decide whether it is a through hole or a blind hole with the checkbox. A blind hole reveals the Depth field; a through hole renders THRU in the callout instead of a depth. For a slot, enter the Slot width and the Overall length from end to end.`,
+        `<strong>Step 4:</strong> Read the Dimension callout panel — the main output is the formatted callout ready to place on the drawing. The rows beneath give the supporting geometry: diameter and section area per hole, or end radius, straight length and area per slot.`,
+        `<strong>Step 5:</strong> Confirm the geometry makes sense: a slot must have an overall length at least as long as its width, since the two end radii alone consume one full width of the length.`,
+      ]},
+    ]},
+    { heading: "Why Use Hole & Slot Dimensioner", content: [
+      { type: "paragraph", text: `Hole callouts follow a strict format convention — quantity, diameter symbol, depth or THRU — and a shop reads that format instantly. Writing it by hand risks exactly the errors that matter most: forgetting the THRU flag, or writing the depth for a hole that is actually through. Generating the callout from structured fields means the format is always right and always consistent across every sheet in the set.` },
+      { type: "paragraph", text: `The derived geometry is what turns the callout into usable information. Section area feeds weight and material take-offs, drill depth tells the tooling group whether the hole needs a special-length drill, and for a slot the straight length is the dimension a machinist sets up against — the two end radii are cut by the same cutter diameter as the slot width, so only the straight section adds travel.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why does a slot callout use width × length rather than a radius?", content: [
+      { type: "paragraph", text: `Because a slot is normally made by one cutter pass, and the cutter diameter sets the slot width — the semicircular ends are exactly that radius. Naming the width and overall length tells the machinist which cutter to use and how long the pass must be, whereas the end radius is derived information: it is always half the width. That is why this tool reports the end radius as a computed row rather than as an input.` },
+    ]},
+    { heading: "", subHeading: "When is a hole dimensioned THRU instead of with a depth?", content: [
+      { type: "paragraph", text: `When the hole passes completely through the material. Through holes are flagged with THRU because no depth value applies — the material thickness already bounds them — and the flag saves the reader from wondering how deep to drill. Blind holes carry an explicit depth, and the standard convention is that a depth dimension without a flag means a blind hole, while a THRU flag means the hole clears the far side.` },
+    ]},
+    { heading: "", subHeading: "How is the slot area calculated?", content: [
+      { type: "paragraph", text: `A slot is a rectangle flanked by two semicircles. The straight section contributes width times the difference between the overall length and the width, and the two semicircular ends together form one full circle of the slot width, contributing pi times the width squared over four. The tool sums those two parts — the straight area plus the circular end area — for the per-slot total.` },
+    ]},
+    { heading: "", subHeading: "Should the callout include a tolerance?", content: [
+      { type: "paragraph", text: `That depends on the drawing standard in force. Under a general tolerance note, the callout as produced here is complete because the sheet's general tolerances apply. Where a hole or slot is a critical fit, the callout should carry a specific tolerance or a feature control frame — a positional tolerance referencing datums for location, plus a diameter or width tolerance for size. This tool produces the base callout; layer your tolerancing convention on top of it.` },
+    ]},
+  ],
+};
+
+const gdandt_symbol_referenceSeo: ToolSeo = {
+  sections: [
+    { heading: "What is GD&T Symbol Reference", content: [
+      { type: "paragraph", text: `GD&T Symbol Reference is a plain-language browse of the geometric dimensioning and tolerancing symbols used on engineering drawings, grouped by characteristic type. The five groups follow the ASME Y14.5 structure: Form tolerances — straightness, flatness, circularity and cylindricity — control how perfect a surface is; Profile covers profile of a line and profile of a surface; Orientation covers angularity, perpendicularity and parallelism; Location covers position, concentricity and symmetry; and Runout covers circular and total runout.` },
+      { type: "paragraph", text: `Each symbol row shows the characteristic's name and a one-line meaning in plain language rather than a formal definition. The symbols themselves are drawn as vector graphics in the page, so they render identically on every device and never depend on a font that might be missing — what you see is the actual symbol geometry as it appears in the standard.` },
+    ]},
+    { heading: "How to Use GD&T Symbol Reference", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Scroll through the five groups in order — Form, Profile, Orientation, Location, Runout — each introduced by a labelled heading so you can jump to the family you need.`,
+        `<strong>Step 2:</strong> Find the characteristic you are applying. If a flat surface must sit within a tolerance zone of two parallel planes, that is Flatness in the Form group; if a hole must sit at its basic location, that is Position in the Location group.`,
+        `<strong>Step 3:</strong> Read the plain-language meaning next to each symbol to confirm you have the right characteristic, and note which group it belongs to — this matters because the same geometric idea can appear in different groups with different meanings.`,
+        `<strong>Step 4:</strong> Use the companion tools for the calculations: the True Position Calculator turns measured X and Y deviations into an actual position diameter, and the standards comparator explains how the same symbol is handled under ASME versus ISO rules.`,
+        `<strong>Step 5:</strong> Copy the symbol into your drawing from the rendered glyph — either by matching it in your CAD software's GD&T palette or by reproducing the geometry you see here.`,
+      ]},
+    ]},
+    { heading: "Why Use GD&T Symbol Reference", content: [
+      { type: "paragraph", text: `The GD&T symbol set is small but unforgiving: fourteen symbols carry a large amount of meaning, and mixing them up — calling out perpendicularity when the requirement is parallelism, or using circularity when cylindricity controls the whole surface — sends the wrong instruction to the shop. A quick reference that groups symbols by what they control makes the correct choice visible in seconds, which is the point of a reference table rather than a full textbook.` },
+      { type: "paragraph", text: `The plain-language meanings bridge the gap for engineers and detailers who read GD&T drawings but do not write them daily. Understanding that circular runout limits the combined error of roundness and concentricity in one cross-section, while total runout sweeps the whole surface, is the difference between a callout that prevents a wobble and one that misses it entirely.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "What is the difference between circularity and cylindricity?", content: [
+      { type: "paragraph", text: `Circularity controls the roundness of a single cross-section — every point on that circle must lie between two concentric circles a specified distance apart. Cylindricity extends the idea along the whole feature: it controls roundness and straightness simultaneously, with all points of the cylindrical surface between two coaxial cylinders. Use circularity when only one section matters; use cylindricity when the entire length of the bore or shaft must be controlled.` },
+    ]},
+    { heading: "", subHeading: "When do I choose position instead of concentricity or symmetry?", content: [
+      { type: "paragraph", text: `Position locates the axis or centre plane of a feature at a basic location relative to datums, and it is the modern default for locating holes and pins because it is easy to measure and generous in practice. Concentricity and symmetry are stricter and harder to measure — they compare the median points of the feature against the datum axis or centre plane — and ASME guidance recommends position over concentricity for most coaxial applications. Reserve the median-point controls for rotating parts where balance genuinely matters.` },
+    ]},
+    { heading: "", subHeading: "What is the difference between circular runout and total runout?", content: [
+      { type: "paragraph", text: `Circular runout controls the composite variation — roundness plus concentricity — in one circular cross-section as the part rotates about the datum axis. Total runout applies the same composite control over the entire surface in a single pass, which also captures straightness along the length. Circular runout is cheaper to measure and often sufficient; total runout is specified when the full surface must run true, such as a sealing face on a rotating shaft.` },
+    ]},
+    { heading: "", subHeading: "Which standard do these symbols follow, ASME or ISO?", content: [
+      { type: "paragraph", text: `The symbol set shown here is shared between the ASME Y14.5 and ISO 1101 systems, which is why the tool groups them by characteristic type rather than by standard. The differences between the two systems live mostly in the rules around datums, material condition modifiers and how tolerances are applied, not in the symbols themselves. For the differences, see the Drawing Standards Comparator tool, which walks through the ASME-versus-ISO distinctions point by point.` },
+    ]},
+  ],
+};
+
+const true_position_calculatorSeo: ToolSeo = {
+  sections: [
+    { heading: "What is True Position Calculator", content: [
+      { type: "paragraph", text: `True Position Calculator turns the measured X and Y deviation of a feature from its true (basic) position into the actual position diameter — the standard GD&T check for whether a hole or pin is located within its positional tolerance. The actual position diameter is twice the radial deviation: two times the square root of the X deviation squared plus the Y deviation squared. The tool compares that diameter against the positional tolerance to return a clear PASS or FAIL.` },
+      { type: "paragraph", text: `The inputs are the three numbers an inspection report actually produces: how far the measured centre sat from the basic location in X, how far in Y, and the positional tolerance diameter from the feature control frame. A feature that is off by 0.1 millimetres in X and 0.2 in Y lands at a radial deviation of about 0.224 and an actual position of about 0.447 millimetres diameter — the value compared against the tolerance in the control frame.` },
+    ]},
+    { heading: "How to Use True Position Calculator", content: [
+      { type: "list", items: [
+        `<strong>Step 1:</strong> Enter ΔX — the measured coordinate minus the basic coordinate in the X axis, in millimetres. This is the drift of the feature from where the drawing places it.`,
+        `<strong>Step 2:</strong> Enter ΔY — the same difference in the Y axis. Both values can be negative; the tool squares them, so direction never matters to the result.`,
+        `<strong>Step 3:</strong> Enter the Positional tolerance diameter — the number inside the feature control frame, written with a diameter symbol before it, such as Ø 0.5.`,
+        `<strong>Step 4:</strong> Read the Result panel. Actual position (Ø) is the diameter of the tolerance zone the measured centre actually falls in, Radial deviation is half of that — the straight-line distance from true position — and Within tolerance? gives the PASS or FAIL verdict.`,
+        `<strong>Step 5:</strong> Verify the arithmetic on the classic case: deviations of 0.1 in X and 0.2 in Y give an actual position of about Ø 0.447, which passes a Ø 0.5 tolerance and fails a Ø 0.4 one.`,
+      ]},
+    ]},
+    { heading: "Why Use True Position Calculator", content: [
+      { type: "paragraph", text: `True position is a diameter tolerance, but inspection measures linear coordinates — a CMM or a height gauge reports how far the feature drifted in X and Y, not in a convenient radius. Converting those two linear deviations into the position diameter is pure arithmetic that is easy to get wrong under pressure, and getting it wrong decides whether a part that is actually within tolerance gets scrapped, or one that is out gets shipped.` },
+      { type: "paragraph", text: `The tool also makes the geometry of the positional tolerance visible: because the tolerance is a diameter, a feature can be within tolerance even when it is off by more than half the tolerance in one axis, as long as the other axis compensates. Understanding that a Ø 0.5 tolerance allows up to ±0.25 in one axis at best case — but only when the other axis is dead on — is the difference between reading a control frame correctly and misjudging a borderline part.` },
+    ]},
+    { heading: "Privacy & Security", content: [
+      { type: "paragraph", text: `This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears.` },
+    ]},
+    { heading: "Frequently Asked Questions", subHeading: "Why is the position expressed as a diameter and not a radius?", content: [
+      { type: "paragraph", text: `Because the Y14.5 and ISO positional tolerance is defined as the diameter of a cylindrical (or, in 2D, circular) tolerance zone around the true position. Specifying the diameter means the measured radial deviation can be up to half the tolerance, and the actual position of a feature is twice its radial deviation. Keeping everything in diameters — the tolerance in the control frame and the actual position here — means the comparison is apples to apples with no half-versus-full confusion.` },
+    ]},
+    { heading: "", subHeading: "What if the control frame includes a material condition modifier?", content: [
+      { type: "paragraph", text: `When the positional tolerance carries a maximum material condition (MMC) or least material condition (LMC) modifier, the stated tolerance gains bonus tolerance as the feature departs from that condition. This tool compares the measured position against the stated tolerance as written. To apply a bonus, add the bonus amount to the stated tolerance first — for a hole at MMC, the bonus equals how much the hole's actual size exceeds its MMC size — then compare the actual position against the enlarged value.` },
+    ]},
+    { heading: "", subHeading: "Can the deviations be in inches?", content: [
+      { type: "paragraph", text: `Yes — enter any linear unit as long as the tolerance is in the same unit. The arithmetic is unitless: it squares the deviations, sums them, takes the root and doubles it, so millimetres in and millimetre tolerance out, or inches in and inch tolerance out. What you cannot do is mix units between the deviations and the tolerance, because the comparison would then be meaningless.` },
+    ]},
+    { heading: "", subHeading: "What about true position in three dimensions?", content: [
+      { type: "paragraph", text: `A three-axis position check adds a ΔZ term: the actual position diameter becomes two times the square root of the sum of the squared deviations in all three axes, and the tolerance zone is a cylinder oriented along the datum axis rather than a circle in the plane. For features located in a plane — the common case for hole patterns — the two-axis form this tool uses is the correct check, since the position tolerance zone applies perpendicular to the surface.` },
+    ]},
+  ],
+};

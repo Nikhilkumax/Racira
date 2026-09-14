@@ -39,12 +39,12 @@ function Hero() {
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
             Free CAD Tools —{" "}
-            <span className="hero-gradient-text">Viewers, DXF & Measure</span>
+            <span className="hero-gradient-text">Sketch, Draft & Measure</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-            Essential utilities for viewing, measuring, and converting CAD and DXF files. No signup required.
+            Draft on a precision grid with snapping and live measurements, right in your browser. No signup required.
           </p>
-          <CategorySearch categorySlug="cad" placeholder={LIVE_CAD_COUNT > 0 ? `Search ${LIVE_CAD_COUNT} CAD tools...` : "Search CAD tools..."} registry={SEARCH_REGISTRY} />
+          <CategorySearch categorySlug="cad" placeholder={LIVE_CAD_COUNT > 0 ? `Search ${LIVE_CAD_COUNT} CAD tool${LIVE_CAD_COUNT === 1 ? "" : "s"}...` : "Search CAD tools..."} registry={SEARCH_REGISTRY} />
         </div>
       </section>
   );
@@ -54,7 +54,7 @@ function Footer() {
   return (
     <footer className="border-t border-border bg-card/40">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-8 text-xs text-muted-foreground sm:flex-row">
-        <p>© {new Date().getFullYear()} Racira CAD. Built for engineers and designers.</p>
+        <p>© {new Date().getFullYear()} CAD is fixed. Built for engineers and designers.</p>
         <p>No signup · Runs in your browser</p>
       </div>
     </footer>

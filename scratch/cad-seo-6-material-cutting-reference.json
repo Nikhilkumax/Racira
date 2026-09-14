@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "material-cutting-reference",
+    "varName": "material_cutting_referenceSeo",
+    "name": "Material Cutting Reference",
+    "sections": [
+      {
+        "heading": "What is Material Cutting Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Material Cutting Reference is a starting-parameters table for end milling twelve common materials. For each material it lists the condition the values assume (annealed, T6, as cast, free-cutting), the surface speed band in metres per minute for both HSS and carbide tooling, the feed per tooth in millimetres, and the note that actually matters on the shop floor — climb milling for stainless, no dwell on titanium, dry cutting with air blast on cast iron."
+          },
+          {
+            "type": "paragraph",
+            "text": "The values assume a 3 to 6 millimetre diameter cutter, and the tool says so plainly: these are conservative starting points, not recommendations for a specific machine. Real parameters depend on tool diameter, flute count, machine rigidity, toolholder run-out and coolant. The note also gives the two rules of thumb that rescue most first attempts: halve the speed for HSS at diameters under 3 millimetres and for long-reach tooling, and if in doubt, cut a test slot and listen to the tool."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Material Cutting Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Find the material you are cutting in the table — the twelve rows span low-carbon and alloy steels, tool steel, stainless, two aluminiums, brass, copper, cast iron, titanium, plastics and hardwoods.",
+              "<strong>Step 2:</strong> Read the surface speed band for the tool grade you are using: HSS numbers are the low band, carbide the high band, in metres per minute.",
+              "<strong>Step 3:</strong> Read the feed per tooth in millimetres and multiply by the flute count to get the feed rate for your spindle speed.",
+              "<strong>Step 4:</strong> Apply the row's note before anything else: climb mill the stainless, never let titanium dwell or rub, start A356 at 75% speed to break through its oxide skin.",
+              "<strong>Step 5:</strong> Treat the numbers as entry points. Halve the speed for HSS under 3 millimetres diameter and long-reach tooling, then run a test slot and tune from the sound and the chips."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The table pairs each material with its characteristic failure mode: gummy copper wants sharp edges and steady feed to avoid smearing, free-cutting brass wants a sharp rake so it does not grab, and grey cast iron turns into abrasive powder, so dry cutting with air blast or MQL protects the tool and the machine."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Material Cutting Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Starting parameters are where most cutting problems are born. Feed a titanium part at steel speeds and the edge fails immediately; feed 304 stainless with dwell and the surface work-hardens into something no tool wants to touch. A reference that lists both the numbers and the behaviour each material demands converts those one-off lessons into a starting point you can use before you have them."
+          },
+          {
+            "type": "paragraph",
+            "text": "The speed bands also encode the tool-grade decision: the same material at very different surface speeds depending on whether the cutter is HSS or carbide, and carbide's wider band reflecting that it needs a rigid setup and climb cutting to avoid edge chipping. Choosing the row is therefore also choosing the tooling strategy, which is why each row's note reads like a setup instruction rather than a footnote."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why are there two speed bands for every material?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the tool material and the cutting-tool material are different decisions: HSS tooling runs at roughly a third to a quarter of the surface speed of carbide in the same workpiece. Carbide keeps its edge at much higher temperatures, which is what the high band reflects — but only if the setup is rigid enough to avoid chipping it. If the machine is light or the reach is long, run the HSS band even with a carbide cutter."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does titanium want low speed but high feed per tooth?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Titanium conducts heat poorly and work-hardens aggressively, so the cutting edge must be kept moving through fresh material — dwell or rubbing raises the local temperature until the edge fails almost instantly. The prescription is the opposite of intuition: a low surface speed to control heat, a feed per tooth kept high enough relative to that slow speed to keep the cut moving, and lots of coolant. The table pairs titanium's slowest-in-the-table speed band with a 0.02 to 0.05 millimetre feed band — modest in absolute terms, but the chip must never thin out enough to rub, which is why the note says never dwell."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must 304 stainless never be allowed to rub?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Austenitic stainless work-hardens extremely fast — a moment of rubbing or a light cut that stops cutting and starts burnishing turns the surface into a hard skin that blunts the next pass and can stall the machine. The row's rule is constant feed, a sharp tool, and climb milling, which keeps the chip load steady. This is also why the note says never let it rub rather than suggesting a speed adjustment: the failure is a behaviour, not a number."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why start aluminium castings at 75 percent of the normal speed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because as-cast A356 carries an abrasive oxide skin from the casting process. The first pass has to break through that skin before it reaches the sound metal underneath, and doing so at full speed wears the edge prematurely. Starting the first pass at about 75 percent of the row's surface speed gets through the skin, after which the second pass can run at the normal band for the material."
+          }
+        ]
+      }
+    ]
+  }
+]

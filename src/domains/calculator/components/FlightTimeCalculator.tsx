@@ -53,9 +53,15 @@ export default function FlightTimeCalculator() {
     const s = parseFloat(speed);
     const o = parseFloat(offset);
     if (!isNaN(d) && !isNaN(s) && !isNaN(o) && d >= 0 && s > 0) setResult(calcFlight(d, s, o));
-  }, [distance, speed, offset]);
+  }, []);
 
-  const reset = () => { setDistance(DEFAULTS.distance); setSpeed(DEFAULTS.speed); setOffset(DEFAULTS.offset); };
+  const handleCalculate = () => {
+    const d = parseFloat(distance);
+    const s = parseFloat(speed);
+    const o = parseFloat(offset);
+    if (!isNaN(d) && !isNaN(s) && !isNaN(o) && d >= 0 && s > 0) setResult(calcFlight(d, s, o));
+  };
+  const reset = () => { setDistance(DEFAULTS.distance); setSpeed(DEFAULTS.speed); setOffset(DEFAULTS.offset); setResult(calcFlight(parseFloat(DEFAULTS.distance), parseFloat(DEFAULTS.speed), parseFloat(DEFAULTS.offset))); };
   const invalid = isNaN(parseFloat(distance)) || isNaN(parseFloat(speed)) || isNaN(parseFloat(offset)) || parseFloat(distance) < 0 || parseFloat(speed) <= 0;
 
   const breakdown = [
@@ -102,7 +108,7 @@ export default function FlightTimeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Plane className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

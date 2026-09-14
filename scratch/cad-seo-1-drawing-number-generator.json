@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "drawing-number-generator",
+    "varName": "drawing_number_generatorSeo",
+    "name": "Drawing Number Generator",
+    "sections": [
+      {
+        "heading": "What is Drawing Number Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Drawing Number Generator composes a document number from four parts — project prefix, discipline, document type and sequence — in the form PREFIX-DISC-TYPE-SEQ, so ACME-M-DRG-007 means the seventh mechanical drawing issued by the ACME project. It is the same convention many studios encode in their title blocks, but expressed as a form you can fill in without remembering the rule or counting digits by hand."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool normalizes what you type: the project prefix is trimmed, forced to upper case, stripped of anything that is not a letter, digit or dash, and cleaned of stray or doubled dashes, so accidental punctuation never sneaks into a number that has to match a filing system. The discipline and document type come from fixed pick-lists covering the six common disciplines — architectural, structural, mechanical, electrical, plumbing and civil — and six document types from drawings and sketches through schematics, details, layouts and general arrangements."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Drawing Number Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the project prefix in the Project prefix field — usually the client or project code, such as ACME. Anything you type is cleaned automatically, so lowercase letters are uppercased and spaces or stray characters are removed.",
+              "<strong>Step 2:</strong> Pick the Discipline from its selector. The options are A for Architectural, S for Structural, M for Mechanical, E for Electrical, P for Plumbing and C for Civil — choose the discipline that owns the document, not the discipline the drawing happens to show.",
+              "<strong>Step 3:</strong> Pick the Document type from its selector: DRG for drawing, SK for sketch, SCH for schematic, DET for detail, LAY for layout or GRA for general arrangement. A general arrangement sheet and a detail sheet from the same discipline intentionally get different type codes.",
+              "<strong>Step 4:</strong> Enter the Sequence number, which is the count within that prefix-discipline-type series. If Pad to 3 digits is checked — it is by default — the sequence is printed as 007 rather than 7, which keeps every number the same width when it sorts as text.",
+              "<strong>Step 5:</strong> Read the Generated number panel. The main number is the assembled document identifier, the Pattern row restates the rule, and the Example (next sheet) row shows what the following document in the series would be — useful when you are issuing several sheets at once."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Drawing Number Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Drawing numbers are the key that links a sheet to its model, its revision history and its entry in the document register, and the key only works if every document is numbered by the same rule. When numbers are hand-typed, the same drawing can end up logged under two different numbers — one with a leading zero, one without — and the register quietly stops matching reality. Generating the number from structured parts removes the transcription errors at the source."
+          },
+          {
+            "type": "paragraph",
+            "text": "A consistent prefix-discipline-type-sequence scheme also makes numbers self-describing: anyone in the project can look at M-DRG-012 and know it is a mechanical drawing without opening the file. That readability pays off in transmittals, submittal logs and RFIs, where documents are referenced by number alone. Because the tool runs in the browser and needs no account, it works for a one-person studio with a spreadsheet register just as well as for a team pushing numbers into a document management system."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my office uses a sheet-stage suffix after the sequence?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Many studios extend the base pattern with a suffix for the sheet stage — commonly a digit from 0 to 9 where 0 marks preliminary and higher digits mark issued-for-construction stages — or with a revision tag such as -A. This tool produces the core PREFIX-DISC-TYPE-SEQ portion of the number. Add your stage or revision suffix after the sequence to match your office rule, and keep the full rule written in the title block so the number can be regenerated from the drawing properties later."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the tool strip characters from my project prefix?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Drawing numbers end up in file names, document registers and references inside other drawings, all of which are fragile when a number contains spaces, lowercase letters or characters like slashes that some systems treat specially. The tool therefore keeps only letters, digits and dashes, uppercases everything, and collapses doubled dashes — so ACME / NW-02 and acme nw 02 both normalize to ACME-NW-02 and can never produce two different numbers for the same project."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should the sequence restart at 1 for every discipline?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Under the prefix-discipline-type scheme, each discipline runs its own sequence, so M-DRG-001 and E-DRG-001 can both exist and are different documents — the discipline code disambiguates them. The sequence should be continuous within a discipline-type series and should not be reused after a document is superseded or cancelled, because reusing a number creates a gap in audit history and can mislead anyone tracing old transmittals."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the pad-to-3-digits option actually change?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "With padding on, sequence 7 renders as 007 so that every number in the series has the same width and sorts correctly in plain text. With padding off, the number renders exactly as typed — useful when your register stores sequence as a number and would otherwise show leading zeros, or when you are adopting numbers from a legacy series that never padded. The underlying sequence value is unaffected either way; only the display width changes."
+          }
+        ]
+      }
+    ]
+  }
+]

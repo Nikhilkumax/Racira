@@ -4,6 +4,7 @@ import { ALL_TOOLS as THREED_TOOLS, CATEGORIES as THREED_CATEGORIES } from "@/do
 import { allTools as ANIMATOR_TOOLS, categories as ANIMATOR_CATEGORIES } from "@/domains/animator/registry";
 import { allTools as AUDIO_TOOLS, categories as AUDIO_CATEGORIES } from "@/domains/audio/registry";
 import { allTools as CAD_TOOLS, categories as CAD_CATEGORIES } from "@/domains/cad/registry";
+import { GDNT_CONCEPTS, GDNT_NOTATION, GDNT_SYMBOLS, gdtSymbolPath } from "@/domains/cad/components/tools/easy/gdnt-shared";
 import { TOOLS as COLORS_TOOLS } from "@/domains/colors/registry";
 import { CATEGORY_META as COLORS_CATEGORIES } from "@/domains/colors/registry/types";
 // Batch-rollout domains
@@ -99,7 +100,22 @@ export const sitemapSources: SitemapSource[] = [
         .map(t => ({
           loc: `${baseUrl}/cad/${t.slug}`,
           lastmod: FALLBACK_LASTMOD,
-        })),
+        }))
+        // GD&T library pages (symbols AND concept pages — both render at
+        // /cad/gdt/[slug]) are non-tool reference content but sit in the CAD
+        // sitemap, in the same category as the GD&T Symbol Reference tool —
+        // same pattern as finance blog posts riding the finance sitemap
+        // categories.
+        .concat(
+          GDNT_SYMBOLS.filter(s => s.guide && toSlug("Measurement & Geometry") === categorySlug)
+            .map(s => ({ loc: `${baseUrl}${gdtSymbolPath(s.kind)}`, lastmod: FALLBACK_LASTMOD }))
+            .concat(
+              GDNT_CONCEPTS.map(c => ({ loc: `${baseUrl}${gdtSymbolPath(c.kind)}`, lastmod: FALLBACK_LASTMOD }))
+            )
+            .concat(
+              GDNT_NOTATION.map(n => ({ loc: `${baseUrl}${gdtSymbolPath(n.kind)}`, lastmod: FALLBACK_LASTMOD }))
+            )
+        ),
   },
   {
     key: "colors",

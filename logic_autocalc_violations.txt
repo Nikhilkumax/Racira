@@ -1,0 +1,164 @@
+[A1-effect-auto-recalc] AdolescentBmiCalculator.tsx:197 non-empty deps [unitSystem, gender, age, heightFt, heightIn, heightCm, weightLbs, weightKg] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, age, heightFt, heightIn, heightCm, weightLbs, weightKg])
+[A1-effect-auto-recalc] AlcoholCaloriesCalculator.tsx:143 non-empty deps [drinkType, drinksPerWeek] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [drinkType, drinksPerWeek])
+[A1-effect-auto-recalc] AthleteBmiCalculator.tsx:188 non-empty deps [unitSystem, weight, heightFt, heightIn, heightCm, bodyFatPercent] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, heightFt, heightIn, heightCm, bodyFatPercent])
+[A1-effect-auto-recalc] BMIToBodyFatCalculator.tsx:203 non-empty deps [unitSystem, gender, age, weight, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, age, weight, heightFt, heightIn, heightCm])
+[A1-effect-auto-recalc] BasalMetabolicRateBmrKatchMcardleCalculator.tsx:172 non-empty deps [weight, bodyFatPct, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, bodyFatPct, unit])
+[A3-input-handler-calc] BindingEnergyCalculator.tsx:82 onChange handler calls calculate/setResult directly (auto-calc without pressing Calculate)
+    (e) => { setElement(e.target.value); calculate(e.target.value, customZ, customA, customMass); }
+[A1-effect-auto-recalc] BloodGlucoseToCarbRatioEstimator.tsx:152 non-empty deps [tdd, insulinType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [tdd, insulinType])
+[A1-effect-auto-recalc] BodyAdiposityIndexBaiCalculator.tsx:224 non-empty deps [hipIn, hipCm, heightFt, heightIn, heightCm, gender, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [hipIn, hipCm, heightFt, heightIn, heightCm, gender, unit])
+[A1-effect-auto-recalc] BodyFatNavyMethodCalculator.tsx:214 non-empty deps [unitSystem, gender, weight, heightFt, heightIn, heightCm, waist, neck, hip] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, weight, heightFt, heightIn, heightCm, waist, neck, hip])
+[A1-effect-auto-recalc] BodyFatSkinfoldCalculator.tsx:201 non-empty deps [unitSystem, gender, age, weight, site1, site2, site3] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, age, weight, site1, site2, site3])
+[A1-effect-auto-recalc] BodyMassIndexCalculator.tsx:196 non-empty deps [unitSystem, weight, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, heightFt, heightIn, heightCm])
+[A1-effect-auto-recalc] BoxingCalorieCalculator.tsx:145 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] BreastfeedingCalorieCalculator.tsx:197 non-empty deps [unitSystem, weight, heightFt, heightIn, heightCm, age, activityLevel, babyAge, feedingType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, heightFt, heightIn, heightCm, age, activityLevel, babyAge, feedingType])
+[A1-effect-auto-recalc] BulkingCalorieCalculator.tsx:202 non-empty deps [currentWeight, goalWeight, unit, tdee, aggression] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [currentWeight, goalWeight, unit, tdee, aggression])
+[A1-effect-auto-recalc] CalorieCyclingCalculator.tsx:209 non-empty deps [tdee, goal, aggression, highDaysCount] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [tdee, goal, aggression, highDaysCount])
+[A1-effect-auto-recalc] CalorieDeficitForWeightLossCalculator.tsx:183 non-empty deps [currentWeight, dailyDeficit, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [currentWeight, dailyDeficit, unit])
+[A1-effect-auto-recalc] CalorieSurplusForWeightGainCalculator.tsx:184 non-empty deps [currentWeight, dailySurplus, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [currentWeight, dailySurplus, unit])
+[A1-effect-auto-recalc] CalorieToNutrientDensityRatioCalculator.tsx:194 non-empty deps [calories, protein, fiber, addedSugar, saturatedFat, sodium] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [calories, protein, fiber, addedSugar, saturatedFat, sodium])
+[A1-effect-auto-recalc] CalorieToProteinRatioCalculator.tsx:177 non-empty deps [totalCalories, proteinGrams] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [totalCalories, proteinGrams])
+[A1-effect-auto-recalc] CarbCyclingCalculator.tsx:194 non-empty deps [weight, unit, goal, schedule] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, unit, goal, schedule])
+[A1-effect-auto-recalc] CarbToInsulinRatioCalculator.tsx:159 non-empty deps [tdd, insulinType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [tdd, insulinType])
+[A1-effect-auto-recalc] CarbohydrateCalculator.tsx:193 non-empty deps [weight, unit, activityLevel] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, unit, activityLevel])
+[A1-effect-auto-recalc] CarbohydrateGramsCalculator.tsx:239 non-empty deps [calories, proteinPercent, fatPercent] — recalculates when inputs change
+    useEffect(() => { setMounted(true); handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [calories, proteinPercent, fatPercent])
+[A4-render-body-calc] CarbohydrateGramsCalculator.tsx:126 calc-style call outside any handler/hook — executes on every render without a Calculate press
+    calculateCarbGrams({ calories: parseFloat(DEFAULTS.calories), proteinPercent: parseF
+[A1-effect-auto-recalc] CarbohydrateLoadingCalculator.tsx:186 non-empty deps [weight, unit, eventDuration] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, unit, eventDuration])
+[A1-effect-auto-recalc] CardioVsStrengthComparisonCalculator.tsx:177 non-empty deps [unitSystem, weight, sessionsPerWeek, minsPerSession] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, sessionsPerWeek, minsPerSession])
+[A1-effect-auto-recalc] CardioVsWeightsCalorieCalculator.tsx:191 non-empty deps [unitSystem, weight, cardioMins, cardioIntensity, weightsMins, weightsIntensity] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, cardioMins, cardioIntensity, weightsMins, weightsIntensity])
+[A1-effect-auto-recalc] CardiovascularRiskScoreCalculator.tsx:245 non-empty deps [age, sex, race, totalCholesterol, hdlCholesterol, systolicBP, bpTreatment, smoker, diabetes] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [age, sex, race, totalCholesterol, hdlCholesterol, systolicBP, bpTreatment, smoker, diabetes])
+[A1-effect-auto-recalc] CircuitTrainingCalorieCalculator.tsx:143 non-empty deps [unitSystem, weight, durationMins, intensity] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, intensity])
+[A1-effect-auto-recalc] CrossFitWodCalorieCalculator.tsx:145 non-empty deps [unitSystem, weight, durationMins, wodType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, wodType])
+[A1-effect-auto-recalc] CuttingCalorieCalculator.tsx:204 non-empty deps [currentWeight, goalWeight, unit, tdee, aggression] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [currentWeight, goalWeight, unit, tdee, aggression])
+[A1-effect-auto-recalc] DailyCalorieBurnCalculator.tsx:184 non-empty deps [unitSystem, gender, age, weight, heightFt, heightIn, heightCm, activityLevel] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, age, weight, heightFt, heightIn, heightCm, activityLevel])
+[A1-effect-auto-recalc] DailyCalorieBurnPerPoundCalculator.tsx:161 non-empty deps [unitSystem, weight, totalCalories] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, totalCalories])
+[A1-effect-auto-recalc] DancingCalorieCalculator.tsx:144 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] DeadFreightCostCalculator.tsx:108 non-empty deps [unit] — recalculates when inputs change
+    useEffect(() => { setMounted(true); handleCalculate(); }, [unit])
+[A1-effect-auto-recalc] DeadSpaceFractionCalculator.tsx:117 non-empty deps [paCO2, peCO2, tidalVolume] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [paCO2, peCO2, tidalVolume])
+[A2-direct-calc-in-effect] DebtToEquityRatioCalculator.tsx:48 non-empty deps [inputs] — recalculates when inputs change
+    useEffect(() => { setResult(calculateDebtToEquityRatio(inputs)); }, [inputs])
+[A2-direct-calc-in-effect] EarningsPerShareGrowthCalculator.tsx:48 non-empty deps [inputs] — recalculates when inputs change
+    useEffect(() => { setResult(calculateEarningsPerShareGrowth(inputs)); }, [inputs])
+[A1-effect-auto-recalc] EllipticalCalorieCalculator.tsx:150 non-empty deps [unitSystem, weight, durationMins, intensity] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, intensity])
+[A1-effect-auto-recalc] FfmiFatFreeMassIndexCalculator.tsx:204 non-empty deps [weight, heightFt, heightIn, heightCm, bodyFatPct, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, heightFt, heightIn, heightCm, bodyFatPct, unit])
+[A1-effect-auto-recalc] FloorsClimbedCalorieCalculator.tsx:151 non-empty deps [unitSystem, weight, floors] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, floors])
+[A3-input-handler-calc] FreeFallCalculator.tsx:95 onChange handler calls calculate/setResult directly (auto-calc without pressing Calculate)
+    (e) => { setPlanet(e.target.value); calculate(solveFor, height, time, velocity, e.target.value); }
+[A1-effect-auto-recalc] GymSessionCalorieBurnCalculator.tsx:153 non-empty deps [unitSystem, weight, warmupMins, liftingMins, cardioMins] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, warmupMins, liftingMins, cardioMins])
+[A1-effect-auto-recalc] HiitCalorieBurnCalculator.tsx:145 non-empty deps [unitSystem, weight, durationMins, ratio] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, ratio])
+[A1-effect-auto-recalc] HikingCalorieCalculator.tsx:156 non-empty deps [unitSystem, weight, packWeight, durationMins, terrain] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, packWeight, durationMins, terrain])
+[A1-effect-auto-recalc] HotYogaCalorieCalculator.tsx:149 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] IdealWeightCalculatorForWomen.tsx:207 non-empty deps [heightFt, heightIn, heightCm, frameSize, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [heightFt, heightIn, heightCm, frameSize, unit])
+[A1-effect-auto-recalc] IncotermsCostImpactCalculator.tsx:152 non-empty deps [incoterm] — recalculates when inputs change
+    useEffect(() => { setMounted(true); handleCalculate(); }, [incoterm])
+[A1-effect-auto-recalc] JumpRopeCalorieCalculator.tsx:146 non-empty deps [unitSystem, weight, durationMins, pace] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, pace])
+[A1-effect-auto-recalc] LowCarbDietAdherenceScoreCalculator.tsx:215 non-empty deps [carbsGrams, proteinGrams, fatGrams, dietType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [carbsGrams, proteinGrams, fatGrams, dietType])
+[A1-effect-auto-recalc] LowCarbThresholdCalculator.tsx:179 non-empty deps [tdee, carbGrams] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [tdee, carbGrams])
+[A1-effect-auto-recalc] MacronutrientCalorieDistributionCalculator.tsx:237 non-empty deps [totalCalories, preset, customProtein, customCarb, customFat] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [totalCalories, preset, customProtein, customCarb, customFat])
+[A1-effect-auto-recalc] MaintenanceCalorieCalculator.tsx:241 non-empty deps [age, gender, weightLbs, heightFt, heightIn, activityLevel, formula, bodyFatPct] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [age, gender, weightLbs, heightFt, heightIn, activityLevel, formula, bodyFatPct])
+[A1-effect-auto-recalc] MartialArtsCalorieCalculator.tsx:146 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] MealFrequencyCalorieSplitCalculator.tsx:268 non-empty deps [totalCalories, proteinGrams, mealCount, strategy] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [totalCalories, proteinGrams, mealCount, strategy])
+[A1-effect-auto-recalc] MetsBasedCalorieBurnCalculator.tsx:156 non-empty deps [unitSystem, weight, durationMins, metValue] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, metValue])
+[A1-effect-auto-recalc] MindfulnessPracticeRoiCalculator.tsx:169 non-empty deps [dailyMins, hourlyWage, focusImprovementPct] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [dailyMins, hourlyWage, focusImprovementPct])
+[A1-effect-auto-recalc] NetCarbsCalculator.tsx:196 non-empty deps [totalCarbs, fiber, sugarAlcohols, alcoholType] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [totalCarbs, fiber, sugarAlcohols, alcoholType])
+[A1-effect-auto-recalc] OlympicLiftPercentageCalculator.tsx:188 non-empty deps [knownLift, knownWeight, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [knownLift, knownWeight, unit])
+[A3-input-handler-calc] OrbitalVelocityCalculator.tsx:74 onChange handler calls calculate/setResult directly (auto-calc without pressing Calculate)
+    (e) => { setBody(e.target.value); calculate(e.target.value, altitude); }
+[A1-effect-auto-recalc] PediatricBmiCalculator.tsx:249 non-empty deps [unitSystem, gender, ageYears, weight, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, gender, ageYears, weight, heightFt, heightIn, heightCm])
+[A1-effect-auto-recalc] PercentageBasedVolumeCalculator.tsx:195 non-empty deps [oneRepMax, percentage, sets, reps, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [oneRepMax, percentage, sets, reps, unit])
+[A1-effect-auto-recalc] PilatesCalorieCalculator.tsx:143 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] PonderalIndexCalculator.tsx:191 non-empty deps [weight, heightFt, heightIn, heightCm, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weight, heightFt, heightIn, heightCm, unit])
+[A1-effect-auto-recalc] PortDwellTimeCostCalculator.tsx:114 non-empty deps [isPrePulled] — recalculates when inputs change
+    useEffect(() => { setMounted(true); handleCalculate(); }, [isPrePulled])
+[A1-effect-auto-recalc] PrePregnancyBMICalculator.tsx:194 non-empty deps [unitSystem, weight, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, heightFt, heightIn, heightCm])
+[A1-effect-auto-recalc] PregnancyBmiCalculator.tsx:214 non-empty deps [unitSystem, weight, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, heightFt, heightIn, heightCm])
+[A1-effect-auto-recalc] PregnancyDueDateCalculator.tsx:179 non-empty deps [lmpDate, cycleLength] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [lmpDate, cycleLength])
+[A1-effect-auto-recalc] PregnancyWeightTargetCalculator.tsx:268 non-empty deps [unitSystem, startWeight, currentWeight, currentWeek, heightFt, heightIn, heightCm] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, startWeight, currentWeight, currentWeek, heightFt, heightIn, heightCm])
+[A2-direct-calc-in-effect] PriceEarningsRatioCalculator.tsx:48 non-empty deps [inputs] — recalculates when inputs change
+    useEffect(() => { setResult(calculatePriceEarningsRatio(inputs)); }, [inputs])
+[A1-effect-auto-recalc] ProteinToCalorieRatioCalculator.tsx:176 non-empty deps [totalCalories, proteinGrams] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [totalCalories, proteinGrams])
+[A4-render-body-calc] RadiationDoseFractionationCalculator.tsx:85 calc-style call outside any handler/hook — executes on every render without a Calculate press
+    calculateRadiation(DEFAULTS); interface TooltipEntry { value: number; payload: {
+[A2-direct-calc-in-effect] ReceivablesTurnoverRatioCalculator.tsx:48 non-empty deps [inputs] — recalculates when inputs change
+    useEffect(() => { setResult(calculateReceivablesTurnoverRatio(inputs)); }, [inputs])
+[A1-effect-auto-recalc] RepetitionMaxPercentageCalculator.tsx:202 non-empty deps [weightLifted, repsPerformed, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [weightLifted, repsPerformed, unit])
+[A1-effect-auto-recalc] RestaurantMealCalorieEstimator.tsx:211 non-empty deps [components, hiddenOilMultiplier] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [components, hiddenOilMultiplier])
+[A1-effect-auto-recalc] RockClimbingCalorieCalculator.tsx:147 non-empty deps [unitSystem, weight, durationMins, style] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, style])
+[A1-effect-auto-recalc] RowingCalorieCalculator.tsx:144 non-empty deps [unitSystem, weight, durationMins, intensity] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [unitSystem, weight, durationMins, intensity])
+[A1-effect-auto-recalc] RpeToPercentageCalculator.tsx:213 non-empty deps [reps, rpe, oneRepMax, unit] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [reps, rpe, oneRepMax, unit])
+[A1-effect-auto-recalc] ShippingWeightCostCalculator.tsx:122 non-empty deps [isMetric] — recalculates when inputs change
+    useEffect(() => { setMounted(true); handleCalculate(); }, [isMetric])
+[A1-effect-auto-recalc] SyntaxScoreComplexityCalculator.tsx:206 non-empty deps [dominance, lesions] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [dominance, lesions])
+[A1-effect-auto-recalc] ThyroidRiskScoreCalculator.tsx:226 non-empty deps [age, sex, familyHistory, selectedSymptoms] — recalculates when inputs change
+    useEffect(() => { handleCalculate(); // eslint-disable-next-line react-hooks/exhaustive-deps }, [age, sex, familyHistory, selectedSymptoms])
+[A4-render-body-calc] UrlDecoder.tsx:37 calc-style call outside any handler/hook — executes on every render without a Calculate press
+    calculate(inputs: DecoderInputs): DecoderResult { const decoded = decodeURI(inputs.text

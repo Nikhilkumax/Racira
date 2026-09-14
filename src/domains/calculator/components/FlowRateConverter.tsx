@@ -35,16 +35,19 @@ export default function FlowRateConverter() {
     return { lps, converted: lps / 0.0630902, toLabel: "US gallons/minute (GPM)" };
   });
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const v = parseFloat(value);
     if (!isNaN(v) && v >= 0) {
       const lps = v * units.find(u => u.key === from)!.lps;
       const converted = lps / units.find(u => u.key === to)!.lps;
       setResult({ lps, converted, toLabel: units.find(u => u.key === to)!.label });
     }
-  }, [value, from, to]);
+  };
 
-  const reset = () => { setValue("100"); setFrom("lpm"); setTo("gpm"); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setValue("100"); setFrom("lpm"); setTo("gpm"); const lps = 100 * units.find(u => u.key === "lpm")!.lps; setResult({ lps, converted: lps / units.find(u => u.key === "gpm")!.lps, toLabel: units.find(u => u.key === "gpm")!.label }); };
   const invalid = isNaN(parseFloat(value)) || parseFloat(value) < 0;
 
   const breakdown = [
@@ -98,7 +101,7 @@ export default function FlowRateConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Waves className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

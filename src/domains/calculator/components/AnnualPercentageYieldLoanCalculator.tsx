@@ -54,7 +54,7 @@ export default function AnnualPercentageYieldLoanCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const n = parseFloat(inputs.nominal)

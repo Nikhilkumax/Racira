@@ -241,14 +241,6 @@ export default function BodyFatNavyMethodCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Body Fat Percentage Calculator (Navy Method)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
-            <strong>The Scale is Lying to You:</strong> Your total body weight means nothing if you don't know what it is made of. The US Navy Method utilizes precise anatomical circumference measurements to mathematically separate your Lean Body Mass (muscle, bone, organs) from your pure Adipose Tissue (fat).
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -324,40 +316,40 @@ export default function BodyFatNavyMethodCalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* BF% Box */}
                   <div 
-                    className="text-white rounded-lg p-5 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
+                    className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden"
+                    
                   >
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Estimated Body Fat</div>
+                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Estimated Body Fat</div>
                       <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.bodyFatPct}%</div>
+                        <div className="text-4xl font-bold text-primary">{results.bodyFatPct}%</div>
                       </div>
-                      <div className="text-sm font-bold text-white mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full">
+                      <div className="mt-2 inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold" style={{ backgroundColor: `${results.colorClass}1A`, color: results.colorClass }}>
                         {results.classification} Range
                       </div>
                     </div>
-                    <Dna className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Dna className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-primary" />
                   </div>
 
                   {/* Mass Breakdown */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-4 shadow-sm flex flex-col justify-center">
+                  <div className="bg-muted/30 border border-border rounded-lg p-4 flex flex-col justify-center">
                     
                     <div className="mb-4">
-                      <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Lean Body Mass</div>
+                      <div className="text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-1">Lean Body Mass</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-2xl font-black text-white">{results.leanMass}</div>
-                        <div className="text-xs text-slate-400">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
+                        <div className="text-2xl font-bold text-foreground">{results.leanMass}</div>
+                        <div className="text-xs text-muted-foreground">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
                       </div>
-                      <div className="text-[10px] text-slate-500">Muscle, bone, blood, organs, water</div>
+                      <div className="text-[10px] text-muted-foreground/60">Muscle, bone, blood, organs, water</div>
                     </div>
 
-                    <div className="border-t border-slate-700 pt-3">
-                      <div className="text-rose-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Fat Mass</div>
+                    <div className="border-t border-border pt-3">
+                      <div className="text-rose-600 dark:text-rose-400 text-[10px] font-bold uppercase tracking-wider mb-1">Total Fat Mass</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-2xl font-black text-white">{results.fatMass}</div>
-                        <div className="text-xs text-slate-400">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
+                        <div className="text-2xl font-bold text-foreground">{results.fatMass}</div>
+                        <div className="text-xs text-muted-foreground">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
                       </div>
-                      <div className="text-[10px] text-slate-500">Pure adipose tissue</div>
+                      <div className="text-[10px] text-muted-foreground/60">Pure adipose tissue</div>
                     </div>
 
                   </div>
@@ -400,6 +392,14 @@ export default function BodyFatNavyMethodCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
+            <strong>The Scale is Lying to You:</strong> Your total body weight means nothing if you don't know what it is made of. The US Navy Method utilizes precise anatomical circumference measurements to mathematically separate your Lean Body Mass (muscle, bone, organs) from your pure Adipose Tissue (fat).
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

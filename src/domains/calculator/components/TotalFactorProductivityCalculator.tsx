@@ -24,7 +24,6 @@ const TotalFactorProductivityCalculator = () => {
   const [efficiencyFactor, setEfficiencyFactor] = useState(DEFAULTS.efficiencyFactor);
   const [result, setResult] = useState(0);
   const [efficiencyPercent, setEfficiencyPercent] = useState(0);
-  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const calculate = () => {
     const out = Number(output);
@@ -40,14 +39,15 @@ const TotalFactorProductivityCalculator = () => {
 
   useEffect(() => {
     calculate();
-  }, [output, laborHours, costPerHour, efficiencyFactor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Total Factor Productivity Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Left Column - Inputs */}
-          <div className="space-y-6">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
             <div className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">Output</label>
               <input
@@ -89,22 +89,6 @@ const TotalFactorProductivityCalculator = () => {
                 step="0.01"
               />
             </div>
-            <div className="flex items-center space-x-3 mt-4">
-              <button
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                {showAdvanced ? 'Hide' : 'Show'} Advanced Options
-              </button>
-            </div>
-            {showAdvanced && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                <h2 className="text-lg font-semibold mb-3">Advanced Options</h2>
-                <p className="text-sm text-gray-600">
-                  Advanced options allow you to adjust output, labor hours, cost per hour, and efficiency factor to model different productivity scenarios.
-                </p>
-              </div>
-            )}
             <button
               onClick={calculate}
               className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -114,7 +98,7 @@ const TotalFactorProductivityCalculator = () => {
           </div>
 
           {/* Right Column - Results */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-4">
             {/* Primary Result Card */}
             <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Productivity</div>
@@ -204,7 +188,6 @@ const TotalFactorProductivityCalculator = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

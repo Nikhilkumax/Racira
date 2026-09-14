@@ -89,7 +89,7 @@ const HoursCalculator = () => {
     setResult(calculateHours(sh, sm, sampm, eh, em, eampm, bm, wage));
   };
 
-  useEffect(() => { calculate(); }, [sh, sm, sampm, eh, em, eampm, bm, wage]);
+  useEffect(() => { calculate(); }, []);
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-2 text-base bg-transparent outline-none border-none text-foreground text-center font-mono";

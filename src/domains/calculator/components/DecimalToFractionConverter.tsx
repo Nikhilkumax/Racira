@@ -60,12 +60,15 @@ export default function DecimalToFractionConverter() {
   const [decimal, setDecimal] = useState(DEFAULTS.decimal);
   const [result, setResult] = useState<FractionResult | null>(() => calcFraction("0.75"));
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const r = calcFraction(decimal);
     if (r) setResult(r);
-  }, [decimal]);
+  };
 
-  const reset = () => { setDecimal(DEFAULTS.decimal); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setDecimal(DEFAULTS.decimal); const r = calcFraction(DEFAULTS.decimal); if (r) setResult(r); };
   const invalid = isNaN(parseFloat(decimal)) || parseFloat(decimal) < 0;
 
   const breakdown = result ? [
@@ -100,7 +103,7 @@ export default function DecimalToFractionConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Percent className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

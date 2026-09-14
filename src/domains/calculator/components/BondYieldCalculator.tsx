@@ -216,6 +216,7 @@ export default function BondYieldCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Bond Terms</div>
                   <CompactInput id="years" label="Years to Maturity" value={yearsToMaturity} onChange={setYearsToMaturity} suffix="yrs" />
                   
                   <div className="flex flex-col">

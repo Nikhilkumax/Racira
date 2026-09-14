@@ -203,7 +203,7 @@ export default function PregnancyWeightGainCalculator() {
           </div>
         </div>
 
-        <div className="rounded-lg border bg-muted/40 p-4 space-y-3">
+        <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 space-y-3">
           <h3 className="font-medium">
             Weight gain at week {result.week} —{" "}
             <span className={toneClass}>{result.status}</span>

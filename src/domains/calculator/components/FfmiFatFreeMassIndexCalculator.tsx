@@ -231,14 +231,6 @@ export default function FfmiFatFreeMassIndexCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Fat-Free Mass Index (FFMI)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-red-800 dark:text-red-400">
-            <strong>The "Natty" Limit:</strong> A Normalized FFMI exceeding 25 is the clinical threshold heavily associated with the use of anabolic steroids. While extreme genetic outliers exist, hitting 25 naturally requires years of elite, unbroken training.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -302,7 +294,7 @@ export default function FfmiFatFreeMassIndexCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
@@ -382,6 +374,14 @@ export default function FfmiFatFreeMassIndexCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-red-800 dark:text-red-400">
+            <strong>The "Natty" Limit:</strong> A Normalized FFMI exceeding 25 is the clinical threshold heavily associated with the use of anabolic steroids. While extreme genetic outliers exist, hitting 25 naturally requires years of elite, unbroken training.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

@@ -215,7 +215,7 @@ export default function ConstructionLoanDrawCalculator() {
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
                   <CompactInput id="cont" label="Contingency Buffer" value={contingency} onChange={setContingency} suffix="%" />
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-2">Permanent Loan (Post-Build)</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-2">Permanent Loan (Post-Build)</div>
                   <div className="grid grid-cols-2 gap-4">
                     <CompactInput id="prate" label="Permanent Rate" value={permRate} onChange={setPermRate} suffix="%" />
                     <CompactInput id="pyears" label="Permanent Term" value={permYears} onChange={setPermYears} suffix="yrs" />

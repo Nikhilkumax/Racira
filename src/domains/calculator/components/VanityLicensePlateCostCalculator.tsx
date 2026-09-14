@@ -61,7 +61,7 @@ export default function VanityLicensePlateCostCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const len = parseInt(inputs.plateLength)

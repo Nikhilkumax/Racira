@@ -214,7 +214,7 @@ export default function EmissionsTestCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 gap-4">
-                  <div className={`border-l-4 rounded-lg p-6 relative overflow-hidden shadow-sm ${results.isPass ? 'bg-primary/10 border-primary' : 'bg-destructive/10 border-destructive ring-2 ring-destructive ring-offset-2 ring-offset-background'}`}>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
                     <div className={`text-xs uppercase tracking-wide mb-2 font-bold ${results.isPass ? 'text-muted-foreground' : 'text-destructive/80'}`}>
                       Overall Inspection Result
                     </div>

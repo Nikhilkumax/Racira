@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "smd-component-identifier",
+    "varName": "smd_component_identifierSeo",
+    "name": "SMD Component Identifier",
+    "sections": [
+      {
+        "heading": "What is SMD Component Identifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SMD Component Identifier decodes the three marking schemes printed on the bodies of surface-mount resistors: the 3-digit code, the 4-digit code, and the EIA-96 three-character code. In the 3-digit scheme, the first two digits are the significant value and the third is the power of ten — 472 decodes as 47 times 10 squared, which is 4.7 kilohms. The 4-digit scheme adds one more significant digit, so 1002 is 100 times 10 squared, or 10 kilohms."
+          },
+          {
+            "type": "paragraph",
+            "text": "The EIA-96 scheme is the compact one used on the smallest parts: two digits select a base value from the 96-value E96 series — 01 is 100, 10 is 124 — and a letter sets the multiplier, with A at times 1, B at times 10, C at times 100 and so on. The code 01C therefore decodes as 100 times 100, or 10 kilohms, and 10C as 124 times 100, or 12.4 kilohms. The tool also recognizes malformed input: a code that fits none of the three schemes returns a clear error instead of a guessed value."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SMD Component Identifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Read the marking printed on the component body — three or four digits, or two digits plus a letter — and enter it in the SMD marking field.",
+              "<strong>Step 2:</strong> Read the Decoded value panel: Resistance shows the decoded value with the proper unit — ohms, kilohms or megohms — and Marking scheme names which of the three schemes the code matched.",
+              "<strong>Step 3:</strong> Verify a 3-digit code against the pattern: 472 means 47 with two zeros appended, 4.7 kilohms. The third digit is the power of ten, not part of the value.",
+              "<strong>Step 4:</strong> For a two-digit-plus-letter code, let the tool look up the base from the E96 series and apply the letter's multiplier: 01C is 10 kilohms, 10C is 12.4 kilohms.",
+              "<strong>Step 5:</strong> If the tool reports “Not a recognized resistor marking”, the code is either a capacitor or inductor code using a different scheme — the tool's error message lists the valid formats — or the marking is damaged and the part should be measured rather than guessed."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SMD Component Identifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reading an SMD resistor code by memory is where errors slip in: the 3-digit scheme's power-of-ten digit is easy to misread, the 4-digit scheme overlaps it, and the EIA-96 letter codes are pure lookup — nobody remembers that code 85 means 866 ohms. The cost of a misread marking is a wrong-value part on the board, which can take hours to find in debug. A decoder that returns the value and names the scheme makes the reading verifiable rather than assumed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's error handling matters as much as its decoding: a code that matches no scheme produces an explicit error, not a plausible-looking wrong value. That behavior is the one that keeps a 3-digit reading from being silently misread as 4-digit, and it is why the tool is safe to hand to someone reading a bin of unlabeled parts — the decoder refuses to guess."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I tell a 3-digit code from a 4-digit code?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "By the number of digits. A three-digit code has two significant digits and a power-of-ten digit — 472 is 47 times 10 squared, 4.7 kilohms. A four-digit code has three significant digits and a power-of-ten digit — 1002 is 100 times 10 squared, 10 kilohms. The extra digit is the added precision of the E96 series over E24. A code with two digits plus a letter, such as 01C, is neither: it is the EIA-96 scheme, which uses the E96 base values and a letter multiplier."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does 01C decode to 10 kilohms?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "In the EIA-96 scheme, the two digits select a base value from the 96-value E96 series: 01 is the first value, 100. The letter sets the multiplier: C means times 100. Multiplying 100 by 100 gives 10,000 ohms, which the tool displays as 10 kilohms. The same logic makes 10C equal 124 times 100, or 12.4 kilohms, because 10 is the eleventh entry in the series. The digit-to-value mapping is a standard table, which is exactly what the tool carries internally."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the EIA-96 table apply to capacitors too?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The same two-digit-to-value mapping appears on some SMD capacitors, where the decoded number is read in picofarads rather than ohms — the tool's note states this. The letter multipliers carry over with the value scaled to pF. That is why the E96 base table is shared between resistor and capacitor markings: the standard defines the digit-to-number relationship once, and the component type decides the unit. This tool decodes resistors, and the same table applies when you read a marked capacitor's base value in pF."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What should I do when a code does not decode?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the tool reports the code is not a recognized resistor marking, first re-read the part — SMD markings are tiny and easy to misread, especially letters like O and Q or I and 1. If the marking really does not fit the 3-digit, 4-digit or EIA-96 formats, it is either a different scheme (capacitor and inductor codes use their own conventions) or a damaged or nonstandard marking. Measure the part with a multimeter and mark the bin, rather than guessing the value from the pattern."
+          }
+        ]
+      }
+    ]
+  }
+]

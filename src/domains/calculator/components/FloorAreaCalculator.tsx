@@ -52,9 +52,15 @@ export default function FloorAreaCalculator() {
     const w = parseFloat(width);
     const p = parseFloat(price);
     if (!isNaN(l) && !isNaN(w) && !isNaN(p) && l > 0 && w > 0 && p >= 0) setResult(calcFloor(l, w, p));
-  }, [length, width, price]);
+  }, []);
 
-  const reset = () => { setLength(DEFAULTS.length); setWidth(DEFAULTS.width); setPrice(DEFAULTS.price); };
+  const handleCalculate = () => {
+    const l = parseFloat(length);
+    const w = parseFloat(width);
+    const p = parseFloat(price);
+    if (!isNaN(l) && !isNaN(w) && !isNaN(p) && l > 0 && w > 0 && p >= 0) setResult(calcFloor(l, w, p));
+  };
+  const reset = () => { setLength(DEFAULTS.length); setWidth(DEFAULTS.width); setPrice(DEFAULTS.price); setResult(calcFloor(parseFloat(DEFAULTS.length), parseFloat(DEFAULTS.width), parseFloat(DEFAULTS.price))); };
   const invalid = isNaN(parseFloat(length)) || isNaN(parseFloat(width)) || isNaN(parseFloat(price)) || parseFloat(length) <= 0 || parseFloat(width) <= 0 || parseFloat(price) < 0;
 
   const fmtMoney = (n: number) => `$${Math.round(n).toLocaleString()}`;
@@ -104,7 +110,7 @@ export default function FloorAreaCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Ruler className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

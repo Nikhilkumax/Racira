@@ -71,7 +71,7 @@ const WeddingBudgetCalculator = () => {
     setResult(calculateWedding(budget));
   };
 
-  useEffect(() => { calculate(); }, [budget]);
+  useEffect(() => { calculate(); }, []);
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-12 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-2 text-xl font-bold bg-transparent outline-none border-none text-foreground";

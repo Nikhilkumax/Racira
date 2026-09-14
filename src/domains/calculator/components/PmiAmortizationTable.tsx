@@ -297,7 +297,7 @@ export default function PmiAmortizationCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs));
-  }, [inputs]);
+  }, []);
 
   const invalid = useMemo(() => {
     const price = parseFloat(inputs.homePrice);

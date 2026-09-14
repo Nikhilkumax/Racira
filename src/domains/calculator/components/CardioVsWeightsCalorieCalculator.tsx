@@ -218,14 +218,6 @@ export default function CardioVsWeightsCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cardio vs Weights Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
-            <strong>The Muscle Paradox:</strong> While cardiovascular exercise mathematically burns more calories <em>during</em> the actual workout, heavy resistance training triggers a much larger "Afterburn Effect" (EPOC) and permanently raises your resting metabolic rate by building lean tissue.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -296,29 +288,29 @@ export default function CardioVsWeightsCalorieCalculator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   {/* Cardio Box */}
-                  <div className="bg-gradient-to-br from-primary/90 to-red-600 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Cardio Burn</div>
+                      <div className="text-primary text-[10px] font-bold uppercase tracking-wider mb-1">Cardio Burn</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.cardioCalories}</div>
-                        <div className="text-sm font-medium text-white/80">kcal</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.cardioCalories}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">MET: {results.cardioMet.toFixed(1)}</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">MET: {results.cardioMet.toFixed(1)}</div>
                     </div>
-                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-primary" />
                   </div>
 
                   {/* Weights Box */}
-                  <div className="bg-gradient-to-br from-indigo-600 to-purple-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Weights Burn</div>
+                      <div className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-1">Weights Burn</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.weightsCalories}</div>
-                        <div className="text-sm font-medium text-white/80">kcal</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.weightsCalories}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">MET: {results.weightsMet.toFixed(1)}</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">MET: {results.weightsMet.toFixed(1)}</div>
                     </div>
-                    <Dumbbell className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Dumbbell className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-indigo-600" />
                   </div>
                 </div>
 
@@ -352,6 +344,14 @@ export default function CardioVsWeightsCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
+            <strong>The Muscle Paradox:</strong> While cardiovascular exercise mathematically burns more calories <em>during</em> the actual workout, heavy resistance training triggers a much larger "Afterburn Effect" (EPOC) and permanently raises your resting metabolic rate by building lean tissue.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

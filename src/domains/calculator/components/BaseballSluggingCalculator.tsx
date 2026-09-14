@@ -360,16 +360,13 @@ export default function BaseballSluggingCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Result Card */}
-                <div 
-                  className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                  style={{ backgroundColor: result.colorClass }}
-                >
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                   <div className="relative z-10">
-                    <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Slugging Percentage (SLG)</div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Slugging Percentage (SLG)</div>
                     <div className="flex items-baseline gap-1 mt-1">
-                      <div className="text-6xl font-black">{result.sluggingPercentage}</div>
+                      <div className="text-4xl font-bold text-primary tracking-tight">{result.sluggingPercentage}</div>
                     </div>
-                    <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <div className="text-sm font-bold text-foreground mt-3 bg-muted/40 border border-border inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                       <Zap className="h-4 w-4" /> {result.classification} Power
                     </div>
                   </div>

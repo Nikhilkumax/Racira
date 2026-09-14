@@ -1,0 +1,399 @@
+[
+  {
+    "slug": "subnet-calculator",
+    "whatIs": "The Subnet Calculator is a client-side networking tool that computes IPv4 subnet details from a CIDR notation input (e.g., 10.0.0.0/24). Given an IP address and prefix length, it calculates five values: the network address (the first address in the subnet), the broadcast address (the last address), the subnet mask in dotted-decimal format, the usable host range (excluding network and broadcast addresses), and the total number of usable hosts. The calculator uses bitwise arithmetic to perform the calculations: it converts the IP to a 32-bit integer, applies the subnet mask, and derives the network and broadcast addresses. The tool validates the input format (four octets 0-255, prefix 0-32) and provides clear error messages for invalid inputs. This is essential for network administrators, DevOps engineers, and developers working with VPCs, Kubernetes networking, Docker networks, and any infrastructure where CIDR blocks define network boundaries.",
+    "howToUse": [
+      "Enter an IPv4 address with CIDR prefix in the input field (e.g., 192.168.1.0/24, 10.0.0.0/16, or 172.16.0.0/12).",
+      "Click Transform. The calculator performs bitwise operations to compute all subnet details.",
+      "The output shows: Network address, Broadcast address, Subnet mask, Usable host range, and Total usable hosts.",
+      "For /31 and /32 prefixes, the tool correctly handles point-to-point links (2 hosts) and host routes (1 host) respectively."
+    ],
+    "whyUse": "CIDR notation is the standard for defining network segments in cloud infrastructure (AWS VPCs, GCP subnets, Azure VNets), Kubernetes pod networks, Docker Compose networks, and firewall rules. Calculating the network address, broadcast address, and host range from a CIDR block requires mental binary math that is error-prone. The Subnet Calculator does this instantly and correctly, eliminating subnetting mistakes that can cause connectivity issues, security misconfigurations, or IP address exhaustion.",
+    "faq": [
+      {
+        "q": "What is the difference between /24 and /25?",
+        "a": "/24 gives 256 addresses (254 usable hosts). /25 splits that into two subnets of 128 addresses each (126 usable hosts). Each bit added to the prefix halves the available addresses."
+      },
+      {
+        "q": "Can I calculate IPv6 subnets?",
+        "a": "No. This tool handles IPv4 subnets only. IPv6 subnetting uses a different notation (typically /64 for LANs) and much larger address spaces."
+      },
+      {
+        "q": "Why are network and broadcast addresses excluded from the host count?",
+        "a": "The network address identifies the subnet itself and the broadcast address is used for broadcast traffic. Neither can be assigned to a host, so they are excluded from the usable count."
+      },
+      {
+        "q": "What is a /32 prefix?",
+        "a": "/32 means a single host — the network and broadcast addresses are the same, giving exactly one usable IP. This is used for host routes in routing tables and for assigning a specific public IP to a single server."
+      },
+      {
+        "q": "What is a /0 prefix?",
+        "a": "/0 matches all IP addresses (the entire IPv4 space). The subnet mask is 0.0.0.0 and the network address is 0.0.0.0. This is used as a default route in routing tables, meaning \"send to any destination\"."
+      },
+      {
+        "q": "How do I calculate subnets for a VPC?",
+        "a": "Start with your VPC CIDR (e.g., 10.0.0.0/16) and divide it into smaller subnets. Each /24 within the /16 gives 254 usable hosts. Use the calculator to verify the network and broadcast addresses for each subnet you plan to create."
+      },
+      {
+        "q": "Why does the calculator show 2 fewer hosts than the total?",
+        "a": "The network address (first) and broadcast address (last) are reserved and cannot be assigned to hosts. A /24 has 256 total addresses but 254 usable hosts (256 minus 2)."
+      }
+    ]
+  },
+  {
+    "slug": "ipv6-validator",
+    "whatIs": "The IPv6 Validator is a client-side tool that checks whether a given string is a valid IPv6 address according to the RFC 4291 specification. It accepts a full IPv6 address (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334), a compressed form (e.g., 2001:db8:85a3::8a2e:370:7334), a loopback address (::1), and any other valid IPv6 representation. The tool leverages the browser's URL parser by constructing http://[address] and checking if the hostname matches, which provides reliable validation without implementing the full IPv6 parsing spec. The output clearly indicates valid (with a checkmark) or invalid (with an X), and for valid addresses, shows the normalized lowercase form. This is essential for network configuration, firewall rules, DNS setup, and debugging IPv6-related connectivity issues.",
+    "howToUse": [
+      "Paste an IPv6 address into the input field. It can be full form (2001:0db8:...), compressed form (2001:db8::1), loopback (::1), or any valid representation.",
+      "Click Transform. The validator checks the address against IPv6 syntax rules.",
+      "The output shows either a checkmark with the normalized address (lowercase, with correct compression) or an X indicating the address is invalid.",
+      "Invalid addresses may contain: invalid characters (anything other than hex digits and colons), more than 8 groups, double-colon in the wrong position, or groups exceeding 4 hex digits."
+    ],
+    "whyUse": "IPv6 addresses are complex strings that are easy to mistype — a single wrong character, missing colon, or incorrect compression makes the address invalid. When configuring servers, setting up DNS records, writing firewall rules, or debugging network connectivity, validating the IPv6 address format before use prevents hard-to-diagnose connectivity failures. The validator is especially useful for verifying addresses copied from documentation, configuration files, or server output, where invisible characters or encoding issues can corrupt the address.",
+    "faq": [
+      {
+        "q": "Does it check if the address is routable?",
+        "a": "No. The tool validates syntax only — it does not check whether the address is in a valid range (link-local, global unicast, etc.) or whether it is actually reachable."
+      },
+      {
+        "q": "Can I validate IPv4-mapped IPv6 addresses?",
+        "a": "Addresses like ::ffff:192.168.1.1 (IPv4-mapped IPv6) may not be accepted by this validator, as it uses the URL parser which has specific rules for mixed notation."
+      },
+      {
+        "q": "Does it handle zone IDs (e.g., fe80::1%eth0)?",
+        "a": "Zone IDs (link-local scope identifiers) are not supported by the URL parser-based validation and will likely be rejected."
+      },
+      {
+        "q": "What makes an IPv6 address valid?",
+        "a": "A valid IPv6 address consists of 8 groups of 4 hexadecimal digits separated by colons. Consecutive groups of zeros can be compressed with :: (but only once). The address may optionally be enclosed in brackets for URL contexts."
+      },
+      {
+        "q": "What is the difference between link-local and global IPv6?",
+        "a": "Link-local addresses (fe80::/10) are only valid within a single network segment and are auto-configured. Global unicast addresses (2000::/3) are routable on the public internet. The validator checks syntax, not scope."
+      },
+      {
+        "q": "Can I validate IPv6 with a port number?",
+        "a": "Enter just the IPv6 address without port. For URLs with IPv6 and ports, use the URL Parser tool which handles the [address]:port format."
+      },
+      {
+        "q": "What is the ::FFFF:192.0.2.1 format?",
+        "a": "This is an IPv4-mapped IPv6 address, embedding an IPv4 address within an IPv6 address. It is used in dual-stack networks where IPv4 clients need to communicate with IPv6-only servers. The validator may not accept this format due to URL parser limitations."
+      }
+    ]
+  },
+  {
+    "slug": "user-agent-parser",
+    "whatIs": "The User-Agent Parser is a client-side tool that extracts structured information from HTTP User-Agent strings. When you paste a User-Agent string (typically from a server log, analytics tool, or HTTP request header), the tool parses it using regex pattern matching to identify the operating system (Windows 10/11, macOS, Android, iOS, Linux), the browser (Edge, Chrome, Firefox, Safari), the browser version number, whether the client is mobile (detected by Mobi/Android/iPhone tokens), and whether it is a bot or crawler (detected by bot/crawl/spider keywords). The tool also shows your current browser's User-Agent string for comparison, making it easy to verify that parsing is correct by comparing a known string against the output. The results are displayed in a labeled, aligned format suitable for copying into reports or documentation.",
+    "howToUse": [
+      "Paste a User-Agent string into the input field. These are typically long strings like \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...\".",
+      "Click Transform. The parser extracts OS, browser, version, mobile status, and bot detection.",
+      "The output shows each detected property in a labeled, aligned format. The first line displays your current browser's User-Agent for comparison.",
+      "Use the copy button to copy the parsed results for inclusion in bug reports or analytics documentation."
+    ],
+    "whyUse": "User-Agent strings are the primary method for identifying client capabilities in server-side applications, analytics platforms, and CDN configurations. However, UA strings are notoriously complex — they are a historical accretion of browser vendor conventions, compatibility tokens, and version strings that resist simple parsing. The User-Agent Parser distills this complexity into a structured, human-readable summary. This is essential for debugging browser compatibility issues (confirming which browser and version a user is running), analyzing server log data (identifying the mix of browsers hitting your API), and verifying that analytics tools are correctly categorizing traffic.",
+    "faq": [
+      {
+        "q": "Why does my User-Agent show a different browser than expected?",
+        "a": "Some browsers include tokens from other browsers for compatibility (e.g., Chrome includes Safari/ in its UA string). The parser looks for the most specific token (Edg/, Chrome/, Firefox/) to determine the actual browser."
+      },
+      {
+        "q": "Does this parse bot User-Agents accurately?",
+        "a": "The tool detects common bot keywords (bot, crawl, spider) but does not identify specific bots (Googlebot, Bingbot). For detailed bot identification, use a dedicated crawler detection library."
+      },
+      {
+        "q": "Can I use this to detect ad blockers?",
+        "a": "No. Ad blocker detection requires checking for missing network requests or DOM elements, not User-Agent parsing."
+      },
+      {
+        "q": "Why are User-Agent strings so complicated?",
+        "a": "User-Agent strings have accumulated tokens from decades of browser wars and compatibility requirements. Browsers include other browsers tokens for historical reasons (Chrome includes Safari/, Edge includes Chrome/). The parser looks for the most specific identifier to determine the actual browser."
+      },
+      {
+        "q": "Can I detect the operating system version?",
+        "a": "The parser detects the OS family (Windows, macOS, Linux, Android, iOS) but not the specific version. For precise OS version detection, you would need to parse additional tokens like Windows NT 10.0 (Windows 10/11) or Mac OS X 10_15_7 (macOS Catalina)."
+      },
+      {
+        "q": "How accurate is bot detection?",
+        "a": "The tool uses simple keyword matching (bot, crawl, spider) which catches most common bots but may miss sophisticated ones that disguise their User-Agent as a regular browser. For comprehensive bot detection, use a dedicated service."
+      }
+    ]
+  },
+  {
+    "slug": "query-string-parser",
+    "whatIs": "The Query String Parser is a client-side tool that decomposes URL query strings into structured key-value pairs. Paste any query string (with or without the leading ?), and the tool parses it using the browser's URLSearchParams API, which handles URL decoding, repeated parameters (converted to arrays), and edge cases like empty values and encoded characters. The output is formatted as a JSON object where each key maps to its value (or an array of values if the key appears multiple times). The tool also shows a count of total parameters. This is essential for debugging API requests, understanding URL structure, and verifying that form submissions are generating the expected query parameters.",
+    "howToUse": [
+      "Paste a query string into the input field. It can start with ? or not (both are handled). Example: ?search=test&page=2&sort=name",
+      "Click Transform. The parser decodes URL-encoded characters and structures the parameters.",
+      "The output shows a JSON object with each parameter as a key and its value. Repeated keys appear as arrays.",
+      "The info bar shows the total number of unique parameters found."
+    ],
+    "whyUse": "Query strings are the most common way to pass parameters in URLs, but they are easy to construct incorrectly — forgetting to URL-encode special characters, using the wrong delimiter, or accidentally duplicating keys. The Query String Parser validates and decodes query strings instantly, showing you exactly what a browser or server would see when processing the URL. This is invaluable when debugging API requests that are not behaving as expected, verifying that OAuth callback URLs contain the correct parameters, and understanding the structure of URLs shared by colleagues or found in documentation.",
+    "faq": [
+      {
+        "q": "Does it handle array notation (key[]=value)?",
+        "a": "The tool uses the standard URLSearchParams API, which does not natively support PHP-style array notation (key[]). Duplicate keys (key=1&key=2) are handled as arrays."
+      },
+      {
+        "q": "Can I parse a full URL, not just the query string?",
+        "a": "The tool parses query strings only. For full URL parsing, use the URL Parser tool, which decomposes protocol, hostname, path, query, and fragment."
+      },
+      {
+        "q": "What about encoded characters?",
+        "a": "The URLSearchParams API automatically decodes URL-encoded characters. %20 becomes a space, %26 becomes &, etc."
+      },
+      {
+        "q": "What is the difference between ? and &?",
+        "a": "? marks the beginning of the query string (appearing once after the path). & separates individual parameters within the query string. The parser handles both the leading ? and internal & delimiters."
+      },
+      {
+        "q": "Can I parse URL-encoded values?",
+        "a": "Yes. The URLSearchParams API automatically decodes percent-encoded values. %20 becomes a space, %26 becomes &, and %3D becomes =. The output shows the decoded values."
+      },
+      {
+        "q": "What about hash fragments?",
+        "a": "The parser processes query strings only. Hash fragments (#section) are separate from query parameters and are not included in the query string parsing."
+      },
+      {
+        "q": "What does the JSON output format look like?",
+        "a": "The output is a JSON object where each key maps to its value string, or to an array of strings if the key appears multiple times. Example: {\"search\": [\"react\"], \"page\": [\"1\"]}."
+      },
+      {
+        "q": "Can I use this for debugging API calls?",
+        "a": "Absolutely. When an API request has unexpected behavior, paste the query string to verify that all parameters are present, correctly encoded, and have the expected values."
+      }
+    ]
+  },
+  {
+    "slug": "query-string-builder",
+    "whatIs": "The Query String Builder is a client-side tool that constructs URL query strings from key-value pairs. Enter one parameter per line in key=value format (e.g., search=hello, page=2, sort=date), and the tool uses the URLSearchParams API to properly encode each value and assemble the complete query string with correct delimiters. The output is a query string prefixed with ? (e.g., ?search=hello&page=2&sort=date), ready to append to any base URL. The builder handles URL encoding automatically — special characters in values (spaces, ampersands, equals signs) are encoded correctly. This eliminates the manual work of remembering encoding rules and delimiter syntax when constructing URLs for API requests, form actions, or redirect targets.",
+    "howToUse": [
+      "Enter key=value pairs in the input textarea, one per line. Example: search=react&page=1&sort=relevance",
+      "Click Transform. The builder encodes each value and assembles the query string.",
+      "The output shows the complete query string starting with ?. Copy it and append it to your base URL.",
+      "Empty lines and lines without = are ignored. Values containing = are handled correctly (everything after the first = is the value)."
+    ],
+    "whyUse": "Constructing query strings manually is error-prone — forgetting to URL-encode spaces, using + instead of %20, misplacing delimiters, or accidentally including bare & characters. The Query String Builder automates the encoding and formatting, producing correct query strings every time. This is particularly useful when building API test URLs, constructing OAuth authorization URLs with multiple parameters, generating redirect URLs with callback parameters, and creating shareable links with tracking parameters.",
+    "faq": [
+      {
+        "q": "What encoding is used?",
+        "a": "The tool uses the standard URL encoding via URLSearchParams, which encodes spaces as +, and special characters as %XX. This is the encoding expected by web servers and APIs."
+      },
+      {
+        "q": "Can I include hash fragments?",
+        "a": "No. The tool builds query strings only. To include a hash fragment, append it after the query string manually (?param=value#section)."
+      },
+      {
+        "q": "Does it handle duplicate keys?",
+        "a": "If you enter the same key twice, both values are included in the output as separate parameters (e.g., ?tag=js&tag=react). This is correct behavior for multi-value parameters."
+      },
+      {
+        "q": "How does it handle special characters in values?",
+        "a": "The URLSearchParams API automatically encodes special characters: spaces become +, & becomes %26, = becomes %3D. This ensures the resulting query string is syntactically correct and safe to use in URLs."
+      },
+      {
+        "q": "Can I build query strings for POST requests?",
+        "a": "Yes. The output is a standard query string that can be used in URL-encoded POST bodies (Content-Type: application/x-www-form-urlencoded) as well as URL query parameters."
+      },
+      {
+        "q": "What if I enter a key without a value?",
+        "a": "Lines without = are treated as keys with empty values (e.g., ?debug). The builder includes them in the output, which is correct for boolean-style query parameters."
+      },
+      {
+        "q": "What if I enter malformed lines?",
+        "a": "Lines without an = sign are treated as keys with empty values. Lines that are empty or contain only whitespace are ignored. The builder is lenient and produces valid output from imperfect input."
+      },
+      {
+        "q": "Can I use this for OAuth authorization URLs?",
+        "a": "Yes. OAuth URLs require multiple parameters (client_id, redirect_uri, scope, state, response_type). Enter each as a key=value line and the builder produces the correctly encoded query string."
+      }
+    ]
+  },
+  {
+    "slug": "http-header-viewer",
+    "whatIs": "The HTTP Header Viewer is a client-side tool that parses raw HTTP request or response headers into a structured, readable format. Paste the raw header text (including the status line if present, e.g., HTTP/1.1 200 OK), and the tool splits each line at the first colon, extracts the header name and value, and displays them as a JSON object. If the first line is an HTTP status line (starting with HTTP/), it is extracted separately and displayed at the top. The output shows the total header count in the info bar. This is essential for debugging HTTP communication — when you copy headers from curl output, browser DevTools Network tab, or server logs, they arrive as raw text that is difficult to scan. The parsed JSON format makes it trivial to find specific headers, verify that required headers are present, and check header values.",
+    "howToUse": [
+      "Paste raw HTTP headers into the input textarea. This can be request headers (from curl -v, DevTools, or server logs) or response headers.",
+      "Click Transform. The tool parses each line, splitting at the first colon to extract header names and values.",
+      "The output shows a JSON object with header names as keys and their values. If an HTTP status line is present (HTTP/1.1 200 OK), it is displayed at the top.",
+      "The info bar shows the total number of headers found."
+    ],
+    "whyUse": "HTTP headers are the metadata layer of web communication, and debugging header-related issues is a daily task for web developers. When a CORS error occurs, you need to check Access-Control-Allow-Origin. When caching behaves unexpectedly, you need to verify Cache-Control and ETag. When authentication fails, you need to inspect Authorization and Set-Cookie. The HTTP Header Viewer transforms raw header dumps into a scannable, searchable format, making these checks instant instead of requiring manual line-by-line reading of dense header text.",
+    "faq": [
+      {
+        "q": "Does it handle multi-line header values?",
+        "a": "HTTP headers are single-line by spec. If you paste multi-line content, only the first line of each header is captured. Folded headers (obsolete in HTTP/1.1) are not supported."
+      },
+      {
+        "q": "Can I use this for gRPC headers?",
+        "a": "gRPC uses HTTP/2 headers, which follow the same name: value format. The tool can parse them, but gRPC-specific metadata may require additional context."
+      },
+      {
+        "q": "What about cookie headers?",
+        "a": "Cookie and Set-Cookie headers are displayed as their raw values. For structured cookie parsing, use a dedicated cookie parser tool."
+      },
+      {
+        "q": "Can I view request headers from curl output?",
+        "a": "Yes. Copy the headers from curl -v or curl -i output and paste them. The tool parses the raw header text regardless of its source — curl, browser DevTools, or server logs."
+      },
+      {
+        "q": "What about headers with colons in the value?",
+        "a": "The tool splits at the first colon only, which correctly handles header values that contain colons (e.g., Authorization: Bearer token:with:colons)."
+      },
+      {
+        "q": "Does it validate header names?",
+        "a": "No. The tool parses headers as-is without validating that names follow HTTP header naming conventions. Invalid header names are displayed as-is for inspection."
+      },
+      {
+        "q": "Can I view gRPC response headers?",
+        "a": "gRPC uses HTTP/2 with binary framing, but the metadata (headers) follow the same name:value text format. Copy the headers from your gRPC client logs and paste them."
+      },
+      {
+        "q": "How does it handle duplicate header names?",
+        "a": "If a header name appears multiple times (e.g., Set-Cookie), the last value overwrites earlier ones in the JSON output. For headers that legitimately repeat, you would need to check the raw text."
+      }
+    ]
+  },
+  {
+    "slug": "mime-type-checker",
+    "whatIs": "The MIME Type Checker is a client-side reference tool that performs bidirectional lookups between file extensions and MIME types. Enter a file extension (e.g., .pdf, .json, .woff2) and the tool returns the corresponding MIME type. Enter a MIME type (e.g., application/json, image/png) and the tool returns the matching file extension. The tool contains a built-in lookup table covering 35+ common web MIME types across categories: text (html, css, js, json, csv, markdown), image (png, jpg, gif, svg, webp, ico), video (mp4, webm), audio (mp3, wav), font (woff, woff2, ttf, otf), application (pdf, zip, gzip, wasm, xml), and Microsoft Office formats (doc, docx, xls, xlsx). This is essential for configuring Content-Type headers in servers, defining Accept headers in API requests, and setting up file upload handling in web applications.",
+    "howToUse": [
+      "Enter a file extension with the dot (e.g., .pdf) or a MIME type (e.g., application/pdf) into the input field.",
+      "Click Transform. The tool performs a bidirectional lookup in its built-in table.",
+      "The output shows the mapping: extension to MIME type, or MIME type to extension.",
+      "If the input is not found in the table, the output shows 'unknown'."
+    ],
+    "whyUse": "MIME types are required for correct HTTP Content-Type headers, but their exact strings are difficult to remember — is it text/javascript or application/javascript? Is it application/x-protobuf or application/protobuf? The MIME Type Checker provides instant, reliable lookups that eliminate guessing and prevent the subtle bugs caused by incorrect MIME types (browsers refusing to execute scripts, fonts failing to load, or API responses being misinterpreted).",
+    "faq": [
+      {
+        "q": "Why is text/javascript sometimes application/javascript?",
+        "a": "The MIME type for JavaScript has evolved: early browsers used text/javascript, while the IANA standard was application/javascript. Modern browsers accept both, but the recommendation varies by context (HTML script tags vs API responses)."
+      },
+      {
+        "q": "Does it include all possible MIME types?",
+        "a": "No. The tool covers the most common web MIME types. For a comprehensive list, refer to IANA's MIME media types registry at iana.org/assignments/media-types."
+      },
+      {
+        "q": "Can I look up MIME types for font files?",
+        "a": "Yes. The tool includes font/woff, font/woff2, font/ttf, and font/otf. These are essential for configuring correct Content-Type headers for web font files."
+      },
+      {
+        "q": "Why is the correct MIME type important?",
+        "a": "Browsers use MIME types to decide how to handle content. Wrong types cause security blocks (scripts not executing), rendering failures (fonts not loading), and download instead of display behavior. Servers must send accurate Content-Type headers."
+      },
+      {
+        "q": "What about charset parameters?",
+        "a": "The tool returns the base MIME type without parameters. For text types, you would append ;charset=utf-8 as needed. The base type is what matters for Content-Type header configuration."
+      },
+      {
+        "q": "Does it cover all font formats?",
+        "a": "The tool includes woff, woff2, ttf, and otf. For less common formats like eot or svg fonts, check the IANA registry directly."
+      },
+      {
+        "q": "What MIME type should I use for Wasm files?",
+        "a": "Use application/wasm for WebAssembly files. This is the official IANA-registered type and ensures browsers execute the module correctly rather than downloading it as a binary blob."
+      },
+      {
+        "q": "What is the difference between image/jpeg and image/jpg?",
+        "a": "The official MIME type is image/jpeg (with the three-letter extension .jpg being a DOS-era abbreviation). Both work in practice, but image/jpeg is the standard."
+      }
+    ]
+  },
+  {
+    "slug": "url-shortener-preview",
+    "whatIs": "The URL Shortener Preview is a client-side tool that analyzes shortened URLs and displays their structural components. When you paste a URL (from a link shortener like bit.ly, tinyurl.com, or t.co), the tool parses it using the URL API and displays the hostname, path, and full URL. The tool does not follow redirects (which would require a network request), but it shows the URL structure to help you understand where the short link points at the domain level. This is useful for quickly checking whether a shortened URL points to a known, trusted domain before clicking it — a basic security practice when receiving links from unknown sources. The tool also handles malformed URLs gracefully, displaying an error for invalid input.",
+    "howToUse": [
+      "Paste a URL (shortened or full) into the input field.",
+      "Click Transform. The tool parses the URL and displays its components.",
+      "The output shows the hostname, path, and full URL. For short URLs, the hostname is the shortener domain (e.g., bit.ly) and the path is the short code.",
+      "Use this to verify the domain before clicking — if the hostname is unfamiliar, investigate further before visiting."
+    ],
+    "whyUse": "Shortened URLs hide their destination, which is convenient for sharing but creates a security concern: you cannot tell where the link leads without clicking it. The URL Shortener Preview lets you inspect the URL structure without following the redirect, helping you verify that the link points to a known domain. This is especially important when receiving links in emails, messaging apps, or social media, where phishing attacks often use shortened URLs to disguise malicious destinations.",
+    "faq": [
+      {
+        "q": "Why can't it show the final destination URL?",
+        "a": "Following redirects would require making an HTTP request to the shortened URL, which violates the tool's client-side-only constraint. The tool only parses the URL you provide."
+      },
+      {
+        "q": "Does it work with all URL shorteners?",
+        "a": "It works with any valid URL, regardless of whether it is shortened. The tool parses the structure — it does not distinguish between shorteners and regular URLs."
+      },
+      {
+        "q": "Can I check if a URL is safe?",
+        "a": "The tool shows the hostname for your assessment. For automated safety checking, use a URL reputation service like Google Safe Browsing or VirusTotal."
+      },
+      {
+        "q": "Is it safe to paste shortened URLs here?",
+        "a": "Yes. The tool only parses the URL string locally in your browser — it does not make any network requests to the URL or any third-party service."
+      },
+      {
+        "q": "Can I preview URLs from any source?",
+        "a": "The tool works with any valid URL, not just shortened ones. Paste a full URL to see its hostname and path structure."
+      },
+      {
+        "q": "What about URLs with authentication?",
+        "a": "The tool displays the hostname and path only. Credentials in the URL (user:pass@host) are not displayed for security, but the URL is parsed correctly."
+      },
+      {
+        "q": "Can I check if a short URL has expired?",
+        "a": "No. The tool only parses the URL structure. Checking expiration, availability, or redirect behavior would require a network request, which this client-side tool does not perform."
+      },
+      {
+        "q": "What about URLs with tracking parameters?",
+        "a": "The tool displays the full URL including any query parameters and fragments. Tracking parameters (utm_source, fbclid, etc.) are visible in the output."
+      }
+    ]
+  },
+  {
+    "slug": "slug-to-url",
+    "whatIs": "The Slug to URL Converter is a client-side tool that transforms text into a properly formatted URL slug and combines it with a configurable base URL. Enter any text — a page title, article headline, or product name — and the tool converts it to a URL-friendly slug by lowercasing, removing special characters, replacing spaces with hyphens, and collapsing consecutive hyphens. The base URL (configurable in the options bar, defaulting to https://example.com) is prepended to produce a complete URL. This is essential for generating clean, SEO-friendly URLs for blog posts, product pages, documentation, and any content that needs a human-readable URL structure.",
+    "howToUse": [
+      "Enter text in the input field (e.g., \"My First Blog Post: Tips & Tricks!\").",
+      "Set the base URL in the options bar if needed (default is https://example.com).",
+      "Click Transform. The tool lowercases, removes special characters, replaces spaces with hyphens, and produces the slug.",
+      "The output shows the complete URL: base URL + slug (e.g., https://example.com/my-first-blog-post-tips-tricks)."
+    ],
+    "whyUse": "URL slugs are a critical part of web architecture — they affect SEO, readability, and user experience. Generating slugs correctly requires handling unicode characters, special characters, consecutive spaces, and edge cases like leading/trailing hyphens. The Slug to URL Converter automates this process, ensuring consistent, clean slugs across your content. It is particularly useful for CMS implementations, static site generators, and any application where content titles need to become URL paths.",
+    "faq": [
+      {
+        "q": "Does it handle unicode characters?",
+        "a": "The tool uses a basic regex that removes non-word characters. Unicode characters (e.g., accented letters, CJK characters) would be stripped. For unicode-aware slugification, a transliteration library would be needed."
+      },
+      {
+        "q": "Can I customize the slug format?",
+        "a": "The current format uses lowercase-hyphenated slugs. Customization would require extending the tool with format options (underscores, camelCase, etc.)."
+      },
+      {
+        "q": "What happens with empty input?",
+        "a": "Empty input produces just the base URL with no slug path (e.g., https://example.com/)."
+      },
+      {
+        "q": "How does it handle very long titles?",
+        "a": "The tool converts the entire title to a slug without truncation. Very long slugs (100+ characters) are valid but may be unwieldy in URLs. For SEO, keep slugs under 60 characters when possible."
+      },
+      {
+        "q": "Can I use this for multi-word product names?",
+        "a": "Yes. Enter the full product name and the tool converts it to a hyphenated slug. \"MacBook Pro 16-inch\" becomes macbook-pro-16-inch."
+      },
+      {
+        "q": "Does it remove stop words?",
+        "a": "No. The tool preserves all words from the input. For SEO-optimized slugs, you may want to manually remove stop words (a, the, in, etc.) from the output."
+      },
+      {
+        "q": "How are numbers handled in slugs?",
+        "a": "Numbers are preserved in slugs. \"2024 Year in Review\" becomes 2024-year-in-review. This is correct for date-based and numbered content URLs."
+      },
+      {
+        "q": "Can I generate slugs for non-English text?",
+        "a": "The tool uses a basic regex that strips non-word characters. Non-Latin characters (Chinese, Arabic, Cyrillic) would be removed entirely. For internationalized slugs, a transliteration library is needed."
+      },
+      {
+        "q": "What happens with consecutive spaces or special characters?",
+        "a": "Multiple consecutive spaces are collapsed into a single hyphen. Special characters like !, @, #, $, %, ^, &, * are removed entirely. Only letters, numbers, and hyphens survive in the final slug."
+      },
+      {
+        "q": "Is this suitable for production URL generation?",
+        "a": "For basic slug generation, yes. For production systems requiring unicode transliteration, stop-word removal, or custom rules, consider a dedicated slugification library like slugify or speakingurl."
+      }
+    ]
+  }
+]

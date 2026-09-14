@@ -213,6 +213,7 @@ export default function CarBuyingBudgetCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes & Fees</div>
                   <CompactInput id="tax-rate" label="Sales Tax Rate" value={inputs.salesTaxRate} onChange={(v: string) => handleChange("salesTaxRate", v)} suffix="%" />
                   <CompactInput id="fees" label="Dealer Fees" value={inputs.dealerFees} onChange={(v: string) => handleChange("dealerFees", v)} prefix="$" />
                 </div>

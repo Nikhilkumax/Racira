@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // Pure calculation function with zero React dependencies
@@ -73,11 +73,6 @@ export const OverheadAbsorptionCalculator: React.FC = () => {
   const [inputs, setInputs] = useState<OverheadAbsorptionInputs>(DEFAULTS);
   const [result, setResult] = useState<OverheadAbsorptionResult>(() => calculateOverheadAbsorption(DEFAULTS));
 
-  // Recalculate when inputs change
-  useEffect(() => {
-    setResult(calculateOverheadAbsorption(inputs));
-  }, [inputs]);
-
   const handleCalculate = () => {
     setResult(calculateOverheadAbsorption(inputs));
   };
@@ -150,7 +145,7 @@ export const OverheadAbsorptionCalculator: React.FC = () => {
             <div className="space-y-4">
               {/* Overhead Components */}
               <div>
-                <h3 className="text-lg font-semibold mb-2">Overhead Components</h3>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Overhead Components</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Rent ($/mo)</label>
@@ -202,7 +197,7 @@ export const OverheadAbsorptionCalculator: React.FC = () => {
 
               {/* Allocation Base */}
               <div className="border-t pt-4">
-                <h3 className="text-lg font-semibold mb-2">Allocation Base</h3>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Allocation Base</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">Machine Hours</label>

@@ -241,12 +241,11 @@ const BacCalculator = () => {
           <div className="flex flex-col gap-4">
             <>
               <div
-                className="rounded-xl p-5 border"
-                style={{ backgroundColor: `${result.impairment.color}14`, borderColor: `${result.impairment.color}33` }}
+                className="bg-primary/10 border-l-4 border-primary rounded-lg p-5"
               >
-                <div className="text-[13px] font-bold mb-1 uppercase tracking-wider" style={{ color: result.impairment.color }}>Estimated BAC</div>
-                <div className="text-4xl font-extrabold text-foreground tracking-tight">{fmtBac(result.bac)}%</div>
-                <div className="text-sm font-semibold mt-1" style={{ color: result.impairment.color }}>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Estimated BAC</div>
+                <div className="text-4xl font-bold text-primary">{fmtBac(result.bac)}%</div>
+                <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold" style={{ backgroundColor: `${result.impairment.color}1A`, color: result.impairment.color }}>
                   {result.impairment.label}
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">{result.impairment.description}</div>

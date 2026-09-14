@@ -57,7 +57,7 @@ export default function SsdTbwCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const cap = parseFloat(inputs.capacity)

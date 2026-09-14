@@ -120,7 +120,7 @@ export default function GiftTaxCalculator() {
           </div>
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.estimatedTax > 0 ? "bg-red-50 dark:bg-red-950/20 border-red-500" : "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-500"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.estimatedTax > 0 ? "text-red-600" : "text-emerald-600"}`}>Estimated Tax Due</div>
                 <div className={`text-4xl font-extrabold tracking-tight ${result.estimatedTax > 0 ? "text-red-600" : "text-emerald-600"}`}>${result.estimatedTax.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.taxableGift > 0 && result.estimatedTax === 0 ? "No tax due, but IRS Form 709 is required." : result.estimatedTax === 0 ? "No tax due and no reporting required." : "Tax is due to the IRS."}</div>

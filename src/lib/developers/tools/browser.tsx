@@ -57,9 +57,11 @@ function LocalStorageManagerComp() {
   const del = (k: string) => { localStorage.removeItem(k); refresh(); };
   return (
     <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
-      <div className="flex gap-2">
-        <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="key" className="h-8 flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
-        <input value={val} onChange={(e) => setVal(e.target.value)} placeholder="value" className="h-8 flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
+      {/* flex-wrap: two flex-1 inputs + two buttons don't fit one 375px row;
+          wrap keeps the inputs usable and pushes Set/Clear All to a second line */}
+      <div className="flex flex-wrap gap-2">
+        <input value={key} onChange={(e) => setKey(e.target.value)} placeholder="key" className="h-8 min-w-[110px] flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
+        <input value={val} onChange={(e) => setVal(e.target.value)} placeholder="value" className="h-8 min-w-[110px] flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
         <button onClick={add} className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm">Set</button>
         <button onClick={() => { localStorage.clear(); refresh(); }} className="h-8 px-3 rounded-md border border-border text-sm">Clear All</button>
       </div>
@@ -347,8 +349,10 @@ function WebSocketTesterComp() {
   const close = () => { if (ws) ws.close(); };
   return (
     <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
-      <div className="flex gap-2">
-        <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="wss://..." className="h-8 flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
+      {/* flex-wrap + min-width so the URL stays readable and buttons wrap
+          below it instead of blowing the row past the card on narrow screens */}
+      <div className="flex flex-wrap gap-2">
+        <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="wss://..." className="h-8 min-w-[190px] flex-1 rounded-md border border-input bg-background px-2 text-sm font-mono" />
         <button onClick={connect} className="h-8 px-3 rounded-md bg-primary text-primary-foreground text-sm">Connect</button>
         <button onClick={send} className="h-8 px-3 rounded-md border border-border text-sm" disabled={!ws}>Send</button>
         <button onClick={close} className="h-8 px-3 rounded-md border border-destructive text-destructive text-sm" disabled={!ws}>Close</button>

@@ -194,7 +194,7 @@ export default function MortgageInsurancePremiumCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">PMI Information</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">PMI Information</div>
                 <p className="text-sm text-muted-foreground">Conventional PMI rates are based on LTV and credit score. FHA MIP rates are set by HUD. VA and USDA loans do not require monthly mortgage insurance.</p>
               </div>
             )}

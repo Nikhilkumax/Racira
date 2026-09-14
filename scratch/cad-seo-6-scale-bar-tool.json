@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "scale-bar-tool",
+    "varName": "scale_bar_toolSeo",
+    "name": "Scale Bar Tool",
+    "sections": [
+      {
+        "heading": "What is Scale Bar Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Scale Bar Tool draws a CAD-style graphical scale bar: you choose the drawing scale 1:X and the real distance each bar segment represents, and the tool computes the paper length of one segment and of the whole bar, then renders the bar the way a CAD block would insert it — alternating filled and white segments with monospace labels under each division. The bar is drawn at true scale in the tool's coordinate space, so it stays proportionally correct at any scale and any paper size."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool supports the five units that cover architectural and civil drafting: millimetres, centimetres, metres, inches and feet. It also handles fractional segments — you can ask for 2.5 segments and get the last segment drawn partial, exactly as a graphic scale would appear on a real title block."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Scale Bar Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the drawing scale as 1 : X — for a 1:50 drawing enter 50, for 1:100 enter 100. X is the number of real units that one paper unit represents.",
+              "<strong>Step 2:</strong> Choose the unit the real distances are measured in — metres for site plans, millimetres for detail drawings, feet and inches for imperial work.",
+              "<strong>Step 3:</strong> Enter how much real distance one bar segment represents (one metre, 5 feet, and so on), then the number of segments to draw.",
+              "<strong>Step 4:</strong> Read the bar geometry panel for the paper length of one segment, the full bar, and the total real distance the bar covers.",
+              "<strong>Step 5:</strong> Copy the rendered bar into your drawing as a block. Because the bar was drawn at true scale, it remains correct no matter what size the sheet is eventually plotted at."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The math is one division: paper length = real distance ÷ X. A one-metre segment on a 1:50 drawing is 1000 millimetres divided by 50, which is exactly 20 millimetres on paper. The label under each segment shows the real distance at that division, so the reader measures with the bar rather than with a calculator."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Scale Bar Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A graphical scale bar makes a drawing self-measuring: anyone reading the sheet can walk a divider or scale along the bar and read real distances directly, without knowing which paper size the drawing was plotted at or whether it was reduced to fit. That is why architectural and civil sheets carry them as standard, and why CAD blocks for scale bars are drawn once at true scale and inserted like any other block."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool removes the arithmetic failure modes of hand-built bars — a wrong division when converting feet to millimetres, or a bar drawn at the wrong scale that quietly disagrees with the drawing's 1:X title. Because the segment length is computed from the scale you enter, the bar and the drawing's stated scale can never drift apart."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is a scale bar drawn once at true scale rather than scaled per sheet?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a block inserted at true scale stays correct no matter what happens to the sheet later. If the drawing is plotted at a non-standard size, reduced to fit, or copied between projects, the bar scales together with the geometry it annotates — the relationship between the bar and the drawing is preserved automatically. A bar built at the wrong scale, by contrast, silently disagrees with the drawing's stated scale and can mislead anyone measuring from the sheet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is the paper length of a segment computed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "One paper segment equals the real distance divided by the scale denominator X, after converting the real distance to millimetres. A one-metre segment at 1:50 is 1000 millimetres divided by 50, which works out to exactly 20 millimetres on paper; at 1:100 the same segment is 10 millimetres. The full bar is that segment length times the number of segments, so five one-metre segments at 1:50 span 100 millimetres and represent 5 metres of real distance."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does a 5-foot segment at 1:50 measure 30.48 millimetres?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the tool converts the real distance to millimetres before dividing: 5 feet is 1524 millimetres (5 × 304.8), and 1524 divided by 50 is 30.48 millimetres on paper. The mixed-unit case is exactly where hand-built bars go wrong — treating feet as metres, or forgetting the 304.8 conversion — so the tool keeps the unit conversion inside the same calculation as the scale division."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can the bar mix metric and imperial units?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The bar itself is drawn in one unit at a time, but the scale relationship works across systems: the paper length is always computed in millimetres from the real distance converted via the chosen unit, so a 1:50 metric drawing and a 1:50 imperial drawing produce proportionally identical bars. If a project mixes units, draw the bar in the unit the drawing's dimensions are stated in, and let the label values carry the real distances."
+          }
+        ]
+      }
+    ]
+  }
+]

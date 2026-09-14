@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "scale-factor-calculator",
+    "varName": "scale_factor_calculatorSeo",
+    "name": "Scale Factor Calculator",
+    "sections": [
+      {
+        "heading": "What is Scale Factor Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Scale Factor Calculator converts between a length as drawn and the same length in the real world, producing the three numbers every scaled drawing needs: the scale factor, the architect scale ratio, and the percentage of full size. You enter any two lengths in the same unit and the tool does the rest, so there is no mental arithmetic about whether to multiply or divide. A wall drawn 50 mm long that represents 2.5 m of real wall gives a scale factor of 0.02 and an architect scale of 1:50 — the ratio you actually write in the title block."
+          },
+          {
+            "type": "paragraph",
+            "text": "The relationship the tool uses is simple but worth stating precisely: the scale factor is drawn length divided by real-world length, the 1:X scale is real-world length divided by drawn length, and the percentage is the factor expressed as a percent. A factor below 1 is a reduction scale, which covers almost everything from site plans down to component details. A factor above 1 is an enlargement — the tool handles both directions, including the awkward case of enlarging a small part that is already drawn at 2:1 up to 5:1 for a detail view."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Scale Factor Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the unit from the Unit selector — millimetres, centimetres, metres, inches or feet. Both lengths are interpreted in that unit, and the unit never affects the math, only what the numbers mean.",
+              "<strong>Step 2:</strong> Enter the Length on drawing field. This is the dimension you measured off the paper, PDF or model — for example 50 for a wall that spans 50 mm on the sheet.",
+              "<strong>Step 3:</strong> Enter the Real-world length field. This is the true size of the object — for example 2500 if the wall is really 2.5 m and you are working in millimetres.",
+              "<strong>Step 4:</strong> Read the results panel. Scale factor shows drawn divided by real, 1:X shows the architect scale rounded to three places, and Percent of full size shows the factor as a percentage.",
+              "<strong>Step 5:</strong> Check your work against a known case: 50 drawn over 2500 real must produce exactly 1:50. If it does not, one of the two lengths is in the wrong unit — the most common mistake is mixing millimetres with metres."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Scale Factor Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Scale errors are one of the most expensive mistakes in drawing production because they propagate through every dimension and every downstream fabrication step. A detail drawn at the wrong factor produces parts that do not fit, or a sheet that has to be redone entirely. This tool removes the arithmetic from the two directions that cause the most confusion — deciding whether to divide or multiply, and expressing the result as 1:X rather than as a bare decimal."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is also a fast sanity check when you inherit drawings from another office or export from a tool with an unexpected scale. Measure one known feature, type the real dimension, and you instantly know what factor the file is actually at. Because everything runs in the browser, there is no upload step and no delay — useful when you are mid-task and need the answer now."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between scale factor and the 1:X ratio?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are reciprocals of each other. The scale factor is drawn length divided by real length, so a 1:50 drawing has a factor of 0.02. The 1:X notation used in title blocks is the real length divided by the drawn length — the X in 1:50. The tool shows both because drawings are described either way depending on the discipline: architects and structural engineers usually say 1:50, while detailers comparing a part to full size often think in factors."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can the calculator handle enlargement scales like 2:1 or 5:1?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Enter a drawn length that is longer than the real length and the factor comes out above 1, with the 1:X result shown as a ratio below one (for example 1:0.5 for a 2:1 detail). Small-part details and thread callouts are commonly drawn enlarged so that the geometry is legible, and the same formula applies in both directions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the scale factor stay the same whatever unit I pick?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the tool divides one length by another, and as long as both lengths share a unit the unit cancels out. Switching from millimetres to inches only changes what you type into the fields. The unit selector is there for convenience and clarity, not because it changes the result — the same reason you can mix feet and inches by converting to a single unit first."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How accurate is the 1:X result?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The ratio is computed from your exact inputs and rounded to three decimal places for display, which is far more precision than a scale can be read on paper. The percentage and factor are trimmed rather than arbitrarily padded, so 1:50 shows as 0.02 factor and 2% — no trailing-noise decimals. If you need a non-standard scale for a specific ruler, the three-place ratio is enough to reproduce it on a plot."
+          }
+        ]
+      }
+    ]
+  }
+]

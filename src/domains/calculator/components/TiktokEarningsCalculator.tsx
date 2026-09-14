@@ -59,7 +59,7 @@ export default function TiktokEarningsCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const v = parseFloat(inputs.views)

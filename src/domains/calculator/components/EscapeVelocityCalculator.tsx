@@ -216,11 +216,9 @@ const EscapeVelocityCalculator = () => {
                 First Cosmic Velocity (V₁) — read‑only
               </label>
               <div className="flex gap-2">
-                <input
-                  readOnly
-                  value={result ? fmt(result.v1_out) : "—"}
-                  className="h-10 flex-1 px-3 text-lg rounded-md border border-input bg-muted/40 text-primary font-bold outline-none cursor-not-allowed"
-                />
+                <div className="h-10 flex-1 px-3 text-lg rounded-md border border-input bg-muted/40 text-primary font-bold flex items-center truncate">
+                  {result ? fmt(result.v1_out) : "—"}
+                </div>
                 <select
                   value={v1Unit}
                   onChange={(e) => setV1Unit(e.target.value)}
@@ -239,11 +237,9 @@ const EscapeVelocityCalculator = () => {
                 Escape Velocity (Vₑ) — read‑only
               </label>
               <div className="flex gap-2">
-                <input
-                  readOnly
-                  value={result ? fmt(result.ve_out) : "—"}
-                  className="h-10 flex-1 px-3 text-lg rounded-md border border-input bg-muted/40 text-primary font-bold outline-none cursor-not-allowed"
-                />
+                <div className="h-10 flex-1 px-3 text-lg rounded-md border border-input bg-muted/40 text-primary font-bold flex items-center truncate">
+                  {result ? fmt(result.ve_out) : "—"}
+                </div>
                 <select
                   value={veUnit}
                   onChange={(e) => setVeUnit(e.target.value)}

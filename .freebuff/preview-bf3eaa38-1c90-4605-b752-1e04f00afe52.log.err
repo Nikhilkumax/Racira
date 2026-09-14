@@ -1,0 +1,45 @@
+ ⨯ ./src/domains/cad/components/tools/easy/scale-paper-tool.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4mC:\Racira\racira-nextjs\src\domains\cad\components\tools\easy\scale-paper-tool.tsx[0m:571:1]
+ [2m571[0m |   let optionIdx = -1;
+ [2m572[0m | 
+ [2m573[0m |   return (
+ [2m574[0m |     <div className="block" ref={rootRef}>
+     : [31;1m     ^^^[0m
+ [2m575[0m |       <label
+ [2m576[0m |         htmlFor={`paper-${id}`}
+ [2m577[0m |         className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/domains/cad/components/tools/easy/scale-paper-tool.tsx
+./src/domains/cad/components/tools/easy/registry.tsx
+./src/app/cad/[slug]/page.tsx
+ ⨯ ./src/domains/cad/components/tools/easy/scale-paper-tool.tsx
+Error: 
+  [31mx[0m Unexpected token `div`. Expected jsx identifier
+     ,-[[36;1;4mC:\Racira\racira-nextjs\src\domains\cad\components\tools\easy\scale-paper-tool.tsx[0m:571:1]
+ [2m571[0m |   let optionIdx = -1;
+ [2m572[0m | 
+ [2m573[0m |   return (
+ [2m574[0m |     <div className="block" ref={rootRef}>
+     : [31;1m     ^^^[0m
+ [2m575[0m |       <label
+ [2m576[0m |         htmlFor={`paper-${id}`}
+ [2m577[0m |         className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground"
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/domains/cad/components/tools/easy/scale-paper-tool.tsx
+./src/domains/cad/components/tools/easy/registry.tsx
+./src/app/cad/[slug]/page.tsx
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Racira\racira-nextjs\.next\cache\webpack\client-development-fallback\0.pack.gz'
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload

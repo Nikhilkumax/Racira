@@ -335,8 +335,10 @@ export default function RvLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Trade-In & Taxes</div>
                   <CompactInput id="trade-owed" label="Owed on Trade-In" value={amountOwedOnTradeIn} onChange={setAmountOwedOnTradeIn} prefix="$" />
                   <CompactInput id="tax" label="Sales Tax Rate" value={salesTaxRate} onChange={setSalesTaxRate} suffix="%" />
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Fees & Prep</div>
                   <CompactInput id="fees" label="Title & Reg Fees" value={titleAndRegistrationFees} onChange={setTitleAndRegistrationFees} prefix="$" />
                   <CompactInput id="dealer-fees" label="Dealer Prep Fees" value={dealerFees} onChange={setDealerFees} prefix="$" />
                   <div className="flex items-center gap-2 col-span-2 mt-2">

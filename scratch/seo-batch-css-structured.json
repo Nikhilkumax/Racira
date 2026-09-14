@@ -1,0 +1,2288 @@
+[
+  {
+    "slug": "css-formatter",
+    "varName": "CssFormatterSeo",
+    "name": "CSS Formatter",
+    "sections": [
+      {
+        "heading": "What is CSS Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Formatter pretty-prints CSS with consistent indentation, line breaks, and property ordering. It parses CSS input, normalizes whitespace, and outputs clean, readable CSS with configurable indentation (2 or 4 spaces). The formatter handles selectors, media queries, keyframes, and nested structures."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSS into the input area.",
+              "<strong>Step 2:</strong> Select indentation size.",
+              "<strong>Step 3:</strong> Click Transform. The formatted CSS appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Minified CSS from preprocessors, auto-generated CSS from frameworks, and hand-edited CSS all benefit from consistent formatting. A formatter makes stylesheets readable, helps identify missing semicolons or braces, and produces consistent output for version control."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle SCSS/Less?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The formatter handles standard CSS. SCSS/Less files with nesting, variables, or mixins may not parse correctly — use a SCSS-specific formatter for those."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it sort properties?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The formatter only handles indentation and spacing. Property order is preserved as-is. Use a CSS linting tool for property sorting."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-minifier",
+    "varName": "CssMinifierSeo",
+    "name": "CSS Minifier",
+    "sections": [
+      {
+        "heading": "What is CSS Minifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Minifier removes all unnecessary whitespace, comments, and formatting from CSS, producing the smallest possible representation. It strips comments, collapses whitespace, removes trailing semicolons before closing braces, and shortens color codes where possible (e.g., <code>#ffffff</code> to <code>#fff</code>)."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Minifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste formatted CSS into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The minified CSS appears with a size comparison."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Minifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Minification typically reduces CSS file size by 20-40%, directly improving page load time. This matters for production deployments, especially for mobile users on slow connections."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is minified CSS valid?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Minification only removes whitespace and comments. The resulting CSS is syntactically identical and parsed identically by browsers."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle @import?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. @import statements are preserved as-is. For combining multiple CSS files and minifying the result, use a build tool like PostCSS or esbuild."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "box-shadow-generator",
+    "varName": "BoxShadowGeneratorSeo",
+    "name": "Box Shadow Generator",
+    "sections": [
+      {
+        "heading": "What is Box Shadow Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Box Shadow Generator creates CSS <code>box-shadow</code> values with interactive controls for horizontal offset, vertical offset, blur radius, spread radius, inset toggle, and color. The output is a ready-to-use CSS declaration that you can paste directly into stylesheets. Multiple shadow layers are supported for complex effects."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Box Shadow Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust the shadow properties using the controls (offsets, blur, spread, color).",
+              "<strong>Step 2:</strong> The preview updates in real-time showing the shadow effect.",
+              "<strong>Step 3:</strong> Copy the generated CSS for use in your styles."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Box Shadow Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Box shadows with multiple layers and complex offsets are hard to visualize without a preview. This tool lets you see the effect in real-time as you adjust parameters, avoiding the trial-and-error cycle of editing CSS, saving, refreshing, and checking the browser."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between blur and spread?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Blur controls how soft/feathered the shadow edges are (higher = softer). Spread controls the size of the shadow relative to the element (positive = larger, negative = smaller)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do multiple shadows work?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Multiple box-shadow values are comma-separated. The first shadow in the list renders on top. This tool lets you stack multiple shadows for complex effects like layered depth."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "text-shadow-generator",
+    "varName": "TextShadowGeneratorSeo",
+    "name": "Text Shadow Generator",
+    "sections": [
+      {
+        "heading": "What is Text Shadow Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Text Shadow Generator creates CSS <code>text-shadow</code> values with controls for horizontal offset, vertical offset, blur radius, and color. It supports multiple shadow layers for effects like glowing text, 3D text, and outlined text. The output is a CSS declaration ready for use."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Text Shadow Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust shadow parameters using the controls.",
+              "<strong>Step 2:</strong> Preview the text effect on sample text in real-time.",
+              "<strong>Step 3:</strong> Copy the generated CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Text Shadow Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Text shadows create decorative typography effects — glowing neon text, subtle depth, retro 3D effects. These effects require precise combinations of offset, blur, and color that are difficult to guess. The real-time preview lets you iterate quickly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I create a solid outline effect?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Stack multiple shadows with zero blur and small offsets in all directions: <code>1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does text-shadow affect performance?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Multiple text-shadow layers can impact rendering performance on large text blocks. Keep shadow layers to 3-4 for best performance."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "border-radius-generator",
+    "varName": "BorderRadiusGeneratorSeo",
+    "name": "Border Radius Generator",
+    "sections": [
+      {
+        "heading": "What is Border Radius Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Border Radius Generator creates CSS <code>border-radius</code> values with visual controls for each corner (top-left, top-right, bottom-right, bottom-left) and horizontal/vertical radii. The preview shows the effect in real-time on a sample element, including the ability to create asymmetric shapes."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Border Radius Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust individual corner radii using the sliders.",
+              "<strong>Step 2:</strong> Preview the shape in real-time.",
+              "<strong>Step 3:</strong> Copy the generated CSS property."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Border Radius Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Complex border-radius values with different horizontal and vertical radii per corner are hard to visualize. Creating a leaf shape, a speech bubble, or an organic blob requires precise combinations. This tool makes it visual."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What do the two values per corner mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The first value is the horizontal radius (how far the curve extends left-right), the second is the vertical radius (how far it extends top-bottom). Different values create elliptical corners."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I create a perfect circle?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Set border-radius to 50% on a square element (width equals height). The generator includes a quick-set button for this."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-triangle-generator",
+    "varName": "CssTriangleGeneratorSeo",
+    "name": "CSS Triangle Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Triangle Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Triangle Generator creates pure CSS triangles using the border-width trick (transparent borders with one colored border). It lets you choose direction (up, down, left, right, or custom angle), size, color, and outputs the CSS including the necessary width, height, and border properties."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Triangle Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select the triangle direction.",
+              "<strong>Step 2:</strong> Adjust size and color.",
+              "<strong>Step 3:</strong> Copy the generated CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Triangle Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS triangles are used for tooltips, dropdown menus, chat bubbles, and directional indicators. The border-width trick is unintuitive — you need transparent borders on three sides and a colored border on the fourth, with specific width/height calculations. This generator handles the math."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why not just use an SVG or image?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS triangles scale perfectly, require no HTTP requests, can be colored with any CSS color (including rgba for transparency), and inherit font size for responsive sizing. They're also animatable with CSS transitions."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-filter-generator",
+    "varName": "CssFilterGeneratorSeo",
+    "name": "CSS Filter Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Filter Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Filter Generator creates CSS <code>filter</code> property values with visual controls for blur, brightness, contrast, grayscale, hue-rotate, invert, opacity, saturate, sepia, and drop-shadow. The preview applies the filter in real-time to a sample image, showing the exact visual result before you copy the CSS."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Filter Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust filter values using the sliders.",
+              "<strong>Step 2:</strong> Preview the effect on the sample image.",
+              "<strong>Step 3:</strong> Copy the combined CSS filter declaration."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Filter Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS filters combine multiple effects (blur + brightness + contrast) in a single declaration. The exact values are hard to guess — 1.2 brightness vs 1.3 looks very different. The real-time preview on a sample image lets you find the right combination quickly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do CSS filters work in all browsers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Most filters are supported in all modern browsers. The <code>filter</code> property has excellent support (95%+ globally). Older IE doesn't support it — use the -ms-filter prefix for legacy support."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I animate CSS filters?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Most filter functions are animatable with CSS transitions and keyframe animations. Blur and opacity transitions are especially popular for hover effects."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "cubic-bezier-generator",
+    "varName": "CubicBezierGeneratorSeo",
+    "name": "Cubic Bezier Generator",
+    "sections": [
+      {
+        "heading": "What is Cubic Bezier Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Cubic Bezier Generator creates CSS <code>cubic-bezier()</code> timing function values for animations and transitions. It provides a visual curve editor with draggable control points, preset easing curves (ease-in, ease-out, ease-in-out, custom bounce), and real-time animation preview showing how the curve affects element movement."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Cubic Bezier Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Drag the control points on the curve editor to shape the easing.",
+              "<strong>Step 2:</strong> Preview the animation with the current curve on a sample element.",
+              "<strong>Step 3:</strong> Copy the <code>cubic-bezier(x1, y1, x2, y2)</code> value."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Cubic Bezier Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Cubic bezier curves control the acceleration of CSS animations. The four numeric values (two control points) define a curve that's nearly impossible to visualize without a graphical editor. This tool makes the abstract math tangible by showing the curve and the resulting animation side by side."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What do the four numbers mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The four numbers define two control points: (x1,y1) and (x2,y2). X values range 0-1 (time progression), Y values can exceed 1 (causing overshoot/bounce). (0.25, 0.1, 0.25, 1.0) is the standard ease curve."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I create a bounce effect?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Set the second control point's Y value above 1.0 (like 1.5) to create an overshoot that looks like a bounce. The element will overshoot its target position before settling."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-unit-converter",
+    "varName": "CssUnitConverterSeo",
+    "name": "CSS Unit Converter",
+    "sections": [
+      {
+        "heading": "What is CSS Unit Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Unit Converter translates between different CSS measurement units: pixels (px), ems (em), rems (rem), viewport width (vw), viewport height (vh), points (pt), and percent (%). It calculates conversions based on configurable parent font size and root font size, showing the equivalent value in all units simultaneously."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Unit Converter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter a value and select its unit.",
+              "<strong>Step 2:</strong> Set the reference sizes (root font size, parent font size).",
+              "<strong>Step 3:</strong> Click Transform. Equivalents in all units appear."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Unit Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When converting a design from fixed pixels to responsive units (em, rem, vw), or when debugging why an element is the wrong size, you need to know the equivalent across units. This tool handles the math for you, accounting for the font-size context that em and rem depend on."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between em and rem?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>em</code> is relative to the parent element's font size. <code>rem</code> is relative to the root (html) element's font size. Rem provides consistent sizing regardless of nesting depth."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does font size matter for conversion?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Em and rem values are calculated from font sizes. <code>1.5em</code> at 16px parent = 24px. <code>1.5rem</code> at 16px root = 24px. Different reference sizes produce different pixel equivalents."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "rem-px-converter",
+    "varName": "RemPxConverterSeo",
+    "name": "REM ↔ PX Converter",
+    "sections": [
+      {
+        "heading": "What is REM ↔ PX Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The REM↔PX Converter converts between rem and pixel units based on a configurable root font size (default: 16px). Enter a value in either unit and see the equivalent in the other. Quick-reference tables show common conversions for the most-used values."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use REM ↔ PX Converter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter a value in rem or px.",
+              "<strong>Step 2:</strong> Set the root font size if different from 16px.",
+              "<strong>Step 3:</strong> Click Transform. The conversion appears along with a reference table."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use REM ↔ PX Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "REM units are the standard for responsive typography and spacing, but designers provide measurements in pixels. Converting between them is a daily task for frontend developers. This tool provides instant conversion plus a reference table for the most common values."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is 16px the default root font size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "16px is the default font size in all major browsers for the <code>&lt;html&gt;</code> element. Most CSS frameworks and design systems use this as their base."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "clamp-calculator",
+    "varName": "ClampCalculatorSeo",
+    "name": "Clamp Calculator",
+    "sections": [
+      {
+        "heading": "What is Clamp Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Clamp Calculator generates CSS <code>clamp()</code> expressions for responsive values that scale between a minimum and maximum with a preferred fluid value. It calculates the slope (rate of scaling) and intercept (offset) needed for the fluid formula: <code>preferred = intercept + slope × viewport</code>. Output is a ready-to-use <code>clamp(min, preferred, max)</code> declaration."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Clamp Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the minimum and maximum values (in px, rem, or other units).",
+              "<strong>Step 2:</strong> Enter the viewport range (min-width and max-width where scaling applies).",
+              "<strong>Step 3:</strong> Click Transform. The <code>clamp()</code> expression and its linear formula appear."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Clamp Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fluid typography and spacing with <code>clamp()</code> eliminates media queries for sizing, but the math (slope and intercept calculations) is tedious to do by hand. This calculator handles the linear interpolation formula, producing correct <code>clamp()</code> values that scale smoothly between breakpoints."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is clamp()?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>clamp(min, preferred, max)</code> returns the preferred value if it's between min and max, min if preferred is below min, and max if preferred is above max. The preferred value is typically a fluid formula based on viewport width."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use different units in clamp?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The min and max can be in different units from the preferred value. For example: <code>clamp(1rem, 2.5vw + 0.5rem, 3rem)</code> — px for min/max, viewport-relative for preferred."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-clamp-generator",
+    "varName": "CssClampGeneratorSeo",
+    "name": "CSS Clamp Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Clamp Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Clamp Generator creates CSS <code>clamp()</code> expressions for fluid responsive values. It calculates the linear scaling formula between minimum and maximum values over a viewport range, handling the slope and intercept math. The output is a ready-to-use <code>clamp()</code> CSS declaration."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Clamp Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter min and max values with their units.",
+              "<strong>Step 2:</strong> Enter the viewport range where scaling should occur.",
+              "<strong>Step 3:</strong> Click Transform. The clamp() expression appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Clamp Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fluid typography is a core modern CSS technique, but the linear interpolation math behind <code>clamp()</code> is error-prone to calculate manually. This generator produces correct values that scale smoothly, eliminating the need for media query breakpoints."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is this different from Clamp Calculator?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both tools serve the same purpose. This generator is optimized for producing clamp() CSS declarations directly, while the Clamp Calculator provides more detailed output including the linear formula breakdown."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-loader-generator",
+    "varName": "CssLoaderGeneratorSeo",
+    "name": "CSS Loader Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Loader Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Loader Generator creates pure CSS loading spinners and animations without any JavaScript or images. It generates spinner animations (circular, dots, bars), pulse effects, and skeleton loaders using CSS keyframes, transforms, and border tricks. The output is copy-paste ready CSS with matching HTML."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Loader Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select a loader style (spinner, dots, bars, pulse).",
+              "<strong>Step 3:</strong> Copy the generated CSS and HTML."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Loader Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Loading indicators are needed on every web application, but creating smooth, cross-browser CSS animations from scratch is time-consuming. This generator provides production-ready loader code that works without JavaScript, images, or external libraries."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do CSS loaders work in all browsers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. CSS keyframe animations are supported in all modern browsers. The generated loaders use standard properties (transform, opacity, border) with excellent compatibility."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I customize the animation speed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Each loader includes an animation-duration parameter that you can adjust. Most default to 0.8-1.2 seconds per cycle."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-clip-path-generator",
+    "varName": "CssClipPathGeneratorSeo",
+    "name": "CSS Clip Path Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Clip Path Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Clip Path Generator creates <code>clip-path</code> declarations using polygon, circle, ellipse, and inset functions. It provides a visual editor with draggable points for polygon mode, sliders for circle/ellipse radius, and real-time preview of the clipped shape on a sample element."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Clip Path Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose a shape type (polygon, circle, ellipse, inset).",
+              "<strong>Step 2:</strong> Adjust points/radii using the visual controls.",
+              "<strong>Step 3:</strong> Copy the generated <code>clip-path</code> CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Clip Path Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Clip paths create non-rectangular shapes — diagonals, circles, hexagons, custom silhouettes — without images. The polygon function requires precise percentage coordinates that are nearly impossible to visualize without a graphical editor. This tool makes it visual."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do clip-paths work in all browsers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Basic clip-path (circle, polygon, inset) is supported in all modern browsers (95%+). The <code>url()</code> syntax with SVG references has more limited support."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I animate clip-paths?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes! Clip-paths with the same shape type (e.g., polygon to polygon with the same number of points) can be animated with CSS transitions and keyframes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-masking-generator",
+    "varName": "CssMaskingGeneratorSeo",
+    "name": "CSS Masking Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Masking Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Masking Generator creates CSS <code>mask</code> and <code>-webkit-mask</code> declarations for hiding parts of elements. It supports linear and radial gradient masks, SVG masks, and alpha masks. The visual controls let you adjust gradient stops, directions, and shapes with real-time preview."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Masking Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose a mask type (gradient, image, SVG).",
+              "<strong>Step 2:</strong> Adjust the mask parameters with visual controls.",
+              "<strong>Step 3:</strong> Copy the generated CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Masking Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS masks create complex visual effects — fade-ins, reveal animations, custom shapes — by controlling element visibility. Unlike clip-path (which uses geometry), masks use grayscale/alpha values to control opacity at each pixel, enabling smooth gradients and complex shapes."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is masking different from clip-path?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Clip-path creates hard geometric edges. Masks use grayscale values for smooth opacity transitions — a gradient mask can fade an element to transparency over any shape."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-counter-style-generator",
+    "varName": "CssCounterStyleGeneratorSeo",
+    "name": "CSS Counter Style Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Counter Style Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Counter Style Generator creates custom <code>@counter-style</code> rules for list markers, ordered list numbering, and any element using the CSS counters API. It supports custom symbols, suffixes, ranges, and fallback systems. The output is a CSS @counter-style rule ready for use."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Counter Style Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose a numbering system (decimal, roman, alpha, custom symbols).",
+              "<strong>Step 2:</strong> Customize prefix, suffix, symbols, and range.",
+              "<strong>Step 3:</strong> Copy the generated @counter-style CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Counter Style Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Custom counter styles let you use emoji markers, alternative numbering systems, or domain-specific symbols in ordered lists without JavaScript. The @counter-style spec is powerful but verbose — this generator handles the syntax complexity."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What browsers support @counter-style?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chrome 91+, Firefox 33+ (with prefix), Safari 17+. For broader support, combine with JavaScript counter fallbacks."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-custom-properties-inspector",
+    "varName": "CssCustomPropertiesInspectorSeo",
+    "name": "CSS Custom Properties Inspector",
+    "sections": [
+      {
+        "heading": "What is CSS Custom Properties Inspector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Custom Properties Inspector analyzes CSS code and extracts all custom properties (--variable-name), their values, and where they're defined and used. It shows the full dependency tree of CSS variables, including inherited values and computed values at different cascade levels."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Custom Properties Inspector",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSS code containing custom properties.",
+              "<strong>Step 2:</strong> Click Transform. The inspector lists all --variables with their values and sources."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Custom Properties Inspector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Large design systems define hundreds of CSS variables across multiple files. Tracking where a variable is defined, what it overrides, and where it's used requires manual traversal of the cascade. This inspector makes the variable map visible at a glance."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it show computed values?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It shows the declared values. Computed values (after inheritance, calc(), and var() resolution) would require browser DevTools — this tool focuses on static analysis of the CSS source."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "tailwind-class-sorter",
+    "varName": "TailwindClassSorterSeo",
+    "name": "Tailwind Class Sorter",
+    "sections": [
+      {
+        "heading": "What is Tailwind Class Sorter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Tailwind Class Sorter alphabetizes Tailwind CSS utility classes within HTML class attributes. It preserves the correct Tailwind recommended order (layout → spacing → typography → visual → interactive) while removing duplicates and normalizing whitespace. The output is clean, consistently-ordered class lists."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Tailwind Class Sorter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste HTML with Tailwind classes into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The sorted class attribute appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Tailwind Class Sorter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Long Tailwind class lists (<code>class=\"flex items-center justify-between p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200\"</code>) become unreadable without consistent ordering. Sorting by category (layout, spacing, typography) makes class lists scannable and merge-friendly for version control."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it remove duplicate classes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Duplicate classes are deduplicated, keeping only the last occurrence (which takes precedence in CSS)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it work with Tailwind v4?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The sorting algorithm is based on class name patterns and works across Tailwind versions. Version-specific classes may need manual adjustment."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "tailwind-class-merger",
+    "varName": "TailwindClassMergerSeo",
+    "name": "Tailwind Class Merger",
+    "sections": [
+      {
+        "heading": "What is Tailwind Class Merger",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Tailwind Class Merger combines two or more sets of Tailwind CSS classes, resolving conflicts by keeping only the last conflicting utility for each property group. For example, <code>p-4 p-8</code> becomes <code>p-8</code> and <code>text-red-500 text-blue-500</code> becomes <code>text-blue-500</code>."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Tailwind Class Merger",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the first set of classes in the left input.",
+              "<strong>Step 2:</strong> Enter the second set in the right input.",
+              "<strong>Step 3:</strong> Click Transform. The merged, deduplicated class list appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Tailwind Class Merger",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When extending component classes with variant-specific overrides, you need to merge class lists without conflicts. Manually checking for conflicts in long class lists is error-prone. This tool automatically resolves conflicts and produces a clean merged result."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does it handle responsive variants?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Responsive prefixes (<code>sm:</code>, <code>md:</code>, <code>lg:</code>) are treated as separate groups. <code>p-4 sm:p-8</code> keeps both because they apply at different breakpoints."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-to-tailwind-converter",
+    "varName": "CssToTailwindConverterSeo",
+    "name": "CSS to Tailwind Converter",
+    "sections": [
+      {
+        "heading": "What is CSS to Tailwind Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS to Tailwind Converter analyzes CSS rules and suggests equivalent Tailwind CSS utility classes. It maps common CSS properties to their Tailwind equivalents: <code>display: flex</code> → <code>flex</code>, <code>padding: 1rem</code> → <code>p-4</code>, <code>color: #ef4444</code> → <code>text-red-500</code>. For properties without exact Tailwind matches, it suggests the closest equivalent."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS to Tailwind Converter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSS rules into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The suggested Tailwind classes appear."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS to Tailwind Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Migrating from custom CSS to Tailwind requires translating each property to its utility class equivalent. This conversion is mechanical but tedious for large stylesheets. The converter automates the translation, flagging properties that need manual review."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle complex selectors?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It handles simple selectors well (class, id, element). Complex selectors (combinators, pseudo-classes) may need manual translation to Tailwind's variant syntax (hover:, focus:, group-hover:)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-specificity-calculator",
+    "varName": "CssSpecificityCalculatorSeo",
+    "name": "CSS Specificity Calculator",
+    "sections": [
+      {
+        "heading": "What is CSS Specificity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Specificity Calculator computes the specificity score of CSS selectors using the standard (a, b, c) formula: (inline styles, IDs, classes/attributes/pseudo-classes). It shows the numeric specificity for each selector you enter, making it easy to compare which selector wins when multiple rules target the same element."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Specificity Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter one or more CSS selectors (one per line).",
+              "<strong>Step 2:</strong> Click Transform. The specificity score for each selector appears.",
+              "<strong>Step 3:</strong> Compare scores — higher scores win in the cascade."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Specificity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Understanding why one CSS rule overrides another is fundamental to debugging styles. Specificity is often misunderstood — developers assume !important is always needed when the real issue is specificity mismatch. This tool makes the calculation concrete."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the specificity formula?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "(a, b, c) where a = inline styles (0 or 1), b = number of IDs, c = number of classes, attributes, and pseudo-classes. Elements and pseudo-elements don't contribute to the standard calculation. <code>#nav .active</code> = (0, 1, 1)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle :is() and :has()?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>:is()</code> uses the specificity of its most specific argument. <code>:has()</code> is treated like <code>:is()</code>. The calculator accounts for these selectors."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "scrollbar-generator",
+    "varName": "ScrollbarGeneratorSeo",
+    "name": "Scrollbar Generator",
+    "sections": [
+      {
+        "heading": "What is Scrollbar Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Scrollbar Generator creates custom scrollbar styles using the CSS Scrollbar Styling API (<code>::-webkit-scrollbar</code> pseudo-elements and the <code>scrollbar-width</code>/<code>scrollbar-color</code> standard properties). It provides visual controls for thumb color, track color, width, border-radius, and hover states."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Scrollbar Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust scrollbar appearance using the controls.",
+              "<strong>Step 2:</strong> Preview the custom scrollbar on a sample scrollable area.",
+              "<strong>Step 3:</strong> Copy the generated CSS for both WebKit and standard properties."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Scrollbar Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Default browser scrollbars are ugly and inconsistent across platforms. Custom scrollbars match your design system, but the WebKit scrollbar API has many pseudo-elements and the standard properties are different. This generator produces cross-browser compatible CSS."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do custom scrollbars work in all browsers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "WebKit scrollbar pseudo-elements work in Chrome, Edge, Safari, and Firefox 64+. The standard <code>scrollbar-width</code> and <code>scrollbar-color</code> properties work in Firefox 64+ and Chrome 121+. The generator outputs both approaches."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-blob-generator",
+    "varName": "SvgBlobGeneratorSeo",
+    "name": "SVG Blob Generator",
+    "sections": [
+      {
+        "heading": "What is SVG Blob Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Blob Generator creates organic, amorphous blob shapes using SVG <code>&lt;path&gt;</code> elements with cubic Bezier curves. It provides controls for the number of points, randomization, smoothness, and size. Each generation produces a unique blob shape. The SVG code is ready for use in HTML, CSS backgrounds, or as clip-path sources."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Blob Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust the number of points and smoothness.",
+              "<strong>Step 2:</strong> Click Generate to create new random blobs.",
+              "<strong>Step 3:</strong> Copy the SVG code for use in your project."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Blob Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Blob shapes are popular in modern web design for hero sections, card backgrounds, and decorative elements. Hand-coding cubic Bezier paths for organic shapes is tedious. This generator produces random, aesthetically pleasing blobs instantly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use blobs as CSS clip-paths?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Export the blob path data and use it in <code>clip-path: url(#blob)</code> or convert to a <code>clip-path: path()</code> declaration."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Are the blobs scalable?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. SVG is resolution-independent. The blobs scale to any size without quality loss, making them perfect for responsive designs."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-wave-generator",
+    "varName": "SvgWaveGeneratorSeo",
+    "name": "SVG Wave Generator",
+    "sections": [
+      {
+        "heading": "What is SVG Wave Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Wave Generator creates wave-shaped SVG dividers for section separators in web designs. It generates smooth sine-wave, triangular, or custom wave paths using SVG <code>&lt;path&gt;</code> elements with configurable wave count, amplitude, phase, and fill color. The output is ready-to-use SVG or CSS background code."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Wave Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Adjust wave parameters (count, height, flatness).",
+              "<strong>Step 2:</strong> Choose fill color and direction (top/bottom).",
+              "<strong>Step 3:</strong> Copy the SVG code."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Wave Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wave dividers between page sections are a common design pattern. Creating smooth wave paths by hand requires mathematical precision. This generator handles the trigonometry and produces visually appealing wave shapes."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I position the wave between sections?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Place the SVG as an absolute-positioned element at the bottom of the upper section or top of the lower section. Set width:100% and adjust the viewBox for responsive scaling."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-background-generator",
+    "varName": "SvgBackgroundGeneratorSeo",
+    "name": "SVG Background Generator",
+    "sections": [
+      {
+        "heading": "What is SVG Background Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Background Generator creates inline SVG backgrounds with patterns, gradients, and shapes for use in CSS <code>background-image</code> or as HTML elements. It supports dot grids, line patterns, geometric shapes, noise textures, and gradient overlays with customizable colors and density."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Background Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select a pattern type (dots, lines, grid, gradient, noise).",
+              "<strong>Step 2:</strong> Customize colors, size, and spacing.",
+              "<strong>Step 3:</strong> Copy the inline SVG or data URI for use in CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Background Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG backgrounds are resolution-independent, tiny in file size, and infinitely customizable. They replace heavy image backgrounds for patterns and textures. This generator creates production-ready SVG backgrounds without needing vector graphics software."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I use the SVG as a CSS background?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Encode the SVG as a data URI: <code>background-image: url(\"data:image/svg+xml,...\")</code>. The generator provides this encoded output directly."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-to-jsx",
+    "varName": "SvgToJsxSeo",
+    "name": "SVG to JSX",
+    "sections": [
+      {
+        "heading": "What is SVG to JSX",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG to JSX tool converts standard SVG markup into React-compatible JSX. It transforms SVG attributes to camelCase (e.g., <code>stroke-width</code> → <code>strokeWidth</code>, <code>fill-rule</code> → <code>fillRule</code>), converts self-closing tags, renames <code>class</code> to <code>className</code>, and handles inline styles as objects."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG to JSX",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste SVG code into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The React-compatible JSX appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG to JSX",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG from design tools (Figma, Illustrator) uses standard SVG attributes that React doesn't recognize. Converting SVG to JSX manually is tedious — every attribute needs camelCase conversion. This tool automates the transformation."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle inline styles?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Inline SVG styles like <code>style=\"fill: red\"</code> are converted to JSX style objects: <code>style={{ fill: 'red' }}</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it preserve all SVG features?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Most features are preserved. Complex SVG features like <code>&lt;use&gt;</code>, filters, and animations may need manual adjustment for React compatibility."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-path-editor",
+    "varName": "SvgPathEditorSeo",
+    "name": "SVG Path Editor",
+    "sections": [
+      {
+        "heading": "What is SVG Path Editor",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Path Editor provides a visual canvas for creating and editing SVG <code>&lt;path&gt;</code> elements. It supports drawing with line segments, cubic Bezier curves, quadratic curves, arcs, and close-path commands. The editor displays the path data string in real-time as you draw, with controls for point manipulation and curve adjustment."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Path Editor",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click on the canvas to add points.",
+              "<strong>Step 2:</strong> Drag handles to adjust curve control points.",
+              "<strong>Step 3:</strong> The SVG path data updates in real-time in the output panel.",
+              "<strong>Step 4:</strong> Copy the <code>d</code> attribute value for use in SVG or CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Path Editor",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG path data (<code>M 0 0 L 100 50 C ...</code>) is nearly impossible to write by hand for complex shapes. A visual editor lets you draw the shape you want and get the path data output. Essential for custom icons, illustrations, and clip-path shapes."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What commands does it support?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "M (moveto), L (lineto), H (horizontal lineto), V (vertical lineto), C (cubic Bezier), Q (quadratic Bezier), A (arc), Z (closepath)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I import existing path data?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Paste SVG path data into the editor to load and edit existing paths."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-filter-generator",
+    "varName": "SvgFilterGeneratorSeo",
+    "name": "SVG Filter Generator",
+    "sections": [
+      {
+        "heading": "What is SVG Filter Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Filter Generator creates SVG filter definitions (<code>&lt;filter&gt;</code> elements) with effects like blur, color matrix transforms, displacement maps, morphology, and composite operations. It provides a visual interface for building filter chains and previewing the result on sample content."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Filter Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Add filter primitives (blur, color matrix, etc.) to the chain.",
+              "<strong>Step 2:</strong> Adjust parameters and preview the result.",
+              "<strong>Step 3:</strong> Copy the SVG filter definition for use in CSS or HTML."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Filter Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG filters are more powerful than CSS filters but significantly more complex. Building a filter chain with <code>&lt;feGaussianBlur&gt;</code>, <code>&lt;feColorMatrix&gt;</code>, and <code>&lt;feBlend&gt;</code> requires understanding the SVG filter pipeline. This generator makes it visual."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I apply an SVG filter in CSS?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Define the filter in an inline SVG, then reference it: <code>filter: url(#myFilter)</code>."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "svg-clip-path-generator",
+    "varName": "SvgClipPathGeneratorSeo",
+    "name": "SVG Clip Path Generator",
+    "sections": [
+      {
+        "heading": "What is SVG Clip Path Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SVG Clip Path Generator creates SVG <code>&lt;clipPath&gt;</code> definitions for clipping elements to custom shapes. It supports basic shapes (rect, circle, ellipse) and path-based clips with a visual editor. The output is an SVG clipPath element that can be referenced via CSS <code>clip-path: url()</code>."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SVG Clip Path Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Draw or configure the clipping shape.",
+              "<strong>Step 2:</strong> Preview what the clipped content looks like.",
+              "<strong>Step 3:</strong> Copy the SVG clipPath definition."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SVG Clip Path Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG clip paths support complex shapes that CSS clip-path can't achieve — including shapes defined by other SVG elements. This generator handles the SVG syntax and provides a visual interface for creating precise clipping regions."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is this different from CSS clip-path?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SVG clip-paths support more complex shapes, can reference other SVG elements, and work in older browsers. CSS clip-path is simpler but limited to polygon, circle, ellipse, and inset shapes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "flexbox-playground",
+    "varName": "FlexboxPlaygroundSeo",
+    "name": "Flexbox Playground",
+    "sections": [
+      {
+        "heading": "What is Flexbox Playground",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Flexbox Playground provides an interactive sandbox for experimenting with CSS Flexbox layout. It has a live-preview area with sample flex items and controls for every flex property: <code>display</code>, <code>flex-direction</code>, <code>justify-content</code>, <code>align-items</code>, <code>flex-wrap</code>, <code>gap</code>, and individual item properties like <code>flex-grow</code>, <code>flex-shrink</code>, and <code>align-self</code>."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Flexbox Playground",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> The playground loads with sample flex items and default flex properties.",
+              "<strong>Step 2:</strong> Adjust flex container and item properties using the controls.",
+              "<strong>Step 3:</strong> See the layout change in real-time.",
+              "<strong>Step 4:</strong> Copy the generated CSS for the container and items."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Flexbox Playground",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Flexbox has ~20 properties that interact in non-obvious ways. Understanding how <code>justify-content</code> and <code>align-items</code> work together, or how <code>flex-wrap</code> affects item sizing, requires experimentation. The live preview accelerates learning and debugging."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I add or remove items?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The playground lets you add, remove, and reorder items to test different configurations."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it generate responsive CSS?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It generates the CSS for the current viewport. For responsive layouts, apply different flex properties at different breakpoints using media queries."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-flexbox-visual-builder",
+    "varName": "CssFlexboxVisualBuilderSeo",
+    "name": "CSS Flexbox Visual Builder",
+    "sections": [
+      {
+        "heading": "What is CSS Flexbox Visual Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Flexbox Visual Builder is an alternative Flexbox sandbox with a focus on visual building. It provides drag-and-drop item reordering, visual alignment guides, and a property panel showing the CSS for each element. Real-time preview updates as you modify properties."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Flexbox Visual Builder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Interact with the visual builder — drag items, adjust controls.",
+              "<strong>Step 2:</strong> See CSS update in real-time.",
+              "<strong>Step 3:</strong> Copy the generated CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Flexbox Visual Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An alternative to the Flexbox Playground with enhanced visual controls for developers who prefer a more interactive, drag-based approach to building flex layouts."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is this different from Flexbox Playground?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool emphasizes drag-and-drop interaction and visual guides, while the Playground focuses on property controls with labeled options."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-grid-generator",
+    "varName": "CssGridGeneratorSeo",
+    "name": "CSS Grid Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Grid Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Grid Generator creates CSS Grid layouts with visual controls for columns, rows, gap, alignment, and item placement. It provides a grid editor where you can define track sizes (fr, px, auto, minmax), place items spanning multiple cells, and see the layout update in real-time. The output is complete CSS Grid code."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Grid Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Define grid columns and rows using the track editor.",
+              "<strong>Step 2:</strong> Place items by specifying grid-column and grid-row values.",
+              "<strong>Step 3:</strong> Copy the generated CSS for the container and items."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Grid Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS Grid is the most powerful layout system in CSS, but its 2D nature makes it harder to visualize than Flexbox. This generator lets you build grid layouts visually — defining track sizes, placing items, and seeing the result before writing CSS."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What are fr units?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>fr</code> (fraction) distributes available space proportionally. <code>grid-template-columns: 1fr 2fr</code> gives the second column twice the width of the first."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I create responsive grids?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Use <code>auto-fill</code> or <code>auto-fit</code> with <code>minmax()</code> for responsive grids that wrap based on available space."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-grid-visual-builder",
+    "varName": "CssGridVisualBuilderSeo",
+    "name": "CSS Grid Visual Builder",
+    "sections": [
+      {
+        "heading": "What is CSS Grid Visual Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Grid Visual Builder provides a drag-and-drop interface for creating CSS Grid layouts. Click to define grid cells, drag to span items across rows and columns, and adjust track sizes visually. The CSS output updates in real-time."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Grid Visual Builder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click and drag on the grid to define cells and spans.",
+              "<strong>Step 2:</strong> Adjust track sizes using the column/row controls.",
+              "<strong>Step 3:</strong> Copy the generated CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Grid Visual Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A more interactive alternative to the CSS Grid Generator, focused on visual layout building rather than property-by-property configuration."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I edit item placement after creating the grid?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Click on any item to select it, then drag to reposition or resize."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-animation-generator",
+    "varName": "CssAnimationGeneratorSeo",
+    "name": "CSS Animation Generator",
+    "sections": [
+      {
+        "heading": "What is CSS Animation Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Animation Generator creates CSS <code>@keyframes</code> animations with visual timeline editing. Define animation states at specific percentages (0%, 25%, 50%, 75%, 100%), adjust properties at each keyframe (transform, opacity, color), and preview the animation in real-time. The output includes both the @keyframes rule and the animation shorthand."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Animation Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Add keyframes by specifying percentage stops.",
+              "<strong>Step 2:</strong> Set property values at each keyframe.",
+              "<strong>Step 3:</strong> Preview the animation on a sample element.",
+              "<strong>Step 4:</strong> Copy the CSS @keyframes and animation declarations."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Animation Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSS animations require defining keyframes with precise property values at specific percentages. Visualizing the timeline and seeing the result in real-time is much faster than writing keyframe code and refreshing the browser."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What properties can I animate?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Transform (translate, rotate, scale), opacity, color, background-color, width, height, margin, padding, and most CSS properties that accept numeric values."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "css-animation-playground",
+    "varName": "CssAnimationPlaygroundSeo",
+    "name": "CSS Animation Playground",
+    "sections": [
+      {
+        "heading": "What is CSS Animation Playground",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSS Animation Playground is an interactive sandbox for CSS animations with additional controls for animation-timing-function, animation-iteration-count, animation-direction, animation-fill-mode, and animation-delay. It provides a library of preset animations and lets you customize every parameter."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSS Animation Playground",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select or create an animation.",
+              "<strong>Step 2:</strong> Adjust timing, iteration, direction, and other properties.",
+              "<strong>Step 3:</strong> Preview and copy the CSS."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSS Animation Playground",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The animation shorthand property has many sub-properties that affect behavior in non-obvious ways. The playground lets you experiment with each one and see the combined effect."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is animation-fill-mode?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It controls the element's state before and after the animation: <code>forwards</code> keeps the final state, <code>backwards</code> applies the first keyframe during the delay, <code>both</code> applies both."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "responsive-breakpoint-tester",
+    "varName": "ResponsiveBreakpointTesterSeo",
+    "name": "Responsive Breakpoint Tester",
+    "sections": [
+      {
+        "heading": "What is Responsive Breakpoint Tester",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Responsive Breakpoint Tester previews how a webpage looks at different screen widths. It provides preset breakpoints for common devices (iPhone, iPad, desktop, ultrawide) and custom width input. The preview renders the current page in a resizable iframe at the selected width, showing exactly how CSS media queries respond."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Responsive Breakpoint Tester",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select a device preset or enter a custom width.",
+              "<strong>Step 2:</strong> The preview updates to show the page at that width.",
+              "<strong>Step 3:</strong> Compare across multiple breakpoints to identify layout issues."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Responsive Breakpoint Tester",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Testing responsive designs requires viewing pages at many different widths. Browser DevTools offer this, but this tool provides quick access to common device widths without opening DevTools, and lets you compare breakpoints side by side."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What breakpoints are included?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Common widths: 320px (small phone), 375px (iPhone), 768px (iPad), 1024px (iPad landscape), 1280px (laptop), 1920px (desktop), 2560px (ultrawide)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "viewport-size-simulator",
+    "varName": "ViewportSizeSimulatorSeo",
+    "name": "Viewport Size Simulator",
+    "sections": [
+      {
+        "heading": "What is Viewport Size Simulator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Viewport Size Simulator renders web content in an iframe at specific viewport dimensions, including device pixel ratio (DPR). It simulates how pages appear on different devices by setting both the CSS viewport size and the pixel density, affecting how CSS media queries, images, and font rendering behave."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Viewport Size Simulator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter viewport width and height.",
+              "<strong>Step 2:</strong> Set device pixel ratio (1x, 2x, 3x).",
+              "<strong>Step 3:</strong> The preview renders at the exact viewport size."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Viewport Size Simulator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "DPR affects how CSS pixels map to physical pixels. A 375px viewport at 3x DPR (iPhone) renders differently than at 1x DPR. This tool simulates both dimensions for accurate responsive testing."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does DPR matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Higher DPR means more physical pixels per CSS pixel. Images, borders, and text render sharper at 2x/3x. Media queries use CSS pixels, not physical pixels, so DPR doesn't change layout — only rendering quality."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -80,7 +80,7 @@ export default function Chads2ScoreCalculator() {
 
   useEffect(() => {
     setResult(calcChads2(chf, htn, age, dm, stroke));
-  }, [chf, htn, age, dm, stroke]);
+  }, []);
 
   const handleCalculate = () => {
     setResult(calcChads2(chf, htn, age, dm, stroke));
@@ -92,6 +92,7 @@ export default function Chads2ScoreCalculator() {
     setAge(false);
     setDm(false);
     setStroke(false);
+    setResult(calcChads2(false, false, false, false, false));
   };
 
   const Switch = ({ checked, onChange, label, points }: { checked: boolean, onChange: (c: boolean) => void, label: string, points: number }) => (
@@ -151,7 +152,7 @@ export default function Chads2ScoreCalculator() {
           <div className="flex flex-col gap-6">
             {result && (<>
               
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.statusColor }}>CHADS2 Score</div>

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
@@ -49,24 +49,26 @@ export default function EpochTimeConverter() {
   const [dateStr, setDateStr] = useState(() => new Date(1700000000 * 1000).toISOString().slice(0, 16));
   const [result, setResult] = useState<EpochResult>(() => fromTs(1700000000));
 
-  useEffect(() => {
-    const v = parseInt(ts, 10);
+  const handleTsChange = (raw: string) => {
+    setTs(raw);
+    const v = parseInt(raw, 10);
     if (!isNaN(v) && v >= 0) {
       setResult(fromTs(v));
       const d = new Date(v * 1000);
       const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
       setDateStr(local);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ts]);
+  };
 
-  useEffect(() => {
-    const d = new Date(dateStr);
-    if (!isNaN(d.getTime()) && ts !== String(Math.floor(d.getTime() / 1000))) {
-      setTs(String(Math.floor(d.getTime() / 1000)));
+  const handleDateChange = (raw: string) => {
+    setDateStr(raw);
+    const d = new Date(raw);
+    if (!isNaN(d.getTime())) {
+      const secs = Math.floor(d.getTime() / 1000);
+      setTs(String(secs));
+      setResult(fromTs(secs));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateStr]);
+  };
 
   const reset = () => { setTs(DEFAULTS_TS); };
   const invalid = isNaN(parseInt(ts, 10)) || parseInt(ts, 10) < 0;
@@ -100,12 +102,12 @@ export default function EpochTimeConverter() {
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
             <div>
               <label htmlFor="et-ts" className="block text-sm font-medium mb-1 text-foreground">Unix Timestamp (seconds)</label>
-              <input id="et-ts" type="number" min="0" step="1" value={ts} onChange={(e) => setTs(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+              <input id="et-ts" type="number" min="0" step="1" value={ts} onChange={(e) => handleTsChange(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
               <p className="text-xs text-muted-foreground mt-1">Editing this updates the date below</p>
             </div>
             <div>
               <label htmlFor="et-date" className="block text-sm font-medium mb-1 text-foreground">Or Pick a Date (local time)</label>
-              <input id="et-date" type="datetime-local" value={dateStr} onChange={(e) => setDateStr(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
+              <input id="et-date" type="datetime-local" value={dateStr} onChange={(e) => handleDateChange(e.target.value)} className="input-calc w-full h-10 px-3 text-base border-input bg-background rounded-md border focus:outline-none focus:ring-2 focus:ring-primary/20" />
             </div>
 
             <div className="flex gap-3 pt-1">

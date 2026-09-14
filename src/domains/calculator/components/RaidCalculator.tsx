@@ -111,7 +111,7 @@ export default function RaidCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const n = parseInt(inputs.driveCount)

@@ -87,14 +87,17 @@ const DewPointCalculator = () => {
     setResult(calculateDewPoint(temp, humidity, unit));
   };
 
-  useEffect(() => { calculate(); }, [unit, temp, humidity]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
     if (newUnit === "imperial") {
       setTemp("85");
+      setResult(calculateDewPoint("85", humidity, "imperial"));
     } else {
       setTemp("29");
+      setResult(calculateDewPoint("29", humidity, "metric"));
     }
   };
 

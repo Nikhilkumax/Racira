@@ -75,12 +75,12 @@ const PmiRemovalDateCalculator = () => {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [results, setResults] = useState(() => calculatePmiRemoval(DEFAULTS));
 
-  useEffect(() => { setResults(calculatePmiRemoval(inputs)); /* recompute on any input change */ }, [inputs]);
+  useEffect(() => { setResults(calculatePmiRemoval(inputs)); }, []);
 
   const set = <K extends keyof RemovalInputs>(key: K, val: RemovalInputs[K]) =>
     setInputs((prev) => ({ ...prev, [key]: val }));
 
-  const handleReset = () => { setInputs(DEFAULTS); setShowAdvanced(false); };
+  const handleReset = () => { setInputs(DEFAULTS); setResults(calculatePmiRemoval(DEFAULTS)); setShowAdvanced(false); };
 
   const chartData = useMemo(() =>
     results.ltvCurve.map((p) => ({
@@ -152,6 +152,7 @@ const PmiRemovalDateCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">PMI Settings</div>
                   {!isFha && (
                     <>
                       <div className="col-span-2 flex items-center gap-2">

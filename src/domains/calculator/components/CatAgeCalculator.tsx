@@ -67,9 +67,13 @@ export default function CatAgeCalculator() {
   useEffect(() => {
     const a = parseFloat(age);
     if (!isNaN(a) && a >= 0 && a <= 40) setResult(calcCatAge(a));
-  }, [age]);
+  }, []);
 
-  const reset = () => setAge(DEFAULTS.age);
+  const handleCalculate = () => {
+    const a = parseFloat(age);
+    if (!isNaN(a) && a >= 0 && a <= 40) setResult(calcCatAge(a));
+  };
+  const reset = () => { setAge(DEFAULTS.age); setResult(calcCatAge(parseFloat(DEFAULTS.age))); };
   const invalid = isNaN(parseFloat(age)) || parseFloat(age) < 0 || parseFloat(age) > 40;
 
   const faqs = [
@@ -102,7 +106,7 @@ export default function CatAgeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <PawPrint className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

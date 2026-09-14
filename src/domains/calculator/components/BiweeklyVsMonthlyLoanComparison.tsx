@@ -187,14 +187,14 @@ export default function BiweeklyVsMonthlyLoanComparison() {
             {result && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border-l-4 rounded-lg p-5 bg-green-500/10 border-green-500 flex flex-col justify-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 flex flex-col justify-center">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Total Interest Saved</p>
-                    <p className="text-4xl font-black text-green-600 dark:text-green-400">{formatCurrency(result.interestSaved)}</p>
+                    <p className="text-4xl font-bold text-primary">{formatCurrency(result.interestSaved)}</p>
                     <p className="text-sm text-muted-foreground mt-1">By switching to a biweekly schedule</p>
                   </div>
-                  <div className="border-l-4 rounded-lg p-5 bg-blue-500/10 border-blue-500 flex flex-col justify-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 flex flex-col justify-center">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Time Shaved Off Loan</p>
-                    <p className="text-4xl font-black text-blue-600 dark:text-blue-400">{formatMonths(result.timeSavedMonths)}</p>
+                    <p className="text-4xl font-bold text-primary">{formatMonths(result.timeSavedMonths)}</p>
                     <p className="text-sm text-muted-foreground mt-1">Reaching debt freedom faster</p>
                   </div>
                 </div>

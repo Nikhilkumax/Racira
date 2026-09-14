@@ -118,9 +118,9 @@ export default function SslCostCalculator() {
                     <option value="multi">Multi-Domain (SAN)</option>
                   </select>
                 </div>
-                <InputField id="years" label="Duration (Years)" value={years} onChange={setYears} tooltip="Pre-paying for multiple years often provides a discount." />
+                <InputField id="years" label="Duration (Years)" value={years} onChange={setYears} tooltip="Pre-paying for multiple years often provides a discount." onEnter={handleCalculate} />
                 {sslType === "multi" && (
-                  <InputField id="domains" label="Number of Domains" value={numDomains} onChange={setNumDomains} tooltip="How many unique domains do you need to secure?" />
+                  <InputField id="domains" label="Number of Domains" value={numDomains} onChange={setNumDomains} tooltip="How many unique domains do you need to secure?" onEnter={handleCalculate} />
                 )}
               </div>
 
@@ -137,9 +137,9 @@ export default function SslCostCalculator() {
               <>
                 <h2 className="text-2xl font-bold mb-3">Cost & Protection Summary</h2>
                 <div className="grid grid-cols-3 gap-4 mb-8">
-                  <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">Total Budget ({years} Years)</p>
-                    <p className="text-3xl font-black text-foreground">${results.totalCost.toLocaleString()}</p>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Budget ({years} Years)</p>
+                    <p className="text-4xl font-bold text-primary">${results.totalCost.toLocaleString()}</p>
                   </div>
                   <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center flex flex-col justify-center">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Annual Average</p>

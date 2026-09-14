@@ -64,9 +64,17 @@ export default function CyclingWattageCalculator() {
     const c = parseFloat(cda);
     const r = parseFloat(crr);
     if (!isNaN(w) && !isNaN(s) && !isNaN(gr) && !isNaN(c) && !isNaN(r) && w > 0 && s >= 0 && c > 0 && r >= 0) setResult(calcWattage(w, s, gr, c, r));
-  }, [weight, speed, grade, cda, crr]);
+  }, []);
 
-  const reset = () => { setWeight(DEFAULTS.weight); setSpeed(DEFAULTS.speed); setGrade(DEFAULTS.grade); setCda(DEFAULTS.cda); setCrr(DEFAULTS.crr); };
+  const handleCalculate = () => {
+    const w = parseFloat(weight);
+    const s = parseFloat(speed);
+    const gr = parseFloat(grade);
+    const c = parseFloat(cda);
+    const r = parseFloat(crr);
+    if (!isNaN(w) && !isNaN(s) && !isNaN(gr) && !isNaN(c) && !isNaN(r) && w > 0 && s >= 0 && c > 0 && r >= 0) setResult(calcWattage(w, s, gr, c, r));
+  };
+  const reset = () => { setWeight(DEFAULTS.weight); setSpeed(DEFAULTS.speed); setGrade(DEFAULTS.grade); setCda(DEFAULTS.cda); setCrr(DEFAULTS.crr); setResult(calcWattage(80, 30, 2, 0.32, 0.005)); };
   const invalid = isNaN(parseFloat(weight)) || isNaN(parseFloat(speed)) || isNaN(parseFloat(grade)) || isNaN(parseFloat(cda)) || isNaN(parseFloat(crr)) || parseFloat(weight) <= 0 || parseFloat(speed) < 0 || parseFloat(cda) <= 0 || parseFloat(crr) < 0;
 
   const breakdown = [
@@ -114,7 +122,7 @@ export default function CyclingWattageCalculator() {
             </div>
 
             <div className="border border-border rounded-lg p-3">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3">Advanced Options</div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Bike & Aerodynamics</div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label htmlFor="cw-cda" className="block text-sm font-medium mb-1 text-foreground">CdA (m²)</label>
@@ -129,7 +137,7 @@ export default function CyclingWattageCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Zap className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

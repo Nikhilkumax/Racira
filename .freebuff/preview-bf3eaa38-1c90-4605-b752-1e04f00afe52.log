@@ -1,0 +1,70 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 9.5s (651 modules)
+ GET / 200 in 9746ms
+ ○ Compiling /cad/[slug] ...
+ ✓ Compiled /cad/[slug] in 2.3s (3065 modules)
+ GET /cad/scale-paper-tool 200 in 2961ms
+ GET / 200 in 96ms
+ GET / 200 in 80ms
+ GET /cad/scale-paper-tool 200 in 95ms
+ GET / 200 in 88ms
+ ○ Compiling /cad ...
+ ✓ Compiled /cad in 5.3s (6093 modules)
+ GET / 200 in 330ms
+ GET /cad/scale-paper-tool 200 in 119ms
+ ○ Compiling /_error ...
+ GET /cad/scale-paper-tool 500 in 208ms
+ GET / 500 in 262ms
+ ✓ Compiled /_not-found in 3.5s (6328 modules)
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 404 in 3863ms
+ GET /_next/static/webpack/994d561788cbf206.webpack.hot-update.json 404 in 3863ms
+ GET /cad/scale-paper-tool 200 in 1325ms
+ GET / 200 in 1159ms
+ ✓ Compiled in 3.2s (6340 modules)
+ ✓ Compiled in 2.2s (6338 modules)
+ ✓ Compiled in 4s (6338 modules)
+ ✓ Compiled in 3.5s (6338 modules)
+ GET / 200 in 374ms
+ GET / 200 in 117ms
+ GET / 200 in 91ms
+ GET / 200 in 123ms
+ GET /cad/scale-paper-tool 200 in 565ms
+ GET /cad/scale-paper-tool 200 in 67ms
+ GET /cad/scale-paper-tool 200 in 74ms
+ GET /cad/scale-paper-tool 200 in 85ms
+ GET /cad/scale-paper-tool 200 in 100ms
+ GET /cad/scale-paper-tool 200 in 71ms
+ GET /cad/scale-paper-tool 200 in 79ms
+ GET /cad/scale-paper-tool 200 in 86ms
+ GET /cad/scale-paper-tool 200 in 77ms
+ GET /cad/scale-paper-tool 200 in 80ms
+ GET /cad/scale-paper-tool 200 in 80ms
+ GET /cad/scale-paper-tool 200 in 60ms
+ GET /cad/scale-paper-tool 200 in 89ms
+ GET /cad/scale-paper-tool 200 in 78ms
+ GET /cad/scale-paper-tool 200 in 83ms
+ GET /cad/scale-paper-tool 200 in 86ms
+ GET /cad/scale-paper-tool 200 in 95ms
+ GET /cad/scale-paper-tool 200 in 145ms
+ GET /cad/scale-paper-tool 200 in 73ms
+ GET /cad/scale-paper-tool 200 in 87ms
+ GET /cad/scale-paper-tool 200 in 84ms
+ GET /cad 200 in 1418ms
+[?25h

@@ -47,9 +47,9 @@ export default function DecibelCalculator() {
     const a = parseFloat(l1);
     const b = parseFloat(l2);
     if (!isNaN(a) && !isNaN(b) && a >= 0 && b >= 0) setResult(calcDecibels(a, b));
-  }, [l1, l2]);
+  }, []);
 
-  const reset = () => { setL1(DEFAULTS.l1); setL2(DEFAULTS.l2); };
+  const reset = () => { setL1(DEFAULTS.l1); setL2(DEFAULTS.l2); setResult(calcDecibels(parseFloat(DEFAULTS.l1), parseFloat(DEFAULTS.l2))); };
   const invalid = isNaN(parseFloat(l1)) || isNaN(parseFloat(l2)) || parseFloat(l1) < 0 || parseFloat(l2) < 0;
 
   const louder = result.l1 >= result.l2 ? "Source 1" : "Source 2";

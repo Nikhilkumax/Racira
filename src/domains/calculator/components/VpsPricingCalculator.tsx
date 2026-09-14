@@ -79,7 +79,7 @@ export default function VpsPricingCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const cpu = parseFloat(inputs.cpu)

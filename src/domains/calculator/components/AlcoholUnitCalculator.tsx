@@ -118,6 +118,7 @@ const AlcoholUnitCalculator = () => {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Personal Details</div>
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-foreground mb-1">Body Weight</label>
                     <div className={wrap}><input type="number" value={weightKg} onChange={e => setWeightKg(e.target.value)} min={40} max={200} className={ci} /><span className={suf}>kg</span></div>

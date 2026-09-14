@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "ramp-slope-calculator",
+    "varName": "ramp_slope_calculatorSeo",
+    "name": "Ramp Slope Calculator",
+    "sections": [
+      {
+        "heading": "What is Ramp Slope Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ramp Slope Calculator converts a ramp's rise and run into the three ways slope is expressed — percentage, run-to-rise ratio and angle in degrees — and then applies the accessibility rules that decide whether the ramp is legal. A 300 millimetre rise over a 3600 millimetre run comes out as 8.33 percent, a 1:12 ratio and a 4.76 degree angle, which is exactly the maximum slope the ADA and the IBC allow."
+          },
+          {
+            "type": "paragraph",
+            "text": "The accessibility checks are built in rather than left to the reader. The tool compares the slope against the 1:12 maximum — the value of 8.333 percent is stored with the precision to accept an exact 1:12 ramp — and reports Meets 1:12 or Exceeds 1:12. It also applies the intermediate-landing rule: once the total rise passes 30 inches (762 millimetres), the ramp needs a rest platform, which the tool reports as Required or Not required."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Ramp Slope Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Vertical rise — the height the ramp must climb, from the lower landing to the upper one, in the unit you select.",
+              "<strong>Step 2:</strong> Enter the Horizontal run — the horizontal length of the ramp between landings, not the length along the slope. These two are the dimensions a floor plan actually shows.",
+              "<strong>Step 3:</strong> Pick the Unit — millimetres, centimetres, metres, inches or feet. The arithmetic is unit-free since rise and run share the unit; the unit only labels the inputs and the landing message.",
+              "<strong>Step 4:</strong> Read the Result panel. Slope shows the percentage, Run : rise ratio shows the 1:X form, Angle shows degrees, Accessibility gives the pass or fail verdict against 1:12, and Intermediate landing states whether the rise triggers a rest platform requirement.",
+              "<strong>Step 5:</strong> Verify with the exact boundary case: a 300 mm rise over a 3600 mm run must read 8.33 %, 1 : 12.00, 4.76°, Meets 1:12 ✓ and Not required — and a 400 mm rise over the same run must fail with Exceeds 1:12 ✗."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Ramp Slope Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ramp slope is an accessibility compliance number with a hard boundary: a ramp at 1:11.9 is legal and one at 1:11.8 is not, and the difference between them is invisible on a floor plan. Computing the percentage, ratio and angle from the rise and run — and testing them against the 1:12 limit with floating-point care — is exactly the arithmetic that decides whether a design passes plan review, which is why the tool checks it rather than merely displaying it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The landing rule is the check that catches real designs: a long ramp that looks fine on paper can exceed the 30 inch rise between rest platforms, which changes the layout, the handrail runs and the guardrails. Because the tool reports the landing requirement from the same rise input as the slope, the two code checks stay consistent — a ramp can never pass the slope check while silently failing the one the drawing does not show."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is 1:12 exactly 8.333 percent and how close is close enough?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A 1:12 ramp rises one unit for every twelve of run, which is a percentage of one divided by twelve times one hundred — 8.333 percent repeating. The code limit is that ratio, not a rounded 8.3, so the tool compares the computed slope against one hundred over twelve with a small floating-point allowance: an exact 300 over 3600 ramp computes to 8.3333 and must pass, while anything genuinely steeper must fail. That precision is the difference between a ramp that is exactly legal and one that is not."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When does a ramp need an intermediate landing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the total rise exceeds 30 inches — 762 millimetres — a rest platform is required at the point where the rise reaches that limit, and every further 30 inches of rise needs another. The landing must be at least as long as the ramp is wide, typically 60 inches, so a ramp that climbs more than 30 inches in one run is actually two or more ramps joined by landings. The tool reports Required when the entered rise passes 762 millimetres so the check happens before the layout is drawn."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Are steeper ramps ever allowed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The 1:12 maximum applies to the general case, and steeper slopes appear only through narrow exceptions — existing-building alterations where 1:10 or 1:8 may be permitted under limited conditions, and curb ramps and short thresholds with their own specific rules. The tool tests against the standard 1:12 because that is the number new construction must meet; if a project qualifies for an exception, the slope is verified against the exception's limit with the same percentage, ratio and angle readouts."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is the angle in degrees derived?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The angle is the arctangent of the rise divided by the run, converted to degrees — the angle the ramp surface makes with the horizontal. A 1:12 ramp therefore sits at about 4.76 degrees. The angle is the readout that makes slope tangible on site: a builder setting up with a level and a laser can check a 4.76 degree ramp directly, whereas the percentage is the number on the plan. The tool shows all three forms because each one gets used by a different person on the project."
+          }
+        ]
+      }
+    ]
+  }
+]

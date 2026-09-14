@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "tolerance-notation-formatter",
+    "varName": "tolerance_notation_formatterSeo",
+    "name": "Tolerance Notation Formatter",
+    "sections": [
+      {
+        "heading": "What is Tolerance Notation Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Tolerance Notation Formatter takes a nominal size and its plus and minus tolerances and renders the dimension callout the way a drawing should show it: decimals aligned to a common precision, an explicit sign on each tolerance, and equal tolerances collapsed into a clean symmetrical ±. You type 25.4 with a plus of 0.05 and a minus of 0.05 and the tool writes 25.40 ± 0.05 — not a hand-built string where the decimal places drift between the nominal and the tolerance."
+          },
+          {
+            "type": "paragraph",
+            "text": "Beyond the callout itself, the tool computes the two limit sizes — the maximum size with the plus tolerance applied and the minimum size with the minus tolerance applied — and the total tolerance band, which is the sum of the plus and minus values. Units are selectable between millimetres, centimetres and inches; the notation logic is identical for each, because the rules for aligning decimals and signing tolerances are the same regardless of the unit system."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Tolerance Notation Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Unit from the selector — millimetres, centimetres or inches. The unit is appended to the limit sizes so the result reads as a complete dimension, but it does not change the arithmetic.",
+              "<strong>Step 2:</strong> Enter the Nominal size — the basic dimension the tolerance applies to, such as 25.4 for a one-inch feature in millimetres.",
+              "<strong>Step 3:</strong> Enter the Plus tolerance and the Minus tolerance as positive numbers. A hole with a unilateral tolerance above the nominal gets a plus value and a zero minus; a shaft with tolerance only below the nominal is the reverse.",
+              "<strong>Step 4:</strong> Read the Dimension callout panel. Equal plus and minus values are detected automatically and rendered as a single ± symbol — 25.40 ± 0.05 — while unequal values render as stacked-style +0.10 / -0.00 notation with both tolerances shown to the same number of decimal places.",
+              "<strong>Step 5:</strong> Check the computed rows below the callout: Maximum size adds the plus tolerance to the nominal, Minimum size subtracts the minus tolerance, and Total tolerance band sums the two — the width of the acceptable range the machinist actually works to."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Tolerance Notation Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Tolerance callouts are read by machinists, inspectors and assemblers, and the notation is governed by convention: decimals must be aligned so a reader can compare limit sizes at a glance, signs must be explicit so there is no ambiguity about which direction the tolerance runs, and the precision of the tolerance must match the precision the shop can measure. A callout that renders 25.4 +0.1 -0.05 with ragged decimals is harder to read and easier to misread than 25.40 +0.10 / -0.05, even though the numbers mean the same thing."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also catches a class of error that is easy to make by hand: entering the minus tolerance as a negative number, or mixing precisions so that a 0.05 tolerance is written next to a three-decimal nominal. Because it treats both tolerances as positive magnitudes and derives the limits for you, the callout and the limit sizes always agree — the number on the drawing and the number the inspector checks against are computed from the same inputs."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "When is a ± callout preferred over a + / - callout?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A symmetrical ± callout is used when the acceptable variation is the same in both directions — a 25.40 ± 0.05 hole accepts 25.35 to 25.45. A + / - callout is used when the tolerance is unilateral or asymmetric, such as a press-fit where the acceptable range sits mostly or entirely on one side of the nominal. This tool detects equal tolerances and collapses them to ± automatically, so you do not have to decide which notation to type — the values decide it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is the maximum size calculated for a hole versus a shaft?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The arithmetic is the same for both: maximum size is the nominal plus the plus tolerance, and minimum size is the nominal minus the minus tolerance. What differs between holes and shafts is which direction the tolerance usually runs. Internal features like holes conventionally take a positive tolerance — a reamed hole is allowed to come out larger than nominal — while external features like shafts conventionally take a negative tolerance, which is why the fit between a shaft and a hole can be controlled by choosing the two tolerances deliberately."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How many decimal places does the tool keep?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The callout aligns to the finer of the two tolerance values: enter 0.05 and 0.1 and both render to two places; enter 0.05 and 0.005 and both render to three. The nominal is shown to at least the same precision as the tolerances so the decimals align down the drawing column. Limit sizes and the tolerance band are computed from your exact values and rounded only for display, at the same precision, so what you see matches what the shop measures."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does a unilateral tolerance of +0.10 / -0.00 actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It means the feature may be larger than nominal but never smaller: a 25.40 +0.10 / -0.00 feature is acceptable anywhere from 25.40 to 25.50. Unilateral tolerances are common where the functional requirement only constrains one side of the feature — a clearance hole, for example, can be any size larger than the fastener, so the tolerance runs only upward. Enter plus 0.10 and minus 0 for this case and the tool renders the explicit +0.10 / -0.00 form rather than collapsing it, since the values are unequal."
+          }
+        ]
+      }
+    ]
+  }
+]

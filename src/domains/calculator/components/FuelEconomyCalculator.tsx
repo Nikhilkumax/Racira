@@ -232,6 +232,7 @@ export default function FuelEconomyCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Fuel Pricing</div>
                   <CompactInput id="price" label={`Price per ${inputs.fuelUnit === 'liters' ? 'Liter' : 'Gallon'}`} value={inputs.fuelPrice} onChange={(v: string) => handleChange("fuelPrice", v)} prefix="$" tooltip="Enter the price you paid for fuel to calculate total trip cost." />
                 </div>
               )}

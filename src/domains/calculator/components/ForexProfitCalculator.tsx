@@ -147,7 +147,7 @@ export default function ForexProfitCalculator() {
           </div>
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.pnl >= 0 ? "border-green-500" : "border-red-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.pnl >= 0 ? "border-green-500" : "border-red-500"}`}>
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${result.pnl >= 0 ? "text-green-600" : "text-red-600"}`}>Estimated {result.pnl >= 0 ? "Profit" : "Loss"}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight font-mono">{result.pnl >= 0 ? "+" : ""}${Math.abs(result.pnl).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.totalPips.toFixed(1)} Pips Gained · {result.pnlPct >= 0 ? "+" : ""}{result.pnlPct.toFixed(2)}% Return on Margin</div>

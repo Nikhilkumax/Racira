@@ -59,9 +59,12 @@ export default function DayCounter() {
     if (start && end && !isNaN(new Date(start).getTime()) && !isNaN(new Date(end).getTime())) {
       setResult(calcDays(start, end, includeEndDay));
     }
-  }, [start, end, includeEndDay]);
+  }, []);
 
-  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); setIncludeEndDay(false); };
+  const handleCalculate = () => {
+    if (start && end && !isNaN(new Date(start).getTime()) && !isNaN(new Date(end).getTime())) setResult(calcDays(start, end, includeEndDay));
+  };
+  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); setIncludeEndDay(false); setResult(calcDays(DEFAULTS.start, DEFAULTS.end, false)); };
   const invalid = !start || !end || isNaN(new Date(start).getTime()) || isNaN(new Date(end).getTime());
 
   const fmtDate = (d: string) => new Date(d + "T00:00:00").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -112,7 +115,7 @@ export default function DayCounter() {
             </label>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <CalendarDays className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

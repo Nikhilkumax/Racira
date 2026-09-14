@@ -111,7 +111,8 @@ const NumberSequenceCalculator = () => {
     setResult(analyzeSequence(type, startTerm, diffRatio, numTerms));
   };
 
-  useEffect(() => { calculate(); }, [type]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const reset = () => {
     setType("arithmetic"); setStartTerm("3"); setDiffRatio("5"); setNumTerms("10");

@@ -129,10 +129,10 @@ const InvertElevationCalculator: React.FC = () => {
   const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
   const [result, setResult] = useState<Results>(calculate(DEFAULTS));
 
-  // Recalculate whenever inputs change
+  // Calculate on mount only — results update when Calculate is pressed
   useEffect(() => {
     setResult(calculate(inputs));
-  }, [inputs]);
+  }, []);
 
   const handleCalculate = () => {
     setResult(calculate(inputs));

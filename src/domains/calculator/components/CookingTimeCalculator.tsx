@@ -71,9 +71,13 @@ export default function CookingTimeCalculator() {
   useEffect(() => {
     const w = parseFloat(weight);
     if (!isNaN(w) && w > 0 && w <= 100) setResult(calcCookTime(w, meat));
-  }, [weight, meat]);
+  }, []);
 
-  const reset = () => { setWeight(DEFAULTS.weight); setMeat(DEFAULTS.meat); };
+  const handleCalculate = () => {
+    const w = parseFloat(weight);
+    if (!isNaN(w) && w > 0 && w <= 100) setResult(calcCookTime(w, meat));
+  };
+  const reset = () => { setWeight(DEFAULTS.weight); setMeat(DEFAULTS.meat); setResult(calcCookTime(parseFloat(DEFAULTS.weight), DEFAULTS.meat)); };
   const invalid = isNaN(parseFloat(weight)) || parseFloat(weight) <= 0 || parseFloat(weight) > 100;
 
   const faqs = [
@@ -105,7 +109,7 @@ export default function CookingTimeCalculator() {
             <p className="text-xs text-muted-foreground">Assumes a 325°F (163°C) oven. Times are estimates — always check with a meat thermometer.</p>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Timer className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

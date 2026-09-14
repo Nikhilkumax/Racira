@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "shaft-design-reference",
+    "varName": "shaft_design_referenceSeo",
+    "name": "Shaft Design Reference",
+    "sections": [
+      {
+        "heading": "What is Shaft Design Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Shaft Design Reference gathers the three things a designer reaches for when starting a shaft layout: the minimum-diameter formulas for the common loading cases, the preferred metric shaft sizes to round up to, and the keyway and step guidance that keeps a shaft from failing where it looks strongest. The formula table covers torsion-only solid rounds, the ASME elliptic criterion for combined bending and torsion, and the stiffness-limited case where deflection rather than stress sets the diameter."
+          },
+          {
+            "type": "paragraph",
+            "text": "The torsion formula is the cube root of sixteen times the torque over pi times the allowable shear stress; the ASME combined case adds the bending moment and torque through the elliptic interaction with their shock-and-fatigue factors; and the stiffness case applies the twist relation — angle of twist equals torque times length over the shear modulus times the polar moment of inertia — which is where designers discover that a shaft sized by stress alone can still twist too much for the application. Below the formulas sits the normalized metric size series from 6 to 250 millimetres, with the rule to round the calculated diameter up, never down."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Shaft Design Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the loading case in the Sizing formulas table. A shaft carrying torque alone with no significant bending — a short coupling shaft — uses the torsion-only formula; a shaft carrying a gear or pulley load between bearings uses the bending-plus-torsion ASME criterion; a long shaft in a precision mechanism may be stiffness-limited.",
+              "<strong>Step 2:</strong> Apply the formula with your allowable stress. For mild steel shafts a typical allowable shear stress runs 40 to 60 MPa, which the table states as the working range behind its example.",
+              "<strong>Step 3:</strong> Round the computed diameter UP to the nearest value in the Preferred metric shaft sizes table — the normalized series from 6 to 250 millimetres — since a shaft cut to a non-standard diameter costs more and matches nothing.",
+              "<strong>Step 4:</strong> Walk the Keyway & step notes before finalizing: check the shaft at the keyway root with a Kt near 1.6 for a profile key rather than at the plain diameter, keep fillet radii at step changes at or above 0.1 times the smaller diameter where fatigue matters, and match each diameter to the bearing and seal bores available in supplier catalogues.",
+              "<strong>Step 5:</strong> Re-check the shoulders and transitions for stress concentration, and verify the final diameters against the bearings, seals, gears and couplings that mount on them."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Shaft Design Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Shaft failures concentrate at the places the sizing formula does not see: the keyway that interrupts the section, the step where the diameter changes, and the fillet that sharpens the transition. A shaft correctly sized at its mid-span can still crack at a keyway corner or a tight shoulder fillet under fatigue, which is why the reference pairs the diameter formulas with the stress-riser rules instead of pretending sizing is the whole story."
+          },
+          {
+            "type": "paragraph",
+            "text": "The preferred-sizes table and the bearing-matching note keep the design from drifting into custom territory: a calculated 21.4 millimetre shaft rounds up to 22, and a shaft drawn at 21.4 would match no standard bearing bore and no stock bar. Rounding up to the normalized series is what keeps the rest of the supply chain — bearings, seals, couplings, key stock — standard as well, which is where the cost of a shaft design is actually made or lost."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the keyway checked with a higher stress than the plain shaft?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the keyway removes material from the section and its corners concentrate stress. For fatigue analysis the shaft is evaluated at the keyway root with a stress concentration factor of roughly 1.6 for a profile key rather than at the plain diameter, which can push the governing stress well above the mid-span value. The keyway corner adds a local raiser on top of the keyway's own effect, which is why the note about the keyway root exists — a shaft can be sized correctly at its body and still start its fatigue crack at the keyway."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When is a shaft stiffness-limited rather than stress-limited?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the allowable twist or deflection is tighter than the stress allows. The twist of a shaft grows with torque, length and inversely with the polar moment of inertia, so long shafts and precision mechanisms often fail a deflection or twist limit long before the stress reaches the allowable — a lead screw that must index accurately, or a long shaft carrying a scanning element, is sized by how much it twists or sags, not by whether it will break. The stiffness formula row exists because designers routinely size by stress first and discover the deflection problem only at assembly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why should I avoid two keys on the same shaft section?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because two keys on one section do not reliably double the torque capacity — the load sharing between them depends on manufacturing tolerances that cannot be guaranteed, so one key typically carries most of the load while the second adds a second stress raiser to the shaft. A single key sized for the full torque, with the hub and shaft checked for the resulting bearing stress, is the standard practice. If one key is not enough, the usual answer is a larger shaft or a spline rather than a second parallel key."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How large should the fillet radius be at a shaft step?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Where fatigue matters, keep fillet radii at step changes at or above about 0.1 times the smaller of the two diameters. Below that ratio the stress concentration climbs steeply as the radius shrinks — a shaft that passes its stress check at the body can fail right at the step shoulder if the fillet is too tight. The radius must also clear the bearing or seal that butts against the shoulder, which is why the reference pairs the radius rule with the note to match diameters to supplier catalogue parts before the steps are final."
+          }
+        ]
+      }
+    ]
+  }
+]

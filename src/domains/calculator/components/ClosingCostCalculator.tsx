@@ -123,13 +123,13 @@ export default function ClosingCostCalculator() {
         {/* Results Section */}
         <div className="lg:col-span-8 w-full space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-              <h3 className="text-lg font-medium opacity-90 mb-2">Estimated Closing Costs</h3>
-              <div className="text-4xl font-bold tracking-tight mb-2">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-3xl p-8 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 -mt-8 -mr-8 w-32 h-32 bg-primary/10 rounded-full blur-2xl"></div>
+              <h3 className="text-lg font-medium text-muted-foreground mb-2">Estimated Closing Costs</h3>
+              <div className="text-4xl font-bold tracking-tight text-primary mb-2">
                 ${results.totalClosingCosts.toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </div>
-              <div className="text-sm opacity-80">
+              <div className="text-sm text-muted-foreground">
                 ~{((results.totalClosingCosts / homePrice) * 100).toFixed(1)}% of home price
               </div>
             </div>

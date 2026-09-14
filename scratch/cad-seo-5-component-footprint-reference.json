@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "component-footprint-reference",
+    "varName": "component_footprint_referenceSeo",
+    "name": "Component Footprint Reference",
+    "sections": [
+      {
+        "heading": "What is Component Footprint Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Component Footprint Reference is a two-table lookup of the package sizes and lead pitches a PCB designer meets constantly: the imperial passive chip codes with their exact metric body sizes, and the active packages with their pin counts and lead pitches. The passive table maps 0402 through 2512 to their true metric bodies — an 0805 chip is 2.0 by 1.25 millimetres, a 0603 is 1.6 by 0.8 — and the active table covers SOT-23 through DIP-8 with the pitch that drives the land pattern."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pitches are the numbers a layout actually needs: SOIC-8 and SOIC-16 at 1.27 millimetres, TSSOP-8 at the fine 0.65 pitch that demands a solder-paste stencil, QFN at 0.4 to 0.65 with its exposed pad underneath, DIP-8 at the classic 2.54, and the through-hole TO-92 at 1.27 with leads on 0.05 inch centres. The passive notes carry the practical sizing: 0603 is the most common small size, 0805 is easy to hand-solder and common for LEDs, 1210 holds the big capacitors up to about 100 microfarads in X5R, and 2512 carries the power and current-sense resistors."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Component Footprint Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify whether the part is a passive chip or an active package, and open the matching table — Passive chip sizes for resistors, capacitors, inductors; Active package pitches for transistors, ICs and through-hole parts.",
+              "<strong>Step 2:</strong> For a passive, match the imperial code printed on the part's datasheet — 0603, 0805, 1206 — to its exact metric body size in the Body column. The code is the imperial dimension in hundredths of an inch; the metric value is the real body.",
+              "<strong>Step 3:</strong> For an active package, match the package name to its pin count and Lead pitch. The pitch is the dimension that sets the land pattern: 1.27 mm for SOIC, 0.65 mm for TSSOP, 2.54 mm for DIP.",
+              "<strong>Step 4:</strong> Use the notes column for the assembly implications — TSSOP's fine pitch needs a stencil, QFN's exposed pad suggests via-in-pad for thermal, 2512 carries the power resistors.",
+              "<strong>Step 5:</strong> For the actual land pattern, move to the IPC-7351 land-pattern calculator with the specific part number — the code-to-metric body mapping here is exact, but the pads are not, and the tool's note says so."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Component Footprint Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The imperial chip codes are a standing trap: the name says inches — 0805 — but the part is metric, and a designer who sizes a land pattern from the code instead of the body dimension gets pads that do not fit the part. Keeping the exact metric body next to each code resolves the naming ambiguity before it reaches the footprint, which is the cheapest place to fix it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pitch column carries the assembly reality that drives package selection: a fine-pitch TSSOP or QFN demands stencil printing and precise placement, while a DIP or an SOIC can be handled and reworked by simpler means. Knowing the pitch before the part is chosen is how a design picks a package it can actually build — the difference between a footprint that assembles and one that becomes a rework problem."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does the 0805 code actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The imperial chip codes encode the body dimensions in hundredths of an inch: 0805 means 0.08 by 0.05 inches — 2.0 by 1.25 millimetres in the metric body size the table lists. The same mapping holds across the series: 0603 is 0.06 by 0.03 inches, or 1.6 by 0.8 millimetres, and 2512 is 0.25 by 0.12 inches, or 6.3 by 3.2. Always size the land pattern from the metric body, never from the imperial code alone."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does TSSOP-8 need a solder-paste stencil while SOIC-8 does not?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the lead pitch is much finer: TSSOP-8 sits at 0.65 millimetres while SOIC-8 sits at 1.27. At the finer pitch, hand-soldering and even hand-applied paste become unreliable — the adjacent leads are close enough that bridges form easily — so the assembly relies on stencil-printed paste and reflow. The pitch column is the shorthand for that whole assembly story: below roughly 0.8 millimetres, count on stencil processes and careful inspection."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is special about the QFN's exposed pad?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A QFN has a large metal pad on the underside of the package that is soldered to the PCB, serving both as the thermal path and often as the ground connection. The land pattern must include that pad — with a solder-paste aperture sized to avoid voids — and the board should use thermal vias beneath it, commonly via-in-pad, to pull heat into the inner planes. Getting the pad right is a thermal design decision as much as a footprint one, which is why the reference flags it in the notes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use the body sizes here as land-pattern dimensions?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — the body sizes are the component's physical dimensions, and the land pattern is deliberately larger, with pad sizes and spacings that allow for placement tolerance, solder fillet and rework. The correct pads come from the IPC-7351 land-pattern calculator fed with the specific part's data, which the tool's note directs you to. Using the body size as the pad size produces pads too small to solder reliably, which is the classic beginner footprint error this reference is designed to steer around."
+          }
+        ]
+      }
+    ]
+  }
+]

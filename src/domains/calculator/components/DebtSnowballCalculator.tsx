@@ -134,6 +134,7 @@ const DebtSnowballCalculator = () => {
                 </button>
                 {showAdv && (
                   <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Payoff Accelerators</div>
                     <InputField id="lumpsum" label="One-Time Lump Sum ($)" value={lumpSum} onChange={setLumpSum} tooltip="A one-time payment applied immediately to your lowest balance debt." />
                   </div>
                 )}
@@ -152,7 +153,7 @@ const DebtSnowballCalculator = () => {
               <>
                 <h2 className="text-2xl font-bold mb-3">Snowball Plan Results</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
+                  <div className="p-6 rounded-2xl bg-primary/10 border-l-4 border-primary text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Debt-Free In</p>
                     <p className="text-5xl font-black text-foreground">{results.years} yrs</p>
                     <p className="text-sm text-muted-foreground mt-1">({results.months} months)</p>

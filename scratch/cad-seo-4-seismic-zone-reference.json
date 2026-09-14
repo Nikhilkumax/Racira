@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "seismic-zone-reference",
+    "varName": "seismic_zone_referenceSeo",
+    "name": "Seismic Zone Reference",
+    "sections": [
+      {
+        "heading": "What is Seismic Zone Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Seismic Zone Reference explains the two classifications that govern seismic design under the modern codes: the Seismic Design Category from ASCE 7 and the IBC, and the Risk Category from IBC Table 1604.5. The seismic design category runs from A, very low hazard, through F, extreme hazard requiring site-specific ground motion, and it determines how much seismic detailing a structure needs — from minimal requirements in category A up to the special detailing and system restrictions of D, E and F."
+          },
+          {
+            "type": "paragraph",
+            "text": "The hazard indicators give each category its anchor: category A applies where the mapped spectral accelerations are below 0.15 g for the short-period value or 0.04 g for the one-second value, category D covers the higher accelerations common on the US West Coast where most California design happens, E kicks in where the one-second acceleration reaches 0.75 g, and F applies near very large faults where a site-specific ground-motion study is mandatory. The risk categories sit alongside — I for low-hazard buildings, II the default for most buildings, III for schools and assembly occupancies with substantial hazard to life, and IV for essential facilities like hospitals."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Seismic Zone Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Determine the Risk Category first from the Risk categories table: I for low-occupancy or low-hazard buildings such as agricultural and minor storage, II as the default for most buildings, III for substantial hazard to life or high occupancy like schools over 250 or assembly over 300, IV for essential facilities including hospitals, fire stations and emergency communications.",
+              "<strong>Step 2:</strong> Find the site's mapped spectral accelerations — the short-period Ss and one-second S1 values from the ASCE 7 maps or the USGS seismic design tools for the project location.",
+              "<strong>Step 3:</strong> Locate the resulting Seismic Design Category in the first table using those accelerations and the site class. The indicator column gives the shorthand: accelerations below the category-A thresholds, moderate mapped values for C, higher values for D, 0.75 g and above for E.",
+              "<strong>Step 4:</strong> Read the Meaning for design column to see what the category demands — ordinary detailing for C, special detailing for D, additional system restrictions and prohibitions for E, and site-specific ground-motion study for F.",
+              "<strong>Step 5:</strong> Note the table's caution: it summarizes the outcome of the SDC lookup, not the lookup itself — the actual category comes from the mapped accelerations, site class and risk category, and it is not the same as the old UBC seismic zone numbers 1 through 4."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Seismic Zone Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Seismic design category is the single most consequential label on a structural drawing in seismic regions — it selects the detailing requirements, the system types that are even permitted, the height limits, and the analysis method. Misreading it in either direction is costly: calling a category D building a C under-details a structure in a real earthquake, and over-classifying adds steel and connections the project never needed. A reference that states what each category means and what triggers it keeps the classification legible."
+          },
+          {
+            "type": "paragraph",
+            "text": "The risk category half of the tool matters because it feeds the whole process upstream: the risk category determines which seismic design category applies in the first place, since essential facilities in category IV are held to a higher standard than the default category II. Keeping the two tables together reflects that dependency — a hospital in a moderate zone can end up requiring more than a warehouse in a high zone, which is the kind of inversion that surprises designers trained on the old zone maps."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between the old UBC seismic zones and the SDC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The old Uniform Building Code numbered seismic zones 1 through 4 on a coarse map, and the number carried a simplified relationship to design force. The modern system replaced it with the Seismic Design Category, which is derived from the mapped spectral accelerations at the actual site, the soil site class, and the building's risk category — a finer, site-specific classification rather than a zone on a map. The reference's note makes the point deliberately: a structure cannot be designed by looking up “zone 3” anymore, because the SDC is the code's language."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Which buildings fall into Risk Category IV?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Essential facilities whose function must survive an earthquake: hospitals and other health-care facilities with surgery or emergency treatment, fire and police stations, emergency communications centres, and buildings that house critical national defence or emergency-response functions. Because these buildings must remain operable after a seismic event, they are assigned a higher risk category, which raises their seismic design category and with it the detailing and performance requirements — the mechanism by which a hospital gets designed to a higher standard than the office building next door."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does SDC E add beyond SDC D?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SDC E marks very high hazard — the one-second spectral acceleration reaches 0.75 g — and it adds restrictions beyond D's special detailing. Certain structural systems permitted in D are prohibited in E, height limits tighten for others, and the design must account for the near-fault ground motion that produces the high long-period accelerations. SDC E and F are the categories where the code's menu of acceptable systems shrinks visibly, which is why the reference flags the restrictions rather than treating E as merely a stronger D."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I actually find the SDC for my site?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Start with the mapped spectral accelerations for the site coordinates — the ASCE 7 seismic maps or the USGS seismic design tools return Ss and S1 for any location. Combine those with the site class from the geotechnical report (A through F, determined by soil properties) and the building's risk category, then apply the code's SDC tables. This tool summarizes what each resulting category means and what it demands of the design; the lookup itself follows the code's procedure and is worth doing in the code's own tables so nothing is interpolated away."
+          }
+        ]
+      }
+    ]
+  }
+]

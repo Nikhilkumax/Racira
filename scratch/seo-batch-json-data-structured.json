@@ -1,0 +1,2157 @@
+[
+  {
+    "slug": "json-formatter",
+    "varName": "JsonFormatterSeo",
+    "name": "JSON Formatter",
+    "sections": [
+      {
+        "heading": "What is JSON Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Formatter parses and pretty-prints JSON data with configurable indentation — 2 spaces, 4 spaces, tabs, or minified output. It uses <code>JSON.parse()</code> for validation and <code>JSON.stringify()</code> with the selected indent for formatting. The tool also displays metadata: total node count, key count, and byte size of the formatted output."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Select the indentation style from the dropdown — 2 spaces is the most common for readability.",
+              "<strong>Step 3:</strong> The formatted JSON appears immediately in the output panel.",
+              "<strong>Step 4:</strong> Click the output to copy the formatted result."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "APIs return minified JSON, logs output unindented structures, and clipboard pastes often have inconsistent spacing. A formatter makes nested structures instantly readable, helps spot missing commas or trailing issues, and produces consistent output for version control diffs."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my JSON has syntax errors?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The formatter will throw a parse error with the position of the issue. Fix the syntax error in the input and try again."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I format JSON with comments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Standard JSON does not support comments. If your input contains <code>//</code> or <code>/* */</code> comments, the parser will reject them. Remove comments before formatting."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does formatting change the data?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Formatting only adds whitespace for readability. The parsed data and its values remain identical. Minifying reverses this by removing all unnecessary whitespace."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the node count in the info bar?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The node count is the total number of values (strings, numbers, booleans, nulls, arrays, objects) in the JSON tree. It gives you a quick sense of the data's complexity."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-validator",
+    "varName": "JsonValidatorSeo",
+    "name": "JSON Validator",
+    "sections": [
+      {
+        "heading": "What is JSON Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Validator parses input using <code>JSON.parse()</code> and reports whether it's syntactically valid JSON. On success, it re-serializes the data with 2-space indentation and shows metadata including node count, key count, and byte size. On failure, it throws the parse error with position information."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Validator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. If valid, the reformatted JSON appears with a green status.",
+              "<strong>Step 3:</strong> If invalid, the error message tells you exactly where the syntax issue is."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When consuming APIs, building configs, or writing data files, a single missing comma or extra bracket breaks everything. This tool gives you an instant yes/no answer with precise error positioning, saving you from manually hunting through large JSON structures."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this validate against a JSON Schema?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool checks JSON syntax only. For schema validation, use the JSON Schema Generator to create a schema, then validate with a dedicated tool."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does it reformat the output?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reformatting confirms the parser understood the structure correctly. If the output looks wrong (keys reordered, values changed), the input may have had duplicate keys or other issues that JSON.parse() silently resolves."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it validate JSONL (JSON Lines)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. It expects a single JSON document. For JSONL files, split by newlines and validate each line separately."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-minifier",
+    "varName": "JsonMinifierSeo",
+    "name": "JSON Minifier",
+    "sections": [
+      {
+        "heading": "What is JSON Minifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Minifier strips all unnecessary whitespace from JSON data, producing the smallest possible representation while preserving identical data semantics. It parses the input with <code>JSON.parse()</code> and re-serializes with <code>JSON.stringify()</code> (no indentation argument). The output shows both the original and minified byte sizes for comparison."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Minifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your formatted JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The minified output appears with a size comparison.",
+              "<strong>Step 3:</strong> Copy the minified JSON for use in API payloads, configuration files, or network transfers."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Minifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Minified JSON reduces payload size for network transfers, API requests, and embedded configurations. A typical formatted JSON response can be 20–40% larger than its minified equivalent. This matters for bandwidth-constrained environments, large data transfers, and when embedding JSON in HTML or JavaScript."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is minified JSON still valid JSON?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Minification only removes whitespace. The resulting string is valid JSON and can be parsed by any JSON parser."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I minify JSON with comments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Standard JSON does not support comments. Remove any <code>//</code> or <code>/* */</code> comments before minifying."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What about key ordering?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "JSON.stringify() preserves insertion order of keys (in modern JavaScript engines). Minification does not reorder keys."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-diff",
+    "varName": "JsonDiffSeo",
+    "name": "JSON Diff",
+    "sections": [
+      {
+        "heading": "What is JSON Diff",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Diff tool compares two JSON documents and highlights the structural and value differences between them. It uses a dual-input mode where you paste the original JSON on the left and the modified JSON on the right. The tool performs a deep recursive comparison, identifying added keys, removed keys, changed values, and array element differences."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Diff",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the original JSON into the left input (Input).",
+              "<strong>Step 2:</strong> Paste the modified JSON into the right input (Second Input).",
+              "<strong>Step 3:</strong> Click Transform. The diff output lists all changes with their paths."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Diff",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Comparing API responses before and after a deployment, identifying config changes between environments, and debugging why a data transformation produces different results — these daily tasks need a quick visual diff. Line-by-line text diff tools can't handle JSON's nested structure, while this tool understands keys, arrays, and nesting."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle array ordering?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. It compares arrays element-by-element by index. Different elements at the same index are flagged as changes."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I diff very large JSON files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The comparison runs in memory in your browser. Files up to several MB work fine. For very large files, consider diffing specific subsections."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it show nested path locations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Changes are reported with their full path (e.g., <code>users[0].email</code>) so you can pinpoint exactly where differences occur in deeply nested structures."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-escape-unescape",
+    "varName": "JsonEscapeUnescapeSeo",
+    "name": "JSON Escape / Unescape",
+    "sections": [
+      {
+        "heading": "What is JSON Escape / Unescape",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Escape/Unescape tool converts text between raw and JSON-escaped string formats. Escaping wraps the input as a JSON string value and removes the surrounding quotes, producing output safe for embedding in JSON documents (handling backslashes, quotes, newlines, tabs, and Unicode). Unescaping reverses this by parsing the escaped string back to its original form."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Escape / Unescape",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the text to escape or the escaped string to unescape.",
+              "<strong>Step 2:</strong> Select Escape or Unescape mode from the dropdown.",
+              "<strong>Step 3:</strong> Click Transform. The converted text appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Escape / Unescape",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When embedding user-generated text in JSON (API responses, log entries, database fields), special characters like quotes, backslashes, and newlines must be escaped. Conversely, when extracting text from JSON strings, you need to unescape it back to readable form. This tool handles both directions instantly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What characters get escaped?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Backslash (\\), double quote (\"),newline (), carriage return (\r), tab (\t), and Unicode control characters (\u0000–\u001f). These are the characters that would break JSON syntax if unescaped."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I escape for JavaScript instead of JSON?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The escaping is JSON-specific (it uses <code>\\\"</code> for quotes and <code>\\</code> for newlines). JavaScript escaping is similar but differs in edge cases. Use this tool specifically for JSON contexts."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-sort-keys",
+    "varName": "JsonSortKeysSeo",
+    "name": "JSON Sort Keys",
+    "sections": [
+      {
+        "heading": "What is JSON Sort Keys",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Sort Keys tool recursively sorts all object keys alphabetically in a JSON document. It supports ascending (default) or descending order and configurable indentation. Sorted keys make JSON output deterministic — ideal for consistent hashing, version control diffs, and debugging where key order was obscuring changes."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Sort Keys",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Choose indentation (2 spaces, 4 spaces, tabs, or minified) and sort direction (ascending/descending).",
+              "<strong>Step 3:</strong> Click Transform. The output shows JSON with all keys sorted recursively."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Sort Keys",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When comparing JSON configs across environments, differing key orders create false diffs. Sorting keys first eliminates this noise. It's also essential for generating deterministic hashes of JSON data (signing APIs, content-addressable storage) where the same data must always produce the same hash."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this sort array elements?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Only object keys are sorted. Array elements keep their original order. Sorting array elements would change the data semantics."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is sorting recursive?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. All nested objects at every level have their keys sorted, not just the top-level object."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-flattener",
+    "varName": "JsonFlattenerSeo",
+    "name": "JSON Flattener",
+    "sections": [
+      {
+        "heading": "What is JSON Flattener",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Flattener converts nested JSON structures into flat key-value pairs using dot notation or a custom separator. For example, <code>{\"a\": {\"b\": 1}}</code> becomes <code>{\"a.b\": 1}</code>. Arrays are flattened with numeric indices. This is useful for converting nested data into formats expected by flat configuration systems, CSV exports, or database row imports."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Flattener",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your nested JSON into the input area.",
+              "<strong>Step 2:</strong> Choose the separator character (dot, slash, underscore) and indentation.",
+              "<strong>Step 3:</strong> Click Transform. The flat key-value representation appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Flattener",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Many systems expect flat key-value pairs: environment variables, CSV columns, database columns, and configuration loaders like dotenv. Flattening converts nested JSON to these formats without losing any data. The reverse operation (unflattening) rebuilds the nested structure."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are arrays flattened?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Array elements are flattened with numeric indices as keys. <code>[\"a\",\"b\"]</code> becomes <code>{\"0\": \"a\", \"1\": \"b\"}</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I unflatten the result?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The JSON Unflattener tool reverses this operation, rebuilding the nested structure from flat keys using the separator to determine nesting levels."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-unflattener",
+    "varName": "JsonUnflattenerSeo",
+    "name": "JSON Unflattener",
+    "sections": [
+      {
+        "heading": "What is JSON Unflattener",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Unflattener converts flat key-value pairs (using dot notation or a custom separator) back into nested JSON structures. It parses the flat keys as paths — <code>a.b.c</code> becomes a nested object with three levels — and reconstructs the original hierarchy. Numeric path segments are converted to array elements."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Unflattener",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste flat JSON (dot-separated keys) into the input area.",
+              "<strong>Step 2:</strong> Choose the separator that matches how the keys were flattened.",
+              "<strong>Step 3:</strong> Click Transform. The nested JSON appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Unflattener",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "After flattening JSON for CSV export, database storage, or environment variables, you need to reconstruct the original nested structure. The unflattener handles this automatically, including proper array reconstruction from numeric indices."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does it handle arrays?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When a path segment is a numeric string (like <code>items.0.name</code>), the tool creates an array at that level instead of an object, with the numeric segment as the index."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if keys are ambiguous?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the same path results from different flattening strategies (e.g., <code>a.b</code> could be a nested object or a literal key), the tool uses the last value written. Ensure the separator matches the one used during flattening."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-schema-generator",
+    "varName": "JsonSchemaGeneratorSeo",
+    "name": "JSON Schema Generator",
+    "sections": [
+      {
+        "heading": "What is JSON Schema Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Schema Generator analyzes a sample JSON document and produces a JSON Schema (draft 2020-12) that describes its structure. It infers types, detects required fields, identifies array item types, and generates constraints like <code>minLength</code>, <code>enum</code>, and <code>pattern</code> from observed values. The output is a valid JSON Schema that can be used for validation, documentation, and code generation."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Schema Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a representative JSON sample into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The generated JSON Schema appears in the output.",
+              "<strong>Step 3:</strong> Copy the schema for use in API validation (express-validator, ajv), documentation (swagger), or code generation."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Schema Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Writing JSON Schema by hand is tedious and error-prone for complex structures. This tool generates a complete schema from a single example, capturing types, nesting, required fields, and constraints. It's invaluable for API design — generate the schema from your example response, then use it for both documentation and runtime validation."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How accurate is the generated schema?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The schema is generated from a single sample, so it may overfit. If your sample has <code>\"age\": 25</code>, the schema will mark age as a number, but it won't know that negative values are invalid. Add constraints manually for business rules."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it support nested objects and arrays?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The generator recursively traverses the sample, creating nested <code>properties</code> for objects and <code>items</code> definitions for arrays."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this for OpenAPI/Swagger?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. JSON Schema is the foundation of OpenAPI's schema definitions. The generated schema can be used directly in <code>components.schemas</code> or <code>definitions</code> sections."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-path-finder",
+    "varName": "JsonPathFinderSeo",
+    "name": "JSON Path Finder",
+    "sections": [
+      {
+        "heading": "What is JSON Path Finder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Path Finder takes a JSON document and a target value (or key name), then locates the JSONPath expression(s) that reach it. It traverses the entire JSON tree, matching values or keys against your search term, and returns the full path(s) to each match. This is useful for navigating large API responses or complex config files where you know the value but not where it lives."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Path Finder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Enter the value or key name you're looking for in the search field.",
+              "<strong>Step 3:</strong> Click Transform. The matching paths appear in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Path Finder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Large API responses (500+ lines), nested config files, and database query results often contain values you need to extract but can't quickly locate by scrolling. This tool returns the exact path, which you can then use in code (JavaScript property access, JSONPath queries) or in API response mapping."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it support JSONPath syntax?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output uses dot notation paths (like <code>data.users[0].email</code>), which is standard JavaScript property access. For full JSONPath syntax ($..name, $.items[*].id), use a dedicated JSONPath library."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it search by partial match?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool matches the search term against string values and keys. It performs an exact match by default — partial matches require the full search term to be contained in the value."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-tree-viewer",
+    "varName": "JsonTreeViewerSeo",
+    "name": "JSON Tree Viewer",
+    "sections": [
+      {
+        "heading": "What is JSON Tree Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Tree Viewer renders JSON as an expandable/collapsible tree hierarchy. Each object and array node can be expanded to show its children, with type badges (string, number, boolean, null, object, array) and key count annotations. It handles arbitrarily deep nesting and large structures by rendering only visible nodes."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Tree Viewer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tree view appears with expandable nodes.",
+              "<strong>Step 3:</strong> Click any object/array node to expand or collapse it.",
+              "<strong>Step 4:</strong> Click individual values to copy them."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Tree Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Raw JSON text is hard to navigate when structures are deeply nested or contain hundreds of keys. A tree viewer lets you collapse sections you're not interested in and expand only the parts you need. It's especially useful for inspecting API responses, database query results, and complex configuration files."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle circular references?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Standard JSON does not support circular references. If your data has them, the JSON parser will reject it before the tree is rendered."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I expand/collapse all at once?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The viewer provides expand/collapse controls at each level. For very large structures, expand level by level to avoid performance issues."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-repair-tool",
+    "varName": "JsonRepairToolSeo",
+    "name": "JSON Repair Tool",
+    "sections": [
+      {
+        "heading": "What is JSON Repair Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Repair Tool attempts to fix common JSON syntax errors automatically. It handles missing commas between properties, trailing commas (which are invalid in standard JSON), missing quotes around keys, unescaped characters in strings, and incomplete structures. The tool uses heuristics to infer the intended structure and produces valid JSON from malformed input."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Repair Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the broken JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool attempts to repair the syntax.",
+              "<strong>Step 3:</strong> If successful, the repaired JSON appears in the output. If not, an error describes what couldn't be fixed."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Repair Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Hand-typed JSON, output from JavaScript console.log(), and JSON embedded in markdown files often contain minor syntax errors — a trailing comma, a missing quote, an unescaped backslash. Rather than manually hunting for the error in hundreds of lines, this tool fixes common issues automatically."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What types of errors can it fix?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Common fixes include: trailing commas, missing commas between properties, unquoted keys (like <code>{name: \"value\"}</code>), unescaped control characters, and single-quoted strings (converting to double quotes)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it fix completely malformed JSON?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The tool handles minor syntax errors, not structural corruption. If the input is too far from valid JSON (e.g., missing closing braces entirely), it will report an error."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "broken-json-fixer",
+    "varName": "BrokenJsonFixerSeo",
+    "name": "Broken JSON Fixer",
+    "sections": [
+      {
+        "heading": "What is Broken JSON Fixer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Broken JSON Fixer repairs malformed JSON with a more aggressive approach than the standard repair tool. It handles deeper structural issues: missing closing brackets at any nesting level, broken string escapes, concatenated JSON fragments, JSON embedded in log output (stripping surrounding text), and partial JSON truncation. It reconstructs the maximum valid structure from broken input."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Broken JSON Fixer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the broken JSON — it may contain log lines, partial output, or syntax errors.",
+              "<strong>Step 2:</strong> Click Transform. The tool analyzes and repairs the structure.",
+              "<strong>Step 3:</strong> The repaired JSON appears with a note about what was fixed."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Broken JSON Fixer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Real-world JSON breaks in ways that tools like JSON Repair can't handle: server logs with JSON embedded in text, truncated API responses from network errors, and partial output from crashed scripts. This tool is designed for the messy reality of debugging, not clean-but-minor-syntax-error JSON."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is this different from JSON Repair Tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Repair Tool handles minor syntax issues (trailing commas, missing quotes). The Broken Fixer handles deeper structural problems: missing brackets, truncated output, and JSON embedded in surrounding text."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it recover data from truncated JSON?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, partially. If a JSON response was cut off mid-stream, the tool will close any open brackets/braces to produce valid (but incomplete) JSON. The data up to the truncation point is preserved."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "large-json-viewer",
+    "varName": "LargeJsonViewerSeo",
+    "name": "Large JSON Viewer",
+    "sections": [
+      {
+        "heading": "What is Large JSON Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Large JSON Viewer handles JSON documents that are too large for standard viewers — files with hundreds of thousands of nodes or multi-megabyte payloads. It uses virtual scrolling to render only visible nodes, lazy-loads child nodes on demand, and provides search functionality to jump to specific keys or values without manually expanding the tree."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Large JSON Viewer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste or upload a large JSON document into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The viewer renders the tree with virtual scrolling.",
+              "<strong>Step 3:</strong> Expand nodes as needed — only visible nodes are rendered in the DOM.",
+              "<strong>Step 4:</strong> Use search to find specific keys or values across the entire document."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Large JSON Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Standard JSON formatters and viewers load the entire document into the DOM, causing browser lag or crashes with large files. API responses from analytics endpoints, database dumps, and log aggregators routinely produce JSON files that are 10MB+. The virtual scrolling approach keeps performance constant regardless of document size."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the maximum file size?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The viewer handles documents up to ~50MB efficiently. Beyond that, parsing may be slow, but the virtual scrolling ensures rendering stays smooth once the tree is built."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I copy subtrees?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Click the copy button on any node to copy its subtree as valid JSON to the clipboard."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-compare-viewer",
+    "varName": "JsonCompareViewerSeo",
+    "name": "JSON Compare Viewer",
+    "sections": [
+      {
+        "heading": "What is JSON Compare Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Compare Viewer provides a visual side-by-side comparison of two JSON documents, with color-coded highlighting of additions (green), removals (red), and modifications (yellow). Unlike text-based diff tools, it understands JSON structure — comparing by key paths rather than line numbers — so reordering keys doesn't produce false positives."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Compare Viewer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the original JSON into the left input (Input).",
+              "<strong>Step 2:</strong> Paste the modified JSON into the right input (Second Input).",
+              "<strong>Step 3:</strong> Click Transform. The side-by-side view shows changes highlighted by type."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Compare Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When comparing API responses across versions, verifying data migrations, or debugging config changes, a visual side-by-side view is faster than parsing diff output. The structure-aware comparison means only actual data changes are highlighted, not whitespace or key-ordering differences."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is this different from JSON Diff?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "JSON Diff provides a text-based list of changes with paths. JSON Compare Viewer shows a visual side-by-side layout with color-coded highlights, which is better for visual inspection of small-to-medium documents."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle deeply nested structures?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The comparison is recursive and handles arbitrary nesting depth. Changes at any level are shown with their full path context."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-key-extractor",
+    "varName": "JsonKeyExtractorSeo",
+    "name": "JSON Key Extractor",
+    "sections": [
+      {
+        "heading": "What is JSON Key Extractor",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON Key Extractor extracts all unique key names from a JSON document, optionally including their nesting paths. It traverses the entire JSON tree and outputs a flat list of all keys encountered, with options for deduplication and path formatting. Useful for understanding the schema of unfamiliar JSON data or generating column headers for CSV export."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON Key Extractor",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The extracted keys appear in the output.",
+              "<strong>Step 3:</strong> Copy the key list for use in schema documentation, CSV headers, or database column definitions."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON Key Extractor",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When integrating with a new API, you need to know all possible fields in the response to map them to your data model. This tool instantly extracts every key from a sample response, giving you a complete field list without manually reading through deeply nested structures."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it extract array element keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Array indices (0, 1, 2...) are not extracted as keys — only object property names are included."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I get paths instead of just key names?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool can output flat key names (deduplicated) or full paths (e.g., <code>users[0].address.city</code>). Check the options for path output mode."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-to-typescript",
+    "varName": "JsonToTypescriptSeo",
+    "name": "JSON to TypeScript",
+    "sections": [
+      {
+        "heading": "What is JSON to TypeScript",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON to TypeScript tool generates TypeScript interface definitions from a JSON sample. It infers types (string, number, boolean, null, array, object), creates nested interfaces for complex objects, marks nullable fields with union types, and generates array item types from the first element. The output is ready-to-use TypeScript that accurately represents the JSON structure."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON to TypeScript",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a representative JSON sample into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The generated TypeScript interfaces appear in the output.",
+              "<strong>Step 3:</strong> Copy the interfaces into your TypeScript project."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON to TypeScript",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Writing interfaces for API response types is repetitive and error-prone — you miss fields, mistype types, or forget nullability. This tool generates accurate interfaces from real data, saving time and reducing type errors. It's especially valuable when working with large API responses with dozens of nested fields."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does it handle union types?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If a field contains values of different types (like <code>\"age\": 25</code> and <code>\"age\": null</code> across multiple samples), it creates a union type like <code>number | null</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it handle multiple samples?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool processes one JSON document. For comprehensive type inference across multiple samples, merge them into a single object first."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it generate JSDoc comments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The generated interfaces are clean TypeScript without comments. Add JSDoc annotations manually for documentation purposes."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-to-go-struct",
+    "varName": "JsonToGoStructSeo",
+    "name": "JSON to Go Struct",
+    "sections": [
+      {
+        "heading": "What is JSON to Go Struct",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON to Go Struct tool generates Go struct definitions from a JSON sample. It infers Go types (string, float64, bool, []interface{}, map[string]interface{}), creates nested structs, adds <code>json:\"...\"</code> struct tags for field mapping, and marks fields as <code>omitempty</code> when null values are present. The output is valid Go code ready to paste into your project."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON to Go Struct",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a JSON sample into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The Go struct definitions appear in the output.",
+              "<strong>Step 3:</strong> Copy the structs into your Go source file."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON to Go Struct",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Go requires explicit struct definitions for JSON marshaling/unmarshaling. For APIs with dozens of nested types, writing these by hand is slow and error-prone. This tool generates accurate struct definitions with proper JSON tags, saving significant development time when integrating with new APIs."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does it handle JSON numbers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "JSON numbers are mapped to <code>float64</code> (Go's default for JSON decoding). For integer-specific fields, you may need to change the type to <code>int</code> or <code>int64</code> manually."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle nested arrays of objects?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Arrays of objects generate slice types (<code>[]UserType</code>) with the appropriate struct definition."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-to-xml",
+    "varName": "JsonToXmlSeo",
+    "name": "JSON to XML",
+    "sections": [
+      {
+        "heading": "What is JSON to XML",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON to XML tool converts JSON documents to well-formed XML markup. It maps JSON objects to XML elements, arrays to repeated elements, strings/numbers/booleans to text content, and null values to empty elements. Key names become element names, with special characters and reserved XML names (<code>name</code>, <code>text</code>) escaped automatically."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON to XML",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The XML output appears with proper indentation.",
+              "<strong>Step 3:</strong> Copy the XML for use in SOAP services, XML configs, or legacy system integration."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON to XML",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Many legacy systems, SOAP APIs, and configuration formats still use XML. When your data lives in JSON (from modern APIs or databases), you need a quick conversion to bridge the gap. This tool handles the mapping correctly, including proper XML escaping and element nesting."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are JSON arrays represented in XML?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Array elements become repeated child elements with the array key as the element name. <code>{\"items\": [1, 2]}</code> becomes <code>&lt;items&gt;&lt;items&gt;1&lt;/items&gt;&lt;items&gt;2&lt;/items&gt;&lt;/items&gt;</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it add an XML declaration?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The output is a fragment, not a complete XML document. Add <code>&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;</code> manually if needed."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-to-yaml",
+    "varName": "JsonToYamlSeo",
+    "name": "JSON to YAML",
+    "sections": [
+      {
+        "heading": "What is JSON to YAML",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON to YAML tool converts JSON documents to YAML (YAML Ain't Markup Language) format. It produces clean, human-readable YAML with proper indentation, handles nested structures, arrays, and scalar values, and avoids YAML-specific pitfalls like unquoted colons in strings. The output follows YAML 1.2 conventions."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON to YAML",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JSON into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The YAML output appears with proper formatting.",
+              "<strong>Step 3:</strong> Copy the YAML for use in Kubernetes manifests, CI/CD configs, or Docker Compose files."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON to YAML",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "YAML is preferred for human-edited configuration files (Kubernetes, Docker Compose, GitHub Actions) because it's more readable than JSON. When your configuration data exists as JSON (from APIs, databases, or config generators), converting to YAML makes it suitable for these platforms."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is YAML preferred over JSON for configs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "YAML supports comments (which JSON doesn't), uses indentation instead of braces (more readable for nested structures), and allows multi-line strings. These features make it ideal for human-edited configuration files."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this handle JSON numbers correctly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Numbers are preserved as-is. YAML 1.2 distinguishes between integers and floats, so <code>42</code> becomes an integer and <code>3.14</code> becomes a float."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "json-to-csv",
+    "varName": "JsonToCsvSeo",
+    "name": "JSON to CSV",
+    "sections": [
+      {
+        "heading": "What is JSON to CSV",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JSON to CSV tool flattens JSON arrays into comma-separated values (CSV) format. Each object in the array becomes a row, and all unique keys across objects become column headers. Nested objects are flattened with dot notation, arrays are serialized as JSON strings, and missing fields are left empty. The output is RFC 4180-compliant CSV."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JSON to CSV",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a JSON array of objects into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The CSV output appears with headers and data rows.",
+              "<strong>Step 3:</strong> Copy the CSV or import it into a spreadsheet application."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JSON to CSV",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "APIs return JSON, but spreadsheets, databases, and reporting tools expect CSV. This conversion is needed daily for data analysis, migration, and reporting. The tool handles the edge cases — nested objects, varying keys across rows, and special characters in values — that break naive CSV generators."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are nested objects handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Nested objects are flattened with dot notation: <code>{\"address\": {\"city\": \"NYC\"}}</code> becomes a column <code>address.city</code> with value <code>NYC</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if objects have different keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSV includes all unique keys across all objects as columns. Rows with missing keys get empty cells."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle commas in values?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Values containing commas, quotes, or newlines are properly quoted per RFC 4180."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "csv-to-json",
+    "varName": "CsvToJsonSeo",
+    "name": "CSV to JSON",
+    "sections": [
+      {
+        "heading": "What is CSV to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSV to JSON tool parses comma-separated values (CSV) data into a JSON array of objects. The first row is treated as headers (keys), and each subsequent row becomes an object with those keys. The tool handles quoted fields (including commas and newlines within quotes), different delimiters (comma, tab, semicolon), and UTF-8 encoded data."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSV to JSON",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSV data into the input area.",
+              "<strong>Step 2:</strong> Select the delimiter if not comma-separated.",
+              "<strong>Step 3:</strong> Click Transform. The JSON array of objects appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSV to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Spreadsheets export CSV, databases dump CSV, and data files come as CSV — but modern APIs and JavaScript code need JSON. This conversion is the first step in almost any data import pipeline. The tool handles real-world CSV quirks: quoted fields, escaped characters, and inconsistent delimiters."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does it determine types?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "By default, all values are strings. Numbers are not automatically converted to avoid ambiguity (is <code>00123</code> a number or a string with leading zeros?)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this for TSV (tab-separated)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Select the tab delimiter option, or paste tab-separated data — the tool auto-detects tabs in most cases."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "xml-to-json",
+    "varName": "XmlToJsonSeo",
+    "name": "XML to JSON",
+    "sections": [
+      {
+        "heading": "What is XML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The XML to JSON tool parses XML markup into a structured JSON object. It maps XML elements to object properties, attributes to <code>@attr</code> keys, text content to <code>#text</code> keys, and repeated elements to arrays. CDATA sections and namespaces are handled correctly. The output preserves the full XML structure in JSON representation."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use XML to JSON",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste XML into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The JSON representation appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use XML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Many legacy APIs (SOAP, RSS feeds, configuration files) still return XML. Converting to JSON makes the data accessible to modern JavaScript code, APIs, and tools that expect JSON. This is a common first step when integrating with older systems."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are XML attributes represented?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Attributes are prefixed with <code>@</code>. For example, <code>&lt;element id=\"1\"&gt;</code> becomes <code>{\"@id\": \"1\"}</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are repeated elements handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the same element name appears multiple times under one parent, it becomes an array: <code>{\"item\": [{...}, {...}]}</code>."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "yaml-to-json",
+    "varName": "YamlToJsonSeo",
+    "name": "YAML to JSON",
+    "sections": [
+      {
+        "heading": "What is YAML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The YAML to JSON tool parses YAML (YAML Ain't Markup Language) documents into valid JSON. It handles YAML's full feature set: nested structures, arrays, scalars, multi-line strings, anchors and aliases, and implicit type detection (booleans, numbers, null). The output is properly formatted JSON."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use YAML to JSON",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste YAML into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The JSON output appears with proper formatting."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use YAML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Kubernetes manifests, Docker Compose files, GitHub Actions workflows, and Ansible playbooks all use YAML. When you need to programmatically process these configurations (validate, transform, merge), converting to JSON first is the standard approach since JSON has native support in every programming language."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are YAML anchors handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Anchors (<code>&name</code>) and aliases (<code>*name</code>) are resolved during parsing — the alias becomes a copy (not reference) of the anchored value."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it preserve YAML comments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. YAML comments (lines starting with <code>#</code>) are stripped during parsing since JSON has no comment syntax."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "toml-to-json",
+    "varName": "TomlToJsonSeo",
+    "name": "TOML to JSON",
+    "sections": [
+      {
+        "heading": "What is TOML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The TOML to JSON tool parses TOML (Tom's Obvious Minimal Language) configuration files into valid JSON. TOML is used by Rust's Cargo, Python's pyproject.toml, and many modern build tools. The parser handles tables, sub-tables, arrays of tables, inline tables, datetime values, and TOML's type system (strings, integers, floats, booleans, dates)."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use TOML to JSON",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste TOML configuration into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The JSON output appears."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use TOML to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When migrating from TOML-based tooling to JSON-based systems, or when you need to programmatically process TOML configs, converting to JSON is the standard bridge. The tool handles TOML's table nesting, which maps naturally to JSON's nested objects."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are TOML tables represented?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>[section]</code> becomes a nested object: <code>{\"section\": {...}}</code>. Sub-tables like <code>[section.sub]</code> create deeper nesting."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle arrays of tables?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. <code>[[array]]</code> entries become JSON arrays of objects under the key <code>array</code>."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "tsv-to-json",
+    "varName": "TsvToJsonSeo",
+    "name": "TSV to JSON",
+    "sections": [
+      {
+        "heading": "What is TSV to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The TSV to JSON tool parses tab-separated values into a JSON array of objects. Similar to CSV-to-JSON but specifically handles tab delimiters, which are common in scientific data, log files, and spreadsheet exports where values contain commas. The first row becomes keys, subsequent rows become objects."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use TSV to JSON",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste tab-separated data into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The JSON array appears in the output."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use TSV to JSON",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Spreadsheet applications (Excel, Google Sheets) often copy data as tab-separated values. Log files and scientific datasets frequently use tabs as delimiters because tab characters are less likely to appear in data values than commas. Converting TSV to JSON makes this data accessible to JavaScript and APIs."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I paste from Excel?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Copy cells from Excel or Google Sheets and paste directly — they're tab-separated by default."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How are tabs within values handled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Values are split strictly on tab characters. If your data contains literal tabs within fields, consider using a more robust parser."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "xml-formatter",
+    "varName": "XmlFormatterSeo",
+    "name": "XML Formatter",
+    "sections": [
+      {
+        "heading": "What is XML Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The XML Formatter pretty-prints XML markup with consistent indentation, proper tag alignment, and clean whitespace handling. It parses the input XML, then re-serializes it with configurable indentation (2 or 4 spaces). The formatter also fixes common XML issues like inconsistent tag casing, missing closing tags, and improper nesting."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use XML Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste XML into the input area.",
+              "<strong>Step 2:</strong> Select indentation size.",
+              "<strong>Step 3:</strong> Click Transform. The formatted XML appears with proper structure."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use XML Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Minified XML from APIs, auto-generated XML from tools, and hand-edited XML all tend to have inconsistent formatting. A formatter makes structures readable, helps identify nesting errors, and produces consistent output for version control. Essential for SOAP API development and XML configuration files."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it validate the XML?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the XML is malformed (unclosed tags, mismatched elements), the parser will throw an error describing the issue."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it handle XML declarations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. <code>&lt;?xml version=\"1.0\"?&gt;</code> and other processing instructions are preserved in the output."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "xml-validator",
+    "varName": "XmlValidatorSeo",
+    "name": "XML Validator",
+    "sections": [
+      {
+        "heading": "What is XML Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The XML Validator checks XML documents for well-formedness — correct tag nesting, proper attribute quoting, balanced opening/closing tags, and valid character encoding. It parses the input using the browser's DOMParser and reports specific errors with position information when the XML is malformed."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use XML Validator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste XML into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The validator checks structure and reports results.",
+              "<strong>Step 3:</strong> If valid, the formatted XML appears. If not, the error message pinpoints the issue."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use XML Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Malformed XML breaks parsers, API clients, and configuration loaders. This tool catches issues before they cause runtime errors: unclosed tags, attributes without quotes, mismatched tag names, and invalid character references. Essential for SOAP development, XML config management, and XSLT processing."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it validate against an XML Schema (XSD)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This checks well-formedness only. For schema validation (checking elements, attributes, and data types against an XSD), use a dedicated XML Schema validator."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does 'well-formed' mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Well-formed XML follows the basic syntax rules: all elements have closing tags (or are self-closing), attributes are quoted, elements are properly nested, and there's exactly one root element."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "yaml-validator",
+    "varName": "YamlValidatorSeo",
+    "name": "YAML Validator",
+    "sections": [
+      {
+        "heading": "What is YAML Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The YAML Validator checks YAML documents for syntax errors, indentation problems, and structural issues. It parses the input YAML and reports specific errors like incorrect indentation levels, invalid characters, duplicate keys, and type errors. The validator handles YAML 1.2 syntax including anchors, tags, and multi-line strings."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use YAML Validator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste YAML into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The validator checks the YAML structure.",
+              "<strong>Step 3:</strong> If valid, the parsed YAML appears. If not, the error describes the issue with line information."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use YAML Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "YAML's indentation-sensitive syntax makes it error-prone — a single wrong space breaks the entire document. Kubernetes manifests, Docker Compose files, and CI/CD configs are all YAML-based, and a syntax error in these files can break deployments. This tool catches YAML errors before they reach your build pipeline."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the most common YAML error?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Incorrect indentation. YAML uses spaces for nesting (not tabs), and inconsistent indentation between siblings or parent-child pairs is the #1 cause of parse failures."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it check for duplicate keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "YAML technically allows duplicate keys (the last value wins), but this is almost always a mistake. The validator may flag this as a warning."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "csv-formatter",
+    "varName": "CsvFormatterSeo",
+    "name": "CSV Formatter",
+    "sections": [
+      {
+        "heading": "What is CSV Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSV Formatter cleans up and normalizes CSV data. It standardizes quoting (double-quotes around fields containing commas or newlines), normalizes line endings, removes BOM markers, and optionally aligns columns for visual readability. The tool handles real-world CSV quirks: inconsistent delimiters, missing headers, and trailing whitespace."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSV Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSV data into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The cleaned CSV appears with consistent formatting."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSV Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CSV files from different sources have different formatting conventions — some quote all fields, some quote only when necessary, some use different line endings. A formatter normalizes these differences, making the data consistent for import into databases, spreadsheets, or processing scripts."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it change the data?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Only formatting changes: consistent quoting, normalized line endings, and whitespace cleanup. The actual data values remain identical."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it handle different delimiters?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The formatter detects the delimiter automatically (comma, semicolon, tab) based on the first row analysis."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "csv-viewer",
+    "varName": "CsvViewerSeo",
+    "name": "CSV Viewer",
+    "sections": [
+      {
+        "heading": "What is CSV Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSV Viewer renders CSV data as an interactive HTML table with sortable columns, search filtering, and row pagination. It auto-detects the delimiter, parses headers, and handles large datasets by rendering only visible rows. The viewer supports quoted fields, multi-line values, and UTF-8 encoded data."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSV Viewer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste CSV data into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The table appears with headers, rows, and sorting controls.",
+              "<strong>Step 3:</strong> Click column headers to sort, use the search box to filter rows."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSV Viewer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Raw CSV text is hard to read — columns don't align, values run together, and large datasets are impossible to scan. A tabular view with sorting and filtering makes the data instantly navigable, useful for quick data inspection, debugging exports, and sharing data previews with non-technical stakeholders."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How large a CSV can it handle?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The viewer handles CSV files up to ~100MB efficiently with virtual scrolling. For files larger than that, consider loading specific sections."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it support editing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The viewer is read-only. For editing CSV, use the CSV Formatter or modify the source data."
+          }
+        ]
+      }
+    ]
+  }
+]

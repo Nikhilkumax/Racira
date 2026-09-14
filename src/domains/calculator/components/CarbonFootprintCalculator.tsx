@@ -122,7 +122,7 @@ const CarbonFootprintCalculator = () => {
               <NumInput id="shortFlights" label="Short Haul (<3h)" value={inputs.shortFlights} onChange={set("shortFlights")} min="0" />
               <NumInput id="mediumFlights" label="Medium Haul (3-6h)" value={inputs.mediumFlights} onChange={set("mediumFlights")} min="0" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div className="grid grid-cols-2 gap-3">
               <NumInput id="oil" label="Heating Oil" value={inputs.oil} onChange={set("oil")} min="0" suffix="gal/mo" />
               <NumInput id="longFlights" label="Long Haul (>6h)" value={inputs.longFlights} onChange={set("longFlights")} min="0" />

@@ -147,6 +147,7 @@ export default function LandLoanPaymentCalculator() {
               </button>
               {showAdvanced && (
                 <div className="mt-3 border border-border rounded-lg p-4 bg-secondary/10 flex flex-col gap-3">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Payment Terms</div>
                   <div>
                     <label className="text-sm font-medium mb-1 block">Payment Frequency</label>
                     <div className="flex gap-2">

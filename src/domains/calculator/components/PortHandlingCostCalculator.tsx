@@ -214,7 +214,7 @@ export default function PortHandlingCostCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.totalPenalties > 0 ? 'bg-red-500/10 border-red-500/30' : 'bg-primary/10 border-primary/30'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

@@ -266,6 +266,7 @@ export default function BatteryDegradationCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Battery Warranty</div>
                   <CompactInput id="war-thresh" label="Warranty Threshold" value={inputs.warrantyThreshold} onChange={(v: string) => handleChange("warrantyThreshold", v)} suffix="%" tooltip="Usually 70% capacity retention." />
                   <div className="col-span-2 grid grid-cols-2 gap-3">
                     <CompactInput id="war-years" label="Warranty Years" value={inputs.warrantyYears} onChange={(v: string) => handleChange("warrantyYears", v)} suffix="yrs" />

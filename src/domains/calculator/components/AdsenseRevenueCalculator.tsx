@@ -118,6 +118,7 @@ export default function AdsenseRevenueCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Engagement & Ad Density</div>
                 <div><label className="text-sm font-medium mb-1.5 block">Pages Per Visit</label><div className={inp}><input type="number" value={pagesPerVisit} onChange={e => setPagesPerVisit(e.target.value)} step={0.1} className={ci} /></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Ad Units Per Page</label><div className={inp}><input type="number" value={adUnits} onChange={e => setAdUnits(e.target.value)} className={ci} /></div></div>
               </div>

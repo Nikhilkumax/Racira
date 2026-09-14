@@ -150,7 +150,7 @@ export default function MortgageClosingCostEstimator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Third-Party Fees</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Third-Party Fees</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className="text-sm font-medium mb-1 block">Appraisal Fee</label><div className={i}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={appraisalFee} onChange={e => setAppraisalFee(e.target.value)} className={c} /></div></div>
                   <div><label className="text-sm font-medium mb-1 block">Title Insurance</label><div className={i}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={titleInsurance} onChange={e => setTitleInsurance(e.target.value)} className={c} /></div></div>
@@ -159,7 +159,7 @@ export default function MortgageClosingCostEstimator() {
                   <div><label className="text-sm font-medium mb-1 block">Attorney Fee</label><div className={i}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={attorneyFee} onChange={e => setAttorneyFee(e.target.value)} className={c} /></div></div>
                   <div><label className="text-sm font-medium mb-1 block">Recording Fee</label><div className={i}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={recordingFee} onChange={e => setRecordingFee(e.target.value)} className={c} /></div></div>
                 </div>
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold mt-2">Taxes & Prepaids</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-2">Taxes & Prepaids</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className="text-sm font-medium mb-1 block">Transfer Tax (%)</label><div className={i}><input type="number" value={transferTaxPct} onChange={e => setTransferTaxPct(e.target.value)} step="0.1" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>
                   <div><label className="text-sm font-medium mb-1 block">Prepaid Insurance ($)</label><div className={i}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={prepaidInsurance} onChange={e => setPrepaidInsurance(e.target.value)} className={c} /></div></div>

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "parallelism-and-perpendicularity-guide",
+    "varName": "parallelism_and_perpendicularity_guideSeo",
+    "name": "Parallelism & Perpendicularity Guide",
+    "sections": [
+      {
+        "heading": "What is Parallelism & Perpendicularity Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Parallelism & Perpendicularity Guide is a reference for the two most common orientation tolerances: parallelism, which limits how far a surface or axis may tilt away from parallel to a datum, and perpendicularity, which limits tilt away from 90 degrees to the datum. Both are orientation controls under ASME Y14.5 and ISO 1101, and both always require a datum — without one, parallelism degenerates into flatness or straightness, because there is nothing to orient to."
+          },
+          {
+            "type": "paragraph",
+            "text": "The guide distinguishes the two ways each control is applied. On a surface application the tolerance zone is two parallel planes (for a flat surface) a distance apart, oriented to the datum. On an axis application — written beneath a size dimension for a hole or pin — the zone is a cylinder of diameter equal to the tolerance, parallel or perpendicular to the datum. A feature control frame reading ∥ 0.05 A means the surface or axis must stay parallel to datum A within 0.05 millimetres."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Parallelism & Perpendicularity Guide",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify which control the feature needs. A face that must sit square to its mounting datum takes perpendicularity; a slide or a face that must stay level with a datum takes parallelism.",
+              "<strong>Step 2:</strong> Decide between surface and axis application. For a flat face, the zone is two planes. For a hole or pin whose axis must be oriented, the frame goes under the size callout and the zone is a cylinder of the tolerance diameter.",
+              "<strong>Step 3:</strong> Read the frame correctly: symbol first, then tolerance value, then the datum reference — ∥ 0.05 A is parallel to datum A within 0.05. A material-condition modifier such as M on the tolerance grants extra freedom as the feature departs from MMC; rare for parallelism, common for perpendicularity of pressed holes.",
+              "<strong>Step 4:</strong> Size the value against the process, using the guide's typical ranges as a starting point: parallelism of a milled face to a datum 0.02 to 0.05 mm, ground faces 0.005 to 0.01 mm, and perpendicularity of a bearing bore 0.01 to 0.02 mm per 25 mm of depth.",
+              "<strong>Step 5:</strong> Consider whether location is also required. If a bolt pattern must be both square and in place, a single position callout with a composite frame beats stacking separate position and perpendicularity frames."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Parallelism & Perpendicularity Guide",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Orientation errors are the quiet killers of assemblies: a face that is parallel to within drawing tolerance but drifts along its length, or a bore that leans a fraction of a degree, produces binding, uneven wear or misalignment that size tolerances alone never catch. Orientation controls exist precisely to bound those errors relative to a datum, and the guide exists to make sure the frame is written the way the shop will read it — with the correct zone shape and a datum that actually exists."
+          },
+          {
+            "type": "paragraph",
+            "text": "The guide also carries the interaction knowledge that separates competent callouts from copybook ones. Perpendicularity error on a hole translates into apparent position error at depth — a tilt that is invisible at the mouth of the hole grows as you go deeper — so a deep bore with a tight mating pin may need an orientation control that a shallow hole does not. Understanding that relationship is how you decide between a perpendicularity frame and a position frame, and when you need both."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does parallelism always need a datum when flatness does not?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Flatness measures a surface against an idealised plane of its own — it bounds waviness with no external reference. Parallelism measures the orientation of a surface or axis relative to something else, and that something else must be named: the datum. Without a datum reference the parallelism callout has no meaning, because “parallel to what?” has no answer. The moment you find yourself wanting to control parallelism without a datum, the control you actually want is flatness or straightness."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much position error does a tilted hole create at depth?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The apparent drift grows linearly with depth: at a 10 mm deep hole, 0.1 degrees of tilt moves the far end by roughly 10 times the tangent of 0.1 degrees, which is about 0.017 mm. At 50 mm deep the same tilt moves the far end about 0.087 mm — five times the error for the same angular defect. That is why deep holes and bores pair with perpendicularity callouts while shallow features often get away with position alone: the orientation error only becomes visible as the feature gets longer."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When do I use position instead of perpendicularity?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Position locates the axis at a basic location relative to datums and, when written with a composite frame, can also control orientation. Perpendicularity controls only the angle of the axis to the datum — it says nothing about where along that angle the feature sits. If the feature must be at a specific location, use position; if it only needs to be square regardless of exact location, perpendicularity may suffice. For a bolt pattern that must be both located and square, a single composite position frame is usually cleaner than stacking both controls."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the M modifier after the tolerance do?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A material condition modifier on the tolerance, written as something like Ø0.1 M, allows the orientation zone to grow as the feature departs from maximum material condition — a pressed hole that is larger than its MMC size earns bonus orientation tolerance. The modifier is rarely used for parallelism but appears on perpendicularity callouts for pressed or cast holes, where the process naturally produces a range of sizes and the bonus keeps the callout achievable. It only applies to size-related axis applications, never to a flat surface."
+          }
+        ]
+      }
+    ]
+  }
+]

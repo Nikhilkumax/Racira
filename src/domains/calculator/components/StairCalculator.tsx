@@ -119,7 +119,7 @@ const StairCalculator = () => {
     setResult(calculateStairs(unit, totalRise, targetRise, targetRun));
   };
 
-  useEffect(() => { calculate(); }, [unit, totalRise, targetRise, targetRun]);
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
@@ -196,7 +196,7 @@ const StairCalculator = () => {
 
             <div className="flex gap-3 mt-2">
               <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { setUnit("imperial"); setTotalRise("108"); setTargetRise("7.5"); setTargetRun("10"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+              <button type="button" onClick={() => { setUnit("imperial"); setTotalRise("108"); setTargetRise("7.5"); setTargetRun("10"); setResult(calculateStairs("imperial", "108", "7.5", "10")); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>

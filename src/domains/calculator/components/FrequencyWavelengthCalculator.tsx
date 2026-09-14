@@ -132,7 +132,7 @@ export default function FrequencyWavelengthCalculator() {
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
               <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
                 <Radio className="w-4 h-4 text-primary" /> WAVELENGTH
               </div>

@@ -1,0 +1,57 @@
+
+> racira-nextjs@0.1.0 predev
+> node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs
+
+[ffmpeg-core] public/ffmpeg already up to date
+[espeak-core] public/espeak already up to date
+[ort-wasm] Source: node_modules\@huggingface\transformers\node_modules\onnxruntime-web (onnxruntime-web@1.22.0-dev.20250409-89f8206ba4)
+[ort-wasm] public/ort already up to date
+
+> racira-nextjs@0.1.0 dev
+> next dev -p 3002
+
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling /cad/[slug] ...
+ ✓ Compiled /cad/[slug] in 7.4s (3028 modules)
+ GET /cad/scale-bar-tool 200 in 9457ms
+ GET /cad/scale-bar-tool 200 in 96ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1274ms (989 modules)
+ GET / 200 in 1595ms
+ GET / 200 in 66ms
+ ○ Compiling /cad/[slug] ...
+ ✓ Compiled /cad/[slug] in 743ms (2390 modules)
+ GET /cad/scale-bar-tool 200 in 1376ms
+ ✓ Compiled in 21.3s (675 modules)
+ ✓ Compiled in 2.3s (3051 modules)
+ ✓ Compiled in 1045ms (3051 modules)
+ ✓ Compiled / in 386ms (2391 modules)
+ GET / 200 in 633ms
+ GET / 200 in 56ms
+ GET / 200 in 74ms
+ GET / 200 in 91ms
+ GET /cad/scale-bar-tool 200 in 171ms
+ GET /cad/scale-bar-tool 200 in 49ms
+ GET /cad/scale-bar-tool 200 in 63ms
+ GET /cad/scale-bar-tool 200 in 49ms
+ GET /cad/scale-bar-tool 200 in 32ms
+ GET /cad/scale-bar-tool 200 in 30ms
+ GET /cad/scale-bar-tool 200 in 74ms
+ ✓ Compiled in 1359ms (676 modules)
+ ✓ Compiled in 1140ms (676 modules)
+ ✓ Compiled in 1197ms (676 modules)
+ ✓ Compiled in 1146ms (676 modules)
+ ✓ Compiled in 1038ms (676 modules)
+ ✓ Compiled in 926ms (676 modules)
+ ✓ Compiled in 949ms (676 modules)
+ ✓ Compiled in 951ms (676 modules)
+ ✓ Compiled in 951ms (676 modules)
+ ✓ Compiled in 877ms (676 modules)
+ ✓ Compiled in 1007ms (676 modules)
+ ✓ Compiled in 1005ms (676 modules)
+ ✓ Compiled in 2s (676 modules)
+ ⨯ Module not found: SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: C:\Racira\racira-nextjs\package.json (directory description file): SyntaxError: Expected double-quoted property name in JSON at position 3343 (line 86 column 1)

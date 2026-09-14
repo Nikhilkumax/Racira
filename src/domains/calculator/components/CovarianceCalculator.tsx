@@ -79,9 +79,9 @@ export default function CovarianceCalculator() {
 
   useEffect(() => {
     setResult(calcCov(x, y));
-  }, [x, y]);
+  }, []);
 
-  const reset = () => { setX(DEFAULTS.x); setY(DEFAULTS.y); };
+  const reset = () => { setX(DEFAULTS.x); setY(DEFAULTS.y); setResult(calcCov(DEFAULTS.x, DEFAULTS.y)); };
 
   const faqs = [
     { question: "What is covariance?", answer: "Covariance measures how two variables move together: positive when they tend to rise together, negative when they move in opposite directions. Its magnitude depends on the units of the variables, so correlation (a normalized version) is easier to interpret." },

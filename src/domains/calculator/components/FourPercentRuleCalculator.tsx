@@ -279,7 +279,7 @@ export default function FourPercentRuleCalculator() {
                 </div>
 
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 ${results.isSuccess ? 'bg-primary/10 border-primary' : 'bg-destructive/10 border-destructive'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Initial Annual Withdrawal</div>
                   <div className={`text-4xl font-bold mb-2 ${results.isSuccess ? 'text-primary' : 'text-destructive'}`}>
                     ${results.initialAnnualWithdrawal.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}

@@ -131,7 +131,8 @@ export default function GestationalAgeCalculator() {
     setResult(calcGestation(method, dateStr, parseInt(cycleLength) || 28));
   };
 
-  useEffect(() => { setResult(calcGestation("lmp", defaultDateStr, 28)); }, [defaultDateStr]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { setResult(calcGestation("lmp", defaultDateStr, 28)); }, []);
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";

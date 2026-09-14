@@ -97,7 +97,7 @@ const MulchCalculator = () => {
     setResult(calculateMulch(length, width, depth));
   };
 
-  useEffect(() => { calculate(); }, [length, width, depth]);
+  useEffect(() => { calculate(); }, []);
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
@@ -146,7 +146,7 @@ const MulchCalculator = () => {
 
             <div className="flex gap-3 mt-2">
               <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { setLength("20"); setWidth("10"); setDepth("3"); }} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0" aria-label="Reset">
+              <button type="button" onClick={() => { setLength("20"); setWidth("10"); setDepth("3"); setResult(calculateMulch("20", "10", "3")); }} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0" aria-label="Reset">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>

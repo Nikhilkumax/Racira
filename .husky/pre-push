@@ -1,4 +1,4 @@
-cross-env NODE_OPTIONS=--max-old-space-size=4096 npx tsc --noEmit
+cross-env NODE_OPTIONS=--max-old-space-size=6144 npx tsc --noEmit
 if [ $? -ne 0 ]; then
   echo ""
   echo "❌ Type-check failed — push blocked."
@@ -12,6 +12,29 @@ if [ $? -ne 0 ]; then
   echo ""
   echo "❌ Dispatcher coverage check failed — push blocked."
   echo "   Every live slug must have a working case in processFiles."
+  echo ""
+  exit 1
+fi
+
+# CAD registry reconciliation (static: live/soon split vs wired components).
+node _scripts/cad-reconcile.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ CAD registry reconciliation failed — push blocked."
+  echo "   A live flag is only truthful if the slug has a wired component."
+  echo ""
+  exit 1
+fi
+
+# CSS Grid min-width:auto trap guard — cheap static scan for multi-column
+# grids holding unwrapped table/pre content without min-w-0 protection.
+# (The full multi-viewport visual sweep below is intentionally NOT in
+# pre-push — see .github/workflows/visual-qa.yml.)
+node _scripts/grid-min-w0-check.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Unprotected grid layout found — push blocked."
+  echo "   Multi-column grids holding tables/pre blocks need min-w-0 protection."
   echo ""
   exit 1
 fi

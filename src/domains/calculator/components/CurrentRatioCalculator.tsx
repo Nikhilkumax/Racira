@@ -89,7 +89,7 @@ export default function CurrentRatioCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`rounded-xl p-5 border-l-4 ${result.currentRatio>=1.5?"bg-primary/10 border-primary":result.currentRatio>=1?"bg-amber-500/10 border-amber-500":"bg-red-500/10 border-red-500"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Current Ratio</div>
               <div className={`text-5xl font-extrabold ${result.ratingColor}`}>{result.currentRatio.toFixed(2)}×</div>
               <div className={`text-sm font-semibold mt-1 ${result.ratingColor}`}>{result.rating}</div>

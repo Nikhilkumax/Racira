@@ -126,6 +126,14 @@ const AngleConverter = () => {
 
           <div className="space-y-4">
             {result && (<>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Angle in {from === "radians" ? "Degrees" : "Radians"}</div>
+                <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                  {from === "radians" ? `${fmt(result.deg, 6)}°` : `${fmt(result.conversions.radians, 6)} rad`}
+                </div>
+                <div className="text-sm text-muted-foreground font-medium">All 7 unit conversions listed below</div>
+              </div>
+
               <div className="card-calculator !p-4 border border-border bg-card">
                 <h3 className="text-base font-semibold mb-3">All Conversions</h3>
                 <table className="w-full text-base"><tbody>

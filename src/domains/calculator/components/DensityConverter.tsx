@@ -34,16 +34,19 @@ export default function DensityConverter() {
     return { kgm3, converted: kgm3 / 1, toLabel: "kg/m³" };
   });
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const v = parseFloat(value);
     if (!isNaN(v) && v >= 0) {
       const kgm3 = v * units.find(u => u.key === from)!.kgm3;
       const converted = kgm3 / units.find(u => u.key === to)!.kgm3;
       setResult({ kgm3, converted, toLabel: units.find(u => u.key === to)!.label });
     }
-  }, [value, from, to]);
+  };
 
-  const reset = () => { setValue("1"); setFrom("gcm3"); setTo("kgm3"); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setValue("1"); setFrom("gcm3"); setTo("kgm3"); const kgm3 = 1 * units.find(u => u.key === "gcm3")!.kgm3; setResult({ kgm3, converted: kgm3 / units.find(u => u.key === "kgm3")!.kgm3, toLabel: units.find(u => u.key === "kgm3")!.label }); };
   const invalid = isNaN(parseFloat(value)) || parseFloat(value) < 0;
 
   const breakdown = [
@@ -97,7 +100,7 @@ export default function DensityConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <FlaskConical className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

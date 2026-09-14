@@ -189,6 +189,7 @@ export default function RoadTaxCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Optional Fees & Surcharges</div>
                   <CompactInput id="vanity-fee" label="Vanity Plate Fee" value={inputs.vanityFee} onChange={(v: string) => handleChange("vanityFee", v)} prefix="$" />
                   <CompactInput id="emissions-fee" label="Emissions Surcharge" value={inputs.emissionsFee} onChange={(v: string) => handleChange("emissionsFee", v)} prefix="$" />
                 </div>

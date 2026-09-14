@@ -69,9 +69,15 @@ export default function CostToIncomeRatioCalculator() {
     const i = parseFloat(income);
     const u = parseFloat(utilities);
     if (!isNaN(h) && !isNaN(i) && i > 0 && !isNaN(u)) setResult(calcRatio(h, i, includeUtilities, u));
-  }, [housing, income, utilities, includeUtilities]);
+  }, []);
 
-  const reset = () => { setHousing(DEFAULTS.housing); setIncome(DEFAULTS.income); setUtilities(DEFAULTS.utilities); setIncludeUtilities(DEFAULTS.includeUtilities); };
+  const handleCalculate = () => {
+    const h = parseFloat(housing);
+    const i = parseFloat(income);
+    const u = parseFloat(utilities);
+    if (!isNaN(h) && !isNaN(i) && i > 0 && !isNaN(u)) setResult(calcRatio(h, i, includeUtilities, u));
+  };
+  const reset = () => { setHousing(DEFAULTS.housing); setIncome(DEFAULTS.income); setUtilities(DEFAULTS.utilities); setIncludeUtilities(DEFAULTS.includeUtilities); setResult(calcRatio(1800, 6500, true, 250)); };
   const invalid = isNaN(parseFloat(housing)) || isNaN(parseFloat(income)) || parseFloat(income) <= 0;
 
   const faqs = [
@@ -112,7 +118,7 @@ export default function CostToIncomeRatioCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Percent className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

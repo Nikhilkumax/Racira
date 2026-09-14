@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "pcb-design-checklist",
+    "varName": "pcb_design_checklistSeo",
+    "name": "PCB Design Checklist",
+    "sections": [
+      {
+        "heading": "What is PCB Design Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PCB Design Checklist is a live, interactive checklist of the twenty review items that separate a board ready to release from one that fails in fabrication or on the bench. The items are grouped into four passes — Schematic, Stackup & clearances, Assembly & DFM, and Release — with a progress bar that tracks how many of the twenty are satisfied. Checking one item moves the bar to five percent."
+          },
+          {
+            "type": "paragraph",
+            "text": "The schematic pass covers the connectivity and correctness questions: no unconnected pins or dangling labels, consistent power-rail net names, decoupling capacitors on every IC power pin, polarity marked on all polarized parts, sized pull-up and pull-down resistors, and protection on any input that can be miswired. The stackup pass checks trace widths against current via the IPC-2221 method, clearance rules against the fab's minimums, orphaned copper, thermal reliefs, and impedance-controlled nets. The DFM pass covers solder-mask dams, silkscreen, fiducials, board outline and tooling notes, and the release pass closes with the BOM, the Gerber DFM check, the readme and the revision block."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PCB Design Checklist",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Work through the Schematic group first, answering each item against the actual schematic: trace every net for unconnected pins, verify net names match between schematic and layout, and confirm decoupling caps are present on every IC power pin.",
+              "<strong>Step 2:</strong> Move to the Stackup & clearances group and check the board's real numbers: trace widths sized by the IPC-2221 current check, clearance rules that meet both the fab's minimums and the voltage on the nets, and no orphaned copper islands.",
+              "<strong>Step 3:</strong> Run the Assembly & DFM group against the finished layout: solder-mask dams between fine-pitch pads, silkscreen clear of pad areas, fiducials where stencil and pick-and-place are used, and the board outline with mounting holes and tooling notes on the mechanical layer.",
+              "<strong>Step 4:</strong> Close with the Release group before sending files: the BOM reference designators match the schematic exactly, the Gerbers and drill files pass the fab's online DFM check, and the revision and date are updated in the title block.",
+              "<strong>Step 5:</strong> Watch the progress bar as the review proceeds — it is the visible score of readiness, and it makes the remaining work obvious when the board is handed to a second reviewer or the fab."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PCB Design Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PCB rework is disproportionately expensive compared to the checks that prevent it: a missing decoupling capacitor costs a layout revision and a board spin, an orphaned copper pour can cost an EMI failure, and a BOM that does not match the schematic can cost an entire incorrect assembly. The review items that catch these are known and few — which is exactly why a fixed checklist outperforms a reviewer working from memory. The list turns release readiness from a judgment into a checklist of demonstrable facts."
+          },
+          {
+            "type": "paragraph",
+            "text": "The interactive form keeps the review state honest across a team: items get resolved as the layout is revised, and the progress bar shows at a glance where the board stands. That is the difference between “we reviewed it” and a set where each of the twenty gates is individually checked — the state a fab or a second engineer can verify when the files are handed over."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why are decoupling capacitors listed on every IC power pin?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because an IC's current draw is not steady — it switches in fast edges that demand current from the nearest available source, and the inductance of the power traces cannot deliver it fast enough. A decoupling capacitor placed at the power pin provides a local charge reservoir, keeping the supply voltage stable and the switching noise off the power rail. One cap per IC power pin, physically close to the pin, is the baseline; the checklist makes it explicit so the layout cannot silently skip it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is orphaned copper and why does it matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Orphaned copper is a pour island that is not connected to any net — a floating patch of copper left behind when a pour is divided by traces and vias. It does nothing electrically except act as an unintended antenna and an etching headache, and it can couple noise into nearby traces. The checklist item is to either connect every island to its intended net or remove it, which is a standard design-rule cleanup most layout tools can flag automatically."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must the BOM match the schematic reference designators exactly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the assembly house builds the board from the BOM matched to the reference designators on the layout. If the BOM is missing a part, mislabels a designator, or carries a wrong-value component, the assembled board can have the wrong part in the right place — the hardest kind of fault to find, since the board looks right and behaves subtly wrong. The release checklist makes the exact match a gate, because the mismatch is usually invisible until the board is populated."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the fab's online DFM check enough on its own?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it is the last gate, not the review. The fab's DFM tool catches manufacturing violations against that fab's capabilities — minimum trace widths, annular rings, solder-mask dams — but it cannot judge whether the design is electrically correct: decoupling present, nets connected, polarity marked. The checklist runs those design checks first, and the Gerber DFM pass confirms the files are manufacturable as a final gate. Both are needed, and they catch different classes of error."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -178,14 +178,14 @@ export default function BondedWarehouseCostCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.isProfitable ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
                     Net Financial Impact
                   </div>
-                  <div className={`text-4xl font-bold tracking-tighter mb-2 ${results.isProfitable ? 'text-emerald-600' : 'text-red-600'}`}>
+                  <div className="text-4xl font-bold text-primary mb-2">
                     {results.isProfitable ? '+' : '-'}${Math.abs(results.netBenefit).toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium flex items-center gap-2">

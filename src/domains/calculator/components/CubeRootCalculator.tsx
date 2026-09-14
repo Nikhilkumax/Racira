@@ -61,9 +61,9 @@ export default function CubeRootCalculator() {
     const xi = parseFloat(x);
     const ni = parseInt(n, 10);
     if (!isNaN(xi) && !isNaN(ni) && ni >= 2) setResult(calcCube(xi, ni));
-  }, [x, n]);
+  }, []);
 
-  const reset = () => { setX(DEFAULTS.x); setN(DEFAULTS.n); };
+  const reset = () => { setX(DEFAULTS.x); setN(DEFAULTS.n); setResult(calcCube(parseFloat(DEFAULTS.x), parseFloat(DEFAULTS.n))); };
   const invalid = isNaN(parseFloat(x)) || isNaN(parseInt(n, 10)) || parseInt(n, 10) < 2;
 
   const faqs = [

@@ -116,7 +116,7 @@ const FlooringCalculator = () => {
     setResult(calculateFlooring(unit, roomL, roomW, waste, sqFtPerBox, price));
   };
 
-  useEffect(() => { calculate(); }, [unit, roomL, roomW, waste, sqFtPerBox, price]);
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
@@ -199,7 +199,7 @@ const FlooringCalculator = () => {
 
             <div className="flex gap-3 mt-2">
               <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { setUnit("imperial"); setRoomL("15"); setRoomW("12"); setWaste("10"); setSqFtPerBox("24"); setPrice("45"); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+              <button type="button" onClick={() => { setUnit("imperial"); setRoomL("15"); setRoomW("12"); setWaste("10"); setSqFtPerBox("24"); setPrice("45"); setResult(calculateFlooring("imperial", "15", "12", "10", "24", "45")); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>

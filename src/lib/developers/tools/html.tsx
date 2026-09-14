@@ -212,7 +212,7 @@ const ariaAttributeGenerator: ToolDefinition = {
         <div className="mb-3">
           <OptSelect value={role} onChange={(v) => setOptions({ ...options, role: v })} options={Object.keys(ariaMap).map((r) => ({ value: r, label: r }))} />
         </div>
-        <pre className="text-sm font-mono bg-background p-3 rounded-md">{`<div ${attrStr}>…</div>`}</pre>
+        <pre className="text-sm font-mono bg-background p-3 rounded-md overflow-x-auto">{`<div ${attrStr}>…</div>`}</pre>
       </div>
     );
   },

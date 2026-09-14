@@ -179,7 +179,7 @@ export default function PregnancyCalculator() {
         </div>
 
         {result && (
-          <div className="rounded-lg border bg-muted/40 p-4 space-y-3">
+          <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 space-y-3">
             <h3 className="font-medium">Estimated due date</h3>
             <p className="text-3xl font-bold text-primary">{result.estimatedDueDate}</p>
             <div className="grid grid-cols-2 gap-4">

@@ -291,7 +291,7 @@ export default function OlympicLiftPercentageCalculator() {
                   </div>
 
                   {/* Diagnostic Table */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full flex flex-col justify-between">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 h-full flex flex-col justify-between">
                     <div>
                       <h3 className="text-base font-bold mb-4">Diagnostic Results</h3>
                       <div className="grid grid-cols-1 gap-y-3 text-sm">

@@ -48,9 +48,9 @@ export default function CyclingCadenceCalculator() {
     const k = parseFloat(cassette);
     const w = parseFloat(wheelCirc);
     if (!isNaN(s) && !isNaN(c) && !isNaN(k) && !isNaN(w) && s >= 0 && c > 0 && k > 0 && w > 0) setResult(calcCadence(s, c, k, w));
-  }, [speed, chainring, cassette, wheelCirc]);
+  }, []);
 
-  const reset = () => { setSpeed(DEFAULTS.speed); setChainring(DEFAULTS.chainring); setCassette(DEFAULTS.cassette); setWheelCirc(DEFAULTS.wheelCirc); };
+  const reset = () => { setSpeed(DEFAULTS.speed); setChainring(DEFAULTS.chainring); setCassette(DEFAULTS.cassette); setWheelCirc(DEFAULTS.wheelCirc); setResult(calcCadence(parseFloat(DEFAULTS.speed), parseFloat(DEFAULTS.chainring), parseFloat(DEFAULTS.cassette), parseFloat(DEFAULTS.wheelCirc))); };
   const invalid = isNaN(parseFloat(speed)) || isNaN(parseFloat(chainring)) || isNaN(parseFloat(cassette)) || isNaN(parseFloat(wheelCirc)) || parseFloat(speed) < 0 || parseFloat(chainring) <= 0 || parseFloat(cassette) <= 0 || parseFloat(wheelCirc) <= 0;
 
   const breakdown = [

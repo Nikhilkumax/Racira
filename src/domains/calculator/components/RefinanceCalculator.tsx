@@ -159,7 +159,7 @@ export default function RefinanceCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.isWorthIt ? "bg-green-500/10 border-green-500" : "bg-amber-500/10 border-amber-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.isWorthIt ? "bg-green-500/10 border-green-500" : "bg-amber-500/10 border-amber-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.isWorthIt ? "text-green-600" : "text-amber-600"}`}>{result.isWorthIt ? "✓ Refinancing Recommended" : "⚠ Consider Carefully"}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">${result.monthlySavings.toFixed(2)}<span className="text-lg text-muted-foreground font-normal">/mo saved</span></div>
                 <div className="text-base text-muted-foreground mt-1">Break-even: {result.breakEvenMonths === Infinity ? "N/A" : `${result.breakEvenMonths} months`} · Lifetime savings: ${result.lifetimeSavings.toFixed(0)}</div>

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "via-current-capacity-calculator",
+    "varName": "via_current_capacity_calculatorSeo",
+    "name": "Via Current Capacity Calculator",
+    "sections": [
+      {
+        "heading": "What is Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Via Current Capacity Calculator estimates how much current a PCB via can carry, applying the IPC-2221 external-conductor current model to the plated barrel of the via. The model is the standard expression — current equals a coefficient times the temperature rise to the 0.44 power times the conductor cross-section to the 0.725 power — with the area taken as the plating annulus of the drilled hole, not the hole itself. A 0.6 millimetre finished-drill via with 25 micrometre plating and a 10 degree allowed rise comes out at about 3.056 amps."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool models the two via locations the formula distinguishes: external-layer vias use the coefficient 0.048, while a via on an internal layer only halves it to 0.024 — which is why the same via drops to about 1.528 amps when moved internal. The temperature rise is the design input that trades against current: allowing a 100 degree rise instead of 10 more than doubles the capacity to about 8.4 amps, and the tool's rule of thumb quotes roughly one amp per 25 to 30 square mils of plating at a 10 degree rise."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Finished drill diameter in millimetres — the final plated hole size from the fabrication drawing, not the raw drill size.",
+              "<strong>Step 2:</strong> Enter the Allowed temp rise — the thermal budget for the via, commonly 10 degrees Celsius for general designs. The current scales with the rise to the 0.44 power, so doubling the rise budget does not double the current.",
+              "<strong>Step 3:</strong> Pick the Plated copper thickness — 18, 25 or 35 micrometres, corresponding to 0.5, 0.7 and 1 ounce copper. The plating thickness sets the annulus area, which is the conductor the formula actually sizes.",
+              "<strong>Step 4:</strong> Pick the Via location — external layer or internal only. The internal coefficient is half the external one, so the same geometry carries roughly half the current when buried.",
+              "<strong>Step 5:</strong> Read the Result panel: Plating cross-section in square millimetres and square mils, the Recommended max current from the IPC-2221 model, and the rule-of-thumb row. Then apply the tool's derating note — for a critical supply, put two or more vias in parallel and keep the connecting traces at least as wide as the via capacity requires."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Vias are the most common current bottleneck in a power layout: the trace feeding a regulator may be sized perfectly while the single via it passes through — often no larger than a drill hole with thin barrel plating — silently carries the entire current. Because the via's conductor is the thin plating annulus around the hole, its cross-section is much smaller than a glance at the hole suggests, which is exactly the error the calculator prevents by computing the annulus rather than the hole area."
+          },
+          {
+            "type": "paragraph",
+            "text": "The internal-versus-external distinction is the detail that catches real designs: a via that looks fine on the outer layers carries half the current once it transitions internal, and a power net routed through multiple board layers can be limited by the weakest via in the chain. Making the layer choice an explicit input keeps the analysis honest about where in the stack the via actually conducts."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the area the plating annulus and not the hole?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because current flows through the copper plating that lines the drilled hole, not through the empty hole itself. The conductor is an annulus: the ring of plated copper between the drilled radius and the outer radius, one plating thickness thick. For a 0.6 millimetre drill with 25 micrometre plating, that annulus is about 0.0491 square millimetres — about 76 square mils — which is the number the current formula uses. Modeling the hole area instead would overstate the conductor many times over and produce a dangerously optimistic current rating."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does an internal via carry only half the current?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the IPC-2221 model uses a smaller coefficient for internal conductors — 0.024 versus 0.048 for external — reflecting the poorer heat dissipation of a buried conductor that cannot shed heat to the ambient air from a surface. A via carrying the same current internally runs hotter than the same via on an outer layer, so its allowed current is roughly half. Designs that route power through several layers must check the via at its internal segments, not just at the pads on the outer layers."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much current can I gain by using multiple vias?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Multiple parallel vias share the current, so two identical vias roughly double the capacity and four roughly quadruple it — the practical technique for a power net that needs more current than one via can carry. The sharing is not perfectly even due to layout asymmetries, so designs should keep some margin, and the traces connecting the vias must be sized for the total current or the bottleneck just moves. The tool's note recommends exactly this pattern for critical supplies: two or more vias in parallel with connecting traces at least as wide as the via capacity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the result a hard limit or a guidance value?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is a guidance value, not a pass-fail limit — the tool's own note says so. The IPC-2221 model estimates temperature rise from current for a conductor under stated assumptions, and real vias also face DC-bias reliability concerns, thermal cycling and manufacturing variation that the model does not cover. Many designs derate the computed value further and rely on multiple parallel vias for high-current nets. Use the number to catch undersized vias early in layout, then confirm the final design with the board's thermal analysis and the fab's capability."
+          }
+        ]
+      }
+    ]
+  }
+]

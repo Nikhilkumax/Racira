@@ -128,6 +128,7 @@ const BridgeLoanCalculator = () => {
               </button>
               <div className={`transition-all duration-300 ease-in-out ${showAdvanced ? "max-h-[500px] opacity-100 p-4 pt-1 border-t border-border" : "max-h-0 opacity-0 px-4 overflow-hidden"}`}>
                 <div className="grid grid-cols-2 gap-4 mt-2">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Bridge Loan Terms</div>
                   <CompactInput id="fees" label="Loan Fees (%)" value={loanFees} onChange={setLoanFees} suffix="%" step="0.1" />
                   <CompactInput id="term" label="Loan Term (mo)" value={loanTerm} onChange={setLoanTerm} suffix="mo" />
                 </div>

@@ -72,7 +72,7 @@ export default function WeightConverter() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => isNaN(parseFloat(inputs.value)), [inputs.value])
 

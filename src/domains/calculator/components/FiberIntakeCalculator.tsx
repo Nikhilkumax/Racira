@@ -172,7 +172,7 @@ export default function FiberIntakeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status === "Deficient" ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status === "Deficient" ? "text-amber-600" : "text-primary"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.dailyTarget} g <span className="text-lg font-normal text-muted-foreground">/ daily</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

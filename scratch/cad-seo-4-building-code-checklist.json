@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "building-code-checklist",
+    "varName": "building_code_checklistSeo",
+    "name": "Building Code Checklist",
+    "sections": [
+      {
+        "heading": "What is Building Code Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Building Code Checklist is a live, interactive checklist of the common code-review items for a set of architectural drawings, organized into four groups: egress and exits, accessibility under the ADA and IBC Chapter 11, fire and separation, and general drawing review. Twenty items span the checks that come up on nearly every plan review — two means of egress, exit travel distances, door swing direction, accessible routes, ramp landings, fire-resistance ratings, firestopping at penetrations, and the title-block and dimension-set basics."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is a working checklist, not a static list: each item has a checkbox, and a progress bar at the top tracks how many of the twenty are satisfied. Checking two items moves the bar to ten percent. The items carry the code's actual numbers where a number exists — door clear width of at least 32 inches, corridor width of 44 or per occupancy, ramp slope of 1:12 with landings every 30 inches of rise, 30 by 48 inch clear floor space at doors, and a 60 inch turning space in restrooms."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Building Code Checklist",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Work through the four groups in order — Egress & exits, Accessibility, Fire & separation, then General drawing review — treating each item as a question to answer against the current drawing set.",
+              "<strong>Step 2:</strong> Check each item off only when the drawing set actually demonstrates it: the egress path shown on the plan, the door swing indicated on the enlarged plans, the ramp slope and landings dimensioned on the section.",
+              "<strong>Step 3:</strong> Use the item text as the specification. Door clear width of 32 inches and corridor width of 44 inches are the working numbers; ramp slope of 1:12 with landings at top, bottom and every 30 inches of rise is the accessibility rule the ramp tools verify numerically.",
+              "<strong>Step 4:</strong> Watch the progress bar as the review proceeds — it is the visual score of how close the set is to a clean review, which makes the remaining work visible at a glance when the set is handed to the next reviewer.",
+              "<strong>Step 5:</strong> Treat the list as a generalized starting point: every item must be verified against the edition of the code the jurisdiction has adopted and any local amendments, as the tool's note states — the checklist finds the gaps, the adopted code closes them."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Building Code Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Code review failures cluster in the same recurring categories — an exit path that passes through a lockable room, a missing accessible route, a fire damper omitted at a penetration of a rated assembly — and those are exactly the items a checklist catches before the drawings leave the office. A structured list turns the review from what the reviewer happens to remember into a repeatable pass over the items the code actually checks, which is what keeps the same finding from appearing on project after project."
+          },
+          {
+            "type": "paragraph",
+            "text": "The interactive form matters because review is a stateful process: items get resolved as drawings are revised, and the progress bar keeps that state honest. A checklist that tracks completion makes the difference between “we looked at egress” and a set where every egress item is demonstrably checked — the distinction an owner's representative or a plan reviewer can see at a glance when the set is submitted."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this checklist a substitute for the code itself?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it is a review aid that points at the code, not a restatement of it. The items are generalized from the IBC and its companion standards, and jurisdictions adopt specific editions with local amendments that can change numbers, thresholds and applicability. The tool's own note makes the point: verify every item against the adopted code edition. What the checklist provides is the structure of a competent review — the categories and the common findings — so the code gets consulted systematically rather than reactively."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why do exit doors need to swing in the direction of travel?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "So an exiting crowd cannot push a door closed against itself. In a panic, people press against the doors ahead of them, and a door that swings away from the exit path opens with that pressure while one that swings into it is held shut. The code requires doors serving spaces with occupant loads above 50 to swing in the direction of egress travel, which is why the checklist item carries that threshold — small rooms can keep inward-swinging doors, high-occupancy spaces cannot."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the 30-inch landing rule for ramps?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Accessibility codes limit a ramp run to a maximum rise of 30 inches before a level landing is required — the same 762 millimetre boundary the ramp calculators use. The landing must be at least as long as the ramp is wide, typically 60 inches, to give a wheelchair user room to stop and rest. A ramp that climbs more than 30 inches in one run is therefore really several ramps joined by landings, and the checklist item makes sure the drawing set shows them rather than one long unbroken slope."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the checklist care about firestopping at penetrations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a penetration is where a fire-resistance-rated assembly stops being rated. A wall or floor rated for two hours of fire resistance keeps fire and smoke in check only if every pipe, duct, cable tray and conduit passing through it is sealed back to the rating with tested firestop materials — and where ducts are involved, with fire dampers that close when the duct heats. The checklist item exists because penetrations are the most commonly omitted detail in rated assemblies: the wall is specified correctly, and the hole cut through it is not."
+          }
+        ]
+      }
+    ]
+  }
+]

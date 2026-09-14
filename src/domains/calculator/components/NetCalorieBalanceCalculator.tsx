@@ -45,7 +45,7 @@ export default function NetCalorieBalanceCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const c = parseFloat(inputs.consumed)

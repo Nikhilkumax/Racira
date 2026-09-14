@@ -77,7 +77,7 @@ export default function PayableDaysCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${result.dpo>=30&&result.dpo<=90?"bg-primary/10 border-primary":"bg-amber-500/10 border-amber-500"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Days Payable Outstanding</div>
               <div className={`text-5xl font-extrabold ${result.ratingColor}`}>{result.dpo.toFixed(1)} <span className="text-2xl">days</span></div>
               <div className={`text-sm font-semibold mt-1 ${result.ratingColor}`}>{result.rating}</div>

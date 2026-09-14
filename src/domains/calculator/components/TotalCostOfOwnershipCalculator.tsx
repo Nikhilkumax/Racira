@@ -231,6 +231,7 @@ export default function TotalCostOfOwnershipCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes & Fees</div>
                   <CompactInput id="sales-tax" label="Sales Tax" value={inputs.salesTax} onChange={(v: string) => handleChange("salesTax", v)} suffix="%" />
                   <CompactInput id="registration-fee" label="Reg. Fee / Year" value={inputs.registrationFee} onChange={(v: string) => handleChange("registrationFee", v)} prefix="$" />
                 </div>

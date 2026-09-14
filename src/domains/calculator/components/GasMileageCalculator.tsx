@@ -104,14 +104,17 @@ const GasMileageCalculator = () => {
     setResult(calculateGasMileage(unit, distance, fuel, price, tankSize));
   };
 
-  useEffect(() => { calculate(); }, [unit, distance, fuel, price, tankSize]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
     if (newUnit === "imperial") {
       setDistance("320"); setFuel("12.5"); setPrice("3.50"); setTankSize("16");
+      setResult(calculateGasMileage("imperial", "320", "12.5", "3.50", "16"));
     } else {
       setDistance("500"); setFuel("40"); setPrice("1.60"); setTankSize("60");
+      setResult(calculateGasMileage("metric", "500", "40", "1.60", "60"));
     }
   };
 

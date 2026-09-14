@@ -83,7 +83,7 @@ export default function EnterpriseValueCalculator() {
   const [marketCap, setMarketCap] = useState("5000000000");
   const [totalDebt, setTotalDebt] = useState("1200000000");
   const [cash, setCash] = useState("800000000");
-  const [preferredEquity, setPreferredEquity] = useState("0");
+  const [preferredEquity, setPreferredEquity] = useState("100000000");
   const [minorityInterest, setMinorityInterest] = useState("150000000");
   const [ebitda, setEbitda] = useState("900000000");
   const [revenue, setRevenue] = useState("4000000000");
@@ -107,7 +107,7 @@ export default function EnterpriseValueCalculator() {
 
   const reset = () => {
     setMarketCap("5000000000"); setTotalDebt("1200000000"); setCash("800000000");
-    setPreferredEquity("0"); setMinorityInterest("150000000"); setEbitda("900000000");
+    setPreferredEquity("100000000"); setMinorityInterest("150000000"); setEbitda("900000000");
     setRevenue("4000000000"); setEbit("700000000"); setSharesOutstanding("250000000");
     calculate();
   };

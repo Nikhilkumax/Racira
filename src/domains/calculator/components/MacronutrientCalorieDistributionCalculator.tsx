@@ -338,21 +338,21 @@ export default function MacronutrientCalorieDistributionCalculator() {
 
                 {/* 1. Primary Result Cards */}
                 <div className="grid sm:grid-cols-3 gap-3">
-                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-500 mb-1">Target Protein</div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-1">Target Protein</div>
                     <div className="text-3xl font-black text-foreground">{results.proteinGrams}</div>
                     <div className="text-xs font-medium text-blue-500/80">grams ({results.proteinPct}%)</div>
                   </div>
-                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
                     <button onClick={handlePrint} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                       <Printer className="h-4 w-4" />
                     </button>
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-green-500 mb-1">Target Carbs</div>
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-green-600 mb-1">Target Carbs</div>
                     <div className="text-3xl font-black text-foreground">{results.carbGrams}</div>
                     <div className="text-xs font-medium text-green-500/80">grams ({results.carbPct}%)</div>
                   </div>
-                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-500 mb-1">Target Fats</div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-600 mb-1">Target Fats</div>
                     <div className="text-3xl font-black text-foreground">{results.fatGrams}</div>
                     <div className="text-xs font-medium text-amber-500/80">grams ({results.fatPct}%)</div>
                   </div>

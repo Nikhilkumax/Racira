@@ -136,7 +136,7 @@ export default function GlycemicLoadCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Glycemic Load Result</h2>
                   <Apple className="h-5 w-5 text-primary" />
                 </div>
-                <div className={`bg-gradient-to-br ${res.category.bg} border ${res.category.border} rounded-xl p-5 text-center`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Glycemic Load</div>
                   <div className="text-5xl font-extrabold text-foreground mb-1 tracking-tight">{res.gl}</div>
                   <div className={`text-sm font-bold ${res.category.color}`}>{res.category.label}</div>

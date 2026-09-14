@@ -185,7 +185,11 @@ export function ToolShell({ tool, toolMeta, categoryName, relatedTools }: ToolSh
         >
           <div
             className={cn(
-              "grid divide-y md:divide-y-0 divide-border",
+              // [&>*]:min-w-0 — panes must be able to shrink below their
+              // content's min width (long unbroken output words, wide tables)
+              // or they blow the grid track out and get clipped by the card's
+              // overflow-hidden on narrow screens.
+              "grid divide-y md:divide-y-0 divide-border [&>*]:min-w-0",
               showSecondInput
                 ? "md:grid-cols-3 md:divide-x"
                 : showInput
@@ -394,7 +398,7 @@ function TableOut({ data }: { data: Record<string, unknown>[] }) {
   }, [data]);
   if (!data.length) return null;
   return (
-    <div className="w-full h-72 lg:h-96 rounded-xl border border-border bg-background overflow-auto">
+    <div className="w-full h-72 lg:h-96 rounded-xl border border-border bg-background overflow-auto scroll-shadow-x [--scroll-surface:hsl(var(--background))]">
       <table className="w-full text-xs">
         <thead className="sticky top-0 bg-muted">
           <tr>

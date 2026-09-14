@@ -89,7 +89,8 @@ const DataTransferCalculator = () => {
     setResult(calculateTransfer(size, sUnit, speed, spUnit));
   };
 
-  useEffect(() => { calculate(); }, [size, sUnit, speed, spUnit]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";

@@ -165,7 +165,7 @@ export default function TermLifeVsWholeLifeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.recommendation === "Term Life Insurance" ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.recommendation === "Term Life Insurance" ? "bg-primary/10 border-primary" : "bg-amber-500/10 border-amber-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.recommendation === "Term Life Insurance" ? "text-primary" : "text-amber-600"}`}>Better Choice</div>
                 <div className="text-3xl font-extrabold text-foreground tracking-tight">{result.recommendation}</div>
                 <div className="text-base text-muted-foreground mt-1">Saves ~${result.savings.toLocaleString("en-US", { maximumFractionDigits: 0 })} over {termYears} years vs. alternative</div>

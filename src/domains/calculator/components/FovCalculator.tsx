@@ -70,7 +70,7 @@ export default function FovCalculator() {
     const f = parseFloat(fov);
     if (isNaN(f) || f <= 0 || f >= 180) return;
     setResult(calcFov(f, baseRatio.w, baseRatio.h, targetRatio.w, targetRatio.h));
-  }, [fov, base, target]);
+  }, []);
 
   const reset = () => {
     setFov(DEFAULTS.fov);
@@ -142,7 +142,7 @@ export default function FovCalculator() {
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
               <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
                 <Eye className="w-4 h-4 text-primary" /> TRUE HORIZONTAL FOV
               </div>

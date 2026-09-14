@@ -86,11 +86,13 @@ const ResistorCalculator = () => {
     setResult(calculateResistor(bandCount, colors));
   };
 
-  useEffect(() => { calculate(); }, [bandCount, band1, band2, band3, band4, band5]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const reset = () => {
     setBandCount(4);
     setBand1('red'); setBand2('red'); setBand3('brown'); setBand4('gold'); setBand5('brown');
+    setResult(calculateResistor(4, ['red', 'red', 'brown', 'gold']));
   };
 
   const getSelectStyle = (color: BandColor) => {

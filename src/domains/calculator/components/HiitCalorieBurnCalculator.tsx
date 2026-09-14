@@ -225,31 +225,31 @@ export default function HiitCalorieBurnCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-purple-600 to-fuchsia-800 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-purple-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-purple-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         Total Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-purple-200">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-purple-100 mt-2 bg-purple-950/40 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold text-purple-600 mt-2 bg-purple-500/10 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                         <Flame className="h-4 w-4" /> {results.ratioName}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-purple-200 mb-1">Active Output</div>
-                      <div className="text-2xl font-black text-white">{results.workPercent}%</div>
-                      <div className="text-xs text-purple-300 font-medium">of Total Time</div>
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Active Output</div>
+                      <div className="text-2xl font-black text-foreground">{results.workPercent}%</div>
+                      <div className="text-xs text-muted-foreground font-medium">of Total Time</div>
                     </div>
                   </div>
-                  <Gauge className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Gauge className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-purple-600" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

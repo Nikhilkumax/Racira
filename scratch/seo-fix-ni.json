@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "network-information-api-tester",
+    "whatIs": "The Network Information API Tester reads the device's current network connection details using the Network Information API (navigator.connection). It displays the effective connection type (slow-2g, 2g, 3g, 4g), estimated downlink bandwidth in megabits per second, and round-trip time in milliseconds. This data enables adaptive web experiences — for example, a streaming app might serve lower-resolution video on 3g connections, or a news app might defer loading non-critical images. The tool provides a snapshot of the network state at the moment of the button click; values update automatically on some browsers as the connection changes.",
+    "howToUse": [
+      "Navigate to the Network Information API Tester page. The page shows a test button and output area.",
+      "Click the **Test API** button. The tool reads the current network connection data.",
+      "The output displays the effective type (e.g., '4g'), downlink speed in Mbps, and round-trip time in milliseconds.",
+      "If the API is not supported (Firefox, Safari, most desktop browsers), the output indicates it is not supported.",
+      "On supported browsers, try switching between Wi-Fi and cellular data, then click again to see the values change."
+    ],
+    "whyUse": "Adaptive loading is a core performance strategy for modern web applications, but developers need to know what network data is actually available before building adaptive logic. The Network Information API Tester shows the exact values and format that the API returns, letting developers understand the difference between 'effectiveType' and actual throughput, and whether the downlink value is reliable enough for adaptive decisions. This eliminates guesswork about what a '4g' effectiveType actually means in terms of real bandwidth. Developers can also use the downlink value to implement responsive image loading, choosing between low-resolution and high-resolution assets based on the reported bandwidth.",
+    "faq": [
+      {
+        "q": "Why doesn't this work on Firefox or Safari?",
+        "a": "Firefox and Safari have not implemented the Network Information API due to privacy concerns about exposing detailed network information to web pages. It is primarily supported in Chromium-based browsers (Chrome, Edge, Opera) on mobile devices."
+      },
+      {
+        "q": "What is the difference between effectiveType and downlink?",
+        "a": "effectiveType is a coarse classification (slow-2g, 2g, 3g, 4g) based on observed network performance. downlink is an estimated bandwidth in megabits per second. The downlink value is more useful for adaptive loading decisions, but effectiveType is simpler for basic branching logic."
+      },
+      {
+        "q": "Does the network data update automatically?",
+        "a": "On some browsers, you can listen for 'change' events on navigator.connection to detect network transitions. The tool takes a snapshot on each button click rather than continuously monitoring."
+      },
+      {
+        "q": "What units does the downlink value use?",
+        "a": "The downlink value is reported in megabits per second (Mbps). A value of 10 means approximately 10 Mbps, which is typical for a good broadband connection. A value of 0.5 indicates a slow connection. The value is capped at 10 Mbps by the spec, so very fast connections will still report 10 Mbps rather than the actual speed."
+      }
+    ]
+  }
+]

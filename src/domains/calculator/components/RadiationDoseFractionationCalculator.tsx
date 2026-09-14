@@ -174,7 +174,7 @@ export default function RadiationDoseFractionationCalculator() {
     setMounted(true);
     setResults(calculateRadiation(inputs));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs.totalDose, inputs.fractions, inputs.alphaBetaRatioTumor, inputs.alphaBetaRatioNormal]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

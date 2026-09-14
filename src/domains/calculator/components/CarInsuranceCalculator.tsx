@@ -229,11 +229,13 @@ export default function CarInsuranceCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Vehicle Profile</div>
                   <div className="grid grid-cols-2 gap-4">
                     <CompactInput id="year" label="Vehicle Year" value={carYear} onChange={setCarYear} />
                     <CompactInput id="miles" label="Annual Miles" value={annualMiles} onChange={setAnnualMiles} suffix="mi" />
                   </div>
                   
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Coverage & Deductible</div>
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-foreground mb-1.5">Coverage Level</label>
                     <div className="flex rounded-md border border-input overflow-hidden h-9 w-full">

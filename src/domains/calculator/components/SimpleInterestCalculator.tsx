@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { simpleInterestCore } from "./logicCore";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const SimpleInterestCalculator = () => {
@@ -17,8 +18,7 @@ const SimpleInterestCalculator = () => {
   const calculate = (pV = principal, rV = rate, tV = time) => {
     const P = parseFloat(pV), r = parseFloat(rV) / 100, t = parseFloat(tV);
     if (isNaN(P) || isNaN(r) || isNaN(t) || P <= 0 || t <= 0) return;
-    const interest = P * r * t;
-    const total = P + interest;
+    const { interest, total } = simpleInterestCore(P, r * 100, t);
     const chartData = Array.from({ length: Math.ceil(t) + 1 }, (_, i) => ({
       name: `Yr ${i}`,
       balance: parseFloat((P + P * r * i).toFixed(2)),

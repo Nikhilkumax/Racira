@@ -142,7 +142,7 @@ export default function CryptoProfitCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.profitLoss >= 0 ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.profitLoss >= 0 ? "text-green-600" : "text-red-600"}`}>{result.profitLoss >= 0 ? "Profit" : "Loss"}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight font-mono">{result.profitLoss >= 0 ? "+" : ""}${result.profitLoss.toFixed(2)}</div>
                 <div className="text-base text-muted-foreground mt-1">ROI: {result.roi.toFixed(2)}% · Break-even: ${result.breakEvenPrice.toFixed(4)}</div>

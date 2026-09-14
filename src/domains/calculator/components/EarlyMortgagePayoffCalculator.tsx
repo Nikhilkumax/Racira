@@ -271,11 +271,11 @@ export default function EarlyMortgagePayoffCalculator() {
             {result && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="border-l-4 rounded-lg p-5 bg-primary/10 border-primary">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Total Interest Saved</p>
                     <p className="text-3xl font-black text-primary">{formatCurrency(result.interestSaved)}</p>
                   </div>
-                  <div className="border-l-4 rounded-lg p-5 bg-blue-500/10 border-blue-500">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Time Saved</p>
                     <p className="text-3xl font-black text-primary">{formatMonths(result.monthsSaved)}</p>
                   </div>

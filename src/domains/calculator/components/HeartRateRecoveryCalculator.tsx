@@ -104,7 +104,7 @@ const HeartRateRecoveryCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-4 ${result.abnormal ? "bg-red-500/10 border-red-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">1-Minute Heart Rate Recovery</div>
                 <div className="text-4xl font-bold" style={{ color: result.rating.color }}>{result.drop1} <span className="text-xl">bpm drop</span></div>
                 <div className="text-sm text-muted-foreground mt-1">

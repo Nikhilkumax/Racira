@@ -159,7 +159,7 @@ export default function LoanAmortizationScheduleCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Payment Options</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Payment Options</div>
                 <p className="text-sm text-muted-foreground">Extra monthly payments reduce your payoff time and total interest. The schedule updates automatically.</p>
               </div>
             )}

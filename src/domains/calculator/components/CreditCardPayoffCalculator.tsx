@@ -6,8 +6,11 @@ import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, ChevronDown, PlusCircle, Trash2 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
+import { calculateCcPayoff, type CcResult } from "./creditCardPayoffLogic";
 
-interface CCResult { totalDebt: number; monthlyPayment: number; monthsToPayoff: number; totalInterest: number; schedule: { name: string; balance: number; rate: number; min: number }[]; }
+type CCResult = CcResult;
+const calculate = (cards: typeof DEFAULTS_CARDS, extra: string, strategy: string): CCResult =>
+  calculateCcPayoff(cards, extra, strategy);
 const DEFAULTS_CARDS = [
   { name: "Visa Signature", balance: "4500", rate: "22.99", min: "90" },
   { name: "Chase Freedom", balance: "2800", rate: "19.99", min: "56" },
@@ -15,26 +18,7 @@ const DEFAULTS_CARDS = [
 ];
 const DEFAULTS = { extraPayment: "300", strategy: "avalanche" };
 
-function calculate(cards: typeof DEFAULTS_CARDS, extra: string, strategy: string): CCResult {
-  const extra$ = parseFloat(extra)||0;
-  const parsed = cards.map(c => ({ name: c.name, balance: parseFloat(c.balance)||0, rate: parseFloat(c.rate)||0, min: parseFloat(c.min)||0 })).filter(c => c.balance > 0);
-  const totalDebt = parsed.reduce((s, c) => s + c.balance, 0);
-  const totalMin = parsed.reduce((s, c) => s + c.min, 0);
-  const totalMonthly = totalMin + extra$;
-  let balances = parsed.map(c => ({ ...c }));
-  let months = 0, totalInterest = 0;
-  while (balances.some(c => c.balance > 0.01) && months < 600) {
-    months++;
-    for (const c of balances) { if (c.balance > 0) { const interest = c.balance * (c.rate / 100 / 12); totalInterest += interest; c.balance += interest; } }
-    const sorted = strategy === "avalanche" ? [...balances].sort((a, b) => b.rate - a.rate) : [...balances].sort((a, b) => a.balance - b.balance);
-    let remaining = totalMonthly;
-    for (const target of sorted) {
-      const card = balances.find(c => c.name === target.name)!;
-      if (card.balance > 0) { const pay = Math.min(card.balance, remaining); card.balance -= pay; remaining -= pay; if (remaining <= 0) break; }
-    }
-  }
-  return { totalDebt, monthlyPayment: totalMonthly, monthsToPayoff: months, totalInterest: Math.round(totalInterest), schedule: parsed };
-}
+
 
 function AdvancedOptions({ cards, setCards }: { cards: typeof DEFAULTS_CARDS; setCards: React.Dispatch<React.SetStateAction<typeof DEFAULTS_CARDS>> }) {
   const [open, setOpen] = useState(false);
@@ -47,7 +31,7 @@ function AdvancedOptions({ cards, setCards }: { cards: typeof DEFAULTS_CARDS; se
       </button>
       {open && (
         <div className="mt-3 p-3 rounded-lg bg-secondary/20 border border-border animate-fade-in-up space-y-2">
-          <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Manage Cards</p>
+          <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mb-2">Manage Cards</p>
           {cards.map((_, i) => (
             <div key={i} className="flex items-center justify-between text-sm text-foreground">
               <span>{cards[i].name || `Card ${i + 1}`}</span>
@@ -142,7 +126,7 @@ export default function CreditCardPayoffCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
               <div className="text-xs font-bold text-primary uppercase tracking-wide mb-1">Payoff Time</div>
               <div className="text-4xl font-extrabold text-foreground">{r.monthsToPayoff} <span className="text-xl">months</span></div>
               <div className="text-sm text-muted-foreground mt-1">Total interest: ${r.totalInterest.toLocaleString()} · Monthly: ${Math.round(r.monthlyPayment).toLocaleString()}</div>

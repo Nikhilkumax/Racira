@@ -328,9 +328,12 @@ export default function ConstructionLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Construction Details</div>
                   <div className="flex items-center gap-2 col-span-2 mb-2">
                     <CompactInput id="cperiod" label="Construction Period" value={constructionPeriodMonths} onChange={setConstructionPeriodMonths} suffix="mo" />
                   </div>
+                  <CompactInput id="avg-drawn" label="Avg Drawn Balance" value={averageDrawnPercentage} onChange={setAverageDrawnPercentage} suffix="%" />
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Permanent Financing</div>
                   <div className="flex items-center gap-2 col-span-2 mb-2">
                     <input
                       type="checkbox"
@@ -348,7 +351,6 @@ export default function ConstructionLoanCalculator() {
                       <CompactInput id="pterm" label="Permanent Loan Term" value={permanentTermYears} onChange={setPermanentTermYears} suffix="years" />
                     </>
                   )}
-                  <CompactInput id="avg-drawn" label="Avg Drawn Balance" value={averageDrawnPercentage} onChange={setAverageDrawnPercentage} suffix="%" />
                 </div>
               )}
             </div>

@@ -13,7 +13,8 @@
     "copy:espeak": "node scripts/copy-espeak-core.cjs",
     "copy:ort": "node scripts/copy-ort-wasm.cjs",
     "postinstall": "node scripts/patch-lamejs.cjs && node scripts/copy-ffmpeg-core.cjs && node scripts/copy-espeak-core.cjs && node scripts/copy-ort-wasm.cjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "qa:visual": "node _scripts/run-visual-qa-ci.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -82,6 +83,7 @@
     "lamejs": "^1.2.1",
     "lucide": "^1.34.0",
     "lucide-react": "^0.462.0",
+    "makerjs": "^0.19.2",
     "markdown-it": "^15.0.0",
     "markdown-it-abbr": "^2.0.0",
     "markdown-it-anchor": "^9.2.1",

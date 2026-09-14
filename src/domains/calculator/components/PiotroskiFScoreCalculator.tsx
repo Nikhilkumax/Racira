@@ -139,7 +139,7 @@ export default function PiotroskiFScoreCalculator() {
           </div>
 
           <div className="flex flex-col gap-3">
-            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${r.score >= 6 ? "bg-primary/10 border-primary" : r.score >= 4 ? "bg-amber-500/10 border-amber-500" : "bg-red-500/10 border-red-500"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Piotroski F-Score</div>
               <div className={`text-6xl font-extrabold ${r.ratingColor}`}>{r.score}<span className="text-2xl text-muted-foreground">/9</span></div>
               <div className={`text-sm font-semibold mt-1 ${r.ratingColor}`}>{r.rating}</div>

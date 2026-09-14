@@ -125,9 +125,12 @@ export default function DaylightSavingCalculator() {
 
   useEffect(() => {
     if (date && !isNaN(new Date(date).getTime())) setResult(calcDst(date, region));
-  }, [date, region]);
+  }, []);
 
-  const reset = () => { setDate(DEFAULTS.date); setRegion(DEFAULTS.region); };
+  const handleCalculate = () => {
+    if (date && !isNaN(new Date(date).getTime())) setResult(calcDst(date, region));
+  };
+  const reset = () => { setDate(DEFAULTS.date); setRegion(DEFAULTS.region); setResult(calcDst(DEFAULTS.date, DEFAULTS.region)); };
   const invalid = !date || isNaN(new Date(date).getTime());
 
   const rules = REGIONS[result.region];
@@ -174,7 +177,7 @@ export default function DaylightSavingCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Sun className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

@@ -60,9 +60,13 @@ export default function EmergencyFundCalculator() {
     if (vals.every(v => !isNaN(v)) && vals[6] > 0 && vals[7] >= 0 && vals[8] >= 0) {
       setResult(calcFund(vals.slice(0, 6), vals[6], vals[7], vals[8]));
     }
-  }, [housing, utilities, groceries, transport, insurance, other, months, current, saving]);
+  }, []);
 
-  const reset = () => { setHousing(DEFAULTS.housing); setUtilities(DEFAULTS.utilities); setGroceries(DEFAULTS.groceries); setTransport(DEFAULTS.transport); setInsurance(DEFAULTS.insurance); setOther(DEFAULTS.other); setMonths(DEFAULTS.months); setCurrent(DEFAULTS.current); setSaving(DEFAULTS.saving); };
+  const handleCalculate = () => {
+    const vals = [housing, utilities, groceries, transport, insurance, other, months, current, saving].map(parseFloat);
+    if (vals.every(v => !isNaN(v)) && vals[6] > 0 && vals[7] >= 0 && vals[8] >= 0) setResult(calcFund(vals.slice(0, 6), vals[6], vals[7], vals[8]));
+  };
+  const reset = () => { setHousing(DEFAULTS.housing); setUtilities(DEFAULTS.utilities); setGroceries(DEFAULTS.groceries); setTransport(DEFAULTS.transport); setInsurance(DEFAULTS.insurance); setOther(DEFAULTS.other); setMonths(DEFAULTS.months); setCurrent(DEFAULTS.current); setSaving(DEFAULTS.saving); setResult(calcFund([DEFAULTS.housing, DEFAULTS.utilities, DEFAULTS.groceries, DEFAULTS.transport, DEFAULTS.insurance, DEFAULTS.other].map(parseFloat), parseFloat(DEFAULTS.months), parseFloat(DEFAULTS.current), parseFloat(DEFAULTS.saving))); };
   const invalid = [housing, utilities, groceries, transport, insurance, other, months, current, saving].some(v => isNaN(parseFloat(v))) || parseFloat(months) <= 0 || parseFloat(current) < 0 || parseFloat(saving) < 0;
 
   const breakdown = [
@@ -141,7 +145,7 @@ export default function EmergencyFundCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <PiggyBank className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

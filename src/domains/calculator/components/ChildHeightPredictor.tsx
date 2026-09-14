@@ -156,7 +156,7 @@ export default function ChildHeightPredictor() {
           <div className="flex flex-col gap-6">
             {result && (<>
               
-              <div className="border-l-4 rounded-lg p-5 shadow-sm bg-emerald-500/10 border-emerald-500">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider mb-1 text-emerald-700">Projected Adult Height</div>

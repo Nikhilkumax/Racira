@@ -129,7 +129,7 @@ const GroundwaterContaminationPlumeCalculator = () => {
               <NumInput id="decayRate" label="Decay Rate (1/day)" value={inputs.decayRate} onChange={set("decayRate")} min="0" step="0.0001" />
               <NumInput id="distance" label="Distance from Source (m)" value={inputs.distance} onChange={set("distance")} min="0" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div>
               <NumInput id="limitConcentration" label="Cleanup Limit (mg/L)" value={inputs.limitConcentration} onChange={set("limitConcentration")} min="0.001" hint="Concentration threshold used for plume-length estimate." />
             </div>

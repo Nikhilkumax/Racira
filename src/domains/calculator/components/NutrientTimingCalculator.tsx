@@ -189,7 +189,7 @@ export default function NutrientTimingCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Protocol Generated</div>
                 <div className="text-2xl font-extrabold text-foreground tracking-tight mb-2">{workoutType.charAt(0).toUpperCase() + workoutType.slice(1)} Nutrition Plan</div>
                 <div className="text-sm text-foreground font-medium leading-relaxed">{result.recommendation}</div>

@@ -209,6 +209,7 @@ export default function CarAffordabilityCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes, Fees & Trade Equity</div>
                   <CompactInput id="tax" label="Sales Tax" value={inputs.tax} onChange={(v: string) => handleChange("tax", v)} suffix="%" />
                   <CompactInput id="fees" label="Title & Fees" value={inputs.fees} onChange={(v: string) => handleChange("fees", v)} prefix="$" />
                   <CompactInput id="amount-owed" label="Amount Owed on Trade" value={inputs.amountOwed} onChange={(v: string) => handleChange("amountOwed", v)} prefix="$" />

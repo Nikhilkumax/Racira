@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "fluid-flow-rate-calculator",
+    "varName": "fluid_flow_rate_calculatorSeo",
+    "name": "Fluid Flow Rate Calculator",
+    "sections": [
+      {
+        "heading": "What is Fluid Flow Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fluid Flow Rate Calculator converts pipe internal diameter and mean flow velocity into the volumetric flow rate, in the four units a piping job actually speaks: cubic metres per second, cubic metres per hour, litres per minute and litres per second. The relationship is the continuity equation — flow rate equals velocity times cross-section area — where the area of a circular pipe is pi times the diameter squared over four, with the millimetre diameter converted to metres before the area is computed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool carries the design-velocity guidance that makes the result usable: water systems typically run 1 to 3 metres per second, open drains need about 0.6 metres per second minimum to stay self-cleaning, and compressed air lines run 6 to 15 metres per second. Those bands are where the calculator earns its keep — given a target flow rate, the velocity range tells you the pipe size window, and given a pipe size, the velocity tells you whether the flow is reasonable or the line is undersized."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Fluid Flow Rate Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Internal diameter of the pipe in millimetres — the bore, not the outside diameter or the nominal size, since flow sees the inside.",
+              "<strong>Step 2:</strong> Enter the Mean velocity of the fluid in metres per second. For design work, start from the guidance band appropriate to your service: 1 to 3 m/s for water, around 0.6 m/s minimum for gravity drains, 6 to 15 m/s for compressed air.",
+              "<strong>Step 3:</strong> Read the Result panel. Cross-section area is the pipe bore area in square metres; Flow rate is the volumetric rate in cubic metres per second; the three Volumetric flow rows restate it as m³/h, L/min and L/s so you can quote the number in whatever unit the pump schedule or the code uses.",
+              "<strong>Step 4:</strong> Sanity-check the arithmetic with a known case: a 50 mm pipe at 2 m/s gives a flow of about 0.0039 m³/s, or 14.14 m³/h, or 235.6 L/min. If your result is off by a factor of a thousand, the diameter was probably entered in metres instead of millimetres.",
+              "<strong>Step 5:</strong> Reverse the tool for sizing: decide the flow you need, pick a velocity from the guidance band, and find the diameter that puts the velocity inside the band."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Fluid Flow Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Volumetric flow is the common currency between the disciplines on a project: the process engineer specifies litres per minute, the pump vendor quotes cubic metres per hour, and the instrument engineer reads litres per second. Converting between those units by hand while also converting the pipe diameter to metres is exactly the multi-step arithmetic where a misplaced decimal point produces a pump that is ten times too small. Computing the area once and deriving every flow unit from it keeps all four answers consistent."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also makes the velocity guidance actionable. Velocity is the design variable that balances economy against erosion and noise — too slow and lines silt up or run oversized, too fast and fittings erode and water hammer worsens. With the flow rate and the guidance band side by side, the diameter that lands the velocity in the right range is a quick iteration rather than a lookup into a fading memory of a nomograph."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is the cross-section area computed from the diameter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The area of a circular bore is pi times the diameter squared, divided by four. The diameter you enter in millimetres is first divided by 1000 to metres, then squared and multiplied by pi over four to give the area in square metres. A 50 mm bore therefore has an area of about 0.00196 m² — which is why a 2 m/s flow through it is only about 0.0039 m³/s; the cubic-metre-per-second numbers for pipe flow are always small, and the L/min and m³/h rows exist to keep them legible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Which diameter should I enter — nominal or internal?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Always the internal diameter. Flow passes through the bore, and the nominal pipe size is a label, not a dimension — a 50 mm nominal pipe has a bore that depends on its schedule, with thicker walls leaving a smaller inside diameter. For sizing from a schedule table, use the actual bore for the wall thickness you intend. Entering the nominal size overstates the area and the flow, usually by enough to matter on a pump selection."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What velocity should I design to?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It depends on the service. Water in closed systems is typically designed at 1 to 3 m/s — below about 0.6 m/s in gravity drains the flow can fail to keep the line self-cleaning, while above about 3 m/s erosion, noise and water-hammer risk climb. Compressed air is deliberately faster at 6 to 15 m/s because the fluid is light. These bands come from the tool's built-in guidance; the final value also depends on the material and the code, so treat the band as the starting window, not the last word."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle non-circular pipes or partially full flow?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it assumes a circular bore running full, which is the correct model for pumped closed systems. Gravity drains flowing partially full, rectangular ducts and open channels have different geometry, and the velocity-area approach still applies but the wetted area and velocity profile must be computed for the actual shape and fill level. For those cases use a calculator built for the specific geometry rather than this circular-full-bore tool."
+          }
+        ]
+      }
+    ]
+  }
+]

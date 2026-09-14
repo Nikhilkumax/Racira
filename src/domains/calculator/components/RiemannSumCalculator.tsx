@@ -78,7 +78,7 @@ const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none
 
 export default function RiemannSumCalculator() {
   const [funcKey, setFuncKey] = useState("x2");
-  const [a, setA] = useState("0");
+  const [a, setA] = useState("1");
   const [b, setB] = useState("2");
   const [n, setN] = useState("10");
   const [method, setMethod] = useState("midpoint");
@@ -92,14 +92,14 @@ export default function RiemannSumCalculator() {
   };
   const reset = () => {
     setFuncKey("x2");
-    setA("0");
+    setA("1");
     setB("2");
     setN("10");
     setMethod("midpoint");
-    setResult(calcRiemann(0, 2, 10, "midpoint", "x2"));
+    setResult(calcRiemann(1, 2, 10, "midpoint", "x2"));
   };
   useEffect(() => {
-    setResult(calcRiemann(0, 2, 10, "midpoint", "x2"));
+    setResult(calcRiemann(1, 2, 10, "midpoint", "x2"));
   }, []);
 
   const faqs = [

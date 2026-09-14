@@ -107,12 +107,12 @@ export default function TransformerCalculator() {
                   <option value="turns">Secondary Turns (Ns)</option>
                 </select>
               </div>
-              <InputField id="vp" label="Primary Voltage (Vp)" value={vp} onChange={setVp} suffix="V" tooltip="Voltage applied to the primary winding." />
-              <InputField id="vs" label="Secondary Voltage (Vs)" value={vs} onChange={setVs} suffix="V" tooltip="Voltage needed at the secondary winding (used for turns and voltage solves)." />
-              <InputField id="np" label="Primary Turns (Np)" value={np} onChange={setNp} tooltip="Number of turns on the primary winding." />
-              <InputField id="ns" label="Secondary Turns (Ns)" value={ns} onChange={setNs} tooltip="Number of turns on the secondary winding." />
-              <InputField id="ip" label="Primary Current (Ip)" value={ip} onChange={setIp} suffix="A" tooltip="Current flowing through the primary winding." />
-              <InputField id="is" label="Secondary Current (Is)" value={is} onChange={setIs} suffix="A" tooltip="Current through the secondary winding (used for the current solve)." />
+              <InputField id="vp" label="Primary Voltage (Vp)" value={vp} onChange={setVp} suffix="V" tooltip="Voltage applied to the primary winding." onEnter={handleCalculate} />
+              <InputField id="vs" label="Secondary Voltage (Vs)" value={vs} onChange={setVs} suffix="V" tooltip="Voltage needed at the secondary winding (used for turns and voltage solves)." onEnter={handleCalculate} />
+              <InputField id="np" label="Primary Turns (Np)" value={np} onChange={setNp} tooltip="Number of turns on the primary winding." onEnter={handleCalculate} />
+              <InputField id="ns" label="Secondary Turns (Ns)" value={ns} onChange={setNs} tooltip="Number of turns on the secondary winding." onEnter={handleCalculate} />
+              <InputField id="ip" label="Primary Current (Ip)" value={ip} onChange={setIp} suffix="A" tooltip="Current flowing through the primary winding." onEnter={handleCalculate} />
+              <InputField id="is" label="Secondary Current (Is)" value={is} onChange={setIs} suffix="A" tooltip="Current through the secondary winding (used for the current solve)." onEnter={handleCalculate} />
             </div>
 
             <div className="flex gap-3">
@@ -128,9 +128,9 @@ export default function TransformerCalculator() {
               <>
                 <h2 className="text-2xl font-bold mb-3">Transformer Results</h2>
                 <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">{result.label}</p>
-                    <p className="text-2xl font-black text-foreground">{result.answer.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="text-sm font-normal text-muted-foreground">{result.unit}</span></p>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">{result.label}</p>
+                    <p className="text-4xl font-bold text-primary">{result.answer.toLocaleString(undefined, { maximumFractionDigits: 2 })} <span className="text-lg font-normal text-muted-foreground">{result.unit}</span></p>
                   </div>
                   <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Turns Ratio (Ns/Np)</p>

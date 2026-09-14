@@ -48,9 +48,9 @@ export default function EfficiencyCalculator() {
     const o = parseFloat(output);
     const i = parseFloat(input);
     if (!isNaN(o) && !isNaN(i) && o >= 0 && i > 0) setResult(calcEfficiency(o, i));
-  }, [output, input]);
+  }, []);
 
-  const reset = () => { setOutput(DEFAULTS.output); setInput(DEFAULTS.input); };
+  const reset = () => { setOutput(DEFAULTS.output); setInput(DEFAULTS.input); setResult(calcEfficiency(parseFloat(DEFAULTS.output), parseFloat(DEFAULTS.input))); };
   const invalid = isNaN(parseFloat(output)) || isNaN(parseFloat(input)) || parseFloat(output) < 0 || parseFloat(input) <= 0;
 
   const breakdown = [

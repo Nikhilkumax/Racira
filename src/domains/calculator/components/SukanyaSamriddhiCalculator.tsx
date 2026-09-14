@@ -95,10 +95,6 @@ export default function SukanyaSamriddhiCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           Sukanya Samriddhi Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Estimate the maturity amount of a Sukanya Samriddhi account for your girl child&apos;s
-          education and marriage fund — deposits for 15 years, compounding for 21.
-        </p>
       </div>
 
       <Card className="mb-6">

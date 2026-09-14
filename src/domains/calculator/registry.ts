@@ -85,3 +85,14 @@ export const getCategories = () => {
 export const getCalculatorBySlug = (slug: string): CalculatorDef | undefined => {
   return calculatorRegistry.find(c => c.slug === slug);
 };
+
+export const SEARCH_REGISTRY = calculatorRegistry.map(c => ({
+  name: c.name,
+  description: c.description,
+  slug: c.slug,
+  href: `/calculator/${c.slug}`,
+  category: c.category,
+  subcategory: c.subcategory,
+  isBuilt: c.status === "live",
+  status: c.status,
+}));

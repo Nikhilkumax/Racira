@@ -50,9 +50,9 @@ export default function CurrentDividerCalculator() {
     const a = parseFloat(r1);
     const b = parseFloat(r2);
     if (!isNaN(i) && !isNaN(a) && !isNaN(b) && a > 0 && b > 0 && i >= 0) setResult(calcDivider(i, a, b));
-  }, [is, r1, r2]);
+  }, []);
 
-  const reset = () => { setIs(DEFAULTS.is); setR1(DEFAULTS.r1); setR2(DEFAULTS.r2); };
+  const reset = () => { setIs(DEFAULTS.is); setR1(DEFAULTS.r1); setR2(DEFAULTS.r2); setResult(calcDivider(parseFloat(DEFAULTS.is), parseFloat(DEFAULTS.r1), parseFloat(DEFAULTS.r2))); };
   const invalid = isNaN(parseFloat(is)) || isNaN(parseFloat(r1)) || isNaN(parseFloat(r2)) || parseFloat(r1) <= 0 || parseFloat(r2) <= 0 || parseFloat(is) < 0;
 
   const breakdown = [

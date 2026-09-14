@@ -204,14 +204,6 @@ export default function CardioVsStrengthComparisonCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cardio vs Strength Calorie Comparison</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
-            <strong>The Long-Term Perspective:</strong> A single workout only tells half the story. This calculator projects your <strong>Monthly Caloric Yield</strong>, demonstrating how the muscle tissue built via strength training creates a passive, 24/7 metabolic furnace that cardio cannot replicate.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -262,29 +254,29 @@ export default function CardioVsStrengthComparisonCalculator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-2 gap-4">
                   {/* Cardio Box */}
-                  <div className="bg-gradient-to-br from-blue-600 to-cyan-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Cardio Only (Monthly)</div>
+                      <div className="text-blue-600 text-[10px] font-bold uppercase tracking-wider mb-1">Cardio Only (Monthly)</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.cardioMonthlyBurn.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-white/80">kcal</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.cardioMonthlyBurn.toLocaleString()}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">Active burn only</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">Active burn only</div>
                     </div>
-                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-blue-600" />
                   </div>
 
                   {/* Strength Box */}
-                  <div className="bg-gradient-to-br from-indigo-600 to-purple-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Strength (Monthly)</div>
+                      <div className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-1">Strength (Monthly)</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.totalStrengthAdvantage.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-white/80">kcal</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.totalStrengthAdvantage.toLocaleString()}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">Includes passive BMR increase</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">Includes passive BMR increase</div>
                     </div>
-                    <Dumbbell className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Dumbbell className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-indigo-600" />
                   </div>
                 </div>
 
@@ -318,6 +310,14 @@ export default function CardioVsStrengthComparisonCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
+            <strong>The Long-Term Perspective:</strong> A single workout only tells half the story. This calculator projects your <strong>Monthly Caloric Yield</strong>, demonstrating how the muscle tissue built via strength training creates a passive, 24/7 metabolic furnace that cardio cannot replicate.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

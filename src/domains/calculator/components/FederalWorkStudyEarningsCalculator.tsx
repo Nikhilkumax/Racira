@@ -17,7 +17,6 @@ const FederalWorkStudyEarningsCalculator = () => {
   const [hoursWorkedDisplayed, setHoursWorkedDisplayed] = useState(0);
   const [weeksDisplayed, setWeeksDisplayed] = useState(0);
   const [effectiveRate, setEffectiveRate] = useState(0);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
 
   const calculate = () => {
@@ -42,15 +41,16 @@ const FederalWorkStudyEarningsCalculator = () => {
 
   useEffect(() => {
     calculate();
-  }, [hourlyRate, hoursWorked, weeks]);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Column - Inputs */}
-          <div className="space-y-6">
-            <div className="space-y-4">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Federal Work-Study Earnings Calculator</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+        {/* Left Column - Inputs */}
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">Hourly Rate ($)</label>
               <input
                 type="number"
@@ -60,7 +60,7 @@ const FederalWorkStudyEarningsCalculator = () => {
                 min="0"
               />
             </div>
-            <div className="space-y-3">
+            <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">Hours Worked</label>
               <input
                 type="number"
@@ -70,7 +70,7 @@ const FederalWorkStudyEarningsCalculator = () => {
                 min="0"
               />
             </div>
-            <div className="space-y-3">
+            <div className="space-y-1">
               <label className="block text-sm font-medium text-gray-700">Weeks</label>
               <input
                 type="number"
@@ -80,32 +80,17 @@ const FederalWorkStudyEarningsCalculator = () => {
                 min="1"
               />
             </div>
-            <div className="flex items-center space-x-3 mt-4">
-              <button
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                {showAdvanced ? 'Hide' : 'Show'} Advanced Options
-              </button>
-            </div>
-            {showAdvanced && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                <h2 className="text-lg font-semibold mb-3">Advanced Options</h2>
-                <p className="text-sm text-gray-600">
-                  Advanced options allow you to adjust hourly rates, work hours, and duration to model different earnings scenarios for work-study programs.
-                </p>
-              </div>
-            )}
-            <button
-              onClick={calculate}
-              className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Calculate
-            </button>
           </div>
+          <button
+            onClick={calculate}
+            className="w-full mt-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >
+            Calculate
+          </button>
+        </div>
 
-          {/* Right Column - Results */}
-          <div className="space-y-6">
+        {/* Right Column - Results */}
+        <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
             {/* Primary Result Card */}  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Earnings</div>
   <p className="text-4xl font-bold text-primary">${totalEarnings.toLocaleString()}</p>
@@ -192,7 +177,6 @@ const FederalWorkStudyEarningsCalculator = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

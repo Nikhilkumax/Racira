@@ -123,7 +123,7 @@ export default function DividendYieldCalculator() {
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Dividend Yield</div>
                   <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmtPct(result.dividendYield)}</div>
                   <div className="text-sm text-muted-foreground font-medium">{result.yieldCategory}</div>

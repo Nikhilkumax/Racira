@@ -176,14 +176,6 @@ export default function HotYogaCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Hot Yoga Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-amber-800 dark:text-amber-400">
-            <strong>The Sweat Illusion:</strong> Sweating is a thermal response, not a measure of calorie burn. The massive weight lost during a Hot Yoga class is almost entirely <strong>water weight</strong>, which returns as soon as you hydrate. Do not rely on fitness watches, as extreme heat artificially spikes heart rate and causes massive caloric overestimations.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -237,31 +229,31 @@ export default function HotYogaCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-amber-600 to-orange-800 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-amber-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-amber-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         True Mechanical Output
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-amber-200">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-amber-100 mt-2 bg-amber-950/40 border border-amber-500/30 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold text-amber-700 mt-2 bg-amber-500/10 border border-amber-500/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                         <ActivitySquare className="h-4 w-4" /> {results.styleName}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-amber-200 mb-1">Est. Water Loss</div>
-                      <div className="text-2xl font-black text-white">{results.waterLossLbs}</div>
-                      <div className="text-xs text-amber-300 font-medium">LBS of Fluid</div>
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Est. Water Loss</div>
+                      <div className="text-2xl font-black text-foreground">{results.waterLossLbs}</div>
+                      <div className="text-xs text-muted-foreground font-medium">LBS of Fluid</div>
                     </div>
                   </div>
-                  <Droplets className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Droplets className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-amber-600" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">
@@ -296,6 +288,14 @@ export default function HotYogaCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-amber-800 dark:text-amber-400">
+            <strong>The Sweat Illusion:</strong> Sweating is a thermal response, not a measure of calorie burn. The massive weight lost during a Hot Yoga class is almost entirely <strong>water weight</strong>, which returns as soon as you hydrate. Do not rely on fitness watches, as extreme heat artificially spikes heart rate and causes massive caloric overestimations.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

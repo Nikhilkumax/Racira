@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, Cell as TooltipCell } from 'recharts';
 
 // ======================
@@ -48,19 +48,6 @@ const DEFAULTS: Inputs = {
   monthlyMonitoring: 35,
   contractLength: 36,
   installationFee: 200,
-};
-
-const DEFAULTS_RESULTS: Results = {
-  equipmentCost: 0,
-  laborCost: 0,
-  permitCost: 0,
-  wiringCost: 0,
-  programmingCost: 0,
-  monitoringCost: 0,
-  totalCost: 0,
-  monthlyCost: 0,
-  totalDeviceCount: 0,
-  totalDeviceDistance: 0,
 };
 
 // ======================
@@ -172,11 +159,6 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
   const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
   const [results, setResults] = useState<Results>(() => calculate(DEFAULTS));
 
-  // Calculate on mount and when inputs change
-  useEffect(() => {
-    setResults(calculate(inputs));
-  }, [inputs]);
-
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -198,7 +180,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
 
   const handleReset = () => {
     setInputs(DEFAULTS);
-    setResults(DEFAULTS_RESULTS);
+    setResults(calculate(DEFAULTS));
   };
 
   // Format currency
@@ -302,7 +284,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
             <div className="space-y-4">
               {/* System Components */}
               <div>
-                <h3 className="font-semibold mb-2">System Components</h3>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">System Components</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">
@@ -374,7 +356,7 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
 
               {/* Monitoring */}
               <div>
-                <h3 className="font-semibold mb-2">Monitoring</h3>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Monitoring</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium mb-1">

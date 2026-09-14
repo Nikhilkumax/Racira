@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "spring-rate-calculator",
+    "varName": "spring_rate_calculatorSeo",
+    "name": "Spring Rate Calculator",
+    "sections": [
+      {
+        "heading": "What is Spring Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Spring Rate Calculator computes the rate of a coil compression spring and the deflection it shows under load. The rate formula is the classic spring equation — the rate k equals the shear modulus G times the wire diameter to the fourth power, divided by eight times the mean coil diameter cubed times the number of active coils. With a music-wire spring of 2 mm wire, 20 mm mean diameter and 5 active coils, that works out to 4 N per millimetre: each newton of load compresses the spring one quarter of a millimetre."
+          },
+          {
+            "type": "paragraph",
+            "text": "The material selector carries the shear moduli of the common spring wires — music wire at 80,000 N/mm², oil-tempered and hard-drawn at 79,400, chrome-vanadium and chrome-silicon at 79,300, the stainless grades lower, and the copper alloys lower still at 45,000 to 48,000. Picking a material fills in its modulus, and the shear modulus field stays editable for a wire not on the list. The tool also reports the spring index — the mean diameter divided by the wire diameter — which should sit between 4 and 12 for a manufacturable spring."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Spring Rate Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Material from the selector — music wire, oil-tempered, hard-drawn, chrome-vanadium, chrome-silicon, 302 or 17-7 PH stainless, phosphor bronze or beryllium copper. The Shear modulus G field fills in automatically and stays editable.",
+              "<strong>Step 2:</strong> Enter the Wire diameter d — the diameter of the wire the spring is wound from, in millimetres. Rate scales with the fourth power of this number, so it is the most sensitive input on the page.",
+              "<strong>Step 3:</strong> Enter the Mean coil diameter D — the outside diameter minus one wire diameter, which is the dimension the formula uses. If you only know the outside diameter, subtract d first.",
+              "<strong>Step 4:</strong> Enter the Active coils n — the coils that actually deflect. For squared-and-ground ends, subtract about two from the total coil count. Then enter the Applied load F in newtons if you want the deflection.",
+              "<strong>Step 5:</strong> Read the Result panel: Spring rate k in N/mm, Deflection at the applied load in millimetres, and the Spring index. Check the index lands between 4 and 12 — outside that band the spring is hard to wind or prone to buckling."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Spring Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Spring rate is the specification that makes a spring interchangeable: it is the number a springmaker quotes and a designer verifies, and it is what the rest of the mechanism calculation consumes — a valve return spring needs enough rate to close against pressure, a suspension spring needs the rate that puts ride frequency in the right band. Computing it by hand means tracking the fourth power of the wire diameter through a five-term formula, which is tedious and error-prone exactly when the number matters most."
+          },
+          {
+            "type": "paragraph",
+            "text": "Because the wire diameter enters to the fourth power, the calculator makes the design iteration visible: going from 2 mm to 3 mm wire on the default spring raises the rate from 4 to 20.25 N/mm — a fivefold change from a fifty percent size increase. Watching the rate respond to each input is the fastest way to develop a feel for which dimension actually controls the spring, which is the difference between a design that converges and one that chases its own tail."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the wire diameter enter to the fourth power?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the spring formula derives from the torsion of a round wire: the rate constant contains the wire's polar moment of inertia, which is proportional to the diameter to the fourth power. The practical consequence is that the wire diameter dominates the design — increasing it from 2 mm to 3 mm on an otherwise unchanged spring raises the rate from 4 to 20.25 N/mm, roughly a fivefold gain for a fifty percent size increase. If a spring needs to be much stiffer, change the wire before changing anything else."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between active coils and total coils?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Total coils is the full count including the ends that sit against the seats; active coils are the ones that deflect as the spring compresses. For ends that are squared and ground — the standard finish — the two end coils are closed and do not contribute, so subtract about two from the total count to get the active coils the formula needs. Entering the total count instead of the active count makes the computed rate too soft by roughly the ratio of total to active coils."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the spring index matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The spring index is the mean coil diameter divided by the wire diameter. Below about 4 the wire is wound too tightly around the mandrel, stressing the inner fibres and making the spring hard to manufacture; above about 12 the spring is slender and prone to buckling and to tangling with adjacent coils. The tool reports the index beside the rate so the geometry check happens in the same pass as the strength calculation rather than as a separate step."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the rate alone tell me if the spring is strong enough?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — rate is a stiffness property, not a strength check. A spring of the right rate can still yield or fatigue if the corrected shear stress at full deflection exceeds what the material allows. The full check applies the Wahl curvature correction to the stress formula — shear stress equals the Wahl factor times eight times the load times the mean diameter over pi times the wire diameter cubed — which is a separate analysis this tool deliberately leaves to a dedicated stress calculation."
+          }
+        ]
+      }
+    ]
+  }
+]

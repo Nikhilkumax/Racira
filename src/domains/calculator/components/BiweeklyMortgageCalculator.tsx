@@ -7,25 +7,8 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { ChevronDown, Printer, RotateCcw, Calculator } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
+import { calculateBiweeklyMortgage, type BiweeklyMortgageInputs, type BiweeklyMortgageResults } from "./biweeklyMortgageLogic";
 
-interface BiweeklyMortgageInputs {
-  loanAmount: number;
-  interestRate: number;
-  loanTerm: number;
-  extraBiWeeklyPayment: number;
-}
-
-interface BiweeklyMortgageResults {
-  monthlyPayment: number;
-  biWeeklyPayment: number;
-  standardTotalInterest: number;
-  biWeeklyTotalInterest: number;
-  interestSaved: number;
-  timeSavedYears: number;
-  payoffYears: number;
-  standardTotalPaid: number;
-  biWeeklyTotalPaid: number;
-}
 
 const DEFAULTS = {
   loanAmount: "300000",
@@ -33,66 +16,6 @@ const DEFAULTS = {
   loanTerm: "30",
   extraBiWeeklyPayment: "0",
 };
-
-const calculateBiweeklyMortgage = (inputs: BiweeklyMortgageInputs): BiweeklyMortgageResults => {
-  const { loanAmount: P, interestRate, loanTerm, extraBiWeeklyPayment } = inputs;
-  
-  if (P <= 0 || interestRate <= 0 || loanTerm <= 0) {
-    return {
-      monthlyPayment: 0, biWeeklyPayment: 0, standardTotalInterest: 0,
-      biWeeklyTotalInterest: 0, interestSaved: 0, timeSavedYears: 0, payoffYears: 0,
-      standardTotalPaid: 0, biWeeklyTotalPaid: 0
-    };
-  }
-
-  const monthlyRate = (interestRate / 100) / 12;
-  const totalMonths = loanTerm * 12;
-
-  // Standard Monthly Payment
-  const M = P * (monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-  const standardTotalInterest = (M * totalMonths) - P;
-  const standardTotalPaid = M * totalMonths;
-
-  // Bi-Weekly Payment
-  const baseBiWeeklyPayment = M / 2;
-  const totalBiWeeklyPayment = baseBiWeeklyPayment + extraBiWeeklyPayment;
-
-  // Exact bi-weekly simulation
-  const dailyRate = (interestRate / 100) / 365;
-  let balance = P;
-  let totalInterestBiWeekly = 0;
-  let biWeeklyPaymentsCount = 0;
-
-  while (balance > 0.01 && biWeeklyPaymentsCount < 10000) {
-    biWeeklyPaymentsCount++;
-    // Interest accrues over 14 days
-    const interestForPeriod = balance * dailyRate * 14;
-    totalInterestBiWeekly += interestForPeriod;
-    
-    let principalPaid = totalBiWeeklyPayment - interestForPeriod;
-    if (principalPaid > balance) principalPaid = balance;
-    
-    balance -= principalPaid;
-  }
-
-  const payoffYears = (biWeeklyPaymentsCount * 14) / 365;
-  const timeSavedYears = Math.max(0, loanTerm - payoffYears);
-  const interestSaved = Math.max(0, standardTotalInterest - totalInterestBiWeekly);
-  const biWeeklyTotalPaid = P + totalInterestBiWeekly;
-
-  return {
-    monthlyPayment: M,
-    biWeeklyPayment: totalBiWeeklyPayment,
-    standardTotalInterest,
-    biWeeklyTotalInterest: totalInterestBiWeekly,
-    interestSaved,
-    timeSavedYears,
-    payoffYears,
-    standardTotalPaid,
-    biWeeklyTotalPaid
-  };
-};
-
 const CompactInput = ({
   id,
   label,
@@ -252,7 +175,7 @@ const BiWeeklyMortgageCalculator = () => {
 
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Extra Payments</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Extra Payments</div>
                   <CompactInput
                     id="extra-payment"
                     label="Extra Bi-Weekly Payment"

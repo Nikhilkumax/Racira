@@ -13,6 +13,7 @@ interface InputFieldProps {
   step?: string;
   placeholder?: string;
   disabled?: boolean;
+  onEnter?: () => void;
 }
 
 const InputField = ({
@@ -28,6 +29,7 @@ const InputField = ({
   step,
   placeholder,
   disabled,
+  onEnter,
 }: InputFieldProps) => (
   <div>
     <label htmlFor={id} className="flex items-center text-sm font-medium text-foreground mb-1">
@@ -41,6 +43,7 @@ const InputField = ({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className={`input-calc${prefix ? " has-prefix" : ""}${suffix ? " has-unit" : ""}`}
         min={min}
         step={step}

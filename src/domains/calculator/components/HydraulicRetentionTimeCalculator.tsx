@@ -103,7 +103,7 @@ export default function HydraulicRetentionTimeCalculator() {
               </button>
               {showAdvanced && (
                 <div className="mt-3 border border-border rounded-lg p-4 bg-secondary/10 grid grid-cols-2 gap-3">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground col-span-2">Effective HRT Adjustments</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 col-span-2">Effective HRT Adjustments</div>
                   <Inp id="deadZone" label="Dead Zone %" value={deadZonePct} onChange={setDeadZonePct} />
                   <Inp id="shortCircuit" label="Short-Circuit %" value={shortCircuitPct} onChange={setShortCircuitPct} />
                 </div>

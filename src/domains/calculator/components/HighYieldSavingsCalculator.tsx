@@ -217,6 +217,7 @@ export default function HighYieldSavingsCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Compound Settings</div>
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-foreground mb-1.5">Compounding Frequency</label>
                     <select value={compoundFreq} onChange={(e) => setCompoundFreq(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm focus:ring-2 focus:ring-primary/20 outline-none">

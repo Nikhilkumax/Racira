@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "arc-length-calculator",
+    "varName": "arc_length_calculatorSeo",
+    "name": "Arc Length Calculator",
+    "sections": [
+      {
+        "heading": "What is Arc Length Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Arc Length Calculator derives the full geometry of a circular arc from just two inputs — the radius and the included angle. The arc length itself is radius times the angle in radians, so a 60-degree arc on a 50-millimetre radius measures 52.36 millimetres. Around that central result the tool also reports the chord length, the sagitta (bow height) and the sector area, so one entry produces everything a drawing or a fabrication layout might ask about that arc."
+          },
+          {
+            "type": "paragraph",
+            "text": "The included angle is entered in degrees, between zero and 360, and converted internally to radians for the calculations. The supporting results follow the standard circular relationships: the chord spans the two ends of the arc, the sagitta is the height of the arc above its chord, and the sector area is half the radius squared times the angle — the pie-slice area bounded by the two radii and the arc."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Arc Length Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Unit — millimetres, centimetres, metres, inches or feet — so the results are labelled consistently.",
+              "<strong>Step 2:</strong> Enter the Radius of the arc in the Radius field. This is the radius of the circle the arc belongs to, which in CAD is the value in the properties palette of the arc entity.",
+              "<strong>Step 3:</strong> Enter the Included angle in degrees in the angle field — the sweep between the two radii that bound the arc. A quarter circle is 90 degrees, a semicircle is 180 degrees.",
+              "<strong>Step 4:</strong> Read the Result panel. Arc length is the distance along the curve, Chord length is the straight line between its endpoints, Sagitta is the arc's height above that chord, and Sector area is the pie-slice area.",
+              "<strong>Step 5:</strong> Verify with a semicircle: a 180-degree arc on a 50 radius must give an arc length of about 157.08 (half of 2πr) and a chord of exactly 100 — the diameter."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Arc Length Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Arc length is a quantity you cannot measure with a straight scale: it runs along the curve, so it must be computed from the radius and angle. It is the number behind practical jobs — the length of a curved bend in a sheet-metal part, the developed length of a pipe elbow's centreline, the amount of edge trim around an arched opening, or the tool path length of a profile cut."
+          },
+          {
+            "type": "paragraph",
+            "text": "Having the chord, sagitta and sector area in the same pass saves a second round of calculation when the same arc appears in several roles: the chord locates the endpoints for drilling, the sagitta checks the clearance under the arc, and the sector area feeds an area take-off. All four come from the same radius and angle, so they are guaranteed consistent — the chord can never disagree with the arc length the way separately hand-computed values can."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can the angle exceed 360 degrees?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — the tool accepts angles above zero and up to 360 degrees, and a full circle is exactly 360. Angles beyond a full turn describe the same geometry as their remainder within one turn, so allowing them would only invite confusion. For a full circle, enter 360 degrees and the arc length equals the circumference, 2πr, with a chord of zero since the endpoints coincide."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the sagitta used for in practice?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The sagitta — also called the bow height or rise — is the distance from the midpoint of the chord straight up to the arc. It is the dimension you would use to check the clearance of an arc over a feature below it, to set up a curved form from a straight reference line, or to verify a curved edge with a height gauge. For a given radius it grows with the angle, reaching the full radius at 180 degrees when the chord becomes the diameter."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is the angle in degrees but the formula in radians?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because degrees are what people type and radians are what the math needs. The length of an arc is the radius times the angle measured in radians — that is the definition of a radian, the angle whose arc length equals the radius. The tool converts your degrees to radians internally, multiplies by the radius, and reports the length, so you get the exact arc length without converting by hand."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I find the radius if I only know the chord and the sagitta?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "You can back it out: the radius equals the sagitta squared plus the square of half the chord, all divided by twice the sagitta. If a curve has a 100-millimetre chord and rises 10 millimetres, the radius works out to 130 millimetres. Enter 130 with the angle that fits the geometry — about 45.24 degrees for this case — and the tool confirms it: a 130-millimetre radius at that angle returns a 100.000 mm chord and a 10.000 mm sagitta."
+          }
+        ]
+      }
+    ]
+  }
+]

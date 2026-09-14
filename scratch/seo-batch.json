@@ -1,0 +1,483 @@
+[
+  {
+    "slug": "hash-generator",
+    "varName": "hashGeneratorSeo",
+    "name": "Hash Generator",
+    "sections": [
+      {
+        "heading": "What is Hash Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Hash Generator converts any text input into a cryptographic hash using the Web Crypto API. It supports five algorithms — MD5, SHA-1, SHA-256, SHA-384, and SHA-512 — each producing a fixed-length hexadecimal string that uniquely represents the original input. Unlike encryption, hashing is a one-way operation: you can generate a hash from input, but you cannot reverse-engineer the original text from the hash. This makes it ideal for integrity checks, password storage verification, and data fingerprinting."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool runs entirely in your browser using the native SubtleCrypto interface, which means the hashing computation never leaves your device. For inputs under a few megabytes, results appear almost instantly. The output is a plain hexadecimal string you can copy directly into configuration files, database records, or comparison scripts."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Hash Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Select an algorithm</strong> from the dropdown — SHA-256 is the most common choice for general-purpose hashing, while MD5 and SHA-1 are useful for legacy compatibility checks.",
+              "<strong>Paste or type your input</strong> into the input panel. This can be plain text, a JSON string, a file path, or any UTF-8 encoded data.",
+              "<strong>Read the output</strong> in the output panel. The hex string is displayed immediately (live mode is on by default). For SHA-256, expect a 64-character hex string; for SHA-512, a 128-character string.",
+              "<strong>Copy the hash</strong> using the copy button in the output panel header, or download it as a text file."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Hash Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Developers use hash generators daily for several concrete tasks. <strong>File integrity verification</strong> is the most common: after downloading a library or binary, you hash it locally and compare the result against the published checksum to confirm nothing was tampered with in transit. <strong>Password testing</strong> is another use case — if you maintain a list of known-bad password hashes (like Have I Been Pwned's k-anonymity model), you can hash a candidate password and check whether the hash appears in the breach database."
+          },
+          {
+            "type": "paragraph",
+            "text": "Hash functions also underpin <strong>cache busting</strong> (generating content-hash filenames), <strong>data deduplication</strong> (hashing records to detect near-duplicates), and <strong>API request signing</strong> (where HMAC variants prove request authenticity). Having a browser-based tool means you can compute these hashes without installing command-line utilities or opening a terminal, which is especially useful when working from a managed workstation or a shared machine."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which hash algorithm should I choose?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For new projects, <strong>SHA-256</strong> is the standard choice — it is fast, widely supported, and has no known practical collision attacks. Use SHA-512 when you need a longer digest (for example, in certain key derivation schemes). MD5 and SHA-1 are considered cryptographically broken for security purposes but remain useful for non-security tasks like checksum verification where the published hash already uses those algorithms."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is this the same as what password managers use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Password managers typically use a <strong>key derivation function</strong> like PBKDF2, Argon2, or bcrypt, which applies a hash algorithm thousands of times with a salt to slow down brute-force attacks. This tool performs a single unsalted hash pass, which is appropriate for integrity checks and data fingerprinting but should not be used as a standalone password hashing scheme."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I hash binary data or files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool hashes UTF-8 text input. For binary files, you would typically read the file as an ArrayBuffer and pass it to the same SubtleCrypto digest function. If you need file hashing, the <strong>File Hash Checker</strong> tool in the Security category handles that workflow directly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the same input always produce the same hash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Hash functions are <strong>deterministic</strong> by design: the same input always produces the same output. This is what makes them useful for verification — if two hashes match, the inputs are guaranteed to be identical (barring an astronomically unlikely collision). If you need a different hash each time for the same input, you would use a keyed hash (HMAC) with a secret key instead."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "caesar-cipher-tool",
+    "varName": "caesarCipherSeo",
+    "name": "Caesar Cipher Tool",
+    "sections": [
+      {
+        "heading": "What is Caesar Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Caesar Cipher Tool implements the classical Caesar substitution cipher, where each letter in the input is shifted forward or backward by a configurable number of positions in the alphabet. Named after Julius Caesar, who used a shift of 3 for military correspondence, this is one of the oldest known encryption techniques. The tool supports shifts from 1 to 25, wraps around the alphabet (so shifting Z by 1 produces A), and preserves case and non-alphabetic characters exactly as they appear."
+          },
+          {
+            "type": "paragraph",
+            "text": "While the Caesar cipher offers zero practical security by modern standards — it is trivially broken by brute force (only 25 possible shifts) or frequency analysis — it remains a valuable educational tool for understanding how substitution ciphers work and for solving cryptography puzzles, escape room challenges, and CTF (Capture The Flag) competitions."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Caesar Cipher Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Enter your plaintext</strong> in the input panel. This can be any English text, a puzzle clue, or a message you want to encode.",
+              "<strong>Set the shift value</strong> using the number input or slider. A positive shift encrypts (shifts forward); the tool also supports decoding by applying the reverse shift.",
+              "<strong>Read the output</strong> in the output panel. The cipher text appears instantly as you adjust the shift. Non-letter characters (spaces, punctuation, numbers) pass through unchanged.",
+              "<strong>Try all 25 shifts</strong> if you are solving a puzzle and do not know the key — the tool makes it easy to cycle through possibilities until the output reads as meaningful English."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Caesar Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The most practical use case today is <strong>solving cryptography puzzles</strong>. Escape rooms, puzzle hunts, and introductory cryptography courses frequently use Caesar ciphers as warm-up challenges. Instead of manually shifting each letter, you can paste the cipher text and try shifts programmatically, which is faster and eliminates counting errors."
+          },
+          {
+            "type": "paragraph",
+            "text": "Educators use this tool to <strong>demonstrate the weakness of simple substitution</strong>. By showing students that any Caesar-encoded message can be broken in seconds, it motivates the need for stronger algorithms like AES. Game developers also use it for <strong>in-game secret messages</strong> and easter eggs where the cipher is meant to be solvable by players."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is the Caesar cipher secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The Caesar cipher is one of the weakest encryption methods in existence. With only 25 possible shifts, an attacker can try every one in seconds. Even without brute force, <strong>frequency analysis</strong> — comparing the letter distribution of the cipher text against known English letter frequencies — reveals the shift in a single step. Never use the Caesar cipher for anything that requires actual security."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between Caesar cipher and ROT13?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ROT13 is simply a Caesar cipher with a fixed shift of 13. It has the special property that applying it twice returns the original text (since 13 + 13 = 26, a full alphabet rotation). This tool lets you choose any shift from 1 to 25, making it more flexible than a dedicated ROT13 tool, though you can achieve ROT13 by setting the shift to 13."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can this tool decode messages encoded with a different shift?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — if you know the shift value used to encode the message, set the tool to that shift and apply the reverse operation. If you do not know the shift, try all 25 values until the output makes sense. For longer messages, the correct shift will produce output that matches English letter frequency patterns, while incorrect shifts will produce gibberish."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does it handle numbers and punctuation?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Only alphabetic characters (A-Z, a-z) are shifted. Digits, spaces, punctuation, and special characters are preserved exactly as they appear in the input. This means encoded messages retain their original formatting, which can be useful for puzzle contexts where punctuation is a hint."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "rsa-key-generator",
+    "varName": "rsaKeyGeneratorSeo",
+    "name": "RSA Key Generator",
+    "sections": [
+      {
+        "heading": "What is RSA Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The RSA Key Generator creates a matched pair of RSA public and private keys directly in your browser using the Web Crypto API's <code>SubtleCrypto.generateKey</code> interface. It supports key sizes of 1024, 2048, and 4096 bits, with 2048-bit being the current recommended minimum for production use. The output includes both keys in PEM format — the standard text encoding used by OpenSSL, SSH, and most certificate management tools."
+          },
+          {
+            "type": "paragraph",
+            "text": "RSA (Rivest–Shamir–Adleman) is an asymmetric cryptographic algorithm: the public key encrypts data, and only the corresponding private key can decrypt it. This tool generates fresh key pairs for each request, meaning the private key exists only in your browser during the generation session and is never transmitted to any server."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use RSA Key Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Select the key size</strong> from the options panel. 2048-bit is the default and recommended for most applications. Use 4096-bit for high-security requirements (at the cost of slower generation and encryption operations).",
+              "<strong>Click Generate</strong> to create the key pair. Generation typically takes 1-5 seconds for 2048-bit keys and up to 15 seconds for 4096-bit keys, depending on your device.",
+              "<strong>Copy the public key</strong> — this is the key you share with others or embed in configuration files. It begins with <code>-----BEGIN PUBLIC KEY-----</code>.",
+              "<strong>Copy the private key</strong> — this must remain confidential. It begins with <code>-----BEGIN PRIVATE KEY-----</code>. Store it in a secure location, never in source control or shared drives.",
+              "<strong>Use the keys</strong> in your application, SSH configuration, or certificate signing workflow. The PEM format is compatible with OpenSSL, most programming languages, and CI/CD pipelines."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use RSA Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Developers need RSA key pairs for several concrete workflows. <strong>SSH key authentication</strong> is the most common — generating a fresh key pair for a new server or CI/CD pipeline, then copying the public key to the authorized_keys file. <strong>JWT RS256 signing</strong> requires an RSA key pair where the private key signs tokens and the public key verifies them. <strong>API authentication</strong> systems like GitHub's JWT-based apps and certain OAuth flows also require RSA keys."
+          },
+          {
+            "type": "paragraph",
+            "text": "Using a browser-based generator means you can create keys on any machine — including managed workstations where installing OpenSSL or ssh-keygen may require admin privileges. Since generation happens locally, there is no risk of a server-side key escrow or logging incident."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which key size should I choose?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<strong>2048-bit</strong> is the current industry standard and is recommended for most use cases. It provides adequate security against known attacks and is supported by all major libraries and platforms. <strong>4096-bit</strong> offers a higher security margin but generates slower and produces larger keys — use it when compliance requirements mandate it or for long-term secrets (like root CA keys) that need to remain secure for decades."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Are these keys secure enough for production?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The keys themselves are cryptographically sound — generated using the browser's native CSPRNG (Cryptographically Secure Pseudo-Random Number Generator). However, for production use, consider whether you need a <strong>key management strategy</strong>: who has access to the private key, how is it rotated, and how is it stored? A key generated in a browser tab is fine for development and testing, but production private keys should ideally live in a hardware security module (HSM) or a managed secrets vault."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use these keys with OpenSSL?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The output PEM format is directly compatible with OpenSSL commands like <code>openssl rsa -in private.pem -pubout -out public.pem</code>. You can also use the keys with <code>ssh-keygen</code> (after converting the format), with Java's <code>keytool</code>, or with any language that supports PKCS#8 private keys and SPKI public keys."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why not just use ssh-keygen or openssl?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Those tools are excellent and should be your first choice when available. This browser-based generator exists for situations where command-line access is restricted — managed corporate laptops, air-gapped environments, or quick one-off key generation where opening a terminal feels like overkill. It produces equivalent keys in the same standard format."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "password-strength-checker",
+    "varName": "passwordStrengthCheckerSeo",
+    "name": "Password Strength Checker",
+    "sections": [
+      {
+        "heading": "What is Password Strength Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Password Strength Checker evaluates how resistant a password is to brute-force and dictionary attacks by analyzing its entropy, length, character diversity, and pattern weaknesses. It provides a real-time strength score (Weak, Fair, Good, Strong, Very Strong) along with a detailed breakdown of what contributes to or detracts from the password's security. The analysis runs locally — your password is never transmitted, logged, or compared against any external service."
+          },
+          {
+            "type": "paragraph",
+            "text": "Unlike simple length checkers, this tool applies Shannon entropy estimation and detects common patterns like keyboard walks (qwerty), repeated characters (aaa), dictionary words, and date formats. This gives you a more accurate picture of how long the password would withstand a modern cracking rig running billions of attempts per second."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Password Strength Checker",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Type or paste a password</strong> into the input field. The strength meter updates in real time as you type — no button click required.",
+              "<strong>Read the strength rating</strong> displayed next to the input. The rating changes dynamically based on the password's characteristics.",
+              "<strong>Review the detailed breakdown</strong> below the meter, which shows entropy bits, estimated crack time, and specific pattern warnings (e.g., 'contains dictionary word' or 'keyboard walk detected').",
+              "<strong>Use the suggestions</strong> to improve weak passwords — the tool tells you exactly which weakness to address, whether it is length, character variety, or a detected pattern."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Password Strength Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The primary use case is <strong>evaluating passwords before you adopt them</strong>. When generating a new password — whether manually or from a password manager — running it through this checker tells you whether it actually meets modern security thresholds. Many people underestimate how fast specialized hardware can crack passwords: an 8-character password with lowercase letters only can be brute-forced in minutes on modern GPUs, while a 16-character mixed-case password with symbols would take centuries."
+          },
+          {
+            "type": "paragraph",
+            "text": "Security teams use this tool during <strong>password policy reviews</strong> to test whether their organization's minimum requirements (e.g., '8 characters with one uppercase') actually produce strong passwords. Developers use it to <strong>validate generated API keys and tokens</strong> before committing them to configuration files. It is also useful for <strong>educating users</strong> — showing someone in real time how adding just four more characters moves their password from 'cracked in hours' to 'cracked in centuries' is a powerful demonstration."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is the strength score calculated?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The score combines several factors: <strong>password length</strong> (the single most important factor), <strong>character set diversity</strong> (uppercase, lowercase, digits, symbols), <strong>Shannon entropy</strong> (a measure of information content per character), and <strong>pattern detection</strong> (dictionary words, keyboard walks, repeated characters, date formats). The final rating maps the composite entropy score to a five-level scale aligned with NIST SP 800-63B guidelines."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is my password sent to any server?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. All analysis happens locally in your browser using JavaScript. The password never leaves your device, is never stored in any form, and is never compared against any external database or breach list. You can verify this by disconnecting from the internet — the tool works identically offline."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What makes a password 'strong'?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Modern password security favors <strong>length over complexity</strong>. A 20-character passphrase using only lowercase words (like 'correct horse battery staple') is significantly stronger than an 8-character password with mixed case, numbers, and symbols. The ideal password is long (16+ characters), avoids dictionary words and personal information, and uses a random mix of character types. Password managers generate passwords that meet all three criteria effortlessly."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should I use this to check my existing passwords?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — but be aware that typing your actual password into any tool carries some risk if your machine is compromised (keyloggers, screen recording). For existing passwords, consider using your password manager's built-in strength audit instead, which accesses your vault directly without requiring you to type the password. This tool is best suited for evaluating <strong>new</strong> passwords before you adopt them."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-decoder",
+    "varName": "jwtDecoderSeo",
+    "name": "JWT Decoder",
+    "sections": [
+      {
+        "heading": "What is JWT Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Decoder inspects JSON Web Tokens by parsing their three Base64Url-encoded components — header, payload, and signature — and displaying the decoded JSON in a human-readable format. JWTs are compact, self-contained tokens used for authentication and authorization in web applications. The header specifies the signing algorithm (e.g., HS256, RS256), the payload carries the claims (user ID, expiration, roles), and the signature proves the token was issued by a trusted party."
+          },
+          {
+            "type": "paragraph",
+            "text": "This tool performs <strong>decoding only</strong> — it does not verify the signature against a secret or public key. Verification requires access to the signing key, which this tool intentionally does not request. For signature verification, use the dedicated JWT HS256 Verifier or JWT RS256 Verifier tools instead. The decoder is useful for quickly inspecting unfamiliar tokens, debugging authentication flows, and understanding what claims a token contains."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Decoder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste the full JWT string</strong> into the input panel. A valid JWT has the format <code>header.payload.signature</code> — three dot-separated Base64Url-encoded segments.",
+              "<strong>Read the decoded output</strong>. The tool displays the header (algorithm and type), the payload (claims and metadata), and notes whether a signature is present.",
+              "<strong>Check the expiration</strong>. If the payload contains an <code>exp</code> claim, the tool highlights whether the token is currently valid, expired, or not yet active.",
+              "<strong>Inspect specific claims</strong>. Common claims like <code>sub</code> (subject), <code>iss</code> (issuer), <code>aud</code> (audience), and <code>roles</code> are displayed with clear labels."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When <strong>debugging authentication issues</strong>, the first step is always to decode the JWT and confirm its contents. Is the user ID correct? Has the token expired? Does it carry the expected roles? A JWT that looks valid on the surface may contain stale claims, a wrong issuer, or missing permissions — and decoding it takes seconds versus minutes of log diving."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers working with <strong>OAuth 2.0 flows</strong> use this tool to inspect access tokens returned by identity providers. API testers use it to <strong>verify token payloads</strong> before making authenticated requests. Security auditors use it to <strong>check for sensitive data leaks</strong> — if a JWT payload contains PII (personally identifiable information), that is a design issue worth flagging, since JWTs are only encoded, not encrypted."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool verify the JWT signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This decoder performs <strong>decoding only</strong> — it Base64Url-decodes the three segments and pretty-prints the JSON. Signature verification requires the signing secret or public key, which is a separate operation. Use the JWT HS256 Verifier (for symmetric keys) or JWT RS256 Verifier (for asymmetric keys) if you need to confirm a token's authenticity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if my JWT has only two segments?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A standard JWT always has three segments separated by dots: <code>header.payload.signature</code>. If you see only two segments, the token may be a <strong>JWS (JSON Web Signature) with an empty signature</strong>, or it may be a different token format entirely (like a simple Base64-encoded session token). The decoder will still attempt to parse whatever you paste, but it will flag the missing signature."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is it safe to paste production JWTs here?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Since the tool runs entirely in your browser with no network requests, pasting a JWT is as safe as opening it in any client-side tool. However, be aware that JWT payloads are <strong>encoded, not encrypted</strong> — anyone with the token can already read its contents. The risk is not in decoding but in who has access to the token itself. For highly sensitive tokens, consider using a local development tool rather than a shared browser session."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between JWT Decoder and JWT Visualizer?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The <strong>JWT Decoder</strong> shows the raw decoded JSON in a structured format, which is what you need for debugging and inspection. The <strong>JWT Visualizer</strong> renders the token's structure as a visual diagram, showing the three segments color-coded with metadata like algorithm and expiration. Use the Decoder for quick inspection; use the Visualizer when you want a presentable overview for documentation or presentations."
+          }
+        ]
+      }
+    ]
+  }
+]

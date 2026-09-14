@@ -205,7 +205,7 @@ export default function ReactionTimeCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-orange-500/10 border-l-4 border-orange-500 rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
                     <div className="text-xs uppercase tracking-wide text-orange-600 dark:text-orange-500 mb-2 font-bold">Blind Travel Distance</div>
                     <div className="flex items-end gap-3 mb-1">
                       <div className="text-6xl font-black text-orange-600 dark:text-orange-500 tracking-tighter">{results.distanceFt}</div>

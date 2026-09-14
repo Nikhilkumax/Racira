@@ -1,0 +1,13 @@
+  ▲ Next.js 14.2.15
+  - Local:        http://localhost:3012
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling /cad/[slug] ...
+ ✓ Compiled /cad/[slug] in 40.2s (3053 modules)
+ GET /cad/scale-calculator 200 in 31898ms
+ GET /cad/scale-calculator 200 in 172ms
+ GET /cad/scale-calculator 200 in 138ms
+ GET /cad/scale-calculator 200 in 107ms
+ GET /cad/scale-calculator 200 in 80ms
+[?25h

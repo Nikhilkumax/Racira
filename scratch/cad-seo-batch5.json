@@ -1,0 +1,1069 @@
+[
+  {
+    "slug": "schematic-symbol-library-browser",
+    "varName": "schematic_symbol_library_browserSeo",
+    "name": "Schematic Symbol Library Browser",
+    "sections": [
+      {
+        "heading": "What is Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Schematic Symbol Library Browser is a searchable reference of seventeen common schematic symbols, each with how it is sketched and the note that matters when placing it in a real drawing. The table spans the passive components — resistors, capacitors in both polarities, inductors — through the semiconductors — diodes, LEDs, zeners, NPN transistors, MOSFETs — and the logic, power and timing elements: operational amplifiers, AND and OR gates, inverters, grounds, fuses, switches, transformers and crystals."
+          },
+          {
+            "type": "paragraph",
+            "text": "The conventions column carries the real drawing decisions: a resistor is a zigzag under ANSI but a rectangle under IEC; a diode's triangle points at its cathode bar and the band on the physical part matches it; an NPN transistor's arrow points out of the emitter while a PNP's points in; an op-amp triangle has its output at the apex with supply pins often omitted. The tool's note carries the governing rule — pick one convention, ANSI or IEC 60617, and stay consistent across the whole drawing set."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Find the component you are placing in the table — resistor, diode, MOSFET, op-amp, gate or otherwise — and read its row's sketched-as column for the shape convention in use.",
+              "<strong>Step 2:</strong> Read the notes column for the placement-critical details: the LED's forward drop of roughly 2 to 3.5 volts means a series resistor is required, the zener operates in reverse breakdown for regulation, and the op-amp's output is at the triangle's apex.",
+              "<strong>Step 3:</strong> Type into the search box to filter the table when you are checking one symbol — searching zener narrows to a single row, which is a useful way to confirm the symbol's exact convention.",
+              "<strong>Step 4:</strong> Apply the style decision from the tool's note: choose the ANSI or IEC convention for the drawing set before placing parts, and do not mix zigzag resistors with rectangle resistors in the same schematic.",
+              "<strong>Step 5:</strong> Treat the table as the reference conventions, not artwork to copy literally — in a real schematic tool, place the parts from the tool's own library and use this reference to confirm the standard shape and its meaning."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Schematic Symbol Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A schematic's value is that anyone trained in the standard can read it, and that contract breaks the moment symbols diverge from the convention: a rectangle where the reader expects a zigzag, or a missing polarity marker on a part that has one. The reference keeps the shape-to-meaning mapping explicit, so the drawing stays legible to the next engineer, the reviewer and the assembler who builds from it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The notes column carries the functional reminders that are easy to lose in a large schematic — the LED's series resistor, the polarized capacitor's positive lead at the straight plate, the crystal's external load capacitance. Those are the details that make a schematic not just readable but correct, and keeping them attached to the symbol they belong to is what a symbol reference is for."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between the ANSI and IEC resistor symbols?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ANSI style draws a resistor as a zigzag line, while IEC 60617 draws it as a rectangle. Both mean the same component and both carry the same value in ohms, but a drawing set should use one style throughout — the tool's note makes consistency the rule because a mixed set forces the reader to re-learn the convention at every symbol. The same split applies elsewhere: gates drawn as the IEC rectangle with the function inside versus the ANSI distinctive shapes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I tell NPN from PNP on a schematic?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "By the arrow on the emitter. An NPN transistor's emitter arrow points outward, away from the base, while a PNP's points inward toward the base. The same convention repeats on the physical package's pinout, so the schematic arrow and the part's datasheet pinout should agree. MOSFETs use the same idea with their channel symbol — the arrow direction differs between N-channel and P-channel, and the body diode is drawn to show polarity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the LED symbol need a series resistor?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An LED is a diode with a forward voltage drop of roughly 2 to 3.5 volts depending on its color and chemistry, and once forward-biased past that drop its current rises steeply with voltage — the current is limited only by the circuit. Without a series resistor sized for the supply and the LED's forward voltage, the LED draws as much current as the supply can push and burns out. The symbol's outward arrows mean light, and the note reminds you that the resistor is part of the circuit, not an option."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is a zener drawn with a bent bar?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The bent Z-shaped bar distinguishes the zener's operating mode from an ordinary diode: instead of blocking reverse current until breakdown, the zener is designed to conduct in reverse breakdown and hold a stable voltage across it, which is how it regulates. The bent bar is the schematic shorthand for that behavior, and the same shape convention appears on the physical part's cathode marking so the reader can map symbol to component."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "wire-gauge-reference",
+    "varName": "wire_gauge_referenceSeo",
+    "name": "Wire Gauge Reference",
+    "sections": [
+      {
+        "heading": "What is Wire Gauge Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wire Gauge Reference computes the defining properties of any AWG wire from the standard formula — diameter in millimetres equals 0.127 times 92 raised to the power of 36 minus the gauge number over 39 — and reports the cross-section, the circular-mil area, the resistance per kilometre at 20 degrees Celsius, and the ampacity where the NEC tables cover the gauge. A default 18 AWG wire reads 1.024 millimetres in diameter, 0.82 square millimetres of copper, about 20.9 ohms per kilometre, and is small enough that the NEC ampacity table does not cover it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The underlying AWG logic is built into the numbers: smaller gauge numbers mean thicker wire, each step of three gauge numbers doubles the cross-section — roughly doubling the current for the same temperature rise — and each step of ten multiplies the area by ten. The ampacity column draws from the NEC 310.16 75-degree column for copper where the code tables list the gauge: 14 AWG at 20 amps, 12 at 25, 10 at 35, up through 4/0 at 230."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Wire Gauge Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the AWG number in the calculator — 18 for the default, or any gauge from 0 to 40. The result panel updates as you type.",
+              "<strong>Step 2:</strong> Read the Result panel: Diameter in millimetres from the defining formula, Cross-section in square millimetres, Area in circular mils, Resistance at 20 degrees Celsius in ohms per kilometre, and the NEC 75-degree ampacity where the code tables list that gauge.",
+              "<strong>Step 3:</strong> Check the ampacity row carefully: gauges below the NEC table start — 16 to 30 — read “not tabled”, which means the current rating comes from other code articles and uses, not from this reference.",
+              "<strong>Step 4:</strong> Use the full AWG table beneath the calculator for the rapid lookups — 27 rows from 4 AWG to 30 AWG with the diameter, area, resistance and ampacity side by side.",
+              "<strong>Step 5:</strong> Apply the derating note before sizing a real run: the tabulated ampacity assumes single conductors in the open at 30 degrees Celsius ambient — bundling, higher ambient temperatures and termination temperature ratings all reduce the allowed current."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Wire Gauge Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Wire sizing decisions live at the boundary between two systems: the AWG number describes the geometry, and the ampacity tables describe the thermal limit, and neither is derivable from the other by memory. The gauge formula is awkward enough that hand conversion invites errors — the fractional exponent and the 92-ratio base — while the ampacity values are code tables that must be read, not guessed. Putting the formula and the table in one pass removes the conversion step between them."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference is equally a design-thinking aid: the built-in relationships — three gauge steps double the area, ten steps multiply it by ten — let a designer move between gauges without a calculator, which is how the right wire gets picked in the first iteration instead of the third. Knowing that 12 AWG carries 25 amps under NEC 75-degree rules while 10 AWG carries 35 turns a rough current requirement into a candidate gauge immediately."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is 12 AWG rated at 25 amps while 18 AWG is not tabled?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The NEC ampacity table covers the conductor sizes used for power wiring — typically 14 AWG and larger in the 75-degree column, where 12 AWG copper carries 25 amps. Smaller gauges like 18 AWG are real conductors, but they are not covered by that table because their uses are governed by other code articles and other design rules, so the tool reports “not tabled” rather than inventing a number. If a small-gauge wire must carry current, the rating comes from the governing article, not from this reference."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does the gauge formula relate diameter to gauge number?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The defining formula is diameter equals 0.127 millimetres times 92 raised to the power of 36 minus the gauge over 39. The constants encode the system's history: 36 AWG is defined at 0.127 millimetres, 0000 is defined at 92 times that, and 39 gauge steps span the ratio. The formula means each gauge step multiplies the diameter by 92 to the power of one thirty-ninth, which is about 1.123 — so three steps multiply it by about 1.414, doubling the cross-section."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does every three gauge numbers double the cross-section?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the diameter ratio per gauge step is 92 to the power of one thirty-ninth, and raising that ratio to the third power gives the ratio for three steps — 92 to the power of three thirty-ninths, which is 92 to the power of one thirteenth, about 1.414. Since the area scales with the diameter squared, three steps multiply the area by about 2. That is why the cross-section roughly doubles every three gauges, and why the ampacity steps in the same rhythm: each three-gauge jump roughly doubles the current for the same temperature rise."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the 75 degrees Celsius in the ampacity column mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is the conductor temperature rating of the table the values come from — the NEC 310.16 75-degree column for copper. The same wire has different ampacity at 60 degrees and 90 degrees ratings, and the governing value for a run is set by the lowest rating in the termination chain: a 90-degree-rated wire terminated into a 75-degree-rated breaker lug is still limited to the 75-degree ampacity. The tool quotes the 75-degree column because it is the most common default for power wiring terminations."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "via-current-capacity-calculator",
+    "varName": "via_current_capacity_calculatorSeo",
+    "name": "Via Current Capacity Calculator",
+    "sections": [
+      {
+        "heading": "What is Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Via Current Capacity Calculator estimates how much current a PCB via can carry, applying the IPC-2221 external-conductor current model to the plated barrel of the via. The model is the standard expression — current equals a coefficient times the temperature rise to the 0.44 power times the conductor cross-section to the 0.725 power — with the area taken as the plating annulus of the drilled hole, not the hole itself. A 0.6 millimetre finished-drill via with 25 micrometre plating and a 10 degree allowed rise comes out at about 3.056 amps."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool models the two via locations the formula distinguishes: external-layer vias use the coefficient 0.048, while a via on an internal layer only halves it to 0.024 — which is why the same via drops to about 1.528 amps when moved internal. The temperature rise is the design input that trades against current: allowing a 100 degree rise instead of 10 more than doubles the capacity to about 8.4 amps, and the tool's rule of thumb quotes roughly one amp per 25 to 30 square mils of plating at a 10 degree rise."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Finished drill diameter in millimetres — the final plated hole size from the fabrication drawing, not the raw drill size.",
+              "<strong>Step 2:</strong> Enter the Allowed temp rise — the thermal budget for the via, commonly 10 degrees Celsius for general designs. The current scales with the rise to the 0.44 power, so doubling the rise budget does not double the current.",
+              "<strong>Step 3:</strong> Pick the Plated copper thickness — 18, 25 or 35 micrometres, corresponding to 0.5, 0.7 and 1 ounce copper. The plating thickness sets the annulus area, which is the conductor the formula actually sizes.",
+              "<strong>Step 4:</strong> Pick the Via location — external layer or internal only. The internal coefficient is half the external one, so the same geometry carries roughly half the current when buried.",
+              "<strong>Step 5:</strong> Read the Result panel: Plating cross-section in square millimetres and square mils, the Recommended max current from the IPC-2221 model, and the rule-of-thumb row. Then apply the tool's derating note — for a critical supply, put two or more vias in parallel and keep the connecting traces at least as wide as the via capacity requires."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Via Current Capacity Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Vias are the most common current bottleneck in a power layout: the trace feeding a regulator may be sized perfectly while the single via it passes through — often no larger than a drill hole with thin barrel plating — silently carries the entire current. Because the via's conductor is the thin plating annulus around the hole, its cross-section is much smaller than a glance at the hole suggests, which is exactly the error the calculator prevents by computing the annulus rather than the hole area."
+          },
+          {
+            "type": "paragraph",
+            "text": "The internal-versus-external distinction is the detail that catches real designs: a via that looks fine on the outer layers carries half the current once it transitions internal, and a power net routed through multiple board layers can be limited by the weakest via in the chain. Making the layer choice an explicit input keeps the analysis honest about where in the stack the via actually conducts."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the area the plating annulus and not the hole?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because current flows through the copper plating that lines the drilled hole, not through the empty hole itself. The conductor is an annulus: the ring of plated copper between the drilled radius and the outer radius, one plating thickness thick. For a 0.6 millimetre drill with 25 micrometre plating, that annulus is about 0.0491 square millimetres — about 76 square mils — which is the number the current formula uses. Modeling the hole area instead would overstate the conductor many times over and produce a dangerously optimistic current rating."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does an internal via carry only half the current?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the IPC-2221 model uses a smaller coefficient for internal conductors — 0.024 versus 0.048 for external — reflecting the poorer heat dissipation of a buried conductor that cannot shed heat to the ambient air from a surface. A via carrying the same current internally runs hotter than the same via on an outer layer, so its allowed current is roughly half. Designs that route power through several layers must check the via at its internal segments, not just at the pads on the outer layers."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much current can I gain by using multiple vias?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Multiple parallel vias share the current, so two identical vias roughly double the capacity and four roughly quadruple it — the practical technique for a power net that needs more current than one via can carry. The sharing is not perfectly even due to layout asymmetries, so designs should keep some margin, and the traces connecting the vias must be sized for the total current or the bottleneck just moves. The tool's note recommends exactly this pattern for critical supplies: two or more vias in parallel with connecting traces at least as wide as the via capacity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the result a hard limit or a guidance value?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is a guidance value, not a pass-fail limit — the tool's own note says so. The IPC-2221 model estimates temperature rise from current for a conductor under stated assumptions, and real vias also face DC-bias reliability concerns, thermal cycling and manufacturing variation that the model does not cover. Many designs derate the computed value further and rely on multiple parallel vias for high-current nets. Use the number to catch undersized vias early in layout, then confirm the final design with the board's thermal analysis and the fab's capability."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "component-footprint-reference",
+    "varName": "component_footprint_referenceSeo",
+    "name": "Component Footprint Reference",
+    "sections": [
+      {
+        "heading": "What is Component Footprint Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Component Footprint Reference is a two-table lookup of the package sizes and lead pitches a PCB designer meets constantly: the imperial passive chip codes with their exact metric body sizes, and the active packages with their pin counts and lead pitches. The passive table maps 0402 through 2512 to their true metric bodies — an 0805 chip is 2.0 by 1.25 millimetres, a 0603 is 1.6 by 0.8 — and the active table covers SOT-23 through DIP-8 with the pitch that drives the land pattern."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pitches are the numbers a layout actually needs: SOIC-8 and SOIC-16 at 1.27 millimetres, TSSOP-8 at the fine 0.65 pitch that demands a solder-paste stencil, QFN at 0.4 to 0.65 with its exposed pad underneath, DIP-8 at the classic 2.54, and the through-hole TO-92 at 1.27 with leads on 0.05 inch centres. The passive notes carry the practical sizing: 0603 is the most common small size, 0805 is easy to hand-solder and common for LEDs, 1210 holds the big capacitors up to about 100 microfarads in X5R, and 2512 carries the power and current-sense resistors."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Component Footprint Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify whether the part is a passive chip or an active package, and open the matching table — Passive chip sizes for resistors, capacitors, inductors; Active package pitches for transistors, ICs and through-hole parts.",
+              "<strong>Step 2:</strong> For a passive, match the imperial code printed on the part's datasheet — 0603, 0805, 1206 — to its exact metric body size in the Body column. The code is the imperial dimension in hundredths of an inch; the metric value is the real body.",
+              "<strong>Step 3:</strong> For an active package, match the package name to its pin count and Lead pitch. The pitch is the dimension that sets the land pattern: 1.27 mm for SOIC, 0.65 mm for TSSOP, 2.54 mm for DIP.",
+              "<strong>Step 4:</strong> Use the notes column for the assembly implications — TSSOP's fine pitch needs a stencil, QFN's exposed pad suggests via-in-pad for thermal, 2512 carries the power resistors.",
+              "<strong>Step 5:</strong> For the actual land pattern, move to the IPC-7351 land-pattern calculator with the specific part number — the code-to-metric body mapping here is exact, but the pads are not, and the tool's note says so."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Component Footprint Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The imperial chip codes are a standing trap: the name says inches — 0805 — but the part is metric, and a designer who sizes a land pattern from the code instead of the body dimension gets pads that do not fit the part. Keeping the exact metric body next to each code resolves the naming ambiguity before it reaches the footprint, which is the cheapest place to fix it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pitch column carries the assembly reality that drives package selection: a fine-pitch TSSOP or QFN demands stencil printing and precise placement, while a DIP or an SOIC can be handled and reworked by simpler means. Knowing the pitch before the part is chosen is how a design picks a package it can actually build — the difference between a footprint that assembles and one that becomes a rework problem."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does the 0805 code actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The imperial chip codes encode the body dimensions in hundredths of an inch: 0805 means 0.08 by 0.05 inches — 2.0 by 1.25 millimetres in the metric body size the table lists. The same mapping holds across the series: 0603 is 0.06 by 0.03 inches, or 1.6 by 0.8 millimetres, and 2512 is 0.25 by 0.12 inches, or 6.3 by 3.2. Always size the land pattern from the metric body, never from the imperial code alone."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does TSSOP-8 need a solder-paste stencil while SOIC-8 does not?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the lead pitch is much finer: TSSOP-8 sits at 0.65 millimetres while SOIC-8 sits at 1.27. At the finer pitch, hand-soldering and even hand-applied paste become unreliable — the adjacent leads are close enough that bridges form easily — so the assembly relies on stencil-printed paste and reflow. The pitch column is the shorthand for that whole assembly story: below roughly 0.8 millimetres, count on stencil processes and careful inspection."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is special about the QFN's exposed pad?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A QFN has a large metal pad on the underside of the package that is soldered to the PCB, serving both as the thermal path and often as the ground connection. The land pattern must include that pad — with a solder-paste aperture sized to avoid voids — and the board should use thermal vias beneath it, commonly via-in-pad, to pull heat into the inner planes. Getting the pad right is a thermal design decision as much as a footprint one, which is why the reference flags it in the notes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use the body sizes here as land-pattern dimensions?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — the body sizes are the component's physical dimensions, and the land pattern is deliberately larger, with pad sizes and spacings that allow for placement tolerance, solder fillet and rework. The correct pads come from the IPC-7351 land-pattern calculator fed with the specific part's data, which the tool's note directs you to. Using the body size as the pad size produces pads too small to solder reliably, which is the classic beginner footprint error this reference is designed to steer around."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "smd-component-identifier",
+    "varName": "smd_component_identifierSeo",
+    "name": "SMD Component Identifier",
+    "sections": [
+      {
+        "heading": "What is SMD Component Identifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SMD Component Identifier decodes the three marking schemes printed on the bodies of surface-mount resistors: the 3-digit code, the 4-digit code, and the EIA-96 three-character code. In the 3-digit scheme, the first two digits are the significant value and the third is the power of ten — 472 decodes as 47 times 10 squared, which is 4.7 kilohms. The 4-digit scheme adds one more significant digit, so 1002 is 100 times 10 squared, or 10 kilohms."
+          },
+          {
+            "type": "paragraph",
+            "text": "The EIA-96 scheme is the compact one used on the smallest parts: two digits select a base value from the 96-value E96 series — 01 is 100, 10 is 124 — and a letter sets the multiplier, with A at times 1, B at times 10, C at times 100 and so on. The code 01C therefore decodes as 100 times 100, or 10 kilohms, and 10C as 124 times 100, or 12.4 kilohms. The tool also recognizes malformed input: a code that fits none of the three schemes returns a clear error instead of a guessed value."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SMD Component Identifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Read the marking printed on the component body — three or four digits, or two digits plus a letter — and enter it in the SMD marking field.",
+              "<strong>Step 2:</strong> Read the Decoded value panel: Resistance shows the decoded value with the proper unit — ohms, kilohms or megohms — and Marking scheme names which of the three schemes the code matched.",
+              "<strong>Step 3:</strong> Verify a 3-digit code against the pattern: 472 means 47 with two zeros appended, 4.7 kilohms. The third digit is the power of ten, not part of the value.",
+              "<strong>Step 4:</strong> For a two-digit-plus-letter code, let the tool look up the base from the E96 series and apply the letter's multiplier: 01C is 10 kilohms, 10C is 12.4 kilohms.",
+              "<strong>Step 5:</strong> If the tool reports “Not a recognized resistor marking”, the code is either a capacitor or inductor code using a different scheme — the tool's error message lists the valid formats — or the marking is damaged and the part should be measured rather than guessed."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SMD Component Identifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reading an SMD resistor code by memory is where errors slip in: the 3-digit scheme's power-of-ten digit is easy to misread, the 4-digit scheme overlaps it, and the EIA-96 letter codes are pure lookup — nobody remembers that code 85 means 866 ohms. The cost of a misread marking is a wrong-value part on the board, which can take hours to find in debug. A decoder that returns the value and names the scheme makes the reading verifiable rather than assumed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's error handling matters as much as its decoding: a code that matches no scheme produces an explicit error, not a plausible-looking wrong value. That behavior is the one that keeps a 3-digit reading from being silently misread as 4-digit, and it is why the tool is safe to hand to someone reading a bin of unlabeled parts — the decoder refuses to guess."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I tell a 3-digit code from a 4-digit code?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "By the number of digits. A three-digit code has two significant digits and a power-of-ten digit — 472 is 47 times 10 squared, 4.7 kilohms. A four-digit code has three significant digits and a power-of-ten digit — 1002 is 100 times 10 squared, 10 kilohms. The extra digit is the added precision of the E96 series over E24. A code with two digits plus a letter, such as 01C, is neither: it is the EIA-96 scheme, which uses the E96 base values and a letter multiplier."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does 01C decode to 10 kilohms?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "In the EIA-96 scheme, the two digits select a base value from the 96-value E96 series: 01 is the first value, 100. The letter sets the multiplier: C means times 100. Multiplying 100 by 100 gives 10,000 ohms, which the tool displays as 10 kilohms. The same logic makes 10C equal 124 times 100, or 12.4 kilohms, because 10 is the eleventh entry in the series. The digit-to-value mapping is a standard table, which is exactly what the tool carries internally."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the EIA-96 table apply to capacitors too?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The same two-digit-to-value mapping appears on some SMD capacitors, where the decoded number is read in picofarads rather than ohms — the tool's note states this. The letter multipliers carry over with the value scaled to pF. That is why the E96 base table is shared between resistor and capacitor markings: the standard defines the digit-to-number relationship once, and the component type decides the unit. This tool decodes resistors, and the same table applies when you read a marked capacitor's base value in pF."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What should I do when a code does not decode?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the tool reports the code is not a recognized resistor marking, first re-read the part — SMD markings are tiny and easy to misread, especially letters like O and Q or I and 1. If the marking really does not fit the 3-digit, 4-digit or EIA-96 formats, it is either a different scheme (capacitor and inductor codes use their own conventions) or a damaged or nonstandard marking. Measure the part with a multimeter and mark the bin, rather than guessing the value from the pattern."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "pcb-design-checklist",
+    "varName": "pcb_design_checklistSeo",
+    "name": "PCB Design Checklist",
+    "sections": [
+      {
+        "heading": "What is PCB Design Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PCB Design Checklist is a live, interactive checklist of the twenty review items that separate a board ready to release from one that fails in fabrication or on the bench. The items are grouped into four passes — Schematic, Stackup & clearances, Assembly & DFM, and Release — with a progress bar that tracks how many of the twenty are satisfied. Checking one item moves the bar to five percent."
+          },
+          {
+            "type": "paragraph",
+            "text": "The schematic pass covers the connectivity and correctness questions: no unconnected pins or dangling labels, consistent power-rail net names, decoupling capacitors on every IC power pin, polarity marked on all polarized parts, sized pull-up and pull-down resistors, and protection on any input that can be miswired. The stackup pass checks trace widths against current via the IPC-2221 method, clearance rules against the fab's minimums, orphaned copper, thermal reliefs, and impedance-controlled nets. The DFM pass covers solder-mask dams, silkscreen, fiducials, board outline and tooling notes, and the release pass closes with the BOM, the Gerber DFM check, the readme and the revision block."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PCB Design Checklist",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Work through the Schematic group first, answering each item against the actual schematic: trace every net for unconnected pins, verify net names match between schematic and layout, and confirm decoupling caps are present on every IC power pin.",
+              "<strong>Step 2:</strong> Move to the Stackup & clearances group and check the board's real numbers: trace widths sized by the IPC-2221 current check, clearance rules that meet both the fab's minimums and the voltage on the nets, and no orphaned copper islands.",
+              "<strong>Step 3:</strong> Run the Assembly & DFM group against the finished layout: solder-mask dams between fine-pitch pads, silkscreen clear of pad areas, fiducials where stencil and pick-and-place are used, and the board outline with mounting holes and tooling notes on the mechanical layer.",
+              "<strong>Step 4:</strong> Close with the Release group before sending files: the BOM reference designators match the schematic exactly, the Gerbers and drill files pass the fab's online DFM check, and the revision and date are updated in the title block.",
+              "<strong>Step 5:</strong> Watch the progress bar as the review proceeds — it is the visible score of readiness, and it makes the remaining work obvious when the board is handed to a second reviewer or the fab."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PCB Design Checklist",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PCB rework is disproportionately expensive compared to the checks that prevent it: a missing decoupling capacitor costs a layout revision and a board spin, an orphaned copper pour can cost an EMI failure, and a BOM that does not match the schematic can cost an entire incorrect assembly. The review items that catch these are known and few — which is exactly why a fixed checklist outperforms a reviewer working from memory. The list turns release readiness from a judgment into a checklist of demonstrable facts."
+          },
+          {
+            "type": "paragraph",
+            "text": "The interactive form keeps the review state honest across a team: items get resolved as the layout is revised, and the progress bar shows at a glance where the board stands. That is the difference between “we reviewed it” and a set where each of the twenty gates is individually checked — the state a fab or a second engineer can verify when the files are handed over."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why are decoupling capacitors listed on every IC power pin?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because an IC's current draw is not steady — it switches in fast edges that demand current from the nearest available source, and the inductance of the power traces cannot deliver it fast enough. A decoupling capacitor placed at the power pin provides a local charge reservoir, keeping the supply voltage stable and the switching noise off the power rail. One cap per IC power pin, physically close to the pin, is the baseline; the checklist makes it explicit so the layout cannot silently skip it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is orphaned copper and why does it matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Orphaned copper is a pour island that is not connected to any net — a floating patch of copper left behind when a pour is divided by traces and vias. It does nothing electrically except act as an unintended antenna and an etching headache, and it can couple noise into nearby traces. The checklist item is to either connect every island to its intended net or remove it, which is a standard design-rule cleanup most layout tools can flag automatically."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must the BOM match the schematic reference designators exactly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the assembly house builds the board from the BOM matched to the reference designators on the layout. If the BOM is missing a part, mislabels a designator, or carries a wrong-value component, the assembled board can have the wrong part in the right place — the hardest kind of fault to find, since the board looks right and behaves subtly wrong. The release checklist makes the exact match a gate, because the mismatch is usually invisible until the board is populated."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the fab's online DFM check enough on its own?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it is the last gate, not the review. The fab's DFM tool catches manufacturing violations against that fab's capabilities — minimum trace widths, annular rings, solder-mask dams — but it cannot judge whether the design is electrically correct: decoupling present, nets connected, polarity marked. The checklist runs those design checks first, and the Gerber DFM pass confirms the files are manufacturable as a final gate. Both are needed, and they catch different classes of error."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "building-footprint-calculator",
+    "varName": "building_footprint_calculatorSeo",
+    "name": "Building Footprint Calculator",
+    "sections": [
+      {
+        "heading": "What is Building Footprint Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Building Footprint Calculator works out the footprint area, perimeter and land-area conversions of a rectangular building for early massing studies. Enter the width and depth in feet or metres and the tool returns the footprint area in both square feet and square metres, the perimeter in the input unit, and the land area in acres and hectares. A 60 by 100 foot building reads 6000 square feet — about 557.4 square metres — with a 320 foot perimeter and a land area of roughly 0.138 acres."
+          },
+          {
+            "type": "paragraph",
+            "text": "The unit handling is the point of the tool: switch the input unit to metres and the same fields produce a metric design — a 10 by 20 metre building gives 200 square metres, a 60 metre perimeter and about 0.049 acres. The conversion factor of 10.7639 square feet per square metre runs through every result, so the imperial and metric readouts always agree. The tool's note frames what the footprint means: the ground-floor extent to the outside face of exterior walls, or the drip line, per the jurisdiction's zoning definition."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Building Footprint Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Input unit — Feet or Meters — matching how the site plan is dimensioned.",
+              "<strong>Step 2:</strong> Enter the Width and Depth of the building rectangle in that unit. The width and depth are the building's overall plan dimensions to the outside face of the exterior walls.",
+              "<strong>Step 3:</strong> Read the Result panel: Footprint area shows both square feet and square metres; Perimeter shows the total in the input unit; Land area shows acres and square metres; Hectares shows the metric land measure.",
+              "<strong>Step 4:</strong> Sanity-check with a known case: a 60 by 100 foot building must return 6000.0 square feet, 557.4 square metres, 320.0 feet of perimeter and 0.138 acres. A 10 by 20 metre building must return 200 square metres, a 60.0 metre perimeter and 0.049 acres.",
+              "<strong>Step 5:</strong> Use the results for massing and coverage studies only — real zoning area math follows the code's definition of gross floor area, which may include or exclude elements this rectangle model does not consider."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Building Footprint Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The footprint is the number behind the first feasibility questions on any site: does the building fit the lot, how much of the lot does it cover, and how does that compare to the zoning's coverage limit. Working those numbers by hand means converting square feet to square metres and to acres in the same breath as the area — three unit systems for one rectangle — which is exactly the arithmetic where a misplaced conversion factor produces a coverage figure that is wrong by an order of magnitude."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's dual-unit output is what makes it useful across the typical project split: the architect works the plan in feet while the civil engineer and the zoning ordinance think in acres and square metres. Having all four measures computed from the same inputs guarantees they agree — the acreage can never contradict the square metres the way separately converted hand values can."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do the square-foot and square-metre results stay consistent?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool computes the area once in the input unit and converts with the standard factor of 10.7639 square feet per square metre, so the two readouts are the same area in two unit systems — a 6000 square foot building is always 557.4 square metres because one value is derived from the other. The perimeter stays in the input unit because length converts differently from area, and the acreage is derived from the square feet with one acre equal to 43,560 square feet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the acreage change when I switch to metres?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The acreage is always computed from the same physical area — it does not change with the input unit. A 10 by 20 metre building has the same 0.049 acres whether you enter it in metres or convert it to 32.8 by 65.6 feet. What does change between the modes is the area itself, because you are describing a different building. If the acreage appears to jump when you flip the unit, check that the width and depth values you kept were converted, not reused."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What counts as the building footprint for zoning?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The footprint is the ground-floor extent of the building measured to the outside face of the exterior walls — or to the drip line for overhanging roofs, depending on the jurisdiction's zoning definition. The tool's note flags this because the difference matters: a modest overhang can add real square footage to a footprint when the ordinance counts the drip line. Check the zoning text for the exact definition before relying on the rectangle's edge."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle L-shaped or irregular buildings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it models a single rectangle, which suits early massing studies and simple footprints. An L-shaped or irregular building should be split into rectangles, computed separately, and summed — a process the tool supports by the fact that each rectangle is independent. For coverage questions the same applies: the total footprint is the sum of the parts, and the zoning comparison uses the summed area, not the bounding box."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "zoning-setback-calculator",
+    "varName": "zoning_setback_calculatorSeo",
+    "name": "Zoning Setback Calculator",
+    "sections": [
+      {
+        "heading": "What is Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Zoning Setback Calculator finds the buildable rectangle on a lot from the required front, rear and side setbacks, and reports the maximum footprint area and its share of the lot. Given a 100 by 150 foot lot with 20 foot front and rear setbacks and 5 foot side setbacks, the buildable rectangle comes out 90 feet wide by 110 feet deep — 9900 square feet, or 66 percent of the lot area."
+          },
+          {
+            "type": "paragraph",
+            "text": "The model is deliberately simple and stated: a single rectangle centered between the side setbacks and inside the front and rear lines. The tool reports the buildable width, depth, maximum footprint area and the percentage of the lot that area represents, and it detects the infeasible case — setbacks that overlap and leave no buildable rectangle — with an explicit warning rather than a nonsense result. The note lists what the model does not cover: corner-lot rules, flag lots, easements, height and coverage caps, and averaging provisions all come from the zoning ordinance text."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Lot width and Lot depth in feet — the actual dimensions of the parcel from the survey or the zoning map.",
+              "<strong>Step 2:</strong> Enter the Front setback and Rear setback — the required distances from the lot lines to the building face, from the zoning table for the district.",
+              "<strong>Step 3:</strong> Enter the Side setback — the required distance from each side lot line. The model applies it on both sides, so two side setbacks come out of the lot width.",
+              "<strong>Step 4:</strong> Read the Buildable envelope panel: Buildable width is the lot width minus both side setbacks, Buildable depth is the lot depth minus the front and rear setbacks, Max footprint area is their product, and Of lot area is that product as a percentage of the lot.",
+              "<strong>Step 5:</strong> If the tool reports that setbacks leave no buildable rectangle, check the lot against the zoning's minimum width and depth requirements — the warning tells you the geometry is infeasible under the entered setbacks, which is itself the finding to take to the zoning analysis."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The setback arithmetic is simple enough to do by hand and exactly the kind of simple arithmetic that goes wrong at 9pm before a submission: subtracting the front and rear setbacks from the depth but forgetting the side setbacks apply twice, or reporting the lot area as the buildable area. Computing the buildable rectangle in one pass — width, depth, area and coverage percentage — makes the four numbers consistent because they are all derived from the same inputs."
+          },
+          {
+            "type": "paragraph",
+            "text": "The coverage percentage is the number that triggers the next question: zoning districts typically cap lot coverage, so a lot that computes to 66 percent buildable may still be constrained by a 50 percent coverage cap. By reporting the buildable percentage explicitly, the tool surfaces that comparison instead of leaving it implicit — the designer sees immediately whether the setbacks or the coverage cap will govern the massing."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is the buildable width computed with side setbacks?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The side setback applies on both sides of the lot, so the buildable width is the lot width minus twice the side setback — a 100 foot lot with 5 foot side setbacks leaves 90 feet of buildable width. The depth is the lot depth minus the front and rear setbacks, and the buildable area is the product of the two. With 20 foot front and rear setbacks on a 150 foot depth, that gives 110 feet of depth and 9900 square feet total."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the coverage percentage actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is the maximum footprint area divided by the lot area, expressed as a percentage — the share of the lot the building may occupy under the setback geometry. On the default lot, 9900 square feet over 15,000 is 66 percent. Zoning districts often cap coverage below what the setbacks alone allow — a common cap is 50 percent — so this number is what you compare against the ordinance's coverage limit to find which constraint actually governs the massing."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the tool sometimes report no buildable rectangle?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the setbacks overlap — the side setbacks together exceed the lot width, or the front plus rear setbacks exceed the depth — there is no rectangle left to build on, and the tool reports the geometry as infeasible instead of returning a negative or meaningless area. That outcome is itself a finding: either the lot cannot support a building of any size under those setbacks, or the entered values are wrong, which the warning prompts you to check against the lot's actual dimensions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle corner lots?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — corner lots have different rules: the side street typically requires a front-yard-equivalent setback, which the simple front-rear-side model does not apply. The tool's note lists corner lots among the cases to check in the zoning text, along with flag lots, easements, height and coverage caps, and averaging provisions. Use the calculator for the standard interior-lot case, and adjust the inputs to reflect whatever the ordinance requires for the specific parcel."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "ada-clearance-reference",
+    "varName": "ada_clearance_referenceSeo",
+    "name": "ADA Clearance Reference",
+    "sections": [
+      {
+        "heading": "What is ADA Clearance Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ADA Clearance Reference is a two-table lookup of the key clearance dimensions from the 2010 ADA Standards used when laying out accessible paths and spaces. The routes, doors and ramps table covers the movement system: a 36 inch minimum accessible-route width, 60 by 60 inch passing spaces every 200 feet, a 60 inch turning circle, the 32 inch door clear opening, the door maneuvering clearances, the half-inch threshold limit, the 1:12 maximum ramp slope with landings every 30 inches of rise, and the 60 inch ramp landings."
+          },
+          {
+            "type": "paragraph",
+            "text": "The fixtures and reach table covers the elements an accessible space must serve: 30 by 48 inch clear floor space at each element, forward and side reach ranges of 15 to 48 inches, 27 inch knee clearance, counter heights of 28 to 34 inches, the 60 inch wide toilet stall with grab bars both sides, the 16 to 18 inch toilet centerline, the 34 inch lavatory rim, the 30 inch drinking-fountain spout, and the 132 inch wide van parking space with its 60 inch aisle. The tables state the minimums for new construction and flag that alterations, historic buildings and state codes each carry their own provisions."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use ADA Clearance Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Start from the route question: lay out the accessible path with the Routes, doors & ramps table — 36 inch route width, 60 by 60 inch passing spaces every 200 feet, and a 60 inch turning space where a wheelchair must change direction.",
+              "<strong>Step 2:</strong> Check every door on the accessible route against the door rows: 32 inch clear opening minimum with 36 preferred, and the maneuvering clearance for the door's approach — 30 by 48 inches clear, with additional latch-side clearance on the pull side.",
+              "<strong>Step 3:</strong> Verify each ramp against the ramp rows: 1:12 maximum slope, cross slope no steeper than 1:48, and landings at the top, bottom and every 30 inches of rise — the same rule the ramp calculators enforce numerically.",
+              "<strong>Step 4:</strong> Check the fixtures and reach table for every element a user must operate: reach ranges of 15 to 48 inches high, 27 inches of knee clearance at counters and sinks, and the correct stall, lavatory and fountain clearances.",
+              "<strong>Step 5:</strong> Treat the numbers as the ADA minimums for new construction and verify the final layout against the adopted standards and any state amendments — the reference is the starting point for the compliance story, not the whole of it."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use ADA Clearance Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Accessibility clearances fail in clusters on real drawings: the accessible route is planned but the door at its end lacks maneuvering space, the turning circle is drawn at the corridor but not at the fixtures, or the ramp slope is fine while the cross slope exceeds 1:48. Keeping the movement clearances and the fixture clearances as explicit minimums next to each other makes the layout pass over the numbers the way an inspector will — element by element — instead of treating accessibility as one door clearance."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference also carries the dimensions that are easy to get subtly wrong: the 32 inch clear opening measured with the door open 90 degrees, the 36 inch preferred, the threshold that may rise half an inch only if a quarter inch is vertical and a quarter inch beveled, and the van space that is 132 inches wide because it must hold both the 96 inch stall and its 60 inch aisle. Those details are exactly where a plan either passes review or comes back with a correction cycle."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between the 36 inch route width and the 32 inch door opening?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are different requirements for different elements. The accessible route itself must be 36 inches wide minimum, reducible to 32 inches only for a short 24 inch segment at an obstruction. A door's clear opening — the space with the door open 90 degrees — must be 32 inches minimum, with 36 inches preferred. A common layout error is designing the corridor at 32 inches because the door opening is 32, which under-sizes the route, or drawing the door opening at 36 while the corridor narrows to 30, which fails both."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must a ramp have a landing every 30 inches of rise?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a long unbroken ramp is exhausting and dangerous for a wheelchair user to descend — the speed builds and there is no place to stop and rest. The standards limit a ramp run to 30 inches of rise before a level landing is required, with the landing at least 60 inches long and as wide as the ramp. The same rule appears in the ramp calculators: a rise past 762 millimetres — 30 inches — triggers the landing requirement, so the code check and the layout tool agree."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much space does a van-accessible parking space really need?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A van-accessible space is 132 inches wide minimum because it combines a 96 inch standard stall with a 60 inch access aisle — the aisle is the space where a wheelchair lift or ramp deploys beside the van, and it cannot be shared by two spaces on the van stall. The total works out to 16 feet for the van space plus aisle. The reference lists the 132 inch figure explicitly because the common mistake is drawing a wider stall without the dedicated aisle, which fails the van user at the one element where the width actually matters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Do the same clearances apply to alterations of existing buildings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not always — the 2010 ADA Standards treat alterations separately, allowing reduced clearances where full compliance is technically infeasible, and historic buildings have their own provisions that balance accessibility against preservation. The reference states its numbers as the new-construction minimums and flags the alteration and historic cases in its note. State codes add another layer: some states adopt the federal standards with amendments, and the adopted version governs the project."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "ceiling-height-reference",
+    "varName": "ceiling_height_referenceSeo",
+    "name": "Ceiling Height Reference",
+    "sections": [
+      {
+        "heading": "What is Ceiling Height Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ceiling Height Reference is a lookup of the minimum ceiling-height rules in the model codes: the IRC for residential work and the IBC for commercial. The residential rules cluster at 7 feet 0 inches — habitable rooms, hallways and corridors, bathrooms and toilet rooms, and basements with habitable use all carry the 7 foot minimum under IRC R305.1, measured to the lowest ceiling point. The commercial rules step up to 7 feet 6 inches for habitable spaces and corridors under IBC 1208.2."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table also carries the exceptions that catch real designs: obstructions like beams and ducts may project below the ceiling line but not below the 6 foot 4 inch minimum at any point; mechanical and equipment rooms are set by the installed equipment's access and clearance needs rather than a fixed number; and sloped ceilings must average at least the minimum height, with at least half the room at full height and the low side held to a floor minimum. The note frames the measurement convention: heights are to the finished ceiling or the underside of the structural element, at the room's lowest point."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Ceiling Height Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the room type and the governing code — residential projects follow the IRC, commercial and most multi-family projects follow the IBC — and find the matching row.",
+              "<strong>Step 2:</strong> Read the Minimum column: 7 feet 0 inches for residential habitable rooms, hallways, bathrooms and habitable basements; 7 feet 6 inches for commercial habitable spaces and corridors.",
+              "<strong>Step 3:</strong> Check the Source column to cite the right section in the drawings — IRC R305.1 versus IBC 1208.2 — since plan reviewers expect the section reference, not just the number.",
+              "<strong>Step 4:</strong> Verify the measurement convention from the note: the height is to the finished ceiling or the underside of the structural element at the lowest point of the room, which is the number the reviewer will measure.",
+              "<strong>Step 5:</strong> Check the exception rows before finalizing: beams and ducts may project but not below the 6 foot 4 inch minimum, and sloped ceilings follow the average rule — then verify everything against the adopted code edition, since the summary is not the authority."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Ceiling Height Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ceiling height is a code minimum that looks self-evident and is easy to miss in the details: a basement finished to 6 feet 10 inches fails a habitable room, a corridor that ducks under a duct to 7 feet 2 inches fails the commercial minimum, and a sloped ceiling that averages above the minimum can still fail if the low side is too low. The reference keeps the minimums, the sources and the measurement convention in one row so the check is made against the right number the first time."
+          },
+          {
+            "type": "paragraph",
+            "text": "The residential-versus-commercial split is where most confusion lives: the same room type carries a different minimum in the two codes, and a project that straddles them — a mixed-use building with residential units over commercial — needs both tables read correctly. Seeing the IRC and IBC columns side by side makes the distinction explicit instead of assuming one number applies everywhere."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the residential minimum 7 feet but the commercial minimum 7 feet 6 inches?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The codes set different expectations for the two occupancies: IRC R305.1 requires 7 feet 0 inches in residential habitable rooms, while IBC 1208.2 requires 7 feet 6 inches in commercial habitable spaces. The higher commercial minimum reflects the larger rooms, higher occupancy and different expectations of non-residential space. A residential unit above a commercial ground floor must meet the commercial minimum in the commercial portion and the residential minimum in the units — which is why the reference keeps both columns visible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can beams and ducts project below the ceiling height?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, with a floor: obstructions such as beams and ducts may project below the ceiling line, but not below the 6 foot 4 inch minimum at any point, per the IRC exception. The practical effect is that a room can have its nominal 7 foot ceiling interrupted by a beam that dips to 6 foot 6 inches — acceptable — but not one that dips below 6 foot 4. The reference lists the 6 foot 4 inch figure explicitly because the exception is where residential designs most often cross the line unnoticed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is a sloped ceiling measured against the minimum?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A sloped ceiling must average at least the minimum height for the room, with at least half the room at full height and the low side held to a floor minimum — the specific arithmetic lives in the IRC and IBC sloped-ceiling provisions. The average rule is what allows an attic bedroom or a cathedral space to qualify: the room is measured by its average height rather than its lowest point, as long as the low side stays above the absolute floor. The note points to the code edition for the exact proportions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does ceiling height apply to mechanical and equipment rooms?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not as a fixed number — the reference row for mechanical and equipment rooms says the height is set by the access and clearance requirements of the installed equipment. The governing consideration is that a person can reach and service the equipment, and the manufacturer's clearances plus the code's service-access rules set the space. This is the row that reads differently from the habitable-space minimums, which is why it appears separately rather than under a universal height."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "staircase-code-reference",
+    "varName": "staircase_code_referenceSeo",
+    "name": "Staircase Code Reference",
+    "sections": [
+      {
+        "heading": "What is Staircase Code Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Staircase Code Reference is a side-by-side comparison of the stair geometry rules in the IRC for dwellings and the IBC for commercial buildings, the two codes whose numbers differ just enough to cause real errors. The headline rows show the split: a maximum riser of 7 and three-quarter inches in the IRC against 7 inches in the IBC — with the metric values of 197 and 178 millimetres alongside — and a minimum tread of 10 inches in the IRC against 11 in the IBC, which measures tread depth differently through its nosing rules."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table continues through the rules both codes share or split: minimum stair width of 36 inches residential against 44 commercial, headroom at 6 feet 8 inches in both, handrail height 34 to 38 inches in both, landings at the width of the stair in both with the 12 foot maximum rise between landings, and the two rules where the codes genuinely diverge — open risers are permitted in the IRC up to a 4 inch vertical opening but not permitted at all in the IBC, and riser and tread uniformity is held to a maximum 3/16 inch variation in both. The note adds the real-world caveats: egress stairs in high-occupancy buildings may need to be wider, and the adopted local edition with amendments governs."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Staircase Code Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the governing code for the project — the IRC for one- and two-family dwellings, the IBC for commercial and most multi-family work — and read the corresponding column for each rule.",
+              "<strong>Step 2:</strong> Check the riser and tread pair first, since they define the stair's basic geometry: 7¾ inch risers with 10 inch treads under the IRC, 7 inch risers with 11 inch treads under the IBC.",
+              "<strong>Step 3:</strong> Apply the uniformity rule to the whole flight: no more than 3/16 inch variation between the smallest and largest riser or tread in the flight, in both codes — the variation limit is what turns a computed stair into a code-compliant one.",
+              "<strong>Step 4:</strong> Verify the headroom and handrail rows against the section: 6 feet 8 inches of headroom measured vertically from the nosing line, and handrails at 34 to 38 inches measured from the stair nosing to the top of the rail.",
+              "<strong>Step 5:</strong> Place landings per the spacing rule — every 12 feet of rise maximum — and check the open-riser rule for residential stairs specifically, since the IRC permits up to a 4 inch opening while the IBC requires closed risers."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Staircase Code Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Stair geometry is the rare code area where the two model codes genuinely disagree — the IRC allows a steeper stair for dwellings than the IBC permits commercially — and the numbers are close enough that designing from the wrong one produces a stair that fails review by a half inch. A side-by-side table makes the governing-code choice visible for every rule, which is the difference between a stair that passes and one that comes back for a full redesign when the jurisdiction's code turns out to be the other one."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference also carries the rules that are easy to miss because they are not geometry: the 3/16 inch uniformity limit that makes an otherwise-fine flight noncompliant, the open-riser prohibition that catches residential details copied into commercial work, and the width rule that is occupancy-driven in the IBC rather than fixed. Those are the items a plan reviewer checks after the riser-tread pair, and having them in the same table keeps the review complete."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the IRC allow a steeper stair than the IBC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The IRC's 7¾ inch maximum riser with a 10 inch minimum tread reflects the reality of residential construction — dwelling stairs live in constrained footprints, serve low occupant loads, and are used by people familiar with their own homes. The IBC's 7 inch riser and 11 inch tread set a gentler geometry for the public, who use commercial stairs in unfamiliar buildings under higher traffic and emergency conditions. The same logic explains the width difference: 36 inches for dwellings against 44 for commercial egress."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is tread depth measured differently between the two codes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The IBC measures tread depth as the horizontal distance from the nosing of one tread to the nosing of the next — or from nosing to the leading edge of the tread below — under its nosing rules, which is why its 11 inch minimum is stated with the measurement convention attached. The IRC's 10 inch minimum is measured on the same general basis but with the residential nosing rules applied. The reference's note flags the difference because a tread that measures 10 inches one way can measure less the other way, and the code's measurement definition decides compliance."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why are open risers allowed in the IRC but not the IBC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Open risers — the gap between treads — are a residential style choice, and the IRC permits them up to a 4 inch vertical opening to prevent a small child's head or foot from passing through. The IBC prohibits open risers in commercial stairs because they are a trip hazard for the general public and complicate egress in emergency conditions. A residential detail copied into a commercial stair is therefore a code violation even though it is legal in a dwelling, which is why the reference lists the rule under both columns."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the 3/16 inch uniformity rule actually require?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It limits the variation between the largest and smallest riser heights in a flight — and the same for tread depths — to 3/16 inch, in both codes. The rule exists because people climb stairs by rhythm: once the legs learn the first few risers, an inconsistent riser causes a stumble or a fall, especially on the way down. In practice it means the stair's finish-floor and finish-ceiling dimensions must be coordinated so the arithmetic divides evenly, and a small accumulated framing error can push a flight over the limit."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -92,7 +92,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     {label && <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">{label}</label>}
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
@@ -102,6 +102,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -166,7 +167,7 @@ export default function StepsToCaloriesCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, heightFt, heightIn, heightCm, steps]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -211,7 +212,7 @@ export default function StepsToCaloriesCalculator() {
             </div>
 
             <div className="grid grid-cols-1 gap-3 mt-2">
-              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
+              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
             </div>
 
             {/* Height Input */}
@@ -219,16 +220,16 @@ export default function StepsToCaloriesCalculator() {
               <label className="text-sm font-semibold text-foreground mb-1.5">Your Height (For Stride Length)</label>
               {unitSystem === "imperial" ? (
                 <div className="grid grid-cols-2 gap-3">
-                  <CompactInput id="h-ft" value={heightFt} onChange={setHeightFt} suffix="ft" />
-                  <CompactInput id="h-in" value={heightIn} onChange={setHeightIn} suffix="in" />
+                  <CompactInput id="h-ft" value={heightFt} onChange={setHeightFt} suffix="ft" onEnter={handleCalculate} />
+                  <CompactInput id="h-in" value={heightIn} onChange={setHeightIn} suffix="in" onEnter={handleCalculate} />
                 </div>
               ) : (
-                <CompactInput id="h-cm" value={heightCm} onChange={setHeightCm} suffix="cm" />
+                <CompactInput id="h-cm" value={heightCm} onChange={setHeightCm} suffix="cm" onEnter={handleCalculate} />
               )}
             </div>
 
             <div className="border-t border-border mt-2 pt-4">
-              <CompactInput id="steps" label="Total Steps Taken" value={steps} onChange={setSteps} prefix={<Footprints className="h-4 w-4" />} />
+              <CompactInput id="steps" label="Total Steps Taken" value={steps} onChange={setSteps} prefix={<Footprints className="h-4 w-4" />} onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -252,33 +253,33 @@ export default function StepsToCaloriesCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-green-500 to-emerald-600 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-green-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-green-100 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         Total Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-green-200">kcal</div>
+                        <div className="text-4xl font-bold text-primary">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-green-100 mt-2 bg-green-900/30 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        <Flame className="h-4 w-4" /> Calculated via Stride Mechanics
+                      <div className="text-sm text-muted-foreground mt-2">
+                        <Flame className="h-4 w-4 inline mr-1" /> Calculated via Stride Mechanics
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-green-100 mb-1">Total Distance</div>
-                      <div className="text-2xl font-black text-white">
+                    <div className="bg-muted/30 border border-border rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Total Distance</div>
+                      <div className="text-2xl font-black text-foreground">
                         {unitSystem === "imperial" ? results.distanceMiles.toFixed(2) : results.distanceKm.toFixed(2)}
                       </div>
-                      <div className="text-xs text-green-200 font-medium">{unitSystem === "imperial" ? "Miles" : "Kilometers"}</div>
+                      <div className="text-xs text-muted-foreground font-medium">{unitSystem === "imperial" ? "Miles" : "Kilometers"}</div>
                     </div>
                   </div>
-                  <Footprints className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Footprints className="absolute -bottom-6 -right-6 h-40 w-40 opacity-5 text-foreground" />
                 </div>
 
                 <div className="grid lg:grid-cols-[1fr_240px] gap-4">

@@ -185,6 +185,7 @@ export default function CarRegistrationFeeCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Local Fees & Penalties</div>
                   <CompactInput id="local-tax" label="Local / County Tax" value={inputs.localTax} onChange={(v: string) => handleChange("localTax", v)} prefix="$" />
                   <CompactInput id="late-fee" label="Late Penalties" value={inputs.lateFee} onChange={(v: string) => handleChange("lateFee", v)} prefix="$" />
                 </div>

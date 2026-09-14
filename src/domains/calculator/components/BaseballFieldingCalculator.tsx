@@ -173,7 +173,7 @@ const BaseballFieldingCalculator = () => {
                 </div>
                 <div>
                   <label className="text-sm font-medium block mb-1">Total Chances</label>
-                  <input type="number" value={result.totalChances} readOnly className="w-full h-10 px-3 text-lg rounded-md border border-input bg-muted/40 outline-none" />
+                  <div className="w-full h-10 px-3 text-lg rounded-md border border-input bg-muted/40 flex items-center font-semibold text-foreground">{fmt(result.totalChances, 0)}</div>
                 </div>
               </div>
             </div>

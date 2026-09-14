@@ -126,6 +126,7 @@ export default function HomeLoanEligibilityCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Borrower Profile</div>
                   <CompactInput id="credit" label="Credit Score" value={creditScore} onChange={setCreditScore} />
                   <div className="flex flex-col">
                     <label className="text-sm font-semibold text-foreground mb-1.5">Employment Type</label>
@@ -150,7 +151,7 @@ export default function HomeLoanEligibilityCalculator() {
 
           <div className="flex flex-col gap-4">
             {results && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${results.isEligible ? "bg-primary/10 border-primary" : "bg-destructive/10 border-destructive"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-xs font-bold uppercase tracking-wider mb-1 ${results.isEligible ? "text-primary" : "text-destructive"}`}>Maximum Loan Amount</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">${results.maxLoanAmount.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
                 <div className="text-sm text-muted-foreground mt-1 font-medium">Max monthly EMI: ${results.maxEMI.toFixed(2)} · FOIR: {results.foir.toFixed(1)}%</div>

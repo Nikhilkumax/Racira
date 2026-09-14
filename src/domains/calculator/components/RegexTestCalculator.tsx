@@ -68,7 +68,7 @@ export default function RegexTestCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = result.error !== null
 

@@ -139,7 +139,7 @@ const BrickCalculator = () => {
     setResult(calculateBricks(unit, length, height, brickType, joint, waste));
   };
 
-  useEffect(() => { calculate(); }, [unit, length, height, brickType, joint, waste]);
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);

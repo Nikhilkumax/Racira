@@ -109,6 +109,7 @@ const DebtConsolidationCalculator = () => {
                 </button>
                 {showAdv && (
                   <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Loan Fees</div>
                     <InputField id="fee" label="Loan Origination Fee ($)" value={loanFee} onChange={setLoanFee} tooltip="Any fees charged to open the consolidation loan, which are typically added to the loan balance." />
                   </div>
                 )}
@@ -127,7 +128,7 @@ const DebtConsolidationCalculator = () => {
               <>
                 <h2 className="text-2xl font-bold mb-3">Consolidation Analysis</h2>
                 <div className="grid sm:grid-cols-2 gap-6 mb-8">
-                  <div className="p-6 rounded-2xl bg-primary/5 border border-primary/10 text-center">
+                  <div className="p-6 rounded-2xl bg-primary/10 border-l-4 border-primary text-center">
                     <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">New Monthly Payment</p>
                     <p className="text-5xl font-black text-foreground">${results.consolidatedPayment.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                   </div>

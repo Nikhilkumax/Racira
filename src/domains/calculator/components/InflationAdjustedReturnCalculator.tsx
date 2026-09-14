@@ -204,7 +204,7 @@ export default function InflationAdjustedReturnCalculator() {
               <>
                 {/* Result Dashboard */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                     <div className="text-xs font-bold text-primary mb-0.5 uppercase tracking-wider">Real Return Rate</div>
                     <div className="text-3xl font-extrabold text-foreground tracking-tight">{fmtPct(result.realReturnRate)}</div>
                     <span className="text-[10px] text-muted-foreground">Adjusted for inflation (Fisher formula)</span>

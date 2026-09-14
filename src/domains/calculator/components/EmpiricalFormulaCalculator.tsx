@@ -79,9 +79,9 @@ export default function EmpiricalFormulaCalculator() {
       const r = calcFormula(pcts, m);
       if (r) setResult(r);
     }
-  }, [c, h, o, n, molar]);
+  }, []);
 
-  const reset = () => { setC(DEFAULTS.c); setH(DEFAULTS.h); setO(DEFAULTS.o); setN(DEFAULTS.n); setMolar(DEFAULTS.molar); };
+  const reset = () => { setC(DEFAULTS.c); setH(DEFAULTS.h); setO(DEFAULTS.o); setN(DEFAULTS.n); setMolar(DEFAULTS.molar); const pr = calcFormula([parseFloat(DEFAULTS.c), parseFloat(DEFAULTS.h), parseFloat(DEFAULTS.o), parseFloat(DEFAULTS.n)], parseFloat(DEFAULTS.molar)); if (pr) setResult(pr); };
   const pcts = [parseFloat(c), parseFloat(h), parseFloat(o), parseFloat(n)];
   const invalid = pcts.some(v => isNaN(v)) || isNaN(parseFloat(molar)) || parseFloat(molar) < 0 || Math.abs(pcts.reduce((s, v) => s + v, 0) - 100) > 5;
 

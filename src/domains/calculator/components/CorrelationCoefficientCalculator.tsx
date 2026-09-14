@@ -84,9 +84,9 @@ export default function CorrelationCoefficientCalculator() {
 
   useEffect(() => {
     setResult(calcCorr(x, y));
-  }, [x, y]);
+  }, []);
 
-  const reset = () => { setX(DEFAULTS.x); setY(DEFAULTS.y); };
+  const reset = () => { setX(DEFAULTS.x); setY(DEFAULTS.y); setResult(calcCorr(DEFAULTS.x, DEFAULTS.y)); };
 
   const faqs = [
     { question: "What does a correlation of 1 or −1 mean?", answer: "r = 1 means a perfect positive linear relationship, r = −1 a perfect negative one, and r = 0 no linear relationship. Values between reflect partial strength." },

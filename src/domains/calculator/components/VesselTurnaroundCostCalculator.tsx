@@ -124,7 +124,7 @@ const VesselTurnaroundCostCalculator = () => {
               </button>
               {showAdv && (
                 <div className="flex flex-col gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Additional Vessel Costs</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Additional Vessel Costs</div>
                   <div className="grid grid-cols-2 gap-3">
                     <NumInput id="bunkering" label="Bunkering & Fuel" value={inputs.bunkering} onChange={set("bunkering")} prefix="$" />
                     <NumInput id="demurrage" label="Demurrage / Day" value={inputs.demurragePerDay} onChange={set("demurragePerDay")} prefix="$" />

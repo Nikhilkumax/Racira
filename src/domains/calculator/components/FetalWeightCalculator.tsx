@@ -221,7 +221,7 @@ export default function FetalWeightCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status.includes("Small") || result.status.includes("Large") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status.includes("Small") || result.status.includes("Large") ? "text-amber-600" : "text-primary"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.estimatedWeightLbs} <span className="text-xl">lbs</span> {result.estimatedWeightOz} <span className="text-xl">oz</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

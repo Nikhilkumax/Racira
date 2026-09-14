@@ -284,31 +284,31 @@ export default function BodyMassIndexCalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* BMI Score Box */}
                   <div 
-                    className="text-white rounded-lg p-5 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
+                    className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden"
+                    
                   >
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Calculated BMI Score</div>
+                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Calculated BMI Score</div>
                       <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.bmi}</div>
+                        <div className="text-4xl font-bold text-primary">{results.bmi}</div>
                       </div>
-                      <div className="text-sm font-bold text-white mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full">
+                      <div className="mt-2 inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold" style={{ backgroundColor: `${results.colorClass}1A`, color: results.colorClass }}>
                         {results.classification}
                       </div>
                     </div>
-                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-primary" />
                   </div>
 
                   {/* Target Weight Range Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Ideal Clinical Weight Range</div>
+                  <div className="bg-muted/30 border border-border rounded-lg p-5 flex flex-col justify-center">
+                    <div className="text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Ideal Clinical Weight Range</div>
                     <div className="flex items-baseline gap-2">
-                      <div className="text-3xl font-black text-white">{results.targetNormalWeightLow}</div>
-                      <div className="text-slate-400 font-bold">to</div>
-                      <div className="text-3xl font-black text-white">{results.targetNormalWeightHigh}</div>
-                      <div className="text-xs text-slate-400">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
+                      <div className="text-3xl font-bold text-foreground">{results.targetNormalWeightLow}</div>
+                      <div className="text-muted-foreground font-bold">to</div>
+                      <div className="text-3xl font-bold text-foreground">{results.targetNormalWeightHigh}</div>
+                      <div className="text-xs text-muted-foreground">{unitSystem === "imperial" ? "lbs" : "kg"}</div>
                     </div>
-                    <div className="text-[10px] text-slate-500 mt-2">Target range to achieve a 'Normal' BMI (18.5 - 24.9) based exclusively on your height.</div>
+                    <div className="text-[10px] text-muted-foreground/60 mt-2">Target range to achieve a 'Normal' BMI (18.5 - 24.9) based exclusively on your height.</div>
                   </div>
                 </div>
 

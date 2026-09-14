@@ -66,9 +66,9 @@ export default function CpcCalculator() {
     const c = parseFloat(clicks);
     const i = parseFloat(impressions);
     if (!isNaN(s) && !isNaN(c) && !isNaN(i)) setResult(calcCpc(s, c, i));
-  }, [spend, clicks, impressions]);
+  }, []);
 
-  const reset = () => { setSpend(DEFAULTS.spend); setClicks(DEFAULTS.clicks); setImpressions(DEFAULTS.impressions); };
+  const reset = () => { setSpend(DEFAULTS.spend); setClicks(DEFAULTS.clicks); setImpressions(DEFAULTS.impressions); setResult(calcCpc(parseFloat(DEFAULTS.spend), parseFloat(DEFAULTS.clicks), parseFloat(DEFAULTS.impressions))); };
   const invalid = isNaN(parseFloat(spend)) || isNaN(parseFloat(clicks)) || isNaN(parseFloat(impressions));
 
   const faqs = [

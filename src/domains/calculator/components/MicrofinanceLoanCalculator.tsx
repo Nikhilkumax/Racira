@@ -160,7 +160,7 @@ export default function MicrofinanceLoanCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Calculation Method</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Calculation Method</div>
                 <div className="flex rounded-md border border-input overflow-hidden h-9">
                   <button type="button" onClick={() => setCalcMethod("reducing")} className={`flex-1 text-xs font-semibold transition-colors ${calcMethod === "reducing" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>Reducing Balance</button>
                   <button type="button" onClick={() => setCalcMethod("flat")} className={`flex-1 text-xs font-semibold transition-colors border-l border-input ${calcMethod === "flat" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>Flat Rate</button>

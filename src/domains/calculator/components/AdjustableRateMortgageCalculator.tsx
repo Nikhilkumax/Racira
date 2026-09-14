@@ -166,6 +166,7 @@ export default function AdjustableRateMortgageCalculator() {
             </button>
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Rate Adjustment Terms</div>
                 <CompactInput id="fixedPeriod" label="Fixed Rate Period" value={inputs.fixedPeriod} onChange={(v: string) => handleChange("fixedPeriod", v)} suffix="years" />
                 <CompactInput id="adjustmentFrequency" label="Adjustment Freq." value={inputs.adjustmentFrequency} onChange={(v: string) => handleChange("adjustmentFrequency", v)} suffix="years" />
                 <CompactInput id="expectedAdjustment" label="Expected Adj/Period" value={inputs.expectedAdjustment} onChange={(v: string) => handleChange("expectedAdjustment", v)} suffix="%" />

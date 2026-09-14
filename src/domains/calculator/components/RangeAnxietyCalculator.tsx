@@ -275,6 +275,7 @@ export default function RangeAnxietyCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Road Conditions</div>
                   <CompactInput id="elevation" label="Net Elevation Gain" value={inputs.elevationChange} onChange={(v: string) => handleChange("elevationChange", v)} suffix="ft" tooltip="Enter positive for uphill, negative for downhill." />
                   <CompactInput id="wind" label="Direct Headwind" value={inputs.headwind} onChange={(v: string) => handleChange("headwind", v)} suffix="mph" />
                 </div>
@@ -299,7 +300,7 @@ export default function RangeAnxietyCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.safetyMarginMiles < 0 ? 'bg-destructive/10 border-destructive' : results.safetyMarginPct < 10 ? 'bg-primary/10 border-primary' : 'bg-[#10b981]/10 border-[#10b981]'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Estimated Arrival Battery</div>
                   <div className={`text-5xl font-bold mb-1 ${results.safetyMarginMiles < 0 ? 'text-destructive' : results.safetyMarginPct < 10 ? 'text-orange-500' : 'text-[#10b981]'}`}>
                     {results.arriveAtPercent < 0 ? "DEAD" : `${Math.round(results.arriveAtPercent)}%`}

@@ -204,8 +204,6 @@ export function calculateGravel(i: GravelInputs): GravelResult {
 const inp =
   "w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/20";
 const lbl = "text-sm font-medium text-foreground mb-1 block";
-const groupLabel =
-  "text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5";
 
 export default function GravelVolumeCalculator() {
   const [inputs, setInputs] = useState<GravelInputs>(DEFAULTS);
@@ -348,7 +346,7 @@ export default function GravelVolumeCalculator() {
               {showAdvanced ? (
                 <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
                   <div>
-                    <div className={groupLabel}>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5">
                       <Shapes className="h-3.5 w-3.5" /> Area Shape &amp; Allowances
                     </div>
                     <div className="grid grid-cols-2 gap-3">
@@ -375,7 +373,7 @@ export default function GravelVolumeCalculator() {
                   </div>
 
                   <div>
-                    <div className={groupLabel}>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5">
                       <DollarSign className="h-3.5 w-3.5" /> Pricing
                     </div>
                     <div className="grid grid-cols-2 gap-3">
@@ -393,7 +391,7 @@ export default function GravelVolumeCalculator() {
                   </div>
 
                   <div>
-                    <div className={groupLabel}>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5">
                       <Truck className="h-3.5 w-3.5" /> Professional Mode
                     </div>
                     <label htmlFor="proMode" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">

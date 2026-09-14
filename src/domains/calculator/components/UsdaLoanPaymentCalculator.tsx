@@ -142,7 +142,7 @@ export default function UsdaLoanPaymentCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">USDA Fees</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">USDA Fees</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className="text-sm font-medium mb-1 block">Guarantee Fee (%)</label><div className={i}><input type="number" value={guaranteeFeePct} onChange={e => setGuaranteeFeePct(e.target.value)} step="0.1" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>
                   <div><label className="text-sm font-medium mb-1 block">Annual MIP (%)</label><div className={i}><input type="number" value={annualMipPct} onChange={e => setAnnualMipPct(e.target.value)} step="0.05" className={c} /><span className="pr-3 text-muted-foreground text-sm">%</span></div></div>

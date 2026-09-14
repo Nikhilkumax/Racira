@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "air-change-rate-calculator",
+    "varName": "air_change_rate_calculatorSeo",
+    "name": "Air Change Rate Calculator",
+    "sections": [
+      {
+        "heading": "What is Air Change Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Air Change Rate Calculator computes the air changes per hour of a ventilated room from its airflow and volume, in either unit system — imperial, where ACH equals the CFM times 60 divided by the room volume in cubic feet, or metric, where ACH equals the cubic-metres-per-hour flow divided by the volume in cubic metres. It also runs the calculation in reverse, reporting the airflow needed to hit a target ACH for the same room."
+          },
+          {
+            "type": "paragraph",
+            "text": "The room volume comes from three dimensions — length, width and height — so a 10-by-12-by-8-foot room has a volume of 960 cubic feet, and 100 CFM of supply through it produces 6.25 air changes per hour: one hundred times sixty divided by nine hundred and sixty. The result panel reports the volume, the ACH to two decimal places, the minutes per air change — the reciprocal of ACH — and the flow required for the target rate you enter."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Air Change Rate Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Unit system — Imperial (CFM and feet) or Metric (cubic metres per hour and metres). All fields relabel to match.",
+              "<strong>Step 2:</strong> Enter the Ventilation rate — the supply airflow in CFM or m³/h — followed by the room Length, Width and Height in the selected unit.",
+              "<strong>Step 3:</strong> Read the Result panel. Room volume is the product of the three dimensions; Air changes per hour is the headline number; Time per air change is how often the room volume turns over completely.",
+              "<strong>Step 4:</strong> Enter the Target ACH in its field to see the reverse direction: Flow for the target shows the supply rate the room needs to reach that turnover, which is the number a ventilation designer actually sizes ductwork from.",
+              "<strong>Step 5:</strong> Verify with the classic case: a 10 × 12 × 8 ft room (960 ft³) with 100 CFM must read 6.25 ACH and about 9.6 minutes per change. The tool's default values are exactly this case, so they should match before you change anything."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Air Change Rate Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Air changes per hour is the shorthand every ventilation code and guideline speaks — bathrooms at 8 ACH intermittent, kitchens at 7.5, laboratories at 6 to 15 depending on hazard, cleanrooms from 20 to 600 — but the number is rarely given directly; it is derived from an airflow and a room volume. Doing that division and unit juggling by hand on every room of a project is where errors creep in, and an ACH error at the low end is a ventilation deficiency that only shows up in indoor air quality."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reverse calculation is the more useful direction in practice. Codes set ACH targets; the designer must find the CFM that achieves them. Because the tool computes the required flow from the target in the same pass as the achieved ACH, a designer can check an existing system against its code target and size a new one from the same inputs — two questions, one room model."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is ACH calculated in imperial units?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Air changes per hour equals the airflow in CFM multiplied by 60 — to convert the per-minute flow into per-hour — and divided by the room volume in cubic feet. The 60 is the only unit conversion: CFM is per minute, ACH is per hour. For a 960 cubic foot room with 100 CFM, that is 100 times 60 divided by 960, which gives 6.25 air changes per hour. In metric the 60 disappears because the flow is already entered per hour."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between minutes per change and ACH?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are reciprocals: minutes per air change is 60 divided by the ACH, so a room at 6 ACH turns its volume over every 10 minutes, and one at 12 ACH every 5 minutes. ACH answers how many times the room volume is replaced in an hour; minutes per change answers how long the air in the room has been there on average. Both are shown because codes quote ACH while practical questions — how long after a contaminant release — are easier to answer in minutes."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle rooms with sloped ceilings or irregular shapes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it models the room as a rectangular prism from three dimensions, which is the standard approximation for code-level ventilation work and accurate for most rooms. A sloped ceiling or an irregular footprint changes the true volume, and the ACH moves inversely with it. For those cases, compute the actual volume first and adjust the height input so that length times width times the entered height equals the true volume, which keeps the ACH result correct."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What ACH should a room actually target?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It depends on the space and the code. Residences typically run 0.35 to 1 ACH from natural and mechanical ventilation combined; bathrooms are ventilated at about 8 ACH when occupied, kitchens at about 7.5; laboratories run 6 to 15 ACH depending on the hazard class and whether fume hoods are present; cleanrooms span 20 to 600 ACH by cleanliness class. The tool's guidance note carries these bands, and the governing ventilation code — ASHRAE 62.1 for commercial, the residential code for homes — supplies the binding number."
+          }
+        ]
+      }
+    ]
+  }
+]

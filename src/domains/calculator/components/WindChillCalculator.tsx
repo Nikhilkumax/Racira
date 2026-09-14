@@ -70,16 +70,19 @@ const WindChillCalculator = () => {
     setResult(calculateWindChill(temp, speed, unit));
   };
 
-  useEffect(() => { calculate(); }, [unit, temp, speed]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const handleUnitChange = (newUnit: "imperial" | "metric") => {
     setUnit(newUnit);
     if (newUnit === "imperial") {
       setTemp("30");
       setSpeed("15");
+      setResult(calculateWindChill("30", "15", "imperial"));
     } else {
       setTemp("-1");
       setSpeed("24");
+      setResult(calculateWindChill("-1", "24", "metric"));
     }
   };
 

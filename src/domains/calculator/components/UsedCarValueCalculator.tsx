@@ -263,6 +263,7 @@ export default function UsedCarValueCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Market Conditions</div>
                   <CompactInput id="market" label="Macro Market Demand" value={inputs.marketDemand} onChange={(v: string) => handleChange("marketDemand", v)} options={[
                     { label: "High Demand (Low inventory, high prices)", value: "high" },
                     { label: "Normal (Standard historical depreciation)", value: "normal" },

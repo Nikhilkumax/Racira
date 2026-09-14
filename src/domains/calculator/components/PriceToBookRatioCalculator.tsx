@@ -81,10 +81,6 @@ export default function PriceToBookRatioCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           Price-to-Book Ratio Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Compare a stock&apos;s market price to its book value per share — the classic valuation
-          lens for banks, insurers, and asset-heavy businesses.
-        </p>
       </div>
 
       <Card className="mb-6">

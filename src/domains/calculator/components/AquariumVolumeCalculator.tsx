@@ -233,7 +233,7 @@ export default function AquariumVolumeCalculator() {
           {/* RIGHT: results */}
           <div className="flex flex-col gap-4">
             {/* 1. Primary Result Card */}
-            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 relative">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
               <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Aquarium Volume</div>
               <div className="text-4xl font-bold text-primary">{fmt(result.waterVolumeGal)} gal</div>
               <div className="text-sm text-muted-foreground mt-1">{fmt(result.waterVolumeLiters)} liters • {fmt(result.waterVolumeCuIn, 0)} cubic inches</div>

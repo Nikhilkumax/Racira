@@ -215,14 +215,6 @@ export default function AthleteBmiCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Athlete BMI Calculator (FFMI)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
-            <strong>The BMI Flaw:</strong> Standard BMI cannot distinguish between fat and muscle. If you engage in heavy resistance training, standard BMI will falsely classify you as overweight. This calculator uses your Body Fat Percentage to extract your <strong>Fat-Free Mass Index (FFMI)</strong> to reveal your true clinical composition.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -283,30 +275,30 @@ export default function AthleteBmiCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* FFMI Metric */}
-                <div className="bg-gradient-to-br from-indigo-600 to-blue-800 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-indigo-300 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-primary hover:text-primary/80 transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-indigo-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         Normalized FFMI Score
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.normalizedFfmi.toFixed(1)}</div>
-                        <div className="text-xl font-bold text-indigo-200">Score</div>
+                        <div className="text-4xl font-bold text-primary tracking-tight">{results.normalizedFfmi.toFixed(1)}</div>
+                        <div className="text-xl font-bold text-muted-foreground">Score</div>
                       </div>
-                      <div className="text-sm font-medium text-indigo-100 mt-2 bg-indigo-950/40 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-medium text-muted-foreground mt-2 bg-muted/40 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                         <ShieldCheck className="h-4 w-4 text-emerald-400" /> Clinical Classification: {results.ffmiCategory}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-indigo-200 mb-1">Total Lean Mass</div>
-                      <div className="text-2xl font-black text-white">
+                    <div className="bg-muted/30 border border-border rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Total Lean Mass</div>
+                      <div className="text-2xl font-black text-foreground">
                         {unitSystem === "imperial" ? results.lbmLbs : results.lbmKg}
                       </div>
-                      <div className="text-xs text-indigo-300 font-medium">{unitSystem === "imperial" ? "LBS" : "KG"}</div>
+                      <div className="text-xs text-muted-foreground font-medium">{unitSystem === "imperial" ? "LBS" : "KG"}</div>
                     </div>
                   </div>
                   <Dumbbell className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
@@ -379,6 +371,14 @@ export default function AthleteBmiCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
+            <strong>The BMI Flaw:</strong> Standard BMI cannot distinguish between fat and muscle. If you engage in heavy resistance training, standard BMI will falsely classify you as overweight. This calculator uses your Body Fat Percentage to extract your <strong>Fat-Free Mass Index (FFMI)</strong> to reveal your true clinical composition.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

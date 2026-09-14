@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
 import { LegalLinks } from "@/components/LegalLinks";
+import { totalCount } from "@/domains/cad/registry";
 
 export const metadata: Metadata = {
-  title: "Racira CAD",
-  description: "108+ free CAD tools in your browser. No signup required.",
+  title: "CAD is fixed",
+  description: `${totalCount}+ free CAD tools in your browser. No signup required.`,
   openGraph: {
-    title: "Racira CAD",
-    description: "108+ free CAD tools in your browser.",
+    title: "CAD is fixed",
+    description: `${totalCount}+ free CAD tools in your browser.`,
     type: "website",
   },
   twitter: {

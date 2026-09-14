@@ -46,12 +46,15 @@ export default function DecimalToHexConverter() {
   const [decimal, setDecimal] = useState(DEFAULTS.decimal);
   const [result, setResult] = useState<BaseResult | null>(() => calcBases("255"));
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const r = calcBases(decimal);
     if (r) setResult(r);
-  }, [decimal]);
+  };
 
-  const reset = () => { setDecimal(DEFAULTS.decimal); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setDecimal(DEFAULTS.decimal); const r = calcBases(DEFAULTS.decimal); if (r) setResult(r); };
   const invalid = isNaN(parseInt(decimal, 10)) || parseInt(decimal, 10) < 0;
 
   const breakdown = result ? [
@@ -87,7 +90,7 @@ export default function DecimalToHexConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Binary className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

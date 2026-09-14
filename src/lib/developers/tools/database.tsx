@@ -206,7 +206,7 @@ const mongoQueryBuilder: ToolDefinition = {
           <OptSelect value={op} onChange={(v) => setOptions({ ...options, op: v })} options={["$eq", "$ne", "$gt", "$gte", "$lt", "$lte", "$in", "$regex"].map((x) => ({ value: x, label: x }))} />
           <input defaultValue={value} onChange={(e) => setOptions({ ...options, value: e.target.value })} placeholder="value" className="h-8 rounded-md border border-input bg-background px-2 text-sm font-mono" />
         </div>
-        <pre className="text-sm font-mono bg-background p-3 rounded-md">{`db.collection.find(${query})`}</pre>
+        <pre className="text-sm font-mono bg-background p-3 rounded-md overflow-x-auto">{`db.collection.find(${query})`}</pre>
       </div>
     );
   },

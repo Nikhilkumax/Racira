@@ -43,7 +43,7 @@ export default function IceHockeyShootingPercentageCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const g = parseFloat(inputs.goals)

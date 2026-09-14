@@ -192,11 +192,11 @@ export default function BrakingDistanceCalculator() {
               <>
                 {/* 1. Primary Result Card */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-6 relative overflow-hidden shadow-sm">
-                    <div className="text-xs uppercase tracking-wide text-destructive/80 mb-2 font-bold">Physical Braking Distance</div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Physical Braking Distance</div>
                     <div className="flex items-end gap-3 mb-1">
-                      <div className="text-6xl font-black text-destructive tracking-tighter">{results.brakingDistanceFt}</div>
-                      <div className="text-2xl font-bold text-destructive mb-1">ft</div>
+                      <div className="text-4xl font-bold text-primary tracking-tight">{results.brakingDistanceFt}</div>
+                      <div className="text-xl font-bold text-muted-foreground mb-1">ft</div>
                     </div>
                   </div>
 

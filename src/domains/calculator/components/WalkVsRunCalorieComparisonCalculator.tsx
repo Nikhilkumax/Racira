@@ -112,7 +112,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -124,6 +124,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -178,7 +179,7 @@ export default function WalkVsRunCalorieComparisonCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, distance, walkSpeed, runSpeed]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -223,13 +224,13 @@ export default function WalkVsRunCalorieComparisonCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-              <CompactInput id="dist" label="Target Distance" value={distance} onChange={setDistance} suffix={unitSystem === "imperial" ? "miles" : "km"} />
+              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
+              <CompactInput id="dist" label="Target Distance" value={distance} onChange={setDistance} suffix={unitSystem === "imperial" ? "miles" : "km"} onEnter={handleCalculate} />
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="wspeed" label="Walking Speed" value={walkSpeed} onChange={setWalkSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} />
-              <CompactInput id="rspeed" label="Running Speed" value={runSpeed} onChange={setRunSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} />
+              <CompactInput id="wspeed" label="Walking Speed" value={walkSpeed} onChange={setWalkSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} onEnter={handleCalculate} />
+              <CompactInput id="rspeed" label="Running Speed" value={runSpeed} onChange={setRunSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -252,34 +253,34 @@ export default function WalkVsRunCalorieComparisonCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 <div className="grid md:grid-cols-2 gap-4">
-                  {/* Walking Card */}
-                  <div className="bg-card border-2 border-blue-500/20 rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  {/* Primary Result Card */}
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
                     <div className="relative z-10 flex flex-col gap-2">
-                      <div className="text-blue-500 text-sm font-bold uppercase tracking-wider">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground">
                         Walking Outcome
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-4xl font-extrabold tracking-tight text-foreground">{results.walkCalories.toLocaleString()}</div>
+                        <div className="text-4xl font-bold tracking-tight text-primary">{results.walkCalories.toLocaleString()}</div>
                         <div className="text-sm font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="flex items-center gap-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 mt-1">
+                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
                         <Timer className="h-4 w-4" /> {results.walkTimeMins} Minutes to complete
                       </div>
                     </div>
-                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-blue-500" />
+                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-primary" />
                   </div>
 
                   {/* Running Card */}
-                  <div className="bg-card border-2 border-pink-500/20 rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
                     <div className="relative z-10 flex flex-col gap-2">
-                      <div className="text-pink-500 text-sm font-bold uppercase tracking-wider">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground">
                         Running Outcome
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-4xl font-extrabold tracking-tight text-foreground">{results.runCalories.toLocaleString()}</div>
+                        <div className="text-4xl font-bold tracking-tight text-foreground">{results.runCalories.toLocaleString()}</div>
                         <div className="text-sm font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="flex items-center gap-1.5 text-sm font-medium text-pink-600 dark:text-pink-400 mt-1">
+                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
                         <Timer className="h-4 w-4" /> {results.runTimeMins} Minutes to complete
                       </div>
                     </div>

@@ -143,6 +143,7 @@ export default function BonusPercentageCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Performance Multipliers</div>
                   <CompactInput id="corp" label="Company Performance Multiplier" value={corpMult} onChange={setCorpMult} suffix="%" tooltip="Did the company hit its revenue goals? Enter 100% for on-target, 120% for over-achievement, 80% for under-achievement." />
                   <CompactInput id="indv" label="Individual Performance Multiplier" value={indvMult} onChange={setIndvMult} suffix="%" tooltip="Did you hit your personal KPIs? Enter 100% for Meets Expectations, 110% for Exceeds." />
                   <div className="text-xs text-muted-foreground text-center mt-1">
@@ -164,14 +165,14 @@ export default function BonusPercentageCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.payoutRatio >= 100 ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-amber-500/10 border-amber-500/30'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
                     Actual Bonus Payout
                   </div>
-                  <div className={`text-4xl font-bold tracking-tighter mb-2 ${results.payoutRatio >= 100 ? 'text-emerald-600' : 'text-amber-600'}`}>
+                  <div className="text-4xl font-bold text-primary mb-2">
                     ${results.actualBonusAmt.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </div>
                   <div className="text-sm text-muted-foreground font-medium flex items-center gap-2">

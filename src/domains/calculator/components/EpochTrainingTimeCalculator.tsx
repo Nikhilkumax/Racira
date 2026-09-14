@@ -22,7 +22,9 @@ const EpochTrainingTimeCalculator: React.FC = () => {
   const [totalHoursProgress, setTotalHoursProgress] = useState<number[]>([]);
   const [restDaysPerWeek, setRestDaysPerWeek] = useState(1);
   const [deloadWeeks, setDeloadWeeks] = useState(0);
-  const [targetHoursPerWeek, setTargetHoursPerWeek] = useState(0);
+  const [targetHoursPerWeek, setTargetHoursPerWeek] = useState(4);
+  const [weeklyHours, setWeeklyHours] = useState<number | null>(null);
+  const [targetGap, setTargetGap] = useState<number | null>(null);
   const [chartData, setChartData] = useState<Array<{ week: number; hours: number }>>([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -40,10 +42,14 @@ const EpochTrainingTimeCalculator: React.FC = () => {
     const deloadWeeksCount = Math.min(deloadWeeks, weeks);
     const deloadMultiplier = 1 - deloadWeeksCount * 0.2;
     const computedTotalHours = baseHours * deloadMultiplier;
+    const weeklyHoursValue = effectiveTrainingDays * sessionDurationMinutes / 60;
+    const targetValue = Number(targetHoursPerWeek) || 0;
 
     setWeeksRemaining(weeks);
     setSessionsRemaining(baseSessions);
     setTotalHours(computedTotalHours);
+    setWeeklyHours(weeklyHoursValue);
+    setTargetGap(targetValue > 0 ? weeklyHoursValue - targetValue : null);
 
     const weeksArray: number[] = [];
     const cumulativeHoursArray: number[] = [];
@@ -61,15 +67,16 @@ const EpochTrainingTimeCalculator: React.FC = () => {
 
   useEffect(() => {
     calculate();
-  }, [goalDate, currentDate, trainingDaysPerWeek, sessionDurationMinutes, restDaysPerWeek, deloadWeeks]);
+  }, []);
 
   return (
-    <div className="epoch-training-calculator">
-      <h1 className="text-3xl font-bold mb-6">Epoch Training Time Calculator</h1>
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Epoch Training Time Calculator</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* Left Column - Inputs */}
-        <div className="space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+          <div className="grid grid-cols-2 gap-3">
           <div className="input-group">
             <label className="block text-sm font-medium text-gray-700">Goal Date (YYYY-MM-DD)</label>
             <input 
@@ -126,8 +133,9 @@ const EpochTrainingTimeCalculator: React.FC = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+          </div>
           
-          <div className="flex items-center space-x-3 mt-4">
+          <div className="flex items-center mt-1">
             <button 
               onClick={() => setShowAdvanced(!showAdvanced)} 
               className="text-sm text-gray-600 hover:text-gray-900"
@@ -137,33 +145,36 @@ const EpochTrainingTimeCalculator: React.FC = () => {
           </div>
           
           {showAdvanced && (
-            <div className="mt-4 p-4 bg-gray-50 rounded-md">
-              <h2 className="text-lg font-semibold mb-3">Calculation Details</h2>
-              <p className="text-sm text-gray-600">
-                The calculation considers the exact number of days between dates, accounting for leap years and varying month lengths. 
-                Training sessions are calculated based on your specified frequency, with each session&apos;s duration contributing to total training volume.
-              </p>
-              <div className="mt-4 space-y-4">
-                <div className="flex items-center space-x-3 mt-2">
-                  <label className="block text-sm font-medium text-gray-700">Deload Weeks</label>
-                  <input 
-                    type="number" 
-                    min="0" 
-                    value={deloadWeeks} 
-                    onChange={(e) => setDeloadWeeks(Number(e.target.value))} 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
+            <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
+              <div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Deload Settings</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Deload Weeks</label>
+                    <input 
+                      type="number" 
+                      min="0" 
+                      value={deloadWeeks} 
+                      onChange={(e) => setDeloadWeeks(Number(e.target.value))} 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 mt-2">
-                  <label className="block text-sm font-medium text-gray-700">Target Hours per Week</label>
-                  <input 
-                    type="number" 
-                    min="0" 
-                    step="0.1" 
-                    value={targetHoursPerWeek} 
-                    onChange={(e) => setTargetHoursPerWeek(Number(e.target.value))} 
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Volume Targets</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Target Hours per Week</label>
+                    <input 
+                      type="number" 
+                      min="0" 
+                      step="0.1" 
+                      value={targetHoursPerWeek} 
+                      onChange={(e) => setTargetHoursPerWeek(Number(e.target.value))} 
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,7 +189,7 @@ const EpochTrainingTimeCalculator: React.FC = () => {
         </div>
         
         {/* Right Column - Results */}
-        <div className="space-y-6">
+        <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
           {/* Primary Results */}
           <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
             <h2 className="text-base font-bold mb-3 text-foreground">Training Timeline Summary</h2>
@@ -193,6 +204,14 @@ const EpochTrainingTimeCalculator: React.FC = () => {
             <div className="flex justify-between items-center mb-2">
               <span className="font-semibold text-muted-foreground">Total Hours:</span>
               <span className="text-2xl font-bold text-primary">{totalHours !== null ? totalHours.toFixed(2) : 'N/A'}</span>
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-muted-foreground">Weekly Hours:</span>
+              <span className="text-2xl font-bold text-primary">{weeklyHours !== null ? weeklyHours.toFixed(1) : 'N/A'}</span>
+            </div>
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-semibold text-muted-foreground">vs Target:</span>
+              <span className="text-2xl font-bold text-primary">{targetGap !== null ? (targetGap >= 0 ? '+' : '') + targetGap.toFixed(1) + ' hrs' : 'N/A'}</span>
             </div>
           </div>
           

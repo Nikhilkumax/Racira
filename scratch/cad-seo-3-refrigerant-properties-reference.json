@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "refrigerant-properties-reference",
+    "varName": "refrigerant_properties_referenceSeo",
+    "name": "Refrigerant Properties Reference",
+    "sections": [
+      {
+        "heading": "What is Refrigerant Properties Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Refrigerant Properties Reference is a lookup of the key physical and environmental properties of ten common refrigerants: boiling point at one atmosphere, critical temperature, 100-year global warming potential, ozone depletion potential, ASHRAE 34 class, and the service each one currently serves. The table spans the transition now underway in the industry — legacy HCFC and high-GWP HFC refrigerants alongside the A2L and natural refrigerants replacing them."
+          },
+          {
+            "type": "paragraph",
+            "text": "The rows tell the transition story directly: R-22 and R-134a as legacy fluids being phased out and down, R-410A still dominant in residential DX but transitioning to A2L, R-32 as the mildly flammable new residential choice, R-404A and R-507A as high-GWP supermarket fluids under pressure, and the naturals — R-290 propane at a GWP of 3, R-744 carbon dioxide at 1, R-717 ammonia at zero — plus R-1234yf for automotive. The safety classes carry their own weight: A2L is mildly flammable, A3 is highly flammable with charge limits, and ammonia is toxic, confining it to machine rooms."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Refrigerant Properties Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the service — residential AC, supermarket low-temp, automotive, industrial — and find the candidate refrigerants in the Typical use column of the table.",
+              "<strong>Step 2:</strong> Read the environmental columns for the candidates. GWP (100-yr) is the number driving regulation: R-404A at 3922 is under the most pressure from F-Gas phase-downs, while R-32 at 675 and the naturals below 10 are the direction of travel. ODP is zero for everything except the legacy R-22, which still shows 0.05.",
+              "<strong>Step 3:</strong> Check the ASHRAE 34 safety class in the notes column. An A2L like R-32 needs different handling, charge limits and leak-detection rules than the A1 fluids it replaces; R-290 at A3 carries strict charge limits; R-717 at B2L is toxic and confined to machine rooms.",
+              "<strong>Step 4:</strong> Use the boiling-point and critical-temperature columns for the system questions — a low-temperature freezer application wants a refrigerant whose boiling point suits the evaporator temperature, and transcritical CO₂ systems live above R-744's critical temperature of 31.1 °C.",
+              "<strong>Step 5:</strong> Treat the numbers as typical published values and confirm against the current standard edition and the manufacturer's data before final selection, since GWP values shift with the reporting period (AR4 versus AR5) and regulations move quickly."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Refrigerant Properties Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Refrigerant selection is now driven as much by regulation as by thermodynamics, and the two can point in opposite directions: a high-GWP fluid with excellent performance may be scheduled for phase-down before the equipment it fills reaches end of life. A table that puts GWP, ODP and phase-out status next to the physical properties makes the regulatory dimension visible at the same moment as the engineering one, which is where a defensible selection starts."
+          },
+          {
+            "type": "paragraph",
+            "text": "The safety-class information is the part that keeps a concept from becoming a compliance problem. Choosing an A2L or A3 refrigerant changes the equipment room, the charge limits and the ventilation and leak-detection provisions — decisions that are cheap at concept stage and expensive after the plant room is built. Knowing the class before the selection is made is the difference between a design that passes review and one that gets sent back."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What do the ASHRAE 34 safety classes mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ASHRAE 34 classes combine a toxicity letter and a flammability digit. A is lower toxicity, B is higher toxicity; 1 is no flame propagation, 2 is lower flammability, 2L is lower flammability with a low burning velocity, and 3 is higher flammability. R-410A is A1 — non-flammable, the historical comfort default. R-32 and R-1234yf are A2L, mildly flammable with handling rules. R-290 propane is A3, highly flammable with strict charge limits. R-717 ammonia is B2L — toxic and flammable in concentration, which is why it lives in machine rooms."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between GWP and ODP?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ODP — ozone depletion potential — measures how much a substance damages the stratospheric ozone layer, and it is essentially solved: the Montreal Protocol phased out the CFCs and HCFCs, leaving only legacy R-22 with a small ODP of 0.05 in this table. GWP — global warming potential — measures how much a substance warms the climate over a 100-year horizon relative to CO₂, and it is the current regulatory battleground. A refrigerant can have zero ODP and a very high GWP — R-404A at 3922 — which is why the phase-downs target GWP rather than ODP."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is CO₂ a refrigerant if its critical temperature is only 31 degrees?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because R-744 works transcritically: above its critical temperature of 31.1 degrees Celsius, the refrigerant never condenses into a liquid at any pressure, and the system rejects heat in a supercritical gas cooler instead of a condenser. That makes the cycle different to design but very effective in cold climates and for heat pumps, where the large temperature glide is an advantage. CO₂ also brings a GWP of 1 and no phase-down pressure, which is why supermarket and heat-pump systems are adopting it despite the higher operating pressures."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Which refrigerants are being phased out and on what timeline?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "R-22 is being phased out under the Montreal Protocol — production for new equipment has ended and servicing supply is shrinking. The HFCs are being phased down, not out, under the Kigali Amendment and regional rules like the EU F-Gas regulation: high-GWP fluids such as R-404A and R-507A face the steepest cuts, while lower-GWP HFCs like R-32 and the HFOs and naturals gain share. The exact dates vary by jurisdiction and by sector, and the table's note points to the current regulation edition because the timeline moves faster than reference material reliably tracks."
+          }
+        ]
+      }
+    ]
+  }
+]

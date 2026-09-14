@@ -176,14 +176,14 @@ export default function CalorieDeficitCalculator() {
 </>)}
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-4 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 text-center">
                     <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Target Intake</div>
-                    <div className="text-4xl font-extrabold text-foreground">{res.targetIntake}</div>
+                    <div className="text-4xl font-bold text-primary">{res.targetIntake}</div>
                     <div className="text-[11px] text-muted-foreground mt-1">kcal / day</div>
                   </div>
-                  <div className="bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-xl p-4 text-center">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 text-center">
                     <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Required Deficit</div>
-                    <div className="text-4xl font-extrabold text-foreground">{res.deficit}</div>
+                    <div className="text-4xl font-bold text-primary">{res.deficit}</div>
                     <div className="text-[11px] text-muted-foreground mt-1">kcal / day</div>
                   </div>
                 </div>

@@ -128,7 +128,7 @@ const conventionalCommitBuilder: ToolDefinition = {
           <input defaultValue={desc} onChange={(e) => setOptions({ ...options, desc: e.target.value })} placeholder="short description" className="w-full h-8 rounded-md border border-input bg-background px-2 text-sm" />
           <label className="text-xs flex items-center gap-1"><input type="checkbox" checked={o.breaking === "true"} onChange={(e) => setOptions({ ...options, breaking: String(e.target.checked) })} /> breaking change</label>
         </div>
-        <pre className="rounded-2xl border border-border bg-background p-4 text-sm font-mono">{commit}</pre>
+        <pre className="rounded-2xl border border-border bg-background p-4 text-sm font-mono whitespace-pre-wrap break-words">{commit}</pre>
       </div>
     );
   },
@@ -219,7 +219,7 @@ const badgeGenerator: ToolDefinition = {
           <input defaultValue={color} onChange={(e) => setOptions({ ...options, color: e.target.value })} placeholder="color" className="h-8 rounded-md border border-input bg-background px-2 text-sm" />
         </div>
         <img src={url} alt={label} className="h-6" />
-        <pre className="text-xs font-mono bg-background p-2 rounded-md">{`![${label}](${url})`}</pre>
+        <pre className="text-xs font-mono bg-background p-2 rounded-md overflow-x-auto">{`![${label}](${url})`}</pre>
       </div>
     );
   },

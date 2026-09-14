@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "true-position-calculator",
+    "varName": "true_position_calculatorSeo",
+    "name": "True Position Calculator",
+    "sections": [
+      {
+        "heading": "What is True Position Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "True Position Calculator turns the measured X and Y deviation of a feature from its true (basic) position into the actual position diameter — the standard GD&T check for whether a hole or pin is located within its positional tolerance. The actual position diameter is twice the radial deviation: two times the square root of the X deviation squared plus the Y deviation squared. The tool compares that diameter against the positional tolerance to return a clear PASS or FAIL."
+          },
+          {
+            "type": "paragraph",
+            "text": "The inputs are the three numbers an inspection report actually produces: how far the measured centre sat from the basic location in X, how far in Y, and the positional tolerance diameter from the feature control frame. A feature that is off by 0.1 millimetres in X and 0.2 in Y lands at a radial deviation of about 0.224 and an actual position of about 0.447 millimetres diameter — the value compared against the tolerance in the control frame."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use True Position Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter ΔX — the measured coordinate minus the basic coordinate in the X axis, in millimetres. This is the drift of the feature from where the drawing places it.",
+              "<strong>Step 2:</strong> Enter ΔY — the same difference in the Y axis. Both values can be negative; the tool squares them, so direction never matters to the result.",
+              "<strong>Step 3:</strong> Enter the Positional tolerance diameter — the number inside the feature control frame, written with a diameter symbol before it, such as Ø 0.5.",
+              "<strong>Step 4:</strong> Read the Result panel. Actual position (Ø) is the diameter of the tolerance zone the measured centre actually falls in, Radial deviation is half of that — the straight-line distance from true position — and Within tolerance? gives the PASS or FAIL verdict.",
+              "<strong>Step 5:</strong> Verify the arithmetic on the classic case: deviations of 0.1 in X and 0.2 in Y give an actual position of about Ø 0.447, which passes a Ø 0.5 tolerance and fails a Ø 0.4 one."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use True Position Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "True position is a diameter tolerance, but inspection measures linear coordinates — a CMM or a height gauge reports how far the feature drifted in X and Y, not in a convenient radius. Converting those two linear deviations into the position diameter is pure arithmetic that is easy to get wrong under pressure, and getting it wrong decides whether a part that is actually within tolerance gets scrapped, or one that is out gets shipped."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also makes the geometry of the positional tolerance visible: because the tolerance is a diameter, a feature can be within tolerance even when it is off by more than half the tolerance in one axis, as long as the other axis compensates. Understanding that a Ø 0.5 tolerance allows up to ±0.25 in one axis at best case — but only when the other axis is dead on — is the difference between reading a control frame correctly and misjudging a borderline part."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the position expressed as a diameter and not a radius?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the Y14.5 and ISO positional tolerance is defined as the diameter of a cylindrical (or, in 2D, circular) tolerance zone around the true position. Specifying the diameter means the measured radial deviation can be up to half the tolerance, and the actual position of a feature is twice its radial deviation. Keeping everything in diameters — the tolerance in the control frame and the actual position here — means the comparison is apples to apples with no half-versus-full confusion."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if the control frame includes a material condition modifier?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the positional tolerance carries a maximum material condition (MMC) or least material condition (LMC) modifier, the stated tolerance gains bonus tolerance as the feature departs from that condition. This tool compares the measured position against the stated tolerance as written. To apply a bonus, add the bonus amount to the stated tolerance first — for a hole at MMC, the bonus equals how much the hole's actual size exceeds its MMC size — then compare the actual position against the enlarged value."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can the deviations be in inches?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — enter any linear unit as long as the tolerance is in the same unit. The arithmetic is unitless: it squares the deviations, sums them, takes the root and doubles it, so millimetres in and millimetre tolerance out, or inches in and inch tolerance out. What you cannot do is mix units between the deviations and the tolerance, because the comparison would then be meaningless."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What about true position in three dimensions?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A three-axis position check adds a ΔZ term: the actual position diameter becomes two times the square root of the sum of the squared deviations in all three axes, and the tolerance zone is a cylinder oriented along the datum axis rather than a circle in the plane. For features located in a plane — the common case for hole patterns — the two-axis form this tool uses is the correct check, since the position tolerance zone applies perpendicular to the surface."
+          }
+        ]
+      }
+    ]
+  }
+]

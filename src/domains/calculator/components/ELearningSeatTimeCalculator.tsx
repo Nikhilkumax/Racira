@@ -55,9 +55,15 @@ export default function ElearningSeatTimeCalculator() {
     const s = parseFloat(sessions);
     const b = parseFloat(breaks);
     if (!isNaN(h) && !isNaN(s) && !isNaN(b) && h >= 0 && s >= 1 && b >= 0) setResult(calcSeatTime(h, s, b));
-  }, [hours, sessions, breaks]);
+  }, []);
 
-  const reset = () => { setHours(DEFAULTS.hours); setSessions(DEFAULTS.sessions); setBreaks(DEFAULTS.breaks); };
+  const handleCalculate = () => {
+    const h = parseFloat(hours);
+    const s = parseFloat(sessions);
+    const b = parseFloat(breaks);
+    if (!isNaN(h) && !isNaN(s) && !isNaN(b) && h >= 0 && s >= 1 && b >= 0) setResult(calcSeatTime(h, s, b));
+  };
+  const reset = () => { setHours(DEFAULTS.hours); setSessions(DEFAULTS.sessions); setBreaks(DEFAULTS.breaks); setResult(calcSeatTime(5, 5, 15)); };
   const invalid = isNaN(parseFloat(hours)) || isNaN(parseFloat(sessions)) || isNaN(parseFloat(breaks)) || parseFloat(hours) < 0 || parseFloat(sessions) < 1 || parseFloat(breaks) < 0;
 
   const fmtHM = (min: number) => {
@@ -110,7 +116,7 @@ export default function ElearningSeatTimeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <MonitorPlay className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

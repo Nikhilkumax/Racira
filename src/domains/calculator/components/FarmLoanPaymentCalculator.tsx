@@ -139,7 +139,7 @@ export default function FarmLoanPaymentCalculator() {
             </button>
             {showAdv && (
               <div className="mt-3 flex flex-col gap-3 border border-border rounded-lg p-3 bg-secondary/20">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Payment Options</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Payment Options</div>
                 <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
                   <input type="checkbox" checked={seasonalPayment} onChange={e => setSeasonalPayment(e.target.checked)} className="rounded border-input h-4 w-4" />
                   Seasonal payment (12 payments over 6 months)

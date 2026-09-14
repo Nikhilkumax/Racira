@@ -89,7 +89,7 @@ export default function RetirementSavingsCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${r.onTrack ? "bg-primary/10 border-primary" : "bg-red-500/10 border-red-500"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Projected Nest Egg</div>
               <div className={`text-4xl font-extrabold ${r.onTrack ? "text-emerald-600" : "text-red-600"}`}>{fmt(r.projectedSavings)}</div>
               <div className="text-sm text-muted-foreground mt-1">{r.onTrack ? "✓ On Track — Target: " : "✗ Shortfall: " + fmt(r.shortfall) + " · Target: "}{fmt(r.targetNestEgg)}</div>

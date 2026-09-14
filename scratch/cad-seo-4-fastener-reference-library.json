@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "fastener-reference-library",
+    "varName": "fastener_reference_librarySeo",
+    "name": "Fastener Reference Library",
+    "sections": [
+      {
+        "heading": "What is Fastener Reference Library",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fastener Reference Library is the three lookups a drawing office performs most, in one place: metric coarse thread pitches under ISO 261 and 262, metric property classes under ISO 898-1, and SAE grades under SAE J429. The pitch table spans M3 through M36 with the standard coarse pitch for each — M6 at 1.0 millimetres, M10 at 1.5, M16 at 2.0 — so a tapped hole or a thread callout never carries a guessed pitch."
+          },
+          {
+            "type": "paragraph",
+            "text": "The property-class table carries the two numbers that define a metric bolt's strength — the yield and tensile strengths of classes 4.6 through 12.9 — with the role each class serves: 8.8 at 640 yield and 800 tensile is the standard structural high-strength choice, 10.9 at 900 and 1040 serves critical automotive joints, and 12.9 at 1080 and 1220 is the maximum metric strength with its hydrogen-embrittlement caveat if plated. The SAE table matches the imperial world: Grade 2 at 74 ksi tensile, Grade 5 at 120, Grade 8 at 150."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Fastener Reference Library",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Start with the question you are answering. For a thread callout or a tapped hole, use the Metric coarse thread pitch table. For a strength requirement, use the ISO property classes if the fastener is metric or the SAE grades if it is imperial.",
+              "<strong>Step 2:</strong> In the pitch table, find the thread size and read its coarse pitch. When the drawing does not state a pitch on a metric thread, the coarse pitch from this table is what the shop will assume.",
+              "<strong>Step 3:</strong> In the property-class table, match the required strength to a class. A structural joint working near 600 MPa tensile needs at least 8.8; a critical automotive joint above 900 needs 10.9.",
+              "<strong>Step 4:</strong> Note the caveats attached to the top classes: 12.9 is maximum-strength metric but is hydrogen-embrittlement sensitive if plated, so specify it with care — and remember the classes state strength, not that the bolt is suitable for every load at that strength.",
+              "<strong>Step 5:</strong> Use the search box to filter any table to the single thread, class or grade you are checking."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Fastener Reference Library",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fastener strength is a two-system language on most projects: metric drawings cite property classes like 8.8, imperial drawings cite SAE grades like Grade 5, and the two are not interchangeable — a drawing that calls a metric 8.8 where a Grade 8 was intended, or vice versa, can under-specify a joint by a wide margin. Keeping the ISO and SAE tables together makes the cross-system comparison explicit instead of a lookup across two catalogs."
+          },
+          {
+            "type": "paragraph",
+            "text": "The pitch table carries the quieter but equally expensive class of error: a tapped hole drilled and tapped at the wrong pitch binds or strips, and thread pitch is the dimension most often assumed rather than checked. Twelve sizes from M3 to M36 cover essentially every structural and mechanical metric thread a drawing office specifies, which is why the library is complete enough to be a working reference rather than a sampler."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What do the two numbers in a property class such as 8.8 mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The first number is the nominal tensile strength in hundreds of megapascals — 8.8 means 800 — and the second is the ratio of yield to tensile strength in tenths — the second 8 means the yield sits at 80 percent of the tensile, or 640 MPa. Class 10.9 reads the same way: 1000 MPa nominal tensile with a 0.9 ratio, giving 900 MPa yield. The class is marked on the bolt head, so the strength is readable on the fastener itself rather than only on the drawing."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should I use 10.9 or 12.9 instead of 8.8?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the joint demands it — the load divided by the bolt area exceeds what 8.8 provides, or the design needs the smaller envelope of a higher-strength bolt at the same load. 10.9 is the automotive and critical-joint workhorse above 8.8, and 12.9 is the maximum metric strength, used where nothing else fits. The cost is real: higher classes are more brittle and more sensitive to hydrogen embrittlement, especially 12.9 when plated, so specify the highest class only when the joint actually needs it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between a property class and an SAE grade?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are the two strength-marking systems for the same product: ISO 898-1 property classes for metric bolts, SAE J429 grades for imperial ones. Class 8.8 (800 MPa tensile) sits in the same strength region as Grade 5 (120 ksi, about 827 MPa), and class 10.9 (1040 MPa) near Grade 8 (150 ksi, about 1034 MPa) — close but not identical, which is precisely why substituting across systems without checking is dangerous. A drawing must state which system it is specifying in, or the shop cannot know which marking to look for."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is the coarse pitch assumed when none is stated?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Metric threads come in coarse and fine series, and the coarse pitch is the default: it is what a standard bolt of that diameter carries unless the drawing says otherwise, and it is what most applications use because it is stronger in the thread and faster to assemble. Fine pitches exist for vibration resistance and for adjusting applications, but they must be specified explicitly. When a drawing writes M10 with no pitch, the shop taps and threads 1.5 millimetres — the coarse value this table lists."
+          }
+        ]
+      }
+    ]
+  }
+]

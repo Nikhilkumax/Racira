@@ -115,7 +115,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -127,6 +127,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -173,7 +174,7 @@ export default function VicariousTraumaRiskCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profession, exposureHours, processingHours]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -214,7 +215,7 @@ export default function VicariousTraumaRiskCalculator() {
 
             <div className="flex flex-col mt-2">
               <label className="text-sm font-semibold text-foreground mb-1.5">Professional Role</label>
-              <select value={profession} onChange={(e: any) => setProfession(e.target.value)} className="w-full h-10 px-3 bg-background border border-input rounded-md text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+              <select value={profession} onChange={(e: any) => setProfession(e.target.value)} onKeyDown={(e: any) => { if (e.key === "Enter") handleCalculate(); }} className="w-full h-10 px-3 bg-background border border-input rounded-md text-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
                 <option value="responder">First Responder (Police, Fire, EMS) - High physical/immediate</option>
                 <option value="medical">Medical (ER, ICU, Oncology) - High stakes/chronic</option>
                 <option value="social">Social Work / CPS - Systemic/child trauma</option>
@@ -224,11 +225,11 @@ export default function VicariousTraumaRiskCalculator() {
             </div>
 
             <div className="grid grid-cols-1 gap-3 mt-2">
-              <CompactInput id="exposure" label="Trauma Exposure (Weekly)" value={exposureHours} onChange={setExposureHours} suffix="hrs/week" />
+              <CompactInput id="exposure" label="Trauma Exposure (Weekly)" value={exposureHours} onChange={setExposureHours} suffix="hrs/week" onEnter={handleCalculate} />
             </div>
 
             <div className="grid grid-cols-1 gap-3 mt-2">
-              <CompactInput id="process" label="Active Processing (Therapy, Debrief)" value={processingHours} onChange={setProcessingHours} suffix="hrs/week" />
+              <CompactInput id="process" label="Active Processing (Therapy, Debrief)" value={processingHours} onChange={setProcessingHours} suffix="hrs/week" onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -252,21 +253,18 @@ export default function VicariousTraumaRiskCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric Box */}
-                <div 
-                  className="text-white rounded-lg p-6 relative overflow-hidden shadow-sm"
-                  style={{ backgroundColor: results.riskColor }}
-                >
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10">
-                    <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                       Assessed Vicarious Trauma Risk
                     </div>
-                    <div className="flex items-baseline gap-2">
-                      <div className="text-5xl font-extrabold tracking-tight">{results.riskLevel}</div>
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <div className="text-4xl font-bold text-primary">{results.riskLevel}</div>
                     </div>
-                    <div className="text-sm font-medium text-white/90 mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                    <div className="text-sm text-muted-foreground mt-2 inline-flex items-center gap-2">
                       <ShieldAlert className="h-4 w-4" /> Deficit Score: {results.netRiskScore}
                     </div>
                   </div>

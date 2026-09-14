@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "waterjet-cutting-reference",
+    "varName": "waterjet_cutting_referenceSeo",
+    "name": "Waterjet Cutting Reference",
+    "sections": [
+      {
+        "heading": "What is Waterjet Cutting Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Waterjet Cutting Reference estimates traverse speeds for abrasive waterjet cutting. You choose the material, thickness, pump pressure, abrasive flow and edge quality, and the tool returns the traverse speed in millimetres per minute, the top kerf of about one millimetre, and the abrasive consumption — plus the material note that matters, like glass needing an entry pierce outside the part."
+          },
+          {
+            "type": "paragraph",
+            "text": "The speed model is stated in the tool itself: traverse speed scales with a reference speed at 10 millimetres and 4100 bar, times the thickness ratio to the power of 0.75, times the pressure ratio to the power of 1.15, times the abrasive flow factor. The reference speeds cover six materials — mild steel at 120 millimetres per minute, stainless at 100, aluminium at 210, titanium at 65, granite at 55 and glass at 90 — all at 10 millimetres, 4100 bar and 340 grams per minute of 80-mesh garnet."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Waterjet Cutting Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose the material — the six options carry very different reference speeds, from aluminium at 210 millimetres per minute down to granite at 55.",
+              "<strong>Step 2:</strong> Enter the part thickness in millimetres. Halving the thickness speeds the cut by roughly 1.68 times; doubling it slows it by the same factor.",
+              "<strong>Step 3:</strong> Choose the pump pressure — 3000 bar or 4100 bar — and the abrasive flow, which scales the speed: 240, 340 or 450 grams per minute.",
+              "<strong>Step 4:</strong> Choose the edge quality: fast and rough, standard, or premium, which halves the traverse speed to control taper.",
+              "<strong>Step 5:</strong> Read the traverse speed, budget the roughly one millimetre top kerf in the CAD model, and apply the material note — start glass cuts outside the part, keep titanium's jet moving."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The quality selector also carries the taper story: a standard cut has a top kerf roughly 0.1 to 0.3 millimetres wider than the bottom depending on thickness; premium slows the cut to about half speed to control it; fast opens the taper tolerance up for edges that will be machined or hidden."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Waterjet Cutting Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Waterjet quoting needs a traverse speed before it needs anything else, and the model behind this tool is the one shops actually use: start from a known reference speed for the material, then scale by thickness, pressure, abrasive flow and quality. The tool makes those scalings explicit instead of leaving them to guesswork, which matters because a 20 percent error in traverse speed is a 20 percent error in quoted hours."
+          },
+          {
+            "type": "paragraph",
+            "text": "It also documents the property that makes waterjet the right process call in the first place: no heat-affected zone, so the CAD model needs no allowance for distortion — only for the kerf and taper. That single property is why waterjet wins on hardened, heat-sensitive and thick plate, and the material notes reinforce when to choose it."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does halving the thickness speed the cut by about 1.68 times?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the model scales traverse speed by the thickness ratio raised to the power of 0.75: for 5 millimetres from the 10 millimetre reference, the factor is 2 raised to 0.75, which is about 1.682. A 120 millimetres per minute mild steel reference at 10 millimetres becomes about 202 millimetres per minute at 5. The 0.75 power is the empirical fit for how jet energy is consumed through the kerf — thicker parts need the jet to spend more of its energy per millimetre of travel."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does premium edge quality change?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Premium finish halves the traverse speed — the factor is 0.5 — in exchange for a taper-controlled, fine edge. The tool's note ties the mechanism to practice: taper is controlled by slowing the cut or by stack cutting, and a second pass cleans the edge. Fast and rough does the opposite, opening the taper tolerance up at 1.4 times the standard speed for edges that will be machined, welded or hidden anyway."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does aluminium cut nearly twice as fast as mild steel?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The reference speeds reflect how easily the abrasive jet erodes each material: aluminium at 210 millimetres per minute at 10 millimetres versus mild steel at 120. The material note summarises it as aluminium cutting nearly twice as fast as steel at the same thickness. Stainless sits slower than mild at 100 because work hardening resists the jet, and titanium slower still at 65 with a warning to keep fresh abrasive and never stall the jet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the CAD model need no allowance for waterjet distortion?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because waterjet cutting introduces no heat-affected zone — the material is eroded by the abrasive jet, not melted, so there is no thermal distortion to compensate for in the model. The allowances that do exist are the kerf, about one millimetre at the top surface, and the taper, roughly 0.1 to 0.3 millimetres between the top and bottom edges on a standard cut. Model the kerf, plan for the taper, and the cut part matches the drawing — which is exactly why the tool reports both numbers."
+          }
+        ]
+      }
+    ]
+  }
+]

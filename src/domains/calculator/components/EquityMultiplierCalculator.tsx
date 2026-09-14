@@ -99,7 +99,7 @@ export default function EquityMultiplierCalculator() {
                   <h2 className="text-2xl font-bold mb-3">Leverage Analysis</h2>
                   <PieIcon className="h-5 w-5 text-primary" />
                 </div>
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Equity Multiplier</div>
                   <div className="text-4xl font-extrabold tracking-tight">{fmt(res.em, 2)}x</div>
                   <div className="text-sm text-muted-foreground mt-1">Status: {res.status} · Debt Ratio: {(res.debtRatio*100).toFixed(1)}%</div>

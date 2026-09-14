@@ -118,11 +118,11 @@ export default function CaffeineCalculator() {
 
   // Beverages
   const [coffeeCups, setCoffeeCups] = useState("2");
-  const [espressoShots, setEspressoShots] = useState("0");
-  const [teaCups, setTeaCups] = useState("0");
-  const [energyDrinks, setEnergyDrinks] = useState("0");
-  const [sodaCans, setSodaCans] = useState("0");
-  const [preWorkout, setPreWorkout] = useState("0");
+  const [espressoShots, setEspressoShots] = useState("1");
+  const [teaCups, setTeaCups] = useState("1");
+  const [energyDrinks, setEnergyDrinks] = useState("1");
+  const [sodaCans, setSodaCans] = useState("1");
+  const [preWorkout, setPreWorkout] = useState("1");
 
   const [result, setResult] = useState<CaffeineResult | null>(null);
 
@@ -134,7 +134,7 @@ export default function CaffeineCalculator() {
     ));
   };
 
-  useEffect(() => { setResult(calcCaffeine(160, 35, false, "normal", 8, 2, 0, 0, 0, 0, 0)); }, []);
+  useEffect(() => { setResult(calcCaffeine(160, 35, false, "normal", 8, 2, 1, 1, 1, 1, 1)); }, []);
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
@@ -224,7 +224,7 @@ export default function CaffeineCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.status.includes("High") || result.status.includes("Over") ? "bg-red-500/10 border-red-500" : result.status.includes("Sleep") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status.includes("High") || result.status.includes("Over") ? "text-red-600" : result.status.includes("Sleep") ? "text-amber-600" : "text-primary"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.totalCaffeine} mg <span className="text-lg font-normal text-muted-foreground">/ daily</span></div>
                 <div className="text-base text-muted-foreground mt-2 font-medium">{result.recommendation}</div>

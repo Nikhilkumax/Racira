@@ -146,7 +146,7 @@ export default function BlendedRateMortgageCalculator() {
           <div className="flex flex-col gap-4">
             {result && (
               <>
-                <div className="border-l-4 rounded-lg p-5 bg-primary/10 border-primary flex items-center justify-between">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 flex items-center justify-between">
                   <div>
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Combined Effective (Blended) Rate</p>
                     <p className="text-4xl font-black text-primary">{result.blendedRate.toFixed(3)}%</p>

@@ -70,9 +70,9 @@ export default function EigenvalueCalculator() {
     const vc = parseFloat(c);
     const vd = parseFloat(d);
     if (!isNaN(va) && !isNaN(vb) && !isNaN(vc) && !isNaN(vd)) setResult(calcEigen(va, vb, vc, vd));
-  }, [a, b, c, d]);
+  }, []);
 
-  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c); setD(DEFAULTS.d); };
+  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c); setD(DEFAULTS.d); setResult(calcEigen(parseFloat(DEFAULTS.a), parseFloat(DEFAULTS.b), parseFloat(DEFAULTS.c), parseFloat(DEFAULTS.d))); };
   const invalid = [a, b, c, d].some(v => isNaN(parseFloat(v)));
 
   const fmtLambda = (r: number, im: number) => (Math.abs(im) < 1e-10 ? r.toFixed(4) : `${r.toFixed(4)} ${im >= 0 ? "+" : "−"} ${Math.abs(im).toFixed(4)}i`);

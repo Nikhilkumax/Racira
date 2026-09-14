@@ -140,7 +140,7 @@ const DopplerEffectCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-4 ${result.isApproaching ? "bg-blue-500/10 border-blue-500" : "bg-red-500/10 border-red-500"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Observed Frequency ({result.shift})</div>
                 <div className="text-4xl font-bold" style={{ color: result.isApproaching ? "#3b82f6" : "#ef4444" }}>{fmt(result.observedF, 1)} <span className="text-xl">Hz</span></div>
                 <div className="text-sm text-muted-foreground mt-1">

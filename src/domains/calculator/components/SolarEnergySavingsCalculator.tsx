@@ -114,7 +114,7 @@ const SolarEnergySavingsCalculator = () => {
               <NumInput id="installCost" label="Total Install Cost" value={inputs.installCost} onChange={set("installCost")} min="0" prefix="$" />
               <NumInput id="rate" label="Electricity Rate" value={inputs.rate} onChange={set("rate")} min="0" step="0.01" prefix="$" suffix="/kWh" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div className="grid grid-cols-2 gap-3">
               <NumInput id="efficiency" label="System Efficiency" value={inputs.efficiency} onChange={set("efficiency")} min="0.1" max="1" step="0.05" hint="Typical: 0.75-0.85." />
               <NumInput id="lifespan" label="Lifespan (years)" value={inputs.lifespan} onChange={set("lifespan")} min="1" />

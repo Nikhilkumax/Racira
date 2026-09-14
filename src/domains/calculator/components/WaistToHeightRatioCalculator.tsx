@@ -122,7 +122,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -134,6 +134,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -208,7 +209,7 @@ export default function WaistToHeightRatioCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [waistIn, waistCm, heightFt, heightIn, heightCm, gender, unit]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -266,20 +267,20 @@ export default function WaistToHeightRatioCalculator() {
             {unit === "inches" ? (
               <>
                 <div className="grid grid-cols-2 gap-4 mt-2">
-                  <CompactInput id="ht-ft" label="Height (Feet)" value={heightFt} onChange={setHeightFt} type="number" />
-                  <CompactInput id="ht-in" label="Height (Inches)" value={heightIn} onChange={setHeightIn} type="number" />
+                  <CompactInput id="ht-ft" label="Height (Feet)" value={heightFt} onChange={setHeightFt} type="number" onEnter={handleCalculate} />
+                  <CompactInput id="ht-in" label="Height (Inches)" value={heightIn} onChange={setHeightIn} type="number" onEnter={handleCalculate} />
                 </div>
                 <div className="grid grid-cols-1 gap-4 mt-2">
-                  <CompactInput id="waist-in" label="Waist Circumference" value={waistIn} onChange={setWaistIn} suffix="inches" />
+                  <CompactInput id="waist-in" label="Waist Circumference" value={waistIn} onChange={setWaistIn} suffix="inches" onEnter={handleCalculate} />
                 </div>
               </>
             ) : (
               <>
                 <div className="grid grid-cols-1 gap-4 mt-2">
-                  <CompactInput id="ht-cm" label="Height" value={heightCm} onChange={setHeightCm} suffix="cm" />
+                  <CompactInput id="ht-cm" label="Height" value={heightCm} onChange={setHeightCm} suffix="cm" onEnter={handleCalculate} />
                 </div>
                 <div className="grid grid-cols-1 gap-4 mt-2">
-                  <CompactInput id="waist-cm" label="Waist Circumference" value={waistCm} onChange={setWaistCm} suffix="cm" />
+                  <CompactInput id="waist-cm" label="Waist Circumference" value={waistCm} onChange={setWaistCm} suffix="cm" onEnter={handleCalculate} />
                 </div>
               </>
             )}
@@ -308,24 +309,24 @@ export default function WaistToHeightRatioCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         Waist-to-Height Ratio
                       </div>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <div className="text-5xl font-extrabold tracking-tight text-foreground">{results.ratio.toFixed(2)}</div>
+                        <div className="text-4xl font-bold tracking-tight text-primary">{results.ratio.toFixed(2)}</div>
                       </div>
                       <div className={`text-sm font-bold ${results.ratio >= 0.5 ? 'text-red-500' : 'text-green-500'}`}>
                         {results.ratio >= 0.5 ? 'Fails the Golden Rule (> 0.50)' : 'Passes the Golden Rule (< 0.50)'}
                       </div>
                     </div>
                     
-                    <div className="bg-secondary/50 border border-border rounded-lg p-4 text-center min-w-[160px]">
+                    <div className="bg-muted/30 border border-border rounded-lg p-4 text-center min-w-[160px]">
                       <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">Classification</div>
                       <div className={`text-lg font-black 
                         ${results.ratio >= 0.53 ? 'text-red-500' : 

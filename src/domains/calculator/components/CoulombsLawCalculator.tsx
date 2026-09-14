@@ -69,9 +69,9 @@ export default function CoulombsLawCalculator() {
     const b = parseFloat(q2);
     const d = parseFloat(r);
     if (!isNaN(a) && !isNaN(b) && !isNaN(d) && d > 0) setResult(calcCoulomb(a, b, d));
-  }, [q1, q2, r]);
+  }, []);
 
-  const reset = () => { setQ1(DEFAULTS.q1); setQ2(DEFAULTS.q2); setR(DEFAULTS.r); };
+  const reset = () => { setQ1(DEFAULTS.q1); setQ2(DEFAULTS.q2); setR(DEFAULTS.r); setResult(calcCoulomb(parseFloat(DEFAULTS.q1), parseFloat(DEFAULTS.q2), parseFloat(DEFAULTS.r))); };
   const invalid = isNaN(parseFloat(q1)) || isNaN(parseFloat(q2)) || isNaN(parseFloat(r)) || parseFloat(r) <= 0;
 
   const faqs = [

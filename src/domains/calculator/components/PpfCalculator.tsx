@@ -89,10 +89,6 @@ export default function PpfCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           PPF Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Estimate the maturity value of your Public Provident Fund with annual compounding — the
-          tax-free (EEE) cornerstone of Indian long-term saving.
-        </p>
       </div>
 
       <Card className="mb-6">

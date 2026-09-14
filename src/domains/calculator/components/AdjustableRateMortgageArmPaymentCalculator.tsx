@@ -87,7 +87,7 @@ export default function AdjustableRateMortgageArmPaymentCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const a = parseFloat(inputs.amount)

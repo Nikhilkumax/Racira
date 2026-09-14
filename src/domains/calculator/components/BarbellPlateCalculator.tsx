@@ -287,7 +287,7 @@ export default function BarbellPlateCalculator() {
             </button>
             {showAdv && (
               <div className="border border-border rounded-lg p-4 space-y-4">
-                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Equipment</div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Equipment</div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">Available Plates (lbs, comma-separated)</label>
                   <div className={inp}>

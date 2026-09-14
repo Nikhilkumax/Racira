@@ -328,8 +328,10 @@ export default function EducationLoanCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Funding Sources</div>
                   <CompactInput id="grants" label="Scholarships/Grants" value={scholarshipsOrGrants} onChange={setScholarshipsOrGrants} prefix="$" />
                   <CompactInput id="other-exp" label="Other Expenses" value={otherExpenses} onChange={setOtherExpenses} prefix="$" />
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Repayment Details</div>
                   <CompactInput id="savings" label="Personal Savings" value={personalSavings} onChange={setPersonalSavings} prefix="$" />
                   <CompactInput id="grace" label="Grace Period" value={gracePeriodMonths} onChange={setGracePeriodMonths} suffix="mo" />
                   

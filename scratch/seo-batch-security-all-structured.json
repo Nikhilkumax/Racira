@@ -1,0 +1,3184 @@
+[
+  {
+    "slug": "uuid-generator",
+    "varName": "UuidGeneratorSeo",
+    "name": "UUID Generator",
+    "sections": [
+      {
+        "heading": "What is UUID Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The UUID Generator creates universally unique identifiers (UUIDs) and ULIDs directly in your browser using the Web Crypto API. UUID v4 produces 128-bit random identifiers in the standard 8-4-4-4-12 hexadecimal format (e.g., <code>f47ac10b-58cc-4372-a567-0e02b2c3d479</code>), while ULID generates 128-bit time-sortable identifiers using Crockford's Base32 alphabet that encode the current millisecond timestamp in the first 10 characters. Both formats are generated using <code>crypto.getRandomValues()</code> for cryptographic randomness, not <code>Math.random()</code>."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use UUID Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Select the format — UUID v4 for random identifiers, or ULID for time-sortable identifiers.",
+              "<strong>Step 2:</strong> Set the Count field to generate multiple identifiers at once (1–1000).",
+              "<strong>Step 3:</strong> Choose lowercase or UPPERCASE output.",
+              "<strong>Step 4:</strong> The generated identifiers appear immediately in the output area. Each click of the Generate button produces a new batch.",
+              "<strong>Step 5:</strong> Click any identifier in the output to copy it to your clipboard."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use UUID Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "UUIDs are essential for database primary keys, API resource identifiers, session tokens, and distributed systems where central coordination isn't possible. ULIDs add time-sortability — IDs generated later sort higher — making them useful for event sourcing, append-only logs, and any scenario where creation order matters. Generating them client-side means no API calls, no rate limits, and no risk of your identifiers being logged on a third-party server."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between UUID v4 and ULID?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "UUID v4 is fully random — there's no way to determine when it was created or sort multiple UUIDs chronologically. ULID encodes the millisecond timestamp in its first 10 characters, so IDs generated later sort lexicographically after earlier ones, and you can extract the creation time from the ID itself."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Are these UUIDs cryptographically random?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Both UUID v4 and ULID use <code>crypto.getRandomValues()</code>, which provides cryptographically secure random bytes from the operating system's entropy pool. This is not a pseudo-random generator seeded from a predictable value."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use ULIDs as database primary keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. ULIDs are a popular alternative to auto-incrementing IDs and UUID v4 in databases like PostgreSQL and MySQL. Their time-sortability means new rows naturally get higher IDs, which improves index performance on B-tree indexes."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many UUIDs can I generate at once?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Up to 1000 per batch. The tool generates all requested IDs synchronously using the Web Crypto API, so even 1000 UUIDs complete in milliseconds."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is there any risk of collision?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For UUID v4, the probability of collision across 2^122 possible values is astronomically low — you would need to generate approximately 2.71 × 10^18 UUIDs before a 50% chance of a single collision. For ULIDs, the randomness component (80 bits) provides similarly strong collision resistance within the same millisecond."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-expiry-checker",
+    "varName": "JwtExpiryCheckerSeo",
+    "name": "JWT Expiry Checker",
+    "sections": [
+      {
+        "heading": "What is JWT Expiry Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Expiry Checker inspects the <code>exp</code> (expiration) claim of a JSON Web Token and reports whether the token is currently valid, expired, or has no expiration set at all. It decodes the Base64URL payload, reads the Unix timestamp in the <code>exp</code> field, compares it against the current system time, and displays a human-readable duration showing exactly how long ago the token expired or how much validity time remains."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Expiry Checker",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your JWT into the input area. The token must have at least a header and payload (two dot-separated segments), though a signature segment is expected for real tokens.",
+              "<strong>Step 2:</strong> Click Transform. The tool decodes the payload and reads the <code>exp</code> claim.",
+              "<strong>Step 3:</strong> Review the output — it shows the exact expiration timestamp in ISO 8601 format, the current time, and whether the token is valid (with remaining time) or expired (with how long ago).",
+              "<strong>Step 4:</strong> If the token has no <code>exp</code> claim, the tool will report that no expiration is set."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Expiry Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "JWTs are the backbone of modern authentication flows — OAuth 2.0, OpenID Connect, and most API authorization systems issue them. Debugging expired-token 401 errors is a daily task for backend developers. This tool gives you an instant, precise answer about token validity without needing to log into a server, decode the token manually, or calculate Unix timestamp differences by hand."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the token has no exp claim?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reports that no expiration is set. Many JWTs intentionally omit <code>exp</code> for long-lived refresh tokens, so this isn't necessarily a problem — but it means the token never expires on its own."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this verify the token signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool only decodes the payload and reads the expiration timestamp. It does not verify the signature. Use the JWT Validator or JWT HS256 Verifier tool for signature verification."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my clock is wrong?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The comparison uses your local system time. If your computer's clock is significantly off, the expiration calculation will be inaccurate. Ensure your system clock is synced via NTP for reliable results."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I check tokens with custom expiration formats?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reads the standard <code>exp</code> claim, which must be a Unix timestamp (seconds since epoch, numeric). If your token uses a non-standard expiration field, you'll need to decode it with the JWT Decoder tool instead."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-visualizer",
+    "varName": "JwtVisualizerSeo",
+    "name": "JWT Visualizer",
+    "sections": [
+      {
+        "heading": "What is JWT Visualizer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Visualizer breaks a JSON Web Token into its three constituent parts — header, payload, and signature — and displays each segment with its decoded content and character length. Unlike the JWT Decoder which parses the payload as JSON, this tool focuses on showing the raw structure: the Base64URL-encoded segments, their byte sizes, and the decoded text of the header and payload sections side by side."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Visualizer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a complete JWT (three dot-separated Base64URL segments) into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool splits the token and decodes each segment.",
+              "<strong>Step 3:</strong> Review the three sections — HEADER shows the decoded JSON algorithm and type claims, PAYLOAD shows the decoded claims (subject, expiration, custom claims), and SIGNATURE shows the raw signature bytes.",
+              "<strong>Step 4:</strong> The character count for each segment helps you understand the overhead of different header/payload configurations."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Visualizer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When debugging authentication issues, seeing the full decoded structure of a JWT at a glance is faster than decoding it manually. The visualizer is especially useful for identifying oversized tokens (common when developers stuff entire user objects into the payload), spotting missing or malformed headers, and confirming that the three-segment structure is intact. It's also educational — seeing how Base64URL encoding expands the header and payload helps developers understand token size implications in cookies and URL parameters."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What's the difference between JWT Visualizer and JWT Decoder?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Visualizer shows the raw decoded structure of all three segments, while the Decoder specifically parses the payload JSON and provides additional context like algorithm type and expiration status. Use the Visualizer for structural inspection and the Decoder for claim analysis."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the header show different character counts?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The header size depends on the algorithm and type claims. A minimal HS256 header (<code>{\"alg\":\"HS256\",\"typ\":\"JWT\"}</code>) is shorter than an RS256 header with a key ID (<code>{\"alg\":\"RS256\",\"typ\":\"JWT\",\"kid\":\"...\"}</code>). The character counts help you understand this overhead."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this to check if a token is tampered with?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "You can visually inspect whether the header and payload look correct, but you cannot verify integrity from the visualizer alone. Use the JWT Validator or HS256/RS256 Verifier tools to check the signature."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What happens if I paste an incomplete JWT?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool requires at least two dot-separated segments (header and payload). If you provide an incomplete token, it will throw an error indicating the JWT format is invalid."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-rs256-verifier",
+    "varName": "JwtRs256VerifierSeo",
+    "name": "JWT RS256 Verifier",
+    "sections": [
+      {
+        "heading": "What is JWT RS256 Verifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT RS256 Verifier decodes and inspects JSON Web Tokens signed with the RS256 algorithm (RSA PKCS#1 v1.5 using SHA-256). It extracts and displays the header (including algorithm and optional key ID), the payload claims, and the Base64URL-encoded signature. RS256 uses asymmetric cryptography — the token is signed with a private key and verified with a matching public key — making it the standard choice for OAuth 2.0 providers and enterprise SSO systems."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT RS256 Verifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a JWT signed with RS256 into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool decodes the header and payload, and extracts the signature.",
+              "<strong>Step 3:</strong> Review the decoded header (confirming <code>alg: RS256</code>), the payload claims, and the raw signature segment.",
+              "<strong>Step 4:</strong> The output includes a note that full cryptographic verification requires the matching public key. Use this tool for structural inspection and claim reading — signature verification is shown for informational purposes."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT RS256 Verifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "RS256 is the most common algorithm for JWTs issued by identity providers like Auth0, AWS Cognito, Azure AD, and Google. When debugging authentication flows, you often receive a token and need to quickly read its claims without setting up a full verification pipeline. This tool lets you inspect the token's structure, confirm the algorithm matches your expectations (a critical security check — algorithm confusion attacks swap RS256 for HS256), and read the payload claims instantly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why can't this tool verify the RSA signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Verifying an RSA signature requires the issuer's public key, which the tool doesn't have access to. The Web Crypto API supports RSA verification, but you need to provide the PEM-encoded public key. This tool focuses on decoding and inspection."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is algorithm confusion and why does it matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "In an algorithm confusion attack, an attacker changes the <code>alg</code> header from RS256 to HS256, then signs the token with the public key (which is publicly available) instead of the private key. The server might accept it if it uses the same key for HMAC verification. Always verify the algorithm matches what your provider uses."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I verify RS256 tokens with a public key using another tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. You can use the JWT Decoder to read the token structure, then use the Web Crypto API or a library to verify the signature with the public key. For HS256 tokens, the JWT HS256 Verifier tool accepts a secret key for verification."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does the kid (Key ID) header field mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The <code>kid</code> field identifies which key was used to sign the token. This is essential in systems with key rotation — the issuer may have multiple signing keys, and the <code>kid</code> tells you which one to use for verification. Identity providers typically publish their keys at a JWKS (JSON Web Key Set) endpoint."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "token-strength-analyzer",
+    "varName": "TokenStrengthAnalyzerSeo",
+    "name": "Token Strength Analyzer",
+    "sections": [
+      {
+        "heading": "What is Token Strength Analyzer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Token Strength Analyzer measures the entropy and randomness quality of any token, secret, or key string. It calculates the byte length, counts the number of distinct symbols (unique characters), and estimates the Shannon entropy in bits. This helps you evaluate whether a token has sufficient randomness for its intended purpose — session IDs, API keys, CSRF tokens, or any security-sensitive identifier."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Token Strength Analyzer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the token or secret you want to evaluate into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool analyzes the character distribution.",
+              "<strong>Step 3:</strong> Review the output — it shows the byte length, number of distinct symbols used, and the estimated entropy in bits.",
+              "<strong>Step 4:</strong> Check the assessment — tokens with entropy below 80 bits are flagged with a warning to consider using a longer or more diverse token."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Token Strength Analyzer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not all randomly-looking tokens are actually secure. A token generated with <code>Math.random()</code> may have lower entropy than one from <code>crypto.getRandomValues()</code>, even if they're the same length. Some token generators inadvertently bias toward certain characters. This tool gives you a quick entropy measurement so you can confirm your session IDs, API keys, and other secrets meet the minimum randomness threshold for their threat model."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What entropy level is considered secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For session tokens and API keys, 128 bits of entropy is the recommended minimum. 80 bits is acceptable for low-risk identifiers. Below 80 bits, the tool warns that the token may be guessable. For reference, UUID v4 has approximately 122 bits of entropy."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does my token show lower entropy than its length suggests?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Entropy depends on both length and the diversity of characters used. A 32-character token using only lowercase letters (26-char pool) has about 151 bits of entropy, while a 32-character token using only digits (10-char pool) has about 106 bits. The more distinct symbols your token uses, the higher its entropy."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool check for common patterns?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — the Token Strength Analyzer focuses purely on entropy measurement. For pattern detection (repeated characters, common sequences), use the Password Pattern Analyzer tool instead."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I analyze binary tokens?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool works on any text input. Binary tokens should be provided as their hex or Base64 representation. The entropy calculation is based on the character diversity of the string you provide."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "random-api-key-generator",
+    "varName": "RandomApiKeyGeneratorSeo",
+    "name": "Random API Key Generator",
+    "sections": [
+      {
+        "heading": "What is Random API Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Random API Key Generator creates cryptographically secure random API keys using the Web Crypto API's <code>crypto.getRandomValues()</code>. It generates 8–256 bytes of random data and encodes them in your choice of Hex (64–512 characters), Base64, or Base64URL format. Base64URL is URL-safe and commonly used by cloud providers, while Hex is the most portable format for use in environment variables and configuration files."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Random API Key Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Set the Bytes field — this controls how many random bytes are generated. 32 bytes (256 bits) is the standard for most API keys; 64 bytes for high-security applications.",
+              "<strong>Step 2:</strong> Choose the encoding format: Hex for plain hexadecimal, Base64 for standard Base64, or Base64URL for URL-safe Base64 (no padding, no <code>+</code>/<code>/</code> characters).",
+              "<strong>Step 3:</strong> The generated key appears immediately in the output. Click Generate again for a new key.",
+              "<strong>Step 4:</strong> Copy the key and add it to your environment variables, <code>.env</code> file, or secrets manager."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Random API Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Every API integration, OAuth client, webhook endpoint, and microservice communication channel needs a secret key. Reusing keys across services is a security anti-pattern — a breach of one service exposes all others. This tool lets you generate a fresh, cryptographically strong key in seconds, formatted for your specific use case. No third-party service, no signup, no logging of your keys."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many bytes should my API key be?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "32 bytes (256 bits) is the industry standard for most API keys and provides sufficient entropy against brute-force attacks. Use 64 bytes for long-lived secrets that protect high-value assets. 16 bytes (128 bits) is acceptable for short-lived, low-risk tokens."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which encoding should I choose?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Use Hex for environment variables and configuration files — it's ASCII-safe and won't cause escaping issues. Use Base64URL for tokens in URLs, JWTs, or HTTP headers where URL-safe characters are required. Standard Base64 is rarely needed for API keys."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Are these keys truly random?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The tool uses <code>crypto.getRandomValues()</code>, which accesses the operating system's cryptographically secure random number generator (e.g., <code>/dev/urandom</code> on Linux, <code>BCryptGenRandom</code> on Windows). This is not pseudo-random — it's the same source used by browsers for TLS session keys."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is it safe to generate keys in the browser?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The keys are generated entirely in memory using the Web Crypto API. Nothing is transmitted to any server. The browser's crypto implementation uses the same entropy sources as server-side key generation. Just ensure you don't save the key in browser history or local storage."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "sha-512-generator",
+    "varName": "Sha512GeneratorSeo",
+    "name": "SHA-512 Generator",
+    "sections": [
+      {
+        "heading": "What is SHA-512 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SHA-512 Generator computes a 512-bit (64-byte) cryptographic hash digest of any input text using the Web Crypto API's <code>crypto.subtle.digest()</code> function. SHA-512 belongs to the SHA-2 family designed by the NSA and standardized by NIST in FIPS 180-4. It produces a 128-character hexadecimal output and processes data in 1024-bit blocks using 80 rounds of operations per block, making it significantly more computationally intensive than SHA-256."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SHA-512 Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste or type the text you want to hash into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool computes the SHA-512 digest using the browser's native Web Crypto implementation.",
+              "<strong>Step 3:</strong> The 128-character hexadecimal hash appears in the output area.",
+              "<strong>Step 4:</strong> Click the output to copy it. Each different input produces a completely different hash — even a single character change results in a totally different output (the avalanche effect)."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SHA-512 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SHA-512 is used in high-security integrity verification scenarios: file checksums for tamper detection, password hashing (when combined with salting), digital signatures, and TLS certificate fingerprints. It offers 256 bits of collision resistance (half the digest length), which is the strongest among common hash algorithms. It's also the algorithm behind SHA-512/256 and SHA-384, which are truncated variants used in TLS."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is SHA-512 different from SHA-256?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SHA-512 produces a 512-bit (128 hex character) output vs SHA-256's 256-bit (64 hex character) output. SHA-512 uses 64-bit words and 80 rounds, while SHA-256 uses 32-bit words and 64 rounds. SHA-512 is faster on 64-bit processors but produces a longer hash. For most applications, SHA-256 is sufficient."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is SHA-512 secure against collision attacks?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The best known attack on SHA-512 reduces its collision resistance to approximately 256 bits (the theoretical minimum for a 512-bit hash), which remains computationally infeasible to exploit. No practical collision has ever been found."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I hash binary files with this tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool accepts text input. For binary file hashing, use the File Hash Checker tool, which supports file upload and computes SHA-1, SHA-256, and SHA-512 simultaneously."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is SHA-512 used in Bitcoin or blockchain?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Bitcoin's proof-of-work algorithm (SHA-256d) uses double SHA-256, but SHA-512 is used in other cryptocurrency systems and in the HMAC-SHA-512 algorithm used for key derivation in BIP-32 HD wallets."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "htpasswd-generator",
+    "varName": "HtpasswdGeneratorSeo",
+    "name": "Htpasswd Generator",
+    "sections": [
+      {
+        "heading": "What is Htpasswd Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Htpasswd Generator creates Apache htpasswd-formatted credential entries for HTTP Basic Authentication. It takes a username and password, hashes the password using bcrypt (via the bcryptjs library), and outputs the standard <code>username:$2y$10$salt.hash</code> format that Apache, Nginx, and other web servers expect in <code>.htpasswd</code> files. The bcrypt cost factor is fixed at 10 rounds, providing a good balance between security and server-side verification performance."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Htpasswd Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the password in the input area.",
+              "<strong>Step 2:</strong> Set the Username in the options bar (defaults to <code>admin</code>).",
+              "<strong>Step 3:</strong> Click Transform. The tool generates a bcrypt hash of the password and formats it as an htpasswd entry.",
+              "<strong>Step 4:</strong> Copy the output line and paste it into your <code>.htpasswd</code> file, one entry per line."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Htpasswd Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "HTTP Basic Authentication remains the simplest way to add authentication to staging environments, admin panels, and internal tools. While not suitable for public-facing applications (it sends credentials in Base64, not encrypted), it's effective for quick access control. The htpasswd generator saves you from installing Apache utilities just to create a single credential entry, and uses bcrypt rather than the weaker MD5 or crypt-based formats that some older tools produce."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the output start with $2y$?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>$2y$</code> is the bcrypt algorithm identifier. The full format is <code>$2y$rounds$salt.hash</code>, where rounds is the cost factor (10 in this tool) and salt is a random 22-character string generated by the bcrypt library."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this with Nginx?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Nginx supports htpasswd files for basic authentication via the <code>auth_basic</code> directive. The bcrypt format is preferred over Apache's MD5 or crypt formats because it's resistant to GPU-based brute-force attacks."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I add multiple users?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Generate one entry per username by changing the Username field and running the tool again. Each entry is a separate line in the <code>.htpasswd</code> file. Alternatively, use the command line: <code>htpasswd -bc .htpasswd username password</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is bcrypt secure for password hashing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. bcrypt uses a slow key derivation function with a configurable cost factor. At 10 rounds, each hash attempt takes approximately 100ms on modern hardware, making brute-force attacks impractical. The built-in salt prevents rainbow table attacks."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "oauth-url-generator",
+    "varName": "OauthUrlGeneratorSeo",
+    "name": "OAuth URL Generator",
+    "sections": [
+      {
+        "heading": "What is OAuth URL Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The OAuth URL Generator constructs OAuth 2.0 authorization URLs for initiating the Authorization Code flow. It takes an authorization endpoint URL, client ID, redirect URI, and scope as parameters, then assembles a properly formatted URL with URL-encoded query parameters that you can open in a browser to start the OAuth consent flow. This works with any OAuth 2.0 provider — Google, GitHub, Azure AD, Auth0, Okta, or any custom authorization server."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use OAuth URL Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the authorization endpoint URL in the Auth URL field (Google's is pre-filled as an example).",
+              "<strong>Step 2:</strong> Enter your application's Client ID from the provider's developer console.",
+              "<strong>Step 3:</strong> Enter the Redirect URI — the URL your provider will send the authorization code back to.",
+              "<strong>Step 4:</strong> Enter the scopes you need (e.g., <code>openid email profile</code> for Google, <code>repo user</code> for GitHub).",
+              "<strong>Step 5:</strong> Click Transform to generate the complete authorization URL. Open it in a browser to start the consent flow."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use OAuth URL Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Manually constructing OAuth URLs with correctly encoded query parameters is error-prone — a missing ampersand or unencoded space breaks the entire flow. This tool generates the exact URL format that providers expect, reducing debugging time when integrating OAuth login, setting up SSO, or testing permission scopes. It's especially useful when you need to quickly test different scope combinations or redirect URIs during development."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool send any data to a server?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The URL is constructed entirely client-side using the URLSearchParams API. Your client ID and redirect URI never leave your browser — they're only used to build the URL string."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What does the response_type=code parameter do?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It tells the OAuth provider to use the Authorization Code flow, which is the most secure OAuth 2.0 grant type. The provider returns a short-lived authorization code to your redirect URI, which your backend then exchanges for tokens."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I generate implicit flow URLs (response_type=token)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool generates Authorization Code flow URLs by default (<code>response_type=code</code>). For implicit flow, you would need to modify the generated URL. However, the implicit flow is deprecated in OAuth 2.1 in favor of Authorization Code with PKCE."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do I need to include a state parameter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool doesn't generate a state parameter, but you should always include one in production to prevent CSRF attacks. Generate a random string, store it in your session, and verify it when the provider redirects back."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "session-token-decoder",
+    "varName": "SessionTokenDecoderSeo",
+    "name": "Session Token Decoder",
+    "sections": [
+      {
+        "heading": "What is Session Token Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Session Token Decoder automatically detects and decodes common session token formats. It first checks if the token is a JWT (dot-separated segments with a decodable header/payload), and if so, displays the decoded JSON. If not, it attempts Base64 decoding. As a fallback, it reports the token's length and character diversity — useful for identifying the encoding format of unknown tokens."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Session Token Decoder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the session token, access token, or opaque string into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool automatically detects the token format.",
+              "<strong>Step 3:</strong> If the token is a JWT, the output shows the decoded header and payload as formatted JSON.",
+              "<strong>Step 4:</strong> If the token is Base64-encoded, the decoded text is displayed with a note identifying it as Base64.",
+              "<strong>Step 5:</strong> If neither format matches, the tool shows the token's metadata (length, distinct character count) to help you identify it."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Session Token Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When debugging authentication flows, you often receive tokens of unknown format — from browser cookies, Authorization headers, URL parameters, or session storage. Rather than guessing the encoding and manually decoding it, this tool auto-detects the format and shows you the contents instantly. It's particularly useful when working with third-party APIs that return non-standard token formats."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What token formats does it support?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool detects three categories: JWTs (dot-separated Base64URL-encoded segments), Base64-encoded strings, and unknown/opaque tokens. It covers the vast majority of session token implementations."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool validate tokens?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. It only decodes and displays the contents. For JWT validation, use the JWT Decoder or JWT Validator tools. For signature verification, use the JWT HS256 Verifier or RS256 Verifier tools."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my token is encrypted, not just encoded?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Encrypted tokens (JWE format) will show the encrypted payload, not the original claims. The tool can decode the JWE envelope structure but cannot decrypt without the decryption key."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I decode cookies with this tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Most session cookies are either JWTs or Base64-encoded JSON. Paste the cookie value (without the cookie name or path) into the input area."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "file-hash-checker",
+    "varName": "FileHashCheckerSeo",
+    "name": "File Hash Checker",
+    "sections": [
+      {
+        "heading": "What is File Hash Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The File Hash Checker computes SHA-1, SHA-256, and SHA-512 hash digests for any uploaded file. It reads the file contents in the browser, computes all three hash algorithms simultaneously using the Web Crypto API, and displays the hex-encoded results. This is useful for verifying file integrity after downloads, confirming that a file matches a publisher's checksum, and detecting file corruption during transfers."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use File Hash Checker",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click the upload area or drag a file into the input zone to select a file.",
+              "<strong>Step 2:</strong> The tool immediately reads the file and computes SHA-1, SHA-256, and SHA-512 hashes.",
+              "<strong>Step 3:</strong> Review the three hash outputs. The file size in bytes is also displayed.",
+              "<strong>Step 4:</strong> Compare the computed hashes against the expected values published by the file's creator. A matching hash confirms the file is authentic and unmodified."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use File Hash Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Software publishers, Linux distributions, and package repositories publish hash digests alongside their downloads. Verifying the hash before installation is a fundamental security practice — it confirms the file hasn't been tampered with, corrupted, or intercepted during download. Computing three algorithms simultaneously covers the most common checksum formats you'll encounter: SHA-256 for modern Linux packages, SHA-1 for legacy systems, and SHA-512 for high-security verification."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why compute three different hashes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Different publishers use different hash algorithms. Linux package managers commonly use SHA-256 or SHA-512, while older systems may use SHA-1. Computing all three ensures you can verify against whatever checksum the publisher provides, without needing to run the tool multiple times."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Are files sent to a server?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The file is read entirely in the browser using the FileReader API, and hashing is performed by the Web Crypto API. No data leaves your device."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What about very large files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool reads the entire file into memory for hashing. For files under 100 MB, this works smoothly. For very large files (multiple GB), you may experience a brief delay while the browser computes the hashes, but it will complete."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I verify ISO images and installer downloads?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. This is one of the primary use cases. After downloading an ISO image, paste its published hash into the Hash Comparison Tool or compare it manually against the output of this tool."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "api-key-formatter",
+    "varName": "ApiKeyFormatterSeo",
+    "name": "API Key Formatter",
+    "sections": [
+      {
+        "heading": "What is API Key Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The API Key Formatter takes a raw alphanumeric string and reformats it into evenly-spaced groups separated by your choice of delimiter (dash, underscore, space, or none). It strips all non-alphanumeric characters from the input first, then re-chunks the result into groups of a configurable size. This is useful for converting raw API keys into human-readable, copy-paste-friendly formats."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use API Key Formatter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the raw API key or token into the input area.",
+              "<strong>Step 2:</strong> Select the separator style in the options — dash (-), underscore (_), space, or none.",
+              "<strong>Step 3:</strong> Set the Group Size — how many characters appear between separators (default: 4).",
+              "<strong>Step 4:</strong> Click Transform. The reformatted key appears in the output.",
+              "<strong>Step 5:</strong> Copy the formatted key for documentation, display, or comparison."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use API Key Formatter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Raw API keys are often long, unreadable strings like <code>sk_live_4eC39HqLyjWDarjtT1zdp7dc</code>. When documenting keys, showing them in documentation, or comparing keys visually, formatted groups like <code>4eC3-9HqL-yjWD-arjt-T1zd-p7dc</code> are far easier to read and transcribe. The formatter also handles messy input — keys with existing separators, spaces, or mixed formats — by stripping everything first and reformatting cleanly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does formatting change the key's value?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The formatter only adds visual separators. It strips existing non-alphanumeric characters from the input, then re-chunks the raw characters with your chosen separator. The underlying key value is unchanged."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What group size should I use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "4 characters per group is the standard for API keys and matches the grouping used by most cloud providers (AWS, Stripe, etc.). Use 5 or 8 for longer tokens where smaller groups create too many separators."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this to format AWS access keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. AWS access keys are 20-character strings that AWS displays as <code>AKIAIOSFODNN7EXAMPLE</code>. You can format them as <code>AKIA-OSFO-DNN7-EXAM-PLE</code> with a group size of 4 and dash separator."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the tool preserve the original case?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The formatter only adds and removes separators — it does not change the case of any characters in the key."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "qr-code-generator",
+    "varName": "QrCodeGeneratorSeo",
+    "name": "QR Code Generator",
+    "sections": [
+      {
+        "heading": "What is QR Code Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The QR Code Generator creates Quick Response (QR) codes from any text input using a canvas-based rendering approach. It encodes your input into a QR code matrix following the ISO/IEC 18004 standard, supporting alphanumeric, byte, and kanji encoding modes. The generated QR code uses error correction level M (approximately 15% recovery capacity), which balances readability with data density. The output is rendered directly to an HTML canvas element and can be downloaded as a PNG image."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use QR Code Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the text, URL, or data you want to encode in the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool renders a QR code matrix on the canvas.",
+              "<strong>Step 3:</strong> The QR code image appears in the output area. Scan it with any QR reader to verify.",
+              "<strong>Step 4:</strong> Right-click the QR code image to save it as a PNG file, or use the download button if available."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use QR Code Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "QR codes are ubiquitous for sharing URLs on physical media (posters, business cards, product packaging), enabling contactless payments, linking to WiFi credentials, and creating scannable links for mobile users. Generating them client-side means your encoded data — which may include sensitive URLs or authentication tokens — never touches an external server. This is especially important for WiFi QR codes and payment links."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How much data can a QR code hold?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A Version 40 QR code (the largest) can hold up to 4,296 alphanumeric characters, 2,953 bytes, or 1,817 kanji characters. However, smaller versions are faster to scan. For URLs under 200 characters, the generated QR code will be compact and easy to scan."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I customize the QR code colors?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The generator produces standard black-on-white QR codes for maximum scanning compatibility. Custom colors can reduce scan reliability, especially with low-contrast combinations."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is error correction level M?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Error correction level M means the QR code can recover from approximately 15% damage or obstruction. Higher levels (Q at 25%, H at 30%) allow more recovery but produce denser codes. Level M is the standard balance used by most QR generators."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Will this QR code work with all scanners?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The tool follows the ISO/IEC 18004 standard, and the generated codes use the default byte encoding mode, which is universally supported by all QR code readers, including phone cameras, dedicated scanners, and web-based readers."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "qr-code-decoder",
+    "varName": "QrCodeDecoderSeo",
+    "name": "QR Code Decoder",
+    "sections": [
+      {
+        "heading": "What is QR Code Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The QR Code Decoder reads and extracts the data encoded in QR code images. It accepts image uploads (PNG, JPEG, GIF, BMP) and uses canvas-based image processing to decode the QR code matrix. The decoder works entirely in the browser — the image is drawn to a canvas, pixel data is extracted, and the QR code algorithm is applied locally to recover the encoded text, URL, or data."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use QR Code Decoder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click the upload area or drag a QR code image file into the input zone.",
+              "<strong>Step 2:</strong> The tool processes the image and attempts to decode the QR code.",
+              "<strong>Step 3:</strong> The decoded text or URL appears in the output area.",
+              "<strong>Step 4:</strong> If the QR code cannot be decoded, the tool reports the error — try uploading a clearer or higher-resolution image."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use QR Code Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "You encounter QR codes in the wild — on receipts, business cards, marketing materials — and need to extract the encoded data without scanning with your phone camera. Perhaps you want to verify what URL a QR code points to before scanning it (a security practice against QR code phishing), or you need to extract data from a QR code image you've received. The decoder handles this without any external API calls."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What image formats are supported?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool accepts PNG, JPEG, GIF, and BMP image files. These are the standard formats that browsers can process via the Canvas API. SVG and WebP may also work depending on browser support."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the QR code is low resolution?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The decoder works best with QR codes that are at least 200×200 pixels. Very small or blurry images may fail to decode. Try resizing the image to at least 300×300 pixels before uploading."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it decode multiple QR codes in one image?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool processes the first QR code it detects in the image. For images containing multiple QR codes, you may need to crop to the specific code you want to decode."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this work with QR codes containing Chinese/Japanese characters?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. QR codes can encode UTF-8 text in byte mode. The decoder handles multi-byte Unicode characters, including CJK characters, emoji, and other non-ASCII text."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "barcode-generator",
+    "varName": "BarcodeGeneratorSeo",
+    "name": "Barcode Generator",
+    "sections": [
+      {
+        "heading": "What is Barcode Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Barcode Generator creates one-dimensional barcodes from numeric or alphanumeric input using canvas-based rendering. It supports multiple barcode formats including Code 128 (full ASCII), Code 39 (uppercase alphanumeric), EAN-13 (retail products), UPC-A (US retail), and Interleaved 2 of 5 (numeric pairs). Each format follows its respective industry standard, including proper quiet zones (whitespace margins), checksum calculation, and human-readable text below the barcode."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Barcode Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the data to encode in the input area.",
+              "<strong>Step 2:</strong> Select the barcode format from the options (Code 128, Code 39, EAN-13, UPC-A, ITF).",
+              "<strong>Step 3:</strong> Click Transform. The tool renders a barcode image on the canvas.",
+              "<strong>Step 4:</strong> The generated barcode appears in the output area with the encoded text below it. Save as PNG for printing."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Barcode Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Barcodes are essential for inventory management, product labeling, asset tracking, and event ticketing. While QR codes store more data, traditional barcodes remain the standard in retail (EAN-13/UPC-A) and logistics (Code 128). Generating barcodes client-side is useful for prototyping label designs, testing point-of-sale systems, and creating barcodes for internal tracking without needing a dedicated barcode printer or subscription service."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which barcode format should I use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Use Code 128 for general-purpose barcodes — it supports all 128 ASCII characters and is the most widely used format. Use EAN-13 for European retail products (13-digit), UPC-A for US retail (12-digit), Code 39 for alphanumeric industrial codes, and ITF for shipping carton markings."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is a quiet zone?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The quiet zone is the mandatory whitespace margin around the barcode that scanners need to detect the barcode's edges. The generator includes the correct quiet zone width for each format — Code 128 needs 10 modules, EAN-13 needs 11 modules on the left and 7 on the right."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the generator calculate checksums automatically?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. For formats that require checksums (EAN-13, UPC-A, Code 128), the generator computes and appends the check digit automatically. You don't need to include it in your input."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can these barcodes be scanned by phone cameras?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Standard barcode formats like Code 128, EAN-13, and UPC-A are recognized by all modern smartphone camera apps and barcode scanner applications."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "barcode-decoder",
+    "varName": "BarcodeDecoderSeo",
+    "name": "Barcode Decoder",
+    "sections": [
+      {
+        "heading": "What is Barcode Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Barcode Decoder reads and extracts the encoded data from one-dimensional barcode images. It processes uploaded images (PNG, JPEG, GIF, BMP) using canvas-based pixel analysis to detect barcode patterns and decode the underlying data. The decoder supports the same formats as the Barcode Generator: Code 128, Code 39, EAN-13, UPC-A, and Interleaved 2 of 5."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Barcode Decoder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Upload a barcode image by clicking the upload area or dragging a file into it.",
+              "<strong>Step 2:</strong> The tool processes the image and identifies the barcode pattern.",
+              "<strong>Step 3:</strong> The decoded data appears in the output area, along with the detected barcode format.",
+              "<strong>Step 4:</strong> If decoding fails, try uploading a higher-resolution or clearer image with good contrast."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Barcode Decoder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When you receive a barcode image — from a product photo, a scanned document, or a screenshot — you need to extract the encoded data without a physical scanner. This is useful for verifying product barcodes, reading UPC codes from product images for price comparison, and extracting tracking numbers from shipping labels. The client-side decoder means you can process barcode images without uploading them to a third-party service, which matters when the barcode encodes sensitive information."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What makes a good barcode image for decoding?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The barcode should be in focus, well-lit, with high contrast between the bars and background. The image should be at least 300 pixels wide for reliable decoding. Avoid images with shadows, glare, or perspective distortion."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it read barcodes from angled photos?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The decoder works best with straight-on images. Mild angles (up to about 15 degrees) are usually handled, but steep angles or curved surfaces (like barcodes on bottles) may cause decoding failures."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it verify the checksum?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The decoder reads the barcode data and, for formats with checksums (EAN-13, UPC-A), verifies the check digit. If the checksum doesn't match, the decoder reports an error."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it decode Data Matrix or PDF417 barcodes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool focuses on one-dimensional (linear) barcodes. Two-dimensional formats like Data Matrix, PDF417, and Aztec codes require different decoding algorithms and are not currently supported."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "passphrase-generator",
+    "varName": "PassphraseGeneratorSeo",
+    "name": "Passphrase Generator",
+    "sections": [
+      {
+        "heading": "What is Passphrase Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Passphrase Generator creates memorable passphrases by randomly selecting words from a curated 256-word dictionary (based on the PGP word list) and joining them with a configurable separator. You can choose 3–10 words and a custom separator (dash, space, dot, etc.). Each word is selected using <code>crypto.getRandomValues()</code> for cryptographic randomness, producing passphrases with entropy ranging from 36 bits (3 words) to 120 bits (10 words)."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Passphrase Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Set the Words count — 5 words (60 bits) is a good default for most use cases.",
+              "<strong>Step 2:</strong> Choose a separator character — dash (-) is the most common for passphrases, but you can use space, dot, underscore, or any single character.",
+              "<strong>Step 3:</strong> Click Generate. A new random passphrase appears in the output.",
+              "<strong>Step 4:</strong> Click Generate again for a different passphrase until you find one you like."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Passphrase Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Passphrases are easier to remember and type than random character strings while providing equal or greater entropy. A 5-word passphrase like <code>tiger-rocket-ocean-purple-frozen</code> is more memorable than <code>kR7$mP2xQ9vN</code> but has more entropy (60 bits vs ~53 bits). Passphrases are recommended by NIST, used by password managers (Diceware), and are the standard approach for master password generation. The 256-word list ensures each word is short (3-6 letters) and distinctive."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many words should I use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "5 words provides 60 bits of entropy, suitable for most passwords. 6 words (72 bits) for important accounts. 7+ words for master passwords or encryption keys. The generator shows the entropy alongside the output."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why only 256 words instead of the full English dictionary?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The 256-word list (2^8 words) means each word contributes exactly 8 bits of entropy, making entropy calculation trivial. These words are also selected to be short, distinct, and unambiguous — you won't confuse 'flame' with 'flames' or 'there' with 'their'."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this for BIP-39 seed phrases?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. BIP-39 uses a specific 2048-word list defined in the Bitcoin Improvement Proposal. This tool uses a different word list. For BIP-39 seed phrases, use a dedicated BIP-39 generator."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is a passphrase more secure than a random password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For the same entropy level, yes — not because the passphrase is inherently more secure, but because users are more likely to remember and correctly type a passphrase, reducing the temptation to write it down or reuse it."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "password-entropy-calculator",
+    "varName": "PasswordEntropyCalculatorSeo",
+    "name": "Password Entropy Calculator",
+    "sections": [
+      {
+        "heading": "What is Password Entropy Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Password Entropy Calculator measures the information entropy of a password in bits. It determines the character pool size by detecting which character classes are present (lowercase, uppercase, digits, symbols) and calculates entropy as <code>length × log₂(pool_size)</code>. This gives you a quantitative measure of how resistant the password is to brute-force attacks, independent of the specific characters used."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Password Entropy Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter a password in the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool analyzes the character classes present.",
+              "<strong>Step 3:</strong> Review the output — it shows the password length, the character pool size (how many possible characters each position could be), and the total entropy in bits.",
+              "<strong>Step 4:</strong> Use the entropy value to assess security: 60+ bits is fair, 80+ bits is strong, 120+ bits is excellent."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Password Entropy Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Password strength meters in browsers and apps use subjective labels (weak, medium, strong) that don't tell you the actual security level. Entropy in bits provides an objective, comparable metric. Knowing your password's entropy helps you make informed decisions — if your master password has 50 bits of entropy, you know it's vulnerable to targeted attacks, regardless of how 'complex' it looks."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What entropy level should I aim for?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "60 bits is the minimum for online accounts (10^18 guesses at 10 billion/sec = ~5 years). 80 bits for important accounts. 128+ bits for master passwords and encryption keys, where offline attacks are the threat model."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why doesn't this tool check for dictionary words?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Entropy calculation measures the size of the search space, not whether a specific password appears in a dictionary. A dictionary attack reduces the effective entropy dramatically. Use the Password Pattern Analyzer and Common Password Checker tools alongside this one for a complete picture."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How does character pool size affect entropy?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Each additional bit of entropy doubles the number of guesses needed. A 12-character password with a 94-character pool has 79 bits of entropy, while the same length with only lowercase letters (26-char pool) has 56 bits — a difference of 23 bits, or about 8 million times easier to crack."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is entropy the same as security?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Entropy measures resistance to brute-force guessing. A password with high entropy but reused across multiple sites is still insecure. Entropy also doesn't account for targeted attacks using personal information (birthdays, pet names) or keyloggers."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "password-pattern-analyzer",
+    "varName": "PasswordPatternAnalyzerSeo",
+    "name": "Password Pattern Analyzer",
+    "sections": [
+      {
+        "heading": "What is Password Pattern Analyzer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Password Pattern Analyzer scans a password for common structural weaknesses and insecure patterns. It checks for repeated characters (three or more identical characters in a row), common sequences (123, abc, qwerty, password), insufficient length (under 10 characters), missing character classes (no uppercase, no digits, no symbols), and other predictable patterns that reduce a password's effective security regardless of its theoretical entropy."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Password Pattern Analyzer",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter a password in the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool scans the password for known patterns.",
+              "<strong>Step 3:</strong> Review the list of detected issues — each one identifies a specific weakness (e.g., 'Repeated characters (3+)', 'Common sequence detected').",
+              "<strong>Step 4:</strong> If no issues are found, the tool reports 'No common patterns detected' — but combine this with entropy calculation for a complete assessment."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Password Pattern Analyzer",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Entropy calculation assumes all character positions are equally random, but real passwords often have predictable patterns. A password like <code>Passw0rd!</code> has decent entropy on paper (7.1 bits/char across 94 characters) but is a known breached password with an obvious structure. The pattern analyzer catches these structural weaknesses that pure entropy measurement misses, giving you a more realistic security assessment."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why check for patterns if the password is random?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If your password is truly random (generated by a password manager or random generator), it won't have patterns. The tool is most valuable for passwords you've created manually, where human bias toward patterns inevitably creeps in."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What counts as a 'common sequence'?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool detects sequential digits (012, 123, 234, ..., 789), sequential letters (abc, qwe, asd), and known weak passwords (password, starwars, letmein). These patterns are the first things automated crackers try."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this check against breached password databases?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The tool checks for structural patterns only, not whether the password appears in known breach databases. For breach checking, use the Common Password Checker tool, which includes a built-in list of the most commonly breached passwords."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "My password has no patterns but is only 8 characters. Is that enough?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool flags lengths under 10 characters because even pattern-free passwords of this length have limited entropy (about 52 bits for a fully random 8-character password with mixed case, digits, and symbols). For important accounts, aim for 12+ characters."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "common-password-checker",
+    "varName": "CommonPasswordCheckerSeo",
+    "name": "Common Password Checker",
+    "sections": [
+      {
+        "heading": "What is Common Password Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Common Password Checker checks whether a password appears in a built-in list of the most commonly used and breached passwords worldwide. The list includes entries from the RockYou breach analysis, NIST guidelines, and other sources — covering passwords like '123456', 'password', 'qwerty', 'letmein', 'admin', and hundreds of others that appear in the top breached password lists. The check is performed entirely client-side against the embedded list."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Common Password Checker",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter a password in the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool checks the password against its built-in common password database.",
+              "<strong>Step 3:</strong> If the password is found, the tool warns you it appears in common password lists.",
+              "<strong>Step 4:</strong> If not found, it confirms the password is not in the built-in list — but this doesn't mean it's secure, just not in the most common ones."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Common Password Checker",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Before adopting a new password, checking it against common password lists is the single most impactful security step. Password crackers try common passwords first — often succeeding within seconds. This tool catches passwords that users believe are unique but are actually among the millions that appear in every breach database. It's the first line of defense before more sophisticated analysis like entropy calculation or pattern detection."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many passwords are in the built-in list?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The list contains the top 30 most commonly breached passwords from the RockYou breach analysis and NIST guidelines. This is a curated subset — for comprehensive breach checking, services like HaveIBeenPwned offer API-based lookups."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "My password isn't in the list. Is it safe?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not necessarily. The tool only checks against the most common passwords. A password not in this list could still be weak (low entropy, predictable patterns) or appear in a different breach database. Always combine this with the Password Entropy Calculator and Pattern Analyzer."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the check happen in the browser?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The common password list is embedded in the tool's JavaScript code. No password data is sent to any server. The comparison is a simple exact-match lookup against the list."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is 'password123' not flagged as common?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool checks exact matches only. 'password123' is not in the top-30 list (which contains 'password' and '123456' separately). However, 'password123' would be found in more comprehensive breach databases."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "password-length-estimator",
+    "varName": "PasswordLengthEstimatorSeo",
+    "name": "Password Length Estimator",
+    "sections": [
+      {
+        "heading": "What is Password Length Estimator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Password Length Estimator calculates the estimated time to brute-force a password of a given length and character pool size, assuming a cracking speed of 10 billion guesses per second (typical for modern GPU clusters). It computes the total combinations as <code>pool^length</code> and divides by the guessing rate to produce a human-readable crack time. This helps you understand how password length and complexity translate to actual security."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Password Length Estimator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Set the Length — the password length you want to evaluate (4–32 characters).",
+              "<strong>Step 2:</strong> Set the Pool — the character pool size. Common values: 26 (lowercase only), 62 (mixed case + digits), 94 (all printable ASCII).",
+              "<strong>Step 3:</strong> Click Transform. The tool computes the total combinations and estimated crack time.",
+              "<strong>Step 4:</strong> Review the output — it shows the formula (pool^length) and the human-readable crack time at 10B guesses/sec."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Password Length Estimator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Understanding the relationship between password length, character pool, and crack time helps you make informed decisions about password policies. A 10-character password with 94 characters seems strong but takes only ~2 hours at 10B guesses/sec. Adding just 2 more characters pushes it to ~16,000 years. This tool makes these tradeoffs concrete, which is valuable for security training, policy development, and personal password planning."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why use 10 billion guesses/sec as the baseline?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Modern GPU clusters (8× NVIDIA RTX 4090) can hash approximately 10 billion MD5 hashes per second, 1 billion SHA-256 hashes per second, and hundreds of millions of bcrypt hashes per second. Using 10B/sec is a realistic upper bound for fast hash algorithms."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this calculation accurate for bcrypt?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The 10B/sec figure applies to fast hashes like MD5 and SHA-256. Bcrypt at 10 rounds is approximately 30,000/sec on the same hardware — about 300,000× slower. Always use a slow hash (bcrypt, Argon2) for password storage."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What character pool does a typical password use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Lowercase only: 26. Lowercase + digits: 36. Mixed case + digits: 62. Full printable ASCII: 94. If the password includes symbols, use 94. For most password policies requiring mixed case + digits, use 62."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this account for dictionary attacks?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This calculates brute-force time (trying every combination). Dictionary attacks, rainbow tables, and pattern-based attacks are dramatically faster for passwords with predictable structures. This tool shows the theoretical maximum security for a truly random password of the given length and pool."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "pin-generator",
+    "varName": "PinGeneratorSeo",
+    "name": "PIN Generator",
+    "sections": [
+      {
+        "heading": "What is PIN Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The PIN Generator creates cryptographically secure numeric PIN codes of configurable length (3–12 digits). Each digit is generated independently using <code>crypto.getRandomValues()</code>, ensuring uniform distribution and resistance to prediction. Unlike <code>Math.random()</code>, which uses a deterministic pseudo-random number generator, the Web Crypto API provides true randomness from the operating system's entropy pool."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PIN Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Set the Length — 6 digits is the default for most PINs (ATM cards, phone locks). 4 digits for simpler applications.",
+              "<strong>Step 2:</strong> Click Generate. A random PIN appears in the output.",
+              "<strong>Step 3:</strong> Click Generate again for a new PIN. Each click produces a completely independent random PIN."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PIN Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PINs are used everywhere: ATM cards, phone locks, two-factor authentication, smart locks, and parental controls. A 6-digit PIN has only 1 million possible combinations, making cryptographic randomness essential — a predictable PIN generator (like one seeded from the current time) would make PINs guessable. This tool ensures each digit is truly random, giving the PIN the maximum possible security for its length."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How secure is a 4-digit PIN?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A 4-digit PIN has 10,000 possible combinations. At 1 guess per second (the typical lockout rate), it takes up to ~3 hours to try all combinations. At 100 guesses/sec (no lockout), it takes less than 2 minutes. 4-digit PINs are only appropriate when combined with lockout mechanisms."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How secure is a 6-digit PIN?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A 6-digit PIN has 1,000,000 combinations. With a 3-attempt lockout, it's resistant to brute-force. Without lockout, 100 guesses/sec takes ~3 hours. For high-security applications, use 8+ digits or switch to alphanumeric passwords."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why can't I just use Math.random() for PINs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<code>Math.random()</code> is a pseudo-random number generator that produces predictable sequences if the seed is known (often derived from the system clock). An attacker who knows the approximate time a PIN was generated could narrow the possibilities. <code>crypto.getRandomValues()</code> uses the OS entropy pool and is cryptographically unpredictable."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I generate PINs for specific formats (e.g., no leading zero)?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool generates PINs with any leading digit, including zero. If your system doesn't accept leading zeros, simply regenerate until you get a PIN without one, or use the Random Password Generator with digits-only alphabet."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "memorable-password-generator",
+    "varName": "MemorablePasswordGeneratorSeo",
+    "name": "Memorable Password Generator",
+    "sections": [
+      {
+        "heading": "What is Memorable Password Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Memorable Password Generator creates passwords that balance memorability with security by combining real English words with numbers and symbols. It selects two random words from a 256-word dictionary, capitalizes the first letter of the first word, and appends a random two-digit number and a random symbol. The result looks like <code>Tiger-moon42!</code> — memorable enough to recall after seeing it once, but with sufficient complexity for most authentication systems."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Memorable Password Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click Generate. A memorable password appears in the output.",
+              "<strong>Step 2:</strong> Click Generate again for a different password until you find one you like.",
+              "<strong>Step 3:</strong> Copy the password and use it immediately — don't save it in a text file."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Memorable Password Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Many password policies require uppercase, lowercase, digits, and symbols — but purely random strings meeting these requirements are hard to remember. The memorable password format gives you the best of both worlds: a password that passes strength requirements while being easy to recall. The <code>Word-word00!</code> pattern is used by many password managers as their default generation format because it scores well in both security and usability."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many possible combinations does this generator have?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "With a 256-word dictionary, 2 words, 100 numbers, and 7 symbols: 256 × 256 × 100 × 7 = 45,875,200 combinations (~25.4 bits of entropy). This is adequate for low-to-medium security use cases but not for master passwords."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this more secure than a random character password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For the same length, a random character password has more entropy because each position has more possible values. The memorable password trades entropy for memorability. For high-security use cases, the Random Password Generator is better."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why are the words capitalized this way?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The first letter of the first word is capitalized (<code>Tiger</code>), while the second word stays lowercase (<code>moon</code>). This meets 'uppercase letter' requirements without making the entire password hard to read."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I customize the format?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The generator uses a fixed format optimized for the most common password policies. For custom formats, use the Passphrase Generator (configurable separator and word count) or the Random Password Generator (configurable character sets and length)."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "password-comparison-tool",
+    "varName": "PasswordComparisonToolSeo",
+    "name": "Password Comparison Tool",
+    "sections": [
+      {
+        "heading": "What is Password Comparison Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Password Comparison Tool performs a direct string comparison between two passwords to check if they're identical. It compares the two inputs character by character and reports whether they match or differ. This is useful for verifying that a password you've typed twice (e.g., in a 'Create Password' and 'Confirm Password' form) actually matches, or for comparing a password against a known hash or reference string."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Password Comparison Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the first password in the left input area (Input).",
+              "<strong>Step 2:</strong> Enter the second password in the right input area (Second Input).",
+              "<strong>Step 3:</strong> Click Transform. The tool compares the two strings.",
+              "<strong>Step 4:</strong> The output shows ✓ Identical or ✗ Different."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Password Comparison Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When testing password forms, verifying password reset flows, or comparing password entries across systems, you need a quick way to confirm two strings match. While this could be done with any text editor, the dedicated tool provides a clear, unambiguous answer and runs entirely in your browser — the passwords are never transmitted anywhere."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this compare password hashes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool compares the raw text strings. If you need to compare password hashes, use the Hash Comparison Tool instead."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is the comparison case-sensitive?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. 'Password' and 'password' would be reported as different. The comparison is an exact string match, character by character."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use this to compare encrypted values?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool does raw string comparison. Encrypted or encoded values (Base64, hex) would need to match exactly, including any padding characters."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this store the passwords anywhere?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The comparison happens in memory within the browser's JavaScript runtime. Nothing is saved to disk, local storage, or transmitted to any server."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "aes-encryption-decryption-tool",
+    "varName": "AesEncryptionDecryptionToolSeo",
+    "name": "AES Encryption/Decryption Tool",
+    "sections": [
+      {
+        "heading": "What is AES Encryption/Decryption Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The AES Encryption/Decryption Tool performs symmetric encryption and decryption using the AES-GCM (Galois/Counter Mode) algorithm with 256-bit keys derived via PBKDF2-SHA256 (150,000 iterations). It takes a plaintext message and a password, generates a random 16-byte salt and 12-byte initialization vector, derives the encryption key, and produces a Base64-encoded output containing <code>salt + iv + ciphertext</code>. Decryption reverses the process using the same password."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use AES Encryption/Decryption Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the text to encrypt (or Base64 ciphertext to decrypt) in the input area.",
+              "<strong>Step 2:</strong> Enter your password in the Password field in the options bar.",
+              "<strong>Step 3:</strong> Select Encrypt or Decrypt mode from the options.",
+              "<strong>Step 4:</strong> Click Transform. In encrypt mode, the output is a Base64 string containing the salt, IV, and ciphertext. In decrypt mode, the original plaintext is recovered.",
+              "<strong>Step 5:</strong> To decrypt, paste the Base64 ciphertext, switch to Decrypt mode, and enter the same password."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use AES Encryption/Decryption Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "AES-256-GCM is the gold standard for symmetric encryption — used by TLS 1.3, VPNs, disk encryption (BitLocker, LUKS), and secure messaging. This tool lets you encrypt and decrypt text directly in the browser without installing any software. Use it to protect sensitive data before sharing, test encryption flows during development, or verify that your password-based encryption implementation matches the expected AES-GCM output format."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is AES-256-GCM considered secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. AES-256 has a 256-bit key space (2^256 possible keys), which is computationally infeasible to brute-force. GCM mode provides authenticated encryption — it simultaneously encrypts and authenticates the data, preventing both eavesdropping and tampering."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why PBKDF2 with only 150,000 iterations?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "PBKDF2 with 150,000 iterations provides a good balance between security and browser performance. Higher iterations (e.g., 600,000 as recommended by OWASP) would take several seconds in the browser. The 16-byte random salt compensates for the lower iteration count by making rainbow table attacks infeasible."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I decrypt output from other AES tools?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The output format is <code>salt(16 bytes) + iv(12 bytes) + ciphertext</code>, all Base64-encoded. This is a common format but not universal. Decrypt with this tool only if the ciphertext was generated with the same format. Other tools may use different salt/IV sizes or GCM tag placement."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What happens if I use the wrong password?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "AES-GCM will either produce garbage output or throw an authentication error (GCM includes integrity verification). You won't get a valid decryption with the wrong password — there's no 'partial decrypt' or 'close enough' match."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "elliptic-curve-key-generator",
+    "varName": "EllipticCurveKeyGeneratorSeo",
+    "name": "Elliptic Curve Key Generator",
+    "sections": [
+      {
+        "heading": "What is Elliptic Curve Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Elliptic Curve Key Generator creates ECDSA (Elliptic Curve Digital Signature Algorithm) key pairs using the P-256 curve (also known as secp256r1 or prime256v1) via the Web Crypto API. It generates a public key and private key in PEM format, ready for use in JWT signing, TLS client authentication, cryptocurrency wallets, and SSH key generation. P-256 provides 128 bits of security — equivalent to RSA-3072 — with much smaller key sizes (256-bit public keys vs 3072-bit RSA keys)."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Elliptic Curve Key Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Click Generate. The tool creates a new ECDSA P-256 key pair using the Web Crypto API.",
+              "<strong>Step 2:</strong> The output shows the PEM-encoded public key and private key.",
+              "<strong>Step 3:</strong> Copy the public key for sharing (JWT verification endpoints, SSH authorized_keys, API clients).",
+              "<strong>Step 4:</strong> Copy the private key for signing (JWT creation, code signing). Store it securely — it cannot be recovered if lost."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Elliptic Curve Key Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ECC keys offer the same security as RSA with significantly smaller key sizes, meaning faster key generation, faster signing/verification, and smaller certificates. P-256 is the most widely supported ECC curve, used by Apple, Google, and Microsoft in their TLS implementations, by Bitcoin (via secp256k1, a different curve) for wallet addresses, and by Node.js for JWT signing. Generating keys client-side ensures the private key never touches a server."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is P-256 vs P-384 vs secp256k1?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "P-256 (prime256v1) provides 128-bit security and is the most widely supported curve. P-384 provides 192-bit security for higher-security requirements. secp256k1 is the Bitcoin/Ethereum curve — different parameters but similar security level. This tool generates P-256, which is the standard choice for non-cryptocurrency applications."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Are ECDSA keys more secure than RSA keys?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For equivalent security levels, yes — ECC keys are smaller and faster. A 256-bit ECC key provides the same security as a 3072-bit RSA key. However, RSA is more widely deployed in legacy systems. Choose ECC for new projects and RSA for compatibility with older infrastructure."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use these keys for SSH?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The PEM format generated here uses the PKCS#8 format for private keys and SPKI format for public keys. These are compatible with modern SSH implementations. For OpenSSH, you may need to convert using <code>ssh-keygen -i -m PEM -f private_key.pem</code>."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do I share the private key securely?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Never share private keys over unencrypted channels. Use encrypted email, a secrets manager, or a secure file transfer. The private key grants full signing authority — anyone with it can impersonate you."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "vigenre-cipher-tool",
+    "varName": "VigenreCipherToolSeo",
+    "name": "Vigenère Cipher Tool",
+    "sections": [
+      {
+        "heading": "What is Vigenère Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Vigenère Cipher Tool encrypts and decrypts text using the Vigenère polyalphabetic substitution cipher, described by Blaise de Vigenère in 1586. Unlike the Caesar cipher which shifts all letters by the same amount, the Vigenère cipher shifts each letter by a different amount determined by the corresponding letter of the keyword. The keyword is repeated cyclically to match the input length. For example, with key 'KEY', the first letter shifts by K (10), the second by E (4), the third by Y (24), then repeats."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Vigenère Cipher Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the text to encrypt or decrypt in the input area.",
+              "<strong>Step 2:</strong> Enter the keyword in the Key field in the options bar. Only letters are used — numbers and spaces in the key are stripped.",
+              "<strong>Step 3:</strong> Select Encrypt or Decrypt mode.",
+              "<strong>Step 4:</strong> Click Transform. The cipher output appears in the output area.",
+              "<strong>Step 5:</strong> To decrypt, paste the ciphertext, switch to Decrypt mode, and use the same key."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Vigenère Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Vigenère cipher is historically significant — it was considered unbreakable for centuries ('le chiffre indéchiffrable') until Friedrich Kasiski published the breaking method in 1863. It's studied in every cryptography course as the first polyalphabetic cipher and teaches the fundamental concept of key-dependent substitution. This tool is useful for cryptography education, historical cipher puzzles, CTF challenges, and understanding how polyalphabetic substitution resists frequency analysis."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is Vigenère different from Caesar cipher?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Caesar uses a single fixed shift for all letters (a monoalphabetic cipher). Vigenère uses a different shift for each position, determined by the keyword letter. This means the same plaintext letter encrypts to different ciphertext letters depending on its position, defeating simple frequency analysis."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is the Vigenère cipher secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The Kasiski examination and the index of coincidence can break Vigenère ciphers given enough ciphertext. Modern encryption (AES, ChaCha20) is used instead. Vigenère is purely educational and historical."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if my key contains non-letter characters?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool strips all non-letter characters from the key before applying the cipher. Only letters A-Z affect the shift. Numbers, spaces, and punctuation in the key are ignored."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the cipher preserve case?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. Uppercase letters remain uppercase and lowercase remain lowercase after encryption. Non-letter characters (spaces, punctuation, numbers) pass through unchanged."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "xor-cipher-tool",
+    "varName": "XorCipherToolSeo",
+    "name": "XOR Cipher Tool",
+    "sections": [
+      {
+        "heading": "What is XOR Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The XOR Cipher Tool performs symmetric encryption using the bitwise XOR operation with a repeating key. Each byte of the input is XORed with the corresponding byte of the key (cycling through the key for inputs longer than the key). The result is Base64-encoded for safe transport. XOR is the simplest symmetric cipher — and also the foundation of all modern stream ciphers (AES-CTR, ChaCha20). It has the unique property that applying XOR twice with the same key recovers the original data: <code>(data ⊕ key) ⊕ key = data</code>."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use XOR Cipher Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the text to encrypt in the input area.",
+              "<strong>Step 2:</strong> Enter the XOR key in the Key field in the options bar.",
+              "<strong>Step 3:</strong> Click Transform. The output is the XOR-encrypted data encoded in Base64.",
+              "<strong>Step 4:</strong> To decrypt, paste the Base64 ciphertext, and apply XOR again with the same key."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use XOR Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "XOR is fundamental to understanding modern cryptography — every stream cipher, one-time pad, and many MAC algorithms use XOR internally. This tool is useful for educational purposes, understanding how bitwise operations provide encryption, implementing simple obfuscation schemes, and solving CTF challenges. It's also used in practice for XOR-based file format parsing (many binary file formats use XOR checksums or obfuscation)."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is XOR encryption secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. XOR with a repeating key is vulnerable to known-plaintext attacks (if the attacker knows part of the plaintext, they can recover the key) and frequency analysis. Only a one-time pad (key as long as the message, used once, never reused) is theoretically unbreakable."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the output Base64?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "XOR produces arbitrary bytes, including null bytes and control characters that can't be safely displayed or transmitted as text. Base64 encoding ensures the ciphertext is ASCII-safe for use in JSON, URLs, and text files."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I use a key longer than the input?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The key is truncated to match the input length — only the bytes that align with input bytes are used. Using a key as long as the input is equivalent to a one-time pad (but only if the key is truly random and never reused)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What's the difference between XOR and a one-time pad?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A one-time pad uses a truly random key as long as the message, used exactly once. XOR with a repeating key (shorter than the message) is just a polyalphabetic substitution cipher with limited key space. The security difference is fundamental — one-time pads are theoretically unbreakable; repeating-key XOR is trivially breakable."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "rail-fence-cipher-tool",
+    "varName": "RailFenceCipherToolSeo",
+    "name": "Rail Fence Cipher Tool",
+    "sections": [
+      {
+        "heading": "What is Rail Fence Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Rail Fence Cipher Tool encrypts and decrypts text using the rail fence (zigzag) transposition cipher. The plaintext is written in a zigzag pattern across a specified number of rails (rows), then read off row by row to produce the ciphertext. For example, with 3 rails, 'HELLO WORLD' is arranged as:<br/>H . . . O . . . L<br/>. E . L . W . R . D<br/>. . L . . . O . .<br/>Reading row by row gives 'HOLELWRDLO'. The cipher is a pure transposition — it rearranges characters without changing them."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Rail Fence Cipher Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the text to encrypt or decrypt in the input area.",
+              "<strong>Step 2:</strong> Set the number of Rails in the options (2–10). More rails create a wider zigzag pattern.",
+              "<strong>Step 3:</strong> Select Encrypt or Decrypt mode.",
+              "<strong>Step 4:</strong> Click Transform. The cipher output appears in the output area."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Rail Fence Cipher Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The rail fence cipher is one of the oldest known ciphers, used by Julius Caesar (according to some accounts) and referenced in Edgar Allan Poe's 'The Gold-Bug.' It's studied in cryptography courses as an introduction to transposition ciphers — the complement to substitution ciphers like Caesar and Vigenère. It's also common in CTF challenges, puzzle games, and historical cryptography research."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How many rails should I use?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "3 rails is the classic configuration. More rails produce a more complex zigzag but also a longer ciphertext (the pattern repeats less often). With 2 rails, the cipher is trivially breakable (just read alternating characters). 3–5 rails provide the right balance of complexity for educational use."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does the rail fence cipher change any characters?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. It's a pure transposition cipher — it only rearranges the positions of characters. All characters remain identical; only their order changes. This means frequency analysis can still break it, since the character frequencies are unchanged."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can the rail fence cipher be broken?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. For a known number of rails, the ciphertext can be broken by trying all possible rail counts (2–N) and checking if the result contains recognizable words. For an unknown number of rails, a brute-force of all reasonable rail counts is practical."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is the encrypt and decrypt operation the same?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Encryption writes the text in a zigzag and reads rows; decryption fills rows from the ciphertext and reads the zigzag. The tool handles both directions based on the mode selection."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "zero-width-character-inserter",
+    "varName": "ZeroWidthCharacterInserterSeo",
+    "name": "Zero-Width Character Inserter",
+    "sections": [
+      {
+        "heading": "What is Zero-Width Character Inserter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Zero-Width Character Inserter hides secret messages within visible text using Unicode zero-width characters (U+200B, U+200C, U+200D, U+2060). These invisible characters encode binary data — each pair of bits maps to one of four zero-width characters. The secret message is appended to the cover text as invisible characters, producing output that looks identical to the original text but contains hidden data. This is a form of linguistic steganography."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Zero-Width Character Inserter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the visible cover text in the input area — this is the text that will be displayed.",
+              "<strong>Step 2:</strong> Enter the secret message in the Secret field in the options bar.",
+              "<strong>Step 3:</strong> Click Transform. The output looks identical to your input but contains invisible zero-width characters encoding the secret.",
+              "<strong>Step 4:</strong> Copy the output and share it. The recipient can extract the hidden message using the same tool (with the original cover text for reference)."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Zero-Width Character Inserter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Zero-width steganography is used for watermarking digital documents (tracking who leaked a document by embedding unique invisible markers), embedding metadata in text that survives copy-paste, and covert communication channels. It's also studied in information security courses as an example of steganographic techniques. The output is completely invisible in most renderers — the hidden message cannot be seen, only extracted programmatically."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can zero-width characters be detected?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, by examining the raw Unicode bytes of the text. Most text editors don't display zero-width characters, but they're visible in hex editors and can be detected by Unicode-aware tools. Platforms like Twitter and GitHub strip zero-width characters from posts."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How much data can I hide?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Each character of secret text requires 8 zero-width characters (one per bit). A 100-character secret message needs 800 invisible characters appended to the cover text. The cover text must be long enough that the appended characters don't cause rendering issues."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this survive copy-paste?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It depends on the application. Most modern text editors preserve zero-width characters during copy-paste. However, some platforms (social media, messaging apps) strip them. Plain text files and documents generally preserve them."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this secure for actual secret communication?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Zero-width steganography provides obfuscation, not encryption. Anyone who knows the technique can extract the hidden message. For actual secret communication, use proper encryption (like the AES tool) combined with steganography for additional concealment."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-validator",
+    "varName": "JwtValidatorSeo",
+    "name": "JWT Validator",
+    "sections": [
+      {
+        "heading": "What is JWT Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT Validator checks a JSON Web Token for structural and temporal correctness. It verifies the three-segment format, decodes and parses both the header and payload as valid JSON, checks for the presence and validity of standard claims (exp, iat, nbf), and reports specific issues like expired tokens, malformed base64url encoding, missing signatures, and invalid claim formats. It does not verify the cryptographic signature — for that, use the HS256 or RS256 Verifier tools."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT Validator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste a JWT into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The validator checks structure, encoding, and claims.",
+              "<strong>Step 3:</strong> Review the output — each issue is listed as a bullet point with a specific description.",
+              "<strong>Step 4:</strong> If no issues are found, the tool reports 'Structure valid, no temporal issues.'"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When debugging authentication failures, the first question is whether the token itself is valid — before checking the signature or the server configuration. A malformed JWT, expired token, or incorrect claim format is the cause of many 401 errors. This tool quickly identifies structural issues, saving you from manually decoding Base64URL segments and checking timestamps. It's the fastest way to rule out 'the token is broken' as a root cause."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this verify the token signature?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The JWT Validator only checks structural and temporal validity. Signature verification requires the signing key (a secret for HS256, a public key for RS256). Use the JWT HS256 Verifier or JWT RS256 Verifier tools for signature verification."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What temporal checks does it perform?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool checks: whether the exp (expiration) claim is present and is a valid number, whether the token has expired based on current system time, whether the iat (issued at) claim is valid and not in the future, and whether the nbf (not before) claim, if present, has passed."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can a token be structurally valid but still rejected by the server?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The server may reject a structurally valid token for many reasons: wrong audience (aud claim), wrong issuer (iss claim), revoked token, insufficient scopes, or algorithm mismatch. The validator catches the most common structural issues but can't check server-specific validation rules."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the token has more than 3 parts?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The validator expects exactly 3 dot-separated parts. Some tokens may include additional parts (like JWE encrypted JWTs with 5 parts). The validator reports this as an error — use the JWT Decoder for more detailed structural analysis."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "hash-comparison-tool",
+    "varName": "HashComparisonToolSeo",
+    "name": "Hash Comparison Tool",
+    "sections": [
+      {
+        "heading": "What is Hash Comparison Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Hash Comparison Tool performs a case-insensitive string comparison between two hash values to determine if they match. It trims whitespace from both inputs, normalizes to lowercase, and compares character by character. This is used for verifying file integrity — computing the hash of a downloaded file and comparing it against the publisher's published hash."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Hash Comparison Tool",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the expected hash (from the publisher's website or documentation) in the first input area.",
+              "<strong>Step 2:</strong> Enter the computed hash (from the File Hash Checker or another tool) in the second input area.",
+              "<strong>Step 3:</strong> Click Transform. The tool reports whether the hashes match.",
+              "<strong>Step 4:</strong> A ✓ Match confirms file integrity. ✗ Different means the files are not identical."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Hash Comparison Tool",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "File integrity verification is a fundamental security practice. After downloading software, ISO images, or any critical file, you should verify its hash against the published checksum. This tool streamlines the comparison — paste the expected hash, paste the computed hash, get an instant answer. The case-insensitive comparison avoids the common frustration of hex encoding differences (uppercase vs lowercase)."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this compare the actual files?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. This tool compares hash strings. Use the File Hash Checker to compute the hash of a file, then paste both hashes here for comparison."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why case-insensitive comparison?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Hash values are typically represented in hexadecimal, and different tools output different cases (SHA-256 tools may output uppercase or lowercase hex). Case-insensitive comparison eliminates this as a source of false negatives."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I compare different hash algorithms?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool does a pure string comparison. It doesn't know which algorithm produced the hashes. Make sure you're comparing hashes of the same algorithm — a SHA-256 hash will never match a SHA-512 hash of the same file."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the hashes are different lengths?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "If the hashes have different lengths, they definitely don't match. The tool reports them as different. Different algorithms produce different length hashes: MD5 is 32 hex chars, SHA-1 is 40, SHA-256 is 64, SHA-512 is 128."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "csp-validator",
+    "varName": "CspValidatorSeo",
+    "name": "CSP Validator",
+    "sections": [
+      {
+        "heading": "What is CSP Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CSP Validator analyzes Content Security Policy headers for common misconfigurations, security weaknesses, and syntax errors. It parses the CSP directives (default-src, script-src, style-src, etc.) and checks for insecure patterns: wildcard sources (<code>*</code>), unsafe-inline, unsafe-eval, data: URIs in script contexts, overly permissive allowlists, missing critical directives, and deprecated directives. Each issue is reported with a specific description of why it's problematic."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CSP Validator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste your Content Security Policy header value into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The validator parses the CSP and checks each directive.",
+              "<strong>Step 3:</strong> Review the list of issues — each bullet point describes a specific misconfiguration.",
+              "<strong>Step 4:</strong> If no issues are found, the tool reports 'No common issues detected.'"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CSP Validator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Content Security Policy is one of the most powerful defenses against XSS, clickjacking, and data injection attacks — but a misconfigured CSP provides a false sense of security while blocking nothing. Common mistakes include using <code>unsafe-inline</code> (which defeats the entire purpose of CSP for XSS prevention), wildcard sources (allowing scripts from any domain), and missing the <code>script-src</code> directive entirely. This tool catches these issues before you deploy a CSP that doesn't protect you."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What CSP issues does it detect?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The validator checks for: wildcard sources (<code>*</code>), unsafe-inline and unsafe-eval in script/style contexts, data: URIs in script-src, missing script-src or default-src, overly broad host sources, deprecated directives (like frame-src without child-src), and common misconfigurations that weaken the policy."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does it check for report-uri or report-to?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The validator may flag the absence of a reporting directive as a suggestion, but the primary focus is on insecure source patterns. A CSP without reporting makes it hard to identify violations in production."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I validate a full HTTP response header?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Paste just the CSP value (the part after <code>Content-Security-Policy:</code>). Don't include the header name, HTTP version, or other headers."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does a clean validation mean my CSP is fully secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The validator checks for common misconfigurations, not comprehensive security. A CSP can pass validation but still be too permissive for your specific application. Review each directive against your application's actual resource loading needs."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "subresource-integrity-generator",
+    "varName": "SubresourceIntegrityGeneratorSeo",
+    "name": "Subresource Integrity Generator",
+    "sections": [
+      {
+        "heading": "What is Subresource Integrity Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Subresource Integrity (SRI) Generator computes a cryptographic hash of a remotely hosted file and produces an <code>integrity</code> attribute for use in <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags. It fetches the file from the provided URL using a CORS proxy (required for cross-origin requests), computes SHA-256, SHA-384, or SHA-512 of the response body, and outputs the complete <code>integrity=\"sha384-...\"</code> attribute with the correct <code>crossorigin=\"anonymous\"</code> attribute. This is the only tool in the domain that requires a network fetch — by design, since SRI hashes must be computed from the actual file."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Subresource Integrity Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the full URL of the hosted file (CDN script, CSS file, font) in the input area.",
+              "<strong>Step 2:</strong> Select the hash algorithm — SHA-384 is the recommended default (widest browser support and strong security).",
+              "<strong>Step 3:</strong> Click Transform. The tool fetches the file and computes the hash.",
+              "<strong>Step 4:</strong> Copy the output attribute and add it to your HTML tag. Example: <code>&lt;script src=\"...\" integrity=\"sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/ux...\" crossorigin=\"anonymous\"&gt;&lt;/script&gt;</code>"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Subresource Integrity Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CDN compromise, DNS hijacking, and man-in-the-middle attacks can inject malicious code into files served from CDNs. SRI ensures the browser only executes files that match a known hash — even if the file is tampered with on the CDN, the browser will refuse to load it. Major browsers support SRI, and it's a critical security header for any application loading third-party scripts or stylesheets."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does this tool fetch from a URL?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SRI hashes must be computed from the actual file content. There's no way to generate a valid SRI hash without reading the file. The tool uses a CORS proxy to fetch cross-origin resources that would otherwise be blocked by browser security policies."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the file changes after I generate the hash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SRI hash will no longer match, and the browser will refuse to load the file. This is by design — it prevents tampering. When the CDN updates the file, you need to regenerate the SRI hash. Pin to a specific version URL (e.g., library@3.2.1) rather than a floating version (e.g., library@latest)."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Which algorithm should I choose?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SHA-384 is recommended — it's the most commonly used in SRI, supported by all browsers, and provides strong security. SHA-256 is slightly shorter but equally secure for integrity checking. SHA-512 is overkill for this use case."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does SRI protect against all CDN attacks?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SRI protects against file tampering (modification of the file content). It does not protect against CDN outages (the file simply won't load), or attacks that compromise the HTML itself (which controls which URLs to load). Use SRI alongside CSP for comprehensive protection."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "api-key-format-detector",
+    "varName": "ApiKeyFormatDetectorSeo",
+    "name": "API Key Format Detector",
+    "sections": [
+      {
+        "heading": "What is API Key Format Detector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The API Key Format Detector analyzes a string and identifies which known API key format it matches. It checks against pattern signatures for major cloud providers and services: AWS access keys (AKIA...), Stripe keys (sk_live..., pk_test...), GitHub tokens (ghp..., gho..., ghs...), Google API keys (AIza...), Heroku keys, Twilio keys, Slack tokens, and many others. Each match includes the provider name and key type."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use API Key Format Detector",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the API key or token into the input area.",
+              "<strong>Step 2:</strong> Click Transform. The tool checks the string against all known format patterns.",
+              "<strong>Step 3:</strong> Review the output — each match shows the provider and key type (e.g., '✓ Matches: AWS Access Key (AKIA)').",
+              "<strong>Step 4:</strong> If no format matches, the key is either from an unknown provider or doesn't follow a recognized pattern."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use API Key Format Detector",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When reviewing code for hardcoded secrets, you encounter strings that look like they might be API keys but aren't sure which service they belong to. This tool identifies the format instantly, helping you determine: which service's secrets manager to use for rotation, which team owns the key, and whether the key follows the expected format for its provider. It's useful for security audits, code reviews, and incident response."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does detecting the format mean the key is valid?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Format detection only confirms the string matches the expected pattern for a key type. The key may be expired, revoked, or generated as a test key. Format detection is not the same as authentication."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What formats does it detect?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool recognizes patterns for AWS (AKIA, ASIA, AKID), Stripe (sk_live, sk_test, pk_live, pk_test), GitHub (ghp, gho, ghs, ghr, github_pat), Google (AIza), Heroku, Twilio, Slack, SendGrid, Mailgun, Discord, and many others."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can it detect keys that are partially obscured?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool checks against prefix patterns. Keys like <code>AKIA...rest_of_key</code> will match if the prefix is intact. Fully masked keys (<code>****...****</code>) won't match."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is this useful for finding secrets in git history?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. When reviewing commits for accidentally committed secrets, paste suspicious strings into this tool. If they match a known key format, they need to be rotated immediately regardless of whether they're still valid."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "jwt-hs256-verifier",
+    "varName": "JwtHs256VerifierSeo",
+    "name": "JWT HS256 Verifier",
+    "sections": [
+      {
+        "heading": "What is JWT HS256 Verifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The JWT HS256 Verifier cryptographically verifies that a JSON Web Token's signature was created with a specific HMAC-SHA256 secret. It decodes the Base64URL header and payload, reconstructs the signing input (<code>header.payload</code>), computes the HMAC-SHA256 of that input using the secret you provide (via the Web Crypto API's HMAC import and sign functions), and compares the result against the token's signature. A match confirms the token was signed by someone who knows the secret."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use JWT HS256 Verifier",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Paste the JWT into the input area.",
+              "<strong>Step 2:</strong> Enter the HMAC secret in the Secret field in the options bar.",
+              "<strong>Step 3:</strong> Click Transform. The tool verifies the signature against the secret.",
+              "<strong>Step 4:</strong> The output reports ✓ Signature valid (HS256) or ✗ Signature does NOT match."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use JWT HS256 Verifier",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When debugging JWT authentication, you need to confirm that a token was signed with the expected secret. Common scenarios: verifying that a token from your auth service matches the secret in your environment, testing JWT generation in development, and debugging 'invalid signature' errors in production. This tool lets you verify the signature without setting up a full JWT library or writing code."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There are no server calls, no analytics tracking, and no input logging. All processing happens locally using the Web Crypto API or client-side JavaScript libraries. Your inputs are never stored, transmitted, or accessible to anyone else."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What's the difference between HS256 and RS256?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "HS256 uses a symmetric secret (same key signs and verifies). RS256 uses asymmetric keys (private key signs, public key verifies). HS256 is simpler but requires sharing the secret between services. RS256 is more secure for distributed systems since the verification key can be public."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Can I verify tokens from Auth0, Okta, or other providers?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Only if the token is signed with HS256 and you have the signing secret. Most OAuth providers use RS256 (or ES256), not HS256. Check the token's header — if <code>alg</code> is RS256, use the RS256 Verifier tool instead."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What if the secret is wrong?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool will report ✗ Signature does NOT match. This means either the secret is incorrect, or the token was signed with a different algorithm than HS256. Double-check that you're using the exact secret (including case and whitespace) that was used to sign the token."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Does this tool support HS384 or HS512?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool is specifically for HS256 (HMAC-SHA256). For HS384 or HS512 verification, you would need a tool that supports those algorithms. The Web Crypto API supports all HMAC hash algorithms, so extending the tool is straightforward."
+          }
+        ]
+      }
+    ]
+  }
+]

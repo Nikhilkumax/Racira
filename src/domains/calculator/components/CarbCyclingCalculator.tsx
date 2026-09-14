@@ -308,12 +308,12 @@ export default function CarbCyclingCalculator() {
                 
                 {/* 1. Primary Result Cards */}
                 <div className="grid sm:grid-cols-3 gap-3">
-                  <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-red-500 mb-1">High Day Target</div>
                     <div className="text-3xl font-black text-foreground">{results.highCarbTarget}</div>
                     <div className="text-xs font-medium text-red-500/80">grams of Carbs</div>
                   </div>
-                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm relative">
                     <button onClick={handlePrint} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                       <Printer className="h-4 w-4" />
                     </button>
@@ -321,7 +321,7 @@ export default function CarbCyclingCalculator() {
                     <div className="text-3xl font-black text-foreground">{results.medCarbTarget}</div>
                     <div className="text-xs font-medium text-amber-500/80">grams of Carbs</div>
                   </div>
-                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-blue-500 mb-1">Low Day Target</div>
                     <div className="text-3xl font-black text-foreground">{results.lowCarbTarget}</div>
                     <div className="text-xs font-medium text-blue-500/80">grams of Carbs</div>

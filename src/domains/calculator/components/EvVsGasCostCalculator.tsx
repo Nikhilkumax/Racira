@@ -247,14 +247,16 @@ export default function EvVsGasCostCalculator() {
               <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
                 Advanced Options (Maintenance & Depreciation) <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
-              {showAdvanced && (
-                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <CompactInput id="ev-maint" label="EV Maint / Yr" value={inputs.evMaintYear} onChange={(v: string) => handleChange("evMaintYear", v)} prefix="$" />
-                  <CompactInput id="gas-maint" label="Gas Maint / Yr" value={inputs.gasMaintYear} onChange={(v: string) => handleChange("gasMaintYear", v)} prefix="$" />
-                  <CompactInput id="ev-dep" label="EV Annual Depr." value={inputs.evDepreciationRate} onChange={(v: string) => handleChange("evDepreciationRate", v)} suffix="%" />
-                  <CompactInput id="gas-dep" label="Gas Annual Depr." value={inputs.gasDepreciationRate} onChange={(v: string) => handleChange("gasDepreciationRate", v)} suffix="%" />
-                </div>
-              )}
+            {showAdvanced && (
+              <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Maintenance</div>
+                <CompactInput id="ev-maint" label="EV Maint / Yr" value={inputs.evMaintYear} onChange={(v: string) => handleChange("evMaintYear", v)} prefix="$" />
+                <CompactInput id="gas-maint" label="Gas Maint / Yr" value={inputs.gasMaintYear} onChange={(v: string) => handleChange("gasMaintYear", v)} prefix="$" />
+                <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Depreciation</div>
+                <CompactInput id="ev-dep" label="EV Annual Depr." value={inputs.evDepreciationRate} onChange={(v: string) => handleChange("evDepreciationRate", v)} suffix="%" />
+                <CompactInput id="gas-dep" label="Gas Annual Depr." value={inputs.gasDepreciationRate} onChange={(v: string) => handleChange("gasDepreciationRate", v)} suffix="%" />
+              </div>
+            )}
             </div>
 
             <div className="flex gap-2.5 mt-2.5">
@@ -275,7 +277,7 @@ export default function EvVsGasCostCalculator() {
             ) : (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`bg-primary/10 border-l-4 rounded-lg p-5 relative ${results.betterOption === 'EV' ? 'border-[#10b981]' : 'border-[#3b82f6]'}`}>
+                <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative ${results.betterOption === 'EV' ? 'border-[#10b981]' : 'border-[#3b82f6]'}`}>
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">The Winner: {results.betterOption}</div>
                   <div className={`text-4xl font-bold mb-1 ${results.betterOption === 'EV' ? 'text-[#10b981]' : 'text-[#3b82f6]'}`}>
                     Saves {formatCurrency(results.savings)}

@@ -270,12 +270,7 @@ export default function CalorieToNutrientDensityRatioCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative overflow-hidden ${
-                  results.densityScore >= 80 ? "bg-green-500/10 border-green-500" :
-                  results.densityScore >= 50 ? "bg-blue-500/10 border-blue-500" :
-                  results.densityScore >= 25 ? "bg-amber-500/10 border-amber-500" :
-                  "bg-red-500/10 border-red-500"
-                }`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

@@ -120,7 +120,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -132,6 +132,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -185,7 +186,7 @@ export default function WeightliftingPercentageCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [oneRepMax, unit, increment]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -226,7 +227,7 @@ export default function WeightliftingPercentageCalculator() {
 
             <div className="grid grid-cols-[1fr_auto] gap-3">
               <div className="grid grid-cols-1 gap-3">
-                <CompactInput id="max" label="Your 1 Rep Max (100%)" value={oneRepMax} onChange={setOneRepMax} />
+                <CompactInput id="max" label="Your 1 Rep Max (100%)" value={oneRepMax} onChange={setOneRepMax} onEnter={handleCalculate} />
               </div>
               <div className="flex flex-col">
                 <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">&nbsp;</label>
@@ -290,9 +291,9 @@ export default function WeightliftingPercentageCalculator() {
                     </ResponsiveContainer>
                   </div>
                   
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 flex flex-col justify-center">
-                    <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1">True 1-Rep Max</div>
-                    <div className="text-4xl font-black text-foreground mb-4">{results.maxLoad} <span className="text-lg font-bold text-muted-foreground">{unit}</span></div>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 flex flex-col justify-center">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">True 1-Rep Max</div>
+                    <div className="text-4xl font-bold text-primary mb-4">{results.maxLoad} <span className="text-lg font-bold text-muted-foreground">{unit}</span></div>
                     
                     <div className="space-y-3">
                       <div className="flex justify-between items-center text-sm border-b border-border/40 pb-2">

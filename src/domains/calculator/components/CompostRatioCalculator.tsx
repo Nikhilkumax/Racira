@@ -109,7 +109,7 @@ const CompostRatioCalculator = () => {
               <NumInput id="brownsWeight" label="Weight / Volume" value={inputs.brownsWeight} onChange={set("brownsWeight")} min="0" suffix="units" />
               <NumInput id="brownsCN" label="C:N Ratio" value={inputs.brownsCN} onChange={set("brownsCN")} min="0.1" hint="Leaves 40-80, cardboard 350." />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div>
               <NumInput id="target" label="Target Ratio (C:N)" value={inputs.target} onChange={set("target")} min="1" hint="Use 30 for hot composting." />
             </div>

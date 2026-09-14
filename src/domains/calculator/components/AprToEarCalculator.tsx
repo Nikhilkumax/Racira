@@ -159,7 +159,7 @@ export default function AprToEarCalculator() {
                 </div>
 
                 {/* Component 1: Primary Result */}
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">
                     Effective Annual Rate (EAR)
                   </div>

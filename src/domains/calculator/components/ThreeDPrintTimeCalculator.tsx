@@ -42,8 +42,8 @@ const defaultInputs: ThreeDPrintInputs = {
   electricityRate: 0.15,
   printerPower: 150,
   efficiencyFactor: 90,
-  brimRaftMaterial: 0,
-  failedPrintBuffer: 0,
+  brimRaftMaterial: 5,
+  failedPrintBuffer: 10,
 };
 
 const CompactInput = ({
@@ -96,8 +96,8 @@ const ThreeDPrintTimeCalculator = () => {
   const [electricityRate, setElectricityRate] = useState("0.15");
   const [printerPower, setPrinterPower] = useState("150");
   const [efficiencyFactor, setEfficiencyFactor] = useState("90");
-  const [brimRaftMaterial, setBrimRaftMaterial] = useState("0");
-  const [failedPrintBuffer, setFailedPrintBuffer] = useState("0");
+  const [brimRaftMaterial, setBrimRaftMaterial] = useState("5");
+  const [failedPrintBuffer, setFailedPrintBuffer] = useState("10");
 
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -158,7 +158,7 @@ const ThreeDPrintTimeCalculator = () => {
     setPrinterClass("Standard FDM"); setNozzleDiameter("0.4"); setLineWidth("0.48");
     setTravelSpeed("150"); setAcceleration("1000"); setTopLayers("5"); setBottomLayers("5");
     setFilamentPrice("20"); setElectricityRate("0.15"); setPrinterPower("150");
-    setEfficiencyFactor("90"); setBrimRaftMaterial("0"); setFailedPrintBuffer("0");
+    setEfficiencyFactor("90"); setBrimRaftMaterial("5"); setFailedPrintBuffer("10");
     setCalculatedInputs(defaultInputs);
   };
 

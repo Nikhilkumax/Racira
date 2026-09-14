@@ -53,9 +53,9 @@ export default function ElectricPowerCalculator() {
     const h = parseFloat(hours);
     const r = parseFloat(rate);
     if (!isNaN(v) && !isNaN(i) && !isNaN(h) && !isNaN(r) && v >= 0 && i >= 0 && h >= 0 && r >= 0) setResult(calcPower(v, i, h, r));
-  }, [voltage, current, hours, rate]);
+  }, []);
 
-  const reset = () => { setVoltage(DEFAULTS.voltage); setCurrent(DEFAULTS.current); setHours(DEFAULTS.hours); setRate(DEFAULTS.rate); };
+  const reset = () => { setVoltage(DEFAULTS.voltage); setCurrent(DEFAULTS.current); setHours(DEFAULTS.hours); setRate(DEFAULTS.rate); setResult(calcPower(parseFloat(DEFAULTS.voltage), parseFloat(DEFAULTS.current), parseFloat(DEFAULTS.hours), parseFloat(DEFAULTS.rate))); };
   const invalid = isNaN(parseFloat(voltage)) || isNaN(parseFloat(current)) || isNaN(parseFloat(hours)) || isNaN(parseFloat(rate)) || parseFloat(voltage) < 0 || parseFloat(current) < 0 || parseFloat(hours) < 0 || parseFloat(rate) < 0;
 
   const breakdown = [

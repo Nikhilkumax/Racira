@@ -216,10 +216,10 @@ export default function BitcoinMiningCalculator() {
                     </div>
                   </div>
 
-                  <div className={`bg-card border border-border rounded-lg p-6 relative overflow-hidden shadow-sm border-l-4 border-primary`}>
+                  <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm`}>
                     <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Daily Mined</div>
                     <div className="flex items-end gap-3 mb-1">
-                      <div className="text-3xl font-black text-foreground tracking-tighter">{results.dailyRevenueBTC} <span className="text-xl text-primary">BTC</span></div>
+                      <div className="text-4xl font-bold text-primary tracking-tight">{results.dailyRevenueBTC} <span className="text-xl text-primary">BTC</span></div>
                     </div>
                     <div className="text-sm text-muted-foreground font-medium mt-1">
                       Gross Revenue: <span className="font-bold text-foreground">${results.dailyRevenueUSD}/day</span>

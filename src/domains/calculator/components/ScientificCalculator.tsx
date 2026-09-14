@@ -177,7 +177,7 @@ const ScientificCalculator = () => {
           <div className="card-calculator flex flex-col gap-4 !p-4 sm:!p-5 shadow-sm border border-border bg-muted/20">
             
             {/* Display Area */}
-            <div className="bg-card border border-border rounded-xl p-4 flex flex-col items-end justify-end shadow-inner h-24 sm:h-28 mb-1 relative overflow-hidden">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col items-end justify-end h-24 sm:h-28 mb-1 relative overflow-hidden">
               <div className="absolute top-3 left-3 flex gap-2">
                 <span className={`text-xs font-bold px-2 py-0.5 rounded ${isRad ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'}`}>RAD</span>
                 <span className={`text-xs font-bold px-2 py-0.5 rounded ${!isRad ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'}`}>DEG</span>
@@ -230,7 +230,7 @@ const ScientificCalculator = () => {
               <button onClick={() => handleInput("2")} className={numBtn}>2</button>
               <button onClick={() => handleInput("3")} className={numBtn}>3</button>
               <button onClick={() => handleInput("+")} className={`${opBtn} row-span-2 h-full`}>+</button>
-              <button onClick={handleEqual} className={`${opBtn} row-span-2 h-full !bg-primary !text-primary-foreground shadow-md text-xs sm:text-sm leading-tight`}>Calculate<span className="block text-[9px] sm:text-[10px] font-semibold opacity-90">=</span></button>
+              <button onClick={handleEqual} className={`${opBtn} row-span-2 h-full !bg-primary !text-primary-foreground shadow-md text-sm sm:text-base leading-tight`}>Calculate</button>
 
               <button onClick={() => handleInput("0")} className={`${numBtn} col-span-2`}>0</button>
               <button onClick={() => handleInput(".")} className={numBtn}>.</button>

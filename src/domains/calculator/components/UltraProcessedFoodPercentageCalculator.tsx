@@ -105,7 +105,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -117,6 +117,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -165,7 +166,7 @@ export default function UltraProcessedFoodPercentageCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalCalories, upfCalories]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -205,8 +206,8 @@ export default function UltraProcessedFoodPercentageCalculator() {
             </div>
 
             <div className="grid grid-cols-1 gap-4">
-              <CompactInput id="tcals" label="Total Daily Calories" value={totalCalories} onChange={setTotalCalories} suffix="kcal" />
-              <CompactInput id="ucals" label="Calories from UPFs (Fast Food, Soda, Chips, etc.)" value={upfCalories} onChange={setUpfCalories} suffix="kcal" />
+              <CompactInput id="tcals" label="Total Daily Calories" value={totalCalories} onChange={setTotalCalories} suffix="kcal" onEnter={handleCalculate} />
+              <CompactInput id="ucals" label="Calories from UPFs (Fast Food, Soda, Chips, etc.)" value={upfCalories} onChange={setUpfCalories} suffix="kcal" onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -231,12 +232,7 @@ export default function UltraProcessedFoodPercentageCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative overflow-hidden ${
-                  results.upfPercentage <= 10 ? "bg-green-500/10 border-green-500" :
-                  results.upfPercentage <= 20 ? "bg-blue-500/10 border-blue-500" :
-                  results.upfPercentage <= 40 ? "bg-amber-500/10 border-amber-500" :
-                  "bg-red-500/10 border-red-500"
-                }`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
@@ -245,10 +241,10 @@ export default function UltraProcessedFoodPercentageCalculator() {
                       UPF Saturation Ratio
                     </div>
                     <div className="flex items-baseline gap-2 mb-2">
-                      <div className="text-5xl font-extrabold tracking-tight text-foreground">{results.upfPercentage.toFixed(1)}</div>
+                      <div className="text-4xl font-bold tracking-tight text-primary">{results.upfPercentage.toFixed(1)}</div>
                       <div className="text-xl font-bold text-muted-foreground">%</div>
                     </div>
-                    <p className="text-sm font-medium text-foreground/80 leading-relaxed max-w-md">
+                    <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
                       <strong>Assessment:</strong> {results.recommendation}
                     </p>
                   </div>

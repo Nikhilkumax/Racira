@@ -101,10 +101,12 @@ const BinaryCalculator = () => {
     setResult(calculateBinary(val1, val2, op));
   };
 
-  useEffect(() => { calculate(); }, [val1, val2, op]); // auto-calc on change for this one since it's fast string ops mostly
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { calculate(); }, []);
 
   const reset = () => {
     setVal1("1010"); setVal2("0110"); setOp("+");
+    setResult(calculateBinary("1010", "0110", "+"));
   };
 
   const isUnary = ["NOT", "LSHIFT", "RSHIFT"].includes(op);

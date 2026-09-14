@@ -19,8 +19,10 @@ export interface OptRowProps {
 }
 
 export function OptRow({ label, children, className }: OptRowProps) {
+  // flex-wrap: label + wide fixed-width children (e.g. w-64 inputs) must be
+  // able to wrap or they overflow the card on narrow screens.
   return (
-    <div className={cn("flex items-center gap-3", className)}>
+    <div className={cn("flex flex-wrap items-center gap-x-3 gap-y-1.5", className)}>
       <Label className="text-xs text-muted-foreground min-w-[80px]">{label}</Label>
       {children}
     </div>

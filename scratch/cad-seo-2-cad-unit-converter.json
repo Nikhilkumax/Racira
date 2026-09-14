@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "cad-unit-converter",
+    "varName": "cad_unit_converterSeo",
+    "name": "CAD Unit Converter",
+    "sections": [
+      {
+        "heading": "What is CAD Unit Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CAD Unit Converter converts a length between the units a CAD model or drawing actually mixes: micrometres, millimetres, centimetres, metres, inches and feet. The millimetre is the pivot unit — every conversion runs through it using the exact factors 1 inch equals 25.4 millimetres, 1 foot equals 304.8 millimetres and 1 metre equals 1000 millimetres — so no conversion in the tool inherits rounding from an intermediate step."
+          },
+          {
+            "type": "paragraph",
+            "text": "Beyond the converted value, the tool shows the conversion factor — how many of the target unit one source unit equals — and the millimetre equivalent of one source unit. Those two readouts are the ones you actually need when a CAD file is mis-scaled: they tell you at a glance what factor to apply to rescale geometry that was drawn in the wrong unit."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CAD Unit Converter",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Value you want to convert — for example 1 for a single unit, or 25.4 to see what an inch is in millimetres.",
+              "<strong>Step 2:</strong> Pick the From unit — the unit the value is currently in. This is the unit the CAD file or drawing claims to be in.",
+              "<strong>Step 3:</strong> Pick the To unit — the unit you want the answer in, such as millimetres when the rest of the project is metric.",
+              "<strong>Step 4:</strong> Read the Result panel. The top row is the converted value. The factor row tells you how many of the target unit one source unit equals, and the mm per unit row shows the source unit's exact millimetre size.",
+              "<strong>Step 5:</strong> Verify against the known constant: 1 inch to millimetres must read exactly 25.4, and 1 foot to millimetres must read exactly 304.8. Those two checks confirm you selected the From and To units the right way around."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CAD Unit Converter",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The 25.4-times scaling error is one of the most common and most destructive mistakes in CAD: a part modeled in inches is interpreted as millimetres, or a millimetre model is inserted into an inch drawing, and every dimension on the affected geometry is off by the inch-to-millimetre ratio. Catching and correcting that error starts with knowing the exact factor, which is what this tool answers in one line."
+          },
+          {
+            "type": "paragraph",
+            "text": "The converter also serves the everyday case of quoting a dimension in the unit your supplier or collaborator works in. Model in millimetres, cut the sheet in inches, or annotate a drawing for a client who thinks in feet — the conversion is instant and exact, and because everything runs in the browser there is no risk of a web service rounding a factor or logging the dimensions you typed."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "My model imported at the wrong size — how do I fix the scale?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Find the conversion factor between the unit the file was actually drawn in and the unit it was interpreted as. If an inch-model was read as millimetres, the geometry is 25.4 times too small, so scale everything up by 25.4; if a millimetre model was read as inches, it is 25.4 times too large, so scale down. The factor row of this tool gives you that number exactly for any unit pair before you touch the model."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the tool convert through millimetres?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Using millimetres as the pivot keeps every conversion exact. The inch, foot and metre are all defined in terms of the millimetre — 25.4, 304.8 and 1000 of them respectively — and micrometres and centimetres are simple decimal fractions of it. Routing every conversion through the millimetre means each step uses a definitional constant rather than a rounded intermediate, so converting inches to centimetres gives exactly 2.54, never 2.5399."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What units does the tool not cover?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The six units here — micrometres through feet — cover what CAD geometry actually mixes, including the tolerance range where micrometres matter. Yards and miles are omitted because they are almost never used inside CAD models, but both are simple multiples of the foot if you need them: a yard is 3 feet and a mile is 5280 feet, so you can convert to feet here and multiply."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the result keep full precision?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The converted value is displayed to four significant decimal places and the factor to six, which is far beyond what any drawing needs — a 25.4 conversion displays as exactly 25.4 because the underlying factor is exact. The internal arithmetic is not rounded before display, so there is no accumulating error if you chain the result into a second calculation."
+          }
+        ]
+      }
+    ]
+  }
+]

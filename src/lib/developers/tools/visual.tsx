@@ -422,7 +422,7 @@ function CssTransformComp() {
   const style = `transform: rotate(${rotate}deg) scale(${scale}) translate(${tx}px, ${ty}px)`;
   return (
     <div className="rounded-2xl border border-border bg-card p-4 space-y-3">
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-x-3 gap-y-2">
         <label className="text-xs">Rotate <input type="range" min={-180} max={180} value={rotate} onChange={(e) => setRotate(Number(e.target.value))} className="w-24" /> {rotate}°</label>
         <label className="text-xs">Scale <input type="range" min={0.5} max={2} step={0.1} value={scale} onChange={(e) => setScale(Number(e.target.value))} className="w-24" /> {scale}</label>
         <label className="text-xs">X <input type="range" min={-100} max={100} value={tx} onChange={(e) => setTx(Number(e.target.value))} className="w-24" /> {tx}px</label>
@@ -431,7 +431,7 @@ function CssTransformComp() {
       <div className="h-48 flex items-center justify-center bg-muted/30 rounded-md">
         <div style={{ width: 80, height: 80, background: "linear-gradient(135deg, #4f46e5, #ec4899)", borderRadius: 12, transform: `rotate(${rotate}deg) scale(${scale}) translate(${tx}px, ${ty}px)` }} />
       </div>
-      <pre className="text-xs font-mono bg-background p-2 rounded-md">{style};</pre>
+      <pre className="text-xs font-mono bg-background p-2 rounded-md overflow-x-auto">{style};</pre>
     </div>
   );
 }

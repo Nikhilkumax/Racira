@@ -238,6 +238,7 @@ export default function CarInsuranceCostCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Coverage Options</div>
                   <CompactInput id="deductible" label="Deductible" value={inputs.deductible} onChange={(v: string) => handleChange("deductible", v)} options={[
                     { label: "$500 (High Premium)", value: "500" },
                     { label: "$1,000 (Average)", value: "1000" },

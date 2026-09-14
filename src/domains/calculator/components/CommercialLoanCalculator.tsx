@@ -128,6 +128,7 @@ export default function CommercialLoanCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">Underwriting Details</div>
                 <div><label className="text-sm font-medium mb-1.5 block">Loan Term (Yrs)</label><div className={inp}><input type="number" value={termYears} onChange={e => setTermYears(e.target.value)} className={ci} /></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Annual NOI</label><div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={noi} onChange={e => setNoi(e.target.value)} className={ci} /></div></div>
               </div>

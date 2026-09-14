@@ -72,7 +72,7 @@ const SkewnessCalculator = () => {
           <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
             <div>
               <label className="text-base font-medium block mb-1.5">Data Set</label>
-              <textarea value={values} onChange={(e) => setValues(e.target.value)} className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none" rows={4} placeholder="Enter at least 3 numbers" />
+              <textarea value={values} onChange={(e) => setValues(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") calculate(); }} className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none" rows={4} placeholder="Enter at least 3 numbers" />
               <div className="text-xs text-muted-foreground mt-1">Minimum 3 values required</div>
             </div>
             <div className="flex gap-3">
@@ -85,8 +85,8 @@ const SkewnessCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-4 ${result.skewSample > 0.1 ? "bg-blue-500/10 border-blue-500" : result.skewSample < -0.1 ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Skewness (Fisher{"'"}s)</div>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.skewSample > 0.1 ? "bg-blue-500/10 border-blue-500" : result.skewSample < -0.1 ? "bg-amber-500/10 border-amber-500" : "bg-green-500/10 border-green-500"}`}>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Skewness (Fisher{"'"}s)</div>
                 <div className="text-4xl font-bold" style={{ color: result.skewSample > 0.1 ? "#3b82f6" : result.skewSample < -0.1 ? "#f59e0b" : "#10b981" }}>{fmt(result.skewSample)}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.interpretation} • n={result.n}</div>
               </div>

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "surface-roughness-ra-reference",
+    "varName": "surface_roughness_ra_referenceSeo",
+    "name": "Surface Roughness Ra Reference",
+    "sections": [
+      {
+        "heading": "What is Surface Roughness Ra Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Surface Roughness Ra Reference is a two-table lookup for Ra, the most common surface roughness parameter on engineering drawings. Ra — the arithmetic mean deviation of the assessed profile under ISO 4287 — is the average distance of the surface profile from its centre line over the sampling length. The first table maps the Ra ranges each manufacturing process actually achieves, from lapping and honing at 0.025 to 0.1 micrometres down to as-cast and as-forged surfaces at 6.3 to 25 micrometres. The second maps typical applications to the Ra a working part usually needs."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is built around the callout convention as well as the numbers: Ra is written with the ISO 1302 basic symbol plus a value, as in Ra 0.8 or the check-mark symbol with 0.8. The reference carries the caveats that matter when a surface is functional — Ra is insensitive to isolated scratches and waviness, so seal and wear surfaces may need Rz or Rmax, and the sampling (cut-off) length should always be stated with the callout. A rule of thumb places Ra at roughly 0.2 to 0.25 times Rz for turned surfaces."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Surface Roughness Ra Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Find the process you intend to use in the Ra ranges by process table. The left column gives the Ra band the process reliably produces; the middle column names the processes; the right column lists the typical uses that band serves.",
+              "<strong>Step 2:</strong> Work the other direction when you have a surface requirement: look up the application in the Application guidance table. A rotating shaft seal lip track wants Ra 0.2 to 0.8 micrometres, a plain bearing journal 0.2 to 0.4, gear tooth flanks 0.8 to 1.6.",
+              "<strong>Step 3:</strong> Match the required Ra to an achievable process. If the callout needs Ra 0.4, grinding or reaming lands in the 0.1 to 0.4 band; specifying lapping for a part that will be turned is a process mismatch the first table exposes immediately.",
+              "<strong>Step 4:</strong> Type into the search box to filter either table when you are checking a single material, process or application.",
+              "<strong>Step 5:</strong> Write the callout with the sampling length included and check the fine print: for sealing or wear surfaces where peaks matter, consider whether Ra alone is the right parameter or whether Rz or Rmax should accompany it."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Surface Roughness Ra Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Surface roughness callouts fail in two common ways: the value is tighter than the process can deliver, forcing the shop into an expensive secondary operation nobody planned, or the value is too loose for the function, and the surface leaks, wears or frets in service. A process-to-Ra table settles the first question at the drawing stage, and an application-to-Ra table settles the second — together they turn a number picked from habit into a number with a manufacturing path behind it."
+          },
+          {
+            "type": "paragraph",
+            "text": "The application values here are the ones that recur across real machines: an O-ring gland at Ra 0.4 micrometres, hydraulic spools at 0.05 to 0.2, sliding guide ways at 0.4 to 0.8, and painted surfaces deliberately rougher at 3.2 to 6.3 to give the coating something to grip. Keeping those anchors in one place makes it faster to write a defensible callout and faster to challenge an inherited one."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between Ra and Rz?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ra is the arithmetic average of the profile's deviation from its centre line, which smooths over isolated features — a single deep scratch barely moves it. Rz is the average of the tallest profile peaks and deepest valleys over the sampling length, so it responds to the extremes that affect sealing and wear. For a dynamic O-ring gland or a shaft seal lip, the peaks are what leak, which is why Rz or Rmax is often specified alongside Ra for those surfaces. As a rough conversion for turned surfaces, Ra runs about 0.2 to 0.25 times Rz."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the drawing need a cut-off length with the Ra value?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Ra is measured over a finite sampling length, and the value changes with that length because longer samples include longer-wavelength waviness that a short sample filters out. Without a stated cut-off, the machinist and the inspector may measure the same surface with different sampling lengths and get different Ra numbers. The standard practice is to write the cut-off with the callout — commonly 0.8 mm for general machined surfaces — so the measurement is reproducible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can turning achieve the same Ra as grinding?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Fine turning and milling with modern inserts reach about 0.4 to 1.6 micrometres — good enough for general machine fits and unmated surfaces. Grinding and reaming reach 0.1 to 0.4, and lapping, honing and superfinishing reach 0.025 to 0.1. The bands overlap at the edges, so a process choice near a boundary should be confirmed against the shop's own capability data, but the ordering is reliable: if a callout demands Ra 0.1, plan on grinding or better, not on turning."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is a rougher surface ever the right callout?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — deliberately. Painted and coated surfaces are often specified at Ra 3.2 to 6.3 micrometres so the coating has an anchor profile to bond to, and a ground-smooth surface under paint can actually reduce adhesion. Clearance and non-functional faces sit comfortably at 1.6 to 6.3, and as-cast or as-forged surfaces are left at 6.3 to 25 with no machining at all. Specifying roughness only where function demands it is cheaper than polishing everything."
+          }
+        ]
+      }
+    ]
+  }
+]

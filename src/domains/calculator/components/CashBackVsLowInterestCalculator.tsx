@@ -174,7 +174,7 @@ export default function CashBackVsLowInterestCalculator() {
           {/* RIGHT */}
           <div className="flex flex-col gap-3">
             {/* Winner Card */}
-            <div className={`bg-primary/10 rounded-xl p-5 border-l-4 ${result.winner === "cashback" ? "border-primary" : result.winner === "lowinterest" ? "border-emerald-500" : "border-muted"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">
                 {result.winner === "tie" ? "It's a Tie" : "Better Option"}
               </div>

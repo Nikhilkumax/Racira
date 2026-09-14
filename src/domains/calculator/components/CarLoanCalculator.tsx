@@ -74,7 +74,7 @@ function calcCarLoan(
 export default function CarLoanCalculator() {
   const [price, setPrice] = useState("35000");
   const [down, setDown] = useState("5000");
-  const [tradeIn, setTradeIn] = useState("0");
+  const [tradeIn, setTradeIn] = useState("5000");
   const [salesTax, setSalesTax] = useState("8");
   const [rate, setRate] = useState("7.1");
   const [term, setTerm] = useState("60");
@@ -91,7 +91,7 @@ export default function CarLoanCalculator() {
     ));
   };
 
-  useEffect(() => { setResult(calcCarLoan(35000, 5000, 0, 8, 7.1, 60, 1800, 1200)); }, []);
+  useEffect(() => { setResult(calcCarLoan(35000, 5000, 5000, 8, 7.1, 60, 1800, 1200)); }, []);
 
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";

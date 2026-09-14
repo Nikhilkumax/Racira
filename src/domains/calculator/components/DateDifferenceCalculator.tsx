@@ -62,9 +62,12 @@ export default function DateDifferenceCalculator() {
 
   useEffect(() => {
     if (start && end && new Date(end) >= new Date(start)) setResult(calcDifference(start, end));
-  }, [start, end]);
+  }, []);
 
-  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); };
+  const handleCalculate = () => {
+    if (start && end && new Date(end) >= new Date(start)) setResult(calcDifference(start, end));
+  };
+  const reset = () => { setStart(DEFAULTS.start); setEnd(DEFAULTS.end); setResult(calcDifference(DEFAULTS.start, DEFAULTS.end)); };
   const invalid = !start || !end || isNaN(new Date(start).getTime()) || isNaN(new Date(end).getTime()) || new Date(end) < new Date(start);
 
   const fmtDate = (d: Date) => d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -109,7 +112,7 @@ export default function DateDifferenceCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <CalendarRange className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

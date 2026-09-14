@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "building-footprint-calculator",
+    "varName": "building_footprint_calculatorSeo",
+    "name": "Building Footprint Calculator",
+    "sections": [
+      {
+        "heading": "What is Building Footprint Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Building Footprint Calculator works out the footprint area, perimeter and land-area conversions of a rectangular building for early massing studies. Enter the width and depth in feet or metres and the tool returns the footprint area in both square feet and square metres, the perimeter in the input unit, and the land area in acres and hectares. A 60 by 100 foot building reads 6000 square feet — about 557.4 square metres — with a 320 foot perimeter and a land area of roughly 0.138 acres."
+          },
+          {
+            "type": "paragraph",
+            "text": "The unit handling is the point of the tool: switch the input unit to metres and the same fields produce a metric design — a 10 by 20 metre building gives 200 square metres, a 60 metre perimeter and about 0.049 acres. The conversion factor of 10.7639 square feet per square metre runs through every result, so the imperial and metric readouts always agree. The tool's note frames what the footprint means: the ground-floor extent to the outside face of exterior walls, or the drip line, per the jurisdiction's zoning definition."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Building Footprint Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Input unit — Feet or Meters — matching how the site plan is dimensioned.",
+              "<strong>Step 2:</strong> Enter the Width and Depth of the building rectangle in that unit. The width and depth are the building's overall plan dimensions to the outside face of the exterior walls.",
+              "<strong>Step 3:</strong> Read the Result panel: Footprint area shows both square feet and square metres; Perimeter shows the total in the input unit; Land area shows acres and square metres; Hectares shows the metric land measure.",
+              "<strong>Step 4:</strong> Sanity-check with a known case: a 60 by 100 foot building must return 6000.0 square feet, 557.4 square metres, 320.0 feet of perimeter and 0.138 acres. A 10 by 20 metre building must return 200 square metres, a 60.0 metre perimeter and 0.049 acres.",
+              "<strong>Step 5:</strong> Use the results for massing and coverage studies only — real zoning area math follows the code's definition of gross floor area, which may include or exclude elements this rectangle model does not consider."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Building Footprint Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The footprint is the number behind the first feasibility questions on any site: does the building fit the lot, how much of the lot does it cover, and how does that compare to the zoning's coverage limit. Working those numbers by hand means converting square feet to square metres and to acres in the same breath as the area — three unit systems for one rectangle — which is exactly the arithmetic where a misplaced conversion factor produces a coverage figure that is wrong by an order of magnitude."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's dual-unit output is what makes it useful across the typical project split: the architect works the plan in feet while the civil engineer and the zoning ordinance think in acres and square metres. Having all four measures computed from the same inputs guarantees they agree — the acreage can never contradict the square metres the way separately converted hand values can."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How do the square-foot and square-metre results stay consistent?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool computes the area once in the input unit and converts with the standard factor of 10.7639 square feet per square metre, so the two readouts are the same area in two unit systems — a 6000 square foot building is always 557.4 square metres because one value is derived from the other. The perimeter stays in the input unit because length converts differently from area, and the acreage is derived from the square feet with one acre equal to 43,560 square feet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the acreage change when I switch to metres?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The acreage is always computed from the same physical area — it does not change with the input unit. A 10 by 20 metre building has the same 0.049 acres whether you enter it in metres or convert it to 32.8 by 65.6 feet. What does change between the modes is the area itself, because you are describing a different building. If the acreage appears to jump when you flip the unit, check that the width and depth values you kept were converted, not reused."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What counts as the building footprint for zoning?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The footprint is the ground-floor extent of the building measured to the outside face of the exterior walls — or to the drip line for overhanging roofs, depending on the jurisdiction's zoning definition. The tool's note flags this because the difference matters: a modest overhang can add real square footage to a footprint when the ordinance counts the drip line. Check the zoning text for the exact definition before relying on the rectangle's edge."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle L-shaped or irregular buildings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — it models a single rectangle, which suits early massing studies and simple footprints. An L-shaped or irregular building should be split into rectangles, computed separately, and summed — a process the tool supports by the fact that each rectangle is independent. For coverage questions the same applies: the total footprint is the sum of the parts, and the zoning comparison uses the summed area, not the bounding box."
+          }
+        ]
+      }
+    ]
+  }
+]

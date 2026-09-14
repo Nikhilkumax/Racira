@@ -54,7 +54,7 @@ export default function AssumableMortgageBenefitCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const ab = parseFloat(inputs.assumedBalance)

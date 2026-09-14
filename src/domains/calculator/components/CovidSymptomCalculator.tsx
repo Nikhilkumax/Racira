@@ -198,7 +198,7 @@ export default function CovidSymptomCalculator() {
 
           <div className="flex flex-col gap-4">
             {result ? (<>
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.actionColor}10`, borderColor: result.actionColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-3">
                   <div className="text-sm font-black uppercase tracking-widest" style={{ color: result.actionColor }}>
                     {result.actionLevel}

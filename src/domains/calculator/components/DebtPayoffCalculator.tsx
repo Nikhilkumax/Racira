@@ -176,6 +176,7 @@ export default function DebtPayoffCalculator() {
               </button>
               {showAdv && (
                 <div className="mt-2 p-3 rounded-lg bg-secondary/20 border border-border animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Additional Debts</div>
                   <button onClick={addDebt} className="text-sm text-primary font-bold hover:underline">+ Add Another Debt</button>
                   <p className="text-xs text-muted-foreground mt-1">Click × on any row to remove a debt from the list.</p>
                 </div>

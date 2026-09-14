@@ -157,7 +157,7 @@ export default function ReplenishmentLeadTimeCalculator() {
               </button>
               {showAdvanced && (
                 <div className="mt-3 border border-border rounded-lg p-4 bg-secondary/10 grid grid-cols-2 gap-3">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 col-span-2 font-medium">Safety Stock & EOQ Inputs</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 col-span-2 font-medium">Safety Stock & EOQ Inputs</div>
                   <Inp id="safetyDays" label="Safety Buffer (days)" value={safetyDays} onChange={setSafetyDays} suffix="days" />
                   <Inp id="annualDemand" label="Annual Demand" value={annualDemand} onChange={setAnnualDemand} suffix="units" />
                   <Inp id="orderCost" label="Cost per Order" value={orderCost} onChange={setOrderCost} prefix="$" />

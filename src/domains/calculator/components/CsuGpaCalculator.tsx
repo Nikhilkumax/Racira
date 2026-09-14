@@ -72,13 +72,13 @@ export default function CsuGpaCalculator() {
 
   useEffect(() => {
     setResult(calcGpa(rows));
-  }, [rows]);
+  }, []);
 
   const updateRow = (i: number, patch: Partial<CourseRow>) =>
     setRows((rs) => rs.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
   const addRow = () => setRows((rs) => [...rs, { name: "", grade: "B", units: 3 }]);
   const removeRow = (i: number) => setRows((rs) => (rs.length > 1 ? rs.filter((_, idx) => idx !== i) : rs));
-  const reset = () => setRows(DEFAULT_ROWS);
+  const reset = () => { setRows(DEFAULT_ROWS); setResult(calcGpa(DEFAULT_ROWS)); };
 
   const faqs = [
     { question: "How is CSU GPA calculated?", answer: "Each grade converts to grade points (A = 4.0, A- = 3.7, B = 3.0, etc.), multiplied by the course units. GPA = total grade points ÷ total units. CSU and UC both use this 4.0 scale." },
@@ -123,7 +123,7 @@ export default function CsuGpaCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 flex items-center justify-center gap-2">
+              <button type="button" onClick={() => setResult(calcGpa(rows))} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 flex items-center justify-center gap-2">
                 <GraduationCap className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

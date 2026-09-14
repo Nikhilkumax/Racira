@@ -68,10 +68,10 @@ export default function CoordinateGeometryCalculator() {
   useEffect(() => {
     const v = Object.values(inputs).map(parseFloat);
     if (v.every((n) => !isNaN(n))) setResult(calcGeo(v[0], v[1], v[2], v[3]));
-  }, [inputs]);
+  }, []);
 
   const set = (k: keyof typeof DEFAULTS) => (val: string) => setInputs((p) => ({ ...p, [k]: val }));
-  const reset = () => setInputs(DEFAULTS);
+  const reset = () => { setInputs(DEFAULTS); setResult(calcGeo(parseFloat(DEFAULTS.x1), parseFloat(DEFAULTS.y1), parseFloat(DEFAULTS.x2), parseFloat(DEFAULTS.y2))); };
   const invalid = Object.values(inputs).some((s) => isNaN(parseFloat(s)));
 
   const faqs = [

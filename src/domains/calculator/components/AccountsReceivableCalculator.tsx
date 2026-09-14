@@ -266,7 +266,7 @@ export default function AccountsReceivableCalculator() {
 
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Professional Settings</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Professional Settings</div>
                   <div className="grid grid-cols-2 gap-4">
                     <CompactInput id="credit-terms" label="Credit Terms" value={creditTerms} onChange={setCreditTerms} suffix="days" />
                     <CompactInput id="ind-benchmark" label="Industry Benchmark DSO" value={industryBenchmark} onChange={setIndustryBenchmark} suffix="days" />

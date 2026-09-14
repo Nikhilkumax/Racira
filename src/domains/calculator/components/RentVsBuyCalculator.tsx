@@ -104,10 +104,6 @@ export default function RentVsBuyCalculator() {
 
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Rent vs Buy Calculator</h1>
-        <p className="text-muted-foreground">
-          Compare the net-worth outcome of renting and investing versus buying a home over your
-          chosen horizon.
-        </p>
       </div>
 
       <Card className="mb-6">
@@ -216,19 +212,17 @@ export default function RentVsBuyCalculator() {
       {showResults && (
         <>
           <div className="grid gap-4 sm:grid-cols-3 mb-6">
-            <Card className="border-l-4 border-primary">
-              <CardContent className="p-6">
-                <p className="text-sm text-muted-foreground">Buy: Net Worth in {horizon} yrs</p>
-                <p className="text-2xl font-bold">
-                  $
-                  {buyNetWorth.toLocaleString("en-US", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}
-                </p>
-                <p className="text-xs text-muted-foreground">Home value − remaining loan</p>
-              </CardContent>
-            </Card>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+              <p className="text-sm text-muted-foreground">Buy: Net Worth in {horizon} yrs</p>
+              <p className="text-2xl font-bold text-primary">
+                $
+                {buyNetWorth.toLocaleString("en-US", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })}
+              </p>
+              <p className="text-xs text-muted-foreground">Home value − remaining loan</p>
+            </div>
             <Card>
               <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground">Rent: Invested Portfolio</p>

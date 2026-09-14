@@ -240,7 +240,7 @@ export default function ReverseMortgageBreakEvenCalculator() {
             {result && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className={`border-l-4 rounded-lg p-5 ${result.breakEvenYear !== null ? 'bg-amber-500/10 border-amber-500' : 'bg-green-500/10 border-green-500'}`}>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Zero Equity Reached At</p>
                     {result.breakEvenYear !== null ? (
                       <div>
@@ -254,7 +254,7 @@ export default function ReverseMortgageBreakEvenCalculator() {
                       </div>
                     )}
                   </div>
-                  <div className="border-l-4 rounded-lg p-5 bg-primary/10 border-primary">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                     <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Projected Final Equity (Age {Number(borrowerAge) + result.finalYear})</p>
                     <p className="text-3xl font-black text-primary">{formatCurrency(result.finalEquity)}</p>
                     <p className="text-sm text-muted-foreground mt-1">Non-recourse guarantee protects heirs</p>

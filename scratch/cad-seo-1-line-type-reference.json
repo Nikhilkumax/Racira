@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "line-type-reference",
+    "varName": "line_type_referenceSeo",
+    "name": "Line Type Reference",
+    "sections": [
+      {
+        "heading": "What is Line Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Line Type Reference is a searchable table of the seven standard line types used on technical drawings, with each one's alias, its typical use, and a scaled sample of its dash pattern. The conventions follow ISO 128 and ASME Y14.2, the two standards families most drawing offices work to, so the same vocabulary applies whether the drawing was produced in Europe or North America."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table covers continuous lines for visible outlines, dashed lines for hidden edges, center lines for symmetry axes and pitch circles, phantom lines for adjacent or alternative parts, cutting-plane lines for section views, thin continuous lines for dimensions and leaders, and break lines for shortening long parts. Each row also shows the actual dash geometry — a center line is a long dash followed by a short dash, while a phantom line uses a long dash followed by two short dashes — which is exactly the pattern you would type into a linetype definition file."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Line Type Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Open the tool page and read across any row you need. The Line type column names the linetype as it appears in the CAD layer or property palette; the Also called column lists the synonym used by the other standard — Dashed is Hidden in the US, Center is Centre under ISO spelling.",
+              "<strong>Step 2:</strong> Match the Typical use column to the geometry you are about to draw. Visible edges get the continuous line; edges you cannot see from the current view direction get the dashed hidden line; symmetry axes, pitch circle diameters and bolt circles get center lines.",
+              "<strong>Step 3:</strong> Type into the search box to filter the table when you are checking one specific case, such as which linetype a cutting-plane line should be. The filter matches as you type, and clearing it restores the full list.",
+              "<strong>Step 4:</strong> Look at the Sample column to confirm the dash rhythm. The samples are drawn to scale from the same segment lengths listed in the Dash pattern column, so a center line visibly alternates long and short dashes rather than reading as a generic dotted line.",
+              "<strong>Step 5:</strong> Apply the note at the bottom of the table to your own drawing setup: assign line weights by line type — visible outlines thickest; hidden, center, dimension and leader lines thin — rather than by color, which is the layer-convention approach modern CAD standards recommend."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Line Type Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Line types carry meaning on a drawing — a dashed edge tells the reader the feature is hidden behind the part, and a phantom outline tells them it is an alternative position or a mating part drawn for reference. Misusing them produces drawings that fabricators and inspectors must second-guess, which is where expensive errors start. Keeping a one-page reference next to the CAD session is the cheapest way to stay consistent across a whole sheet set."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is equally useful when you inherit a drawing from another office or another country. If the layer list uses names like Hidden while your own standard says Dashed, the alias column resolves the mismatch in seconds. Because every pattern is listed with its segment lengths, you can also reproduce the linetype in software that stores dash definitions as numbers instead of named styles."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between ANSI31 and ANSI32?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool covers line types rather than hatch patterns, but the naming question points at the same standards split: ANSI31 and ANSI32 are hatch pattern codes, not line types. If you came here looking for them, the companion Hatch Pattern Reference lists those codes with their angles and spacing. For line types, the equivalent split is between the US names in ASME Y14.2 — where the hidden line is called Dashed — and the ISO 128 names that use Centre and Break with the relevant suffix."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should I use a phantom line instead of a dashed line?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Dashed lines show hidden edges of the part itself — geometry that exists but is out of view. Phantom lines show things that are not part of the part at all: the adjacent part it assembles against, an alternative position of a moving component such as a valve handle, or the repeated position of a feature such as bolt holes on a pitch circle. If the outline does not belong to the object being dimensioned, it is phantom, not dashed."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is the center line pattern long dash, short dash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A center line needs to be read as an axis, not as an edge, so its pattern is deliberately distinct from a hidden line's even dashes: a long dash, a short dash, then a repeat. At the center of a circle the two short dashes cross. In practice the pattern should start and end with the long dash and should extend a consistent small distance past the feature it locates, typically around 2 to 5 mm beyond the outline depending on the office standard."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use these patterns to build custom linetypes in my CAD software?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The Dash pattern column gives the segment lengths in millimetres in drawing order, which maps directly to the dash, gap sequence in a linetype definition file — a center line as 10 on, 3 off, 2 on, 3 off is the classic AutoCAD definition expressed the same way. Copy the segment list into your software's linetype editor and the on-screen result will match the Sample column, since both are driven by the same numbers."
+          }
+        ]
+      }
+    ]
+  }
+]

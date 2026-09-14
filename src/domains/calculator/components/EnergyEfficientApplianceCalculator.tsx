@@ -127,7 +127,7 @@ const EnergyEfficientApplianceCalculator = () => {
               <NumInput id="costPerKwh" label="Electricity Rate" value={inputs.costPerKwh} onChange={set("costPerKwh")} min="0" step="0.01" prefix="$" suffix="/kWh" />
               <NumInput id="applianceCost" label="New Appliance Price" value={inputs.applianceCost} onChange={set("applianceCost")} min="0" prefix="$" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div>
               <NumInput id="lifetime" label="Expected Lifespan (years)" value={inputs.lifetime} onChange={set("lifetime")} min="0" hint="Used for lifetime savings and ROI." />
             </div>

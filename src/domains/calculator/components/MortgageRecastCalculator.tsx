@@ -149,6 +149,7 @@ export default function MortgageRecastCalculator() {
             </button>
             {showAdvanced && (
               <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Recast Costs</div>
                 <CompactInput id="recastFee" label="Recast Fee" value={inputs.recastFee} onChange={(v: string) => handleChange("recastFee", v)} prefix="$" />
               </div>
             )}

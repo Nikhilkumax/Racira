@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "engineering-change-order-template",
+    "varName": "engineering_change_order_templateSeo",
+    "name": "Engineering Change Order Template",
+    "sections": [
+      {
+        "heading": "What is Engineering Change Order Template",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Engineering Change Order Template assembles a structured change order document from form fields — ECO number, date, title, originator, reason, change description and affected documents — and previews it exactly as it would appear when issued. An engineering change order (ECO) is the formal record that a design is being altered after release, who asked for it, why, and which drawings or documents it touches. Having the fields forced into a fixed structure is what makes the record auditable rather than just an email thread."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reason field is not free text but a closed list of six categories: design change, error correction, manufacturing or fabrication issue, client or owner request, code or standard update, and field or site change. Choosing from the list keeps the change register consistent enough to report on — the project manager can see at a glance whether a spike in ECOs is coming from design changes or from field issues. The document closes with an approvals block for engineering, manufacturing and quality sign-off."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Engineering Change Order Template",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Confirm the ECO number and Date. The number defaults to a year-prefixed series such as ECO-2026-001 — change it to match your register — and the date defaults to today, so the record is time-stamped the moment you start it.",
+              "<strong>Step 2:</strong> Enter a Title that names the change in one line, such as \"Bracket thickness revision\", and the Originator — the name or department raising the change, not necessarily the person who will implement it.",
+              "<strong>Step 3:</strong> Choose the Reason from the six-category list. If the change is driven by a revised code edition, pick Code / standard update; if a part cannot be made as dimensioned, pick Manufacturing / fabrication issue — the category will drive how the ECO is triaged.",
+              "<strong>Step 4:</strong> Describe the change in the Change description field: what changes, why, and what it affects. List the affected documents — drawings, models, specifications — in the Affected documents field, one reference per line or separated by commas.",
+              "<strong>Step 5:</strong> Press Generate ECO once the title or description is filled in. The Document preview panel assembles everything into the final layout with the ECO header, the details block, and the signature lines for Engineering, Manufacturing and Quality approval, ready to copy into your PLM system or issue as-is."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Engineering Change Order Template",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "An uncontrolled change is how drawings and the parts made from them quietly diverge: someone updates a dimension in the model, the fabrication drawing is never touched, and the discrepancy surfaces in the shop. The ECO exists to force the loop closed — every change gets a number, a reason and a list of affected documents before it is implemented. Starting from a template means the discipline is in the document itself, so the first draft of a change record already has the structure a quality system requires."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is deliberately lightweight: it produces the document text in your browser with no upload and no account, so a small shop or a single engineer can run a proper change process without standing up a full PLM system. When the organization later moves to a PLM, the fields here map directly onto the standard ECO workflow — number, reason category, description, affected items, approvals — so records created this way transfer cleanly."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between an ECO and an ECN or an ECR?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The letters differ by company, but the usual distinction is between the request, the order and the notice. A change request (ECR) proposes the change and asks for evaluation; the change order (ECO) is the approved instruction to implement it; and the change notice (ECN) is the document that announces the change to everyone affected once it is released. This tool produces the ECO itself — the implementation record with the approved description and affected documents — and its fields carry over naturally into an ECN when the change is issued."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the reason have to come from a fixed list?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Free-text reasons cannot be counted, and change management lives on counts: how many changes this quarter came from client requests versus manufacturing issues tells you where your design process is leaking. The six categories here — design change, error correction, manufacturing issue, client request, code or standard update, and field change — are coarse enough to fill in without agonizing and fine enough to drive that reporting. If a change genuinely spans two categories, pick the dominant one and explain the rest in the description."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When should an ECO be raised versus fixing the drawing directly?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Once a drawing has been issued — sent for fabrication, permit, pricing or construction — it must not be changed silently, because other people are making decisions from the version they hold. Any alteration to an issued document needs an ECO so the change is traceable and every holder of the old version knows to update. Before first issue, during internal review, you can fix the drawing directly; the ECO clock starts when the document leaves your control."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What should go in the affected documents field?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Every document that must change as a result of this ECO — the drawing the change is on, but also the sibling sheets it references, the bill of materials, the model file, and any specification or standard that describes the affected feature. Use the drawing numbers from your register so the list matches how documents are actually filed. If a change touches an assembly drawing, the part drawings of every changed component belong on the list too, because each one needs its own revision."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -2,13 +2,19 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ChevronRight } from "lucide-react";
-import { categories, TOOLS_BY_SLUG, totalCount } from "@/domains/cad/registry";
+import { ChevronRight } from "lucide-react";
+import { categories, TOOLS_BY_SLUG, totalCount, findCategoryForTool } from "@/domains/cad/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
+import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
+import { SketchToolClient } from "@/domains/cad/components/tools/sketch-tool-client";
+import { EASY_TOOL_COMPONENTS } from "@/domains/cad/components/tools/easy/registry";
+import { MEDIUM_TOOL_COMPONENTS } from "@/domains/cad/components/tools/medium/registry";
+import { getToolSeo } from "@/domains/cad/registry/tool-seo";
+import SeoContent from "@/domains/cad/components/SeoContent";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -24,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.title) === slug);
   if (category) {
     return {
-      title: `${category.title} — Racira CAD`,
+      title: `${category.title} — CAD is fixed`,
       description: `Explore free CAD tools for ${category.title} directly in your browser.`,
       alternates: {
         canonical: `/cad/${slug}`,
@@ -36,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
     return {
-      title: `${tool.name} — Racira CAD`,
+      title: `${tool.name} — CAD is fixed`,
       description: tool.description,
       alternates: {
         canonical: `/cad/${tool.slug}`,
@@ -115,6 +121,50 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 }
 
 // ==========================================
+// TOOL VIEW
+// ==========================================
+
+// A registry "live" flag is only truthful if the slug has a wired component
+// here — same guarantee the developers domain enforces via its component
+// registry. Adding a tool to ACTIVE_SLUGS without a component below would
+// 404 instead of silently rendering nothing.
+const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
+  "2d-cad-sketch-tool": SketchToolClient,
+  ...EASY_TOOL_COMPONENTS,
+  ...MEDIUM_TOOL_COMPONENTS,
+};
+
+function ToolView({ tool }: { tool: (typeof categories)[number]["tools"][number] }) {
+  const cat = findCategoryForTool(tool.slug);
+  const Component = TOOL_COMPONENTS[tool.slug];
+  const seo = getToolSeo(tool.slug);
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Header mode="category" categoryName="CAD" />
+      <main className="flex-1">
+        <ToolPageHeader
+          breadcrumbItems={[
+            { label: "Home", href: "/" },
+            { label: "CAD", href: "/cad" },
+            { label: cat?.title ?? "CAD", href: cat ? `/cad/${toSlug(cat.title)}` : "/cad" },
+            { label: tool.name, href: null },
+          ]}
+          title={tool.name}
+        />
+        <div className="racira-page-container pb-16">
+          <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
+            <Component />
+          </div>
+          {seo && <SeoContent seo={seo} />}
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+// ==========================================
 // POLYMORPHIC ENTRY POINT
 // ==========================================
 export default async function PolymorphicPage({ params }: PageProps) {
@@ -126,8 +176,13 @@ export default async function PolymorphicPage({ params }: PageProps) {
     return <CategoryView category={category} />;
   }
 
-  // 2. No CAD tool page renders a real tool (registry has no components) —
-  //    every tool slug 404s.
+  // 2. Is it a genuinely-live tool with a wired component?
+  const tool = TOOLS_BY_SLUG.get(slug);
+  if (tool && isLiveTool(tool, "cad") && TOOL_COMPONENTS[tool.slug]) {
+    return <ToolView tool={tool} />;
+  }
+
+  // 3. Not found — soon tools are non-clickable cards and have no pages.
   notFound();
 }
 
@@ -135,7 +190,7 @@ function Footer() {
   return (
     <footer className="border-t border-border bg-card/40 mt-auto">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-8 text-xs text-muted-foreground sm:flex-row">
-        <p>© {new Date().getFullYear()} Racira CAD. Built for engineers and designers.</p>
+        <p>© {new Date().getFullYear()} CAD is fixed. Built for engineers and designers.</p>
         <p>{totalCount}+ tools · No signup · Runs in your browser</p>
       </div>
     </footer>

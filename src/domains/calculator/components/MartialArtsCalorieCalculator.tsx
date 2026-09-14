@@ -226,30 +226,30 @@ export default function MartialArtsCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-amber-600 to-orange-800 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-amber-300 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-amber-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-sm font-bold uppercase tracking-wider mb-1 text-muted-foreground">
                         Active Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-amber-200">kcal</div>
+                        <div className="text-6xl font-extrabold tracking-tight text-foreground">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-amber-100 mt-2 bg-amber-950/40 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold text-amber-700 mt-2 bg-amber-500/10 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
                         <Flame className="h-4 w-4" /> {results.styleName}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[120px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-amber-200 mb-1">MET Intensity</div>
-                      <div className="text-2xl font-black text-white">{results.metValue.toFixed(1)}</div>
+                    <div className="bg-background/80 border border-border/60 rounded-lg p-4 text-center min-w-[120px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">MET Intensity</div>
+                      <div className="text-2xl font-black text-foreground">{results.metValue.toFixed(1)}</div>
                     </div>
                   </div>
-                  <Shield className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Shield className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-amber-600" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

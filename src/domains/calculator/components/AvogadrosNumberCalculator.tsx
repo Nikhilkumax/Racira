@@ -242,7 +242,7 @@ const AvogadrosNumberCalculator = () => {
               </summary>
               <div className="px-4 pb-4 flex flex-col gap-4">
                 <div>
-                  <div className="text-sm font-semibold text-foreground mb-2">Substance Properties</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Substance Properties</div>
                   <label className="text-sm text-muted-foreground block mb-1">
                     Molar Mass (for mass conversions)
                   </label>
@@ -263,7 +263,7 @@ const AvogadrosNumberCalculator = () => {
                 </div>
 
                 <div>
-                  <div className="text-sm font-semibold text-foreground mb-2">Gas Conditions</div>
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Gas Conditions</div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="text-sm text-muted-foreground block mb-1">

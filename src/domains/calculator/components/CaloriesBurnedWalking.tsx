@@ -171,7 +171,7 @@ export default function CaloriesBurnedWalking() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-5 shadow-sm">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">Energy Expended</div>
                 <div className="flex items-baseline gap-2">
                   <div className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">{result.caloriesBurned}</div>

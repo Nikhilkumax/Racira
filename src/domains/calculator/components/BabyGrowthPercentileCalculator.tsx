@@ -190,7 +190,7 @@ export default function BabyGrowthPercentileCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.percentile < 10 || result.percentile > 90 ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.percentile < 10 || result.percentile > 90 ? "text-amber-600" : "text-primary"}`}>Status: {result.status}</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.percentile}th <span className="text-xl font-normal text-muted-foreground">Percentile</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

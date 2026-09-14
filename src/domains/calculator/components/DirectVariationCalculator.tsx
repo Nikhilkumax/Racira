@@ -46,9 +46,9 @@ export default function DirectVariationCalculator() {
     const b = parseFloat(y1);
     const c = parseFloat(x2);
     if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a !== 0) setResult(calcVariation(a, b, c));
-  }, [x1, y1, x2]);
+  }, []);
 
-  const reset = () => { setX1(DEFAULTS.x1); setY1(DEFAULTS.y1); setX2(DEFAULTS.x2); };
+  const reset = () => { setX1(DEFAULTS.x1); setY1(DEFAULTS.y1); setX2(DEFAULTS.x2); setResult(calcVariation(parseFloat(DEFAULTS.x1), parseFloat(DEFAULTS.y1), parseFloat(DEFAULTS.x2))); };
   const invalid = isNaN(parseFloat(x1)) || isNaN(parseFloat(y1)) || isNaN(parseFloat(x2)) || parseFloat(x1) === 0;
 
   const breakdown = [

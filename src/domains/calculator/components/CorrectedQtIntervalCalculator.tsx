@@ -380,7 +380,7 @@ export default function CorrectedQtIntervalCalculator() {
             {result && (
               <>
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 ${result.isProlonged ? 'bg-destructive/10 border-destructive' : 'bg-primary/10 border-primary'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">QTc (Bazett's Formula)</p>
                   <p className={`text-4xl font-black ${result.isProlonged ? 'text-destructive' : 'text-primary'}`}>{result.bazett} ms</p>
                   <p className="text-sm text-muted-foreground mt-1">

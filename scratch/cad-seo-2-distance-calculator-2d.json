@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "distance-calculator-2d",
+    "varName": "distance_calculator_2dSeo",
+    "name": "Distance Calculator (2D)",
+    "sections": [
+      {
+        "heading": "What is Distance Calculator (2D)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Distance Calculator (2D) works out the straight-line distance between two points, the X and Y separation between them, and the bearing of the line measured from the +X axis. You enter the four coordinates of the two points and the tool applies the standard formula — distance equals the square root of delta-X squared plus delta-Y squared — so a 30-by-40 millimetre offset returns exactly 50 millimetres."
+          },
+          {
+            "type": "paragraph",
+            "text": "The unit selector covers millimetres, centimetres, metres, inches and feet. Units never change the arithmetic because the deltas are subtracted in the coordinates you give them; they only decide how the result is labelled. The angle output is the direction from point 1 to point 2 in degrees, measured counter-clockwise from the positive X axis and normalised to a full 0 to 360 degree circle, so a point straight above the start reads 90 degrees rather than a negative number."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Distance Calculator (2D)",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Unit you are measuring in — millimetres, centimetres, metres, inches or feet. Both points are interpreted in that unit.",
+              "<strong>Step 2:</strong> Enter the X and Y coordinates of Point 1 — the start of the measurement — in the four coordinate fields. The default example places point 1 at the origin.",
+              "<strong>Step 3:</strong> Enter the X and Y coordinates of Point 2 — the end of the measurement. A common way to use the tool is copying coordinates straight from a CAD properties palette or an inspection report.",
+              "<strong>Step 4:</strong> Read the Result panel. Distance is the straight-line separation between the points, Δx and Δy show how far point 2 sits from point 1 in each axis, and Bearing from +X axis gives the direction of the line in degrees.",
+              "<strong>Step 5:</strong> Sanity-check with the classic 3-4-5 case: points (0,0) and (30,40) must return a distance of 50 in the selected unit and a bearing of about 53.13 degrees. If they do, your coordinate order is correct."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Distance Calculator (2D)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reading a distance off a drawing by scaling is only as accurate as the ruler and the print, and the error multiplies when the line is diagonal — measuring the 50-millimetre hypotenuse of a 30-by-40 delta with a scale is guesswork. Computing from coordinates gives the exact answer, which matters whenever the number feeds a tolerance check or a fabrication cut list rather than a rough layout sketch."
+          },
+          {
+            "type": "paragraph",
+            "text": "The delta and bearing outputs are what make the tool useful beyond plain distance. Δx and Δy tell you how much a feature drifted from its nominal position in each axis — the raw inputs to a true-position calculation — and the bearing gives the direction of a wall, a row of holes or a property line when you are working from survey coordinates. Because it runs entirely in the browser, you can check a measurement without exporting the model or opening a second application."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why is the bearing measured from the +X axis instead of north?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CAD and Cartesian coordinate systems conventionally treat the positive X axis as zero degrees and measure angles counter-clockwise, which is the convention this tool follows — a horizontal line to the right is 0 degrees and a vertical line up is 90 degrees. Survey bearings, by contrast, are measured clockwise from north. If you are working from a survey, add 90 degrees to the angle reported here to convert from the +X convention to a north-based bearing, then adjust for your quadrant."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the order of the two points change the result?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The distance is the same either way because it squares the deltas. The deltas and the bearing do flip: entering the points in the opposite order negates both Δx and Δy and adds 180 degrees to the bearing, which reverses the direction of the line. If your bearing comes out 180 degrees from what you expected, the two points are simply entered in the reverse order."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I mix units between the points?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — and that is deliberate. Both points are interpreted in the unit you select, and mixing units is the single most common source of 25.4-times distance errors in practice. If your coordinates came from a model drawn in millimetres but your title block is in inches, convert everything to one unit first using the CAD Unit Converter, then run the distance check."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What if I only know the distance and one point?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool needs both endpoints because distance alone does not locate a point — every distance describes a circle of possible second points around the first. If you have a distance and a direction, you can compute the second point's coordinates from the distance times the cosine and sine of the bearing, then enter that point here to confirm the geometry."
+          }
+        ]
+      }
+    ]
+  }
+]

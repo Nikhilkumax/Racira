@@ -224,14 +224,6 @@ export default function BreastfeedingCalorieCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Breastfeeding Calorie Calculator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-pink-500/10 border-l-4 border-pink-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-pink-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-pink-800 dark:text-pink-400">
-            <strong>Postpartum Disclaimer:</strong> This calculator estimates caloric needs based on CDC and ACOG guidelines for healthy lactation. Severe caloric restriction while breastfeeding can dangerously reduce milk supply and nutrient density. Always consult your OB/GYN or a Certified Lactation Consultant before intentionally attempting postpartum weight loss.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -307,25 +299,25 @@ export default function BreastfeedingCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-pink-500 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-pink-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-pink-100 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-primary">
                         Total Daily Requirement
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-pink-200">kcal / day</div>
+                        <div className="text-4xl font-bold text-primary">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal / day</div>
                       </div>
-                      <div className="text-sm font-medium text-pink-100 mt-2 bg-pink-600/50 inline-block px-3 py-1 rounded-full">
+                      <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                         Includes +{results.lactationCalories} calories exclusively for milk production
                       </div>
                     </div>
                   </div>
-                  <Baby className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Baby className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10 text-primary" />
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -396,6 +388,14 @@ export default function BreastfeedingCalorieCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-pink-500/10 border-l-4 border-pink-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-pink-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-pink-800 dark:text-pink-400">
+            <strong>Postpartum Disclaimer:</strong> This calculator estimates caloric needs based on CDC and ACOG guidelines for healthy lactation. Severe caloric restriction while breastfeeding can dangerously reduce milk supply and nutrient density. Always consult your OB/GYN or a Certified Lactation Consultant before intentionally attempting postpartum weight loss.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

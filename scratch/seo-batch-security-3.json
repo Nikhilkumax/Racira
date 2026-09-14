@@ -1,0 +1,518 @@
+[
+  {
+    "slug": "sha-1-generator",
+    "varName": "sha1GeneratorSeo",
+    "name": "SHA-1 Generator",
+    "sections": [
+      {
+        "heading": "What is SHA-1 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The SHA-1 Generator computes the SHA-1 (Secure Hash Algorithm, 160-bit) hash of any text input using the browser's native SubtleCrypto API. SHA-1 produces a fixed 160-bit (20-byte) digest displayed as a 40-character hexadecimal string. While SHA-1 is no longer considered secure for digital signatures or certificate validation (Google demonstrated a practical collision attack in 2017), it remains widely used for non-security checksums, legacy system compatibility, and Git commit identifiers (Git is migrating to SHA-256 but SHA-1 is still the default)."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool is purpose-built for SHA-1 with a streamlined interface. It computes the hash deterministically — the same input always produces the same 40-character hex string — and runs entirely in your browser with no network requests."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use SHA-1 Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste or type your input</strong> in the input panel. This can be a file hash, a Git commit reference, or any UTF-8 text.",
+              "<strong>Read the 40-character hex string</strong> in the output panel. The hash appears instantly as you type.",
+              "<strong>Compare against a known SHA-1 hash</strong> — for example, to verify a Git commit or a legacy file checksum.",
+              "<strong>Copy the hash</strong> using the copy button for use in scripts, databases, or verification workflows."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use SHA-1 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The primary use case is <strong>Git commit verification</strong>. Every Git commit, tree, and blob is identified by its SHA-1 hash. When investigating commit history, cherry-picking, or rebasing, you often need to compute or verify SHA-1 hashes. This tool provides a quick way to do that without opening a terminal."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers also use SHA-1 for <strong>legacy system compatibility</strong> — many older APIs, SVN repositories, and build systems still use SHA-1 for integrity checks. The tool is also useful for <strong>understanding hash function differences</strong> — comparing SHA-1 (40 chars), SHA-256 (64 chars), and MD5 (32 chars) outputs side by side demonstrates how different algorithms produce different digest lengths from the same input."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is SHA-1 still secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. In 2017, researchers demonstrated a <strong>practical collision attack</strong> (SHAttered) where two different PDF files produced the same SHA-1 hash. This means SHA-1 should not be used for digital signatures, certificate validation, or any security-critical application. However, it remains safe for non-security checksums (detecting accidental corruption) and is still the standard hash for Git identifiers."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should I migrate from SHA-1 to SHA-256?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For new projects, <strong>yes</strong> — use SHA-256 or stronger for all integrity checks. For existing systems, migration depends on context. Git is gradually migrating to SHA-256 but the transition is slow. If your system uses SHA-1 for non-security purposes (like cache keys or content-addressable storage), the migration is low-priority. If it uses SHA-1 for security purposes (like certificate fingerprints), migrate immediately."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between SHA-1 and SHA-256?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "SHA-1 produces a 160-bit (40 hex character) hash; SHA-256 produces a 256-bit (64 hex character) hash. SHA-256 is part of the SHA-2 family, which was designed to address SHA-1's known weaknesses. SHA-256 has a larger state space, more rounds of compression (64 vs 80), and no known practical attacks. For all new applications, prefer SHA-256."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "md5-generator",
+    "varName": "md5GeneratorSeo",
+    "name": "MD5 Generator",
+    "sections": [
+      {
+        "heading": "What is MD5 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The MD5 Generator computes the MD5 (Message Digest 5) hash of any text input, producing a fixed 128-bit (16-byte) digest displayed as a 32-character hexadecimal string. MD5 was designed by Ronald Rivest in 1991 and was once the most widely used hash algorithm on the internet. While it is now considered cryptographically broken (practical collision attacks have been demonstrated since 2004), it remains ubiquitous in non-security applications: file download checksums, database deduplication, cache keys, and legacy API authentication."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool uses a pure JavaScript MD5 implementation running entirely in your browser. The computation is deterministic and fast — even large inputs hash in under a millisecond. The output is the standard 32-character lowercase hex string recognized by every MD5 library and command-line tool."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use MD5 Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste or type your input</strong> in the input panel. MD5 processes UTF-8 text, so special characters and emoji are handled correctly.",
+              "<strong>Read the 32-character hex string</strong> in the output panel. The hash appears instantly.",
+              "<strong>Compare against a known MD5 checksum</strong> — for example, to verify a file download or match a database record.",
+              "<strong>Copy the hash</strong> using the copy button for use in scripts, queries, or verification commands."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use MD5 Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The most common use case is <strong>verifying file downloads</strong>. Many software distribution sites (including Linux package repositories, WordPress plugins, and legacy open-source projects) publish MD5 checksums alongside downloads. After downloading a file, you compute its MD5 hash and compare it to the published value — a match confirms the file was not corrupted in transit."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers use MD5 for <strong>cache busting</strong> (generating short, unique hashes for content files), <strong>data deduplication</strong> (hashing records to detect near-duplicates), <strong>legacy API integrations</strong> (some older APIs require MD5 signatures), and <strong>database operations</strong> (MySQL's <code>MD5()</code> function, Redis caching keys). The tool is also useful for <strong>educational purposes</strong> — demonstrating why MD5 is broken by showing how quickly collisions can be found."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is MD5 safe for password hashing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. MD5 is <strong>completely unsuitable for password hashing</strong> for two reasons: it is too fast (a modern GPU can compute billions of MD5 hashes per second, enabling brute-force attacks), and it has no built-in salt (making rainbow table attacks trivial). Use bcrypt, scrypt, or Argon2 for password hashing instead. The Bcrypt Generator tool in this domain is the correct choice."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use MD5 for file integrity?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For <strong>detecting accidental corruption</strong> (network errors, disk errors, copy mistakes), MD5 is still perfectly adequate. For <strong>detecting intentional tampering</strong> (security-critical verification), use SHA-256 or SHA-512 instead. The distinction matters: if you trust the source and just want to confirm the download completed correctly, MD5 works. If you need to prove the file hasn't been maliciously modified, MD5's collision weakness makes it unreliable."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why is MD5 still so widely used?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "MD5's 32-character output is compact, its algorithm is simple to implement, and it was the de facto standard for over a decade. Millions of systems were built around it — databases, APIs, package managers, and content management systems. Replacing MD5 requires updating all of these systems simultaneously, which is expensive and risky. The result is that MD5 persists in non-security contexts long after its cryptographic weaknesses were discovered."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "hmac-generator",
+    "varName": "hmacGeneratorSeo",
+    "name": "HMAC Generator",
+    "sections": [
+      {
+        "heading": "What is HMAC Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The HMAC Generator creates Hash-based Message Authentication Codes using the Web Crypto API's SubtleCrypto interface. HMAC combines a cryptographic hash function (SHA-256, SHA-384, or SHA-512) with a secret key to produce a fixed-length authentication code that proves both the integrity and the authenticity of a message. Unlike a plain hash, HMAC cannot be computed without the secret key — an attacker who modifies the message cannot forge a valid HMAC without knowing the key."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool accepts a message (the data to authenticate) and a secret key, then computes the HMAC using your chosen hash algorithm. The output is a hexadecimal string whose length depends on the underlying hash (64 chars for SHA-256, 96 for SHA-384, 128 for SHA-512). HMAC is defined in RFC 2104 and is the standard mechanism for API request signing, webhook verification, and JWT HS256/HS384/HS512 tokens."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use HMAC Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Enter the message</strong> to authenticate in the input panel. This could be a request body, a webhook payload, a string to sign, or any data that needs integrity verification.",
+              "<strong>Provide the secret key</strong> in the options panel. This is a shared secret known only to the sender and receiver. Use a strong, randomly generated key (at least 32 bytes).",
+              "<strong>Select the hash algorithm</strong> — SHA-256 is the most common for API signing; SHA-512 is used in higher-security contexts.",
+              "<strong>Read the HMAC output</strong> — a hex string that the recipient can independently compute using the same key and message to verify integrity."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use HMAC Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The most common use case is <strong>API request signing</strong>. Services like Stripe, GitHub webhooks, and AWS Signature Version 4 require requests to include an HMAC computed over the request body and headers using a secret API key. The server recomputes the HMAC and compares it — if they match, the request is authentic and untampered."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers also use HMAC for <strong>webhook verification</strong> (confirming incoming webhooks are from the expected sender), <strong>token generation</strong> (JWT HS256 tokens are HMAC-SHA256 over the Base64Url-encoded header and payload), <strong>one-time password systems</strong> (HOTP uses HMAC-SHA1), and <strong>data integrity checks</strong> where you need to detect both accidental corruption and intentional modification."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between HMAC and a plain hash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A plain hash (like SHA-256) is <strong>deterministic but not keyed</strong> — anyone who knows the algorithm can recompute the hash. HMAC adds a <strong>secret key</strong> to the computation, so only someone who knows the key can produce a valid HMAC. This means HMAC proves both integrity (the data hasn't changed) and authenticity (the holder of the key produced it). A plain hash proves only integrity."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How long should the secret key be?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "For HMAC-SHA256, the key should be <strong>at least 256 bits (32 bytes)</strong> for full security. Shorter keys reduce the effective security. For HMAC-SHA512, use a 512-bit key. In practice, most API providers generate 32-64 byte random keys. Never reuse the same key across different services or environments."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can HMAC be used for password hashing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. HMAC is designed for <strong>message authentication</strong>, not password storage. It is fast (which is bad for password hashing — it enables brute-force attacks) and does not include a salt or cost factor. For password hashing, use bcrypt, scrypt, or Argon2. For API authentication and message integrity, HMAC is the correct choice."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "crc32-calculator",
+    "varName": "crc32CalculatorSeo",
+    "name": "CRC32 Calculator",
+    "sections": [
+      {
+        "heading": "What is CRC32 Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CRC32 Calculator computes the Cyclic Redundancy Check (CRC) checksum of any text input, producing an 8-character hexadecimal value. CRC32 is a non-cryptographic hash function designed to detect accidental data corruption — it uses polynomial division over GF(2) to produce a checksum that is extremely unlikely to change if data is modified by common transmission errors (single-bit flips, burst errors). It is not designed to detect intentional tampering."
+          },
+          {
+            "type": "paragraph",
+            "text": "CRC32 is defined by the ISO 3309 standard (ITU-T V.42) and is used in ZIP files, PNG images, Ethernet frames (CRC-32), gzip compression, and the zlib/deflate compression algorithm. The output is always 32 bits (8 hex characters), regardless of input size. The computation runs in your browser with no network requests."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CRC32 Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Paste or type your input</strong> in the input panel. CRC32 processes raw bytes, so the result depends on the encoding — UTF-8 is the default.",
+              "<strong>Read the 8-character hex string</strong> in the output panel. The checksum appears instantly.",
+              "<strong>Compare against a known CRC32</strong> — for example, to verify a ZIP file, a PNG image, or a network packet.",
+              "<strong>Copy the checksum</strong> using the copy button for use in verification scripts or file metadata."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CRC32 Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The primary use case is <strong>verifying file integrity for formats that use CRC32</strong>. ZIP archives, PNG images, and gzip files all include a CRC32 checksum in their footer. When debugging corrupted downloads or damaged archives, computing the CRC32 of the extracted data and comparing it to the stored checksum confirms whether the corruption happened before or after extraction."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers use CRC32 for <strong>fast data deduplication</strong> (CRC32 is much faster than cryptographic hashes and adequate for detecting accidental duplicates), <strong>network protocol debugging</strong> (Ethernet and many serial protocols use CRC32 for error detection), and <strong>cache key generation</strong> where collision resistance is not required but speed is. It is also useful for <strong>understanding checksum fundamentals</strong> — CRC32 is a clean example of how polynomial-based error detection works."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is CRC32 a cryptographic hash?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. CRC32 is a <strong>non-cryptographic checksum</strong> designed to detect accidental errors, not intentional tampering. An attacker who knows the CRC32 algorithm can trivially construct two different inputs with the same CRC32. For security-critical integrity checks, use SHA-256 or HMAC instead. CRC32 is appropriate for detecting transmission errors, file corruption, and accidental data modifications."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does CRC32 use a polynomial?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CRC32 treats the input data as a polynomial over GF(2) (binary field) and divides it by a fixed generator polynomial (x^32 + x^26 + x^23 + ... + 1 for CRC-32). The remainder of this division is the checksum. This approach has excellent mathematical properties for detecting burst errors — any burst error of length ≤ 32 bits is guaranteed to be detected. The polynomial is standardized (0x04C11DB7) so the same input always produces the same CRC32 regardless of implementation."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How does CRC32 compare to MD5 or SHA-256?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CRC32 is <strong>much faster</strong> than MD5 or SHA-256 (it can process data at memory bandwidth speeds) but provides <strong>no security guarantees</strong>. MD5 and SHA-256 are cryptographic hash functions designed to be computationally infeasible to reverse or collide. CRC32 is a checksum designed to detect accidental corruption. Use CRC32 when speed matters and you trust the data source; use SHA-256 when you need to verify the source is trustworthy."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "pkce-generator",
+    "varName": "pkceGeneratorSeo",
+    "name": "PKCE Generator",
+    "sections": [
+      {
+        "heading": "What is PKCE Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The PKCE Generator creates Proof Key for Code Exchange (PKCE) challenge-response pairs used to secure OAuth 2.0 authorization code flows. PKCE (pronounced \"pixy\") prevents authorization code interception attacks by requiring the client to prove it initiated the authorization request. The generator produces two values: a high-entropy <strong>code verifier</strong> (a random 43-128 character string) and its corresponding <strong>code challenge</strong> (the verifier hashed with SHA-256 and Base64Url-encoded)."
+          },
+          {
+            "type": "paragraph",
+            "text": "The code verifier is sent with the token exchange request, while the code challenge is sent with the initial authorization request. The server verifies that the hash of the submitted verifier matches the stored challenge, confirming that the same client that started the flow is completing it. PKCE is now required by OAuth 2.1 for all public clients (SPAs, mobile apps, CLI tools) and recommended even for confidential clients."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use PKCE Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Click Generate</strong> to create a fresh code verifier and code challenge pair. A new random verifier is generated each time using cryptographic randomness.",
+              "<strong>Copy the code verifier</strong> — this is the secret value you send with your token exchange request (<code>code_verifier</code> parameter). Store it temporarily in memory or session storage during the OAuth flow.",
+              "<strong>Copy the code challenge</strong> — this is the value you send with your authorization request (<code>code_challenge</code> parameter). It is safe to include in URLs and browser redirects.",
+              "<strong>Select the challenge method</strong> — <code>S256</code> (SHA-256 hash) is the required method for OAuth 2.1. <code>plain</code> is supported but should only be used when the client cannot perform SHA-256."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use PKCE Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When implementing <strong>OAuth 2.0 login flows</strong> in SPAs, mobile apps, or CLI tools, PKCE is now a mandatory security requirement. Without PKCE, an attacker who intercepts the authorization code (by registering a custom URI scheme or exploiting a redirect vulnerability) can exchange it for tokens. PKCE prevents this by ensuring only the client that initiated the request can complete it."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers use this generator during <strong>OAuth integration testing</strong> — generating known verifier/challenge pairs to verify their server correctly validates PKCE. It is also useful for <strong>understanding PKCE mechanics</strong> — seeing the actual values makes the protocol concrete, whereas reading the RFC abstractly can be confusing. Security auditors use it to <strong>verify that PKCE is correctly implemented</strong> in existing applications."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between S256 and plain?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<strong>S256</strong> hashes the code verifier with SHA-256 before sending it as the code challenge. This means the authorization server never sees the raw verifier during the authorization step — only during token exchange. <strong>Plain</strong> sends the verifier itself as the challenge, which is less secure because the verifier is exposed in the authorization URL. OAuth 2.1 requires S256 for all new implementations."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How long should the code verifier be?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The RFC 7636 specification requires the verifier to be <strong>43-128 characters</strong> from the unreserved character set ([A-Z] / [a-z] / [0-9] / \"-\" / \".\" / \"_\" / \"~\"). Longer is better — the generator produces 128-character verifiers by default, which provides 1024 bits of entropy. This is far more than necessary (76 bits is the minimum recommended), but extra entropy is free and costs nothing in practice."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Do I need PKCE for server-side web apps?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Traditionally, PKCE was only required for public clients (SPAs, mobile apps). However, <strong>OAuth 2.1 recommends PKCE for all clients</strong>, including confidential server-side apps. The reason: even with a client secret, authorization code interception is possible in certain network configurations. PKCE adds minimal implementation overhead and significantly improves security, so the trend is toward universal PKCE adoption."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "basic-auth-generator",
+    "varName": "basicAuthGeneratorSeo",
+    "name": "Basic Auth Generator",
+    "sections": [
+      {
+        "heading": "What is Basic Auth Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Basic Auth Generator creates HTTP Basic Authentication header values from a username and password. Basic Auth is the simplest HTTP authentication scheme — it concatenates the username and password with a colon, Base64-encodes the result, and prefixes it with \"Basic \" to form the Authorization header value. The tool accepts a username:password pair and outputs the ready-to-use header string that you can paste directly into API clients, cURL commands, or HTTP request configurations."
+          },
+          {
+            "type": "paragraph",
+            "text": "Important: Base64 encoding is <strong>not encryption</strong> — anyone who intercepts a Basic Auth header can trivially decode it by Base64-decoding the value after \"Basic \". Basic Auth should only be used over HTTPS, where the transport layer (TLS) provides the actual confidentiality. Despite its simplicity, Basic Auth remains widely used for internal APIs, development environments, and legacy systems."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Basic Auth Generator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Enter the username</strong> in the first input field. This is the account identifier (e.g., an API username, email address, or \"admin\").",
+              "<strong>Enter the password</strong> in the second input field. This is the account's password or API key.",
+              "<strong>Read the generated header</strong> — it will look like <code>Authorization: Basic dXNlcjpwYXNz</code>. The Base64 string is the encoded credentials.",
+              "<strong>Copy the header</strong> and paste it into your API client's headers section, or use it in a cURL command with <code>-H \"Authorization: Basic ...\"</code>."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Basic Auth Generator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The primary use case is <strong>testing APIs that require Basic Authentication</strong>. Many internal tools (Jenkins, SonarQube, Jira, Gerrit, Kibana) use Basic Auth for authentication. When debugging API calls or writing scripts, you need the Base64-encoded header value, and manually computing Base64 is error-prone."
+          },
+          {
+            "type": "paragraph",
+            "text": "Developers also use this tool for <strong>generating htpasswd-compatible values</strong> (Apache and Nginx Basic Auth), <strong>testing proxy authentication</strong>, and <strong>understanding how Basic Auth works</strong> — seeing the Base64 encoding step demystifies why Basic Auth headers look the way they do and why HTTPS is essential."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Is Basic Auth secure?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Basic Auth is secure <strong>only over HTTPS</strong>. Over plain HTTP, the Base64-encoded credentials can be intercepted and decoded by anyone on the network. Even over HTTPS, Basic Auth has limitations: credentials are sent with every request (no token expiry), there is no built-in mechanism for token refresh, and the server must store the password (or a reversible hash) for verification. For modern applications, prefer OAuth 2.0 or API key-based authentication."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between Basic Auth and Bearer tokens?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "<strong>Basic Auth</strong> sends username:password (Base64-encoded) with every request. <strong>Bearer tokens</strong> (like JWTs) send a token that was issued after an initial authentication step and can expire. Bearer tokens are more secure because they don't transmit the actual password, they can have limited lifetimes, and they can carry specific permissions (scopes). Basic Auth is simpler but less flexible."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use this for database connection strings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — database connection strings use their own encoding formats (URL-encoded for connection URIs, or plaintext for JDBC-style strings). This tool specifically generates HTTP Basic Auth headers for web API authentication. For database credentials, use the appropriate driver's connection string builder."
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -224,6 +224,7 @@ export default function CarDownPaymentCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Taxes</div>
                   <CompactInput id="tax" label="State Sales Tax Rate" value={inputs.salesTaxRate} onChange={(v: string) => handleChange("salesTaxRate", v)} suffix="%" />
                 </div>
               )}

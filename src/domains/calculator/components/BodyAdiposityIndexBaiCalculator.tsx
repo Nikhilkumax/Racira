@@ -251,14 +251,6 @@ export default function BodyAdiposityIndexBaiCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Body Adiposity Index (BAI)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
-            <strong>The Scaleless Metric:</strong> The BAI formula provides an estimation of your total Body Fat Percentage using only your hip circumference and height. It completely ignores your total body weight, making it a brilliant alternative for muscular individuals who are falsely penalized by standard BMI.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -332,7 +324,7 @@ export default function BodyAdiposityIndexBaiCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* 1. Primary Result Card */}
-                <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
@@ -342,7 +334,7 @@ export default function BodyAdiposityIndexBaiCalculator() {
                         BAI Score (Est. Body Fat)
                       </div>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <div className="text-5xl font-extrabold tracking-tight text-foreground">{results.baiScore.toFixed(1)}</div>
+                        <div className="text-4xl font-bold text-primary">{results.baiScore.toFixed(1)}</div>
                         <div className="text-xl font-bold text-muted-foreground">%</div>
                       </div>
                       <div className={`text-sm font-bold mt-1
@@ -442,6 +434,14 @@ export default function BodyAdiposityIndexBaiCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-blue-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-blue-800 dark:text-blue-400">
+            <strong>The Scaleless Metric:</strong> The BAI formula provides an estimation of your total Body Fat Percentage using only your hip circumference and height. It completely ignores your total body weight, making it a brilliant alternative for muscular individuals who are falsely penalized by standard BMI.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

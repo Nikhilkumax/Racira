@@ -75,10 +75,10 @@ export default function CssSwimmingCalculator() {
 
   useEffect(() => {
     setResult(calcCss(inputs.d1, inputs.t1, inputs.d2, inputs.t2));
-  }, [inputs]);
+  }, []);
 
   const set = (k: keyof typeof DEFAULTS) => (val: string) => setInputs((p) => ({ ...p, [k]: val }));
-  const reset = () => setInputs(DEFAULTS);
+  const reset = () => { setInputs(DEFAULTS); setResult(calcCss(DEFAULTS.d1, DEFAULTS.t1, DEFAULTS.d2, DEFAULTS.t2)); };
 
   const faqs = [
     { question: "What is Critical Swim Speed (CSS)?", answer: "CSS is the theoretical pace you can hold almost indefinitely. It is derived from two maximal test swims using the formula CSS = (D₂ − D₁) ÷ (T₂ − T₁), commonly from a 400 m and 200 m time trial." },

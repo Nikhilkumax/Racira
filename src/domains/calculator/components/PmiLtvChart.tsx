@@ -236,7 +236,7 @@ export default function PmiLtvChartCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs));
-  }, [inputs]);
+  }, []);
 
   const invalid = useMemo(() => {
     const price = parseFloat(inputs.homePrice);

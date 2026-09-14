@@ -65,7 +65,7 @@ export default function ServerRackUnitsCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const cap = parseFloat(inputs.rackCapacity)

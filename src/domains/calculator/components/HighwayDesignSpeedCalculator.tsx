@@ -97,10 +97,10 @@ const HighwayDesignSpeedCalculator: React.FC = () => {
   const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
   const [result, setResult] = useState<Results>(calculate(DEFAULTS));
 
-  // Recalculate when inputs change
+  // Calculate on mount only — results refresh exclusively via the Calculate button
   useEffect(() => {
-    setResult(calculate(inputs));
-  }, [inputs]);
+    setResult(calculate(DEFAULTS));
+  }, []);
 
   const handleCalculate = () => {
     setResult(calculate(inputs));
@@ -112,11 +112,11 @@ const HighwayDesignSpeedCalculator: React.FC = () => {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold">Highway Design Speed Calculator</h1>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Highway Design Speed Calculator</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* LEFT COLUMN: INPUTS + CONTROLS */}
-        <div className="space-y-4">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold mb-3">Design Parameters</h2>
             <div className="grid grid-cols-2 gap-4">
@@ -175,7 +175,7 @@ const HighwayDesignSpeedCalculator: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               {/* Sight Distance Group */}
               <div className="space-y-2">
-                <h3 className="font-semibold">Sight Distance</h3>
+                <h3 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Sight Distance</h3>
                 <div className="space-y-1">
                   <div>
                     <label className="block text-sm font-medium mb-1">Driver Eye Height (ft)</label>
@@ -202,7 +202,7 @@ const HighwayDesignSpeedCalculator: React.FC = () => {
               
               {/* Curve Group */}
               <div className="space-y-2">
-                <h3 className="font-semibold">Curve</h3>
+                <h3 className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Curve</h3>
                 <div className="space-y-1">
                   <div>
                     <label className="block text-sm font-medium mb-1">Superelevation Rate (%)</label>

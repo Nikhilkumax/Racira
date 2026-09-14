@@ -71,10 +71,16 @@ export default function CostOfLivingCalculator() {
     const c = parseFloat(inputs.current);
     const t = parseFloat(inputs.target);
     if (!isNaN(s) && !isNaN(c) && c > 0 && !isNaN(t) && t > 0) setResult(calcCol(s, c, t));
-  }, [inputs]);
+  }, []);
 
   const set = (k: keyof typeof DEFAULTS) => (v: string) => setInputs((p) => ({ ...p, [k]: v }));
-  const reset = () => setInputs(DEFAULTS);
+  const handleCalculate = () => {
+    const s = parseFloat(inputs.salary);
+    const c = parseFloat(inputs.current);
+    const t = parseFloat(inputs.target);
+    if (!isNaN(s) && !isNaN(c) && c > 0 && !isNaN(t) && t > 0) setResult(calcCol(s, c, t));
+  };
+  const reset = () => { setInputs(DEFAULTS); setResult(calcCol(parseFloat(DEFAULTS.salary), parseFloat(DEFAULTS.current), parseFloat(DEFAULTS.target))); };
   const invalid = isNaN(parseFloat(inputs.salary)) || isNaN(parseFloat(inputs.current)) || parseFloat(inputs.current) <= 0 || isNaN(parseFloat(inputs.target)) || parseFloat(inputs.target) <= 0;
 
   const faqs = [
@@ -108,7 +114,7 @@ export default function CostOfLivingCalculator() {
             <p className="text-xs text-muted-foreground">National average index = 100. NYC ≈ 180, Dallas ≈ 105, rural Midwest ≈ 85.</p>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Building2 className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

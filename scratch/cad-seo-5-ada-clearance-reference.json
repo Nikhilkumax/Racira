@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "ada-clearance-reference",
+    "varName": "ada_clearance_referenceSeo",
+    "name": "ADA Clearance Reference",
+    "sections": [
+      {
+        "heading": "What is ADA Clearance Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ADA Clearance Reference is a two-table lookup of the key clearance dimensions from the 2010 ADA Standards used when laying out accessible paths and spaces. The routes, doors and ramps table covers the movement system: a 36 inch minimum accessible-route width, 60 by 60 inch passing spaces every 200 feet, a 60 inch turning circle, the 32 inch door clear opening, the door maneuvering clearances, the half-inch threshold limit, the 1:12 maximum ramp slope with landings every 30 inches of rise, and the 60 inch ramp landings."
+          },
+          {
+            "type": "paragraph",
+            "text": "The fixtures and reach table covers the elements an accessible space must serve: 30 by 48 inch clear floor space at each element, forward and side reach ranges of 15 to 48 inches, 27 inch knee clearance, counter heights of 28 to 34 inches, the 60 inch wide toilet stall with grab bars both sides, the 16 to 18 inch toilet centerline, the 34 inch lavatory rim, the 30 inch drinking-fountain spout, and the 132 inch wide van parking space with its 60 inch aisle. The tables state the minimums for new construction and flag that alterations, historic buildings and state codes each carry their own provisions."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use ADA Clearance Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Start from the route question: lay out the accessible path with the Routes, doors & ramps table — 36 inch route width, 60 by 60 inch passing spaces every 200 feet, and a 60 inch turning space where a wheelchair must change direction.",
+              "<strong>Step 2:</strong> Check every door on the accessible route against the door rows: 32 inch clear opening minimum with 36 preferred, and the maneuvering clearance for the door's approach — 30 by 48 inches clear, with additional latch-side clearance on the pull side.",
+              "<strong>Step 3:</strong> Verify each ramp against the ramp rows: 1:12 maximum slope, cross slope no steeper than 1:48, and landings at the top, bottom and every 30 inches of rise — the same rule the ramp calculators enforce numerically.",
+              "<strong>Step 4:</strong> Check the fixtures and reach table for every element a user must operate: reach ranges of 15 to 48 inches high, 27 inches of knee clearance at counters and sinks, and the correct stall, lavatory and fountain clearances.",
+              "<strong>Step 5:</strong> Treat the numbers as the ADA minimums for new construction and verify the final layout against the adopted standards and any state amendments — the reference is the starting point for the compliance story, not the whole of it."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use ADA Clearance Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Accessibility clearances fail in clusters on real drawings: the accessible route is planned but the door at its end lacks maneuvering space, the turning circle is drawn at the corridor but not at the fixtures, or the ramp slope is fine while the cross slope exceeds 1:48. Keeping the movement clearances and the fixture clearances as explicit minimums next to each other makes the layout pass over the numbers the way an inspector will — element by element — instead of treating accessibility as one door clearance."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference also carries the dimensions that are easy to get subtly wrong: the 32 inch clear opening measured with the door open 90 degrees, the 36 inch preferred, the threshold that may rise half an inch only if a quarter inch is vertical and a quarter inch beveled, and the van space that is 132 inches wide because it must hold both the 96 inch stall and its 60 inch aisle. Those details are exactly where a plan either passes review or comes back with a correction cycle."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between the 36 inch route width and the 32 inch door opening?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They are different requirements for different elements. The accessible route itself must be 36 inches wide minimum, reducible to 32 inches only for a short 24 inch segment at an obstruction. A door's clear opening — the space with the door open 90 degrees — must be 32 inches minimum, with 36 inches preferred. A common layout error is designing the corridor at 32 inches because the door opening is 32, which under-sizes the route, or drawing the door opening at 36 while the corridor narrows to 30, which fails both."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why must a ramp have a landing every 30 inches of rise?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a long unbroken ramp is exhausting and dangerous for a wheelchair user to descend — the speed builds and there is no place to stop and rest. The standards limit a ramp run to 30 inches of rise before a level landing is required, with the landing at least 60 inches long and as wide as the ramp. The same rule appears in the ramp calculators: a rise past 762 millimetres — 30 inches — triggers the landing requirement, so the code check and the layout tool agree."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How much space does a van-accessible parking space really need?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A van-accessible space is 132 inches wide minimum because it combines a 96 inch standard stall with a 60 inch access aisle — the aisle is the space where a wheelchair lift or ramp deploys beside the van, and it cannot be shared by two spaces on the van stall. The total works out to 16 feet for the van space plus aisle. The reference lists the 132 inch figure explicitly because the common mistake is drawing a wider stall without the dedicated aisle, which fails the van user at the one element where the width actually matters."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Do the same clearances apply to alterations of existing buildings?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Not always — the 2010 ADA Standards treat alterations separately, allowing reduced clearances where full compliance is technically infeasible, and historic buildings have their own provisions that balance accessibility against preservation. The reference states its numbers as the new-construction minimums and flags the alteration and historic cases in its note. State codes add another layer: some states adopt the federal standards with amendments, and the adopted version governs the project."
+          }
+        ]
+      }
+    ]
+  }
+]

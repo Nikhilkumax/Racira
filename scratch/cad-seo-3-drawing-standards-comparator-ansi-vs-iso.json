@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "drawing-standards-comparator-ansi-vs-iso",
+    "varName": "drawing_standards_comparator_ansi_vs_isoSeo",
+    "name": "Drawing Standards Comparator (ANSI vs ISO)",
+    "sections": [
+      {
+        "heading": "What is Drawing Standards Comparator (ANSI vs ISO)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Drawing Standards Comparator (ANSI vs ISO) is a side-by-side table of the fourteen conventions that most often trip up a drawing office working across the US and international systems. It pairs each topic — projection, units, dimensioning, GD&T, hatching, welding symbols, scales — with what the ANSI/ASME world expects and what the ISO world expects, so the difference is visible in one row instead of buried across two standards libraries."
+          },
+          {
+            "type": "paragraph",
+            "text": "Some rows are the famous ones: third-angle projection under ASME Y14.3 versus first-angle under ISO 128-30; inches by default versus millimetres by default; the decimal period versus the comma used in many countries; ASME Y14.5-2018 versus the ISO 1101 GPS family. Others are the quiet traps: the regardless-of-feature-size convention, which is the unmarked default for position under ASME but an explicitly encircled-S modifier under ISO, or surface texture symbols from Y14.36 versus the ISO 1302 check-mark."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Drawing Standards Comparator (ANSI vs ISO)",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Open the table and find the row for the convention you are about to use — projection, decimal point, GD&T, welding symbols, or whichever applies to the current sheet.",
+              "<strong>Step 2:</strong> Read the two columns to confirm which system your drawing is being produced under, then apply that column's convention. If the file is going to a US fabricator, third-angle views, period decimals and ASME Y14.5 apply; if it is going to Europe or Asia, check first-angle, comma or period per the country, and the ISO frame rules.",
+              "<strong>Step 3:</strong> Use the search box to filter the table when you are checking one specific topic, such as how sections are hatched or which symbol a projected tolerance zone takes in each system.",
+              "<strong>Step 4:</strong> Pay special attention to the GD&T rows when the drawing carries feature control frames — the RFS row is where a frame that is perfectly legal under ASME gets misread under ISO rules, and vice versa.",
+              "<strong>Step 5:</strong> State the governing standard in the title block, as the table's note urges. A drawing that names ASME Y14.5-2018 and ISO 128-30 in the same title block is telling the shop it may need to ask which one governs."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Drawing Standards Comparator (ANSI vs ISO)",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The single most expensive drawing error across international work is not a wrong dimension — it is a mixed-standard drawing. A file drawn in inches with ISO first-angle views, or an ASME position tolerance interpreted under ISO rules where RFS is not the default, sends contradictory instructions to the shop, and the contradiction is usually discovered only when parts arrive. A comparator that lays the two systems side by side makes the decision to pick one and state it a conscious act."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table is equally useful for the reverse direction: reading drawings made under the other system. A European drawing arriving in a US shop carries first-angle views, possibly comma decimals and ISO hatching — all of which look like errors to an eye trained only on ASME. Rows like the projection and decimal-point entries defuse those false alarms in seconds, which keeps review time focused on geometry rather than convention."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does ANSI use third-angle projection and ISO first-angle?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both are correct ways to unfold a three-dimensional part into views; the systems just place the views differently. In third-angle projection, used in the US under ASME Y14.3, the view of the right side of the part is drawn to the right of the front view — as if the part were a pane of glass and you look through it. In first-angle projection, used across most of Europe and Asia under ISO 128-30, the right-side view is drawn to the left, as if the part rolls away from you. The standard projection symbol in the title block tells the reader which convention applies, which is why the symbol must never be omitted on international work."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the RFS difference and why does it matter?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Regardless of feature size (RFS) means the positional tolerance does not grow as the feature departs from its maximum material condition. Under ASME Y14.5, RFS has no symbol and is the default for position tolerances. Under ISO 1101, RFS must be marked explicitly with the encircled S modifier; the unmarked default is different. A position frame moved between systems without checking this row can gain or lose bonus tolerance the designer never intended, which is exactly the kind of silent change that surfaces as a nonconforming part."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can one drawing use ANSI dimensioning and ISO views?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Technically yes, but it should not — mixing conventions is precisely the failure this comparator exists to prevent. Every convention on the sheet is read through the governing standard, and once a reader has to hold two standards in their head, ambiguity creeps in at exactly the places where it is most expensive: whether a view is first- or third-angle, whether a comma is a decimal or a thousands separator, whether a tolerance has an implicit bonus. Choose the system that governs the contract and apply it to the whole sheet."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Are the scale conventions really different between the systems?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, in the preferred series. The US convention favours civil scales such as 1:2, 1:4, 1:8 and 1:16 for architectural and civil work, alongside SI scales like 1:20 and 1:50 when the project is metric. The ISO preferred series runs 1:2, 1:5, 1:10, 1:20, 1:50, 1:100 and so on in decade steps. The practical difference is small but real: a 1:8 detail is immediately recognised in the US system and is non-standard under ISO, where 1:10 would be the expected choice."
+          }
+        ]
+      }
+    ]
+  }
+]

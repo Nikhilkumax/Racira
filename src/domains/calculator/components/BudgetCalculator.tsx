@@ -171,9 +171,9 @@ export default function BudgetCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.surplusDeficit >= 0 ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
-                <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.surplusDeficit >= 0 ? "text-green-600" : "text-red-600"}`}>{result.surplusDeficit >= 0 ? "Monthly Surplus" : "Monthly Deficit"}</div>
-                <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.surplusDeficit >= 0 ? "+" : ""}${result.surplusDeficit.toFixed(0)}</div>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                <div className="text-xs font-bold uppercase tracking-wider mb-1 text-muted-foreground">{result.surplusDeficit >= 0 ? "Monthly Surplus" : "Monthly Deficit"}</div>
+                <div className="text-4xl font-bold text-primary tracking-tight">{result.surplusDeficit >= 0 ? "+" : ""}${result.surplusDeficit.toFixed(0)}</div>
                 <div className="text-base text-muted-foreground mt-1">Total expenses: ${result.totalAllocated.toFixed(0)} · Savings rate: {result.savingsRate.toFixed(1)}%</div>
               </div>
               <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">

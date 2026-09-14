@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "staircase-code-reference",
+    "varName": "staircase_code_referenceSeo",
+    "name": "Staircase Code Reference",
+    "sections": [
+      {
+        "heading": "What is Staircase Code Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Staircase Code Reference is a side-by-side comparison of the stair geometry rules in the IRC for dwellings and the IBC for commercial buildings, the two codes whose numbers differ just enough to cause real errors. The headline rows show the split: a maximum riser of 7 and three-quarter inches in the IRC against 7 inches in the IBC — with the metric values of 197 and 178 millimetres alongside — and a minimum tread of 10 inches in the IRC against 11 in the IBC, which measures tread depth differently through its nosing rules."
+          },
+          {
+            "type": "paragraph",
+            "text": "The table continues through the rules both codes share or split: minimum stair width of 36 inches residential against 44 commercial, headroom at 6 feet 8 inches in both, handrail height 34 to 38 inches in both, landings at the width of the stair in both with the 12 foot maximum rise between landings, and the two rules where the codes genuinely diverge — open risers are permitted in the IRC up to a 4 inch vertical opening but not permitted at all in the IBC, and riser and tread uniformity is held to a maximum 3/16 inch variation in both. The note adds the real-world caveats: egress stairs in high-occupancy buildings may need to be wider, and the adopted local edition with amendments governs."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Staircase Code Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the governing code for the project — the IRC for one- and two-family dwellings, the IBC for commercial and most multi-family work — and read the corresponding column for each rule.",
+              "<strong>Step 2:</strong> Check the riser and tread pair first, since they define the stair's basic geometry: 7¾ inch risers with 10 inch treads under the IRC, 7 inch risers with 11 inch treads under the IBC.",
+              "<strong>Step 3:</strong> Apply the uniformity rule to the whole flight: no more than 3/16 inch variation between the smallest and largest riser or tread in the flight, in both codes — the variation limit is what turns a computed stair into a code-compliant one.",
+              "<strong>Step 4:</strong> Verify the headroom and handrail rows against the section: 6 feet 8 inches of headroom measured vertically from the nosing line, and handrails at 34 to 38 inches measured from the stair nosing to the top of the rail.",
+              "<strong>Step 5:</strong> Place landings per the spacing rule — every 12 feet of rise maximum — and check the open-riser rule for residential stairs specifically, since the IRC permits up to a 4 inch opening while the IBC requires closed risers."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Staircase Code Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Stair geometry is the rare code area where the two model codes genuinely disagree — the IRC allows a steeper stair for dwellings than the IBC permits commercially — and the numbers are close enough that designing from the wrong one produces a stair that fails review by a half inch. A side-by-side table makes the governing-code choice visible for every rule, which is the difference between a stair that passes and one that comes back for a full redesign when the jurisdiction's code turns out to be the other one."
+          },
+          {
+            "type": "paragraph",
+            "text": "The reference also carries the rules that are easy to miss because they are not geometry: the 3/16 inch uniformity limit that makes an otherwise-fine flight noncompliant, the open-riser prohibition that catches residential details copied into commercial work, and the width rule that is occupancy-driven in the IBC rather than fixed. Those are the items a plan reviewer checks after the riser-tread pair, and having them in the same table keeps the review complete."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the IRC allow a steeper stair than the IBC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The IRC's 7¾ inch maximum riser with a 10 inch minimum tread reflects the reality of residential construction — dwelling stairs live in constrained footprints, serve low occupant loads, and are used by people familiar with their own homes. The IBC's 7 inch riser and 11 inch tread set a gentler geometry for the public, who use commercial stairs in unfamiliar buildings under higher traffic and emergency conditions. The same logic explains the width difference: 36 inches for dwellings against 44 for commercial egress."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is tread depth measured differently between the two codes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The IBC measures tread depth as the horizontal distance from the nosing of one tread to the nosing of the next — or from nosing to the leading edge of the tread below — under its nosing rules, which is why its 11 inch minimum is stated with the measurement convention attached. The IRC's 10 inch minimum is measured on the same general basis but with the residential nosing rules applied. The reference's note flags the difference because a tread that measures 10 inches one way can measure less the other way, and the code's measurement definition decides compliance."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why are open risers allowed in the IRC but not the IBC?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Open risers — the gap between treads — are a residential style choice, and the IRC permits them up to a 4 inch vertical opening to prevent a small child's head or foot from passing through. The IBC prohibits open risers in commercial stairs because they are a trip hazard for the general public and complicate egress in emergency conditions. A residential detail copied into a commercial stair is therefore a code violation even though it is legal in a dwelling, which is why the reference lists the rule under both columns."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the 3/16 inch uniformity rule actually require?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It limits the variation between the largest and smallest riser heights in a flight — and the same for tread depths — to 3/16 inch, in both codes. The rule exists because people climb stairs by rhythm: once the legs learn the first few risers, an inconsistent riser causes a stumble or a fall, especially on the way down. In practice it means the stair's finish-floor and finish-ceiling dimensions must be coordinated so the arithmetic divides evenly, and a small accumulated framing error can push a flight over the limit."
+          }
+        ]
+      }
+    ]
+  }
+]

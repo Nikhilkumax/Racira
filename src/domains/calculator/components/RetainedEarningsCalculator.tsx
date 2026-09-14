@@ -17,7 +17,6 @@ const RetainedEarningsCalculator = () => {
   const [dividends, setDividends] = useState(DEFAULTS.dividends);
   const [otherAdjustments, setOtherAdjustments] = useState(DEFAULTS.otherAdjustments);
   const [retainedEarnings, setRetainedEarnings] = useState(0);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [breakdownData, setBreakdownData] = useState<any[]>([]);
 
   const calculate = () => {
@@ -33,14 +32,15 @@ const RetainedEarningsCalculator = () => {
 
   useEffect(() => {
     calculate();
-  }, [beginningBalance, netIncome, dividends, otherAdjustments]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Retained Earnings Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Left Column - Inputs */}
-          <div className="space-y-6">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">Beginning Balance</label>
               <input
@@ -81,22 +81,6 @@ const RetainedEarningsCalculator = () => {
                 min="0"
               />
             </div>
-            <div className="flex items-center space-x-3 mt-4">
-              <button
-                onClick={() => setShowAdvanced(!showAdvanced)}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                {showAdvanced ? 'Hide' : 'Show'} Advanced Options
-              </button>
-            </div>
-            {showAdvanced && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                <h2 className="text-lg font-semibold mb-3">Advanced Options</h2>
-                <p className="text-sm text-gray-600">
-                  Advanced options let you fine‑tune the retained earnings calculation by adjusting the components that drive equity changes.
-                </p>
-              </div>
-            )}
             <button
               onClick={calculate}
               className="w-full mt-6 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:from-indigo-500 hover:to-purple-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -106,7 +90,7 @@ const RetainedEarningsCalculator = () => {
           </div>
 
           {/* Right Column - Results */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-4">
             {/* Primary Result Card */}  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Retained Earnings</div>
   <p className="text-4xl font-bold text-primary">${retainedEarnings.toLocaleString()}</p>
@@ -205,7 +189,6 @@ const RetainedEarningsCalculator = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

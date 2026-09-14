@@ -84,10 +84,6 @@ export default function InventoryTurnoverCalculator() {
 
       <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Inventory Turnover Calculator</h1>
-        <p className="text-muted-foreground">
-          Measure how efficiently your business sells and replaces inventory — how many times your
-          average stock is sold in a period.
-        </p>
       </div>
 
       <Card className="mb-6">
@@ -149,13 +145,11 @@ export default function InventoryTurnoverCalculator() {
       {showResults && (
         <>
           <div className="grid gap-4 sm:grid-cols-3 mb-6">
-            <Card className="border-l-4 border-primary">
-              <CardContent className="p-6">
-                <p className="text-sm text-muted-foreground">Inventory Turnover</p>
-                <p className="text-2xl font-bold">{turnover.toFixed(2)}×</p>
-                <p className="text-xs text-muted-foreground">times per {period}</p>
-              </CardContent>
-            </Card>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6">
+              <p className="text-sm text-muted-foreground">Inventory Turnover</p>
+              <p className="text-2xl font-bold text-primary">{turnover.toFixed(2)}×</p>
+              <p className="text-xs text-muted-foreground">times per {period}</p>
+            </div>
             <Card>
               <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground">Avg Inventory</p>

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
@@ -69,11 +69,6 @@ export default function ForceConverter() {
   const [unit, setUnit] = useState<Unit>(DEFAULTS.unit);
   const [result, setResult] = useState<ForceResult>(() => convertForce(100, "N"));
 
-  useEffect(() => {
-    const v = parseFloat(value);
-    if (!isNaN(v)) setResult(convertForce(v, unit));
-  }, [value, unit]);
-
   const reset = () => {
     setValue(DEFAULTS.value);
     setUnit(DEFAULTS.unit);
@@ -112,6 +107,7 @@ export default function ForceConverter() {
                   type="number"
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === "Enter") setResult(convertForce(parseFloat(value) || 0, unit)); }}
                   className="input-calc"
                   placeholder="Enter force value"
                 />
@@ -132,7 +128,7 @@ export default function ForceConverter() {
           </div>
 
           <div className="flex flex-col gap-4 min-w-0">
-            <div className="card-calculator !p-4 border border-border bg-card">
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
               <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground mb-1">
                 <Zap className="w-4 h-4 text-primary" /> CONVERTED VALUE
               </div>

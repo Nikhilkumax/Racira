@@ -94,7 +94,7 @@ const KurtosisCalculator = () => {
 
           <div className="space-y-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-4 ${result.excessKurtPop > 0.5 ? "bg-red-500/10 border-red-500" : result.excessKurtPop < -0.5 ? "bg-blue-500/10 border-blue-500" : "bg-green-500/10 border-green-500"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Excess Kurtosis</div>
                 <div className="text-4xl font-bold" style={{ color: result.excessKurtPop > 0.5 ? "#ef4444" : result.excessKurtPop < -0.5 ? "#3b82f6" : "#10b981" }}>{fmt(result.excessKurtPop)}</div>
                 <div className="text-sm text-muted-foreground mt-1">{result.type} — {result.interpretation}</div>

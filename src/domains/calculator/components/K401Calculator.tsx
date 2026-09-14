@@ -322,7 +322,7 @@ const K401Calculator = () => {
 
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Employer & Growth Settings</div>
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Employer & Growth Settings</div>
                   <CompactInput
                     id="employer-match-pct"
                     label="Employer Match"

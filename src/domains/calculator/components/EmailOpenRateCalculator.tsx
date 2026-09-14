@@ -51,9 +51,9 @@ export default function EmailOpenRateCalculator() {
     const o = parseFloat(opens);
     const c = parseFloat(clicks);
     if (!isNaN(d) && !isNaN(o) && !isNaN(c) && d > 0 && o >= 0 && c >= 0) setResult(calcEmail(d, o, c));
-  }, [delivered, opens, clicks]);
+  }, []);
 
-  const reset = () => { setDelivered(DEFAULTS.delivered); setOpens(DEFAULTS.opens); setClicks(DEFAULTS.clicks); };
+  const reset = () => { setDelivered(DEFAULTS.delivered); setOpens(DEFAULTS.opens); setClicks(DEFAULTS.clicks); setResult(calcEmail(parseFloat(DEFAULTS.delivered), parseFloat(DEFAULTS.opens), parseFloat(DEFAULTS.clicks))); };
   const invalid = isNaN(parseFloat(delivered)) || isNaN(parseFloat(opens)) || isNaN(parseFloat(clicks)) || parseFloat(delivered) <= 0 || parseFloat(opens) < 0 || parseFloat(clicks) < 0;
 
   const breakdown = [

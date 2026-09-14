@@ -211,14 +211,6 @@ export default function DailyCalorieBurnCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Daily Calorie Burn Calculator (TDEE)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
-            <strong>The Thermodynamic Baseline:</strong> This calculator uses the clinical <strong>Mifflin-St Jeor Equation</strong> to determine your Total Daily Energy Expenditure (TDEE). This number is your biological "maintenance line." Eating above it builds mass; eating below it forces fat oxidation.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -290,29 +282,29 @@ export default function DailyCalorieBurnCalculator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* TDEE Box */}
-                  <div className="bg-gradient-to-br from-indigo-600 to-blue-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">Total Daily Energy Expenditure (TDEE)</div>
+                      <div className="text-indigo-600 text-[10px] font-bold uppercase tracking-wider mb-1">Total Daily Energy Expenditure (TDEE)</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.tdee.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-white/80">kcal / day</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.tdee.toLocaleString()}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal / day</div>
                       </div>
-                      <div className="text-xs font-medium text-white/90 mt-1">Maintenance Calorie Level</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">Maintenance Calorie Level</div>
                     </div>
-                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
+                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10 text-indigo-600" />
                   </div>
 
                   {/* BMR Box */}
-                  <div className="bg-slate-800 border border-slate-700 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Basal Metabolic Rate (BMR)</div>
+                      <div className="text-muted-foreground text-[10px] font-bold uppercase tracking-wider mb-1">Basal Metabolic Rate (BMR)</div>
                       <div className="flex items-baseline gap-1">
-                        <div className="text-4xl font-extrabold">{results.bmr.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-slate-400">kcal / day</div>
+                        <div className="text-4xl font-extrabold text-foreground">{results.bmr.toLocaleString()}</div>
+                        <div className="text-sm font-medium text-muted-foreground">kcal / day</div>
                       </div>
-                      <div className="text-xs font-medium text-slate-500 mt-1">Burned at complete rest (Coma)</div>
+                      <div className="text-xs font-medium text-muted-foreground mt-1">Burned at complete rest (Coma)</div>
                     </div>
-                    <Zap className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5" />
+                    <Zap className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-slate-500" />
                   </div>
                 </div>
 
@@ -359,6 +351,14 @@ export default function DailyCalorieBurnCalculator() {
               </div>
             )}
           </div>
+        </div>
+
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-slate-500/10 border-l-4 border-slate-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-slate-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-400">
+            <strong>The Thermodynamic Baseline:</strong> This calculator uses the clinical <strong>Mifflin-St Jeor Equation</strong> to determine your Total Daily Energy Expenditure (TDEE). This number is your biological "maintenance line." Eating above it builds mass; eating below it forces fat oxidation.
+          </p>
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}

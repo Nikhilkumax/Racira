@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "hole-and-slot-dimensioner",
+    "varName": "hole_and_slot_dimensionerSeo",
+    "name": "Hole & Slot Dimensioner",
+    "sections": [
+      {
+        "heading": "What is Hole & Slot Dimensioner",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Hole & Slot Dimensioner produces the standard dimension callout for a hole pattern or a slot feature, the way it would be written on a drawing: a hole pattern reads as a quantity times the diameter with either a depth — 4× Ø10 × 20 DEEP — or a THRU flag for a through hole, and a slot reads as a quantity times width by overall length — 4× 10 × 30 SLOT. Alongside the callout the tool derives the key geometry of the feature."
+          },
+          {
+            "type": "paragraph",
+            "text": "For a hole it reports the diameter, the section area of each hole computed from pi times the radius squared, the quantity and, for a blind hole, the drill depth. For a slot it reports the end radius — half the slot width — the straight parallel length between the two semicircular ends, and the overall area of each slot combining the rectangle and the two end caps."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Hole & Slot Dimensioner",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Type — Hole or Slot. The fields switch to match the feature you are dimensioning.",
+              "<strong>Step 2:</strong> Enter the Quantity — how many identical instances of the feature appear in the pattern, such as 4 for a bolt pattern of four holes.",
+              "<strong>Step 3:</strong> For a hole, enter the Nominal diameter and decide whether it is a through hole or a blind hole with the checkbox. A blind hole reveals the Depth field; a through hole renders THRU in the callout instead of a depth. For a slot, enter the Slot width and the Overall length from end to end.",
+              "<strong>Step 4:</strong> Read the Dimension callout panel — the main output is the formatted callout ready to place on the drawing. The rows beneath give the supporting geometry: diameter and section area per hole, or end radius, straight length and area per slot.",
+              "<strong>Step 5:</strong> Confirm the geometry makes sense: a slot must have an overall length at least as long as its width, since the two end radii alone consume one full width of the length."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Hole & Slot Dimensioner",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Hole callouts follow a strict format convention — quantity, diameter symbol, depth or THRU — and a shop reads that format instantly. Writing it by hand risks exactly the errors that matter most: forgetting the THRU flag, or writing the depth for a hole that is actually through. Generating the callout from structured fields means the format is always right and always consistent across every sheet in the set."
+          },
+          {
+            "type": "paragraph",
+            "text": "The derived geometry is what turns the callout into usable information. Section area feeds weight and material take-offs, drill depth tells the tooling group whether the hole needs a special-length drill, and for a slot the straight length is the dimension a machinist sets up against — the two end radii are cut by the same cutter diameter as the slot width, so only the straight section adds travel."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does a slot callout use width × length rather than a radius?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because a slot is normally made by one cutter pass, and the cutter diameter sets the slot width — the semicircular ends are exactly that radius. Naming the width and overall length tells the machinist which cutter to use and how long the pass must be, whereas the end radius is derived information: it is always half the width. That is why this tool reports the end radius as a computed row rather than as an input."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When is a hole dimensioned THRU instead of with a depth?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the hole passes completely through the material. Through holes are flagged with THRU because no depth value applies — the material thickness already bounds them — and the flag saves the reader from wondering how deep to drill. Blind holes carry an explicit depth, and the standard convention is that a depth dimension without a flag means a blind hole, while a THRU flag means the hole clears the far side."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How is the slot area calculated?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A slot is a rectangle flanked by two semicircles. The straight section contributes width times the difference between the overall length and the width, and the two semicircular ends together form one full circle of the slot width, contributing pi times the width squared over four. The tool sums those two parts — the straight area plus the circular end area — for the per-slot total."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should the callout include a tolerance?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "That depends on the drawing standard in force. Under a general tolerance note, the callout as produced here is complete because the sheet's general tolerances apply. Where a hole or slot is a critical fit, the callout should carry a specific tolerance or a feature control frame — a positional tolerance referencing datums for location, plus a diameter or width tolerance for size. This tool produces the base callout; layer your tolerancing convention on top of it."
+          }
+        ]
+      }
+    ]
+  }
+]

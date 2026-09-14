@@ -60,9 +60,16 @@ export default function DownPaymentCalculator() {
     const c = parseFloat(closing);
     const m = parseFloat(months);
     if (!isNaN(p) && !isNaN(d) && !isNaN(c) && !isNaN(m) && p > 0 && d >= 0 && d <= 100 && c >= 0 && m > 0) setResult(calcDownPayment(p, d, c, m));
-  }, [price, pct, closing, months]);
+  }, []);
 
-  const reset = () => { setPrice(DEFAULTS.price); setPct(DEFAULTS.pct); setClosing(DEFAULTS.closing); setMonths(DEFAULTS.months); };
+  const handleCalculate = () => {
+    const p = parseFloat(price);
+    const d = parseFloat(pct);
+    const c = parseFloat(closing);
+    const m = parseFloat(months);
+    if (!isNaN(p) && !isNaN(d) && !isNaN(c) && !isNaN(m) && p > 0 && d >= 0 && d <= 100 && c >= 0 && m > 0) setResult(calcDownPayment(p, d, c, m));
+  };
+  const reset = () => { setPrice(DEFAULTS.price); setPct(DEFAULTS.pct); setClosing(DEFAULTS.closing); setMonths(DEFAULTS.months); setResult(calcDownPayment(parseFloat(DEFAULTS.price), parseFloat(DEFAULTS.pct), parseFloat(DEFAULTS.closing), parseFloat(DEFAULTS.months))); };
   const invalid = isNaN(parseFloat(price)) || isNaN(parseFloat(pct)) || isNaN(parseFloat(closing)) || isNaN(parseFloat(months)) || parseFloat(price) <= 0 || parseFloat(pct) < 0 || parseFloat(pct) > 100 || parseFloat(closing) < 0 || parseFloat(months) <= 0;
 
   const breakdown = [
@@ -113,7 +120,7 @@ export default function DownPaymentCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Home className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

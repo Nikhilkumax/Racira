@@ -48,9 +48,14 @@ export default function FoodCostCalculator() {
     const c = parseFloat(cost);
     const p = parseFloat(price);
     if (!isNaN(c) && !isNaN(p) && c >= 0 && p > 0) setResult(calcFoodCost(c, p));
-  }, [cost, price]);
+  }, []);
 
-  const reset = () => { setCost(DEFAULTS.cost); setPrice(DEFAULTS.price); };
+  const handleCalculate = () => {
+    const c = parseFloat(cost);
+    const p = parseFloat(price);
+    if (!isNaN(c) && !isNaN(p) && c >= 0 && p > 0) setResult(calcFoodCost(c, p));
+  };
+  const reset = () => { setCost(DEFAULTS.cost); setPrice(DEFAULTS.price); setResult(calcFoodCost(parseFloat(DEFAULTS.cost), parseFloat(DEFAULTS.price))); };
   const invalid = isNaN(parseFloat(cost)) || isNaN(parseFloat(price)) || parseFloat(cost) < 0 || parseFloat(price) <= 0;
 
   const fmtMoney = (n: number) => `$${n.toFixed(2)}`;
@@ -92,7 +97,7 @@ export default function FoodCostCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <UtensilsCrossed className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

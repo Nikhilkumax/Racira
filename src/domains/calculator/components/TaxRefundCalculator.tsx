@@ -1,24 +1,26 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronDown, RotateCcw, Printer } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Receipt, Calculator, UserPlus } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+
+// ── 1. TypeScript interfaces ──────────────────────────────────────────────
+type FilingStatus = "single" | "married" | "head";
 
 interface TaxInputs {
   grossIncome: number;
   withheld: number;
-  filingStatus: string;
+  filingStatus: FilingStatus;
   dependents: number;
   preTaxDeductions: number;
   itemizedDeductions: number;
   otherCredits: number;
 }
 
-interface TaxResults {
+interface TaxResult {
   taxableIncome: number;
   taxLiability: number;
   totalCredits: number;
@@ -30,338 +32,440 @@ interface TaxResults {
   standardDeduction: number;
   deductionUsed: number;
   isItemized: boolean;
-  chartData: { category: string; amount: number; color: string }[];
-  summaryStats: { label: string; value: string }[];
-  breakdown: { label: string; amount: string; isTotal?: boolean; colorClass?: string }[];
 }
 
-const calculateTaxes = (inputs: TaxInputs): TaxResults => {
-  const { grossIncome, withheld, filingStatus, dependents, preTaxDeductions, itemizedDeductions, otherCredits } = inputs;
-  
-  // 2024 Standard Deductions
-  let standardDeduction = 14600; // Single
-  if (filingStatus === "married") standardDeduction = 29200;
-  if (filingStatus === "head") standardDeduction = 21900;
-  
-  const deductionUsed = Math.max(standardDeduction, itemizedDeductions);
-  const isItemized = itemizedDeductions > standardDeduction;
+// ── 2. Pure calculation function ──────────────────────────────────────────
+const calculate = (i: TaxInputs): TaxResult => {
+  const standardDeduction =
+    i.filingStatus === "married" ? 29200 : i.filingStatus === "head" ? 21900 : 14600;
+  const deductionUsed = Math.max(standardDeduction, i.itemizedDeductions);
+  const isItemized = i.itemizedDeductions > standardDeduction;
 
-  const adjustedGrossIncome = Math.max(0, grossIncome - preTaxDeductions);
+  const adjustedGrossIncome = Math.max(0, i.grossIncome - i.preTaxDeductions);
   const taxableIncome = Math.max(0, adjustedGrossIncome - deductionUsed);
 
-  // 2024 Brackets
   const singleBrackets = [
-    { limit: 11600, rate: 0.10 }, { limit: 47150, rate: 0.12 }, { limit: 100525, rate: 0.22 },
+    { limit: 11600, rate: 0.1 }, { limit: 47150, rate: 0.12 }, { limit: 100525, rate: 0.22 },
     { limit: 191950, rate: 0.24 }, { limit: 243725, rate: 0.32 }, { limit: 609350, rate: 0.35 }, { limit: Infinity, rate: 0.37 },
   ];
   const marriedBrackets = [
-    { limit: 23200, rate: 0.10 }, { limit: 94300, rate: 0.12 }, { limit: 201050, rate: 0.22 },
+    { limit: 23200, rate: 0.1 }, { limit: 94300, rate: 0.12 }, { limit: 201050, rate: 0.22 },
     { limit: 383900, rate: 0.24 }, { limit: 487450, rate: 0.32 }, { limit: 731200, rate: 0.35 }, { limit: Infinity, rate: 0.37 },
   ];
   const headBrackets = [
-    { limit: 16550, rate: 0.10 }, { limit: 63100, rate: 0.12 }, { limit: 100500, rate: 0.22 },
+    { limit: 16550, rate: 0.1 }, { limit: 63100, rate: 0.12 }, { limit: 100500, rate: 0.22 },
     { limit: 191950, rate: 0.24 }, { limit: 243700, rate: 0.32 }, { limit: 609350, rate: 0.35 }, { limit: Infinity, rate: 0.37 },
   ];
 
-  const brackets = filingStatus === "married" ? marriedBrackets : filingStatus === "head" ? headBrackets : singleBrackets;
-  
+  const brackets = i.filingStatus === "married" ? marriedBrackets : i.filingStatus === "head" ? headBrackets : singleBrackets;
+
   let taxLiability = 0;
-  let remainingTaxable = taxableIncome;
+  let remaining = taxableIncome;
   let prevLimit = 0;
   let marginalRate = 0;
 
-  for (const bracket of brackets) {
-    if (remainingTaxable > 0) {
-      marginalRate = bracket.rate * 100;
-      const taxableInBracket = Math.min(remainingTaxable, bracket.limit - prevLimit);
-      taxLiability += taxableInBracket * bracket.rate;
-      remainingTaxable -= taxableInBracket;
+  for (const b of brackets) {
+    if (remaining > 0) {
+      marginalRate = b.rate * 100;
+      const taxableInBracket = Math.min(remaining, b.limit - prevLimit);
+      taxLiability += taxableInBracket * b.rate;
+      remaining -= taxableInBracket;
     }
-    prevLimit = bracket.limit;
-    if (remainingTaxable <= 0) break;
+    prevLimit = b.limit;
+    if (remaining <= 0) break;
   }
 
-  // Credits (Simplified Child Tax Credit: $2,000 per dependent + Other)
-  const childCredit = dependents * 2000;
-  const totalCredits = childCredit + otherCredits;
-  
-  // Tax credits can reduce tax liability to zero (non-refundable for simplicity here)
-  let netTax = Math.max(0, taxLiability - totalCredits);
-  
-  // Refund or Owe
-  const refundAmount = withheld - netTax;
-  const isRefund = refundAmount >= 0;
-
-  const effectiveRate = grossIncome > 0 ? (netTax / grossIncome) * 100 : 0;
-
-  const chartData = [
-    { category: "Non-Taxable", amount: grossIncome - taxableIncome, color: "#10b981" }, // Green
-    { category: "Taxable", amount: taxableIncome, color: "hsl(var(--primary))" }, // Blue
-  ].filter(d => d.amount > 0);
-
-  const summaryStats = [
-    { label: "Effective Tax Rate", value: `${effectiveRate.toFixed(1)}%` },
-    { label: "Marginal Tax Bracket", value: `${marginalRate.toFixed(0)}%` },
-    { label: "Deduction Type", value: isItemized ? "Itemized" : "Standard" },
-    { label: "Taxable Income", value: `$${taxableIncome.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-  ];
-
-  const breakdown = [
-    { label: "Gross Income", amount: `$${grossIncome.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Pre-Tax Deductions", amount: `-$${preTaxDeductions.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, colorClass: "text-emerald-500" },
-    { label: isItemized ? "Itemized Deductions" : "Standard Deduction", amount: `-$${deductionUsed.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, colorClass: "text-emerald-500" },
-    { label: "Taxable Income", amount: `$${taxableIncome.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, isTotal: true },
-    { label: "Estimated Tax Liability", amount: `$${taxLiability.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Total Tax Credits", amount: `-$${totalCredits.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, colorClass: "text-emerald-500" },
-    { label: "Net Tax Due", amount: `$${netTax.toLocaleString("en-US", { maximumFractionDigits: 0 })}`, isTotal: true },
-  ];
+  const totalCredits = i.dependents * 2000 + i.otherCredits;
+  const netTax = Math.max(0, taxLiability - totalCredits);
+  const refundAmount = Math.abs(i.withheld - netTax);
+  const isRefund = i.withheld - netTax >= 0;
+  const effectiveRate = i.grossIncome > 0 ? (netTax / i.grossIncome) * 100 : 0;
 
   return {
-    taxableIncome, taxLiability, totalCredits, netTax, refundAmount: Math.abs(refundAmount), isRefund,
-    effectiveRate, marginalRate, standardDeduction, deductionUsed, isItemized, chartData, summaryStats, breakdown
+    taxableIncome, taxLiability, totalCredits, netTax, refundAmount, isRefund,
+    effectiveRate, marginalRate, standardDeduction, deductionUsed, isItemized,
   };
 };
 
-const DEFAULTS = { grossIncome: "75000", withheld: "10000", filingStatus: "single", dependents: "0", preTaxDeductions: "0", itemizedDeductions: "0", otherCredits: "0" };
+// ── 3. DEFAULTS ────────────────────────────────────────────────────────────
+const DEFAULTS: TaxInputs = {
+  grossIncome: 75000,
+  withheld: 10000,
+  filingStatus: "single",
+  dependents: 0,
+  preTaxDeductions: 6000,
+  itemizedDeductions: 12000,
+  otherCredits: 0,
+};
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const fmt = (n: number, dec = 0) =>
+  n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const parse = (v: string, fallback: number) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+};
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  prefix,
+  suffix,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  prefix?: string;
+  suffix?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">{label}</label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none">{prefix}</span>}
-      <input id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" {...props} />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none">{suffix}</span>}
+    <label htmlFor={id} className="text-sm font-medium text-foreground mb-1">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {prefix}
+        </span>
+      )}
+      <input
+        id={id}
+        type="number"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
   </div>
 );
 
+// ── 4. Component ───────────────────────────────────────────────────────────
 export default function TaxRefundCalculator() {
-  const [grossIncome, setGrossIncome] = useState(DEFAULTS.grossIncome);
-  const [withheld, setWithheld] = useState(DEFAULTS.withheld);
-  const [filingStatus, setFilingStatus] = useState(DEFAULTS.filingStatus);
-  const [dependents, setDependents] = useState(DEFAULTS.dependents);
-  
+  const [inputs, setInputs] = useState({
+    grossIncome: String(DEFAULTS.grossIncome),
+    withheld: String(DEFAULTS.withheld),
+    filingStatus: DEFAULTS.filingStatus,
+    dependents: String(DEFAULTS.dependents),
+    preTaxDeductions: String(DEFAULTS.preTaxDeductions),
+    itemizedDeductions: String(DEFAULTS.itemizedDeductions),
+    otherCredits: String(DEFAULTS.otherCredits),
+  });
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [preTaxDeductions, setPreTaxDeductions] = useState(DEFAULTS.preTaxDeductions);
-  const [itemizedDeductions, setItemizedDeductions] = useState(DEFAULTS.itemizedDeductions);
-  const [otherCredits, setOtherCredits] = useState(DEFAULTS.otherCredits);
-
-  const [results, setResults] = useState<TaxResults | null>(null);
+  const [result, setResult] = useState<TaxResult>(() => calculate(DEFAULTS));
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    setResult(calculate(DEFAULTS));
+  }, []);
+
+  const parsed: TaxInputs = {
+    grossIncome: parse(inputs.grossIncome, 0),
+    withheld: parse(inputs.withheld, 0),
+    filingStatus: inputs.filingStatus as FilingStatus,
+    dependents: parseInt(inputs.dependents) || 0,
+    preTaxDeductions: parse(inputs.preTaxDeductions, 0),
+    itemizedDeductions: parse(inputs.itemizedDeductions, 0),
+    otherCredits: parse(inputs.otherCredits, 0),
+  };
+
+  const valErrors: Record<string, string> = {};
+  if (parsed.grossIncome <= 0) valErrors.grossIncome = "Gross income must be greater than 0";
+  if (parsed.withheld <= 0) valErrors.withheld = "Withheld amount must be greater than 0";
+  if (parsed.preTaxDeductions > parsed.grossIncome) valErrors.preTaxDeductions = "Pre-tax deductions cannot exceed gross income";
+  const hasErrors = Object.keys(valErrors).length > 0;
+
   const handleCalculate = () => {
-    setResults(calculateTaxes({
-      grossIncome: parseFloat(grossIncome) || 0,
-      withheld: parseFloat(withheld) || 0,
-      filingStatus,
-      dependents: parseInt(dependents) || 0,
-      preTaxDeductions: parseFloat(preTaxDeductions) || 0,
-      itemizedDeductions: parseFloat(itemizedDeductions) || 0,
-      otherCredits: parseFloat(otherCredits) || 0
-    }));
+    setResult(calculate(parsed));
   };
 
-  const handleReset = () => {
-    setGrossIncome(DEFAULTS.grossIncome); setWithheld(DEFAULTS.withheld); setFilingStatus(DEFAULTS.filingStatus); setDependents(DEFAULTS.dependents);
-    setPreTaxDeductions(DEFAULTS.preTaxDeductions); setItemizedDeductions(DEFAULTS.itemizedDeductions); setOtherCredits(DEFAULTS.otherCredits);
+  const reset = () => {
+    setInputs({
+      grossIncome: String(DEFAULTS.grossIncome),
+      withheld: String(DEFAULTS.withheld),
+      filingStatus: DEFAULTS.filingStatus,
+      dependents: String(DEFAULTS.dependents),
+      preTaxDeductions: String(DEFAULTS.preTaxDeductions),
+      itemizedDeductions: String(DEFAULTS.itemizedDeductions),
+      otherCredits: String(DEFAULTS.otherCredits),
+    });
     setShowAdvanced(false);
-    setResults(calculateTaxes({ grossIncome: 75000, withheld: 10000, filingStatus: "single", dependents: 0, preTaxDeductions: 0, itemizedDeductions: 0, otherCredits: 0 }));
+    setResult(calculate(DEFAULTS));
   };
-
-  useEffect(() => { handleCalculate(); }, []);
 
   const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Tax Estimate 2024</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:right}th{background:#f5f5f5;text-align:left}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+    window.print();
   };
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-card border border-border p-2 rounded-lg shadow-sm text-xs font-semibold">
-          <span className="text-muted-foreground mr-2">{payload[0].payload.category}:</span>
-          <span className="text-foreground">${payload[0].value.toLocaleString()}</span>
-        </div>
-      );
-    }
-    return null;
-  };
+  const r = result;
+
+  const faqs = [
+    {
+      question: "What is the standard deduction for 2024?",
+      answer:
+        "For the 2024 tax year the standard deduction is $14,600 for single filers, $29,200 for married couples filing jointly, and $21,900 for heads of household. This amount is subtracted from adjusted gross income to arrive at taxable income.",
+    },
+    {
+      question: "How does the Child Tax Credit affect my refund?",
+      answer:
+        "The Child Tax Credit provides up to $2,000 per qualifying child under age 17. As a credit it reduces tax liability dollar-for-dollar, making it far more powerful than a deduction of the same size.",
+    },
+    {
+      question: "Why did I owe money instead of getting a refund?",
+      answer:
+        "You owe when your total tax liability exceeds the tax withheld from your paychecks. This often happens with multiple jobs, investment income, or a W-4 that was never updated after marriage, a new baby, or a raise.",
+    },
+    {
+      question: "How long does it take to get a tax refund?",
+      answer:
+        "Most taxpayers receive refunds within 21 days of e-filing with direct deposit. Paper returns take 6 to 12 weeks. EITC and Additional Child Tax Credit claims cannot be issued before mid-February by law.",
+    },
+  ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Tax Refund Estimator" }]} />
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          .print-section, .print-section * { visibility: visible; }
+          .print-section { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+        }
+      `}</style>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator/finance" }, { label: "Tax Refund Estimator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tax Refund Estimator (2024)</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Tax Refund Estimator</h1>
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex items-center gap-2 mb-1">
-              <Receipt className="h-5 w-5 text-primary" />
-              <h2 className="text-2xl font-bold mb-3">Income & Withholding</h2>
+          {/* LEFT: INPUTS */}
+          <div
+            className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible"
+            onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
+          >
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <CompactInput id="gross-income" label="Annual Gross Income" value={inputs.grossIncome} onChange={(v) => setInputs({ ...inputs, grossIncome: v })} prefix="$" />
+                {valErrors.grossIncome && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.grossIncome}</p>}
+              </div>
+              <div className="flex flex-col">
+                <CompactInput id="withheld" label="Federal Tax Withheld" value={inputs.withheld} onChange={(v) => setInputs({ ...inputs, withheld: v })} prefix="$" />
+                {valErrors.withheld && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.withheld}</p>}
+              </div>
             </div>
-            
-            <CompactInput id="gross" label="Annual Gross Income" value={grossIncome} onChange={setGrossIncome} prefix="$" />
-            <CompactInput id="withheld" label="Federal Tax Withheld" value={withheld} onChange={setWithheld} prefix="$" />
 
-            <hr className="border-border my-2" />
-            
-            <div className="flex items-center gap-2 mb-1">
-              <UserPlus className="h-5 w-5 text-primary" />
-              <h2 className="text-2xl font-bold mb-3">Filing & Family</h2>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <label htmlFor="filing-status" className="text-sm font-medium text-foreground mb-1">
+                  Filing Status
+                </label>
+                <div className="relative">
+                  <select
+                    id="filing-status"
+                    value={inputs.filingStatus}
+                    onChange={(e) => setInputs({ ...inputs, filingStatus: e.target.value as FilingStatus })}
+                    className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none text-foreground transition-all cursor-pointer font-medium appearance-none pr-8"
+                  >
+                    <option value="single">Single</option>
+                    <option value="married">Married Filing Jointly</option>
+                    <option value="head">Head of Household</option>
+                  </select>
+                  <ChevronDown className="h-4 w-4 text-muted-foreground absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+              <CompactInput id="dependents" label="Dependents (Kids < 17)" value={inputs.dependents} onChange={(v) => setInputs({ ...inputs, dependents: v })} suffix="kids" />
             </div>
-            
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-foreground mb-1.5">Filing Status</label>
-              <select value={filingStatus} onChange={(e) => setFilingStatus(e.target.value)} className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm focus:ring-2 focus:ring-primary/20 outline-none">
-                <option value="single">Single</option>
-                <option value="married">Married Filing Jointly</option>
-                <option value="head">Head of Household</option>
-              </select>
-            </div>
-            <CompactInput id="dep" label="Number of Dependents (Kids < 17)" value={dependents} onChange={setDependents} suffix="kids" />
 
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
-                Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="flex items-center gap-1.5 text-sm text-primary font-medium hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
               {showAdvanced && (
-                <div className="grid grid-cols-1 gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <CompactInput id="pretax" label="Pre-Tax Deductions (401k, HSA, etc)" value={preTaxDeductions} onChange={setPreTaxDeductions} prefix="$" />
-                  <CompactInput id="itemized" label="Itemized Deductions (Overrides Standard)" value={itemizedDeductions} onChange={setItemizedDeductions} prefix="$" />
-                  <CompactInput id="credits" label="Other Tax Credits" value={otherCredits} onChange={setOtherCredits} prefix="$" />
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Retirement & Benefits</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <CompactInput id="pretax" label="Pre-Tax Deductions (401k, HSA, etc.)" value={inputs.preTaxDeductions} onChange={(v) => setInputs({ ...inputs, preTaxDeductions: v })} prefix="$" />
+                        {valErrors.preTaxDeductions && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.preTaxDeductions}</p>}
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Deductions</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <CompactInput id="itemized" label="Itemized Deductions (overrides standard)" value={inputs.itemizedDeductions} onChange={(v) => setInputs({ ...inputs, itemizedDeductions: v })} prefix="$" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Credits</div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="col-span-2">
+                        <CompactInput id="other-credits" label="Other Tax Credits" value={inputs.otherCredits} onChange={(v) => setInputs({ ...inputs, otherCredits: v })} prefix="$" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleCalculate} className="h-10 w-full flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center transition-colors shadow-sm">Calculate</button>
-              <button type="button" onClick={handleReset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors shrink-0" aria-label="Reset">
+            <div className="flex gap-3 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {results && (
-              <div ref={printRef} className="flex flex-col gap-4">
-                
-                <div className={`border-l-4 rounded-lg p-5 relative ${results.isRefund ? "bg-emerald-500/10 border-emerald-500" : "bg-red-500/10 border-red-500"}`}>
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
-                    {results.isRefund ? "Estimated Tax Refund" : "Estimated Amount Owed"}
-                  </div>
-                  <div className={`text-4xl font-bold tracking-tighter mb-2 ${results.isRefund ? "text-emerald-600" : "text-red-600"}`}>
-                    ${results.refundAmount.toLocaleString("en-US", { maximumFractionDigits: 0 })}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">
-                    {results.isRefund 
-                      ? "You overpaid your taxes throughout the year and are owed a refund."
-                      : "You underpaid your taxes throughout the year and must write a check to the IRS."}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                  {results.summaryStats.map((stat, i) => (
-                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""} ${i === 2 ? "max-sm:border-l-0 max-sm:border-t" : ""} ${i === 3 ? "max-sm:border-t" : ""}`}>
-                      <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-1">{stat.label}</div>
-                      <div className="text-sm font-bold truncate">{stat.value}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  <div className="card-calculator !p-0 border border-border bg-card overflow-hidden">
-                    <table className="w-full text-left border-collapse">
-                      <thead className="bg-secondary/50 border-b border-border">
-                        <tr>
-                          <th className="p-3 text-xs font-bold uppercase text-muted-foreground tracking-wider">Tax Summary</th>
-                          <th className="p-3 text-right text-xs font-bold uppercase text-muted-foreground tracking-wider">Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border/50">
-                        {results.breakdown.map((item, idx) => (
-                          <tr key={idx} className={item.isTotal ? "font-bold bg-secondary/20 border-t-2 border-border" : ""}>
-                            <td className="text-[14px] py-3 px-3">{item.label}</td>
-                            <td className={`text-[14px] py-3 px-3 text-right ${item.colorClass || ""}`}>{item.amount}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[250px]">
-                    <h3 className="text-base font-bold mb-4 w-full text-left">Income Distribution</h3>
-                    <ResponsiveContainer width="100%" height={220}>
-                      <BarChart data={results.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="category" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
-                        <YAxis tickLine={false} axisLine={false} tickFormatter={(v) => `$${(v/1000).toFixed(0)}k`} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--secondary))' }} />
-                        <Bar dataKey="amount" radius={[4, 4, 0, 0]}>
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-4 print-section" ref={printRef}>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            )}
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">{r.isRefund ? "Estimated Tax Refund" : "Estimated Amount Owed"}</div>
+              <div className="text-4xl font-bold text-primary">${fmt(r.refundAmount)}</div>
+              <div className="text-sm text-muted-foreground">
+                {r.isRefund
+                  ? "You overpaid through withholding — this is your money coming back."
+                  : "You underpaid — this is the balance due with your return."}
+              </div>
+            </div>
+
+            {/* 2. THREE-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Effective Rate</span>
+                <span className="font-extrabold text-foreground">{fmt(r.effectiveRate, 1)}%</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Marginal Bracket</span>
+                <span className="font-extrabold text-orange-500">{fmt(r.marginalRate, 0)}%</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Deduction Used</span>
+                <span className={`font-extrabold ${r.isItemized ? "text-emerald-600" : "text-emerald-600"}`}>{r.isItemized ? "Itemized" : "Standard"}</span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-base">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-3 pl-4">Line Item</th>
+                    <th className="p-3 pr-4 text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Gross Income</td>
+                    <td className="py-2.5 px-4 text-right font-semibold">${fmt(parsed.grossIncome)}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Pre-Tax Deductions</td>
+                    <td className="py-2.5 px-4 text-right text-emerald-600">−${fmt(parsed.preTaxDeductions)}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">{r.isItemized ? "Itemized Deductions" : "Standard Deduction"}</td>
+                    <td className="py-2.5 px-4 text-right text-emerald-600">−${fmt(r.deductionUsed)}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors border-t-2 border-border font-bold">
+                    <td className="py-2.5 px-4">Taxable Income</td>
+                    <td className="py-2.5 px-4 text-right">${fmt(r.taxableIncome)}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Estimated Tax Liability</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">${fmt(r.taxLiability)}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Total Tax Credits</td>
+                    <td className="py-2.5 px-4 text-right text-emerald-600">−${fmt(r.totalCredits)}</td>
+                  </tr>
+                  <tr className="bg-amber-500/10 border-t-2 border-border font-bold">
+                    <td className="py-2.5 px-4 text-amber-700">Net Tax Due</td>
+                    <td className="py-2.5 px-4 text-right text-amber-700">${fmt(r.netTax)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                <div className="flex justify-between"><span className="text-muted-foreground">Refund / Owed:</span><span className="font-semibold">{r.isRefund ? "Refund" : "Owed"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Amount:</span><span className="font-semibold">${fmt(r.refundAmount)}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Effective Rate:</span><span className="font-semibold">{fmt(r.effectiveRate, 1)}%</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Marginal Bracket:</span><span className="font-semibold">{fmt(r.marginalRate, 0)}%</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Deduction Used:</span><span className="font-semibold">{r.isItemized ? "Itemized" : "Standard"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Taxable Income:</span><span className="font-semibold">${fmt(r.taxableIncome)}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Tax Liability:</span><span className="font-semibold">${fmt(r.taxLiability)}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Tax Credits:</span><span className="font-semibold">${fmt(r.totalCredits)}</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
+        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="mt-12 space-y-8 text-base text-foreground">
             <div>
-              <h2 className="text-2xl font-bold mb-3">How to Estimate Your Tax Refund</h2>
+              <h2 className="text-2xl font-bold mb-3">What Is a Tax Refund Estimator?</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Understanding how your tax refund is calculated can help you manage your finances better and avoid surprises in April. A tax refund is not "free money" from the government; it is simply the return of money that you overpaid throughout the year. This calculator provides a highly accurate estimate of your 2024 federal tax situation by applying the official IRS standard deductions and tax brackets to your gross income.
+                A tax refund estimator projects whether you will receive a refund or owe a balance when you file, based on your income, withholding, filing status, and deductions. It applies the official IRS standard deductions and progressive tax brackets to your gross income, subtracts any credits, and compares the resulting tax bill against what your employer already withheld from your paychecks. A refund is not a bonus — it is simply the return of money you overpaid during the year. Understanding the mechanics lets you plan ahead, adjust your W-4 if your refund is consistently large, and avoid the surprise of an unexpected balance due in April.
               </p>
             </div>
-
             <div>
-              <h2 className="text-2xl font-bold mb-3">The Basic Tax Formula</h2>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
               <p className="text-muted-foreground leading-relaxed">
-                The IRS uses a specific sequence to determine your final tax bill. First, it takes your <strong>Gross Income</strong> and subtracts pre-tax deductions (like a 401(k) or HSA). Then, it subtracts the <strong>Standard Deduction</strong> ($14,600 for Single, $29,200 for Married Filing Jointly in 2024) to find your <strong>Taxable Income</strong>. Your taxable income is then pushed through the progressive tax brackets to determine your total tax liability. Finally, tax credits are subtracted, and the remaining net tax is compared to what you already had withheld from your paychecks.
+                The calculation follows the IRS sequence. Start with gross income and subtract pre-tax deductions such as 401(k) or HSA contributions to reach adjusted gross income. Subtract the standard deduction — $14,600 for single filers, $29,200 for married filing jointly, and $21,900 for heads of household for the 2024 tax year — or your itemized deductions when they are larger. The result is taxable income, which is pushed through the seven progressive brackets so each slice of income is taxed at its own rate. Tax credits, including $2,000 per qualifying dependent child, then reduce the liability dollar-for-dollar. Finally, the net tax is compared with federal tax withheld: more withheld means a refund, less means a balance due. The calculator's Advanced Options let you add pre-tax deductions, itemized deductions, and other credits for a closer estimate.
               </p>
             </div>
-            
             <div>
-              <h2 className="text-2xl font-bold mb-3">Credits vs. Deductions</h2>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
               <p className="text-muted-foreground leading-relaxed">
-                It's critical to know the difference between these two tax-lowering tools. <strong>Deductions</strong> lower the amount of income you are taxed on. For example, a $1,000 deduction saves you $220 if you are in the 22% tax bracket. <strong>Credits</strong>, however, lower your tax bill dollar-for-dollar. A $1,000 credit (such as the Child Tax Credit) saves you exactly $1,000, regardless of your tax bracket, making credits vastly more powerful than deductions.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold mb-3">Why Large Refunds Aren't Always Good</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                While a big check in the mail feels good, a large refund means you gave the government an interest-free loan all year. If you received a $3,000 refund, that is $250 a month that could have been in your paycheck to pay down debt, invest in your retirement account, or place in a High-Yield Savings Account. If you consistently receive massive refunds (or owe large amounts), you should submit a new Form W-4 to your employer to properly adjust your withholding.
+                Check the effective rate — your true average tax on total income — against the marginal bracket, which is the rate applied to your next dollar of earnings. The gap between them is normal: progressive brackets tax only the top slice at the highest rate. If your refund is large, you are giving the government an interest-free loan; adjusting your W-4 puts that money in your paycheck instead. If you owe, increase withholding or make estimated payments. Treat this estimate as a planning tool, not a filing substitute — dividends, capital gains, self-employment tax, and state taxes are outside its scope, and the IRS's official withholding calculator is the authority for W-4 decisions.
               </p>
             </div>
           </section>
-          
-          <FAQSection faqs={[
-            { question: "What is the standard deduction for 2024?", answer: "For the 2024 tax year, the standard deduction is $14,600 for single filers, $29,200 for married couples filing jointly, and $21,900 for heads of household. This amount is subtracted from your gross income to determine your taxable income." },
-            { question: "How does the Child Tax Credit affect my refund?", answer: "The Child Tax Credit provides up to $2,000 per qualifying child under age 17. Because it is a 'credit,' it reduces your tax liability dollar-for-dollar. If the credit reduces your tax to zero, you may be eligible for a partial refund of the remaining credit (the Additional Child Tax Credit)." },
-            { question: "Why did I owe money instead of getting a refund?", answer: "You owe money if your total tax liability for the year is greater than the amount of tax withheld from your paychecks. This often happens if you have multiple jobs, significant investment income, or if you didn't adjust your W-4 properly after a life change (like a marriage, new baby, or raise)." },
-            { question: "How long does it take to get a tax refund?", answer: "Most taxpayers receive their refund within 21 days of filing electronically with direct deposit. Paper returns can take 6 to 12 weeks to process. If you claim the Earned Income Tax Credit (EITC) or Additional Child Tax Credit, the IRS cannot issue your refund before mid-February by law." }
-          ]} pageUrl="https://racira.com/calculator/tax-refund-calculator" />
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/tax-refund-calculator" />
           <PopularCalculators exclude="/calculator/tax-refund-calculator" />
         </div>
       </div>
     </>
   );
-}
+}

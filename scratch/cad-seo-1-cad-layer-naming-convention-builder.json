@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "cad-layer-naming-convention-builder",
+    "varName": "cad_layer_naming_convention_builderSeo",
+    "name": "CAD Layer Naming Convention Builder",
+    "sections": [
+      {
+        "heading": "What is CAD Layer Naming Convention Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The CAD Layer Naming Convention Builder composes a standard layer name from its four conventional parts: a discipline code, a major group, an optional minor group and an optional status suffix. The result follows the NCS/AIA style that most CAD systems understand — for example A-WALL for an architectural wall layer, or S-COLS-NEW for a new-work structural column layer. You pick the parts from selectors and text fields, and the tool joins them with dashes into a single upper-case name you can type into your layer manager."
+          },
+          {
+            "type": "paragraph",
+            "text": "Consistent layer names are the foundation of drawing discipline. When every office in a project names walls A-WALL and columns S-COLS, consultants can reference each other's files without a translation table, filters behave predictably, and plot styles can assign line weights by layer rather than by colour. The builder enforces the shape of the name — discipline first, elements second, status last — while leaving the actual words in your control, because only your office can decide whether the second wall layer is A-WALL-PART or A-WALL-INT."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CAD Layer Naming Convention Builder",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose the Discipline from the list — A Architectural, S Structural, M Mechanical, E Electrical, P Plumbing, C Civil, L Landscape or G General. The discipline code is the first character of every layer name.",
+              "<strong>Step 2:</strong> Enter the Major group in the field labelled Major group. This is the element itself, such as WALL, COLS or DOOR. The tool upper-cases it, converts spaces to dashes and strips any character outside A-Z, 0-9, dash and underscore.",
+              "<strong>Step 3:</strong> Add a Minor group only if your convention needs one — for example EXIST to split existing walls from new walls, or a second descriptor for a sub-element. Leave it blank to keep the name to the discipline and major group.",
+              "<strong>Step 4:</strong> Choose a Status suffix when the layer describes work state: EXST for existing, DEMO for demolition, NEW for new work, PRCH for purchased items, or PH1 for phase one. Choose the empty option when no suffix applies.",
+              "<strong>Step 5:</strong> Read the assembled Layer name in the results panel. A major group is required — until you type one, the tool shows a dash instead of a name, preventing you from exporting a malformed layer."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CAD Layer Naming Convention Builder",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The painful part of layer naming is not knowing the words — it is keeping every layer in a 200-layer model consistent. Layer names typed freehand drift into A-WALL, A-WALLS, WALL-A and awall within a single file, and then every filter and plot style quietly stops working for the odd ones out. A builder that constructs the name from parts enforces the grammar of the convention at the moment of creation."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is also a quick translator when you inherit files from a firm with a different convention. Rebuild the foreign layers with your office's codes, and reference files, xrefs and export maps line up without a lookup table. The NCS-style shape it produces is recognised by AutoCAD, Revit, MicroStation and most export tools, so names built here carry across the CAD ecosystem."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What do the discipline letters stand for?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "They follow the widely used NCS/AIA codes: A for architectural, S for structural, M for mechanical, E for electrical, P for plumbing, C for civil, L for landscape and G for general. Some firms add disciplines such as I for interiors or F for fire protection; if yours does, type the letter into the workflow that fits your standard — the builder's structure still applies."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When do I actually need a minor group or a status suffix?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Only when the major group alone cannot tell two layers apart. Renovation projects are the classic case: you need existing walls, demolished walls and new walls on the same drawing, so you add EXIST, DEMO and NEW suffixes to A-WALL. If a building has only one wall layer, adding suffixes is unnecessary complexity — the shortest unambiguous name is the best name."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the tool clean up the characters I type?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Layer names are compared exactly, so a space or a lowercase letter is enough to make two otherwise identical names behave as different layers. The builder upper-cases everything, converts internal spaces to dashes and removes punctuation that layer managers treat inconsistently. That cleaning is deliberate: it stops the small typos that later break filters, overrides and sheet exports."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does this match the layer names AutoCAD uses?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes for the shape — discipline code, major and minor groups separated by dashes is the structure AutoCAD's own tools and most template files expect. The specific words (WALL versus A-WALL-PART versus A-WALL-FULL) are a per-office decision; what matters is that every layer in your file follows one structure, which is the property this builder enforces. The most common mistake, colour-based layer naming, is structurally prevented here."
+          }
+        ]
+      }
+    ]
+  }
+]

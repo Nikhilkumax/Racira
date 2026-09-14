@@ -147,7 +147,7 @@ export default function FatBurningZoneCalculator() {
                   <Heart className="h-5 w-5 text-primary" />
                 </div>
                 
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-xl p-5 text-center">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
                   <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Est. Max Heart Rate</div>
                   <div className="text-5xl font-extrabold text-foreground mb-1 tracking-tight">{res.maxHr}</div>
                   <div className="text-sm font-semibold text-muted-foreground">Beats Per Minute (bpm)</div>

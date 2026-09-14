@@ -265,6 +265,7 @@ export default function OilChangeIntervalCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Engine & Driving Conditions</div>
                   <CompactInput id="engine-type" label="Engine Type" value={inputs.engineType} onChange={(v: string) => handleChange("engineType", v)} options={[
                     { label: "Standard / N.A.", value: "standard" },
                     { label: "Turbocharged", value: "turbo" },

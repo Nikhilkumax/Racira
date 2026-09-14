@@ -139,25 +139,25 @@ export default function EscrowCalculator() {
 
         {/* Results Section */}
         <div className="lg:col-span-7 w-full space-y-6">
-          <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl overflow-hidden relative">
-            <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-white/10 rounded-full blur-3xl opacity-50"></div>
+          <div className="bg-primary/10 border-l-4 border-primary rounded-3xl p-8 shadow-2xl overflow-hidden relative">
+            <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
             <div className="relative z-10">
-              <h3 className="text-lg font-medium opacity-90 mb-2">Total Monthly Escrow</h3>
-              <div className="text-5xl font-bold tracking-tight mb-4">
+              <h3 className="text-lg font-medium text-muted-foreground mb-2">Total Monthly Escrow</h3>
+              <div className="text-5xl font-bold tracking-tight text-primary mb-4">
                 ${results.totalMonthlyEscrow.toLocaleString(undefined, { maximumFractionDigits: 2 })}
               </div>
-              <div className="text-sm opacity-80 mb-6 max-w-sm">
+              <div className="text-sm text-muted-foreground mb-6 max-w-sm">
                 This amount will be added to your principal and interest payment each month.
               </div>
 
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/20">
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-border/20">
                 <div>
-                  <div className="text-sm opacity-80 mb-1">Monthly Taxes</div>
-                  <div className="text-2xl font-semibold">${results.monthlyTaxes.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                  <div className="text-sm text-muted-foreground mb-1">Monthly Taxes</div>
+                  <div className="text-2xl font-semibold text-foreground">${results.monthlyTaxes.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
                 </div>
                 <div>
-                  <div className="text-sm opacity-80 mb-1">Monthly Insurance</div>
-                  <div className="text-2xl font-semibold">${results.monthlyInsurance.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                  <div className="text-sm text-muted-foreground mb-1">Monthly Insurance</div>
+                  <div className="text-2xl font-semibold text-foreground">${results.monthlyInsurance.toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
                 </div>
               </div>
             </div>

@@ -143,6 +143,7 @@ export default function StoichiometryCalculator() {
             </button>
             {advancedOpen && (
               <div className="border border-border rounded-lg p-4 flex flex-col gap-3">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Yield Analysis</div>
                 <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
                   <input type="checkbox" checked={useActual} onChange={(e) => setUseActual(e.target.checked)} className="h-4 w-4 rounded border-border text-primary" />
                   Calculate percent yield from actual product mass

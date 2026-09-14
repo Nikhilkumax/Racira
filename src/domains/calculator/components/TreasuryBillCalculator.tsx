@@ -88,10 +88,6 @@ export default function TreasuryBillCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           Treasury Bill Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Price a T-Bill from its bank discount rate and compare the effective yields — the
-          discount quote always understates the true return.
-        </p>
       </div>
 
       <Card className="mb-6">

@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "revision-history-table",
+    "varName": "revision_history_tableSeo",
+    "name": "Revision History Table",
+    "sections": [
+      {
+        "heading": "What is Revision History Table",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Revision History Table builds the revision block that belongs in every drawing title block — the small table that records who changed a drawing, when, and why. You add rows with a revision letter, date, description and author initials, and the tool renders them as a clean table with the exact columns a checker or manufacturer expects to read: Rev, Date, Description, By. Because revisions are typically lettered A, B, C and so on, the tool suggests the next letter automatically after every row you add."
+          },
+          {
+            "type": "paragraph",
+            "text": "A revision history is more than housekeeping. When a drawing is issued for construction, the revision block is the only place that proves a given change has been incorporated, which is why contracts and quality systems treat it as part of the deliverable. This tool keeps the discipline painless: the lettering rule is handled for you, the table format is consistent, and you can remove a mis-entered row before you paste the block into your title block or drawing management system."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Revision History Table",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Leave or edit the Revision field. It starts at A and advances alphabetically — B, C, D and so on — after each row you add. Revisions past Z are shown as Z+ rather than continuing into double letters.",
+              "<strong>Step 2:</strong> Set the Date. It defaults to today, and you can change it with the date picker to match the issue date of that revision rather than the day you are typing.",
+              "<strong>Step 3:</strong> Describe the change in the Description field — for example Preliminary issue, or Window schedule updated. A description is required before the Add revision button enables.",
+              "<strong>Step 4:</strong> Enter the author or checker initials in the By field. Initials are optional but recommended, because the table is only auditable if each row can be traced to a person.",
+              "<strong>Step 5:</strong> Click Add revision. The row appears in the title-block table, and the revision field advances to the next letter with the description and initials cleared, ready for the next change.",
+              "<strong>Step 6:</strong> Remove a mistaken row with its Remove button, then copy or screenshot the table into your title block. The table is fully client-side — nothing is uploaded while you assemble it."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Revision History Table",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Manually maintained revision blocks drift. Letters get skipped or repeated, dates fall out of order, and two people editing the same drawing invent conflicting histories. A tool that letter-sequences rows and shows them in a fixed column layout prevents the most common errors before they reach the title block."
+          },
+          {
+            "type": "paragraph",
+            "text": "It is equally useful when you are converting an old paper drawing into CAD and need to transcribe years of revisions cleanly, or when you are standardising several projects onto one title-block format. Because the output is a plain table, it pastes into AutoCAD, Revit or Word-based title blocks without reformatting."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why do revisions start at A rather than 1?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Letter-based revisioning is the convention in most drawing standards and CAD systems: the first issue is usually a preliminary or for-review issue marked A, and every subsequent change advances the letter. Numeric revisioning is used in some manufacturing and document-control systems, but the title-block convention this tool follows is alphabetic. If your project uses numbers instead, type the revision code you want into the Revision field — the field is editable."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What happens after revision Z?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The tool displays Z+ once the alphabet is exhausted. In practice a drawing that reaches Z has been through 25 revisions, which is a signal that the drawing itself should be re-issued or split rather than revised again. When that happens, document controllers typically create a new drawing number and start its history at A."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Is the description really required?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes — the Add revision button stays disabled until you type something in the Description field. An empty revision row is useless to anyone reading the history later, because it records that a change happened without recording what changed. This is one of the few places the tool is deliberately strict."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Can I use this table for issued-for-construction records?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes, with the caveat that the table documents the changes — it does not replace your document-management system's approval trail. Paste the completed block into the title block of the drawing, and keep the signed approvals in your transmittal records. The date and initials columns give readers the who-and-when, which is what a revision block is for."
+          }
+        ]
+      }
+    ]
+  }
+]

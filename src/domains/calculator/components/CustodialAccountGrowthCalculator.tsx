@@ -7,15 +7,16 @@ const DEFAULTS = {
   monthlyContribution: 200,
   annualReturn: 7,
   years: 18,
+  compoundingFrequency: 'monthly',
 };
 
-const calculateFutureValue = (initial: number, monthly: number, annualReturn: number, years: number) => {
-  const monthlyRate = annualReturn / 100 / 12;
-  const months = years * 12;
-  const futureValueInitial = initial * Math.pow(1 + monthlyRate, months);
-  const fvMonthly = monthlyRate > 0
-    ? monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate)
-    : monthly * months;
+const calculateFutureValue = (initial: number, monthly: number, annualReturn: number, years: number, periodsPerYear: number) => {
+  const periods = years * periodsPerYear;
+  const ratePerPeriod = annualReturn / 100 / periodsPerYear;
+  const futureValueInitial = initial * Math.pow(1 + ratePerPeriod, periods);
+  const fvMonthly = ratePerPeriod > 0
+    ? monthly * ((Math.pow(1 + ratePerPeriod, periods) - 1) / ratePerPeriod)
+    : monthly * periods;
   return futureValueInitial + fvMonthly;
 };
 
@@ -24,20 +25,23 @@ const CustodialAccountGrowthCalculator = () => {
   const [monthly, setMonthly] = useState(DEFAULTS.monthlyContribution);
   const [annualReturn, setAnnualReturn] = useState(DEFAULTS.annualReturn);
   const [years, setYears] = useState(DEFAULTS.years);
+  const [compounding, setCompounding] = useState(DEFAULTS.compoundingFrequency);
   const [result, setResult] = useState<number>(0);
   const [dataPoints, setDataPoints] = useState<any[]>([]);
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const calculate = () => {
-    const fv = calculateFutureValue(initial, monthly, annualReturn, years);
+    const periodsPerYear = compounding === 'quarterly' ? 4 : compounding === 'annually' ? 1 : 12;
+    const fv = calculateFutureValue(initial, monthly, annualReturn, years, periodsPerYear);
     setResult(fv);
     const points = [];
     let balance = initial;
-    const monthlyRate = annualReturn / 100 / 12;
     for (let y = 1; y <= years; y++) {
       for (let month = 0; month < 12; month++) {
         balance += monthly;
-        balance *= 1 + monthlyRate;
+        if ((month + 1) % (12 / periodsPerYear) === 0) {
+          balance *= 1 + annualReturn / 100 / periodsPerYear;
+        }
       }
       points.push({ year: y, balance: Math.round(balance) });
     }
@@ -46,14 +50,15 @@ const CustodialAccountGrowthCalculator = () => {
 
   useEffect(() => {
     calculate();
-  }, [initial, monthly, annualReturn, years]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Custodial Account Growth Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* Left Column - Inputs */}
-          <div className="space-y-6">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
             <div className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">Initial Contribution ($)</label>
               <input
@@ -108,18 +113,18 @@ const CustodialAccountGrowthCalculator = () => {
             </div>
             {showAdvanced && (
               <div className="mt-4 p-4 bg-gray-50 rounded-md">
-                <h2 className="text-lg font-semibold mb-3">Compounding Frequency</h2>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Compounding Frequency</div>
                 <div className="space-y-2">
                   <label className="flex items-center">
-                    <input type="radio" name="frequency" value="monthly" defaultChecked className="mr-2" />
+                    <input type="radio" name="frequency" value="monthly" checked={compounding === 'monthly'} onChange={() => setCompounding('monthly')} className="mr-2" />
                     Monthly
                   </label>
                   <label className="flex items-center">
-                    <input type="radio" name="frequency" value="quarterly" className="mr-2" />
+                    <input type="radio" name="frequency" value="quarterly" checked={compounding === 'quarterly'} onChange={() => setCompounding('quarterly')} className="mr-2" />
                     Quarterly
                   </label>
                   <label className="flex items-center">
-                    <input type="radio" name="frequency" value="annually" className="mr-2" />
+                    <input type="radio" name="frequency" value="annually" checked={compounding === 'annually'} onChange={() => setCompounding('annually')} className="mr-2" />
                     Annually
                   </label>
                 </div>
@@ -134,7 +139,7 @@ const CustodialAccountGrowthCalculator = () => {
           </div>
           
           {/* Right Column - Results */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-4">
             {/* Primary Result Card */}  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Future Value</div>
   <p className="text-4xl font-bold text-primary">${result.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
@@ -212,7 +217,6 @@ const CustodialAccountGrowthCalculator = () => {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

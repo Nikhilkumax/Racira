@@ -1,348 +1,368 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { RotateCcw, Printer } from "lucide-react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, TrendingDown, HeartPulse, Activity } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 
-// 1. TypeScript Interfaces
+// ── 1. TypeScript interfaces ──────────────────────────────────────────────
 interface WeightLossInputs {
   unitSystem: "imperial" | "metric";
   startWeight: number;
   currentWeight: number;
 }
 
-interface WeightLossResults {
+interface WeightLossResult {
   absoluteLost: number;
   percentageLost: number;
-  
-  // Clinical Milestones
   hasReached5Pct: boolean;
   hasReached10Pct: boolean;
   hasReached15Pct: boolean;
-  
   target5PctWeight: number;
   target10PctWeight: number;
   target15PctWeight: number;
-  
-  chartData: { name: string; value: number }[];
+  to10PctRemaining: number;
 }
 
-// 2. Pure Calculation Function
-const calculateClinicalLoss = (inputs: WeightLossInputs): WeightLossResults | null => {
-  const { startWeight, currentWeight } = inputs;
-  
-  if (startWeight <= 0 || currentWeight <= 0) return null;
-  if (currentWeight > startWeight) return null; // This is strictly for LOSS
+// ── 2. Pure calculation function ──────────────────────────────────────────
+const calculate = (i: WeightLossInputs): WeightLossResult => {
+  const absoluteLost = i.startWeight - i.currentWeight;
+  const percentageLost = i.startWeight > 0 ? (absoluteLost / i.startWeight) * 100 : 0;
 
-  const absoluteLost = startWeight - currentWeight;
-  const percentageLost = (absoluteLost / startWeight) * 100;
-
-  // Clinical milestone targets (what weight you need to hit to reach them)
-  const target5PctWeight = startWeight * 0.95;
-  const target10PctWeight = startWeight * 0.90;
-  const target15PctWeight = startWeight * 0.85;
-
-  const hasReached5Pct = percentageLost >= 5;
-  const hasReached10Pct = percentageLost >= 10;
-  const hasReached15Pct = percentageLost >= 15;
-
-  // Generate Chart Data for visual progression
-  const chartData = [
-    { name: "Starting Baseline", value: 0 }, // 0% lost
-    { name: "Your Progress", value: parseFloat(percentageLost.toFixed(1)) },
-    { name: "Clinical 5%", value: 5 },
-    { name: "Clinical 10%", value: 10 },
-    { name: "Clinical 15%", value: 15 }
-  ];
+  const target5PctWeight = i.startWeight * 0.95;
+  const target10PctWeight = i.startWeight * 0.9;
+  const target15PctWeight = i.startWeight * 0.85;
 
   return {
-    absoluteLost: parseFloat(absoluteLost.toFixed(1)),
-    percentageLost: parseFloat(percentageLost.toFixed(2)),
-    hasReached5Pct,
-    hasReached10Pct,
-    hasReached15Pct,
-    target5PctWeight: parseFloat(target5PctWeight.toFixed(1)),
-    target10PctWeight: parseFloat(target10PctWeight.toFixed(1)),
-    target15PctWeight: parseFloat(target15PctWeight.toFixed(1)),
-    chartData
+    absoluteLost,
+    percentageLost,
+    hasReached5Pct: percentageLost >= 5,
+    hasReached10Pct: percentageLost >= 10,
+    hasReached15Pct: percentageLost >= 15,
+    target5PctWeight,
+    target10PctWeight,
+    target15PctWeight,
+    to10PctRemaining: Math.max(0, i.currentWeight - target10PctWeight),
   };
 };
 
-// 3. DEFAULTS Object
+// ── 3. DEFAULTS ────────────────────────────────────────────────────────────
 const DEFAULTS = {
   unitSystem: "imperial" as const,
   startWeight: "250",
-  currentWeight: "235"
+  currentWeight: "235",
 };
 
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
-        <p className="font-bold mb-1 border-b border-border pb-1">{payload[0].payload.name}</p>
-        <p className="text-muted-foreground mt-1"><span className="font-bold text-emerald-500">{payload[0].value}%</span> of total mass</p>
-      </div>
-    );
-  }
-  return null;
+const fmt = (n: number, dec = 2) =>
+  n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+const parse = (v: string, fallback: number) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
 };
 
-// Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const unitLabel = (u: "imperial" | "metric") => (u === "imperial" ? "lbs" : "kg");
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  suffix,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (val: string) => void;
+  suffix?: string;
+}) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="text-sm font-medium text-foreground mb-1">
       {label}
     </label>
     <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       <input
         id={id}
-        type={type}
+        type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
+          {suffix}
+        </span>
+      )}
     </div>
   </div>
 );
 
+// ── 4. Component ───────────────────────────────────────────────────────────
+type InputState = {
+  unitSystem: "imperial" | "metric";
+  startWeight: string;
+  currentWeight: string;
+};
+
 export default function WeightLossPercentageCalculator() {
-  // 4. Component State
-  const [unitSystem, setUnitSystem] = useState<"imperial" | "metric">(DEFAULTS.unitSystem);
-  const [startWeight, setStartWeight] = useState(DEFAULTS.startWeight);
-  const [currentWeight, setCurrentWeight] = useState(DEFAULTS.currentWeight);
-  
-  const [errorMsg, setErrorMsg] = useState("");
-  const [results, setResults] = useState<WeightLossResults | null>(null);
+  const [inputs, setInputs] = useState<InputState>({
+    unitSystem: DEFAULTS.unitSystem,
+    startWeight: DEFAULTS.startWeight,
+    currentWeight: DEFAULTS.currentWeight,
+  });
+  const [result, setResult] = useState<WeightLossResult>(() =>
+    calculate({ unitSystem: DEFAULTS.unitSystem, startWeight: 250, currentWeight: 235 })
+  );
   const printRef = useRef<HTMLDivElement>(null);
 
-  const handleCalculate = () => {
-    setErrorMsg("");
-    const s = parseFloat(startWeight);
-    const c = parseFloat(currentWeight);
-
-    if (isNaN(s) || s <= 0) return setErrorMsg("Please enter a valid starting weight.");
-    if (isNaN(c) || c <= 0) return setErrorMsg("Please enter a valid current weight.");
-    
-    if (c > s) return setErrorMsg("This calculator is specifically for mapping weight LOSS milestones. Please ensure your current weight is lower than your starting weight.");
-
-    const res = calculateClinicalLoss({ unitSystem, startWeight: s, currentWeight: c });
-    
-    if (!res) {
-      setErrorMsg("Unable to calculate. Please check your inputs.");
-    } else {
-      setResults(res);
-    }
-  };
-
-  const handleReset = () => {
-    setUnitSystem(DEFAULTS.unitSystem);
-    setStartWeight(DEFAULTS.startWeight);
-    setCurrentWeight(DEFAULTS.currentWeight);
-    setErrorMsg("");
-    setTimeout(handleCalculate, 0);
-  };
-
   useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, startWeight, currentWeight]);
+    setResult(calculate({ unitSystem: DEFAULTS.unitSystem, startWeight: 250, currentWeight: 235 }));
+  }, []);
+
+  const parsed: WeightLossInputs = {
+    unitSystem: inputs.unitSystem,
+    startWeight: parse(inputs.startWeight, 0),
+    currentWeight: parse(inputs.currentWeight, 0),
+  };
+
+  const valErrors: Record<string, string> = {};
+  if (parsed.startWeight <= 0) valErrors.startWeight = "Starting weight must be greater than 0";
+  if (parsed.currentWeight <= 0) valErrors.currentWeight = "Current weight must be greater than 0";
+  else if (parsed.currentWeight > parsed.startWeight)
+    valErrors.currentWeight = "Current weight must be lower than starting weight (loss tracker)";
+  const hasErrors = Object.keys(valErrors).length > 0;
+
+  const handleCalculate = () => {
+    setResult(calculate(parsed));
+  };
+
+  const reset = () => {
+    setInputs({ ...DEFAULTS });
+    setResult(calculate({ unitSystem: DEFAULTS.unitSystem, startWeight: 250, currentWeight: 235 }));
+  };
 
   const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Clinical Weight Loss Milestones</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+    window.print();
   };
 
+  const r = result;
+  const unit = unitLabel(inputs.unitSystem);
+
   const faqs = [
-    { question: "Why does the medical community focus on 5% and 10%?", answer: "Many people abandon their diets because they want to lose 50 pounds, but they 'only' lose 15 pounds. Psychologically, they feel like failures. However, clinically, a 5% to 10% loss of total body mass is a biological miracle. Dropping just 5% of your weight violently improves insulin sensitivity, drastically reduces the visceral fat wrapping around your liver, and significantly lowers systolic blood pressure. You do not need a perfect BMI to completely reverse your risk of cardiovascular disease." },
-    { question: "What happens when I hit the 10% milestone?", answer: "At 10% total body weight loss, the systemic changes become profound. For patients suffering from Obstructive Sleep Apnea (OSA), a 10% reduction in mass often clears the airway enough to drastically improve sleep quality. For patients with pre-diabetes, losing 10% of their mass is frequently enough to completely normalize their HbA1c levels, effectively pulling them back from the cliff of full-blown Type 2 Diabetes." },
-    { question: "Why is 15% considered the 'Gold Standard' for disease reversal?", answer: "Recent clinical data from intensive weight management trials (like the DiRECT trial in the UK) demonstrated that losing 15% or more of your total body weight is highly correlated with the complete remission of Type 2 Diabetes. At 15% loss, the pancreas is often able to shed enough ectopic fat to resume normal insulin production, effectively 'curing' the disease if the weight loss is maintained." },
-    { question: "Can I lose too much weight too fast?", answer: "Yes. Dropping your mass by more than 1% per week is metabolically dangerous. Rapid, starvation-style weight loss forces the body to cannibalize its own muscle tissue for energy. Furthermore, rapid weight loss drastically increases the risk of developing painful gallstones, as the liver secretes extra cholesterol into the bile during severe caloric restriction." },
-    { question: "If I only lost 3%, did I fail?", answer: "Absolutely not. Any movement in the correct direction is mathematically significant. A 3% loss means you have successfully halted the progression of weight gain and initiated the process of fat oxidation. It means you are in a thermodynamic deficit. Your only job is to maintain the consistency of that deficit until you cross the 5% threshold." }
+    {
+      question: "Why does the medical community focus on 5% and 10%?",
+      answer:
+        "A 5% to 10% loss of total body mass dramatically improves insulin sensitivity, reduces visceral fat around the liver, and lowers systolic blood pressure. You do not need a perfect BMI to substantially cut cardiovascular and diabetes risk.",
+    },
+    {
+      question: "What happens when I hit the 10% milestone?",
+      answer:
+        "At 10% loss, systemic changes compound: sleep apnea often improves as the airway clears, inflammation markers drop, and many pre-diabetic patients return to a normal HbA1c baseline.",
+    },
+    {
+      question: "Why is 15% considered the gold standard for disease reversal?",
+      answer:
+        "Landmark trials like DiRECT in the UK showed that losing 15% or more of body weight can force Type 2 diabetes into remission by stripping ectopic fat from the pancreas and liver.",
+    },
+    {
+      question: "Can I lose weight too fast?",
+      answer:
+        "Yes. Losing more than 1% of body weight per week risks muscle loss and gallstones. The safe range is 0.5% to 1.0% per week, sustained over months.",
+    },
+    {
+      question: "If I only lost 3%, did I fail?",
+      answer:
+        "No. Any movement in the right direction is significant — 3% means you have halted weight gain and entered a deficit. Consistency carries you across the 5% threshold.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Weight Loss Percentage Calculator" }]} />
+      <style>{`
+        @media print {
+          body * { visibility: hidden; }
+          .print-section, .print-section * { visibility: visible; }
+          .print-section { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
+        }
+      `}</style>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator/health" }, { label: "Weight Loss Percentage Calculator" }]} />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Clinical Weight Loss Percentage Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Weight Loss Percentage Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
-          
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div
+            className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible"
+            onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
+          >
             <div className="flex bg-secondary p-1 rounded-lg border border-border">
-              <button type="button" onClick={() => setUnitSystem("imperial")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "imperial" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Imperial (lbs)</button>
-              <button type="button" onClick={() => setUnitSystem("metric")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "metric" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Metric (kg)</button>
+              <button
+                type="button"
+                onClick={() => setInputs({ ...inputs, unitSystem: "imperial" })}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${inputs.unitSystem === "imperial" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}
+              >
+                Imperial (lbs)
+              </button>
+              <button
+                type="button"
+                onClick={() => setInputs({ ...inputs, unitSystem: "metric" })}
+                className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${inputs.unitSystem === "metric" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}
+              >
+                Metric (kg)
+              </button>
             </div>
 
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mt-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <HeartPulse className="h-4 w-4" /> Medical Progress
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col">
+                <CompactInput id="start-weight" label="Starting Baseline" value={inputs.startWeight} onChange={(v) => setInputs({ ...inputs, startWeight: v })} suffix={unit} />
+                {valErrors.startWeight && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.startWeight}</p>}
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Map your weight loss against the three major clinical thresholds used by physicians to determine cardiovascular and metabolic risk reduction.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="start" label="Starting Baseline" value={startWeight} onChange={setStartWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-              <CompactInput id="current" label="Current Weight" value={currentWeight} onChange={setCurrentWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-            </div>
-
-            {errorMsg && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
-                <AlertTriangle className="h-4 w-4 inline mr-1 -mt-0.5" />
-                {errorMsg}
+              <div className="flex flex-col">
+                <CompactInput id="current-weight" label="Current Weight" value={inputs.currentWeight} onChange={(v) => setInputs({ ...inputs, currentWeight: v })} suffix={unit} />
+                {valErrors.currentWeight && <p className="text-xs text-red-500 font-medium mt-1">{valErrors.currentWeight}</p>}
               </div>
-            )}
+            </div>
 
-            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
+            <div className="flex gap-3 mt-2">
+              <button
+                type="button"
+                disabled={hasErrors}
+                onClick={handleCalculate}
+                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
+                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
+                }`}
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
-          <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                {/* Primary Metric Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  
-                  {/* Percentage Box */}
-                  <div className="bg-gradient-to-br from-emerald-600 to-green-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="text-emerald-200 text-[10px] font-bold uppercase tracking-wider mb-1">Total Mass Eliminated</div>
-                      <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.percentageLost}%</div>
-                      </div>
-                      <div className="text-sm font-bold text-emerald-100 mt-2 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        <TrendingDown className="h-4 w-4" /> Absolute Loss: {results.absoluteLost} {unitSystem === "imperial" ? "lbs" : "kg"}
-                      </div>
-                    </div>
-                    <Activity className="absolute -bottom-4 -right-4 h-24 w-24 opacity-10" />
-                  </div>
-
-                  {/* Milestones Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm flex flex-col justify-center gap-3">
-                    
-                    {/* 5% Milestone */}
-                    <div className={`flex justify-between items-center p-2 rounded border ${results.hasReached5Pct ? 'bg-emerald-500/20 border-emerald-500/50' : 'bg-slate-800/50 border-slate-700 opacity-50'}`}>
-                      <div>
-                        <div className={`text-xs font-bold ${results.hasReached5Pct ? 'text-emerald-400' : 'text-slate-400'}`}>5% Clinical Threshold</div>
-                        <div className="text-[10px] text-slate-400">Target: {results.target5PctWeight} {unitSystem === "imperial" ? "lbs" : "kg"}</div>
-                      </div>
-                      {results.hasReached5Pct && <div className="text-emerald-400 text-xs font-black uppercase">Achieved</div>}
-                    </div>
-
-                    {/* 10% Milestone */}
-                    <div className={`flex justify-between items-center p-2 rounded border ${results.hasReached10Pct ? 'bg-emerald-500/20 border-emerald-500/50' : 'bg-slate-800/50 border-slate-700 opacity-50'}`}>
-                      <div>
-                        <div className={`text-xs font-bold ${results.hasReached10Pct ? 'text-emerald-400' : 'text-slate-400'}`}>10% Clinical Threshold</div>
-                        <div className="text-[10px] text-slate-400">Target: {results.target10PctWeight} {unitSystem === "imperial" ? "lbs" : "kg"}</div>
-                      </div>
-                      {results.hasReached10Pct && <div className="text-emerald-400 text-xs font-black uppercase">Achieved</div>}
-                    </div>
-
-                    {/* 15% Milestone */}
-                    <div className={`flex justify-between items-center p-2 rounded border ${results.hasReached15Pct ? 'bg-emerald-500/20 border-emerald-500/50' : 'bg-slate-800/50 border-slate-700 opacity-50'}`}>
-                      <div>
-                        <div className={`text-xs font-bold ${results.hasReached15Pct ? 'text-emerald-400' : 'text-slate-400'}`}>15% Disease Remission</div>
-                        <div className="text-[10px] text-slate-400">Target: {results.target15PctWeight} {unitSystem === "imperial" ? "lbs" : "kg"}</div>
-                      </div>
-                      {results.hasReached15Pct && <div className="text-emerald-400 text-xs font-black uppercase">Achieved</div>}
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div className="grid lg:grid-cols-1 gap-4">
-                  {/* Chart Panel */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[300px]">
-                    <h3 className="text-base font-bold w-full text-left mb-1">Percentage Milestone Mapping</h3>
-                    <p className="text-xs text-muted-foreground w-full text-left mb-4">A visual comparison mapping your current percentage of mass lost against the three critical medical milestones required for systemic health improvement.</p>
-                    <ResponsiveContainer width="100%" height={200}>
-                      <BarChart data={results.chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis dataKey="name" tick={{ fontSize: 11, fontWeight: 'bold', fill: 'hsl(var(--foreground))' }} axisLine={false} tickLine={false} />
-                        <YAxis domain={[0, 20]} tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} axisLine={false} tickLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
-                        <ReferenceLine y={5} stroke="#10b981" strokeDasharray="3 3" />
-                        <ReferenceLine y={10} stroke="#10b981" strokeDasharray="3 3" />
-                        <ReferenceLine y={15} stroke="#10b981" strokeDasharray="3 3" />
-                        <Bar dataKey="value" radius={[4, 4, 0, 0]} maxBarSize={60}>
-                          {results.chartData.map((entry, index) => {
-                            let fill = "hsl(var(--muted))";
-                            if (entry.name === "Your Progress") fill = "#10b981"; // Emerald
-                            return <Cell key={`cell-${index}`} fill={fill} />;
-                          })}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-4 print-section" ref={printRef}>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="flex justify-end absolute top-3 right-3">
+                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
+                  <Printer className="h-3.5 w-3.5" /> Print
+                </button>
               </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <HeartPulse className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium max-w-xs">Enter your starting weight and current weight to map your exact percentage of progress against the clinical milestones for disease reversal.</p>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Total Weight Lost</div>
+              <div className="text-4xl font-bold text-primary">{fmt(r.percentageLost)}%</div>
+              <div className="text-sm text-muted-foreground">{fmt(r.absoluteLost)} {unit} lost from a starting weight of {fmt(parsed.startWeight)} {unit}</div>
+            </div>
+
+            {/* 2. THREE-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Absolute Loss</span>
+                <span className="font-extrabold text-emerald-600">{fmt(r.absoluteLost)} {unit}</span>
               </div>
-            )}
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">5% Milestone</span>
+                <span className={`font-extrabold ${r.hasReached5Pct ? "text-emerald-600" : "text-orange-500"}`}>{r.hasReached5Pct ? "Achieved" : `${fmt(Math.max(0, parsed.currentWeight - r.target5PctWeight))} ${unit} to go`}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">10% Milestone</span>
+                <span className={`font-extrabold ${r.hasReached10Pct ? "text-emerald-600" : "text-orange-500"}`}>{r.hasReached10Pct ? "Achieved" : `${fmt(r.to10PctRemaining)} ${unit} to go`}</span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-base">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-3 pl-4">Metric</th>
+                    <th className="p-3 pr-4 text-right">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Starting Weight</td>
+                    <td className="py-2.5 px-4 text-right font-semibold">{fmt(parsed.startWeight)} {unit}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Current Weight</td>
+                    <td className="py-2.5 px-4 text-right font-semibold">{fmt(parsed.currentWeight)} {unit}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">Absolute Weight Lost</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{fmt(r.absoluteLost)} {unit}</td>
+                  </tr>
+                  <tr className="bg-amber-500/10 border-t-2 border-border font-bold">
+                    <td className="py-2.5 px-4 text-amber-700">Percentage Lost</td>
+                    <td className="py-2.5 px-4 text-right text-amber-700">{fmt(r.percentageLost)}%</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">5% Milestone Weight</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{fmt(r.target5PctWeight)} {unit} {r.hasReached5Pct ? "✓" : ""}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">10% Milestone Weight</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{fmt(r.target10PctWeight)} {unit} {r.hasReached10Pct ? "✓" : ""}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="py-2.5 px-4">15% Milestone Weight</td>
+                    <td className="py-2.5 px-4 text-right text-muted-foreground">{fmt(r.target15PctWeight)} {unit} {r.hasReached15Pct ? "✓" : ""}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                <div className="flex justify-between"><span className="text-muted-foreground">Absolute Loss:</span><span className="font-semibold">{fmt(r.absoluteLost)} {unit}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Percentage Lost:</span><span className="font-semibold">{fmt(r.percentageLost)}%</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">5% Milestone:</span><span className={`font-semibold ${r.hasReached5Pct ? "text-emerald-600" : ""}`}>{r.hasReached5Pct ? "Achieved" : "Not yet"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">10% Milestone:</span><span className={`font-semibold ${r.hasReached10Pct ? "text-emerald-600" : ""}`}>{r.hasReached10Pct ? "Achieved" : "Not yet"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">15% Milestone:</span><span className={`font-semibold ${r.hasReached15Pct ? "text-emerald-600" : ""}`}>{r.hasReached15Pct ? "Achieved" : "Not yet"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Safe Weekly Pace:</span><span className="font-semibold">{fmt(parsed.startWeight * 0.01)} {unit}/wk</span></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Deception of Aspirational Fitness</h2>
-            <p>If you consume fitness media on Instagram or TikTok, you are subjected to a relentless barrage of "aspirational" physiques. You are shown images of bodybuilders with 5% body fat and fitness models with six-pack abs. This creates a deeply toxic psychological framework for the average person attempting to lose weight. They believe that unless they achieve that magazine-cover perfection, their diet was a failure. Medical science completely disagrees. The clinical reality is that you do not need to be perfect to save your own life. The <strong>Clinical Weight Loss Percentage Calculator</strong> strips away the aesthetic vanity of the fitness industry and anchors your progress to the three objective medical milestones that actually govern human longevity.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The 5% Clinical Threshold</h2>
-            <p>When an obese patient enters a medical weight-loss clinic, the physician does not tell them to lose 100 pounds. They tell them to lose 5% of their body weight. Why?</p>
-            <p>Biologically, the first fat to be oxidized (burned) when you enter a caloric deficit is often the most dangerous fat: intra-hepatic (liver) fat and visceral fat. By simply losing 5% of your total body mass, you drastically reduce the toxic fat wrapping around your vital organs. Clinical trials consistently prove that a 5% reduction causes a massive improvement in cellular insulin sensitivity (lowering blood sugar) and a significant drop in systolic blood pressure. For a 250-pound individual, this is a loss of only 12.5 pounds. By hitting this incredibly achievable metric, you dramatically slash your risk of an early cardiovascular event.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The 10% Systemic Shift</h2>
-            <p>If you can maintain your caloric deficit and cross the 10% threshold, the physiological benefits compound exponentially. This is where systemic changes occur.</p>
-            <p>For individuals suffering from Obstructive Sleep Apnea (OSA)—a terrifying condition where the weight of your own neck causes you to stop breathing dozens of times an hour while asleep—a 10% weight loss is often enough to significantly clear the airway and drastically improve sleep quality. Furthermore, crossing the 10% line frequently causes a steep drop in systemic inflammation markers (like CRP) and is strongly associated with moving patients out of the 'pre-diabetic' danger zone and back into a normal HbA1c metabolic baseline.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The 15% Disease Remission Standard</h2>
-            <p>The 15% threshold is the holy grail of metabolic medicine. Recent landmark studies, such as the DiRECT trial (Diabetes Remission Clinical Trial) in the UK, have revolutionized how doctors view Type 2 Diabetes.</p>
-            <p>Historically, Type 2 Diabetes was considered a chronic, progressive, incurable disease. You simply managed it with insulin until you died. The DiRECT trial proved that if a patient can lose 15% (or more) of their total body weight, they can force the disease into complete remission. By stripping away massive amounts of ectopic fat from the pancreas and the liver, the organs are able to "turn back on" and resume normal insulin production. If the 15% weight loss is maintained, the patient is effectively cured of the disease.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Speed Kills: The 1% Rule</h2>
-            <p>Now that you know the percentage milestones, you must understand the speed limit. You cannot sprint to the 15% threshold.</p>
-            <p>The clinical speed limit for weight loss is 0.5% to 1.0% of your body weight per week. If you attempt a starvation crash diet and lose 3% of your body weight in a single week, you are not burning fat. Thermodynamics dictates that your body is cannibalizing its own functional muscle tissue for rapid energy. Destroying your muscle mass permanently lowers your metabolism. Furthermore, rapid weight loss forces the liver to secrete excess cholesterol into the bile, drastically increasing your risk of developing painful gallstones. You must treat weight loss as a clinical procedure: slow, methodical, and relentless.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Psychology of the Milestone</h2>
-            <p>By shifting your focus from "I need to lose 50 pounds" to "I just need to hit the 5% medical milestone," you hack your brain's dopamine reward system. Fifty pounds feels like an impossible, multi-year mountain. Five percent is an incredibly achievable goal that you can hit in six to eight weeks. Every time you cross a percentage threshold on this calculator, your brain releases dopamine, reinforcing the discipline required to keep pushing to the next milestone.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion: Reclaim Your Health</h2>
-            <p>You do not need a six-pack to be healthy, and you do not need to be thin to dramatically extend your lifespan. You simply need to initiate the process of visceral fat oxidation. Use the Clinical Weight Loss Percentage Calculator to track your exact trajectory. Cross the 5% threshold, push relentlessly toward the 15% remission line, and mathematically reclaim your metabolic health.</p>
+          <section className="mt-12 space-y-8 text-base text-foreground">
+            <div>
+              <h2 className="text-2xl font-bold mb-3">What Is Weight Loss Percentage?</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Weight loss percentage measures how much of your original body weight you have lost, expressed as a ratio instead of raw pounds or kilograms. You divide the total weight lost by your starting weight and multiply by 100. If you started at 250 pounds and now weigh 235, you have lost 15 pounds — 6% of your starting mass. The percentage matters because medical research sets its milestones in relative terms: a 5% loss improves blood pressure and insulin sensitivity, a 10% loss can reverse prediabetes and ease sleep apnea, and a 15% loss has driven Type 2 diabetes into remission in landmark clinical trials. Two people can lose the same number of pounds and be at completely different points in their health journey; percentage is the common yardstick.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Enter your starting baseline weight and your current weight, choose pounds or kilograms, and press Calculate. The calculator subtracts the current weight from the starting weight to find the absolute loss, then divides that by the starting weight to derive the percentage. From there it maps your progress against the three clinical thresholds: the 5% milestone weight is 95% of your starting weight, the 10% milestone is 90%, and the 15% milestone is 85%. Each milestone row shows the exact weight you need to reach and whether you have crossed it. The pace figure at the bottom translates the 1% per week clinical safety limit into your specific numbers — for a 250-pound person, no more than 2.5 pounds per week. Weigh yourself under consistent conditions and let the trend line, not any single day's reading, tell you whether you are on track.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                Start with the big number: the percentage of mass eliminated. Below 5%, you are in the early phase — the direction is correct and the first clinical milestone is close. Between 5% and 10%, measurable health changes are underway, and your cardiovascular and metabolic risk is already falling. Crossing 10% puts you in the territory where systemic improvements become obvious, and reaching 15% is where disease remission becomes a realistic goal for many people. The remaining-to-milestone figures tell you exactly how much more to lose for the next threshold, which keeps the target concrete rather than abstract. Whatever your current percentage, the pace guidance is the same: slow, consistent progress beats rapid loss that sacrifices muscle and invites rebound. If you have stalled, the milestone weights give you a precise, motivating next stop on the way down.
+              </p>
+            </div>
           </section>
-          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/weight-loss-percentage-calculator" />
           <PopularCalculators exclude="/calculator/weight-loss-percentage-calculator" />
         </div>
       </div>
     </>
   );
-}
+}

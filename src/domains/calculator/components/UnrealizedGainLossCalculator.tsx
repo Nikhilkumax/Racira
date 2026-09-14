@@ -79,10 +79,6 @@ export default function UnrealizedGainLossCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
           Unrealized Gain/Loss Calculator
         </h1>
-        <p className="text-muted-foreground">
-          Compare your cost basis to current value to see paper gains and losses on holdings you
-          haven&apos;t sold — and what it would take to break even.
-        </p>
       </div>
 
       <Card className="mb-6">

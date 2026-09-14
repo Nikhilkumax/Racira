@@ -147,6 +147,21 @@ export default function GrossMarginCalculator() {
               <>
                 <>
 
+                {/* 1. Primary Result Card */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-wider mb-1 text-muted-foreground">Gross Margin</div>
+                      <div className="flex items-baseline gap-2">
+                        <div className="text-4xl font-bold text-primary">{margin}%</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-2">
+                    Revenue: ${Number(revenue).toLocaleString(undefined, { maximumFractionDigits: 2 })} · Gross Profit: ${Number(grossProfit).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                  </div>
+                </div>
+
                 <div className="p-4 rounded-xl border border-border bg-card">
                   <h3 className="text-sm font-bold text-foreground mb-3">Revenue Breakdown</h3>
                   <ResponsiveContainer width="100%" height={160}>

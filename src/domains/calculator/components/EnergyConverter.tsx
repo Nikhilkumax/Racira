@@ -36,16 +36,19 @@ export default function EnergyConverter() {
     return { joules, converted: joules / 4184, toLabel: "Kilocalories (kcal)" };
   });
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const v = parseFloat(value);
     if (!isNaN(v) && v >= 0) {
       const joules = v * units.find(u => u.key === from)!.joules;
       const converted = joules / units.find(u => u.key === to)!.joules;
       setResult({ joules, converted, toLabel: units.find(u => u.key === to)!.label });
     }
-  }, [value, from, to]);
+  };
 
-  const reset = () => { setValue("1000"); setFrom("j"); setTo("kcal"); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setValue("1000"); setFrom("j"); setTo("kcal"); const joules = 1000 * units.find(u => u.key === "j")!.joules; setResult({ joules, converted: joules / units.find(u => u.key === "kcal")!.joules, toLabel: units.find(u => u.key === "kcal")!.label }); };
   const invalid = isNaN(parseFloat(value)) || parseFloat(value) < 0;
 
   const breakdown = [
@@ -99,7 +102,7 @@ export default function EnergyConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Flame className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

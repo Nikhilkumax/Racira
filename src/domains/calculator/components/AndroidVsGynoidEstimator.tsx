@@ -198,14 +198,6 @@ export default function AndroidVsGynoidEstimator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Android vs Gynoid Fat Distribution Estimator</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-rose-800 dark:text-rose-400">
-            <strong>The Visceral Threat:</strong> Not all body fat is created equal. Where you store your fat is often more clinically significant than how much you have. Central abdominal (Android) fat actively secretes inflammatory cytokines that attack your cardiovascular system, making it vastly more dangerous than lower-body (Gynoid) fat.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -265,13 +257,13 @@ export default function AndroidVsGynoidEstimator() {
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Distribution Type Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm relative overflow-hidden">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1">Primary Deposition</div>
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Primary Deposition</div>
                       <div className="flex items-baseline gap-1 mt-2">
-                        <div className="text-2xl font-black text-white">{results.distributionType}</div>
+                        <div className="text-3xl font-extrabold text-primary tracking-tight">{results.distributionType}</div>
                       </div>
-                      <div className="text-xs font-medium text-slate-500 mt-2">WHR Score: {results.whr}</div>
+                      <div className="text-sm text-muted-foreground mt-2">WHR Score: {results.whr}</div>
                     </div>
                     <Dna className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5" />
                   </div>
@@ -329,6 +321,14 @@ export default function AndroidVsGynoidEstimator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-rose-500/10 border-l-4 border-rose-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-rose-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-rose-800 dark:text-rose-400">
+            <strong>The Visceral Threat:</strong> Not all body fat is created equal. Where you store your fat is often more clinically significant than how much you have. Central abdominal (Android) fat actively secretes inflammatory cytokines that attack your cardiovascular system, making it vastly more dangerous than lower-body (Gynoid) fat.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

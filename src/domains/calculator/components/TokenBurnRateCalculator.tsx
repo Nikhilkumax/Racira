@@ -65,7 +65,7 @@ function calcTokenBurn(inputs: TokenBurnInputs): TokenBurnResult {
   return { netBurnPerMonth, annualBurnPct, monthlyBurnPct, monthlyBurnValue, annualBurnValue, monthsToHalve, yearsToHalve, chartData, breakdown, summaryStats };
 }
 
-const DEFAULTS: TokenBurnInputs = { supply: 100000000, burnPerMonth: 500000, price: 0.1, emissionsPerMonth: 0 };
+const DEFAULTS: TokenBurnInputs = { supply: 100000000, burnPerMonth: 500000, price: 0.1, emissionsPerMonth: 100000 };
 
 interface CompactInputProps {
   id: string;
@@ -98,7 +98,7 @@ export default function TokenBurnRateCalculator() {
   const [supply, setSupply] = useState("100000000");
   const [burnPerMonth, setBurnPerMonth] = useState("500000");
   const [price, setPrice] = useState("0.1");
-  const [emissionsPerMonth, setEmissionsPerMonth] = useState("0");
+  const [emissionsPerMonth, setEmissionsPerMonth] = useState("100000");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [result, setResult] = useState<TokenBurnResult | null>(null);
 

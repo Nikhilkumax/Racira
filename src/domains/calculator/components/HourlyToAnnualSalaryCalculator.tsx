@@ -68,7 +68,7 @@ function calcHourlyToAnnual(inputs: HourlyToAnnualInputs): HourlyToAnnualResult 
   return { annualSalary, monthlySalary, biweeklySalary, weeklySalary, dailySalary, regularAnnual, otAnnual, effectiveHourly, chartData, breakdown, summaryStats };
 }
 
-const DEFAULTS: HourlyToAnnualInputs = { hourlyRate: 25, hoursPerWeek: 40, weeksPerYear: 52, otHoursPerWeek: 0, otMultiplier: 1.5 };
+const DEFAULTS: HourlyToAnnualInputs = { hourlyRate: 25, hoursPerWeek: 40, weeksPerYear: 52, otHoursPerWeek: 5, otMultiplier: 1.5 };
 
 interface CompactInputProps {
   id: string;
@@ -101,7 +101,7 @@ export default function HourlyToAnnualSalaryCalculator() {
   const [hourlyRate, setHourlyRate] = useState("25");
   const [hoursPerWeek, setHoursPerWeek] = useState("40");
   const [weeksPerYear, setWeeksPerYear] = useState("52");
-  const [otHoursPerWeek, setOtHoursPerWeek] = useState("0");
+  const [otHoursPerWeek, setOtHoursPerWeek] = useState("5");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [result, setResult] = useState<HourlyToAnnualResult | null>(null);
 

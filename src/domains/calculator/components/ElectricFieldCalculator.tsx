@@ -48,9 +48,9 @@ export default function ElectricFieldCalculator() {
     const q = parseFloat(charge);
     const r = parseFloat(distance);
     if (!isNaN(q) && !isNaN(r) && r > 0) setResult(calcField(q, r));
-  }, [charge, distance]);
+  }, []);
 
-  const reset = () => { setCharge(DEFAULTS.charge); setDistance(DEFAULTS.distance); };
+  const reset = () => { setCharge(DEFAULTS.charge); setDistance(DEFAULTS.distance); setResult(calcField(parseFloat(DEFAULTS.charge), parseFloat(DEFAULTS.distance))); };
   const invalid = isNaN(parseFloat(charge)) || isNaN(parseFloat(distance)) || parseFloat(distance) <= 0;
 
   const breakdown = [

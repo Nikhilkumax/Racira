@@ -57,7 +57,7 @@ export default function VideoFileSizeCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const d = parseFloat(inputs.duration)

@@ -270,9 +270,9 @@ export default function CalorieDeficitForWeightLossCalculator() {
                     <div className="text-2xl font-black text-foreground">{results.weightIn4Weeks.toFixed(1)}</div>
                     <div className="text-xs font-medium text-muted-foreground">{unit}</div>
                   </div>
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-primary mb-1">In 3 Months</div>
-                    <div className="text-3xl font-black text-foreground">{results.weightIn12Weeks.toFixed(1)}</div>
+                    <div className="text-3xl font-black text-primary">{results.weightIn12Weeks.toFixed(1)}</div>
                     <div className="text-xs font-medium text-primary/80">{unit}</div>
                   </div>
                   <div className="bg-card border border-border rounded-lg p-4 flex flex-col justify-center text-center shadow-sm">

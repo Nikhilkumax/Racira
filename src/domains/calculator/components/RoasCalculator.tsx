@@ -43,7 +43,7 @@ export default function RoasCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const rev = parseFloat(inputs.revenue)

@@ -60,9 +60,14 @@ export default function DogCalorieCalculator() {
     const w = parseFloat(weight);
     const k = parseFloat(kcal);
     if (!isNaN(w) && !isNaN(k) && w > 0 && k > 0) setResult(calcDogCalories(w, stage, k));
-  }, [weight, stage, kcal]);
+  }, []);
 
-  const reset = () => { setWeight(DEFAULTS.weight); setStage(DEFAULTS.stage); setKcal(DEFAULTS.kcal); };
+  const handleCalculate = () => {
+    const w = parseFloat(weight);
+    const k = parseFloat(kcal);
+    if (!isNaN(w) && !isNaN(k) && w > 0 && k > 0) setResult(calcDogCalories(w, stage, k));
+  };
+  const reset = () => { setWeight(DEFAULTS.weight); setStage(DEFAULTS.stage); setKcal(DEFAULTS.kcal); setResult(calcDogCalories(30, "neutered", 350)); };
   const invalid = isNaN(parseFloat(weight)) || isNaN(parseFloat(kcal)) || parseFloat(weight) <= 0 || parseFloat(kcal) <= 0;
 
   const breakdown = [
@@ -109,7 +114,7 @@ export default function DogCalorieCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Bone className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

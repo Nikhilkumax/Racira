@@ -82,7 +82,7 @@ export default function DCFValuationCalculator() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <div className={`rounded-xl p-5 border-l-4 ${r.upside >= 20 ? "bg-emerald-500/10 border-emerald-500" : r.upside >= 0 ? "bg-primary/10 border-primary" : "bg-red-500/10 border-red-500"}`}>
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
               <div className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1">Intrinsic Value Per Share</div>
               <div className={`text-4xl font-extrabold ${r.upside >= 0 ? "text-emerald-600" : "text-red-600"}`}>{fmtDol(r.intrinsicValue)}</div>
               <div className="text-sm text-muted-foreground mt-1">{r.upside >= 0 ? "+" : ""}{r.upside.toFixed(1)}% vs. market · MoS: {r.marginOfSafety.toFixed(1)}%</div>

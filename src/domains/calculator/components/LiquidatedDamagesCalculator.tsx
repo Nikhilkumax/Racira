@@ -146,10 +146,10 @@ const LiquidatedDamagesCalculator: React.FC = () => {
   const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
   const [result, setResult] = useState<Result>(calculateLiquidatedDamages(DEFAULTS));
 
-  // Recalculate on input changes (as per requirement: useEffect with inputs dependency)
   useEffect(() => {
-    setResult(calculateLiquidatedDamages(inputs));
-  }, [inputs]);
+    setResult(calculateLiquidatedDamages(DEFAULTS));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = (field: keyof Inputs, value: string | number) => {
     setInputs(prev => ({
@@ -164,7 +164,7 @@ const LiquidatedDamagesCalculator: React.FC = () => {
 
   const handleReset = () => {
     setInputs(DEFAULTS);
-    // Result will update via useEffect
+    setResult(calculateLiquidatedDamages(DEFAULTS));
   };
 
   // Format number as currency
@@ -188,13 +188,11 @@ const LiquidatedDamagesCalculator: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-3">
-        Liquidated Damages Calculator
-      </h1>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Liquidated Damages Calculator</h1>
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* Left Column: Inputs and Controls */}
-        <div className="space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           {/* Normal Tier - 2 per row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -320,7 +318,7 @@ const LiquidatedDamagesCalculator: React.FC = () => {
         </div>
 
         {/* Right Column: Results */}
-        <div className="space-y-6">
+        <div className="flex flex-col gap-4">
           {/* Primary Result Card */}
           <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
             <h2 className="text-lg font-semibold mb-2">Total Liquidated Damages</h2>

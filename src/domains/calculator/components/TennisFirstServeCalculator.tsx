@@ -7,7 +7,6 @@ import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
 import { Printer, RotateCcw, ActivitySquare, AlertTriangle, Target, Activity, ShieldAlert } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
-import { Button } from "@/components/ui/button";
 
 // 1. TypeScript Interfaces
 interface ServeInputs {
@@ -93,7 +92,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -105,6 +104,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -149,7 +149,7 @@ export default function TennisFirstServeCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [servesIn, faults]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -191,8 +191,8 @@ export default function TennisFirstServeCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="in" label="First Serves IN" value={servesIn} onChange={setServesIn} />
-              <CompactInput id="faults" label="First Serve FAULTS" value={faults} onChange={setFaults} />
+              <CompactInput id="in" label="First Serves IN" value={servesIn} onChange={setServesIn} onEnter={handleCalculate} />
+              <CompactInput id="faults" label="First Serve FAULTS" value={faults} onChange={setFaults} onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -203,22 +203,22 @@ export default function TennisFirstServeCalculator() {
             )}
 
             <div className="flex gap-2 mt-4 pt-4 border-t border-border">
-              <Button
+              <button
+                type="button"
                 onClick={handleCalculate}
-                className="flex-1 h-10 bg-primary text-primary-foreground font-bold"
+                className="flex-1 h-10 bg-primary hover:bg-primary/95 text-primary-foreground font-bold rounded-md transition-colors"
               >
                 Calculate
-              </Button>
+              </button>
 
-              <Button
+              <button
+                type="button"
                 onClick={handleReset}
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 shrink-0"
                 aria-label="Reset"
+                className="h-10 w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center"
               >
                 <RotateCcw className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
           </div>
 
@@ -229,31 +229,28 @@ export default function TennisFirstServeCalculator() {
                 
                 {/* Primary Metric Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Status Box */}
-                  <div 
-                    className="text-white rounded-lg p-6 shadow-sm relative overflow-hidden"
-                    style={{ backgroundColor: results.colorClass }}
-                  >
+                  {/* Primary Result Card */}
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">First Serve Efficiency</div>
-                      <div className="flex items-baseline gap-1 mt-1">
-                        <div className="text-5xl font-black">{results.percentage}%</div>
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">First Serve Efficiency</div>
+                      <div className="flex items-baseline gap-1 mt-1 mb-2">
+                        <div className="text-4xl font-bold text-primary">{results.percentage}%</div>
                       </div>
-                      <div className="text-sm font-bold text-white mt-3 bg-black/20 border border-white/20 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
+                      <div className="text-sm font-bold text-foreground mt-3 inline-flex items-center gap-2" style={{ color: results.colorClass }}>
                         <Activity className="h-4 w-4" /> {results.classification}
                       </div>
                     </div>
-                    <Target className="absolute -bottom-4 -right-4 h-32 w-32 opacity-10" />
+                    <Target className="absolute -bottom-4 -right-4 h-32 w-32 opacity-5 text-primary" />
                   </div>
 
                   {/* Context Box */}
-                  <div className="bg-slate-900 border border-slate-800 text-white rounded-lg p-5 shadow-sm flex flex-col justify-center">
-                    <div className="text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Total Service Attempts</div>
+                  <div className="bg-muted/30 border border-border rounded-lg p-5 shadow-sm flex flex-col justify-center">
+                    <div className="text-emerald-600 dark:text-emerald-400 text-[10px] font-bold uppercase tracking-wider mb-2">Total Service Attempts</div>
                     <div className="flex items-baseline gap-2">
-                      <div className="text-4xl font-black text-white">{results.totalAttempts}</div>
-                      <div className="text-xs text-slate-400">Total First Serves Struck</div>
+                      <div className="text-4xl font-black text-foreground">{results.totalAttempts}</div>
+                      <div className="text-xs text-muted-foreground">Total First Serves Struck</div>
                     </div>
-                    <div className="text-[10px] text-slate-500 mt-2">Numerator: {servesIn} IN / Denominator: {results.totalAttempts}</div>
+                    <div className="text-[10px] text-muted-foreground mt-2">Numerator: {servesIn} IN / Denominator: {results.totalAttempts}</div>
                   </div>
                 </div>
 

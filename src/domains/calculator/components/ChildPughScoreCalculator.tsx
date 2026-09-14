@@ -111,7 +111,7 @@ export default function ChildPughScoreCalculator() {
 
   useEffect(() => {
     setResult(calcChildPugh(bilirubin, albumin, inr, ascites, enceph));
-  }, [bilirubin, albumin, inr, ascites, enceph]);
+  }, []);
 
   const calc = () => {
     setResult(calcChildPugh(bilirubin, albumin, inr, ascites, enceph));
@@ -123,6 +123,7 @@ export default function ChildPughScoreCalculator() {
     setInr("1");
     setAscites("1");
     setEnceph("1");
+    setResult(calcChildPugh("1", "1", "1", "1", "1"));
   };
 
   const selCls = "w-full p-2.5 rounded-md border border-input bg-background text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none";
@@ -204,7 +205,7 @@ export default function ChildPughScoreCalculator() {
           <div className="flex flex-col gap-6">
             {result && (<>
 
-              <div className="border-l-4 rounded-lg p-5 shadow-sm" style={{ backgroundColor: `${result.statusColor}10`, borderColor: result.statusColor }}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 shadow-sm">
                 <div className="flex justify-between items-start mb-2">
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: result.statusColor }}>Child-Pugh Score</div>

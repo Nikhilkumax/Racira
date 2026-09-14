@@ -54,9 +54,9 @@ export default function EquilibriumConstantCalculator() {
     if (conc.every(v => !isNaN(v)) && coeffs.every(v => !isNaN(v)) && conc.every(v => v >= 0) && coeffs.every(v => v >= 0)) {
       setResult(calcKc(conc, coeffs));
     }
-  }, [a, b, c, d, ca, cb, cc, cd]);
+  }, []);
 
-  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c); setD(DEFAULTS.d); setCa(DEFAULTS.ca); setCb(DEFAULTS.cb); setCc(DEFAULTS.cc); setCd(DEFAULTS.cd); };
+  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); setC(DEFAULTS.c); setD(DEFAULTS.d); setCa(DEFAULTS.ca); setCb(DEFAULTS.cb); setCc(DEFAULTS.cc); setCd(DEFAULTS.cd); setResult(calcKc([parseFloat(DEFAULTS.a), parseFloat(DEFAULTS.b), parseFloat(DEFAULTS.c), parseFloat(DEFAULTS.d)], [parseFloat(DEFAULTS.ca), parseFloat(DEFAULTS.cb), parseFloat(DEFAULTS.cc), parseFloat(DEFAULTS.cd)])); };
   const conc = [parseFloat(a), parseFloat(b), parseFloat(c), parseFloat(d)];
   const coeffs = [parseFloat(ca), parseFloat(cb), parseFloat(cc), parseFloat(cd)];
   const invalid = conc.some(v => isNaN(v)) || coeffs.some(v => isNaN(v)) || conc.some(v => v < 0) || coeffs.some(v => v < 0);

@@ -1,191 +1,265 @@
 "use client";
-import { useState, useEffect } from "react";
-import Breadcrumb from "@/components/Breadcrumb";
-import AdPlaceholder from "@/components/AdPlaceholder";
-import FAQSection from "@/components/FAQSection";
-import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
-interface OrmResult {
+import { useState, useEffect, useRef } from "react";
+import { RotateCcw, Printer, ChevronDown, ChevronUp } from "lucide-react";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
+
+interface Inputs {
+  weight: string;
+  reps: string;
+  method: string;
+  units: string;
+}
+
+interface Result {
   epley: number;
   brzycki: number;
   lombardi: number;
   oconner: number;
-  average: number;
-  table: { reps: number; weight: number; pct: number }[];
-  breakdown: { label: string; value: string }[];
-  summaryStats: { label: string; value: string }[];
-  chartData: { name: string; value: number; fill: string }[];
+  selected: number;
 }
 
-function fmt(v: number, d = 1): string {
-  return v.toLocaleString("en-US", { maximumFractionDigits: d });
+const DEFAULTS: Inputs = {
+  weight: "185",
+  reps: "5",
+  method: "Epley",
+  units: "lb",
+};
+
+function calculate(inputs: Inputs): Result {
+  const w = Math.max(0, parseFloat(inputs.weight) || 0);
+  const r = Math.min(100, Math.max(1, parseInt(inputs.reps) || 0));
+  const epley = w * (1 + r / 30);
+  const brzycki = r < 37 ? (w * 36) / (37 - r) : w;
+  const lombardi = w * Math.pow(r, 0.1);
+  const oconner = w * (1 + r / 40);
+  const selected =
+    inputs.method === "Brzycki" ? brzycki :
+    inputs.method === "Lombardi" ? lombardi :
+    inputs.method === "O'Conner" ? oconner : epley;
+  return { epley, brzycki, lombardi, oconner, selected };
 }
 
-function calcOrm(weight: number, reps: number): OrmResult {
-  const epley = weight * (1 + reps / 30);
-  const brzycki = reps < 37 ? weight * (36 / (37 - reps)) : weight;
-  const lombardi = weight * Math.pow(reps, 0.1);
-  const oconner = weight * (1 + reps / 40);
-  const average = (epley + brzycki + lombardi + oconner) / 4;
-  const table: { reps: number; weight: number; pct: number }[] = [];
-  for (let r = 1; r <= 12; r++) {
-    const est = average * (37 - r) / 36;
-    table.push({ reps: r, weight: Number(est.toFixed(1)), pct: Number((est / average * 100).toFixed(1)) });
-  }
-  const breakdown = [
-    { label: "Weight Lifted", value: `${fmt(weight)} lb/kg` },
-    { label: "Reps Performed", value: `${reps}` },
-    { label: "Epley (1RM = w(1 + r/30))", value: `${fmt(epley)}` },
-    { label: "Brzycki (w × 36/(37 − r))", value: `${fmt(brzycki)}` },
-    { label: "Lombardi (w × r^0.1)", value: `${fmt(lombardi)}` },
-    { label: "O'Conner (w(1 + r/40))", value: `${fmt(oconner)}` },
-    { label: "Average Estimate", value: `${fmt(average)}` },
-  ];
-  const summaryStats = [
-    { label: "1RM (avg of 4)", value: `${fmt(average)}` },
-    { label: "Epley", value: `${fmt(epley)}` },
-    { label: "Brzycki", value: `${fmt(brzycki)}` },
-    { label: "Lombardi", value: `${fmt(lombardi)}` },
-    { label: "O'Conner", value: `${fmt(oconner)}` },
-  ];
-  const chartData = [
-    { name: "Epley", value: Number(epley.toFixed(1)), fill: "hsl(var(--primary))" },
-    { name: "Brzycki", value: Number(brzycki.toFixed(1)), fill: "#f59e0b" },
-    { name: "Lombardi", value: Number(lombardi.toFixed(1)), fill: "#10b981" },
-    { name: "O'Conner", value: Number(oconner.toFixed(1)), fill: "#8b5cf6" },
-  ];
-  return { epley, brzycki, lombardi, oconner, average, table, breakdown, summaryStats, chartData };
-}
+const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const fmt1 = (n: number) => fmt(n, 1);
 
-const DEFAULTS = { weight: "225", reps: "5" };
+const NumInput = ({ id, label, value, onChange, suffix }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; suffix?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" step="any" value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+    </div>
+  </div>
+);
 
-export default function OneRepMaxCalculator() {
-  const [weight, setWeight] = useState(DEFAULTS.weight);
-  const [reps, setReps] = useState(DEFAULTS.reps);
-  const [result, setResult] = useState<OrmResult | null>(null);
+const SelectInput = ({ id, label, value, onChange, options }: {
+  id: string; label: string; value: string; onChange: (v: string) => void; options: string[];
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-sm font-medium mb-1">{label}</label>
+    <select id={id} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground shadow-sm focus-within:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none">
+      {options.map((o) => <option key={o} value={o}>{o}</option>)}
+    </select>
+  </div>
+);
 
-  const w = parseFloat(weight);
-  const r = parseInt(reps, 10);
-  const errs: string[] = [];
-  if (!w || w <= 0) errs.push("Weight must be greater than 0.");
-  if (!r || r < 1 || r > 12) errs.push("Reps must be between 1 and 12 for reliable estimates.");
-  const valid = errs.length === 0;
+const OneRepMaxCalculator = () => {
+  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
+  const [result, setResult] = useState<Result>(calculate(DEFAULTS));
+  const [showAdv, setShowAdv] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
-  const calculate = () => { if (valid) setResult(calcOrm(w, r)); };
-  const reset = () => {
-    setWeight(DEFAULTS.weight); setReps(DEFAULTS.reps);
-    setResult(calcOrm(225, 5));
+  useEffect(() => {
+    setResult(calculate(DEFAULTS));
+  }, []);
+
+  const set = (k: keyof Inputs) => (v: string) => setInputs((prev) => ({ ...prev, [k]: v }));
+  const num = (v: string) => parseFloat(v) || 0;
+  const reps = () => Math.max(1, parseInt(inputs.reps) || 0);
+
+  const hasErrors =
+    num(inputs.weight) <= 0 ||
+    num(inputs.reps) <= 0 || num(inputs.reps) > 100;
+
+  const handleCalculate = () => {
+    if (hasErrors) return;
+    setResult(calculate(inputs));
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
-  useEffect(() => { setResult(calcOrm(225, 5)); }, []);
 
-  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
-  const lbl = "text-sm font-medium mb-1 block";
+  const handleReset = () => {
+    setInputs(DEFAULTS);
+    setResult(calculate(DEFAULTS));
+  };
 
-  const faqs = [
-    { question: "What is a one-rep max?", answer: "The heaviest weight you can lift for exactly one repetition with good form. Testing it directly is risky and fatiguing, so most lifters estimate it from a submaximal set of 2–12 reps using formulas like Epley or Brzycki." },
-    { question: "Which formula is most accurate?", answer: "Epley is the most widely used and validated; Brzycki is popular and slightly more conservative for high reps; Lombardi tends to run lower. All four are reported here — the average is a reasonable consensus estimate." },
-    { question: "How do I use the percentage table?", answer: "Training intensities are usually prescribed as a percentage of 1RM — 70% for hypertrophy volume, 85%+ for strength. The table converts your estimated 1RM into the working weight for every rep count 1–12." },
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") handleCalculate();
+  };
+
+  const zones = [
+    { label: "95% — Strength (1-2 reps)", pct: 95 },
+    { label: "90% — Strength (2-4 reps)", pct: 90 },
+    { label: "85% — Hypertrophy/Power (4-6 reps)", pct: 85 },
+    { label: "80% — Hypertrophy (6-8 reps)", pct: 80 },
+    { label: "75% — Hypertrophy (8-10 reps)", pct: 75 },
+    { label: "70% — Endurance (10-12 reps)", pct: 70 },
+    { label: "65% — Endurance (12-15 reps)", pct: 65 },
+    { label: "60% — Endurance (15+ reps)", pct: 60 },
+    { label: "50% — Warm-up / Technique", pct: 50 },
+  ];
+
+  const methodRows = [
+    { label: "Epley — w × (1 + reps/30)", value: result.epley, isSelected: inputs.method === "Epley" },
+    { label: "Brzycki — w × 36/(37 − reps)", value: result.brzycki, isSelected: inputs.method === "Brzycki" },
+    { label: "Lombardi — w × reps^0.10", value: result.lombardi, isSelected: inputs.method === "Lombardi" },
+    { label: "O'Conner — w × (1 + reps/40)", value: result.oconner, isSelected: inputs.method === "O'Conner" },
   ];
 
   return (
-    <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "One Rep Max Calculator" }]} />
-      <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">One Rep Max Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
-            <div className="grid grid-cols-2 gap-4">
+    <div onKeyDown={handleKeyDown}>
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+          <div className="grid grid-cols-2 gap-3">
+            <NumInput id="weight" label="Weight Lifted" value={inputs.weight} onChange={set("weight")} suffix={inputs.units} />
+            <NumInput id="reps" label="Reps Performed" value={inputs.reps} onChange={set("reps")} suffix="reps" />
+          </div>
+
+          <button type="button" onClick={() => setShowAdv((v) => !v)} className="flex items-center gap-1.5 text-sm text-primary font-medium self-start">
+            Advanced Options {showAdv ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+          {showAdv && (
+            <div className="flex flex-col gap-3 p-3 rounded-lg border border-border bg-secondary/20 mt-1">
               <div>
-                <label className={lbl}>Weight Lifted</label>
-                <input type="number" value={weight} onChange={e => setWeight(e.target.value)} className={inp} placeholder="225" />
-              </div>
-              <div>
-                <label className={lbl}>Reps Performed</label>
-                <input type="number" value={reps} onChange={e => setReps(e.target.value)} className={inp} placeholder="5" />
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Estimation Settings</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <SelectInput id="method" label="Estimation Method" value={inputs.method} onChange={set("method")} options={["Epley", "Brzycki", "Lombardi", "O'Conner"]} />
+                  <SelectInput id="units" label="Units" value={inputs.units} onChange={set("units")} options={["lb", "kg"]} />
+                </div>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground">Works with lb or kg — the unit doesn't change the formulas. Best results from a set of 2–12 reps to near-failure.</p>
-            {errs.length > 0 && (
-              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{errs[0]}</div>
-            )}
-            <div className="flex gap-3 mt-1">
-              <button onClick={calculate} disabled={!valid} className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${valid ? "bg-primary hover:bg-primary/90 text-primary-foreground" : "bg-muted text-muted-foreground cursor-not-allowed"}`}>Calculate</button>
-              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
-                <RotateCcw className="h-4 w-4" />
-              </button>
+          )}
+
+          {hasErrors && (
+            <p className="text-sm text-red-600">Enter valid values — weight must be positive and reps between 1 and 100.</p>
+          )}
+
+          <div className="flex gap-2.5 mt-2.5">
+            <button type="button" onClick={handleCalculate} className="h-10 flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+              Calculate
+            </button>
+            <button type="button" onClick={handleReset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none" aria-label="Reset">
+              <RotateCcw className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        <div ref={resultsRef} className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start print-section">
+          <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
+            <button type="button" onClick={() => window.print()} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors" aria-label="Print">
+              <Printer className="h-4 w-4" />
+            </button>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">Estimated 1-Rep Max</div>
+            <div className="text-4xl font-bold text-primary">{fmt1(result.selected)} {inputs.units}</div>
+            <div className="text-sm text-muted-foreground mt-1">{inputs.method} method from {fmt(num(inputs.weight), 0)} {inputs.units} × {reps()} reps</div>
+          </div>
+
+          <div className="grid grid-cols-3 divide-x divide-border border border-border rounded-lg bg-card shadow-sm overflow-hidden">
+            <div className="p-3 text-center">
+              <div className="text-xs text-muted-foreground">Epley</div>
+              <div className="text-lg font-bold mt-1">{fmt1(result.epley)}</div>
+            </div>
+            <div className="p-3 text-center">
+              <div className="text-xs text-muted-foreground">Brzycki</div>
+              <div className="text-lg font-bold mt-1">{fmt1(result.brzycki)}</div>
+            </div>
+            <div className="p-3 text-center">
+              <div className="text-xs text-muted-foreground">Lombardi</div>
+              <div className="text-lg font-bold mt-1">{fmt1(result.lombardi)}</div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Estimated One-Rep Max</div>
-                <div className="text-4xl font-extrabold tracking-tight">{fmt(result.average)}</div>
-                <div className="text-sm text-muted-foreground mt-1">Average of Epley, Brzycki, Lombardi, O'Conner · from {result.breakdown[0].value} for {result.breakdown[1].value}</div>
-              </div>
-              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[["Epley", `${fmt(result.epley)}`], ["Brzycki", `${fmt(result.brzycki)}`], ["Lombardi", `${fmt(result.lombardi)}`]].map(([l, v], i) => (
-                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className="text-base font-bold">{v}</div>
-                  </div>
+          <div className="card-calculator !p-4 shadow-sm border border-border bg-card">
+            <h3 className="text-base font-semibold mb-3">Estimates by Formula</h3>
+            <table className="w-full text-base">
+              <tbody>
+                {methodRows.map((r) => (
+                  <tr key={r.label} className={`border-b last:border-0 ${r.isSelected ? "bg-primary/5" : ""}`}>
+                    <td className="py-2.5 px-3 text-muted-foreground">{r.label}{r.isSelected && <span className="ml-2 text-xs font-semibold text-primary">SELECTED</span>}</td>
+                    <td className="py-2.5 px-3 text-right font-medium">{fmt1(r.value)} {inputs.units}</td>
+                  </tr>
                 ))}
-              </div>
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Formula Comparison</h3>
-                <ResponsiveContainer width="100%" height={220}>
-                  <BarChart data={result.chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
-                    <YAxis tick={{ fontSize: 12 }} stroke="hsl(var(--muted-foreground))" />
-                    <Tooltip formatter={(v: number) => [fmt(v), ""]} />
-                    <Bar dataKey="value" radius={[6, 6, 0, 0]}>
-                      {result.chartData.map((d, i) => <Cell key={i} fill={d.fill} />)}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-                <p className="text-center text-sm text-muted-foreground mt-1">Formulas diverge most at high rep counts</p>
-              </div>
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Estimated Max Table (from average)</h3>
-                <div className="grid grid-cols-4 gap-2">
-                  {result.table.map((t) => (
-                    <div key={t.reps} className="bg-muted/40 rounded-md p-2 text-center">
-                      <div className="text-xs font-bold uppercase text-muted-foreground">{t.reps} rep{t.reps > 1 ? "s" : ""}</div>
-                      <div className="text-sm font-bold">{fmt(t.weight)}</div>
-                      <div className="text-xs text-muted-foreground">{fmt(t.pct)}%</div>
-                    </div>
-                  ))}
+                <tr className="border-t-2 border-border">
+                  <td className="py-2.5 px-3 font-semibold">Selected 1RM ({inputs.method})</td>
+                  <td className="py-2.5 px-3 text-right font-bold text-primary">{fmt1(result.selected)} {inputs.units}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="card-calculator !p-4 shadow-sm border border-border bg-card">
+            <h3 className="text-base font-semibold mb-3">Training Zones ({inputs.method} 1RM)</h3>
+            <table className="w-full text-base">
+              <tbody>
+                {zones.map((z) => (
+                  <tr key={z.label} className="border-b last:border-0">
+                    <td className="py-2.5 px-3 text-muted-foreground">{z.label}</td>
+                    <td className="py-2.5 px-3 text-right font-medium">{fmt1(result.selected * z.pct / 100)} {inputs.units}</td>
+                  </tr>
+                ))}
+                <tr className="border-t-2 border-border">
+                  <td className="py-2.5 px-3 font-semibold">Selected 1RM ({inputs.method})</td>
+                  <td className="py-2.5 px-3 text-right font-bold text-primary">{fmt1(result.selected)} {inputs.units}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="bg-muted/30 rounded-lg p-5">
+            <h3 className="text-sm font-semibold mb-3">Summary Statistics</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {methodRows.map((r) => (
+                <div key={r.label}>
+                  <div className="text-xs text-muted-foreground">{r.label.split(" — ")[0]}</div>
+                  <div className="text-base font-bold">{fmt1(r.value)} {inputs.units}</div>
                 </div>
-                <p className="text-center text-sm text-muted-foreground mt-2">Pick a rep range and lift the listed weight to train at that intensity</p>
-              </div>
-              <div className="bg-muted/30 rounded-lg p-5">
-                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                  {result.summaryStats.map((s, i) => (
-                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
-                  ))}
+              ))}
+              {zones.map((z) => (
+                <div key={z.label}>
+                  <div className="text-xs text-muted-foreground">{z.label}</div>
+                  <div className="text-base font-bold">{fmt1(result.selected * z.pct / 100)} {inputs.units}</div>
                 </div>
-              </div>
-            </>)}
+              ))}
+            </div>
           </div>
         </div>
-        <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
-          <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Estimate Without the Risk</h2>
-            <p>Maxing out is the surest way to stall, and the easiest way to get hurt. The <strong>one-rep max calculator</strong> instead estimates your 1RM from a comfortable set of 2–12 reps, using four of the best-known prediction formulas.</p>
-            <h2 className="text-2xl font-bold mb-3">The Formulas</h2>
-            <p>Epley: w × (1 + r/30). Brzycki: w × 36/(37 − r). Lombardi: w × r^0.1. O'Conner: w × (1 + r/40). Each models how strength decays as reps rise; they agree closely at low reps and drift apart as reps climb — so the average is the sensible working number.</p>
-            <h2 className="text-2xl font-bold mb-3">Train with Percentages</h2>
-            <p>Programs prescribe loads as percentages of 1RM: 55–65% for volume, 70–80% for hypertrophy, 85–95% for strength. The max table converts your estimate into actual working weights across the 1–12 rep spectrum.</p>
-          </section>
-          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/one-rep-max-calculator" />
-          <PopularCalculators exclude="/calculator/one-rep-max-calculator" />
-        </div>
       </div>
-    </>
+
+      <div className="max-w-[1180px] mt-8">
+        <AdPlaceholder className="mb-10" />
+        <section className="mt-12 space-y-8 text-base text-foreground">
+          <div>
+            <h2 className="text-2xl font-bold mb-3">What Is a One-Rep Max?</h2>
+            <p className="text-muted-foreground leading-relaxed">A one-rep max, or 1RM, is the heaviest weight you can lift for a single repetition with proper form. It is the classic yardstick of maximal strength, used by powerlifters, strength coaches, and recreational lifters to set training loads and measure progress over time. Testing a true 1RM is demanding — it requires a spotter, a thorough warm-up, and heavy loads that carry real injury risk — which is why estimation formulas exist. Every estimation method in this calculator takes a submaximal set you have already completed — a weight and the number of clean reps — and projects the weight you could lift for exactly one rep. The four formulas here are the most widely published and validated: Epley, Brzycki, Lombardi, and O'Conner. They differ in how aggressively they extrapolate from high-rep sets, which is why the calculator shows all four side by side: when they agree closely, the estimate is trustworthy; when they diverge, the truth usually sits somewhere in the middle and the spread itself is informative.</p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">How 1RM Estimates Are Calculated</h2>
+            <p className="text-muted-foreground leading-relaxed">Each formula takes the lifted weight and the number of reps and applies a published multiplier. The Epley formula adds 2.5 percent of the weight for every rep performed — mathematically, weight times one plus reps over 30 — so 185 pounds for 5 reps estimates 185 times 1.1667, or about 216 pounds. The Brzycki formula uses weight times 36 divided by 37 minus reps, which gives 208 pounds for the same set and is generally considered the most conservative. The Lombardi formula raises the rep count to the 0.10 power, weight times reps to the 0.10, yielding roughly 217 pounds, while the O'Conner formula adds 2.5 percent per rep up to a limit of ten reps, weight times one plus reps over 40, landing near 208 pounds. The formulas were each validated against different populations — Epley on experienced lifters, Brzycki on collegiate athletes — and they converge for sets of one to five reps while spreading apart as reps climb into the double digits, because extrapolating ten or fifteen reps to a single rep stretches any curve. That is why the recommended practice is to estimate from sets of ten reps or fewer and why this calculator caps the rep input at 100 while flagging nothing — the four-way spread shows you the uncertainty for free. Training zones then scale the selected 1RM down to the standard percentage targets: 90 percent for heavy strength work, 75 to 85 percent for hypertrophy, and 50 to 70 percent for endurance and technique, each with its characteristic rep range.</p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p className="text-muted-foreground leading-relaxed">Look first at the spread across the four formulas. A tight cluster — within a few pounds — means the estimate is stable and you can plan around the headline number with confidence. A wide spread, which typically appears when the set had many reps, means the true 1RM is uncertain; the honest reading is the range, not any single value, and the fix is to retest with a heavier weight and fewer reps. The selected method drives the training zone table below, so switching methods re-derives every zone weight in one click — the zones are the practical output, giving you exact loads for each rep range of your program. When programming, remember the zones are starting points, not ceilings: the 90 percent zone for sets of two to four reps, the 75 to 85 percent zone for eight to ten reps of hypertrophy work, and the sub-70 percent zone for higher-rep endurance sets and warm-ups. Because 1RM estimates drift with fatigue, hydration, and technique, re-estimate every four to six weeks or whenever the formula spread tightens after a strength block, and always prefer clean reps over heavy but sloppy ones — a misgrooved rep inflates the estimate and sends next week's loads too high. The calculator is deliberately conservative in its default method, and the honest takeaway is that no formula replaces an actual heavy single performed with a spotter; use the estimates to plan the work, and let the platform or the bar verify the number.</p>
+          </div>
+        </section>
+        <PopularCalculators exclude="/calculator/1-rep-max-1rm-calculator" />
+      </div>
+    </div>
   );
-}
+};
+
+export default OneRepMaxCalculator;

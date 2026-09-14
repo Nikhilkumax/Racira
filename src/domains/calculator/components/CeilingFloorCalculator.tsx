@@ -66,9 +66,9 @@ export default function CeilingFloorCalculator() {
     const n = parseFloat(number);
     const d = parseInt(decimals, 10);
     if (!isNaN(n) && !isNaN(d) && d >= 0 && d <= 12) setResult(calcRound(n, d));
-  }, [number, decimals]);
+  }, []);
 
-  const reset = () => { setNumber(DEFAULTS.number); setDecimals(DEFAULTS.decimals); };
+  const reset = () => { setNumber(DEFAULTS.number); setDecimals(DEFAULTS.decimals); setResult(calcRound(parseFloat(DEFAULTS.number), parseFloat(DEFAULTS.decimals))); };
   const invalid = isNaN(parseFloat(number)) || isNaN(parseInt(decimals, 10)) || parseInt(decimals, 10) < 0 || parseInt(decimals, 10) > 12;
 
   const faqs = [

@@ -68,6 +68,14 @@ try {
   process.exit(1);
 }
 
+// CAD batches run with explicit env bounds (500-1000 words) and heading
+// enforcement; unset defaults preserve the original 1000-1500 warning
+// behaviour used by the developers/pdf rollouts.
+const minWords = +(process.env.SEO_MIN_WORDS || 1000);
+const maxWords = +(process.env.SEO_MAX_WORDS || 1500);
+const wordErrors = process.env.SEO_MIN_WORDS !== undefined || process.env.SEO_MAX_WORDS !== undefined;
+const strict = process.env.SEO_STRICT === "1";
+
 let errors = 0;
 let warnings = 0;
 const slugs = new Set<string>();
@@ -118,6 +126,7 @@ for (const tool of input) {
   // Check section headings in order
   let faqStarted = false;
   const subHeadings = new Set<string>();
+  const topHeadings: string[] = [];
   for (let i = 0; i < tool.sections.length; i++) {
     const section = tool.sections[i];
 
@@ -157,6 +166,7 @@ for (const tool of input) {
         );
         errors++;
       }
+      topHeadings.push(section.heading);
     } else if (faqStarted && section.heading === "" && section.subHeading) {
       // Continuation FAQ — heading should be empty
       if (subHeadings.has(section.subHeading)) {
@@ -168,17 +178,60 @@ for (const tool of input) {
       subHeadings.add(section.subHeading);
     } else if (faqStarted && section.heading !== "") {
       // New top-level section after FAQ — acceptable
+      topHeadings.push(section.heading);
+    } else if (section.heading) {
+      topHeadings.push(section.heading);
     }
   }
 
-  // Check word count
+  // Strict mode (CAD): require the five standard movements in order, each
+  // exactly once, and at least three FAQ questions.
+  if (strict) {
+    const expect = [
+      "What is",
+      "How to Use",
+      "Why Use",
+      "Privacy & Security",
+      "Frequently Asked Questions",
+    ];
+    const norm = (h: string) =>
+      h === "Frequently Asked Questions" ? h : h.split(" ").slice(0, 2).join(" ");
+    const present = new Set(topHeadings.map(norm));
+    for (const e of expect) {
+      const ok =
+        e === "Frequently Asked Questions"
+          ? present.has(e)
+          : topHeadings.some((h) => h.startsWith(e));
+      if (!ok) {
+        console.error("  ERROR (strict): missing required section starting with \"" + e + "\"");
+        errors++;
+      }
+    }
+    for (const e of expect) {
+      const count = topHeadings.filter((h) =>
+        e === "Frequently Asked Questions" ? h === e : h.startsWith(e)
+      ).length;
+      if (count > 1) {
+        console.error("  ERROR (strict): section \"" + e + "\" appears " + count + " times (expected 1)");
+        errors++;
+      }
+    }
+    if (faqStarted && subHeadings.size + 1 < 3) {
+      console.error("  ERROR (strict): FAQ needs at least 3 questions (found " + (subHeadings.size + 1) + ")");
+      errors++;
+    }
+  }
+
+  // Check word count (env-bounded runs treat out-of-range as an error)
   const wc = toolWordCount(tool);
-  if (wc < 1000) {
-    console.error("  WARNING: Word count " + wc + " is below 1000 target");
-    warnings++;
-  } else if (wc > 1500) {
-    console.error("  WARNING: Word count " + wc + " exceeds 1500 target");
-    warnings++;
+  if (wc < minWords) {
+    console.error("  " + (wordErrors ? "ERROR" : "WARNING") + ": Word count " + wc + " is below " + minWords + " target");
+    if (wordErrors) errors++;
+    else warnings++;
+  } else if (wc > maxWords) {
+    console.error("  " + (wordErrors ? "ERROR" : "WARNING") + ": Word count " + wc + " exceeds " + maxWords + " target");
+    if (wordErrors) errors++;
+    else warnings++;
   } else {
     console.log("  OK: " + wc + " words");
   }

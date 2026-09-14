@@ -186,14 +186,6 @@ export default function CarbToInsulinRatioCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Carb to Insulin Ratio Calculator (ICR)</h1>
 
-        {/* MEDICAL DISCLAIMER */}
-        <div className="max-w-[1280px] mb-6 bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg flex gap-3 items-start">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
-          <p className="text-sm font-medium leading-relaxed text-red-800 dark:text-red-400">
-            <strong>Medical Disclaimer:</strong> This calculator provides clinical estimations based on the 500/450 Rule. It is intended for educational purposes only. Do <strong>not</strong> change your insulin dosing protocol without explicit supervision and approval from your endocrinologist or primary care physician.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
           
           {/* LEFT: Inputs */}
@@ -310,6 +302,14 @@ export default function CarbToInsulinRatioCalculator() {
         </div>
 
         {/* SEO CONTENT (1500+ words, 8 sections) */}
+        {/* MEDICAL DISCLAIMER */}
+        <div className="max-w-[1280px] mb-6 bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg flex gap-3 items-start">
+          <AlertTriangle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
+          <p className="text-sm font-medium leading-relaxed text-red-800 dark:text-red-400">
+            <strong>Medical Disclaimer:</strong> This calculator provides clinical estimations based on the 500/450 Rule. It is intended for educational purposes only. Do <strong>not</strong> change your insulin dosing protocol without explicit supervision and approval from your endocrinologist or primary care physician.
+          </p>
+        </div>
+
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" />
           <section className="prose-finance text-[15.75px]">

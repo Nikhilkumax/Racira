@@ -60,7 +60,7 @@ export default function StepperMotorCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const angle = parseFloat(inputs.stepAngle)

@@ -106,9 +106,9 @@ export default function DerivativeCalculator() {
     const xv = parseFloat(x);
     const r = !isNaN(xv) ? calcDerivative(expr, xv) : null;
     if (r) setResult(r);
-  }, [expr, x]);
+  }, []);
 
-  const reset = () => { setExpr(DEFAULTS.expr); setX(DEFAULTS.x); };
+  const reset = () => { setExpr(DEFAULTS.expr); setX(DEFAULTS.x); setResult(calcDerivative(DEFAULTS.expr, parseFloat(DEFAULTS.x))); };
   const parsed = useMemo(() => parsePolynomial(expr), [expr]);
   const invalid = parsed.length === 0 || isNaN(parseFloat(x));
 

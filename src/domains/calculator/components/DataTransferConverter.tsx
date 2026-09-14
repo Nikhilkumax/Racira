@@ -52,13 +52,16 @@ export default function DataTransferConverter() {
   const [speed, setSpeed] = useState(DEFAULTS.speed);
   const [result, setResult] = useState<TransferResult>(() => calcTransfer(2, 100));
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const s = parseFloat(size);
     const p = parseFloat(speed);
     if (!isNaN(s) && !isNaN(p) && s >= 0 && p > 0) setResult(calcTransfer(s, p));
-  }, [size, speed]);
+  };
 
-  const reset = () => { setSize(DEFAULTS.size); setSpeed(DEFAULTS.speed); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setSize(DEFAULTS.size); setSpeed(DEFAULTS.speed); setResult(calcTransfer(parseFloat(DEFAULTS.size), parseFloat(DEFAULTS.speed))); };
   const invalid = isNaN(parseFloat(size)) || isNaN(parseFloat(speed)) || parseFloat(size) < 0 || parseFloat(speed) <= 0;
 
   const breakdown = [
@@ -103,7 +106,7 @@ export default function DataTransferConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Download className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

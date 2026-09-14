@@ -5,6 +5,7 @@ import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw, Calculator } from "lucide-react";
+import { loanEmiCore, annuityPayment } from "./logicCore";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
@@ -37,10 +38,7 @@ const LoanCalculator = () => {
   const calculate = (pV = principal, rV = rate, yV = years) => {
     const P = parseFloat(pV), r = parseFloat(rV) / 100 / 12, n = parseFloat(yV) * 12;
     if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || n <= 0) return;
-    let monthly: number;
-    if (r === 0) { monthly = P / n; } else {
-      monthly = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
-    }
+    let monthly: number = annuityPayment(P, r, n);
     const totalPaid = monthly * n;
     const totalInterest = totalPaid - P;
 

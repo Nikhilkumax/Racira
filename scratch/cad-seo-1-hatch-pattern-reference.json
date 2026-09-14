@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "hatch-pattern-reference",
+    "varName": "hatch_pattern_referenceSeo",
+    "name": "Hatch Pattern Reference",
+    "sections": [
+      {
+        "heading": "What is Hatch Pattern Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The Hatch Pattern Reference is a searchable library of the hatch patterns used to represent materials in section views and material callouts. Twelve patterns are covered: the ANSI series that dominates North American drawings — ANSI31 for general section lines, ANSI32 for steel, ANSI33 for brass and bronze, ANSI34 for rubber and plastic, ANSI35 for firebrick, ANSI37 for cork and felt, ANSI38 for marble and glass — plus the common generic patterns BRICK, CONCRETE, EARTH, SAND and WOOD used across ISO-style and international practice."
+          },
+          {
+            "type": "paragraph",
+            "text": "Each row shows the pattern code, the standard it belongs to, the material it typically represents, and a live drawn sample of the actual line geometry. The samples are generated from the same line families that define the pattern — angle and spacing per family — so what you see is the real hatching, not a stylised icon. Because the pattern codes match the names used in AutoCAD and most CAD packages, a drawing hatched with these names exports and maps cleanly onto standard libraries."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Hatch Pattern Reference",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Scan the table of twelve patterns, or type into the search box to filter — searching steel finds ANSI32, while plastic finds ANSI34.",
+              "<strong>Step 2:</strong> Read the Pattern column for the code to type into your CAD hatch command, and the Standard column to know whether the pattern is ANSI Y14.2 or the generic ISO-style set.",
+              "<strong>Step 3:</strong> Match the Typical use column to the material in your section: ANSI31 for general cast or wrought sections, ANSI32 for steel members, BRICK or CONCRETE for masonry and concrete in buildings.",
+              "<strong>Step 4:</strong> Look at the live Sample column to confirm the appearance before you apply it — a 45-degree single family for ANSI31, a crossed pair for steel, or the distinctive large-scale CONCRETE mix of diagonals plus horizontal lines.",
+              "<strong>Step 5:</strong> Apply the code in your drawing software. Keep the pattern name in the layer or entity so anyone opening the file can re-derive the material without asking."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Hatch Pattern Reference",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Picking a hatch pattern is easy; picking the one everyone else will understand is not. A section drawn with the wrong code still looks like a section — until a fabricator or a reviewer asks what material it is. The reference exists so the material-to-pattern mapping is decided once, consistently, instead of being improvised per drawing."
+          },
+          {
+            "type": "paragraph",
+            "text": "It also settles the ANSI-versus-generic question that trips up mixed teams. North American drawings commonly use the ANSI31 family for ferrous metals and reserve ANSI32 for steel, while international practice leans on named patterns like CONCRETE and WOOD. Seeing both sets side by side, with samples, makes the convention visible instead of requiring everyone to remember a code table."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "What is the difference between ANSI31 and ANSI32?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Both are 45-degree families, but ANSI32 is a crossed pattern: two families at 45 degrees and minus 45 degrees, one at twice the spacing of the other. That denser, crossed appearance is what convention assigns to steel, while the single-family ANSI31 is the general-purpose section line for iron and unspecified materials. When in doubt, many offices default to ANSI31 and note the material in a callout."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Are these the same codes I type into AutoCAD's hatch command?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. ANSI31 through ANSI38 are shipped as built-in patterns by AutoCAD and most CAD packages under exactly those names, and BRICK, CONCRETE, EARTH, SAND and WOOD are standard library patterns as well. Choosing a code from this table means the pattern will resolve on any machine that opens the file, without custom pattern files."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why do some patterns belong to ANSI Y14.2 and others not?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ANSI Y14.2 defines the North American conventions for line conventions and lettering, and the ANSI31-family material hatch codes are part of that ecosystem. BRICK, CONCRETE, EARTH, SAND and WOOD are not Y14.2 codes — they are widely used patterns from the generic libraries that ISO-style and building practice adopted. Both families appear here because real projects use both, and the Standard column tells you which tradition a code belongs to."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the pattern spacing matter when I scale it into a drawing?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Yes. The line spacings shown are typical drafting scales — too fine to read when a 1:200 site section is plotted small, and coarse when a detail is enlarged. CAD hatch commands apply a scale factor on top of the pattern definition, so you adjust the hatch scale to the drawing scale and paper size. The pattern identity stays the same; only its plotted density changes."
+          }
+        ]
+      }
+    ]
+  }
+]

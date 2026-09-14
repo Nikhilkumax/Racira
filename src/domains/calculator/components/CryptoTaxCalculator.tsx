@@ -188,7 +188,7 @@ export default function CryptoTaxCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className="text-sm font-bold text-destructive uppercase tracking-wider mb-1">Total Tax Owed</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">${result.totalTax.toFixed(2)}</div>
                 <div className="text-base text-muted-foreground mt-1">Effective rate: {result.effectiveRate.toFixed(2)}% · After-tax profit: ${result.afterTaxProfit.toFixed(2)}</div>

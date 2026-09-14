@@ -105,7 +105,7 @@ const ReadingSpeedCalculator = () => {
             <div>
               <NumInput id="seconds" label="Time — Seconds (0-59)" value={inputs.seconds} onChange={set("seconds")} min="0" />
             </div>
-            <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Advanced Options</div>
+            <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold mt-1">Advanced Options</div>
             <div>
               <NumInput id="bookLength" label="Book Length (Words)" value={inputs.bookLength} onChange={set("bookLength")} min="0" hint="Average novel: 50,000-80,000 words." />
             </div>

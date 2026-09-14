@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "line-weight-manager",
+    "varName": "line_weight_managerSeo",
+    "name": "Line Weight Manager",
+    "sections": [
+      {
+        "heading": "What is Line Weight Manager",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Line Weight Manager assigns every standard line type a concrete pen width drawn from the ISO 128 pen series — 0.13, 0.18, 0.25, 0.35, 0.5, 0.7, 1.0, 1.4 and 2.0 millimetres, where consecutive pens differ by a factor of the square root of two. Instead of leaving line weight to whatever a plotter driver happens to do, the tool makes the mapping explicit: visible outlines and cutting-plane lines get the thick pen, hidden lines get either the thin or a medium pen depending on the policy chosen, and center lines, dimensions, extension lines, leaders, section hatching, phantom lines and long break lines all share the thin pen."
+          },
+          {
+            "type": "paragraph",
+            "text": "Two width policies are offered. The plain rule is the 1:2 convention of ISO 128 and ASME Y14.2, where the thin pen is exactly the thick pen divided by two and every non-visible line shares it. The second is the square-root-of-two, three-width practice used in drafting rooms, where hidden lines receive a middle pen between thick and thin. Computed widths snap onto the ISO series, so the result maps cleanly onto real CAD pen tables rather than producing awkward widths like 0.495 millimetres."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Line Weight Manager",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Choose the width policy. The 1:2 rule (thin = thick ÷ 2, ISO 128 / ASME Y14.2) is the common default; the √2 three-width policy is the drafting-room practice that gives hidden lines a middle pen.",
+              "<strong>Step 2:</strong> Pick the thick-line pen from 0.35, 0.5, 0.7 or 1.0 millimetres. This is the pen used for the visible outline and the cutting-plane line — the boldest ink on the sheet.",
+              "<strong>Step 3:</strong> Read the assigned widths panel. It shows the effective thick pen (snapped down to the series), the medium pen when the √2 policy is active, and the thin pen that every remaining line type shares.",
+              "<strong>Step 4:</strong> Consult the line-type map table, which lists all eight standard line types with their group and the exact width assigned — use this table as the pen assignment when building your CAD layer standards.",
+              "<strong>Step 5:</strong> Keep colours out of the weight decision. A layer-naming convention maps each layer to one of the three pens at plot time; colour stays a layer-identity attribute so the same file can plot with different pen tables."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's note explains the reading of the ratios: adjacent ISO pens give about 1.4:1 contrast, which reads as the same family, while skipping a pen gives the crisp 2:1 contrast used to separate visible geometry from everything else. That is why the 1:2 policy collapses all non-visible lines onto one pen and the √2 policy splits them."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Line Weight Manager",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Line weight is how a drawing tells the reader what matters. The visible outline is the strongest signal on the sheet, and everything else must be visibly subordinate to it; a drawing where dimensions, hatching and hidden lines all print at the same weight as the outline is hard to read and slower to check. Standardising the assignment once, in one place, means every sheet in the set plots consistently instead of each drafter guessing."
+          },
+          {
+            "type": "paragraph",
+            "text": "The √2 policy exists because drawings are often plotted at reduced scale, where a hidden line printed at a very thin weight can vanish or close up. A middle pen keeps the hidden geometry legible while still reading clearly as subordinate to the outline — the reason the three-width practice is common in shops that plot reduced-size check sets."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does the thin pen sometimes not come out to exactly half the thick pen?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the result is snapped onto the ISO 128 pen series rather than left as a raw division. A 0.7 millimetre thick pen divides to exactly 0.35, which is a series pen, but a 0.35 millimetre thick pen divides to 0.175, which is not in the series — the tool takes the largest series pen no heavier than the computed value, so it snaps down to the 0.13 pen. Snapping is deliberate: the final assignment has to be a pen that actually exists, and snapping down for the thin lines keeps them visibly lighter than the outline rather than drifting toward it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the square-root-of-two series and why would a hidden line need a middle pen?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "ISO 128 standardises the pen series from 0.13 to 2.0 millimetres where each step multiplies the width by the square root of two, about 1.41. Adjacent pens give a subtle 1.4:1 contrast that reads as the same family; skipping one pen gives the 2:1 contrast used to separate the visible outline from everything else. Under the three-width policy the hidden line sits between the outline and the thinnest pen, so it stays legible when the drawing is plotted at reduced scale instead of collapsing to a hairline."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why keep colour out of the line-weight decision?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Colour is a layer-identity attribute, while weight is a plot-time mapping. A layer naming convention — like the one in the CAD layer naming builder — assigns each layer a pen (thick, medium or thin) and each layer a colour; the two are independent. Keeping them separate means the same drawing file can be plotted with different pen tables, and a layer's colour can change without silently changing the printed weight of every line on it."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "How do I know which ratio my drawing needs?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The 2:1 ratio between the thick and thin pens is the crisp separation used to distinguish visible geometry from dimension, hatching and hidden detail — the default under the 1:2 policy. The 1.4:1 ratio of adjacent series pens reads as one family and is what separates the medium hidden line from both the outline and the thinnest lines under the √2 policy. If your plotting process or reduced-size check sets make the thin line vanish, move to the three-width policy; otherwise the 1:2 rule is the standard default."
+          }
+        ]
+      }
+    ]
+  }
+]

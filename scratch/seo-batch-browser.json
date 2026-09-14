@@ -1,0 +1,311 @@
+[
+  {
+    "slug": "local-storage-viewer",
+    "whatIs": "The Local Storage Viewer is a client-side browser inspection tool that reads and displays every key-value pair currently stored in the browser's localStorage for the current origin (protocol + domain + port). When you open the tool, it immediately scans localStorage using the Storage API's key() and getItem() methods, building a complete inventory of all stored data. The output is rendered as a table with three columns: the key name (in monospace font), the value (truncated to prevent overflow), and the byte size of the value (calculated using the TextEncoder API for accurate UTF-8 byte counting). The table header shows the total number of entries, and if localStorage is empty, a message is displayed instead. This tool is essential for debugging web applications that use localStorage for caching, user preferences, authentication tokens, or any client-side state — it gives you an immediate, human-readable view of what the browser is actually storing.",
+    "howToUse": [
+      "Open the Local Storage Viewer tool. The tool immediately scans localStorage on load and displays all entries in a table.",
+      "Review the table: each row shows a key name, its stored value, and the byte size. The key column uses monospace font for alignment, and the value column is truncated for long values.",
+      "Note the total entry count displayed in the header. This tells you how many items are currently stored in localStorage for this origin.",
+      "To modify the data, use the Local Storage Manager tool which provides edit and delete capabilities."
+    ],
+    "whyUse": "localStorage is invisible by default — there is no browser UI that shows all stored key-value pairs in one place. DevelopersTools > Application > Local Storage in DevTools works, but this tool provides a quicker, focused view without navigating DevTools panels. It is particularly useful during development when you need to quickly verify that your application is storing the correct values, when debugging issues related to stale or corrupted cached data, or when auditing what a third-party script has stored in your origin's localStorage. The byte-size column is especially valuable because localStorage has a storage limit (typically 5-10MB per origin), and seeing the size of each entry helps identify which items are consuming the most space.",
+    "faq": [
+      {
+        "q": "Does this show localStorage from other origins?",
+        "a": "No. The tool only shows localStorage entries for the current origin (the protocol, domain, and port of this page). Cross-origin localStorage is isolated by the browser's same-origin policy and cannot be accessed."
+      },
+      {
+        "q": "Does it update in real time?",
+        "a": "The tool scans localStorage once on load. If you add or remove entries from another tab or via DevTools, refresh the page to see the updated state."
+      },
+      {
+        "q": "What is the storage limit?",
+        "a": "Most browsers allow 5-10MB of localStorage per origin. The byte-size column helps you track usage, but the total limit is enforced by the browser, not by this tool."
+      },
+      {
+        "q": "Can I see storage usage statistics?",
+        "a": "The tool shows individual entry sizes but not total usage. For total localStorage usage, check the browser DevTools Application tab or use the Storage Manager API (navigator.storage.estimate())."
+      },
+      {
+        "q": "Does it detect values stored by third-party scripts?",
+        "a": "Yes. The tool reads all localStorage entries for the current origin regardless of which script stored them. If a third-party analytics or advertising script has stored data, it will appear in the list."
+      }
+    ]
+  },
+  {
+    "slug": "local-storage-manager",
+    "whatIs": "The Local Storage Manager is a client-side CRUD (Create, Read, Update, Delete) interface for the browser's localStorage API. Unlike the Local Storage Viewer which only displays entries, this tool provides full write access: you can create new key-value pairs, update existing ones, and delete individual entries or clear the entire storage. The interface consists of two input fields (key and value), a Set button that writes the entry, a Clear All button that removes everything, and a scrollable list of all current entries with individual delete links. The tool refreshes the list after every write operation, so you see the result of your action immediately. Errors (such as localStorage being full) are caught and displayed as alerts. This tool is essential for testing how your application handles various localStorage states — you can inject test values, simulate storage-full scenarios, or clean up stale entries during development.",
+    "howToUse": [
+      "Open the Local Storage Manager. You will see two input fields (key and value), a Set button, a Clear All button, and a list of all current localStorage entries.",
+      "To add or update an entry: type a key name in the first field, the desired value in the second field, and click Set. If the key already exists, its value is overwritten.",
+      "To delete a single entry: click the red 'del' link next to any entry in the list. The entry is immediately removed from localStorage and the list refreshes.",
+      "To clear all entries: click the Clear All button. This removes every key-value pair from localStorage for this origin — use with caution as this is irreversible."
+    ],
+    "whyUse": "Testing application behavior with specific localStorage states is a daily need during web development. You might need to simulate a logged-in state by injecting an auth token, test how the app handles an empty localStorage, verify that cache invalidation works by modifying a cached value, or clean up developer-only test entries. The Local Storage Manager makes all of these operations trivial — type, click, done. Without it, you would need to open browser DevTools, navigate to the Application tab, find Local Storage, and manually edit entries one at a time. The tool's immediate refresh after each operation also provides visual confirmation that the write succeeded, which is especially helpful when debugging localStorage quota exceeded errors.",
+    "faq": [
+      {
+        "q": "Can I edit existing values directly in the list?",
+        "a": "Currently, the tool does not support inline editing. To update a value, type the key name and new value in the input fields and click Set — this overwrites the existing value."
+      },
+      {
+        "q": "What happens if localStorage is full?",
+        "a": "The tool catches the QuotaExceededError from localStorage.setItem() and displays it as an alert. You would need to delete some entries (using the del links) before adding new ones."
+      },
+      {
+        "q": "Does Clear All affect sessionStorage?",
+        "a": "No. Clear All only calls localStorage.clear(), which removes all entries from localStorage. sessionStorage is a separate storage area and is not affected."
+      },
+      {
+        "q": "Is there a way to export all entries?",
+        "a": "Not currently. You could copy the output from the Local Storage Viewer tool and save it as a JSON file for backup purposes."
+      },
+      {
+        "q": "What data types can I store?",
+        "a": "localStorage stores strings only. If you store a JSON object, it is automatically stringified. The tool stores whatever text you enter in the value field — there is no type validation."
+      }
+    ]
+  },
+  {
+    "slug": "session-storage-viewer",
+    "whatIs": "The Session Storage Viewer is a client-side inspection tool that reads and displays every key-value pair currently stored in the browser's sessionStorage for the current tab. Like the Local Storage Viewer, it scans the storage on load and presents the entries in a table format with key and value columns. The critical difference from localStorage is that sessionStorage is scoped to the browser tab — entries are cleared when the tab is closed, and each tab has its own independent sessionStorage even if they share the same origin. This makes sessionStorage ideal for temporary state like form progress, multi-step wizard data, or tab-specific preferences. The viewer helps you understand what temporary state your application is maintaining and verify that tab isolation is working correctly.",
+    "howToUse": [
+      "Open the Session Storage Viewer. The tool immediately scans sessionStorage and displays all entries in a table.",
+      "Review the entries: each row shows a key name and its stored value. The header displays the total number of entries.",
+      "To test tab isolation, open the same tool in a new tab — it will show a different set of entries (or be empty if nothing has been stored in that tab).",
+      "Note that closing the tab will clear all sessionStorage entries permanently."
+    ],
+    "whyUse": "sessionStorage is often misunderstood — developers confuse it with localStorage or assume it persists across tabs. The Session Storage Viewer makes the behavior concrete and visible: you can see exactly what is stored in the current tab, verify that opening a new tab gives a clean slate, and confirm that closing a tab removes the data. This is essential for debugging multi-tab workflows, form state management, and any application that uses sessionStorage for temporary caching. The tool is also useful for security auditing — verifying that sensitive data like CSRF tokens or temporary auth state is properly scoped to individual tabs and does not leak across browsing contexts.",
+    "faq": [
+      {
+        "q": "How is this different from the Local Storage Viewer?",
+        "a": "localStorage persists across tabs and browser sessions; sessionStorage is scoped to the current tab and cleared when the tab closes. The two tools are identical in functionality but read from different browser storage APIs."
+      },
+      {
+        "q": "Can I edit sessionStorage entries?",
+        "a": "The viewer is read-only. For editing, use the browser DevTools Application tab or call sessionStorage.setItem() from the console."
+      },
+      {
+        "q": "Does sessionStorage persist after refreshing the page?",
+        "a": "Yes. Refreshing the page does not clear sessionStorage. Only closing the tab (not refreshing) removes the entries."
+      },
+      {
+        "q": "Why would I use sessionStorage instead of localStorage?",
+        "a": "Use sessionStorage when data should be temporary and tab-scoped: multi-step form progress, tab-specific UI state, or one-time tokens that should not persist across tabs. Use localStorage for data that should survive browser restarts."
+      },
+      {
+        "q": "Can I transfer sessionStorage data between tabs?",
+        "a": "Not directly — sessionStorage is isolated per tab. You would need to use BroadcastChannel or localStorage as an intermediary to pass data between tabs."
+      },
+      {
+        "q": "How much data can sessionStorage hold?",
+        "a": "The storage limit is typically 5MB per origin per tab, similar to localStorage. However, the exact limit varies by browser. The Storage Manager API (navigator.storage.estimate()) can report the actual usage for your browser."
+      }
+    ]
+  },
+  {
+    "slug": "browser-info-detector",
+    "whatIs": "The Browser Info Detector is a client-side diagnostic tool that reads and displays comprehensive information about the current browser environment. It accesses the Navigator, Screen, and Window APIs to collect 12 properties: the full user agent string (identifying browser name, version, and OS), the platform identifier, the primary language and full language list, whether cookies are enabled, online status, screen resolution (width and height in pixels), device pixel ratio (DPR), color depth, touch support (via maxTouchPoints), CPU core count (hardwareConcurrency), and estimated device memory (deviceMemory, where available). The tool outputs all properties in a clean, labeled format, making it easy to copy and paste into bug reports, compatibility documentation, or support tickets. This information is invaluable when debugging cross-browser issues, verifying that responsive designs target the correct screen sizes, or documenting the testing environment for QA.",
+    "howToUse": [
+      "Open the Browser Info Detector tool. No input is required.",
+      "Click the Transform button (or the tool may auto-detect on load). The output panel displays all browser properties in a labeled list.",
+      "Review the information: the User Agent line shows the full browser identification string, Screen shows the display resolution, and Device Pixel Ratio indicates whether you are on a retina/HiDPI display.",
+      "Copy the output using the copy button. The formatted text is suitable for pasting into bug reports, issue trackers, or documentation."
+    ],
+    "whyUse": "When filing a browser bug or compatibility issue, including browser environment details is essential but tedious to gather manually. The Browser Info Detector collects all relevant information in one click, eliminating the need to navigate multiple DevTools panels or manually construct the user agent string. The device pixel ratio is particularly important for responsive design — a CSS pixel width of 375 on a device with DPR 3 (like an iPhone) actually renders at 1125 physical pixels, and this distinction affects image sizing, media queries, and touch target dimensions. The memory estimate (where supported) helps developers understand performance constraints on low-end devices.",
+    "faq": [
+      {
+        "q": "Why is deviceMemory sometimes undefined?",
+        "a": "The deviceMemory property is only available in Chrome and Edge. Firefox and Safari do not expose this information for privacy reasons. When unavailable, the tool displays '?'."
+      },
+      {
+        "q": "Is the user agent string reliable?",
+        "a": "The user agent string can be spoofed or modified by browser extensions. For precise browser identification, use feature detection (checking for specific API support) rather than parsing the user agent."
+      },
+      {
+        "q": "Does this detect browser extensions?",
+        "a": "No. Browser extensions are not visible to web pages through standard APIs. The tool only detects properties exposed by the Navigator, Screen, and Window interfaces."
+      },
+      {
+        "q": "Can I detect specific browser features?",
+        "a": "The tool shows environment properties, not feature support. For feature detection (Service Worker, Web Crypto, etc.), use feature-detection libraries like Modernizr or manual checks like \"serviceWorker\" in navigator."
+      },
+      {
+        "q": "Why is my user agent different in DevTools?",
+        "a": "Some browsers allow user agent override in DevTools (Network tab > More > Network conditions). The tool reads the current navigator.userAgent, which may differ from the real user agent if overrides are active."
+      },
+      {
+        "q": "What does hardwareConcurrency tell me?",
+        "a": "HardwareConcurrency reports the number of CPU logical cores available. This is useful for tuning worker thread counts, parallel processing, and estimating device capability. A value of 2 suggests a low-end mobile device; 8+ suggests a desktop or workstation."
+      }
+    ]
+  },
+  {
+    "slug": "jwt-local-inspector",
+    "whatIs": "The JWT Local Inspector is a client-side tool that scans the browser's localStorage for JSON Web Tokens (JWTs) and displays their decoded payloads. It iterates over every key in localStorage, checks if the value contains at least two dots (the minimum structure of a JWT: header.payload.signature), and for matching entries, Base64Url-decodes the payload segment to reveal the token's claims. The decoded payload is displayed as formatted JSON inside an expandable details element, making it easy to read claims like sub (subject), iss (issuer), exp (expiration), iat (issued at), and any custom claims. The tool does not verify signatures — it only decodes the payload for inspection. This is essential for debugging authentication flows: you can instantly see what claims your application is storing, verify that tokens contain the expected data, and check expiration timestamps without copying tokens to a separate decoder.",
+    "howToUse": [
+      "Open the JWT Local Inspector. The tool immediately scans localStorage on load and displays any JWT-like values it finds.",
+      "Review the results: each JWT is shown under its localStorage key name. Click the key name to expand and see the decoded payload as formatted JSON.",
+      "The decoded payload shows all JWT claims including subject, issuer, expiration, and any custom claims your application stores in the token.",
+      "If no JWTs are found, the tool displays a message indicating that localStorage does not contain any token-like values for this origin."
+    ],
+    "whyUse": "During authentication debugging, developers frequently need to inspect the JWT stored in localStorage to verify claims, check expiration, or confirm the token was issued correctly. Without this tool, the process involves opening DevTools, finding the token key, copying the value, pasting it into a JWT decoder (like jwt.io), and then reading the decoded output. The JWT Local Inspector eliminates those steps — it automatically finds and decodes all tokens, presenting the claims in a readable format immediately. This is especially valuable when debugging multi-token flows (access token + refresh token), verifying that claims are correctly populated after login, and checking that token expiration aligns with your session management policy.",
+    "faq": [
+      {
+        "q": "Does this verify JWT signatures?",
+        "a": "No. The tool only decodes the payload for inspection. Signature verification requires the signing key and is not performed. For verification, use the HS256 or RS256 JWT Verifier tools."
+      },
+      {
+        "q": "What if the token is not a valid JWT?",
+        "a": "The tool checks for the dot-separated structure (at least 2 dots). If a value passes this check but the payload is not valid Base64Url or JSON, a parse error is displayed instead of the claims."
+      },
+      {
+        "q": "Can it find tokens stored under non-obvious keys?",
+        "a": "The tool scans all localStorage keys and checks each value for the JWT structure. It does not assume a specific key name like 'token' or 'access_token' — any value matching the three-part structure is detected."
+      },
+      {
+        "q": "Can it find tokens stored in sessionStorage?",
+        "a": "No. The tool only scans localStorage. For sessionStorage tokens, you would need to check the sessionStorage API separately."
+      },
+      {
+        "q": "What if the token is expired?",
+        "a": "The tool displays the decoded payload including the exp (expiration) claim as a Unix timestamp. It does not check expiration — you can see the timestamp and compare it to the current time."
+      }
+    ]
+  },
+  {
+    "slug": "indexeddb-viewer",
+    "whatIs": "The IndexedDB Viewer is a client-side tool that lists all IndexedDB databases stored by the current origin in the browser. It uses the IndexedDB.databases() API (available in Chrome, Edge, and Opera) to enumerate database names, displaying each one as a clickable list item. IndexedDB is the browser's most powerful client-side storage API, supporting structured data, indexes, transactions, and much larger storage quotas than localStorage (typically hundreds of MB to several GB). However, unlike localStorage, there is no built-in browser UI that lists all databases across origins. This viewer fills that gap by providing a quick inventory of what IndexedDB databases exist, which is useful for debugging: you can verify that your application created the expected databases, check for orphaned databases from previous development sessions, and confirm database cleanup after logout. Note that the databases() API is not available in all browsers — Firefox and Safari may show an empty list even when databases exist.",
+    "howToUse": [
+      "Open the IndexedDB Viewer. The tool automatically queries the IndexedDB.databases() API on load.",
+      "Review the list of database names displayed. Each database is shown as a separate entry with its name.",
+      "If no databases are found, the tool displays a message. This could mean either no IndexedDB databases exist for this origin, or the browser does not support the databases() API.",
+      "To inspect database contents, use the browser DevTools Application tab — this tool provides the high-level inventory, not record-level browsing."
+    ],
+    "whyUse": "IndexedDB is commonly used by web applications for offline data storage, caching API responses, storing user-generated content, and implementing service worker caches. Over time, these databases accumulate and can consume significant storage space. The IndexedDB Viewer provides a quick way to audit what databases exist without navigating to DevTools. It is particularly useful when: debugging an application that stores data in IndexedDB and you need to confirm the database was created; cleaning up after development by identifying databases that can be deleted; auditing third-party scripts that may have created databases in your origin; and verifying that database deletion logic works correctly after user logout.",
+    "faq": [
+      {
+        "q": "Why is the database list empty?",
+        "a": "Two possible reasons: (1) No IndexedDB databases exist for this origin, or (2) the browser does not support the databases() API. Firefox and Safari have limited support — use Chrome or Edge for accurate results."
+      },
+      {
+        "q": "Can this tool delete databases?",
+        "a": "No. This tool is read-only — it lists database names. To delete databases, use the DevTools Application tab or call indexedDB.deleteDatabase() from the console."
+      },
+      {
+        "q": "Does this show database sizes?",
+        "a": "The databases() API returns names and versions but not sizes. For storage usage, check the browser DevTools or the Storage Manager API (navigator.storage.estimate())."
+      },
+      {
+        "q": "Can I view the data inside each database?",
+        "a": "No. The databases() API only returns names and versions. To view records, indexes, and object stores, use the browser DevTools Application tab with IndexedDB expanded."
+      },
+      {
+        "q": "Why does Safari show no databases?",
+        "a": "Safari has limited support for the databases() API. It may not enumerate databases even when they exist. Use Chrome or Edge for reliable database enumeration."
+      }
+    ]
+  },
+  {
+    "slug": "canvas-drawing-tool",
+    "whatIs": "The Canvas Drawing Tool is a client-side freehand drawing application built on the HTML5 Canvas 2D API. It provides a 600x400 pixel canvas with a white background where you can draw using the mouse. The tool uses the canvas context's beginPath, moveTo, lineTo, and stroke methods to render smooth freehand lines with a round line cap and 2-pixel line width. A Clear button resets the canvas to a blank white state by filling the entire canvas with white. The canvas is responsive — it scales to fit the container width while maintaining its aspect ratio. The tool uses React state to track whether the mouse is pressed (drawing mode), and event handlers for mousedown, mousemove, mouseup, and mouseleave control the drawing flow. This is a minimal, focused drawing tool for quick sketches, diagram annotations, or testing canvas API behavior.",
+    "howToUse": [
+      "Open the Canvas Drawing Tool. A white 600x400 canvas appears with a Clear button above it.",
+      "Click and hold the mouse button, then move the mouse to draw freehand lines on the canvas. Release the button to stop drawing.",
+      "To clear the canvas and start fresh, click the Clear button. The canvas resets to a blank white state.",
+      "The canvas scales responsively to fit the container width. Drawing coordinates are relative to the canvas, not the display size."
+    ],
+    "whyUse": "The Canvas Drawing Tool serves two purposes: as a simple utility for quick annotations and sketches, and as a reference implementation for the Canvas 2D API. For developers learning canvas programming, this tool demonstrates the core drawing pipeline (getting context, beginPath, moveTo, lineTo, stroke) in a working example. For quick annotations — circling an area on a screenshot, marking up a diagram, or sketching a UI layout — the tool provides an immediate drawing surface without leaving the browser. The clear separation between the canvas API (drawing) and the React state management (event handling) also makes this a useful reference for understanding how canvas interacts with React's event system.",
+    "faq": [
+      {
+        "q": "Can I change the brush color or size?",
+        "a": "The current implementation uses a fixed 2-pixel black brush with round line caps. Customizing color and size would require extending the tool with additional controls."
+      },
+      {
+        "q": "Can I save the drawing?",
+        "a": "The canvas can be exported as a PNG using canvas.toDataURL(), but the tool does not currently include a save button. You can access the data URL from the browser console."
+      },
+      {
+        "q": "Does it support touch input?",
+        "a": "The tool currently uses mouse events only. For touch support, touchstart/touchmove/touchend handlers would need to be added."
+      },
+      {
+        "q": "What is the canvas resolution?",
+        "a": "The canvas is 600x400 pixels internally, but it scales to fit the container width via CSS. On HiDPI displays, the canvas may appear slightly blurry because the internal resolution does not match the display pixel ratio."
+      },
+      {
+        "q": "Can I undo drawings?",
+        "a": "Not currently. The tool provides a Clear button to reset the entire canvas, but there is no undo history for individual strokes."
+      },
+      {
+        "q": "Does the tool support pressure sensitivity?",
+        "a": "No. The tool uses basic mouse events without pressure data. For pressure-sensitive drawing, you would need to use Pointer Events with the pressure property from the PointerEvent interface."
+      }
+    ]
+  },
+  {
+    "slug": "webgl-shader-playground",
+    "whatIs": "The WebGL Shader Playground is a client-side GLSL shader editor and live preview tool. It provides a split-pane interface with a code editor on the left (for editing fragment shader source) and a WebGL canvas on the right (showing the rendered output). The tool compiles and renders the fragment shader in real time using the WebGL 1.0 API: it creates a WebGL context, compiles the vertex and fragment shaders, links them into a program, sets up a full-screen quad geometry (two triangles covering the entire canvas), and renders the shader on every animation frame. The fragment shader receives a u_time uniform (in seconds) that enables time-based animations like color cycling, noise, and wave patterns. The default shader produces a red-to-blue gradient that animates over time. Shader compilation errors are logged to the console, making it easy to debug GLSL syntax issues. The tool is designed for experimenting with fragment shader effects, learning GLSL, and prototyping visual effects.",
+    "howToUse": [
+      "Open the WebGL Shader Playground. You will see a code editor on the left with the default fragment shader and a canvas on the right showing the rendered output.",
+      "Edit the fragment shader code in the editor. The canvas updates in real time as you type — the shader is recompiled and re-rendered on each frame.",
+      "The shader has access to two built-in variables: u_time (float, seconds since start) and gl_FragCoord (vec2, pixel coordinates). Use these for animated effects.",
+      "If the shader fails to compile, check the browser console for error messages. Common issues include missing semicolons, type mismatches, and using GLSL features not available in WebGL 1.0."
+    ],
+    "whyUse": "Fragment shaders are powerful but notoriously difficult to learn — the GLSL language is C-like, errors are cryptic, and the feedback loop of edit-compile-run is slow in traditional development environments. The WebGL Shader Playground collapses this loop to real-time: edit the code, see the result immediately. This instant feedback is essential for learning GLSL (experimenting with mix, step, smoothstep, and noise functions), prototyping visual effects for games or data visualizations, and debugging shader code that will be used in a larger WebGL application. The u_time uniform enables time-based animations without any setup — just write time-dependent expressions and watch the shader animate.",
+    "faq": [
+      {
+        "q": "Does this support vertex shaders?",
+        "a": "The vertex shader is hardcoded as a simple pass-through (passing position to gl_Position). Only the fragment shader is editable. For full vertex shader editing, a more complete IDE would be needed."
+      },
+      {
+        "q": "What GLSL version is used?",
+        "a": "The tool uses GLSL ES 1.0 (WebGL 1.0), which supports core features like textures, uniforms, varying, and built-in functions (sin, cos, mix, etc.). WebGL 2.0 features like integer types and texelFetch are not available."
+      },
+      {
+        "q": "Can I use textures in the shader?",
+        "a": "Not directly — the tool does not currently support texture loading. The shader operates on procedural data (u_time, gl_FragCoord) only. Adding texture support would require extending the tool with a texture loader."
+      },
+      {
+        "q": "Why does my shader not compile?",
+        "a": "Common GLSL errors: missing semicolons, using undefined variables, type mismatches (e.g., multiplying vec3 by float without swizzling), and using features not available in GLSL ES 1.0. Check the browser console for the specific error message."
+      },
+      {
+        "q": "Can I use noise functions?",
+        "a": "GLSL ES 1.0 does not include built-in noise. You can implement noise functions (Perlin, Simplex) directly in the shader code. Many online resources provide GLSL noise implementations."
+      }
+    ]
+  },
+  {
+    "slug": "websocket-tester",
+    "whatIs": "The WebSocket Tester is a client-side tool that establishes WebSocket connections to specified servers and provides an interactive interface for sending and receiving messages. It features a URL input field (defaulting to wss://echo.websocket.org), a Connect button, a Send button (which sends the text \"ping\"), a Close button, and a scrollable log panel that displays all connection events: successful connection, received messages, disconnection with close code, and errors. The tool creates a new WebSocket instance with the specified URL, attaches event handlers for open, message, close, and error events, and displays each event in the log with a status indicator (checkmark for success, X for errors/closure). The Send button sends a predefined \"ping\" message — this is a simple test to verify the server responds. The Close button gracefully closes the connection with the default close code. This tool is essential for debugging WebSocket-based applications, testing server connectivity, and verifying that WebSocket endpoints are reachable and responding.",
+    "howToUse": [
+      "Enter a WebSocket URL in the input field (e.g., wss://echo.websocket.org or ws://localhost:8080). The URL must start with ws:// or wss://.",
+      "Click Connect. The tool creates a WebSocket connection and logs the result. A checkmark entry indicates successful connection; an X indicates failure.",
+      "Once connected, click Send to transmit a test message (\"ping\"). If the server echoes responses, they will appear in the log prefixed with a left arrow.",
+      "To end the session, click Close. The tool logs the close code and the connection is terminated. You can reconnect by clicking Connect again."
+    ],
+    "whyUse": "WebSocket connections are notoriously difficult to debug because they operate outside the normal HTTP request/response cycle. When a WebSocket fails to connect, the issue could be the URL, authentication, network policy, server configuration, or protocol mismatch. The WebSocket Tester isolates the connection itself — by testing with a simple echo server first, you can confirm that WebSocket connectivity works in general before debugging your specific application's WebSocket logic. The log panel provides immediate visibility into the connection lifecycle, which is especially valuable for diagnosing connection drops, unexpected close codes, and message delivery failures.",
+    "faq": [
+      {
+        "q": "Why does the echo.websocket.org server not respond?",
+        "a": "The echo.websocket.org service may be unavailable or deprecated. Try using a local WebSocket server or another echo service for testing. The tool works with any WebSocket endpoint."
+      },
+      {
+        "q": "Can I send custom messages?",
+        "a": "The current Send button sends a hardcoded \"ping\" message. For custom messages, you would need to modify the tool to accept user input for the message body."
+      },
+      {
+        "q": "Does it support binary messages?",
+        "a": "The tool sends and receives text messages only. Binary WebSocket frames (ArrayBuffer, Blob) are not currently handled in the log display."
+      },
+      {
+        "q": "Why does the connection fail immediately?",
+        "a": "Common causes: the server is not running, the URL is wrong (check ws:// vs wss://), a firewall is blocking the connection, or the server requires specific subprotocol headers that the tool does not send."
+      },
+      {
+        "q": "Can I test authentication-protected WebSockets?",
+        "a": "Not directly — the tool does not support custom headers or authentication tokens in the WebSocket handshake. For authenticated connections, you would need to extend the tool or use a library like Socket.IO."
+      }
+    ]
+  }
+]

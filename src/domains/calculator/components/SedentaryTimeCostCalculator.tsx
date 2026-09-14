@@ -94,7 +94,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -106,6 +106,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -152,7 +153,7 @@ export default function SedentaryTimeCostCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, sittingHours]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -197,8 +198,8 @@ export default function SedentaryTimeCostCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-              <CompactInput id="hours" label="Hours Sitting" value={sittingHours} onChange={setSittingHours} suffix="hrs" />
+              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
+              <CompactInput id="hours" label="Hours Sitting" value={sittingHours} onChange={setSittingHours} suffix="hrs" onEnter={handleCalculate} />
             </div>
 
             {errorMsg && (
@@ -222,37 +223,37 @@ export default function SedentaryTimeCostCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-slate-900 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   
                   <div className="relative z-10">
-                    <div className="text-slate-400 text-sm font-bold uppercase tracking-wider mb-4">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-4">
                       The Postural Opportunity Cost
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Standing Advantage */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-lg p-4">
-                        <div className="text-emerald-400 text-xs font-bold mb-1">If You Stood Instead (Monthly)</div>
+                      <div className="bg-muted/30 border border-border rounded-lg p-4">
+                        <div className="text-xs font-bold text-emerald-600 dark:text-emerald-400 mb-1">If You Stood Instead (Monthly)</div>
                         <div className="flex items-baseline gap-1">
-                          <div className="text-3xl font-black text-white">+{results.standingAdvantageMonthly.toLocaleString()}</div>
-                          <div className="text-xs text-slate-400">kcal</div>
+                          <div className="text-3xl font-black text-primary">+{results.standingAdvantageMonthly.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">kcal</div>
                         </div>
-                        <div className="text-[10px] text-slate-500 mt-1 uppercase font-semibold">
+                        <div className="text-[10px] text-muted-foreground mt-1 uppercase font-semibold">
                           +{results.standingAdvantageDaily.toLocaleString()} kcal Daily Advantage
                         </div>
                       </div>
 
                       {/* Walking Advantage */}
-                      <div className="bg-slate-800/80 border border-slate-700 rounded-lg p-4">
-                        <div className="text-cyan-400 text-xs font-bold mb-1">If You Lightly Walked (Monthly)</div>
+                      <div className="bg-muted/30 border border-border rounded-lg p-4">
+                        <div className="text-xs font-bold text-cyan-600 dark:text-cyan-400 mb-1">If You Lightly Walked (Monthly)</div>
                         <div className="flex items-baseline gap-1">
-                          <div className="text-3xl font-black text-white">+{results.walkingAdvantageMonthly.toLocaleString()}</div>
-                          <div className="text-xs text-slate-400">kcal</div>
+                          <div className="text-3xl font-black text-primary">+{results.walkingAdvantageMonthly.toLocaleString()}</div>
+                          <div className="text-xs text-muted-foreground">kcal</div>
                         </div>
-                        <div className="text-[10px] text-slate-500 mt-1 uppercase font-semibold">
+                        <div className="text-[10px] text-muted-foreground mt-1 uppercase font-semibold">
                           +{results.walkingAdvantageDaily.toLocaleString()} kcal Daily Advantage
                         </div>
                       </div>

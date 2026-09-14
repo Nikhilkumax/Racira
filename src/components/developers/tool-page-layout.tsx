@@ -55,7 +55,10 @@ export function ToolPageLayout({
         className="mt-8 rounded-2xl border border-border bg-card overflow-hidden"
         style={{ boxShadow: "var(--card-shadow)" }}
       >
-        <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+        {/* [&>*]:min-w-0 — panes must shrink below their content min-width (long
+            unbroken output words) or the grid track blows out and the card's
+            overflow-hidden clips the pane on narrow screens. */}
+        <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border [&>*]:min-w-0">
           <div className="p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">

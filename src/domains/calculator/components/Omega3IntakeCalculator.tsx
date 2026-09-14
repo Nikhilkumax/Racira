@@ -185,7 +185,7 @@ export default function Omega3IntakeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : result.status === "Excessive Intake" ? "bg-red-500/10 border-red-500" : "bg-green-500/10 border-green-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : result.status === "Excessive Intake" ? "bg-red-500/10 border-red-500" : "bg-green-500/10 border-green-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status.includes("Deficient") ? "text-amber-600" : result.status === "Excessive Intake" ? "text-red-600" : "text-green-600"}`}>Status: {result.status}</div>
                 <div className="text-3xl font-extrabold text-foreground tracking-tight">{result.totalOmega3.toLocaleString()} mg <span className="text-lg font-normal text-muted-foreground">Daily Target</span></div>
                 <div className="text-base text-muted-foreground mt-2">{result.recommendation}</div>

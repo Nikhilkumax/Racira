@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "perimeter-calculator",
+    "varName": "perimeter_calculatorSeo",
+    "name": "Perimeter Calculator",
+    "sections": [
+      {
+        "heading": "What is Perimeter Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Perimeter Calculator finds the total boundary length of a rectangle, a circle or any closed polygon you define by its vertices. For a rectangle it applies twice the width plus twice the height; for a circle it returns the circumference, two pi times the radius; and for a polygon it walks the vertex list, measuring each edge with the straight-line distance formula and closing the shape back to the first vertex so nothing is missed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The polygon mode is the flexible one: you can add and remove vertices freely, down to the minimum of three that a closed shape needs. The polygon is always treated as closed — the last vertex connects back to the first — which matches how a real outline works, so you never have to remember to duplicate your starting point at the end of the list."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Perimeter Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Pick the Shape from the selector — Rectangle, Circle or Polygon (vertices). The input panel changes to match the shape you choose.",
+              "<strong>Step 2:</strong> For a rectangle, enter the Width and Height. For a circle, enter the Radius. Both accept negative-free values and the result is labelled in the unit you pick from the Unit selector.",
+              "<strong>Step 3:</strong> For a polygon, enter the X and Y coordinates of each vertex in the vertex list, then press + Add vertex for every corner beyond the starting three. Remove a vertex with − Remove if you added one too many.",
+              "<strong>Step 4:</strong> Read the Result panel. The perimeter — labelled Circumference for a circle — is the total boundary length, and the second row confirms how many sides were counted, or that the boundary is curved.",
+              "<strong>Step 5:</strong> Check a known case to confirm your input order: a 3-by-4 rectangle must return 14, a radius-25 circle must return about 157.08, and a triangle with vertices at (0,0), (30,0) and (0,40) must return 120."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Perimeter Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Perimeters feed real quantities: the length of edging or trim around a panel, the weld length around a stiffener, the path of a water jet cutting a profile, or the boundary of a floor finish. Adding edge lengths by hand for an irregular polygon is where arithmetic errors hide — the tool measures each edge from coordinates with the same formula a CAD system uses, so the answer matches the model."
+          },
+          {
+            "type": "paragraph",
+            "text": "The polygon mode earns its keep on irregular shapes that have no formula. Measure the corners of the outline from the drawing — or read them from the CAD model — type them in order, and the closed walk does the rest. Because each edge is computed independently and summed, the shape can be concave or convex without any special handling, which is exactly the case a rectangle formula cannot cover."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Do I need to repeat the first vertex at the end of the list?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. The polygon is closed automatically — the last vertex you enter connects back to the first, so a triangle needs exactly three vertices, not four. Repeating the first vertex would create a zero-length closing edge, which is harmless but unnecessary. Enter each corner of the outline exactly once, in order around the shape."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the perimeter change if the polygon is concave?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No. Perimeter is the sum of the edge lengths regardless of shape, and the edge lengths do not care whether the interior angle at a corner is less than or greater than 180 degrees. A concave notch adds boundary length exactly like a convex bump does — which is why perimeter and area behave differently: the notched shape loses area but keeps its full boundary."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the polygon mode not show a unit selector?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Polygon coordinates are unitless numbers in the same way CAD coordinates are — the unit is whatever your drawing says it is. Whether the vertices are millimetres or inches, the math is identical because the tool only sums distances between the points. Interpret the result in the unit of your coordinate system, exactly as you would read a dimension from a CAD file."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What is the difference between perimeter and circumference?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "None mathematically — both are the length of the boundary of a shape. Circumference is simply the traditional name for the perimeter of a circle, and this tool uses that label when you select Circle so the result reads the way a drawing would phrase it. For a circle the value is two pi times the radius, about 6.2832 times the radius, since a radius of 1 yields a boundary of about 6.28."
+          }
+        ]
+      }
+    ]
+  }
+]

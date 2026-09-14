@@ -41,7 +41,7 @@ export default function TwitchEarningsCalculator() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(() => {
     const s = parseInt(inputs.subs)

@@ -53,9 +53,9 @@ export default function EllipseCalculator() {
     const va = parseFloat(a);
     const vb = parseFloat(b);
     if (!isNaN(va) && !isNaN(vb) && va > 0 && vb > 0) setResult(calcEllipse(va, vb));
-  }, [a, b]);
+  }, []);
 
-  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); };
+  const reset = () => { setA(DEFAULTS.a); setB(DEFAULTS.b); setResult(calcEllipse(parseFloat(DEFAULTS.a), parseFloat(DEFAULTS.b))); };
   const invalid = isNaN(parseFloat(a)) || isNaN(parseFloat(b)) || parseFloat(a) <= 0 || parseFloat(b) <= 0;
 
   const breakdown = [

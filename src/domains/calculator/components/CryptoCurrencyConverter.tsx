@@ -67,12 +67,15 @@ export default function CryptoCurrencyConverter() {
   const [rate, setRate] = useState(DEFAULTS.rate);
   const [result, setResult] = useState<CryptoResult>(() => calcCrypto(1, "btc", "60000"));
 
-  useEffect(() => {
+  const handleCalculate = () => {
     const a = parseFloat(amount);
     if (!isNaN(a)) setResult(calcCrypto(a, coin, rate));
-  }, [amount, coin, rate]);
+  };
 
-  const reset = () => { setAmount(DEFAULTS.amount); setCoin(DEFAULTS.coin); setRate(DEFAULTS.rate); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { handleCalculate(); }, []);
+
+  const reset = () => { setAmount(DEFAULTS.amount); setCoin(DEFAULTS.coin); setRate(DEFAULTS.rate); setResult(calcCrypto(parseFloat(DEFAULTS.amount), DEFAULTS.coin, DEFAULTS.rate)); };
   const invalid = isNaN(parseFloat(amount));
 
   const faqs = [
@@ -108,7 +111,7 @@ export default function CryptoCurrencyConverter() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <Bitcoin className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "cad-grid-planner",
+    "varName": "cad_grid_plannerSeo",
+    "name": "CAD Grid Planner",
+    "sections": [
+      {
+        "heading": "What is CAD Grid Planner",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "CAD Grid Planner plans the construction grid for a drawing space before you build it: you enter the space dimensions, the major grid spacing, and how finely the snap sub-divides each major cell, and the tool returns the exact line counts, the number of intersections, the minor snap step, and a preview of the grid drawn to the space. The idea is to decide the grid once, numerically, so the same layout can be reproduced exactly in any CAD package instead of eyeballed."
+          },
+          {
+            "type": "paragraph",
+            "text": "The numbers it reports are the ones you need when building the grid: the major vertical and horizontal line counts, the major cells in X by Y, and the minor grid line totals that the snap subdivisions imply. The preview renders the major grid as solid lines and the minor subdivision detail as dashed lines inside the first cell, so you can see the relationship between the snap step and the major spacing before committing to it."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use CAD Grid Planner",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the drawing space width and height in millimetres — the defaults are 297 by 210, an A4 sheet, but any space works, including an A0 sheet or a fixed-size viewport.",
+              "<strong>Step 2:</strong> Enter the major spacing — the distance between the heavy reference grid lines, typically 10 or 20 millimetres on a drawing sheet.",
+              "<strong>Step 3:</strong> Choose the snap sub-divisions per cell: 2, 4, 5 or 10. The tool shows the resulting minor step next to each choice, so you can pick the one that gives a clean snap value.",
+              "<strong>Step 4:</strong> Read the grid totals: the minor snap step, the major vertical and horizontal line counts, the total intersections, the cell grid, and the minor line totals.",
+              "<strong>Step 5:</strong> Build the grid in your CAD tool using those exact counts, and keep features on major-grid intersections where possible so reference lines land cleanly."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The core relationship is that the minor step is the snap resolution: major spacing divided by the sub-divisions. A 10 millimetre grid divided by 4 snaps to 2.5 millimetres — the drafting default that keeps ordinate dimensions tidy. The line counts follow from division too: a space of 297 millimetres at 10 millimetre spacing holds 29 full cells, so the grid needs 30 vertical lines to close it."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use CAD Grid Planner",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Grid discipline is what makes ordinate dimensions clean. When features sit on the major grid, reference lines and dimension chains line up on whole coordinates; when they sit on snap steps, the minor grid gives them consistent quarter or fifth positions. Planning the grid before drafting means the snap resolution is a decision, not an accident, and every coordinate placed against it stays consistent for the life of the drawing."
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool also catches the arithmetic mistakes that are easy to make on paper: forgetting that a grid with 29 cells needs 30 lines, or that a 2.5 millimetre minor step across 297 millimetres gives 119 minor lines rather than a rounder number. Knowing the exact totals up front means the grid builds correctly the first time, in whatever CAD tool the drawing lives in."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why does a 297 by 210 space at 10 millimetre spacing give 30 by 22 lines?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the line count is the number of cells plus one: 297 millimetres holds 29 full 10 millimetre cells, so the grid needs 30 vertical lines to bound them, and 210 millimetres holds 21 cells, needing 22 horizontal lines. The intersections are the product — 30 times 22 gives 660 major grid points — and the cell count is 29 by 21, the interior rectangles between the lines."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the minor snap step mean and how is it set?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The minor step is the snap resolution of the grid: major spacing divided by the number of sub-divisions. A 10 millimetre major grid with 4 sub-divisions snaps to 2.5 millimetres; with 5 sub-divisions it snaps to 2 millimetres. The sub-division choice is shown live next to each option so you can see the snap value before selecting it — pick the division that makes the snap step a clean number for the ordinates you expect to dimension."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Should features sit on major or minor grid intersections?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Reference lines, title-block geometry and anything you expect to align across sheets should sit on major-grid intersections, because those are the coordinates every reader can predict. Minor intersections are for snap-level detail within a cell — the small moves that keep a feature at a consistent quarter or fifth position without cluttering the reference grid. The general rule the tool's note states: keep features on major coordinates where possible, and let the minor step handle the detail inside cells."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why are the minor line totals so much larger than the major ones?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Because the minor step is the major spacing divided by the sub-divisions, the minor grid has that many more intervals in each direction: at a 2.5 millimetre step across 297 millimetres the minor grid needs 119 vertical lines, and across 210 millimetres it needs 85 horizontal ones. Those totals are useful for planning how much geometry a snap grid will actually produce before you build it — and for deciding whether the minor lines should be drawn at all or simply used as an invisible snap layer."
+          }
+        ]
+      }
+    ]
+  }
+]

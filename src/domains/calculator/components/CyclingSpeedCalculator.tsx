@@ -56,9 +56,9 @@ export default function CyclingSpeedCalculator() {
     const h = parseFloat(hours);
     const m = parseFloat(minutes);
     if (!isNaN(d) && !isNaN(h) && !isNaN(m) && d >= 0 && h >= 0 && m >= 0 && h + m > 0) setResult(calcSpeed(d, h, m));
-  }, [distance, hours, minutes]);
+  }, []);
 
-  const reset = () => { setDistance(DEFAULTS.distance); setHours(DEFAULTS.hours); setMinutes(DEFAULTS.minutes); };
+  const reset = () => { setDistance(DEFAULTS.distance); setHours(DEFAULTS.hours); setMinutes(DEFAULTS.minutes); setResult(calcSpeed(parseFloat(DEFAULTS.distance), parseFloat(DEFAULTS.hours), parseFloat(DEFAULTS.minutes))); };
   const invalid = isNaN(parseFloat(distance)) || isNaN(parseFloat(hours)) || isNaN(parseFloat(minutes)) || parseFloat(distance) < 0 || parseFloat(hours) < 0 || parseFloat(minutes) < 0 || parseFloat(hours) + parseFloat(minutes) <= 0;
 
   const speedMph = result.speed / 1.609344;

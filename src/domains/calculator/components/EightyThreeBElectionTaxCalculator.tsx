@@ -285,7 +285,7 @@ export default function EightyThreeBElectionTaxCalculator() {
                 </div>
 
                 {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 ${results.totalSavings > 0 ? 'bg-primary/10 border-primary' : 'bg-muted/30 border-muted'}`}>
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                   <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Estimated Tax Savings with 83(b)</div>
                   <div className={`text-4xl font-bold mb-2 ${results.totalSavings > 0 ? 'text-primary' : 'text-foreground'}`}>
                     ${results.totalSavings.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}

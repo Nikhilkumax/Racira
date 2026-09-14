@@ -87,7 +87,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 // Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
   <div className="flex flex-col">
     <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
       {label}
@@ -99,6 +99,7 @@ const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "numb
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
         {...props}
       />
@@ -147,7 +148,7 @@ export default function SportSpecificCalorieCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, durationMins, sport]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -192,8 +193,8 @@ export default function SportSpecificCalorieCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} />
-              <CompactInput id="dur" label="Active Playing Time" value={durationMins} onChange={setDurationMins} suffix="mins" />
+              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
+              <CompactInput id="dur" label="Active Playing Time" value={durationMins} onChange={setDurationMins} suffix="mins" onEnter={handleCalculate} />
             </div>
 
             <div className="flex flex-col mt-2">
@@ -227,31 +228,31 @@ export default function SportSpecificCalorieCalculator() {
               <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
                 
                 {/* Primary Metric */}
-                <div className="bg-gradient-to-br from-emerald-600 to-green-800 text-white rounded-lg p-6 relative overflow-hidden shadow-sm">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-emerald-200 hover:text-white transition-colors print:hidden z-10" aria-label="Print Results">
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
+                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden z-10" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>
                   <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                      <div className="text-emerald-200 text-sm font-bold uppercase tracking-wider mb-1">
+                      <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
                         Total Energy Expended
                       </div>
                       <div className="flex items-baseline gap-2">
-                        <div className="text-6xl font-extrabold tracking-tight">{results.totalCalories.toLocaleString()}</div>
-                        <div className="text-xl font-bold text-emerald-200">kcal</div>
+                        <div className="text-4xl font-bold text-primary">{results.totalCalories.toLocaleString()}</div>
+                        <div className="text-xl font-bold text-muted-foreground">kcal</div>
                       </div>
-                      <div className="text-sm font-medium text-emerald-100 mt-2 bg-emerald-950/40 border border-emerald-500/30 inline-block px-3 py-1.5 rounded-full flex items-center gap-2">
-                        <ActivitySquare className="h-4 w-4" /> {results.sportName}
+                      <div className="text-sm text-muted-foreground mt-2">
+                        <ActivitySquare className="h-4 w-4 inline mr-1" /> {results.sportName}
                       </div>
                     </div>
 
-                    <div className="bg-white/10 border border-white/20 rounded-lg p-4 text-center min-w-[140px] backdrop-blur-sm">
-                      <div className="text-[10px] uppercase font-bold text-emerald-200 mb-1">MET Intensity</div>
-                      <div className="text-2xl font-black text-white">{results.metValue.toFixed(1)}</div>
-                      <div className="text-xs text-emerald-300 font-medium">Athletic Demand</div>
+                    <div className="bg-muted/30 border border-border rounded-lg p-4 text-center min-w-[140px]">
+                      <div className="text-[10px] uppercase font-bold text-muted-foreground mb-1">MET Intensity</div>
+                      <div className="text-2xl font-black text-foreground">{results.metValue.toFixed(1)}</div>
+                      <div className="text-xs text-muted-foreground font-medium">Athletic Demand</div>
                     </div>
                   </div>
-                  <Trophy className="absolute -bottom-6 -right-6 h-40 w-40 opacity-10" />
+                  <Trophy className="absolute -bottom-6 -right-6 h-40 w-40 opacity-5 text-foreground" />
                 </div>
 
                 <div className="grid lg:grid-cols-1 gap-4">

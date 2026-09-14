@@ -220,8 +220,10 @@ export default function EVChargingCostCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Charging Setup</div>
                   <CompactInput id="charger-power" label="Charger Power" value={inputs.chargerPower} onChange={(v: string) => handleChange("chargerPower", v)} suffix="kW" tooltip="L1 Wall Outlet = 1.4kW. L2 Home = 7-11kW. Supercharger = 150-250kW" />
                   <CompactInput id="charging-loss" label="Charging Loss" value={inputs.chargingLoss} onChange={(v: string) => handleChange("chargingLoss", v)} suffix="%" tooltip="Energy lost as heat during charging (typically 10-15% for AC)" />
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Gas Comparison</div>
                   <CompactInput id="gas-price" label="Local Gas Price" value={inputs.gasPrice} onChange={(v: string) => handleChange("gasPrice", v)} prefix="$" />
                   <CompactInput id="gas-mpg" label="Compare to MPG" value={inputs.gasMpg} onChange={(v: string) => handleChange("gasMpg", v)} suffix="mpg" />
                 </div>

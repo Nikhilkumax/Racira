@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "zoning-setback-calculator",
+    "varName": "zoning_setback_calculatorSeo",
+    "name": "Zoning Setback Calculator",
+    "sections": [
+      {
+        "heading": "What is Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Zoning Setback Calculator finds the buildable rectangle on a lot from the required front, rear and side setbacks, and reports the maximum footprint area and its share of the lot. Given a 100 by 150 foot lot with 20 foot front and rear setbacks and 5 foot side setbacks, the buildable rectangle comes out 90 feet wide by 110 feet deep — 9900 square feet, or 66 percent of the lot area."
+          },
+          {
+            "type": "paragraph",
+            "text": "The model is deliberately simple and stated: a single rectangle centered between the side setbacks and inside the front and rear lines. The tool reports the buildable width, depth, maximum footprint area and the percentage of the lot that area represents, and it detects the infeasible case — setbacks that overlap and leave no buildable rectangle — with an explicit warning rather than a nonsense result. The note lists what the model does not cover: corner-lot rules, flag lots, easements, height and coverage caps, and averaging provisions all come from the zoning ordinance text."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Enter the Lot width and Lot depth in feet — the actual dimensions of the parcel from the survey or the zoning map.",
+              "<strong>Step 2:</strong> Enter the Front setback and Rear setback — the required distances from the lot lines to the building face, from the zoning table for the district.",
+              "<strong>Step 3:</strong> Enter the Side setback — the required distance from each side lot line. The model applies it on both sides, so two side setbacks come out of the lot width.",
+              "<strong>Step 4:</strong> Read the Buildable envelope panel: Buildable width is the lot width minus both side setbacks, Buildable depth is the lot depth minus the front and rear setbacks, Max footprint area is their product, and Of lot area is that product as a percentage of the lot.",
+              "<strong>Step 5:</strong> If the tool reports that setbacks leave no buildable rectangle, check the lot against the zoning's minimum width and depth requirements — the warning tells you the geometry is infeasible under the entered setbacks, which is itself the finding to take to the zoning analysis."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Zoning Setback Calculator",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The setback arithmetic is simple enough to do by hand and exactly the kind of simple arithmetic that goes wrong at 9pm before a submission: subtracting the front and rear setbacks from the depth but forgetting the side setbacks apply twice, or reporting the lot area as the buildable area. Computing the buildable rectangle in one pass — width, depth, area and coverage percentage — makes the four numbers consistent because they are all derived from the same inputs."
+          },
+          {
+            "type": "paragraph",
+            "text": "The coverage percentage is the number that triggers the next question: zoning districts typically cap lot coverage, so a lot that computes to 66 percent buildable may still be constrained by a 50 percent coverage cap. By reporting the buildable percentage explicitly, the tool surfaces that comparison instead of leaving it implicit — the designer sees immediately whether the setbacks or the coverage cap will govern the massing."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "How is the buildable width computed with side setbacks?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The side setback applies on both sides of the lot, so the buildable width is the lot width minus twice the side setback — a 100 foot lot with 5 foot side setbacks leaves 90 feet of buildable width. The depth is the lot depth minus the front and rear setbacks, and the buildable area is the product of the two. With 20 foot front and rear setbacks on a 150 foot depth, that gives 110 feet of depth and 9900 square feet total."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does the coverage percentage actually mean?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "It is the maximum footprint area divided by the lot area, expressed as a percentage — the share of the lot the building may occupy under the setback geometry. On the default lot, 9900 square feet over 15,000 is 66 percent. Zoning districts often cap coverage below what the setbacks alone allow — a common cap is 50 percent — so this number is what you compare against the ordinance's coverage limit to find which constraint actually governs the massing."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does the tool sometimes report no buildable rectangle?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "When the setbacks overlap — the side setbacks together exceed the lot width, or the front plus rear setbacks exceed the depth — there is no rectangle left to build on, and the tool reports the geometry as infeasible instead of returning a negative or meaningless area. That outcome is itself a finding: either the lot cannot support a building of any size under those setbacks, or the entered values are wrong, which the warning prompts you to check against the lot's actual dimensions."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Does the tool handle corner lots?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "No — corner lots have different rules: the side street typically requires a front-yard-equivalent setback, which the simple front-rear-side model does not apply. The tool's note lists corner lots among the cases to check in the zoning text, along with flag lots, easements, height and coverage caps, and averaging provisions. Use the calculator for the standard interior-lot case, and adjust the inputs to reflect whatever the ordinance requires for the specific parcel."
+          }
+        ]
+      }
+    ]
+  }
+]

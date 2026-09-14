@@ -138,6 +138,7 @@ export default function FhaLoanCalculator() {
             
             {showAdvanced && (
               <div className="grid grid-cols-2 gap-4 p-4 bg-muted/30 rounded-lg border border-border mt-1">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold col-span-2">MIP & Escrow</div>
                 <div><label className="text-sm font-medium mb-1.5 block">Upfront MIP (%)</label><div className={inp}><input type="number" value={upfrontMipRate} onChange={e => setUpfrontMipRate(e.target.value)} step={0.01} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Annual MIP (%)</label><div className={inp}><input type="number" value={annualMipRate} onChange={e => setAnnualMipRate(e.target.value)} step={0.01} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>
                 <div><label className="text-sm font-medium mb-1.5 block">Property Tax (%)</label><div className={inp}><input type="number" value={propertyTaxRate} onChange={e => setPropertyTaxRate(e.target.value)} step={0.1} className={ci} /><span className="pr-3 text-muted-foreground">%</span></div></div>

@@ -104,7 +104,7 @@ export default function PrenatalVitaminCalculator() {
   
   const [curFolic, setCurFolic] = useState("800");
   const [curIron, setCurIron] = useState("27");
-  const [curDha, setCurDha] = useState("0");
+  const [curDha, setCurDha] = useState("200");
 
   const [result, setResult] = useState<VitaminResult | null>(null);
 
@@ -185,7 +185,7 @@ export default function PrenatalVitaminCalculator() {
 
             <div className="flex gap-3 mt-2">
               <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
-              <button onClick={() => { setTrimester("first"); setDiet("omnivore"); setTwins(false); setAnemiaRisk(false); setCurFolic("800"); setCurIron("27"); setCurDha("0"); setResult(calcPrenatalVitamins("first", false, "omnivore", false, 800, 27, 0)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
+              <button onClick={() => { setTrimester("first"); setDiet("omnivore"); setTwins(false); setAnemiaRisk(false); setCurFolic("800"); setCurIron("27"); setCurDha("200"); setResult(calcPrenatalVitamins("first", false, "omnivore", false, 800, 27, 200)); }} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center">
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
@@ -193,7 +193,7 @@ export default function PrenatalVitaminCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.status.includes("Deficient") ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.status.includes("Deficient") ? "text-amber-600" : "text-primary"}`}>Evaluation: {result.status}</div>
                 <div className="text-base font-medium text-foreground">{result.recommendation}</div>
               </div>

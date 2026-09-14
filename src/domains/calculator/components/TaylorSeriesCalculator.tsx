@@ -95,8 +95,8 @@ const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none
 
 export default function TaylorSeriesCalculator() {
   const [funcKey, setFuncKey] = useState("sin");
-  const [a, setA] = useState("0");
-  const [x, setX] = useState("1");
+  const [a, setA] = useState("1");
+  const [x, setX] = useState("2");
   const [terms, setTerms] = useState("10");
   const [result, setResult] = useState<TaylorResult | null>(null);
 
@@ -108,13 +108,13 @@ export default function TaylorSeriesCalculator() {
   };
   const reset = () => {
     setFuncKey("sin");
-    setA("0");
-    setX("1");
+    setA("1");
+    setX("2");
     setTerms("10");
-    setResult(calcTaylor("sin", 0, 1, 10));
+    setResult(calcTaylor("sin", 1, 2, 10));
   };
   useEffect(() => {
-    setResult(calcTaylor("sin", 0, 1, 10));
+    setResult(calcTaylor("sin", 1, 2, 10));
   }, []);
 
   const faqs = [

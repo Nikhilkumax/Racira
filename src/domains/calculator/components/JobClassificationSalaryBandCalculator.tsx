@@ -187,7 +187,7 @@ export default function JobClassificationSalaryBandCalculator() {
             {results && (
               <div ref={printRef} className="flex flex-col gap-4">
                 
-                <div className={`bg-primary/10 bg-primary/10 bg-primary/10 border-l-4 rounded-lg p-5 relative bg-primary/10 border-primary`}>
+                <div className={`bg-primary/10 bg-primary/10 bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative bg-primary/10 border-primary`}>
                   <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
                     <Printer className="h-4 w-4" />
                   </button>

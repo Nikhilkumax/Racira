@@ -59,9 +59,9 @@ export default function FluidFlowCalculator() {
     const v = parseFloat(velocity);
     const nu = parseFloat(viscosity);
     if (!isNaN(d) && !isNaN(v) && !isNaN(nu) && d > 0 && v >= 0 && nu >= 0) setResult(calcFlow(d, v, nu));
-  }, [diameter, velocity, viscosity]);
+  }, []);
 
-  const reset = () => { setDiameter(DEFAULTS.diameter); setVelocity(DEFAULTS.velocity); setViscosity(DEFAULTS.viscosity); };
+  const reset = () => { setDiameter(DEFAULTS.diameter); setVelocity(DEFAULTS.velocity); setViscosity(DEFAULTS.viscosity); setResult(calcFlow(parseFloat(DEFAULTS.diameter), parseFloat(DEFAULTS.velocity), parseFloat(DEFAULTS.viscosity))); };
   const invalid = isNaN(parseFloat(diameter)) || isNaN(parseFloat(velocity)) || isNaN(parseFloat(viscosity)) || parseFloat(diameter) <= 0 || parseFloat(velocity) < 0 || parseFloat(viscosity) < 0;
 
   const breakdown = [

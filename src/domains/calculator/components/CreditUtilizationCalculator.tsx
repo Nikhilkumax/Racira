@@ -89,6 +89,7 @@ const CreditUtilizationCalculator = () => {
                 </button>
                 {showAdv && (
                   <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Optimization Goal</div>
                     <InputField id="target" label="Target Utilization (%)" value={targetUtil} onChange={setTargetUtil} tooltip="The maximum utilization percentage you want to aim for. Experts recommend 10% or below." />
                   </div>
                 )}

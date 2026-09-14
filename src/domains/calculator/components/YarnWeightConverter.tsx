@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
 import { RotateCcw, Printer } from "lucide-react"
 import PopularCalculators from "@/components/PopularCalculators"
@@ -68,10 +68,6 @@ function calculate(inputs: Inputs): Result {
 export default function YarnWeightConverter() {
   const [inputs, setInputs] = useState<Inputs>(DEFAULTS)
   const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
-
-  useEffect(() => {
-    setResult(calculate(inputs))
-  }, [inputs])
 
   const invalid = useMemo(() => {
     const g = parseFloat(inputs.gauge)
@@ -153,6 +149,7 @@ export default function YarnWeightConverter() {
                   type="number"
                   value={inputs.gauge}
                   onChange={(e) => setInputs({ ...inputs, gauge: e.target.value })}
+                  onKeyDown={(e) => { if (e.key === "Enter") run(); }}
                   className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="21"
                 />

@@ -1,0 +1,103 @@
+[
+  {
+    "slug": "tooling-library-browser",
+    "varName": "tooling_library_browserSeo",
+    "name": "Tooling Library Browser",
+    "sections": [
+      {
+        "heading": "What is Tooling Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Tooling Library Browser is a reference of the twelve rotating cutting tools that dominate a milling shop's tooling drawer: square and ball nose end mills, corner-radius and roughing cutters, face mills, three kinds of drills, spot drills, reamers, taps and slitting saws. Each row describes the tool's geometry, what it is best at, the note that decides when to reach for it, and the common sizes it comes in."
+          },
+          {
+            "type": "paragraph",
+            "text": "The distinction the table keeps front and centre is geometry's job: flute count is chosen by material — two flutes for chip clearing in aluminium, three or four for stiffness and finish in steel — not by preference. A 4-flute cutter in aluminium packs chips into the flutes and overheats; a 2-flute cutter in steel flexes and chatters. Reading the geometry column first is how the table is meant to be used."
+          }
+        ]
+      },
+      {
+        "heading": "How to Use Tooling Library Browser",
+        "content": [
+          {
+            "type": "list",
+            "items": [
+              "<strong>Step 1:</strong> Identify the feature you are producing — a square corner, a fillet, a flat surface wider than the part, a tolerance hole, a blind thread.",
+              "<strong>Step 2:</strong> Find the tool whose best-for column matches that feature: ball nose for 3D surfacing and fillets, face mill for wide flats, reamer for H7 holes.",
+              "<strong>Step 3:</strong> Read the geometry column to confirm the tool matches your material — 2-flute for aluminium, 3 to 4-flute for steel, spiral-flute tap for blind holes.",
+              "<strong>Step 4:</strong> Check the notes column for the operating rule: ball-nose stepover around 5 to 10 percent of tool diameter for smooth scallops, reamers need 0.2 to 0.4 millimetres of stock and two-thirds drill speed.",
+              "<strong>Step 5:</strong> Use the sizes column to confirm the tool exists in the diameter you need before writing the CAM toolpath."
+            ]
+          },
+          {
+            "type": "paragraph",
+            "text": "The tool's note carries the decision rule in one sentence: tool geometry decides everything downstream, so when in doubt between a 3- and 4-flute cutter in steel, take the 4-flute — it gives better finish and longer edge life at the same feed rate."
+          }
+        ]
+      },
+      {
+        "heading": "Why Use Tooling Library Browser",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Most tooling mistakes are category mistakes — using a drill where the operation needs a reamer, or a square end mill where a ball nose is the only shape that produces the feature. A table that names each tool's job alongside its geometry turns the selection into a lookup instead of an experiment, which matters because the cost of the wrong tool shows up not in the tool itself but in the scrapped part and the re-cut."
+          },
+          {
+            "type": "paragraph",
+            "text": "The notes column is where the real knowledge sits: the U-drill that drills 12 to 50 millimetre holes at feed rates a twist drill cannot reach, the spot drill whose point angle must match the drill that follows it, the slitting saw that is fragile in torsion and needs a stiff arbor. Those are the details that separate a working toolpath from one that breaks tools on the first pass."
+          }
+        ]
+      },
+      {
+        "heading": "Privacy & Security",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This tool runs entirely in your browser — no data ever leaves your device. There is no server round-trip, no upload, no logging, and no account required. Your input is processed locally using client-side JavaScript and is never stored, transmitted, or accessible to anyone else. When you close the tab, everything disappears."
+          }
+        ]
+      },
+      {
+        "heading": "Frequently Asked Questions",
+        "subHeading": "Why do aluminium end mills have two flutes?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Chip clearing. Aluminium produces long, sticky chips at high removal rates, and a 2-flute cutter leaves the flute space wide open so the chips evacuate instead of packing in and welding onto the edge. Steel is the opposite problem: its chips are short, and the priority is stiffness and edge finish, which is why steel cutters run three or four flutes. The flute-count decision is material-driven, which is why the table's geometry column names the material next to each flute count."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "When is a ball nose the right tool?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Whenever the feature is three-dimensional — a sculpted surface, a fillet, a concave pocket floor. The ball nose's spherical end lets it cut in any direction, which is what 3D surfacing needs, at the price of a scalloped finish whose smoothness depends on stepover: keep the stepover around 5 to 10 percent of the tool diameter for a smooth result. If the feature is flat or has square corners, a square end mill is the faster, more accurate choice."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "Why does a reamer need stock left and two-thirds drill speed?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A reamer does not cut its way in like a drill; it trims a small amount of material from an existing hole to size it to H7 tolerance — typically within 0.01 to 0.02 millimetres. It needs 0.2 to 0.4 millimetres of stock to work on, and it must run at about two-thirds of drill speed with a constant feed and no dwell, because dwell lets the reamer rub and size the hole wrong or break the edge. Leave no stock and the reamer rides on a hard surface; leave too much and the edge overloads."
+          }
+        ]
+      },
+      {
+        "heading": "",
+        "subHeading": "What does a corncob roughing mill actually do?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "The serrated edge of a roughing end mill breaks the chip into small segments as it cuts, so it can remove material 30 to 50 percent faster than a plain end mill at heavier depth. The trade is surface finish: the segmented chips leave a rough wall, which is exactly what roughing is for — the finish pass that follows with a square end mill cleans up the wall. Reaching for the corncob first is how you hog material out without burning up a finishing cutter."
+          }
+        ]
+      }
+    ]
+  }
+]

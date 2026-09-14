@@ -80,9 +80,14 @@ export default function CateringQuantityCalculator() {
     const g = parseFloat(guests);
     const h = parseFloat(hours);
     if (!isNaN(g) && g >= 1 && !isNaN(h) && h >= 1) setResult(calcCatering(Math.round(g), mealType, h));
-  }, [guests, mealType, hours]);
+  }, []);
 
-  const reset = () => { setGuests(DEFAULTS.guests); setMealType(DEFAULTS.mealType); setHours(DEFAULTS.hours); };
+  const handleCalculate = () => {
+    const g = parseFloat(guests);
+    const h = parseFloat(hours);
+    if (!isNaN(g) && g >= 1 && !isNaN(h) && h >= 1) setResult(calcCatering(Math.round(g), mealType, h));
+  };
+  const reset = () => { setGuests(DEFAULTS.guests); setMealType(DEFAULTS.mealType); setHours(DEFAULTS.hours); setResult(calcCatering(Math.round(parseFloat(DEFAULTS.guests)), DEFAULTS.mealType, parseFloat(DEFAULTS.hours))); };
   const invalid = isNaN(parseFloat(guests)) || parseFloat(guests) < 1 || isNaN(parseFloat(hours)) || parseFloat(hours) < 1;
 
   const faqs = [
@@ -120,7 +125,7 @@ export default function CateringQuantityCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <UtensilsCrossed className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">

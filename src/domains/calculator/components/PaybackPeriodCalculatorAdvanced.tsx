@@ -156,7 +156,7 @@ export default function PaybackPeriodCalculatorAdvanced() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`bg-primary/10 border-l-4 rounded-lg p-5 ${result.isPositive ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
+              <div className={`bg-primary/10 border-l-4 border-primary rounded-lg p-5 ${result.isPositive ? "bg-green-500/10 border-green-500" : "bg-red-500/10 border-red-500"}`}>
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.isPositive ? "text-green-600" : "text-red-600"}`}>Payback Period</div>
                 <div className="text-4xl font-extrabold text-foreground tracking-tight">{result.paybackYears.toFixed(2)} years</div>
                 <div className="text-base text-muted-foreground mt-1">{result.paybackMonths.toFixed(1)} months · ROI: {result.roi.toFixed(1)}% · IRR: {result.irr.toFixed(1)}%</div>

@@ -75,7 +75,7 @@ export default function RgbToHexConverter() {
 
   useEffect(() => {
     setResult(calculate(inputs))
-  }, [inputs])
+  }, [])
 
   const invalid = useMemo(
     () =>

@@ -182,6 +182,7 @@ export default function TradeInValueCalculator() {
               </button>
               {showAdvanced && (
                 <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
+                  <div className="col-span-2 text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Dealer & Tax Assumptions</div>
                   <CompactInput id="margin" label="Base Dealer Margin" value={inputs.dealerMarginPct} onChange={(v: string) => handleChange("dealerMarginPct", v)} suffix="%" tooltip="Average dealer markup is 15-20%." />
                   <CompactInput id="tax-rate" label="State Sales Tax Rate" value={inputs.salesTaxRate} onChange={(v: string) => handleChange("salesTaxRate", v)} suffix="%" tooltip="Used to calculate the tax savings of trading in." />
                 </div>

@@ -56,3 +56,13 @@ dev_out.txt
 
 # Scratch output from the espeak-ng bundling investigation.
 .espeak-bundle-scratch/
+.qa-screens/
+
+.workbuddy-ai/
+tests/output/
+/preview_*.png
+/status_*.txt
+/status-scan-*.js
+/logic_audit_*
+
+.freebuff/

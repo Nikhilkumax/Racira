@@ -124,9 +124,10 @@ export default function Base64Encoder() {
     setResult(encodeBase64(DEFAULTS.text));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setResult(mode === "encode" ? encodeBase64(text) : decodeBase64(text));
-  }, [mode]);
+  }, []);
 
   const inputBytes = new TextEncoder().encode(text).length;
   const outputChars = result.outputChars;

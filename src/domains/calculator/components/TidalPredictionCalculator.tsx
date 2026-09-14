@@ -13,8 +13,8 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 export default function TidalPredictionCalculator() {
   const [interval, setInterval] = useState("12.42");
   const [amplitude, setAmplitude] = useState("1.5");
-  const [phase, setPhase] = useState("0");
-  const [startHours, setStartHours] = useState("0");
+  const [phase, setPhase] = useState("30");
+  const [startHours, setStartHours] = useState("6");
   const [showResults, setShowResults] = useState(false);
   const [result, setResult] = useState<{
     period: number;
@@ -61,7 +61,7 @@ export default function TidalPredictionCalculator() {
   };
 
   const reset = () => {
-    setInterval("12.42"); setAmplitude("1.5"); setPhase("0"); setStartHours("0");
+    setInterval("12.42"); setAmplitude("1.5"); setPhase("30"); setStartHours("6");
     setShowResults(false);
     setResult(null);
   };
@@ -83,10 +83,10 @@ export default function TidalPredictionCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
             <div className="grid sm:grid-cols-2 gap-6 mb-6">
-              <InputField id="interval" label="Tidal Period" value={interval} onChange={setInterval} suffix="hrs" tooltip="Time between successive high tides. The dominant lunar M2 constituent is 12.42 hours." />
-              <InputField id="amplitude" label="Tidal Amplitude" value={amplitude} onChange={setAmplitude} suffix="m" tooltip="Half the tidal range — the height of high tide above mean sea level." />
-              <InputField id="phase" label="Phase Shift" value={phase} onChange={setPhase} suffix="°" tooltip="Shifts the whole tide curve in time (0 = high tide at your start time)." />
-              <InputField id="startHours" label="Start Offset" value={startHours} onChange={setStartHours} suffix="hrs" tooltip="Hours after midnight to begin the modeled cycle." />
+              <InputField id="interval" label="Tidal Period" value={interval} onChange={setInterval} suffix="hrs" tooltip="Time between successive high tides. The dominant lunar M2 constituent is 12.42 hours." onEnter={handleCalculate} />
+              <InputField id="amplitude" label="Tidal Amplitude" value={amplitude} onChange={setAmplitude} suffix="m" tooltip="Half the tidal range — the height of high tide above mean sea level." onEnter={handleCalculate} />
+              <InputField id="phase" label="Phase Shift" value={phase} onChange={setPhase} suffix="°" tooltip="Shifts the whole tide curve in time (0 = high tide at your start time)." onEnter={handleCalculate} />
+              <InputField id="startHours" label="Start Offset" value={startHours} onChange={setStartHours} suffix="hrs" tooltip="Hours after midnight to begin the modeled cycle." onEnter={handleCalculate} />
             </div>
 
             <div className="flex gap-3">
@@ -102,9 +102,9 @@ export default function TidalPredictionCalculator() {
               <>
                 <h2 className="text-2xl font-bold mb-3">Tide Model</h2>
                 <div className="grid grid-cols-3 gap-4 mb-6">
-                  <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 text-center">
-                    <p className="text-xs font-bold text-primary uppercase tracking-widest mb-1">High Tide</p>
-                    <p className="text-2xl font-black text-foreground">+{result.highTide.toFixed(2)} <span className="text-sm font-normal text-muted-foreground">m</span></p>
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
+                    <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">High Tide</p>
+                    <p className="text-4xl font-bold text-primary">+{result.highTide.toFixed(2)} <span className="text-lg font-normal text-muted-foreground">m</span></p>
                   </div>
                   <div className="p-5 rounded-2xl bg-secondary/5 border border-secondary/10 text-center">
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">Low Tide</p>

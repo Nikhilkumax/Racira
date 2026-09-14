@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useMemo } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts"
 import { RotateCcw, Printer, ChevronDown, ChevronUp } from "lucide-react"
 import PopularCalculators from "@/components/PopularCalculators"
@@ -66,10 +66,6 @@ export default function ViscosityKinematicConverter() {
   const [result, setResult] = useState<Result>(() => calculate(DEFAULTS))
   const [showAdvanced, setShowAdvanced] = useState(false)
 
-  useEffect(() => {
-    setResult(calculate(inputs))
-  }, [inputs])
-
   const invalid = useMemo(() => {
     const v = parseFloat(inputs.value)
     return isNaN(v) || v < 0
@@ -116,6 +112,7 @@ export default function ViscosityKinematicConverter() {
                   type="number"
                   value={inputs.value}
                   onChange={(e) => setInputs({ ...inputs, value: e.target.value })}
+                  onKeyDown={(e) => { if (e.key === "Enter") run(); }}
                   className="w-full h-10 text-base rounded-md border border-input bg-background px-3 focus:outline-none focus:ring-2 focus:ring-primary"
                   placeholder="1.5"
                 />

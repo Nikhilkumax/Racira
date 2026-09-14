@@ -202,7 +202,7 @@ export default function CaffeineHalfLifeCalculator() {
 
           <div className="flex flex-col gap-4">
             {result && (<>
-              <div className={`border-l-4 rounded-lg p-5 ${result.remainingAtBedtime > 30 ? "bg-amber-500/10 border-amber-500" : "bg-primary/10 border-primary"}`}>
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
                 <div className={`text-sm font-bold uppercase tracking-wider mb-1 ${result.remainingAtBedtime > 30 ? "text-amber-600" : "text-primary"}`}>Remaining at Bedtime</div>
                 <div className="text-5xl font-extrabold text-foreground tracking-tight">{result.remainingAtBedtime} <span className="text-xl font-normal text-muted-foreground">mg</span></div>
                 <div className="text-base text-muted-foreground mt-2 font-medium">

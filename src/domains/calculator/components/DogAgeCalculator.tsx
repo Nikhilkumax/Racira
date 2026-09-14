@@ -56,9 +56,13 @@ export default function DogAgeCalculator() {
   useEffect(() => {
     const a = parseFloat(age);
     if (!isNaN(a) && a >= 0) setResult(calcDogAge(a, size));
-  }, [age, size]);
+  }, []);
 
-  const reset = () => { setAge(DEFAULTS.age); setSize(DEFAULTS.size); };
+  const handleCalculate = () => {
+    const a = parseFloat(age);
+    if (!isNaN(a) && a >= 0) setResult(calcDogAge(a, size));
+  };
+  const reset = () => { setAge(DEFAULTS.age); setSize(DEFAULTS.size); setResult(calcDogAge(parseFloat(DEFAULTS.age), DEFAULTS.size)); };
   const invalid = isNaN(parseFloat(age)) || parseFloat(age) < 0;
 
   const breakdown = [
@@ -99,7 +103,7 @@ export default function DogAgeCalculator() {
             </div>
 
             <div className="flex gap-3 pt-1">
-              <button type="button" disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
+              <button type="button" onClick={handleCalculate} disabled={invalid} className="btn-calculate flex-1 h-10 bg-primary text-primary-foreground rounded-md font-bold text-base hover:bg-primary/90 disabled:opacity-50 flex items-center justify-center gap-2">
                 <PawPrint className="h-4 w-4" /> Calculate
               </button>
               <button type="button" onClick={reset} className="h-10 w-10 rounded-md border border-border hover:bg-secondary text-muted-foreground flex items-center justify-center" aria-label="Reset">
