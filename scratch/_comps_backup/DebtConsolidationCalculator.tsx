@@ -1,0 +1,210 @@
+"use client";
+
+import { useState } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
+import FAQSection from "@/components/FAQSection";
+import InputField from "@/domains/calculator/components/ui/InputField";
+import ResultDisplay from "@/domains/calculator/components/ui/ResultDisplay";
+import { RotateCcw, CreditCard, ChevronDown } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+
+interface Debt { name: string; balance: string; rate: string; minPayment: string; }
+
+const DebtConsolidationCalculator = () => {
+  const [debts, setDebts] = useState<Debt[]>([
+    { name: "Credit Card A", balance: "4000", rate: "22", minPayment: "80" },
+    { name: "Credit Card B", balance: "6000", rate: "19", minPayment: "120" },
+    { name: "Personal Loan", balance: "5000", rate: "14", minPayment: "115" },
+  ]);
+  const [consolidationRate, setConsolidationRate] = useState("9");
+  const [consolidationTerm, setConsolidationTerm] = useState("48");
+  const [loanFee, setLoanFee] = useState("0");
+  const [showAdv, setShowAdv] = useState(false);
+  const [results, setResults] = useState<any>(null);
+  const [showResults, setShowResults] = useState(false);
+
+  const updateDebt = (i: number, field: keyof Debt, val: string) => {
+    setDebts(prev => prev.map((d, idx) => idx === i ? { ...d, [field]: val } : d));
+  };
+
+  const handleCalculate = () => {
+    setShowResults(true);
+    const fee = parseFloat(loanFee) || 0;
+    const totalBalance = debts.reduce((s, d) => s + parseFloat(d.balance), 0);
+    const newTotalBalance = totalBalance + fee;
+    const totalMinPayment = debts.reduce((s, d) => s + parseFloat(d.minPayment), 0);
+    const r = parseFloat(consolidationRate) / 100 / 12;
+    const n = parseFloat(consolidationTerm);
+
+    const consolidatedPayment = r > 0
+      ? (newTotalBalance * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+      : newTotalBalance / n;
+
+    const consolidatedTotalInterest = (consolidatedPayment * n) - newTotalBalance;
+    const currentTotalInterest = debts.reduce((sum, d) => {
+      const r2 = parseFloat(d.rate) / 100 / 12;
+      const n2 = Math.log(parseFloat(d.minPayment) / (parseFloat(d.minPayment) - parseFloat(d.balance) * r2)) / Math.log(1 + r2);
+      return sum + (parseFloat(d.minPayment) * n2) - parseFloat(d.balance);
+    }, 0);
+
+    setResults({
+      totalBalance,
+      consolidatedPayment,
+      consolidatedTotalInterest,
+      currentTotalInterest,
+      monthlySavings: totalMinPayment - consolidatedPayment,
+      interestSavings: currentTotalInterest - consolidatedTotalInterest,
+    });
+  };
+
+  const reset = () => {
+    setShowResults(false);
+    setDebts([
+      { name: "Credit Card A", balance: "4000", rate: "22", minPayment: "80" },
+      { name: "Credit Card B", balance: "6000", rate: "19", minPayment: "120" },
+      { name: "Personal Loan", balance: "5000", rate: "14", minPayment: "115" },
+    ]);
+    setConsolidationRate("9");
+    setConsolidationTerm("48");
+    setLoanFee("0");
+    setResults(null);
+  };
+
+  const faqs = [
+    { question: "What is debt consolidation?", answer: "Debt consolidation is the process of combining multiple debts into a single loan with one monthly payment, ideally at a lower interest rate." },
+    { question: "What types of loans can be consolidated?", answer: "Credit cards, personal loans, medical bills, and other unsecured debts can typically be consolidated. Federal student loans have their own consolidation programs." },
+    { question: "Does debt consolidation hurt my credit score?", answer: "Applying for a new loan causes a temporary dip in your credit score (hard inquiry). However, if consolidation reduces your credit utilization and you make consistent payments, it can help your score long-term." }
+  ];
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Debt Consolidation Calculator" }]} />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Debt Consolidation Calculator</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
+            <h3 className="font-semibold mb-4 text-foreground">Current Debts</h3>
+              <div className="space-y-4 mb-6">
+                {debts.map((d, i) => (
+                  <div key={i} className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-xl bg-secondary/5 border border-border">
+                    <input className="input-calc col-span-2 sm:col-span-1" placeholder="Debt Name" value={d.name} onChange={e => updateDebt(i, "name", e.target.value)} />
+                    <InputField id={`bal-${i}`} label="Balance ($)" value={d.balance} onChange={v => updateDebt(i, "balance", v)} />
+                    <InputField id={`rate-${i}`} label="APR (%)" value={d.rate} onChange={v => updateDebt(i, "rate", v)} />
+                    <InputField id={`min-${i}`} label="Current Payment ($)" value={d.minPayment} onChange={v => updateDebt(i, "minPayment", v)} />
+                  </div>
+                ))}
+              </div>
+              <div className="grid sm:grid-cols-2 gap-4 mb-4">
+                <InputField id="crate" label="Consolidation Loan Rate (%)" value={consolidationRate} onChange={setConsolidationRate} />
+                <InputField id="cterm" label="Consolidation Term (Months)" value={consolidationTerm} onChange={setConsolidationTerm} />
+              </div>
+              
+              {/* Advanced Options */}
+              <div className="mb-2">
+                <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none mb-1">
+                  Advanced Options <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+                </button>
+                {showAdv && (
+                  <div className="mt-2 p-4 rounded-xl bg-secondary/20 border border-border animate-fade-in-up">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Loan Fees</div>
+                    <InputField id="fee" label="Loan Origination Fee ($)" value={loanFee} onChange={setLoanFee} tooltip="Any fees charged to open the consolidation loan, which are typically added to the loan balance." />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-2.5 mt-2">
+                <button onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
+                <button onClick={() => { reset(); setShowAdv(false); }} className="w-10 shrink-0 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center">
+                  <RotateCcw className="h-5 w-5" />
+                </button>
+              </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {showResults && results && (
+              <>
+                <h2 className="text-2xl font-bold mb-3">Consolidation Analysis</h2>
+                <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                  <div className="p-6 rounded-2xl bg-primary/10 border-l-4 border-primary text-center">
+                    <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">New Monthly Payment</p>
+                    <p className="text-5xl font-black text-foreground">${results.consolidatedPayment.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  </div>
+                  <div className="p-6 rounded-2xl bg-green-500/10 border border-green-500/20 text-center flex flex-col justify-center">
+                    <p className="text-sm font-bold text-green-600 uppercase tracking-widest mb-1">Interest Savings</p>
+                    <p className="text-3xl font-black text-foreground">${Math.max(0, results.interestSavings).toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
+                  </div>
+                </div>
+
+                <div className="card-calculator !p-5 border border-border bg-card mb-6 flex flex-col justify-center items-center">
+                    <h3 className="text-sm font-bold mb-4 w-full text-left">New Loan Cost Breakdown</h3>
+                    <ResponsiveContainer width="100%" height={220}>
+                      <PieChart>
+                        <Pie data={[
+                          { name: "Principal", value: results.totalBalance + parseFloat(loanFee || "0"), color: "hsl(var(--primary))" },
+                          { name: "Interest", value: results.consolidatedTotalInterest, color: "hsl(var(--destructive))" },
+                        ]} cx="50%" cy="50%" innerRadius={60} outerRadius={85} dataKey="value" paddingAngle={2}>
+                          {[
+                            { name: "Principal", value: results.totalBalance + parseFloat(loanFee || "0"), color: "hsl(var(--primary))" },
+                            { name: "Interest", value: results.consolidatedTotalInterest, color: "hsl(var(--destructive))" },
+                          ].map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                        </Pie>
+                        <Tooltip formatter={(val: number) => `$${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+                        <Legend iconType="circle" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                <ResultDisplay items={[
+                  { label: "Total Debt Consolidated", value: 0, textValue: "$" + results.totalBalance.toLocaleString() },
+                  { label: "Monthly Savings", value: 0, textValue: "$" + results.monthlySavings.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
+                  { label: "Total Interest (New Loan)", value: 0, textValue: "$" + results.consolidatedTotalInterest.toLocaleString(undefined, { maximumFractionDigits: 0 }) },
+                ]} />
+              </>
+            )}
+          </div>
+        </div>
+
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="mt-12 space-y-8 text-base text-foreground max-w-[1180px]">
+              <div>
+                <h2 className="text-2xl font-bold mb-3">When Does Consolidation Make Sense?</h2>
+                <p className="text-muted-foreground leading-relaxed">Debt consolidation is highly beneficial when you can secure a consolidation loan at a meaningfully lower interest rate than the average rate of your current debts. It simplifies your financial life by combining multiple due dates into a single monthly payment and can reduce your total interest costs significantly if managed correctly.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">Watch Out for Longer Terms</h2>
+                <p className="text-muted-foreground leading-relaxed">A lower monthly payment can sometimes be misleading. If your consolidation loan has a much longer repayment term than your original debts, you might end up paying more total interest over the life of the loan, even if the interest rate is lower. Always compare the total cost of the new loan against your current trajectory, rather than just looking at the monthly cash flow.</p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">The Discipline Problem</h2>
+                <p className="text-muted-foreground leading-relaxed">The biggest risk associated with debt consolidation is re-accumulating the very debts you just paid off. If you consolidate your credit cards to a zero balance and then start using them again for everyday purchases, you will end up with twice as much debt. Consolidation works best when paired with a committed behavioral change and a strict monthly budget.</p>
+              </div>
+            </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/debt-consolidation" />
+
+      <section className="mt-12 space-y-8 text-base text-foreground">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">What Is a Debt Consolidation Calculator?</h2>
+          <p className="text-muted-foreground leading-relaxed">The Debt Consolidation Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Debt Consolidation Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+          <p className="text-muted-foreground leading-relaxed">Using the Debt Consolidation Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Debt Consolidation Calculator useful for both quick checks and deeper what-if analysis.</p>
+        </div>
+      </section>
+          <PopularCalculators exclude="/calculator/debt-consolidation-calculator" />
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default DebtConsolidationCalculator;
+

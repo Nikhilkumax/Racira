@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { categories, TOOLS_BY_SLUG } from "@/domains/animator/registry";
+import { ANIMATOR_SITE } from "@/domains/animator/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.name) === slug);
   if (category) {
     return {
-      title: `${category.name} — Racira Animator`,
+      title: `${category.name} — ${ANIMATOR_SITE.copyrightName}`,
       description: `Explore free tools for ${category.name} directly in your browser.`,
       alternates: {
         canonical: `/animator/${slug}`,
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
     return {
-      title: `${tool.name} — Racira Animator`,
+      title: `${tool.name} — ${ANIMATOR_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/animator/${tool.slug}`,
@@ -109,7 +110,7 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
       </main>
       <footer className="border-t border-border py-8 mt-auto">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Racira Animator — Free browser tools for animation workflows.
+          © {new Date().getFullYear()} {ANIMATOR_SITE.copyrightName} — Free browser tools for animation workflows.
         </div>
       </footer>
     </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
+import { site as FINANCE_SITE } from "@/domains/finance/site";
 import { PageShell } from "@/domains/finance/blog/page-shell";
 import { PostCard } from "@/domains/finance/blog/post-card";
 import { NewsletterSignup } from "@/domains/finance/blog/newsletter-signup";
@@ -8,10 +9,10 @@ import { listPosts, getFeaturedPost } from "@/domains/finance/data/posts";
 import { listCategories } from "@/domains/finance/data/taxonomy";
 
 export const metadata = {
-  title: "Racira Finance — Clear-eyed writing on money & markets",
+  title: FINANCE_SITE.title,
   description: "Long-form analysis on investing, personal finance, markets, and the economy. Written by former practitioners.",
   openGraph: {
-    title: "Racira Finance",
+    title: FINANCE_SITE.title,
     description: "Long-form analysis on investing, personal finance, markets, and the economy.",
     url: "/",
   },

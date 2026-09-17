@@ -1,5 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // A second dev server on this checkout (e.g. a Freebuff preview thread while
+  // the main dev server runs) must isolate its build output, or the two
+  // compilers corrupt each other through the shared .next/cache/webpack —
+  // stale modules keep getting served after file edits. Set
+  // RACIRA_DIST_DIR=.next-<name> for the secondary server only; unset, this
+  // is exactly the stock '.next'.
+  distDir: process.env.RACIRA_DIST_DIR || '.next',
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -71,6 +78,17 @@ const nextConfig = {
       {
         source: '/audio/:path*',
         headers: coepHeaders,
+      },
+      // FFmpeg tool pages run COEP: require-corp; their module worker and the
+      // wasm it fetches are subresources of that context, so both must answer
+      // with Cross-Origin-Resource-Policy: same-origin or the browser blocks
+      // them with ERR_BLOCKED_BY_RESPONSE (see ffmpegEngine.ts load).
+      {
+        source: '/ffmpeg/:path*',
+        headers: [
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
+        ],
       },
     ];
   },

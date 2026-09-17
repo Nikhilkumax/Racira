@@ -3,9 +3,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
-import { categories, TOOLS_BY_SLUG, totalCount, findCategoryForTool } from "@/domains/cad/registry";
+import { categories, TOOLS_BY_SLUG, totalCount, findCategoryForTool, CAD_SITE } from "@/domains/cad/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { copyrightLine } from "@/lib/site-identity";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.title) === slug);
   if (category) {
     return {
-      title: `${category.title} — CAD is fixed`,
+      title: `${category.title} — ${CAD_SITE.copyrightName}`,
       description: `Explore free CAD tools for ${category.title} directly in your browser.`,
       alternates: {
         canonical: `/cad/${slug}`,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
     return {
-      title: `${tool.name} — CAD is fixed`,
+      title: `${tool.name} — ${CAD_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/cad/${tool.slug}`,
@@ -190,7 +191,7 @@ function Footer() {
   return (
     <footer className="border-t border-border bg-card/40 mt-auto">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-8 text-xs text-muted-foreground sm:flex-row">
-        <p>© {new Date().getFullYear()} CAD is fixed. Built for engineers and designers.</p>
+        <p>{copyrightLine(CAD_SITE)}</p>
         <p>{totalCount}+ tools · No signup · Runs in your browser</p>
       </div>
     </footer>

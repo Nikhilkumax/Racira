@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import { categories, SEARCH_REGISTRY } from "@/domains/typography/registry";
 import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { TYPOGRAPHY_SITE } from "@/domains/typography/site";
 
 const LIVE_TYPO_COUNT = onlyLive(categories.flatMap((c) => c.tools), "typography").length;
 import { SiteFooter } from "@/components/typography/site-header";
@@ -10,10 +11,10 @@ import { ArrowRight, Sparkles, Search } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Racira Typography — All Typography Tools You Need",
+  title: TYPOGRAPHY_SITE.title,
   description: "Typography tools: font previewer, pairing, type scales, glyphs, CSS typography and more.",
   openGraph: {
-    title: "Racira Typography",
+    title: TYPOGRAPHY_SITE.title,
     description: "Free typography tools in your browser. No signup.",
   },
 };

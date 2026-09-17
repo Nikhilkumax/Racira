@@ -1,0 +1,32 @@
+[
+ {
+  "idx": 351,
+  "slug": "crypto-position-size-calculator",
+  "comp": "CryptoPositionSizeCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 500,
+  "screenshot": ".qa-screens\\batch1\\crypto-position-size-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 352,
+  "slug": "closing-cost-calculator",
+  "comp": "ClosingCostCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 390,
+  "screenshot": ".qa-screens\\batch1\\closing-cost-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ }
+]

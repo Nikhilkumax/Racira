@@ -196,27 +196,152 @@ export function HighlightTable({
   );
 }
 
-export function Num({
-  name, label, value, onChange, unit, step,
+/**
+ * Label-left / control-right field row — the reference's form pattern.
+ * Collapses to label-above-control below `sm` so narrow viewports keep
+ * full-width controls (and never cause horizontal overflow).
+ */
+export function Row({
+  label, unit, children, testid, controlWidth = "sm:w-56", className = "",
 }: {
-  name: string; label: string; value: string; onChange: (v: string) => void; unit?: string; step?: number;
+  label: string; unit?: string; children: React.ReactNode; testid?: string;
+  controlWidth?: string; className?: string;
 }) {
   return (
-    <label className="block">
+    <div
+      data-testid={testid}
+      className={`flex flex-col gap-1 py-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 ${className}`}
+    >
+      <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground sm:shrink-0">
+        {label}
+        {unit && <span className="ml-1.5 font-mono text-[10px] normal-case tracking-normal text-muted-foreground/70">{unit}</span>}
+      </span>
+      <div className={`w-full ${controlWidth}`}>{children}</div>
+    </div>
+  );
+}
+
+/** Inline radio group (spelled-out choices, no dropdown) — used wherever the
+ *  option set is short enough to show in full, so the current choice is always
+ *  visible instead of hidden behind a closed `<select>`. */
+export function Radios({
+  name, value, onChange, options, ariaLabel, testidPrefix,
+}: {
+  name: string; value: string; onChange: (v: string) => void;
+  options: { value: string; label: string }[]; ariaLabel: string; testidPrefix?: string;
+}) {
+  return (
+    <div className="flex flex-wrap gap-x-4 gap-y-2" role="radiogroup" aria-label={ariaLabel}>
+      {options.map((o) => (
+        <label key={o.value} className="flex items-center gap-2 text-sm cursor-pointer">
+          <input
+            data-testid={`${testidPrefix ?? "radio"}-${name}-${o.value}`}
+            type="radio"
+            name={name}
+            value={o.value}
+            checked={value === o.value}
+            onChange={() => onChange(o.value)}
+            className="accent-primary"
+          />
+          <span>{o.label}</span>
+        </label>
+      ))}
+    </div>
+  );
+}
+
+/** Bare numeric input — the control half of a `Row`, with no label of its own
+ *  (the row supplies the label). */
+export function NumField({
+  name, value, onChange, step, disabled, invalid,
+}: {
+  name: string; value: string; onChange: (v: string) => void; step?: number; disabled?: boolean; invalid?: boolean;
+}) {
+  return (
+    <input
+      data-testid={`in-${name}`}
+      type="number"
+      inputMode="decimal"
+      step={step ?? "any"}
+      value={value}
+      disabled={disabled}
+      aria-invalid={invalid || undefined}
+      onChange={(e) => onChange(e.target.value)}
+      className={`w-full rounded-lg border bg-background px-3 py-2 font-mono text-sm text-foreground outline-none transition-colors disabled:cursor-not-allowed ${
+        invalid ? "border-destructive focus:border-destructive" : "border-border focus:border-primary"
+      }`}
+    />
+  );
+}
+
+export function Num({
+  name, label, value, onChange, unit, step, disabled, inline,
+}: {
+  name: string; label: string; value: string; onChange: (v: string) => void; unit?: string; step?: number; disabled?: boolean; inline?: boolean;
+}) {
+  // `inline` renders the row pattern (label left, number box right) instead of
+  // the stacked label-above-field default used by the other CAD tools.
+  if (inline) {
+    return (
+      <Row label={label} unit={unit} testid={`row-${name}`} className={disabled ? "opacity-60" : ""}>
+        <NumField name={name} value={value} onChange={onChange} step={step} disabled={disabled} />
+      </Row>
+    );
+  }
+  return (
+    <label className={`block ${disabled ? "opacity-60" : ""}`}>
       <span className="mb-1.5 flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
         {label}
         {unit && <span className="font-mono text-[10px] normal-case tracking-normal text-muted-foreground/70">{unit}</span>}
       </span>
-      <input
-        data-testid={`in-${name}`}
-        type="number"
-        inputMode="decimal"
-        step={step ?? "any"}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-border bg-background px-3 py-2 font-mono text-sm text-foreground outline-none transition-colors focus:border-primary"
-      />
+      <NumField name={name} value={value} onChange={onChange} step={step} disabled={disabled} />
     </label>
+  );
+}
+
+/**
+ * Slider + number input pair bound to ONE value — the reference interaction
+ * pattern for geometry fields: drag for quick sweeps, type for precision.
+ * Both controls render together and stay in sync because they share `value`;
+ * the number box accepts anything (including out-of-slider-range values)
+ * and the slider simply pins to its bounds until the value returns inside.
+ */
+export function SliderNum({
+  name, label, value, onChange, unit, min, max, step, inline, disabled,
+}: {
+  name: string; label: string; value: string; onChange: (v: string) => void;
+  unit?: string; min: number; max: number; step: number; inline?: boolean; disabled?: boolean;
+}) {
+  const num = parseFloat(value);
+  const clamped = Number.isFinite(num) ? Math.min(max, Math.max(min, num)) : min;
+  const slider = (
+    <input
+      data-testid={`slider-${name}`}
+      aria-label={`${label} slider`}
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={clamped}
+      disabled={disabled}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full accent-primary disabled:cursor-not-allowed disabled:opacity-60"
+    />
+  );
+  if (inline) {
+    return (
+      <Row label={label} unit={unit} testid={`row-${name}`} controlWidth="sm:w-72"
+        className={disabled ? "opacity-70" : ""}>
+        <NumField name={name} value={value} onChange={onChange} disabled={disabled} />
+        <div className="mt-1">{slider}</div>
+      </Row>
+    );
+  }
+  return (
+    <div className={disabled ? "opacity-70" : ""}>
+      <Num name={name} label={label} value={value} onChange={onChange} unit={unit} disabled={disabled} />
+      <div className="mt-1">{slider}</div>
+    </div>
   );
 }
 

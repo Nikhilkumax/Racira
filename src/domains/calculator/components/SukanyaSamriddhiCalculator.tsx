@@ -79,7 +79,7 @@ export default function SukanyaSamriddhiCalculator() {
   const handleCalculate = () => setShowResults(true);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="racira-page-container py-4">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -91,18 +91,12 @@ export default function SukanyaSamriddhiCalculator() {
         ]}
       />
 
-      <div className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
-          Sukanya Samriddhi Calculator
-        </h1>
-      </div>
+        {/* LEFT: inputs (Mortgage Calculator template) */}
+        <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+          <h2 className="text-lg font-bold text-foreground">SSY Details</h2>
+          <p className="text-sm text-muted-foreground">Enter the yearly deposit, rate, and your daughter&apos;s age.</p>
+          <div className="contents">
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>SSY Details</CardTitle>
-          <CardDescription>Enter the yearly deposit, rate, and your daughter&apos;s age.</CardDescription>
-        </CardHeader>
-        <CardContent>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <div className="space-y-2">
               <Label htmlFor="ssy-deposit">Yearly deposit (₹)</Label>
@@ -154,8 +148,12 @@ export default function SukanyaSamriddhiCalculator() {
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        
+          </div>
+        </div>
+
+        {/* RIGHT: results + content */}
+        <div className="flex flex-col gap-4">
 
       {showResults && (
         <>
@@ -316,6 +314,7 @@ export default function SukanyaSamriddhiCalculator() {
           </div>
         </>
       )}
+        </div>
     </div>
   );
 }

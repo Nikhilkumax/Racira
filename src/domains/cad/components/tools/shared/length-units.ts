@@ -13,6 +13,14 @@
  *   - HP-GL unit = 1/1016 in = 0.000025 m (40 units per mm).
  *   - league = land league = 3 mi = 4828.032 m (assumption noted).
  *   - cable = 0.1 nmi = 185.2 m (international approximation).
+ *
+ * Audited against scale.twir.re's length table (2026-09-17): every factor here
+ * agrees with the reference except `ftm` — the reference derives fathom as
+ * foot × 6.0761 = 1.85199 m (and then cable = fathom × 100, nmi = cable × 10),
+ * while this table uses the standardised 6 ft fathom = 1.8288 m. Nautical mile
+ * (1852 m) and cable (185.2 m) agree to within the reference's own rounding.
+ * Kept 6 ft because that is the defined fathom; the reference's 1.852 m value
+ * is a cable-derived round number, not a fathom definition.
  */
 
 export const METERS_PER_UNIT: Record<string, number> = {
@@ -39,10 +47,10 @@ export const METERS_PER_UNIT: Record<string, number> = {
   fur: 0.3048 * 3 * 22 * 10,               // furlong = 10 chains
   mi:  0.3048 * 3 * 22 * 10 * 8,           // mile = 8 furlongs
   lea: 0.3048 * 3 * 22 * 10 * 8 * 3,       // land league = 3 mi = 4828.032 m
-  ftm: 1.8288,                              // fathom = 6 ft
+  ftm: 1.8288,                              // fathom = 6 ft (reference uses 1.85199 m)
   cb:  185.2,                               // cable = 0.1 nmi ≈ 185.2 m
   NM:  1852,                               // nautical mile (exact, by definition)
-  nmi: 1852,                               // alias for NM
+  nmi: 1852,                               // alias for NM — not shown in the dropdown
 
   // ── Extended SI + specialty ──────────────────────────────────────────────
   ym:  1e-24,
@@ -111,34 +119,53 @@ export const UNIT_LABELS: Record<string, string> = {
   pt:   "PostScript point",
   p:    "PostScript pica",
   px:   "pixel",
-  hpgl: "HP-GL unit",
+  hpgl: "HP-GL",
 };
 
 /**
- * Four groups matching the spec order exactly. Used to render <optgroup>
- * elements in the unit selects so labels are never clipped.
+ * Four groups, in the order the reference tool presents them. Used to render
+ * <optgroup> elements in the unit selects so labels are never clipped.
+ *
+ * `nmi` is intentionally NOT a group member: it is an accepted alias of `NM`
+ * (both are 1852 m) and listing it separately produced two identical
+ * "nautical mile" entries in the dropdown. The alias still resolves in
+ * METERS_PER_UNIT/UNIT_LABELS for any stored or hand-typed value.
  */
 export const UNIT_GROUPS: { label: string; units: string[] }[] = [
   {
-    label: "Metric (SI)",
+    label: "Metric",
     units: ["nm", "μm", "mm", "cm", "dm", "m", "dam", "hm", "km", "Mm"],
   },
   {
-    label: "Imperial / USCS",
-    units: ["th", "in", "li", "ft", "rd", "yd", "ch", "fur", "mi", "lea", "ftm", "cb", "NM", "nmi"],
+    label: "Imperial / Survey / Nautical",
+    units: ["th", "in", "li", "ft", "rd", "yd", "ch", "fur", "mi", "lea", "ftm", "cb", "NM"],
   },
   {
-    label: "Extended SI + specialty",
+    label: "Scientific / Astronomical",
     units: ["ym", "zm", "am", "fm", "pm", "Å", "Gm", "Tm", "Pm", "Em", "Zm", "Ym", "ly"],
   },
   {
-    label: "Digital / print",
+    label: "Typography / Digital",
     units: ["pt", "p", "px", "hpgl"],
   },
 ];
 
-/** Flat ordered list: Metric first, then Imperial, then Extended SI, then Digital. */
+/** Flat ordered list: Metric first, then Imperial, then Scientific, then Digital. */
 export const ALL_UNITS: string[] = UNIT_GROUPS.flatMap((g) => g.units);
+
+/**
+ * Dropdown option label — "meter (m)", "nautical mile (NM or nmi)" — i.e. the
+ * unit's full name with its short symbol in parentheses, matching how the
+ * reference's unit list reads. Derived from UNIT_LABELS so a rename can never
+ * desync the name and the symbol shown side by side.
+ */
+export function unitOptionLabel(u: string): string {
+  const name = UNIT_LABELS[u] ?? u;
+  // NM carries its alternate spelling because both "NM" and "nmi" are in
+  // common use for the same 1852 m unit.
+  if (u === "NM") return `${name} (NM or nmi)`;
+  return `${name} (${u})`;
+}
 
 /** True when the unit key is known. */
 export function isKnownUnit(u: string): boolean {

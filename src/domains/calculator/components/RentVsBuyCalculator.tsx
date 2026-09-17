@@ -90,7 +90,7 @@ export default function RentVsBuyCalculator() {
   const handleCalculate = () => setShowResults(true);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="racira-page-container py-4">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -102,15 +102,11 @@ export default function RentVsBuyCalculator() {
         ]}
       />
 
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">Rent vs Buy Calculator</h1>
-      </div>
+        {/* LEFT: inputs (Mortgage Calculator template) */}
+        <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+          <h2 className="text-lg font-bold text-foreground">Scenario Inputs</h2>
+          <div className="contents">
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Scenario Inputs</CardTitle>
-        </CardHeader>
-        <CardContent>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="price">Home Price</Label>
@@ -206,8 +202,12 @@ export default function RentVsBuyCalculator() {
           <Button onClick={handleCalculate} className="mt-6 w-full sm:w-auto">
             Calculate
           </Button>
-        </CardContent>
-      </Card>
+        
+          </div>
+        </div>
+
+        {/* RIGHT: results + content */}
+        <div className="flex flex-col gap-4">
 
       {showResults && (
         <>
@@ -381,6 +381,7 @@ export default function RentVsBuyCalculator() {
           </div>
         </>
       )}
+        </div>
     </div>
   );
 }

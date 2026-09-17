@@ -3,6 +3,7 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { categories, SEARCH_REGISTRY } from "@/domains/animator/registry";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { ANIMATOR_SITE } from "@/domains/animator/site";
 
 const LIVE_ANIMATOR_COUNT = onlyLive(categories.flatMap((c) => c.tools), "animator").length;
 import { CategorySection } from "@/components/shared/CategorySection";
@@ -40,7 +41,7 @@ export default function Index() {
       </main>
       <footer className="border-t border-border py-8 mt-16">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Racira Animator — Free browser tools for animation workflows.
+          © {new Date().getFullYear()} {ANIMATOR_SITE.copyrightName} — Free browser tools for animation workflows.
         </div>
       </footer>
     </div>

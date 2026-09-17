@@ -23,6 +23,7 @@ import {
   Wrench,
 } from "lucide-react";
 import { CATEGORIES, TOOLS, type Tool } from "@/domains/seo/registry";
+import { SEO_SITE } from "@/domains/seo/site";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
 
 const LIVE_SEO_COUNT = onlyLive(TOOLS, "seo").length;
@@ -111,7 +112,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Racira SEO
+        © {new Date().getFullYear()} {SEO_SITE.copyrightName}
       </footer>
     </div>
   );

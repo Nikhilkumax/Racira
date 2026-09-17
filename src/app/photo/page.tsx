@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { Search, ArrowRight, Aperture, Sparkles } from "lucide-react";
 import { CATEGORIES, ALL_TOOLS, SEARCH_REGISTRY, type Tool } from "@/domains/photo/registry";
+import { PHOTO_SITE } from "@/domains/photo/site";
+import { copyrightLine } from "@/lib/site-identity";
 import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
 
 const LIVE_PHOTO_COUNT = onlyLive(ALL_TOOLS, "photo").length;
@@ -64,7 +66,7 @@ export default function Home() {
         </div>
       </main>
       <footer className="border-t py-10 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Racira Photography. Built for photographers.
+        {copyrightLine(PHOTO_SITE)}
       </footer>
     </div>
   );

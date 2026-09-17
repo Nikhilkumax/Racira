@@ -1,0 +1,62 @@
+[
+ {
+  "idx": 425,
+  "slug": "cumulative-gpa-calculator",
+  "comp": "CumulativeGPACalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 487,
+  "screenshot": ".qa-screens\\batch1\\cumulative-gpa-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 426,
+  "slug": "percentage-to-cgpa-converter",
+  "comp": "PercentageToCgpaConverter",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 420,
+  "screenshot": ".qa-screens\\batch1\\percentage-to-cgpa-converter.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 427,
+  "slug": "gpa-calculator",
+  "comp": "GpaCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 468,
+  "screenshot": ".qa-screens\\batch1\\gpa-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 428,
+  "slug": "final-grade-calculator",
+  "comp": "FinalGradeCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 498,
+  "screenshot": ".qa-screens\\batch1\\final-grade-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ }
+]

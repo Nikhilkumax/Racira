@@ -2,17 +2,23 @@ import Header from "@/components/Header";
 import AudioClientGrid from "@/domains/audio/components/ClientGrid";
 import { categories } from "@/domains/audio/registry";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { AUDIO_SITE } from "@/domains/audio/site";
+import { copyrightLine } from "@/lib/site-identity";
 import { SearchAudio } from "./SearchAudio";
 
 // Live/discoverable count only — "soon" registry entries are excluded.
 const LIVE_AUDIO_COUNT = onlyLive(categories.flatMap(c => c.tools)).length;
 
 export const metadata = {
-  title: "Racira Audio — Free Online Audio & Podcast Tools",
+  title: `${AUDIO_SITE.copyrightName} — Free Online Audio & Podcast Tools`,
   description: `${LIVE_AUDIO_COUNT} free tools to convert, edit, analyze and master audio. Designed for podcasters and audio engineers. Runs entirely in your browser.`,
   openGraph: {
-    title: "Racira Audio — Free Audio Tools",
+    title: `${AUDIO_SITE.copyrightName} — Free Online Audio & Podcast Tools`,
     description: `${LIVE_AUDIO_COUNT} free tools to convert, edit, analyze and master audio. No signup required.`,
+  },
+  twitter: {
+    card: "summary",
+    title: `${AUDIO_SITE.copyrightName} — Free Online Audio & Podcast Tools`,
   },
 };
 
@@ -41,7 +47,7 @@ export default function AudioPage() {
       </main>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Racira Audio — {totalCount} free audio tools. Runs entirely in your browser.
+        {copyrightLine(AUDIO_SITE)} {AUDIO_SITE.copyrightName} — {totalCount} free audio tools. Runs entirely in your browser.
       </footer>
     </div>
   );

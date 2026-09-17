@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { TOOLS_BY_SLUG, toolsByCategory } from "@/domains/colors/registry";
+import { COLORS_SITE } from "@/domains/colors/site";
 import { CATEGORY_META, ToolCategory } from "@/domains/colors/registry/types";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (foundCategoryKey) {
     const meta = CATEGORY_META[foundCategoryKey];
     return {
-      title: `${meta.label} — Racira Colors`,
+      title: `${meta.label} — ${COLORS_SITE.copyrightName}`,
       description: `Explore free color tools for ${meta.label} directly in your browser.`,
       alternates: {
         canonical: `/colors/${slug}`,
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG[slug];
   if (tool) {
     return {
-      title: `${tool.name} — Racira Colors`,
+      title: `${tool.name} — ${COLORS_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/colors/${tool.slug}`,
@@ -123,7 +124,7 @@ function CategoryView({ categoryKey }: { categoryKey: ToolCategory }) {
       </main>
       <footer className="border-t border-border py-8 mt-16">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Racira Colors — Free browser tools for color workflows.
+          © {new Date().getFullYear()} {COLORS_SITE.copyrightName} — Free browser tools for color workflows.
         </div>
       </footer>
     </div>
@@ -155,7 +156,7 @@ function ToolView({ tool, categoryKey }: { tool: any, categoryKey: ToolCategory 
       </main>
       <footer className="border-t border-border py-8 mt-16">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Racira Colors — Free browser tools for color workflows.
+          © {new Date().getFullYear()} {COLORS_SITE.copyrightName} — Free browser tools for color workflows.
         </div>
       </footer>
     </div>

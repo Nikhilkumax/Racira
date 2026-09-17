@@ -6,16 +6,21 @@ import { TTSWhyRacira } from "@/domains/voice/components/tts-sections/TTSWhyRaci
 import { TTSFAQ } from "@/domains/voice/components/tts-sections/TTSFAQ";
 import { TTSSeoContent } from "@/domains/voice/components/tts-sections/TTSSeoContent";
 import type { Metadata } from "next";
+import { VOICE_SITE } from "@/domains/voice/site";
 
 export const metadata: Metadata = {
-  title: "Free Text to Speech Online | Natural AI Voices — Racira TTS",
+  title: VOICE_SITE.title,
   description: "Convert text to speech instantly with Racira TTS. 28 natural AI voices in US and UK English, with unlimited generation. No signup required, private and browser-based.",
   keywords: ["text to speech", "free tts", "ai voice generator", "online tts", "speech synthesis", "english tts", "browser tts"],
   openGraph: {
-    title: "Free Text to Speech Online | Natural AI Voices — Racira TTS",
+    title: VOICE_SITE.title,
     description: "Convert text to speech instantly with Racira TTS. 28 natural AI voices in US and UK English, with unlimited generation.",
     type: "website",
     url: "https://racira.com/voice",
+  },
+  twitter: {
+    card: "summary",
+    title: VOICE_SITE.title,
   },
 };
 

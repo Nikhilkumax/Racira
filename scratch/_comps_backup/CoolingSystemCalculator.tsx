@@ -1,0 +1,284 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import PopularCalculators from "@/components/PopularCalculators";
+import FAQSection from "@/components/FAQSection";
+import { Thermometer, RotateCcw } from "lucide-react";
+import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
+
+// 1. TypeScript interfaces
+interface CoolingResults {
+  heatToCoolantBTU: number;
+  heatToCoolantKW: number;
+  totalFuelEnergyBTU: number;
+  chartData: any[];
+  isError: boolean;
+  errorMsg?: string;
+}
+
+// 2. Pure calculation function
+const calculateCooling = (inputs: typeof DEFAULTS): CoolingResults => {
+  const horsepower = parseFloat(inputs.horsepower);
+
+  if (isNaN(horsepower) || horsepower <= 0) {
+    return {
+      heatToCoolantBTU: 0, heatToCoolantKW: 0, totalFuelEnergyBTU: 0,
+      chartData: [], isError: true, errorMsg: "Engine horsepower must be a valid positive number."
+    };
+  }
+
+  // Energy Distribution of an Internal Combustion Engine:
+  // Roughly 33% goes to the crankshaft (usable mechanical power)
+  // Roughly 33% goes out the tailpipe (exhaust heat)
+  // Roughly 33% goes into the block (absorbed by the cooling system)
+  // 1 Horsepower = 42.4 BTU/min
+  const mechanicalBTU = horsepower * 42.4;
+  
+  // If mechanical is ~33%, then the heat rejected to the coolant is roughly equal to the mechanical output.
+  // We'll use a slightly safer margin for performance engines: Coolant takes about 1.1x the mechanical power.
+  const heatToCoolantBTU = mechanicalBTU * 1.1;
+  const exhaustBTU = mechanicalBTU * 1.1; // Exhaust usually takes slightly more heat
+  
+  const totalFuelEnergyBTU = mechanicalBTU + heatToCoolantBTU + exhaustBTU;
+
+  // Convert BTU/min to Kilowatts (1 kW = 56.869 BTU/min)
+  const heatToCoolantKW = heatToCoolantBTU / 56.869;
+
+  // Generate chart data: Pie chart showing the rule of thirds
+  const chartData = [
+    {
+      name: "Usable Power (Wheels)",
+      value: Math.round(mechanicalBTU),
+      fill: "hsl(var(--primary))"
+    },
+    {
+      name: "Heat to Radiator (Coolant)",
+      value: Math.round(heatToCoolantBTU),
+      fill: "hsl(var(--blue-500))"
+    },
+    {
+      name: "Wasted out Tailpipe (Exhaust)",
+      value: Math.round(exhaustBTU),
+      fill: "hsl(var(--destructive))"
+    }
+  ];
+
+  return {
+    heatToCoolantBTU: Math.round(heatToCoolantBTU),
+    heatToCoolantKW: Number(heatToCoolantKW.toFixed(1)),
+    totalFuelEnergyBTU: Math.round(totalFuelEnergyBTU),
+    chartData,
+    isError: false
+  };
+};
+
+// 3. DEFAULTS object
+const DEFAULTS = {
+  horsepower: "400"
+};
+
+const CompactInput = ({ id, label, value, onChange, placeholder, suffix }: any) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="text-[11px] font-semibold text-muted-foreground mb-1 uppercase tracking-wider">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input id={id} type="number" placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-sm bg-transparent outline-none border-none text-foreground font-medium" />
+      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0 font-semibold">{suffix}</span>}
+    </div>
+  </div>
+);
+
+// 4. Component
+export default function CoolingSystemCalculator() {
+  const [inputs, setInputs] = useState(DEFAULTS);
+  const [results, setResults] = useState<CoolingResults>(calculateCooling(DEFAULTS));
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleChange = (key: keyof typeof DEFAULTS, val: string) => {
+    const newInputs = { ...inputs, [key]: val };
+    setInputs(newInputs);
+    // Auto calculate on change
+    const r = calculateCooling(newInputs);
+    if (!r.isError) setResults(r);
+  };
+
+  const handleCalculate = () => {
+    const r = calculateCooling(inputs);
+    if (!r.isError) setResults(r);
+  };
+
+  const handleReset = () => {
+    setInputs(DEFAULTS);
+    setResults(calculateCooling(DEFAULTS));
+  };
+
+  const faqs = [
+    { question: "What is BTU/min?", answer: "British Thermal Units per minute (BTU/min) is a measurement of heat transfer. It describes exactly how much thermal energy the engine block is absorbing from the combustion process every 60 seconds. The radiator and water pump must be physically large enough to extract and dissipate this exact amount of heat into the atmosphere to prevent the engine from melting." },
+    { question: "Why does horsepower increase engine heat?", answer: "Horsepower is generated by burning fuel. An internal combustion engine is incredibly inefficient; roughly 65-70% of the energy stored in gasoline is instantly turned into wasted heat rather than forward motion. The more fuel you burn to make horsepower, the more wasted heat you generate. Therefore, doubling an engine's horsepower automatically doubles the amount of heat the cooling system must deal with." },
+    { question: "How does the 'Rule of Thirds' work?", answer: "Engineers use the Rule of Thirds to estimate cooling requirements. When a drop of gasoline explodes in the cylinder, roughly 33% of that energy is successfully converted into mechanical force pushing the piston down (Horsepower). Another 33% of the energy is blasted out the exhaust valves as raw heat. The final 33% is absorbed directly into the metal walls of the engine block, which must be extracted by the liquid coolant." },
+    { question: "Why is a bigger radiator needed for forced induction (Turbo/Supercharger)?", answer: "Adding a turbocharger forces more air and fuel into the engine, creating a much larger explosion. This directly violates the factory cooling parameters. If you take a 200 HP engine and turbocharge it to 400 HP, you are physically burning twice as much fuel per second. The factory radiator, which was sized to dissipate 200 HP worth of heat, will be instantly overwhelmed, causing catastrophic overheating under heavy acceleration." }
+  ];
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Automobile", href: "/calculator#automobile" }, { label: "Cooling System Calculator" }]} />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Cooling System Calculator</h1>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT 460px */}
+          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
+            
+            <p className="text-sm text-muted-foreground mb-2">Calculate the exact amount of thermal heat your radiator must extract from the engine block to prevent catastrophic overheating.</p>
+
+            <div className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground border-b border-border/50 pb-1 mt-2">Engine Output</div>
+            <div className="grid grid-cols-1 gap-4">
+              <CompactInput id="hp" label="Maximum Engine Horsepower" value={inputs.horsepower} onChange={(v: string) => handleChange("horsepower", v)} suffix="HP" placeholder="400" />
+            </div>
+            
+            <div className="text-[10px] text-muted-foreground mt-2">
+              * Note: The math is based on maximum Wide Open Throttle (WOT) load. Cruising down the highway requires very little horsepower and generates significantly less heat.
+            </div>
+
+            <div className="flex gap-2.5 mt-4">
+              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                Calculate
+              </button>
+              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold h-11 transition-colors flex items-center justify-center gap-2 focus:outline-none shadow-sm">
+                <RotateCcw className="h-4 w-4" /> Reset
+              </button>
+            </div>
+            
+          </div>
+
+          {/* RIGHT fluid */}
+          <div id="results-section" className="flex flex-col gap-4">
+            {results.isError ? (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Error</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
+              </div>
+            ) : (
+              <>
+                {/* 1. Primary Result Card */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 relative overflow-hidden shadow-sm">
+                    <div className="text-xs uppercase tracking-wide text-blue-600 dark:text-blue-500 mb-2 font-bold">Required Heat Rejection</div>
+                    <div className="flex items-end gap-3 mb-1">
+                      <div className="text-5xl font-black text-blue-600 dark:text-blue-500 tracking-tighter">{results.heatToCoolantBTU.toLocaleString()}</div>
+                      <div className="text-xl font-bold text-blue-600 dark:text-blue-500 mb-1">BTU/min</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-card border border-border rounded-lg p-6 relative overflow-hidden shadow-sm">
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Metric Equivilent</div>
+                    <div className="flex items-end gap-3 mb-1">
+                      <div className="text-5xl font-black text-foreground tracking-tighter">{results.heatToCoolantKW.toLocaleString()}</div>
+                      <div className="text-xl font-bold text-muted-foreground mb-1">kW</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. 3-Stat Bar */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
+                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Total Fuel Burned</div>
+                    <div className="text-2xl font-bold text-foreground">{results.totalFuelEnergyBTU.toLocaleString()}</div>
+                    <div className="text-xs text-muted-foreground">Total BTU/min</div>
+                  </div>
+                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
+                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Mechanical Power</div>
+                    <div className="text-2xl font-bold text-primary">{inputs.horsepower} HP</div>
+                    <div className="text-xs text-muted-foreground">Usable Output</div>
+                  </div>
+                  <div className="bg-card border border-border rounded-lg p-4 text-center shadow-sm">
+                    <div className="text-xs text-muted-foreground uppercase font-semibold mb-1">Radiator Duty</div>
+                    <div className="text-2xl font-bold text-blue-500">~33%</div>
+                    <div className="text-xs text-muted-foreground">Of total fuel energy</div>
+                  </div>
+                </div>
+
+                {/* 4. Chart */}
+                <div className="card-calculator !p-5 border border-border bg-card shadow-sm mt-2">
+                  <h3 className="text-base font-semibold text-foreground mb-4">Combustion Energy Distribution (The Rule of Thirds)</h3>
+                  <div className="h-[280px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={results.chartData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={90}
+                          paddingAngle={2}
+                          dataKey="value"
+                        >
+                          {results.chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.fill} />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip 
+                          formatter={(value: number, name: string) => [`${value.toLocaleString()} BTU/min`, name]}
+                          contentStyle={{ borderRadius: '8px', border: '1px solid var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }} 
+                        />
+                        <Legend iconType="circle" wrapperStyle={{ fontSize: '13px' }} verticalAlign="bottom" />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="text-xs text-muted-foreground text-center mt-3">Notice how incredibly inefficient gasoline engines are; nearly 70% of the fuel you buy is instantly converted into wasted heat.</div>
+                </div>
+
+              </>
+            )}
+          </div>
+        </div>
+        
+        {/* SEO CONTENT */}
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">The Physics of an Internal Combustion Engine</h2>
+            <p>An internal combustion engine is not really a machine designed to create motion; it is a machine designed to create controlled explosions. When a spark plug ignites the gasoline and air mixture inside the cylinder, it creates a massive fireball. This fireball expands violently, pushing the piston downward. This downward force turns the crankshaft, which ultimately spins the wheels.</p>
+            <p>However, the laws of thermodynamics dictate that this process is incredibly inefficient. A typical gasoline engine is only about 30% to 35% thermally efficient. This means that if you buy a gallon of gasoline, only one-third of that gasoline actually moves the car forward. The other two-thirds is instantly converted into raw, violent heat.</p>
+
+            <h2 className="text-2xl font-bold mb-3">The Rule of Thirds</h2>
+            <p>To calculate the required size of a radiator and water pump, mechanical engineers use a standard baseline known as the "Rule of Thirds." When fuel is burned at Maximum Wide Open Throttle (WOT), the resulting energy is split three ways:</p>
+            <ul>
+              <li><strong>33% Mechanical Energy:</strong> This is the usable force pushing the pistons down. We measure this on a dyno as Horsepower.</li>
+              <li><strong>33% Exhaust Heat:</strong> This heat is expelled through the exhaust valves and shot out the tailpipe into the atmosphere. This is why exhaust pipes glow red hot under heavy load.</li>
+              <li><strong>33% Block Heat:</strong> This is the dangerous heat. It is absorbed directly into the metal walls of the cylinders and engine block. If this heat is not removed immediately, the oil will boil, the pistons will expand, and the engine will physically weld itself together (seize) within minutes.</li>
+            </ul>
+
+            <h2 className="text-2xl font-bold mb-3">Why Horsepower Dictates Radiator Size</h2>
+            <p>Because of the Rule of Thirds, the amount of heat absorbed by the engine block is roughly equal to the amount of mechanical horsepower being produced. If you have a factory 200 HP engine, the radiator only needs to dissipate roughly 200 HP worth of heat. But if you bolt on a supercharger and double the engine's output to 400 HP, you are now burning twice as much fuel per second. You have simultaneously doubled the amount of heat being dumped into the engine block. The factory radiator will instantly boil over under heavy acceleration, requiring an upgrade to a thicker aluminum core radiator to handle the increased thermal load.</p>
+          </section>
+          
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/cooling-system-calculator" />
+
+      <section className="mt-12 space-y-8 text-base text-foreground">
+        <div>
+          <h2 className="text-2xl font-bold mb-3">What Is a Cooling System Calculator?</h2>
+          <p className="text-muted-foreground leading-relaxed">The Cooling System Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Cooling System Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+          <p className="text-muted-foreground leading-relaxed">Using the Cooling System Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Cooling System Calculator useful for both quick checks and deeper what-if analysis.</p>
+        </div>
+      </section>
+          <PopularCalculators />
+        </div>
+      </div>
+    </>
+  );
+}

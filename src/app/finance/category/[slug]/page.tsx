@@ -4,6 +4,7 @@ import { PageShell } from "@/domains/finance/blog/page-shell";
 import { PostCard } from "@/domains/finance/blog/post-card";
 import { listPosts } from "@/domains/finance/data/posts";
 import { getCategoryBySlug } from "@/domains/finance/data/taxonomy";
+import { site as FINANCE_SITE } from "@/domains/finance/site";
 import type { PostWithRelations } from "@/types/finance/db";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -11,10 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = getCategoryBySlug(slug);
   if (!c) return {};
   return {
-    title: `${c.name} — Racira Finance`,
+    title: `${c.name} — ${FINANCE_SITE.copyrightName}`,
     description: c.description,
     openGraph: {
-      title: `${c.name} — Racira Finance`,
+      title: `${c.name} — ${FINANCE_SITE.copyrightName}`,
       description: c.description,
       url: `/category/${slug}`,
     },

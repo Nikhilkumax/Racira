@@ -167,7 +167,11 @@ export async function loadFfmpeg(onProgress?: (ratio: number) => void): Promise<
         coreURL: `${CORE_BASE_URL}/ffmpeg-core.js`,
         wasmURL,
         workerURL: `${CORE_BASE_URL}/ffmpeg-core.worker.js`,
-        classWorkerURL: CLASS_WORKER_URL,
+        // @ffmpeg/ffmpeg resolves classWorkerURL against import.meta.url, which
+        // webpack rewrites to a file: base — the relative path becomes
+        // file:///C:/ffmpeg/ffmpeg-worker.js and Worker construction throws
+        // SecurityError. An absolute http(s) URL ignores that broken base.
+        classWorkerURL: new URL(CLASS_WORKER_URL, window.location.href).href,
       });
       onProgress?.(0.95);
 

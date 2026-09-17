@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { ToolSeo, SeoContentBlock } from "@/domains/pdf/registry/tool-seo";
 
 interface SeoContentProps {
@@ -14,6 +15,11 @@ interface SeoContentProps {
  *  - `<ol>` for ordered list items (how-to steps)
  *
  * Uses the `.seo-prose` utility class from globals.css for consistent typography.
+ *
+ * MARKUP CONTRACT: headings and paragraphs are rendered through `<Fragment>`, so
+ * they stay DIRECT children of `.seo-prose`. Wrapping each section in its own
+ * element collapsed every gap inside it — the container's `space-y-6` rhythm
+ * only applies between direct children. Same contract as the CAD renderer.
  */
 const SeoContent = ({ seo }: SeoContentProps) => {
   if (!seo.sections || seo.sections.length === 0) return null;
@@ -22,7 +28,7 @@ const SeoContent = ({ seo }: SeoContentProps) => {
     <section className="mt-10">
       <div className="seo-prose">
         {seo.sections.map((section, i) => (
-          <div key={i}>
+          <Fragment key={i}>
             {section.heading && <h2>{section.heading}</h2>}
             {section.subHeading && <h3>{section.subHeading}</h3>}
             {section.content
@@ -40,7 +46,7 @@ const SeoContent = ({ seo }: SeoContentProps) => {
               : (section.paragraphs ?? []).map((p: string, j: number) => (
                   <p key={j} dangerouslySetInnerHTML={{ __html: p }} />
                 ))}
-          </div>
+          </Fragment>
         ))}
       </div>
     </section>

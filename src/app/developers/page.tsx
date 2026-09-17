@@ -1,5 +1,6 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { tools, categories, SEARCH_REGISTRY } from "@/domains/developers/registry";
+import { DEVELOPERS_SITE } from "@/domains/developers/site";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
 
 const LIVE_DEVELOPERS_COUNT = onlyLive(tools, "developers").length;
@@ -8,12 +9,16 @@ import { ToolSearch } from "@/components/developers/tool-search";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Racira Developers — All Developer Tools You Need, Fast & Free",
+  title: DEVELOPERS_SITE.title,
   description: "Format, encode, convert, test, and generate — every developer tool you need in one fast, free, browser-based platform.",
   openGraph: {
-    title: "Racira Developers — Developer Tools",
+    title: DEVELOPERS_SITE.title,
     description: "All developer tools you need, in one place.",
     url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: DEVELOPERS_SITE.title,
   },
   alternates: {
     canonical: "/",

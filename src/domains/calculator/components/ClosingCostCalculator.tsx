@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calculator } from "lucide-react";
 import {
   PieChart,
   Pie,
@@ -63,21 +62,11 @@ export default function ClosingCostCalculator() {
   };
 
   return (
-    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-12 text-center">
-        <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
-          <Calculator className="h-8 w-8 text-primary" />
-        </div>
-        <h1 className="text-4xl font-extrabold text-foreground mb-4 tracking-tight">
-          Closing Cost Calculator
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div className="racira-page-container py-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* Input Section */}
         <div className="lg:col-span-4 w-full space-y-6">
-          <div className="bg-card rounded-3xl border border-border/50 shadow-xl overflow-hidden backdrop-blur-sm p-8">
+          <div className="card-calculator bg-card rounded-3xl border border-border/50 shadow-xl overflow-hidden backdrop-blur-sm p-8">
             <h3 className="text-xl font-bold mb-6">Property Details</h3>
             
             <div className="space-y-6">

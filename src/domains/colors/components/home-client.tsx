@@ -3,6 +3,7 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { CategorySection } from "@/components/shared/CategorySection";
 import { TOOLS } from "@/domains/colors/registry";
+import { COLORS_SITE } from "@/domains/colors/site";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
 import { CATEGORY_META } from "@/domains/colors/registry/types";
 import type { ToolCategory } from "@/domains/colors/registry/types";
@@ -25,7 +26,7 @@ export function HomeClient() {
         <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              226 Free Color Tools —{" "}
+              {TOOLS.length} Free Color Tools —{" "}
               <span className="hero-gradient-text">Palettes, Gradients & Converts</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
@@ -65,7 +66,7 @@ export function HomeClient() {
       </main>
       <footer className="border-t border-border py-8 mt-16">
         <div className="racira-page-container text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Racira Colors — Free browser tools for color workflows.
+          © {new Date().getFullYear()} {COLORS_SITE.copyrightName} — Free browser tools for color workflows.
         </div>
       </footer>
     </div>

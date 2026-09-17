@@ -7,14 +7,23 @@ import {
   SEARCH_REGISTRY,
   slugify,
 } from "@/domains/games/registry";
+import { GAMES_SITE } from "@/domains/games/site";
 import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
 
 const LIVE_GAME_SLUGS = new Set(GAME_LIVE_SLUGS);
 const isLiveGame = (title: string) => LIVE_GAME_SLUGS.has(slugify(title));
 
 export const metadata: Metadata = {
-  title: "All Games — Racira",
-  description: "Play 47 free browser-based games: casual, logic, and puzzles. No signup required.",
+  title: `All Games — ${GAMES_SITE.copyrightName}`,
+  description: `Play ${GAME_LIVE_SLUGS.length} free browser-based games: casual, logic, and puzzles. No signup required.`,
+  openGraph: {
+    title: `All Games — ${GAMES_SITE.copyrightName}`,
+    description: `Play ${GAME_LIVE_SLUGS.length} free browser-based games: casual, logic, and puzzles. No signup required.`,
+  },
+  twitter: {
+    card: "summary",
+    title: `All Games — ${GAMES_SITE.copyrightName}`,
+  },
   alternates: {
     canonical: "https://racira.com/games",
   },
@@ -29,12 +38,15 @@ export default function GamesPage() {
       <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
         <div className="racira-page-container text-center">
           <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-            47 Free Games —{" "}
+            {GAME_LIVE_SLUGS.length} Free Games —{" "}
             <span className="hero-gradient-text">Casual, Logic & Puzzles</span>
           </h1>
           <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
             Relax with browser-based casual games, logic puzzles, and brain teasers. No signup required.
           </p>
+          {/* LIVE-gated count: CategorySearch's isSearchable() hides games
+              without a wired component, so the search box only claims what it
+              can actually return. Same honesty rule as /cad. */}
           <CategorySearch categorySlug="games" placeholder={`Search ${GAME_LIVE_SLUGS.length} games...`} registry={SEARCH_REGISTRY} />
         </div>
       </section>

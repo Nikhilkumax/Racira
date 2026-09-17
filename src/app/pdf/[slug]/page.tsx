@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles, Clock, ArrowLeft } from "lucide-react";
 import { tools, type Tool } from "@/domains/pdf/registry/tools";
+import { PDF_SITE } from "@/domains/pdf/site";
 import { IMPLEMENTED_SLUGS } from "@/domains/pdf/registry/implementedSlugs";
 import { toSlug } from "@/lib/utils/slug";
 
@@ -24,13 +25,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   if (isSubcategory(slug)) {
     const catName = subcategoryNames.find(s => toSlug(s) === slug)!;
-    return { title: `${catName} — Racira PDF`, description: `Free browser-based ${catName} PDF tools.`, alternates: { canonical: `/pdf/${slug}` } };
+    return { title: `${catName} — ${PDF_SITE.copyrightName}`, description: `Free browser-based ${catName} PDF tools.`, alternates: { canonical: `/pdf/${slug}` } };
   }
   const tool = toolBySlug.get(slug);
   if (tool) {
     // Soon tools get real titles for SEO but are noindexed
-    if (tool.status === 'soon') return { title: `${tool.name} — Coming Soon — Racira PDF`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
-    return { title: `${tool.name} — Racira PDF`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
+    if (tool.status === 'soon') return { title: `${tool.name} — Coming Soon — ${PDF_SITE.copyrightName}`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
+    return { title: `${tool.name} — ${PDF_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/pdf/${slug}` } };
   }
   return { title: "Not Found — Racira" };
 }

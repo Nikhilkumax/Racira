@@ -1,6 +1,7 @@
 import { ToolResult } from "@/components/CategorySearch";
 
-// Centralized tool catalog: 118 CAD tools across 10 categories.
+// Centralized tool catalog: 10 categories. Counts are ALWAYS derived from
+// the arrays below — never hardcode a tool number in display strings.
 import { ToolStatus } from "@/domains/_types";
 import { inferIcon } from "@/components/shared/icon-map";
 
@@ -265,11 +266,15 @@ categories.forEach(cat => {
 
 export const allTools: Tool[] = categories.flatMap((c) => c.tools);
 export const TOOLS_BY_SLUG = new Map(allTools.map(t => [t.slug, t]));
-export const totalCount = allTools.length; // sanity: 118
+export const totalCount = allTools.length;
 
 export const findTool = (s: string) => allTools.find((t) => (t as any).slug === s);
 export const findCategoryForTool = (s: string) =>
   categories.find((c) => c.tools.some((t) => (t as any).slug === s));
+
+// CAD site-identity strings (title / copyright) — re-exported here so
+// consumers need only one import for identity + counts.
+export { CAD_SITE } from "./site";
 
 export const SEARCH_REGISTRY: ToolResult[] = categories.flatMap((cat) =>
   cat.tools.map((tool) => ({

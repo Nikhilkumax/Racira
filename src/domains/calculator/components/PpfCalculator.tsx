@@ -76,28 +76,13 @@ export default function PpfCalculator() {
   const handleCalculate = () => setShowResults(true);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Finance", href: "/finance" },
-          { label: "PPF Calculator", href: "/calculator/ppf-calculator" },
-        ]}
-      />
-
-      <div className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
-          PPF Calculator
-        </h1>
-      </div>
-
-      <Card className="mb-6">
-        <CardHeader>
+    <div className="racira-page-container py-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+        {/* LEFT: inputs (Mortgage Calculator template) */}
+        <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
           <CardTitle>PPF Details</CardTitle>
-          <CardDescription>Enter your yearly deposit, rate, and tenure.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <p className="text-sm text-muted-foreground">Enter your yearly deposit, rate, and tenure.</p>
+          <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
               <Label htmlFor="ppf-yearly">Yearly deposit (₹)</Label>
               <Input
@@ -137,7 +122,7 @@ export default function PpfCalculator() {
               <p className="text-xs text-muted-foreground">Minimum lock-in is 15 years.</p>
             </div>
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-2 flex flex-wrap gap-3">
             <Button onClick={handleCalculate}>Calculate</Button>
             <Button
               type="button"
@@ -152,8 +137,10 @@ export default function PpfCalculator() {
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* RIGHT: results + content (empty until Calculate) */}
+        <div className="flex flex-col gap-4">
 
       {showResults && (
         <>
@@ -309,6 +296,8 @@ export default function PpfCalculator() {
           </div>
         </>
       )}
+        </div>
+      </div>
     </div>
   );
 }

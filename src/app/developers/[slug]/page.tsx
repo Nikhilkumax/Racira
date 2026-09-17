@@ -9,6 +9,7 @@ import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
 import { ToolPageClient } from "@/components/developers/tools/tool-page-client";
 import { getToolSeo } from "@/domains/developers/registry/tool-seo";
+import { DEVELOPERS_SITE } from "@/domains/developers/site";
 import SeoContent from "@/domains/developers/components/SeoContent";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -27,11 +28,11 @@ function isCategorySlug(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const catName = categoryFromSlug(slug);
-  if (catName) return { title: `${catName} — Racira Developers`, description: `Free browser-based ${catName} tools.`, alternates: { canonical: `/developers/${slug}` } };
+  if (catName) return { title: `${catName} — ${DEVELOPERS_SITE.copyrightName}`, description: `Free browser-based ${catName} tools.`, alternates: { canonical: `/developers/${slug}` } };
   const tool = findToolBySlug(slug);
   if (tool) {
-    if (tool.status === "soon") return { title: `${tool.name} — Coming Soon — Racira Developers`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
-    return { title: `${tool.name} — Racira Developers`, description: tool.description, alternates: { canonical: `/developers/${slug}` } };
+    if (tool.status === "soon") return { title: `${tool.name} — Coming Soon — ${DEVELOPERS_SITE.copyrightName}`, description: `${tool.description} This tool is coming soon to Racira.`, robots: { index: false, follow: true } };
+    return { title: `${tool.name} — ${DEVELOPERS_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/developers/${slug}` } };
   }
   return { title: "Not Found — Racira" };
 }

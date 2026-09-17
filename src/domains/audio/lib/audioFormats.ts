@@ -394,3 +394,76 @@ export function isFormatSupported(
   if (support === null) return null; // not probed yet
   return FORMATS[format].requiredEncoders.every((enc) => support[enc] === true);
 }
+
+// ---------------------------------------------------------------------------
+// Batch 23 — container-specific decode/convert helpers (pure, Node-verified)
+// ---------------------------------------------------------------------------
+
+/**
+ * “Decode WMA/M4B/CAF” — transcode whatever came in to one of the three
+ * widely-playable outputs. WMA audio uses wmav2; M4B (Audiobook) is an MP4
+ * container whose audio track is normally AAC; CAF (Core Audio Format) is
+ * usually PCM. All three decode paths are handled by the same ffmpeg core,
+ * so the tool only needs the target codec + a `-vn` guard (cover art in M4B
+ * would otherwise trip stream-copy paths).
+ */
+export type DecoderTarget = "mp3" | "wav" | "flac";
+
+export const DECODER_TARGETS: { id: DecoderTarget; label: string }[] = [
+  { id: "mp3", label: "MP3 (universal playback)" },
+  { id: "wav", label: "WAV (lossless, uncompressed)" },
+  { id: "flac", label: "FLAC (lossless, compressed)" },
+];
+
+export function buildDecodeArgs(
+  target: DecoderTarget,
+  inputName: string,
+  outputName: string,
+): string[] {
+  const codec =
+    target === "mp3"
+      ? ["-c:a", "libmp3lame", "-b:a", "192k"]
+      : target === "flac"
+        ? ["-c:a", "flac"]
+        : ["-c:a", "pcm_s16le"];
+  return ["-i", inputName, "-vn", "-map_metadata", "0", ...codec, outputName];
+}
+
+/**
+ * “Convert to/from ALAC lossless in M4A” — ALAC lives inside the M4A (MP4)
+ * container both ways. To ALAC: re-encode with the `alac` encoder. From ALAC:
+ * decode to the requested PCM-based or lossy target. `-vn` keeps the M4A
+ * container happy when source carries art.
+ */
+export type AlacTarget = "alac" | "wav" | "flac" | "mp3" | "aac";
+
+export const ALAC_TARGETS: { id: AlacTarget; label: string }[] = [
+  { id: "alac", label: "ALAC in M4A (lossless)" },
+  { id: "wav", label: "WAV (lossless PCM)" },
+  { id: "flac", label: "FLAC (lossless)" },
+  { id: "aac", label: "AAC in M4A (lossy, small)" },
+  { id: "mp3", label: "MP3 (lossy, universal)" },
+];
+
+export function buildAlacArgs(
+  target: AlacTarget,
+  inputName: string,
+  outputName: string,
+): string[] {
+  const codec =
+    target === "alac"
+      ? ["-c:a", "alac"]
+      : target === "wav"
+        ? ["-c:a", "pcm_s16le"]
+        : target === "flac"
+          ? ["-c:a", "flac"]
+          : target === "aac"
+            ? ["-c:a", "aac", "-b:a", "256k"]
+            : ["-c:a", "libmp3lame", "-b:a", "192k"];
+  return ["-i", inputName, "-vn", ...codec, outputName];
+}
+
+/** Extension for an output of a decoder/ALAC run (drives the download name). */
+export function targetExtension(target: DecoderTarget | AlacTarget): string {
+  return target === "alac" || target === "aac" ? "m4a" : target;
+}

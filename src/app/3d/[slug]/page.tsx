@@ -6,6 +6,7 @@ import { SiteShell } from "@/domains/3d/components/SiteShell";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { ToolRenderer } from "@/domains/3d/components/tools/ToolRenderer";
 import { CATEGORIES, TOOLS_BY_SLUG } from "@/domains/3d/registry";
+import { THREE_D_SITE } from "@/domains/3d/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (category) {
     const catTitle = category.title || category.name;
     return {
-      title: `${catTitle} — Racira 3D & Print`,
+      title: `${catTitle} — ${THREE_D_SITE.copyrightName}`,
       description: `Explore free tools for ${catTitle} directly in your browser.`,
       alternates: {
         canonical: `/3d/${slug}`,
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
     return {
-      title: `${tool.name} — Racira 3D & Print`,
+      title: `${tool.name} — ${THREE_D_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/3d/${tool.slug}`,

@@ -1,18 +1,25 @@
 "use client";
 
 import { useCallback, useMemo, useRef, useState } from "react";
-import { CalcLayout, FormGrid, Num, Panel, PanelTitle, Res, ResBox, Sel, fmtTrim } from "./ui";
-import { UNIT_LABELS, UNIT_GROUPS } from "../shared/length-units";
+import { FormGrid, Num, NumField, Panel, PanelTitle, Radios, Res, ResBox, Row, SliderNum, fmtTrim } from "./ui";
+import { UNIT_GROUPS, unitOptionLabel } from "../shared/length-units";
 // All scale/geometry math lives in a React-free module so there is exactly one
 // paper ⇄ real conversion path and the formulas can be unit-tested directly.
 import {
   DEFAULT_PARAMS,
+  SLIDER_RANGES,
   buildScaleLabel,
   computeBar,
+  fmtLength,
   fmtRatio,
+  manualRangeMax,
+  scaleNotations,
+  seedManualSteps,
+  tenStepSeries,
   type BarParams,
   type BarStyle,
   type DivStyle,
+  type ManualStep,
   type ScaleMode,
   type StepMode,
 } from "./scale-bar-tool.logic";
@@ -299,6 +306,28 @@ function exportDxf(bar: ReturnType<typeof computeBar>, p: BarParams) {
   downloadBlob(blob, "scale-bar.dxf");
 }
 
+/**
+ * The single "invert this ratio" affordance: same glyph, same wording and the
+ * same trailing-edge-of-its-input placement in EVERY ratio mode (One-to-X and
+ * Scale factor). Previously the two modes offered two different controls
+ * ("⇄ Toggle X:1" pinned to a radio badge, "Flip ÷" inside the factor row) for
+ * the same conceptual action, so the action had to be learned twice.
+ */
+function RatioFlipButton({ onClick, title }: { onClick: () => void; title: string }) {
+  return (
+    <button
+      type="button"
+      data-testid="flip-ratio"
+      onClick={onClick}
+      title={title}
+      aria-label={title}
+      className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-md border border-border bg-muted px-2.5 text-xs font-medium transition-colors hover:bg-muted/80"
+    >
+      <span aria-hidden="true">⇄</span> Flip ratio
+    </button>
+  );
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
 export default function ScaleBarTool() {
   // Every field is seeded from DEFAULT_PARAMS so Reset has one source of truth
@@ -316,7 +345,7 @@ export default function ScaleBarTool() {
   const [height, setHeight] = useState(DEFAULT_PARAMS.height);
   const [lineWidth, setLineWidth] = useState(DEFAULT_PARAMS.lineWidth);
   const [stepMode, setStepMode] = useState<StepMode>(DEFAULT_PARAMS.stepMode);
-  const [stepCount, setStepCount] = useState(DEFAULT_PARAMS.stepCount);
+  const [stepRows, setStepRows] = useState<ManualStep[]>(DEFAULT_PARAMS.stepRows);
   const [divStyle, setDivStyle] = useState<DivStyle>(DEFAULT_PARAMS.divStyle);
   const [barStyle, setBarStyle] = useState<BarStyle>(DEFAULT_PARAMS.barStyle);
   const [color, setColor] = useState(DEFAULT_PARAMS.color);
@@ -339,7 +368,7 @@ export default function ScaleBarTool() {
     setHeight(DEFAULT_PARAMS.height);
     setLineWidth(DEFAULT_PARAMS.lineWidth);
     setStepMode(DEFAULT_PARAMS.stepMode);
-    setStepCount(DEFAULT_PARAMS.stepCount);
+    setStepRows(DEFAULT_PARAMS.stepRows);
     setDivStyle(DEFAULT_PARAMS.divStyle);
     setBarStyle(DEFAULT_PARAMS.barStyle);
     setColor(DEFAULT_PARAMS.color);
@@ -355,43 +384,136 @@ export default function ScaleBarTool() {
 
   const params: BarParams = useMemo(() => ({
     mode, x, flipX, inchPaper, footReal, inchReal, factorVal, unit, segVal,
-    width, height, lineWidth, stepMode, stepCount, divStyle, barStyle, color,
+    width, height, lineWidth, stepMode, stepRows, divStyle, barStyle, color,
   }), [mode, x, flipX, inchPaper, footReal, inchReal, factorVal, unit, segVal,
-    width, height, lineWidth, stepMode, stepCount, divStyle, barStyle, color]);
+    width, height, lineWidth, stepMode, stepRows, divStyle, barStyle, color]);
 
   const bar = useMemo(() => computeBar(params), [params]);
-  const svgStr = useMemo(() => renderBarSvg(bar, params), [bar, params]);
+  // The drawing is gated on a feasible segment. When "One segment equals" is
+  // longer than the bar's own real span (`segFits` false) there is no honest bar
+  // to draw: the paper readouts would contradict each other (segment > full bar)
+  // and the step count would be the clamped minimum pretending segments fit. So
+  // the result — readout, preview and downloads — stays withheld, with an
+  // explanation in its place, until the input is corrected.
+  const svgStr = useMemo(() => (bar && bar.segFits ? renderBarSvg(bar, params) : ""), [bar, params]);
 
   const handleExportSvg = useCallback(() => { if (svgStr) exportSvg(svgStr); }, [svgStr]);
   const handleExportPng = useCallback(() => { if (svgStr) exportPng(svgStr); }, [svgStr]);
   const handleExportPdf = useCallback(() => { if (svgStr) exportPdf(svgStr); }, [svgStr]);
-  const handleExportDxf = useCallback(() => { exportDxf(bar, params); }, [bar, params]);
+  const handleExportDxf = useCallback(() => { if (svgStr && bar) exportDxf(bar, params); }, [svgStr, bar, params]);
 
   // Computed results
   const scale = bar?.scale ?? null;
   const segPaperMm = bar?.segPaperMm ?? null;
   const totalPaperMm = bar?.totalPaperMm ?? null;
-  const totalReal = bar ? `${fmtTrim(bar.totalRealValue, 4)} ${unit}` : "—";
+  // "One segment equals" must fit inside the bar's own real span. That span
+  // (Width × scale, or the largest Manual boundary) comes straight from the
+  // geometry, which never depends on segVal — so this bound is not circular.
+  const resultInvalid = bar !== null && !bar.segFits;
+  const segMaxReal = bar ? bar.totalRealValue : null;
+  const segNum = parseFloat(segVal);
+  const segError = segVal.trim() !== "" && (!Number.isFinite(segNum) || segNum <= 0);
+  const segBounded = segMaxReal !== null ? fmtLength(segMaxReal, 4) : "—";
+  // fmtLength (not fmtTrim): the unit table reaches 1e-24…1e24, where four
+  // fixed decimals would print an extreme unit as a bare "0" — claiming the
+  // bar has no length when it does.
+  const totalReal = bar ? `${fmtLength(bar.totalRealValue, 4)} ${unit}` : "—";
 
   const scaleLabel = buildScaleLabel(scale, params);
 
-  return (
-    <CalcLayout>
-      <Panel>
-        <PanelTitle>Scale input</PanelTitle>
+  // The current scale in ALL three notations — shown as chips next to every
+  // scale-mode radio, so the conversions stay visible no matter which mode
+  // the user is typing in.
+  const notations = useMemo(() => scaleNotations(scale), [scale]);
 
-        {/* Radio toggle for scale mode */}
-        <div className="flex flex-col gap-2 mb-4">
+  // ── Manual step editor ──────────────────────────────────────────────────
+  // These all operate on plain bound state so the rows behave like every other
+  // input on the tool: type, reorder, delete, and the bar re-renders.
+  const updateStep = useCallback((i: number, patch: Partial<ManualStep>) => {
+    setStepRows((rows) => rows.map((r, idx) => (idx === i ? { ...r, ...patch } : r)));
+  }, []);
+  const deleteStep = useCallback((i: number) => {
+    setStepRows((rows) => rows.filter((_, idx) => idx !== i));
+  }, []);
+  const addStep = useCallback(() => {
+    setStepRows((rows) => [...rows, { value: "", label: true }]);
+  }, []);
+  /** Ascending by value; blank/unparseable rows sink to the bottom so a
+   *  half-typed row is never lost in the middle of the list. */
+  const sortStepsAsc = useCallback(() => {
+    setStepRows((rows) => [...rows].sort((a, b) => {
+      const av = parseFloat(a.value), bv = parseFloat(b.value);
+      const an = Number.isFinite(av), bn = Number.isFinite(bv);
+      if (!an && !bn) return 0;
+      if (!an) return 1;
+      if (!bn) return -1;
+      return av - bv;
+    }));
+  }, []);
+  /** Quick-fill: replace every row that the ladder covers with 0.1w … w (only
+   *  the largest labelled), matching the reference's "Add numbers …" helper. */
+  const addTenNumbers = useCallback(() => {
+    const series = tenStepSeries(bar ? bar.totalRealValue : 0);
+    if (!series.length) return;
+    const max = series[series.length - 1];
+    setStepRows((rows) => [
+      ...rows.filter((r) => {
+        const v = parseFloat(r.value);
+        return !(Number.isFinite(v) && v <= max);
+      }),
+      ...series.map((v, i) => ({ value: fmtTrim(v, 6), label: i === series.length - 1 })),
+    ]);
+  }, [bar]);
+  /** Switching to Manual opens the editor seeded with the CURRENT bar's own
+   *  interior boundaries (the reference leaves the list blank and falls back to
+   *  its automatic steps until two rows exist — see the task report). */
+  const handleStepMode = useCallback((v: string) => {
+    const next = v as StepMode;
+    if (next === "manual") setStepRows((rows) => (rows.length ? rows : seedManualSteps(bar)));
+    setStepMode(next);
+  }, [bar]);
+
+  // Manual-mode derived values.
+  const manualRange = manualRangeMax(unit, scale);
+  const tenSeries = tenStepSeries(bar ? bar.totalRealValue : 0);
+  const tenLabel = tenSeries.length
+    ? `Add numbers ${fmtTrim(tenSeries[0], 4)}, ${fmtTrim(tenSeries[1], 4)}, ${fmtTrim(tenSeries[2], 4)}, .. till ${fmtTrim(tenSeries[9], 4)}`
+    : "Add numbers";
+  // In Manual mode the boundary list owns the bar's length, so the Width field
+  // displays (and is locked to) the derived paper width instead of driving it.
+  const widthValue = stepMode === "manual" && bar ? fmtTrim(bar.totalPaperMm, 2) : width;
+
+  return (
+    <div data-testid="tool-layout" className="flex flex-col gap-4">
+      <Panel>
+        <PanelTitle>Scale bar input</PanelTitle>
+
+        {/* Radio toggle for scale mode — each option carries a live chip
+            showing the CURRENT scale in that option's notation. Gap-1 (4px)
+            between rows: the two-line blocks the badge needs are what set the
+            floor here, so the inter-row whitespace is halved rather than the
+            pitch (33.6px → 29.6px measured). */}
+        <div data-testid="scale-mode-list" className="flex flex-col gap-1 mb-3">
           {([
-            ["one-to-x", "One-to-X scale  (e.g. 1 : 200)"],
-            ["inch-to-foot", "Inches-to-the-foot  (e.g. ¼″ = 1′-0″)"],
-            ["scale-factor", "Scale factor  (e.g. 1.2×)"],
-          ] as const).map(([val, label]) => (
-            <label key={val} className="flex items-center gap-2 text-sm cursor-pointer">
-              <input type="radio" name="scale-mode" value={val} checked={mode === val}
-                onChange={() => setMode(val)} className="accent-primary" />
-              <span>{label}</span>
-            </label>
+            ["one-to-x", "One-to-X scale  (e.g. 1 : 200)", notations.oneToX],
+            ["inch-to-foot", "Inches-to-the-foot  (e.g. ¼″ = 1′-0″)", notations.inchToFoot],
+            ["scale-factor", "Scale factor  (e.g. 1.2×)", notations.factor],
+          ] as const).map(([val, label, chip]) => (
+            // Just the radio + its live notation chip. The "invert this ratio"
+            // control lives on the mode's own value row below, so it is in the
+            // same place in every ratio mode (see RatioFlipButton).
+            <div key={val} className="flex items-center gap-2 text-sm">
+              <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2">
+                <input type="radio" name="scale-mode" value={val} checked={mode === val}
+                  onChange={() => setMode(val)} className="accent-primary" />
+                <span>{label}</span>
+                <span data-testid={`chip-${val}`}
+                  title="The current scale in this notation (live-computed)"
+                  className="ml-auto shrink-0 rounded-full border border-border bg-muted/60 px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                  {chip}
+                </span>
+              </label>
+            </div>
           ))}
         </div>
 
@@ -402,10 +524,10 @@ export default function ScaleBarTool() {
               <div className="flex-1">
                 <Num name="x" label={flipX ? "Scale X : 1" : "Scale 1 : X"} value={x} onChange={setX} />
               </div>
-              <button type="button" onClick={() => setFlipX(!flipX)}
-                className="h-9 px-3 rounded-md border border-border bg-muted text-xs font-medium hover:bg-muted/80 transition-colors shrink-0">
-                {flipX ? "Show 1 : X" : "Toggle X : 1"}
-              </button>
+              <RatioFlipButton
+                onClick={() => setFlipX(!flipX)}
+                title={flipX ? "Invert this ratio — show it as 1 : X" : "Invert this ratio — show it as X : 1 (enlargement)"}
+              />
             </div>
           </FormGrid>
         )}
@@ -432,106 +554,260 @@ export default function ScaleBarTool() {
           <FormGrid>
             <div className="flex items-end gap-2">
               <div className="flex-1">
-                <Num name="factor" label="Scale factor" unit="×" value={factorVal} onChange={setFactorVal} />
+                {/* No `unit="×"` tag: a bare "×" floating at the far edge of
+                    the label row read like a stray control (it was a static
+                    unit annotation with no handler). The multiplier notation is
+                    already carried by the radio label, the chip and the
+                    effective-scale line. */}
+                <Num name="factor" label="Scale factor" value={factorVal} onChange={setFactorVal} />
               </div>
-              <button type="button" onClick={() => {
-                const f = parseFloat(factorVal);
-                if (Number.isFinite(f) && f > 0) setFactorVal(String(+(1 / f).toFixed(6)));
-              }} className="h-9 px-3 rounded-md border border-border bg-muted text-xs font-medium hover:bg-muted/80 transition-colors shrink-0">
-                Flip ÷
-              </button>
+              <RatioFlipButton
+                onClick={() => {
+                  const f = parseFloat(factorVal);
+                  if (Number.isFinite(f) && f > 0) setFactorVal(String(+(1 / f).toFixed(6)));
+                }}
+                title="Invert this ratio — use its reciprocal factor"
+              />
             </div>
           </FormGrid>
         )}
 
-        {/* Computed scale display */}
-        <div data-testid="effective-scale" className="mt-3 rounded-md bg-muted/50 p-3 text-xs text-muted-foreground">
+        {/* Computed scale as a plain inline line (was a shaded box) — same live
+            content, no card wrapper or padding. */}
+        <p data-testid="effective-scale" className="mt-1.5 text-xs text-muted-foreground">
           Effective scale: <span className="font-mono font-medium text-foreground">{scaleLabel}</span>
           {scale && <span className="ml-2 text-muted-foreground/70">(1 mm paper = {fmtRatio(scale)} mm real)</span>}
+        </p>
+
+        {/* Field rows — label left, control right (the reference's pattern).
+            Below `sm` each row stacks label-over-control so the control keeps
+            the full width and nothing overflows a phone viewport. */}
+        <div className="mt-1">
+          <Row label="Real-length unit" testid="row-unit" controlWidth="sm:w-72">
+            <select
+              data-testid="in-unit"
+              aria-label="Real-length unit"
+              value={unit}
+              onChange={(e) => setUnit(e.target.value)}
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary"
+            >
+              {UNIT_GROUPS.map((g) => (
+                <optgroup key={g.label} label={g.label}>
+                  {g.units.map((u) => (
+                    <option key={u} value={u}>{unitOptionLabel(u)}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </Row>
+
+          {/* "One segment equals" is bounded by the bar's own real span — the
+              same "value can be between …" constraint the Manual step rows use.
+              The bound moves with the scale, the width and the unit, so a
+              segment that was valid under one scale is flagged the moment it no
+              longer fits another one. The value is never rewritten for the user. */}
+          <Row label="One segment equals" unit={unit} testid="row-seg">
+            <NumField name="seg" value={segVal} onChange={setSegVal}
+              invalid={resultInvalid || segError} />
+            {resultInvalid ? (
+              <p data-testid="seg-invalid" className="mt-1 text-[11px] font-medium text-destructive">
+                Longer than the whole bar: at this scale it only spans {segBounded} {unit}.
+              </p>
+            ) : segError ? (
+              <p data-testid="seg-invalid" className="mt-1 text-[11px] font-medium text-destructive">
+                Enter a value greater than 0.
+              </p>
+            ) : null}
+            <p data-testid="seg-range-hint" className="mt-1 text-[11px] italic text-muted-foreground">
+              Value can be between 0 and {segBounded} {unit}.
+              This range moves with the bar width, scale and unit.
+            </p>
+          </Row>
+
+          {/* Width / Height / Line width are three separate FULL-WIDTH rows,
+              stacked in that order — the reference's own layout. (An earlier
+              density pass paired Width+Height into two columns; the reference
+              does not, and the pair halved the finest-step sliders' drag
+              targets.) Ranges come from the shared SLIDER_RANGES constant.
+              In Manual mode the Width field mirrors the width derived from the
+              last step boundary and is locked, since the boundary list — not
+              the slider — defines how long the bar is. */}
+          <SliderNum inline name="width" label="Width" unit="mm" value={widthValue} onChange={setWidth}
+            disabled={stepMode === "manual"} {...SLIDER_RANGES.width} />
+          {stepMode === "manual" && (
+            <p data-testid="width-manual-note" className="mt-0.5 text-[11px] italic text-muted-foreground">
+              Width follows the last step in Manual mode ({widthValue} mm on paper).
+            </p>
+          )}
+          <SliderNum inline name="height" label="Height" unit="pt" value={height} onChange={setHeight}
+            {...SLIDER_RANGES.height} />
+          <SliderNum inline name="lineWidth" label="Line width" unit="pt" value={lineWidth} onChange={setLineWidth}
+            {...SLIDER_RANGES.lineWidth} />
+
+          {/* Steps: Automatic/Manual as inline radios (was a dropdown). */}
+          <Row label="Steps" testid="row-stepMode" controlWidth="sm:w-auto">
+            <Radios name="stepMode" ariaLabel="Steps" value={stepMode}
+              onChange={handleStepMode}
+              options={[{ value: "automatic", label: "Automatic" }, { value: "manual", label: "Manual" }]} />
+          </Row>
+
+          {/* Automatic sub-box — the step-count + division controls, matching
+              the reference's #automaticBlock. The count is READ-ONLY here
+              (live-computed from the scale/width and the division style); the
+              reference lets you type it, but its own value is overwritten on
+              every re-generate, so showing the computed value is the honest
+              version of the same field. */}
+          {stepMode === "automatic" && (
+            <div data-testid="steps-subbox" className="mt-1 rounded-lg border border-border bg-muted/30 px-3">
+              {/* The count is only a real answer when at least one segment fits
+                  the bar; otherwise it is the clamped minimum and would imply
+                  segments fit when they cannot (see the Result panel). */}
+              <Num inline name="stepCount" label="Step count"
+                value={bar && bar.segFits ? String(bar.numSteps) : ""}
+                onChange={() => {}}
+                disabled />
+              <div className="pb-2">
+                <Radios name="divStyle" ariaLabel="Step division" value={divStyle}
+                  onChange={(v) => setDivStyle(v as DivStyle)}
+                  options={[
+                    { value: "exponential", label: "Divided exponential" },
+                    { value: "proportional", label: "Divided proportionally" },
+                  ]} />
+              </div>
+            </div>
+          )}
+
+          {/* Manual sub-box — a per-segment editor: one row per boundary value
+              (value + unit + Label checkbox + Delete), then Add step / Sort
+              steps / the "Add numbers …" quick-fill, then the documented value
+              range for the current scale and unit. */}
+          {stepMode === "manual" && (
+            <div data-testid="steps-manual" className="mt-1 rounded-lg border border-border bg-muted/30 p-3">
+              {stepRows.length === 0 ? (
+                <p data-testid="steps-manual-empty" className="text-xs text-muted-foreground">
+                  No step boundaries yet — use “Add step” below.
+                </p>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  {stepRows.map((r, i) => {
+                    const v = parseFloat(r.value);
+                    const outOfRange = r.value.trim() !== "" && (
+                      !Number.isFinite(v) || v <= 0 || (manualRange !== null && v > manualRange)
+                    );
+                    return (
+                      <div key={i} data-testid={`step-row-${i}`} className="flex flex-wrap items-center gap-2">
+                        <div className="w-24 shrink-0">
+                          <NumField name={`stepValue-${i}`} value={r.value}
+                            onChange={(nv) => updateStep(i, { value: nv })} />
+                        </div>
+                        {/* Lowercase, spelled-out unit tag: the old `uppercase`
+                            class rendered a bare "M" here while every other unit
+                            label on the page reads "m". */}
+                        <span className="shrink-0 font-mono text-[10px] text-muted-foreground">{unitOptionLabel(unit)}</span>
+                        {outOfRange && (
+                          <span data-testid={`step-invalid-${i}`} className="shrink-0 text-[10px] font-medium text-destructive">
+                            out of range
+                          </span>
+                        )}
+                        <label className="flex shrink-0 cursor-pointer items-center gap-1.5 text-xs text-muted-foreground">
+                          <input type="checkbox" data-testid={`step-label-${i}`} checked={r.label}
+                            onChange={(e) => updateStep(i, { label: e.target.checked })}
+                            className="accent-primary" />
+                          Label
+                        </label>
+                        <button type="button" data-testid={`step-delete-${i}`} onClick={() => deleteStep(i)}
+                          className="ml-auto shrink-0 rounded-md border border-border bg-muted px-2 py-1 text-xs font-medium hover:bg-muted/80 transition-colors">
+                          Delete
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button type="button" data-testid="step-add" onClick={addStep}
+                  className="rounded-md border border-border bg-muted px-2.5 py-1 text-xs font-medium hover:bg-muted/80 transition-colors">
+                  + Add step
+                </button>
+                <button type="button" data-testid="step-sort" onClick={sortStepsAsc}
+                  className="rounded-md border border-border bg-muted px-2.5 py-1 text-xs font-medium hover:bg-muted/80 transition-colors">
+                  ↕ Sort steps
+                </button>
+                {tenSeries.length > 0 && (
+                  <button type="button" data-testid="step-add-tens" onClick={addTenNumbers}
+                    title="Fill the list with an even 10-value ladder"
+                    className="rounded-md border border-border bg-muted px-2.5 py-1 text-xs font-medium hover:bg-muted/80 transition-colors">
+                    {tenLabel}
+                  </button>
+                )}
+              </div>
+
+              <p data-testid="step-range-hint" className="mt-2 text-[11px] italic text-muted-foreground">
+                ↑ Value can be between 0 and {manualRange === null ? "—" : fmtTrim(manualRange, 4)} {unit}.
+                This range can be moved by altering the scale or unit.
+              </p>
+            </div>
+          )}
+
+          <Row label="Bar style" testid="row-barStyle" controlWidth="sm:w-auto">
+            <Radios name="bar-style" ariaLabel="Bar style" value={barStyle}
+              onChange={(v) => setBarStyle(v as BarStyle)}
+              options={[
+                { value: "double-row", label: "Double row" },
+                { value: "single-row", label: "Single row" },
+                { value: "line", label: "Line" },
+              ]} />
+          </Row>
+
+          {/* Color swatch + hex text field. The hex field is Racira's own
+              addition — the reference offers no way to type an exact colour. */}
+          <Row label="Color" testid="row-color" controlWidth="sm:w-72">
+            <div className="flex items-center gap-3">
+              <input data-testid="in-color" type="color" value={color} onChange={(e) => handleColorPicker(e.target.value)}
+                aria-label="Color picker"
+                className="h-8 w-8 rounded border border-border cursor-pointer shrink-0" />
+              <input
+                data-testid="in-hex"
+                type="text"
+                value={hexInput}
+                onChange={(e) => handleHexInput(e.target.value)}
+                maxLength={7}
+                placeholder="#334155"
+                aria-label="Hex color"
+                className="w-28 rounded-lg border border-border bg-background px-2 py-1.5 font-mono text-sm text-foreground outline-none transition-colors focus:border-primary"
+              />
+            </div>
+          </Row>
         </div>
 
-        {/* Real-length unit + segment size */}
-        <div className="mt-3">
-          <div className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Real-length unit</div>
-          <select
-            data-testid="in-unit"
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
-            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary"
-          >
-            {UNIT_GROUPS.map((g) => (
-              <optgroup key={g.label} label={g.label}>
-                {g.units.map((u) => (
-                  <option key={u} value={u}>{u} — {UNIT_LABELS[u]}</option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </div>
-        <div className="mt-3">
-          <Num name="seg" label="One segment equals" unit={unit} value={segVal} onChange={setSegVal} />
-        </div>
-
-        {/* Reset — restores every field on this tool to its default */}
-        <div className="mt-4">
-          <button
-            type="button"
-            data-testid="reset"
-            onClick={handleReset}
-            className="px-4 py-2 rounded-lg border border-border bg-muted text-sm font-medium hover:bg-muted/80 transition-colors"
-          >
-            ↺ Reset fields
-          </button>
-        </div>
+        {/* No Reset here: the tool has exactly ONE (in the Result panel, next
+            to the exports), matching the reference. A second identical button
+            at the bottom of a long input card only raised the question of
+            whether the two reset different scopes. */}
       </Panel>
 
-      <Panel>
-        <PanelTitle>Bar geometry &amp; style</PanelTitle>
+      {/* Results live in their own highlighted panel below the input card
+          (the reference's blue-bordered box). */}
+      <div data-testid="result-panel" className="rounded-xl border-2 border-primary/40 bg-primary/5 p-4">
+        <PanelTitle>Result</PanelTitle>
 
-        <FormGrid>
-          <Num name="width" label="Width" unit="mm" value={width} onChange={setWidth} />
-          <Num name="height" label="Height" unit="pt" value={height} onChange={setHeight} />
-          <Num name="lineWidth" label="Line width" unit="pt" value={lineWidth} onChange={setLineWidth} />
-        </FormGrid>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <Sel name="stepMode" label="Steps" value={stepMode} onChange={(v) => setStepMode(v as StepMode)}
-            options={[{ value: "automatic", label: "Automatic" }, { value: "manual", label: "Manual" }]} />
-          {stepMode === "manual" && (
-            <Num name="stepCount" label="Step count" value={stepCount} onChange={setStepCount} />
-          )}
-        </div>
-
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <Sel name="divStyle" label="Step division" value={divStyle} onChange={(v) => setDivStyle(v as DivStyle)}
-            options={[
-              { value: "exponential", label: "Divided exponential" },
-              { value: "proportional", label: "Divided proportionally" },
-            ]} />
-          <Sel name="barStyle" label="Bar style" value={barStyle} onChange={(v) => setBarStyle(v as BarStyle)}
-            options={[
-              { value: "double-row", label: "Double row" },
-              { value: "single-row", label: "Single row" },
-              { value: "line", label: "Line" },
-            ]} />
-        </div>
-
-        {/* Color picker + hex text input */}
-        <div className="mt-3 flex items-center gap-3">
-          <label className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground shrink-0">Color</label>
-          <input data-testid="in-color" type="color" value={color} onChange={(e) => handleColorPicker(e.target.value)}
-            className="h-8 w-8 rounded border border-border cursor-pointer shrink-0" />
-          <input
-            data-testid="in-hex"
-            type="text"
-            value={hexInput}
-            onChange={(e) => handleHexInput(e.target.value)}
-            maxLength={7}
-            placeholder="#334155"
-            className="w-28 rounded-lg border border-border bg-background px-2 py-1.5 font-mono text-sm text-foreground outline-none transition-colors focus:border-primary"
-          />
-        </div>
-
+        {/* When the segment cannot fit the bar there is no honest number set to
+            show, so the readout is replaced by the reason and the downloads
+            stay disabled until it is fixed — rather than printing a segment
+            wider than the bar it would be drawn on. */}
+        {resultInvalid ? (
+          <div data-testid="result-invalid" role="alert"
+            className="rounded-xl border border-destructive/40 bg-destructive/5 px-4 py-3">
+            <p className="text-sm font-semibold text-destructive">Cannot draw this bar.</p>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+              “One segment equals” is {segVal} {unit}, but the whole bar only spans {segBounded} {unit} in real life,
+              so not even one segment fits on it. Set the segment to at most {segBounded} {unit}, or widen the bar /
+              change the scale.
+            </p>
+          </div>
+        ) : (
+        <>
         {/* Live computed output */}
         <ResBox>
           <Res name="seg" label="One segment on paper" value={segPaperMm ? `${fmtTrim(segPaperMm, 3)} mm` : "—"} />
@@ -542,7 +818,7 @@ export default function ScaleBarTool() {
 
         {/* Live SVG preview */}
         {svgStr && (
-          <div className="mt-4">
+          <div className="mt-3">
             <p data-testid="bar-summary" className="mb-2 text-sm text-foreground">
               The width of the scale bar is {totalPaperMm ? `${fmtTrim(totalPaperMm, 2)} mm` : "—"}
               {totalReal !== "—" ? `, representing ${totalReal} in real life` : ""}.
@@ -556,10 +832,13 @@ export default function ScaleBarTool() {
             </p>
           </div>
         )}
+        </>
+        )}
 
-        {/* Download buttons */}
-        <div className="mt-4">
-          <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">Download as</div>
+        {/* Export row: "Download as:" + buttons, and the tool's ONLY Reset.
+            Exports are disabled while no honest bar exists (see svgStr). */}
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+          <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground sm:shrink-0">Download as:</span>
           <div className="flex flex-wrap gap-2">
           <button onClick={handleExportSvg} disabled={!svgStr}
             className="px-3 py-1.5 rounded-md border border-border bg-muted text-xs font-medium hover:bg-muted/80 transition-colors disabled:opacity-50">
@@ -573,13 +852,17 @@ export default function ScaleBarTool() {
             className="px-3 py-1.5 rounded-md border border-border bg-muted text-xs font-medium hover:bg-muted/80 transition-colors disabled:opacity-50">
             ↓ PDF
           </button>
-          <button onClick={handleExportDxf} disabled={!bar}
+          <button onClick={handleExportDxf} disabled={!svgStr}
             className="px-3 py-1.5 rounded-md border border-border bg-primary text-primary-foreground text-xs font-medium hover:bg-primary/90 transition-colors disabled:opacity-50">
             ↓ DXF (CAD)
           </button>
+          <button type="button" data-testid="reset-results" onClick={handleReset}
+            className="px-3 py-1.5 rounded-md border border-border bg-muted text-xs font-medium hover:bg-muted/80 transition-colors sm:ml-auto">
+            ↺ Reset fields
+          </button>
           </div>
         </div>
-      </Panel>
-    </CalcLayout>
+      </div>
+    </div>
   );
 }

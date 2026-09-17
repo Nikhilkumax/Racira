@@ -21,6 +21,7 @@ import { CATEGORY_SUMMARY } from "./summaryData";
 import { toSlug } from "@/lib/utils/slug";
 import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 import { calculatorRegistry } from "@/domains/calculator/registry";
+import { CALCULATOR_SITE } from "@/domains/calculator/site";
 
 // Full browsable scope — every registry calculator except stub-tagged entries
 // (placeholder UI, hidden by design). The category tiles, section headers, and
@@ -52,10 +53,17 @@ const fullSubcategoryCount = (cat: string, sub: string) =>
   ).length;
 
 export const metadata: Metadata = {
-  title: "All Calculators — Racira",
+  title: CALCULATOR_SITE.title,
   description: `${FULL_SCOPE_COUNT.toLocaleString()} free online calculators across finance, business, math, science, construction, education, and more. Fast, accurate, and free — no signup required.`,
   alternates: {
     canonical: "https://racira.com/calculator",
+  },
+  openGraph: {
+    title: CALCULATOR_SITE.title,
+  },
+  twitter: {
+    card: "summary",
+    title: CALCULATOR_SITE.title,
   },
 };
 

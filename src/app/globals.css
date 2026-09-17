@@ -237,9 +237,22 @@
            text-[10px] font-semibold tracking-wider uppercase text-muted-foreground;
   }
 
-  /* SEO content prose — h2/h3/ol/li styling inside SeoContent.tsx */
+  /* SEO content prose — h2/h3/ol/li styling inside SeoContent.tsx.
+     The per-element margins below match the calculator-domain prose rules
+     (`.prose-finance`: h2 mt-8 mb-3, h3 mt-6 mb-2, p mb-4), and the container
+     carries the same `space-y-6` rhythm the reference SEO section uses — that
+     is what gives every block a uniform 24px gap. Without it the gaps fell
+     back to whichever element margin happened to apply (16px between
+     paragraphs, 12px under a heading), which read as uneven spacing.
+     Consumers must keep headings/paragraphs as DIRECT children (no per-section
+     wrapper element) — `space-y-6` only applies between direct children, so a
+     wrapper silently collapses the gaps inside it. See the markup contract
+     documented in SeoContent.tsx.
+     No `first:mt-0` on h2: the reference section gives its opening heading the
+     same mt-8 as every other heading, so zeroing the first one made the
+     spacing depend on which heading happened to render first. */
   .seo-prose h2 {
-    @apply text-2xl font-bold mt-8 mb-3 first:mt-0;
+    @apply text-2xl font-bold mt-8 mb-3;
     color: hsl(var(--foreground));
   }
   .seo-prose h3 {
@@ -255,6 +268,7 @@
      overflow-wrap is inherited, so one rule on the container covers the
      div/p/hn children SeoContent renders. */
   .seo-prose {
+    @apply space-y-6;
     overflow-wrap: break-word;
   }
   .seo-prose ol {

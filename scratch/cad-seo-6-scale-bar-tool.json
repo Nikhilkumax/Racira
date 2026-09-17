@@ -5,47 +5,71 @@
     "name": "Scale Bar Tool",
     "sections": [
       {
-        "heading": "What is Scale Bar Tool",
+        "heading": "Scale, Distance, and Why Drawings Carry Their Own Ruler",
         "content": [
           {
             "type": "paragraph",
-            "text": "Scale Bar Tool draws a CAD-style graphical scale bar: you choose the drawing scale 1:X and the real distance each bar segment represents, and the tool computes the paper length of one segment and of the whole bar, then renders the bar the way a CAD block would insert it — alternating filled and white segments with monospace labels under each division. The bar is drawn at true scale in the tool's coordinate space, so it stays proportionally correct at any scale and any paper size."
+            "text": "A scale bar is the graduated ruler printed directly onto a drawing sheet — the divided line that lets anyone reading a plotted floor plan, site survey, or engineering detail measure real-world distance without needing to know the drawing's original scale, the paper size it was printed on, or whether it was reduced to fit a smaller plotter. It does the same job as a numeric scale note like \"1:100,\" but with one critical difference: it stays correct even when the drawing doesn't. A representative fraction printed in the title block is only accurate at the exact size the sheet was plotted. Scan that page, photocopy it, or shrink it to 75% to fit a smaller format, and the numeric ratio silently becomes wrong while nothing on the page tells you so. A graphical scale bar, because it is drawn as geometry on the same sheet, shrinks and grows in exact proportion with everything else — the line stays accurate no matter what happens to the paper around it."
           },
           {
             "type": "paragraph",
-            "text": "The tool supports the five units that cover architectural and civil drafting: millimetres, centimetres, metres, inches and feet. It also handles fractional segments — you can ask for 2.5 segments and get the last segment drawn partial, exactly as a graphic scale would appear on a real title block."
+            "text": "Scale ratios themselves split into two families depending on which direction the drawing moves relative to the real object. A reduction scale, written 1:X — 1:50, 1:100, 1:200, and so on — represents something larger than the paper it's drawn on, which covers nearly everything in architecture and civil engineering: floor plans, site plans, building elevations, and regional site surveys. An enlargement scale, written X:1 — 2:1, 5:1, 10:1 — does the opposite, blowing a small physical object up larger than life so its detail is visible on paper. This convention shows up constantly in PCB layout, watchmaking, jewelry design, and any micro-fabrication drawing where the real part is too small to annotate at true size."
           }
         ]
       },
       {
-        "heading": "How to Use Scale Bar Tool",
+        "heading": "Three Ways to Describe the Same Ratio",
         "content": [
+          {
+            "type": "paragraph",
+            "text": "Different disciplines express drawing scale differently, even when the underlying math is identical, which is why a scale bar tool needs to accept all three conventions rather than forcing every user into one notation."
+          },
           {
             "type": "list",
             "items": [
-              "<strong>Step 1:</strong> Enter the drawing scale as 1 : X — for a 1:50 drawing enter 50, for 1:100 enter 100. X is the number of real units that one paper unit represents.",
-              "<strong>Step 2:</strong> Choose the unit the real distances are measured in — metres for site plans, millimetres for detail drawings, feet and inches for imperial work.",
-              "<strong>Step 3:</strong> Enter how much real distance one bar segment represents (one metre, 5 feet, and so on), then the number of segments to draw.",
-              "<strong>Step 4:</strong> Read the bar geometry panel for the paper length of one segment, the full bar, and the total real distance the bar covers.",
-              "<strong>Step 5:</strong> Copy the rendered bar into your drawing as a block. Because the bar was drawn at true scale, it remains correct no matter what size the sheet is eventually plotted at."
+              "<strong>One-to-X (metric ratio scale).</strong> The standard notation for site plans, civil drawings, and most of the world outside North America — 1:50, 1:100, 1:200, 1:500. A \"Toggle X:1\" control flips the same ratio into its enlargement form, which matters the moment you're dimensioning a PCB trace or a micro-fabricated part rather than a building.",
+              "<strong>Inches-to-the-foot (US architectural scale).</strong> North American architectural drawings state scale as a fraction of an inch representing one foot — ¼\" = 1'-0\", ⅛\" = 1'-0\", ½\" = 1'-0\" — the exact convention printed on an architect's scale ruler. It's mathematically the same 1:X ratio underneath (¼\" = 1'-0\" is 1:48), just expressed the way drafters actually read it off a physical scale.",
+              "<strong>Scale factor (direct multiplier).</strong> A plain numeric multiplier — 1.2×, 0.5×, 2× — used when a drawing is being enlarged or reduced without reference to a standard sheet scale, common for detail callouts blown up from a parent drawing or model-scale conversions."
             ]
-          },
-          {
-            "type": "paragraph",
-            "text": "The math is one division: paper length = real distance ÷ X. A one-metre segment on a 1:50 drawing is 1000 millimetres divided by 50, which is exactly 20 millimetres on paper. The label under each segment shows the real distance at that division, so the reader measures with the bar rather than with a calculator."
           }
         ]
       },
       {
-        "heading": "Why Use Scale Bar Tool",
+        "heading": "Bar Geometry, Segment Length, and Style",
         "content": [
           {
             "type": "paragraph",
-            "text": "A graphical scale bar makes a drawing self-measuring: anyone reading the sheet can walk a divider or scale along the bar and read real distances directly, without knowing which paper size the drawing was plotted at or whether it was reduced to fit. That is why architectural and civil sheets carry them as standard, and why CAD blocks for scale bars are drawn once at true scale and inserted like any other block."
+            "text": "Once the scale is set, the remaining decisions are about how the bar itself reads on paper. Segment length is the real-world distance each division of the bar represents — 1 m, 5 ft, 500 mm — and it should be chosen so the resulting bar spans a sensible physical width once scaled: 80–120 mm is typical for an A1 or A0 title block, with the tool computing the paper length of each segment automatically from the scale you've entered. Bar height and line weight matter more than they might seem, since a scale bar plotted too thin can disappear at small reduction, and one drawn too heavy competes visually with the drawing's own linework."
           },
           {
             "type": "paragraph",
-            "text": "The tool removes the arithmetic failure modes of hand-built bars — a wrong division when converting feet to millimetres, or a bar drawn at the wrong scale that quietly disagrees with the drawing's 1:X title. Because the segment length is computed from the scale you enter, the bar and the drawing's stated scale can never drift apart."
+            "text": "Three bar styles cover essentially every drafting convention in use:"
+          },
+          {
+            "type": "list",
+            "items": [
+              "<strong>Double row.</strong> Alternating filled and unfilled blocks across the top and bottom half of the bar — the \"zebra\" style most widely recognized in architectural and civil drafting, and the default most reviewers expect to see in a title block.",
+              "<strong>Single row.</strong> A cleaner, unbroken bar with tick divisions, better suited to small-scale inserts or drawings where a full double-row bar would crowd the sheet.",
+              "<strong>Line with ticks.</strong> A ruled line with perpendicular tick marks at each division — the convention more common in engineering drawings and topographic or survey mapping than in architectural work."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Why the Bar Survives What the Paper Doesn't",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "This is the property that makes a graphical scale bar effectively mandatory on any drawing that might get reproduced, and it comes straight from how the bar is constructed: paper length in millimetres equals real distance in millimetres divided by the scale — a single division, computed once and then drawn as geometry. A one-metre segment on a 1:50 drawing works out to 1000 ÷ 50 = 20 mm on paper, and that 20 mm line is what actually gets drawn — not the number \"1:50.\" Print that sheet at a different size, photocopy it, or scan and rescale it digitally, and the 20 mm bar shrinks or grows right along with the rest of the drawing, staying correct at any size. A numeric scale note has no such protection: it's just text, and text doesn't know or care that the page around it changed size. That's the reason drawing standards built around ISO 5455 and construction-document conventions like ASME Y14.1 expect a graphical scale in the title block of anything likely to be plotted, copied, or submitted for permit review — a numeric scale note alone isn't considered reliable once a sheet leaves the original plotter."
+          }
+        ]
+      },
+      {
+        "heading": "Exporting a Scale Bar Into Any CAD or Design Workflow",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "A scale bar only earns its keep once it's actually inserted into the drawing it belongs to, which is why export format matters as much as the geometry itself. SVG output is fully vector and editable in Illustrator, Inkscape, or any application that reads SVG paths directly, making it the right choice when the bar needs to be recolored or resized after export. PNG rasterizes at high resolution for print-ready placement into a report or presentation. PDF embeds the bar as a page-ready image, useful when the destination is Word or InDesign rather than a CAD application. DXF export — built as real SOLID and LINE entities in the widely compatible DXF R12 format — is the one that matters most to working CAD users, since it can be inserted directly into AutoCAD, QCAD, BricsCAD, or LibreCAD as an actual drawing block at the correct scale, not as a flattened image pasted onto the sheet."
           }
         ]
       },
@@ -60,41 +84,31 @@
       },
       {
         "heading": "Frequently Asked Questions",
-        "subHeading": "Why is a scale bar drawn once at true scale rather than scaled per sheet?",
+        "subHeading": "Why does the DXF use SOLID entities instead of filled rectangles?",
         "content": [
           {
             "type": "paragraph",
-            "text": "Because a block inserted at true scale stays correct no matter what happens to the sheet later. If the drawing is plotted at a non-standard size, reduced to fit, or copied between projects, the bar scales together with the geometry it annotates — the relationship between the bar and the drawing is preserved automatically. A bar built at the wrong scale, by contrast, silently disagrees with the drawing's stated scale and can mislead anyone measuring from the sheet."
+            "text": "DXF R12 SOLID entities are the native filled quadrilateral in the DXF standard — they are rendered as solid fill by every CAD application that reads R12, including AutoCAD 2000 through current, QCAD, LibreCAD, BricsCAD, and Vectorworks. Using SOLID entities means the fill is a real CAD entity, not a raster image, and can be recoloured, frozen, or plotted to a specific pen weight by layer. Drawing filled rectangles as four LINE entities (as some tools do) produces outlines only; the interior is unfilled and the bar looks wrong when plotted."
           }
         ]
       },
       {
         "heading": "",
-        "subHeading": "How is the paper length of a segment computed?",
+        "subHeading": "What does the inch-to-foot mode compute?",
         "content": [
           {
             "type": "paragraph",
-            "text": "One paper segment equals the real distance divided by the scale denominator X, after converting the real distance to millimetres. A one-metre segment at 1:50 is 1000 millimetres divided by 50, which works out to exactly 20 millimetres on paper; at 1:100 the same segment is 10 millimetres. The full bar is that segment length times the number of segments, so five one-metre segments at 1:50 span 100 millimetres and represent 5 metres of real distance."
+            "text": "It computes scale = total real inches ÷ paper inches. For ¼″ = 1′-0″, the real side is 1 foot = 12 inches and the paper side is 0.25 inches, giving scale = 12 ÷ 0.25 = 48. All subsequent bar geometry uses that scale: a 1-foot segment on paper is 12 × 25.4 ÷ 48 = 6.35 mm. The optional extra real inches field handles non-zero-inch real sides such as ½″ = 1′-6″, where the real side is 18 inches and the scale is 18 ÷ 0.5 = 36."
           }
         ]
       },
       {
         "heading": "",
-        "subHeading": "Why does a 5-foot segment at 1:50 measure 30.48 millimetres?",
+        "subHeading": "Why are the two row styles (double and single) recommended over the line style for most drawings?",
         "content": [
           {
             "type": "paragraph",
-            "text": "Because the tool converts the real distance to millimetres before dividing: 5 feet is 1524 millimetres (5 × 304.8), and 1524 divided by 50 is 30.48 millimetres on paper. The mixed-unit case is exactly where hand-built bars go wrong — treating feet as metres, or forgetting the 304.8 conversion — so the tool keeps the unit conversion inside the same calculation as the scale division."
-          }
-        ]
-      },
-      {
-        "heading": "",
-        "subHeading": "Can the bar mix metric and imperial units?",
-        "content": [
-          {
-            "type": "paragraph",
-            "text": "The bar itself is drawn in one unit at a time, but the scale relationship works across systems: the paper length is always computed in millimetres from the real distance converted via the chosen unit, so a 1:50 metric drawing and a 1:50 imperial drawing produce proportionally identical bars. If a project mixes units, draw the bar in the unit the drawing's dimensions are stated in, and let the label values carry the real distances."
+            "text": "Filled bar styles survive printing noise better than a ruled line. On a heavily reproduced or faxed drawing, a line-style bar can look like a dimension line and be misread. The alternating black-white blocks of a double-row bar are unmistakeable as a scale bar from across a room. The line style is appropriate for topographic and engineering drawings that use the scale bar inside a dense annotation block where a thinner element is preferred, or where the convention specifies it explicitly."
           }
         ]
       }

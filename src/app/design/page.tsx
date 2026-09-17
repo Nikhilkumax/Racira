@@ -4,14 +4,20 @@ import { categories } from "@/domains/design/registry";
 import { LegalLinks } from "@/components/LegalLinks";
 import { Search } from "lucide-react";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { DESIGN_SITE } from "@/domains/design/site";
+import { copyrightLine } from "@/lib/site-identity";
 
 export const metadata = {
-  title: "Racira Design — Free Design Tools in Your Browser",
+  title: DESIGN_SITE.title,
   description: "Layouts, icons, vectors, logos, UI kits, mockups and more. Fast, simple, no signup.",
   openGraph: {
-    title: "Racira Design — Free Design Tools",
+    title: DESIGN_SITE.title,
     description: "Free design tools in your browser. No signup required."
-  }
+  },
+  twitter: {
+    card: "summary",
+    title: DESIGN_SITE.title,
+  },
 };
 
 export default function Index() {
@@ -119,7 +125,7 @@ function slugify(s: string) {
 function Footer() {
   return (
     <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-      <p>Racira Design — free, private, in-browser design tools.</p>
+      <p>{copyrightLine(DESIGN_SITE)}</p>
       <LegalLinks className="mt-4" />
     </footer>
   );

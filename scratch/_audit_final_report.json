@@ -1,0 +1,50 @@
+{
+  "batch": "1",
+  "scope": ["FINANCE", "EDUCATION"],
+  "date": "2026-09-17",
+  "status": "COMPLETE",
+  "scopeNumbers": {
+    "headline": "2,143 (1,606 Finance + 536 Education per prompt; registry actuals 1,607 FINANCE + 536 EDUCATION)",
+    "registryActuals": { "FINANCE": 1607, "EDUCATION": 536 },
+    "live": { "FINANCE": 425, "EDUCATION": 36, "total": 461 },
+    "soon": { "FINANCE": 1182, "EDUCATION": 500, "total": 1682 }
+  },
+  "phases": {
+    "phase1_tsc": "PASS — project-wide 'NODE_OPTIONS=--max-old-space-size=6144 npx tsc --noEmit' exit 0, run before fixes, after component fixes, and after registry flag updates. Full output captured in scratch/_tsc_out.txt (empty = zero errors).",
+    "phase2_registered": "PASS — all 461 live slugs present in src/app/calculator/lazyComponents.tsx with exact slug match and existing component file. 0 fabricated flags found: no live entry is missing from the lazy map, no live entry points at a nonexistent file. All 1,682 soon entries correctly absent from the lazy map.",
+    "phase3_visual": "PASS — Playwright Chromium (1440x900) against dev server :3002 for all 461 live pages. Per page: HTTP 200, not the ComingSoon template, .card-calculator present, Calculate click works, zero horizontal overflow, zero JS console errors. Screenshots: .qa-screens/batch1/<slug>.png. 13 template regressions found (non-Mortgage layout: centered hero or single-column, no card-calculator) and FIXED; all 13 re-verified PASS after fix.",
+    "phase4_isBuilt": "PASS — every live entry (425 FINANCE + 36 EDUCATION) now carries isBuilt: true in the registry. All 1,682 soon entries left flag-free. Verified by AST parse: live=425/36 with isBuilt:true, soon=1182/500 with none. Git diff contains ONLY isBuilt:true additions to live entries.",
+    "phase5_approved": "PASS (no change needed) — _approved.json (v1) already contains all 461 component names in both 'approved' and 'slugs' arrays (1,810 names covering every live calculator domain-wide)."
+  },
+  "fabricationFinding": "NO fabricated flags found in Batch 1 scope. The historical fabrication pattern (isBuilt:true without lazyComponents registration) is absent: every live flag is backed by a registered, existing, rendering component. The 'soon' population (1,682) is correctly non-live, non-registered, and routes to the ComingSoon template with noindex.",
+  "decisions": {
+    "resultsGating": "User decision: the deployed Mortgage Calculator's live behavior (auto-compute on load) is the gold standard, overriding the written 'empty until Calculate' spec. 83 of 461 components auto-calc on mount — accepted. The 13 fixed components retain their existing empty-until-Calculate gating.",
+    "cadence": "User decision: gates of 20 files, no stop-and-wait, run to completion."
+  },
+  "fixesApplied": {
+    "templateRegressions": [
+      "PpfCalculator", "InventoryTurnoverCalculator", "RentVsBuyCalculator",
+      "SukanyaSamriddhiCalculator", "TreasuryBillCalculator", "ClosingCostCalculator",
+      "PriceToBookRatioCalculator", "SupplyAndDemandEquilibriumPriceCalculator",
+      "UnrealizedGainlossCalculator", "AdjustableRateMortgageArmPaymentCalculator",
+      "AmortizationPeriodVsLoanTermComparison", "AssumableMortgageBenefitCalculator",
+      "AnnualPercentageYieldLoanCalculator"
+    ],
+    "fixDetail": "Converted to the Mortgage Calculator template: racira-page-container, two-column grid lg:grid-cols-[460px_1fr] max-w-[1180px], card-calculator input panel left, results right; removed duplicate in-component breadcrumbs/H1s where the ToolView already renders them.",
+    "registryFlags": "400 FINANCE + 33 EDUCATION live entries gained isBuilt: true (25 FINANCE + 3 EDUCATION already had it)."
+  },
+  "verificationArtifacts": {
+    "registryASTParse": "node scratch/_audit_parse.cjs",
+    "reconciliation": "node scratch/_audit_reconcile.cjs (scratch/_audit_final_report.json)",
+    "visualGateRunner": "node scratch/_audit_gate_run.cjs <start> <count>",
+    "staticSweep": "node scratch/_audit_full_sweep.cjs",
+    "gateResultFiles": "scratch/_gate_<start>_<end>.json",
+    "screenshots": ".qa-screens/batch1/",
+    "liveQueue": "scratch/_audit_live_queue.json (461 ordered live slugs)"
+  },
+  "notes": {
+    "calculatorDatabaseFinalJson": "Calculator_Database_Final.json is a name-list taxonomy document, not the runtime database; the runtime source of truth is src/domains/calculator/registry/*.ts + lazyComponents.tsx + components/_approved.json, all of which were audited.",
+    "soonRouting": "soon entries render ComingSoonView via [slug]/page.tsx with robots noindex — no broken live URLs exist in this scope.",
+    "sessionInterrupted": "One mid-run session interruption occurred during the isBuilt bulk-set; the corrupted intermediate state was reverted via git and redone safely, with the final diff verified clean."
+  }
+}

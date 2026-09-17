@@ -66,3 +66,7 @@ tests/output/
 /logic_audit_*
 
 .freebuff/
+
+# Next.js build test/preview output — large generated artifacts, not source
+/.next-build-test/
+/.next-preview/

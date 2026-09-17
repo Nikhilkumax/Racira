@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { categories, TOOLS_BY_SLUG } from "@/domains/audio/registry";
+import { AUDIO_SITE } from "@/domains/audio/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = categories.find(c => toSlug(c.name) === slug);
   if (category) {
     return {
-      title: `${category.name} — Racira Audio`,
+      title: `${category.name} — ${AUDIO_SITE.copyrightName}`,
       description: `Explore free tools for ${category.name} directly in your browser.`,
       alternates: {
         canonical: `/audio/${slug}`,
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = TOOLS_BY_SLUG.get(slug);
   if (tool) {
     return {
-      title: `${tool.name} — Racira Audio`,
+      title: `${tool.name} — ${AUDIO_SITE.copyrightName}`,
       description: tool.description,
       alternates: {
         canonical: `/audio/${tool.slug}`,

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { CAD_SITE } from "@/domains/cad/registry";
 import {
   GDNT_CONCEPTS,
   GDNT_NOTATION,
@@ -43,16 +44,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { symbol } = await params;
   const found = gdtEntry(symbol);
-  if (!found) return { title: "Not Found — CAD is fixed" };
+  if (!found) return { title: "Not Found — Racira" };
   const { guide } = found;
   return {
-    title: guide.seoTitle ?? `${guide.title} — CAD is fixed`,
+    title: guide.seoTitle ?? `${guide.title} — ${CAD_SITE.copyrightName}`,
     description: guide.summary,
     alternates: {
       canonical: gdtSymbolPath(symbol),
     },
     openGraph: {
-      title: guide.seoTitle ?? guide.title,
+      // Match <title> exactly (seoTitle or CAD_SITE fallback) so og:title
+      // never carries an un-branded bare guide title.
+      title: guide.seoTitle ?? `${guide.title} — ${CAD_SITE.copyrightName}`,
       description: guide.summary,
       type: "article",
     },
@@ -110,7 +113,8 @@ export default async function GdtSymbolPage({ params }: PageProps) {
 
               {/* Sections render as direct children of .seo-prose via Fragments
                   (no wrapper DOM node), matching how SeoContent consumes the
-                  class — its h2 `mt-8 first:mt-0` rhythm only works that way. */}
+                  class — the container's `space-y-6` rhythm only reaches direct
+                  children, so a per-section wrapper would collapse the gaps. */}
               {guide.sections.map((section) => (
                 <Fragment key={section.heading}>
                   <h2>{section.heading}</h2>

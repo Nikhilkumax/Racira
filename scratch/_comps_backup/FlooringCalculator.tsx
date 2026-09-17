@@ -1,0 +1,332 @@
+"use client";
+import { useState, useEffect } from "react";
+import Breadcrumb from "@/components/Breadcrumb";
+import AdPlaceholder from "@/components/AdPlaceholder";
+import FAQSection from "@/components/FAQSection";
+import PopularCalculators from "@/components/PopularCalculators";
+import { RotateCcw } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
+
+interface FlooringResult {
+  areaSqFt: number;
+  totalBoxes: number;
+  totalMaterialCost: number;
+  areaWithWaste: number;
+  purchasedArea: number;
+  wastePct: number;
+  chartData: { name: string; value: number }[];
+  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
+  summaryStats: { label: string; value: string }[];
+  isError: boolean;
+  errorMsg?: string;
+}
+
+const calculateFlooring = (
+  unit: string,
+  roomLStr: string,
+  roomWStr: string,
+  wasteStr: string,
+  sqFtPerBoxStr: string,
+  pricePerBoxStr: string
+): FlooringResult | null => {
+  const roomL = parseFloat(roomLStr);
+  const roomW = parseFloat(roomWStr);
+  const waste = parseFloat(wasteStr) / 100;
+  const sqFtPerBox = parseFloat(sqFtPerBoxStr);
+  const pricePerBox = parseFloat(pricePerBoxStr);
+
+  if (isNaN(roomL) || isNaN(roomW) || isNaN(waste) || isNaN(sqFtPerBox) || isNaN(pricePerBox) || roomL <= 0 || roomW <= 0 || sqFtPerBox <= 0 || pricePerBox < 0) return null;
+
+  try {
+    let area = 0;
+
+    if (unit === "imperial") {
+      area = roomL * roomW;
+    } else {
+      // Room is in meters, convert to sq m
+      const sqMeters = roomL * roomW;
+      // Convert to sq ft because flooring boxes in this market are almost always sold by sq ft.
+      // 1 sq meter = 10.7639 sq ft
+      area = sqMeters * 10.7639;
+    }
+
+    const areaWithWaste = area * (1 + waste);
+
+    const boxes = Math.ceil(areaWithWaste / sqFtPerBox);
+    const cost = boxes * pricePerBox;
+    const purchasedArea = boxes * sqFtPerBox;
+    const wastePct = parseFloat(wasteStr);
+
+    const chartData = [
+      { name: "Room Area", value: parseFloat(area.toFixed(1)) },
+      { name: "With Waste", value: parseFloat(areaWithWaste.toFixed(1)) },
+      { name: "Area Purchased", value: purchasedArea },
+    ];
+
+    const breakdown = [
+      { label: "Room Area", value: `${area.toFixed(2)} sq ft` },
+      { label: "Waste Margin", value: `${wastePct}%` },
+      { label: "Area With Waste", value: `${areaWithWaste.toFixed(2)} sq ft` },
+      { label: "Coverage Per Box", value: `${sqFtPerBox} sq ft` },
+      { label: "Boxes to Purchase", value: `${boxes}`, highlight: true },
+      { label: "Total Area Purchased", value: `${purchasedArea} sq ft` },
+      { label: "Price Per Box", value: `$${pricePerBox.toFixed(2)}` },
+      { label: "Material Cost", value: `$${cost.toFixed(2)}`, isTotal: true },
+    ];
+
+    const summaryStats = [
+      { label: "Room Area", value: `${area.toFixed(2)} sq ft` },
+      { label: "Waste Margin", value: `${wastePct}%` },
+      { label: "Area With Waste", value: `${areaWithWaste.toFixed(2)} sq ft` },
+      { label: "Boxes to Purchase", value: `${boxes}` },
+      { label: "Total Area Purchased", value: `${purchasedArea} sq ft` },
+      { label: "Price Per Box", value: `$${pricePerBox.toFixed(2)}` },
+      { label: "Material Cost", value: `$${cost.toFixed(2)}` },
+    ];
+
+    return {
+      areaSqFt: parseFloat(area.toFixed(2)),
+      totalBoxes: boxes,
+      totalMaterialCost: parseFloat(cost.toFixed(2)),
+      areaWithWaste,
+      purchasedArea,
+      wastePct,
+      chartData,
+      breakdown,
+      summaryStats,
+      isError: false
+    };
+
+  } catch (err) {
+    return { areaSqFt: 0, totalBoxes: 0, totalMaterialCost: 0, areaWithWaste: 0, purchasedArea: 0, wastePct: 0, chartData: [], breakdown: [], summaryStats: [], isError: true, errorMsg: "Calculation error." };
+  }
+};
+
+const FlooringCalculator = () => {
+  const [unit, setUnit] = useState("imperial");
+  const [roomL, setRoomL] = useState("15"); // ft or m
+  const [roomW, setRoomW] = useState("12"); // ft or m
+  const [waste, setWaste] = useState("10"); // %
+  const [sqFtPerBox, setSqFtPerBox] = useState("24"); // sq ft
+  const [price, setPrice] = useState("45"); // per box
+
+  const [result, setResult] = useState<FlooringResult | null>(null);
+
+  const calculate = () => {
+    setResult(calculateFlooring(unit, roomL, roomW, waste, sqFtPerBox, price));
+  };
+
+  useEffect(() => { calculate(); }, []);
+
+  const handleUnitChange = (newUnit: "imperial" | "metric") => {
+    setUnit(newUnit);
+    if (newUnit === "imperial") {
+      setRoomL("15"); setRoomW("12");
+    } else {
+      setRoomL("4.5"); setRoomW("3.5");
+    }
+  };
+
+  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
+  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+  };
+
+  const faqs = [
+    { question: "How much waste should I plan for?", answer: "For a perfectly square or rectangular room where you are laying the flooring parallel to the walls, a 10% waste factor is standard to account for the cut pieces at the ends of the rows. If you are laying the flooring diagonally, or if the room is complex with many closets, angles, or kitchen islands, increase the waste factor to 15%." },
+    { question: "Why do I buy by the box instead of square feet?", answer: "Laminate, luxury vinyl plank (LVP), and engineered hardwood are packed tightly in dense cardboard cartons at the factory to protect the interlocking edges during shipping. Stores do not break open boxes to sell individual planks. If you calculate that you need 240 sq ft, and the boxes hold 23.5 sq ft, you cannot buy exactly 240. You must round up and purchase exactly 11 full boxes (258.5 sq ft)." },
+    { question: "Do I need to calculate underlayment separately?", answer: "Many modern Luxury Vinyl Plank (LVP) products come with a thin foam or cork underlayment pad pre-attached to the back of every plank. If your flooring has an attached pad, you only need to calculate the planks themselves. If you are buying traditional laminate or hardwood, you must buy rolls of foam underlayment equal to the square footage of the room." },
+    { question: "What is the 'Stagger' rule?", answer: "When laying plank flooring, you never want the end joints of adjacent rows to align (forming an 'H' pattern). This compromises the structural integrity of the floor and looks unnatural. You must stagger the joints by at least 6 to 8 inches. The cut-off piece from the end of the first row is usually carried over to start the second row, which helps minimize waste while creating a random stagger." },
+  ];
+
+  return (
+    <>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Everyday Life", href: "/calculator#everyday-life" }, { label: "Flooring Calculator" }]} />
+      <div className="racira-page-container py-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Flooring Calculator</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          
+          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
+            
+            <div className="flex flex-col">
+              <label className="text-base font-medium text-foreground mb-1.5">Room Dimensions</label>
+              <div className="flex rounded-md border border-input overflow-hidden h-10 w-full mb-3">
+                <button type="button" onClick={() => handleUnitChange("imperial")} className={`flex-1 text-sm font-bold transition-colors ${unit === "imperial" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Imperial (ft)</button>
+                <button type="button" onClick={() => handleUnitChange("metric")} className={`flex-1 text-sm font-bold transition-colors border-l border-input ${unit === "metric" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>Metric (m)</button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <label className="text-xs font-bold text-muted-foreground uppercase mb-1 flex justify-between"><span>Length</span><span className="self-end">{unit === "imperial" ? "feet" : "meters"}</span></label>
+                  <div className={wrap}><input type="number" value={roomL} onChange={e => setRoomL(e.target.value)} className={ci} min="1" step="any" /></div>
+                </div>
+                <div className="flex flex-col">
+                  <label className="text-xs font-bold text-muted-foreground uppercase mb-1 flex justify-between"><span>Width</span><span className="self-end">{unit === "imperial" ? "feet" : "meters"}</span></label>
+                  <div className={wrap}><input type="number" value={roomW} onChange={e => setRoomW(e.target.value)} className={ci} min="1" step="any" /></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-px w-full bg-border/50"></div>
+
+            <div className="flex flex-col">
+              <label className="text-sm font-medium text-foreground mb-1.5 flex justify-between">
+                <span>Coverage Per Box</span>
+                <span className="text-xs text-muted-foreground self-end">Square Feet</span>
+              </label>
+              <div className={wrap}><input type="number" value={sqFtPerBox} onChange={e => setSqFtPerBox(e.target.value)} className={ci} min="1" step="any" /></div>
+              <p className="text-xs text-muted-foreground mt-1.5">Check the product label online or in-store. (Usually 18 to 24 sq ft).</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-foreground mb-1.5 flex justify-between">
+                  <span>Price Per Box</span>
+                  <span className="text-xs text-muted-foreground self-end">$</span>
+                </label>
+                <div className={wrap}><input type="number" value={price} onChange={e => setPrice(e.target.value)} className={ci} min="0" step="any" /></div>
+              </div>
+              <div className="flex flex-col">
+                <label className="text-sm font-medium text-foreground mb-1.5 flex justify-between">
+                  <span>Waste Margin</span>
+                  <span className="text-xs text-muted-foreground self-end">%</span>
+                </label>
+                <div className={wrap}><input type="number" value={waste} onChange={e => setWaste(e.target.value)} className={ci} min="0" step="any" /></div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-2">
+              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+              <button type="button" onClick={() => { setUnit("imperial"); setRoomL("15"); setRoomW("12"); setWaste("10"); setSqFtPerBox("24"); setPrice("45"); setResult(calculateFlooring("imperial", "15", "12", "10", "24", "45")); }} aria-label="Reset" className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center shrink-0">
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {result && result.isError ? (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
+                <div className="flex-1">
+                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
+                  <div className="text-base font-medium text-foreground">Please check your inputs and try again.</div>
+                </div>
+              </div>
+            ) : result && (<>
+              
+              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="text-sm font-bold text-primary mb-1 uppercase tracking-wider">Material Cost Estimate</div>
+                  <div className="text-5xl md:text-6xl font-extrabold text-foreground tracking-tight font-mono leading-tight">
+                    {formatCurrency(result.totalMaterialCost)}
+                  </div>
+                </div>
+                <div className="bg-background border border-border/50 rounded-lg p-3 text-center md:w-40 shrink-0">
+                  <div className="text-xs font-bold text-muted-foreground uppercase mb-1">Room Area</div>
+                  <div className="text-2xl font-bold text-foreground font-mono">{result.areaSqFt} <span className="text-sm font-normal text-muted-foreground font-sans">sq ft</span></div>
+                </div>
+              </div>
+
+              {/* 2. 3-STAT BAR */}
+              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
+                {[["Room Area", `${result.areaSqFt} sq ft`], ["Boxes to Purchase", `${result.totalBoxes}`], ["Material Cost", `${formatCurrency(result.totalMaterialCost)}`]].map(([l, v], i) => (
+                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
+                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
+                    <div className="text-base font-bold text-foreground">{v}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* 3. BREAKDOWN TABLE */}
+              <div className="rounded-lg border border-border bg-card overflow-hidden">
+                <div className="px-4 py-3 bg-muted/30 border-b border-border">
+                  <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">Order Breakdown</h3>
+                </div>
+                <table className="w-full text-base">
+                  <tbody>
+                    {result.breakdown.map((r, i) => (
+                      <tr key={i} className={`border-b border-border/50 last:border-0 ${r.isTotal ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
+                        <td className={`px-3 py-2.5 ${r.highlight ? "font-semibold text-amber-700" : "text-muted-foreground"}`}>{r.label}</td>
+                        <td className={`px-3 py-2.5 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 4. CHART */}
+              <div className="rounded-lg border border-border bg-card p-5">
+                <h3 className="text-base font-bold mb-4">Area Comparison (sq ft)</h3>
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                    <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
+                    <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={45} />
+                    <Tooltip formatter={(v: number) => [`${v.toLocaleString()} sq ft`, "Area"]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
+                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                      {result.chartData.map((d, idx) => (
+                        <Cell key={idx} fill={idx === 2 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground) / 0.35)"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+                <p className="text-xs text-muted-foreground mt-2 text-center">Purchased area exceeds room area because boxes are sold whole and a waste margin is applied.</p>
+              </div>
+
+              {/* 5. SUMMARY STATISTICS */}
+              <div className="bg-muted/30 rounded-lg p-5">
+                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
+                  {result.summaryStats.map((s, i) => (
+                    <div key={i} className="flex justify-between">
+                      <span className="text-muted-foreground">{s.label}:</span>
+                      <span className="font-semibold text-foreground">{s.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="card-calculator !p-5 border border-border bg-card shadow-sm">
+                <h3 className="text-base font-bold text-foreground mb-4">Boxes Required</h3>
+                <div className="flex items-center gap-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                  <div className="text-5xl font-extrabold text-primary font-mono">{result.totalBoxes}</div>
+                  <div>
+                    <div className="font-bold text-foreground mb-1 uppercase tracking-wider">Full Boxes to Purchase</div>
+                    <div className="text-sm text-muted-foreground leading-relaxed">
+                      Includes a {waste}% waste margin for cutting. Since boxes cannot be split, this number is rounded up to the nearest whole box.
+                    </div>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground mt-4 text-center">
+                  Always keep at least one half-box of leftover planks stored in a closet for future repairs if a plank becomes damaged or deeply scratched.
+                </p>
+              </div>
+
+            </>)}
+          </div>
+        </div>
+        
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" />
+          <section className="prose-finance text-[15.75px]">
+            <h2 className="text-2xl font-bold mb-3">The Secret to Estimating Hard Floors</h2>
+            <p>Whether you are laying traditional hardwood, laminate, or modern waterproof Luxury Vinyl Plank (LVP), accurately estimating flooring is not just about finding the area of a rectangle. You must account for how the material is physically cut, laid, and packaged by the manufacturer.</p>
+
+            <h2 className="text-2xl font-bold mb-3">Why is the Waste Margin Mandatory?</h2>
+            <p>Flooring planks are manufactured in long strips (usually 3 to 4 feet long). When you start laying a row against a wall and reach the opposite wall, the last plank in the row will almost certainly be too long to fit. You have to cut it. While you can sometimes use the cut-off scrap piece to start the very next row, many cuts—especially complex angled cuts around doorways, heating vents, or kitchen islands—result in useless scrap.</p>
+            <p>Furthermore, laminate and LVP rely on delicate "click-lock" tongues and grooves machined into the edges. These interlocking edges are easily broken if dropped or forced too hard during installation, rendering the entire plank useless. <strong>Always factor in a 10% waste margin for simple square rooms, and 15% for complex layouts.</strong></p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding "Per Box" Pricing</h2>
+            <p>The flooring industry advertises price per square foot (e.g., "$2.99 / sq ft") because it sounds cheap to the consumer. However, you cannot buy 1 square foot. You must buy the entire box.</p>
+            <p>Because planks vary in width and length between brands, the coverage area inside a box also varies wildly. A dense hardwood might pack 18 sq ft per box, while a thin LVP might pack 24 sq ft per box. You must physically read the label on the product you want to buy to find the "Coverage per Carton."</p>
+            <p>If your room (including the 10% waste margin) requires 300 square feet, and the boxes hold 24 square feet, you need 12.5 boxes. You will be forced to buy exactly 13 boxes, meaning the final cost will be slightly higher than simply multiplying the raw area by the per-square-foot price.</p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/flooring-calculator" />
+          <PopularCalculators exclude="/calculator/flooring-calculator" />
+        </div>
+      </div>
+    </>
+  );
+};
+export default FlooringCalculator;

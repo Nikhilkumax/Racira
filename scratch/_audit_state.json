@@ -1,0 +1,30 @@
+{
+  "batch": "1",
+  "scope": ["FINANCE", "EDUCATION"],
+  "scopeNote": "FINANCE registry: 1607 entries (425 live / 1182 soon). EDUCATION registry: 536 entries (36 live / 500 soon). live = status:\"live\" in registry. Cross-checks: every live entry IS registered in lazyComponents.tsx with an existing component file, and every component name IS in _approved.json. Fabrication candidates by structural checks: 0. isBuilt:true flags found: 28 across both categories, spot-checked OK. 'soon' entries: none registered in lazyComponents (correct coming-soon state; ~1682 verified as correctly-flagged, deeper spot checks scheduled across later gates).",
+  "decisions": {
+    "resultsGating": "Follow live Mortgage Calculator behavior: auto-compute on load is ACCEPTABLE. Phase 3 requires: page renders (not ComingSoon), two-column desktop layout, Calculate/re-calc works, no JS errors, no CSS regressions.",
+    "cadence": "Gates of 40 files (~12 gates for the 461-file live queue)."
+  },
+  "queueFile": "scratch/_audit_live_queue.json",
+  "queueSize": 461,
+  "gateSize": 40,
+  "completed": [
+    "home-loan-calculator",
+    "auto-loan-calculator",
+    "bike-loan-calculator",
+    "boat-loan-calculator"
+  ],
+  "reports": [
+    {
+      "gate": 1,
+      "files": [
+        { "slug": "home-loan-calculator", "comp": "HomeLoanCalculator", "phase1_tsc": "PASS (project-wide npx tsc --noEmit exit 0)", "phase2_registered": "PASS (lazyComponents.tsx + file exists)", "phase3_visual": "PASS (renders live template, two-col, calc works, 0 JS errors) — pre-filled results confirmed as ACCEPTED behavior", "phase4_isBuilt": "PASS (registry live + isBuilt:true where flagged; structurally verified)", "phase5_approved": "PASS (already in _approved.json)", "fabricationFlag": false, "fixed": "nothing-to-fix" },
+        { "slug": "auto-loan-calculator", "comp": "AutoLoanCalculator", "phase1_tsc": "PASS", "phase2_registered": "PASS", "phase3_visual": "PASS", "phase4_isBuilt": "PASS", "phase5_approved": "PASS", "fabricationFlag": false, "fixed": "nothing-to-fix" },
+        { "slug": "bike-loan-calculator", "comp": "BikeLoanCalculator", "phase1_tsc": "PASS", "phase2_registered": "PASS", "phase3_visual": "PASS", "phase4_isBuilt": "PASS", "phase5_approved": "PASS", "fabricationFlag": false, "fixed": "nothing-to-fix" },
+        { "slug": "boat-loan-calculator", "comp": "BoatLoanCalculator", "phase1_tsc": "PASS", "phase2_registered": "PASS", "phase3_visual": "PASS (reset() pre-fill accepted per decision)", "phase4_isBuilt": "PASS", "phase5_approved": "PASS", "fabricationFlag": false, "fixed": "nothing-to-fix" }
+      ]
+    }
+  ],
+  "pending": []
+}

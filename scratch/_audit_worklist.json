@@ -1,0 +1,6735 @@
+{
+ "fab": [],
+ "liveUnapproved": [],
+ "soonWithFile": [],
+ "soonNoFile": [
+  {
+   "slug": "cash-flow-after-mortgage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mortgage-vs-rent-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mortgage-vs-rent-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "credit-card-true-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "credit-card-minimum-payment-trap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-on-credit-card-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medical-loan-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mortgage-tax-deduction-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medical-loan-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-tax-gain-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "foreign-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earned-income-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "electric-vehicle-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "r-and-d-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "education-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "child-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "adoption-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "energy-efficiency-tax-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "child-tax-credit-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earned-income-tax-credit-eitc-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "work-opportunity-tax-credit-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rd-tax-credit-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-tax-gain/loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-tax-fifo-gainloss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-tax-lifo-gainloss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "heloc-home-equity-line-of-credit-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "revolving-credit-utilization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-savers-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-insurance-cost-of-ownership-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "creditor-insurance-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cyber-liability-insurance-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-insurance-rebuild-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "errors-and-omissions-eo-insurance-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "life-insurance-replacement-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "out-of-pocket-cost-after-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "title-insurance-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-comparison-bank-vs-credit-union",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "credit-utilization-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-margin-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-liquidation-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-network-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-dollar-cost-averaging-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dollar-cost-average-crypto-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-delayed-credit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-debitcredit-for-options-spread-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medicare-supplement-plan-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-rate-buy-down-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-interest-expense-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-interest-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-healthcare-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-care-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-percentage-rate-apr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "grace-period-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-capitalization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-rate-vs-apr-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-interest-paid-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-interest-accrual-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medicare-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alimony-tax-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "state-income-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "effective-tax-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "depreciation-recapture-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "contractor-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "corporate-income-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fica-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-income-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-tax-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "head-of-household-tax-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "estate-tax-exemption-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-investment-income-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-loss-harvesting-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-tax-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pre-tax-vs-roth-contribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rsu-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-option-exercise-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dual-income-household-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alternative-minimum-tax-preference-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-on-social-security-benefits-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "kiddie-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-operating-loss-carryforward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-tax-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "charitable-donation-tax-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "corporate-alternative-minimum-tax-camt-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "effective-marginal-tax-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "estate-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "franchise-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gift-tax-lifetime-exemption-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-tax-bracket-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-tax-marginal-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-vs-effective-tax-rate-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medicare-surtax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "penalty-for-underpayment-of-taxes-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "property-tax-effective-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "property-tax-estimate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "roth-conversion-tax-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-benefit-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-bracket-crossover-point-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-loss-harvesting-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-free-vs-taxable-investment-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "use-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "value-added-tax-vat-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alimony-tax-impact-calculator-pre-2019-rules",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-gift-tax-return-threshold-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "corporate-tax-liability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "estimated-quarterly-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inheritance-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "installment-sale-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "like-kind-exchange-1031-tax-deferral-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-investment-income-tax-niit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pass-through-entity-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "qualified-opportunity-zone-tax-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rsu-tax-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-contribution-tax-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-deferred-vs-taxable-account-breakeven-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "transfer-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-tax-401k-vs-roth-401k-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-tax-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alternative-minimum-tax-amt-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "at-risk-rule-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capital-gains-tax-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employee-stock-option-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "excise-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expatriate-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "flexible-spending-account-fsa-tax-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gift-aid-tax-relief-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gift-tax-annual-exclusion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "health-savings-account-hsa-tax-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-income-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-drag-on-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-on-dividends-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-adjusted-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-deferred-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-tax-burden-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "windfall-tax-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dependent-care-fsa-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-operating-loss-nol-carryforward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-care-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-interest-tax-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "simple-interest-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-rate-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-interest-vs-monthly-payout-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "automatic-savings-contribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bank-account-interest-earnings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "compound-interest-frequency-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-interest-on-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "negative-interest-rate-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-compound-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-earned-on-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-rate-to-monthly-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "money-market-account-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tiered-interest-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-interest-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "continuous-compounding-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-balance-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-compounding-frequency-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-interest-margin-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "passbook-savings-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "percentage-rent-threshold-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "property-transfer-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-property-tax-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "property-tax-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "1031-exchange-boot-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "primary-vs-investment-property-tax-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "promoted-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-syndication-carry-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "disposable-income-percentage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-after-taxes-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lottery-winnings-after-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "salary-negotiation-increase-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "side-hustle-income-after-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "career-change-financial-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "defi-annual-percentage-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stablecoin-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-tax-rate-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-withdrawal-tax-bracket-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "roth-conversion-tax-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medicare-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monte-carlo-option-price-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stop-loss-percentage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-capital-gains-tax-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monte-carlo-retirement-simulation-simple",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-tax-investment-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "carried-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "payroll-tax-incidence-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-revenue-as-of-gdp-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tax-incidence-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "interest-rate-parity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nominal-vs-real-interest-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "deferred-tax-liability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "times-interest-earned-tie-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "minority-interest-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pre-judgment-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "post-judgment-interest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "self-employed-health-insurance-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "insurance-combined-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "insurance-replacement-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expense-ratio-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "flood-insurance-estimate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gap-insurance-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "insurance-dividend-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "insurance-inflation-protection-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "life-expectancy-insurance-premium-adjustment",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "life-insurance-net-amount-at-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "no-fault-insurance-coverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pet-insurance-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "property-insurance-replacement-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-term-disability-insurance-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "travel-insurance-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cobra-insurance-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "excess-liability-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "group-life-insurance-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "health-insurance-premium-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-insurance-coverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-protection-insurance-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inland-marine-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "insurance-deductible-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "key-person-insurance-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mortality-rate-insurance-pricing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "permanent-vs-term-life-insurance-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "term-life-insurance-coverage-period-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "universal-life-insurance-cash-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "whole-life-insurance-cash-value-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "windhurricane-insurance-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annuity-vs-life-insurance-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "business-interruption-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "coinsurance-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "directors-and-officers-do-insurance-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "disability-insurance-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "disability-insurance-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earthquake-insurance-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "health-insurance-out-of-pocket-max-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-replacement-insurance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "life-insurance-coverage-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "malpractice-insurance-premium-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "professional-liability-insurance-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "renters-insurance-need-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retroactive-insurance-liability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "self-insurance-fund-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "variable-life-insurance-fund-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-profit/loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-lending-apy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-leverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-compound-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-staking-rewards-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-dca-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-portfolio-rebalancing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "options-premium-crypto-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "leveraged-trading-liquidation-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-profit-and-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-portfolio-sharpe-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-portfolio-allocation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-portfolio-beta-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crypto-staking-compound-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "captive-insurance-feasibility-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "first-home-buyer-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "asset-based-lending-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "buy-now-pay-later-true-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "merchant-cash-advance-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "invoice-financing-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "invoice-factoring-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "unsecured-business-line-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "import-tariff-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "business-owners-policy-bop-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "risk-pooling-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "group-vs-individual-policy-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "reinvestment-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "windfall-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-account-vs-investment-account-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wire-transfer-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "overdraft-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "opportunity-cost-of-savings-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "atm-fee-annual-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "overdraft-fee-annual-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "installment-debt-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "foreign-transaction-fee-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "revolving-debt-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-property-cash-on-cash-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-term-rental-airbnb-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-property-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-property-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "leverage-impact-on-real-estate-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-segregation-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "buyer-closing-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-basis-calculation-for-real-estate",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "infrastructure-cost-per-lot-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-holding-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "repair-cost-estimator-rehab-projects",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-cost-of-homeownership-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "triple-net-nnn-lease-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "turnover-cost-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "turnover-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "days-on-market-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "entitlement-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "seller-closing-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-account-vs-debt-payoff-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "house-hacking-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "education-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "graduate-school-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "child-cost-estimator-annual",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "college-cost-savings-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-per-use-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-to-raise-a-child-to-18-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "luxury-item-true-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-cost-of-debt-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "habit-cost-accumulator-daily-to-yearly",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pet-lifetime-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "phone-plan-true-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "recurring-expense-annual-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "subscription-tracker-annual-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "value-of-a-day-off-opportunity-cost",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-of-waiting-to-invest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "eating-out-vs-cooking-at-home-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "opportunity-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "spouse-work-vs-stay-at-home-cost-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "funding-rate-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mining-electricity-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gas-fee-impact-on-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "slippage-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "blockchain-storage-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-basis-weighted-average-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "smart-contract-gas-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "consensus-mechanism-energy-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wash-trade-detection-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-return-on-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wheel-strategy-roi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "time-decay-theta-daily-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-rolling-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-concentration-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alpha-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "breakeven-investment-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dollar-return-on-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-return-vs-inflation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "return-on-invested-capital-roic-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "systematic-investment-plan-sip-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "time-horizon-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-reinvestment-drip-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expected-value-of-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "growth-rate-of-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "investment-fee-drag-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "index-fund-vs-active-fund-cost-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "weighted-average-cost-of-capital-wacc-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lump-sum-investment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "weighted-average-cost-of-capital-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "foreign-direct-investment-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-investment-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "opportunity-cost-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-push-inflation-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "unit-labor-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "variable-cost-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lifo-vs-fifo-inventory-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capitalized-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cost-of-goods-sold-cogs-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fixed-cost-per-unit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "arbitration-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "trademark-registration-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expert-witness-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "legal-cost-benefit-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ada-compliance-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "probate-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "legal-retainer-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "discovery-cost-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mediation-vs-litigation-cost-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "payment-to-income-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "piti-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "prepayment-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lump-sum-extra-payment-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "down-payment-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "extra-payment-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-share-agreement-repayment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-debt-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-driven-repayment-idr-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-savings-rate-adequacy-check",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "treasury-bill-discount-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bank-fee-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "checking-account-fee-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "zero-based-budget-savings-allocation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "balance-transfer-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "balloon-savings-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-service-fee-avoidance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sinking-fund-payment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bank-fee-annual-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-savings-after-fees-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "collection-agency-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "minimum-payment-trap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "late-payment-fee-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-syndication-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hoa-fee-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "listing-price-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "early-retirement-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-savings-to-retirement-target-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-readiness-score",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-full-vs-early-retirement-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "budget-deficit-surplus-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "zero-sum-budget-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "couples-budget-merge-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "biweekly-pay-budget-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-budget-planner-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-option-strike-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "weekly-budget-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "protocol-fee-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mining-break-even-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dex-price-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cross-chain-bridge-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "margin-requirement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "on-chain-transaction-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "token-price-to-market-cap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-income-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "railroad-retirement-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "early-retirement-age-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-shortfall-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-readiness-score-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "military-retirement-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fers-retirement-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "csrs-retirement-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-spending-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-portfolio-withdrawal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "years-to-retirement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "post-retirement-budget-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "variable-annuity-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-adjusted-option-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "implied-volatility-to-option-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "discounted-cash-flow-dcf-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-withdrawal-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "4-rule-retirement-portfolio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "retirement-savings-target-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-to-cash-flow-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-to-book-growth-pbg-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-split-adjusted-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-return-calculator-dividends-price",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "treasury-bond-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-discount-model-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "espp-discount-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "margin-of-safety-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-to-sales-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-to-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "breakeven-stock-price-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-to-free-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-product-of-labor-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marginal-utility-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "consumer-price-index-cpi-change-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "equilibrium-price-and-quantity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "laspeyres-price-index-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-level-change-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-earnings-to-growth-peg-macro-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "transfer-payment-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "balanced-budget-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cross-price-elasticity-of-demand-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "price-elasticity-of-demand-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "balance-of-payments-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "paasche-price-index-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "contribution-margin-income-statement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ebit-margin-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "average-payment-period-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "settlement-discount-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "contingency-fee-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "attorney-fee-recovery-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "equipment-financing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vehicle-business-use-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "business-expense-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "unreimbursed-business-expense-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "business-mileage-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "qualified-business-income-qbi-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-partnership-profit-split-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sublease-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "joint-venture-real-estate-profit-split-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fix-and-flip-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mining-profitability-threshold-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bitcoin-mining-profitability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "arbitrage-profit-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hash-rate-profitability-index-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nft-resale-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mining-profitability-offline-inputs-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "profit-sharing-allocation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "iron-condor-probability-of-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "max-profit-on-options-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-strangle-profit-range-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bear-call-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "binomial-option-pricing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bull-call-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "butterfly-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "condor-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bear-put-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bull-put-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "calendar-spread-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-straddle-max-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "take-profit-level-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "options-profit/loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "iron-condor-max-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "economic-profit-vs-accounting-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monopoly-profit-maximization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "accrual-vs-cash-basis-profit-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "operating-profit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-to-income-dti-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-service-coverage-ratio-dscr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "buy-down-points-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "merchant-cash-advance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "combined-ltv-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "negative-amortization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-equity-line-draw-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "amortization-schedule-builder",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-payoff-avalanche-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "construction-draw-schedule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rule-of-78-rebate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "escrow-reserve-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-payoff-snowball-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "reverse-amortization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "arm-vs-fixed-rate-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "asset-based-lending-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "overtime-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "standard-vs-itemized-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-wage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "charitable-contribution-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-office-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "section-179-depreciation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-depreciation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "passive-activity-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "at-risk-rule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wash-sale-rule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "take-home-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "commission-earnings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-net-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hra-exemption-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-adjusted-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pay-raise-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "qbi-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "foreign-earned-income-exclusion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "backup-withholding-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "depreciation-double-declining-balance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-sale-capital-gains-exclusion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-unrealized-appreciation-nua-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "section-179-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "standard-vs-itemized-deduction-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wash-sale-rule-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "72t-sepp-distribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "backdoor-roth-ira-pro-rata-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "customs-duty-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "depreciation-macrs-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ira-deductibility-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-income-after-payroll-deductions-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nonresident-alien-withholding-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "passive-activity-loss-limitation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "penalty-for-early-ira-withdrawal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-full-benefit-age-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "depreciation-straight-line-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "depreciation-sum-of-years-digits-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "excess-ira-contribution-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "form-w-4-withholding-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-vs-short-term-capital-gains-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-depreciation-schedule-e-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "premium-to-surplus-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "loss-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hsa-vs-fsa-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "premium-financing-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "product-liability-premium-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-disability-offset-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "workers-compensation-premium-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "comprehensive-vs-collision-coverage-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "critical-illness-cover-amount-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employment-practices-liability-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "maximum-out-of-pocket-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "subrogation-recovery-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "surrender-value-vs-paid-up-value-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "deductible-vs-premium-trade-off-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "policy-surrender-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "umbrella-policy-coverage-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-to-spending-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "effective-annual-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sukanya-samriddhi-yojana-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cd-ladder-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sinking-fund-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hsa-contribution-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "financial-independence-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-lump-sum-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "apy-vs-apr-savings-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "biweekly-savings-plan-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cd-certificate-of-deposit-maturity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cd-ladder-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "effective-annual-rate-ear-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "emergency-fund-runway-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "emergency-fund-target-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "i-bond-inflation-adjustment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lump-sum-vs-monthly-savings-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-savings-required-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "promotional-rate-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "quarterly-savings-contribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-rate-of-return-on-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-withdrawal-sustainability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "t-note-yield-to-maturity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "years-to-reach-savings-goal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "high-yield-savings-account-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-vs-inflation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fsa-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-milestone-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "break-even-savings-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "minimum-balance-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-savings-target-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "recurring-deposit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fixed-deposit-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "kisan-vikas-patra-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ulip-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rule-of-114-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rule-of-144-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "double-money-time-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "triple-money-time-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-erosion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-savings-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "certificate-of-deposit-vs-money-market-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-savings-goal-tracker-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "high-yield-savings-vs-traditional-savings-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "holiday-fund-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "kids-savings-projection-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "prize-linked-savings-expected-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-purchasing-power-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "recurring-deposit-maturity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-account-balance-projection",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-shortfall-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-term-savings-goal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-savings-over-time-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "emergency-fund-size-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "money-market-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "treasury-bill-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "i-bond-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tips-real-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-worth-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nsc-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-dividend-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-savings-goal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bank-bonus-checking-worth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cd-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ee-bond-maturity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "goal-based-savings-period-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "how-long-to-save-a-million-dollars-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-erosion-of-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-adjusted-savings-goal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "jumbo-cd-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "present-value-of-future-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-bond-future-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-goal-shortfall-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "savings-as-of-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sinking-fund-target-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "starter-emergency-fund-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stepped-savings-contribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "time-to-double-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "time-to-triple-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "travel-fund-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "weekly-savings-goal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "housing-expense-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-debt-service-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-stress-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "balance-transfer-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "charge-off-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bankruptcy-means-test-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "good-debt-vs-bad-debt-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-consolidation-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-payoff-timeline-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "emergency-fund-vs-debt-payoff-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-snowflake-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-debt-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-free-date-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-to-equity-personal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rule-of-78-early-payoff-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pay-off-debt-vs-invest-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-payoff-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "operating-expense-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-property-expense-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "operating-expense-ratio-real-estate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rent-to-value-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-rent-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "airbnb-income-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "home-equity-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-vacancy-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "development-pro-forma-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-syndication-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "irr-real-estate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "equity-multiple-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-depreciation-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mid-month-convention-depreciation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lease-renewal-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "after-repair-value-arv-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "effective-gross-income-real-estate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-leasable-area-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-rent-multiplier-grm-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hotel-adr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hotel-revpar-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lease-absorption-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "self-storage-rental-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-return-on-real-estate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-operating-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-leverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rent-vs-buy-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sale-leaseback-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nnn-lease-expense-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "absorption-period-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-rental-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "brrrr-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cap-rate-to-property-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "commercial-property-noi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hotel-occupancy-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "house-hacking-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "land-development-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "landlord-net-operating-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "maximum-allowable-offer-mao-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mobile-home-park-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "multi-unit-property-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-operating-income-noi-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "occupancy-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "preferred-return-hurdle-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-break-even-occupancy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-risk-adjusted-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "required-rental-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "seller-financing-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cash-on-cash-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-property-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "house-hacking-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "short-term-rental-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "land-value-residual-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "reit-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "commercial-real-estate-cap-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "build-to-rent-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "triple-net-lease-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "preferred-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "waterfall-distribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "land-vs-building-value-split-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tenant-improvement-allowance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capitalization-rate-sensitivity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earnest-money-requirement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "reit-dividend-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-commission-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-equity-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-estate-portfolio-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rent-escalation-over-time-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "residential-vs-commercial-cap-rate-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "seller-net-proceeds-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vacancy-rate-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "value-add-property-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-replacement-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wealth-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "needs-vs-wants-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rent-to-income-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fixed-vs-variable-expense-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-living-expense-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cash-flow-statement-personal-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "divorce-financial-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dollar-a-day-savings-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "esop-vesting-schedule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "frugality-score-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "how-much-house-can-i-afford-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "latte-factor-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lean-fire-vs-fat-fire-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-net-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "payday-frequency-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "personal-cash-flow-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "raise-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "take-home-pay-increase-from-raise-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "true-hourly-wage-after-commute-and-expenses-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-bonus-net-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annual-take-home-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bankruptcy-impact-timeline-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "benefit-package-comparison-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bill-splitting-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "commission-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "daily-spending-habit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-freedom-date-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "discretionary-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employer-benefits-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gig-economy-income-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-monthly-income-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inheritance-planning-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lifestyle-inflation-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "marriage-financial-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monthly-pay-stub-analyzer",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "multiple-income-streams-total-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-worth-target-by-age-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-worth-by-age-benchmark-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "part-time-vs-full-time-income-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "passive-income-gap-to-fire-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "personal-rate-of-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "side-income-savings-potential-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "spending-by-category-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "work-hours-needed-to-buy-x-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fire-timeline-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "human-life-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "independent-contractor-expense-deduction-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pay-yourself-first-amount-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pension-value-today-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "personal-balance-sheet-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "personal-finance-score-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rental-passive-income-net-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-monthly-obligations-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vacation-fund-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "market-cap-to-tvl-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hash-rate-to-mining-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "validator-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "block-reward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "circulating-supply-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "staking-apr-vs-apy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "defi-apy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "yield-farming-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "liquidity-pool-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "nft-royalty-earnings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "amm-constant-product-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "halving-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "token-inflation-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fully-diluted-valuation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "network-value-to-transactions-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "liquidity-mining-reward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "impermanent-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "token-vesting-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "perpetual-futures-funding-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "token-unlock-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "governance-token-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "layer-2-gas-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "blockchain-hash-rate-difficulty-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "proof-of-stake-annual-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bitcoin-block-reward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "defi-liquidity-pool-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mining-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-rebalancing-trigger-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "satoshi-to-btc-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "yield-farming-apy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bitcoin-halving-countdown-block-based",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "compounded-staking-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "token-vesting-schedule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-supply-vs-circulating-supply-dilution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "simple-ira-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "roth-ira-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lean-fire-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sequence-of-returns-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pension-lump-sum-vs-annuity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dynamic-withdrawal-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bond-tent-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bucket-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "deferred-compensation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "windfall-elimination-provision-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-unrealized-appreciation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "qualified-charitable-distribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fire-number-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fat-fire-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pension-vs-401(k)-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "defined-benefit-pension-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sep-ira-contribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "solo-401(k)-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "spousal-ira-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inherited-ira-distribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "break-even-age-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "longevity-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "public-pension-solvency-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stretch-ira-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "traditional-ira-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fixed-annuity-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "coast-fire-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-benefit-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "catch-up-contribution-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "glide-path-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "government-pension-offset-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "leverage-ratio-options-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ratio-spread-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "breakeven-at-expiration-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-expiration-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "at-the-money-options-intrinsic-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "diagonal-spread-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "historical-volatility-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-straddle-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-strangle-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "naked-call-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-contract-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-theta-decay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "options-premium-annualized-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "put-option-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "put-option-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rho-sensitivity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "synthetic-short-stock-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vertical-spread-width-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "delta-adjusted-notional-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "early-exercise-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "greeks-summary-delta-gamma-theta-vega-rho-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "iron-butterfly-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "married-put-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "naked-put-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-assignment-probability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-time-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-vega-sensitivity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "options-buying-power-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "riskreward-for-options-trade-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "synthetic-long-stock-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "call-option-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "call-option-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "delta-neutral-position-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expected-move-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gamma-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "max-loss-on-options-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "option-moneyness-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "out-of-the-money-probability-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "volatility-skew-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "leverage-ratio-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pb-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ps-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-cover-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pfcf-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-sortino-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-treynor-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-expense-ratio-ter-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bond-duration-calculator-2",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-sharpe-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "finance-bond-duration-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "403b-contribution-savings-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "beta-stock-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "blended-portfolio-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bonus-share-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capitalization-rate-cap-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "catch-up-contribution-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "future-value-of-lump-sum-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "holding-period-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "market-capitalization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "modified-internal-rate-of-return-mirr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-asset-value-nav-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-worth-growth-projection-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pension-lump-sum-vs-annuity-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-variance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "present-value-of-perpetuity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rights-issue-dilution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "risk-free-rate-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "shareholder-equity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-dilution-effect-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "target-date-fund-glide-path-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "tobins-q-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "total-shareholder-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "annualized-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bond-immunization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bond-ladder-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earnings-growth-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "economic-value-added-eva-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "enterprise-value-to-ebitda-evebitda-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "free-cash-flow-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "internal-rate-of-return-irr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "modigliani-risk-adjusted-performance-m-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-risk-standard-deviation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "required-minimum-distribution-rmd-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "required-rate-of-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "risk-adjusted-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "roth-vs-traditional-ira-comparison",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sector-allocation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-buyback-impact-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-intrinsic-value-dcf-lite-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "yield-to-worst-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "401k-balance-projection-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "401k-contribution-limit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "asset-allocation-rebalancing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "book-value-growth-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cagr-compound-annual-growth-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "callable-bond-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dividend-growth-model-gordon-growth-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dollar-weighted-return-irr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "equity-risk-premium-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expected-return-calculator-capm",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ira-contribution-limit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-linked-bond-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "log-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-expected-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-rebalancing-threshold-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "position-size-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "roth-ira-conversion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "social-security-benefit-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-warrant-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "value-at-risk-var-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wealth-accumulation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "zero-coupon-bond-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "peg-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "calmar-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "risk-reward-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "information-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "omega-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sterling-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-concentration-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "sortino-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "treynor-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "etf-expense-ratio-drag-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stock-total-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employee-stock-option-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "kelly-criterion-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "mutual-fund-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vertical-spread-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "collar-strategy-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "strangle-breakeven-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "straddle-breakeven-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "r-squared-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "modified-irr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "money-weighted-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rebalancing-threshold-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "position-sizing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "stop-loss-level-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ev/ebitda-multiple-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "comparable-company-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "rights-issue-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "private-equity-irr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long/short-equity-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capm-expected-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "earnings-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "venture-capital-returns-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "buffett-indicator-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "terminal-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "index-fund-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bond-ladder-yield-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-volatility-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "portfolio-beta-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alpha-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ulcer-index-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "upside/downside-capture-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "internal-rate-of-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "time-weighted-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "correlation-between-assets-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "spin-off-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "warrant-valuation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "leveraged-buyout-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fund-of-funds-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "merger-arbitrage-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "dcf-intrinsic-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vesting-schedule-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "graham-number-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lynch-fair-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gordon-growth-model-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "jensen",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "maximum-drawdown-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "value-at-risk-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "covered-call-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cash-secured-put-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-rate-of-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "asset-allocation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "convertible-bond-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "hedge-fund-alpha-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "event-driven-return-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-to-gdp-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "deadweight-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gdp-growth-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gini-coefficient-approximator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "is-lm-model-simplified-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "income-elasticity-of-demand-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "labor-force-participation-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "labor-productivity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "market-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "national-savings-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "phillips-curve-trade-off-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "quantity-theory-of-money-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-income-change-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "reserve-requirement-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "welfare-loss-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "willingness-to-pay-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "deflator-calculator-gdp",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "demand-elasticity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "demand-pull-inflation-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "elasticity-of-supply-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "engel-coefficient-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gdp-per-capita-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inflation-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "keynes-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "law-of-diminishing-returns-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lorenz-curve-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "monopsony-wage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-exports-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "okuns-law-output-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "purchasing-power-parity-ppp-index-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "real-gdp-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "revenue-maximization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "supply-elasticity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "terms-of-trade-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "unemployment-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "velocity-of-money-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "world-trade-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "aggregate-demand-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "aggregate-supply-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "consumer-surplus-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "crowding-out-effect-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "exchange-rate-purchasing-power-parity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "expenditure-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "fisher-effect-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "human-development-index-hdi-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "money-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "natural-rate-of-unemployment-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "output-gap-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "producer-surplus-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "production-possibility-frontier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "trade-balance-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cash-flow-coverage-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "financial-leverage-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "operating-cash-flow-to-net-income-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "working-capital-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-to-ebitda-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-debt-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "quick-ratio-acid-test-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "cash-flow-from-operations-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "debt-coverage-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "operating-cash-flow-ratio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "accumulated-depreciation-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "amortization-of-intangibles-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "break-even-point-calculator-units",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "break-even-in-days-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "days-payable-outstanding-dpo-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "goodwill-impairment-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "long-term-asset-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "owners-equity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "return-on-capital-employed-roce-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "return-on-net-assets-rona-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "return-on-sales-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "accrued-expense-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "break-even-point-calculator-revenue",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "days-inventory-outstanding-dio-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "net-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pro-forma-income-statement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "revenue-recognition-timing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "vertical-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "z-score-altman-bankruptcy-predictor",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "accounts-receivable-aging-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "average-collection-period-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "bad-debt-reserve-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "capital-employed-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "common-size-income-statement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "contingent-liability-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "days-sales-outstanding-dso-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "degree-of-financial-leverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "degree-of-operating-leverage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "economic-break-even-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "gross-revenue-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "horizontal-analysis-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "inventory-shrinkage-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "prepaid-expense-amortization-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "revenue-growth-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "alimony-duration-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "copyright-duration-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "patent-pending-duration-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "child-support-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "statute-of-limitations-date-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "intestate-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "community-property-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "structured-settlement-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lump-sum-vs-annuity-settlement-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "small-claims-limit-checker",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "class-action-pro-rata-share-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "non-compete-clause-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "punitive-damages-multiplier-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "loss-of-earning-capacity-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "non-disclosure-agreement-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employment-discrimination-damages-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lawsuit-settlement-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "legal-hourly-billing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "false-claims-act-reward-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "paralegal-billing-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "pain-and-suffering-damages-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "employee-severance-package-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "patent-royalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "ip-infringement-damages-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "trade-secret-damages-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "osha-penalty-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "workers-compensation-benefit-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "personal-injury-damages-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "contract-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "divorce-asset-division-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "equitable-distribution-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "whistleblower-reward-estimator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "wrongful-death-damages-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "licensing-royalty-rate-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "franchise-agreement-value-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "lease-termination-penalty-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "medical-loss-ratio-mlr-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "future-medical-expense-calculator",
+   "category": "FINANCE"
+  },
+  {
+   "slug": "student-loan-to-income-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-loan-forgiveness-eligibility-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "loan-forgiveness-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "monthly-student-loan-payment-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-loan-default-risk-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-loan-interest-accumulation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-loan-monthly-budget-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-loan-forgiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "plus-loan-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "private-vs-federal-loan-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "public-service-loan-forgiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "education-loan-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "extra-credit-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ap-course-credit-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cost-per-credit-hour-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "transfer-credit-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-hour-per-credit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "credit-transfer-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "credit-overload-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-credit-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "internship-credit-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "elective-credit-optimization-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "thesis-credit-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "homeschool-graduation-credit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-year-credits-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "course-load-credit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "transfer-credit-equivalency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "competency-based-credit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduation-credit-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "credits-required-to-graduate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "extra-credit-impact-on-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "major-salary-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "textbook-vs-digital-material-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "instructional-materials-cost-per-student-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "attendance-percentage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "semester-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scholarship-gpa-requirement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pass/fail-gpa-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "fellowship-gpa-requirement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-probation-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduate-school-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gpa-to-letter-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "professional-degree-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "certification-cost-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cost-of-attendance-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grant-impact-on-net-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "income-share-agreement-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "net-cost-after-aid-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "net-cost-vs-sticker-price-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "international-student-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "online-vs-on-campus-cost-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "private-school-vs-public-school-cost-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "room-vs-commuter-cost-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "transfer-student-cost-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scholarship-renewable-gpa-requirement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "annual-tuition-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "expected-college-cost-in-future-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "room-and-board-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "semester-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-abroad-cost-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "tuition-payment-plan-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "undergraduate-degree-total-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "bootcamp-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gap-year-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "online-course-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "certification-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mba-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "trade-school-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "book-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-housing-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "total-degree-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduate-school-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-abroad-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "continuing-education-cost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "flashcard-review-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "networking-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "college-admission-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "alumni-salary-premium-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduate-vs-undergraduate-salary-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "tutoring-hours-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "professional-development-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "higher-order-thinking-task-percentage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-to-gpa-sensitivity-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduation-gpa-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "high-school-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "letter-grade-to-gpa-converter",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "major-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "weighted-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ap-exam-score-weighted-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "college-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "late-submission-penalty-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "latin-honors-gpa-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "maximum-possible-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "passfail-impact-on-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "term-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "unweighted-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "course-withdrawal-gpa-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-point-average-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "honors-gpa-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "prerequisite-gpa-requirement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "transfer-gpa-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-learning-app-roi-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "flashcard-vocabulary-size-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "flashcard-review-interval-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "spaced-repetition-card-count-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "college-net-price-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "extended-repayment-plan-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "income-based-repayment-monthly-payment-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "income-driven-repayment-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "feedback-to-instruction-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "teacher-feedback-volume-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "formative-feedback-impact-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-budget-allocation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "distinction-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-point-average-predictor",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "assignment-weight-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "minimum-score-to-pass-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "midterm-grade-projection-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "drop-grade-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "dean",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "class-rank-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "honor-roll-eligibility-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "required-final-exam-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "college-affordability-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "coverdell-esa-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "efc-expected-family-contribution-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "financial-aid-package-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gi-bill-benefit-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "merit-scholarship-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pell-grant-eligibility-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "tuition-reimbursement-employer-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ugmautma-account-growth-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "529-plan-growth-projection-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "americorps-education-award-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "award-letter-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "early-college-program-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduate-school-stipend-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "prepaid-tuition-plan-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scholarship-search-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "total-student-debt-load-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "university-endowment-per-student-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "corporate-tuition-benefit-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "fafsa-income-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gap-year-financial-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "need-based-aid-eligibility-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "out-of-state-tuition-premium-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "residency-reclassification-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "return-on-degree-rod-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "tuition-inflation-projection-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "early-graduation-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scholarship-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scholarship-eligibility-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "apprenticeship-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "phd-stipend-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "dual-enrollment-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "clep-exam-savings-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "financial-aid-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "teaching-assistant-pay-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "income-share-agreement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pslf-progress-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "internship-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "exam-preparation-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-paper-length-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "lecture-comprehension-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "test-anxiety-index-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-comprehension-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "exam-score-prediction-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-break-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "course-load-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "spaced-repetition-interval-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "feynman-technique-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "assignment-completion-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "learning-curve-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "interleaving-benefit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "homework-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "essay-word-count-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "memory-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "forgetting-curve-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "note-taking-efficiency-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "active-recall-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-group-effectiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "knowledge-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "error-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "skill-acquisition-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "elaborative-interrogation-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "practice-problem-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-effectiveness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pomodoro-study-efficiency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-debt-to-income-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "double-major-timeline-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "part-time-to-full-time-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-probation-recovery-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-performance-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-point-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "summer-session-accelerator-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "degree-completion-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "minor-completion-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "graduation-requirements-tracker-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "capstone-project-timeline-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-to-teacher-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "differentiated-instruction-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "plc-collaboration-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "special-education-staffing-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-to-counselor-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "project-based-learning-duration-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "summative-vs-formative-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "technology-integration-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "classroom-activity-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "quiz-difficulty-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grading-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "rubric-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "bloom",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "formative-assessment-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "summative-assessment-weight-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "peer-teaching-effectiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-engagement-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "parent-involvement-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "professional-development-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pacing-guide-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-level-assignment-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "504-accommodation-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "benchmark-assessment-window-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "class-size-effectiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cohort-progress-tracking-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "content-coverage-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "distance-learning-completion-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "english-language-learner-progress-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "faculty-teaching-load-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "k-12-pacing-guide-day-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "lesson-objective-achievement-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "lesson-plan-time-allocation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "parent-communication-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-intervention-dosage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "response-to-intervention-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-engagement-index-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "tiered-support-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "time-on-task-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vertical-alignment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "assessment-weight-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "critical-thinking-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "portfolio-assessment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "classroom-management-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "curriculum-alignment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "iep-goal-progress-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "progress-monitoring-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "universal-screening-cut-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "assessment-frequency-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "behavioral-intervention-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "classroom-engagement-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "classroom-pace-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "direct-instruction-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "english-learner-reclassification-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gifted-program-eligibility-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "iep-goal-progress-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "instructional-alignment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "instructional-time-lost-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mtss-tier-allocation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mastery-learning-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "rti-intervention-intensity-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scaffolding-level-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-proficiency-gap-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "test-blueprint-coverage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "unit-pacing-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "universal-design-for-learning-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vocabulary-instruction-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "writing-workshop-time-allocation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "zone-of-actual-development-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "elearning-module-length-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "lesson-plan-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "curriculum-coverage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "homework-load-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "flipped-classroom-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "collaborative-learning-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "intervention-dosage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "504-plan-accommodation-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-year-planning-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "daily-instruction-time-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "flipped-classroom-effectiveness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-level-reading-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "norm-referenced-vs-criterion-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "school-year-contact-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "teacher-retention-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "teaching-effectiveness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "act-to-sat-score-conversion-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "assignment-weighting-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "attendance-penalty-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "blooms-taxonomy-depth-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "blooms-taxonomy-level-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "class-rank-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "course-grade-needed-to-pass-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "formative-assessment-frequency-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-curve-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "norm-referenced-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "portfolio-assessment-weight-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "portfolio-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "projected-final-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "quiz-average-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "rubric-score-to-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sat-total-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "self-assessment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "standardized-test-score-growth-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-progress-monitoring-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "test-score-average-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-integrity-risk-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "class-rank-impact-on-college-admission-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cohort-average-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "college-acceptance-probability-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "criterion-referenced-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "deans-list-gpa-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "differentiated-instruction-level-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "final-exam-score-needed-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-inflation-adjustment-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "learning-objective-achievement-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "metacognitive-awareness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "minimum-grade-needed-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "peer-evaluation-average-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "phd-candidacy-exam-pass-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "project-based-learning-rubric-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "scaled-score-to-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "semester-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "act-composite-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-self-efficacy-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "benchmark-score-gap-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "class-participation-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grade-weight-distribution-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "group-project-grade-split-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "missing-assignment-grade-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "predicted-sat-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "retake-grade-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sat-math-score-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sat-reading-score-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "student-attendance-impact-on-grade-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-practice-frequency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-speed-foreign-language-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vocabulary-growth-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-learning-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "immersion-hour-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-exposure-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "bilingual-benefit-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vocabulary-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "listening-comprehension-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "spaced-repetition-language-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-transfer-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "heritage-language-proficiency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "immersion-program-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "conversation-partner-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-fluency-level-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cefr-level-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grammar-accuracy-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "speaking-fluency-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "native-level-hours-estimator-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "language-decay-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "attention-span-duration-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "exam-preparation-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "elaborative-interrogation-benefit-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "error-correction-learning-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "exam-anxiety-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "forgetting-curve-interval-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "knowledge-retention-after-days-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "learning-curve-time-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "memory-palace-capacity-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "passive-vs-active-learning-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "practice-test-performance-predictor",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-speed-words-per-minute-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-speed-to-pages-per-day-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-group-size-effectiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "summarization-learning-benefit-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "teaching-others-retention-gain-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vocabulary-acquisition-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cognitive-load-reduction-strategies-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "course-completion-probability-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "daily-reading-habit-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "desirable-difficulty-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "dual-coding-learning-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "feynman-technique-depth-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "growth-mindset-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "hours-to-mastery-10000-hour-rule-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "interleaving-practice-benefit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "learning-style-match-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pomodoro-technique-work-block-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "practice-frequency-effectiveness-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-comprehension-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "recall-accuracy-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "retrieval-practice-benefit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "spacing-effect-study-schedule-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-session-intensity-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "transfer-of-learning-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "active-recall-vs-passive-review-comparison",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "deliberate-practice-hours-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ebbinghaus-forgetting-curve-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "information-processing-speed-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "interleaved-vs-blocked-practice-comparison",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "learning-efficiency-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "long-term-potentiation-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mnemonic-effectiveness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mnemonics-memory-improvement-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "multiple-intelligences-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "optimal-review-spacing-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "prior-knowledge-impact-on-learning-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "productive-study-session-length-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "reading-speed-improvement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "self-testing-retention-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sleep-consolidation-memory-benefit-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "speed-reading-comprehension-trade-off-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-hours-to-test-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-schedule-efficiency-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "test-anxiety-impact-on-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "vark-learning-style-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "visual-learning-aid-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "working-memory-capacity-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "zone-of-proximal-development-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-collaboration-network-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "citation-to-paper-ratio-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "data-saturation-point-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "mixed-methods-integration-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "academic-impact-factor-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "alpha-level-significance-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "bibliometric-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "citation-half-life-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "citation-impact-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "coefficient-of-agreement-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "control-group-size-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cronbachs-alpha-reliability-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grant-funding-probability-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "journal-quartile-ranking-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "manuscript-word-count-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "open-access-citation-advantage-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "plagiarism-risk-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-gap-priority-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-impact-factor-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "retraction-risk-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "survey-scale-reliability-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "type-ii-error-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "variance-explained-by-model-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "effect-size-interpretation-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "expected-power-of-study-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "irb-protocol-risk-level-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "inter-rater-reliability-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "literature-gap-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "population-representativeness-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "power-analysis-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "publication-bias-detection-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "research-timeline-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "response-rate-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sample-attrition-impact-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sampling-frame-coverage-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "statistical-power-adequacy-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "survey-response-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "systematic-review-inclusion-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "test-retest-reliability-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "type-i-error-rate-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "validity-coefficient-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "apa-citation-length-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "abstract-word-count-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "author-h-index-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "conference-acceptance-rate-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "content-validity-index-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "convergent-validity-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "field-normalized-citation-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "grey-literature-inclusion-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "journal-acceptance-rate-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "keywords-density-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "meta-analysis-effect-size-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "minimum-detectable-effect-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "open-data-reproducibility-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "peer-review-quality-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "theoretical-framework-alignment-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "thesis-word-count-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "wilcoxon-test-power-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pass-mark-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "merit-threshold-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pte-academic-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gre-quantitative-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gre-verbal-percentile-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "bar-exam-mbe-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "dental-board-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "sat-to-act-score-comparison-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "psat-score-projection-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "praxis-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "toefl-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cpa-exam-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "pharmacy-board-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "military-asvab-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "police-exam-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ap-vs-ib-score-value-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "exam-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "ielts-band-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "gmat-integrated-reasoning-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "nclex-pass-probability-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "cfa-pass-score-estimator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "nursing-board-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "engineering-pe-exam-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "architecture-are-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "faa-written-exam-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "firefighter-civil-service-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "step-1-score-predictor-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "step-2-ck-score-predictor-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "writing-complexity-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "study-replication-feasibility-score-calculator",
+   "category": "EDUCATION"
+  },
+  {
+   "slug": "medical-board-score-calculator",
+   "category": "EDUCATION"
+  }
+ ]
+}

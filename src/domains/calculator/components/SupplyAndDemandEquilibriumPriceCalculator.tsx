@@ -76,7 +76,7 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
   const handleCalculate = () => setShowResults(true);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="racira-page-container py-4">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -88,20 +88,14 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
         ]}
       />
 
-      <div className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
-          Supply &amp; Demand Equilibrium Calculator
-        </h1>
-      </div>
-
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Curve Parameters</CardTitle>
-          <CardDescription>
+        {/* LEFT: inputs (Mortgage Calculator template) */}
+        <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+          <h2 className="text-lg font-bold text-foreground">Curve Parameters</h2>
+          <p className="text-sm text-muted-foreground">
             Demand: Q = a − b·P &nbsp;&nbsp;|&nbsp;&nbsp; Supply: Q = c + d·P
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </p>
+          <div className="contents">
+
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="space-y-2">
               <Label htmlFor="eq-a">Demand intercept (a)</Label>
@@ -136,8 +130,12 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        
+          </div>
+        </div>
+
+        {/* RIGHT: results + content */}
+        <div className="flex flex-col gap-4">
 
       {showResults && (
         <>
@@ -310,6 +308,7 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
           </div>
         </>
       )}
+        </div>
     </div>
   );
 }

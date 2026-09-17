@@ -1,10 +1,11 @@
 import { Metadata } from "next";
+import { site as FINANCE_SITE } from "@/domains/finance/site";
 
 export const metadata: Metadata = {
-  title: "Contact — Racira Finance",
-  description: "Get in touch with the Racira Finance editorial team.",
+  title: `Contact — ${FINANCE_SITE.copyrightName}`,
+  description: `Get in touch with the ${FINANCE_SITE.copyrightName} editorial team.`,
   openGraph: {
-    title: "Contact — Racira Finance",
+    title: `Contact — ${FINANCE_SITE.copyrightName}`,
     description: "Get in touch with the Racira Finance editorial team.",
     url: "/contact",
   },

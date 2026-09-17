@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { LegalLinks } from "@/components/LegalLinks";
+import { IMAGE_SITE } from "@/domains/image/site";
 
 export const metadata: Metadata = {
-  title: "Racira Image — Free Image Tools",
+  title: IMAGE_SITE.title,
   description: "Image conversion, editing and processing tools in your browser.",
 };
 

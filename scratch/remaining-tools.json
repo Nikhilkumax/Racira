@@ -1,0 +1,770 @@
+[
+ {
+  "slug": "audio-format-converter",
+  "name": "Audio Format Converter",
+  "desc": "Universal audio format converter with batch support",
+  "status": "soon"
+ },
+ {
+  "slug": "bitrate-quality-converter",
+  "name": "Bitrate/Quality Converter",
+  "desc": "Re-encode audio at a different bitrate or quality",
+  "status": "soon"
+ },
+ {
+  "slug": "wma-m4b-caf-decoder",
+  "name": "WMA/M4B/CAF Decoder",
+  "desc": "Decode WMA, M4B and CAF files to standard formats",
+  "status": "soon"
+ },
+ {
+  "slug": "alac-m4a-lossless-converter",
+  "name": "ALAC/M4A Lossless Converter",
+  "desc": "Convert to and from ALAC lossless in M4A containers",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-splitter",
+  "name": "Audio Splitter",
+  "desc": "Split audio files into multiple segments",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-loop-maker",
+  "name": "Audio Loop Maker",
+  "desc": "Create seamless audio loops",
+  "status": "soon"
+ },
+ {
+  "slug": "sample-chopper",
+  "name": "Sample Chopper",
+  "desc": "Chop audio into samples",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-fade-in-out",
+  "name": "Audio Fade In/Out",
+  "desc": "Add smooth fade in and fade out effects",
+  "status": "soon"
+ },
+ {
+  "slug": "crossfade-creator",
+  "name": "Crossfade Creator",
+  "desc": "Create crossfades between audio clips",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-pitch-shifter",
+  "name": "Audio Pitch Shifter",
+  "desc": "Shift pitch without changing speed",
+  "status": "soon"
+ },
+ {
+  "slug": "tempo-changer",
+  "name": "Tempo Changer",
+  "desc": "Adjust tempo while preserving pitch",
+  "status": "soon"
+ },
+ {
+  "slug": "time-stretcher",
+  "name": "Time Stretcher",
+  "desc": "Stretch or compress audio duration",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-normalizer",
+  "name": "Audio Normalizer",
+  "desc": "Normalize audio levels for consistency",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-limiter",
+  "name": "Audio Limiter",
+  "desc": "Apply peak limiting to prevent clipping",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-compressor",
+  "name": "Audio Compressor",
+  "desc": "Dynamic range compression for audio",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-expander",
+  "name": "Audio Expander",
+  "desc": "Expand dynamic range of audio",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-gate",
+  "name": "Audio Gate",
+  "desc": "Noise gate to silence quiet parts",
+  "status": "soon"
+ },
+ {
+  "slug": "ringtone-maker",
+  "name": "Ringtone Maker",
+  "desc": "Create custom ringtones with trim and fade controls",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-leveler",
+  "name": "Audio Leveler",
+  "desc": "Automatically level audio volume",
+  "status": "soon"
+ },
+ {
+  "slug": "loudness-normalizer",
+  "name": "Loudness Normalizer",
+  "desc": "Normalize to LUFS loudness standards",
+  "status": "soon"
+ },
+ {
+  "slug": "peak-limiter",
+  "name": "Peak Limiter",
+  "desc": "Prevent audio peaks and clipping",
+  "status": "soon"
+ },
+ {
+  "slug": "rms-normalizer",
+  "name": "RMS Normalizer",
+  "desc": "Normalize audio using RMS levels",
+  "status": "soon"
+ },
+ {
+  "slug": "dynamic-range-compressor",
+  "name": "Dynamic Range Compressor",
+  "desc": "Professional-grade audio compression",
+  "status": "soon"
+ },
+ {
+  "slug": "multiband-compressor",
+  "name": "Multiband Compressor",
+  "desc": "Compress different frequency bands separately",
+  "status": "soon"
+ },
+ {
+  "slug": "parallel-compressor",
+  "name": "Parallel Compressor",
+  "desc": "Blend compressed and dry signals",
+  "status": "soon"
+ },
+ {
+  "slug": "sidechain-compressor",
+  "name": "Sidechain Compressor",
+  "desc": "Ducking and pumping effects",
+  "status": "soon"
+ },
+ {
+  "slug": "brickwall-limiter",
+  "name": "Brickwall Limiter",
+  "desc": "Ultra-transparent peak limiting",
+  "status": "soon"
+ },
+ {
+  "slug": "clipping-distortion-remover",
+  "name": "Clipping Distortion Remover",
+  "desc": "Repair clipped audio distortion",
+  "status": "soon"
+ },
+ {
+  "slug": "reverb-simulator",
+  "name": "Reverb Simulator",
+  "desc": "Add realistic room reverberation",
+  "status": "soon"
+ },
+ {
+  "slug": "chorus-effect",
+  "name": "Chorus Effect",
+  "desc": "Add rich chorus modulation",
+  "status": "soon"
+ },
+ {
+  "slug": "flanger-effect",
+  "name": "Flanger Effect",
+  "desc": "Create sweeping flanger sounds",
+  "status": "soon"
+ },
+ {
+  "slug": "phaser-effect",
+  "name": "Phaser Effect",
+  "desc": "Phase-shifting audio effect",
+  "status": "soon"
+ },
+ {
+  "slug": "bitcrusher-effect",
+  "name": "Bitcrusher Effect",
+  "desc": "Reduce bit depth for lo-fi sound",
+  "status": "soon"
+ },
+ {
+  "slug": "auto-wah",
+  "name": "Auto-Wah",
+  "desc": "Automatic wah-wah filter effect",
+  "status": "soon"
+ },
+ {
+  "slug": "surround-sound-simulator",
+  "name": "Surround Sound Simulator",
+  "desc": "Simulate surround sound from stereo",
+  "status": "soon"
+ },
+ {
+  "slug": "convolution-reverb",
+  "name": "Convolution Reverb",
+  "desc": "Realistic reverb using impulse responses",
+  "status": "soon"
+ },
+ {
+  "slug": "doppler-effect-simulator",
+  "name": "Doppler Effect Simulator",
+  "desc": "Simulate moving sound sources",
+  "status": "soon"
+ },
+ {
+  "slug": "pitch-correction",
+  "name": "Pitch Correction",
+  "desc": "Auto-tune and correct pitch",
+  "status": "soon"
+ },
+ {
+  "slug": "harmonizer",
+  "name": "Harmonizer",
+  "desc": "Generate vocal harmonies",
+  "status": "soon"
+ },
+ {
+  "slug": "auto-tune-effect",
+  "name": "Auto-Tune Effect",
+  "desc": "Classic pitch correction effect",
+  "status": "soon"
+ },
+ {
+  "slug": "formant-shifter",
+  "name": "Formant Shifter",
+  "desc": "Shift vocal formants independently",
+  "status": "soon"
+ },
+ {
+  "slug": "robot-voice-effect",
+  "name": "Robot Voice Effect",
+  "desc": "Create robotic vocoder sounds",
+  "status": "soon"
+ },
+ {
+  "slug": "hallway-room-simulator",
+  "name": "Hallway / Room Simulator",
+  "desc": "Simulate various room acoustics",
+  "status": "soon"
+ },
+ {
+  "slug": "old-tape-effect",
+  "name": "Old Tape Effect",
+  "desc": "Vintage tape saturation and wow/flutter",
+  "status": "soon"
+ },
+ {
+  "slug": "vinyl-record-effect",
+  "name": "Vinyl Record Effect",
+  "desc": "Add vinyl crackle and warmth",
+  "status": "soon"
+ },
+ {
+  "slug": "equalizer",
+  "name": "Equalizer / 3-band EQ",
+  "desc": "Adjust bass, mid and treble with a 3-band equalizer",
+  "status": "soon"
+ },
+ {
+  "slug": "bass-booster",
+  "name": "Bass Booster",
+  "desc": "Boost low frequencies with a bass shelf filter",
+  "status": "soon"
+ },
+ {
+  "slug": "8d-audio-converter",
+  "name": "8D Audio Converter",
+  "desc": "Convert audio to rotating 8D spatial sound",
+  "status": "soon"
+ },
+ {
+  "slug": "slowed-reverb-nightcore",
+  "name": "Slowed + Reverb / Nightcore",
+  "desc": "Create slowed + reverb or nightcore edits",
+  "status": "soon"
+ },
+ {
+  "slug": "noise-reducer",
+  "name": "Noise Reducer",
+  "desc": "Reduce background noise in audio",
+  "status": "soon"
+ },
+ {
+  "slug": "background-noise-remover",
+  "name": "Background Noise Remover",
+  "desc": "Remove constant background hum",
+  "status": "soon"
+ },
+ {
+  "slug": "hiss-remover",
+  "name": "Hiss Remover",
+  "desc": "Eliminate tape hiss and high-frequency noise",
+  "status": "soon"
+ },
+ {
+  "slug": "hum-remover",
+  "name": "Hum Remover",
+  "desc": "Remove electrical hum and buzz",
+  "status": "soon"
+ },
+ {
+  "slug": "click-pop-remover",
+  "name": "Click & Pop Remover",
+  "desc": "Remove vinyl clicks and pops",
+  "status": "soon"
+ },
+ {
+  "slug": "plosive-remover",
+  "name": "Plosive Remover",
+  "desc": "Reduce explosive breath sounds",
+  "status": "soon"
+ },
+ {
+  "slug": "sibilance-reducer",
+  "name": "Sibilance Reducer",
+  "desc": "Soften harsh sibilant sounds",
+  "status": "soon"
+ },
+ {
+  "slug": "mouth-click-remover",
+  "name": "Mouth Click Remover",
+  "desc": "Remove mouth click sounds",
+  "status": "soon"
+ },
+ {
+  "slug": "room-reverb-remover",
+  "name": "Room Reverb Remover",
+  "desc": "Reduce unwanted room reverb",
+  "status": "soon"
+ },
+ {
+  "slug": "wind-noise-remover",
+  "name": "Wind Noise Remover",
+  "desc": "Reduce wind noise in recordings",
+  "status": "soon"
+ },
+ {
+  "slug": "scheduled-recorder",
+  "name": "Scheduled Recorder",
+  "desc": "Schedule audio recordings",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-recorder",
+  "name": "Podcast Recorder",
+  "desc": "Record podcast episodes with chapters",
+  "status": "soon"
+ },
+ {
+  "slug": "interview-recorder",
+  "name": "Interview Recorder",
+  "desc": "Record interviews in high quality",
+  "status": "soon"
+ },
+ {
+  "slug": "song-recorder",
+  "name": "Song Recorder",
+  "desc": "Record songs with instrument separation",
+  "status": "soon"
+ },
+ {
+  "slug": "loop-recorder",
+  "name": "Loop Recorder",
+  "desc": "Record and layer audio loops",
+  "status": "soon"
+ },
+ {
+  "slug": "record-with-effects",
+  "name": "Record with Effects",
+  "desc": "Record with real-time effects applied",
+  "status": "soon"
+ },
+ {
+  "slug": "multi-track-recorder",
+  "name": "Multi-Track Recorder",
+  "desc": "Record multiple tracks simultaneously",
+  "status": "soon"
+ },
+ {
+  "slug": "microphone-speaker-test",
+  "name": "Microphone/Speaker Test",
+  "desc": "Test your microphone input and speaker output levels",
+  "status": "soon"
+ },
+ {
+  "slug": "spectrogram-viewer",
+  "name": "Spectrogram Viewer",
+  "desc": "View time-frequency spectrograms",
+  "status": "soon"
+ },
+ {
+  "slug": "phase-meter",
+  "name": "Phase Meter",
+  "desc": "Check stereo phase correlation",
+  "status": "soon"
+ },
+ {
+  "slug": "correlation-meter",
+  "name": "Correlation Meter",
+  "desc": "Measure stereo correlation",
+  "status": "soon"
+ },
+ {
+  "slug": "goniometer-vectorscope",
+  "name": "Goniometer / Vectorscope",
+  "desc": "Visual stereo image analysis",
+  "status": "soon"
+ },
+ {
+  "slug": "loudness-meter-lufs",
+  "name": "Loudness Meter (LUFS)",
+  "desc": "Measure integrated loudness in LUFS",
+  "status": "soon"
+ },
+ {
+  "slug": "true-peak-meter",
+  "name": "True Peak Meter",
+  "desc": "Measure true peak levels",
+  "status": "soon"
+ },
+ {
+  "slug": "dynamic-range-meter",
+  "name": "Dynamic Range Meter",
+  "desc": "Measure audio dynamic range",
+  "status": "soon"
+ },
+ {
+  "slug": "thd-n-analyzer",
+  "name": "THD+N Analyzer",
+  "desc": "Total harmonic distortion analysis",
+  "status": "soon"
+ },
+ {
+  "slug": "bpm-detector",
+  "name": "BPM Detector",
+  "desc": "Detect beats per minute",
+  "status": "soon"
+ },
+ {
+  "slug": "key-detector",
+  "name": "Key Detector",
+  "desc": "Detect musical key of audio",
+  "status": "soon"
+ },
+ {
+  "slug": "chord-detector",
+  "name": "Chord Detector",
+  "desc": "Detect chord progressions",
+  "status": "soon"
+ },
+ {
+  "slug": "pitch-analyzer",
+  "name": "Pitch Analyzer",
+  "desc": "Analyze pitch and intonation",
+  "status": "soon"
+ },
+ {
+  "slug": "harmonic-analyzer",
+  "name": "Harmonic Analyzer",
+  "desc": "Analyze harmonic content",
+  "status": "soon"
+ },
+ {
+  "slug": "transient-analyzer",
+  "name": "Transient Analyzer",
+  "desc": "Analyze audio transients",
+  "status": "soon"
+ },
+ {
+  "slug": "stereo-image-analyzer",
+  "name": "Stereo Image Analyzer",
+  "desc": "Analyze stereo width and balance",
+  "status": "soon"
+ },
+ {
+  "slug": "loudness-range-lra-meter",
+  "name": "Loudness Range (LRA) Meter",
+  "desc": "Measure loudness range",
+  "status": "soon"
+ },
+ {
+  "slug": "loudness-histogram",
+  "name": "Loudness Histogram",
+  "desc": "Visualize loudness distribution",
+  "status": "soon"
+ },
+ {
+  "slug": "3d-audio-visualizer",
+  "name": "3D Audio Visualizer",
+  "desc": "3D visualization of audio data",
+  "status": "soon"
+ },
+ {
+  "slug": "waveform-video-export",
+  "name": "Waveform Video Export",
+  "desc": "Export an animated waveform video from audio",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-from-video-extractor",
+  "name": "Audio from Video Extractor",
+  "desc": "Extract audio tracks from video files",
+  "status": "soon"
+ },
+ {
+  "slug": "vocal-isolator",
+  "name": "Vocal Isolator",
+  "desc": "Isolate vocals from music",
+  "status": "soon"
+ },
+ {
+  "slug": "instrumental-extractor",
+  "name": "Instrumental Extractor",
+  "desc": "Extract instrumental backing track",
+  "status": "soon"
+ },
+ {
+  "slug": "stem-separator",
+  "name": "Stem Separator",
+  "desc": "Separate audio into stems (drums, bass, vocals)",
+  "status": "soon"
+ },
+ {
+  "slug": "dialogue-extractor",
+  "name": "Dialogue Extractor",
+  "desc": "Extract clear dialogue from noisy audio",
+  "status": "soon"
+ },
+ {
+  "slug": "impulse-response-generator",
+  "name": "Impulse Response Generator",
+  "desc": "Generate synthetic impulse responses",
+  "status": "soon"
+ },
+ {
+  "slug": "polarity-checker",
+  "name": "Polarity Checker",
+  "desc": "Check and fix polarity issues",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-comparator",
+  "name": "Audio Comparator",
+  "desc": "Compare two audio files",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-diff-tool",
+  "name": "Audio Diff Tool",
+  "desc": "Find differences between audio files",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-overlay-mixer",
+  "name": "Audio Overlay Mixer",
+  "desc": "Overlay multiple audio files",
+  "status": "soon"
+ },
+ {
+  "slug": "file-splitter-by-duration",
+  "name": "File Splitter by Duration",
+  "desc": "Split audio by time intervals",
+  "status": "soon"
+ },
+ {
+  "slug": "file-splitter-by-silence",
+  "name": "File Splitter by Silence",
+  "desc": "Split audio at silent points",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-loudness-normalizer",
+  "name": "Podcast Loudness Normalizer",
+  "desc": "Normalize podcasts to -16 LUFS",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-intro-maker",
+  "name": "Podcast Intro Maker",
+  "desc": "Create podcast intro music",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-outro-maker",
+  "name": "Podcast Outro Maker",
+  "desc": "Create podcast outro music",
+  "status": "soon"
+ },
+ {
+  "slug": "ad-jingle-creator",
+  "name": "Ad Jingle Creator",
+  "desc": "Generate short ad jingles",
+  "status": "soon"
+ },
+ {
+  "slug": "voiceover-processor",
+  "name": "Voiceover Processor",
+  "desc": "Process voiceovers for clarity",
+  "status": "soon"
+ },
+ {
+  "slug": "transcript-timestamp-sync",
+  "name": "Transcript Timestamp Sync",
+  "desc": "Sync transcripts with audio timestamps",
+  "status": "soon"
+ },
+ {
+  "slug": "background-music-matcher",
+  "name": "Background Music Matcher",
+  "desc": "Find matching background music",
+  "status": "soon"
+ },
+ {
+  "slug": "voice-enhancer",
+  "name": "Voice Enhancer",
+  "desc": "Enhance voice recordings",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-trailer-maker",
+  "name": "Podcast Trailer Maker",
+  "desc": "Create podcast trailers",
+  "status": "soon"
+ },
+ {
+  "slug": "multi-guest-leveler",
+  "name": "Multi-Guest Leveler",
+  "desc": "Balance levels for multiple guests",
+  "status": "soon"
+ },
+ {
+  "slug": "noise-gate-for-podcasts",
+  "name": "Noise Gate for Podcasts",
+  "desc": "Tailored noise gate for podcasting",
+  "status": "soon"
+ },
+ {
+  "slug": "plosive-fixer",
+  "name": "Plosive Fixer",
+  "desc": "Fix plosives in voice recordings",
+  "status": "soon"
+ },
+ {
+  "slug": "sibilance-fixer",
+  "name": "Sibilance Fixer",
+  "desc": "Reduce harsh sibilance in speech",
+  "status": "soon"
+ },
+ {
+  "slug": "filler-word-remover",
+  "name": "Filler Word Remover",
+  "desc": "Detect and remove filler words",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-description-tool",
+  "name": "Audio Description Tool",
+  "desc": "Add audio descriptions for video",
+  "status": "soon"
+ },
+ {
+  "slug": "text-to-speech",
+  "name": "Text to Speech",
+  "desc": "Convert text to spoken audio",
+  "status": "soon"
+ },
+ {
+  "slug": "speech-to-text",
+  "name": "Speech to Text",
+  "desc": "Transcribe audio to text",
+  "status": "soon"
+ },
+ {
+  "slug": "subtitle-sync-tool",
+  "name": "Subtitle Sync Tool",
+  "desc": "Sync subtitles with audio",
+  "status": "soon"
+ },
+ {
+  "slug": "clear-speech-enhancer",
+  "name": "Clear Speech Enhancer",
+  "desc": "Enhance speech intelligibility",
+  "status": "soon"
+ },
+ {
+  "slug": "hearing-aid-simulator",
+  "name": "Hearing Aid Simulator",
+  "desc": "Simulate hearing aid processing",
+  "status": "soon"
+ },
+ {
+  "slug": "podcast-transcript-timer",
+  "name": "Podcast Transcript Timer",
+  "desc": "Time transcripts to audio",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-metadata-editor-id3-tags",
+  "name": "Audio Metadata Editor (ID3 Tags)",
+  "desc": "Edit title, artist, album, and other tags",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-thumbnail-generator",
+  "name": "Audio Thumbnail Generator",
+  "desc": "Generate waveform thumbnails",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-fingerprint-generator",
+  "name": "Audio Fingerprint Generator",
+  "desc": "Generate audio fingerprints",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-hash-generator",
+  "name": "Audio Hash Generator",
+  "desc": "Generate perceptual audio hashes",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-format-detector",
+  "name": "Audio Format Detector",
+  "desc": "Detect audio format details",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-codec-identifier",
+  "name": "Audio Codec Identifier",
+  "desc": "Identify audio codec information",
+  "status": "soon"
+ },
+ {
+  "slug": "audio-watermark-adder",
+  "name": "Audio Watermark Adder",
+  "desc": "Add invisible watermarks to audio",
+  "status": "soon"
+ },
+ {
+  "slug": "streaming-platform-loudness-guide",
+  "name": "Streaming Platform Loudness Guide",
+  "desc": "Platform-specific loudness targets",
+  "status": "soon"
+ },
+ {
+  "slug": "scale-reference-player",
+  "name": "Scale Reference Player",
+  "desc": "Play and reference musical scales",
+  "status": "soon"
+ }
+]

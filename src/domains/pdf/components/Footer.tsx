@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { PDF_SITE } from "@/domains/pdf/site";
+import { copyrightLine } from "@/lib/site-identity";
 
 const Footer = () => {
   return (
@@ -66,7 +68,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border text-center text-xs text-muted-foreground">
-          © 2026 Racira PDF. All rights reserved.
+          {copyrightLine(PDF_SITE)}
         </div>
       </div>
     </footer>

@@ -1,0 +1,59 @@
+[
+ {
+  "idx": 350,
+  "slug": "crypto-profit-calculator",
+  "comp": "CryptoProfitCalculator",
+  "httpStatus": 500,
+  "comingSoon": false,
+  "hasCard": false,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": false,
+  "gridTextLen": 0,
+  "screenshot": ".qa-screens\\batch1\\crypto-profit-calculator.png",
+  "jsErrors": [
+   "console: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+   "pageerror: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\n\nCaused by:\n    Syntax Error",
+   "console: ./src/domains/calculator/components/ClosingCostCalculator.tsx\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\nCaused by:\n    Syntax Error"
+  ],
+  "verdict": "REVIEW"
+ },
+ {
+  "idx": 351,
+  "slug": "crypto-position-size-calculator",
+  "comp": "CryptoPositionSizeCalculator",
+  "httpStatus": 500,
+  "comingSoon": false,
+  "hasCard": false,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": false,
+  "gridTextLen": 0,
+  "screenshot": ".qa-screens\\batch1\\crypto-position-size-calculator.png",
+  "jsErrors": [
+   "console: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+   "pageerror: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\n\nCaused by:\n    Syntax Error",
+   "console: ./src/domains/calculator/components/ClosingCostCalculator.tsx\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\nCaused by:\n    Syntax Error"
+  ],
+  "verdict": "REVIEW"
+ },
+ {
+  "idx": 352,
+  "slug": "closing-cost-calculator",
+  "comp": "ClosingCostCalculator",
+  "httpStatus": 500,
+  "comingSoon": false,
+  "hasCard": false,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": false,
+  "gridTextLen": 0,
+  "screenshot": ".qa-screens\\batch1\\closing-cost-calculator.png",
+  "jsErrors": [
+   "console: Failed to load resource: the server responded with a status of 500 (Internal Server Error)",
+   "pageerror: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\n\nCaused by:\n    Syntax Error",
+   "console: ./src/domains/calculator/components/ClosingCostCalculator.tsx\nError: \n  x Unexpected token `div`. Expected jsx identifier\n    ,-[C:\\Racira\\racira-nextjs\\src\\domains\\calculator\\components\\ClosingCostCalculator.tsx:62:1]\n 62 |   };\n 63 | \n 64 |   return (\n 65 |     <div className=\"racira-page-container py-4\">\n    :      ^^^\n 66 |       <div className=\"grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]\">\n 67 |         {/* Input Section */}\n 67 |         <div className=\"lg:col-span-4 w-full space-y-6\">\r\n    `----\n\nCaused by:\n    Syntax Error"
+  ],
+  "verdict": "REVIEW"
+ }
+]

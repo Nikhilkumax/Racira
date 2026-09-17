@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { ChevronRight, Sparkles, Gamepad2, Construction } from "lucide-react";
 import { CATEGORIES, slugify } from "@/domains/games/registry";
 import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
+import { GAMES_SITE } from "@/domains/games/site";
 
 import GameRenderer from "../GameRenderer";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
@@ -39,9 +40,9 @@ function findBySlug(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const match = findBySlug(slug);
-  if (match?.type === "category") return { title: `${match.cat.name} — Racira Games`, description: `Play free browser-based ${match.cat.name} games.`, alternates: { canonical: `/games/${slug}` } };
-  if (match?.type === "subcategory") return { title: `${match.sub.name} — Racira Games`, description: `Play free ${match.sub.name} games in your browser.`, alternates: { canonical: `/games/${slug}` } };
-  if (match?.type === "tool") return { title: `${match.game.name} — Racira Games`, description: `Play ${match.game.name} free in your browser.`, alternates: { canonical: `/games/${slug}` }, robots: GAME_LIVE_SLUGS.includes(match.game.slug) ? undefined : { index: false, follow: false } };
+  if (match?.type === "category") return { title: `${match.cat.name} — ${GAMES_SITE.copyrightName}`, description: `Play free browser-based ${match.cat.name} games.`, alternates: { canonical: `/games/${slug}` } };
+  if (match?.type === "subcategory") return { title: `${match.sub.name} — ${GAMES_SITE.copyrightName}`, description: `Play free ${match.sub.name} games in your browser.`, alternates: { canonical: `/games/${slug}` } };
+  if (match?.type === "tool") return { title: `${match.game.name} — ${GAMES_SITE.copyrightName}`, description: `Play ${match.game.name} free in your browser.`, alternates: { canonical: `/games/${slug}` }, robots: GAME_LIVE_SLUGS.includes(match.game.slug) ? undefined : { index: false, follow: false } };
   return { title: "Not Found — Racira" };
 }
 

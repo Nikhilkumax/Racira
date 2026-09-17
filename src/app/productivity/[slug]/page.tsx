@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { CATEGORIES } from "@/domains/productivity/registry";
+import { PRODUCTIVITY_SITE } from "@/domains/productivity/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
@@ -20,9 +21,9 @@ function findToolBySlug(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = CATEGORIES.find(c => toSlug(c.name) === slug);
-  if (category) return { title: `${category.name} — Racira Productivity`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/productivity/${slug}` } };
+  if (category) return { title: `${category.name} — ${PRODUCTIVITY_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/productivity/${slug}` } };
   const tool = findToolBySlug(slug);
-  if (tool) return { title: `${tool.name} — Racira Productivity`, description: tool.description, alternates: { canonical: `/productivity/${slug}` }, robots: isComingSoonToolPage(tool, "productivity") ? { index: false, follow: false } : undefined };
+  if (tool) return { title: `${tool.name} — ${PRODUCTIVITY_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/productivity/${slug}` }, robots: isComingSoonToolPage(tool, "productivity") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 

@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/domains/finance/blog/theme-provider";
 import { QueryProvider } from "@/domains/finance/blog/query-provider";
+import { site as FINANCE_SITE } from "@/domains/finance/site";
 import { Metadata, Viewport } from "next";
 
 export const viewport: Viewport = {
@@ -7,16 +8,18 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Racira Finance — Clear-eyed writing on money & markets",
-  description: "Long-form analysis on investing, personal finance, markets, and the economy — written by former practitioners.",
-  authors: [{ name: "Racira Finance" }],
+  title: FINANCE_SITE.title,
+  description: FINANCE_SITE.description,
+  authors: [{ name: FINANCE_SITE.copyrightName }],
   openGraph: {
-    siteName: "Racira Finance",
+    siteName: FINANCE_SITE.copyrightName,
+    title: FINANCE_SITE.title,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     site: "@raciraco",
+    title: FINANCE_SITE.title,
   },
 };
 

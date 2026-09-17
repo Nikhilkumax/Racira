@@ -3,14 +3,20 @@ import Header from "@/components/Header";
 import { ArrowRight } from "lucide-react";
 import ImageClientGrid from "@/domains/image/components/ClientGrid";
 import { categories } from "@/domains/image/registry";
+import { IMAGE_SITE } from "@/domains/image/site";
+import { copyrightLine } from "@/lib/site-identity";
 import { SearchImage } from "./SearchImage";
 
 export const metadata = {
-  title: "Racira Image — Free Image Tools in Your Browser",
+  title: `${IMAGE_SITE.copyrightName} — Free Image Tools in Your Browser`,
   description: "Convert, resize, compress, and edit images entirely in your browser. No signup required.",
   openGraph: {
-    title: "Racira Image — Free Image Tools",
+    title: `${IMAGE_SITE.copyrightName} — Free Image Tools in Your Browser`,
     description: "Convert, resize, compress, and edit images entirely in your browser.",
+  },
+  twitter: {
+    card: "summary",
+    title: `${IMAGE_SITE.copyrightName} — Free Image Tools in Your Browser`,
   },
 };
 
@@ -56,7 +62,7 @@ export default function ImagePage() {
       </main>
 
       <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        Racira Image — free, in-browser image tools. Runs entirely in your browser.
+        {copyrightLine(IMAGE_SITE)}
       </footer>
     </div>
   );

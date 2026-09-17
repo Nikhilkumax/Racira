@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { ROOT_SITE } from "@/lib/site-identity";
 import "./globals.css";
 
 
@@ -8,7 +9,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Racira | All Your Essential Tools. One Platform.",
+  title: ROOT_SITE.title,
   description: "A unified platform for the everyday tools you actually use — fast, private, and built for the browser.",
   icons: {
     icon: '/icon.png',

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { categories, allTools, findTool } from "@/domains/writing/registry";
+import { WRITING_SITE } from "@/domains/writing/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
@@ -14,9 +15,9 @@ type PageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = categories.find(c => toSlug(c.name) === slug);
-  if (category) return { title: `${category.name} — Racira Writing`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/writing/${slug}` } };
+  if (category) return { title: `${category.name} — ${WRITING_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/writing/${slug}` } };
   const result = findTool(slug);
-  if (result) return { title: `${result.tool.name} — Racira Writing`, description: result.tool.description ?? "", alternates: { canonical: `/writing/${slug}` }, robots: isComingSoonToolPage(result.tool, "writing") ? { index: false, follow: false } : undefined };
+  if (result) return { title: `${result.tool.name} — ${WRITING_SITE.copyrightName}`, description: result.tool.description ?? "", alternates: { canonical: `/writing/${slug}` }, robots: isComingSoonToolPage(result.tool, "writing") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 

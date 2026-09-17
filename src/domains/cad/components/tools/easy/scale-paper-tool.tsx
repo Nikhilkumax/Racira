@@ -377,7 +377,10 @@ function buildComparisonSvg(
   const canvasH = 220;
   const mg = 16;
   const availW = canvasW - mg * 2;
-  const availH = canvasH - mg * 2 - 24; // 24pt for labels at top
+  // 24pt at top for the comp-size label, 20pt at bottom for the base width
+  // dimension line + label — without the bottom reserve, a rect scaled to
+  // full height pushed its "297 mm" label past the 220pt viewBox (clipped).
+  const availH = canvasH - mg * 2 - 24 - 20;
 
   // Scale to fit the larger of the two
   const scaleX = availW / maxW;

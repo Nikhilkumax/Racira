@@ -6,6 +6,7 @@ import { ChevronRight } from "lucide-react";
 import { CATEGORY_ORDER, TOOLS, TOOL_BY_SLUG } from "@/domains/video/registry";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { VIDEO_SITE } from "@/domains/video/site";
 import { inferIcon } from "@/components/shared/icon-map";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -16,9 +17,9 @@ function catSlug(name: string) { return toSlug(name); }
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = CATEGORY_ORDER.find(c => catSlug(c) === slug);
-  if (category) return { title: `${category} — Racira Video`, description: `Free browser-based ${category} tools.`, alternates: { canonical: `/video/${slug}` } };
+  if (category) return { title: `${category} — ${VIDEO_SITE.copyrightName}`, description: `Free browser-based ${category} tools.`, alternates: { canonical: `/video/${slug}` } };
   const tool = TOOL_BY_SLUG[slug];
-  if (tool) return { title: `${tool.name} — Racira Video`, description: tool.description, alternates: { canonical: `/video/${slug}` }, robots: isComingSoonToolPage(tool, "video") ? { index: false, follow: false } : undefined };
+  if (tool) return { title: `${tool.name} — ${VIDEO_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/video/${slug}` }, robots: isComingSoonToolPage(tool, "video") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 

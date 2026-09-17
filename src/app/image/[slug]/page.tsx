@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { categories, getImageToolBySlug } from "@/domains/image/registry";
+import { IMAGE_SITE } from "@/domains/image/site";
 import { toSlug } from "@/lib/utils/slug";
 import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
@@ -14,9 +15,9 @@ type PageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = categories.find((c: any) => toSlug(c.name) === slug);
-  if (category) return { title: `${category.name} — Racira Image`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/image/${slug}` } };
+  if (category) return { title: `${category.name} — ${IMAGE_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/image/${slug}` } };
   const tool = getImageToolBySlug(slug);
-  if (tool) return { title: `${tool.name} — Racira Image`, description: tool.description, alternates: { canonical: `/image/${slug}` }, robots: isComingSoonToolPage(tool, "image") ? { index: false, follow: false } : undefined };
+  if (tool) return { title: `${tool.name} — ${IMAGE_SITE.copyrightName}`, description: tool.description, alternates: { canonical: `/image/${slug}` }, robots: isComingSoonToolPage(tool, "image") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 

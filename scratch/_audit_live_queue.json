@@ -1,0 +1,2768 @@
+[
+ {
+  "slug": "home-loan-calculator",
+  "category": "FINANCE",
+  "name": "Home Loan Calculator",
+  "compName": "HomeLoanCalculator"
+ },
+ {
+  "slug": "auto-loan-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan Calculator",
+  "compName": "AutoLoanCalculator"
+ },
+ {
+  "slug": "bike-loan-calculator",
+  "category": "FINANCE",
+  "name": "Bike Loan Calculator",
+  "compName": "BikeLoanCalculator"
+ },
+ {
+  "slug": "boat-loan-calculator",
+  "category": "FINANCE",
+  "name": "Boat Loan Calculator",
+  "compName": "BoatLoanCalculator"
+ },
+ {
+  "slug": "student-loan-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Calculator",
+  "compName": "StudentLoanCalculator"
+ },
+ {
+  "slug": "gold-loan-calculator",
+  "category": "FINANCE",
+  "name": "Gold Loan Calculator",
+  "compName": "GoldLoanCalculator"
+ },
+ {
+  "slug": "usda-loan-calculator",
+  "category": "FINANCE",
+  "name": "USDA Loan Calculator",
+  "compName": "UsdaLoanCalculator"
+ },
+ {
+  "slug": "loan-against-property-calculator",
+  "category": "FINANCE",
+  "name": "Loan Against Property Calculator",
+  "compName": "LoanAgainstPropertyCalculator"
+ },
+ {
+  "slug": "mortgage-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Payoff Calculator",
+  "compName": "MortgagePayoffCalculator"
+ },
+ {
+  "slug": "biweekly-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Bi-Weekly Mortgage Calculator",
+  "compName": "BiweeklyMortgageCalculator"
+ },
+ {
+  "slug": "home-loan-emi-calculator-india",
+  "category": "FINANCE",
+  "name": "Home Loan EMI Calculator (India)",
+  "compName": "HomeLoanEmiIndia"
+ },
+ {
+  "slug": "hard-money-loan-calculator",
+  "category": "FINANCE",
+  "name": "Hard Money Loan Calculator",
+  "compName": "HardMoneyLoanCalculator"
+ },
+ {
+  "slug": "commercial-loan-calculator",
+  "category": "FINANCE",
+  "name": "Commercial Loan Calculator",
+  "compName": "CommercialLoanCalculator"
+ },
+ {
+  "slug": "mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Calculator",
+  "compName": "MortgageCalculator"
+ },
+ {
+  "slug": "education-loan-calculator",
+  "category": "FINANCE",
+  "name": "Education Loan Calculator",
+  "compName": "EducationLoanCalculator"
+ },
+ {
+  "slug": "construction-loan-calculator",
+  "category": "FINANCE",
+  "name": "Construction Loan Calculator",
+  "compName": "ConstructionLoanCalculator"
+ },
+ {
+  "slug": "fha-loan-calculator",
+  "category": "FINANCE",
+  "name": "FHA Loan Calculator",
+  "compName": "FhaLoanCalculator"
+ },
+ {
+  "slug": "loan-calculator",
+  "category": "FINANCE",
+  "name": "Loan EMI Calculator",
+  "compName": "LoanCalculator"
+ },
+ {
+  "slug": "uk-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "UK Mortgage Calculator",
+  "compName": "UKMortgageCalculator"
+ },
+ {
+  "slug": "canadian-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Canadian Mortgage Calculator",
+  "compName": "CanadianMortgageCalculator"
+ },
+ {
+  "slug": "bridge-loan-calculator",
+  "category": "FINANCE",
+  "name": "Bridge Loan Calculator",
+  "compName": "BridgeLoanCalculator"
+ },
+ {
+  "slug": "points-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Points Break-Even Calculator",
+  "compName": "PointsBreakEvenCalculator"
+ },
+ {
+  "slug": "personal-loan-calculator",
+  "category": "FINANCE",
+  "name": "Personal Loan Calculator",
+  "compName": "PersonalLoanCalculator"
+ },
+ {
+  "slug": "rv-loan-calculator",
+  "category": "FINANCE",
+  "name": "RV Loan Calculator",
+  "compName": "RvLoanCalculator"
+ },
+ {
+  "slug": "business-loan-calculator",
+  "category": "FINANCE",
+  "name": "Business Loan Calculator",
+  "compName": "BusinessLoanCalculator"
+ },
+ {
+  "slug": "va-loan-calculator",
+  "category": "FINANCE",
+  "name": "VA Loan Calculator",
+  "compName": "VaLoanCalculator"
+ },
+ {
+  "slug": "home-equity-loan-calculator",
+  "category": "FINANCE",
+  "name": "Home Equity Loan Calculator",
+  "compName": "HomeEquityLoanCalculator"
+ },
+ {
+  "slug": "mortgage-affordability-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Affordability Calculator",
+  "compName": "MortgageAffordabilityCalculator"
+ },
+ {
+  "slug": "balloon-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Balloon Mortgage Calculator",
+  "compName": "BalloonMortgageCalculator"
+ },
+ {
+  "slug": "reverse-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Reverse Mortgage Calculator",
+  "compName": "ReverseMortgageCalculator"
+ },
+ {
+  "slug": "interest-only-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Interest-Only Mortgage Calculator",
+  "compName": "InterestOnlyMortgageCalculator"
+ },
+ {
+  "slug": "construction-loan-draw-calculator",
+  "category": "FINANCE",
+  "name": "Construction Loan Draw Calculator",
+  "compName": "ConstructionLoanDrawCalculator"
+ },
+ {
+  "slug": "car-insurance-calculator",
+  "category": "FINANCE",
+  "name": "Car Insurance Calculator",
+  "compName": "CarInsuranceCalculator"
+ },
+ {
+  "slug": "loan-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Loan Payoff Calculator",
+  "compName": "LoanPayoffCalculator"
+ },
+ {
+  "slug": "credit-card-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Credit Card Payoff Calculator",
+  "compName": "CreditCardPayoffCalculator"
+ },
+ {
+  "slug": "credit-card-minimum-payment-calculator",
+  "category": "FINANCE",
+  "name": "Credit Card Minimum Payment Calculator",
+  "compName": "CreditCardMinimumPaymentCalculator"
+ },
+ {
+  "slug": "credit-utilization-calculator",
+  "category": "FINANCE",
+  "name": "Credit Utilization Calculator",
+  "compName": "CreditUtilizationCalculator"
+ },
+ {
+  "slug": "credit-score-estimator",
+  "category": "FINANCE",
+  "name": "Credit Score Estimator",
+  "compName": "CreditScoreEstimator"
+ },
+ {
+  "slug": "interest-only-calculator",
+  "category": "FINANCE",
+  "name": "Interest Only Calculator",
+  "compName": "InterestOnlyCalculator"
+ },
+ {
+  "slug": "marriage-tax-calculator",
+  "category": "FINANCE",
+  "name": "Marriage Tax Calculator",
+  "compName": "MarriageTaxCalculator"
+ },
+ {
+  "slug": "sales-tax-calculator",
+  "category": "FINANCE",
+  "name": "Sales Tax Calculator",
+  "compName": "SalesTaxCalculator"
+ },
+ {
+  "slug": "income-tax-calculator-india",
+  "category": "FINANCE",
+  "name": "Income Tax Calculator (India)",
+  "compName": "IncomeTaxCalculatorIndia"
+ },
+ {
+  "slug": "tax-refund-calculator",
+  "category": "FINANCE",
+  "name": "Tax Refund Estimator",
+  "compName": "TaxRefundCalculator"
+ },
+ {
+  "slug": "83(b)-election-tax-calculator",
+  "category": "FINANCE",
+  "name": "83(b) Election Tax Calculator",
+  "compName": "EightyThreeBElectionTaxCalculator"
+ },
+ {
+  "slug": "salary-calculator",
+  "category": "FINANCE",
+  "name": "Salary Calculator",
+  "compName": "SalaryCalculator"
+ },
+ {
+  "slug": "capital-gains-tax-calculator",
+  "category": "FINANCE",
+  "name": "Capital Gains Tax Calculator",
+  "compName": "CapitalGainsTaxCalculator"
+ },
+ {
+  "slug": "quarterly-tax-calculator",
+  "category": "FINANCE",
+  "name": "Quarterly Estimated Tax Calculator",
+  "compName": "QuarterlyTaxCalculator"
+ },
+ {
+  "slug": "tax-bracket-calculator",
+  "category": "FINANCE",
+  "name": "Tax Bracket Calculator",
+  "compName": "TaxBracketCalculator"
+ },
+ {
+  "slug": "payroll-tax-calculator",
+  "category": "FINANCE",
+  "name": "Payroll Tax Calculator",
+  "compName": "PayrollTaxCalculator"
+ },
+ {
+  "slug": "estate-tax-calculator",
+  "category": "FINANCE",
+  "name": "Estate Tax Calculator",
+  "compName": "EstateTaxCalculator"
+ },
+ {
+  "slug": "income-tax-calculator",
+  "category": "FINANCE",
+  "name": "Income Tax Calculator",
+  "compName": "IncomeTaxCalculator"
+ },
+ {
+  "slug": "professional-tax-calculator",
+  "category": "FINANCE",
+  "name": "Professional Tax Calculator",
+  "compName": "ProfessionalTaxCalculator"
+ },
+ {
+  "slug": "self-employment-tax-calculator",
+  "category": "FINANCE",
+  "name": "Self-Employment Tax Calculator",
+  "compName": "SelfEmploymentTaxCalculator"
+ },
+ {
+  "slug": "take-home-salary-calculator",
+  "category": "FINANCE",
+  "name": "Take-Home Salary Calculator",
+  "compName": "TakeHomeSalaryCalculator"
+ },
+ {
+  "slug": "hourly-to-salary-calculator",
+  "category": "FINANCE",
+  "name": "Hourly to Salary Calculator",
+  "compName": "HourlyToSalaryCalculator"
+ },
+ {
+  "slug": "tax-equivalent-yield-calculator",
+  "category": "FINANCE",
+  "name": "Tax-Equivalent Yield Calculator",
+  "compName": "TaxEquivalentYieldCalculator"
+ },
+ {
+  "slug": "property-tax-calculator",
+  "category": "FINANCE",
+  "name": "Property Tax Calculator",
+  "compName": "PropertyTaxCalculator"
+ },
+ {
+  "slug": "simple-interest-calculator",
+  "category": "FINANCE",
+  "name": "Simple Interest Calculator",
+  "compName": "SimpleInterestCalculator"
+ },
+ {
+  "slug": "compound-interest-calculator",
+  "category": "FINANCE",
+  "name": "Compound Interest Calculator",
+  "compName": "CompoundInterestCalculator"
+ },
+ {
+  "slug": "interest-rate-calculator",
+  "category": "FINANCE",
+  "name": "Interest Rate Calculator",
+  "compName": "InterestRateCalculator"
+ },
+ {
+  "slug": "life-insurance-calculator",
+  "category": "FINANCE",
+  "name": "Life Insurance Calculator",
+  "compName": "LifeInsuranceCalculator"
+ },
+ {
+  "slug": "home-insurance-calculator",
+  "category": "FINANCE",
+  "name": "Home Insurance Calculator",
+  "compName": "HomeInsuranceCalculator"
+ },
+ {
+  "slug": "cryptocurrency-profit-calculator",
+  "category": "FINANCE",
+  "name": "Cryptocurrency Profit Calculator",
+  "compName": "CryptoProfitCalculator"
+ },
+ {
+  "slug": "cost-of-living-calculator",
+  "category": "FINANCE",
+  "name": "Cost of Living Calculator",
+  "compName": "CostOfLivingCalculator"
+ },
+ {
+  "slug": "subscription-cost-calculator",
+  "category": "FINANCE",
+  "name": "Subscription Cost Calculator",
+  "compName": "SubscriptionCostCalculator"
+ },
+ {
+  "slug": "dividend-reinvestment-calculator",
+  "category": "FINANCE",
+  "name": "Dividend Reinvestment Calculator",
+  "compName": "DividendReinvestmentCalculator"
+ },
+ {
+  "slug": "dollar-cost-averaging-calculator",
+  "category": "FINANCE",
+  "name": "Dollar Cost Averaging Calculator",
+  "compName": "DollarCostAveragingCalculator"
+ },
+ {
+  "slug": "investment-property-calculator",
+  "category": "FINANCE",
+  "name": "Investment Property Calculator",
+  "compName": "InvestmentPropertyCalculator"
+ },
+ {
+  "slug": "roi-calculator",
+  "category": "FINANCE",
+  "name": "ROI Calculator",
+  "compName": "RoiCalculator"
+ },
+ {
+  "slug": "investment-calculator",
+  "category": "FINANCE",
+  "name": "Investment Calculator",
+  "compName": "CompoundInterestCalculator"
+ },
+ {
+  "slug": "profit-margin-calculator",
+  "category": "FINANCE",
+  "name": "Profit Margin Calculator",
+  "compName": "ProfitMarginCalculator"
+ },
+ {
+  "slug": "repayment-calculator",
+  "category": "FINANCE",
+  "name": "Repayment Calculator",
+  "compName": "RepaymentCalculator"
+ },
+ {
+  "slug": "payment-calculator",
+  "category": "FINANCE",
+  "name": "Payment Calculator",
+  "compName": "PaymentCalculator"
+ },
+ {
+  "slug": "minimum-payment-calculator",
+  "category": "FINANCE",
+  "name": "Minimum Payment Calculator",
+  "compName": "MinimumPaymentCalculator"
+ },
+ {
+  "slug": "budget-rule-calculator",
+  "category": "FINANCE",
+  "name": "50/30/20 Budget Calculator",
+  "compName": "BudgetRuleCalculator"
+ },
+ {
+  "slug": "budget-calculator",
+  "category": "FINANCE",
+  "name": "Monthly Budget Calculator",
+  "compName": "BudgetCalculator"
+ },
+ {
+  "slug": "retirement-calculator",
+  "category": "FINANCE",
+  "name": "Retirement Calculator",
+  "compName": "RetirementCalculator"
+ },
+ {
+  "slug": "early-retirement-calculator",
+  "category": "FINANCE",
+  "name": "Early Retirement Calculator",
+  "compName": "EarlyRetirementCalculator"
+ },
+ {
+  "slug": "discounted-payback-period-calculator",
+  "category": "FINANCE",
+  "name": "Discounted Payback Period Calculator",
+  "compName": "DiscountedPaybackPeriodCalculator"
+ },
+ {
+  "slug": "price-to-sales-calculator",
+  "category": "FINANCE",
+  "name": "Price-to-Sales (P/S) Ratio Calculator",
+  "compName": "PriceToSalesCalculator"
+ },
+ {
+  "slug": "price-to-book-calculator",
+  "category": "FINANCE",
+  "name": "Price-to-Book (P/B) Ratio Calculator",
+  "compName": "PriceToBookCalculator"
+ },
+ {
+  "slug": "price-to-earnings-growth-peg-calculator",
+  "category": "FINANCE",
+  "name": "Price to Earnings Growth (PEG) Calculator",
+  "compName": "PriceToEarningsGrowthPegCalculator"
+ },
+ {
+  "slug": "bond-price-calculator",
+  "category": "FINANCE",
+  "name": "Bond Price Calculator",
+  "compName": "BondPriceCalculator"
+ },
+ {
+  "slug": "down-payment-calculator",
+  "category": "FINANCE",
+  "name": "Down Payment Calculator",
+  "compName": "DownPaymentCalculator"
+ },
+ {
+  "slug": "options-profit-calculator",
+  "category": "FINANCE",
+  "name": "Options Profit Calculator",
+  "compName": "OptionsProfitCalculator"
+ },
+ {
+  "slug": "amortization-calculator",
+  "category": "FINANCE",
+  "name": "Amortization Calculator",
+  "compName": "AmortizationCalculator"
+ },
+ {
+  "slug": "refinance-calculator",
+  "category": "FINANCE",
+  "name": "Refinance Calculator",
+  "compName": "RefinanceCalculator"
+ },
+ {
+  "slug": "pmi-calculator",
+  "category": "FINANCE",
+  "name": "PMI Calculator",
+  "compName": "PmiCalculator"
+ },
+ {
+  "slug": "heloc-calculator",
+  "category": "FINANCE",
+  "name": "HELOC Calculator",
+  "compName": "HelocCalculator"
+ },
+ {
+  "slug": "inflation-calculator",
+  "category": "FINANCE",
+  "name": "Inflation Calculator",
+  "compName": "InflationCalculator"
+ },
+ {
+  "slug": "social-security-calculator",
+  "category": "FINANCE",
+  "name": "Social Security Calculator",
+  "compName": "SocialSecurityCalculator"
+ },
+ {
+  "slug": "net-worth-calculator",
+  "category": "FINANCE",
+  "name": "Net Worth Calculator",
+  "compName": "NetWorthCalculator"
+ },
+ {
+  "slug": "hra-calculator",
+  "category": "FINANCE",
+  "name": "HRA Calculator",
+  "compName": "HraCalculator"
+ },
+ {
+  "slug": "gst-calculator",
+  "category": "FINANCE",
+  "name": "GST Calculator",
+  "compName": "GstCalculator"
+ },
+ {
+  "slug": "tds-calculator",
+  "category": "FINANCE",
+  "name": "TDS Calculator",
+  "compName": "TdsCalculator"
+ },
+ {
+  "slug": "w4-withholding-calculator",
+  "category": "FINANCE",
+  "name": "W-4 Withholding Calculator",
+  "compName": "W4WithholdingCalculator"
+ },
+ {
+  "slug": "overtime-calculator",
+  "category": "FINANCE",
+  "name": "Overtime Calculator",
+  "compName": "OvertimeCalculator"
+ },
+ {
+  "slug": "bonus-calculator",
+  "category": "FINANCE",
+  "name": "Bonus Calculator",
+  "compName": "BonusCalculator"
+ },
+ {
+  "slug": "commission-calculator",
+  "category": "FINANCE",
+  "name": "Commission Calculator",
+  "compName": "CommissionCalculator"
+ },
+ {
+  "slug": "pension-calculator",
+  "category": "FINANCE",
+  "name": "Pension Calculator",
+  "compName": "PensionCalculator"
+ },
+ {
+  "slug": "stamp-duty-calculator",
+  "category": "FINANCE",
+  "name": "Stamp Duty Calculator",
+  "compName": "StampDutyCalculator"
+ },
+ {
+  "slug": "net-pay-calculator",
+  "category": "FINANCE",
+  "name": "Net Pay Calculator",
+  "compName": "NetPayCalculator"
+ },
+ {
+  "slug": "529-college-savings-plan-calculator",
+  "category": "FINANCE",
+  "name": "529 College Savings Plan Calculator",
+  "compName": "Five29CollegeSavingsPlanCalculator"
+ },
+ {
+  "slug": "debt-to-income-calculator",
+  "category": "FINANCE",
+  "name": "Debt-to-Income Ratio Calculator",
+  "compName": "DtiCalculator"
+ },
+ {
+  "slug": "debt-consolidation-calculator",
+  "category": "FINANCE",
+  "name": "Debt Consolidation Calculator",
+  "compName": "DebtConsolidationCalculator"
+ },
+ {
+  "slug": "dti-calculator",
+  "category": "FINANCE",
+  "name": "DTI Calculator",
+  "compName": "DtiCalculator"
+ },
+ {
+  "slug": "apr-calculator",
+  "category": "FINANCE",
+  "name": "APR Calculator",
+  "compName": "AprCalculator"
+ },
+ {
+  "slug": "debt-avalanche-calculator",
+  "category": "FINANCE",
+  "name": "Debt Avalanche Calculator",
+  "compName": "DebtAvalancheCalculator"
+ },
+ {
+  "slug": "debt-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Debt Payoff Calculator",
+  "compName": "DebtPayoffCalculator"
+ },
+ {
+  "slug": "0-apr-promotion-payoff-calculator",
+  "category": "FINANCE",
+  "name": "0% APR Promotion Payoff Calculator",
+  "compName": "ZeroAprPromotionPayoffCalculator"
+ },
+ {
+  "slug": "debt-snowball-calculator",
+  "category": "FINANCE",
+  "name": "Debt Snowball Calculator",
+  "compName": "DebtSnowballCalculator"
+ },
+ {
+  "slug": "balance-transfer-calculator",
+  "category": "FINANCE",
+  "name": "Balance Transfer Calculator",
+  "compName": "BalanceTransferCalculator"
+ },
+ {
+  "slug": "1031-exchange-timeline-calculator",
+  "category": "FINANCE",
+  "name": "1031 Exchange Timeline Calculator",
+  "compName": "Exchange1031TimelineCalculator"
+ },
+ {
+  "slug": "net-worth-tracker",
+  "category": "FINANCE",
+  "name": "Net Worth Tracker",
+  "compName": "NetWorthTrackerCalc"
+ },
+ {
+  "slug": "bill-split-calculator",
+  "category": "FINANCE",
+  "name": "Bill Split Calculator",
+  "compName": "BillSplitCalculator"
+ },
+ {
+  "slug": "traditional-ira-calculator",
+  "category": "FINANCE",
+  "name": "Traditional IRA Calculator",
+  "compName": "TraditionalIraCalculator"
+ },
+ {
+  "slug": "rmd-calculator",
+  "category": "FINANCE",
+  "name": "RMD Calculator",
+  "compName": "RmdCalculator"
+ },
+ {
+  "slug": "ira-calculator",
+  "category": "FINANCE",
+  "name": "IRA Calculator",
+  "compName": "IraCalculator"
+ },
+ {
+  "slug": "social-security-benefits-calculator",
+  "category": "FINANCE",
+  "name": "Social Security Benefits Calculator",
+  "compName": "SocialSecurityBenefitsCalculator"
+ },
+ {
+  "slug": "10-year-averaging-distribution-calculator",
+  "category": "FINANCE",
+  "name": "10-Year Averaging Distribution Calculator",
+  "compName": "TenYearAveragingDistributionCalculator"
+ },
+ {
+  "slug": "roth-ira-calculator",
+  "category": "FINANCE",
+  "name": "Roth IRA Calculator",
+  "compName": "RothIraCalculator"
+ },
+ {
+  "slug": "annuity-payout-calculator",
+  "category": "FINANCE",
+  "name": "Annuity Payout Calculator",
+  "compName": "AnnuityPayoutCalculator"
+ },
+ {
+  "slug": "safe-withdrawal-rate-calculator",
+  "category": "FINANCE",
+  "name": "Safe Withdrawal Rate Calculator",
+  "compName": "SafeWithdrawalRateCalculator"
+ },
+ {
+  "slug": "457(b)-plan-calculator",
+  "category": "FINANCE",
+  "name": "457(b) Plan Calculator",
+  "compName": "Four57bPlanCalculator"
+ },
+ {
+  "slug": "401k-calculator",
+  "category": "FINANCE",
+  "name": "401K Calculator",
+  "compName": "K401Calculator"
+ },
+ {
+  "slug": "annuity-calculator",
+  "category": "FINANCE",
+  "name": "Annuity Calculator",
+  "compName": "AnnuityCalculator"
+ },
+ {
+  "slug": "fire-calculator",
+  "category": "FINANCE",
+  "name": "FIRE Calculator",
+  "compName": "FireCalculator"
+ },
+ {
+  "slug": "savings-calculator",
+  "category": "FINANCE",
+  "name": "Savings Calculator",
+  "compName": "SavingsCalculator"
+ },
+ {
+  "slug": "401(k)-growth-calculator",
+  "category": "FINANCE",
+  "name": "401(k) Growth Calculator",
+  "compName": "Four01kGrowthCalculator"
+ },
+ {
+  "slug": "4-rule-calculator",
+  "category": "FINANCE",
+  "name": "4% Rule Calculator",
+  "compName": "FourPercentRuleCalculator"
+ },
+ {
+  "slug": "403(b)-growth-calculator",
+  "category": "FINANCE",
+  "name": "403(b) Growth Calculator",
+  "compName": "Four03bGrowthCalculator"
+ },
+ {
+  "slug": "retention-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Retention Ratio Calculator",
+  "compName": "RetentionRatioCalculator"
+ },
+ {
+  "slug": "pe-ratio-calculator",
+  "category": "FINANCE",
+  "name": "P/E Ratio Calculator",
+  "compName": "PERatioCalculator"
+ },
+ {
+  "slug": "sharpe-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Sharpe Ratio Calculator",
+  "compName": "SharpeRatioCalculator"
+ },
+ {
+  "slug": "bond-duration-calculator",
+  "category": "FINANCE",
+  "name": "Macaulay Duration Calculator",
+  "compName": "BondDurationCalculator"
+ },
+ {
+  "slug": "sip-calculator",
+  "category": "FINANCE",
+  "name": "SIP Calculator",
+  "compName": "SipCalculator"
+ },
+ {
+  "slug": "swp-calculator",
+  "category": "FINANCE",
+  "name": "SWP Calculator",
+  "compName": "SwpCalculator"
+ },
+ {
+  "slug": "stock-calculator",
+  "category": "FINANCE",
+  "name": "Stock Return Calculator",
+  "compName": "StockCalculator"
+ },
+ {
+  "slug": "expected-return-calculator",
+  "category": "FINANCE",
+  "name": "Expected Return Calculator",
+  "compName": "ExpectedReturnCalculator"
+ },
+ {
+  "slug": "dcf-calculator",
+  "category": "FINANCE",
+  "name": "DCF Calculator",
+  "compName": "DcfCalculator"
+ },
+ {
+  "slug": "portfolio-rebalancing-calculator",
+  "category": "FINANCE",
+  "name": "Portfolio Rebalancing Calculator",
+  "compName": "PortfolioRebalancingCalculator"
+ },
+ {
+  "slug": "dividend-yield-calculator",
+  "category": "FINANCE",
+  "name": "Dividend Yield Calculator",
+  "compName": "DividendYieldCalculator"
+ },
+ {
+  "slug": "yield-to-maturity-calculator",
+  "category": "FINANCE",
+  "name": "Yield to Maturity (YTM) Calculator",
+  "compName": "YieldToMaturityCalculator"
+ },
+ {
+  "slug": "sustainable-growth-rate-calculator",
+  "category": "FINANCE",
+  "name": "Sustainable Growth Rate Calculator",
+  "compName": "SustainableGrowthRateCalculator"
+ },
+ {
+  "slug": "internal-growth-rate-calculator",
+  "category": "FINANCE",
+  "name": "Internal Growth Rate Calculator",
+  "compName": "InternalGrowthRateCalculator"
+ },
+ {
+  "slug": "lumpsum-calculator",
+  "category": "FINANCE",
+  "name": "Lumpsum Calculator",
+  "compName": "LumpsumCalculator"
+ },
+ {
+  "slug": "capital-asset-pricing-model-calculator",
+  "category": "FINANCE",
+  "name": "CAPM Calculator",
+  "compName": "CapitalAssetPricingModelCalculator"
+ },
+ {
+  "slug": "yield-to-call-calculator",
+  "category": "FINANCE",
+  "name": "Yield to Call (YTC) Calculator",
+  "compName": "YieldToCallCalculator"
+ },
+ {
+  "slug": "zero-coupon-bond-calculator",
+  "category": "FINANCE",
+  "name": "Zero-Coupon Bond Calculator",
+  "compName": "ZeroCouponBondCalculator"
+ },
+ {
+  "slug": "capital-gains-yield-calculator",
+  "category": "FINANCE",
+  "name": "Capital Gains Yield Calculator",
+  "compName": "CapitalGainsYieldCalculator"
+ },
+ {
+  "slug": "rule-of-70-calculator",
+  "category": "FINANCE",
+  "name": "Rule of 70 Calculator",
+  "compName": "RuleOf70Calculator"
+ },
+ {
+  "slug": "home-affordability-calculator",
+  "category": "FINANCE",
+  "name": "Home Affordability Calculator",
+  "compName": "HomeAffordabilityCalculator"
+ },
+ {
+  "slug": "rent-affordability-calculator",
+  "category": "FINANCE",
+  "name": "Rent Affordability Calculator",
+  "compName": "RentAffordabilityCalculator"
+ },
+ {
+  "slug": "refinance-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Refinance Break-Even Calculator",
+  "compName": "RefinanceBreakEvenCalculator"
+ },
+ {
+  "slug": "irr-calculator",
+  "category": "FINANCE",
+  "name": "IRR Calculator",
+  "compName": "IrrCalculator"
+ },
+ {
+  "slug": "future-value-calculator",
+  "category": "FINANCE",
+  "name": "Future Value Calculator",
+  "compName": "FutureValueCalculator"
+ },
+ {
+  "slug": "dividend-calculator",
+  "category": "FINANCE",
+  "name": "Dividend Calculator",
+  "compName": "DividendCalculator"
+ },
+ {
+  "slug": "cd-calculator",
+  "category": "FINANCE",
+  "name": "CD Calculator",
+  "compName": "CdCalculatorFull"
+ },
+ {
+  "slug": "average-return-calculator",
+  "category": "FINANCE",
+  "name": "Average Return Calculator",
+  "compName": "AverageReturnCalculator"
+ },
+ {
+  "slug": "cagr-calculator",
+  "category": "FINANCE",
+  "name": "CAGR Calculator",
+  "compName": "CagrCalculator"
+ },
+ {
+  "slug": "bond-yield-calculator",
+  "category": "FINANCE",
+  "name": "Bond Yield Calculator",
+  "compName": "BondYieldCalculator"
+ },
+ {
+  "slug": "present-value-calculator",
+  "category": "FINANCE",
+  "name": "Present Value Calculator",
+  "compName": "PresentValueCalculator"
+ },
+ {
+  "slug": "rental-yield-calculator",
+  "category": "FINANCE",
+  "name": "Rental Yield Calculator",
+  "compName": "RentalYieldCalculator"
+ },
+ {
+  "slug": "property-appreciation-calculator",
+  "category": "FINANCE",
+  "name": "Property Appreciation Calculator",
+  "compName": "PropertyAppreciationCalculator"
+ },
+ {
+  "slug": "depreciation-calculator",
+  "category": "FINANCE",
+  "name": "Depreciation Calculator",
+  "compName": "DepreciationCalculator"
+ },
+ {
+  "slug": "markup-calculator",
+  "category": "FINANCE",
+  "name": "Markup Calculator",
+  "compName": "MarkupCalculator"
+ },
+ {
+  "slug": "inventory-turnover-calculator",
+  "category": "FINANCE",
+  "name": "Inventory Turnover Calculator",
+  "compName": "InventoryTurnoverCalculator"
+ },
+ {
+  "slug": "working-capital-calculator",
+  "category": "FINANCE",
+  "name": "Working Capital Calculator",
+  "compName": "WorkingCapitalCalculator"
+ },
+ {
+  "slug": "ebitda-calculator",
+  "category": "FINANCE",
+  "name": "EBITDA Calculator",
+  "compName": "EbitdaCalculator"
+ },
+ {
+  "slug": "vat-calculator",
+  "category": "FINANCE",
+  "name": "VAT Calculator",
+  "compName": "VatCalculator"
+ },
+ {
+  "slug": "gdp-calculator",
+  "category": "FINANCE",
+  "name": "GDP Calculator",
+  "compName": "GdpCalculator"
+ },
+ {
+  "slug": "rent-vs-buy-calculator",
+  "category": "FINANCE",
+  "name": "Rent vs Buy Calculator",
+  "compName": "RentVsBuyCalculator"
+ },
+ {
+  "slug": "cap-rate-calculator",
+  "category": "FINANCE",
+  "name": "Cap Rate Calculator",
+  "compName": "CapRateCalculator"
+ },
+ {
+  "slug": "real-estate-calculator",
+  "category": "FINANCE",
+  "name": "Real Estate Calculator",
+  "compName": "RealEstateCalculatorFull"
+ },
+ {
+  "slug": "payback-period-calculator",
+  "category": "FINANCE",
+  "name": "Payback Period Calculator",
+  "compName": "PaybackPeriodCalculator"
+ },
+ {
+  "slug": "house-affordability-calculator",
+  "category": "FINANCE",
+  "name": "House Affordability Calculator",
+  "compName": "HouseAffordabilityCalculator"
+ },
+ {
+  "slug": "break-even-calculator",
+  "category": "FINANCE",
+  "name": "Break Even Calculator",
+  "compName": "BreakEvenCalculator"
+ },
+ {
+  "slug": "amortization-schedule-calculator",
+  "category": "FINANCE",
+  "name": "Amortization Schedule Calculator",
+  "compName": "AmortizationScheduleCalculator"
+ },
+ {
+  "slug": "rule-of-78-calculator",
+  "category": "FINANCE",
+  "name": "Rule of 78 Calculator",
+  "compName": "RuleOf78Calculator"
+ },
+ {
+  "slug": "ppf-calculator",
+  "category": "FINANCE",
+  "name": "PPF Calculator",
+  "compName": "PpfCalculator"
+ },
+ {
+  "slug": "epf-calculator",
+  "category": "FINANCE",
+  "name": "EPF Calculator",
+  "compName": "EpfCalculator"
+ },
+ {
+  "slug": "nps-calculator",
+  "category": "FINANCE",
+  "name": "NPS Calculator",
+  "compName": "NpsCalculator"
+ },
+ {
+  "slug": "savings-goal-calculator",
+  "category": "FINANCE",
+  "name": "Savings Goal Calculator",
+  "compName": "SavingsGoalCalculator"
+ },
+ {
+  "slug": "high-yield-savings-calculator",
+  "category": "FINANCE",
+  "name": "High-Yield Savings Calculator",
+  "compName": "HighYieldSavingsCalculator"
+ },
+ {
+  "slug": "money-market-calculator",
+  "category": "FINANCE",
+  "name": "Money Market Calculator",
+  "compName": "MoneyMarketCalculator"
+ },
+ {
+  "slug": "apy-calculator",
+  "category": "FINANCE",
+  "name": "APY Calculator",
+  "compName": "ApyCalculator"
+ },
+ {
+  "slug": "sukanya-samriddhi-calculator",
+  "category": "FINANCE",
+  "name": "Sukanya Samriddhi Calculator",
+  "compName": "SukanyaSamriddhiCalculator"
+ },
+ {
+  "slug": "emergency-fund-calculator",
+  "category": "FINANCE",
+  "name": "Emergency Fund Calculator",
+  "compName": "EmergencyFundCalculator"
+ },
+ {
+  "slug": "rule-of-72-calculator",
+  "category": "FINANCE",
+  "name": "Rule of 72 Calculator",
+  "compName": "RuleOf72Calculator"
+ },
+ {
+  "slug": "treasury-bill-calculator",
+  "category": "FINANCE",
+  "name": "Treasury Bill Calculator",
+  "compName": "TreasuryBillCalculator"
+ },
+ {
+  "slug": "certificate-of-deposit-calculator",
+  "category": "FINANCE",
+  "name": "Certificate of Deposit Calculator",
+  "compName": "CertificateOfDepositCalculator"
+ },
+ {
+  "slug": "lease-vs-buy-calculator",
+  "category": "FINANCE",
+  "name": "Lease vs Buy Calculator",
+  "compName": "LeaseVsBuyCalculator"
+ },
+ {
+  "slug": "gratuity-calculator",
+  "category": "FINANCE",
+  "name": "Gratuity Calculator",
+  "compName": "GratuityCalculator"
+ },
+ {
+  "slug": "da-calculator",
+  "category": "FINANCE",
+  "name": "DA Calculator",
+  "compName": "DaCalculator"
+ },
+ {
+  "slug": "leave-encashment-calculator",
+  "category": "FINANCE",
+  "name": "Leave Encashment Calculator",
+  "compName": "LeaveEncashmentCalculator"
+ },
+ {
+  "slug": "apr-to-ear-calculator",
+  "category": "FINANCE",
+  "name": "APR to EAR Calculator",
+  "compName": "AprToEarCalculator"
+ },
+ {
+  "slug": "ear-to-apr-calculator",
+  "category": "FINANCE",
+  "name": "EAR to APR Calculator",
+  "compName": "EarToAprCalculator"
+ },
+ {
+  "slug": "continuous-compounding-calculator",
+  "category": "FINANCE",
+  "name": "Continuous Compounding Calculator",
+  "compName": "ContinuousCompoundingCalculator"
+ },
+ {
+  "slug": "loan-to-cost-ltc-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Loan-to-Cost (LTC) Ratio Calculator",
+  "compName": "LoanToCostRatioCalculator"
+ },
+ {
+  "slug": "loan-to-income-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Loan-to-Income Ratio Calculator",
+  "compName": "LoanToIncomeRatioCalculator"
+ },
+ {
+  "slug": "simple-interest-loan-calculator",
+  "category": "FINANCE",
+  "name": "Simple Interest Loan Calculator",
+  "compName": "SimpleInterestLoanCalculator"
+ },
+ {
+  "slug": "loan-to-value-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Loan-to-Value Ratio Calculator",
+  "compName": "LoanToValueRatioCalculator"
+ },
+ {
+  "slug": "debt-coverage-ratio-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Debt Coverage Ratio Mortgage Calculator",
+  "compName": "DebtCoverageRatioMortgageCalculator"
+ },
+ {
+  "slug": "loan-to-value-ltv-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Loan-to-Value (LTV) Ratio Calculator",
+  "compName": "LoanToValueLtvRatioCalculator"
+ },
+ {
+  "slug": "interest-only-loan-calculator",
+  "category": "FINANCE",
+  "name": "Interest-Only Loan Calculator",
+  "compName": "InterestOnlyCalculator"
+ },
+ {
+  "slug": "adjustable-rate-mortgage-reset-calculator",
+  "category": "FINANCE",
+  "name": "Adjustable Rate Mortgage Reset Calculator",
+  "compName": "AdjustableRateMortgageResetCalculator"
+ },
+ {
+  "slug": "mortgage-recast-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Recast Calculator",
+  "compName": "MortgageRecastCalculator"
+ },
+ {
+  "slug": "loan-comparison-calculator",
+  "category": "FINANCE",
+  "name": "Loan Comparison Calculator",
+  "compName": "LoanComparisonCalculator"
+ },
+ {
+  "slug": "title-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Title Loan Cost Calculator",
+  "compName": "TitleLoanCostCalculator"
+ },
+ {
+  "slug": "home-improvement-loan-calculator",
+  "category": "FINANCE",
+  "name": "Home Improvement Loan Calculator",
+  "compName": "HomeImprovementLoanCalculator"
+ },
+ {
+  "slug": "wedding-loan-calculator",
+  "category": "FINANCE",
+  "name": "Wedding Loan Calculator",
+  "compName": "WeddingLoanCalculator"
+ },
+ {
+  "slug": "land-loan-calculator",
+  "category": "FINANCE",
+  "name": "Land Loan Calculator",
+  "compName": "LandLoanPaymentCalculator"
+ },
+ {
+  "slug": "second-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Second Mortgage Calculator",
+  "compName": "SecondMortgageCalculator"
+ },
+ {
+  "slug": "conforming-vs-jumbo-loan-calculator",
+  "category": "FINANCE",
+  "name": "Conforming vs Jumbo Loan Calculator",
+  "compName": "ConformingVsJumboLoanCalculator"
+ },
+ {
+  "slug": "subprime-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Subprime Loan Cost Calculator",
+  "compName": "SubprimeLoanCostCalculator"
+ },
+ {
+  "slug": "early-mortgage-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Early Mortgage Payoff Calculator",
+  "compName": "EarlyMortgagePayoffCalculator"
+ },
+ {
+  "slug": "reverse-mortgage-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Reverse Mortgage Break-Even Calculator",
+  "compName": "ReverseMortgageBreakEvenCalculator"
+ },
+ {
+  "slug": "15-year-vs-30-year-mortgage-comparison",
+  "category": "FINANCE",
+  "name": "15-Year vs 30-Year Mortgage Comparison",
+  "compName": "FifteenVsThirtyMortgageCalculator"
+ },
+ {
+  "slug": "auto-loan-refinance-savings-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan Refinance Savings Calculator",
+  "compName": "AutoLoanRefinanceSavingsCalculator"
+ },
+ {
+  "slug": "biweekly-vs-monthly-loan-comparison",
+  "category": "FINANCE",
+  "name": "Biweekly vs Monthly Loan Comparison",
+  "compName": "BiweeklyVsMonthlyLoanComparison"
+ },
+ {
+  "slug": "blended-rate-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Blended Rate Mortgage Calculator",
+  "compName": "BlendedRateMortgageCalculator"
+ },
+ {
+  "slug": "business-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Business Loan Payment Calculator",
+  "compName": "BusinessLoanPaymentCalculator"
+ },
+ {
+  "slug": "construction-to-permanent-loan-calculator",
+  "category": "FINANCE",
+  "name": "Construction-to-Permanent Loan Calculator",
+  "compName": "ConstructionToPermanentLoanCalculator"
+ },
+ {
+  "slug": "fha-mortgage-insurance-premium-mip-calculator",
+  "category": "FINANCE",
+  "name": "FHA Mortgage Insurance Premium (MIP) Calculator",
+  "compName": "FhaMipCalculator"
+ },
+ {
+  "slug": "fixed-rate-mortgage-payment-calculator",
+  "category": "FINANCE",
+  "name": "Fixed-Rate Mortgage Payment Calculator",
+  "compName": "FixedRateMortgagePaymentCalculator"
+ },
+ {
+  "slug": "home-loan-eligibility-calculator",
+  "category": "FINANCE",
+  "name": "Home Loan Eligibility Calculator",
+  "compName": "HomeLoanEligibilityCalculator"
+ },
+ {
+  "slug": "jumbo-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Jumbo Loan Payment Calculator",
+  "compName": "JumboLoanPaymentCalculator"
+ },
+ {
+  "slug": "loan-comparison-calculator-side-by-side",
+  "category": "FINANCE",
+  "name": "Loan Comparison Calculator (Side-by-Side)",
+  "compName": "LoanComparisonCalculator"
+ },
+ {
+  "slug": "loan-deferment-interest-accumulation-calculator",
+  "category": "FINANCE",
+  "name": "Loan Deferment Interest Accumulation Calculator",
+  "compName": "LoanDefermentInterestCalculator"
+ },
+ {
+  "slug": "loan-origination-points-to-apr-calculator",
+  "category": "FINANCE",
+  "name": "Loan Origination Points to APR Calculator",
+  "compName": "LoanOriginationPointsToAprCalculator"
+ },
+ {
+  "slug": "maximum-mortgage-affordability-calculator",
+  "category": "FINANCE",
+  "name": "Maximum Mortgage Affordability Calculator",
+  "compName": "MaximumMortgageAffordabilityCalculator"
+ },
+ {
+  "slug": "microfinance-loan-repayment-calculator",
+  "category": "FINANCE",
+  "name": "Microfinance Loan Repayment Calculator",
+  "compName": "MicrofinanceLoanRepaymentCalculator"
+ },
+ {
+  "slug": "mortgage-points-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Points Calculator",
+  "compName": "MortgagePointsCalculator"
+ },
+ {
+  "slug": "piti-mortgage-payment-calculator",
+  "category": "FINANCE",
+  "name": "PITI Mortgage Payment Calculator",
+  "compName": "PitiMortgagePaymentCalculator"
+ },
+ {
+  "slug": "payday-loan-true-cost-calculator",
+  "category": "FINANCE",
+  "name": "Payday Loan True Cost Calculator",
+  "compName": "PaydayLoanTrueCostCalculator"
+ },
+ {
+  "slug": "rv-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "RV Loan Payment Calculator",
+  "compName": "RvLoanPaymentCalculator"
+ },
+ {
+  "slug": "rehab-loan-203k-estimator-calculator",
+  "category": "FINANCE",
+  "name": "Rehab Loan (203k Estimator) Calculator",
+  "compName": "RehabLoan203kEstimatorCalculator"
+ },
+ {
+  "slug": "reverse-mortgage-estimation-calculator",
+  "category": "FINANCE",
+  "name": "Reverse Mortgage Estimation Calculator",
+  "compName": "ReverseMortgageEstimationCalculator"
+ },
+ {
+  "slug": "sba-7a-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "SBA 7(a) Loan Payment Calculator",
+  "compName": "Sba7aLoanPaymentCalculator"
+ },
+ {
+  "slug": "seasonal-payment-loan-calculator",
+  "category": "FINANCE",
+  "name": "Seasonal Payment Loan Calculator",
+  "compName": "SeasonalPaymentLoanCalculator"
+ },
+ {
+  "slug": "student-loan-refinance-savings-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Refinance Savings Calculator",
+  "compName": "StudentLoanRefinanceSavingsCalculator"
+ },
+ {
+  "slug": "student-loan-total-interest-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Total Interest Calculator",
+  "compName": "StudentLoanTotalInterestCalculator"
+ },
+ {
+  "slug": "personal-loan-emi-calculator",
+  "category": "FINANCE",
+  "name": "Personal Loan EMI Calculator",
+  "compName": "PersonalLoanEmiCalculator"
+ },
+ {
+  "slug": "loan-amortization-schedule-calculator",
+  "category": "FINANCE",
+  "name": "Loan Amortization Schedule Calculator",
+  "compName": "LoanAmortizationScheduleCalculator"
+ },
+ {
+  "slug": "loan-origination-fee-calculator",
+  "category": "FINANCE",
+  "name": "Loan Origination Fee Calculator",
+  "compName": "LoanOriginationFeeCalculator"
+ },
+ {
+  "slug": "peer-to-peer-loan-calculator",
+  "category": "FINANCE",
+  "name": "Peer-to-Peer Loan Calculator",
+  "compName": "PeerToPeerLoanCalculator"
+ },
+ {
+  "slug": "microfinance-loan-calculator",
+  "category": "FINANCE",
+  "name": "Microfinance Loan Calculator",
+  "compName": "MicrofinanceLoanCalculator"
+ },
+ {
+  "slug": "working-capital-loan-calculator",
+  "category": "FINANCE",
+  "name": "Working Capital Loan Calculator",
+  "compName": "WorkingCapitalLoanCalculator"
+ },
+ {
+  "slug": "sba-loan-calculator",
+  "category": "FINANCE",
+  "name": "SBA Loan Calculator",
+  "compName": "SbaLoanCalculator"
+ },
+ {
+  "slug": "dental-loan-calculator",
+  "category": "FINANCE",
+  "name": "Dental Loan Calculator",
+  "compName": "DentalLoanCalculator"
+ },
+ {
+  "slug": "piggyback-loan-calculator",
+  "category": "FINANCE",
+  "name": "Piggyback Loan Calculator",
+  "compName": "PiggybackLoanCalculator"
+ },
+ {
+  "slug": "mortgage-insurance-premium-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Insurance Premium Calculator",
+  "compName": "MortgageInsurancePremiumCalculator"
+ },
+ {
+  "slug": "graduated-payment-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Graduated Payment Mortgage Calculator",
+  "compName": "GraduatedPaymentMortgageCalculator"
+ },
+ {
+  "slug": "adjustable-rate-mortgage-arm-payment-calculator",
+  "category": "FINANCE",
+  "name": "Adjustable-Rate Mortgage (ARM) Payment Calculator",
+  "compName": "AdjustableRateMortgageArmPaymentCalculator"
+ },
+ {
+  "slug": "amortization-period-vs-loan-term-comparison",
+  "category": "FINANCE",
+  "name": "Amortization Period vs Loan Term Comparison",
+  "compName": "AmortizationPeriodVsLoanTermComparison"
+ },
+ {
+  "slug": "assumable-mortgage-benefit-calculator",
+  "category": "FINANCE",
+  "name": "Assumable Mortgage Benefit Calculator",
+  "compName": "AssumableMortgageBenefitCalculator"
+ },
+ {
+  "slug": "auto-loan-affordability-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan Affordability Calculator",
+  "compName": "AutoLoanAffordabilityCalculator"
+ },
+ {
+  "slug": "balloon-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Balloon Loan Payment Calculator",
+  "compName": "BalloonLoanPaymentCalculator"
+ },
+ {
+  "slug": "boat-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Boat Loan Payment Calculator",
+  "compName": "BoatLoanPaymentCalculator"
+ },
+ {
+  "slug": "consolidation-loan-rate-calculator",
+  "category": "FINANCE",
+  "name": "Consolidation Loan Rate Calculator",
+  "compName": "ConsolidationLoanRateCalculator"
+ },
+ {
+  "slug": "construction-loan-interest-calculator",
+  "category": "FINANCE",
+  "name": "Construction Loan Interest Calculator",
+  "compName": "ConstructionLoanInterestCalculator"
+ },
+ {
+  "slug": "fha-loan-limit-calculator",
+  "category": "FINANCE",
+  "name": "FHA Loan Limit Calculator",
+  "compName": "FhaLoanLimitCalculator"
+ },
+ {
+  "slug": "farm-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Farm Loan Payment Calculator",
+  "compName": "FarmLoanPaymentCalculator"
+ },
+ {
+  "slug": "green-energy-loan-calculator",
+  "category": "FINANCE",
+  "name": "Green Energy Loan Calculator",
+  "compName": "GreenEnergyLoanCalculator"
+ },
+ {
+  "slug": "interest-only-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Interest-Only Loan Payment Calculator",
+  "compName": "InterestOnlyLoanPaymentCalculator"
+ },
+ {
+  "slug": "land-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Land Loan Payment Calculator",
+  "compName": "LandLoanPaymentCalculator"
+ },
+ {
+  "slug": "loan-prepayment-penalty-calculator",
+  "category": "FINANCE",
+  "name": "Loan Prepayment Penalty Calculator",
+  "compName": "LoanPrepaymentPenaltyCalculator"
+ },
+ {
+  "slug": "loan-restructuring-savings-calculator",
+  "category": "FINANCE",
+  "name": "Loan Restructuring Savings Calculator",
+  "compName": "LoanRestructuringSavingsCalculator"
+ },
+ {
+  "slug": "mortgage-affordability-by-income-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Affordability by Income Calculator",
+  "compName": "MortgageAffordabilityByIncomeCalculator"
+ },
+ {
+  "slug": "mortgage-closing-cost-estimator",
+  "category": "FINANCE",
+  "name": "Mortgage Closing Cost Estimator",
+  "compName": "MortgageClosingCostEstimator"
+ },
+ {
+  "slug": "mortgage-refinance-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Refinance Break-Even Calculator",
+  "compName": "MortgageRefinanceBreakEvenCalculator"
+ },
+ {
+  "slug": "mortgage-refinance-savings-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Refinance Savings Calculator",
+  "compName": "MortgageRefinanceSavingsCalculator"
+ },
+ {
+  "slug": "mortgage-stress-test-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Stress Test Calculator",
+  "compName": "MortgageStressTestCalculator"
+ },
+ {
+  "slug": "motorcycle-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Motorcycle Loan Payment Calculator",
+  "compName": "MotorcycleLoanPaymentCalculator"
+ },
+ {
+  "slug": "parent-plus-loan-repayment-calculator",
+  "category": "FINANCE",
+  "name": "Parent PLUS Loan Repayment Calculator",
+  "compName": "ParentPlusLoanRepaymentCalculator"
+ },
+ {
+  "slug": "personal-loan-monthly-payment-calculator",
+  "category": "FINANCE",
+  "name": "Personal Loan Monthly Payment Calculator",
+  "compName": "PersonalLoanMonthlyPaymentCalculator"
+ },
+ {
+  "slug": "sba-504-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "SBA 504 Loan Payment Calculator",
+  "compName": "Sba504LoanPaymentCalculator"
+ },
+ {
+  "slug": "step-up-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Step-Up Loan Payment Calculator",
+  "compName": "StepUpLoanPaymentCalculator"
+ },
+ {
+  "slug": "teaser-rate-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Teaser Rate Mortgage Calculator",
+  "compName": "TeaserRateMortgageCalculator"
+ },
+ {
+  "slug": "usda-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "USDA Loan Payment Calculator",
+  "compName": "UsdaLoanPaymentCalculator"
+ },
+ {
+  "slug": "variable-rate-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Variable Rate Loan Payment Calculator",
+  "compName": "VariableRateLoanPaymentCalculator"
+ },
+ {
+  "slug": "wedding-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Wedding Loan Cost Calculator",
+  "compName": "WeddingLoanCostCalculator"
+ },
+ {
+  "slug": "home-loan-emi-calculator",
+  "category": "FINANCE",
+  "name": "Home Loan EMI Calculator",
+  "compName": "HomeLoanEmiCalculator"
+ },
+ {
+  "slug": "payday-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Payday Loan Cost Calculator",
+  "compName": "PaydayLoanCostCalculator"
+ },
+ {
+  "slug": "dscr-loan-qualifier-calculator",
+  "category": "FINANCE",
+  "name": "DSCR Loan Qualifier Calculator",
+  "compName": "DscrLoanQualifierCalculator"
+ },
+ {
+  "slug": "solar-loan-calculator",
+  "category": "FINANCE",
+  "name": "Solar Loan Calculator",
+  "compName": "SolarLoanCalculator"
+ },
+ {
+  "slug": "vacation-loan-calculator",
+  "category": "FINANCE",
+  "name": "Vacation Loan Calculator",
+  "compName": "VacationLoanCalculator"
+ },
+ {
+  "slug": "manufactured-home-loan-calculator",
+  "category": "FINANCE",
+  "name": "Manufactured Home Loan Calculator",
+  "compName": "ManufacturedHomeLoanCalculator"
+ },
+ {
+  "slug": "shared-appreciation-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Shared Appreciation Mortgage Calculator",
+  "compName": "SharedAppreciationMortgageCalculator"
+ },
+ {
+  "slug": "wraparound-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Wraparound Mortgage Calculator",
+  "compName": "WraparoundMortgageCalculator"
+ },
+ {
+  "slug": "maximum-loan-amount-calculator",
+  "category": "FINANCE",
+  "name": "Maximum Loan Amount Calculator",
+  "compName": "MaximumLoanAmountCalculator"
+ },
+ {
+  "slug": "loan-refinance-savings-calculator",
+  "category": "FINANCE",
+  "name": "Loan Refinance Savings Calculator",
+  "compName": "LoanRefinanceSavingsCalculator"
+ },
+ {
+  "slug": "auto-loan-early-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan Early Payoff Calculator",
+  "compName": "AutoLoanEarlyPayoffCalculator"
+ },
+ {
+  "slug": "auto-loan-monthly-payment-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan Monthly Payment Calculator",
+  "compName": "AutoLoanMonthlyPaymentCalculator"
+ },
+ {
+  "slug": "bi-annual-payment-loan-calculator",
+  "category": "FINANCE",
+  "name": "Bi-Annual Payment Loan Calculator",
+  "compName": "BiAnnualPaymentLoanCalculator"
+ },
+ {
+  "slug": "biweekly-mortgage-payment-calculator",
+  "category": "FINANCE",
+  "name": "Biweekly Mortgage Payment Calculator",
+  "compName": "BiweeklyMortgagePaymentCalculator"
+ },
+ {
+  "slug": "bridge-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Bridge Loan Cost Calculator",
+  "compName": "BridgeLoanCostCalculator"
+ },
+ {
+  "slug": "combo-loan-calculator",
+  "category": "FINANCE",
+  "name": "Combo Loan Calculator",
+  "compName": "ComboLoanCalculator"
+ },
+ {
+  "slug": "commercial-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Commercial Mortgage Calculator",
+  "compName": "CommercialMortgageCalculator"
+ },
+ {
+  "slug": "deferred-interest-loan-calculator",
+  "category": "FINANCE",
+  "name": "Deferred Interest Loan Calculator",
+  "compName": "DeferredInterestLoanCalculator"
+ },
+ {
+  "slug": "emergency-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Emergency Loan Cost Calculator",
+  "compName": "EmergencyLoanCostCalculator"
+ },
+ {
+  "slug": "equipment-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Equipment Loan Payment Calculator",
+  "compName": "EquipmentLoanPaymentCalculator"
+ },
+ {
+  "slug": "extra-payment-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "Extra Payment Mortgage Calculator",
+  "compName": "ExtraPaymentMortgageCalculator"
+ },
+ {
+  "slug": "home-equity-loan-vs-heloc-comparison",
+  "category": "FINANCE",
+  "name": "Home Equity Loan vs HELOC Comparison",
+  "compName": "HomeEquityLoanVsHelocComparisonCalculator"
+ },
+ {
+  "slug": "loan-payoff-date-calculator",
+  "category": "FINANCE",
+  "name": "Loan Payoff Date Calculator",
+  "compName": "LoanPayoffDateCalculator"
+ },
+ {
+  "slug": "loan-points-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Loan Points Break-Even Calculator",
+  "compName": "LoanPointsBreakEvenCalculator"
+ },
+ {
+  "slug": "microloan-repayment-calculator",
+  "category": "FINANCE",
+  "name": "Microloan Repayment Calculator",
+  "compName": "MicroloanRepaymentCalculator"
+ },
+ {
+  "slug": "mobile-home-loan-calculator",
+  "category": "FINANCE",
+  "name": "Mobile Home Loan Calculator",
+  "compName": "MobileHomeLoanCalculator"
+ },
+ {
+  "slug": "peer-to-peer-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Peer-to-Peer Loan Cost Calculator",
+  "compName": "PeerToPeerLoanCostCalculator"
+ },
+ {
+  "slug": "personal-loan-total-interest-calculator",
+  "category": "FINANCE",
+  "name": "Personal Loan Total Interest Calculator",
+  "compName": "PersonalLoanTotalInterestCalculator"
+ },
+ {
+  "slug": "private-student-loan-vs-federal-comparison",
+  "category": "FINANCE",
+  "name": "Private Student Loan vs Federal Comparison",
+  "compName": "PrivateStudentLoanVsFederalComparisonCalculator"
+ },
+ {
+  "slug": "solar-panel-loan-calculator",
+  "category": "FINANCE",
+  "name": "Solar Panel Loan Calculator",
+  "compName": "SolarPanelLoanCalculator"
+ },
+ {
+  "slug": "step-down-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Step-Down Loan Payment Calculator",
+  "compName": "StepDownLoanPaymentCalculator"
+ },
+ {
+  "slug": "student-loan-burden-as-of-income-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Burden as % of Income Calculator",
+  "compName": "StudentLoanBurdenAsOfIncomeCalculator"
+ },
+ {
+  "slug": "student-loan-monthly-payment-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Monthly Payment Calculator",
+  "compName": "StudentLoanMonthlyPaymentCalculator"
+ },
+ {
+  "slug": "student-loan-payoff-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Payoff Calculator",
+  "compName": "StudentLoanPayoffCalculator"
+ },
+ {
+  "slug": "subsidized-vs-unsubsidized-loan-comparison",
+  "category": "FINANCE",
+  "name": "Subsidized vs Unsubsidized Loan Comparison",
+  "compName": "SubsidizedVsUnsubsidizedLoanComparison"
+ },
+ {
+  "slug": "timeshare-loan-cost-calculator",
+  "category": "FINANCE",
+  "name": "Timeshare Loan Cost Calculator",
+  "compName": "TimeshareLoanCostCalculator"
+ },
+ {
+  "slug": "va-loan-funding-fee-calculator",
+  "category": "FINANCE",
+  "name": "VA Loan Funding Fee Calculator",
+  "compName": "VaLoanFundingFeeCalculator"
+ },
+ {
+  "slug": "va-mortgage-payment-calculator",
+  "category": "FINANCE",
+  "name": "VA Mortgage Payment Calculator",
+  "compName": "VaMortgagePaymentCalculator"
+ },
+ {
+  "slug": "weekly-loan-payment-calculator",
+  "category": "FINANCE",
+  "name": "Weekly Loan Payment Calculator",
+  "compName": "WeeklyLoanPaymentCalculator"
+ },
+ {
+  "slug": "line-of-credit-interest-calculator",
+  "category": "FINANCE",
+  "name": "Line of Credit Interest Calculator",
+  "compName": "LineOfCreditInterestCalculator"
+ },
+ {
+  "slug": "mortgage-interest-deduction-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage Interest Deduction Calculator",
+  "compName": "MortgageInterestDeductionCalculator"
+ },
+ {
+  "slug": "child-and-dependent-care-credit-calculator",
+  "category": "FINANCE",
+  "name": "Child and Dependent Care Credit Calculator",
+  "compName": "ChildAndDependentCareCreditCalculator"
+ },
+ {
+  "slug": "student-loan-interest-deduction-calculator",
+  "category": "FINANCE",
+  "name": "Student Loan Interest Deduction Calculator",
+  "compName": "StudentLoanInterestDeductionCalculator"
+ },
+ {
+  "slug": "loan-protection-insurance-cost-calculator",
+  "category": "FINANCE",
+  "name": "Loan Protection Insurance Cost Calculator",
+  "compName": "LoanProtectionInsuranceCostCalculator"
+ },
+ {
+  "slug": "mortgage-life-insurance-vs-term-life-comparison",
+  "category": "FINANCE",
+  "name": "Mortgage Life Insurance vs Term Life Comparison",
+  "compName": "MortgageLifeInsuranceVsTermLifeComparison"
+ },
+ {
+  "slug": "auto-insurance-premium-estimator",
+  "category": "FINANCE",
+  "name": "Auto Insurance Premium Estimator",
+  "compName": "AutoInsurancePremiumEstimator"
+ },
+ {
+  "slug": "commercial-auto-insurance-estimator",
+  "category": "FINANCE",
+  "name": "Commercial Auto Insurance Estimator",
+  "compName": "CommercialAutoInsuranceEstimator"
+ },
+ {
+  "slug": "long-term-care-insurance-cost-estimator",
+  "category": "FINANCE",
+  "name": "Long-Term Care Insurance Cost Estimator",
+  "compName": "LongTermCareInsuranceCostEstimator"
+ },
+ {
+  "slug": "daily-interest-credit-calculator",
+  "category": "FINANCE",
+  "name": "Daily Interest Credit Calculator",
+  "compName": "DailyInterestCreditCalculator"
+ },
+ {
+  "slug": "annual-percentage-yield-loan-calculator",
+  "category": "FINANCE",
+  "name": "Annual Percentage Yield Loan Calculator",
+  "compName": "AnnualPercentageYieldLoanCalculator"
+ },
+ {
+  "slug": "credit-card-annual-fee-breakeven-calculator",
+  "category": "FINANCE",
+  "name": "Credit Card Annual Fee Breakeven Calculator",
+  "compName": "CreditCardAnnualFeeBreakevenCalculator"
+ },
+ {
+  "slug": "credit-card-rewards-value-calculator",
+  "category": "FINANCE",
+  "name": "Credit Card Rewards Value Calculator",
+  "compName": "CreditCardRewardsValueCalculator"
+ },
+ {
+  "slug": "credit-card-break-even-calculator",
+  "category": "FINANCE",
+  "name": "Credit Card Break-Even Calculator",
+  "compName": "CreditCardBreakEvenCalculator"
+ },
+ {
+  "slug": "credit-score-to-interest-rate-impact-calculator",
+  "category": "FINANCE",
+  "name": "Credit Score to Interest Rate Impact Calculator",
+  "compName": "CreditScoreToInterestRateImpactCalculator"
+ },
+ {
+  "slug": "mortgage-to-rent-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Mortgage-to-Rent Ratio Calculator",
+  "compName": "MortgageToRentRatioCalculator"
+ },
+ {
+  "slug": "loan-constant-calculator",
+  "category": "FINANCE",
+  "name": "Loan Constant Calculator",
+  "compName": "LoanConstantCalculator"
+ },
+ {
+  "slug": "credit-card-interest-savings-from-extra-payment",
+  "category": "FINANCE",
+  "name": "Credit Card Interest Savings from Extra Payment Calculator",
+  "compName": "CreditCardInterestSavingsFromExtraPaymentCalculator"
+ },
+ {
+  "slug": "flash-loan-arbitrage-calculator",
+  "category": "FINANCE",
+  "name": "Flash Loan Arbitrage Calculator",
+  "compName": "FlashLoanArbitrageCalculator"
+ },
+ {
+  "slug": "crypto-tax-calculator",
+  "category": "FINANCE",
+  "name": "Crypto Tax Calculator",
+  "compName": "CryptoTaxCalculator"
+ },
+ {
+  "slug": "credit-score-impact-estimator",
+  "category": "FINANCE",
+  "name": "Credit Score Impact Estimator",
+  "compName": "CreditScoreImpactEstimator"
+ },
+ {
+  "slug": "inheritance-tax-calculator",
+  "category": "FINANCE",
+  "name": "Inheritance Tax Calculator",
+  "compName": "InheritanceTaxCalculator"
+ },
+ {
+  "slug": "gift-tax-calculator",
+  "category": "FINANCE",
+  "name": "Gift Tax Calculator",
+  "compName": "GiftTaxCalculator"
+ },
+ {
+  "slug": "freelancer-tax-calculator",
+  "category": "FINANCE",
+  "name": "Freelancer Tax Calculator",
+  "compName": "FreelanceTaxCalculator"
+ },
+ {
+  "slug": "hourly-to-annual-salary-calculator",
+  "category": "FINANCE",
+  "name": "Hourly to Annual Salary Calculator",
+  "compName": "HourlyToAnnualSalaryCalculator"
+ },
+ {
+  "slug": "hourly-wage-to-annual-salary-calculator",
+  "category": "FINANCE",
+  "name": "Hourly Wage to Annual Salary Calculator",
+  "compName": "HourlyWageToAnnualSalaryCalculator"
+ },
+ {
+  "slug": "cash-back-vs-low-interest-calculator",
+  "category": "FINANCE",
+  "name": "Cash Back vs Low Interest Calculator",
+  "compName": "CashBackVsLowInterestCalculator"
+ },
+ {
+  "slug": "health-insurance-calculator",
+  "category": "FINANCE",
+  "name": "Health Insurance Premium Calculator",
+  "compName": "HealthInsuranceCalculator"
+ },
+ {
+  "slug": "disability-insurance-calculator",
+  "category": "FINANCE",
+  "name": "Disability Insurance Calculator",
+  "compName": "DisabilityInsuranceCalculator"
+ },
+ {
+  "slug": "crypto-profit-calculator",
+  "category": "FINANCE",
+  "name": "Crypto Profit Calculator",
+  "compName": "CryptoProfitCalculator"
+ },
+ {
+  "slug": "crypto-position-size-calculator",
+  "category": "FINANCE",
+  "name": "Crypto Position Size Calculator",
+  "compName": "CryptoPositionSizeCalculator"
+ },
+ {
+  "slug": "closing-cost-calculator",
+  "category": "FINANCE",
+  "name": "Closing Cost Calculator",
+  "compName": "ClosingCostCalculator"
+ },
+ {
+  "slug": "0-apr-promotional-period-cost-calculator",
+  "category": "FINANCE",
+  "name": "0% APR Promotional Period Cost Calculator",
+  "compName": "ZeroAprPromotionalPeriodCostCalculator"
+ },
+ {
+  "slug": "cost-of-living-comparison-calculator",
+  "category": "FINANCE",
+  "name": "Cost of Living Comparison Calculator",
+  "compName": "CostOfLivingCalculator"
+ },
+ {
+  "slug": "return-on-investment-roi-calculator",
+  "category": "FINANCE",
+  "name": "Return on Investment (ROI) Calculator",
+  "compName": "ReturnOnInvestmentCalculator"
+ },
+ {
+  "slug": "angel-investment-return-calculator",
+  "category": "FINANCE",
+  "name": "Angel Investment Return Calculator",
+  "compName": "AngelInvestmentReturnCalculator"
+ },
+ {
+  "slug": "absorption-costing-vs-variable-costing-profit-comparison",
+  "category": "FINANCE",
+  "name": "Absorption Costing vs Variable Costing Profit Comparison",
+  "compName": "AbsorptionCostingVsVariableCostingProfitComparison"
+ },
+ {
+  "slug": "vacation-budget-calculator",
+  "category": "FINANCE",
+  "name": "Vacation Budget Calculator",
+  "compName": "VacationBudgetCalculator"
+ },
+ {
+  "slug": "grocery-budget-calculator",
+  "category": "FINANCE",
+  "name": "Grocery Budget Calculator",
+  "compName": "GroceryBudgetCalculator"
+ },
+ {
+  "slug": "ethereum-gas-calculator",
+  "category": "FINANCE",
+  "name": "Ethereum Gas Fee Calculator",
+  "compName": "EthereumGasCalculator"
+ },
+ {
+  "slug": "retirement-savings-calculator",
+  "category": "FINANCE",
+  "name": "Retirement Savings Calculator",
+  "compName": "RetirementSavingsCalculator"
+ },
+ {
+  "slug": "price-to-book-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Price-to-Book Ratio Calculator",
+  "compName": "PriceToBookRatioCalculator"
+ },
+ {
+  "slug": "supply-and-demand-equilibrium-price-calculator",
+  "category": "FINANCE",
+  "name": "Supply and Demand Equilibrium Price Calculator",
+  "compName": "SupplyAndDemandEquilibriumPriceCalculator"
+ },
+ {
+  "slug": "black-scholes-calculator",
+  "category": "FINANCE",
+  "name": "Black-Scholes Option Pricing Calculator",
+  "compName": "BlackScholesCalculator"
+ },
+ {
+  "slug": "profitability-index-calculator",
+  "category": "FINANCE",
+  "name": "Profitability Index Calculator",
+  "compName": "ProfitabilityIndexCalculator"
+ },
+ {
+  "slug": "forex-profit-calculator",
+  "category": "FINANCE",
+  "name": "Forex Profit Calculator",
+  "compName": "ForexProfitCalculator"
+ },
+ {
+  "slug": "ltv-calculator",
+  "category": "FINANCE",
+  "name": "LTV Calculator",
+  "compName": "LtvCalculator"
+ },
+ {
+  "slug": "pmi-removal-date-calculator",
+  "category": "FINANCE",
+  "name": "PMI Removal Date Calculator",
+  "compName": "PmiRemovalDateCalculator"
+ },
+ {
+  "slug": "amt-calculator",
+  "category": "FINANCE",
+  "name": "AMT Calculator",
+  "compName": "AmtCalculator"
+ },
+ {
+  "slug": "term-life-vs-whole-life-calculator",
+  "category": "FINANCE",
+  "name": "Term Life vs Whole Life Calculator",
+  "compName": "TermLifeVsWholeLifeCalculator"
+ },
+ {
+  "slug": "custodial-account-growth-calculator",
+  "category": "FINANCE",
+  "name": "Custodial Account Growth Calculator",
+  "compName": "CustodialAccountGrowthCalculator"
+ },
+ {
+  "slug": "fixed-charge-coverage-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Fixed Charge Coverage Ratio Calculator",
+  "compName": "FixedChargeCoverageRatioCalculator"
+ },
+ {
+  "slug": "debt-to-asset-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Debt-to-Asset Ratio Calculator",
+  "compName": "DebtToAssetRatioCalculator"
+ },
+ {
+  "slug": "pro-forma-real-estate-analysis-calculator",
+  "category": "FINANCE",
+  "name": "Pro-Forma Real Estate Analysis Calculator",
+  "compName": "ProFormaRealEstateAnalysisCalculator"
+ },
+ {
+  "slug": "rental-property-depreciation-calculator",
+  "category": "FINANCE",
+  "name": "Rental Property Depreciation Calculator",
+  "compName": "RentalPropertyDepreciationCalculator"
+ },
+ {
+  "slug": "freelancer-rate-calculator",
+  "category": "FINANCE",
+  "name": "Freelancer Rate Calculator",
+  "compName": "FreelancerRateCalculator"
+ },
+ {
+  "slug": "hourly-freelance-rate-to-annual-income-calculator",
+  "category": "FINANCE",
+  "name": "Hourly Freelance Rate to Annual Income Calculator",
+  "compName": "FreelanceRateCalculator"
+ },
+ {
+  "slug": "token-burn-rate-calculator",
+  "category": "FINANCE",
+  "name": "Token Burn Rate Calculator",
+  "compName": "TokenBurnRateCalculator"
+ },
+ {
+  "slug": "cold-wallet-key-entropy-calculator",
+  "category": "FINANCE",
+  "name": "Cold Wallet Key Entropy Calculator",
+  "compName": "ColdWalletKeyEntropyCalculator"
+ },
+ {
+  "slug": "staking-rewards-calculator",
+  "category": "FINANCE",
+  "name": "Staking Rewards Calculator",
+  "compName": "StakingRewardsCalculator"
+ },
+ {
+  "slug": "bitcoin-mining-calculator",
+  "category": "FINANCE",
+  "name": "Bitcoin Mining Calculator",
+  "compName": "BitcoinMiningCalculator"
+ },
+ {
+  "slug": "barista-fire-calculator",
+  "category": "FINANCE",
+  "name": "Barista FIRE Calculator",
+  "compName": "BaristaFireCalculator"
+ },
+ {
+  "slug": "required-minimum-distribution-calculator",
+  "category": "FINANCE",
+  "name": "Required Minimum Distribution Calculator",
+  "compName": "RequiredMinimumDistributionCalculator"
+ },
+ {
+  "slug": "backdoor-roth-ira-calculator",
+  "category": "FINANCE",
+  "name": "Backdoor Roth IRA Calculator",
+  "compName": "BackdoorRothIraCalculator"
+ },
+ {
+  "slug": "absolute-return-calculator",
+  "category": "FINANCE",
+  "name": "Absolute Return Calculator",
+  "compName": "AbsoluteReturnCalculator"
+ },
+ {
+  "slug": "unrealized-gainloss-calculator",
+  "category": "FINANCE",
+  "name": "Unrealized Gain/Loss Calculator",
+  "compName": "UnrealizedGainLossCalculator"
+ },
+ {
+  "slug": "dividend-payout-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Dividend Payout Ratio Calculator",
+  "compName": "DividendPayoutRatioCalculator"
+ },
+ {
+  "slug": "modified-duration-calculator",
+  "category": "FINANCE",
+  "name": "Modified Duration Calculator",
+  "compName": "ModifiedDurationCalculator"
+ },
+ {
+  "slug": "earnings-per-share-calculator",
+  "category": "FINANCE",
+  "name": "Earnings Per Share (EPS) Calculator",
+  "compName": "EarningsPerShareCalculator"
+ },
+ {
+  "slug": "put-call-parity-calculator",
+  "category": "FINANCE",
+  "name": "Put-Call Parity Calculator",
+  "compName": "PutCallParityCalculator"
+ },
+ {
+  "slug": "market-neutral-return-calculator",
+  "category": "FINANCE",
+  "name": "Market Neutral Return Calculator",
+  "compName": "MarketNeutralReturnCalculator"
+ },
+ {
+  "slug": "greeks-calculator",
+  "category": "FINANCE",
+  "name": "Options Greeks Calculator",
+  "compName": "GreeksCalculator"
+ },
+ {
+  "slug": "convexity-calculator",
+  "category": "FINANCE",
+  "name": "Bond Convexity Calculator",
+  "compName": "ConvexityCalculator"
+ },
+ {
+  "slug": "book-value-per-share-calculator",
+  "category": "FINANCE",
+  "name": "Book Value per Share Calculator",
+  "compName": "BookValuePerShareCalculator"
+ },
+ {
+  "slug": "beta-calculator",
+  "category": "FINANCE",
+  "name": "Stock Beta Calculator",
+  "compName": "BetaCalculator"
+ },
+ {
+  "slug": "equivalent-annual-annuity-calculator",
+  "category": "FINANCE",
+  "name": "Equivalent Annual Annuity Calculator",
+  "compName": "EquivalentAnnualAnnuityCalculator"
+ },
+ {
+  "slug": "weighted-average-yield-calculator",
+  "category": "FINANCE",
+  "name": "Weighted Average Yield Calculator",
+  "compName": "WeightedAverageYieldCalculator"
+ },
+ {
+  "slug": "preferred-stock-valuation-calculator",
+  "category": "FINANCE",
+  "name": "Preferred Stock Valuation Calculator",
+  "compName": "PreferredStockValuationCalculator"
+ },
+ {
+  "slug": "total-factor-productivity-calculator",
+  "category": "FINANCE",
+  "name": "Total Factor Productivity Calculator",
+  "compName": "TotalFactorProductivityCalculator"
+ },
+ {
+  "slug": "inventory-turnover-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Inventory Turnover Ratio Calculator",
+  "compName": "InventoryTurnoverRatioCalculator"
+ },
+ {
+  "slug": "total-debt-ratio-calculator",
+  "category": "FINANCE",
+  "name": "Total Debt Ratio Calculator",
+  "compName": "TotalDebtRatioCalculator"
+ },
+ {
+  "slug": "retained-earnings-calculator",
+  "category": "FINANCE",
+  "name": "Retained Earnings Calculator",
+  "compName": "RetainedEarningsCalculator"
+ },
+ {
+  "slug": "total-asset-turnover-calculator",
+  "category": "FINANCE",
+  "name": "Total Asset Turnover Calculator",
+  "compName": "AssetTurnoverRatioCalculator"
+ },
+ {
+  "slug": "auto-lease-calculator",
+  "category": "FINANCE",
+  "name": "Auto Lease Calculator",
+  "compName": "AutoLeaseCalculator"
+ },
+ {
+  "slug": "cd-calculator-full",
+  "category": "FINANCE",
+  "name": "CD Calculator",
+  "compName": "CdCalculatorFull"
+ },
+ {
+  "slug": "customer-lifetime-value-calculator",
+  "category": "FINANCE",
+  "name": "Customer Lifetime Value Calculator",
+  "compName": "CustomerLifetimeValueCalculator"
+ },
+ {
+  "slug": "debt-service-coverage-calculator",
+  "category": "FINANCE",
+  "name": "Debt Service Coverage Calculator",
+  "compName": "DebtServiceCoverageCalculator"
+ },
+ {
+  "slug": "domain-valuation-calculator",
+  "category": "FINANCE",
+  "name": "Domain Valuation Calculator",
+  "compName": "DomainValuationCalculator"
+ },
+ {
+  "slug": "fha-mip-calculator",
+  "category": "FINANCE",
+  "name": "FHA MIP Calculator",
+  "compName": "FhaMipCalculator"
+ },
+ {
+  "slug": "fifteen-vs-thirty-mortgage-calculator",
+  "category": "FINANCE",
+  "name": "15 vs 30 Year Mortgage Calculator",
+  "compName": "FifteenVsThirtyMortgageCalculator"
+ },
+ {
+  "slug": "five-year-ownership-cost-calculator",
+  "category": "FINANCE",
+  "name": "5-Year Car Ownership Cost Calculator",
+  "compName": "FiveYearOwnershipCostCalculator"
+ },
+ {
+  "slug": "four01k-growth-calculator",
+  "category": "FINANCE",
+  "name": "401(k) Growth Calculator",
+  "compName": "Four01kGrowthCalculator"
+ },
+ {
+  "slug": "four03b-growth-calculator",
+  "category": "FINANCE",
+  "name": "403(b) Growth Calculator",
+  "compName": "Four03bGrowthCalculator"
+ },
+ {
+  "slug": "four57b-plan-calculator",
+  "category": "FINANCE",
+  "name": "457(b) Plan Calculator",
+  "compName": "Four57bPlanCalculator"
+ },
+ {
+  "slug": "four-percent-rule-calculator",
+  "category": "FINANCE",
+  "name": "4% Rule Calculator",
+  "compName": "FourPercentRuleCalculator"
+ },
+ {
+  "slug": "home-loan-emi-india",
+  "category": "FINANCE",
+  "name": "Home Loan EMI Calculator (India)",
+  "compName": "HomeLoanEmiIndia"
+ },
+ {
+  "slug": "k401-calculator",
+  "category": "FINANCE",
+  "name": "401(k) Calculator",
+  "compName": "K401Calculator"
+ },
+ {
+  "slug": "loan-deferment-interest-calculator",
+  "category": "FINANCE",
+  "name": "Loan Deferment Interest Calculator",
+  "compName": "LoanDefermentInterestCalculator"
+ },
+ {
+  "slug": "auto-loan-vs-lease-comparison-calculator",
+  "category": "FINANCE",
+  "name": "Auto Loan vs Lease Comparison Calculator",
+  "compName": "AutoLoanVsLeaseComparisonCalculator"
+ },
+ {
+  "slug": "net-worth-tracker-calc",
+  "category": "FINANCE",
+  "name": "Net Worth Tracker Calculator",
+  "compName": "NetWorthTrackerCalc"
+ },
+ {
+  "slug": "npv-calculator",
+  "category": "FINANCE",
+  "name": "NPV Calculator",
+  "compName": "NpvCalculator"
+ },
+ {
+  "slug": "real-estate-calculator-full",
+  "category": "FINANCE",
+  "name": "Real Estate Investment Calculator",
+  "compName": "RealEstateCalculatorFull"
+ },
+ {
+  "slug": "ten-year-averaging-distribution-calculator",
+  "category": "FINANCE",
+  "name": "10-Year Averaging Distribution Calculator",
+  "compName": "TenYearAveragingDistributionCalculator"
+ },
+ {
+  "slug": "ten-year-ownership-cost-calculator",
+  "category": "FINANCE",
+  "name": "10-Year Car Ownership Cost Calculator",
+  "compName": "TenYearOwnershipCostCalculator"
+ },
+ {
+  "slug": "cumulative-gpa-calculator",
+  "category": "EDUCATION",
+  "name": "Cumulative GPA Calculator",
+  "compName": "CumulativeGPACalculator"
+ },
+ {
+  "slug": "percentage-to-cgpa-converter",
+  "category": "EDUCATION",
+  "name": "Percentage to CGPA Converter",
+  "compName": "PercentageToCgpaConverter"
+ },
+ {
+  "slug": "gpa-calculator",
+  "category": "EDUCATION",
+  "name": "GPA Calculator",
+  "compName": "GpaCalculator"
+ },
+ {
+  "slug": "final-grade-calculator",
+  "category": "EDUCATION",
+  "name": "Final Grade Calculator",
+  "compName": "FinalGradeCalculator"
+ },
+ {
+  "slug": "weighted-grade-calculator",
+  "category": "EDUCATION",
+  "name": "Weighted Grade Calculator",
+  "compName": "WeightedGradeCalculator"
+ },
+ {
+  "slug": "test-grade-calculator",
+  "category": "EDUCATION",
+  "name": "Test Grade Calculator",
+  "compName": "TestGradeCalculator"
+ },
+ {
+  "slug": "college-savings-calculator",
+  "category": "EDUCATION",
+  "name": "College Savings Calculator",
+  "compName": "CollegeSavingsCalculator"
+ },
+ {
+  "slug": "grade-calculator",
+  "category": "EDUCATION",
+  "name": "Grade Calculator",
+  "compName": "GradeCalculator"
+ },
+ {
+  "slug": "attendance-calculator",
+  "category": "EDUCATION",
+  "name": "Attendance Calculator",
+  "compName": "AttendanceCalculator"
+ },
+ {
+  "slug": "sat-score-calculator",
+  "category": "EDUCATION",
+  "name": "SAT Score Calculator",
+  "compName": "SATScoreCalculator"
+ },
+ {
+  "slug": "act-score-calculator",
+  "category": "EDUCATION",
+  "name": "ACT Score Calculator",
+  "compName": "ACTScoreCalculator"
+ },
+ {
+  "slug": "gre-score-calculator",
+  "category": "EDUCATION",
+  "name": "GRE Score Percentile Calculator",
+  "compName": "GREScoreCalculator"
+ },
+ {
+  "slug": "reading-speed-calculator",
+  "category": "EDUCATION",
+  "name": "Reading Speed Calculator",
+  "compName": "ReadingSpeedCalculator"
+ },
+ {
+  "slug": "study-time-calculator",
+  "category": "EDUCATION",
+  "name": "Study Time Calculator",
+  "compName": "StudyTimeCalculator"
+ },
+ {
+  "slug": "credit-transfer-gpa-calculator",
+  "category": "EDUCATION",
+  "name": "Credit Transfer GPA Calculator",
+  "compName": "CreditTransferGpaCalculator"
+ },
+ {
+  "slug": "student-loan-capitalized-interest-calculator",
+  "category": "EDUCATION",
+  "name": "Student Loan Capitalized Interest Calculator",
+  "compName": "StudentLoanCapitalizedInterestCalculator"
+ },
+ {
+  "slug": "quarter-to-semester-credit-conversion-calculator",
+  "category": "EDUCATION",
+  "name": "Quarter to Semester Credit Conversion Calculator",
+  "compName": "QuarterToSemesterCreditCalculator"
+ },
+ {
+  "slug": "part-time-vs-full-time-student-cost-calculator",
+  "category": "EDUCATION",
+  "name": "Part-Time vs Full-Time Student Cost Calculator",
+  "compName": "PartTimeVsFullTimeStudentCostCalculator"
+ },
+ {
+  "slug": "uc-gpa-calculator",
+  "category": "EDUCATION",
+  "name": "UC GPA Calculator",
+  "compName": "UcGpaCalculator"
+ },
+ {
+  "slug": "csu-gpa-calculator",
+  "category": "EDUCATION",
+  "name": "CSU GPA Calculator",
+  "compName": "CsuGpaCalculator"
+ },
+ {
+  "slug": "tuition-roi-calculator",
+  "category": "EDUCATION",
+  "name": "Tuition ROI Calculator",
+  "compName": "TuitionRoiCalculator"
+ },
+ {
+  "slug": "student-budget-calculator",
+  "category": "EDUCATION",
+  "name": "Student Budget Calculator",
+  "compName": "StudentBudgetCalculator"
+ },
+ {
+  "slug": "federal-work-study-earnings-calculator",
+  "category": "EDUCATION",
+  "name": "Federal Work-Study Earnings Calculator",
+  "compName": "FederalWorkStudyEarningsCalculator"
+ },
+ {
+  "slug": "teacher-preparation-time-calculator",
+  "category": "EDUCATION",
+  "name": "Teacher Preparation Time Calculator",
+  "compName": "TeacherPreparationTimeCalculator"
+ },
+ {
+  "slug": "school-day-minutes-calculator",
+  "category": "EDUCATION",
+  "name": "School Day Minutes Calculator",
+  "compName": "SchoolDayMinutesCalculator"
+ },
+ {
+  "slug": "elearning-seat-time-calculator",
+  "category": "EDUCATION",
+  "name": "eLearning Seat Time Calculator",
+  "compName": "ELearningSeatTimeCalculator"
+ },
+ {
+  "slug": "1-3-5-task-prioritization-calculator",
+  "category": "EDUCATION",
+  "name": "1-3-5 Task Prioritization Calculator",
+  "compName": "Task135PrioritizationCalculator"
+ },
+ {
+  "slug": "ib-grade-calculator",
+  "category": "EDUCATION",
+  "name": "IB Diploma Grade Calculator",
+  "compName": "IbGradeCalculator"
+ },
+ {
+  "slug": "gmat-score-calculator",
+  "category": "EDUCATION",
+  "name": "GMAT Score Percentile Calculator",
+  "compName": "GmatScoreCalculator"
+ },
+ {
+  "slug": "lsat-score-calculator",
+  "category": "EDUCATION",
+  "name": "LSAT Score Predictor",
+  "compName": "LsatScoreCalculator"
+ },
+ {
+  "slug": "mcat-score-calculator",
+  "category": "EDUCATION",
+  "name": "MCAT Score Converter",
+  "compName": "McatScoreCalculator"
+ },
+ {
+  "slug": "ap-score-calculator",
+  "category": "EDUCATION",
+  "name": "AP Score Calculator",
+  "compName": "ApScoreCalculator"
+ },
+ {
+  "slug": "typing-speed-calculator",
+  "category": "EDUCATION",
+  "name": "Typing Speed (WPM) Calculator",
+  "compName": "TypingSpeedCalculator"
+ },
+ {
+  "slug": "pomodoro-calculator",
+  "category": "EDUCATION",
+  "name": "Pomodoro Cycle Calculator",
+  "compName": "PomodoroCalculator"
+ },
+ {
+  "slug": "oxbridge-interview-calculator",
+  "category": "EDUCATION",
+  "name": "Oxbridge Interview Probability",
+  "compName": "OxbridgeInterviewCalculator"
+ },
+ {
+  "slug": "quarter-to-semester-credit-calculator",
+  "category": "EDUCATION",
+  "name": "Quarter to Semester Credit Calculator",
+  "compName": "QuarterToSemesterCreditCalculator"
+ }
+]

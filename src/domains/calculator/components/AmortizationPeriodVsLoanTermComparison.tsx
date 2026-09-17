@@ -103,10 +103,10 @@ export default function AmortizationPeriodVsLoanTermComparison() {
         Amortization Period vs Loan Term Comparison
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* LEFT: INPUTS */}
         <div className="flex flex-col gap-4">
-          <div className="bg-card border border-border rounded-lg p-4">
+          <div className="card-calculator bg-card border border-border rounded-lg p-4">
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-medium mb-1">Loan Amount ($)</label>

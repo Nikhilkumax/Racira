@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/lib/pdf/ThemeProvider";
 import { ToolWorkflowProvider } from "@/lib/pdf/ToolWorkflowContext";
 
 import Footer from "@/components/Footer";
+import { PDF_SITE } from "@/domains/pdf/site";
+import { copyrightLine } from "@/lib/site-identity";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +32,7 @@ export default function ClientLayout({
                 {children}
               </ToolWorkflowProvider>
             </div>
-            <Footer />
+            <Footer copyright={copyrightLine(PDF_SITE)} />
           </div>
         </TooltipProvider>
       </ThemeProvider>

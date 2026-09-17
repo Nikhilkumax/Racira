@@ -1,12 +1,13 @@
 ﻿import { Metadata } from "next";
+import { site as FINANCE_SITE } from "@/domains/finance/site";
 import { PageShell } from "@/domains/finance/blog/page-shell";
 import { listAuthors } from "@/domains/finance/data/taxonomy";
 
 export const metadata: Metadata = {
-  title: "About — Racira Finance",
-  description: "Racira Finance publishes long-form analysis on money, markets, and the economy — written by former practitioners.",
+  title: `About — ${FINANCE_SITE.copyrightName}`,
+  description: FINANCE_SITE.description,
   openGraph: {
-    title: "About — Racira Finance",
+    title: `About — ${FINANCE_SITE.copyrightName}`,
     description: "Racira Finance publishes long-form analysis on money, markets, and the economy.",
     url: "/about",
   },

@@ -1,0 +1,62 @@
+[
+ {
+  "idx": 409,
+  "slug": "fha-mip-calculator",
+  "comp": "FhaMipCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 67,
+  "screenshot": ".qa-screens\\batch1\\fha-mip-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 410,
+  "slug": "fifteen-vs-thirty-mortgage-calculator",
+  "comp": "FifteenVsThirtyMortgageCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 72,
+  "screenshot": ".qa-screens\\batch1\\fifteen-vs-thirty-mortgage-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 411,
+  "slug": "five-year-ownership-cost-calculator",
+  "comp": "FiveYearOwnershipCostCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 120,
+  "screenshot": ".qa-screens\\batch1\\five-year-ownership-cost-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ },
+ {
+  "idx": 412,
+  "slug": "four01k-growth-calculator",
+  "comp": "Four01kGrowthCalculator",
+  "httpStatus": 200,
+  "comingSoon": false,
+  "hasCard": true,
+  "hasH1": true,
+  "horizOverflow": 0,
+  "calcClicked": true,
+  "gridTextLen": 239,
+  "screenshot": ".qa-screens\\batch1\\four01k-growth-calculator.png",
+  "jsErrors": [],
+  "verdict": "PASS"
+ }
+]

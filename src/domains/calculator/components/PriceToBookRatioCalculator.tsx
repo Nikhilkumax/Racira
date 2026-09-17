@@ -65,7 +65,7 @@ export default function PriceToBookRatioCalculator() {
   const handleCalculate = () => setShowResults(true);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="racira-page-container py-4">
       <Breadcrumb
         items={[
           { label: "Home", href: "/" },
@@ -77,18 +77,12 @@ export default function PriceToBookRatioCalculator() {
         ]}
       />
 
-      <div className="mb-6">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 tracking-tight text-foreground">
-          Price-to-Book Ratio Calculator
-        </h1>
-      </div>
+        {/* LEFT: inputs (Mortgage Calculator template) */}
+        <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
+          <h2 className="text-lg font-bold text-foreground">Stock Details</h2>
+          <p className="text-sm text-muted-foreground">Enter the market price and book value per share.</p>
+          <div className="contents">
 
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>Stock Details</CardTitle>
-          <CardDescription>Enter the market price and book value per share.</CardDescription>
-        </CardHeader>
-        <CardContent>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="pb-price">Market price per share ($)</Label>
@@ -125,8 +119,12 @@ export default function PriceToBookRatioCalculator() {
               Reset
             </Button>
           </div>
-        </CardContent>
-      </Card>
+        
+          </div>
+        </div>
+
+        {/* RIGHT: results + content */}
+        <div className="flex flex-col gap-4">
 
       {showResults && (
         <>
@@ -292,6 +290,7 @@ export default function PriceToBookRatioCalculator() {
           </div>
         </>
       )}
+        </div>
     </div>
   );
 }

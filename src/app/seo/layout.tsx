@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { Providers } from "@/domains/seo/components/providers";
 import { LegalLinks } from "@/components/LegalLinks";
+import { SEO_SITE } from "@/domains/seo/site";
 
 export const metadata: Metadata = {
-  title: "Racira SEO — All SEO Tools You Need, Fast, Simple & Free",
+  title: SEO_SITE.title,
   description: "230 free SEO tools in one place: keyword analysis, on-page audits, technical SEO, schema, SERP previews and more. No signup required.",
   openGraph: {
-    title: "Racira SEO — 230 free SEO tools",
+    title: SEO_SITE.title,
     description: "All the SEO tools you need in one fast, simple workspace. No signup required.",
-  }
+  },
+  twitter: {
+    card: "summary",
+    title: SEO_SITE.title,
+  },
 };
 
 export default function RootLayout({

@@ -20,6 +20,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { calculatorRegistry } from "@/domains/calculator/registry";
+import { CALCULATOR_SITE } from "@/domains/calculator/site";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
@@ -131,7 +132,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const summary = CATEGORY_SUMMARY.find(c => toSlug(formatCategory(c.category)) === resolvedParams.slug);
   if (summary) {
     const catName = formatCategory(summary.category);
-    const title = `${catName} Calculators — Racira`;
+    const title = `${catName} Calculators — ${CALCULATOR_SITE.copyrightName}`;
     const total = fullCategoryCount(summary.category);
     const description = `Browse ${total.toLocaleString()} free online ${catName.toLowerCase()} calculator${total === 1 ? "" : "s"}.`;
     const url = `https://racira.com/calculator/${resolvedParams.slug}`;
@@ -142,7 +143,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   for (const c of CATEGORY_SUMMARY) {
     const sub = c.subcategories.find(s => toSlug(s.name) === resolvedParams.slug);
     if (sub) {
-      const title = `${sub.name} Calculators — Racira`;
+      const title = `${sub.name} Calculators — ${CALCULATOR_SITE.copyrightName}`;
       const fullCount = fullSubcategoryCount(c.category, sub.name);
       const description = `Browse ${fullCount.toLocaleString()} free online ${sub.name.toLowerCase()} calculator${fullCount === 1 ? "" : "s"}.`;
       const url = `https://racira.com/calculator/${resolvedParams.slug}`;

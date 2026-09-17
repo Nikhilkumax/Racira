@@ -1,16 +1,17 @@
 import { CategorySearch } from "@/components/CategorySearch";
 import { CATEGORY_ORDER, TOOLS, TOOLS_BY_CATEGORY, SEARCH_REGISTRY } from "@/domains/video/registry";
 import { onlyLive } from "@/lib/tools/liveToolFilters";
+import { VIDEO_SITE } from "@/domains/video/site";
 
 const LIVE_VIDEO_COUNT = onlyLive(TOOLS, "video").length;
 import { ToolCard } from "@/components/video/ToolCard";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Racira Video — All-in-One Free Online Video Tools",
+  title: VIDEO_SITE.title,
   description: "Convert, trim, compress, extract and edit videos in your browser — no signup, no upload.",
   openGraph: {
-    title: "Racira Video — All-in-One Free Online Video Tools",
+    title: VIDEO_SITE.title,
     description: "Free in-browser video tools: convert, trim, compress, extract frames and more. No signup required.",
     url: "/",
   },

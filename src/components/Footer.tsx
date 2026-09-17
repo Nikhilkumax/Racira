@@ -1,6 +1,14 @@
 import Link from "next/link";
+import { ROOT_SITE, type SiteIdentity } from "@/lib/site-identity";
 
-const Footer = () => {
+const Footer = ({
+  /** Override the copyright line for domain contexts (e.g. "© 2026 Racira PDF. …"). */
+  copyright,
+  site = ROOT_SITE as unknown as SiteIdentity,
+}: {
+  copyright?: string;
+  site?: SiteIdentity;
+} = {}) => {
   return (
     <footer className="border-t border-border bg-background">
       <div className="container py-16">
@@ -45,7 +53,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center">
-          <p>© {new Date().getFullYear()} Racira. All rights reserved.</p>
+          <p>{copyright ?? `© ${new Date().getFullYear()} ${site.copyrightName}. All rights reserved.`}</p>
           <p>One platform. Every essential tool.</p>
         </div>
       </div>
