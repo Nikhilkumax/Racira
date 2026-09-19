@@ -308,7 +308,10 @@ export function KokoroGenerator() {
       const tts = await getKokoroEngine((info: unknown) => {
         const e = info as ModelProgress;
         if (typeof e.progress === "number") {
-          setLoadProgress(Math.round(e.progress * 100));
+          // transformers.js reports progress already on a 0-100 scale (the
+          // engine logs it: "progress":100 at completion), not 0-1 —
+          // multiplying again here showed 10000% at completion.
+          setLoadProgress(Math.round(e.progress));
         }
         if (e.status) setLoadMessage(e.status);
       });

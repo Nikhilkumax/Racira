@@ -64,12 +64,14 @@ export const KOKORO_VOICES: KokoroVoice[] = [
   { id: "hm_psi", name: "Psi", language: "hi", languageLabel: "Hindi", gender: "Male", targetQuality: "—", overallGrade: "—" },
 ];
 
+// English-only by product decision: every on-page claim on /voice (TTSFeatures,
+// TTSWhyRacira, TTSSeoContent, TTSFAQ, tools.ts, Categories.tsx) says "28 voices
+// across US and UK English". The non-English KOKORO_VOICES entries below stay
+// in the data because the engine and chunker still support them (and a Node
+// probe verified their phonemizer path), but their generation quality has not
+// been verified in-browser, so they are deliberately not selectable here.
+// Flip them back on by re-adding their codes AND updating the copy everywhere.
 export const KOKORO_LANGUAGES = [
   { code: "en-us", label: "American English" },
   { code: "en-gb", label: "British English" },
-  { code: "es", label: "Spanish" },
-  { code: "fr", label: "French" },
-  { code: "it", label: "Italian" },
-  { code: "pt-BR", label: "Portuguese (Brazil)" },
-  { code: "hi", label: "Hindi" },
 ];

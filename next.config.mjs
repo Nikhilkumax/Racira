@@ -90,6 +90,35 @@ const nextConfig = {
           { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
         ],
       },
+      // /voice and /audio run COEP: require-corp (above). The TTS engine's
+      // subresources — onnxruntime-web's pthread worker script and wasm under
+      // /ort/, espeak-ng's phonemizer wasm under /espeak/ — are same-origin,
+      // but under require-corp they still need CORP: same-origin or the
+      // browser blocks them with ERR_BLOCKED_BY_RESPONSE. Same failure shape
+      // as the /ffmpeg rule above (e60bb620): the worker request never
+      // loads, ORT session creation never settles, and /voice hangs forever
+      // at loading-model with no error.
+      //
+      // CORP alone is NOT enough for the worker script: verified locally that
+      // /ort/ort-wasm-simd-threaded.jsep.mjs still gets blocked with only
+      // CORP: same-origin on the response — a module worker must carry a
+      // COEP of its own to be compatible with the require-corp document, so
+      // /ort/* mirrors the proven /ffmpeg rule exactly (CORP + credentialless).
+      // /espeak/* is fetched as a plain subresource (no worker), so CORP
+      // alone is sufficient there.
+      {
+        source: '/ort/:path*',
+        headers: [
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
+        ],
+      },
+      {
+        source: '/espeak/:path*',
+        headers: [
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
+        ],
+      },
     ];
   },
   async rewrites() {

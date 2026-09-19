@@ -24,6 +24,18 @@ const ORT_WASM_PATH = "/ort/";
 const DEVICE = "wasm" as const;
 const DTYPE = "q8" as const;
 
+// Silence budget for getKokoroEngine's from_pretrained call. ORT session
+// creation never settles if the pthread worker script fails to load silently
+// — the failure appears only as net::ERR_BLOCKED_BY_RESPONSE in the network
+// panel — so without a deadline the /voice UI hangs at loading-model forever.
+//
+// This is deliberately NOT a wall-clock cap on the whole load: a 92MB q8
+// model crawling in over a slow connection is alive (transformers.js keeps
+// emitting progress events, which rearm the watchdog), while a silently hung
+// session emits nothing. What trips the timeout is 30s of true silence,
+// which is decisive evidence of a dead load, not a slow one.
+const MODEL_LOAD_TIMEOUT_MS = 30_000;
+
 let ttsInstance: KokoroTTS | null = null;
 let loadingPromise: Promise<KokoroTTS> | null = null;
 
@@ -55,14 +67,55 @@ export async function getKokoroEngine(
 
     try {
       console.log(`[kokoro] Attempting model load: device=${DEVICE}, dtype=${DTYPE}`);
-      const tts = await KokoroTTS.from_pretrained(MODEL_ID, {
-        dtype: DTYPE,
-        device: DEVICE,
-        progress_callback: (info: any) => {
-          console.log("[kokoro] progress:", JSON.stringify(info));
-          onProgress?.(info);
-        },
+
+      // from_pretrained can pend forever without erroring (silent worker
+      // failure above), so race it against a watchdog that rejects after
+      // MODEL_LOAD_TIMEOUT_MS without a progress event. The rejected race
+      // surfaces through the same catch below and the same handleGenerate
+      // error path as any other load failure — nothing is swallowed.
+      let watchdog: ReturnType<typeof setTimeout> | undefined;
+      let rearmWatchdog: () => void = () => {};
+      const loadTimeout = new Promise<never>((_, reject) => {
+        rearmWatchdog = () => {
+          if (watchdog) clearTimeout(watchdog);
+          watchdog = setTimeout(
+            () =>
+              reject(
+                new Error(
+                  "Speech engine loading stalled for 30s with no progress. The ONNX runtime " +
+                    "worker may have failed to load — check the network log for blocked " +
+                    "/ort/ or /espeak/ requests, then retry.",
+                ),
+              ),
+            MODEL_LOAD_TIMEOUT_MS,
+          );
+        };
+        rearmWatchdog();
       });
+
+      let tts: KokoroTTS;
+      try {
+        tts = await Promise.race([
+          KokoroTTS.from_pretrained(MODEL_ID, {
+            dtype: DTYPE,
+            device: DEVICE,
+            progress_callback: (info: any) => {
+              console.log("[kokoro] progress:", JSON.stringify(info));
+              rearmWatchdog();
+              onProgress?.(info);
+            },
+          }),
+          loadTimeout,
+        ]);
+      } finally {
+        // The race settled one way or the other; stop the timer so a late
+        // fire is a no-op rather than an unhandled rejection.
+        if (watchdog) clearTimeout(watchdog);
+      }
+
+      // If the watchdog fired, the abandoned from_pretrained is left to
+      // settle on its own — kokoro-js exposes no abort, and a retry below
+      // starts a fresh attempt, which beats a permanent freeze.
       ttsInstance = tts;
       return tts;
     } catch (loadError: any) {
@@ -79,7 +132,8 @@ export async function getKokoroEngine(
   })();
 
   // A rejected load must not be cached, or every later attempt replays the
-  // same rejection and the user can never retry.
+  // same rejection and the user can never retry. This also makes the 30s
+  // watchdog a retryable failure rather than a dead end.
   loadingPromise.catch(() => {
     loadingPromise = null;
   });
