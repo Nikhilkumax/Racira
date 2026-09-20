@@ -1,3 +1,5 @@
+import { VOICE_COUNT, LANGUAGE_COUNT } from "@/domains/voice/lib/voiceCatalog";
+
 export function TTSSeoContent() {
   return (
     <section id="seo-content" aria-labelledby="seo-title" className="bg-surface-muted/40 py-20 sm:py-24">
@@ -36,16 +38,18 @@ export function TTSSeoContent() {
             device it was typed on.
           </p>
 
-          <h3 className="font-display text-[20px] font-semibold tracking-tight">28 voices across US and UK English</h3>
+          <h3 className="font-display text-[20px] font-semibold tracking-tight">
+            {VOICE_COUNT} voices across {LANGUAGE_COUNT} languages
+          </h3>
           <p>
-            The library covers twenty American English voices — including
-            Heart, Bella, Nova, Sarah, Jessica, Michael, Adam, Puck and
-            Fenrir — alongside eight British English voices such as Emma,
-            Alice, Lily, Isabella, George, Lewis and Daniel. Each has its own
-            character, and a speed control lets you tune the delivery from a
-            measured read to a brisk one. Support for more languages is in
-            progress; today the tool is English-only, and we would rather say
-            so than have you find out after pasting a script.
+            The library spans {VOICE_COUNT} voices across {LANGUAGE_COUNT}{" "}
+            languages and regional accents — American and British English,
+            Spanish for both Spain and Mexico, French, German, Italian,
+            Brazilian and European Portuguese, Dutch, Polish, Russian,
+            Ukrainian, Turkish, Vietnamese, Chinese, Arabic and more. Pick a
+            language, then a voice; the model for that voice is saved on your
+            device the first time you use it, so later clips start instantly
+            and need no connection at all. Output downloads as WAV or MP3.
           </p>
 
           <h3 className="font-display text-[20px] font-semibold tracking-tight">Voice generation for YouTube, podcasts and accessibility</h3>

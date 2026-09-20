@@ -17,7 +17,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   trailingSlash: false,
-  transpilePackages: ['onnxruntime-web', 'kokoro-js', '@huggingface/transformers'],
+  transpilePackages: ['onnxruntime-web', '@mintplex-labs/piper-tts-web'],
   images: {
     remotePatterns: [
       {
@@ -69,15 +69,38 @@ const nextConfig = {
         source: '/pdf/edit-pdf-text',
         headers: coepHeaders,
       },
-      // Kokoro TTS (WASM via ORT) and FFmpeg audio tools need
-      // SharedArrayBuffer, which requires cross-origin isolation.
-      {
-        source: '/voice/:path*',
-        headers: coepHeaders,
-      },
+      // FFmpeg audio tools need SharedArrayBuffer, which requires cross-origin
+      // isolation.
+      //
+      // Same requirement, different value for /voice. Speech synthesis runs on
+      // WebAssembly in a browser worker, and without SharedArrayBuffer the
+      // inference runtime silently drops from its multi-threaded build to the
+      // single-threaded one — correct output, roughly half the throughput. So
+      // /voice is cross-origin isolated, but with COEP *credentialless*:
+      // require-corp would demand a Cross-Origin-Resource-Policy header on
+      // every cross-origin subresource, and the inference runtime plus the
+      // phonemizer are both fetched from public CDNs (cdnjs, jsDelivr) that do
+      // not send one — the exact ERR_BLOCKED_BY_RESPONSE failure that got the
+      // header pulled from this route the first time. credentialless enables
+      // SharedArrayBuffer just the same while leaving credential-free
+      // cross-origin loads (which is all /voice makes) unchecked.
       {
         source: '/audio/:path*',
         headers: coepHeaders,
+      },
+      //
+      // Do not verify this by reading ort.env.wasm.numThreads: the runtime
+      // clamps it to 1 only when it was left unset, and the speech library sets
+      // it to hardwareConcurrency unconditionally — so the env reads 12 either
+      // way, on a page that is isolated or not. The honest check is that the
+      // runtime *spawns* its thread workers: isolated /voice logs 11
+      // (hardwareConcurrency - 1); drop these headers and it spawns none.
+      {
+        source: '/voice',
+        headers: [
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
+        ],
       },
       // FFmpeg tool pages run COEP: require-corp; their module worker and the
       // wasm it fetches are subresources of that context, so both must answer
@@ -90,33 +113,16 @@ const nextConfig = {
           { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
         ],
       },
-      // /voice and /audio run COEP: require-corp (above). The TTS engine's
-      // subresources — onnxruntime-web's pthread worker script and wasm under
-      // /ort/, espeak-ng's phonemizer wasm under /espeak/ — are same-origin,
-      // but under require-corp they still need CORP: same-origin or the
-      // browser blocks them with ERR_BLOCKED_BY_RESPONSE. Same failure shape
-      // as the /ffmpeg rule above (e60bb620): the worker request never
-      // loads, ORT session creation never settles, and /voice hangs forever
-      // at loading-model with no error.
-      //
-      // CORP alone is NOT enough for the worker script: verified locally that
-      // /ort/ort-wasm-simd-threaded.jsep.mjs still gets blocked with only
-      // CORP: same-origin on the response — a module worker must carry a
-      // COEP of its own to be compatible with the require-corp document, so
-      // /ort/* mirrors the proven /ffmpeg rule exactly (CORP + credentialless).
-      // /espeak/* is fetched as a plain subresource (no worker), so CORP
-      // alone is sufficient there.
+      // Any client-side module worker Next.js emits lands in a static chunk. On
+      // a require-corp route the worker's own response must carry CORP (+ a
+      // compatible COEP) or the browser blocks it with ERR_BLOCKED_BY_RESPONSE,
+      // and the worker silently never constructs. Static chunks are same-origin
+      // and carry no secrets, so credentialless is safe here.
       {
-        source: '/ort/:path*',
+        source: '/_next/static/chunks/:path*',
         headers: [
           { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
           { key: 'Cross-Origin-Embedder-Policy', value: 'credentialless' },
-        ],
-      },
-      {
-        source: '/espeak/:path*',
-        headers: [
-          { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
         ],
       },
     ];
@@ -143,14 +149,6 @@ const nextConfig = {
       fs: false,
       path: false,
       "fs/promises": false,
-      // espeak-ng is a multi-environment Emscripten build. Its Node branch does
-      // `await import('module')` to build a require() shim
-      // (node_modules/espeak-ng/dist/espeak-ng.js:100). That branch is dead in the
-      // browser, but webpack still resolves the specifier statically and fails —
-      // Next 14's client fallback list has no `module` entry
-      // (next/dist/build/webpack-config.js:1321-1347). Stubbing it to false lets
-      // the unreachable branch compile away.
-      module: false,
     }
     config.module.parser = {
       ...config.module.parser,

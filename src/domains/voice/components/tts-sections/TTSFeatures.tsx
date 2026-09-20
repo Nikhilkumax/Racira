@@ -1,14 +1,18 @@
 import { Infinity as InfIcon, Globe2, Mic2, Sparkles, Zap, Wallet, Smartphone, MonitorSmartphone } from "lucide-react";
+import { VOICE_COUNT, LANGUAGE_COUNT } from "@/domains/voice/lib/voiceCatalog";
 
+// Counts come from the voice catalog rather than being written into the copy,
+// so a voice list update cannot leave this section advertising a number the
+// picker no longer offers.
 const FEATURES = [
   { icon: InfIcon, title: "Unlimited free usage", text: "Generate as much speech as you want — no quotas or paywalls." },
   { icon: MonitorSmartphone, title: "Runs on your device", text: "Speech is generated locally in your browser. Nothing to install." },
-  { icon: Globe2, title: "US and UK English", text: "Native American and British English accents." },
-  { icon: Mic2, title: "28 voices to pick from", text: "Twenty American and eight British, each with its own character and tone." },
-  { icon: Sparkles, title: "Speed control", text: "Tune delivery from a measured read to a brisk one." },
+  { icon: Globe2, title: `${LANGUAGE_COUNT} languages and accents`, text: "Voices across dozens of languages and regional accents, including US and UK English." },
+  { icon: Mic2, title: `${VOICE_COUNT} voices to pick from`, text: "Every voice is free to use, in whichever accent suits the script." },
+  { icon: Sparkles, title: "WAV or MP3 output", text: "Download an uncompressed master or a compressed file for sharing." },
   { icon: Wallet, title: "Zero API costs", text: "No keys, no billing, no surprises. Privately rendered on your device." },
   { icon: Smartphone, title: "Responsive interface", text: "A polished layout on every screen, with a clear notice if your browser can't run generation." },
-  { icon: Zap, title: "No per-clip round trip", text: "After a one-time model download, every clip is generated locally." },
+  { icon: Zap, title: "Offline after the first run", text: "Each voice is saved on your device, so later clips need no download at all." },
 ];
 
 export function TTSFeatures() {
@@ -20,8 +24,8 @@ export function TTSFeatures() {
           Everything you need to create great voiceovers
         </h2>
         <p className="mt-3 text-[15.5px] leading-relaxed text-muted-foreground">
-          Racira TTS combines a polished interface with a fast on-device
-          engine, so you can focus on the script — not the setup.
+          Racira TTS combines a polished interface with fast on-device
+          synthesis, so you can focus on the script — not the setup.
         </p>
       </div>
 

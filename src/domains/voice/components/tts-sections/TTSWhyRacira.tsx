@@ -1,10 +1,11 @@
 import { Check, X } from "lucide-react";
+import { VOICE_COUNT, LANGUAGE_COUNT } from "@/domains/voice/lib/voiceCatalog";
 
 const PROS = [
   "Truly unlimited generation, every day",
   "No subscriptions, no token meters",
-  "28 voices across US and UK English",
-  "Speed control on every generation",
+  `${VOICE_COUNT} voices across ${LANGUAGE_COUNT} languages`,
+  "WAV and MP3 downloads on every generation",
   "Runs on your device — private, with no per-clip server call",
   "Polished SaaS experience on every device",
 ];
@@ -18,8 +19,8 @@ const CONS = [
 ];
 
 const STATS = [
-  { value: "28", label: "Premium voices" },
-  { value: "2", label: "Languages" },
+  { value: String(VOICE_COUNT), label: "Voices included" },
+  { value: String(LANGUAGE_COUNT), label: "Languages" },
   { value: "0", label: "API cost" },
   { value: "∞", label: "Generations" },
 ];
@@ -35,7 +36,7 @@ export function TTSWhyRacira() {
           </h2>
           <p className="mt-3 text-[15.5px] leading-relaxed text-muted-foreground">
             Most online TTS tools nickel-and-dime you. Racira TTS keeps things
-            radically simple: open the page, type, generate.
+            radically simple: open the page, pick a voice, type, generate.
           </p>
         </div>
 

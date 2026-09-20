@@ -1,60 +1,36 @@
 /**
- * Per-language text chunking for Kokoro TTS.
+ * Sentence-aware text chunking for the Voice domain's speech engine.
  *
- * Pure text processing — no model, no async, no DOM. Nothing here calls
- * generate(); this module only decides where the cuts go. The generation loop
- * that consumes it lands in a later phase.
+ * Pure text processing — no model, no async, no DOM. This module only decides
+ * where the cuts go; the generation loop that consumes it lives in
+ * piperEngine.ts.
+ *
+ * Why chunk at all: every engine call is duration-capped by what the voice was
+ * trained on, and an over-long input is not rejected — it is silently cut. So
+ * long scripts are split here, on sentence boundaries, and the resulting audio
+ * is stitched back together with a short silence at each seam.
  */
 
-// The tokenizer declares model_max_length: 512
-// (@huggingface/transformers/.cache/onnx-community/Kokoro-82M-v1.0-ONNX/tokenizer_config.json:2),
-// and kokoro-js wraps every phoneme sequence in two boundary tokens — its
-// voice-style lookup reads `input_ids.dims.at(-1) - 2`, clamped to 509
-// (dist/kokoro.js, generate_from_ids). So 510 phonemes are usable.
-//
-// Exceeding it is silent: kokoro-js tokenizes with `{ truncation: true }` in
-// both generate() and stream(), so the tail is dropped with no error. That
-// silence is the whole reason this module exists.
-const MAX_PHONEMES = 510;
+/**
+ * Default cap, in characters, for one engine call. Callers that know the
+ * engine's own internal limit should pass a smaller value: the engine splits
+ * any remaining over-long piece itself, at a boundary it does not report.
+ */
+export const DEFAULT_MAX_CHARS = 500;
 
-// Hold back 10%. The ratios below are averages measured across sample text,
-// not guarantees — a chunk dense in numerals, acronyms or conjuncts phonemizes
-// longer than its character count predicts, and the margin absorbs that.
-const PHONEME_BUDGET = Math.floor(MAX_PHONEMES * 0.9); // 459
-
-// Characters of source text per phoneme produced by espeak-ng. Devanagari is
-// the outlier: it writes a consonant cluster in one or two glyphs that
-// phonemize into several segments.
-const EXPANSION_RATIOS: Record<string, number> = {
-  "en-us": 1.15,
-  "en-gb": 1.15,
-  es: 1.25,
-  fr: 1.25,
-  it: 1.25,
-  "pt-BR": 1.25,
-  hi: 2.0,
-};
-
-// An unrecognised language gets the most expansive ratio on the list. Being
-// wrong in this direction costs an extra chunk; being wrong the other way
-// costs silently truncated audio.
-const FALLBACK_RATIO = 2.0;
-
-// U+0964 danda and U+0965 double danda terminate sentences in Devanagari.
-// kokoro-js's own splitter checks ".!?…。？！" only, so Hindi text arrives at
-// the tokenizer as one unsplittable run.
+// U+0964 danda and U+0965 double danda terminate sentences in Devanagari, and
+// the CJK forms are included because the splitter runs before any language
+// check.
 const SENTENCE_TERMINATORS = ".!?…。？！।॥";
 
 // Trailing marks that belong to the sentence that just ended, not the next one.
 const CLOSING_MARKS = "\"'’”)]}»›」』";
 
 // Mid-sentence breath points, used only when one sentence alone busts the
-// limit. Includes the Arabic comma and the CJK/fullwidth forms, since the
-// splitter runs before any language check.
+// limit. Includes the Arabic comma and the CJK/fullwidth forms.
 const CLAUSE_MARKS = ",;:،、，；：—";
 
-// Periods that end an abbreviation rather than a sentence. Same list kokoro-js
-// carries, minus the entries that only matter for its streaming lookahead.
+// Periods that end an abbreviation rather than a sentence.
 const ABBREVIATIONS = new Set([
   "mr", "mrs", "ms", "dr", "prof", "sr", "jr", "sgt", "col", "gen", "rep",
   "sen", "gov", "lt", "maj", "capt", "st", "mt", "etc", "co", "inc", "ltd",
@@ -62,16 +38,6 @@ const ABBREVIATIONS = new Set([
   "sep", "sept", "oct", "nov", "dec", "sun", "mon", "tu", "tue", "tues",
   "wed", "th", "thu", "thur", "thurs", "fri", "sat",
 ]);
-
-/**
- * Longest input, in characters, that is safe to send to generate() as a single
- * call for the given language. Exported so the UI can size its counter and
- * estimate chunk counts off the same arithmetic the splitter uses.
- */
-export function chunkCharLimit(language: string): number {
-  const ratio = EXPANSION_RATIOS[language] ?? FALLBACK_RATIO;
-  return Math.floor(PHONEME_BUDGET / ratio);
-}
 
 function isTerminator(ch: string): boolean {
   return SENTENCE_TERMINATORS.includes(ch);
@@ -178,7 +144,7 @@ function splitAtClauseMarks(sentence: string): string[] {
  * never land inside a surrogate pair yet the result still satisfies the
  * `.length <= limit` invariant the callers check. Devanagari matras can still
  * be separated from their base consonant — accepted, since reaching here at
- * all requires an unbroken run of 229+ characters containing no space or
+ * all requires an unbroken run longer than the limit containing no space or
  * comma.
  */
 function sliceToLimit(token: string, limit: number): string[] {
@@ -235,25 +201,27 @@ function pack(units: string[], limit: number): string[] {
 }
 
 /**
- * Split text into generation-sized chunks for the given language.
+ * Split text into generation-sized chunks.
  *
- * Every returned chunk is at most `chunkCharLimit(language)` characters, so
- * each survives tokenization without truncation. Boundaries prefer sentence
- * ends, fall back to clause marks, then whitespace.
+ * Every returned chunk is at most `maxLen` characters. Boundaries prefer
+ * sentence ends, fall back to clause marks, then whitespace, then a blind
+ * slice — so a seam lands inside a sentence only when the sentence itself
+ * cannot fit.
  *
  * Text already within the limit is returned as a single trimmed chunk, so a
  * caller can treat a length-1 result as "no chunking happened".
  *
- * @param text     Raw user input.
- * @param language A KOKORO_LANGUAGES code ("en-us", "hi", …). Unknown values
- *                 fall back to the most conservative ratio.
+ * @param text   Raw user input.
+ * @param maxLen Longest chunk to emit, in characters. Values below 1 are
+ *               clamped to 1 rather than rejected, since the fallback slices
+ *               would otherwise never terminate.
  * @returns Ordered chunks; empty array for blank input.
  */
-export function splitTextIntoChunks(text: string, language: string): string[] {
+export function chunkText(text: string, maxLen: number = DEFAULT_MAX_CHARS): string[] {
   const trimmed = text.trim();
   if (!trimmed) return [];
 
-  const limit = chunkCharLimit(language);
+  const limit = Math.max(1, Math.floor(maxLen));
   if (trimmed.length <= limit) return [trimmed];
 
   const units = splitIntoSentences(trimmed).flatMap((sentence) =>
