@@ -44,11 +44,15 @@ const MAX_INPUT_CHARS = 5000;
 type Gender = "male" | "female";
 
 export function SpeechStudio() {
-  // Defaults: English (US) / Male / Ryan / MP3.
+  // Defaults: English (US) / Male / Ryan (standard) / WAV.
   const [language, setLanguage] = useState<string>(VOICE_LANGUAGES[0].code);
   const [gender, setGender] = useState<Gender>("male");
   const [voice, setVoice] = useState<string>(DEFAULT_VOICE_ID);
-  const [format, setFormat] = useState<SpeechFormat>("mp3");
+  // WAV by default: the engine emits WAV natively, so it is written straight
+  // out, while MP3 is a second pass through a pure-JavaScript encoder that adds
+  // a flat several seconds to every run — a cost a visitor pays on the default
+  // path whether or not it is worth it to them. MP3 stays one selection away.
+  const [format, setFormat] = useState<SpeechFormat>("wav");
   const [text, setText] = useState("");
 
   const [status, setStatus] = useState<"idle" | "loading-model" | "generating" | "error">("idle");

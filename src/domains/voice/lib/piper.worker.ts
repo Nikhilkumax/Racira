@@ -66,6 +66,22 @@ class PartFailure extends Error {
   }
 }
 
+/**
+ * A session load that a newer voice request overtook before it could commit.
+ *
+ * Internal only. It is thrown at the abandoned load's own await, so the caller
+ * that threw it has already been replaced by the request which superseded it —
+ * nothing a visitor is waiting on. It exists so an overtaken load stops at a
+ * throw site rather than quietly handing its caller a session for a voice that
+ * is no longer the selected one.
+ */
+class SupersededFailure extends Error {
+  constructor() {
+    super("Superseded by a newer voice request.");
+    this.name = "SupersededFailure";
+  }
+}
+
 // ── Engine ──────────────────────────────────────────────────────────────
 // The library is fetched on first use, so a page that never generates never
 // pays for it.
@@ -91,19 +107,62 @@ const MODEL_IDLE_TIMEOUT_MS = 30_000;
 let session: TtsSessionInstance | null = null;
 let sessionVoiceId: string | null = null;
 
+// The class itself, kept once the library is loaded so the singleton it holds
+// can be cleared alongside our own reference to it — see clearSession().
+let sessionClass: PiperModule["TtsSession"] | null = null;
+
+// Bumped every time one request supersedes another. A load captures the value
+// it started under and refuses to commit once the number has moved on, which
+// is what keeps a slow first load from overwriting a fresher second one. It is
+// the only ordering that matters here: `TtsSession.create()` cannot be
+// cancelled, so an overtaken load has to be *ignored* at commit time rather
+// than stopped.
+let sessionGeneration = 0;
+
+// The session load currently in flight, if any. A second request for the same
+// voice rides along on this promise instead of building a session of its own —
+// which the library's singleton would alias into the same instance anyway, at
+// the cost of a second model download.
+let activeLoad: { voiceId: string; promise: Promise<TtsSessionInstance> } | null = null;
+
 // How many generations are running right now. Only the prefetch cares: it is
 // the one thing here that spends bandwidth for work nobody asked for.
 let generationsInFlight = 0;
 
-// The session is constructed with a progress callback that lives as long as
-// the session, while progress belongs to a single request. Reads route through
-// this mutable sink so a reused session reports into the current request.
-let progressSink: ((progress: Progress) => void) | null = null;
-
-/** Drop the cached session, releasing the loaded model. */
-function releaseSession(): void {
+/**
+ * Drop the cached session and the library singleton that backs it.
+ *
+ * Two references have to be dropped, not one. `TtsSession` is a process-wide
+ * singleton in the library — its constructor returns the existing `_instance`
+ * whenever one is set, overwriting only `voiceId` — so clearing our own handle
+ * leaves a live session that the next `create()` hands straight back. That
+ * session still carries the first voice's model config and ONNX session, so
+ * the same text synthesizes the same bytes: the picker changes, the audio does
+ * not. `_instance` is part of the library's published surface (see its
+ * dist/inference.d.ts), and clearing it is what makes the next `create()`
+ * actually run `init()` against the newly requested voice.
+ *
+ * Deliberately leaves the generation counter alone: the load that calls this
+ * immediately before `create()` is the one that still intends to commit.
+ */
+function clearSession(): void {
   session = null;
   sessionVoiceId = null;
+  if (sessionClass) sessionClass._instance = null;
+}
+
+/**
+ * Invalidate whatever is loaded *or still loading*, and drop it.
+ *
+ * This is the entry point for the requests that change the model cache or ask
+ * for the model to be dropped (remove/flush/release). Bumping the generation
+ * is what stops a load already in flight from committing a session for a voice
+ * whose model was just removed underneath it.
+ */
+function releaseSession(): void {
+  sessionGeneration++;
+  activeLoad = null;
+  clearSession();
 }
 
 function armIdleWatchdog(reason: string): {
@@ -136,15 +195,28 @@ function armIdleWatchdog(reason: string): {
   return { arm, stop, expired };
 }
 
-async function getSession(
+/**
+ * Build a session for `voiceId` under a generation stamp.
+ *
+ * Separate from getSession() so the load can outlive the request that started
+ * it without outliving its own validity: `create()` cannot be cancelled, so
+ * the generation captured here is checked before and after it, and the load
+ * refuses to hand back a session once a newer voice has been asked for.
+ */
+async function loadSession(
   voiceId: string,
+  generation: number,
   onLoadProgress: (fraction: number) => void,
 ): Promise<TtsSessionInstance> {
-  if (session && sessionVoiceId === voiceId) return session;
-
-  releaseSession();
-
   const { TtsSession, INFERENCE_PROGRESS_URL } = await loadPiper();
+
+  // Held so clearSession() can clear the library's singleton too, not just our
+  // own reference to the session it returned.
+  sessionClass = TtsSession;
+
+  // Reached the library behind a request that has since been overtaken. Stop
+  // before spending a download on a voice nobody is waiting for any more.
+  if (generation !== sessionGeneration) throw new SupersededFailure();
 
   const watchdog = armIdleWatchdog("Voice model loading");
 
@@ -157,23 +229,73 @@ async function getSession(
   // Every byte that does arrive re-arms the watchdog, which is what makes it a
   // test for a *stalled* load rather than a slow one: a 60 MB model on a slow
   // connection keeps reporting progress and must not be timed out for it.
-  progressSink = (progress) => {
+  const report = (progress: Progress) => {
     if (progress.url === INFERENCE_PROGRESS_URL) return;
     watchdog.arm();
+    // An overtaken load keeps running (its `create()` cannot be cancelled), but
+    // its download no longer belongs to a request, so it must not drive a bar.
+    if (generation !== sessionGeneration) return;
     if (progress.total > 0) onLoadProgress(progress.loaded / progress.total);
   };
 
   try {
+    // Cleared here — after the last await and immediately before `create()` —
+    // so the clear cannot interleave with another load's constructor. The
+    // library assigns `_instance` synchronously inside `create()`, so any other
+    // load that got this far has already done so, and any that has not is
+    // stopped by the generation check above.
+    clearSession();
+
     const created = await Promise.race([
-      TtsSession.create({ voiceId: voiceId as VoiceId, progress: (p) => progressSink?.(p) }),
+      TtsSession.create({ voiceId: voiceId as VoiceId, progress: report }),
       watchdog.expired,
     ]);
+
+    // A newer voice arrived while this one was loading. Its session is the one
+    // that must win, so this one is dropped rather than committed — committing
+    // here is exactly how the cached session ends up describing a voice its
+    // loaded model is not.
+    if (generation !== sessionGeneration) throw new SupersededFailure();
+
     session = created;
     sessionVoiceId = voiceId;
     return created;
   } finally {
     watchdog.stop();
-    progressSink = null;
+  }
+}
+
+/**
+ * Get a session for `voiceId`, reusing the loaded one when it already matches.
+ *
+ * Two requests that resolve here at once must not both build a session: the
+ * library's singleton would alias the second into the first (the same object,
+ * only `voiceId` patched), and the two loads would then race to write
+ * `sessionVoiceId` — leaving a session whose model is one voice and whose id
+ * says another, which is the stale-audio bug in a different disguise. So a
+ * second request for the same voice rides along on the in-flight load, and a
+ * request for a different voice supersedes it by moving the generation on.
+ */
+async function getSession(
+  voiceId: string,
+  onLoadProgress: (fraction: number) => void,
+): Promise<TtsSessionInstance> {
+  if (session && sessionVoiceId === voiceId) return session;
+
+  // Already loading this exact voice: ride along rather than start a second
+  // load, which would download the same model twice.
+  if (activeLoad && activeLoad.voiceId === voiceId) return activeLoad.promise;
+
+  // A different voice is being asked for, so anything in flight is now stale:
+  // moving the generation on is what makes it refuse to commit.
+  const generation = ++sessionGeneration;
+  const promise = loadSession(voiceId, generation, onLoadProgress);
+  activeLoad = { voiceId, promise };
+
+  try {
+    return await promise;
+  } finally {
+    if (activeLoad?.promise === promise) activeLoad = null;
   }
 }
 
@@ -182,9 +304,9 @@ async function getSession(
  *
  * The engine only emits WAV, so the compressed option is a client-side
  * re-encode of the same merged samples the WAV path writes. It lives here
- * rather than on the page so the encoder never loads on the main thread — MP3
- * is the default format, and encoding a long clip is exactly the kind of work
- * that must not sit between the page and its next paint.
+ * rather than on the page so the encoder never loads on the main thread — a
+ * pure-JavaScript encoder is the last thing that should sit between the page
+ * and its next paint, and on a long clip it holds the thread for seconds.
  */
 async function encodeMp3(samples: Float32Array, sampleRate: number): Promise<ArrayBuffer> {
   const lamejs = (await import("lamejs")).default;
@@ -379,7 +501,9 @@ async function prefetchModel(voiceId: string): Promise<PrefetchOutcome> {
 async function removeModel(voiceId: string): Promise<void> {
   const { remove } = await loadPiper();
   await remove(voiceId as VoiceId);
-  if (sessionVoiceId === voiceId) releaseSession();
+  // Also covers the case where the model is still being loaded: deleting it
+  // underneath a load in flight must stop that load from committing.
+  if (sessionVoiceId === voiceId || activeLoad?.voiceId === voiceId) releaseSession();
 }
 
 async function flushModels(): Promise<void> {
@@ -433,6 +557,12 @@ function failureResponse(id: number, error: unknown) {
 scope.onmessage = (event: MessageEvent<VoiceWorkerRequest>) => {
   const request = event.data;
   void handleRequest(request).catch((error) => {
+    // A superseded request is not a failure. A newer request replaced it, and
+    // that newer one is what the visitor is actually waiting on — so answering
+    // here would put an error on screen for work they have already moved on
+    // from. The whole error is dropped, and deliberately only this one: every
+    // real failure still reaches its caller below.
+    if (error instanceof SupersededFailure) return;
     console.error(`[voice] worker request "${request.type}" failed:`, error);
     // "release" is the one request with nothing to answer; everything else
     // carries the id that ties this failure back to its caller.

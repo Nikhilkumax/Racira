@@ -19,13 +19,13 @@ test.describe("Voice Studio", () => {
   test("defaults, stacked fields, and single-gender fallback", async ({ page }) => {
     await page.goto("/voice");
 
-    // Fresh-load defaults: English (US) / Male / Ryan / MP3.
+    // Fresh-load defaults: English (US) / Male / Ryan (standard) / WAV.
     await expect(page.locator('[data-testid="language-select"]')).toContainText(
       /united states/i,
     );
     await expect(page.locator('[data-testid="gender-select"]')).toContainText(/male/i);
     await expect(page.locator('[data-testid="voice-select"]')).toContainText(/Ryan/);
-    await expect(page.locator('[data-testid="format-select"]')).toContainText(/MP3/i);
+    await expect(page.locator('[data-testid="format-select"]')).toContainText(/WAV/i);
 
     // Georgian ships a single female voice: switching there flips Gender to the
     // available one and pre-picks Natia, so the Voice dropdown is never empty.
@@ -55,9 +55,8 @@ test.describe("Voice Studio", () => {
     await page.locator('[data-testid="voice-select"]').click();
     await page.getByRole("option", { name: /amy/i }).first().click();
 
-    // 2b. WAV must be chosen explicitly — MP3 is the default format now.
-    await page.locator('[data-testid="format-select"]').click();
-    await page.getByRole("option", { name: /wav/i }).click();
+    // 2b. WAV is the default format, so this test also covers that the default
+    //     really is WAV — no format interaction is needed.
 
     // 3. Type the script.
     await page.locator("textarea").fill("Hello world, this is a test.");
@@ -104,7 +103,7 @@ test.describe("Voice Studio", () => {
     expect(bytes.subarray(8, 12).toString("ascii")).toBe("WAVE");
   });
 
-  test("UK English female voice → generate → download (MP3 default)", async ({ page }) => {
+  test("UK English female voice → generate → download (MP3)", async ({ page }) => {
     await page.goto("/voice");
 
     const generateBtn = page.getByRole("button", { name: /generate audio/i });
@@ -123,7 +122,10 @@ test.describe("Voice Studio", () => {
 
     await page.locator("textarea").fill("Testing with a British voice.");
 
-    // MP3 is the default format; no format interaction needed.
+    // WAV is the default now, so MP3 has to be chosen explicitly.
+    await page.locator('[data-testid="format-select"]').click();
+    await page.getByRole("option", { name: /mp3/i }).click();
+
     await expect(generateBtn).toBeEnabled({ timeout: 5000 });
     await generateBtn.click();
 
@@ -161,8 +163,8 @@ test.describe("Voice Studio", () => {
     await page.locator('[data-testid="voice-select"]').click();
     await page.getByRole("option", { name: /amy/i }).first().click();
 
-    // 2b. This test asserts WAV seam logic, so WAV must be chosen explicitly —
-    // MP3 is the default format now.
+    // 2b. This test asserts WAV seam logic, so WAV is chosen explicitly rather
+    // than inherited from the default.
     await page.locator('[data-testid="format-select"]').click();
     await page.getByRole("option", { name: /wav/i }).click();
 

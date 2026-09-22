@@ -97,7 +97,7 @@ test.describe("Voice studio — failure copy and connection-aware prefetch", () 
     // as soon as it is seen, so the assertion costs no bandwidth and no model
     // is written to the browser's storage.
     const prefetchRequests: string[] = [];
-    await page.route(/huggingface\.co.*en_US-ryan-high\.onnx/, (route) => {
+    await page.route(/huggingface\.co.*en_US-ryan-medium\.onnx/, (route) => {
       prefetchRequests.push(route.request().url());
       return route.abort();
     });
@@ -107,7 +107,7 @@ test.describe("Voice studio — failure copy and connection-aware prefetch", () 
 
     // Fires at the first idle moment; the timeout only bounds how late it can be.
     await expect.poll(() => prefetchRequests.length, { timeout: 30000 }).toBeGreaterThan(0);
-    expect(prefetchRequests[0]).toContain("en_US-ryan-high.onnx");
+    expect(prefetchRequests[0]).toContain("en_US-ryan-medium.onnx");
 
     // And it stays invisible: no progress UI, no error, Generate still ready.
     await expect(page.locator('[data-testid="tts-chunk-progress"]')).toHaveCount(0);

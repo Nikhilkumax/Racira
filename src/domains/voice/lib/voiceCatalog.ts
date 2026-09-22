@@ -31,6 +31,7 @@ export interface VoiceOption {
 }
 
 export const VOICE_CATALOG: VoiceOption[] = [
+  {"id":"en_US-ryan-medium","lang":"en_US","langName":"English (United States)","speaker":"ryan","name":"Ryan","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-ryan-high","lang":"en_US","langName":"English (United States)","speaker":"ryan","name":"Ryan","gender":"male","quality":"high","qualityLabel":"High fidelity"},
   {"id":"en_US-amy-medium","lang":"en_US","langName":"English (United States)","speaker":"amy","name":"Amy","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-lessac-medium","lang":"en_US","langName":"English (United States)","speaker":"lessac","name":"James","gender":"male","quality":"medium","qualityLabel":"Standard"},
@@ -51,7 +52,6 @@ export const VOICE_CATALOG: VoiceOption[] = [
   {"id":"en_US-kusal-medium","lang":"en_US","langName":"English (United States)","speaker":"kusal","name":"Marcus","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-arctic-medium","lang":"en_US","langName":"English (United States)","speaker":"arctic","name":"Nathan","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-ryan-low","lang":"en_US","langName":"English (United States)","speaker":"ryan","name":"Ryan","gender":"male","quality":"low","qualityLabel":"Light"},
-  {"id":"en_US-ryan-medium","lang":"en_US","langName":"English (United States)","speaker":"ryan","name":"Ryan","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_GB-alba-medium","lang":"en_GB","langName":"English (United Kingdom)","speaker":"alba","name":"Alba","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_GB-cori-high","lang":"en_GB","langName":"English (United Kingdom)","speaker":"cori","name":"Cori","gender":"female","quality":"high","qualityLabel":"High fidelity"},
   {"id":"en_GB-jenny_dioco-medium","lang":"en_GB","langName":"English (United Kingdom)","speaker":"jenny_dioco","name":"Jenny","gender":"female","quality":"medium","qualityLabel":"Standard"},
@@ -210,6 +210,7 @@ export const VOICE_LANGUAGES: VoiceLanguage[] = [
  * otherwise).
  */
 export const FEATURED_VOICE_IDS: string[] = [
+  "en_US-ryan-medium",
   "en_US-ryan-high",
   "en_US-amy-medium",
   "en_US-lessac-medium",
@@ -225,7 +226,7 @@ export const FEATURED_VOICE_IDS: string[] = [
 export const VOICE_COUNT = VOICE_CATALOG.length;
 export const LANGUAGE_COUNT = VOICE_LANGUAGES.length;
 
-/** Initial picker value — the first featured voice, the flagship US male. */
+/** Initial picker value — the flagship US male voice at standard quality. */
 export const DEFAULT_VOICE_ID = FEATURED_VOICE_IDS[0];
 
 export function voicesForLanguage(code: string): VoiceOption[] {

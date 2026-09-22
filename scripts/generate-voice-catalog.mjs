@@ -108,8 +108,12 @@ const LANGUAGE_LABELS = {
 // English-first shortlist pinned to the top of the picker. Every id must exist
 // in the union; a stale entry fails the generator rather than rendering a
 // dead option. The first entry is the picker's default: Ryan, the flagship US
-// male voice.
+// male voice — at *standard* quality. The high-fidelity model is twice the
+// download and roughly four times the synthesis time per part, and the default
+// is the first impression of the tool, so the fast tier leads. High fidelity
+// sits one row below it and every tier stays selectable.
 const FEATURED_VOICE_IDS = [
+  "en_US-ryan-medium",
   "en_US-ryan-high",
   "en_US-amy-medium",
   "en_US-lessac-medium",
@@ -371,7 +375,7 @@ ${FEATURED_VOICE_IDS.map((id) => `  ${JSON.stringify(id)},`).join("\n")}
 export const VOICE_COUNT = VOICE_CATALOG.length;
 export const LANGUAGE_COUNT = VOICE_LANGUAGES.length;
 
-/** Initial picker value — the first featured voice, the flagship US male. */
+/** Initial picker value — the flagship US male voice at standard quality. */
 export const DEFAULT_VOICE_ID = FEATURED_VOICE_IDS[0];
 
 export function voicesForLanguage(code: string): VoiceOption[] {
