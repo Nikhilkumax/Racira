@@ -10,8 +10,15 @@
  * notices. Run `npm run gen:voices` after any bump of that dependency.
  *
  * Source of truth: the `VoiceId` union in
- * node_modules/@mintplex-labs/piper-tts-web/dist/types.d.ts. Every id there is
+ * node_modules/@mintplex-labs/piper-tts-web/dist/types.d.ts, unioned with the
+ * keys of the library's own `PATH_MAP` in dist/piper-tts-web.js. Every id is
  * `{language}_{REGION}-{speaker}-{quality}`, e.g. "en_US-amy-medium".
+ *
+ * Both sources are needed, not just the union: `PATH_MAP` is what the engine
+ * actually looks a voice up in at synthesis time, and it carries ids the union
+ * was never updated for. Reading only the union leaves those voices (including
+ * a standard-tier Italian voice and an entire language) unreachable in the
+ * picker even though the engine can fetch and synthesize them.
  *
  * Usage: node scripts/generate-voice-catalog.mjs
  */
@@ -46,7 +53,33 @@ if (!unionMatch) {
   process.exit(1);
 }
 
-const voiceIds = [...unionMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+const unionVoiceIds = [...unionMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+
+// The union is not the full set of voices the installed version can fetch —
+// PATH_MAP is, because PATH_MAP is what `TtsSession` resolves the model path
+// through. Parse its keys straight out of the bundle (a key is a line of the
+// object that maps an id to an .onnx path) and union them in.
+const bundlePath = path.join(pkgDir, "dist", "piper-tts-web.js");
+const bundle = fs.readFileSync(bundlePath, "utf8");
+const pathMapStart = bundle.indexOf("const PATH_MAP");
+if (pathMapStart < 0) {
+  console.error("[voices] Could not locate PATH_MAP in dist/piper-tts-web.js — did the bundle change shape?");
+  process.exit(1);
+}
+const pathMapBlock = bundle.slice(pathMapStart, bundle.indexOf("};", pathMapStart));
+const pathMapIds = [...pathMapBlock.matchAll(/"([^"]+)"\s*:\s*"[^"]*\.onnx"/g)].map((m) => m[1]);
+
+// A PATH_MAP that parses to fewer ids than the union means the parse broke;
+// failing here is better than quietly writing a catalog that drops voices.
+if (pathMapIds.length < unionVoiceIds.length) {
+  console.error(
+    `[voices] PATH_MAP parsed to ${pathMapIds.length} ids, fewer than the ` +
+      `${unionVoiceIds.length} in the union — parsing is broken.`,
+  );
+  process.exit(1);
+}
+
+const voiceIds = [...new Set([...unionVoiceIds, ...pathMapIds])];
 
 // The CountryCode union is the library's own list of language-region codes.
 // Parsed rather than assumed so a new code cannot slip in uncharted.
@@ -69,6 +102,7 @@ const LANGUAGE_LABELS = {
   ar_JO: "Arabic (Jordan)",
   ca_ES: "Catalan (Spain)",
   cs_CZ: "Czech (Czechia)",
+  cy_GB: "Welsh",
   da_DK: "Danish (Denmark)",
   de_DE: "German (Germany)",
   el_GR: "Greek (Greece)",
@@ -313,8 +347,9 @@ const languageEntries = sortedLanguages
 
 const out = `// AUTO-GENERATED — do not edit by hand.
 //
-// Source: @mintplex-labs/piper-tts-web@${version} dist/types.d.ts (the VoiceId union,
-// which is the same set of ids the library's PATH_MAP can fetch).
+// Source: @mintplex-labs/piper-tts-web@${version} — the VoiceId union
+// (dist/types.d.ts) unioned with the engine's PATH_MAP keys (dist/piper-tts-web.js),
+// which is the authoritative set of ids the installed version can fetch.
 // Regenerate with: npm run gen:voices
 //
 // ${voices.length} voices across ${sortedLanguages.length} languages. The picker reads

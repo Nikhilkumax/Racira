@@ -50,11 +50,22 @@ export const FORMAT_MIME: Record<SpeechFormat, string> = {
 };
 
 /**
- * One engine call per part. Deliberately just under the 400-character cap the
- * speech library's own internal splitter uses (its `MAX_CHUNK_LENGTH`): an
- * over-long part is silently cut mid-sentence by the library, with no seam and
- * no progress event, so staying below it keeps every cut on a boundary this
- * domain chose — and keeps the per-part progress bar honest.
+ * One engine call per part, in characters.
+ *
+ * Kept at — never above — the cap the speech library's own splitter applies to
+ * a single inference pass (its `MAX_CHUNK_LENGTH`, also 400). The library
+ * splits only when a part exceeds that cap, so a part this size is passed
+ * through untouched; a larger one is silently cut mid-sentence into
+ * library-chosen sub-chunks that are joined with *no* seam silence and emit no
+ * progress event. Staying at the cap is therefore what keeps every boundary in
+ * the finished audio a boundary this domain chose, each with its own 120 ms
+ * seam, and keeps the per-part progress bar matching the work actually done.
+ *
+ * Do not raise it to get "fewer parts". A larger value does not reduce
+ * inference work — the library still splits the same text — it only moves part
+ * boundaries out of our sight, so the reported part count undercounts the real
+ * engine calls and the seams stop being ours. Fewer reported parts is not the
+ * same as fewer engine passes.
  *
  * Shared rather than duplicated: the UI sizes its "generates in N parts"
  * estimate from this number while the worker does the actual splitting, so a

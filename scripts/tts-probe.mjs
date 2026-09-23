@@ -1,11 +1,28 @@
 /**
- * Diagnostic probe for the /voice TTS generator.
+ * Diagnostic + waveform-verification probe for the /voice TTS generator.
  *
  * Collects, in one run:
  *   1. every model/voice/wasm network request (url, status, bytes)
  *   2. every console message (including warnings)
- *   3. the generated blob's real byte size AND decoded PCM peak/RMS
- *   4. whether <audio>.currentTime actually advances during playback
+ *   3. each generated blob's real byte size AND decoded PCM peak/RMS
+ *   4. whether the <audio> element's currentTime actually advances
+ *
+ * By default it generates once with whatever voice the page loads with (Ryan,
+ * standard, WAV). Set PROBE_VOICES to sweep several voices — this is how the
+ * catalog is verified to produce *real* audio rather than a silent or corrupt
+ * clip, since a decoded peak of 0 is the one failure that a byte-count cannot
+ * detect:
+ *
+ *   PROBE_VOICES='[
+ *     {"id":"en_US-ryan-medium"},
+ *     {"id":"it_IT-paola-medium","language":"Italian (Italy)","gender":"female","option":"Paola"},
+ *     {"id":"cy_GB-gwryw_gogleddol-medium","language":"Welsh","gender":"male","option":"Owain"}
+ *   ]' node scripts/tts-probe.mjs
+ *
+ * `language`/`gender`/`option` are the strings the picker shows; a descriptor
+ * with none of them uses the page's current selection. Every synthesized clip
+ * is written to scripts/.tts-probe-out/ and the process exits non-zero if any
+ * voice produced silence (peak below SILENCE_PEAK), so this can gate a release.
  *
  * Run with the dev server already up:  node scripts/tts-probe.mjs
  */
@@ -13,22 +30,43 @@ import { chromium } from "playwright";
 import fs from "node:fs";
 
 const BASE = process.env.PROBE_BASE ?? "http://localhost:3002";
-const TEXT = "Hello, this is a test of the speech engine.";
+const TEXT = process.env.PROBE_TEXT ?? "Hello, this is a test of the speech engine.";
 const OUT = "scripts/.tts-probe-out";
 
-const ASSET_RE = /\.(bin|onnx|onnx_data|wasm|json|mjs)(\?|$)/i;
+/** A decoded peak at or below this is treated as "the model produced nothing". */
+const SILENCE_PEAK = 0.01;
+
+/** Engine assets the generator pulls: models + configs + the two wasm bundles. */
+const ASSET_RE = /\.(onnx|onnx\.json|wasm|data|bin)(\?|$)/i;
 
 fs.mkdirSync(OUT, { recursive: true });
 
-const browser = await chromium.launch({
-  headless: false, // WebGPU is unreliable in headless
-  args: [
-    "--enable-unsafe-webgpu",
-    "--enable-features=Vulkan,UseSkiaRenderer",
-    "--ignore-gpu-blocklist",
-    "--use-angle=default",
-  ],
-});
+// ── Voice sweep configuration ───────────────────────────────────────────
+
+// Default: one run with the page's own default selection (English (US) / male /
+// Ryan / WAV), which is exactly what this probe did before it could sweep.
+let VOICES = [{ id: "(page default)" }];
+
+if (process.env.PROBE_VOICES) {
+  let parsed;
+  try {
+    parsed = JSON.parse(process.env.PROBE_VOICES);
+  } catch (error) {
+    console.error(`PROBE_VOICES is not valid JSON: ${error.message}`);
+    process.exit(2);
+  }
+  if (!Array.isArray(parsed) || parsed.length === 0) {
+    console.error("PROBE_VOICES must be a non-empty JSON array of descriptors.");
+    process.exit(2);
+  }
+  VOICES = parsed;
+}
+
+// ── Browser ─────────────────────────────────────────────────────────────
+// Headless by default: the engine is WASM-only (no WebGPU tier to keep alive),
+// so there is no reason to depend on a display. PROBE_HEADED=1 to watch it.
+
+const browser = await chromium.launch({ headless: process.env.PROBE_HEADED !== "1" });
 
 const ctx = await browser.newContext();
 const page = await ctx.newPage();
@@ -57,7 +95,7 @@ page.on("response", async (res) => {
   requests.push({
     url,
     status: res.status(),
-    fromCache: res.fromServiceWorker(),
+    fromServiceWorker: res.fromServiceWorker(),
     contentLength: res.headers()["content-length"] ?? null,
     bytes,
   });
@@ -65,47 +103,29 @@ page.on("response", async (res) => {
 
 const log = (...a) => console.log(...a);
 
-log(`\n=== navigating to ${BASE}/voice ===`);
-await page.goto(`${BASE}/voice`, { waitUntil: "domcontentloaded", timeout: 60000 });
+// ── Picker helpers ──────────────────────────────────────────────────────
 
-// Report WebGPU availability up front — a silent fallback here would explain a lot.
-const gpu = await page.evaluate(async () => {
-  const hasGPU = typeof navigator !== "undefined" && "gpu" in navigator;
-  let adapter = null;
-  if (hasGPU) {
-    try {
-      const a = await navigator.gpu.requestAdapter();
-      adapter = a ? "adapter-ok" : "no-adapter";
-    } catch (e) {
-      adapter = "error: " + e.message;
-    }
+/** Choose a voice through the same dropdowns a visitor uses. */
+async function selectVoice(voice) {
+  if (voice.language) {
+    await page.locator('[data-testid="language-select"]').click();
+    await page.getByRole("option", { name: voice.language, exact: true }).click();
   }
-  return { hasGPU, adapter, crossOriginIsolated: globalThis.crossOriginIsolated };
-});
-log("webgpu:", JSON.stringify(gpu));
-
-// Fill the textarea and generate.
-await page.waitForSelector("textarea", { timeout: 30000 });
-await page.fill("textarea", TEXT);
-
-const genBtn = page.getByRole("button", { name: /generate audio/i });
-await genBtn.click();
-log("clicked Generate — waiting for audio element (model download may take minutes)...");
-
-let audioAppeared = true;
-try {
-  await page.waitForSelector('[data-testid="tts-audio"]', { timeout: 600000 });
-} catch {
-  audioAppeared = false;
+  if (voice.gender) {
+    const label = voice.gender.toLowerCase() === "male" ? "Male" : "Female";
+    await page.locator('[data-testid="gender-select"]').click();
+    // exact: "Female" substring-matches "Male".
+    await page.getByRole("option", { name: label, exact: true }).click();
+  }
+  if (voice.option) {
+    await page.locator('[data-testid="voice-select"]').click();
+    await page.getByRole("option", { name: voice.option, exact: false }).first().click();
+  }
 }
 
-let result = { audioAppeared };
-
-if (audioAppeared) {
-  // Give autoplay a moment, then sample currentTime twice from the REAL element.
-  await page.waitForTimeout(1500);
-
-  result = await page.evaluate(async () => {
+/** Decode the current clip and measure it — the ground truth for "is it silent". */
+async function measureClip() {
+  return page.evaluate(async () => {
     const el = document.querySelector('[data-testid="tts-audio"]');
     if (!el) return { audioAppeared: false };
 
@@ -113,8 +133,6 @@ if (audioAppeared) {
     const resp = await fetch(src);
     const buf = await resp.arrayBuffer();
 
-    // Decode to inspect the actual samples — this is the ground truth for
-    // "is it silent", independent of the player UI.
     let decoded = null;
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -149,7 +167,7 @@ if (audioAppeared) {
     const t0 = el.currentTime;
     try {
       await el.play();
-    } catch (e) {
+    } catch {
       /* autoplay policy */
     }
     await new Promise((r) => setTimeout(r, 1200));
@@ -174,8 +192,10 @@ if (audioAppeared) {
       decoded,
     };
   });
+}
 
-  // Save the actual bytes so we can confirm the on-disk size.
+/** Persist the current clip's bytes so on-disk size can be confirmed. */
+async function saveClip(name) {
   const b64 = await page.evaluate(async () => {
     const el = document.querySelector('[data-testid="tts-audio"]');
     const r = await fetch(el.getAttribute("src"));
@@ -184,31 +204,128 @@ if (audioAppeared) {
     for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
     return btoa(s);
   });
-  const outFile = `${OUT}/generated.bin`;
-  fs.writeFileSync(outFile, Buffer.from(b64, "base64"));
-  result.savedTo = outFile;
-  result.savedBytes = fs.statSync(outFile).size;
+  const file = `${OUT}/${name}.bin`;
+  fs.writeFileSync(file, Buffer.from(b64, "base64"));
+  return { file, bytes: fs.statSync(file).size };
 }
 
-const report = {
-  gpu,
-  result,
-  requests,
-  consoleMsgs,
-  pageErrors,
-};
-fs.writeFileSync(`${OUT}/report.json`, JSON.stringify(report, null, 2));
+// ── Run ─────────────────────────────────────────────────────────────────
 
-log("\n=== WEBGPU ===");
-log(JSON.stringify(gpu, null, 2));
+log(`\n=== navigating to ${BASE}/voice ===`);
+await page.goto(`${BASE}/voice`, { waitUntil: "domcontentloaded", timeout: 60000 });
+
+// Report WebGPU availability up front. The engine is WASM-only, so this is
+// informational — but a silent GPU fallback used to explain a lot, and it is
+// cheap to keep recording.
+const gpu = await page.evaluate(async () => {
+  const hasGPU = typeof navigator !== "undefined" && "gpu" in navigator;
+  let adapter = null;
+  if (hasGPU) {
+    try {
+      const a = await navigator.gpu.requestAdapter();
+      adapter = a ? "adapter-ok" : "no-adapter";
+    } catch (e) {
+      adapter = "error: " + e.message;
+    }
+  }
+  return { hasGPU, adapter, crossOriginIsolated: globalThis.crossOriginIsolated };
+});
+log("webgpu:", JSON.stringify(gpu));
+
+await page.waitForSelector("textarea", { timeout: 30000 });
+await page.fill("textarea", TEXT);
+
+const genBtn = page.getByRole("button", { name: /generate audio/i });
+const audioEl = page.locator('[data-testid="tts-audio"]');
+const errorEl = page.locator('[data-testid="tts-generate-error"]');
+
+const results = [];
+
+for (const voice of VOICES) {
+  const label = voice.id ?? "(page default)";
+  log(`\n--- voice: ${label} ---`);
+
+  const previousSrc = await audioEl.getAttribute("src").catch(() => null);
+
+  await selectVoice(voice);
+
+  // The UI's pre-flight part estimate is computed from the same constant the
+  // worker splits with, so it is a faithful readout of how many engine calls
+  // this input will take (see PART_MAX_CHARS in piperProtocol.ts).
+  const estimateEl = page.locator('[data-testid="tts-chunk-estimate"]');
+  const chunkEstimate =
+    (await estimateEl.count()) > 0 ? ((await estimateEl.textContent()) ?? "").trim() : null;
+
+  const requestsBefore = requests.length;
+  await genBtn.click();
+  log("clicked Generate — waiting for a fresh clip (model download may take minutes)...");
+
+  let ok = true;
+  try {
+    // A fresh clip is the last thing a successful run does: the blob URL is
+    // re-pointed. Waiting on a *change* is what makes a sweep work, since the
+    // audio element already exists from the previous voice.
+    await page.waitForFunction(
+      (prev) => {
+        const el = document.querySelector('[data-testid="tts-audio"]');
+        if (!el) return false;
+        const src = el.getAttribute("src");
+        return !!src && src !== prev;
+      },
+      previousSrc,
+      { timeout: 600000 },
+    );
+  } catch {
+    ok = false;
+  }
+
+  if (!ok) {
+    const generatedError = (await errorEl.count()) > 0 ? await errorEl.textContent() : null;
+    results.push({ id: label, ok: false, error: generatedError ?? "(no clip and no error text)" });
+    log(`FAILED — ${generatedError ?? "no clip appeared"}`);
+    continue;
+  }
+
+  await page.waitForTimeout(1500);
+  const measurement = await measureClip();
+  const saved = await saveClip(`generated-${label.replace(/[^a-z0-9_.-]/gi, "_")}`);
+  const storedText = (await page.locator('[data-testid="tts-stored-voices"]').textContent()) ?? "";
+
+  const decoded = measurement.decoded ?? {};
+  const silent = !decoded.peakAmplitude || decoded.peakAmplitude < SILENCE_PEAK;
+
+  results.push({
+    id: label,
+    ok: !silent,
+    silent,
+    charCount: TEXT.length,
+    chunkEstimate,
+    savedTo: saved.file,
+    savedBytes: saved.bytes,
+    requests: requests.length - requestsBefore,
+    storedIndicator: storedText.trim(),
+    ...measurement,
+  });
+
+  log(
+    `chars=${TEXT.length} parts=${chunkEstimate ?? "n/a"} ` +
+      `peak=${decoded.peakAmplitude?.toFixed(4) ?? "?"} ` +
+      `rms=${decoded.rms?.toFixed(5) ?? "?"} ` +
+      `nonZero=${decoded.percentNonZero ?? "?"} ` +
+      `dur=${decoded.durationSec?.toFixed(2) ?? "?"}s ` +
+      `bytes=${measurement.blobBytes ?? "?"} → ${silent ? "SILENT (FAIL)" : "audio ok"}`,
+  );
+}
+
+const silentVoices = results.filter((r) => r.ok === false);
+const report = { gpu, text: TEXT, results, requests, consoleMsgs, pageErrors };
+fs.writeFileSync(`${OUT}/report.json`, JSON.stringify(report, null, 2));
 
 log("\n=== 1. MODEL / VOICE / WASM REQUESTS ===");
 if (!requests.length) log("(none captured)");
 for (const r of requests) {
   const short = r.url.length > 110 ? r.url.slice(0, 107) + "..." : r.url;
-  log(
-    `[${r.status}] ${r.bytes ?? "?"} bytes (CL=${r.contentLength ?? "-"})  ${short}`,
-  );
+  log(`[${r.status}] ${r.bytes ?? "?"} bytes (CL=${r.contentLength ?? "-"})  ${short}`);
 }
 
 log("\n=== 2. CONSOLE (all levels) ===");
@@ -218,9 +335,24 @@ if (pageErrors.length) {
   for (const e of pageErrors) log(e);
 }
 
-log("\n=== 3 & 4. AUDIO ===");
-log(JSON.stringify(result, null, 2));
+log("\n=== 3. WAVEFORM SUMMARY ===");
+for (const r of results) {
+  if (r.ok === false) {
+    log(`✗ ${r.id}: ${r.error}`);
+    continue;
+  }
+  log(
+    `✓ ${r.id}: peak=${r.decoded?.peakAmplitude?.toFixed(4)} ` +
+      `rms=${r.decoded?.rms?.toFixed(5)} nonZero=${r.decoded?.percentNonZero} ` +
+      `duration=${r.decoded?.durationSec?.toFixed(2)}s`,
+  );
+}
 
 log(`\nfull report -> ${OUT}/report.json`);
-
 await browser.close();
+
+if (silentVoices.length) {
+  log(`\nRESULT: FAIL — ${silentVoices.length}/${results.length} voice(s) produced silence or no clip.`);
+  process.exit(1);
+}
+log(`\nRESULT: PASS — ${results.length} voice(s) produced non-silent audio.`);

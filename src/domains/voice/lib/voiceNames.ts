@@ -1,5 +1,17 @@
 import type { CountryCode } from '@mintplex-labs/piper-tts-web';
 
+/**
+ * Language codes this mapping can name.
+ *
+ * `CountryCode` is the library's own union, but it is not the complete set the
+ * engine can synthesize: the engine's PATH_MAP ships a Welsh voice (`cy_GB`)
+ * whose code never made it into that union. The catalog generator unions the
+ * same two sources, so this type has to as well — otherwise a real, fetchable
+ * voice could not be given a display name without widening the key to a bare
+ * string and losing the check for everything else.
+ */
+export type EngineCountryCode = CountryCode | 'cy_GB';
+
 export interface VoiceNameEntry {
   name: string;
   gender: 'male' | 'female';
@@ -12,7 +24,7 @@ export interface VoiceNameEntry {
 // that were never people's names (mls, vctk, dfki, google, semaine,
 // arctic, lanfrica, rapunzelina, talesyntese, etc.) were replaced with
 // a real popular given name from that language/region.
-export const VOICE_NAME_OVERRIDES: Record<`${CountryCode}|${string}`, VoiceNameEntry> = {
+export const VOICE_NAME_OVERRIDES: Record<`${EngineCountryCode}|${string}`, VoiceNameEntry> = {
   // Arabic (Jordan)
   'ar_JO|kareem': { name: 'Kareem', gender: 'male' },
   // Catalan
@@ -44,10 +56,12 @@ export const VOICE_NAME_OVERRIDES: Record<`${CountryCode}|${string}`, VoiceNameE
   // English (US)
   'en_US|amy': { name: 'Amy', gender: 'female' },
   'en_US|arctic': { name: 'Nathan', gender: 'male' },
+  'en_US|bryce': { name: 'Bryce', gender: 'male' },
   'en_US|danny': { name: 'Danny', gender: 'male' },
   'en_US|hfc_female': { name: 'Sophia', gender: 'female' },
   'en_US|hfc_male': { name: 'Ethan', gender: 'male' },
   'en_US|joe': { name: 'Joe', gender: 'male' },
+  'en_US|john': { name: 'John', gender: 'male' },
   'en_US|kathleen': { name: 'Kathleen', gender: 'female' },
   'en_US|kristin': { name: 'Kristin', gender: 'female' },
   'en_US|kusal': { name: 'Marcus', gender: 'male' },
@@ -56,6 +70,7 @@ export const VOICE_NAME_OVERRIDES: Record<`${CountryCode}|${string}`, VoiceNameE
   'en_US|libritts': { name: 'Emma', gender: 'female' },
   'en_US|libritts_r': { name: 'Aiden', gender: 'male' },
   'en_US|ljspeech': { name: 'Ava', gender: 'female' },
+  'en_US|norman': { name: 'Norman', gender: 'male' },
   'en_US|ryan': { name: 'Ryan', gender: 'male' },
   // Finnish
   'fi_FI|harri': { name: 'Harri', gender: 'male' },
@@ -89,6 +104,7 @@ export const VOICE_NAME_OVERRIDES: Record<`${CountryCode}|${string}`, VoiceNameE
   'is_IS|steinn': { name: 'Steinn', gender: 'male' },
   'is_IS|ugla': { name: 'Ugla', gender: 'female' },
   // Italian
+  'it_IT|paola': { name: 'Paola', gender: 'female' },
   'it_IT|riccardo': { name: 'Riccardo', gender: 'male' },
   // Kazakh
   'kk_KZ|iseke': { name: 'Iseke', gender: 'male' },
@@ -150,4 +166,6 @@ export const VOICE_NAME_OVERRIDES: Record<`${CountryCode}|${string}`, VoiceNameE
   'vi_VN|25hours_single': { name: 'Linh', gender: 'female' },
   'vi_VN|vais1000': { name: 'Minh', gender: 'male' },
   'vi_VN|vivos': { name: 'Hoa', gender: 'female' },
+  // Welsh
+  'cy_GB|gwryw_gogleddol': { name: 'Owain', gender: 'male' },
 };

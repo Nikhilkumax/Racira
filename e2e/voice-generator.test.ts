@@ -41,6 +41,32 @@ test.describe("Voice Studio", () => {
     await page.keyboard.press("Escape");
   });
 
+  test("newly exposed catalog voices are selectable", async ({ page }) => {
+    await page.goto("/voice");
+
+    // These ids come from the engine's PATH_MAP but are absent from the
+    // library's VoiceId union, so a catalog generated from the union alone left
+    // them unreachable. No model is downloaded here — this only guards that the
+    // picker still offers them, which is what a regeneration could silently
+    // drop.
+    // Italian now ships a standard-tier voice (Paola, female) next to the old
+    // very-light Riccardo (male). The gender filter keeps the current "male"
+    // selection on a language switch, so Paola only appears once Female is
+    // chosen — which is the behaviour being asserted as much as her presence.
+    await page.locator('[data-testid="language-select"]').click();
+    await page.getByRole("option", { name: "Italian (Italy)", exact: true }).click();
+    await page.locator('[data-testid="gender-select"]').click();
+    await page.getByRole("option", { name: "Female", exact: true }).click();
+    await expect(page.locator('[data-testid="voice-select"]')).toContainText(/Paola/);
+
+    // Welsh is a whole language the union-derived catalog omitted; it has a
+    // single male voice, so switching to it flips Gender on its own.
+    await page.locator('[data-testid="language-select"]').click();
+    await page.getByRole("option", { name: "Welsh", exact: true }).click();
+    await expect(page.locator('[data-testid="gender-select"]')).toContainText(/male/i);
+    await expect(page.locator('[data-testid="voice-select"]')).toContainText(/Owain/);
+  });
+
   test("US English female voice → generate → download (WAV)", async ({ page }) => {
     await page.goto("/voice");
 

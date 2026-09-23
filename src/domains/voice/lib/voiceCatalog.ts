@@ -1,10 +1,11 @@
 // AUTO-GENERATED — do not edit by hand.
 //
-// Source: @mintplex-labs/piper-tts-web@1.0.5 dist/types.d.ts (the VoiceId union,
-// which is the same set of ids the library's PATH_MAP can fetch).
+// Source: @mintplex-labs/piper-tts-web@1.0.5 — the VoiceId union
+// (dist/types.d.ts) unioned with the engine's PATH_MAP keys (dist/piper-tts-web.js),
+// which is the authoritative set of ids the installed version can fetch.
 // Regenerate with: npm run gen:voices
 //
-// 119 voices across 37 languages. The picker reads
+// 124 voices across 38 languages. The picker reads
 // everything from here, so a dependency bump is a regeneration rather than a
 // code change. Display names and gender tags are curated in voiceNames.ts —
 // the generator hard-fails if any voice is missing from that mapping, if the
@@ -41,16 +42,19 @@ export const VOICE_CATALOG: VoiceOption[] = [
   {"id":"en_US-amy-low","lang":"en_US","langName":"English (United States)","speaker":"amy","name":"Amy","gender":"female","quality":"low","qualityLabel":"Light"},
   {"id":"en_US-ljspeech-high","lang":"en_US","langName":"English (United States)","speaker":"ljspeech","name":"Ava","gender":"female","quality":"high","qualityLabel":"High fidelity"},
   {"id":"en_US-ljspeech-medium","lang":"en_US","langName":"English (United States)","speaker":"ljspeech","name":"Ava","gender":"female","quality":"medium","qualityLabel":"Standard"},
+  {"id":"en_US-bryce-medium","lang":"en_US","langName":"English (United States)","speaker":"bryce","name":"Bryce","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-danny-low","lang":"en_US","langName":"English (United States)","speaker":"danny","name":"Danny","gender":"male","quality":"low","qualityLabel":"Light"},
   {"id":"en_US-libritts-high","lang":"en_US","langName":"English (United States)","speaker":"libritts","name":"Emma","gender":"female","quality":"high","qualityLabel":"High fidelity"},
   {"id":"en_US-hfc_male-medium","lang":"en_US","langName":"English (United States)","speaker":"hfc_male","name":"Ethan","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-lessac-high","lang":"en_US","langName":"English (United States)","speaker":"lessac","name":"James","gender":"male","quality":"high","qualityLabel":"High fidelity"},
   {"id":"en_US-lessac-low","lang":"en_US","langName":"English (United States)","speaker":"lessac","name":"James","gender":"male","quality":"low","qualityLabel":"Light"},
+  {"id":"en_US-john-medium","lang":"en_US","langName":"English (United States)","speaker":"john","name":"John","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-kathleen-low","lang":"en_US","langName":"English (United States)","speaker":"kathleen","name":"Kathleen","gender":"female","quality":"low","qualityLabel":"Light"},
   {"id":"en_US-kristin-medium","lang":"en_US","langName":"English (United States)","speaker":"kristin","name":"Kristin","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-l2arctic-medium","lang":"en_US","langName":"English (United States)","speaker":"l2arctic","name":"Leo","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-kusal-medium","lang":"en_US","langName":"English (United States)","speaker":"kusal","name":"Marcus","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-arctic-medium","lang":"en_US","langName":"English (United States)","speaker":"arctic","name":"Nathan","gender":"male","quality":"medium","qualityLabel":"Standard"},
+  {"id":"en_US-norman-medium","lang":"en_US","langName":"English (United States)","speaker":"norman","name":"Norman","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_US-ryan-low","lang":"en_US","langName":"English (United States)","speaker":"ryan","name":"Ryan","gender":"male","quality":"low","qualityLabel":"Light"},
   {"id":"en_GB-alba-medium","lang":"en_GB","langName":"English (United Kingdom)","speaker":"alba","name":"Alba","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"en_GB-cori-high","lang":"en_GB","langName":"English (United Kingdom)","speaker":"cori","name":"Cori","gender":"female","quality":"high","qualityLabel":"High fidelity"},
@@ -108,6 +112,7 @@ export const VOICE_CATALOG: VoiceOption[] = [
   {"id":"is_IS-salka-medium","lang":"is_IS","langName":"Icelandic (Iceland)","speaker":"salka","name":"Salka","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"is_IS-steinn-medium","lang":"is_IS","langName":"Icelandic (Iceland)","speaker":"steinn","name":"Steinn","gender":"male","quality":"medium","qualityLabel":"Standard"},
   {"id":"is_IS-ugla-medium","lang":"is_IS","langName":"Icelandic (Iceland)","speaker":"ugla","name":"Ugla","gender":"female","quality":"medium","qualityLabel":"Standard"},
+  {"id":"it_IT-paola-medium","lang":"it_IT","langName":"Italian (Italy)","speaker":"paola","name":"Paola","gender":"female","quality":"medium","qualityLabel":"Standard"},
   {"id":"it_IT-riccardo-x_low","lang":"it_IT","langName":"Italian (Italy)","speaker":"riccardo","name":"Riccardo","gender":"male","quality":"x_low","qualityLabel":"Very light"},
   {"id":"kk_KZ-issai-high","lang":"kk_KZ","langName":"Kazakh (Kazakhstan)","speaker":"issai","name":"Aigerim","gender":"female","quality":"high","qualityLabel":"High fidelity"},
   {"id":"kk_KZ-iseke-x_low","lang":"kk_KZ","langName":"Kazakh (Kazakhstan)","speaker":"iseke","name":"Iseke","gender":"male","quality":"x_low","qualityLabel":"Very light"},
@@ -150,6 +155,7 @@ export const VOICE_CATALOG: VoiceOption[] = [
   {"id":"vi_VN-vivos-x_low","lang":"vi_VN","langName":"Vietnamese (Vietnam)","speaker":"vivos","name":"Hoa","gender":"female","quality":"x_low","qualityLabel":"Very light"},
   {"id":"vi_VN-25hours_single-low","lang":"vi_VN","langName":"Vietnamese (Vietnam)","speaker":"25hours_single","name":"Linh","gender":"female","quality":"low","qualityLabel":"Light"},
   {"id":"vi_VN-vais1000-medium","lang":"vi_VN","langName":"Vietnamese (Vietnam)","speaker":"vais1000","name":"Minh","gender":"male","quality":"medium","qualityLabel":"Standard"},
+  {"id":"cy_GB-gwryw_gogleddol-medium","lang":"cy_GB","langName":"Welsh","speaker":"gwryw_gogleddol","name":"Owain","gender":"male","quality":"medium","qualityLabel":"Standard"},
 ];
 
 export interface VoiceLanguage {
@@ -165,7 +171,7 @@ export interface VoiceLanguage {
  * featured accents) and alphabetical after that.
  */
 export const VOICE_LANGUAGES: VoiceLanguage[] = [
-  { code: "en_US", label: "English (United States)", voiceCount: 21 },
+  { code: "en_US", label: "English (United States)", voiceCount: 24 },
   { code: "en_GB", label: "English (United Kingdom)", voiceCount: 11 },
   { code: "ar_JO", label: "Arabic (Jordan)", voiceCount: 2 },
   { code: "ca_ES", label: "Catalan (Spain)", voiceCount: 3 },
@@ -181,7 +187,7 @@ export const VOICE_LANGUAGES: VoiceLanguage[] = [
   { code: "el_GR", label: "Greek (Greece)", voiceCount: 1 },
   { code: "hu_HU", label: "Hungarian (Hungary)", voiceCount: 3 },
   { code: "is_IS", label: "Icelandic (Iceland)", voiceCount: 4 },
-  { code: "it_IT", label: "Italian (Italy)", voiceCount: 1 },
+  { code: "it_IT", label: "Italian (Italy)", voiceCount: 2 },
   { code: "kk_KZ", label: "Kazakh (Kazakhstan)", voiceCount: 3 },
   { code: "lb_LU", label: "Luxembourgish (Luxembourg)", voiceCount: 1 },
   { code: "ne_NP", label: "Nepali (Nepal)", voiceCount: 2 },
@@ -202,6 +208,7 @@ export const VOICE_LANGUAGES: VoiceLanguage[] = [
   { code: "tr_TR", label: "Turkish (Türkiye)", voiceCount: 3 },
   { code: "uk_UA", label: "Ukrainian (Ukraine)", voiceCount: 2 },
   { code: "vi_VN", label: "Vietnamese (Vietnam)", voiceCount: 3 },
+  { code: "cy_GB", label: "Welsh", voiceCount: 1 },
 ];
 
 /**

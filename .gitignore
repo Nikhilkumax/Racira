@@ -57,9 +57,13 @@ dev_out.txt
 # Scratch output from the espeak-ng bundling investigation.
 .espeak-bundle-scratch/
 .qa-screens/
-
 .workbuddy-ai/
+
 tests/output/
+
+# Scratch output from the TTS waveform probe (scripts/tts-probe.mjs) — the
+# generated .wav/.bin clips it writes for inspection, not source.
+/scripts/.tts-probe-out/
 /preview_*.png
 /status_*.txt
 /status-scan-*.js
