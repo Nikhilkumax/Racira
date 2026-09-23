@@ -38,6 +38,13 @@ jobs:
         working-directory: racira-nextjs
         run: node _scripts/grid-min-w0-check.mjs
 
+      # AdSense site verification lives entirely in /public/ads.txt. Nothing in
+      # the app imports it, so only this guard notices if it is deleted or
+      # reformatted. Mirrors the same check in .husky/pre-push.
+      - name: AdSense verification guard
+        working-directory: racira-nextjs
+        run: node _scripts/adsense-verify-check.mjs
+
       - name: Run visual QA sweep (build → next start → scans)
         working-directory: racira-nextjs
         run: npm run qa:visual

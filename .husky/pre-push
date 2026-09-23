@@ -38,3 +38,16 @@ if [ $? -ne 0 ]; then
   echo ""
   exit 1
 fi
+
+# AdSense site-verification artifact — /public/ads.txt is the only thing
+# proving this domain to Google, and nothing in the app or the type system
+# changes if it is deleted or reformatted. Same check runs in CI
+# (.github/workflows/visual-qa.yml).
+node _scripts/adsense-verify-check.mjs
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ AdSense verification artifact broken — push blocked."
+  echo "   /public/ads.txt must exist and hold the exact expected record."
+  echo ""
+  exit 1
+fi
