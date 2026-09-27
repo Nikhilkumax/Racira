@@ -87,7 +87,8 @@ function compute(i: MortgageInputs): MortgageResults {
 function addMonths(startYearStr: string, startMonthStr: string, months: number): string {
   const startIdx = Math.max(0, MONTHS.indexOf(startMonthStr));
   const total = startIdx + Math.max(0, months);
-  const y = (parseInt(startYearStr) || DEFAULT_START_YEAR) + Math.floor(total / 12);
+  const baseYear = parseInt(startYearStr, 10) || parseInt(DEFAULT_START_YEAR, 10) || 2026;
+  const y = baseYear + Math.floor(total / 12);
   return `${MONTHS[total % 12]} ${y}`;
 }
 
