@@ -27,6 +27,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 function fmt(n: number): string {
@@ -43,10 +44,13 @@ export default function PriceToBookRatioCalculator() {
   const [marketPrice, setMarketPrice] = useState("25");
   const [bookValue, setBookValue] = useState("20");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ marketPrice, bookValue }));
 
   const result = useMemo(() => {
-    const price = parseFloat(marketPrice) || 0;
-    const book = parseFloat(bookValue) || 0;
+    const price = parseFloat(calcInputs.marketPrice) || 0;
+    const book = parseFloat(calcInputs.bookValue) || 0;
     const ratio = book > 0 ? price / book : 0;
     const premiumDiscount = ratio > 0 ? (ratio - 1) * 100 : 0;
     const impliedBookGap = price - book;
@@ -55,14 +59,17 @@ export default function PriceToBookRatioCalculator() {
     else if (ratio > 3) label = "Premium — priced for growth";
 
     return { ratio, premiumDiscount, impliedBookGap, label };
-  }, [marketPrice, bookValue]);
+  }, [calcInputs]);
 
   const pieData = [
-    { name: "Book Value", value: parseFloat(bookValue) || 0 },
-    { name: "Premium to Book", value: Math.max(parseFloat(marketPrice) - (parseFloat(bookValue) || 0), 0) },
+    { name: "Book Value", value: parseFloat(calcInputs.bookValue) || 0 },
+    { name: "Premium to Book", value: Math.max(parseFloat(calcInputs.marketPrice) - (parseFloat(bookValue) || 0), 0) },
   ].filter((d) => d.value >= 0);
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ marketPrice, bookValue });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -76,6 +83,8 @@ export default function PriceToBookRatioCalculator() {
           },
         ]}
       />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
 
         {/* LEFT: inputs (Mortgage Calculator template) */}
         <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
@@ -113,6 +122,7 @@ export default function PriceToBookRatioCalculator() {
               onClick={() => {
                 setMarketPrice("25");
                 setBookValue("20");
+                setCalcInputs({ marketPrice: "25", bookValue: "20" });
                 setShowResults(false);
               }}
             >
@@ -204,12 +214,12 @@ export default function PriceToBookRatioCalculator() {
                     <TableRow>
                       <TableCell>Market price</TableCell>
                       <TableCell className="text-right">
-                        {fmt(result.ratio * (parseFloat(bookValue) || 0))}
+                        {fmt(result.ratio * (parseFloat(calcInputs.bookValue) || 0))}
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Book value</TableCell>
-                      <TableCell className="text-right">{fmt(parseFloat(bookValue) || 0)}</TableCell>
+                      <TableCell className="text-right">{fmt(parseFloat(calcInputs.bookValue) || 0)}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Market vs. book gap</TableCell>
@@ -291,6 +301,11 @@ export default function PriceToBookRatioCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/price-to-book-ratio-calculator" />
+      </div>
     </div>
   );
 }

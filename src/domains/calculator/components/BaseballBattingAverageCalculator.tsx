@@ -165,7 +165,7 @@ const BaseballBattingAverageCalculator = () => {
           Baseball Batting Average Calculator
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 !p-6 border border-border bg-card">
             <div className="flex items-center gap-2 mb-1">

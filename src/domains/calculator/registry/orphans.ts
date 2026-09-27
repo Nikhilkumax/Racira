@@ -119,7 +119,8 @@ export const orphanedCalculators: CalculatorDef[] = [
     description: "Estimate EV charging time from battery size, charger power, and state of charge, with a realistic charge curve.",
     category: "TRANSPORTATION",
     subcategory: "EV & Alternative Fuel",
-    status: "live"
+    status: "live",
+    isBuilt: true,
   },
   {
     slug: "cooling-system-calculator",
@@ -363,22 +364,6 @@ export const orphanedCalculators: CalculatorDef[] = [
     status: "live"
   },
   {
-    slug: "pmi-amortization-table",
-    name: "Unknown Title",
-    description: "Amber row = PMI cancellation month",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
-    slug: "pmi-ltv-chart",
-    name: "Unknown Title",
-    description: "Amber zone = PMI active (LTV > 80%)",
-    category: "EVERYDAY_LIFE",
-    subcategory: "Other Utilities",
-    status: "live"
-  },
-  {
     slug: "pre-pregnancy-bmicalculator",
     name: "Pre-Pregnancy BMI & Target Gain Calculator",
     description: "Enter your exact height and your weight from immediately before you became pregnant to calculate your ACOG safety targets.",
@@ -417,6 +402,43 @@ export const orphanedCalculators: CalculatorDef[] = [
     description: "Your current monthly payment will pay off the balance before the 0% APR promotion ends, saving you from paying any interest.",
     category: "EVERYDAY_LIFE",
     subcategory: "Other Utilities",
+    status: "live"
+  },
+  // ── Registered wired-but-unregistered components (parity audit, 2026-09) ──
+  // These components were wired in lazyComponents but had no registry entry,
+  // so their slugs 404ed. They are aliases of their canonical live sibling
+  // (same component) and canonicalize via CANONICAL_SLUG_MAP. Name is used
+  // only as fallback metadata — routing resolves the canonical tool's name.
+  {
+    slug: "baseball-on-base-percentage-calculator",
+    name: "Baseball On-Base Percentage (OBP) Calculator",
+    description: "Calculate baseball on-base percentage (OBP) from hits, walks, and plate appearances.",
+    category: "HEALTH",
+    subcategory: "Ball Sports",
+    status: "live"
+  },
+  {
+    slug: "auto-loan-vs-lease-comparison-calculator",
+    name: "Auto Loan vs Lease Comparison Calculator",
+    description: "Compare the total cost of financing a car against leasing it over the same period.",
+    category: "FINANCE",
+    subcategory: "Loans & Mortgages",
+    status: "live"
+  },
+  {
+    slug: "basketball-shooting-percentage-calculator",
+    name: "Basketball Shooting Percentage Calculator",
+    description: "Calculate field-goal, three-point, free-throw, and effective shooting percentages for basketball.",
+    category: "HEALTH",
+    subcategory: "Ball Sports",
+    status: "live"
+  },
+  {
+    slug: "miles-per-gallon-calculator-advanced",
+    name: "Advanced Miles Per Gallon Calculator",
+    description: "Compute fuel economy in MPG or L/100km from distance driven and fuel used.",
+    category: "TRANSPORTATION",
+    subcategory: "Costs & Ownership",
     status: "live"
   }
 ];

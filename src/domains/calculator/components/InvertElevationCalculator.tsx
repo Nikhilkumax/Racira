@@ -163,11 +163,11 @@ const InvertElevationCalculator: React.FC = () => {
     parseFloat(value.toFixed(decimals));
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
+    <div className="racira-page-container py-4">
       <h1 className="text-3xl font-bold">Invert Elevation Calculator</h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* LEFT COLUMN: INPUTS AND CONTROLS */}
-        <div className="space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           {/* PRIMARY INPUTS (2 PER ROW) */}
           <div className="grid grid-cols-2 gap-4">
             <div>

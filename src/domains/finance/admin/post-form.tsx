@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { RichTextEditor } from "./rich-text-editor";
 import { listAuthors, listCategories, listTags } from "@/domains/finance/data/taxonomy";
 import { createPost, updatePost, deletePost } from "@/domains/finance/data/posts";
-import type { Post, PostStatus, PostWithRelations } from "@/types/finance/db";
+import type { Author, Category, Post, PostStatus, PostWithRelations, Tag } from "@/types/finance/db";
 
 function slugify(s: string) {
   return s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -21,55 +21,104 @@ function slugify(s: string) {
 
 export function PostForm({ initial }: { initial?: PostWithRelations }) {
   const router = useRouter();
-  const authors = listAuthors();
-  const categories = listCategories();
-  const tags = listTags();
+
+  // Taxonomy loads asynchronously from Supabase now (previously sync mock).
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const [title, setTitle] = useState(initial?.title ?? "");
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [excerpt, setExcerpt] = useState(initial?.excerpt ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
   const [cover, setCover] = useState(initial?.cover_url ?? "");
-  const [authorId, setAuthorId] = useState(initial?.author_id ?? authors[0]?.id ?? "");
-  const [categoryId, setCategoryId] = useState(initial?.category_id ?? categories[0]?.id ?? "");
+  const [authorId, setAuthorId] = useState(initial?.author_id ?? "");
+  const [categoryId, setCategoryId] = useState(initial?.category_id ?? "");
   const [tagIds, setTagIds] = useState<string[]>(initial?.tag_ids ?? []);
   const [status, setStatus] = useState<PostStatus>(initial?.status ?? "draft");
   const [featured, setFeatured] = useState(initial?.featured ?? false);
   const [metaTitle, setMetaTitle] = useState(initial?.meta_title ?? "");
   const [metaDescription, setMetaDescription] = useState(initial?.meta_description ?? "");
+  const [saving, setSaving] = useState(false);
 
-  function save(nextStatus?: PostStatus) {
-    if (!title.trim()) { toast.error("Title is required"); return; }
-    const payload: Partial<Post> & { title: string } = {
-      title,
-      slug: slug || slugify(title),
-      excerpt,
-      content,
-      cover_url: cover,
-      author_id: authorId,
-      category_id: categoryId,
-      tag_ids: tagIds,
-      status: nextStatus ?? status,
-      featured,
-      meta_title: metaTitle || title,
-      meta_description: metaDescription || excerpt,
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([listAuthors(), listCategories(), listTags()])
+      .then(([a, c, t]) => {
+        if (cancelled) return;
+        setAuthors(a);
+        setCategories(c);
+        setTags(t);
+        // Default selections once taxonomy arrives (create mode only).
+        setAuthorId((cur) => cur || a[0]?.id || "");
+        setCategoryId((cur) => cur || c[0]?.id || "");
+      })
+      .catch((err) => {
+        console.error("Failed to load taxonomy", err);
+        toast.error("Could not load authors/categories/tags.");
+      });
+    return () => {
+      cancelled = true;
     };
-    if (initial) {
-      updatePost(initial.id, payload);
-      toast.success("Post updated");
-    } else {
-      createPost(payload);
-      toast.success("Post created");
+  }, []);
+
+  async function save(nextStatus?: PostStatus) {
+    if (!title.trim()) {
+      toast.error("Title is required");
+      return;
     }
-    router.push("/finance/admin/posts");
+    if (!authorId || !categoryId) {
+      toast.error("Author and category are required");
+      return;
+    }
+    setSaving(true);
+    try {
+      const payload: Partial<Post> & { title: string } = {
+        title,
+        slug: slug || slugify(title),
+        excerpt,
+        content,
+        cover_url: cover,
+        author_id: authorId,
+        category_id: categoryId,
+        tag_ids: tagIds,
+        status: nextStatus ?? status,
+        featured,
+        meta_title: metaTitle || title,
+        meta_description: metaDescription || excerpt,
+      };
+      if (initial) {
+        const updated = await updatePost(initial.id, payload);
+        if (!updated) throw new Error("Post no longer exists");
+        toast.success("Post updated");
+      } else {
+        await createPost(payload);
+        toast.success("Post created");
+      }
+      router.push("/finance/admin/posts");
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      toast.error(err instanceof Error && err.message === "Unauthorized"
+        ? "Your session expired — sign in again."
+        : "Save failed. Check the server logs.");
+    } finally {
+      setSaving(false);
+    }
   }
 
-  function remove() {
+  async function remove() {
     if (!initial) return;
     if (!confirm("Delete this post? This cannot be undone.")) return;
-    deletePost(initial.id);
-    toast.success("Post deleted");
-    router.push("/finance/admin/posts");
+    try {
+      await deletePost(initial.id);
+      toast.success("Post deleted");
+      router.push("/finance/admin/posts");
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+      toast.error("Delete failed.");
+    }
   }
 
   return (
@@ -106,6 +155,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
                 <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="scheduled">Scheduled</SelectItem>
                   <SelectItem value="published">Published</SelectItem>
                 </SelectContent>
               </Select>
@@ -115,9 +165,11 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
               <Switch checked={featured} onCheckedChange={setFeatured} />
             </div>
             <div className="flex flex-col gap-2 pt-2">
-              <Button onClick={() => save("published")}>{status === "published" ? "Update" : "Publish"}</Button>
-              <Button variant="outline" onClick={() => save("draft")}>Save draft</Button>
-              {initial && <Button variant="ghost" className="text-destructive hover:text-destructive" onClick={remove}>Delete</Button>}
+              <Button onClick={() => save("published")} disabled={saving}>
+                {saving ? "Saving…" : status === "published" ? "Update" : "Publish"}
+              </Button>
+              <Button variant="outline" onClick={() => save("draft")} disabled={saving}>Save draft</Button>
+              {initial && <Button variant="ghost" className="text-destructive hover:text-destructive" onClick={remove} disabled={saving}>Delete</Button>}
               <Link href="/finance/admin/posts" className="mt-1 text-center text-xs text-muted-foreground hover:text-foreground">Cancel</Link>
             </div>
           </div>
@@ -129,14 +181,14 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
             <div>
               <Label className="text-xs text-muted-foreground">Author</Label>
               <Select value={authorId} onValueChange={setAuthorId}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="mt-1"><SelectValue placeholder={authors.length ? "Select author" : "Loading…"} /></SelectTrigger>
                 <SelectContent>{authors.map((a) => <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div>
               <Label className="text-xs text-muted-foreground">Category</Label>
               <Select value={categoryId} onValueChange={setCategoryId}>
-                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="mt-1"><SelectValue placeholder={categories.length ? "Select category" : "Loading…"} /></SelectTrigger>
                 <SelectContent>{categories.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
             </div>
@@ -152,7 +204,7 @@ export function PostForm({ initial }: { initial?: PostWithRelations }) {
                       onClick={() => setTagIds(on ? tagIds.filter((x) => x !== t.id) : [...tagIds, t.id])}
                       className={"rounded-full border px-2.5 py-1 text-xs " + (on ? "border-primary bg-primary/10 text-primary" : "border-border/60 text-muted-foreground")}
                     >
-                      {(t as any).name}
+                      {t.name}
                     </button>
                   );
                 })}

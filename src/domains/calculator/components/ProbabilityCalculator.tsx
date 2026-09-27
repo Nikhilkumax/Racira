@@ -1,277 +1,607 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, ChevronDown, Printer } from "lucide-react";
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-function fmt(n: number, digits = 1): string {
-  return new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n);
+type Relationship = "independent" | "exclusive" | "custom";
+
+interface ProbabilityInputs {
+  pA: number;
+  pB: number;
+  pAB: number;
+  relationship: Relationship;
 }
 
-interface Inputs {
-  pA: string;
-  pB: string;
-  pAB: string;
-  mutExclusive: boolean;
-  assumeIndependent: boolean;
+const DEFAULTS: ProbabilityInputs = {
+  pA: 40,
+  pB: 35,
+  pAB: 14,
+  relationship: "independent",
+};
+
+const fmt = (v: number, d = 4) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const pct = (v: number) => `${fmt(v * 100, 2)}%`;
+
+const oddsText = (p: number): string => {
+  if (p <= 0) return "0 : 1 (impossible)";
+  if (p >= 1) return "1 : 0 (certain)";
+  const against = (1 - p) / p;
+  return `${fmt(1 / p, 2)} : 1 against`;
+};
+
+interface OutcomeRow {
+  label: string;
+  probability: number;
+  percent: number;
 }
 
-interface Result {
+interface DerivedRow {
+  label: string;
+  formula: string;
+  probability: number;
+}
+
+interface ProbabilityResult {
+  valid: boolean;
+  errorMsg: string;
   a: number;
   b: number;
   ab: number;
   aOrB: number;
   neither: number;
-  aGivenB: number;
-  bGivenA: number;
   aOnly: number;
   bOnly: number;
-  independent: boolean;
-  formulaNote: string;
+  aGivenB: number;
+  bGivenA: number;
+  aGivenNotB: number;
+  bGivenNotA: number;
+  consistencyOk: boolean;
+  outcomeRows: OutcomeRow[];
+  derivedRows: DerivedRow[];
+  notes: string[];
 }
 
-function calculate(i: Inputs): Result {
-  const a = Math.min(100, Math.max(0, parseFloat(i.pA) || 0)) / 100;
-  const b = Math.min(100, Math.max(0, parseFloat(i.pB) || 0)) / 100;
-  let ab = Math.min(100, Math.max(0, parseFloat(i.pAB) || 0)) / 100;
-  let note = "P(A∩B) entered directly";
-  if (i.mutExclusive) {
-    ab = 0;
-    note = "Mutually exclusive → P(A∩B) = 0";
-  } else if (i.assumeIndependent) {
-    ab = a * b;
-    note = "Independent → P(A∩B) = P(A)×P(B)";
+function computeProbability(input: ProbabilityInputs): ProbabilityResult {
+  const { pA, pB, pAB, relationship } = input;
+
+  const blank: ProbabilityResult = {
+    valid: false,
+    errorMsg: "",
+    a: 0,
+    b: 0,
+    ab: 0,
+    aOrB: 0,
+    neither: 0,
+    aOnly: 0,
+    bOnly: 0,
+    aGivenB: 0,
+    bGivenA: 0,
+    aGivenNotB: 0,
+    bGivenNotA: 0,
+    consistencyOk: true,
+    outcomeRows: [],
+    derivedRows: [],
+    notes: [],
+  };
+
+  if (!Number.isFinite(pA) || !Number.isFinite(pB) || !Number.isFinite(pAB)) {
+    return { ...blank, errorMsg: "Enter a probability for each event, as a percentage between 0 and 100." };
   }
-  const aOrB = Math.min(1, Math.max(0, a + b - ab));
-  const neither = 1 - aOrB;
+  if (pA < 0 || pA > 100 || pB < 0 || pB > 100) {
+    return { ...blank, errorMsg: "Each event probability must sit between 0 and 100 percent." };
+  }
+
+  const a = pA / 100;
+  const b = pB / 100;
+
+  let ab = 0;
+  const notes: string[] = [];
+
+  if (relationship === "exclusive") {
+    ab = 0;
+    notes.push("Mutually exclusive events cannot occur together, so the joint probability is zero.");
+  } else if (relationship === "independent") {
+    ab = a * b;
+    notes.push("Independent events multiply: P(A ∩ B) = P(A) × P(B).");
+  } else {
+    ab = pAB / 100;
+    if (ab < 0 || ab > 1) {
+      return { ...blank, errorMsg: "The joint probability must sit between 0 and 100 percent." };
+    }
+    notes.push("The joint probability was entered directly and used as given.");
+  }
+
+  const consistencyOk = ab <= Math.min(a, b) + 1e-9;
+  if (!consistencyOk) {
+    return {
+      ...blank,
+      errorMsg: "The joint probability cannot exceed either single-event probability. Check the values you entered.",
+    };
+  }
+  if (relationship === "custom" && ab < Math.max(0, a + b - 1) - 1e-9) {
+    notes.push("The entered joint probability is below the minimum consistent with P(A) and P(B), so the events are highly dependent.");
+  }
+  if (ab > 0.999 && a < 1) {
+    notes.push("A joint probability of almost one with less than certain single events is unusual; double-check the inputs.");
+  }
+
+  const aOrB = a + b - ab;
+  const neither = Math.max(0, 1 - aOrB);
+  const aOnly = a - ab;
+  const bOnly = b - ab;
   const aGivenB = b > 0 ? ab / b : 0;
   const bGivenA = a > 0 ? ab / a : 0;
-  const aOnly = Math.max(0, a - ab);
-  const bOnly = Math.max(0, b - ab);
-  const independent = Math.abs(ab - a * b) < 1e-9;
-  return { a, b, ab, aOrB, neither, aGivenB, bGivenA, aOnly, bOnly, independent, formulaNote: note };
+  const bNot = 1 - b;
+  const aNot = 1 - a;
+  const aGivenNotB = bNot > 0 ? (a - ab) / bNot : 0;
+  const bGivenNotA = aNot > 0 ? (b - ab) / aNot : 0;
+
+  const outcomeRows: OutcomeRow[] = [
+    { label: "A and B both occur", probability: ab, percent: ab * 100 },
+    { label: "A occurs, B does not", probability: aOnly, percent: aOnly * 100 },
+    { label: "B occurs, A does not", probability: bOnly, percent: bOnly * 100 },
+    { label: "Neither event occurs", probability: neither, percent: neither * 100 },
+    { label: "At least one occurs (A ∪ B)", probability: aOrB, percent: aOrB * 100 },
+  ];
+
+  const derivedRows: DerivedRow[] = [
+    { label: "P(A | B)", formula: "P(A ∩ B) ÷ P(B)", probability: aGivenB },
+    { label: "P(B | A)", formula: "P(A ∩ B) ÷ P(A)", probability: bGivenA },
+    { label: "P(A | not B)", formula: "P(A only) ÷ (1 − P(B))", probability: aGivenNotB },
+    { label: "P(B | not A)", formula: "P(B only) ÷ (1 − P(A))", probability: bGivenNotA },
+    { label: "P(not A)", formula: "1 − P(A)", probability: aNot },
+    { label: "P(not B)", formula: "1 − P(B)", probability: bNot },
+  ];
+
+  return {
+    valid: true,
+    errorMsg: "",
+    a,
+    b,
+    ab,
+    aOrB,
+    neither,
+    aOnly,
+    bOnly,
+    aGivenB,
+    bGivenA,
+    aGivenNotB,
+    bGivenNotA,
+    consistencyOk,
+    outcomeRows,
+    derivedRows,
+    notes,
+  };
 }
 
-const DEFAULTS: Inputs = { pA: "50", pB: "30", pAB: "12", mutExclusive: false, assumeIndependent: false };
-
-function validate(i: Inputs): string[] {
-  const errors: string[] = [];
-  const pa = parseFloat(i.pA);
-  const pb = parseFloat(i.pB);
-  const pab = parseFloat(i.pAB);
-  if (i.pA.trim() === "" || isNaN(pa)) errors.push("Enter P(A) as a percentage.");
-  else if (pa < 0 || pa > 100) errors.push("P(A) must be between 0 and 100%.");
-  if (i.pB.trim() === "" || isNaN(pb)) errors.push("Enter P(B) as a percentage.");
-  else if (pb < 0 || pb > 100) errors.push("P(B) must be between 0 and 100%.");
-  if (i.pAB.trim() === "" || isNaN(pab)) errors.push("Enter P(A∩B) as a percentage.");
-  else if (pab < 0 || pab > 100) errors.push("P(A∩B) must be between 0 and 100%.");
-  else if (!i.mutExclusive && !i.assumeIndependent && pab > Math.min(pa, pb)) errors.push("P(A∩B) cannot exceed the smaller of P(A) and P(B).");
-  return errors;
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
 }
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
 export default function ProbabilityCalculator() {
-  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
-  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS));
+  const [pA, setPA] = useState(String(DEFAULTS.pA));
+  const [pB, setPB] = useState(String(DEFAULTS.pB));
+  const [pAB, setPAB] = useState(String(DEFAULTS.pAB));
+  const [relationship, setRelationship] = useState<Relationship>(DEFAULTS.relationship);
   const [showAdv, setShowAdv] = useState(false);
-  useEffect(() => { setResult(calculate(inputs)); }, []);
 
-  const errors = validate(inputs);
-  const valid = errors.length === 0;
-  const set = (k: keyof Inputs) => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
-  const toggle = (k: keyof Inputs) => () => setInputs(prev => ({ ...prev, [k]: !prev[k] as boolean }));
-  const calc = () => { if (valid) setResult(calculate(inputs)); };
-  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
-  const handlePrint = () => window.print();
+  const getInputs = (): ProbabilityInputs => ({
+    pA: parseFloat(pA) || 0,
+    pB: parseFloat(pB) || 0,
+    pAB: parseFloat(pAB) || 0,
+    relationship,
+  });
 
-  const inp = "w-full px-3 py-2 rounded-md border border-input bg-background text-base text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20";
-  const lbl = "text-sm font-medium mb-1 block";
+  const [calcInputs, setCalcInputs] = useState<ProbabilityInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<ProbabilityResult>(() => computeProbability(DEFAULTS));
 
-  const pct = (v: number) => `${fmt(v * 100, 1)}%`;
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeProbability(inputs));
+  };
 
-  const pieData = [
-    { name: "A only", value: result.aOnly * 100, fill: "hsl(var(--primary))" },
-    { name: "B only", value: result.bOnly * 100, fill: "#f59e0b" },
-    { name: "Both (A∩B)", value: result.ab * 100, fill: "#10b981" },
-    { name: "Neither", value: result.neither * 100, fill: "#e2e8f0" },
+  const reset = () => {
+    setPA(String(DEFAULTS.pA));
+    setPB(String(DEFAULTS.pB));
+    setPAB(String(DEFAULTS.pAB));
+    setRelationship(DEFAULTS.relationship);
+    setCalcInputs(DEFAULTS);
+    setResults(computeProbability(DEFAULTS));
+  };
+
+  const RELATIONSHIPS: { key: Relationship; label: string }[] = [
+    { key: "independent", label: "Independent" },
+    { key: "exclusive", label: "Mutually Exclusive" },
+    { key: "custom", label: "Enter Joint P" },
   ];
 
   const faqs = [
-    { question: "What does P(A ∪ B) mean?", answer: "P(A ∪ B) is the probability that A happens, B happens, or both — the union. It equals P(A) + P(B) − P(A∩B), subtracting the overlap once so it is not double-counted. The result is the chance that at least one of the two events occurs." },
-    { question: "What is a conditional probability?", answer: "P(A|B) is the probability of A given that B has already occurred, computed as P(A∩B) / P(B). If knowing B changes the chance of A, the events are dependent; if P(A|B) equals P(A), they are independent." },
-    { question: "What does 'mutually exclusive' mean?", answer: "Two events are mutually exclusive when they cannot both happen — P(A∩B) = 0. Rolling a 1 and rolling a 6 on a single die is a classic example. In that case the union formula simplifies to P(A) + P(B)." },
-    { question: "How do I check if events are independent?", answer: "Events are independent when P(A∩B) equals P(A) × P(B). The calculator compares the two and flags a mismatch — if your overlap differs from the product, the events influence each other and conditional probabilities will differ from the unconditional ones." },
+    {
+      question: "How do I find the probability that at least one of two events happens?",
+      answer:
+        "Add the two probabilities and subtract the probability that both happen, because adding them double-counts the overlap. Two events with forty and thirty-five percent chances that are independent overlap fourteen percent of the time, so the chance of at least one is forty plus thirty-five minus fourteen, which is sixty-one percent.",
+    },
+    {
+      question: "What does independent mean in probability?",
+      answer:
+        "Two events are independent when knowing one happened does not change the chance of the other. Independence means the joint probability is simply the product of the two individual probabilities. Coin flips and dice rolls are independent, while drawing cards without replacement is not, because each draw changes the composition of the deck.",
+    },
+    {
+      question: "What is the difference between mutually exclusive and independent?",
+      answer:
+        "Mutually exclusive events cannot both happen, so their joint probability is zero, which makes them maximally dependent on each other. Independent events can happen together and their overlap is the product of their probabilities. The two ideas are often confused because both describe a clean relationship with no messy overlap.",
+    },
+    {
+      question: "What does conditional probability mean?",
+      answer:
+        "P(A | B) answers the question of how likely A is once you know B has happened. It divides the joint probability by the probability of the condition, which effectively shrinks the sample space. If B makes A more likely, the conditional value is higher than the plain probability of A, and the reverse direction behaves the same way.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Probability Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Math", href: "/calculator#math" },
+          { label: "Probability Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Probability Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Probability Calculator</h1>
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className={lbl}>P(A) (%)</label>
-                <input type="number" min={0} max={100} step="any" value={inputs.pA} onChange={e => set("pA")(e.target.value)} className={inp} placeholder="50" />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Event Probabilities">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="prob-a"
+                  label="P(A)"
+                  value={pA}
+                  onChange={setPA}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  tooltip="Chance that event A happens."
+                />
+                <CompactInput
+                  id="prob-b"
+                  label="P(B)"
+                  value={pB}
+                  onChange={setPB}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  tooltip="Chance that event B happens."
+                />
               </div>
-              <div>
-                <label className={lbl}>P(B) (%)</label>
-                <input type="number" min={0} max={100} step="any" value={inputs.pB} onChange={e => set("pB")(e.target.value)} className={inp} placeholder="30" />
+            </SubSection>
+
+            <SubSection title="Relationship">
+              <div className="grid grid-cols-3 gap-2">
+                {RELATIONSHIPS.map((r) => (
+                  <button
+                    key={r.key}
+                    type="button"
+                    onClick={() => setRelationship(r.key)}
+                    aria-pressed={relationship === r.key}
+                    className={
+                      relationship === r.key
+                        ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-xs shadow-sm transition-all active:scale-[0.98]"
+                        : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-xs transition-colors"
+                    }
+                  >
+                    {r.label}
+                  </button>
+                ))}
               </div>
-            </div>
+            </SubSection>
+
+            {relationship === "custom" && (
+              <SubSection title="Joint Probability">
+                <CompactInput
+                  id="prob-ab"
+                  label="P(A ∩ B)"
+                  value={pAB}
+                  onChange={setPAB}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  hint="Chance both events happen together."
+                  tooltip="Cannot exceed either single-event probability."
+                />
+              </SubSection>
+            )}
+
+            {/* ADVANCED OPTIONS */}
             <div>
-              <label className={lbl}>P(A ∩ B) — both occur (%)</label>
-              <input type="number" min={0} max={100} step="any" value={inputs.pAB} onChange={e => set("pAB")(e.target.value)} className={inp} placeholder="12" />
-            </div>
-            <div>
-              <button type="button" onClick={() => setShowAdv(!showAdv)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
                 <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
+
               {showAdv && (
                 <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Assumptions</div>
-                    <div className="flex flex-col gap-3">
-                      <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                        <input type="checkbox" checked={inputs.mutExclusive} onChange={toggle("mutExclusive")} className="h-4 w-4 rounded border-input accent-primary" />
-                        Events are mutually exclusive (P(A∩B) = 0)
-                      </label>
-                      <label className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer">
-                        <input type="checkbox" checked={inputs.assumeIndependent} onChange={toggle("assumeIndependent")} className="h-4 w-4 rounded border-input accent-primary" />
-                        Assume independence (P(A∩B) = P(A)×P(B))
-                      </label>
-                    </div>
-                  </div>
+                  <SubSection title="Notes">
+                    <p className="text-[12px] text-muted-foreground leading-relaxed">
+                      Independent events multiply to give the joint probability. Mutually exclusive events cannot overlap, so the
+                      joint probability is zero. Choose &quot;Enter Joint P&quot; when you know the overlap from data and want every
+                      derived figure built from it.
+                    </p>
+                  </SubSection>
                 </div>
               )}
             </div>
-            {!valid && (
-              <div className="space-y-1">
-                {errors.map((e, i) => <p key={i} className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">{e}</p>)}
-              </div>
-            )}
-            <div className="flex gap-3 mt-1">
-              <button onClick={calc} disabled={!valid} className="flex-1 rounded-md font-bold h-10 text-base transition-all shadow-sm bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed">Calculate</button>
-              <button onClick={reset} aria-label="Reset" className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center text-muted-foreground">
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
-            <p className="text-xs text-muted-foreground leading-relaxed">Enter two event probabilities and their overlap — the union, conditionals, and independence fall out.</p>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">P(A ∪ B) — At Least One Occurs</div>
-              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{pct(result.aOrB)}</div>
-              <div className="text-sm text-muted-foreground font-medium">= {pct(result.a)} + {pct(result.b)} − {pct(result.ab)} · {result.formulaNote}</div>
+            )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">P(A ∪ B) — At Least One</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? pct(results.aOrB) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `P(A and B both) = ${pct(results.ab)} · neither = ${pct(results.neither)}`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
             </div>
 
+            {/* 3-STAT BAR */}
             <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">P(A)</span>
-                <span className="font-extrabold text-foreground">{pct(result.a)}</span>
-              </div>
-              <div className="w-px h-8 bg-border"></div>
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">P(B)</span>
-                <span className="font-extrabold text-foreground">{pct(result.b)}</span>
-              </div>
-              <div className="w-px h-8 bg-border"></div>
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">P(A ∩ B)</span>
-                <span className="font-extrabold text-foreground">{pct(result.ab)}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Both Events</span>
+                <span className="font-extrabold text-foreground">{results.valid ? pct(results.ab) : "—"}</span>
               </div>
               <div className="w-px h-8 bg-border"></div>
               <div className="flex flex-col">
                 <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Neither</span>
-                <span className="font-extrabold text-foreground">{pct(result.neither)}</span>
+                <span className="font-extrabold text-foreground">{results.valid ? pct(results.neither) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">P(A | B)</span>
+                <span className="font-extrabold text-foreground">{results.valid ? pct(results.aGivenB) : "—"}</span>
               </div>
             </div>
 
+            {/* OUTCOME TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Quantity</th>
-                    <th className="p-2.5 pr-3 text-right w-[120px]">Value</th>
+                    <th className="p-2.5 pl-3">Outcome</th>
+                    <th className="p-2.5 text-right">Probability</th>
+                    <th className="p-2.5 pr-3 text-right w-[110px]">Percent</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  <tr className="hover:bg-secondary/20 transition-colors bg-amber-500/10">
-                    <td className="p-2.5 pl-3 font-semibold text-amber-700">P(A ∪ B) — at least one</td>
-                    <td className="p-2.5 pr-3 text-right font-semibold text-amber-700">{pct(result.aOrB)}</td>
-                  </tr>
-                  <tr className="hover:bg-secondary/20 transition-colors">
-                    <td className="p-2.5 pl-3 font-semibold text-foreground">P(A ∩ B) — both</td>
-                    <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{pct(result.ab)}</td>
-                  </tr>
-                  <tr className="hover:bg-secondary/20 transition-colors">
-                    <td className="p-2.5 pl-3 font-semibold text-foreground">P(A | B) — A given B</td>
-                    <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{pct(result.aGivenB)}</td>
-                  </tr>
-                  <tr className="hover:bg-secondary/20 transition-colors">
-                    <td className="p-2.5 pl-3 font-semibold text-foreground">P(B | A) — B given A</td>
-                    <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{pct(result.bGivenA)}</td>
-                  </tr>
-                  <tr className="hover:bg-secondary/20 transition-colors">
-                    <td className="p-2.5 pl-3 font-semibold text-foreground">P(neither)</td>
-                    <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{pct(result.neither)}</td>
-                  </tr>
-                  <tr className="hover:bg-secondary/20 transition-colors">
-                    <td className="p-2.5 pl-3 font-semibold text-foreground">Independence check</td>
-                    <td className={`p-2.5 pr-3 text-right font-semibold ${result.independent ? "text-emerald-600" : "text-red-500"}`}>{result.independent ? "Independent" : "Dependent"}</td>
+                  {results.outcomeRows.map((row) => (
+                    <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.probability, 4)}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{`${fmt(row.percent, 2)}%`}</td>
+                    </tr>
+                  ))}
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Total</td>
+                    <td className="p-2.5 text-right text-emerald-600">1.0000</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">100.00%</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
-            <div className="card-calculator !p-5 border border-border bg-card">
-              <h3 className="text-base font-bold mb-4">Outcome Space</h3>
-              <ResponsiveContainer width="100%" height={240}>
-                <PieChart>
-                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={62} outerRadius={95} paddingAngle={2}>
-                    {pieData.map((d, i) => <Cell key={i} fill={d.fill} />)}
-                  </Pie>
-                  <Tooltip formatter={(v: number) => [`${fmt(Number(v), 1)}%`, ""]} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-              <p className="text-center text-sm text-muted-foreground mt-1">A only, B only, both, and neither — the four regions always total 100%</p>
+            {/* DERIVED TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Derived Quantity</th>
+                    <th className="p-2.5">Formula</th>
+                    <th className="p-2.5 pr-3 text-right w-[110px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.derivedRows.map((row) => (
+                    <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 text-muted-foreground">{row.formula}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.probability, 4)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
+            {/* SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
-              <h3 className="text-base font-bold mb-4">Probability Summary</h3>
-              <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                <div className="flex justify-between"><span className="text-muted-foreground">P(A):</span><span className="font-semibold">{pct(result.a)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(B):</span><span className="font-semibold">{pct(result.b)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(A ∩ B):</span><span className="font-semibold">{pct(result.ab)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(A ∪ B):</span><span className="font-semibold">{pct(result.aOrB)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(A | B):</span><span className="font-semibold">{pct(result.aGivenB)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(B | A):</span><span className="font-semibold">{pct(result.bGivenA)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">P(neither):</span><span className="font-semibold">{pct(result.neither)}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">Independent:</span><span className="font-semibold">{result.independent ? "Yes" : "No"}</span></div>
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">P(A)</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? pct(results.a) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">P(B)</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? pct(results.b) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">A Only</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? pct(results.aOnly) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">B Only</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? pct(results.bOnly) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Odds Against A</span>
+                  <span className="text-base font-bold text-foreground">{oddsText(results.a)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Odds Against B</span>
+                  <span className="text-base font-bold text-foreground">{oddsText(results.b)}</span>
+                </div>
               </div>
             </div>
+
+            {results.notes.length > 0 && (
+              <div className="bg-secondary/20 border border-border rounded-lg p-4">
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Method Notes</div>
+                <ul className="flex flex-col gap-1.5">
+                  {results.notes.map((note) => (
+                    <li key={note} className="text-sm text-foreground">
+                      {note}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Two Events, One Picture</h2>
-            <p>Given the chances of event A, event B, and both happening together, this <strong>probability calculator</strong> reconstructs the full relationship between them: the union, the probability that neither occurs, both conditional probabilities, and whether the two events are independent.</p>
-            <h2 className="text-2xl font-bold mb-3">The Union Needs the Overlap</h2>
-            <p>Adding P(A) and P(B) double-counts the region where both occur. Subtracting P(A∩B) once corrects it — that is the inclusion–exclusion principle in its simplest form. When the events cannot co-occur, the overlap is zero and the formula collapses to plain addition.</p>
-            <h2 className="text-2xl font-bold mb-3">Dependence Changes the Story</h2>
-            <p>If P(A∩B) differs from P(A) × P(B), the events are dependent: knowing one changes the odds of the other. The conditional probabilities reveal exactly how — P(A|B) tells you the chance of A once B is known, which is the information that drives decision trees and Bayesian reasoning.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Probability Calculator?</h2>
+            <p>
+              A probability calculator combines two events into every quantity that matters: the chance both happen, the
+              chance at least one happens, the chance neither happens, and the conditional probabilities that describe one
+              event given the other. Enter two percentages, choose how the events relate, and the whole table of derived
+              figures is produced at once.
+            </p>
+            <p>
+              Probability is the language of risk. Insurance premiums, medical test results, weather forecasts, quality
+              control sampling and game design all rest on it, and most practical questions involve combining two events
+              rather than reasoning about a single chance in isolation. The relationship between those events is where the
+              interesting arithmetic lives.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Independent events multiply, so the joint probability of two unrelated events is the product of their separate
+              probabilities. Mutually exclusive events cannot overlap, which makes the joint probability zero and the union
+              simply the sum. When the overlap is known from data, entering it directly lets the calculator work out every
+              conditional figure from real observations rather than from an assumption.
+            </p>
+            <p>
+              The union of two events adds the individual probabilities and subtracts the overlap, because simple addition
+              counts the cases where both occur twice. Whatever the union leaves over must be the chance that neither happens,
+              since the four possible outcomes are exhaustive. Conditional probabilities divide the joint probability by the
+              condition, which is the formal statement of learning from evidence.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the chance of at least one event, with the joint and neither probabilities in the
+              three-stat bar and the conditional probability of A given B alongside them. The first table lists all five
+              outcome combinations and they always sum to one, which is the quickest sanity check available.
+            </p>
+            <p>
+              The second table sets out the conditional probabilities with their formulas. Comparing P(A) with P(A | B) shows
+              whether knowing B makes A more or less likely, and the same comparison in reverse reveals the direction of the
+              dependency. Two events whose conditional and plain probabilities match to within rounding are effectively
+              independent.
+            </p>
+            <p>
+              Watch for impossible combinations. The overlap can never exceed either single probability, and the calculator
+              stops with an explanation rather than returning nonsense when that rule is broken. Similarly, mutually exclusive
+              events with very high individual probabilities leave little room for anything else, and the neither figure
+              becomes small enough to matter in risk decisions.
+            </p>
+            <p>
+              Finally, note the difference between a probability and the odds used by bookmakers. A forty percent chance is
+              one point five to one against, not a two point five to one payout, because odds quote the ratio of failures to
+              successes rather than the raw counts. The summary panel converts both figures so the two notations can be
+              compared directly.
+            </p>
+            <p>
+              When the same calculation is used on real data, keep the sample size in view: a joint probability estimated from
+              twenty observations has a wide margin of error, and the conditional figures inherit that uncertainty. Recomputing
+              the table with the overlap raised and lowered by a few points is a quick way to see how sensitive a decision
+              really is to the inputs.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/probability-calculator" />
           <PopularCalculators exclude="/calculator/probability-calculator" />

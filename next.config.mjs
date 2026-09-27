@@ -127,6 +127,18 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    // "Vigenère Cipher Tool" slugified to "vigenre-cipher-tool" before toSlug
+    // learned to transliterate accented characters; the canonical slug is now
+    // "vigenere-cipher-tool". 301 keeps any inbound links and search history.
+    return [
+      {
+        source: '/developers/vigenre-cipher-tool',
+        destination: '/developers/vigenere-cipher-tool',
+        statusCode: 301,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

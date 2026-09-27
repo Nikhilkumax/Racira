@@ -8,9 +8,12 @@ import { getAuthorBySlug } from "@/domains/finance/data/taxonomy";
 import { site as FINANCE_SITE } from "@/domains/finance/site";
 import type { PostWithRelations } from "@/types/finance/db";
 
+// ISR: 15-minute window; author bylines change rarely.
+export const revalidate = 900;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const a = getAuthorBySlug(slug);
+  const a = await getAuthorBySlug(slug);
   if (!a) return {};
   return {
     title: `${a.name} — ${FINANCE_SITE.copyrightName}`,
@@ -29,9 +32,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function AuthorPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const author = getAuthorBySlug(slug);
+  const author = await getAuthorBySlug(slug);
   if (!author) return notFound();
-  const posts = listPosts({ status: "published", authorSlug: slug });
+  const posts = await listPosts({ status: "published", authorSlug: slug });
 
   return (
     <PageShell>

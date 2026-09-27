@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function About() {
-  const authors = listAuthors();
+export default async function About() {
+  const authors = await listAuthors();
   return (
     <PageShell>
       <section className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>

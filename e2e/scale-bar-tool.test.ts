@@ -3,9 +3,17 @@
  * effective-scale correctness in every mode, the X:1 toggle, Manual step
  * mode, the preview, and the Reset button restoring every field.
  */
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
 
 const BASE = "http://localhost:3002";
+
+/** The four export controls, in the order the Result panel renders them. */
+const exportButtons = (page: Page) => [
+  page.getByRole("button", { name: "↓ SVG" }),
+  page.getByRole("button", { name: "↓ PNG" }),
+  page.getByRole("button", { name: "↓ PDF" }),
+  page.getByRole("button", { name: "↓ DXF (CAD)" }),
+];
 
 test.describe("Scale Bar Tool", () => {
   test.setTimeout(60_000);
@@ -711,6 +719,117 @@ test.describe("Scale Bar Tool", () => {
     await expect(page.getByTestId("in-stepValue-0"), "user's edit survives").toHaveValue("2");
     await expect(page.getByTestId("step-range-hint")).toContainText("0.48 m");
     await expect(page.getByTestId("step-invalid-0")).toBeVisible();
+  });
+
+  // ── Manual-bar validity: preserved rows can outgrow the tool's own range ───
+  test("stale Manual rows that no longer fit the scale block the result and every export", async ({ page }) => {
+    await page.goto(`${BASE}/cad/scale-bar-tool`, { waitUntil: "networkidle" });
+
+    // Seed Manual at 1:200 · 100 mm (rows 1.25 … 20 m). Exports work here — the
+    // valid state must keep exporting, or this fix is a blanket regression.
+    await page.getByTestId("radio-stepMode-manual").check();
+    await expect(page.getByTestId("res-total")).toContainText("100 mm");
+    await expect(page.getByTestId("res-real")).toContainText("20 m");
+    for (const b of exportButtons(page)) await expect(b).toBeEnabled();
+
+    // Shrink the scale to 1.2× WITHOUT touching the rows.
+    await page.getByRole("radio", { name: /Scale factor/i }).check();
+    await page.getByTestId("in-factor").fill("1.2");
+
+    // The rows are preserved (the protected no-data-loss behaviour)…
+    await expect(page.locator('[data-testid^="step-row-"]')).toHaveCount(5);
+    for (const [i, v] of ["1.25", "2.5", "5", "10", "20"].entries()) {
+      await expect(page.getByTestId(`in-stepValue-${i}`)).toHaveValue(v);
+    }
+    // …and every one of them is still flagged against the live range — the
+    // per-row advisory stays exactly as it was.
+    await expect(page.getByTestId(/step-invalid-\d+/)).toHaveCount(5);
+
+    // But the RESULT is now withheld rather than printed: before the fix this
+    // state showed "Full bar on paper: 16666.67 mm" and handed out a 16.7-metre
+    // SVG. Same box and wording pattern item 1 uses.
+    await expect(page.getByTestId("result-invalid")).toBeVisible();
+    await expect(page.getByTestId("manual-invalid")).toContainText("20 m");
+    await expect(page.getByTestId("manual-invalid")).toContainText("16666.67 mm");
+    await expect(page.getByTestId("manual-invalid")).toContainText("400 mm");
+    await expect(page.getByTestId("res-total")).toHaveCount(0);
+    await expect(page.getByTestId("res-seg")).toHaveCount(0);
+    await expect(page.getByTestId("res-real")).toHaveCount(0);
+    await expect(page.getByTestId("res-steps")).toHaveCount(0);
+    await expect(page.getByTestId("bar-preview")).toHaveCount(0);
+    // The segment field is NOT blamed for this — it still fits the geometry.
+    await expect(page.getByTestId("seg-invalid")).toHaveCount(0);
+    // All four downloads are blocked, not just the SVG.
+    for (const b of exportButtons(page)) await expect(b).toBeDisabled();
+
+    // Restore the scale (still without touching the rows) → everything comes
+    // back, downloads included. Valid → invalid → valid.
+    await page.getByRole("radio", { name: /One-to-X/i }).check();
+    await page.getByTestId("in-x").fill("200");
+    await expect(page.getByTestId("result-invalid")).toHaveCount(0);
+    await expect(page.getByTestId("res-total")).toContainText("100 mm");
+    await expect(page.getByTestId("res-real")).toContainText("20 m");
+    await expect(page.locator('svg[aria-label="Scale bar at 1:200"]')).toBeVisible();
+    for (const b of exportButtons(page)) await expect(b).toBeEnabled();
+  });
+
+  test("a Manual bar still inside the range after a scale change exports normally", async ({ page }) => {
+    await page.goto(`${BASE}/cad/scale-bar-tool`, { waitUntil: "networkidle" });
+    await page.getByTestId("radio-stepMode-manual").check(); // rows 1.25 … 20 m, 100 mm bar
+
+    // Loosening the scale to 1:100 makes the SAME rows describe a 200 mm bar —
+    // well inside the documented maximum, so nothing may be gated.
+    await page.getByTestId("in-x").fill("100");
+    await expect(page.getByTestId("result-invalid")).toHaveCount(0);
+    await expect(page.getByTestId("res-total")).toContainText("200 mm");
+    await expect(page.getByTestId("res-real")).toContainText("20 m");
+    await expect(page.getByTestId("in-stepValue-4")).toHaveValue("20");
+    for (const b of exportButtons(page)) await expect(b).toBeEnabled();
+
+    // …and a download really happens (the gate is not just a disabled attribute).
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page.getByRole("button", { name: "↓ SVG" }).click(),
+    ]);
+    expect(download.suggestedFilename()).toBe("scale-bar.svg");
+
+    // Tighter than 1:100 but still inside the cap: 1:60 → 333.33 mm.
+    await page.getByTestId("in-x").fill("60");
+    await expect(page.getByTestId("res-total")).toContainText("333.33 mm");
+    await expect(page.getByTestId("result-invalid")).toHaveCount(0);
+    for (const b of exportButtons(page)) await expect(b).toBeEnabled();
+  });
+
+  test("sweep: the Manual gate tracks the scale in both directions, boundary included", async ({ page }) => {
+    await page.goto(`${BASE}/cad/scale-bar-tool`, { waitUntil: "networkidle" });
+    await page.getByTestId("radio-stepMode-manual").check(); // rows 1.25 … 20 m
+
+    // The largest row is 20 m, so the paper it needs is 20 000 / scale mm: the
+    // 400 mm maximum is hit at exactly 1:50 and passed just below it.
+    const cases: [x: string, paper: string, ok: boolean][] = [
+      ["200", "100 mm", true],
+      ["100", "200 mm", true],
+      ["50", "400 mm", true],   // exactly the documented maximum — still drawable
+      ["40", "500 mm", false],  // a millimetre past it
+      ["200", "100 mm", true],  // and back again
+      ["1", "20000 mm", false],
+      ["100", "200 mm", true],
+    ];
+    for (const [x, paper, ok] of cases) {
+      await page.getByTestId("in-x").fill(x);
+      if (ok) {
+        await expect(page.getByTestId("res-total"), `1:${x} → ${paper}`).toContainText(paper);
+        await expect(page.getByTestId("result-invalid"), `1:${x}`).toHaveCount(0);
+        for (const b of exportButtons(page)) await expect(b).toBeEnabled();
+      } else {
+        await expect(page.getByTestId("result-invalid"), `1:${x} → ${paper}`).toBeVisible();
+        await expect(page.getByTestId("res-total"), `1:${x}`).toHaveCount(0);
+        for (const b of exportButtons(page)) await expect(b).toBeDisabled();
+      }
+      // Whatever the gate decides, the rows are never rewritten.
+      await expect(page.locator('[data-testid^="step-row-"]'), `1:${x} rows`).toHaveCount(5);
+      await expect(page.getByTestId("in-stepValue-4"), `1:${x} largest row`).toHaveValue("20");
+    }
   });
 
   // ── Item 3: exactly one Reset control, and it is a full reset ───────────────

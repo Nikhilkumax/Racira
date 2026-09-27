@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "font-specimen-sheet",
+    "keywords": [
+      "font specimen sheet",
+      "print specimen",
+      "weight ladder",
+      "character set"
+    ],
+    "intro": "The font specimen sheet lays out one face as a printable page: the display alphabet, digit and punctuation rows, a weight ladder and sample lines, all on a light surface. It is the sheet you hand to a printer or a client rather than a screen you adjust.",
+    "content": "The font specimen sheet composes a print specimen for a chosen face and prints it, hiding the control panel so what comes out of the printer is the sheet itself.\n\n- The sheet header carries the title you type and the family name set in a monospaced uppercase line, with the family rendered large beneath it.\n- The character set is laid out in three rows: uppercase letters, lowercase letters and the digit and punctuation set, each at a comfortable reading size rather than at display size.\n- The weight ladder sets one line per weight the catalogue offers, each labelled with its numeric value in the margin and set in that weight.\n- Three sample lines follow, each a pangram, so the paragraphs at the foot of the sheet exercise the whole lowercase alphabet.\n- A footer note carries whatever measurement you want recorded, and the default names the display size, the text size and the print scale.\n\nThe sheet is a print object, which is why it uses a light surface with black type regardless of the application's theme: a dark-mode specimen would print as a solid block of ink. The print button calls the browser's own print dialog, and the control panel is hidden by a print media rule, so the printout contains the specimen and nothing else. The three alphabet rows are set at a reading size rather than at the display size the family name uses, because that is where a face's letterforms are actually judged: at display size every face looks deliberate. The weight ladder is the second thing a specimen is for, since a face's weights are not evenly spaced in design even when their numeric values are, and seeing 300 next to 700 on the same sheet is the fastest way to see where a family's weight range really sits.\n\n- Only the catalogue's faces can be specified, and only the weights those faces load are listed in the ladder.\n- The sheet is a fixed layout: the rows, the ladder and the three sample lines are not editable beyond the title and the footer note.\n- Sizes are fixed rather than adjustable, so the specimen reflects the tool's own typography rather than a project's.\n- There is no metric data such as x-height, cap height or character width, so two faces can only be compared visually here.\n- Nothing is saved, and the print scale depends on the browser's own settings.\n\nUse it when a face has been shortlisted and a printed reference is needed, when a client wants a one-page overview of a family, or when a specimen has to go into a style guide as an appendix. The print-hiding behaviour is the detail that makes it usable rather than a screenshot. Where several faces need comparing on the same copy, the multi font comparison puts them side by side with measured widths, and where the sample is the question rather than the sheet, the pangram font tester counts the alphabet coverage. The font previewer covers the interactive setting, the multi font comparison measures several faces against each other, and the pangram font tester checks that a sample really does cover every letter.",
+    "howTo": [
+      { "step": "Choose the family from the catalogue and set a sheet title that names the project or the client it belongs to." },
+      { "step": "Edit the footer note to record the measurements that matter for the handover, such as the display size and the print scale." },
+      { "step": "Read the sheet on screen first, checking the alphabet rows and the weight ladder against the face you expected." },
+      { "step": "Print it, which hides the control panel, and check the print preview before committing paper since the scale is set by the browser." }
+    ],
+    "whenToUse": "Reach for it when a family needs a printed reference, when a style guide needs a specimen appendix, or when a review is easier with a sheet in hand than a screen. The weight ladder is usually the part people photograph. For a comparison of several faces on identical copy, the {{multi-font-comparison|multi font comparison}} reports measured sample widths rather than impressions, the {{pangram-font-tester|pangram font tester}} verifies that a sample covers the alphabet, and the {{waterfall-font-preview|waterfall font preview}} shows one face across a size ladder rather than across its weights.",
+    "faqs": [
+      {
+        "q": "Why does the sheet use black on white when the rest of the tool is dark?",
+        "a": "Because the sheet exists to be printed. A dark surface would come out of the printer as a solid block of ink, hiding the letterforms the sheet is meant to show. The specimen keeps its own light surface regardless of the application theme, which is also how it renders in a dark-mode session."
+      },
+      {
+        "q": "Which rows should I check first on a specimen?",
+        "a": "The digit and punctuation row, and then the weight ladder. Letters are the part every specimen shows well, while figures, brackets, quotation marks and dashes are where a face's details slip, and the ladder is where a family's weight range is revealed to be narrower or wider than the numeric values suggest."
+      },
+      {
+        "q": "Can I change the sample sentences?",
+        "a": "Not on this sheet. The three lines are fixed pangrams, chosen so the paragraphs at the foot exercise the whole lowercase alphabet. If a specific phrase needs to be set, the font previewer and the custom text font preview both take arbitrary text, and a sheet built from those would have to be composed by hand."
+      },
+      {
+        "q": "Why is there no size control for the specimen?",
+        "a": "Because a specimen's typography is part of the document rather than a variable. The rows are set at a reading size and the family name at a display size, which is the convention a printed specimen follows. Adjustable sizes belong in a previewer, where the question is how a face behaves rather than what it looks like on paper."
+      },
+      {
+        "q": "Does the printed sheet come out at a predictable size?",
+        "a": "Only as predictable as the browser's print dialog. The sheet is laid out for a page, and the print media rule removes the controls, but scale, margins and paper size are chosen in the dialog rather than in the tool. Check the preview pane before printing a batch, since the difference between one hundred percent and shrink-to-fit is visible on the alphabet rows."
+      }
+    ]
+  },
+  {
+    "slug": "multi-font-comparison",
+    "keywords": [
+      "multi font comparison",
+      "canvas measurement",
+      "sample width",
+      "four slots"
+    ],
+    "intro": "The multi font comparison sets one sample in four faces under identical size and weight, then reports what actually differs. Alongside the visual comparison it measures each family's rendering of the sample with the canvas API, so the judgement is made on width as well as on impression.",
+    "content": "The multi font comparison gives four slots to four faces, renders one shared sample in all of them at the same size and weight, and tables the measured result.\n\n- Four slots labelled A to D each take a family from the catalogue, and the default set pairs a sans, a serif, a grotesque and a monospace to show the comparison at its most useful.\n- The sample is a single shared paragraph, so every slot renders the same words and no slot gets an easier line than the others.\n- Size runs from 12px to 96px and weight from 300 to 700 in hundred-unit steps, both applied to all four slots at once.\n- The table reports each slot's family, its classification, the measured width of the sample in pixels, and that width as a percentage of the widest slot.\n- The side-by-side preview stacks the four renderings at a shared line height, each labelled with its slot letter and family name.\n\nThe measurement is the part that turns a preference into a comparison. The sample width column is a canvas measurement: each slot's sample is laid out through the canvas text API at the size and weight in force, so the browser's own shaping engine produces the figure rather than an average character width. A face that measures 88 percent of the widest at the same nominal size is either narrower in design or smaller in x-height, and that is exactly the difference a table of numbers reveals and a pair of screenshots hides. The practical consequence is space: on a fixed width a narrower face fits more characters and therefore reads at a longer measure, which changes whether the copy falls inside a comfortable line length. Setting all four at one size and weight is deliberate for the same reason, since varying either would make the widths incomparable.\n\n- Four slots are the limit, so a shortlist longer than that has to be run in two passes.\n- The measurement is of the sample string only, so a family that is narrow on the sample may still be wide on other text.\n- Every slot shares one size and weight, which is what makes the comparison fair and what prevents testing how each face behaves at its own best size.\n- The numbers are widths in pixels at the current setting, not ratios that hold across sizes.\n- Nothing reports the loaded font's own metrics, so a width difference cannot be attributed to x-height or character width specifically.\n\nUse it when a shortlist has to be narrowed on evidence rather than on taste, when a client asks why two faces at the same size look different, or when a face change is being proposed and the effect on line length needs checking first. The relative width column settles that argument in one reading. Where a pairing rather than a single face is the question, the font pairing suggester works on the relationship between two families, and where a stack has to be assembled for production, the brand font stack builder orders the fallbacks. The font previewer is the place to tune one face, the font pairing suggester covers pairing two of them, and the font specimen sheet gives any single face its own printed page.",
+    "howTo": [
+      { "step": "Paste the sample copy that matters, ideally a real sentence rather than a pangram, so the comparison reflects the words you will set." },
+      { "step": "Set the size and weight, which apply to every slot, then assign a family to each of the four slots." },
+      { "step": "Read the measured widths and the relative percentages in the table before looking at the renderings, so the numbers are not coloured by the visual." },
+      { "step": "Judge the four renderings against each other, then swap one slot at a time to work through a longer shortlist." }
+    ],
+    "whenToUse": "Reach for it when a shortlist of faces has to be reduced on measured differences, when someone asks why two faces at the same size occupy different widths, or when a proposed face change has to be checked against the layout it will sit in. The relative column is the evidence. For a pair that has to work together rather than in competition, the {{font-pairing-suggester|font pairing suggester}} is the closer tool, the {{pangram-font-tester|pangram font tester}} checks alphabet coverage before a face is adopted, and the {{font-specimen-sheet|font-specimen sheet}} produces the printed page once the choice is made.",
+    "faqs": [
+      {
+        "q": "How is the sample width measured?",
+        "a": "Through the canvas text API, which lays out the string with the browser's own shaping at the size and weight in force and returns its width in pixels. That makes the figure a real measurement of the rendered text rather than an estimate from average character widths, and it is why the table can compare four faces honestly."
+      },
+      {
+        "q": "Why keep the size and weight the same across all four slots?",
+        "a": "Because a comparison is only meaningful when one thing varies. If each face were set at the size it suited best, the widths and the impressions would both differ for two reasons at once. Setting one size and one weight holds those constant so the remaining difference is the faces themselves."
+      },
+      {
+        "q": "What does a lower relative percentage actually mean?",
+        "a": "That the face occupies less width for the same words at the same nominal size. That usually comes from narrower letterforms or a smaller x-height, and in a layout it means more characters per line, which lengthens the measure. Whether that is an improvement depends on where the measure lands, which is why the check pairs well with a line length target."
+      },
+      {
+        "q": "Can I compare more than four faces?",
+        "a": "Not at once. Four slots is the limit, which suits a shortlist that has already been narrowed. For a longer list, run two passes and keep the best from each, or use the specimen sheet to look at faces one at a time before bringing the survivors into a single comparison."
+      },
+      {
+        "q": "Do the figures change with the text?",
+        "a": "Yes, and that is the point of using your own copy. A sentence full of wide letters will favour a different face from one full of narrow ones, and a string of digits will behave differently again. Comparison on the actual copy is more informative than comparison on a pangram, which is why the sample is editable."
+      }
+    ]
+  },
+  {
+    "slug": "font-size-preview",
+    "keywords": [
+      "font size preview",
+      "unit conversion",
+      "root font size",
+      "line box"
+    ],
+    "intro": "The font size preview renders a ladder of sizes and converts each one into the units a stylesheet needs. Pixels are the authoring unit, rem is what the browser resolves against the root font size, and points are the print unit, so all three are reported together.",
+    "content": "The font size preview renders one sample down an editable ladder of sizes and prints the unit conversion for each step alongside the rendered row.\n\n- The default ladder is 12, 14, 16, 18, 21, 24, 30, 36, 48 and 60 pixels, which spans a caption through to a large heading.\n- The root font size is an input rather than an assumption, because rem values only mean something relative to it, and it defaults to 16px.\n- Each row is labelled with its pixel size and rendered at that size at a fixed line height, with the sample wrapping rather than truncating.\n- The conversion table reports each size in pixels, in rem calculated against the root, in points at 0.75 per pixel, and as a 1.5 times line box in pixels.\n- Weight and family are selectable, so the ladder can be read in the face the project actually uses rather than in a default.\n\nThe conversions are the substance of the tool. A pixel size is what a designer thinks in, and a rem value is what a browser actually applies once the root font size is known, so a size ladder authored in pixels has to be converted before it can be expressed responsively. Points are the third unit, and the 0.75 ratio between pixels and points at 96 dots per inch is the same conversion the print tools use, which is what lets a size survive the trip from a screen design to a print specification. The line box column multiplies each size by 1.5, which is the leading a text setting usually wants, so the column doubles as a reminder of how much vertical space each step will take.\n\n- Sizes are taken as typed and filtered to the range from 1 to 300 pixels, so a value outside that is dropped rather than clamped.\n- The point conversion assumes 96 dots per inch, which is the CSS reference ratio rather than a particular device or printer resolution.\n- The line box column uses a fixed 1.5 multiplier, so it describes one common setting rather than the leading you have chosen.\n- The rem column depends entirely on the root font size entered, so a project that changes the root must update it before relying on the figures.\n- The ladder has no limit on the number of entries, and a long list is rendered in full rather than paginated.\n\nUse it when a type scale is being authored in pixels and the rem values are needed for the stylesheet, when a size has to be quoted in points for a print job, or when a ladder needs reading in the face a project actually uses rather than a default. Where the scale itself has to be derived rather than converted, the type scale generator and the modular scale calculator produce the steps. The type scale generator derives the ladder from a ratio, the waterfall font preview shows the same face down that ladder for judgement, and the modular scale calculator compares the ratios a scale could be built on.",
+    "howTo": [
+      { "step": "Type the size ladder you want to check, either your own scale or the default list, and set the root font size the project uses." },
+      { "step": "Choose the family and weight so the rendered rows show the face the sizes will actually be applied to." },
+      { "step": "Read the ladder to judge whether each step is distinguishable from the one below it at the size it will be used." },
+      { "step": "Copy the rem and point values from the conversion table into the stylesheet and the print specification respectively." }
+    ],
+    "whenToUse": "Reach for it when a scale authored in pixels has to become rem values, when a size needs quoting in points for print, or when a set of steps has to be checked for whether adjacent sizes look different at their real sizes. It is the conversion step between a design and a stylesheet. For deriving the steps in the first place, the {{type-scale-generator|type scale generator}} and the {{modular-scale-calculator|modular scale calculator}} do that work, while the {{waterfall-font-preview|waterfall font preview}} judges how the face behaves across the same range.",
+    "faqs": [
+      {
+        "q": "Why does the rem value depend on the root font size?",
+        "a": "Because a rem is one root em, so the pixel equivalent changes if a user or a stylesheet changes the root size. At the default 16px root, a 24px size is 1.5rem, and at a 20px root the same 1.5rem would render at 30px. That dependence is also the advantage: a size expressed in rem scales for readers who set a larger base size."
+      },
+      {
+        "q": "How are points calculated here?",
+        "a": "At 0.75 points per pixel, which is the ratio that follows from 96 pixels per inch and 72 points per inch. So a 16px setting is 12 points, which is the familiar body size in print. The ratio is a CSS and print convention rather than a measurement of any particular screen or paper."
+      },
+      {
+        "q": "What is the line box column for?",
+        "a": "It multiplies each size by 1.5 to show the vertical space the step would occupy at a typical text leading. On a ladder, the column makes the relationship between size and height visible, so it is easy to see that moving from 24px to 30px adds nine pixels of line box rather than six."
+      },
+      {
+        "q": "Why would two adjacent sizes look identical?",
+        "a": "Because a step of one or two pixels is often within the difference a face can express, particularly at larger sizes. Reading the ladder is how a scale is trimmed: if 16px and 18px are indistinguishable in the chosen face, one of them is not doing work, and the ratio between the steps is usually the thing to adjust."
+      },
+      {
+        "q": "Can I set a size in rem rather than pixels?",
+        "a": "The ladder is authored in pixels because that is the unit sizes are discussed in, and the conversion table reports the rem equivalent. To author in rem, take the rem column and use it in the stylesheet, remembering that the value depends on the root size you entered rather than on a fixed ratio."
+      }
+    ]
+  },
+  {
+    "slug": "font-line-height-tester",
+    "keywords": [
+      "font line height tester",
+      "line box height",
+      "leading sweep",
+      "ascenders and descenders"
+    ],
+    "intro": "The font line height tester repeats one paragraph at a sweep of leading values so the choice can be made by reading rather than by guessing. The sweep is defined by a start value, a step and a count, and each step is labelled according to the band it falls in.",
+    "content": "The font line height tester renders the same paragraph once per leading value across a leading sweep you define, then reports the range and the line box height at the last step.\n\n- The sweep starts from a value between 0.9 and 2, advances by a step between 0.05 and 0.4, and renders between two and twelve steps.\n- Each rendered step is labelled with its exact multiplier and tagged as tight below 1.3, in the body range between 1.3 and 1.7, or airy above 1.7.\n- Type size runs from 10px to 40px, and the same size applies to every step in the sweep.\n- The paragraph is editable, so the sweep can run on a real passage rather than a specimen sentence.\n- The readouts report the line box at a multiplier of one, the range of the sweep, and the box height at the final step in pixels.\n\nThe bands are what make the output readable at a glance. A leading below about 1.3 puts ascenders and descenders from adjacent lines into each other's space, which is what the tight tag marks, and it is a deliberate choice for display type and a poor one for a paragraph. The body range from 1.3 to 1.7 covers the settings that read comfortably, and the guidance below the sweep notes that long measures push toward the upper end of it while short measures tolerate the lower. Headings are called out as a separate decision, since display sizes often want a multiplier between 1.05 and 1.2 because their own line boxes are already tall. The box-height readout converts the multiplier into pixels at the chosen size, which is the figure a vertical rhythm or a baseline grid needs.\n\n- The bands are conventional markers rather than the tool's verdict on your setting, and a face with a large x-height can read well slightly outside them.\n- Every step shares one type size, so the interaction between size and leading has to be explored in more than one pass.\n- The sweep advances in equal increments, so a range that needs finer sampling near one end has to be run as two sweeps.\n- Only the leading varies; measure, justification and paragraph spacing are all fixed, and each of them affects how a given leading reads.\n- Nothing checks the result against a baseline grid or a vertical rhythm, so the pixel figure has to be carried to another tool for that.\n\nUse it when a body leading is being decided for a specific face and measure, when an existing paragraph reads cramped but the reason is unclear, or when a display setting needs its leading loosened. The tagged bands turn a sweep into a decision quickly. Where the leading has to serve a whole vertical rhythm, the vertical rhythm builder and the line height optimizer take the pixel box figure onwards. The line height optimizer derives a leading from the measure, the CSS line height tool writes the declaration, and the vertical rhythm builder turns the resulting box height into a grid.",
+    "howTo": [
+      { "step": "Choose the face and set the type size to the value the paragraph will actually be set at, since leading is judged relative to size." },
+      { "step": "Set the starting multiplier, the step and the number of steps so the sweep brackets the range you expect to choose from." },
+      { "step": "Paste a real paragraph, ideally one long enough to run to several lines, since leading problems appear on the third line rather than the first." },
+      { "step": "Read down the sweep and pick the step where the paragraph holds together, then note the box height in pixels for the vertical rhythm." }
+    ],
+    "whenToUse": "Reach for it when a paragraph's leading is being decided, when text reads cramped and the cause needs isolating from size and measure, or when a display setting needs the leading loosened without losing the hierarchy. Reading four or five candidates in one screen is much faster than adjusting one paragraph repeatedly. Where the leading has to follow from the measure instead of being chosen by eye, the {{line-height-optimizer|line height optimizer}} derives it, the {{css-line-height-tool|CSS line height tool}} turns the chosen value into a declaration, and the {{paragraph-width-optimizer|paragraph width optimizer}} settles the other half of the same problem.",
+    "faqs": [
+      {
+        "q": "Why is a leading below 1.3 tagged as tight?",
+        "a": "Because at that multiplier the line box is shorter than the space a line of text needs once ascenders and descenders are counted, so the tails of one line sit close to the tops of the next. It is a legitimate choice for display type, where lines are short and the tightness is part of the look, and a poor one for a paragraph."
+      },
+      {
+        "q": "What is the body range based on?",
+        "a": "It is the 1.3 to 1.7 band, which is where most text settings land in practice. The guidance notes that a long measure pushes toward the upper end because the eye has further to travel back to the start of the line, while a short measure tolerates the lower end. The band is a marker rather than a rule."
+      },
+      {
+        "q": "Does the face matter?",
+        "a": "Considerably. A face with a large x-height and long ascenders needs more leading at the same size than a small-bodied face does, which is why the sweep runs in the actual face rather than in a default. Running the same sweep in two candidate faces is a quick way to see that the leading you know works is specific to one of them."
+      },
+      {
+        "q": "Why do headings want a tighter multiplier?",
+        "a": "Because a heading's own line box is already tall relative to its apparent size: at 72px, a multiplier of 1.5 puts 108 pixels between baselines, which reads as three separate lines rather than one statement. Display settings usually want between 1.05 and 1.2, and short headings of one line are unaffected either way."
+      },
+      {
+        "q": "How do I use the box height figure?",
+        "a": "It is the leading in pixels at the chosen size, so it is the figure a vertical rhythm or baseline grid is built from. Taking the box height at the last step and dividing a container height by it gives a whole number of lines, which is what keeps text aligned to a grid as it flows down a page."
+      }
+    ]
+  },
+  {
+    "slug": "font-letter-spacing-tester",
+    "keywords": [
+      "font letter spacing tester",
+      "tracking sweep",
+      "em unit",
+      "added width"
+    ],
+    "intro": "The font letter spacing tester runs a tracking sweep in em, which is the scale-independent unit a stylesheet should use, and reports the equivalent pixel values for the size you have chosen. Each step also shows how much width the tracking adds across the whole string.",
+    "content": "The font letter spacing tester renders one sample across a tracking sweep, then converts each step into pixels, a ratio and the width it adds to the string.\n\n- Steps are generated from zero upward, advancing by a step between 0.002em and 0.05em, with between three and twelve steps rendered.\n- Each step is labelled with its em value in the sweep, and the sample is rendered at that tracking with the chosen family and weight.\n- The converted table reports the em value, the pixel equivalent at the current size, the ratio of tracked to untracked width, and the added width across the whole string.\n- Type size runs from 10px to 120px and weight is selectable, so the sweep can run at a caption size or at a display size.\n- The note under the table states the reason em is used: it scales with the font size, so one declaration holds at every breakpoint.\n\nThe added-width column is what makes the sweep more than a visual preference. Tracking of 0.02em on a forty-character line at 24px adds a specific number of pixels to that line, and that number is what determines whether the line still fits the measure or wraps a word earlier than it did. On a heading of three words the addition is negligible; on a paragraph it accumulates along the line, which is why tracking is applied to capitals, captions and small text rather than to body copy. The em unit is the other point the table makes: because an em is relative to the font size, a value tuned at 24px produces proportionally the same effect at 48px, whereas a pixel value would need recalculating for every size in a scale.\n\n- The sweep runs from zero upward only, so negative tracking for display sizes has to be tested by editing the sample's declaration or using a different tool.\n- Every step shares one size and weight, so the interaction of tracking with size is explored in separate passes.\n- The added-width figure is a proportional estimate from the string length rather than a measurement of the rendered line.\n- Only one line is rendered per step, so the effect of tracking on the line breaks of a paragraph is not shown.\n- Nothing checks the result against the measure, so the point at which tracked text starts wrapping differently has to be judged from the width figure.\n\nUse it when tracking is being applied to a heading, capitals or small text, when a design calls for a spaced-out word mark, or when the width cost of tracking a whole line needs to be known before it is applied. Where tracking has to follow from the optical behaviour of punctuation rather than the space between letters, the optical margin alignment preview covers the hanging side of the same problem. The letter spacing calculator derives a value for a given width, the CSS letter spacing tool writes the declaration, and the optical margin alignment preview handles the punctuation that tracking cannot fix.",
+    "howTo": [
+      { "step": "Choose the family and weight, then set the size the tracking will actually be applied at, since an em value interacts with both." },
+      { "step": "Enter the sample you want spaced, preferring the real words, since tracking behaves differently on a single word and on a full line." },
+      { "step": "Set the step and the number of steps so the sweep brackets the range you expect, then read down the sweep for the value that holds." },
+      { "step": "Check the added-width column against the measure, then copy the em value rather than the pixel equivalent into the stylesheet." }
+    ],
+    "whenToUse": "Reach for it when tracking is being decided for a heading, a word mark, capitals or a caption, when a design calls for letterspacing that has to survive several breakpoints, or when the width cost of a tracking value needs checking before it changes the wrapping. The added-width column answers that last question directly. For the punctuation side of the same problem, the {{optical-margin-alignment-preview|optical margin alignment preview}} covers glyphs that hang outside the measure, while the {{css-letter-spacing-tool|CSS letter spacing tool}} writes the declaration and the {{letter-spacing-calculator|letter spacing calculator}} works backwards from a target width.",
+    "faqs": [
+      {
+        "q": "Why is em the right unit for tracking?",
+        "a": "Because an em is relative to the font size, so the same declaration produces the same proportional effect at every size in a scale. A pixel value tuned at 24px would be half as strong at 12px and twice as strong at 48px, meaning a separate value for every step. Authoring in em is why one rule holds across a responsive page."
+      },
+      {
+        "q": "When should tracking be negative?",
+        "a": "At display sizes, where a face's default sidebearings usually read as too loose once the letters are large. The conventional range for that correction is around minus 0.01em to minus 0.03em, and it is deliberately not in this sweep: the sweep runs upward from zero because positive tracking is what capitals, captions and letterspaced word marks need."
+      },
+      {
+        "q": "What does the added width actually tell me?",
+        "a": "How much longer the tracked string becomes, in pixels. Multiplying the tracking value by the size and by the number of characters gives the figure, and it is the one that matters to a layout: on a single word a fraction of a pixel per gap is nothing, while on a forty-character line it can be enough to push a word onto the next line and change the shape of the paragraph."
+      },
+      {
+        "q": "Why does tracked text wrap earlier?",
+        "a": "Because every gap in the line has become wider, so the same words occupy more horizontal space. The wrapping point is therefore reached sooner, which is why a heading that fitted on one line before tracking may take two afterwards. Checking the added width against the measure before applying the value is what avoids that surprise."
+      },
+      {
+        "q": "Is the added-width column exact?",
+        "a": "It is proportional rather than measured: it multiplies the tracking value by the font size and by the number of characters in the string. That is accurate to within the width of one gap, since the last character has trailing space that does not always contribute, so it is a good planning figure rather than a rendering measurement."
+      }
+    ]
+  }
+]

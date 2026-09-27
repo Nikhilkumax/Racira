@@ -1,276 +1,458 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Printer } from "lucide-react";
-import { PieChart as RechartsPieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-// ── 1. TypeScript interfaces — no 'any' ──────────────────────────────────
-interface CalorieIntakeInputs {
-  gender: "male" | "female";
+type Sex = "male" | "female";
+type Goal = "lose" | "maintain" | "gain";
+
+interface IntakeInputs {
+  sex: Sex;
   age: number;
-  weightLb: number;
-  heightIn: number;
+  heightCm: number;
+  weightKg: number;
+  goalWeightKg: number;
   activity: number;
-  goal: number; // daily calorie adjustment (kcal)
+  goal: Goal;
+  weeklyRate: number;
+  proteinPerKg: number;
 }
 
-interface CalorieIntakeResult {
+const DEFAULTS: IntakeInputs = {
+  sex: "male",
+  age: 30,
+  heightCm: 178,
+  weightKg: 85,
+  goalWeightKg: 78,
+  activity: 1.55,
+  goal: "lose",
+  weeklyRate: 0.5,
+  proteinPerKg: 1.8,
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const ACTIVITY_LEVELS: { value: number; label: string }[] = [
+  { value: 1.2, label: "Sedentary" },
+  { value: 1.375, label: "Light" },
+  { value: 1.55, label: "Moderate" },
+  { value: 1.725, label: "Active" },
+  { value: 1.9, label: "Athlete" },
+];
+
+interface GoalRow {
+  label: string;
+  calories: number;
+  rate: number;
+  selected: boolean;
+}
+
+interface MacroRow {
+  label: string;
+  grams: number;
+  kcal: number;
+  share: number;
+}
+
+interface IntakeResult {
+  valid: boolean;
+  errorMsg: string;
   bmr: number;
   tdee: number;
   target: number;
-  goalAdjustment: number;
-  weightKg: number;
-  heightCm: number;
-  activityFactor: number;
-  goalLabel: string;
-  chartData: { name: string; value: number; color: string; pct: number }[];
-  breakdown: { label: string; value: string; highlight?: boolean; isTotal?: boolean }[];
-  summary: { label: string; value: string }[];
+  dailyDelta: number;
+  weeklyChangeKg: number;
+  weeksToGoal: number;
+  goalDateNote: string;
+  waterLitres: number;
+  bmi: number;
+  goalBmi: number;
+  macros: MacroRow[];
+  goals: GoalRow[];
 }
 
-// ── 2. Pure calculation function — zero React, fully typed ───────────────
-function calculateCalorieIntake(inputs: CalorieIntakeInputs): CalorieIntakeResult {
-  const { gender, age, weightLb, heightIn, activity, goal } = inputs;
-  const weightKg = weightLb * 0.45359237;
-  const heightCm = heightIn * 2.54;
-  // Mifflin-St Jeor equation
-  const bmr = gender === "male"
-    ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
-    : 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
-  const tdee = bmr * activity;
-  const target = Math.max(1200, Math.round(tdee + goal));
-  const goalAdjustment = goal;
+function computeIntake(input: IntakeInputs): IntakeResult {
+  const { sex, age, heightCm, weightKg, goalWeightKg, activity, goal, weeklyRate, proteinPerKg } = input;
 
-  const goalLabel =
-    goal === 0 ? "Maintain weight" :
-    goal < 0 ? `Lose ${Math.round((-goal / 250))} lb per week` :
-    `Gain ${Math.round((goal / 250))} lb per week`;
+  const blank: IntakeResult = {
+    valid: false,
+    errorMsg: "",
+    bmr: 0,
+    tdee: 0,
+    target: 0,
+    dailyDelta: 0,
+    weeklyChangeKg: 0,
+    weeksToGoal: 0,
+    goalDateNote: "",
+    waterLitres: 0,
+    bmi: 0,
+    goalBmi: 0,
+    macros: [],
+    goals: [],
+  };
 
-  const activityBurn = Math.max(0, tdee - bmr);
-  const total = bmr + activityBurn;
-  const pctBmr = total > 0 ? Math.round((bmr / total) * 1000) / 10 : 0;
-  const pctAct = total > 0 ? Math.round((activityBurn / total) * 1000) / 10 : 0;
+  if (!Number.isFinite(age) || !Number.isFinite(heightCm) || !Number.isFinite(weightKg)) {
+    return { ...blank, errorMsg: "Enter your age, height and current weight to see a daily calorie target." };
+  }
+  if (weightKg <= 0 || heightCm <= 0) {
+    return { ...blank, errorMsg: "Height and weight must both be greater than zero." };
+  }
+  if (age < 10 || age > 100) {
+    return { ...blank, errorMsg: "Enter an age between 10 and 100 years." };
+  }
 
-  const chartData = [
-    { name: "BMR (at rest)", value: Math.round(bmr), color: "hsl(var(--primary))", pct: pctBmr },
-    { name: "Activity Burn", value: Math.round(activityBurn), color: "#f59e0b", pct: pctAct },
+  const bmr =
+    sex === "male"
+      ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
+      : 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+  const multiplier = ACTIVITY_LEVELS.some((a) => a.value === activity) ? activity : 1.55;
+  const tdee = bmr * multiplier;
+
+  const direction = goal === "lose" ? -1 : goal === "gain" ? 1 : 0;
+  const rate = Math.max(0, Math.min(1.5, Number.isFinite(weeklyRate) ? weeklyRate : 0.5));
+  const weeklyChangeKg = direction * rate;
+  const dailyDelta = direction === 0 ? 0 : (weeklyChangeKg * 7700) / 7;
+  const target = Math.max(1000, Math.round(tdee + dailyDelta));
+
+  const weeksToGoal =
+    direction === 0 || rate <= 0 ? 0 : Math.abs(goalWeightKg - weightKg) / rate;
+
+  const heightM = heightCm / 100;
+  const bmi = heightM > 0 ? weightKg / (heightM * heightM) : 0;
+  const goalBmi = heightM > 0 && goalWeightKg > 0 ? goalWeightKg / (heightM * heightM) : 0;
+
+  const proteinGrams = Math.round(weightKg * Math.max(0.8, Math.min(3, proteinPerKg)));
+  const fatGrams = Math.round((target * 0.27) / 9);
+  const carbGrams = Math.max(0, Math.round((target - proteinGrams * 4 - fatGrams * 9) / 4));
+
+  const macros: MacroRow[] = [
+    { label: "Protein", grams: proteinGrams, kcal: proteinGrams * 4, share: (proteinGrams * 4 * 100) / target },
+    { label: "Carbohydrate", grams: carbGrams, kcal: carbGrams * 4, share: (carbGrams * 4 * 100) / target },
+    { label: "Fat", grams: fatGrams, kcal: fatGrams * 9, share: (fatGrams * 9 * 100) / target },
+  ].map((m) => ({ ...m, share: Number(m.share.toFixed(1)) }));
+
+  const goalSpecs: { key: Goal; label: string; rate: number }[] = [
+    { key: "lose", label: "Lose weight", rate: -Math.max(0.25, rate) },
+    { key: "maintain", label: "Maintain weight", rate: 0 },
+    { key: "gain", label: "Gain weight", rate: Math.max(0.15, rate * 0.5) },
   ];
 
-  const breakdown = [
-    { label: "Weight", value: `${weightLb} lb (${weightKg.toFixed(1)} kg)` },
-    { label: "Height", value: `${heightIn} in (${heightCm.toFixed(1)} cm)` },
-    { label: "BMR (Mifflin-St Jeor)", value: `${Math.round(bmr).toLocaleString()} kcal`, highlight: true },
-    { label: "Activity Factor", value: `${activity.toFixed(2)}x`, highlight: true },
-    { label: "TDEE (Maintenance)", value: `${Math.round(tdee).toLocaleString()} kcal`, highlight: true },
-    { label: "Goal Adjustment", value: `${goal > 0 ? "+" : ""}${goal} kcal/day` },
-    { label: "Daily Calorie Target", value: `${target.toLocaleString()} kcal`, isTotal: true },
-  ];
+  const goals: GoalRow[] = goalSpecs.map((spec) => {
+    const delta = (spec.rate * 7700) / 7;
+    return {
+      label: spec.label,
+      calories: Math.max(1000, Math.round(tdee + delta)),
+      rate: Number(spec.rate.toFixed(2)),
+      selected: spec.key === goal,
+    };
+  });
 
-  const summary = [
-    { label: "BMR", value: `${Math.round(bmr).toLocaleString()} kcal` },
-    { label: "TDEE", value: `${Math.round(tdee).toLocaleString()} kcal` },
-    { label: "Goal", value: goalLabel },
-    { label: "Adjustment", value: `${goal > 0 ? "+" : ""}${goal} kcal` },
-    { label: "Daily Target", value: `${target.toLocaleString()} kcal` },
-    { label: "Weight", value: `${weightKg.toFixed(1)} kg` },
-  ];
+  const goalDateNote =
+    direction === 0
+      ? "Maintenance goals have no end date"
+      : `${fmt(weeksToGoal, 1)} weeks (${fmt(weeksToGoal / 4.345, 1)} months) at this rate`;
 
-  return { bmr, tdee, target, goalAdjustment, weightKg, heightCm, activityFactor: activity, goalLabel, chartData, breakdown, summary };
+  return {
+    valid: true,
+    errorMsg: "",
+    bmr: Math.round(bmr),
+    tdee: Math.round(tdee),
+    target,
+    dailyDelta: Math.round(dailyDelta),
+    weeklyChangeKg: Number(weeklyChangeKg.toFixed(2)),
+    weeksToGoal: Number(weeksToGoal.toFixed(1)),
+    goalDateNote,
+    waterLitres: Number((weightKg * 0.033).toFixed(2)),
+    bmi: Number(bmi.toFixed(1)),
+    goalBmi: Number(goalBmi.toFixed(1)),
+    macros,
+    goals,
+  };
 }
 
-// ── 3. DEFAULTS object — realistic values ────────────────────────────────
-const DEFAULTS: CalorieIntakeInputs = { gender: "male", age: 30, weightLb: 175, heightIn: 70, activity: 1.55, goal: 0 };
-
-// ── Shared UI helpers (typed, no 'any') ──────────────────────────────────
 interface CompactInputProps {
   id: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
-  suffix?: string;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
   min?: string;
-  error?: string;
+  suffix?: string;
+  tooltip?: string;
 }
 
-const CompactInput = ({ id, label, value, onChange, suffix, min, error }: CompactInputProps) => (
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-medium text-foreground mb-1">{label}</label>
-    <div className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${error ? "border-red-500" : "border-input"}`}>
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
       <input
         id={id}
-        type="number"
-        min={min}
-        step="any"
+        type={type}
         value={value}
+        min={min}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
     </div>
-    {error && <p className="text-[11px] text-red-500 font-medium mt-1">{error}</p>}
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
   </div>
 );
 
-interface SelectInputProps {
-  id: string;
-  label: string;
-  value: string;
-  options: { value: string; label: string }[];
-  onChange: (v: string) => void;
-}
-
-const SelectInput = ({ id, label, value, options, onChange }: SelectInputProps) => (
-  <div className="flex flex-col">
-    <label htmlFor={id} className="text-sm font-medium text-foreground mb-1">{label}</label>
-    <select
-      id={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full h-10 px-3 bg-background border border-input rounded-md text-base outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-    >
-      {options.map((o) => (
-        <option key={o.value} value={o.value}>{o.label}</option>
-      ))}
-    </select>
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
   </div>
 );
 
-interface ChartTooltipProps {
-  active?: boolean;
-  payload?: { name?: string | number; value?: number | string }[];
-}
-
-const ChartTooltip = ({ active, payload }: ChartTooltipProps) => {
-  if (!active || !payload || payload.length === 0) return null;
-  const p = payload[0];
-  return (
-    <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold">
-      <p className="font-bold text-muted-foreground mb-0.5">{String(p.name)}</p>
-      <p className="text-primary font-extrabold text-sm">{typeof p.value === "number" ? `${Math.round(p.value).toLocaleString()} kcal` : String(p.value)}</p>
-    </div>
-  );
-};
-
-// ── 4. Component ─────────────────────────────────────────────────────────
 export default function CalorieIntakeCalculator() {
-  const [gender, setGender] = useState(DEFAULTS.gender);
+  const [sex, setSex] = useState<Sex>(DEFAULTS.sex);
   const [age, setAge] = useState(String(DEFAULTS.age));
-  const [weight, setWeight] = useState(String(DEFAULTS.weightLb));
-  const [height, setHeight] = useState(String(DEFAULTS.heightIn));
+  const [heightCm, setHeightCm] = useState(String(DEFAULTS.heightCm));
+  const [weightKg, setWeightKg] = useState(String(DEFAULTS.weightKg));
+  const [goalWeightKg, setGoalWeightKg] = useState(String(DEFAULTS.goalWeightKg));
   const [activity, setActivity] = useState(String(DEFAULTS.activity));
-  const [goal, setGoal] = useState(String(DEFAULTS.goal));
-  const [results, setResults] = useState<CalorieIntakeResult>(() => calculateCalorieIntake(DEFAULTS));
+  const [goal, setGoal] = useState<Goal>(DEFAULTS.goal);
+  const [weeklyRate, setWeeklyRate] = useState(String(DEFAULTS.weeklyRate));
+  const [proteinPerKg, setProteinPerKg] = useState(String(DEFAULTS.proteinPerKg));
+  const [showAdv, setShowAdv] = useState(false);
 
-  const getInputs = (): CalorieIntakeInputs => ({
-    gender: gender as "male" | "female",
+  const getInputs = (): IntakeInputs => ({
+    sex,
     age: parseFloat(age) || 0,
-    weightLb: parseFloat(weight) || 0,
-    heightIn: parseFloat(height) || 0,
-    activity: parseFloat(activity) || 0,
-    goal: parseFloat(goal) || 0,
+    heightCm: parseFloat(heightCm) || 0,
+    weightKg: parseFloat(weightKg) || 0,
+    goalWeightKg: parseFloat(goalWeightKg) || 0,
+    activity: parseFloat(activity) || 1.55,
+    goal,
+    weeklyRate: parseFloat(weeklyRate) || 0.5,
+    proteinPerKg: parseFloat(proteinPerKg) || 1.8,
   });
 
-  useEffect(() => {
-    setResults(calculateCalorieIntake(getInputs()));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [calcInputs, setCalcInputs] = useState<IntakeInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<IntakeResult>(() => computeIntake(DEFAULTS));
 
-  const valErrors: Record<string, string> = {};
-  const ageNum = parseFloat(age) || 0;
-  const weightNum = parseFloat(weight) || 0;
-  const heightNum = parseFloat(height) || 0;
-  if (ageNum < 10 || ageNum > 100) valErrors.age = "Age must be 10–100";
-  if (weightNum < 50 || weightNum > 700) valErrors.weight = "Weight must be 50–700 lb";
-  if (heightNum < 36 || heightNum > 96) valErrors.height = "Height must be 36–96 in";
-  const hasErrors = Object.keys(valErrors).length > 0;
-
-  const calc = () => {
-    if (hasErrors) return;
-    setResults(calculateCalorieIntake(getInputs()));
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeIntake(inputs));
   };
 
   const reset = () => {
-    setGender(DEFAULTS.gender);
+    setSex(DEFAULTS.sex);
     setAge(String(DEFAULTS.age));
-    setWeight(String(DEFAULTS.weightLb));
-    setHeight(String(DEFAULTS.heightIn));
+    setHeightCm(String(DEFAULTS.heightCm));
+    setWeightKg(String(DEFAULTS.weightKg));
+    setGoalWeightKg(String(DEFAULTS.goalWeightKg));
     setActivity(String(DEFAULTS.activity));
-    setGoal(String(DEFAULTS.goal));
-    setResults(calculateCalorieIntake(DEFAULTS));
+    setGoal(DEFAULTS.goal);
+    setWeeklyRate(String(DEFAULTS.weeklyRate));
+    setProteinPerKg(String(DEFAULTS.proteinPerKg));
+    setCalcInputs(DEFAULTS);
+    setResults(computeIntake(DEFAULTS));
   };
 
-  const handlePrint = () => window.print();
-
-  const activityOptions = [
-    { value: "1.2", label: "Sedentary (little exercise)" },
-    { value: "1.375", label: "Lightly Active (1–3 days/week)" },
-    { value: "1.55", label: "Moderately Active (3–5 days/week)" },
-    { value: "1.725", label: "Very Active (6–7 days/week)" },
-    { value: "1.9", label: "Extremely Active (physical job)" },
-  ];
-
-  const goalOptions = [
-    { value: "-500", label: "Lose 2 lb / week (aggressive)" },
-    { value: "-250", label: "Lose 1 lb / week (moderate)" },
-    { value: "0", label: "Maintain current weight" },
-    { value: "250", label: "Gain 1 lb / week (moderate)" },
-    { value: "500", label: "Gain 2 lb / week (aggressive)" },
+  const GOALS: { key: Goal; label: string }[] = [
+    { key: "lose", label: "Lose" },
+    { key: "maintain", label: "Maintain" },
+    { key: "gain", label: "Gain" },
   ];
 
   const faqs = [
     {
-      question: "How is daily calorie intake calculated?",
-      answer: "This calculator uses the Mifflin-St Jeor equation, the most accurate widely used formula, to estimate your basal metabolic rate (BMR) — the calories your body burns at rest. BMR is multiplied by an activity factor to get total daily energy expenditure (TDEE), your maintenance calories. Your goal then adjusts TDEE: roughly 3,500 calories equals one pound of body weight, so a 500-calorie daily deficit produces about one pound of weight loss per week.",
+      question: "How do I work out my daily calorie intake?",
+      answer:
+        "Start with your maintenance level, which is resting metabolic rate multiplied by an activity factor, then add or subtract the change you want. Half a kilogram of fat holds roughly seven thousand seven hundred calories, so a five hundred and fifty calorie daily deficit produces that loss over a week. Everything else is a variation on this single calculation.",
     },
     {
-      question: "What is the difference between BMR and TDEE?",
-      answer: "BMR is the energy your body needs to sustain basic life functions — breathing, circulation, cell repair — while at complete rest. TDEE adds the calories burned through everyday movement and exercise. A 175 lb, 5'10\", 30-year-old moderately active man has a BMR around 1,790 kcal and a TDEE around 2,770 kcal. The gap between them is your activity burn, shown in the donut chart.",
+      question: "Is it better to lose weight fast or slowly?",
+      answer:
+        "Slower is almost always better. Rates of a quarter to half a kilogram a week preserve more lean mass, keep training performance intact and are far easier to hold for months. Faster losses show quick early movement, most of which is water, and are usually followed by a rebound as hunger and fatigue accumulate.",
     },
     {
-      question: "Why is my target floored at 1,200 calories?",
-      answer: "Very low intakes make it nearly impossible to meet vitamin and mineral needs, and they slow metabolism by burning lean mass. The calculator floors the target at 1,200 kcal for safety. If your goal requires less than that, favor a slower rate of loss or add exercise rather than cutting intake further.",
+      question: "How much protein do I need while dieting?",
+      answer:
+        "Roughly one point six to two point two grams per kilogram of body weight is the range most often recommended while in a deficit, especially with resistance training. Protein is the most satiating macronutrient and protects lean tissue, so it should be set first and the remaining calories split between carbohydrate for training and fat for hormonal health.",
     },
   ];
 
   return (
     <>
-      <style>{`
-        @media print {
-          body * { visibility: hidden; }
-          .print-section, .print-section * { visibility: visible; }
-          .print-section { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; }
-        }
-      `}</style>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator/health" }, { label: "Calorie Intake Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Health", href: "/calculator#health" },
+          { label: "Calorie Intake Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Calorie Intake Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT — INPUTS */}
-          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid grid-cols-2 gap-3">
-              <SelectInput id="gender" label="Sex" value={gender} options={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }]} onChange={(v) => setGender(v as "male" | "female")} />
-              <CompactInput id="age" label="Age" value={age} onChange={setAge} suffix="years" min="10" error={valErrors.age} />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <CompactInput id="weight" label="Weight" value={weight} onChange={setWeight} suffix="lb" min="50" error={valErrors.weight} />
-              <CompactInput id="height" label="Height" value={height} onChange={setHeight} suffix="in" min="36" error={valErrors.height} />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <SelectInput id="activity" label="Activity Level" value={activity} options={activityOptions} onChange={setActivity} />
-              <SelectInput id="goal" label="Goal" value={goal} options={goalOptions} onChange={setGoal} />
-            </div>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Body & Activity">
+              <div className="grid grid-cols-3 gap-3">
+                <CompactInput id="age" label="Age" value={age} onChange={setAge} onEnter={runCalculate} suffix="yrs" />
+                <CompactInput
+                  id="height"
+                  label="Height"
+                  value={heightCm}
+                  onChange={setHeightCm}
+                  onEnter={runCalculate}
+                  suffix="cm"
+                />
+                <CompactInput
+                  id="weight"
+                  label="Weight"
+                  value={weightKg}
+                  onChange={setWeightKg}
+                  onEnter={runCalculate}
+                  suffix="kg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setSex("male")}
+                  aria-pressed={sex === "male"}
+                  className={
+                    sex === "male"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Male
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSex("female")}
+                  aria-pressed={sex === "female"}
+                  className={
+                    sex === "female"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Female
+                </button>
+              </div>
+              <div className="grid grid-cols-5 gap-1.5 mt-2">
+                {ACTIVITY_LEVELS.map((level) => (
+                  <button
+                    key={level.value}
+                    type="button"
+                    onClick={() => setActivity(String(level.value))}
+                    aria-pressed={parseFloat(activity) === level.value}
+                    className={
+                      parseFloat(activity) === level.value
+                        ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-[11px] shadow-sm transition-all active:scale-[0.98]"
+                        : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-[11px] transition-colors"
+                    }
+                  >
+                    {level.label}
+                  </button>
+                ))}
+              </div>
+            </SubSection>
 
-            <div className="flex gap-3 mt-2">
+            <SubSection title="Goal">
+              <div className="grid grid-cols-3 gap-2">
+                {GOALS.map((g) => (
+                  <button
+                    key={g.key}
+                    type="button"
+                    onClick={() => setGoal(g.key)}
+                    aria-pressed={goal === g.key}
+                    className={
+                      goal === g.key
+                        ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                        : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                    }
+                  >
+                    {g.label}
+                  </button>
+                ))}
+              </div>
+              {goal !== "maintain" && (
+                <div className="mt-3">
+                  <CompactInput
+                    id="goal-weight"
+                    label="Goal Weight"
+                    value={goalWeightKg}
+                    onChange={setGoalWeightKg}
+                    onEnter={runCalculate}
+                    suffix="kg"
+                    hint="Used to estimate how long the plan will take."
+                  />
+                </div>
+              )}
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
               <button
                 type="button"
-                disabled={hasErrors}
-                onClick={calc}
-                className={`flex-1 flex items-center justify-center gap-2 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"}`}
-              >Calculate</button>
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Rate & Macros">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="weekly-rate"
+                        label="Rate per Week"
+                        value={weeklyRate}
+                        onChange={setWeeklyRate}
+                        onEnter={runCalculate}
+                        suffix="kg"
+                        tooltip="How much you plan to lose or gain each week."
+                      />
+                      <CompactInput
+                        id="protein-per-kg"
+                        label="Protein per kg"
+                        value={proteinPerKg}
+                        onChange={setProteinPerKg}
+                        onEnter={runCalculate}
+                        suffix="g"
+                        tooltip="Protein target per kilogram of body weight."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
               <button
                 type="button"
                 onClick={reset}
@@ -280,112 +462,197 @@ export default function CalorieIntakeCalculator() {
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
-            {hasErrors && (
-              <div className="text-sm text-red-500 font-semibold bg-red-500/10 border border-red-500/20 p-2.5 rounded-md">
-                ⚠️ Please fix the errors above before calculating.
-              </div>
-            )}
           </div>
 
-          {/* RIGHT — RESULTS */}
-          <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start print-section">
-            {/* 1. PRIMARY RESULT CARD */}
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
+              </div>
+            )}
+
+            {/* PRIMARY RESULT CARD */}
             <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Daily Calorie Target</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.target)} kcal` : "—"}
               </div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Daily Calorie Target</div>
-              <div className="text-4xl font-bold text-primary tracking-tight">{results.target.toLocaleString()} <span className="text-2xl font-semibold">kcal</span></div>
-              <div className="text-sm text-muted-foreground mt-1 font-medium">
-                {results.goalLabel} — TDEE {Math.round(results.tdee).toLocaleString()} kcal {results.goalAdjustment !== 0 ? `${results.goalAdjustment > 0 ? "+" : ""}${results.goalAdjustment} kcal` : ""}.
-              </div>
-            </div>
-
-            {/* 2. THREE-STAT BAR */}
-            <div className="flex items-center justify-between px-4 py-3 bg-muted/30 border border-border rounded-lg text-sm">
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">BMR</span>
-                <span className="font-extrabold text-foreground">{Math.round(results.bmr).toLocaleString()} kcal</span>
-              </div>
-              <div className="w-px h-8 bg-border" />
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">TDEE</span>
-                <span className="font-extrabold text-foreground">{Math.round(results.tdee).toLocaleString()} kcal</span>
-              </div>
-              <div className="w-px h-8 bg-border" />
-              <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Adjustment</span>
-                <span className={`font-extrabold ${results.goalAdjustment < 0 ? "text-red-600" : results.goalAdjustment > 0 ? "text-emerald-600" : "text-foreground"}`}>{results.goalAdjustment > 0 ? "+" : ""}{results.goalAdjustment} kcal</span>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.dailyDelta === 0 ? "At maintenance" : `${results.dailyDelta > 0 ? "Surplus" : "Deficit"} of ${fmt(Math.abs(results.dailyDelta))} kcal against ${fmt(results.tdee)} kcal maintenance`}`
+                  : "Fix the highlighted inputs to see an answer"}
               </div>
             </div>
 
-            {/* 3. BREAKDOWN TABLE */}
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Resting Rate</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.bmr)} kcal` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Change per Week</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${results.weeklyChangeKg} kg` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Time to Goal</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid && results.weeksToGoal > 0 ? `${fmt(results.weeksToGoal, 1)} wks` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* MACRO TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
-              <table className="w-full text-left border-collapse text-base">
+              <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="py-2.5 px-3">Item</th>
-                    <th className="py-2.5 px-3 text-right w-[220px]">Value</th>
+                    <th className="p-2.5 pl-3">Macronutrient</th>
+                    <th className="p-2.5 text-right">Grams</th>
+                    <th className="p-2.5 text-right">Calories</th>
+                    <th className="p-2.5 pr-3 text-right w-[110px]">Share</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {results.breakdown.map((row, idx) => (
-                    <tr key={idx} className={`transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : row.highlight ? "bg-amber-500/10" : "hover:bg-secondary/20"}`}>
-                      <td className={`py-2.5 px-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
-                      <td className={`py-2.5 px-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.macros.map((row) => (
+                    <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 text-right text-foreground">{`${fmt(row.grams)} g`}</td>
+                      <td className="p-2.5 text-right text-foreground">{`${fmt(row.kcal)} kcal`}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{`${fmt(row.share, 1)}%`}</td>
+                    </tr>
+                  ))}
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Total</td>
+                    <td className="p-2.5 text-right text-foreground">—</td>
+                    <td className="p-2.5 text-right text-emerald-600">{`${fmt(results.target)} kcal`}</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">100.0%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* GOAL COMPARISON TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Approach</th>
+                    <th className="p-2.5 text-right">Weekly Change</th>
+                    <th className="p-2.5 pr-3 text-right w-[140px]">Calories</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.goals.map((row) => (
+                    <tr key={row.label} className={row.selected ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">
+                        {row.label}
+                        {row.selected ? " (selected)" : ""}
+                      </td>
+                      <td className="p-2.5 text-right text-foreground">
+                        {row.rate === 0 ? "Steady" : `${row.rate > 0 ? "+" : "−"}${Math.abs(row.rate)} kg`}
+                      </td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.calories)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {/* 4. CHART */}
-            <div className="rounded-xl border border-border bg-card p-4 flex flex-col items-center">
-              <h3 className="text-base font-bold mb-2 w-full text-left">Where Your Calories Go</h3>
-              <ResponsiveContainer width="100%" height={220}>
-                <RechartsPieChart>
-                  <Pie data={results.chartData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} dataKey="value" nameKey="name">
-                    {results.chartData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                  </Pie>
-                  <Tooltip content={<ChartTooltip />} />
-                </RechartsPieChart>
-              </ResponsiveContainer>
-              <div className="flex flex-wrap justify-center gap-4 mt-3">
-                {results.chartData.map((d, i) => (
-                  <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }} />
-                    {d.name} — {d.pct}%
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 5. SUMMARY STATISTICS */}
+            {/* SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
-              <h3 className="text-base font-bold mb-3 text-foreground">Summary</h3>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                {results.summary.map((row, idx) => (
-                  <div key={idx} className="flex flex-col">
-                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{row.label}</span>
-                    <span className="text-sm font-extrabold text-foreground">{row.value}</span>
-                  </div>
-                ))}
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Current BMI</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.bmi, 1)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Goal BMI</span>
+                  <span className="text-base font-bold text-foreground">{results.goalBmi > 0 ? fmt(results.goalBmi, 1) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Maintenance</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.tdee)} kcal`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Weekly Intake</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.target * 7)} kcal`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Plan Duration</span>
+                  <span className="text-base font-bold text-foreground">{results.goalDateNote || "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Water Target</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.waterLitres, 2)} L`}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Calorie Intake Calculator?</h2>
-            <p>Your daily calorie intake target is the number of calories you should eat to reach a specific weight goal — maintain, lose, or gain. It is built from your basal metabolic rate, adjusted for how active you are, then shifted by the energy balance you want: roughly 3,500 calories equals one pound of body weight.</p>
+            <p>
+              A calorie intake calculator converts a weight goal into a daily number to eat. It works out your maintenance level
+              from body size, age, sex and activity, then adds a deficit for losing weight or a surplus for gaining it, and splits
+              the result into protein, carbohydrate and fat so the plan can actually be followed at meal level.
+            </p>
+            <p>
+              The daily figure also comes with a timeline. Entering a goal weight turns a vague intention into an estimate of how
+              many weeks the plan will take at the chosen rate, which is the most useful reality check available before starting.
+              A target that needs a year is a different project from one that needs six weeks.
+            </p>
+
             <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-            <p>This calculator estimates BMR with the Mifflin-St Jeor equation, the most widely validated formula, using your sex, age, weight, and height. BMR is multiplied by an activity factor (1.2 to 1.9) to produce TDEE, your maintenance intake. Your goal then applies a fixed daily adjustment of 250 or 500 calories — equal to a 0.5 or 1 lb weekly change — and the result is your daily calorie target.</p>
+            <p>
+              Resting energy needs come from the Mifflin-St Jeor equation and are multiplied by an activity factor that ranges
+              from 1.2 for a sedentary day to 1.9 for twice-daily training. The gap between that maintenance figure and the chosen
+              goal is created entirely by the planned rate of change, using the fact that a kilogram of body fat stores about
+              seven thousand seven hundred calories.
+            </p>
+            <p>
+              Half a kilogram a week therefore needs a deficit of about five hundred and fifty calories a day. The calculator sets
+              protein from body weight first, because protein protects lean tissue during a deficit, then allocates a quarter of
+              the calories to fat and gives the remainder to carbohydrate to fuel training. Every target is floored at a thousand
+              calories so the plan never suggests an intake too low to meet basic needs.
+            </p>
+
             <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-            <p>The primary number is your daily calorie target for the selected goal. The three-stat bar separates BMR, TDEE, and the goal adjustment; the donut chart shows how TDEE splits between resting burn and activity; and the breakdown table walks each step so the headline number can be verified. Adjust the goal selector to see how moving between maintain, lose, and gain shifts the target by exactly 250 kcal per half-pound step.</p>
+            <p>
+              The primary card shows the daily target with the deficit or surplus it represents. The three-stat bar reports the
+              resting rate, the weekly change and the time to reach the goal weight, the first table splits the target into
+              macronutrients with grams, calories and percentage shares, and the second compares losing, maintaining and gaining at
+              the same body size.
+            </p>
+            <p>
+              Use the macro table as a shopping and meal-prep guide rather than a strict prescription. Hitting protein consistently
+              matters most, the fat figure keeps hormonal function intact, and carbohydrate can flex up or down by fifty grams
+              without changing the weekly outcome. What must stay fixed is the total calorie intake across the week.
+            </p>
+            <p>
+              Recalculate after each five kilograms of change, because a smaller body needs fewer calories and the original target
+              slowly becomes a maintenance figure. Plan for a short maintenance phase every eight to twelve weeks of dieting, both
+              to give the hormonal system a break and to practise the habits that will keep the weight off afterwards.
+            </p>
+            <p>
+              Finally, expect the scale to move unevenly. Weekly averages smooth out water shifts from salt, carbohydrate and
+              training stress, and a stall of one or two weeks is not evidence that the plan has failed. Change one thing at a time,
+              give each adjustment a fortnight, and treat the calculator as a starting point that measurement refines. Weighing
+              food for the first few weeks is the fastest way to learn what a portion actually looks like, after which estimating
+              by eye becomes accurate enough for most purposes.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-intake-calculator" />
           <PopularCalculators exclude="/calculator/calorie-intake-calculator" />

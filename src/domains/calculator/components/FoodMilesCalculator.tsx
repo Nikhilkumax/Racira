@@ -103,7 +103,7 @@ export default function FoodMilesCalculator() {
       <Breadcrumb items={[{label:"Home",href:"/"},{label:"Calculators",href:"/calculator"},{label:"Everyday Life",href:"/calculator/everyday-life"},{label:"Food Miles Calculator"}]} />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Food Miles Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[480px_1fr] gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
             <div className="text-xs uppercase tracking-wide text-muted-foreground font-medium">Supply Chain Legs</div>
             {legs.map((leg, idx) => (

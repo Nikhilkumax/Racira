@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "baseline-grid-calculator",
+    "keywords": [
+      "baseline grid calculator",
+      "baseline unit",
+      "snapped line-height",
+      "spacing steps"
+    ],
+    "intro": "The baseline grid calculator derives the one number a vertical grid is built from — the body size times the body line-height — and then reports what a heading has to do to sit on it. The answer is usually a line-height that is a shade off the design value.",
+    "content": "The baseline grid calculator takes five numbers and returns the grid they imply. The baseline unit is the body font size multiplied by the body line-height: a 16px body at 1.5 gives a 24px unit, which is the distance between two baseline stripes and the module every other line box has to be a whole multiple of.\n\nFour values describe the grid, plus a root size for the rem conversions.\n\n- Body font size and body line-height, which together produce the baseline unit in pixels and in rem.\n- Heading font size and heading line-height, which give the heading's natural line box — the measurement that almost never lands on the grid.\n- Root size, so the unit and the spacing steps are expressed in the rem values a page actually uses.\n- The row count, which is the natural box divided by the unit and rounded to a whole number of rows with a floor of one.\n- The snapped line-height, which is that row count multiplied back by the unit and divided by the heading size, ready to paste.\n\nThe arithmetic is the interesting part. A 40px heading at a line-height of 1.2 has a 48px box; against a 24px unit that is exactly two rows, so the snapped value is unchanged and the heading was already on the grid. Change the unit to 20px and the same heading wants 48 divided by 20, which rounds to two rows — 40px, a snapped line-height of 1.0 — and the heading now sits on the grid with visibly tighter leading. The panel's own note says the box is rounded up to whole rows, while the arithmetic rounds to nearest with a one-row floor, so a box that falls just under a multiple can be pulled down as easily as up. That is worth knowing when the result looks tighter than expected rather than looser.\n\nThe output is a small stylesheet rather than a single number. It declares the baseline unit and the root size on the root element, sets the body rule with the unit as a comment, and gives the heading a snapped line-height with margins of two units above and one below. A spacing table then lists the first eight multiples of the unit in pixels and rem with a token name for each, which is how padding and margins inside the block stay on the grid instead of being chosen by eye.\n\nFour caveats apply before the stylesheet is pasted into a project.\n\n- The grid is only as good as the body rule typed into it, so a site whose real body size differs from the entered value has a grid that describes nothing.\n- Only one heading is snapped, so a full hierarchy needs the arithmetic repeated per level or a tool that handles the ladder.\n- Rounding changes the leading, which makes the heading's line-height a grid decision rather than a purely typographic one.\n- The unit is derived from the body rule alone, so a page whose body text changes size on a narrow screen has a second grid that these numbers do not describe.\n\nUse it when a page has begun to drift vertically, when a heading looks correct in isolation and wrong in the middle of a section, or when a spacing scale needs to be derived from the text rather than invented separately.",
+    "howTo": [
+      { "step": "Enter the body size and line-height first, since those two produce the baseline unit everything else is measured against." },
+      { "step": "Read the unit in both pixels and rem, and check the rem figure against the root size the project actually sets." },
+      { "step": "Enter the heading values and compare the natural line box with the snapped box to see how far off the grid it was." },
+      { "step": "Copy the stylesheet and the spacing steps together, so margins inside the block use the same module as the line boxes." }
+    ],
+    "whenToUse": "Reach for it when a section drifts vertically as it is scrolled, when a heading sits on the grid in one size and breaks it in another, or when a spacing scale has to come out of the type rather than from a separate number someone chose once. The unit is the load-bearing idea. For the size ladder above the body, the {{type-scale-generator|type scale generator}} and the {{modular-scale-calculator|modular scale calculator}} produce the steps, and the {{vertical-rhythm-builder|vertical rhythm builder}} reports the snap error across a whole scale rather than one heading.",
+    "faqs": [
+      {
+        "q": "How is the baseline unit calculated?",
+        "a": "It is the body font size multiplied by the body line-height. A 16px body at 1.5 gives a 24px unit, and that number becomes the module: line boxes should be whole multiples of it, and so should the vertical margins between blocks if the rhythm is to hold down the page."
+      },
+      {
+        "q": "Why does the snapped line-height differ from the one I typed?",
+        "a": "Because the heading's natural line box is rarely a whole number of baseline units. The box is divided by the unit, rounded to a row count, multiplied back, and divided by the font size again. The result is a line-height that places the heading's baselines on the stripes at the cost of a fractionally different leading."
+      },
+      {
+        "q": "Does the tool round the box up or to the nearest row?",
+        "a": "The arithmetic rounds to the nearest row with a minimum of one, while the explanatory note on the panel describes rounding up. In practice a box just under a multiple can therefore be pulled down rather than up, which is the case to look at when the snapped leading reads tighter than the entered value suggested."
+      },
+      {
+        "q": "Should every heading be snapped to the grid?",
+        "a": "Large display headings can be left off it, since a two-line hero rarely sits beside body copy closely enough for the drift to show. The headings that matter are the ones inside running content — h2, h3 and anything with text above and below it — because that is where a misaligned baseline is visible."
+      },
+      {
+        "q": "What are the spacing steps for?",
+        "a": "They are the first eight multiples of the baseline unit, given in pixels and rem with a token name each. Using them for padding and margins keeps the spaces between blocks in the same rhythm as the lines inside them, which is the half of a vertical grid that a line-height calculation alone does not cover."
+      }
+    ]
+  },
+  {
+    "slug": "line-height-optimizer",
+    "keywords": [
+      "line height optimizer",
+      "leading",
+      "measure",
+      "clamped"
+    ],
+    "intro": "The line height optimizer returns a leading value derived from four inputs — size, measure, family and weight — using a formula it prints in full. The point is not the number but that the number is inspectable and can be argued with.",
+    "content": "The line height optimizer takes the four properties that actually move leading and returns a single value with the arithmetic shown. The formula is 1.2 plus 4.8 divided by the font size, plus the measure in characters minus 65 divided by 100, plus 0.03 for a serif and minus 0.03 for a weight of 600 or heavier, all clamped between 1.05 and 2.0.\n\nThree readings of that formula show how it behaves.\n\n- At 16px on a 65-character measure the size term gives 1.5, which is the familiar default for body text.\n- At 12px the same term rises to 1.6, because small text needs proportionally more air between lines to keep the eye from skipping.\n- At 32px it falls to 1.35, which is why display sizes tighten as they grow rather than holding the body value.\n\nThe measure term does the rest. A long line needs more leading because the return sweep is longer and a misread line is easier to lose; a short line needs less. The family and weight adjustments are small nudges: serifs sit fractionally airier because their stroke contrast breaks up at small sizes, and heavy weights can close up because their counters are already large in the reader's eye. Every value is clamped at both ends, so an extreme input returns the nearest sensible value rather than an unusable number.\n\nThe panel also states the band the measure should be in. Below 45 characters the line rhythm breaks and the reader stumbles at every wrap; from 45 to 75 is the comfortable reading band; past 75 the return sweep becomes a search and the text needs either more leading or a shorter column. Its own preview uses the recommended value at a maximum width derived from the character count, so the number can be judged in running text rather than as a figure.\n\nThree starting points are offered beside the recommendation: a compact setting one tenth below the result for dense interfaces and large headings, the recommended value itself, and an airy editorial setting up to 0.15 above, capped at the top of the clamp. The exported CSS carries the size and the leading with the pixel value in a comment, and a note that large text — above 24px, or above 18.66px at a bold weight — may drop to between 1.1 and 1.3, since those thresholds are where the accessibility guidance relaxes.\n\nWhat the model does not do is measure the face, which is the honest limit of any leading formula.\n\n- Line-height recommendations depend on x-height and vertical metrics as well as on size, so two faces set at 16px on the same measure can want different leading while the formula returns one value for both.\n- The measure is entered in characters rather than measured from the face, so a condensed font's real line length is not what the arithmetic is working with.\n- The clamps at 1.05 and 2.0 mean an extreme input returns the nearest usable value rather than a warning.\n- The preview is a single paragraph at a single width, so a value that reads well there still has to be checked against a narrow column and a wide one.\n\nIt is a starting point with a printed derivation, which is more useful than a table of defaults and less authoritative than the type designer's own specification.",
+    "howTo": [
+      { "step": "Enter the font size and the measure in characters, since those two terms carry most of the result." },
+      { "step": "Choose the family and the weight so the two small adjustments are applied, and read the measure verdict at the same time." },
+      { "step": "Compare the recommendation with the compact and airy starting points, and pick the one the layout needs rather than the middle by default." },
+      { "step": "Copy the CSS and keep the pixel value in the comment, because a unitless line-height in a different font size will change behind your back." }
+    ],
+    "whenToUse": "Reach for it when body text feels crowded or floaty and the leading has been inherited rather than chosen, when a long measure has to be justified before the column width is changed, or when a design system needs a first value for every size in its scale. The formula is the deliverable. For the ladder those sizes come from, the {{type-scale-generator|type scale generator}} builds the steps, the {{paragraph-width-optimizer|paragraph width optimizer}} settles the measure in characters, and the {{baseline-grid-calculator|baseline grid calculator}} snaps the result to a vertical grid.",
+    "faqs": [
+      {
+        "q": "Why does leading fall as the font size rises?",
+        "a": "Because the x-height grows with the size while the line box grows faster, so a display setting already has generous vertical space relative to its letters. The formula reflects that: the size term contributes 1.6 at 12px and 1.35 at 32px, which is the same optical correction a designer makes by hand at each end."
+      },
+      {
+        "q": "How does the measure change the recommendation?",
+        "a": "Longer lines need more leading. The term adds one hundredth of a line-height for every character over 65 and subtracts the same for every character under it, so a 90-character measure gains a quarter of a line-height over the default while a 40-character measure tightens."
+      },
+      {
+        "q": "What counts as large text for the relaxed guidance?",
+        "a": "Above 24 pixels, or above 18.66 pixels at a bold weight, where the accessibility guidance allows a lower contrast ratio and a tighter leading. That is the case where 1.1 to 1.3 becomes acceptable, and the exported CSS notes it beside the value so the tighter setting is a decision rather than an accident."
+      },
+      {
+        "q": "Why is the result a unitless line-height?",
+        "a": "So it keeps its proportion when the font size changes. A pixel value is useful as a comment for checking the box height, but shipping it as the declaration means the leading breaks the moment the size is overridden by a responsive rule. The unitless form is inherited and recomputed against the current size."
+      },
+      {
+        "q": "Can I trust the number without looking at the page?",
+        "a": "No, and the panel says so. The formula cannot see x-height, vertical metrics, or the width of the actual face, so two families at the same size and measure can want different leading. It is a start value with a stated derivation — the preview is there so the final judgement is made on running text."
+      }
+    ]
+  },
+  {
+    "slug": "letter-spacing-calculator",
+    "keywords": [
+      "letter spacing calculator",
+      "tracking",
+      "em",
+      "uppercase"
+    ],
+    "intro": "The letter spacing calculator converts a tracking value between em, pixels and the thousandths-of-an-em number design tools use, and names the value that suits the size and the role. The conversion is the boring half; the size table is the useful half.",
+    "content": "The letter spacing calculator turns one tracking value into every form it is written in. Enter a number in em or in pixels along with the font size, and it returns the em value, the pixel value at that size, and the design-tool tracking number — thousandths of an em, so a value of 0.02em reads as tracking 20. That one convention is the reason tracking looks like a different quantity in a design file and in a stylesheet.\n\nThe size and role selection then names a recommended value, taken from a table of optical bands.\n\n- 10 to 12px body text wants about 0.02em positive tracking, because tiny letters crowd as they rasterise.\n- 13 to 16px body text sits at zero: the spacing the designer drew is the spacing intended.\n- 17 to 24px tightens slightly to minus 0.01em, and the bands above it continue in the same direction to minus 0.02em at 41px and up.\n- Uppercase always wants positive tracking, from 0.08em at the smallest sizes down to zero at the largest, because capitals are drawn to be spaced and their sidebearings assume surrounding lowercase.\n- Display headings want negative tracking at every size in the table, from minus 0.01em to minus 0.03em, since large letters show their sidebearings as gaps.\n\nThe role selector is separate from the size on purpose. A 14px uppercase label and a 14px paragraph sit in the same band and want opposite values: positive tracking for the capitals, zero for the sentence case. That is why the table has three columns rather than one recommendation per size, and why the readout gives the recommended value in both em and pixels for the size entered.\n\nThe exported CSS writes the font size and the letter-spacing together, with the pixel equivalent in a comment, and the em form is the declaration because it survives every breakpoint. A pixel value would have to be rewritten at each size in a responsive scale, which is exactly what the tracking number exists to avoid.\n\nFour things the tool does not claim, and each one matters when a value is applied to real text.\n\n- The bands are optical rules of thumb rather than measurements of a specific face, and faces differ: a geometric sans with already-wide sidebearings needs less positive tracking than a condensed grotesque.\n- Letter-spacing is not kerning, and no value here fixes a bad pair inside a word.\n- Positive tracking adds space after the final letter as well as between letters, so a centred line of tracked capitals drifts left of true centre by half that space; a negative trailing margin of the same size cancels the phantom space and restores the centre.\n- Nothing checks the result against the actual typeface, since the tool works in numbers rather than in a rendering, so the final judgement is still made by eye on real text at the size it ships.\n\nTreat it as a conversion table and a starting band, then confirm the value on the face and the size the project actually uses.",
+    "howTo": [
+      { "step": "Enter the font size, then type the tracking value in whichever unit you have it — em, pixels or a design-tool number — and read the conversion." },
+      { "step": "Choose the text role, since uppercase and sentence case want different values at the same size." },
+      { "step": "Compare the entered value with the recommended one for that size and role, and use the table to see how it changes up and down the scale." },
+      { "step": "Copy the CSS in em, keeping the pixel readout as a comment for the size you are working at." }
+    ],
+    "whenToUse": "Reach for it when a tracking value has to be translated between a design file and a stylesheet, when a size ladder needs a tracking value per step rather than one global setting, or when a line of uppercase looks cramped and the reason is that capitals are drawn to be spaced. The unit conventions are the part worth learning. For the full role table in CSS custom properties, the {{css-letter-spacing-tool|CSS letter spacing tool}} writes it out; the {{font-letter-spacing-tester|font letter spacing tester}} shows the values on real text, and the {{type-scale-generator|type scale generator}} supplies the sizes the bands refer to.",
+    "faqs": [
+      {
+        "q": "What is design-tool tracking in CSS terms?",
+        "a": "It is thousandths of an em, so a tracking of 20 is 0.02em and a tracking of minus 15 is minus 0.015em. Design tools show it as a whole number because the em is implied by the text size, which is also why the same number produces a different pixel gap at every size."
+      },
+      {
+        "q": "Why does uppercase need positive tracking?",
+        "a": "Because capitals are designed to sit before and after lowercase letters, so their sidebearings assume a wider neighbour. Set next to each other they look crowded even when the spacing is technically correct. A little positive tracking restores the rhythm, which is why the uppercase column runs from 0.08em at the smallest sizes down to zero at the largest."
+      },
+      {
+        "q": "Should body text ever be tracked?",
+        "a": "Not at normal reading sizes. The spacing in a text face is the designer's optical decision, and second-guessing it with a global value usually makes the paragraph worse rather than better. The exceptions are very small text, which needs a touch of positive tracking to survive rasterisation, and dense tabular figures."
+      },
+      {
+        "q": "Why is letter-spacing written in em rather than pixels?",
+        "a": "Because em values scale with the font size. A declaration in pixels applies the same absolute gap at every size, so a value tuned on a heading becomes a visible gap on a caption. The em form is also what allows one declaration to hold across a responsive scale where the size keeps changing."
+      },
+      {
+        "q": "Does tracking fix a badly spaced pair?",
+        "a": "No. Tracking acts on every gap in the run, while a bad pair is one relationship between two specific letters, which only kerning or a different face can fix. Positive tracking can make a tight pair less noticeable, but it also opens every other gap by the same amount."
+      }
+    ]
+  },
+  {
+    "slug": "paragraph-width-optimizer",
+    "keywords": [
+      "paragraph width optimizer",
+      "characters per line",
+      "average glyph width",
+      "canvas api"
+    ],
+    "intro": "The paragraph width optimizer measures the real measure — the characters per line a column actually produces — by measuring the sample text with the Canvas API instead of assuming an average glyph width. Counting characters in the abstract is the error it exists to avoid.",
+    "content": "The paragraph width optimizer answers one question with a measurement rather than an estimate: how many characters per line does this text, in this face, at this size, inside this container actually produce.\n\nThe measurement works by drawing the sample string to a canvas at the chosen size and face, reading its width, and dividing by the character count and the size to get an average glyph width in em. The container width divided by that average gives the characters per line, which is why the number changes when the face changes instead of staying fixed.\n\nFour inputs are involved, and each one moves the answer.\n\n- Face, chosen from the catalogue, because a condensed face fits roughly a quarter more characters into the same box than a wide one at the same size.\n- Size, from 12 to 32 pixels, which scales the average glyph width directly.\n- Container width, from 240 to 1600 pixels, which is the variable being optimised.\n- Line height, from 1.1 to 2.4, which does not change the measure but decides whether a wide measure is comfortable.\n\nThe verdict bands are the part that translates the number into a decision. Under 30 characters a column is very narrow and needs hyphenation to avoid rivers; 30 to 44 suits mobile body copy and multi-column print; 45 to 75 is the standard reading band; 76 to 90 is wide and wants more leading; and beyond 90 characters only large display text survives, never running copy. The tool also reports the container width that would put the measure at 66 characters — the middle of the comfortable band — and an approximate line count for the text you pasted, derived from its length and the measured measure.\n\nSeveral honest limits come with a measurement taken through the Canvas API, and they are worth stating before the number is quoted.\n\n- The sample has to be real: measuring a placeholder string returns the average width of those characters rather than of your prose.\n- The measurement uses the face and size selected in the tool, so a page that loads a different font at a different size will measure differently from the readout.\n- The line count is an approximation rather than a layout, since it multiplies the text length by a factor instead of breaking lines.\n- The Canvas API measures one run of text, so letter-spacing, word-spacing and any justification applied in the page are outside the calculation.\n- Nothing measures the container itself, so a max-width that a grid or a flex rule overrides still has to be confirmed in the browser.\n\nThe output is a small rule — a max-width in pixels with its em and character equivalents in comments, plus the line height — which is the practical way to hold a measure in place while the container around it stays fluid. The rule belongs on the paragraph rather than on the page, which keeps the measure intact when a sidebar takes part of the row. Pair it with the leading the line height optimizer derives and the column stops being a guess at every breakpoint.",
+    "howTo": [
+      { "step": "Paste a real paragraph rather than a placeholder, since the average glyph width is measured from the characters you supply." },
+      { "step": "Choose the face and size, then set the container width and watch the characters-per-line readout rather than judging the column by eye." },
+      { "step": "Read the verdict against the band table and, if the measure is outside the comfortable band, jump to the ideal container width the tool reports." },
+      { "step": "Copy the max-width rule and adjust the line height for the measure you settled on." }
+    ],
+    "whenToUse": "Reach for it when a column is noticeably hard to read and the cause has not been diagnosed, when a design has to hold a measure across a fluid layout, or when a condensed face is being chosen and the extra characters per line it brings need to be quantified. Measuring rather than counting is the point. For the leading that pairs with the measure, the {{line-height-optimizer|line height optimizer}} derives it from the character count; the {{css-clamp-calculator|CSS clamp calculator}} handles the fluid container, and the {{type-scale-generator|type scale generator}} supplies the font size the measure depends on.",
+    "faqs": [
+      {
+        "q": "Why not just count characters instead of measuring?",
+        "a": "Because counting assumes an average character width, and the average belongs to the face. A condensed face fits about a quarter more characters into the same box than a wide one at the same size, so the same container produces 55 characters in one face and 70 in another. Only measuring the real face gives a number that means anything."
+      },
+      {
+        "q": "What does the average glyph width readout tell me?",
+        "a": "It is the width of an average character as a fraction of the em, measured from your sample in the chosen face at the chosen size. It is the factor that converts container width into characters per line, and comparing two faces at the same size shows the difference a design decision is buying."
+      },
+      {
+        "q": "Is the line count exact?",
+        "a": "No. It multiplies the length of the pasted text by a factor and divides by the measured characters per line, which is an estimate rather than a line break. Treat it as a sanity check on how tall the paragraph will be, not as a layout prediction."
+      },
+      {
+        "q": "Why does the tool report an ideal container width as well?",
+        "a": "Because 66 characters sits in the middle of the comfortable band, and the width that produces it is the target for the layout. The tool derives that width from the measured average glyph, so it changes with the face and the size rather than being a fixed pixel value."
+      },
+      {
+        "q": "Does the measurement use my website's font?",
+        "a": "Only if it is one of the catalogue faces and it is available to the browser in this page. A webfont that has not loaded, or a face the page does not have, falls back to a local substitute and the measurement describes that substitute instead. Check the rendered sample before trusting the number."
+      }
+    ]
+  },
+  {
+    "slug": "vertical-rhythm-builder",
+    "keywords": [
+      "vertical rhythm builder",
+      "baseline unit",
+      "snap error",
+      "modular scale"
+    ],
+    "intro": "The vertical rhythm builder snaps a modular scale's line boxes to a single spacing unit and reports the snap error for every step. The error column is the point: a step that misses the grid by three per cent is visible on the page, and one that misses by half a per cent is not.",
+    "content": "The vertical rhythm builder takes a modular scale and forces its line boxes onto a single baseline unit, then reports how much each step had to move to get there.\n\nThe inputs describe the scale and the grid together.\n\n- Baseline unit, from 2 to 32 pixels, which is the stripe spacing every line box has to land on.\n- Body size and ratio, which generate the scale: each step is the body size multiplied by the ratio raised to the step number.\n- Body line height, which gives each step its natural line box before snapping.\n- Step count, from 2 to 8, which decides how far up the ladder the table goes.\n\nThe arithmetic per step is short. The natural box is the size times the leading; the snapped box is that value divided by the unit, rounded to a whole number, and multiplied back; the effective leading is the snapped box divided by the size; and the snap error is the difference between the snapped and natural boxes as a percentage of the natural one. A 21px step at a line-height of 1.5 has a natural box of 31.5px, which against an 8px unit rounds to 32px — a half-pixel change, an error of about 1.6 per cent, and an effective leading of 1.524 rather than 1.5.\n\nThat example is the tool's argument. A scale built purely from a ratio produces line boxes that are not multiples of anything, so the baselines of consecutive blocks drift a little further apart as the page runs down. Snapping fixes the drift and changes the leading slightly, and the size of that change is what the error column quantifies. The panel puts the practical threshold at about 1.5 per cent, under which the difference is invisible, and it names the worst step in the current ladder so the exceptions are visible before the CSS is copied. A striped preview draws the unit behind the rendered ladder, which makes a step that misses the stripes obvious without reading a number.\n\nThe output is one rule per step, each with the size in rem and the snapped leading, so the class list can be applied directly. Two limitations shape how far the result can be trusted.\n\n- Rounding can move a line box either up or down, so the snapped leading is not always looser than the natural one and a display step can tighten noticeably.\n- The rhythm is only as good as the margins, since a step with a snapped line box still breaks the grid when the space between blocks is an arbitrary number of pixels.\n- The scale is generated from a single ratio, so a ladder that deliberately skips a step for one role is not represented in the table.\n- The preview stripes are drawn at the chosen unit, so a unit that is very small relative to the text shows as closely spaced lines and is harder to judge by eye.\n\nUse it once the scale and the body leading are settled and before the margins are written, because that is the point at which an off-grid step is still cheap to fix.",
+    "howTo": [
+      { "step": "Set the baseline unit first, matching it to the body's own line box so the grid and the text agree from the start." },
+      { "step": "Enter the body size, ratio and step count to generate the scale, and set the leading the steps would naturally take." },
+      { "step": "Read the snap error column and the worst-step note, and adjust the ratio or the unit if a step is missing the grid by more than about a per cent and a half." },
+      { "step": "Copy the snapped rules and use the same unit for the margins between blocks, or the rhythm will break between the lines rather than inside them." }
+    ],
+    "whenToUse": "Reach for it when a modular scale has been chosen and the page still looks slightly loose or tight as it scrolls, when a grid has to be imposed on an existing set of sizes, or when the cost of snapping a scale needs to be seen before it is committed to. The error column is what makes it a decision rather than a rule. For a single heading against a body grid, the {{baseline-grid-calculator|baseline grid calculator}} does the same arithmetic on one element, the {{type-scale-generator|type scale generator}} and the {{modular-scale-calculator|modular scale calculator}} build the scale itself, and the {{line-height-optimizer|line height optimizer}} supplies the leading the steps start from.",
+    "faqs": [
+      {
+        "q": "What is a vertical rhythm in practice?",
+        "a": "It is a single spacing unit, usually the body's own line box, that every line box and every vertical margin is a whole multiple of. The reader never sees the grid; they see that blocks are consistently spaced and that baselines line up from section to section instead of drifting apart down the page."
+      },
+      {
+        "q": "What does the snap error mean?",
+        "a": "It is how far the line box had to move to become a whole number of baseline units, expressed as a percentage of the natural box. A 31.5px box snapped to a 32px unit moves half a pixel, which is about 1.6 per cent. Under roughly 1.5 per cent the change is invisible; above it the leading visibly differs."
+      },
+      {
+        "q": "Does snapping always increase the leading?",
+        "a": "No. The box is rounded to the nearest whole number of units, so a natural box just above a multiple is pulled down and the effective leading tightens. That is worth watching on display steps, where a tighter leading changes the look of a heading more than it would in body text."
+      },
+      {
+        "q": "Why does the preview draw stripes?",
+        "a": "Because a grid is easier to see than to read. The stripes are the baseline unit drawn behind the rendered ladder, so a step whose baselines miss them is obvious at a glance. It also shows how far apart the units are relative to the text, which is where an overweight grid usually becomes apparent."
+      },
+      {
+        "q": "Is snapping the line boxes enough on its own?",
+        "a": "No, and this is the most common place a rhythm fails. Margins and padding have to be multiples of the same unit, or the space between blocks breaks the grid even when every line box inside them is snapped. The spacing steps in the output are there to be used for exactly that."
+      }
+    ]
+  }
+]

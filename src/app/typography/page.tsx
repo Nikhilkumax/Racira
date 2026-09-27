@@ -12,10 +12,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: TYPOGRAPHY_SITE.title,
-  description: "Typography tools: font previewer, pairing, type scales, glyphs, CSS typography and more.",
+  description: "Font tools: font previewer, pairing, type scales, glyphs, CSS type and more.",
   openGraph: {
     title: TYPOGRAPHY_SITE.title,
-    description: "Free typography tools in your browser. No signup.",
+    description: "Free font tools in your browser. No signup.",
   },
 };
 
@@ -23,18 +23,18 @@ export default function Index() {
   const total = categories.reduce((n, c) => n + c.tools.length, 0);
   return (
     <div className="min-h-screen bg-background">
-      <Header mode="category" categoryName="Typography" />
+      <Header mode="category" categoryName={TYPOGRAPHY_SITE.shortName} />
       <main>
                 <section className="pt-12 pb-8 sm:pt-16 sm:pb-10">
           <div className="racira-page-container text-center">
             <h1 className="text-3xl sm:text-[42px] font-extrabold mb-3 leading-tight">
-              Free Typography Tools —{" "}
-              <span className="hero-gradient-text">Fonts, Scales & Pairings</span>
+              Free Font Tools —{" "}
+              <span className="hero-gradient-text">Preview, Pair & Scale</span>
             </h1>
             <p className="text-base text-muted-foreground max-w-2xl mx-auto mb-6">
-              Find perfect font pairings, generate modular scales, and preview typography instantly. No signup required.
+              Find perfect font pairings, generate modular scales, and preview type instantly. No signup required.
             </p>
-            <CategorySearch categorySlug="typography" placeholder={LIVE_TYPO_COUNT > 0 ? `Search ${LIVE_TYPO_COUNT} typography tool${LIVE_TYPO_COUNT === 1 ? "" : "s"}...` : "Search typography tools..."} registry={SEARCH_REGISTRY} />
+            <CategorySearch categorySlug="typography" placeholder={LIVE_TYPO_COUNT > 0 ? `Search ${LIVE_TYPO_COUNT} font tool${LIVE_TYPO_COUNT === 1 ? "" : "s"}...` : "Search font tools..."} registry={SEARCH_REGISTRY} />
           </div>
         </section>
 
@@ -50,7 +50,8 @@ export default function Index() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {cat.tools.map((tool) => {
                   const Icon = (tool as any).icon as React.ComponentType<{ className?: string }>;
-                  // No typography tool page renders a real tool — every card is inert.
+                  // Live = registry status is "live" AND a component is wired —
+                  // soon cards are inert by design and never get a page.
                   const isLive = isLiveTool(tool, "typography");
                   const cardBody = (
                     <>

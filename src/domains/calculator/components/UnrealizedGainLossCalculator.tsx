@@ -29,6 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 function fmt(n: number): string {
@@ -43,24 +44,30 @@ export default function UnrealizedGainLossCalculator() {
   const [purchasePrice, setPurchasePrice] = useState("1000");
   const [currentValue, setCurrentValue] = useState("1200");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ purchasePrice, currentValue }));
 
   const result = useMemo(() => {
-    const purchase = parseFloat(purchasePrice) || 0;
-    const current = parseFloat(currentValue) || 0;
+    const purchase = parseFloat(calcInputs.purchasePrice) || 0;
+    const current = parseFloat(calcInputs.currentValue) || 0;
     const gain = current - purchase;
     const gainPct = purchase > 0 ? (gain / purchase) * 100 : 0;
     const toBreakeven = gain !== 0 ? Math.abs(gain) : 0;
     const breakevenPct = current > 0 ? (toBreakeven / current) * 100 : 0;
 
     return { gain, gainPct, current, costBasis: purchase, breakevenPct };
-  }, [purchasePrice, currentValue]);
+  }, [calcInputs]);
 
   const chartData = [
     { name: "Cost Basis", value: result.costBasis },
     { name: "Current Value", value: result.current },
   ];
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ purchasePrice, currentValue });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -74,6 +81,8 @@ export default function UnrealizedGainLossCalculator() {
           },
         ]}
       />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
 
         {/* LEFT: inputs (Mortgage Calculator template) */}
         <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
@@ -111,6 +120,7 @@ export default function UnrealizedGainLossCalculator() {
               onClick={() => {
                 setPurchasePrice("1000");
                 setCurrentValue("1200");
+                setCalcInputs({ purchasePrice: "1000", currentValue: "1200" });
                 setShowResults(false);
               }}
             >
@@ -290,6 +300,11 @@ export default function UnrealizedGainLossCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/unrealized-gainloss-calculator" />
+      </div>
     </div>
   );
 }

@@ -94,7 +94,7 @@ export default function NetProfitMarginCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.revenue, vals.cogs, vals.opex, vals.interest, vals.tax]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

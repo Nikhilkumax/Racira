@@ -352,6 +352,142 @@ test.describe("Scale Bar Tool logic", () => {
     }
   });
 
+  // ── Manual bar validity: preserved rows must still fit the paper range ─────
+  test("manualFits: a preserved Manual bar that outgrows the paper range is gated, not re-fitted", () => {
+    // Exact repro: seed the Manual editor from the 1:200 · 100 mm bar
+    // (rows 1.25 … 20 m), then shrink the scale to 1.2× without touching them.
+    const base = params({ mode: "one-to-x", x: "200", width: "100", unit: "m" });
+    const seeded = seedManualSteps(computeBar(base));
+    assert.deepEqual(seeded.map((r) => r.value), ["1.25", "2.5", "5", "10", "20"]);
+    const p = params({
+      ...base, mode: "scale-factor", factorVal: "1.2", stepMode: "manual", stepRows: seeded,
+    });
+    const bar = computeBar(p);
+    assert(bar);
+    // The rows themselves are untouched — that is the protected no-data-loss
+    // behaviour, and this fix must not change it.
+    assert.deepEqual(bar.boundariesReal, [0, 1.25, 2.5, 5, 10, 20]);
+    // The geometry is honest: 20 m at 1.2× is 16666.67 mm of paper (16.7 m).
+    assert.ok(Math.abs(bar.totalPaperMm - 20_000 / 1.2) < 1e-6, `paper ${bar.totalPaperMm}`);
+    assert.ok(Math.abs(bar.totalRealValue - 20) < 1e-9);
+    // `segFits` is TRUE here — which is precisely why item 1's gate cannot catch
+    // this state: the 1 m segment (833.33 mm of paper) does fit a 16666.67 mm bar.
+    assert.equal(bar.segFits, true);
+    assert.ok(bar.segPaperMm <= bar.totalPaperMm + 1e-9);
+    // The coarse gate is what catches it: 16666.67 mm is far past the Width
+    // slider's own documented 400 mm maximum — a bar no title block can hold.
+    assert.equal(bar.manualFits, false);
+    assert.equal(SLIDER_RANGES.width.max, 400);
+    assert.ok(bar.totalPaperMm > SLIDER_RANGES.width.max);
+    // It uses the SAME bound as the per-row advisory, so the coarse gate and the
+    // fine per-row flags can never contradict each other.
+    const range = manualRangeMax(p.unit, bar.scale);
+    assert(range !== null);
+    assert.ok(Math.max(...bar.boundariesReal) > range * (1 - 1e-12), `largest row vs range ${range}`);
+
+    // A Manual bar that IS still within range after a scale change stays valid:
+    // loosening to 1:100 halves the paper demand (20 m → 200 mm).
+    const looser = computeBar({ ...base, x: "100", stepMode: "manual", stepRows: seeded });
+    assert(looser);
+    assert.equal(looser.manualFits, true);
+    assert.ok(Math.abs(looser.totalPaperMm - 200) < 1e-9);
+    // …and the exact boundary is inclusive: 20 m at 1:50 is 400 mm, not a hair
+    // more, and a 400 mm Manual bar is still drawable.
+    const edge = computeBar({ ...base, x: "50", stepMode: "manual", stepRows: seeded });
+    assert(edge);
+    assert.ok(Math.abs(edge.totalPaperMm - 400) < 1e-9, `edge paper ${edge.totalPaperMm}`);
+    assert.equal(edge.manualFits, true, "the documented maximum itself is drawable");
+    const over = computeBar({ ...base, x: "40", stepMode: "manual", stepRows: seeded });
+    assert(over);
+    assert.equal(over.manualFits, false, "a millimetre past it is not");
+
+    // Automatic mode is never gated by this flag: there the Width control
+    // defines the paper length directly (including a width typed past the
+    // slider's max — a pre-existing Automatic-mode freedom).
+    for (const width of ["10", "100", "400", "999"]) {
+      const auto = computeBar(params({ width }));
+      assert(auto, width);
+      assert.equal(auto.manualFits, true, `automatic width ${width}`);
+    }
+    // Manual mode with no usable row falls back to the automatic split, so it is
+    // valid too (an empty editor can never blank the tool).
+    const empty = computeBar(params({ stepMode: "manual", stepRows: [] }));
+    assert(empty);
+    assert.equal(empty.manualFits, true);
+
+    // No false positives: seeding from any Automatic bar inside the documented
+    // width range reproduces that bar and is therefore always valid — across
+    // every mode, unit and width. This is what stops the gate from degenerating
+    // into "Manual mode never exports".
+    for (const width of ["10", "100", "400"]) {
+      for (const unit of ["m", "mm", "ft", "in", "km", "ly"]) {
+        for (const mode of [
+          params({ mode: "one-to-x", x: "200" }),
+          params({ mode: "one-to-x", x: "5", flipX: true }),
+          params({ mode: "inch-to-foot", inchPaper: "0.25", footReal: "1" }),
+          params({ mode: "scale-factor", factorVal: "1.2" }),
+        ]) {
+          const auto = computeBar({ ...mode, width, unit });
+          assert(auto, `${mode.mode} ${width} ${unit}`);
+          const manual = computeBar({ ...mode, width, unit, stepMode: "manual", stepRows: seedManualSteps(auto) });
+          assert(manual, `${mode.mode} ${width} ${unit}`);
+          // The bar itself must come back the same size at ordinary resolutions
+          // (the seed writes six digits, so the smallest 200:1 boundaries are
+          // only ~5e-5 accurate). Extreme units are excluded from this rail on
+          // purpose: there the boundary VALUES drop under parseManualSteps'
+          // absolute 1e-12 duplicate threshold and collapse — a pre-existing
+          // seed quirk for ly/Ym-scale bars, reported but not fixed here, and
+          // out of scope for an export gate.
+          if (unit !== "ly" && !unit.startsWith("Y")) {
+            assert.ok(
+              Math.abs(manual.totalPaperMm - auto.totalPaperMm) / auto.totalPaperMm < 1e-3,
+              `${mode.mode} ${width} ${unit}: ${manual.totalPaperMm} vs ${auto.totalPaperMm}`,
+            );
+          }
+          // What this test is actually about: a Manual bar seeded from a valid
+          // Automatic bar is NEVER falsely gated, at any mode, unit or width.
+          assert.equal(manual.manualFits, true, `${mode.mode} ${width} ${unit}: seed of a valid bar is valid`);
+          assert.ok(
+            manual.totalPaperMm <= SLIDER_RANGES.width.max * (1 + 1e-5),
+            `${mode.mode} ${width} ${unit}: ${manual.totalPaperMm} > the ${SLIDER_RANGES.width.max} mm cap`,
+          );
+        }
+      }
+    }
+  });
+
+  test("manualFits responds in BOTH directions as the scale changes, run after run", () => {
+    // Rows are seeded from 1:200 · 100 mm, so the largest boundary is 20 m and
+    // the paper demanded is 20 000 / scale mm: the 400 mm cap is reached at
+    // exactly 1:50 and passed below it.
+    const base = params({ mode: "one-to-x", x: "200", width: "100", unit: "m" });
+    const rows = seedManualSteps(computeBar(base));
+    const cases: [x: string, paper: number, fits: boolean][] = [
+      ["200", 100, true],
+      ["100", 200, true],
+      ["50", 400, true],
+      ["40", 500, false],
+      ["200", 100, true],
+      ["1", 20000, false],
+      ["100", 200, true],
+    ];
+    for (const [x, paper, fits] of cases) {
+      const bar = computeBar({ ...base, x, stepMode: "manual", stepRows: rows });
+      assert(bar, `1:${x}`);
+      assert.ok(Math.abs(bar.totalPaperMm - paper) < 1e-6, `1:${x}: ${bar.totalPaperMm} vs ${paper}`);
+      assert.equal(bar.manualFits, fits, `1:${x} (${paper} mm)`);
+      // The rows never move, whatever the gate says.
+      assert.deepEqual(bar.boundariesReal, [0, 1.25, 2.5, 5, 10, 20], `1:${x}`);
+      // And the per-row advisory agrees with the aggregate in every one of these
+      // states — never "all rows in range" alongside "cannot draw this bar".
+      const range = manualRangeMax("m", bar.scale);
+      assert(range !== null);
+      const anyRowFlagged = bar.boundariesReal.slice(1).some((v) => v > range);
+      if (fits) assert.equal(anyRowFlagged, false, `1:${x}: valid but a row is flagged`);
+      else assert.equal(anyRowFlagged, true, `1:${x}: invalid but no row is flagged`);
+    }
+  });
+
   // ── Real-length unit table ───────────────────────────────────────────────
   test("unit table: 40 unique dropdown units in the reference's 4 groups", () => {
     assert.deepEqual(UNIT_GROUPS.map((g) => g.label), [

@@ -75,7 +75,20 @@ export default function AutoLoanCalculator() {
   const [cashIncentives, setCashIncentives] = useState(DEFAULTS.cashIncentives);
   const [includeTaxAndFeesInLoan, setIncludeTaxAndFeesInLoan] = useState(DEFAULTS.includeTaxAndFeesInLoan);
 
-  const [results, setResults] = useState<AutoLoanResults | null>(null);
+  const [results, setResults] = useState<AutoLoanResults | null>(() => calculateAutoLoan({
+    vehiclePrice: parseFloat(DEFAULTS.vehiclePrice) || 0,
+    downPaymentAmt: parseFloat(DEFAULTS.downPaymentAmt) || 0,
+    tradeInValue: parseFloat(DEFAULTS.tradeInValue) || 0,
+    amountOwedOnTradeIn: parseFloat(DEFAULTS.amountOwedOnTradeIn) || 0,
+    salesTaxRate: parseFloat(DEFAULTS.salesTaxRate) || 0,
+    titleAndRegistrationFees: parseFloat(DEFAULTS.titleAndRegistrationFees) || 0,
+    otherDealerFees: parseFloat(DEFAULTS.otherDealerFees) || 0,
+    cashIncentives: parseFloat(DEFAULTS.cashIncentives) || 0,
+    interestRate: parseFloat(DEFAULTS.interestRate) || 0,
+    loanTermMonths: parseFloat(DEFAULTS.loanTermMonths) || 0,
+    includeTaxAndFeesInLoan: DEFAULTS.includeTaxAndFeesInLoan,
+  }));
+  const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -95,6 +108,10 @@ export default function AutoLoanCalculator() {
     };
     setResults(calculateAutoLoan(inputs));
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleReset = () => {
     setVehiclePrice(DEFAULTS.vehiclePrice);
@@ -124,11 +141,6 @@ export default function AutoLoanCalculator() {
       includeTaxAndFeesInLoan: DEFAULTS.includeTaxAndFeesInLoan
     }));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -265,7 +277,7 @@ export default function AutoLoanCalculator() {
                   {/* 4. Chart */}
                   <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[280px]">
                     <h3 className="text-base font-bold mb-2 w-full text-left">Cost Distribution</h3>
-                    <ResponsiveContainer width="100%" height={200}>
+                    {mounted && (<ResponsiveContainer width="100%" height={200}>
                       <RechartsPieChart>
                         <Pie
                           data={results.chartData}
@@ -279,7 +291,7 @@ export default function AutoLoanCalculator() {
                         </Pie>
                         <Tooltip content={<CustomTooltip />} />
                       </RechartsPieChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer>)}
                     <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2 w-full">
                       {results.chartData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">

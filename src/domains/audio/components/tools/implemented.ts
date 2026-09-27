@@ -159,6 +159,46 @@ export const EASY_TOOL_SLUG_LIST = [
   "time-stretcher", // batch 28
   "harmonizer", // batch 28
   "8d-audio-converter", // batch 28
+  "peak-limiter", // batch 29
+  "dynamic-range-compressor", // batch 29
+  "sidechain-compressor", // batch 29
+  "brickwall-limiter", // batch 29
+  "clipping-distortion-remover", // batch 29
+  "chorus-effect", // batch 30
+  "flanger-effect", // batch 30
+  "phaser-effect", // batch 30
+  "bitcrusher-effect", // batch 30
+  "auto-wah", // batch 30
+  "equalizer", // batch 31
+  "bass-booster", // batch 31
+  "hiss-remover", // batch 31
+  "hum-remover", // batch 31
+  "wind-noise-remover", // batch 31
+  "reverb-simulator", // batch 32
+  "convolution-reverb", // batch 32
+  "hallway-room-simulator", // batch 32
+  "doppler-effect-simulator", // batch 32
+  "surround-sound-simulator", // batch 32
+  "auto-tune-effect", // batch 33
+  "pitch-correction", // batch 33
+  "old-tape-effect", // batch 33
+  "vinyl-record-effect", // batch 33
+  "slowed-reverb-nightcore", // batch 33
+  "noise-reducer", // batch 34
+  "background-noise-remover", // batch 34
+  "click-pop-remover", // batch 34
+  "plosive-remover", // batch 34
+  "sibilance-reducer", // batch 34
+  "spectrogram-viewer", // batch 35
+  "phase-meter", // batch 35
+  "correlation-meter", // batch 35
+  "goniometer-vectorscope", // batch 35
+  "true-peak-meter", // batch 35
+  "scheduled-recorder", // batch 36
+  "podcast-recorder", // batch 36
+  "interview-recorder", // batch 36
+  "song-recorder", // batch 36
+  "loop-recorder", // batch 36
 ] as const;
 
 export type EasyToolSlug = (typeof EASY_TOOL_SLUG_LIST)[number];

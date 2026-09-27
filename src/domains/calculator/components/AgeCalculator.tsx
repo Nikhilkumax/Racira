@@ -1,203 +1,627 @@
 "use client";
-import { RotateCcw, CalendarDays, Calculator } from "lucide-react";
 
-import { useState, useEffect } from "react";
-import { format } from "date-fns";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
-import { BarChart, Bar, XAxis, YAxis, Tooltip as RTooltip, ResponsiveContainer, Cell } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-const AgeCalculator = () => {
-  const [birthDate, setBirthDate] = useState<Date | undefined>();
-  const [toDate, setToDate] = useState<Date | undefined>();
+const DEFAULT_BIRTH = "1990-06-15";
+const DEFAULT_ASOF = "2026-06-15";
 
-  // Avoid hydration mismatch by setting today's date client-side only
-  useEffect(() => {
-    if (!toDate) setToDate(new Date());
-  }, []);
-  const [result, setResult] = useState<{
-    years: number;
-    months: number; days: number;
-    totalMonths: number; totalWeeks: number; totalDays: number; totalHours: number;
-    nextBirthday: string; daysUntilBirthday: number;
-  } | null>(null);
-  const [showResults, setShowResults] = useState(false);
+interface AgeInputs {
+  birthDate: string;
+  asOfDate: string;
+  lifeExpectancy: number;
+}
 
-  const handleCalculate = () => {
-    setShowResults(true);
-    if (!birthDate || !toDate) return;
-    const from = new Date(birthDate);
-    const to = new Date(toDate);
-    if (from >= to) return;
+interface AgeBreakdownRow {
+  label: string;
+  value: string;
+}
 
-    let years = to.getFullYear() - from.getFullYear();
-    let months = to.getMonth() - from.getMonth();
-    let days = to.getDate() - from.getDate();
+interface MilestoneRow {
+  label: string;
+  date: string;
+  status: string;
+  reached: boolean;
+}
 
-    if (days < 0) {
-      months--;
-      const prevMonth = new Date(to.getFullYear(), to.getMonth(), 0);
-      days += prevMonth.getDate();
-    }
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
+interface AgeResult {
+  valid: boolean;
+  errorMsg: string;
+  years: number;
+  months: number;
+  days: number;
+  totalDays: number;
+  totalWeeks: number;
+  totalMonths: number;
+  totalHours: number;
+  totalMinutes: number;
+  totalSeconds: number;
+  weekdayBorn: string;
+  nextBirthdayWeekday: string;
+  daysUntilBirthday: number;
+  nextBirthdayAge: number;
+  zodiac: string;
+  generations: string;
+  breakdown: AgeBreakdownRow[];
+  milestones: MilestoneRow[];
+  lifeElapsedPct: number;
+  remainingYears: number;
+}
 
-    const diffMs = to.getTime() - from.getTime();
-    const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    const totalWeeks = Math.floor(totalDays / 7);
-    const totalMonths = years * 12 + months;
-    const totalHours = totalDays * 24;
+const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    // Next birthday
-    let nextBday = new Date(to.getFullYear(), from.getMonth(), from.getDate());
-    if (nextBday <= to) nextBday = new Date(to.getFullYear() + 1, from.getMonth(), from.getDate());
-    const daysUntilBirthday = Math.ceil((nextBday.getTime() - to.getTime()) / (1000 * 60 * 60 * 24));
+const fmtInt = (v: number) => (Number.isFinite(v) ? Math.round(v).toLocaleString() : "—");
 
-    setResult({
-      years, months, days, totalMonths, totalWeeks, totalDays, totalHours,
-      nextBirthday: format(nextBday, "EEEE, MMMM d, yyyy"),
-      daysUntilBirthday,
-    });
+function toDate(value: string): Date | null {
+  if (!value) return null;
+  const parts = value.split("-").map(Number);
+  if (parts.length !== 3 || parts.some((p) => !Number.isFinite(p))) return null;
+  const d = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function prettyDate(d: Date): string {
+  return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} (${WEEKDAYS[d.getUTCDay()].slice(0, 3)})`;
+}
+
+function zodiacOf(month: number, day: number): string {
+  const keys: [number, number, string][] = [
+    [1, 20, "Capricorn"],
+    [2, 19, "Aquarius"],
+    [3, 21, "Pisces"],
+    [4, 20, "Aries"],
+    [5, 21, "Taurus"],
+    [6, 21, "Gemini"],
+    [7, 23, "Cancer"],
+    [8, 23, "Leo"],
+    [9, 23, "Virgo"],
+    [10, 23, "Libra"],
+    [11, 22, "Scorpio"],
+    [12, 22, "Sagittarius"],
+  ];
+  for (const [m, d, sign] of keys) {
+    if (month === m && day < d) return sign;
+  }
+  const idx = (month - 1 + 12) % 12;
+  const names = [
+    "Capricorn",
+    "Aquarius",
+    "Pisces",
+    "Aries",
+    "Taurus",
+    "Gemini",
+    "Cancer",
+    "Leo",
+    "Virgo",
+    "Libra",
+    "Scorpio",
+    "Sagittarius",
+  ];
+  return names[idx];
+}
+
+function generationOf(year: number): string {
+  if (year <= 1945) return "Silent Generation";
+  if (year <= 1964) return "Baby Boomer";
+  if (year <= 1980) return "Generation X";
+  if (year <= 1996) return "Millennial";
+  if (year <= 2012) return "Generation Z";
+  return "Generation Alpha";
+}
+
+function computeAge(input: AgeInputs): AgeResult {
+  const { lifeExpectancy } = input;
+  const birth = toDate(input.birthDate);
+  const asOf = toDate(input.asOfDate);
+
+  const blank: AgeResult = {
+    valid: false,
+    errorMsg: "",
+    years: 0,
+    months: 0,
+    days: 0,
+    totalDays: 0,
+    totalWeeks: 0,
+    totalMonths: 0,
+    totalHours: 0,
+    totalMinutes: 0,
+    totalSeconds: 0,
+    weekdayBorn: "",
+    nextBirthdayWeekday: "",
+    daysUntilBirthday: 0,
+    nextBirthdayAge: 0,
+    zodiac: "",
+    generations: "",
+    breakdown: [],
+    milestones: [],
+    lifeElapsedPct: 0,
+    remainingYears: 0,
   };
 
-  const reset = () => { setBirthDate(undefined); setToDate(undefined); setResult(null); setTimeout(() => setToDate(new Date()), 0); };
+  if (!birth) return { ...blank, errorMsg: "Enter a valid date of birth in the first field." };
+  if (!asOf) return { ...blank, errorMsg: "Enter a valid reference date in the second field." };
+  if (birth.getTime() > asOf.getTime()) {
+    return { ...blank, errorMsg: "The date of birth must come before the reference date." };
+  }
 
-  const faqs = [
-    { question: "How is age calculated?", answer: "Age is calculated by finding the difference between your birth date and the current (or selected) date in years, months, and days, accounting for varying month lengths and leap years." },
-    { question: "Does this calculator account for leap years?", answer: "Yes, the calculator uses actual calendar dates and correctly handles leap years when computing the difference." },
-    { question: "Can I calculate age to a future date?", answer: "Yes, you can set the 'Age at Date' to any future date to see what your age will be on that day." },
-    { question: "How are total days calculated?", answer: "Total days are calculated as the exact number of calendar days between the two dates using millisecond precision." },
+  let years = asOf.getUTCFullYear() - birth.getUTCFullYear();
+  let months = asOf.getUTCMonth() - birth.getUTCMonth();
+  let days = asOf.getUTCDate() - birth.getUTCDate();
+
+  if (days < 0) {
+    months -= 1;
+    const daysInPrevMonth = new Date(Date.UTC(asOf.getUTCFullYear(), asOf.getUTCMonth(), 0)).getUTCDate();
+    days += daysInPrevMonth;
+  }
+  if (months < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  const diffMs = asOf.getTime() - birth.getTime();
+  const totalDays = Math.floor(diffMs / 86400000);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = years * 12 + months;
+  const totalHours = totalDays * 24;
+  const totalMinutes = totalHours * 60;
+  const totalSeconds = totalMinutes * 60;
+
+  let nextBirthday = new Date(Date.UTC(asOf.getUTCFullYear(), birth.getUTCMonth(), birth.getUTCDate()));
+  if (nextBirthday.getTime() < asOf.getTime()) {
+    nextBirthday = new Date(Date.UTC(asOf.getUTCFullYear() + 1, birth.getUTCMonth(), birth.getUTCDate()));
+  }
+  const daysUntilBirthday = Math.ceil((nextBirthday.getTime() - asOf.getTime()) / 86400000);
+  const nextBirthdayAge = nextBirthday.getUTCFullYear() - birth.getUTCFullYear();
+
+  const breakdown: AgeBreakdownRow[] = [
+    { label: "Calendar age", value: `${years} years, ${months} months, ${days} days` },
+    { label: "Total months", value: fmtInt(totalMonths) },
+    { label: "Total weeks", value: fmtInt(totalWeeks) },
+    { label: "Total days", value: fmtInt(totalDays) },
+    { label: "Total hours", value: fmtInt(totalHours) },
+    { label: "Total minutes", value: fmtInt(totalMinutes) },
+    { label: "Total seconds", value: fmtInt(totalSeconds) },
+    { label: "Day of the week born", value: WEEKDAYS[birth.getUTCDay()] },
   ];
 
-  const DatePicker = ({ label, date, onSelect, maxDate }: { label: string; date: Date | undefined; onSelect: (d: Date | undefined) => void; maxDate?: Date }) => (
-    <div>
-      <label className="block text-sm font-medium text-foreground mb-1.5">{label}</label>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button variant="outline" className={cn("w-full justify-start text-left font-normal h-12", !date && "text-muted-foreground")}>
-            <CalendarDays className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={date}
-            onSelect={onSelect}
-            disabled={(d) => maxDate ? d > maxDate : false}
-            initialFocus
-            className="pointer-events-auto"
-            fromYear={1900}
-            toYear={2040}
-          />
-        </PopoverContent>
-      </Popover>
+  const milestoneSpecs: { label: string; days: number }[] = [
+    { label: "10,000 days alive", days: 10000 },
+    { label: "1 billion seconds alive", days: Math.round(1000000000 / 86400) },
+    { label: "Next decade birthday", days: 0 },
+    { label: "Average life expectancy", days: Math.round(Math.max(1, lifeExpectancy) * 365.25) },
+  ];
+
+  const milestones: MilestoneRow[] = milestoneSpecs.map((spec) => {
+    let targetDate: Date;
+    if (spec.days === 0) {
+      const decade = Math.floor(years / 10 + 1) * 10;
+      targetDate = new Date(Date.UTC(birth.getUTCFullYear() + decade, birth.getUTCMonth(), birth.getUTCDate()));
+    } else {
+      targetDate = new Date(birth.getTime() + spec.days * 86400000);
+    }
+    const reached = targetDate.getTime() <= asOf.getTime();
+    const daysAway = Math.round((targetDate.getTime() - asOf.getTime()) / 86400000);
+    return {
+      label: spec.label,
+      date: prettyDate(targetDate),
+      status: reached ? "Reached" : `${fmtInt(Math.abs(daysAway))} days away`,
+      reached,
+    };
+  });
+
+  const lifeElapsedPct = lifeExpectancy > 0 ? Math.min(100, (years / lifeExpectancy) * 100) : 0;
+  const remainingYears = Math.max(0, lifeExpectancy - years);
+
+  return {
+    valid: true,
+    errorMsg: "",
+    years,
+    months,
+    days,
+    totalDays,
+    totalWeeks,
+    totalMonths,
+    totalHours,
+    totalMinutes,
+    totalSeconds,
+    weekdayBorn: WEEKDAYS[birth.getUTCDay()],
+    nextBirthdayWeekday: WEEKDAYS[nextBirthday.getUTCDay()],
+    daysUntilBirthday,
+    nextBirthdayAge,
+    zodiac: zodiacOf(birth.getUTCMonth() + 1, birth.getUTCDate()),
+    generations: generationOf(birth.getUTCFullYear()),
+    breakdown,
+    milestones,
+    lifeElapsedPct: Number(lifeElapsedPct.toFixed(2)),
+    remainingYears: Number(remainingYears.toFixed(1)),
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "date", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
     </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function AgeCalculator() {
+  const [birthDate, setBirthDate] = useState(DEFAULT_BIRTH);
+  const [asOfDate, setAsOfDate] = useState(DEFAULT_ASOF);
+  const [lifeExpectancy, setLifeExpectancy] = useState("80");
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): AgeInputs => ({
+    birthDate,
+    asOfDate,
+    lifeExpectancy: parseFloat(lifeExpectancy) || 80,
+  });
+
+  const [calcInputs, setCalcInputs] = useState<AgeInputs>(() => ({
+    birthDate: DEFAULT_BIRTH,
+    asOfDate: DEFAULT_ASOF,
+    lifeExpectancy: 80,
+  }));
+  const [results, setResults] = useState<AgeResult>(() =>
+    computeAge({ birthDate: DEFAULT_BIRTH, asOfDate: DEFAULT_ASOF, lifeExpectancy: 80 }),
   );
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeAge(inputs));
+  };
+
+  const reset = () => {
+    setBirthDate(DEFAULT_BIRTH);
+    setAsOfDate(DEFAULT_ASOF);
+    setLifeExpectancy("80");
+    setCalcInputs({ birthDate: DEFAULT_BIRTH, asOfDate: DEFAULT_ASOF, lifeExpectancy: 80 });
+    setResults(computeAge({ birthDate: DEFAULT_BIRTH, asOfDate: DEFAULT_ASOF, lifeExpectancy: 80 }));
+  };
+
+  const faqs = [
+    {
+      question: "How is age calculated exactly?",
+      answer:
+        "Age is counted in complete years, months and days: subtract the birth date from the reference date, borrow from the month when the day count goes negative, and borrow from the year when the month count does. Chronological age therefore increases on a birthday rather than at the start of a calendar year, which is why two people born months apart can still be the same age for part of the year.",
+    },
+    {
+      question: "Why does my age in months differ from my age in years times twelve?",
+      answer:
+        "Multiplying whole years by twelve ignores the leftover months, so it always understates the total. The calculator adds the partial months to the completed years to give total months, which is the figure used for infant growth charts, eligibility rules and any benefit or deadline measured in months rather than years.",
+    },
+    {
+      question: "How do leap years affect the calculation?",
+      answer:
+        "Total days counts every day actually elapsed, so leap days are included automatically. Calendar age on a February 29 birthday is usually treated by counting the anniversary on March 1 in non-leap years, and the same convention applies to legal deadlines. The difference only ever amounts to a single day.",
+    },
+    {
+      question: "What are milestone ages in days and seconds?",
+      answer:
+        "Ten thousand days lands at about twenty-seven years and four months, and a billion seconds lands at roughly thirty-one years and eight months. They are fun markers rather than legal ones, but they also illustrate how large numbers grow quickly with age: by forty you have lived more than three hundred and fifty thousand hours.",
+    },
+  ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Age Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Everyday Life", href: "/calculator#everyday-life" },
+          { label: "Age Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Age Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid sm:grid-cols-2 gap-5 mb-6">
-                <DatePicker label="Date of Birth" date={birthDate} onSelect={setBirthDate} />
-                <DatePicker label="Age at Date" date={toDate} onSelect={(d) => d && setToDate(d)} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Dates">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="birth-date"
+                  label="Date of Birth"
+                  value={birthDate}
+                  onChange={setBirthDate}
+                  onEnter={runCalculate}
+                  tooltip="The date the person was born."
+                />
+                <CompactInput
+                  id="as-of-date"
+                  label="Age At Date"
+                  value={asOfDate}
+                  onChange={setAsOfDate}
+                  onEnter={runCalculate}
+                  tooltip="The date to measure age on. Change it to any date you need."
+                />
               </div>
+            </SubSection>
 
-              <div className="flex gap-3">
-                <button onClick={handleCalculate} className="btn-calculate flex-1 flex items-center justify-center gap-2">Calculate</button>
-                <button onClick={reset} className="rounded-lg border border-border px-4 py-3 text-muted-foreground hover:bg-secondary transition-colors" aria-label="Reset"><RotateCcw className="h-5 w-5" /></button>
-              </div>
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Reference Point">
+                    <CompactInput
+                      id="life-expectancy"
+                      label="Life Expectancy"
+                      value={lifeExpectancy}
+                      onChange={setLifeExpectancy}
+                      onEnter={runCalculate}
+                      type="number"
+                      min="1"
+                      suffix="yrs"
+                      hint="Used for the life-elapsed percentage and remaining years."
+                      tooltip="A planning figure, not a prediction."
+                    />
+                  </SubSection>
+                </div>
+              )}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            {showResults && result && (
-              <>
-                <h2 className="text-2xl font-bold mb-3">Your Age</h2>
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative mb-4">
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-1">Your Exact Age</p>
-                  <p className="text-4xl font-black text-primary">{result.years} <span className="text-xl text-muted-foreground font-semibold">years</span>, {result.months} <span className="text-xl text-muted-foreground font-semibold">months</span>, {result.days} <span className="text-xl text-muted-foreground font-semibold">days</span></p>
-                </div>
-                
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
-                  {[
-                    { label: "Total Months", value: result.totalMonths.toLocaleString() },
-                    { label: "Total Weeks", value: result.totalWeeks.toLocaleString() },
-                    { label: "Total Days", value: result.totalDays.toLocaleString() },
-                    { label: "Total Hours", value: result.totalHours.toLocaleString() },
-                  ].map(item => (
-                    <div key={item.label} className="card-calculator p-3 text-center border border-border bg-card shadow-sm">
-                      <p className="text-[10px] text-muted-foreground mb-1 uppercase tracking-widest font-bold">{item.label}</p>
-                      <p className="text-lg font-black">{item.value}</p>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="bg-accent/30 rounded-lg p-4 text-center border border-border/50 mb-4">
-                  <p className="text-sm text-muted-foreground mb-1 font-bold tracking-wide uppercase">Next Birthday</p>
-                  <p className="font-semibold text-lg">{result.nextBirthday}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{result.daysUntilBirthday} days away</p>
-                </div>
-
-                <div className="card-calculator !p-4 border border-border bg-card shadow-sm">
-                  <h3 className="font-semibold text-sm mb-3">Time Elapsed Breakdown (Log Scale)</h3>
-                  <div className="h-[200px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={[
-                        { name: "Months", value: result.totalMonths, fill: "#3b82f6" },
-                        { name: "Weeks", value: result.totalWeeks, fill: "#10b981" },
-                        { name: "Days", value: result.totalDays, fill: "#f59e0b" },
-                        { name: "Hours", value: result.totalHours, fill: "#ef4444" }
-                      ]} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
-                        <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-                        <YAxis scale="log" domain={['auto', 'auto']} tickFormatter={(val) => val.toLocaleString()} tick={{ fontSize: 11 }} width={50} />
-                        <RTooltip contentStyle={{ borderRadius: "8px", fontSize: "13px" }} cursor={{fill: "transparent"}} />
-                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                          {["#3b82f6", "#10b981", "#f59e0b", "#ef4444"].map((c, i) => <Cell key={i} fill={c} />)}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-              </>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
+              </div>
             )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Age</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${results.years}` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.years} years, ${results.months} months and ${results.days} days old`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
+            </div>
+
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Days</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmtInt(results.totalDays) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Next Birthday</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${results.daysUntilBirthday} days` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Turns</span>
+                <span className="font-extrabold text-foreground">{results.valid ? results.nextBirthdayAge : "—"}</span>
+              </div>
+            </div>
+
+            {/* AGE BREAKDOWN */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Measurement</th>
+                    <th className="p-2.5 pr-3 text-right w-[230px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.breakdown.map((row) => (
+                    <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                    </tr>
+                  ))}
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Next birthday falls on</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">{results.nextBirthdayWeekday || "—"}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* MILESTONES */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Milestone</th>
+                    <th className="p-2.5">Date</th>
+                    <th className="p-2.5 pr-3 text-right w-[130px]">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.milestones.map((row) => (
+                    <tr key={row.label} className={row.reached ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 text-foreground">{row.date}</td>
+                      <td className={row.reached ? "p-2.5 pr-3 text-right text-emerald-600 font-semibold" : "p-2.5 pr-3 text-right text-foreground"}>
+                        {row.status}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Born On A</span>
+                  <span className="text-base font-bold text-foreground">{results.weekdayBorn || "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Star Sign</span>
+                  <span className="text-base font-bold text-foreground">{results.zodiac || "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Generation</span>
+                  <span className="text-base font-bold text-foreground">{results.generations || "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Weeks</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmtInt(results.totalWeeks) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Heartbeats (approx.)</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? fmtInt((results.totalMinutes * 72) / 1000) + "k" : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Life Elapsed</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${results.lifeElapsedPct}% of ${calcInputs.lifeExpectancy} years` : "—"}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
           <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-              <h2 className="text-2xl font-bold mb-3">The Mathematical Complexity of Chronological Age Calculation</h2>
-              <p>Calculating a human being's exact chronological age might initially seem like a trivial arithmetic problem easily solved with basic subtraction. However, the modern Gregorian calendar introduces a staggering amount of mathematical complexity into this seemingly simple calculation. Because our calendar system is based on the solar orbital period of the Earth, which takes approximately three hundred and sixty-five point two four days to complete, our months are intentionally irregular. Unlike a standardized mathematical unit where every instance is identical, calendar months violently fluctuate between twenty-eight, twenty-nine, thirty, and thirty-one days depending entirely on the specific time of year and whether or not the current orbital cycle triggers a leap year. Consequently, accurately determining the exact number of years, months, and days between two specific dates requires a highly sophisticated algorithmic approach rather than simple linear subtraction.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is an Age Calculator?</h2>
+            <p>
+              An age calculator converts a date of birth into a precise age on any chosen reference date. It reports the
+              standard years, months and days figure, but also the totals most forms and eligibility rules actually ask for:
+              months, weeks, days, hours, minutes and even seconds of life so far, plus the day of the week the person was
+              born and how far away the next birthday is.
+            </p>
+            <p>
+              It is useful far beyond curiosity. Schools check admission cut-offs in months, pension and visa rules are
+              written in exact ages, paediatric growth charts use months rather than years for young children, and insurers
+              price by completed years. Having the full set of totals in one place removes the guesswork from those forms.
+            </p>
 
-              <h2 className="text-2xl font-bold mb-3">The Gregorian Calendar Algorithm</h2>
-              <p>Our Age Calculator utilizes the universally accepted Gregorian calendar algorithm to ensure absolute chronological precision. When you input your date of birth alongside a target date—which defaults to the current day—the calculator first calculates the absolute difference in years by subtracting the birth year from the target year. However, it cannot stop there. It must immediately evaluate the specific month and day of the target date relative to the birth date. If the target month occurs earlier in the year than the birth month, or if it is the exact same month but the target day occurs earlier than the birth day, the algorithm must subtract a full year from the initial calculation, because the individual has not yet reached their birthday in the current calendar cycle.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The calculator subtracts the birth date from the reference date in the calendar parts. If the day of the month
+              has gone backwards, it borrows the length of the previous month; if the month count is negative, it borrows a
+              year. That borrowing is what makes the answer match how people actually count age, rather than a simple division
+              of the elapsed days.
+            </p>
+            <p>
+              Alongside the calendar figure, the tool divides the elapsed milliseconds into every convenient unit. Because
+              the actual number of days between two dates is used, leap years are handled automatically and the totals stay
+              accurate over long spans. The next birthday is found by moving the birth month and day into the current year and
+              rolling forward one more year when that date has already passed.
+            </p>
 
-              <p>Once the exact number of full years is established, the calculator determines the remaining months and days by carrying over remainders. If subtracting the days results in a negative number, the algorithm borrows a full month from the month column. Crucially, the algorithm must determine exactly how many days were in that specific borrowed month based on the actual historical calendar. Borrowing February during a leap year will yield twenty-nine days, whereas borrowing March will always yield thirty-one days. This dynamic borrowing mechanism is what makes our calculator perfectly accurate down to the individual day, regardless of how many leap years have occurred since your date of birth.</p>
-
-              <h2 className="text-2xl font-bold mb-3">Practical Applications of Exact Chronological Age</h2>
-              <p>While discovering your age in total hours or weeks is certainly an entertaining novelty, calculating your exact chronological age has profound practical and legal applications. In the medical field, pediatricians strictly rely on exact chronological age—frequently calculated in precise weeks and days rather than years—to accurately track a child's developmental milestones against clinical growth charts. Administering vaccines or prescribing pediatric medications relies entirely on absolute age precision, as a difference of a few weeks can significantly alter a child's physiological tolerance to a specific drug. Furthermore, in specialized geriatric care, precise chronological tracking assists physicians in monitoring the velocity of cognitive decline or bone density loss relative to standard aging curves.</p>
-
-              <p>In the legal and financial sectors, exact age calculation is universally mandatory. Life insurance underwriters utilize complex actuarial tables that price premiums based on an applicant's exact age down to the day the policy is finalized. Crossing a specific age threshold can instantly increase a premium by thousands of dollars over the lifetime of the policy. Similarly, governmental retirement benefits, such as Social Security in the United States, mandate precise age calculations to determine eligibility for early or full retirement payouts. Claiming benefits even one month before reaching the legally mandated full retirement age results in a permanent, mathematically guaranteed reduction in monthly capital distribution. By utilizing our calculator to determine your precise chronological distance from these critical financial milestones, you can make highly informed, mathematically sound decisions regarding your long-term wealth management.</p>
-            </section>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows completed years, and the three-stat bar adds total days lived, the countdown to the next
+              birthday and the age that birthday will bring. The first table lists every unit total together with the weekday
+              of birth, and the second tracks milestones such as ten thousand days, one billion seconds and the next decade
+              birthday, marking each as reached or upcoming.
+            </p>
+            <p>
+              Pay attention to which figure a form wants. Legal age is measured in completed years, so a person is eighteen
+              only from the anniversary, not from the start of the year they turn eighteen. Immigration, insurance and school
+              rules often measure in months, where the totals differ noticeably from years multiplied by twelve because of
+              the leftover months.
+            </p>
+            <p>
+              The reference date field makes the calculator useful for planning as well as recording. Setting it to a future
+              date shows how old someone will be on a wedding day, a competition cut-off or a visa deadline, and setting it to
+              a past date reconstructs ages at historical events. Remember that a February 29 birthday is commonly treated as
+              March 1 in non-leap years for official purposes.
+            </p>
+            <p>
+              Finally, treat the life expectancy figure in the advanced panel as a planning tool rather than a prediction. It
+              drives only the elapsed percentage and remaining years, and it can be changed to any horizon you prefer. Many
+              people find the percentage figure a more motivating way to think about long-term savings and health goals than
+              the raw number of birthday candles.
+            </p>
+          </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/age-calculator" />
-          <PopularCalculators exclude="/age-calculator" />
+          <PopularCalculators exclude="/calculator/age-calculator" />
         </div>
       </div>
     </>
   );
-};
-
-export default AgeCalculator;
+}

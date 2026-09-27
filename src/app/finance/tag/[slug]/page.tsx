@@ -7,9 +7,12 @@ import { getTagBySlug } from "@/domains/finance/data/taxonomy";
 import { site as FINANCE_SITE } from "@/domains/finance/site";
 import type { PostWithRelations } from "@/types/finance/db";
 
+// ISR: 5-minute window; scheduled posts with this tag surface on re-render.
+export const revalidate = 300;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const t = getTagBySlug(slug);
+  const t = await getTagBySlug(slug);
   if (!t) return {};
   return {
     title: `#${(t as any).name} — ${FINANCE_SITE.copyrightName}`,
@@ -26,9 +29,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tag = getTagBySlug(slug);
+  const tag = await getTagBySlug(slug);
   if (!tag) return notFound();
-  const posts = listPosts({ status: "published", tagSlug: slug });
+  const posts = await listPosts({ status: "published", tagSlug: slug });
 
   return (
     <PageShell>

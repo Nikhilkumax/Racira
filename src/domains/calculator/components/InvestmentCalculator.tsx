@@ -1,258 +1,619 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
+import PopularCalculators from "@/components/PopularCalculators";
 import { RotateCcw } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Legend } from "recharts";
-
-/* ─── Interfaces ─────────────────────────────────────────────────────────── */
 
 interface InvInputs {
+  initial: string;
+  monthly: string;
+  annualReturn: string;
+  years: string;
+  inflationRate: string;
+  annualIncrease: string;
+}
+
+const DEFAULTS: InvInputs = {
+  initial: "10000",
+  monthly: "500",
+  annualReturn: "7",
+  years: "20",
+  inflationRate: "3",
+  annualIncrease: "2",
+};
+
+const num = (v: string) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const money = (v: number) => `$${fmt(v, 2)}`;
+
+interface ScheduleRow {
+  year: number;
+  contributions: number;
+  growth: number;
+  balance: number;
+  realBalance: number;
+}
+
+interface ScenarioRow {
+  label: string;
+  rate: number;
+  futureValue: number;
+  realValue: number;
+  highlight: boolean;
+}
+
+interface InvResult {
+  valid: boolean;
+  errorMsg: string;
   initial: number;
   monthly: number;
   annualReturn: number;
   years: number;
   inflationRate: number;
-  annualContributionIncrease: number;
-}
-
-interface InvResult {
+  annualIncrease: number;
   futureValue: number;
-  totalContributions: number;
+  totalContrib: number;
   totalGrowth: number;
   realValue: number;
+  realReturn: number;
   effectiveReturn: number;
-  chartData: { year: number; contributions: number; growth: number; total: number }[];
-  breakdown: { label: string; value: string; highlight?: boolean }[];
-  summaryStats: { label: string; value: string }[];
+  inflationDrag: number;
+  growthMultiple: number;
+  schedule: ScheduleRow[];
+  scenarios: ScenarioRow[];
 }
 
-/* ─── Pure Calculation ───────────────────────────────────────────────────── */
+function projection(initial: number, annualReturn: number, years: number, monthlyStart: number, annualIncrease: number) {
+  const monthlyRate = annualReturn / 100 / 12;
+  const months = Math.round(years * 12);
+  let balance = initial;
+  let contribution = monthlyStart;
+  let totalContrib = initial;
+  const schedule: ScheduleRow[] = [];
+  let yearContrib = 0;
+  let yearStart = initial;
+  let year = 1;
+  const monthsPerYear = 12;
 
-function calcInvestment(inp: InvInputs): InvResult {
-  const monthlyRate = inp.annualReturn / 100 / 12;
-  const totalMonths = inp.years * 12;
-  const inflationMonthly = inp.inflationRate / 100 / 12;
-  const contribGrowth = inp.annualContributionIncrease / 100 / 12;
-
-  let balance = inp.initial;
-  let totalContrib = inp.initial;
-  let monthlyContrib = inp.monthly;
-  const chartData: { year: number; contributions: number; growth: number; total: number }[] = [];
-
-  for (let m = 1; m <= totalMonths; m++) {
-    balance = balance * (1 + monthlyRate) + monthlyContrib;
-    totalContrib += monthlyContrib;
-    if (inp.annualContributionIncrease > 0 && m % 12 === 0) {
-      monthlyContrib *= (1 + inp.annualContributionIncrease / 100);
+  for (let m = 1; m <= months; m++) {
+    balance = balance * (1 + monthlyRate) + contribution;
+    totalContrib += contribution;
+    yearContrib += contribution;
+    if (m % 12 === 0 || m === months) {
+      schedule.push({
+        year,
+        contributions: yearContrib,
+        growth: balance - yearStart - yearContrib,
+        balance,
+        realBalance: 0,
+      });
+      yearStart = balance;
+      yearContrib = 0;
+      year++;
     }
-    if (m % 12 === 0) {
-      const yr = m / 12;
-      chartData.push({ year: yr, contributions: Math.round(totalContrib), growth: Math.round(balance - totalContrib), total: Math.round(balance) });
-    }
+    if (m % monthsPerYear === 0) contribution *= 1 + annualIncrease / 100;
   }
 
-  const futureValue = balance;
-  const totalGrowth = futureValue - totalContrib;
-  const realValue = inp.inflationRate > 0 ? futureValue / Math.pow(1 + inp.inflationRate / 100, inp.years) : futureValue;
-  const effectiveReturn = totalContrib > 0 ? ((futureValue / totalContrib - 1) * 100) : 0;
-
-  const fmt = (n: number) => Math.round(n).toLocaleString("en-US");
-  const fmtD = (n: number) => n.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-
-  const breakdown = [
-    { label: "Initial Investment", value: `$${fmt(inp.initial)}` },
-    { label: "Monthly Contribution", value: `$${fmt(inp.monthly)}/mo` },
-    { label: "Investment Period", value: `${inp.years} years` },
-    { label: "Annual Return", value: `${inp.annualReturn}%` },
-    { label: "Total Contributions", value: `$${fmt(totalContrib)}` },
-    { label: "Investment Growth", value: `$${fmt(totalGrowth)}`, highlight: true },
-    { label: "Future Value", value: `$${fmt(futureValue)}`, highlight: true },
-    { label: "Real Value (Inflation-Adjusted)", value: `$${fmt(realValue)}` },
-  ];
-
-  const summaryStats = [
-    { label: "Future Value", value: `$${fmt(futureValue)}` },
-    { label: "Total Contributions", value: `$${fmt(totalContrib)}` },
-    { label: "Investment Growth", value: `$${fmt(totalGrowth)}` },
-    { label: "Real Value", value: `$${fmt(realValue)}` },
-    { label: "Effective Return", value: `${effectiveReturn.toFixed(1)}%` },
-    { label: "Growth Multiple", value: `${totalContrib > 0 ? (futureValue / totalContrib).toFixed(2) : "0"}x` },
-  ];
-
-  return { futureValue, totalContributions: totalContrib, totalGrowth, realValue, effectiveReturn, chartData, breakdown, summaryStats };
+  return { futureValue: balance, totalContrib, schedule };
 }
 
-/* ─── Defaults ───────────────────────────────────────────────────────────── */
+function compute(inp: InvInputs): InvResult {
+  const initial = num(inp.initial);
+  const monthly = num(inp.monthly);
+  const annualReturn = num(inp.annualReturn);
+  const years = num(inp.years);
+  const inflationRate = num(inp.inflationRate);
+  const annualIncrease = num(inp.annualIncrease);
 
-const DEFAULTS: InvInputs = { initial: 10000, monthly: 500, annualReturn: 7, years: 20, inflationRate: 3, annualContributionIncrease: 2 };
-
-/* ─── Component ──────────────────────────────────────────────────────────── */
-
-export default function InvestmentCalculator() {
-  const [initial, setInitial] = useState(String(DEFAULTS.initial));
-  const [monthly, setMonthly] = useState(String(DEFAULTS.monthly));
-  const [annualReturn, setAnnualReturn] = useState(String(DEFAULTS.annualReturn));
-  const [years, setYears] = useState(String(DEFAULTS.years));
-  const [inflationRate, setInflationRate] = useState(String(DEFAULTS.inflationRate));
-  const [annualIncrease, setAnnualIncrease] = useState(String(DEFAULTS.annualContributionIncrease));
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [result, setResult] = useState<InvResult | null>(null);
-
-  const getInputs = (): InvInputs => ({
-    initial: parseFloat(initial) || 0, monthly: parseFloat(monthly) || 0,
-    annualReturn: parseFloat(annualReturn) || 0, years: parseInt(years) || 1,
-    inflationRate: parseFloat(inflationRate) || 0,
-    annualContributionIncrease: parseFloat(annualIncrease) || 0,
-  });
-
-  const calculate = () => setResult(calcInvestment(getInputs()));
-  const reset = () => {
-    setInitial(String(DEFAULTS.initial)); setMonthly(String(DEFAULTS.monthly));
-    setAnnualReturn(String(DEFAULTS.annualReturn)); setYears(String(DEFAULTS.years));
-    setInflationRate(String(DEFAULTS.inflationRate)); setAnnualIncrease(String(DEFAULTS.annualContributionIncrease));
-    setResult(calcInvestment(DEFAULTS));
+  const blank: InvResult = {
+    valid: false,
+    errorMsg: "",
+    initial,
+    monthly,
+    annualReturn,
+    years,
+    inflationRate,
+    annualIncrease,
+    futureValue: 0,
+    totalContrib: 0,
+    totalGrowth: 0,
+    realValue: 0,
+    realReturn: 0,
+    effectiveReturn: 0,
+    inflationDrag: 0,
+    growthMultiple: 0,
+    schedule: [],
+    scenarios: [],
   };
 
-  useEffect(() => { setResult(calcInvestment(DEFAULTS)); }, []);
+  if ((initial <= 0 && monthly <= 0) || years <= 0) {
+    return { ...blank, errorMsg: "Enter an opening investment or a monthly contribution, and a period above zero." };
+  }
 
-  const faqs = [
-    { question: "What is compound interest?", answer: "Compound interest is interest earned on both the initial principal and previously accumulated interest. Unlike simple interest, compounding accelerates growth over time — the longer you invest, the faster your money grows. This is why starting early is one of the most powerful wealth-building strategies." },
-    { question: "How does monthly contribution affect growth?", answer: "Regular monthly contributions dramatically increase your final balance. A $500/month contribution over 20 years at 7% adds $120,000 in contributions but generates over $160,000 in additional growth due to compounding. The earlier you start contributing, the greater the compounding effect." },
-    { question: "What return rate should I use?", answer: "Historically, a diversified stock portfolio has returned about 7–10% annually before inflation. After inflation (typically 2–3%), the real return is about 4–7%. For conservative portfolios with more bonds, use 4–6%. For aggressive growth portfolios, 8–10% is reasonable over long periods." },
-    { question: "Why does inflation matter?", answer: "Inflation erodes purchasing power over time. $1 million today buys significantly more than $1 million in 20 years. Our calculator shows both nominal and inflation-adjusted (real) values so you understand what your investment will actually be worth in today's dollars." },
+  const { futureValue, totalContrib, schedule } = projection(initial, annualReturn, years, monthly, annualIncrease);
+  const totalGrowth = futureValue - totalContrib;
+  const deflator = Math.pow(1 + inflationRate / 100, years);
+  const realValue = deflator > 0 ? futureValue / deflator : futureValue;
+  const realReturn =
+    inflationRate > -100 ? ((1 + annualReturn / 100) / (1 + inflationRate / 100) - 1) * 100 : annualReturn;
+
+  const growth = 1 + inflationRate / 100;
+  schedule.forEach((row) => {
+    row.realBalance = growth > 0 ? row.balance / Math.pow(growth, row.year) : row.balance;
+  });
+
+  const scenarios: ScenarioRow[] = [annualReturn - 2, annualReturn, annualReturn + 2]
+    .filter((r) => r > -100)
+    .map((rate) => {
+      const r = projection(initial, rate, years, monthly, annualIncrease);
+      return {
+        label: `${fmt(rate, 1)}%`,
+        rate,
+        futureValue: r.futureValue,
+        realValue: deflator > 0 ? r.futureValue / deflator : r.futureValue,
+        highlight: Math.abs(rate - annualReturn) < 0.0001,
+      };
+    });
+
+  return {
+    valid: true,
+    errorMsg: "",
+    initial,
+    monthly,
+    annualReturn,
+    years,
+    inflationRate,
+    annualIncrease,
+    futureValue,
+    totalContrib,
+    totalGrowth,
+    realValue,
+    realReturn,
+    effectiveReturn: totalContrib > 0 ? (futureValue / totalContrib - 1) * 100 : 0,
+    inflationDrag: futureValue - realValue,
+    growthMultiple: totalContrib > 0 ? futureValue / totalContrib : 0,
+    schedule,
+    scenarios,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, prefix, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-2">{title}</div>
+    {children}
+  </div>
+);
+
+export default function InvestmentCalculator() {
+  const [inputs, setInputs] = useState<InvInputs>(DEFAULTS);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
+  const [calcInputs, setCalcInputs] = useState<InvInputs>(DEFAULTS);
+  const [results, setResults] = useState<InvResult>(() => compute(DEFAULTS));
+
+  const set = (key: keyof InvInputs) => (v: string) => setInputs((prev) => ({ ...prev, [key]: v }));
+
+  const runCalculate = () => {
+    setCalcInputs(inputs);
+    setResults(compute(inputs));
+  };
+
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setCalcInputs(DEFAULTS);
+    setResults(compute(DEFAULTS));
+  };
+
+  const breakdownRows: { label: string; value: string }[] = [
+    { label: "Initial investment", value: money(results.initial) },
+    { label: "Monthly contribution", value: money(results.monthly) },
+    { label: "Annual return", value: `${fmt(results.annualReturn, 2)}%` },
+    { label: "Inflation assumption", value: `${fmt(results.inflationRate, 2)}%` },
+    { label: "Contribution increase", value: `${fmt(results.annualIncrease, 2)}% a year` },
+    { label: "Investment period", value: `${fmt(results.years, 1)} years` },
+    { label: "Total invested", value: money(results.totalContrib) },
+    { label: "Investment growth", value: money(results.totalGrowth) },
+    { label: "Projected balance", value: money(results.futureValue) },
+    { label: "Value in today's money", value: money(results.realValue) },
   ];
 
-  const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
+  const faqs = [
+    {
+      question: "How does an investment calculator project growth?",
+      answer:
+        "It compounds the opening balance at the monthly equivalent of the annual return, adds each contribution at the end of the month and repeats that for every month of the term. Contributions can be raised once a year to model a saver whose income grows, and the final balance is then divided by cumulative inflation to show what it would be worth in today's purchasing power.",
+    },
+    {
+      question: "What is the difference between nominal and real value?",
+      answer:
+        "The nominal balance is the number that appears on the statement. The real value discounts that number by inflation over the whole term, so it answers a different question: what standard of living would that money buy today? Over twenty years at 3 percent inflation, prices roughly double, so a nominal balance worth 1.8 times its real value is normal.",
+    },
+    {
+      question: "What annual return should I assume?",
+      answer:
+        "A diversified global equity portfolio has historically returned around 7 percent a year before inflation, though the sequence of returns is never smooth. Bonds have returned less with lower volatility, and cash barely keeps pace with inflation. The scenario table prices the plan two points either side of your assumption so a poor decade does not come as a surprise.",
+    },
+    {
+      question: "Should I increase my contribution every year?",
+      answer:
+        "If your income rises with inflation, an annual increase in your contribution keeps your savings rate constant rather than letting it drift down in real terms. The default of 2 percent a year models that, and the schedule shows how much of the final balance comes from those raises rather than from market growth.",
+    },
+    {
+      question: "Why does the final balance fall short of my mental arithmetic?",
+      answer:
+        "Because inflation quietly eats the difference and because returns arrive unevenly. The projection also ignores taxes, fund fees and the drag of holding cash between investments, all of which reduce the realised outcome. Treat the headline as an optimistic case and the inflation-adjusted figure as the more honest planning number.",
+    },
+  ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Investment Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Finance", href: "/calculator#finance" },
+          { label: "Investment Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Investment Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Initial Investment ($)</label>
-                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={initial} onChange={e => setInitial(e.target.value)} className={ci} /></div>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Investment Plan">
+              <div className="flex flex-col gap-3">
+                <CompactInput
+                  id="inv-initial"
+                  label="Initial Investment"
+                  value={inputs.initial}
+                  onChange={set("initial")}
+                  onEnter={runCalculate}
+                  min="0"
+                  prefix="$"
+                  tooltip="Money already invested at the start."
+                />
+                <CompactInput
+                  id="inv-monthly"
+                  label="Monthly Contribution"
+                  value={inputs.monthly}
+                  onChange={set("monthly")}
+                  onEnter={runCalculate}
+                  min="0"
+                  prefix="$"
+                />
+                <CompactInput
+                  id="inv-return"
+                  label="Annual Return"
+                  value={inputs.annualReturn}
+                  onChange={set("annualReturn")}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  tooltip="Expected average yearly return before inflation."
+                />
+                <CompactInput
+                  id="inv-years"
+                  label="Investment Period"
+                  value={inputs.years}
+                  onChange={set("years")}
+                  onEnter={runCalculate}
+                  min="0"
+                  suffix="years"
+                />
+                <CompactInput
+                  id="inv-inflation"
+                  label="Inflation Rate"
+                  value={inputs.inflationRate}
+                  onChange={set("inflationRate")}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  hint="Used to convert the balance into today's money"
+                />
               </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Monthly Contribution ($)</label>
-                <div className={inp}><span className="pl-3 text-muted-foreground">$</span><input type="number" value={monthly} onChange={e => setMonthly(e.target.value)} className={ci} /></div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Annual Return (%)</label>
-                <div className={inp}><input type="number" value={annualReturn} onChange={e => setAnnualReturn(e.target.value)} step="0.1" className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Investment Period (years)</label>
-                <div className={inp}><input type="number" value={years} onChange={e => setYears(e.target.value)} className={ci} /><span className="pr-3 text-muted-foreground text-sm">yrs</span></div>
-              </div>
-            </div>
+            </SubSection>
 
-            <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)} className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline focus:outline-none">
+            <SubSection title="Contribution Growth">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <svg className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
               </button>
               {showAdvanced && (
-                <div className="flex flex-col gap-3 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">Inflation & Growth</div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-sm font-medium mb-1 block">Inflation Rate (%)</label>
-                      <div className={inp}><input type="number" value={inflationRate} onChange={e => setInflationRate(e.target.value)} step="0.1" className={ci} /><span className="pr-3 text-muted-foreground text-sm">%</span></div>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium mb-1 block">Annual Contribution Increase (%)</label>
-                      <div className={inp}><input type="number" value={annualIncrease} onChange={e => setAnnualIncrease(e.target.value)} step="0.5" className={ci} /><span className="pr-3 text-muted-foreground text-sm">%/yr</span></div>
-                    </div>
+                <div className="bg-secondary/20 border border-border mt-3 rounded-lg p-4 animate-fade-in-up !overflow-visible">
+                  <div className="flex flex-col gap-3">
+                    <CompactInput
+                      id="inv-increase"
+                      label="Annual Contribution Increase"
+                      value={inputs.annualIncrease}
+                      onChange={set("annualIncrease")}
+                      onEnter={runCalculate}
+                      suffix="%"
+                      hint="Raises the monthly contribution once a year"
+                    />
                   </div>
                 </div>
               )}
-            </div>
+            </SubSection>
 
-            <div className="flex gap-3 mt-1">
-              <button onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all shadow-sm">Calculate</button>
-              <button onClick={reset} className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary flex items-center justify-center shrink-0"><RotateCcw className="h-4 w-4" /></button>
+            <div className="flex items-center gap-2 mt-1">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                aria-label="Reset"
+                onClick={reset}
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Future Value</div>
-                <div className="text-4xl font-extrabold tracking-tight text-foreground">${result.futureValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
-                <div className="text-sm text-muted-foreground mt-1">Growth: ${result.totalGrowth.toLocaleString("en-US", { maximumFractionDigits: 0 })} · Real Value: ${result.realValue.toLocaleString("en-US", { maximumFractionDigits: 0 })}</div>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid ? (
+              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-5 text-sm text-destructive font-semibold">
+                {results.errorMsg || "Enter valid investment details to see results."}
               </div>
-
-              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[
-                  ["Contributions", `$${result.totalContributions.toLocaleString("en-US", { maximumFractionDigits: 0 })}`],
-                  ["Growth", `$${result.totalGrowth.toLocaleString("en-US", { maximumFractionDigits: 0 })}`],
-                  ["Multiple", `${result.totalContributions > 0 ? (result.futureValue / result.totalContributions).toFixed(2) : "0"}x`],
-                ].map(([l, v], i) => (
-                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className="text-base font-bold">{v}</div>
+            ) : (
+              <>
+                {/* PRIMARY RESULT CARD */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Projected Balance</div>
+                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{money(results.futureValue)}</div>
+                  <div className="text-sm text-muted-foreground font-medium">
+                    {`After ${fmt(results.years, 1)} years at ${fmt(results.annualReturn, 2)}% a year, worth ${money(results.realValue)} in today's money`}
                   </div>
-                ))}
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Investment Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {result.breakdown.map((r, i) => (
-                    <tr key={i} className={`border-b border-border/50 last:border-0 ${r.highlight ? "bg-primary/5" : ""}`}>
-                      <td className={`py-2.5 ${r.highlight ? "font-bold" : "text-muted-foreground"}`}>{r.label}</td>
-                      <td className={`py-2.5 text-right ${r.highlight ? "font-bold" : "font-semibold"}`}>{r.value}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
-              </div>
-
-              <div className="card-calculator !p-5 border border-border bg-card">
-                <h3 className="text-base font-bold mb-4">Growth Over Time</h3>
-                <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={result.chartData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                    <XAxis dataKey="year" tick={{ fontSize: 11 }} label={{ value: "Year", position: "insideBottom", offset: -2, fontSize: 11 }} />
-                    <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `$${(v / 1000).toFixed(0)}K`} />
-                    <Tooltip formatter={(v: number) => [`$${v.toLocaleString()}`, ""]} />
-                    <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Area type="monotone" dataKey="contributions" stackId="1" stroke="#10b981" fill="#10b981" fillOpacity={0.3} name="Contributions" />
-                    <Area type="monotone" dataKey="growth" stackId="1" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.3} name="Growth" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="bg-muted/30 rounded-lg p-5">
-                <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                  {result.summaryStats.map((s, i) => (
-                    <div key={i} className="flex justify-between"><span className="text-muted-foreground">{s.label}:</span><span className="font-semibold">{s.value}</span></div>
-                  ))}
                 </div>
-              </div>
-            </>)}
+
+                {/* 3-STAT BAR */}
+                <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Invested</span>
+                    <span className="font-extrabold text-foreground">{money(results.totalContrib)}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Investment Growth</span>
+                    <span className="font-extrabold text-foreground">{money(results.totalGrowth)}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">In Today's Money</span>
+                    <span className="font-extrabold text-foreground">{money(results.realValue)}</span>
+                  </div>
+                </div>
+
+                {/* BREAKDOWN */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Plan Inputs</th>
+                        <th className="p-2.5 pr-3 text-right w-[150px]">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {breakdownRows.map((row) => (
+                        <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* RETURN SCENARIOS */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Return Scenario</th>
+                        <th className="p-2.5 text-right">Projected Balance</th>
+                        <th className="p-2.5 pr-3 text-right w-[150px]">In Today's Money</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {results.scenarios.map((row) => (
+                        <tr
+                          key={row.label}
+                          className={`hover:bg-secondary/20 transition-colors ${row.highlight ? "bg-primary/5 font-semibold" : ""}`}
+                        >
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                          <td className="p-2.5 text-right text-foreground">{money(row.futureValue)}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{money(row.realValue)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* GROWTH SCHEDULE */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Year</th>
+                        <th className="p-2.5 text-right">Invested</th>
+                        <th className="p-2.5 text-right text-emerald-600">Growth</th>
+                        <th className="p-2.5 text-right">Balance</th>
+                        <th className="p-2.5 pr-3 text-right w-[130px]">Today's Money</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {results.schedule.map((row) => (
+                        <tr key={row.year} className="hover:bg-secondary/20 transition-colors">
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.year}</td>
+                          <td className="p-2.5 text-right text-foreground">{money(row.contributions)}</td>
+                          <td className="p-2.5 text-right text-emerald-600">{money(row.growth)}</td>
+                          <td className="p-2.5 text-right text-foreground">{money(row.balance)}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{money(row.realBalance)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* SUMMARY STATISTICS */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Nominal Return</span>
+                      <span className="text-base font-bold text-foreground">{`${fmt(results.annualReturn, 2)}%`}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Real Return</span>
+                      <span className="text-base font-bold text-foreground">{`${fmt(results.realReturn, 2)}%`}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Inflation Drag</span>
+                      <span className="text-base font-bold text-foreground">{money(results.inflationDrag)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Return on Contributions</span>
+                      <span className="text-base font-bold text-foreground">{`${fmt(results.effectiveReturn, 1)}%`}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Growth Multiple</span>
+                      <span className="text-base font-bold text-foreground">
+                        {results.growthMultiple > 0 ? `${fmt(results.growthMultiple, 2)}x` : "—"}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Invested</span>
+                      <span className="text-base font-bold text-foreground">{money(results.totalContrib)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Value in Today's Money</span>
+                      <span className="text-base font-bold text-foreground">{money(results.realValue)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Projected Balance</span>
+                      <span className="text-base font-bold text-foreground">{money(results.futureValue)}</span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">How the Investment Calculator Works</h2>
-            <p>This calculator projects the future value of your investments using compound interest with regular contributions. The core formula for each monthly period is: <strong>Balance = Balance × (1 + monthly rate) + Monthly Contribution</strong>. Over time, this creates exponential growth as your returns generate their own returns.</p>
-            <h2 className="text-2xl font-bold mb-3">Why Regular Contributions Matter</h2>
-            <p>Monthly contributions are the single most controllable factor in investment growth. While you can&apos;t control market returns, you can control how much you invest each month. Even small increases — like adding $50/month more — can compound into tens of thousands of dollars over 20+ years.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is an Investment Calculator?</h2>
+            <p>
+              An investment calculator shows what a portfolio becomes if it is left to compound for a chosen number of
+              years. It takes an opening balance, a monthly contribution, an expected annual return and a time horizon,
+              then projects the balance month by month while tracking how much of the result came from money you put in
+              and how much came from market growth.
+            </p>
+            <p>
+              What separates a useful projection from a misleading one is inflation. A balance of half a million dollars
+              in twenty years does not buy what half a million buys today, so this calculator also reports the
+              inflation-adjusted value and the real return, which is the growth rate after the rising cost of living has
+              been stripped out. Contributions can be increased once a year to reflect pay rises, which keeps the plan
+              honest across decades rather than assuming a fixed monthly amount forever.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The nominal return is converted into a monthly rate and applied to the running balance. Each contribution
+              is added at the end of the month and compounds from then on, so early contributions carry the most weight in
+              the final result. Once a year the monthly amount is raised by the contribution-increase percentage, which
+              models a saver who keeps pace with inflation rather than letting their savings rate erode in real terms.
+            </p>
+            <p>
+              Inflation is handled with the Fisher relationship: the real return equals the nominal return minus the
+              inflation rate once both are expressed as growth factors, which is close to a simple subtraction for the
+              small numbers involved but exact for larger ones. The projected balance is then discounted back over the
+              full term to express it in today's purchasing power, and the difference between the two figures is reported
+              as the inflation drag.
+            </p>
+            <p>
+              A scenario table prices the same plan two percentage points above and below your assumed return. That range
+              is a fair representation of a good and a bad decade for a diversified portfolio, and it demonstrates how
+              strongly the outcome depends on the return assumption, which is the input you control least.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the projected balance and the three-stat bar separates total invested, investment
+              growth and the value in today's money. The tables below list the inputs, the return scenarios and the
+              annual schedule, where contributions, growth and the inflation-adjusted balance are shown together for
+              every year.
+            </p>
+            <p>
+              Look for the year in which growth exceeds contributions. Before that point your deposits dominate the
+              balance; afterwards the portfolio does most of the work. Delaying the start by even a few years pushes that
+              crossover later and costs far more than most investors expect, which is the strongest argument for
+              investing early rather than waiting for a perfect entry point.
+            </p>
+            <p>
+              Finally, treat the projected balance as a range rather than a target. Taxes, fund fees and the uneven
+              arrival of returns all reduce the realised total, and a bad sequence of returns in the final years before
+              you need the money matters as much as the average return over the whole term. Compare the nominal schedule
+              with the inflation-adjusted column, and plan your spending around the lower of the two rather than the
+              headline number.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/investment-calculator" />
           <PopularCalculators exclude="/calculator/investment-calculator" />

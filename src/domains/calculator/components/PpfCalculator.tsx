@@ -29,6 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 const PPF_CAP = 150000;
@@ -46,11 +47,14 @@ export default function PpfCalculator() {
   const [rate, setRate] = useState("7.1");
   const [years, setYears] = useState("15");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ yearly, rate, years }));
 
   const result = useMemo(() => {
-    const P = parseFloat(yearly) || 0;
-    const r = (parseFloat(rate) || 0) / 100;
-    const n = Math.max(1, parseInt(years) || 15);
+    const P = parseFloat(calcInputs.yearly) || 0;
+    const r = (parseFloat(calcInputs.rate) || 0) / 100;
+    const n = Math.max(1, parseInt(calcInputs.years) || 15);
     const cappedP = Math.min(P, PPF_CAP);
 
     let balance = 0;
@@ -71,9 +75,12 @@ export default function PpfCalculator() {
       yearData,
       capped: P > PPF_CAP,
     };
-  }, [yearly, rate, years]);
+  }, [calcInputs]);
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ yearly, rate, years });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -131,6 +138,7 @@ export default function PpfCalculator() {
                 setYearly("150000");
                 setRate("7.1");
                 setYears("15");
+                setCalcInputs({ yearly: "150000", rate: "7.1", years: "15" });
                 setShowResults(false);
               }}
             >
@@ -149,7 +157,7 @@ export default function PpfCalculator() {
               <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground">Maturity amount</p>
                 <p className="text-2xl font-bold text-primary">{fmtInr(result.maturity)}</p>
-                <p className="text-xs text-muted-foreground">After {parseInt(years) || 15} years</p>
+                <p className="text-xs text-muted-foreground">After {parseInt(calcInputs.years) || 15} years</p>
               </CardContent>
             </Card>
             <Card>
@@ -297,6 +305,10 @@ export default function PpfCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/ppf-calculator" />
       </div>
     </div>
   );

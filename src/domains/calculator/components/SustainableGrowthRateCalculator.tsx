@@ -85,7 +85,7 @@ export default function SustainableGrowthRateCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.netIncome, vals.totalEquity, vals.dividendsPaid]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

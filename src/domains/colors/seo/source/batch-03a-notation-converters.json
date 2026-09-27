@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "color-format-converter",
+    "keywords": [
+      "color format converter",
+      "convert color to hsl",
+      "packed rgb integer",
+      "oklch notation"
+    ],
+    "intro": "The color format converter prints one color in nine notations at once — HEX, RGB, HSL, OKLCH, HWB, LAB, LCH, a CMYK approximation and a packed RGB integer — each on its own row with its own copy button.",
+    "content": "The color format converter answers a question about notation rather than about color. One color goes in at the top of the page and nine readings come back below it, each on a copy row, so a value that arrived as a screenshot swatch can leave as a token, an API field or a print approximation without a second tool. Every row is derived from the same parsed color, which is why the formats here can never disagree with one another.\n\n- HEX — six digits, upper case, the compact exact form for sRGB tokens.\n- RGB — decimal channels in red, green, blue order, as in rgb(59, 130, 246).\n- HSL — hue in degrees with saturation and lightness as percentages, two decimals deep.\n- OKLCH — perceptual lightness, chroma and hue, the oklch notation modern CSS accepts natively.\n- HWB — hue with whiteness and blackness percentages.\n- LAB and LCH — the CIE Lab axes and their cylindrical form, two decimals on each Lab value.\n- CMYK — four whole-number percentages, written cmyk(76%, 47%, 0%, 4%) for the same blue.\n- Int — the packed rgb integer, one 24-bit number built from the three channels.\n\nThe arithmetic is not hand-written. Parsing, RGB, HSL and the hex formatter come from the culori library this domain already uses, so a value here matches what a browser renders. HWB, LAB, LCH and OKLCH run through explicit conversions of that same parsed color; CMYK is computed in the tool from the 8-bit channels, taking black as one minus the largest channel and each ink as the remainder divided by the non-black share, rounded to whole percents. The packed integer shifts red into the top eight bits, green into the middle and blue into the bottom, which is how (r << 16) + (g << 8) + b turns three channels into one number.\n\nThe caveats are worth knowing before anything is pasted.\n\n- The CMYK figure is arithmetic, not a press profile. No ICC profile is consulted and no soft proof is produced, so treat it as the start of a conversation with a printer rather than a conversion to hand over.\n- The cmyk(...) string is not CSS. Browsers do not parse it; copy it into notes, spreadsheets or documentation tables, never into a declaration.\n- OKLCH prints at the library's full float precision, so that row is long even though the value itself is exact.\n- There is no alpha anywhere. An 8-digit value types into the field but is normalized to its six-digit form, so alpha never reaches a row.\n\nChoose the row by where it is going rather than by preference. Hex is the token format: compact, exact for sRGB, and the spelling every other tool understands. OKLCH is the one to keep when lightness or chroma will be edited later, because its coordinates map onto the things a designer actually changes. Use the panel to convert color to hsl when a person will tune the number by hand in a stylesheet, and to rgb when tooling wants channel integers. The packed integer earns its place when an API, a canvas call or a mobile framework expects one number instead of three. Before two of these notations land in the same file, confirm they round-trip to the same color — rounding is the only place where two spellings of one color can quietly disagree.",
+    "howTo": [
+      "Set the color with the picker field, or type any value the field accepts and let it normalize.",
+      "Read the formats panel: nine rows, from HEX through to the packed integer.",
+      "Copy the row your stylesheet, spec or API needs with the copy button on that row.",
+      "Cross-check a second notation only where a document quotes both, so the pair cannot drift."
+    ],
+    "whenToUse": "Use this when one color has to leave in a notation you do not have. The {{color-format-validator|format validator}} is the reverse direction — it checks a string you already have; the {{css-color-formatter|CSS color formatter}} gives the five CSS-ready spellings without the lab, lch and integer rows; the {{css-hex-color-generator|HEX generator}} is the shortest route when only the token form matters; and the {{alpha-color-generator|alpha generator}} covers the translucency this panel deliberately omits.",
+    "faqs": [
+      {
+        "q": "Why is the CMYK row written as cmyk(...) rather than as four plain numbers?",
+        "a": "It mirrors how the other rows are labelled, but the prefix is not a CSS function. Browsers reject cmyk(), so the string is meant for notes and print conversations rather than for a stylesheet."
+      },
+      {
+        "q": "Is the CMYK conversion accurate enough for print?",
+        "a": "No. It is arithmetic on the 8-bit channels with no ICC profile behind it. It is a sensible starting point for a printer conversation, not a specification."
+      },
+      {
+        "q": "Why does the OKLCH row show so many decimal places?",
+        "a": "That row is printed by the library's CSS formatter at full precision. The value is right; the string is simply longer than the other rows, so trim it if a shorter token is wanted."
+      },
+      {
+        "q": "What is the packed integer for?",
+        "a": "It is the colour written as one 24-bit number, with red in the top eight bits, green in the middle and blue in the bottom. APIs, canvas calls and mobile frameworks often take a colour in exactly that shape."
+      },
+      {
+        "q": "Can I convert a translucent colour here?",
+        "a": "Not on this page. The field normalizes input to a six-digit opaque value, and no row carries an alpha channel. The alpha generator is the tool for rgba and 8-digit hex output."
+      }
+    ]
+  },
+  {
+    "slug": "css-color-formatter",
+    "keywords": [
+      "css color formatter",
+      "format a color as css",
+      "css color values",
+      "css notation"
+    ],
+    "intro": "The css color formatter writes one picked colour as five ready-to-paste strings — upper-case hex, rgb(), rgba(), hsl() and oklch() — so whichever css notation a stylesheet needs is one copy away.",
+    "content": "The css color formatter is the wide page in the notation cluster: rather than producing a single format, it produces five at once. One colour field sits above a panel of five rows — hex, rgb, rgba, hsl and oklch — and every row shows its value in monospace with a copy button beside it. The panel updates as the field changes, so the strings are never stale, and because all five are built from one parsed value they cannot disagree with each other.\n\n- hex — six digits, upper case, the form tokens and diffs are written in.\n- rgb — decimal channels with a space after each comma, as a person would type them.\n- rgba — the four-argument form with the alpha fixed at 1, because the field has no alpha control.\n- hsl — hue in degrees with saturation and lightness as percentages.\n- oklch — perceptual lightness, chroma and hue, printed as native CSS.\n\nThe implementation is deliberately thin, because there is nothing to decide. The five strings come from the same conversion the rest of this domain uses, and the field itself normalises what you type: a three-digit shortcut, a named colour or a pasted rgb() value is parsed and reduced to one six-digit base before any row is rendered. That is why the panel is trustworthy for a handoff document — it cannot print a value it did not parse, and it cannot print five notations of five different colours.\n\nThe page exists for the moment someone needs to format a color as css rather than to convert a colour between systems: five css color values, one source value, and no decisions left to make. When a hand-off document, a README and a stylesheet comment all quote from the same panel, the code that ships and the note that describes it stay in step, and a reviewer comparing the two is comparing two spellings of one colour rather than two colours.\n\nIts limits are the limits of a formatting page.\n\n- No alpha control anywhere, so translucent values are out of scope and the rgba row always reads 1.\n- Bare values, not declarations: the panel hands over the string and leaves the property name to you.\n- No preprocessor or component syntax. SCSS and LESS variable blocks and CSS-in-JS objects belong to the output family rather than to this page.\n- Alpha in an input is discarded rather than shown, because the field normalises to six-digit hex before the rows are built.\n\nReach for this page when a note, comment or README has to quote the same colour in more than one css notation, and reach for a single-notation generator when only one format matters and four of the five rows would be noise. Where the destination needs hwb, lab, lch or a packed integer as well, the format converter covers more ground; where a value already exists and needs checking rather than formatting, the validator is the right gate. The reason to keep this page open during a build is narrower but real: it makes the copy in the document and the value in the stylesheet the same string, which is the failure this family of tools exists to prevent. Five strings from one source colour is a small promise, but it is the promise that stops a token and its documentation from drifting apart.",
+    "howTo": [
+      "Pick the colour with the field at the top of the page.",
+      "Scan the five rows — hex, rgb, rgba, hsl and oklch all update together.",
+      "Copy the notation your stylesheet or document needs with that row's button.",
+      "Paste the value and write the property name yourself; the panel returns strings, not declarations."
+    ],
+    "whenToUse": "Use this when a document or comment needs the same colour in more than one css notation. The {{css-hex-color-generator|HEX generator}}, the {{css-rgb-color-generator|RGB generator}} and the {{css-hsl-color-generator|HSL generator}} are the same panel narrowed to a single expected format, and the {{color-format-converter|format converter}} adds hwb, lab, lch and the packed integer when the destination needs them.",
+    "faqs": [
+      {
+        "q": "How many formats does the panel produce?",
+        "a": "Five: upper-case six-digit hex, rgb(), rgba() with an explicit alpha of 1, hsl() and oklch(). All five are generated from the same parsed colour in one pass."
+      },
+      {
+        "q": "Can I paste a colour value in rather than picking one?",
+        "a": "Yes. The field parses a three-digit or named colour, an rgb() string or a hex value and normalises it to six-digit hex before the rows are built, so the panel always describes one value."
+      },
+      {
+        "q": "Why does the rgba row never carry real transparency?",
+        "a": "The colour field has no alpha control, so every value it produces is opaque. The four-argument form is still printed because some templates, linters and older codebases insist on it."
+      },
+      {
+        "q": "Is oklch safe to paste into a stylesheet today?",
+        "a": "Current evergreen browsers render it natively. Older engines will not parse it, so pair it with a fallback declaration in the same rule if those browsers are still in scope."
+      },
+      {
+        "q": "Where are the SCSS and JavaScript outputs?",
+        "a": "Not on this page — it formats CSS colour values only. Variable blocks and component objects are produced by the CSS variable and export tools in the same domain."
+      }
+    ]
+  },
+  {
+    "slug": "css-hex-color-generator",
+    "keywords": [
+      "css hex color generator",
+      "hex color generator",
+      "uppercase hex value",
+      "hex for tokens"
+    ],
+    "intro": "The css hex color generator turns a picked colour into the canonical six-digit upper-case hex string, with its rgb(), rgba(), hsl() and oklch() equivalents on the rows below.",
+    "content": "Hex is what design tokens, style guides and review diffs are written in, and the css hex color generator exists to produce it without a transcription step: set the colour once and copy the string. The page opens on a single colour field with its swatch, and below it a panel of five rows — hex, rgb, rgba, hsl and oklch — that all move together. The hex row is the headline: six digits, upper case, no shorthand and no alpha, which is the spelling a token file can be diffed against.\n\n- hex — the uppercase hex value, e.g. #3B82F6, which is the row this page is named for.\n- rgb — decimal channels, rgb(59, 130, 246).\n- rgba — the four-argument form with alpha fixed at 1, because the field here has no alpha control.\n- hsl — hue in degrees with two decimals on each channel, hsl(217.22, 91.22%, 59.8%).\n- oklch — perceptual lightness, chroma and hue for modern CSS.\n\nNothing on the page is arithmetic you have to trust by eye. The picker writes the value and the conversions come from the same parser and formatters the rest of the domain uses, which is why the hex row is the six-digit expansion rather than an echo of what you typed. Paste a three-digit shortcut or a named colour into the field and it normalises to that six-digit base before any row is rendered, so the same colour cannot be written two ways across two files. Because the five rows are built from one parsed value, they describe one colour; the difference between them is notation alone.\n\nTreat the first row as the contract: hex for tokens means the same six upper-case digits in the token file, in the spec and in the review diff, and the four other rows exist as context rather than as output. When a palette is transcribed into code, the shortest reliable route is to copy each value through this page in turn rather than to retype the set from a screenshot, because a retyped value is a new value that merely looks close.\n\n- No shorthand and no alpha in the hex row: three-digit input is expanded, and an 8-digit value is normalised to six, so an alpha never survives into the string.\n- The rgba row always reads 1, and the alpha slider lives on another page.\n- No colour names in the output: the panel stops at oklch, so a named colour is not among the results.\n- Nothing is stored: the page opens on its default blue every visit, in one uppercase hex value.\n\nUse it the way a token file uses hex — as the one spelling a system agrees on. Keep it open while a palette is transcribed into code and the values arrive canonical instead of by hand, which is how a case convention survives a second editor. Where the destination wants a ladder rather than a single value, generate the shades with the shade tools and copy each rung through here, since a derived rung that was copied cannot drift the way a rung typed from memory can. When a colour arrives from elsewhere and has to be checked before it is trusted, send it through the validator; when the whole notation set plus the packed integer is needed, the format converter prints more rows from the same colour.",
+    "howTo": [
+      "Set the colour with the picker field, or paste a value and let the field normalise it.",
+      "Read the canonical upper-case hex from the first row of the panel.",
+      "Copy the hex string into a token file, a spec or a stylesheet.",
+      "Use the rgb, hsl or oklch rows only if a destination explicitly asks for that notation."
+    ],
+    "whenToUse": "Use this when hex is the contract — tokens, specs and hand-off documents. The {{css-rgb-color-generator|RGB generator}} and the {{css-hsl-color-generator|HSL generator}} are the same panel aimed at their own notations, the {{color-format-converter|format converter}} covers hwb, lab, lch and the packed integer as well, and the {{color-palette-css-exporter|palette CSS exporter}} writes a whole palette out as variables rather than one value at a time.",
+    "faqs": [
+      {
+        "q": "Why is the hex written in upper case?",
+        "a": "Upper case is the convention most token files and style guides settle on, and one casing keeps a diff readable. Lower case renders identically; only the string differs."
+      },
+      {
+        "q": "What happens if I paste a three-digit hex shortcut?",
+        "a": "It is parsed and expanded to the six-digit form before any row is rendered, so the output is always the canonical spelling rather than a copy of the input."
+      },
+      {
+        "q": "Can the hex row carry alpha?",
+        "a": "No. An 8-digit value is normalised to six digits when it enters the field, so the alpha is dropped before the panel is built. Use the alpha generator when translucency matters."
+      },
+      {
+        "q": "Does the generator check that a colour is readable as text?",
+        "a": "It does not — it formats values and performs no contrast maths. Send the foreground and background pair through the contrast checker for that question."
+      },
+      {
+        "q": "Is hex still the right format for a new design system?",
+        "a": "For storage and tooling compatibility, usually yes: every tool speaks it and it is exact for sRGB. For values that will be adjusted by lightness or chroma, oklch is the more useful coordinate system to keep."
+      }
+    ]
+  },
+  {
+    "slug": "css-rgb-color-generator",
+    "keywords": [
+      "css rgb color generator",
+      "rgb value generator",
+      "numeric channel color",
+      "rgb notation"
+    ],
+    "intro": "The css rgb color generator writes a picked colour as a stylesheet-ready rgb() string, with its rgba(), hex, hsl() and oklch() equivalents on the rows beside it.",
+    "content": "rgb() is the notation of numbers: three channels, unambiguous, and the shape that image editors, screenshot inspectors and API responses all speak. The css rgb color generator produces it from a visual pick — set the colour by eye and copy the numeric channel colour that comes back — which removes the step where a channel gets transcribed wrong. The page is one colour field above a five-row panel: hex, rgb, rgba, hsl and oklch, every row copyable.\n\n- rgb — decimal channels in red, green, blue order, printed as rgb(59, 130, 246), which is the row this page is named for.\n- rgb value generator output is clamped and rounded to whole 0–255 integers, so the string is exactly what a browser computes.\n- rgba — the four-argument form with alpha fixed at 1, since the field has no alpha control.\n- hex — upper-case six digits, for token files that prefer the short spelling.\n- hsl and oklch — the same colour in channel-percentage and perceptual coordinates.\n\nThe conversions come from the shared colour parser and formatters rather than from a second implementation, and the panel is the same component the hex, hsl and formatting pages render. A value typed into the field is parsed and normalised to six-digit hex first, so a pasted rgb() string, a named colour and a hex value all reach the same base before the rows are built; the rgb row then re-expands that base into channel integers. Because the row is derived rather than typed, the channel order cannot be swapped and the channels cannot fall outside 0–255.\n\nReading a value off the panel rather than typing it is what keeps a numeric channel color honest: a hand-typed triple can be one channel out and still look plausible, while a copied string cannot be. Keep one convention for the rgb notation across a project — commas here or spaces there, but not both — so that a search for the notation finds every declaration that uses it.\n\n- No alpha: the rgba row always reads 1, and an alpha in an input value is dropped when the field normalises it.\n- Integer form only: percentage channels and the modern space-separated syntax are not printed here.\n- Bare values, not full declarations, so the property name and any fallback are still yours to write.\n- No image sampling or eyedropper input: the field takes a colour value, not pixels.\n\nReach for it when a spec, a ticket or a design note quotes rgb() and the value has to be exact — the notation exists precisely for that dialogue with tooling. When the task is editing the numbers rather than quoting them, the channel adjusters work the three values directly; when the source is a screenshot or an image, the image picker samples the pixel and hands the value on. Keep one convention in a codebase, because mixing comma and space syntax inside a project makes every future search-and-replace guesswork, and let this page hold the commas so nobody has to remember them. That is a small discipline with a visible payoff: the notation arrives correct, in one spelling, from a value that was chosen rather than recalled.",
+    "howTo": [
+      "Set the colour visually with the picker field.",
+      "Read the rgb() string from the second row of the panel.",
+      "Copy it into the stylesheet, spec or design ticket that quotes channel values.",
+      "Compare against the hex row when a token file has to agree with the stylesheet."
+    ],
+    "whenToUse": "Use this when a spec or a tool quotes rgb(). The {{css-hex-color-generator|HEX generator}} and the {{css-hsl-color-generator|HSL generator}} are the same panel for their own notations, the {{rgb-channel-adjuster|RGB channel adjuster}} edits the three numbers instead of quoting them, and the {{alpha-color-generator|alpha generator}} covers the translucent fourth channel this page leaves at 1.",
+    "faqs": [
+      {
+        "q": "Does it print the 0–255 form or percentages?",
+        "a": "The 0–255 integer form. Percentage channels and the space-separated syntax render identically in a browser but are not among the strings this page prints."
+      },
+      {
+        "q": "Are the channel values rounded when they are converted?",
+        "a": "They are clamped to the valid range and rounded to whole integers, which is what a browser stores internally, so a value copied here matches the rendered colour."
+      },
+      {
+        "q": "Can I get rgba with a real alpha?",
+        "a": "The rgba row is always fully opaque on this page because the colour field has no alpha control. The opacity and alpha tools compute and format the translucent case."
+      },
+      {
+        "q": "Why quote rgb() when hex is shorter?",
+        "a": "Because the surrounding tooling speaks it: images, editors, video and APIs traffic in channel integers, and a spec written in the same units is easier to verify against them."
+      },
+      {
+        "q": "Is rgb() good for editing a colour later?",
+        "a": "It is workable but not perceptual, so equal steps in a channel do not look like equal steps to the eye. For adjustments by lightness or chroma, keep the oklch row instead."
+      }
+    ]
+  },
+  {
+    "slug": "css-hsl-color-generator",
+    "keywords": [
+      "css hsl color generator",
+      "hsl value generator",
+      "hsl notation",
+      "tunable color channels"
+    ],
+    "intro": "The css hsl color generator writes a picked colour as a stylesheet-ready hsl() string, with its hex, rgb(), rgba() and oklch() equivalents on the rows beside it.",
+    "content": "HSL is the notation people think in — hue, saturation, lightness, three nameable knobs — which is why stylesheets full of hsl() values read like intentions rather than arithmetic. The css hsl color generator produces that string from a visual pick: set the colour by eye and copy the hsl notation that comes back. The page is one colour field above a five-row panel — hex, rgb, rgba, hsl and oklch — each row copyable and all five generated together.\n\n- hsl — hue in degrees and saturation and lightness as percentages, printed with two decimals, as in hsl(217.22, 91.22%, 59.8%).\n- The hue is a real number rather than a rounded integer, which is the hsl value generator's honest answer for a colour that did not originate on a whole degree.\n- hex — upper-case six digits, for token files that prefer the short spelling.\n- rgb and rgba — decimal channels, with the alpha in the four-argument form fixed at 1.\n- oklch — perceptual lightness, chroma and hue, for anyone who needs even steps rather than familiar ones.\n\nThe arithmetic is not transcribed by hand. The parser and formatter come from the shared colour library, the field normalises whatever it receives — a three-digit shortcut, a named colour, a pasted rgb() string — into one six-digit base before the panel is built, and the hsl row is derived from that base. Nothing about the row depends on what you typed, which is why the numbers are consistent between visits and why two people copying the same swatch get the same string.\n\nhsl() is at its best where the numbers are the interface. Tunable color channels that a person will adjust — hue for the family, saturation for the temperature, lightness for the state — are exactly what the three components expose, so a hover state or a quiet background variant can be derived by moving one number instead of hunting for a new colour. That is also the notation's trap: because the components move so easily, it is tempting to build a whole scale in them, and equal steps in HSL are not equal steps to the eye.\n\n- Hue carries decimals: a colour picked visually rarely lands on a whole degree, so hsl(217.22, ...) is the correct answer rather than a mistake.\n- No alpha: the rgba row reads 1 and an alpha in the input is discarded when the field normalises the value.\n- Comma syntax only — the modern space-separated form with a slash for alpha is valid CSS but is not printed here.\n- Lightness is not perceptual: two hues at the same lightness can look very different in weight, so hsl() is a poor coordinate system for building even steps.\n\nUse hsl() where the value will be tuned by a human later — a hover state nudged by lightness, a tint derived by lowering saturation — because the three components map onto the things a person changes, and a reviewer can see intent in the numbers instead of decoding a six-digit string. Where the steps have to look even rather than be editable, prefer the oklch row: it is the coordinate system that keeps lightness consistent across hues, which hsl() only approximates. And when only the string matters, the rgb and hex generators print their own rows from the same panel, so the notation you need is never a second lookup away. Derive the family in oklch where the steps have to look even, quote it in hsl where a person has to edit it, and the two habits stop competing.",
+    "howTo": [
+      "Set the colour with the picker field, or paste a value and let the field normalise it.",
+      "Read the hsl() string from the fourth row of the panel.",
+      "Copy it into the stylesheet that styles colours by channel.",
+      "Fall back to the oklch row wherever the value needs perceptually even steps."
+    ],
+    "whenToUse": "Use this when a stylesheet styles colours by hue and lightness — tunable systems, hover states, themed shades. The {{css-rgb-color-generator|RGB generator}} and the {{css-hex-color-generator|HEX generator}} print their own notations from the same panel, the {{hsl-channel-adjuster|HSL channel adjuster}} edits the three numbers rather than quoting them, and the {{color-format-converter|format converter}} covers the lab, lch and hwb spellings when a destination wants those.",
+    "faqs": [
+      {
+        "q": "Why does the hue have decimals instead of a whole number?",
+        "a": "A visually picked colour rarely lands on an exact degree, and the row prints the real value rather than rounding it away. hsl(217.22, 91.22%, 59.8%) is more accurate than a tidied 217."
+      },
+      {
+        "q": "Is hsl() the same as the colour picker's wheel position?",
+        "a": "The hue shares the same 0–360 circle, so the two agree in shape. The saturation and lightness channels are the picker's own, which is why a colour can be reproduced from the string."
+      },
+      {
+        "q": "Can the string carry transparency?",
+        "a": "Not from this page. The rgba row is always opaque because the field has no alpha control; translucent values come from the alpha and opacity tools."
+      },
+      {
+        "q": "Why do two hues with the same lightness look different in weight?",
+        "a": "Because HSL lightness is a mathematical average rather than a perceptual measure. Equal lightness across hues is exactly what oklch is designed for, which is why that row is worth keeping."
+      },
+      {
+        "q": "Should a design system store colours as hsl()?",
+        "a": "It can, and it stays readable, but it is a poor basis for generating even steps. Systems that need predictable ramps usually generate them in oklch or Lab and store hex."
+      }
+    ]
+  }
+]

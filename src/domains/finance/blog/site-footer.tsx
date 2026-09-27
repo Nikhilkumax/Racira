@@ -3,8 +3,8 @@ import { LegalLinks } from "@/components/LegalLinks";
 import { site } from "@/domains/finance/lib/site";
 import { listCategories } from "@/domains/finance/data/taxonomy";
 
-export function SiteFooter() {
-  const cats = listCategories().slice(0, 5);
+export async function SiteFooter() {
+  const cats = (await listCategories()).slice(0, 5);
   return (
     <footer className="mt-24 border-t border-border/60 bg-muted/30">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
@@ -32,9 +32,8 @@ export function SiteFooter() {
         <div>
           <h4 className="mb-3 text-sm font-semibold">Company</h4>
           <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link href="/contact" className="hover:text-foreground">Contact</Link></li>
-            <li><Link href="/finance/admin" className="hover:text-foreground">Admin</Link></li>
+            <li><Link href="/finance/about" className="hover:text-foreground">About</Link></li>
+            <li><Link href="/finance/contact" className="hover:text-foreground">Contact</Link></li>
           </ul>
         </div>
       </div>

@@ -108,7 +108,7 @@ export default function DeadFreightCostCalculator() {
   useEffect(() => { 
     setMounted(true);
     handleCalculate(); 
-  }, [unit]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -155,7 +155,7 @@ export default function DeadFreightCostCalculator() {
                     key={u} 
                     onClick={() => setUnit(u)}
                     className={`h-9 rounded-md font-bold text-xs transition-colors border ${unit === u ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}
-                  >Calculate</button>
+                  >{u}</button>
                 ))}
               </div>
             </div>

@@ -1,0 +1,403 @@
+[
+  {
+    "slug": "css-background-color-preview",
+    "keywords": [
+      "css background color preview",
+      "preview a css color value",
+      "test css background value",
+      "check a css color string"
+    ],
+    "intro": "The CSS background color preview renders any CSS background value in a large block, so a string you are unsure about either shows up correctly or fails visibly.",
+    "content": "- The CSS background color preview is one input and one output: type or paste a CSS background value into the field, and the block beside it renders using exactly that value.\n- There are no options, no colour wheel and no palette, which makes it a fast way to answer a narrow question — does this string do what I think it does?\n- The value is applied as a background rather than parsed as a single colour, so the tool covers more than colours, and the browser does the rendering, so the answer is authoritative rather than an approximation.\n\nThe reason a dedicated preview earns its place is that CSS fails silently. An invalid or unsupported value is discarded by the browser without an error and without anything appearing in the console; the element simply renders as though the declaration were never written, usually showing whatever was underneath it. That silence is what makes colour problems slow to diagnose, because the symptom is a wrong colour rather than a broken page. Isolating the value in a preview removes the ambiguity: if the block renders, the value is fine and the problem lies elsewhere, and if it stays blank, the value itself is the fault.\n\nWhat you can put in the field is broader than the name suggests. Hex codes work, as do the rgb and rgba functions, hsl and hsla, hwb, and the newer lab, lch and oklch notations, along with every standard named colour. Gradients and other background syntaxes work too, since they are valid backgrounds, which means the same block can confirm that a linear gradient runs in the direction you expected or that a radial gradient's centre lands where you intended. Replacing one value with another is a matter of typing over it.\n\nDay to day it gets used for a handful of things. Checking a token before it ships, especially when the value was generated, copied from a tool, or pasted from a message where a character may have been mangled. Comparing two candidates by overwriting one with the other, which is easier when the sample is large. Verifying unusual syntax, such as a colour function with unexpected units or a gradient with several stops, where reading the string tells you less than looking at the result. And confirming that a declaration survived a refactor, which is the case where a silent failure does the most damage.\n\nThe workflow is intentionally minimal: paste, look, adjust. Because the preview updates as you type, there is no apply step and no state to reset, and a correct value is confirmed in under a second. That makes it something to keep open while editing a theme file rather than a tool you visit for a specific task, since the cost of a check is a paste.\n\nA few boundaries are worth stating.\n\n- Only one value is shown at a time, so it does not composite a colour over a chosen surface — that is a separate two-input tool.\n- Nothing is measured: no contrast ratio and no distance figure, so legibility and similarity questions need their own tools.\n- Nothing is validated explicitly either, which is why an unusable string produces an empty block rather than a message explaining what is wrong.\n\nUsed as a css background color preview, it does one job with no ceremony: render the string, so you can see whether it works. When the task is to preview a css color value quickly, to test css background value syntax you rarely write, or simply to check a css color string that came from somewhere untrusted, pasting it here and looking is faster and more reliable than reasoning about it.",
+    "howTo": [
+      "Type a CSS colour value into the field — rgb(59, 130, 246) opens on screen.",
+      "Watch the preview block fill with the value as you type.",
+      "Edit the value to compare one notation against another before it goes into a stylesheet."
+    ],
+    "whenToUse": "Use this preview to confirm that a CSS value renders as intended, particularly after a refactor or when the value came from a generator. Use the format validator for an explicit valid-or-invalid verdict, and the two-input preview when you need a color composited over a background. When the value has to carry text, the {{contrast-checker|contrast checker}} measures what the preview only shows, and when it has to match a name rather than a number, the {{css-named-colors-reference|CSS named colors reference}} is the lookup.",
+    "faqs": [
+      {
+        "q": "Which value formats can I paste?",
+        "a": "Any valid CSS background: hex, rgb, rgba, hsl, hsla, hwb, lab, lch, oklch and named colors, plus gradients, since the value is applied directly as the background."
+      },
+      {
+        "q": "Why does the block stay empty?",
+        "a": "Because the browser discarded the value. Invalid or unsupported CSS fails silently with no error message, so an empty block is the signal that the declaration is the problem."
+      },
+      {
+        "q": "Can I compare two values side by side?",
+        "a": "Not simultaneously. One value is rendered at a time, so comparing candidates means overwriting the field and watching the block change."
+      },
+      {
+        "q": "Does it tell me the contrast ratio?",
+        "a": "No. It shows the rendering only. Use a contrast checker when you need a ratio, and the format validator when you want an explicit yes or no on the string."
+      },
+      {
+        "q": "Does the field keep a history of what I have tried?",
+        "a": "No — one value at a time, and a reload returns the default rgb(59, 130, 246). Anything worth keeping has to be copied into your own notes or the stylesheet you are working on."
+      }
+    ]
+  },
+  {
+    "slug": "css-text-color-preview",
+    "keywords": [
+      "css text color preview",
+      "preview text color on background",
+      "test font color css",
+      "text color contrast preview"
+    ],
+    "intro": "The CSS text color preview renders real text in any color over any background — the fastest way to judge a font color before it ships.",
+    "content": "Color values lie quietly. A foreground that looks perfect on the swatch card can dissolve on the actual background it ships over — and the failure is only visible when real text renders on the real surface. The CSS text color preview closes that gap: set a CSS color value, set a background, and the tool renders live text in the exact pair — the test font color css verdict that swatches cannot give.\n\n- The input being a raw CSS value is the tool's edge.\n- Paste the color exactly as the stylesheet expresses it — a hex, an rgb() call, a var() token's resolved value, even a gradient-adjacent edge case the picker fields would reject — and the preview honors it as the browser would.\n- That makes the tool the verifier of the last mile: the token file says one thing, this shows what it means, on the background it will actually meet.\n- Typography renders at readable sizes with enough weight to judge, so the preview answers the question as a reader will experience it, not as a color-math abstraction.\n\nThe workflow it anchors is the before-commit check: every text/background pair that matters gets one glance here before it ships — body copy on its surface, links on cards, the footer on the footer color. The contrast checker sits one step deeper for the legal verdict: the preview shows what the pair looks like, the checker says whether it passes, and together they catch both the aesthetic and the compliance failure. The color on background preview generalizes the same idea beyond text to UI elements.\n\nReading text against a background is a different judgement from measuring it, and the two disagree often enough to be worth doing separately. Type size, weight, tracking and the length of the run all shift where the threshold of comfort sits: the same pair that is comfortable at twenty-four pixels over two words strains at fourteen over a paragraph, and a heading in a light weight needs more separation than a bold one at the same value. Rendering the pair true, with no scrim and no badge to anchor the judgement, is what surfaces those effects — which is why the order worth using is to preview text color on background first and measure afterwards. If the sample reads badly, no ratio will rescue it; if it reads well, the number is there to confirm the margin is real rather than marginal.\n\nTesting the worst case as well — the smallest size, the lightest weight, the longest line — is what keeps the preview from flattering a pair that only works in the sample.\n\nAs a text color contrast preview instrument it is deliberately unquantified — no ratios, no badges, just the pair rendered true. That is the point: the css text color preview answers how it reads, the moment before the stylesheet commits it, with nothing between your eye and the rendered truth.\n\nKeep the pair that passed with the palette, so a later redesign starts from a combination already read at the right size rather than from a fresh guess.",
+    "howTo": [
+      "Paste or type the CSS color value your stylesheet will use.",
+      "Set the background it will render over.",
+      "Judge the live text rendering — then confirm compliance with the contrast checker if the pair carries text."
+    ],
+    "whenToUse": "Use this as the last-mile visual check for any text/background pair. Use the contrast checker for the WCAG verdict, the color on background preview for elements beyond text, and the format validator when the value itself needs screening before previewing. When the answer has to be a number rather than an impression, the {{contrast-ratio-calculator|contrast ratio calculator}} produces it, and a longer passage that has to stay readable at real sizes is the {{text-readability-checker|text readability checker}}'s subject.",
+    "faqs": [
+      {
+        "q": "What color formats can I paste?",
+        "a": "Anything CSS accepts for a color value — hex, rgb(), hsl(), and named colors among them. The preview renders it as the browser would."
+      },
+      {
+        "q": "Does the preview replace a contrast check?",
+        "a": "No — it shows how the pair reads; the contrast checker supplies the WCAG verdict. Use both: visual judgment and legal number answer different questions."
+      },
+      {
+        "q": "Can I preview multiple sizes of text?",
+        "a": "The preview renders a readable range of sizes and weights so the pair can be judged as body text and as a heading in one look."
+      },
+      {
+        "q": "Why does my color look different here than in my app?",
+        "a": "Surroundings shift perception — simultaneous contrast in action. The rendered pair is identical; the context around it is what differs."
+      },
+      {
+        "q": "Why paste the value in rather than pick it?",
+        "a": "Because the question is whether this particular string works, character for character — a picker would normalise it into something else, and the difference between what a picker writes and what a file contains is exactly what gets tested here."
+      }
+    ]
+  },
+  {
+    "slug": "css-color-variables-generator",
+    "keywords": [
+      "css color variables generator",
+      "css custom property generator",
+      "generate css color variables",
+      "root css variables",
+      "css variable naming"
+    ],
+    "intro": "The CSS color variables generator builds a :root block of custom properties from a list of name-and-color pairs you control, so a palette can be named in the same language your project already uses.",
+    "content": "- The CSS color variables generator starts from three rows — primary, background and foreground — and lets you rewrite, remove or extend them.\n- Every row has a text field for the variable name, a colour field for its value and a button that deletes it; Add creates a new row named color plus a number, seeded with a random colour.\n- The panel beside the rows renders the live result: a :root block containing one custom property per row.\n\nThe name field is the part that earns its keep. Values are easy; naming is a decision, and it is the one that determines whether a palette survives a redesign. Type the name without the leading double dash and the generator adds it, so filling in background produces --background. That keeps the field free of syntax and reduces the temptation to type a stray character that would make the declaration invalid. Because the output is regenerated on every keystroke, you can rename a variable and watch the block change under your fingers.\n\n- There is a real design argument for semantic names here, which makes css variable naming the decision that outlives the palette.\n- A property called --background survives a rebrand, because the surface is still a surface, while --blue-500 becomes a lie the first time the brand moves off blue.\n- The generator does not enforce either approach, so it suits both: model a token set around roles for application chrome, or around scale positions when documenting a palette that has to stay faithful to a source.\n\nThe output is plain and deliberately narrow. Each row becomes one --name: value; declaration inside a single :root rule, with the value exactly as the picker produced it, in hex. Copy takes the whole block, so it drops into a stylesheet as-is. Nothing is validated: two rows with the same name produce two declarations of the same property, and the later one wins, which is how CSS works but is almost never what was intended.\n\nAs a css custom property generator it fits a specific job — you already know what the tokens are called and just want the syntax written out. The palette exporters in this domain take the opposite route: they start from a generated palette and derive names from position, which is useful for speed and awkward when the names need to match a brand guide. For preprocessor syntax there are separate SCSS and LESS generators, and for a JavaScript theme object there is a CSS-in-JS generator. This page is the one where you choose the names as well as the values.\n\nThe limitations are worth knowing before you paste. The generator emits a :root block only: no dark-mode media query, no fallback values, no comments and no grouping. Blank or malformed names are passed through untouched, so an empty field yields a declaration with no property. And every value is a hex colour, so gradients, shadows and numeric scales are out of scope. Within that remit, the shortest way to generate css color variables is to type the names you already use, set the colours, and copy one root css variables block — and the naming discipline it encourages is arguably the more durable benefit.",
+    "howTo": [
+      "Replace the default names — primary, background, foreground — with the tokens your project uses, typed without the leading double dash.",
+      "Set each value with the colour field beside its name.",
+      "Use Add variable for extra tokens, and the delete button to drop any you do not need.",
+      "Copy the generated :root block from the CSS panel."
+    ],
+    "whenToUse": "Use this when the token names are already decided and you need the custom-property syntax written correctly. Use the palette exporters when you want names derived from a generated palette instead, or the SCSS and LESS generators for preprocessor syntax. When the set has to travel as a document rather than a stylesheet, the {{design-token-generator|design token generator}} is the carrier, and one common dialect of the same syntax is written out by the {{shadcn-ui-color-exporter|shadcn/ui color exporter}}.",
+    "faqs": [
+      {
+        "q": "Do I type the double dash in the name field?",
+        "a": "No. Type primary and the generated declaration reads --primary. The prefix is added at output time, which keeps the field free of syntax errors."
+      },
+      {
+        "q": "What happens if two variables share a name?",
+        "a": "Both declarations are emitted. CSS resolves the conflict by letting the later one win, so the second row effectively overwrites the first. Nothing warns you."
+      },
+      {
+        "q": "Does it generate dark-mode variables?",
+        "a": "No. The output is a single :root block. To theme for dark mode you would duplicate the block inside a prefers-color-scheme media query yourself."
+      },
+      {
+        "q": "What format are the values?",
+        "a": "Hex, taken straight from the colour field. The generator does not emit rgb(), hsl() or oklch() values, so translations between notations are not part of the output."
+      },
+      {
+        "q": "Can one variable reference another?",
+        "a": "No — the value field is a colour picker, so every property comes out as its own hex. A chain like --brand: var(--base) is a one-line edit in the copied block."
+      }
+    ]
+  },
+  {
+    "slug": "css-custom-properties-exporter",
+    "keywords": [
+      "css custom properties exporter",
+      "css variables generator",
+      "export palette as css variables",
+      ":root custom properties tool"
+    ],
+    "intro": "The CSS custom properties exporter turns an editable palette into a :root block of CSS custom properties — the css variables generator for tokens the whole stylesheet can share.",
+    "content": "CSS custom properties are how a stylesheet speaks a palette: one :root block declaring the colors, every rule downstream referencing the names. The CSS custom properties exporter produces that block from an editable palette — build the color set in the editor, and the tool emits the :root declaration with each color bound to a generated custom property name, copy-ready for the top of any stylesheet.\n\n- The editor is what makes it more than a formatter: palettes evolve — a colour swapped, a shade added, a name reconsidered — and the exporter regenerates the whole block from the current set, so the snippet never drifts away from the palette it came from.\n- That keeps the source of truth the palette rather than the snippet.\n- Each row carries its name and value, the generated block updates live, and the copy button hands over the complete declaration, :root braces included.\n- The naming follows the brand-slot convention — brand-1, brand-2 — ready to be renamed to the system's vocabulary or used as-is for prototypes that need working names today.\n\nWhat the output buys is the CSS variables architecture in one paste: theme overrides become one redeclaration, dark modes become a scoped swap, and a color change becomes a single-line diff instead of a hunt across the stylesheet. That is the whole argument for custom properties, and the exporter exists to remove the last manual step — writing the block — from adopting it. The shadcn and Bootstrap exporters produce dialect-specific variants of the same idea, the token exporters go to JSON-based design token formats, and the variable generator offers an interactive editor for values already in flight.\n\n- Custom properties changed how palettes live in stylesheets: the values became addressable rather than scattered.\n- A palette held in one block can be re-themed by overriding it, adjusted per context with a scoped declaration, and read by tooling that would otherwise have to parse every rule just to find the values.\n- That structure pays off only if the block is complete and consistently named, which is where hand-written variables usually fall down — a half-migrated palette leaves some colours as literals, and the ones left behind are always the ones that needed changing.\n- Generating the block from the palette guarantees the set is whole and forces the naming decision once rather than per component, which is the narrowness that keeps a theme file honest: as a css variables generator the contract is a palette in and one block out, so whatever is in the palette is addressable and nothing in the stylesheet needs a hex typed into it.\n\nAs an export palette as css variables instrument, the contract is: an editable palette in, an export palette as css variables block out — the :root custom properties tool that turns a color set into the stylesheet's shared vocabulary in one paste.\n\nThe names are the part worth spending time on: a variable called blue-500 will outlive the colour it holds, while one named by role keeps its meaning when the palette changes, and that difference is what makes a theme file maintainable a year later.",
+    "howTo": [
+      "Build the palette in the editor — add, rename or recolor rows as needed.",
+      "Watch the :root block generate live with a custom property per color.",
+      "Copy the block to the top of your stylesheet and reference the names everywhere."
+    ],
+    "whenToUse": "Use this to start the custom-properties architecture from a palette. Use the shadcn or Bootstrap exporters for those dialects, the token generators for JSON design token files, and the variable generator for editing values already declared. When the palette should be written out without the editing rows, the {{color-palette-css-exporter|color palette CSS exporter}} is the plainer carrier, and a block destined for a token pipeline is the {{style-dictionary-format-generator|style dictionary format generator}}'s source format.",
+    "faqs": [
+      {
+        "q": "Can I rename the generated variables?",
+        "a": "Yes — the names are editable in the palette rows, or rename them after pasting; the structure is standard custom properties either way."
+      },
+      {
+        "q": "Does it support dark mode output?",
+        "a": "The exporter emits the single :root block; dark themes are then one redeclaration away — scope the same names under a dark selector and swap the values."
+      },
+      {
+        "q": "How does this differ from the design token generator?",
+        "a": "This emits CSS custom properties directly for stylesheets; the token generator emits the W3C design token JSON for toolchains that consume tokens."
+      },
+      {
+        "q": "Do the variables work in all browsers?",
+        "a": "Custom properties are supported everywhere current; the exporter's output is plain, standard CSS with no preprocessing assumed."
+      },
+      {
+        "q": "Does the copy button include the :root braces?",
+        "a": "Yes — the block is copied whole, braces included, so it pastes into a stylesheet as it stands and every variable is addressable from anywhere below it."
+      }
+    ]
+  },
+  {
+    "slug": "scss-variable-generator",
+    "keywords": [
+      "scss variable generator",
+      "scss variables from colors",
+      "sass color variables",
+      "generate scss variables",
+      "scss color palette code"
+    ],
+    "intro": "The SCSS variable generator writes a palette out as Sass variables in the $name form, one declaration per color, ready to paste into a compiled stylesheet.",
+    "content": "- The SCSS variable generator works from a list of name-and-colour rows and produces one Sass variable per row.\n- It starts with two rows, primary and danger, and Add appends another, seeded with a random colour; each row pairs a text field with a colour field and a delete button.\n- The output panel headed SCSS updates as you type, with a copy button for the whole block.\n\nThe syntax is the reason a dedicated page exists. Sass declares variables with a dollar sign, so a name typed as primary comes out as a dollar-prefixed declaration followed by the hex value. It compiles to the same result as the CSS custom properties a browser understands, with the important difference that Sass variables are resolved at build time and then cease to exist, whereas custom properties remain available at runtime. Choosing between them is a real decision: Sass variables are simpler and work everywhere the preprocessor runs, while custom properties can be changed by JavaScript or by a media query without a rebuild.\n\nOne property of Sass naming is worth knowing before you type, and it is the kind of thing that causes confusing bugs. Sass treats hyphens and underscores as equivalent in identifiers, so a variable declared as a hyphenated name and referenced with an underscore is the same variable. That is usually convenient — it means the choice of separator does not matter — but it also means two names that look different in a source file can silently be one variable, which is worth remembering when a value appears to change on its own.\n\nThe output is minimal by design: one declaration per row, no imports, no maps, no comments and no nesting. That makes it easy to splice into an existing variables partial, and it means the block is not a standalone Sass file. Values are written as hex, which also means they can be used with Sass's own colour functions — lightened, darkened, mixed, adjusted — so derived shades can be computed at build time from a single declared value rather than listed individually here.\n\nIn practice the shortest workflow is to name the tokens the way the project already refers to them, set the values, and copy. If the palette lives in a design system with published names, use those names rather than inventing new ones; the whole value of a variable is that the name at the call site is stable. Migrating from another preprocessor is a matter of keeping the names and changing the sigil, which is a mechanical change this generator removes the risk from.\n\n- Limits: it exports colour variables only, with no mixins, functions, maps or control directives, and there is no validation — a blank name produces a declaration with no variable while a duplicate name quietly produces two declarations of the same variable.\n- The values are always hex, with no rgb, hsl or channel-based output.\n- Within those bounds, this is the quickest way to generate scss variables from colors, and for anyone assembling a set of sass color variables as a scss color palette code block it is a list of names and one copy — with the identical row interface driving the LESS and CSS-in-JS outputs, so the same naming decisions carry across if the build tooling changes.",
+    "howTo": [
+      "Replace the default names with the tokens your stylesheet uses.",
+      "Set each value with the field beside its name, or add rows with Add.",
+      "Copy the block from the SCSS panel into your variables partial.",
+      "Use Sass colour functions such as lighten or mix on the values where derived shades are needed."
+    ],
+    "whenToUse": "Use this when a palette has to reach a stylesheet compiled with Sass. Use the CSS variables generator when the tokens should stay available at runtime, or the LESS generator for that preprocessor's syntax. When the values should travel as data rather than as build-time variables, the {{design-token-generator|design token generator}} writes them as a token document, and a palette that already exists elsewhere can come in through the {{palette-importer|palette importer}} instead of being retyped row by row.",
+    "faqs": [
+      {
+        "q": "How are the variables written?",
+        "a": "With a dollar sign, in the form Sass expects. Typing primary produces a variable whose name is primary, followed by the hex value."
+      },
+      {
+        "q": "Do hyphens and underscores matter in names?",
+        "a": "No — Sass treats them as equivalent, so a hyphenated declaration and an underscore reference are the same variable. Convenient, and occasionally confusing when two names turn out to be one."
+      },
+      {
+        "q": "How does this differ from CSS custom properties?",
+        "a": "Sass variables are resolved at build time and disappear from the output. Custom properties survive into the browser, which is why they can be changed at runtime and Sass variables cannot."
+      },
+      {
+        "q": "Can I use Sass colour functions on the values?",
+        "a": "Yes. The values are plain hex, so lighten, darken, mix and similar functions can be applied in your own stylesheet rather than generating every shade here."
+      },
+      {
+        "q": "Can I paste an existing SCSS block in and edit it here?",
+        "a": "No — the rows are the source rather than a parsed stylesheet. Pasting the values into the fields regenerates the block, which is usually slower than editing the copied output directly when the change is a small one."
+      }
+    ]
+  },
+  {
+    "slug": "less-variable-generator",
+    "keywords": [
+      "less variable generator",
+      "less variables from colors",
+      "less color variables",
+      "generate less variables",
+      "less color palette code"
+    ],
+    "intro": "The LESS variable generator writes a palette out as LESS variables in the @name form, ready to paste into a stylesheet that is compiled with Less.",
+    "content": "- The LESS variable generator presents a list of name-and-colour rows and writes one variable declaration for each.\n- Two rows are provided to begin with, primary and danger, and Add appends more, each seeded with a random colour.\n- Every row has a text field for the name, a colour field for the value and a delete button; the output panel, headed LESS, updates as you type and a copy button takes the whole block.\n\nThe syntax Less expects is the reason a dedicated page is useful. Where Sass declares a variable with a dollar sign, Less uses an at sign, so a name typed as primary becomes @primary followed by a colon and the value. Both compile to the same result; only the notation differs, and moving a palette between the two is a mechanical change that a generator removes the risk from. Values are written as hex, so they can also be used directly in colour functions that Less provides.\n\n- Naming is worth a moment before copying, because Less is more permissive than JavaScript about what a variable name can contain.\n- Hyphens are legal, so surface-muted is as valid here as surfaceMuted would be — unlike the CSS-in-JS generator in this domain, where a hyphen produces code that will not run.\n- The convention worth adopting is consistency with the rest of the stylesheet rather than any particular spelling, since the whole point of a variable is that the name is the thing call sites depend on.\n\nThe output is deliberately minimal: one declaration per row, nothing else. No @import, no namespace, no comments and no grouping. That makes it easy to splice into an existing variables file, and it means the block is not a complete Less file on its own. Because the values are hex, they can also be composed with Less's colour functions — lightened, darkened, mixed — at the point of use, which is often the better pattern than generating every tint here.\n\nIn practice the shortest workflow is to name the tokens the way the project already refers to them, set the values, and copy. If you are migrating from Sass, keep the same names and change nothing else; the declarations will drop into the existing file and the call sites stay valid because only the sigil changed.\n\nWhat it does not do is mixins, nesting, guards or any other Less language feature — this is a colour variable exporter, and every line is a name bound to a hex value. There is no validation, so a blank name produces a declaration with no variable and a duplicate name silently produces two declarations of the same variable, with the later one winning. And it emits one flat list rather than a scoped structure.\n\nWithin those limits it does the one job cleanly. To generate less variables from colors is the whole job, and it removes the sigil errors and typing that come with transcribing a palette by hand. For anyone generating less variables from colors — or simply assembling a set of less color variables as a less color palette code block for a compiled stylesheet — the workflow is a list of names, a copy, and a paste. The same row interface also drives the SCSS and CSS-in-JS outputs, so the naming decisions carry across if the project later changes preprocessors.",
+    "howTo": [
+      "Replace the default names with the tokens your stylesheet uses, hyphens are fine in Less.",
+      "Set each value with the field beside its name, or add rows with Add.",
+      "Copy the block from the LESS panel into your variables file."
+    ],
+    "whenToUse": "Use this when a palette has to reach a stylesheet compiled with Less. Use the SCSS generator for Sass syntax, or the CSS variables generator when the tokens should be custom properties instead of build-time variables. The {{css-in-js-color-object-generator|css-in-js color object generator}} is the sibling whose syntax will not tolerate the hyphens this one accepts, and a token set that has to stay available at runtime is the {{css-custom-properties-exporter|CSS custom properties exporter}}'s output.",
+    "faqs": [
+      {
+        "q": "How are the variables named?",
+        "a": "With an at sign — typing primary produces @primary. Less uses @ where Sass uses $, and this page writes the Less form."
+      },
+      {
+        "q": "Can names contain hyphens?",
+        "a": "Yes. Less allows them, so surface-muted is valid. The CSS-in-JS generator is the one that breaks on hyphenated names, because those become unquoted object keys."
+      },
+      {
+        "q": "Is the output a complete Less file?",
+        "a": "No. It is one declaration per row with no imports, comments or nesting, designed to be pasted into an existing variables file."
+      },
+      {
+        "q": "Can I use Less colour functions on the values?",
+        "a": "You can — the values are plain hex, so functions such as lighten and mix can be applied at the point of use in your own stylesheet."
+      },
+      {
+        "q": "Can I import the block into another Less file?",
+        "a": "Yes — it is plain declarations, so importing the file brings every variable with it. The generator itself emits no import line, which keeps the output to the part you actually need."
+      }
+    ]
+  },
+  {
+    "slug": "css-in-js-color-object-generator",
+    "keywords": [
+      "css in js color object generator",
+      "styled components colors",
+      "javascript color object",
+      "generate colors object",
+      "styled-components palette"
+    ],
+    "intro": "The CSS-in-JS color object generator turns a list of named colors into a JavaScript module exporting a colors object, ready for styled-components and other CSS-in-JS setups.",
+    "content": "- The CSS-in-JS color object generator works from a pair of rows — primary and danger by default — where each row pairs a name field with a colour field and a delete button.\n- Add appends another row named color plus a number, seeded with a random colour.\n- The panel on the right, headed STYLED, shows the module the current rows produce: an import line for styled-components, then an exported colors object with one single-quoted value per row.\n\nWhat you get out is a plain ES module. Drop it into a theme file and import the object wherever a component needs a token; the keys you typed become the accessors, so a row named primary is reached as colors.primary. That is the whole contract, and it keeps the colour source in one place rather than scattered through component files as literals.\n\n- Two details in the generated code deserve attention before you ship it, and the first is the import line.\n- It brings in css from styled-components, but the exported object uses nothing from that package — the import is scaffolding that matches the conventional look of a theme file rather than something the object needs, so delete it if the file does not otherwise use the tagged template helper.\n- The second is more consequential: the keys are emitted unquoted, so every name has to be a valid JavaScript identifier, and a hyphen breaks it.\n- That bites the moment you press Add, because the generated name is color-3 style — paste that output without renaming and the module will not parse. Rename to camelCase or snake_case, and treat any name you type that would not survive as an unquoted key the same way.\n\nValues are always single-quoted hex strings, so the object is portable between bundlers and needs no runtime parsing. There is no nesting, no theme provider wiring, no dark and light variants and no alpha. If you need those, the object is a starting point rather than a finished theme — which is a reasonable division of labour, since the colours are the part that changes most often and the structure around them is usually project-specific.\n\nCompared with its neighbours, this generator is aimed squarely at JavaScript consumers. The SCSS and LESS variable generators in this domain share the same row interface but emit preprocessor syntax, the native export generators emit Android, iOS, Flutter and Figma formats, and the design token generator writes the W3C JSON shape. As a css in js color object generator it is the shortest route to a styled components colors object, a styled-components palette or a javascript color object in a file you can import immediately, and it keeps the naming decision in your hands rather than deriving names from position. If the thing you actually need is to generate colors object entries for a theme file, the row interface here does that directly, one name and one value at a time.\n\nOne thing to plan for if the file is TypeScript: the output is untyped, so you will want as const on the object or an explicit interface if other code relies on the key names. Beyond that, the output is exactly what it looks like — an import, an object, and your colours, ready to copy.",
+    "howTo": [
+      "Rename the default primary and danger rows, or add new ones, using names that would be valid as unquoted JavaScript keys.",
+      "Set each colour with the field beside its name.",
+      "Copy the module from the STYLED panel.",
+      "Paste it into a theme file and delete the import line if styled-components is not otherwise used there."
+    ],
+    "whenToUse": "Use this when colours need to reach components through JavaScript — a styled-components theme, an emotion object or a plain config module. Use the SCSS or LESS generators for preprocessor syntax, or the design token generator for the W3C JSON format. A lighter JavaScript shape for the same values is the {{color-object-generator|color object generator}}, and when the object becomes a component library's theme rather than a palette, the {{chakra-ui-color-exporter|chakra ui color exporter}} writes that dialect.",
+    "faqs": [
+      {
+        "q": "Which syntaxes are supported?",
+        "a": "This page emits a JavaScript module for styled-components. The same row interface also exists for SCSS and LESS variables, and for Android, iOS, Flutter and Figma exports, on their own pages."
+      },
+      {
+        "q": "Why did my copied object fail to parse?",
+        "a": "Because the keys are written unquoted, so they must be valid JavaScript identifiers. A hyphenated name such as the auto-generated color-3 is invalid — rename it to camelCase or snake_case."
+      },
+      {
+        "q": "Do I need the styled-components import?",
+        "a": "No. The object itself uses nothing from styled-components, so the import line is boilerplate and can be deleted unless the same file uses the tagged template helper."
+      },
+      {
+        "q": "Can I express lighter and darker variants?",
+        "a": "Not in this output. Every row becomes one flat hex value. For tints and shades of the same token, generate them separately and add them as extra rows."
+      },
+      {
+        "q": "Can the object hold nested groups rather than one flat list?",
+        "a": "Not from the rows — one row is one key at the top level. Nesting is a manual edit of the copied object, where a second level of braces is all it takes."
+      }
+    ]
+  },
+  {
+    "slug": "design-token-generator",
+    "keywords": [
+      "design token generator",
+      "w3c design tokens",
+      "color tokens json",
+      "design tokens color",
+      "export design tokens"
+    ],
+    "intro": "The design token generator exports a palette as a W3C design tokens JSON document, wrapping each colour as a named token with its value and type so it can be fed into a token pipeline.",
+    "content": "The design token generator pairs a palette editor with a JSON output panel, and the document it writes is the W3C design tokens shape that transform pipelines are built to consume. The editor starts with five colours and gives each one a colour field and a delete button, plus an Add color button that appends a randomly seeded swatch. Every edit is reflected immediately in the panel beside it, which renders the full token document, and a copy button takes the whole thing.\n\n- The structure of the output is a single color group whose keys are positional — brand-1 through brand-5 for the default five, extending as you add colours.\n- Each entry is an object carrying the colour in upper-case hex as its value and the string color as its type.\n- That shape is what the design token format is for: the type tells a consuming pipeline that this token is a colour, so it can be transformed into the right output for each target platform rather than being treated as an opaque string.\n\nOne detail is worth checking against your own pipeline before you paste. The emitted keys are the bare value and type pair, whereas the current draft of the format module prefixes these with a dollar sign, using $value and $type. Many toolchains accept both forms, but stricter ones — and the newer releases of the common transform libraries built around the draft — expect the prefixed spelling. If your build complains that a token has no value, that single character is usually the reason.\n\nNames are the other thing to decide rather than accept. Positional keys are excellent for a first pass, because you get a valid document in seconds, and poor for a long-lived token set, because brand-3 tells a future reader nothing. The usual fix is to rename after generation: --primary becomes color.primary or color.brand.primary in the document, and the group structure does most of the work of organising them. Since the type is declared once per token, a rename is safe.\n\nIn use, this fits neatly between a palette and a repository. Generate or paste in the colours, copy the document into a tokens file, and let the build step turn it into CSS variables, platform constants or a theme object. With five colours regenerated per session it is also a quick way to see whether a palette has enough spread: five entries that differ only in lightness will look repetitive in the JSON, which is a useful early signal that the palette needs more range.\n\n- What it does not do is scoped or nested tokens, gradients, numeric scales or the other token types a full design system eventually needs — this is a colour exporter, and every entry has the same type.\n- There is no validation of the output beyond well-formed JSON, and the group name is fixed at color.\n- Within those limits, the fastest way to export design tokens from a palette is right here: build the set, copy the design tokens color document, and adjust the keys to match your naming convention on the way through — and if it is color tokens json you need rather than a broader token set, that narrowing is an advantage, since the document stays small, valid and immediately transformable.",
+    "howTo": [
+      "Edit the five starting colours, or add more with Add color.",
+      "Watch the design tokens panel regenerate on every change.",
+      "Copy the JSON document into your tokens file.",
+      "Rename the positional keys and add the dollar prefix to value and type if your pipeline expects it."
+    ],
+    "whenToUse": "Use this when a palette needs to leave the browser as a machine-readable token document. Use the CSS variables exporter when you only need custom properties, or the SCSS and LESS generators for preprocessor variables. When the keys should be meaningful names you type rather than positional ones, the {{figma-token-generator|figma token generator}} produces that variant of the same document, and a lighter token shape for a smaller job is the {{color-token-generator|color token generator}}'s output.",
+    "faqs": [
+      {
+        "q": "What token shape does it emit?",
+        "a": "A single color group whose keys are positional — brand-1, brand-2 and so on — each holding the hexadecimal value and the type color."
+      },
+      {
+        "q": "Why does my token pipeline reject the output?",
+        "a": "Likely the key spelling. The generator writes value and type; the current draft of the format prefixes them with a dollar sign as $value and $type. Add the prefix if your toolchain expects the newer form."
+      },
+      {
+        "q": "Can the token names be changed?",
+        "a": "Not inside the tool — keys are generated from position. Rename them in the copied document; the group structure is unchanged by a rename."
+      },
+      {
+        "q": "Does it support token types other than color?",
+        "a": "No. Every entry is declared as a color, which is the point of the page. Spacing, typography and numeric scales are outside its scope."
+      },
+      {
+        "q": "Is the JSON pretty-printed or minified?",
+        "a": "Pretty-printed with two-space indentation, so the file can be read and diffed in review. A pipeline can minify it later without any change to the structure."
+      }
+    ]
+  },
+  {
+    "slug": "figma-token-generator",
+    "keywords": [
+      "figma token generator",
+      "figma color tokens",
+      "figma tokens json",
+      "export colors to figma",
+      "figma variables colors"
+    ],
+    "intro": "The figma token generator turns a list of named colors into a token JSON document, so a palette can be exported to Figma with the names you choose rather than positional keys.",
+    "content": "The figma token generator is a two-column tool: a list of name-and-colour rows on the left, and the JSON document they produce on the right. It starts with two rows, primary and danger, and the Add button appends further rows named color plus a number, seeded with a random colour. Every row has a text field for the name, a colour field for the value and a delete button, and the JSON regenerates as you type.\n\nWhat comes out is a small document with a single color group, and one entry per row keyed by the name you supplied. Each entry carries the value as an upper-case hex string and the type declared as color. That shape is the design-token interchange format: because each token declares its type, a consuming pipeline knows it is dealing with a colour and can transform it for whatever target it is writing, instead of passing a bare string along and guessing.\n\n- The naming field is what separates this tool from a palette exporter.\n- Palette exporters generate their keys from position — brand-1, brand-2 and so on — which is fast and produces a document that says nothing about meaning; here the key is whatever you type, so primary and danger arrive as primary and danger, and the token file reads like the naming convention the product already uses.\n- That makes it the right tool when the names exist already, in a brand guide or a Figma library, and the job is to transcribe them rather than invent them.\n\nMatch the names to how the receiving library is organised before you copy. A Figma variable collection typically groups colours by theme and role, so prefixing names consistently — surface, surface-muted, accent, accent-strong — keeps the import predictable and avoids a flat list of unrelated keys. There is no renaming inside the tool, so a name typed badly is a name regenerated; the document is small enough that re-typing a key is rarely a problem.\n\nTwo details to check against your pipeline. The emitted keys are the bare value and type pair, while the current draft of the format module prefixes them with a dollar sign as $value and $type; many tools accept both, while newer releases built on the draft expect the prefix, and a missing value error usually means that single character. There is also no validation beyond well-formed JSON: an empty name field produces an entry with a blank key, and duplicate names collapse into one entry because JSON objects cannot repeat a key.\n\n- What the tool does not cover is everything else a design system eventually needs — spacing, radii, typography, nesting and theme variants — and every entry it writes is typed as a colour.\n- Used as a figma token generator for a palette, though, it does the one job cleanly: name the colours, copy the figma tokens json, and the figma color tokens are ready to import as figma variables colors with the names already in place — which is what makes it the shortcut when the task is to export colors to figma from a design system that already has a vocabulary.",
+    "howTo": [
+      "Replace the default primary and danger names with the token names your library uses.",
+      "Set each value with the colour field, or add further rows with Add.",
+      "Copy the JSON document from the panel on the right.",
+      "Add the dollar prefix to value and type if your pipeline expects the current draft spelling."
+    ],
+    "whenToUse": "Use this when you already have token names and need them exported as a colour token document. Use the design token generator when you would rather start from a palette and accept positional keys, or the CSS variables exporter when you only need custom properties. A lighter name-and-value document for JavaScript is the {{color-json-generator|color JSON generator}}'s output, and a theme object written for a component library is what the {{chakra-ui-color-exporter|chakra ui color exporter}} produces.",
+    "faqs": [
+      {
+        "q": "When should I use this instead of the design token generator?",
+        "a": "The document shape is the same. The difference is naming: here you type each token name, while the palette-based generator derives positional keys such as brand-1 from the swatch order."
+      },
+      {
+        "q": "What if two rows have the same name?",
+        "a": "The later one wins, because JSON objects cannot hold duplicate keys. Name collisions are worth checking before the document leaves the tool."
+      },
+      {
+        "q": "Does the output need the dollar prefix?",
+        "a": "The generator writes value and type. The current draft of the format module uses $value and $type, so add the prefix if your import expects the newer spelling."
+      },
+      {
+        "q": "Can it export other token types?",
+        "a": "No. Every entry is declared as a color. Spacing, typography and numeric tokens are outside the scope of this page."
+      },
+      {
+        "q": "Does the case of the names matter?",
+        "a": "Only to the destination — the keys are written exactly as typed, so kebab-case and camelCase round-trip alike. What matters is matching the vocabulary the library already uses, since the point is to transcribe names rather than invent them."
+      }
+    ]
+  },
+  {
+    "slug": "style-dictionary-format-generator",
+    "keywords": [
+      "style dictionary format generator",
+      "design token json generator",
+      "w3c design tokens export",
+      "token file from palette"
+    ],
+    "intro": "The Style Dictionary format generator emits a palette as W3C design token JSON — the design token json generator for toolchains that consume tokens, not stylesheets.",
+    "content": "- Style Dictionary made design tokens portable: one JSON source of truth, transformed into every platform's format.\n- The Style Dictionary format generator produces that source — build a palette in the editor, and the tool emits the W3C design token JSON structure with each colour typed, named and grouped.\n- The result is a file a token pipeline can read without a conversion step in front of it.\n\nThe output follows the W3C design token format's shape: a color group holding each token with its value and its explicit $type, so toolchains can validate and transform without guessing. That typing is the point — the design token json generator output is not a stylesheet snippet but structured data, machine-readable by Style Dictionary itself, by Figma plugins, by the growing set of token pipelines that treat the format as their interchange. The generated names follow the brand-N convention, renameable to the system's vocabulary, and the whole block is one copy from the editor's live output.\n\nThe workflow it serves is the token-adopter's first mile: a palette exists — a brand hex, a derived set, a mood board's harvest — and the pipeline needs it in token form before any transformation can run. Editing lives in the palette editor rows; the JSON regenerates live; the token file lands in the repo and the pipeline does the rest. From there the platform-specific exporters take over: the CSS custom properties exporter for the stylesheet side, the native exporters for mobile platforms, the Figma exporter for the design tool — all consuming what this tool produces.\n\nToken pipelines live or die on the source file. Everything downstream — the platform transforms, the build steps, the generated stylesheets and native files — is a function of what that source says, so a file in a format the tooling has to guess at produces surprises all the way down. The W3C design token format exists to remove that guessing: types are declared, references between tokens are explicit, and composite values have a defined shape. Generating the file from a palette rather than hand-authoring it keeps the naming and the types consistent with the values, and it means a change to the palette propagates through the pipeline instead of needing a matching manual edit in the token file. For a team standing up its first token layer, starting from a correctly typed source also makes the platform outputs predictable, which is what turns a one-off script into a system.\n\n- As a w3c design tokens export instrument it is deliberately the source-format tool: a token file from palette in one pass, typed and structured for machines.\n- For teams standing up a token pipeline, this is the first file — and the honest one, because everything downstream transforms it rather than contradicting it.\n- The group name is fixed at color and the keys are positional, so any renaming happens once, in the file, before the pipeline ever runs.\n\nKeep the source in version control as the single point of truth and let the platform outputs be generated rather than edited: the moment an output is patched by hand the pipeline has a second, undocumented source, and every later change becomes a reconciliation instead of a rebuild.",
+    "howTo": [
+      "Build the palette in the editor — each row becomes a token.",
+      "Review the generated W3C token JSON, names and $type declarations included.",
+      "Copy the JSON into your token pipeline's source directory."
+    ],
+    "whenToUse": "Use this when a token pipeline — Style Dictionary or compatible — is the destination. Use the CSS custom properties exporter for stylesheet-only needs, the JSON generator for lighter formats, and the platform exporters once the pipeline transforms this source. The same structure without the pipeline framing comes from the {{design-token-generator|design token generator}}, and a document whose keys are typed names rather than positions is written by the {{figma-token-generator|figma token generator}}.",
+    "faqs": [
+      {
+        "q": "What is the W3C design token format?",
+        "a": "The emerging standard for design tokens as JSON — typed values, grouped structure — that Style Dictionary and a growing tool ecosystem consume. The output here follows that shape."
+      },
+      {
+        "q": "Can I rename the generated token names?",
+        "a": "Yes — edit the names in the palette rows and the JSON regenerates, or rename in the file after pasting; the structure is what the pipeline cares about."
+      },
+      {
+        "q": "Does Style Dictionary consume this file directly?",
+        "a": "Yes — the typed color tokens are exactly what Style Dictionary transforms expect, so the file drops into a standard configuration as the source."
+      },
+      {
+        "q": "How is this different from the JSON color generator?",
+        "a": "The JSON generator emits a simple name-value object; this emits the typed, grouped W3C token structure that pipelines validate and transform."
+      },
+      {
+        "q": "What group do the tokens come out under?",
+        "a": "color — the same single group the design token generator writes, since both produce the W3C structure from the same editor. Renaming the group is a one-word edit at the top of the file."
+      }
+    ]
+  }
+]

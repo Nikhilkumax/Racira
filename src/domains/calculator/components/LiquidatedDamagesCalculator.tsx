@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import PopularCalculators from "@/components/PopularCalculators";
 
 // Define input types
 interface Inputs {
@@ -481,6 +482,10 @@ const LiquidatedDamagesCalculator: React.FC = () => {
           contesting liquidated damages claims effectively.
         </p>
       </section>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/liquidated-damages-calculator" />
+      </div>
     </div>
   );
 };

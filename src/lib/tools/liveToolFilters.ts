@@ -1,4 +1,5 @@
 import { CALCULATOR_STUB_SLUGS } from "./calculatorStubSlugs";
+import { isAliasSlug } from "@/domains/calculator/canonicalSlugs";
 
 const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
 
@@ -36,6 +37,8 @@ const ALWAYS_COMING_SOON_DOMAINS = new Set([
  * - registry status is "live", AND
  * - it is not one of the known calculator stub slugs (live-tagged but rendering
  *   "Value A" template UI or with no wired component), AND
+ * - it is not a canonical ALIAS slug (duplicate-content slug that renders the
+ *   same component as its canonical sibling — canonical tag instead of sitemap),
  * - its domain is not component-gated (no tool in those domains actually renders).
  * `domain` is the URL route segment (e.g. "photo", "3d", "calculator").
  */
@@ -46,6 +49,7 @@ export function isLiveTool(
   if (!tool) return false;
   if (tool.status !== "live") return false;
   if (tool.slug && stubSlugs.has(tool.slug)) return false;
+  if (domain === "calculator" && isAliasSlug(tool.slug)) return false;
   if (domain && COMPONENT_GATED_DOMAINS.has(domain)) return false;
   return true;
 }

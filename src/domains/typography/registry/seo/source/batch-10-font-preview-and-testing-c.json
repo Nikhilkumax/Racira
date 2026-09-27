@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "variable-font-sliders",
+    "keywords": [
+      "variable font sliders",
+      "optical size",
+      "font variation settings",
+      "registered property"
+    ],
+    "intro": "The variable font sliders drive the real axes of the variable families this domain loads, one slider per axis, and report what each axis is doing. Optical size is the interesting one, since it changes the drawing of the face rather than its weight.",
+    "content": "The variable font sliders expose one control per axis for each variable family in the catalogue, render the sample at the resulting settings and export either form of the CSS.\n\n- Seven families carry variable axes here: five with a weight axis alone, and three that add an optical size axis, with one of those also offering a softness axis.\n- Weight runs from 300 to 700 in steps of ten, optical size ranges differ per family, and the softness axis runs from 0 to 100 in steps of five.\n- Every axis is driven through font variation settings in the preview, so moving a slider changes the rendering immediately.\n- Two CSS modes are offered: the raw tag form, and the registered properties form which writes font-weight and enables automatic optical sizing.\n- The axis reference table lists each tag, its name, its range and the registered CSS property that maps to it, and marks the axes that have no standard property at all.\n\nThe distinction the panel draws is the reason the tool exists. A raw tag list overrides everything it touches and does not participate in inheritance or the cascade, while a registered property behaves like any other CSS property and inherits properly. Weight has a registered property, optical size has one, width maps to font stretch, and italic maps to font style, but a custom axis such as softness has no property and can only be reached through the raw tag form. The optical size readout builds on the same idea: it compares the axis value with the actual type size and calls the pairing matched when the two are within a quarter of each other, because an optical size axis is designed to track the rendered size, and a face set at a display optical size in body text looks wrong in a way that is hard to name.\n\n- Only the axes declared for each family are exposed, so a variable file with an axis the domain does not request cannot be driven here.\n- The ranges come from the webfont request rather than from the file itself, so a face whose real range is narrower will clamp silently.\n- The preview always enables automatic optical sizing, which means the optical size slider and the rendered size interact.\n- Weight readouts are a number on an axis, not a named weight, so 500 here is not guaranteed to match the family's medium.\n- Nothing reports the file size cost of a variable family against a static subset of the same faces.\n\nUse it when a variable family is being evaluated, when an optical size axis needs understanding before it is used in production, or when a custom axis has to be seen before a design commits to it. The readout comparing the axis with the rendered size is the part that most often changes a decision. Where the axes have to be exported into a stylesheet for the whole family, the CSS variable font builder writes the full set, and where the axis ranges need to be read out of a file, the variable font axis exporter does that. The CSS variable font builder produces the declarations, the variable font axis exporter reads real axis ranges from a file, and the font rendering preview covers how the result rasterises at small sizes.",
+    "howTo": [
+      { "step": "Choose the variable family, which resets the sliders to that family's defaults and shows how many axes it declares." },
+      { "step": "Move each axis slider and watch the sample, remembering to compare the optical size readout against the type size as you change it." },
+      { "step": "Switch the CSS mode and compare the two forms, then read the axis table to see which of the axes has no registered property." },
+      { "step": "Copy the exported CSS and prefer the registered properties wherever the table lists one, since they inherit." }
+    ],
+    "whenToUse": "Reach for it when a variable family is being assessed before it is adopted, when an optical size axis needs to be seen at several sizes, or when a custom axis such as softness has to be justified to a reviewer. The size against axis readout settles the last of those quickly. For production declarations the {{css-variable-font-builder|CSS variable font builder}} writes the whole family, the {{variable-font-axis-exporter|variable font axis exporter}} reads the real ranges out of a file rather than from the request, and the {{font-previewer|font previewer}} is the tool for judging a static setting instead.",
+    "faqs": [
+      {
+        "q": "Why prefer the registered properties over raw tags?",
+        "a": "Because they behave like normal CSS. A registered property such as font-weight or font-optical-sizing inherits, participates in the cascade, and can be changed by a media query without disturbing other axes, whereas a raw tag list replaces the entire axis state at once and overrides whatever else was set. The raw form is for axes with no standard property, such as softness."
+      },
+      {
+        "q": "What is optical size actually changing?",
+        "a": "The drawing of the face, not its scale. A variable family with an optical size axis carries a set of design parameters that shift from text proportions to display proportions, with the counters opening and the strokes thinning as the size grows. That is why setting a display optical size in body copy looks subtly wrong rather than obviously broken."
+      },
+      {
+        "q": "Why does the readout call a pairing mismatched?",
+        "a": "Because it compares the axis value with the rendered size and flags them as mismatched when they differ by more than a quarter of the size. With automatic optical sizing enabled the two normally track each other, so a mismatch means the axis has been moved by hand away from what the size would choose. Sometimes that is deliberate, and the readout is the record of it."
+      },
+      {
+        "q": "Do all seven families have the same axes?",
+        "a": "No. Five of them expose only a weight axis, two add optical size, and one carries a third softness axis on top of both. The axis count is reported for whichever family is selected, and the sliders are rebuilt when the family changes, so the control set always matches the file being tested."
+      },
+      {
+        "q": "Is a variable font always the lighter choice?",
+        "a": "Not necessarily. A variable file carries every weight and axis, so it is usually heavier than a single static face and lighter than the set of statics it replaces. The tool does not weigh the file, so the trade has to be made on the real figures: one variable file against the three or four weights a design actually uses."
+      }
+    ]
+  },
+  {
+    "slug": "font-rendering-preview",
+    "keywords": [
+      "font rendering preview",
+      "text rendering",
+      "subpixel antialiasing",
+      "font smoothing"
+    ],
+    "intro": "The font rendering preview shows the same string under each text rendering value and reports what the choice does in each engine. Browsers expose few controls over rasterisation, and the ones that exist matter most at small sizes and in light-on-dark settings.",
+    "content": "The font rendering preview renders a sample under each text rendering value, alongside a light-on-dark pane and a small-size comparison, and exports the declarations behind the combination.\n\n- Four rendering values are offered: the browser default, the legibility hint, the geometric precision value, and the speed value.\n- The default balances speed and shape fidelity, with kerning applied where the font provides it.\n- The legibility hint enables kerning and optional ligatures, and is reported as largely equal to the default in current engines because it began as a hint rather than a precise instruction.\n- Geometric precision scales glyph outlines without hinting, which is what makes text scale smoothly at fractional sizes.\n- The speed value disables kerning and ligatures together, and is described as rarely being the right choice on the web.\n\nThe second pane is the one that explains most rendering complaints. Subpixel antialiasing needs opaque dark text on a light background, so light-on-dark text is always rasterised with grayscale smoothing, and that is why the same weight looks optically heavier in a dark theme. The generated CSS therefore writes grayscale smoothing explicitly, which is the setting that keeps light-on-dark text from looking thick and slightly fuzzy. The small-size comparison at eleven, thirteen and fifteen pixels is the other half of the story: hinting and rasterisation differences are almost invisible at 28px and quite visible at 11px, so the value that looks identical in a large preview can change how a caption reads. Family, size and weight are all adjustable, since rendering behaviour differs with the weight of the strokes as well as with the engine. Every pane renders with the value currently in force, so the light-on-dark panel and the small-size rows are views of the selected setting rather than fixed reference comparisons.\n\n- The rendering values are hints to the engine rather than instructions, so two browsers may render the same value differently.\n- Font smoothing properties are non-standard even where they are implemented, and no engine outside the WebKit and Blink families honours them.\n- The preview always applies grayscale smoothing, so the subpixel path is described rather than shown side by side.\n- The small-size comparison uses three fixed sizes, so an intermediate size has to be judged by changing the main size slider.\n- Nothing reports the platform the page is being viewed on, and macOS, Windows and Linux rasterise text differently regardless of these values.\n\nUse it when text looks too heavy in a dark theme, when a caption has to be checked at a small size, or when someone has proposed the speed value and the cost needs showing. The light-on-dark pane is usually the deciding one. Where the underlying face choice is the question rather than its rasterisation, the font previewer covers the setting, and where the loading behaviour is at fault the web font tester covers the fallback state. The CSS font stack builder assembles the family list the rendering applies to, the web font tester covers what the reader sees before the file arrives, and the system font stack generator covers the platform-native alternative.",
+    "howTo": [
+      { "step": "Choose the family, size and weight you want to judge, since rendering differences are smallest at moderate sizes and regular weights." },
+      { "step": "Switch between the four text rendering values and compare, keeping in mind that the differences are hints rather than guaranteed outcomes." },
+      { "step": "Read the light-on-dark pane and then the small-size comparison, which are the two contexts where the choice actually shows." },
+      { "step": "Copy the CSS, keeping the grayscale smoothing declaration if the design has a dark theme." }
+    ],
+    "whenToUse": "Reach for it when type looks too heavy on a dark background, when a small caption needs checking, or when someone proposes one of the exotic rendering values and the real effect needs demonstrating. It is also the fastest way to show why the same weight reads differently in light and dark themes. For the face itself, the {{font-previewer|font previewer}} covers the setting, the {{css-font-stack-builder|CSS font stack builder}} assembles the family list, and the {{web-font-tester|web font tester}} covers the state before the webfont arrives.",
+    "faqs": [
+      {
+        "q": "Should I use the legibility value or the default?",
+        "a": "The default, in almost every case. The legibility value began as an instruction to enable kerning and ligatures, and current engines do that by default, so the two are reported as largely equivalent. The remaining difference is historical rather than visual, which is why the panel calls it a hint rather than a precise setting."
+      },
+      {
+        "q": "Why does light text on a dark background look bolder?",
+        "a": "Because of how the text is rasterised. Subpixel antialiasing needs opaque dark text on a light surface, so light-on-dark text falls back to grayscale smoothing, which spreads the glyph slightly and makes the strokes read as heavier. The effect is not a weight change, which is why adjusting the weight to compensate can make light text look thin in another context."
+      },
+      {
+        "q": "What does geometric precision change?",
+        "a": "It scales glyph outlines without hinting, so text stays smooth at fractional sizes and in transforms where hinted outlines would snap to pixel boundaries. That makes it useful in SVG and in scaled containers, and it costs some sharpness at very small sizes, where hinting exists precisely to keep stems crisp."
+      },
+      {
+        "q": "Is the speed value ever correct?",
+        "a": "On very large amounts of text where rendering cost is the bottleneck, which in practice means it is almost never the right choice on the web. It disables kerning and ligatures, so spacing between letter pairs stops being corrected, which is visible immediately in a face with strong kerning pairs. The panel labels it rarely correct for that reason."
+      },
+      {
+        "q": "Why does the same CSS render differently on another machine?",
+        "a": "Because rasterisation is a platform behaviour. The values the tool sets are honoured differently, or partly ignored, by each engine, and the operating system's own text stack sits below that. Two machines can render the same weight with visibly different stroke thicknesses, which is why the small-size comparison and the dark pane are worth checking rather than assuming."
+      }
+    ]
+  },
+  {
+    "slug": "font-pairing-suggester",
+    "keywords": [
+      "font pairing suggester",
+      "rule based scorer",
+      "brief fit",
+      "ranked shortlist"
+    ],
+    "intro": "The font pairing suggester scores every heading and body combination in the catalogue against three rules, ranks them and shows its reasoning. It is a shortlist machine rather than an oracle: it removes the combinations that fail structurally and leaves the choice to the preview.",
+    "content": "The font pairing suggester scores every ordered pair of faces in the catalogue against a brief, then returns a ranked shortlist of eight and previews the top three.\n\n- Five briefs are offered: editorial and long-form reading, product interface, brand and marketing, technical documentation, and a warm humanist brief.\n- Each candidate pair is scored by a rule based scorer, and every ordered combination is evaluated rather than a hand-picked list.\n- The first rule adds three points when the two faces differ in classification, because the roles have to read apart before anything else matters.\n- The second rule scores the brief fit: a serif or display heading suits an editorial page, a sans or monospace heading suits a product or technical one, and the warm brief spreads its favour more evenly.\n- The third rule removes a monospace heading outside a technical brief and adds a point for a display heading, since display faces are expressive by design.\n\nThe shortlist is the useful part, and the reasoning column is what makes it arguable rather than opaque. Each row states why it ranked, either naming the classification difference and the brief fit or admitting that the two faces share a classification and would have to be differentiated by weight instead. Only eight pairs are shown from the full set of ordered combinations, and clicking a heading face in the table loads that pair into the preview below, where the heading sample and the body sample are rendered together at their respective sizes. Each row also reports its score, so the gap between the top suggestion and the fifth is visible and a close score can be treated as a tie to be judged visually.\n\n- The rules are structural and simple: they say nothing about how the two faces look together on the page.\n- Classification comes from the catalogue's own labels, so a face whose label is broad, such as a serif that behaves like a display face, is scored on the label rather than on its behaviour.\n- The scorer ranks heading and body roles only, so caption, interface and quotation roles are outside it.\n- Weights, sizes and measures are not considered, so a pair that scores well can still be set badly.\n- Eight suggestions are shown from the full set, and the underlying order is broken by score rather than by diversity, so a shortlist can contain similar combinations.\n\nUse it when a project needs a pairing quickly and the alternatives keep collapsing into the same handful of familiar combinations, or when a client wants the reasoning behind a pairing rather than an assertion. The why column is what makes the second case work. Where an editorial pair has to be chosen deliberately rather than suggested, the serif and sans pairing tool presents curated combinations with their rationale, and where a display and body pairing is the shape of the brief, the display body pairing tool reports the size ratio. The serif sans pairing tool and the display body pairing tool cover those two shapes directly, the multi font comparison measures faces against each other, and the heading and caption pairing covers the third role a page usually needs.",
+    "howTo": [
+      { "step": "Choose the brief that describes what the page is for, which re-scores every combination immediately." },
+      { "step": "Read the shortlist from the top, paying more attention to the why column than to the scores." },
+      { "step": "Click a heading face in the table to load that pair into the preview, then judge it on the heading and body samples together." },
+      { "step": "Take the two or three pairs that survive the preview and set them at real sizes before deciding, since the ranking is structural rather than visual." }
+    ],
+    "whenToUse": "Reach for it when a pairing is needed quickly, when the shortlist keeps producing the same familiar combinations, or when the reasoning behind a pairing has to be shown to someone else. Where the brief is editorial and the choice should be deliberate, the {{serif-sans-pairing-tool|serif sans pairing tool}} presents curated combinations with their rationale, the {{display-body-pairing-tool|display body pairing tool}} covers a hero line against body copy, and the {{font-harmony-visualizer|font harmony visualizer}} shows how the chosen faces sit together across several roles.",
+    "faqs": [
+      {
+        "q": "How many combinations are actually scored?",
+        "a": "Every ordered pair of faces in the catalogue with no face paired with itself, which is the count reported in the results box. The shortlist is the top eight of those. Because it is an exhaustive scan rather than a curated list, a suggestion can surface that no one would have typed into a search."
+      },
+      {
+        "q": "Why does the first rule reward a classification difference?",
+        "a": "Because the fastest way for two roles to read apart is for the two faces to be visibly different in kind, and hierarchy that relies only on size is easier to lose. A serif heading over a sans body separates by shape as well as by size, so the pairing survives being set at sizes closer together than you intended."
+      },
+      {
+        "q": "What happens when both faces share a classification?",
+        "a": "The pair is still scored, but the reasoning column says so plainly and suggests differentiating by weight instead. That is a legitimate approach, and it is the one most single-family systems use. The suggester reports it rather than hiding it, so a same-classification pair is visible as a deliberate choice rather than a scoring accident."
+      },
+      {
+        "q": "Can I trust the ranking as a quality judgement?",
+        "a": "Not as a quality judgement, because the scorer knows nothing about how the faces look together. It knows classification and the brief, which is enough to remove combinations that fail structurally. The preview of the top three is where the real decision happens, and a lower-scoring pair that previews well is a better answer than the top one."
+      },
+      {
+        "q": "Why does a monospace heading lose points outside a technical brief?",
+        "a": "Because a monospaced heading makes a specific promise about the content, namely that it is code or data. Outside a technical brief that promise is wrong, and no amount of spacing will make it read as a general heading. The penalty is a way of encoding that judgement rather than a statement about monospace design."
+      }
+    ]
+  },
+  {
+    "slug": "serif-sans-pairing-tool",
+    "keywords": [
+      "serif sans pairing tool",
+      "fallback test",
+      "voice contrast",
+      "curated pairings"
+    ],
+    "intro": "The serif and sans pairing tool puts one serif in the heading role and one sans in the body role, previews them on live text and shows what each face falls back to. It is the classic pairing made explicit, including the part most tools skip: what happens when a webfont never arrives.",
+    "content": "The serif sans pairing tool takes one serif for headings and one sans for body copy, renders the pair on your own text and exports the two custom properties that hold the roles.\n\n- The serif list is drawn from the serif faces in the catalogue and the sans list from its sans faces, so the two roles cannot be filled with the wrong kind of face.\n- Heading and body samples are both editable, which matters because a pairing that works on a headline can fail on a long paragraph.\n- The live pairing renders the heading in the serif at 30px bold and the body in the sans at 15px, so the size relationship is visible as well as the shapes.\n- A fallback test panel renders the same strings in the alternatives the two roles will use, a serif fallback of Georgia and Times New Roman, and a system interface stack for the sans.\n- Six curated pairings are offered with a note explaining why each works, and clicking one loads it into the preview.\n\nThe fallback test is the part that makes the tool useful beyond the preview. A serif heading is the role most likely to be seen in its fallback, because headings are usually styled at a weight and size where a substitute is obvious, and the panel shows the substitution in the two stacks the CSS actually declares. The voice contrast readout is the other judgement it offers: a serif against a sans gives a large contrast in voice, which is what makes the pairing read as deliberate rather than accidental. The curated list covers the range of those decisions, from a high-contrast display serif over a neutral grotesque, through warm pairs with similar tone, to a slab heading over a quiet body face where the sturdiness comes from the heading alone.\n\n- The two roles are restricted to serif and sans, so a pair involving a display or monospace face has to be tried elsewhere.\n- Sizes in the preview are fixed, so the pairing is judged at one size relationship rather than across a range.\n- The curated pairings are suggestions from the catalogue rather than rules, and their notes describe an intention rather than a measurement.\n- The fallback test shows two stacks only, so a project with a different fallback strategy is not represented.\n- Nothing checks the two faces for clashing details such as a similar x-height or contradictory stress, which is a judgement the preview supports but does not automate.\n\nUse it when an editorial or corporate page needs a heading and body pairing chosen deliberately, when the fallback behaviour of a serif heading needs checking before it ships, or when a client asks why a serif heading over a sans body is the conventional answer. The curated list with its reasons is the quickest way to explain that. Where the shortlist has to be generated rather than chosen, the font pairing suggester ranks every combination, and where the pairing is a hero line rather than a heading, the display body pairing tool reports the size ratio. The display and body pairing tool covers the hero case, the font pairing suggester generates the shortlist, and the brand font stack builder assembles the fallback chain for production.",
+    "howTo": [
+      { "step": "Pick the serif for headings and the sans for body copy, or load one of the curated pairings and edit from there." },
+      { "step": "Paste a real heading and a real paragraph into the two samples, since the pairing has to survive a long line rather than a sound bite." },
+      { "step": "Read the live pairing for the shape contrast, then read the fallback test to see what each role becomes without its webfont." },
+      { "step": "Copy the two custom properties and the role rules, which declare the families once and apply them by heading level." }
+    ],
+    "whenToUse": "Reach for it when a page needs a heading and body pairing decided on purpose, when the fallback for a serif heading has to be checked, or when the case for the conventional serif-over-sans split has to be made in one screen. The fallback panel is the part most reviews skip and later regret. For a generated shortlist the {{font-pairing-suggester|font pairing suggester}} ranks every combination, the {{display-body-pairing-tool|display body pairing tool}} handles a hero and body pairing with its size ratio, and the {{multi-font-comparison|multi font comparison}} measures the candidates against each other.",
+    "faqs": [
+      {
+        "q": "Why test the fallback at all?",
+        "a": "Because a heading is the role where a webfont substitute is most visible, and a pairing chosen for its shapes can collapse into something quite different when the serif is replaced by a system face. The fallback panel renders the actual alternatives declared in the CSS, so the pairing is judged in both states rather than only in the one the designer sees on a fast connection."
+      },
+      {
+        "q": "What does voice contrast mean here?",
+        "a": "The difference in character between the two faces. A serif against a sans gives a large contrast, which is what lets the hierarchy read at sizes closer together. Two faces of the same kind give a smaller contrast, and the pairing then relies on weight and size to separate the roles, which is workable but less forgiving."
+      },
+      {
+        "q": "Should the serif always be the heading face?",
+        "a": "No, but it is the conventional arrangement and the one this tool is built around. The reversed pairing, a sans heading over a serif body, is common in editorial design and reads as more contemporary. The tool restricts the roles to serif headings and sans body, so the reversed arrangement has to be built from the same faces in the opposite order."
+      },
+      {
+        "q": "How are the suggested body sizes chosen?",
+        "a": "They are the conventional band: 16 to 18px with a line height between 1.5 and 1.65. That figure is a starting point rather than a measurement, since the right size depends on the face's x-height and on the measure. The panel states it because body copy under a large heading is where pairings most often lose their proportion."
+      },
+      {
+        "q": "Can I use the same family for both roles?",
+        "a": "Not in this tool, since the two lists are filtered by classification. A single-family system is a legitimate and common approach, and it is covered by the pairing suggester, which scores same-classification pairs and reports that they would need to be differentiated by weight instead."
+      }
+    ]
+  },
+  {
+    "slug": "display-body-pairing-tool",
+    "keywords": [
+      "display body pairing tool",
+      "display sizes",
+      "size ratio",
+      "hierarchy"
+    ],
+    "intro": "The display and body pairing tool tests a hero line against the body copy beneath it, which is the pairing a landing page actually needs. Display faces are designed for a handful of words at large sizes, so the question is not whether the two faces suit each other but where the size relationship lands.",
+    "content": "The display body pairing tool sets a headline in a display or serif face and supporting copy in a sans or serif face, then reports the size ratio between them and the CSS that holds the composition.\n\n- The display role draws on display and serif faces, and the body role on sans and serif faces, so a hero line cannot be set in a text-only face by accident.\n- Display size runs from 24px to 180px in two-pixel steps, defaulting to 64px, and body size from 10px to 40px, defaulting to 16px.\n- Headline and supporting copy are both editable, and the composition renders them in the relationship they will have on a page rather than separately.\n- The ratio of display size to body size is reported, with a verdict: below twice the size the hierarchy is called too close, above five times it is extreme, and between the two it reads as clear and deliberate.\n- The exported hero rule uses a clamp so the display size scales down on a narrow viewport while the body size stays fixed in rem.\n\nThe ratio is the measurement worth having, because a display and body pairing fails more often on proportion than on shape. Two faces that look wrong together are usually two faces set at the wrong sizes, and the two-to-five band is where the jump reads as intended rather than accidental. The display classification is reported alongside, which matters because a display face and a serif set at the same head size behave differently: a display face is drawn for a few words at large display sizes and starts to look crowded as the line grows, while a serif scales down in a heading role far more gracefully. The generated hero rule also handles letter spacing by classification, applying a slightly positive value to a display face and a slightly negative one to a serif, since condensed capitals and heavy display forms usually want opening up while serif headings want closing.\n\n- Only two roles are modelled, so a caption or an interface role has to be judged elsewhere.\n- The ratio bands are conventions rather than measurements of the specific faces, and a narrow display face can work at a smaller jump than the band suggests.\n- The clamp in the hero rule uses a fixed viewport-based middle value, so a project with different breakpoints should adjust it rather than adopt it.\n- Weight is fixed at 700 in the preview, which suits display faces and may be too heavy for a serif heading.\n- Nothing checks the pairing across several roles at once, so the relationship between the hero, a section heading and a caption is not shown.\n\nUse it when a landing page or a hero section is being composed, when a headline at a very large size needs checking against the copy beneath it, or when a display face is being proposed and the size it needs to justify itself has to be known. The ratio readout answers that last question directly. Where the pairing is heading over body rather than hero over body, the serif and sans pairing tool is the closer fit, and where the shortlist is still open the pairing suggester ranks the candidates. The serif and sans pairing tool covers the editorial arrangement, the heading and caption pairing adds the third role, and the type hierarchy planner settles how many levels a page needs before sizes are fixed.",
+    "howTo": [
+      { "step": "Choose the display face and the body face, then paste the real headline and supporting copy rather than placeholders." },
+      { "step": "Set the display size and the body size and read the ratio verdict, moving whichever value is easier to change until the hierarchy reads clearly." },
+      { "step": "Check the display classification readout, since a display face at a long line behaves differently from a serif at the same size." },
+      { "step": "Copy the hero rule and adjust the clamp's middle value to your own breakpoints before it goes into the layout." }
+    ],
+    "whenToUse": "Reach for it when a hero section is being composed, when a headline at display size needs checking against the copy beneath it, or when a proposed display face needs to be justified at a size that suits it. Where the roles are heading and body rather than hero and body, the {{serif-sans-pairing-tool|serif sans pairing tool}} is the closer tool, the {{heading-caption-pairing|heading caption pairing}} covers the third level down, and the {{font-pairing-suggester|font pairing suggester}} ranks candidates when the shortlist is still open.",
+    "faqs": [
+      {
+        "q": "What ratio should a hero headline have against its body copy?",
+        "a": "Somewhere between two and five times the body size. Below twice, the headline does not dominate and the composition reads as a paragraph with a larger first sentence; above five, the jump starts to look like two different documents stacked. The band is wide because a narrow display face can carry a smaller jump than a wide one."
+      },
+      {
+        "q": "Why is a display face different from a serif in the heading role?",
+        "a": "Because it is drawn for a few words. A display face carries tightly spaced capitals and heavy forms that look confident at three words and crowded at twelve, while a serif heading scales down towards text sizes without losing its composure. That is why the classification is reported next to the size: the same headline length suits the two faces at different sizes."
+      },
+      {
+        "q": "How does the exported hero rule handle screen sizes?",
+        "a": "It writes the display size as a clamp with a minimum, a viewport-relative middle value and the chosen maximum, so the headline shrinks on a narrow screen while the body copy stays fixed in rem. The middle value is set from the current display size, so a project with unusual breakpoints should adjust it rather than adopt it as written."
+      },
+      {
+        "q": "Why does the letter spacing depend on the classification?",
+        "a": "Because display forms and serif forms need opposite corrections at large sizes. A condensed or heavy display face usually wants a little positive tracking to stop the caps colliding, while a serif heading at the same size usually wants slightly negative tracking because the type was designed for text sizes where the sidebearings are more generous."
+      },
+      {
+        "q": "Can the body copy be a serif too?",
+        "a": "Yes, the body role accepts both sans and serif faces, and a serif body under a display heading is a common editorial arrangement. What changes is the contrast: a serif body under a serif heading leaves the hierarchy resting on size and weight alone, so the size ratio matters more than it does in a mixed pairing."
+      }
+    ]
+  }
+]

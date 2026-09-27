@@ -113,6 +113,11 @@ const hmacGenerator: ToolDefinition = {
   options: ({ options, setOptions }) => (
     <OptionsBar>
       <OptSelect value={String(options.algo ?? "SHA-256")} onChange={(v) => setOptions({ ...options, algo: v })} options={["SHA-1", "SHA-256", "SHA-384", "SHA-512"].map((a) => ({ value: a, label: a }))} />
+      {/* transform requires options.key — the OptRow was missing, so every run
+          threw "Enter a secret key in options" with nowhere to enter one. */}
+      <OptRow label="Secret key">
+        <input defaultValue={String(options.key ?? "")} onChange={(e) => setOptions({ ...options, key: e.target.value })} className="h-8 w-40 rounded-md border border-input bg-background px-2 text-sm" />
+      </OptRow>
     </OptionsBar>
   ),
   defaultOptions: { algo: "SHA-256", key: "" },
@@ -751,7 +756,7 @@ const caesarCipherTool: ToolDefinition = {
 };
 
 const vigenereCipherTool: ToolDefinition = {
-  slug: "vigenre-cipher-tool",
+  slug: "vigenere-cipher-tool",
   mode: "text",
   options: ({ options, setOptions }) => (
     <OptionsBar>

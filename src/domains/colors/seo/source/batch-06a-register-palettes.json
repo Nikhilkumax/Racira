@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "pastel-palette-generator",
+    "keywords": [
+      "pastel palette generator",
+      "soft pastel colors",
+      "random pastel palette",
+      "high lightness low chroma"
+    ],
+    "intro": "The pastel palette generator rolls five hues and pins every one at lightness 0.88 with chroma 0.08, so each press produces soft pastel colors from a register rather than from taste.",
+    "content": "Pastel is a register, not a hue, and the pastel palette generator enforces that distinction mechanically. Each press rolls five random hues and then places every one at OKLCH lightness 0.88 with chroma 0.08. The hues are genuinely unpredictable; the tone is not. That split is what makes a random pastel palette reliable: two presses share no colours and still look like members of one family, because the only free variable is the hue circle.\n\n- Fixed by the tool: five swatches, lightness 0.88, chroma 0.08.\n- Left to chance: the five hues, drawn independently across the full circle.\n- One press on load, and a complete re-roll each time the button is pressed.\n- Each swatch shows its hex value; there is no copy block and no CSS output on this page.\n\nThe arithmetic runs in OKLCH rather than HSL for a specific reason. Lightness in OKLCH tracks perceived brightness, so 0.88 is a real statement about how pale the result looks, while an HSL lightness of 88 percent can still look vivid on some hues and washed out on others. Chroma 0.08 sits comfortably inside the sRGB gamut for every hue, which is why nothing here clips or muddies: the extreme hues stay clean instead of turning into approximations of themselves. The strip is generated after the component mounts, so the server and the browser never disagree about which colours were rolled.\n\n- No hue coordination: the five colours have no relationship to each other, only to the register.\n- High lightness means weak contrast against white. These colours are surfaces and scrims, not text.\n- Nothing in the strip is dark enough to serve as a border, an icon colour or a heading.\n- No CSS output, no alpha and no save: the values are copied swatch by swatch.\n\nAnother way to read the register is as a two-variable constraint: high lightness low chroma is what the eye reports as pastel, and both halves are needed. Raise lightness without capping chroma and the colours turn candy-bright; cap chroma without raising lightness and they become dusty earth tones. The tool applies both at the same values every time, which is why the roll produces soft pastel colors by construction rather than by opinion.\n\nUse it where softness is the requirement — a marketing surface behind dark text, a seasonal card, a hero that must not compete with its own copy — and add the dark half of the palette deliberately, since the register cannot supply it. The neon generator is this page's opposite bet with the same random-hue mechanism, the tints tool extends one chosen hue into pastel territory by hand, and the accessible palette generator is the way to find text colours that survive on top of whatever you roll. Because a roll cannot be reproduced, the palette worth keeping is the one you copy out by hand at the moment you like it rather than the one you plan to roll again later. That habit is the whole craft of working with a random register.",
+    "howTo": [
+      "Open the page and read the roll that is already there — five pastel-register swatches.",
+      "Press the button to roll five new hues; the register stays fixed while the colours change.",
+      "Copy the hex values worth keeping before rolling again, because the previous set is not recoverable.",
+      "Choose text and borders separately: this register supplies surfaces, not legible foregrounds."
+    ],
+    "whenToUse": "Use this when the brief says soft rather than when it says a colour. The {{neon-palette-generator|neon generator}} is the loud opposite register with the same mechanism, the {{color-tints-generator|tints generator}} lightens one chosen hue into pastel territory by hand, and the {{accessible-palette-generator|accessible palette generator}} finds foreground colours that pass on the light surfaces this page produces.",
+    "faqs": [
+      {
+        "q": "What exactly is fixed, and what is random?",
+        "a": "Lightness at 0.88, chroma at 0.08 and the count of five are fixed; the five hues are random. The register never drifts, whatever the roll produces."
+      },
+      {
+        "q": "Why can two rolls share no colours and still match?",
+        "a": "Because tone rather than hue is what a pastel family shares. Both rolls sit at the same lightness and chroma, which is the register the eye reads as pastel."
+      },
+      {
+        "q": "Can these colours carry text?",
+        "a": "Not against white. Lightness 0.88 leaves very little headroom, which is why the register suits surfaces and needs a dark companion for anything that has to be read."
+      },
+      {
+        "q": "Does it offer a chromatic scale or a palette size option?",
+        "a": "No. Five swatches at one register is the whole tool, and there is no count control, no hue constraint and no export beyond copying values individually."
+      },
+      {
+        "q": "How do I get a pastel version of my brand colour specifically?",
+        "a": "Set that hue by hand in the tints tool instead: it raises lightness while keeping the hue and chroma you started from, rather than rolling an unrelated set."
+      }
+    ]
+  },
+  {
+    "slug": "neon-palette-generator",
+    "keywords": [
+      "neon palette generator",
+      "vibrant neon colors",
+      "high chroma roll",
+      "dark backdrop"
+    ],
+    "intro": "The neon palette generator rolls five hues at lightness 0.75 and chroma 0.3, the vivid edge a screen can show, so every press produces vibrant neon colors against a dark surface.",
+    "content": "Neon is the opposite register from pastel, and the neon palette generator gets there the same way: fix the tone, randomise the hue. Each press draws five hues and places every one at OKLCH lightness 0.75 with chroma 0.3. That chroma sits at the edge of what an sRGB display can represent, which is what a high chroma roll is for — the colours read as emissive rather than merely saturated, the visual shorthand screens use for glowing gas tubes they cannot actually emit.\n\n- Fixed by the tool: five swatches, lightness 0.75, chroma 0.3.\n- Left to chance: the five hues, drawn independently.\n- A roll on load and a full re-roll on each press of the button.\n- No preset, no CSS block and no alpha: the strip is a set of hex values to copy individually.\n\nChroma 0.3 is not reachable for every hue in sRGB, and that is where the register gets interesting. Hues near the primaries and their intermediates — vivid green, cyan, magenta — convert cleanly; hues whose maximum chroma falls short get their channels clipped during conversion, so some rolls land closer to a rich saturated colour than to true neon. The clipping is not a defect but it is visible, and it explains why two presses can feel different in intensity even though the parameters never changed. Values are printed as hex, the sRGB reduction of the requested colour rather than the request itself.\n\n- Out-of-gamut requests are clipped per hue, so intensity varies between rolls.\n- The strip supplies accents only. Nothing in it is dark enough to be the surface neon needs.\n- Contrast on white is poor and unchecked; these colours are for dark backgrounds.\n- No export, no count control and no way to lock a hue you liked before re-rolling.\n\nSeen on a dark backdrop, these values gain apparent luminance, because the dark surface suppresses everything except the colour itself — the reason a set that looks gaudy on a white mock becomes convincing at night. Placement is the whole craft of the register: vibrant neon colors earn their keep as thin strokes, small badges and single accents rather than as large type or full-width fills.\n\nUse it where visibility is the job: an accent on a near-black dashboard, a call to action that has to out-shout a busy page, a poster that will be viewed on a phone at night. Pair it with the dark-mode palette generator for the surface it needs, and check text pairs with the contrast checker, because a colour that reads as light on black can still fail as text. Where the brief wants softness instead, the pastel generator is the same mechanism at the other end of the register. One practical habit helps either way: decide the surface before judging the accents, because a neon roll is only ever as good as the darkness it is shown against. Judge it there, never on the white preview the page opens on.",
+    "howTo": [
+      "Open the page for the roll already generated, or press the button for a new set of five hues.",
+      "Copy the accents worth keeping — the set is not stored and cannot be re-rolled back.",
+      "Set a near-black or deep navy surface from the dark-mode generator to judge them properly.",
+      "Check any text pairing against the contrast checker before shipping it."
+    ],
+    "whenToUse": "Use this when visibility matters more than calm — accents, highlights and nightlife-facing surfaces. The {{pastel-palette-generator|pastel palette generator}} pins the quiet end of the same axis, the {{dark-mode-palette-generator|dark mode palette generator}} supplies the surface neon needs to read as light, and the {{contrast-checker|contrast checker}} verifies any pair that has to carry text.",
+    "faqs": [
+      {
+        "q": "Why do some rolls look less electric than others?",
+        "a": "Because chroma 0.3 is outside the sRGB gamut for many hues. Those colours are clipped during conversion, so the result is a rich saturated colour rather than a true neon."
+      },
+      {
+        "q": "Are these real neon colours?",
+        "a": "No screen emits gas-tube light. What the register simulates is the vivid edge of sRGB, which is as close as a display gets and is what neon means in screen design."
+      },
+      {
+        "q": "Why must the background be dark?",
+        "a": "High-chroma colours only read as emissive against something much darker; on white they vibrate at the edges and lose authority. The dark-mode generator supplies the right surface."
+      },
+      {
+        "q": "Can I keep one hue and re-roll the others?",
+        "a": "Not here — every press replaces all five swatches. Copy the keepers out first, then roll again and build around them."
+      },
+      {
+        "q": "Is the strip safe to use as text colour?",
+        "a": "Not automatically. Brightness and chroma say nothing about legibility, so measure any pairing with the contrast checker rather than judging from the swatch."
+      }
+    ]
+  },
+  {
+    "slug": "earth-tone-palette-generator",
+    "keywords": [
+      "earth tone palette generator",
+      "warm natural colors",
+      "muted earthy palette",
+      "natural color scheme"
+    ],
+    "intro": "The earth tone palette generator builds five colours from a fixed run of warm hues with a lightness ramp from 0.35 to 0.65 and chroma rolled between 0.06 and 0.14 — warm natural colors with a controlled weight.",
+    "content": "The earth tone palette generator is a themed preset rather than a random register, and the difference shows in what stays constant. It draws from a fixed run of hues — 30, 50, 80, 20 and 10 — climbs a lightness ramp from 0.35 at the first swatch to 0.65 at the last, and rolls each colour's chroma somewhere between 0.06 and 0.14 on every regenerate. The result is a natural color scheme whose shape never changes and whose weight shifts slightly each time.\n\n- Hues: 30, 50, 80, 20 and 10 — warm ochre, gold, olive and clay territory, in that order.\n- Lightness: a straight ramp across the strip, 0.35, 0.425, 0.5, 0.575 and 0.65.\n- Chroma: rolled independently per swatch within the band 0.06 to 0.14.\n- Output: five uppercase hex values, plus a CSS block of --color-1 through --color-5 custom properties with a copy button.\n\nSeparating the deterministic parts from the random one is what makes the palette usable in a project. The hue order and the lightness ramp mean the strip always reads as soil to sand, darkest first, so the tokens can be assigned to roles with confidence: the first swatch is a surface, the last is a light accent, and the middle three are body colours. Only the chroma is rolled, which is the part a viewer notices least — a muted earthy palette stays recognisably itself whether the roll comes in grey or warm. Regenerate and the ordering holds.\n\nThat is why the strip is best described as warm natural colors with a memory. Roll it a dozen times and the palette's identity stays put while its warmth moves within a narrow range; a colour chosen from one roll will still sit comfortably beside a colour chosen from the next, which is not true of a fully random palette. That consistency is what lets the preset serve as a design token source rather than as a mood board of one-off ideas, and it matters when a palette has to survive several rounds of review.\n\n- No preset selector on this page: the component holds a single preset, so the only control is Regenerate.\n- No complementary or cool colour by design, so pairing the set with something contrasting is a manual job.\n- Nothing beyond the ramp ends: no deep ink below lightness 0.35 and no near-white above 0.65.\n- The CSS block carries hex values only — no contrast guidance, no roles and no tokens for a dark theme.\n\nReach for it when warmth is the brief: packaging that echoes paper and pigment, a botanical or food brand, a surface that must not look synthetic. Because the ramp supplies both a dark and a light end, it covers surfaces and accents without help; bring in a deep neutral only if the layout needs a near-black. The forest generator is the same machinery tuned green, the beach generator is the cool coastal counterpart, and the vintage generator trades this palette's saturation for a faded, printed warmth.",
+    "howTo": [
+      "Open the page; the first roll is already generated from the preset's hues and ramp.",
+      "Press Regenerate to roll new chroma values while the hue order and the lightness ramp hold.",
+      "Copy the CSS custom-property block, or lift individual hex values from the swatches.",
+      "Assign the darkest swatches to surfaces and the lightest to accents before editing anything."
+    ],
+    "whenToUse": "Use this when the palette should feel warm and material rather than digital. The {{forest-nature-palette-generator|forest palette generator}} applies the same preset machinery to greens, the {{ocean-beach-palette-generator|beach palette generator}} is the cool coastal version, and the {{vintage-retro-palette-generator|vintage retro generator}} takes the warmth in a faded, printed direction.",
+    "faqs": [
+      {
+        "q": "What does Regenerate actually change?",
+        "a": "Only the chroma of each swatch, rolled within the band 0.06 to 0.14. The hues, their order and the lightness ramp are fixed by the preset."
+      },
+      {
+        "q": "Why is the first swatch always the darkest?",
+        "a": "Because lightness follows the strip index: 0.35 at the first swatch rising to 0.65 at the last. That ramp is what makes the tokens assignable to roles."
+      },
+      {
+        "q": "Can I add a cool colour to contrast with the set?",
+        "a": "Not from this page — the preset holds warm hues only. Bring one in from the complementary generator or take a deep navy from the shades tools."
+      },
+      {
+        "q": "Is there a preset dropdown on these themed pages?",
+        "a": "Only where a component holds several presets. Each themed page here holds exactly one, so the selector is hidden and Regenerate is the single control."
+      },
+      {
+        "q": "Does the CSS block include anything beyond hex values?",
+        "a": "No. It writes --color-1 through --color-5 as uppercase hex custom properties and offers one copy button; roles, themes and contrast notes are yours to add."
+      }
+    ]
+  },
+  {
+    "slug": "ocean-beach-palette-generator",
+    "keywords": [
+      "ocean beach palette generator",
+      "coastal color scheme",
+      "cool blue palette",
+      "sand accent tones"
+    ],
+    "intro": "The ocean beach palette generator runs a fixed coastal colour scheme — blues at 200 and 180, a yellow and an orange sand accent, and a closing blue at 220 — along a lightness ramp from 0.55 to 0.85.",
+    "content": "Coastal colour has a shape: cool blues for water and sky, warm sand notes for the shore, and a lot of light. The ocean beach palette generator encodes that shape as a preset. Its hues are 200, 180, 50, 30 and 220 in order, its lightness climbs from 0.55 to 0.85 across the strip, and each swatch's chroma is rolled between 0.08 and 0.16 when you regenerate. The mix of two blues, two warm accents and a returning blue is what makes the set read as a place rather than as a palette.\n\n- Hues: a cyan-blue at 200, a teal at 180, a sand yellow at 50, a warmer orange at 30, and a blue at 220 to close.\n- Lightness: 0.55, 0.625, 0.7, 0.775 and 0.85 across the five swatches.\n- Chroma: rolled per swatch in the band 0.08 to 0.16.\n- Output: five hex swatches plus a copyable block of CSS custom properties.\n\nThe ordering does more work than it first appears. Because lightness rises with the index while the warm hues sit in the middle of the run, the sand accents land mid-ramp and the final swatch returns to blue at the lightest value — so the strip reads as sky, shore, sky again rather than as a list of colours. Anyone assigning roles gets a sensible starting point: the early blues are surfaces, the warm middle notes are highlights, and the closing blue is the lightest surface in the set.\n\n- The palette is bright throughout: nothing below lightness 0.55, so it supplies no dark tone for text or borders.\n- The warm accents are easy to mistake for the palette's purpose; they are accents, and using them as surfaces turns the scheme into something else.\n- Cool blue palettes like this one are the classic case for checking contrast, since light blues fail against white far more often than they look like they would.\n- No preset selector, no transparency and no tokens beyond hex custom properties.\n\nRead as a coastal color scheme, the two blues do the structural work and the two warm notes do the talking. Sand accent tones are what stop a shoreline palette from becoming another cool corporate blue, and giving them the middle of the lightness ramp keeps them between light and shadow rather than at either extreme, which makes them easy to reach for as highlights and hard to confuse with the base of the design.\n\nUse it for travel and hospitality brands, wellness surfaces, anything that should feel like weather and water. Pair it with a deep navy from the shades tools when the layout needs an anchor, and keep the sand hues for emphasis rather than for large fills. The forest generator is the green version of the same preset machinery, the earth-tone generator the warm inland counterpart, and the sunset generator the version of this palette that happens at dusk. Note how much the whole set depends on lightness: bring the same hues down into the 0.35 to 0.55 band and the coastal feeling disappears.",
+    "howTo": [
+      "Open the page for the initial coastal roll.",
+      "Press Regenerate to re-roll chroma while the coastal hue order and the light ramp stay put.",
+      "Copy the custom-property block, or take individual hex values from the swatches.",
+      "Add a deep neutral from the shade tools before the palette has to carry body text."
+    ],
+    "whenToUse": "Use this when the palette should feel light, cool and place-specific — travel, hospitality, wellness and anything marine. The {{earth-tone-palette-generator|earth palette generator}} is the warm inland counterpart, the {{forest-nature-palette-generator|forest palette generator}} the green one, and the {{sunset-palette-generator|sunset palette generator}} the same coast at the end of the day.",
+    "faqs": [
+      {
+        "q": "Where do the warm colours fit in the strip?",
+        "a": "In the middle. The hue order runs cool, cool, warm, warm, cool, and lightness rises across it, so the sand accents arrive mid-ramp and the closing blue is the lightest swatch."
+      },
+      {
+        "q": "Why does the palette have no dark colour?",
+        "a": "Its lightness range starts at 0.55 by design, which keeps the set bright and coastal. Dark tones have to come from elsewhere — the shade tools or a navy from another generator."
+      },
+      {
+        "q": "What varies when I regenerate?",
+        "a": "Chroma only, rolled between 0.08 and 0.16 per swatch. The hues, their order and the lightness ramp are the preset and never change."
+      },
+      {
+        "q": "Do light blues really need contrast checking?",
+        "a": "Yes. Pale, low-chroma blues look darker than they measure, and pairs that seem fine in a mock often fail against white text. Measure the pair rather than trusting the swatch."
+      },
+      {
+        "q": "Can I use the sand colours as surfaces?",
+        "a": "They will work, but the palette stops reading as coastal: the warm notes are there to punctuate two blues rather than to carry the layout."
+      }
+    ]
+  },
+  {
+    "slug": "forest-nature-palette-generator",
+    "keywords": [
+      "forest nature palette generator",
+      "green color palette",
+      "woodland palette",
+      "deep natural greens"
+    ],
+    "intro": "The forest nature palette generator turns a fixed green run — hues 120, 90, 70, 140 and 40 — into five deep natural greens along a lightness ramp from 0.3 to 0.6.",
+    "content": "The forest nature palette generator is the darkest preset in the themed family, and that is deliberate. Its hues are 120, 90, 70, 140 and 40 — a run that moves from true green through moss and olive to an earthy yellow-green — and its lightness climbs only from 0.3 to 0.6, so the strip lives where greens are dense. The first swatch is close to a canopy shadow, the last is a leaf in light, and the chroma of each is rolled between 0.08 and 0.16 on regenerate.\n\n- Five hues: 120, 90, 70, 140 and 40, in that order.\n- Lightness ramp: 0.3, 0.375, 0.45, 0.525 and 0.6.\n- Chroma: rolled per swatch within 0.08 to 0.16.\n- Output: five hex swatches and a copyable CSS custom-property block.\n\nBecause the ramp starts dark, this green color palette is unusually good at supplying surfaces. Deep green at 0.3 and 0.375 can carry light text, the middle values serve as borders and secondary surfaces, and the two lightest swatches work as accents or as marks on a dark background. That is the opposite of the coastal and light presets, which supply brightness first and leave the shadows to other tools — and it is the reason a woodland palette suits products that are read at night or used outdoors.\n\n- No blue or purple in the run, so the set cannot supply a cool neutral for text or an information colour.\n- The darkest swatches are still not near-black, so a true ink tone has to be added if the layout needs one.\n- Green is the palette's point, which makes it a poor fit for status colours: greens already mean success in most interfaces.\n- No preset selector, no alpha and no gradient output, only the hex tokens.\n\nGreen covers an unusually wide stretch of the visible gamut, spanning more chroma than any other hue family at the same lightness, so a low chroma ceiling is exactly what keeps deep natural greens from turning acidic. Capping chroma between 0.08 and 0.16 also holds every swatch inside the sRGB gamut at these lightness values, which is why the strip prints clean hex values without clipping — a claim the brighter presets cannot always make.\n\nUse it for surfaces in calm, earthy or outdoor products, for botanical branding, and for any interface that should feel like it is used by lamp light rather than by daylight. The earth-tone generator pairs naturally with it for warm accents, the dark-mode generator supplies a cooler near-black when the layout needs one, and the light-mode generator is the place to look if the palette instead has to sit around a bright surface. One caution in the other direction: a green set is a commitment, since most interfaces already use green to mean success, so keep the palette's middle values away from status work. Two of the five — the olive at hue 70 and the yellow-green at 40 — also read as yellowish rather than green at small sizes, so they work better as accents than as the palette's identity.",
+    "howTo": [
+      "Open the page for the initial forest roll.",
+      "Press Regenerate to re-roll chroma while the green run and the dark ramp stay fixed.",
+      "Copy the CSS block for tokens, or pick individual hex values from the swatches.",
+      "Assign the two darkest swatches to surfaces and the lightest to marks and accents."
+    ],
+    "whenToUse": "Use this when a palette should feel wooded, quiet and dark rather than bright. The {{earth-tone-palette-generator|earth palette generator}} supplies the warm accents this run lacks, the {{dark-mode-palette-generator|dark mode palette generator}} covers the deeper surfaces a layout may still need, and the {{light-mode-palette-generator|light mode palette generator}} answers the opposite brief.",
+    "faqs": [
+      {
+        "q": "Why is this palette darker than the other themed pages?",
+        "a": "Its lightness ramp runs from 0.3 to 0.6 rather than into the 0.7 to 0.85 range, which is what gives it usable surfaces instead of light accents."
+      },
+      {
+        "q": "Does it include any cool colour?",
+        "a": "No. The run is greens and yellow-greens only, so a cool neutral for text has to come from another tool or from a neutral built off one of these hues."
+      },
+      {
+        "q": "What changes on Regenerate?",
+        "a": "Chroma only, rolled between 0.08 and 0.16 for each swatch. Hue order and the lightness ramp are fixed parts of the preset."
+      },
+      {
+        "q": "Can I use a green from this set for a success state?",
+        "a": "Better not, unless the whole interface is green. In most products green already communicates success, so a green status colour made from this palette would collide with the brand."
+      },
+      {
+        "q": "Is the lightest green usable as text on the darkest one?",
+        "a": "Probably, since the ramp spans 0.3 to 0.6, but measure it: the contrast checker answers that question properly, and the pair is inside the palette so it is easy to test."
+      }
+    ]
+  },
+  {
+    "slug": "sunset-palette-generator",
+    "keywords": [
+      "sunset palette generator",
+      "warm gradient palette",
+      "dusk colors",
+      "sunset hues"
+    ],
+    "intro": "The sunset palette generator spreads five dusk hues — 10, 30, 350, 50 and 320 — along a lightness ramp from 0.55 to 0.78, giving a warm gradient palette whose chroma rolls between 0.15 and 0.22.",
+    "content": "A sunset is a gradient before it is a palette, and this preset is built the way the sky looks: a warm red at the bottom of the range, a gold in the middle, and pink at the top. The sunset palette generator uses hues 10, 30, 350, 50 and 320 in that order, raises lightness from 0.55 to 0.78 across the strip, and rolls each swatch's chroma between 0.15 and 0.22 — the most saturated band in the themed family, which is what makes the result read as glowing rather than merely warm.\n\n- Hues: a blood orange at 10, a gold at 30, a rose at 350, a yellow at 50 and a pink-magenta at 320.\n- Lightness: 0.55, 0.6075, 0.665, 0.7225 and 0.78 across the five swatches.\n- Chroma: rolled per swatch in the 0.15 to 0.22 range.\n- Output: five hex swatches and a copyable block of CSS custom properties.\n\nThe ordering is the reason the strip is useful for gradients rather than just for swatches. Hues alternate between the warm and the pink side of red while lightness climbs monotonically, so adjacent swatches blend into one another instead of jumping, and interpolating between them — by hand or with the gradient tools — produces a dusk ramp rather than a colour wheel. That is also why the palette is best judged on a large surface: five related warm hues at close lightness look nearly identical on small chips and unmistakably like a sky at full width. The sunset hues also stay inside one narrow band of the wheel, which is what keeps the ramp coherent rather than rainbow-like.\n\n- No dark tone: the range stops at 0.55, so the palette cannot supply a night sky or a text colour.\n- No cool complement, which makes a pure sunset set hard to use for information design on its own.\n- Warm, saturated colours vibrate against each other when used as adjacent text on a coloured surface; measure any pair before trusting it.\n- No preset selector, no export beyond hex tokens and no gradient string in the CSS block.\n\nRead as a warm gradient palette, the strip has a second use beyond swatches: five values along a rising ramp are enough for the gradient tools to interpolate into as many steps as a surface needs. Dusk colors also carry a shorthand no other preset does — the set reads as an ending, which suits launch imagery, seasonal sections and surfaces meant to feel like a moment rather than a brand.\n\nUse it for hero surfaces, seasonal campaigns and anything that should feel like late light — and pair it with a deep ink for text, because the whole strip is too bright to carry type. Where a gradient is the actual goal, take the five values into the gradient tools and let them interpolate the ramp; where the palette has to read as daylight rather than dusk, the beach generator is the cool counterpart and the light-mode generator covers the bright end. Keep the five values with any surface that used them: the combination is easy to reproduce and very hard to remember.",
+    "howTo": [
+      "Open the page for the initial dusk roll.",
+      "Press Regenerate to re-roll chroma while the hue order and the rising ramp stay fixed.",
+      "Copy the CSS block for tokens, or take the hex values across to the gradient tools.",
+      "Add a dark ink colour separately, since nothing in this strip can carry text."
+    ],
+    "whenToUse": "Use this when the palette should feel warm and glowing — hero sections, campaign pages, gradient work. The {{gradient-interpolator|gradient interpolator}} turns the strip into even steps, the {{ocean-beach-palette-generator|beach palette generator}} is the cool version of the same coast, and the {{earth-tone-palette-generator|earth palette generator}} offers the same warmth at print-like saturation.",
+    "faqs": [
+      {
+        "q": "Why is the hue order so mixed rather than simply warm-first?",
+        "a": "It alternates across the warm and pink sides of red while lightness climbs, which is what lets neighbouring swatches blend into a dusk gradient instead of jumping between families."
+      },
+      {
+        "q": "What is the highest chroma in the themed presets?",
+        "a": "This one, at 0.22, with the earth and forest presets well below it. Saturation is what makes the set read as glowing light rather than as warm earth."
+      },
+      {
+        "q": "Can any of these colours carry text?",
+        "a": "None of them comfortably: the whole ramp is bright and saturated. Use the set for surfaces and artwork, and pair it with a deep ink for anything that must be read."
+      },
+      {
+        "q": "Does the CSS output include a gradient?",
+        "a": "No, it writes hex custom properties only. The values can be pasted into the gradient tools when an actual ramp is what the design needs."
+      },
+      {
+        "q": "What varies between regenerates?",
+        "a": "Chroma per swatch, inside the 0.15 to 0.22 band. The sunset hues, their order and the rising lightness are fixed by the preset."
+      }
+    ]
+  }
+]

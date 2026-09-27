@@ -365,4 +365,4 @@ export default function WeightLossPercentageCalculator() {
       </div>
     </>
   );
-}
+}

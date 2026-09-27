@@ -131,7 +131,7 @@ export default function Exchange1031TimelineCalculator() {
       <div className="racira-page-container py-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-foreground">1031 Exchange Timeline Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-2">

@@ -204,7 +204,7 @@ export default function FfmiFatFreeMassIndexCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weight, heightFt, heightIn, heightCm, bodyFatPct, unit]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

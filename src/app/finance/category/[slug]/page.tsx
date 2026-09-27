@@ -7,9 +7,12 @@ import { getCategoryBySlug } from "@/domains/finance/data/taxonomy";
 import { site as FINANCE_SITE } from "@/domains/finance/site";
 import type { PostWithRelations } from "@/types/finance/db";
 
+// ISR: 5-minute window; scheduled posts in this category surface on re-render.
+export const revalidate = 300;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const c = getCategoryBySlug(slug);
+  const c = await getCategoryBySlug(slug);
   if (!c) return {};
   return {
     title: `${c.name} — ${FINANCE_SITE.copyrightName}`,
@@ -27,9 +30,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
   if (!category) return notFound();
-  const posts = listPosts({ status: "published", categorySlug: slug });
+  const posts = await listPosts({ status: "published", categorySlug: slug });
 
   return (
     <PageShell>

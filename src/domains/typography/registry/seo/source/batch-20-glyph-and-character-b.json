@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "glyph-comparison-tool",
+    "keywords": [
+      "glyph comparison tool",
+      "comparison presets",
+      "old-style figures",
+      "x-height"
+    ],
+    "intro": "The glyph comparison tool renders the same characters in several families at once, so a pairing decision is made on evidence rather than on specimens seen separately. Five comparison presets cover the characters that usually decide the question.",
+    "content": "The glyph comparison tool sets one string of characters in as many faces as you select, at a common size and weight, so the differences are visible side by side rather than remembered from separate previews.\n\nThe five comparison presets are chosen for what they expose.\n\n- Alphabet, which shows proportions and the general texture of a face in two lines.\n- Numerals, which reveals whether the figures are lining or old-style and whether the family carries more than one figure set.\n- Ambiguous, a string of easily confused character pairs — capital O and zero, capital I, lower-case l and the digit one, S and five, Z and two, B and eight, G and six, plus r followed by n — which is where a face's legibility under strain is decided.\n- Punctuation, which shows the quotes, dashes, ellipsis and symbols a face draws and how it draws them.\n- Lower-case shapes, a short set of the letters whose forms vary most between grotesque, humanist and geometric traditions.\n\nThe settings are deliberately narrow so the comparison is fair. Size runs from 12 to 160 pixels and weight from 300 to 700, and both apply to every selected family at once, which means the comparison is like for like rather than each face at its own best setting. The layout switches between stacked rows and two-column groups, and the family chips add or remove faces from the set, so the same characters can be compared across a longlist and then a shortlist.\n\nThe table beside the comparison is the reading guide, and it names the five things worth looking at. The x-height decides how large a face appears at a given nominal size, so two candidates with different x-heights should be compared by adjusting the size until they look equal rather than by trusting the number. The single or double-storey form of g and a changes the texture of body copy and how neutral the face reads. The numeral style decides whether figures sit inside the text flow or align with capitals, with tabular lining figures the requirement wherever numbers are compared in columns. Terminal cuts carry the voice: horizontal terminals read technical and angled ones humanist. And the contrast axis decides the size at which a face stops being comfortable, since a high-contrast design needs a larger setting than a low-contrast one.\n\nWhat the tool does not do is measure, and three further limits follow from comparing by rendering.\n\n- Every entry in the guidance table is a judgement made by eye, so a decision about widths, coverage or metrics belongs with the measuring tools.\n- The catalogue is the source of faces, so a licensed family has to be judged from its own specimen rather than here.\n- Weight is uniform across families, which means a face without the requested weight is drawn with a synthesised version that will not match its real forms.\n- There is no overlay or superposition mode, so old-style figures, x-heights and terminal cuts are compared across rows rather than stacked on top of one another.\n\nThat last limitation is deliberate: reading the same string in two faces shows the difference a page will present, while stacking outlines shows a difference only a designer would see.",
+    "howTo": [
+      { "step": "Pick the preset that matches the question, since the ambiguous string and the numerals string answer different concerns." },
+      { "step": "Select the faces to compare and keep the longlist long enough to see the range before narrowing it." },
+      { "step": "Set a size and weight that apply to every face, then adjust the size so faces with different x-heights appear equal before judging anything else." },
+      { "step": "Read the comparison against the guidance table, then take the two finalists into a measuring or pairing tool for the decisions a preview cannot settle." }
+    ],
+    "whenToUse": "Reach for it when a shortlist of faces has to be narrowed on the characters that actually differ, when a face that looked right in a specimen fails in a layout and the reason has to be found, or when two families are being considered for one page and their numerals or lower-case forms need to be seen together. The preset strings are the useful part. For a whole page of faces at once the {{multi-font-comparison|multi-font comparison}} sets running text in parallel, the {{font-pairing-suggester|font pairing suggester}} proposes combinations, and the {{glyph-browser|glyph browser}} reports the advance widths the comparison cannot measure.",
+    "faqs": [
+      {
+        "q": "Why compare at the same size when faces differ in apparent size?",
+        "a": "Because the first pass should be fair. Once the faces are side by side, adjusting the size so the x-heights match is what shows the real difference in proportions. Comparing a face at its ideal size against another at a poor one is how a good candidate gets eliminated for the wrong reason."
+      },
+      {
+        "q": "What does the ambiguous string test?",
+        "a": "It tests legibility under the conditions that actually cause misreadings: a capital O against a zero, a lower-case l against a digit one, S against five, and so on. A face that survives that string at a small size is much less likely to produce a confusing identifier, password or model number."
+      },
+      {
+        "q": "How do I tell lining figures from old-style ones?",
+        "a": "By height and alignment. Lining figures are all the same height and sit on the baseline, so they align with capitals; old-style figures have ascenders and descenders and sit within the text flow, which reads more comfortably in prose but breaks the alignment of a column of numbers."
+      },
+      {
+        "q": "Does the tool measure the faces it shows?",
+        "a": "No, it renders them. Everything in the guidance table is judged by eye, and the numbers that a design decision may depend on — advance widths, coverage, pair adjustments — come from the measuring tools. That division is deliberate: measurements without a rendering are hard to interpret, and renderings without measurements hide the facts."
+      },
+      {
+        "q": "Why is there no overlay mode?",
+        "a": "Because the useful comparisons here are between characters as they read, not between outlines. Overlaying two faces shows structural differences, which matters when designing a companion, while reading the same string in two faces shows the difference a page will actually present."
+      }
+    ]
+  },
+  {
+    "slug": "missing-glyph-detector",
+    "keywords": [
+      "missing glyph detector",
+      "coverage",
+      "fallback",
+      "document.fonts.check"
+    ],
+    "intro": "The missing glyph detector asks the browser's own font-matching engine whether a face can render each character in your text. That is the real answer rather than a heuristic: the same check that decides at paint time whether to substitute a fallback.",
+    "content": "The missing glyph detector takes a face and a string of text, then reports which characters the face can draw and which will be substituted by a fallback. The test is the browser's font-matching check — document.fonts.check — which is the machinery that already decides this at paint time, so the result describes what a visitor will see rather than what a specification claims.\n\nCoverage is summarised by block-like groups, which is how a font's repertoire is usually described.\n\n- Basic Latin, the ASCII range, followed by the Latin-1 supplement that carries Western European accents and the common legal marks.\n- General punctuation and currency, which are the two ranges where an incomplete face tends to fail quietly.\n- Arrows and mathematical operators, then the symbols and dingbats range, which few text faces cover fully.\n- CJK and the emoji range, the two groups where a face either commits to a large repertoire or has nothing at all.\n\nThe readouts add up the picture: the unique character count, how many are covered, how many need a fallback, and the coverage as a percentage of the sample. The per-group table then shows coverage as a fraction and a share, with a note naming the missing count wherever a group is incomplete, which is the line that matters when a page is expected to render currency symbols or arrows reliably. A detail table lists every character with its code point, whether the face or a fallback draws it, and its group, and it can be searched, so a single character can be confirmed without reading the whole list.\n\nThe honest rendering panel is the part that makes the result tangible. The text is drawn at a large size in the chosen face, and the characters that will be substituted are named by code point below it, so the difference between coverage and rendering is visible: a character can be present in the face and still look wrong at a particular weight, and a character reported as covered is not a claim about how well it is drawn.\n\nFour limits follow from asking the browser rather than reading the file.\n\n- Detection depends on the font being loaded and available, so a webfont that has not arrived reports as unavailable along with everything else.\n- The result is specific to the platform's fonts, which means a machine with a different fallback set can produce a different report for the same file.\n- The group list is eight practical buckets rather than the full Unicode block taxonomy, so a character outside them is labelled as other and left out of the summary counts while still appearing in the detail table.\n- The check answers the availability question only, so a glyph that is present but drawn at a weight too light for its size passes without comment.\n\nRun it after the fonts have loaded, on the platform whose fallbacks matter most, and the report names exactly which characters will be substituted before the page ships.",
+    "howTo": [
+      { "step": "Choose the face under test, then paste the real text the page will render rather than a shortened sample." },
+      { "step": "Read the coverage percentage and the missing count first, since those two numbers summarise the whole result." },
+      { "step": "Check the per-group table for the ranges the project depends on, noting any group that is only partly covered." },
+      { "step": "Search the detail table for the specific characters that matter, and treat the honest rendering panel as the final check." }
+    ],
+    "whenToUse": "Reach for it when a page renders a symbol, a currency mark or CJK text and the fallback behaviour has to be known before launch, when a webfont is being chosen and its coverage is being asserted rather than tested, or when a character on the page has rendered in a visibly different face. Coverage rather than aesthetics is the question. For identifying an unknown character the {{unicode-character-explorer|Unicode character explorer}} is the first step, the {{unicode-block-explorer|Unicode block explorer}} explains the planes and byte costs, and the {{glyph-browser|glyph browser}} measures the glyphs the face does carry.",
+    "faqs": [
+      {
+        "q": "How does the detector know which characters a font has?",
+        "a": "It asks the browser through the font-matching check, which reports whether the requested family can supply a glyph for a given string. That is the same test the renderer performs before substituting a fallback, so the answer reflects rendering rather than a lookup table compiled separately."
+      },
+      {
+        "q": "Why does a character report as missing when I can see it?",
+        "a": "Because it is being drawn by a fallback face, which is invisible when the substitute resembles the intended font. The detector distinguishes the two cases, and the honest rendering panel names the substituted code points, which is how a page that quietly mixes three typefaces is found."
+      },
+      {
+        "q": "Is the report the same on every machine?",
+        "a": "No. It depends on the fonts installed and on whether the webfont has loaded, so a report generated before the file arrives overstates the problem. Generating it after load, on a machine that has the fallback set users are likely to have, gives the most useful reading."
+      },
+      {
+        "q": "Does full coverage mean the characters look right?",
+        "a": "Not necessarily. Coverage says the face contains a glyph; it says nothing about how the glyph is drawn at the weight and size in use. A thin weight can make a covered character illegible, and a symbol borrowed from a text face can look out of place beside a display setting."
+      },
+      {
+        "q": "What should I do about a group that is only partly covered?",
+        "a": "Decide whether the page needs it. Currency symbols and arrows are the two ranges where a deficit usually matters, because a missing one is replaced by a fallback with different weight and width, which is visible in a table or a label. Where the range is decorative, partial coverage is usually acceptable."
+      }
+    ]
+  },
+  {
+    "slug": "character-code-converter",
+    "keywords": [
+      "character code converter",
+      "code point",
+      "utf-8 bytes",
+      "css escape"
+    ],
+    "intro": "The character code converter lists every encoding a character has, side by side: code point, decimal, HTML entity, CSS escape, JavaScript escape, UTF-8 bytes, UTF-16 units, percent-encoding and binary. It is the lookup table for anything that has to be written into code rather than typed.",
+    "content": "The character code converter takes a string and returns a table of encodings, one row per character, with the forms that different languages and file formats expect.\n\nThe columns are the useful part, and each exists because something in a codebase needs it.\n\n- The code point in hexadecimal and in decimal, which is how a character is specified in documentation and in most APIs.\n- The HTML entity in hexadecimal form, plus the CSS escape with its terminating space, which is the form that goes into a content declaration.\n- The JavaScript escape, which differs for characters above the basic multilingual plane since they need the braces form.\n- The UTF-8 byte sequence and the UTF-16 code units, which are the two byte-level counts that disagree about astral characters.\n- The percent-encoded form and the binary value of the code point, which cover URL work and the occasional bit-level check.\n\nThe implementation detail worth knowing is that the table iterates by code point rather than by UTF-16 unit. Characters above the basic plane — emoji, rare CJK ideographs — are represented in JavaScript as a surrogate pair, and a naive loop over the string would report two broken halves instead of one correct value. Iterating by code point reports the real code point, and the readouts make the difference plain: the character count, the UTF-8 byte count and the UTF-16 unit count are three different numbers, and they diverge as soon as the text contains anything outside the basic plane.\n\nBelow the table, the first six characters get copy-ready rows carrying the CSS escape and the JavaScript escape with a copy button, which is the workflow the tool is built around: find the character, take its escape, paste it into a stylesheet. One subtlety is handled there rather than left to chance, which is that a CSS escape is terminated by a space, so the copy button trims it; when the next character in a declaration is a hexadecimal digit, that space has to be put back or the escape absorbs the following character.\n\nFour limits are worth knowing before the table is treated as a specification.\n\n- The conversion stops after the first two hundred characters, which is generous for a symbol lookup and short for a paragraph.\n- The entity column shows the hexadecimal form only, since decimal entities work everywhere and the named forms are a separate catalogue.\n- The binary column is the code point rather than the UTF-8 bytes, which is the common case for bit-level work but not the only reading of the word.\n- The table lists encodings character by character, so it does not describe a whole string's size on the wire once a transport encoding is involved.\n\nWhat it does provide is the one thing documentation rarely collects in a single view: every form a character can take, side by side, so the right one can be copied rather than derived. Paste a character, take the form the destination expects, and move on.",
+    "howTo": [
+      { "step": "Paste the text or the single character into the input, then read the three counts to see whether anything sits outside the basic plane." },
+      { "step": "Find the character's row and choose the column the destination needs: entity for markup, escape for stylesheets, bytes for storage or headers." },
+      { "step": "Copy the escape from the ready-made row below the table rather than retyping it, and restore the terminating space if the next character is a hex digit." },
+      { "step": "Check the character count against the byte count when sizing storage or a request, since the two differ as soon as non-ASCII characters appear." }
+    ],
+    "whenToUse": "Reach for it when a character has to be written into a stylesheet, a template or a JSON payload rather than typed, when a string's length behaves unexpectedly because it contains astral characters, or when a byte count is needed for a header or a storage calculation. The side-by-side columns save a round of documentation. For identifying an unknown character the {{unicode-character-explorer|Unicode character explorer}} gives the block context, the {{emoji-unicode-mapper|emoji Unicode mapper}} handles multi-code-point emoji sequences, and the {{special-character-picker|special character picker}} covers the punctuation characters with their named entities.",
+    "faqs": [
+      {
+        "q": "Why do the character and byte counts differ?",
+        "a": "Because UTF-8 and UTF-16 spend different numbers of bytes on different characters, and astral characters cost more in both. A Latin letter is one byte and one code unit; an emoji is four bytes, two code units and one code point. The table reports all three so the relevant one can be chosen."
+      },
+      {
+        "q": "What is a CSS escape for?",
+        "a": "It lets a stylesheet name a character by code point, which is how a generated content declaration can carry a glyph that would be awkward to type or unsafe to store in the file. The escape is a backslash followed by the hexadecimal value and a terminating space."
+      },
+      {
+        "q": "Why does the JavaScript escape look different for some characters?",
+        "a": "Because characters above the basic plane cannot be written as a single four-digit escape. They need the braced form, which takes the full code point, and that syntax only exists in engines that support it. For older targets the value has to be written as a surrogate pair instead."
+      },
+      {
+        "q": "When would I need percent-encoding?",
+        "a": "Whenever a character travels in a URL, a query parameter, or a form field. The percent-encoded form is what the request actually carries, and seeing it beside the code point explains why a URL with a space or an accent often needs to be written differently from how it reads."
+      },
+      {
+        "q": "Can I convert a long text?",
+        "a": "The table covers the first two hundred characters, which is enough for a symbol lookup or a short string and deliberately short for prose. Converting a whole document is a job for a script, and what the tool provides is the reference for the handful of characters that need attention."
+      }
+    ]
+  },
+  {
+    "slug": "unicode-block-explorer",
+    "keywords": [
+      "unicode block explorer",
+      "plane",
+      "utf-16",
+      "code points"
+    ],
+    "intro": "The Unicode block explorer is a searchable index of the blocks most often met in typography work, with each block's range, plane and size. The plane column is the one that explains string-length surprises, because planes beyond the first cost two UTF-16 units per character.",
+    "content": "The Unicode block explorer indexes a representative set of Unicode blocks with their ranges, planes and sizes, filterable by name, by note and by plane. It answers the structural question that a character lookup raises: where does this block sit, and what does that imply for storage and string handling.\n\nThe plane filter is the part that carries the most information.\n\n- Plane zero, the basic multilingual plane, holds the Latin, Greek, Cyrillic, Hebrew, Arabic, Devanagari, CJK and symbol blocks that cover almost all western and Japanese text, and every character in it costs one UTF-16 unit.\n- Plane one is the supplementary multilingual plane, where the emoji blocks and a few historic scripts live; characters here are outside the basic plane and cost two units each.\n- Plane two is the supplementary ideographic plane, holding the rare Han extensions that a specialist font may include and a general one will not.\n- The all-planes view reports the total across the indexed blocks, which is the figure to quote when the scope of the index is being described rather than a specific range.\n\nThe table gives each block its range in hexadecimal, its plane number, its size in code points, its UTF-16 cost and a note naming the characters or scripts it holds. Two of the rows exist to make points rather than to be looked up. The private use area is listed with the note that its code points carry no assigned meaning, which is where icon fonts put their glyphs and why a private use character is meaningless outside the font it was designed for. The Hangul syllables block is listed with its exact size, eleven thousand one hundred and seventy-two code points, as an illustration of how a precomposed script can occupy a large contiguous range.\n\nThe framing note states the scale the index sits within, which is useful context for a curated list: Unicode assigns its characters across several hundred blocks, and this index covers the blocks encountered in web and editorial typography. Searching works on the block name and on the note, which is how a character is traced back to its block when only its purpose is known — typing emoji, math or CJK narrows the index to the relevant rows immediately.\n\nFour limits apply, and each one is a boundary the index respects deliberately.\n\n- The index is a slice rather than the whole standard, so a specialist script may simply not be listed.\n- The size column counts code points in the block's range, including unassigned slots, so it is not a count of characters a font would have to draw.\n- The totals readout covers the indexed blocks rather than the standard, so a figure taken from it describes this list and not Unicode as a whole.\n- There is no per-character drill-down, because reading characters is a different job from reading the map.\n\nThe character explorer and the block explorer are complementary rather than overlapping: one identifies a single code point, the other explains the neighbourhood it lives in.",
+    "howTo": [
+      { "step": "Filter by the plane you care about first, since the UTF-16 cost and the character repertoire both change above the basic multilingual plane." },
+      { "step": "Search by name or by the kind of character you need, then read the note column to confirm the block holds what you expect." },
+      { "step": "Read the UTF-16 cost column before writing string-handling code, because it decides whether character counts and code-unit counts agree." },
+      { "step": "Take the range from the table and use the character explorer when a specific code point inside the block has to be identified." }
+    ],
+    "whenToUse": "Reach for it when string lengths behave unexpectedly because the text contains emoji or rare ideographs, when a face's script coverage is being scoped, or when a private use character from an icon font has to be understood as something that only works with its own font. The plane and UTF-16 columns are the diagnostic. For a single character the {{unicode-character-explorer|Unicode character explorer}} identifies it, the {{emoji-unicode-mapper|emoji Unicode mapper}} explains multi-code-point sequences, and the {{dingbat-and-symbol-explorer|dingbat and symbol explorer}} walks the symbol blocks character by character.",
+    "faqs": [
+      {
+        "q": "What is a plane?",
+        "a": "A plane is a group of sixty-five thousand five hundred and thirty-six code points. The first, the basic multilingual plane, covers scripts and symbols used almost everywhere; planes beyond it hold emoji, historic scripts and rare ideographs. The plane a character sits in decides how many code units it costs."
+      },
+      {
+        "q": "Why does an emoji make a string longer in JavaScript?",
+        "a": "Because JavaScript counts UTF-16 code units, and characters outside the basic plane need two of them. A string of ten emoji therefore reports a length of twenty. Iterating by code point instead of by index gives the count a person would make, which is what the character converter demonstrates."
+      },
+      {
+        "q": "What is the private use area for?",
+        "a": "Nothing by itself, which is exactly its purpose. Its code points have no assigned meaning, so a font can map glyphs to them without colliding with real characters. Icon fonts use it, and the consequence is that those characters render as boxes unless the icon font is loaded."
+      },
+      {
+        "q": "Why is the whole Unicode standard not listed?",
+        "a": "Because the index is curated for typography and web work rather than exhaustive. It covers the blocks that turn up in real projects, and a specialist script that is missing can be found in the Unicode standard itself, where every block has an official range and name."
+      },
+      {
+        "q": "Does a large block mean a font has to include all of it?",
+        "a": "No. Blocks are ranges, and a font may cover a subset — a few hundred Han characters rather than the whole ideographic block, for instance. Coverage is a property of a file, not of a block, which is why the size column describes the range rather than any particular font."
+      }
+    ]
+  },
+  {
+    "slug": "emoji-unicode-mapper",
+    "keywords": [
+      "emoji unicode mapper",
+      "code points",
+      "zwj sequence",
+      "variation selector"
+    ],
+    "intro": "The emoji Unicode mapper decodes what an emoji actually is in memory: its code points, its UTF-16 units, which is what a JavaScript length counts, and its UTF-8 bytes. It separates the three cases that behave differently in code.",
+    "content": "The emoji Unicode mapper takes an emoji and reports the sequence it is built from, which matters because the characters that look like single glyphs are often several code points long.\n\nThree cases cover almost every emoji, and they behave very differently in code.\n\n- A single code point, such as the party popper, which is one scalar value and one grapheme.\n- A base character with a variation selector, where U+FE0F forces the emoji presentation rather than the text one; the red heart and the warning sign are the common examples.\n- A zero-width joiner sequence, where several code points are joined by U+200D and render as one glyph, which is how the rainbow flag and the technologist emoji are built.\n\nTwo further variants are handled by the same model: a regional indicator pair, where two letters combine into a national flag, and a keycap, where a digit is followed by a variation selector and an enclosing mark. The readouts per emoji are the code point list in the U+ format, the count of code points, the UTF-16 unit count that JavaScript's length reports, the UTF-8 byte count that the network carries, the number of zero-width joiner joins and the number of variation selectors present, with a note explaining what each number implies. Copy buttons then take the emoji itself, its JavaScript escapes or its HTML entities, which is the escape route for storing an emoji safely in source.\n\nThe bulk mapper does the same work for a pasted list, and it uses grapheme segmentation to decide where one emoji ends and the next begins, which is the same unit a text cursor moves through. That matters because splitting a joined sequence on code points destroys it: half a rainbow flag is two code points that render as separate letters. The known-emojis table names fifteen common characters, including the joined sequences and the keycap, which is enough to make the segmentation output readable at a glance.\n\nFour limits are worth knowing, and they are the reason the numbers are shown rather than summarised.\n\n- Segmentation depends on the Unicode data the engine was built with, so an older browser can split a newer sequence, including a zwj sequence that a current engine reads as one grapheme.\n- The name list is small, so anything outside it is shown with a dash rather than a name.\n- Nothing here tests rendering, and a joined sequence can fall back to its components on a platform whose emoji font does not carry it, which turns one glyph into three.\n- The escape buttons concatenate code points without separators, which is right for source code and wrong for a case where each unit has to be read individually.\n\nThe code point count is not the number a reader perceives — a single flag can be two code points, four UTF-16 units and eight UTF-8 bytes, and separating those three figures is the whole purpose of the tool, as well as the reason a length limit written for characters rejects a perfectly valid emoji.",
+    "howTo": [
+      { "step": "Paste the emoji into the input, or pick one from the common set, and read the code point list before anything else." },
+      { "step": "Check the joiner and variation selector counts, since they explain why an emoji that looks like one glyph is several code points." },
+      { "step": "Compare the UTF-16 and UTF-8 counts against the number of code points to see which measure the code in front of you is using." },
+      { "step": "Copy the escape form the destination needs, and use the bulk mapper to segment a list rather than splitting it by character index." }
+    ],
+    "whenToUse": "Reach for it when a validation rule rejects an emoji as too long, when a truncation function cuts one in half, or when an emoji has to be stored or compared in code and its sequence length has to be known rather than guessed. The three structural cases are the part worth learning. For the surrounding repertoire the {{unicode-block-explorer|Unicode block explorer}} shows the planes emoji live in, the {{character-code-converter|character code converter}} lists every encoding of a single character, and the {{special-character-picker|special character picker}} covers the punctuation marks that sit beside emoji in real text.",
+    "faqs": [
+      {
+        "q": "Why is one emoji several code points?",
+        "a": "Because modern emoji are sequences rather than single characters. A flag is two regional indicators, a skin-toned or gendered emoji is a base plus modifiers, and a composed image such as a rainbow flag joins several elements with a zero-width joiner. Only the simplest emoji are single scalars."
+      },
+      {
+        "q": "What does the variation selector do?",
+        "a": "It chooses which presentation a character takes when both are possible. Adding U+FE0F asks for the emoji form, which is why the red heart and the warning sign are written with a selector. Without it, a platform may render the older monochrome text form instead."
+      },
+      {
+        "q": "Why does my string length show double the emoji?",
+        "a": "Because the length property counts UTF-16 code units, and anything outside the basic multilingual plane uses two of them. Counting graphemes, which is what a cursor does, gives the number a reader would count; the bulk mapper segments on exactly that boundary."
+      },
+      {
+        "q": "Is it safe to split an emoji by index?",
+        "a": "No. Splitting mid-sequence produces an invalid fragment, and cutting a joined sequence in half leaves separate characters that render as letters or boxes. Truncation has to work on grapheme boundaries, which is what the segmentation in the bulk mapper demonstrates."
+      },
+      {
+        "q": "Why might an emoji look different on another device?",
+        "a": "Because emoji drawings are supplied by the platform rather than the webfont, so the same sequence is drawn by a different typeface on each operating system. A joined sequence on a platform that lacks the combined glyph can even fall back to its individual components."
+      }
+    ]
+  }
+]

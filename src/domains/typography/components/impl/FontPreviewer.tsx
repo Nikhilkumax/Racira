@@ -1,28 +1,12 @@
 "use client";
 import { useState } from "react";
-
-const FONTS = [
-  { name: "Inter", stack: "'Inter', sans-serif" },
-  { name: "Fraunces", stack: "'Fraunces', serif" },
-  { name: "Playfair Display", stack: "'Playfair Display', serif" },
-  { name: "Lora", stack: "'Lora', serif" },
-  { name: "Source Serif 4", stack: "'Source Serif 4', serif" },
-  { name: "Merriweather", stack: "'Merriweather', serif" },
-  { name: "Space Grotesk", stack: "'Space Grotesk', sans-serif" },
-  { name: "DM Sans", stack: "'DM Sans', sans-serif" },
-  { name: "Manrope", stack: "'Manrope', sans-serif" },
-  { name: "Poppins", stack: "'Poppins', sans-serif" },
-  { name: "JetBrains Mono", stack: "'JetBrains Mono', monospace" },
-  { name: "Bebas Neue", stack: "'Bebas Neue', sans-serif" },
-  { name: "Roboto Slab", stack: "'Roboto Slab', serif" },
-];
-
-const WEIGHTS = [300, 400, 500, 600, 700];
+// Shared preview catalog — the /typography layout loads this exact font set
+// (see components/tools/fonts.ts). Keep one source of truth so a family can
+// never appear in the picker without its webfont being loaded.
+import { DEFAULT_SAMPLE, FONTS, WEIGHTS } from "../tools/fonts";
 
 export function FontPreviewer() {
-  const [text, setText] = useState(
-    "The quick brown fox jumps over the lazy dog",
-  );
+  const [text, setText] = useState(DEFAULT_SAMPLE);
   const [font, setFont] = useState(FONTS[0]);
   const [size, setSize] = useState(64);
   const [weight, setWeight] = useState(600);

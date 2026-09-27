@@ -1,0 +1,443 @@
+[
+  {
+    "slug": "color-wheel-interactive",
+    "keywords": [
+      "interactive color wheel",
+      "color wheel picker",
+      "pick a hue from a color wheel",
+      "color wheel by lightness"
+    ],
+    "intro": "The interactive color wheel arranges twenty-four hues in a ring around a lightness slider, so you can set the brightness once and then choose a hue from the wheel.",
+    "content": "- The interactive color wheel arranges twenty-four hue swatches in a ring and gives you one slider to control something else entirely.\n- The slider sets lightness, from twenty percent to ninety, and it applies to the whole ring at once: move it and every swatch is regenerated at the new brightness.\n- Clicking any swatch loads it into the Selected panel, which shows the value as a large colour block with its hex and a copy button.\n- It is a colour picker with a particular opinion, and the opinion is that brightness is a setting rather than a search.\n- As a color wheel picker it therefore asks for that decision up front, which is the one thing that sets it apart from a ring of swatches with no controls attached.\n\nThe reasoning behind that layout is worth stating. Colour choice splits into two quite different decisions: how light or dark the colour should be, and where on the spectrum it sits. A conventional picker field folds both into one two-dimensional control, so moving to a different hue tends to shift the brightness as a side effect. Here they are separated. You settle the lightness band your design lives in first, and then the ring is a clean choice between equally bright hues, which is exactly what color wheel by lightness means in practice.\n\n- Chroma is held constant across the whole ring, which is what makes the comparison fair: at a fixed saturation no hue can look artificially louder than its neighbours, so a preference between them is a preference about hue.\n- The trade-off appears at the extremes.\n- At very high or very low lightness, a fixed chroma is not achievable for every hue, so some swatches come back slightly flatter once the value is written as a hex code.\n- That is a limit of what a screen can display rather than an error in the ring, and it is most visible at the top and bottom ends of the slider.\n\nOne behaviour is worth knowing before you rely on it. The selection is captured at the moment you click, so moving the lightness slider afterwards redraws the entire ring without changing your chosen value — the selection stays as it was rather than following the brightness. Clicking again takes whatever the swatch has become at the new lightness. Read as a two-step gesture that is quite natural: choose a brightness, choose a hue, adjust, and re-choose.\n\nWith twenty-four positions the ring resolves hue in fifteen-degree steps, which is fine for browsing but not fine enough for exact work. If you need a specific relationship — a true complement, a triad, a tetradic set — the harmony tools compute those angles precisely, and if you already know the value you want, typing it into a plain colour field is faster than hunting around a wheel. The wheel earns its place when you do not yet know, and want to look at a spread of equally bright options before deciding. The twelve-step variant of the same idea is available separately for a coarser sweep.\n\nIf the habit you are trying to break is to pick a hue from a color wheel first and then correct the brightness afterwards, reversing that order is the fix, and the slider is what makes the reversal possible. In day to day use it is a browsing tool: set the lightness to roughly the band a page actually uses, glance around the ring, and click the couple of hues worth trying. Because the ring re-renders instantly, testing three brightness levels takes a few seconds, which is much faster than reasoning about them. As an interactive color wheel that is the whole offer: one lightness setting, twenty-four hues, and a selected value you can lift straight out with its hex attached.",
+    "howTo": [
+      "Drag the lightness slider to set where on the ring you are working — twenty to ninety percent.",
+      "Click a hue to select it; the ring resolves hue in fifteen-degree steps.",
+      "Read the selected value in the Swatch card and copy the hex.",
+      "Move the slider and click again for a lighter or deeper version of the same hue."
+    ],
+    "whenToUse": "Use the wheel when you want to browse hues at a chosen brightness rather than find a known value. Use a plain colour field for an exact hex, and the harmony tools when you need a specific angular relationship. The {{hue-circle-interactive|hue circle}} and the {{color-harmony-generator|harmony generator}} explore the same ring from a different angle, and the {{color-theory-reference-tool|color theory reference}} is the harmony cheat sheet for checking a relationship.",
+    "faqs": [
+      {
+        "q": "What does the lightness slider do?",
+        "a": "It sets the brightness of the whole ring at once, from twenty to ninety percent. Moving it regenerates every swatch, so you can compare hues at a different depth."
+      },
+      {
+        "q": "Why does my selection not change when I move the slider?",
+        "a": "The value is captured when you click a swatch. Moving the slider afterwards redraws the ring and leaves your selection as it was; click again to take the value at the new lightness."
+      },
+      {
+        "q": "How many hues are on the ring?",
+        "a": "Twenty-four, which is a fifteen degree step. Good for browsing, but use the harmony tools when you need an exact angular relationship."
+      },
+      {
+        "q": "Why do some swatches look less vivid at the extremes?",
+        "a": "Saturation is fixed across the ring, and not every hue can reach that saturation at very high or very low lightness, so the value rounds slightly flatter on screen."
+      },
+      {
+        "q": "Why are some swatches slightly flatter at the ends of the slider?",
+        "a": "Chroma is held constant around the ring so no hue looks artificially louder than its neighbours, but at very high or very low lightness a fixed chroma is not achievable for every hue, so a few swatches come back slightly flatter once written as a hex code. That is a limit of what a screen can display rather than an error in the ring."
+      }
+    ]
+  },
+  {
+    "slug": "brand-color-extractor",
+    "keywords": [
+      "brand color extractor",
+      "extract colors from a logo",
+      "get brand colors from an image",
+      "dominant colors from an image"
+    ],
+    "intro": "The brand color extractor pulls the dominant colors out of a logo or screenshot and presents them as a copyable palette you can start a brand system from.",
+    "content": "The brand color extractor reads an image you provide and returns its dominant colors as a palette you can copy. Upload a logo, a screenshot or a photograph, and the tool samples the pixels and groups them into clusters, then shows each cluster as a swatch with its hex value. It is the fastest way to answer the practical question of what colors an existing brand actually uses, without opening a design application or sampling pixels by hand.\n\n- The clustering is a k-means pass over the sampled pixels.\n- The image is scaled down first so the analysis stays fast and so large flat regions do not overwhelm the statistics, then the pixels are repeatedly assigned to the nearest of a set of cluster centers and the centers are recomputed until they settle.\n- Each final center is a color that represents a meaningful portion of the image.\n- The colors slider controls how many clusters the tool looks for, so you can ask for a tight, opinionated palette or a broader survey.\n\nThat slider is the most useful control and the one to spend time on. Asking for two colors from a logo with a primary and a background usually returns exactly those, cleanly separated. Asking for sixteen from the same image will split near-identical shades into separate swatches and start reporting anti-aliasing artefacts and gradients as if they were colours. A good rule is to start low, inspect the result, and only raise the count if a colour you can clearly see in the image is missing from the palette.\n\n- Two honest limitations are worth stating.\n- First, the extraction ignores transparency, so pixels that are mostly transparent are skipped and a logo on a transparent background may lose colours that only exist at low opacity.\n- Second, the palette is a statistical summary, not a specification: it tells you what colours are present and roughly how common they are, but it cannot tell you which one is the brand's intentional primary.\n- The ordering reflects how much of the image each cluster covers, so a large white background will usually dominate, and you will often want to skim past it to find the accents.\n\nIn practice the tool is a starting point for recreating or documenting a visual identity. Extract the colors, then verify the important ones by checking a flat region of the source rather than trusting a swatch that may have averaged two similar tones. For accessibility work, the extracted palette is the input, not the answer: run the key pairs through a contrast checker before you build UI on top of them. Everything runs locally in the browser, so sensitive logos and unreleased screenshots never leave your machine.\n\nThe common use is to extract colors from a logo you have been handed as an image rather than as a specification, or to get brand colors from an image of an existing page. It also answers the broader question of what the dominant colors from an image are, which is useful when a photograph, not a logo, is setting the mood of a design.",
+    "howTo": [
+      "Drop a logo, screenshot or photograph onto the upload area.",
+      "Start with a low colors count and raise it only if a visible color is missing.",
+      "Inspect the swatches and identify which ones are intentional brand colors.",
+      "Copy the hex values you want to keep and verify key text pairs for contrast."
+    ],
+    "whenToUse": "Use this extractor when you want to discover the colors already present in a logo or screenshot. Use the palette from image tool when you want a clean, evenly distributed palette to design with, and a contrast checker when you need to validate the extracted colors for text. The {{color-palette-extractor|palette extractor}} and the {{dominant-color-finder|dominant color finder}} answer the same question with different shapes — a set and a single value — and the {{palette-importer|palette importer}} takes a list back in by hand.",
+    "faqs": [
+      {
+        "q": "How many colors can it find?",
+        "a": "Between two and sixteen, controlled by the colors slider. Lower counts give cleaner, more intentional palettes; higher counts start to include anti-aliasing and gradient artefacts."
+      },
+      {
+        "q": "Why is white often the first swatch?",
+        "a": "Clusters are ordered by how much of the image they cover. A large background, frequently white, occupies the most pixels, so it usually dominates the list."
+      },
+      {
+        "q": "Does transparency affect the result?",
+        "a": "Pixels that are mostly transparent are skipped during sampling, so a logo on a transparent background may not report colors that only exist at low opacity."
+      },
+      {
+        "q": "Is my image uploaded anywhere?",
+        "a": "No. Sampling and clustering run entirely in your browser; the file is never sent to a server."
+      },
+      {
+        "q": "Does it handle transparent logos?",
+        "a": "Mostly transparent pixels are skipped, so a logo with a soft alpha edge yields its visible content rather than a muddied set, and there is no alpha channel in the output. The count slider is the other control to watch: asking for two colours from a busy image merges distinct areas into one entry."
+      }
+    ]
+  },
+  {
+    "slug": "print-color-accuracy-checker",
+    "keywords": [
+      "print color accuracy checker",
+      "will my color print correctly",
+      "cmyk color shift",
+      "print safe colors",
+      "screen to print color check"
+    ],
+    "intro": "The print color accuracy checker converts a colour to CMYK and reports whether its channels sit far enough from the ends of the range to survive being printed.",
+    "content": "One colour field feeds the page, and the result is a card with three lines: the CMYK approximation of the colour, a label saying what it represents, and a verdict. The verdict is either Likely prints close to screen in green or May shift in print in orange, decided by a margin test on the colour's own channels rather than by a profile.\n\n- The test is simple and worth knowing exactly, because it explains both the verdicts and their limits.\n- Each of the red, green and blue values is checked for sitting between five and two hundred and fifty.\n- A colour well inside that band passes; a colour that pushes any channel below five or above two hundred and fifty is flagged, because those are the values a four-ink process handles worst — near-black shadows, near-white highlights and fully saturated hues all land there.\n\nThe CMYK figures above the verdict are an arithmetic conversion rather than a separation, so they describe the colour as ink percentages instead of predicting what a press will do with it. A colour reported as likely to print close to screen is one whose channels are comfortably inside the range; it is not a proof, and a real proof needs the ink, the stock and the press.\n\nThe practical use is early triage. Choosing between two candidates for a brand colour, a packaging tone or a printed accent is faster when one of them is flagged before artwork is produced. It is also a quick way to see why very saturated colours and very dark ones are the two groups that shift most often: both sit at the extremes the margin test is looking for.\n\nWhat the page will not do is model the shift. There is no preview of the paper result, no soft proof, no selection of a print standard and no indication of how far a flagged colour will move — a colour just outside the band and one far outside it receive the same sentence.\n\nUsing it as a first pass is straightforward: run the two or three candidates for a printed colour through the page and compare the verdicts. One that clears the margins and one that does not is a decision made early and for free, and the ink figures printed above the verdict give a rough sense of which channels the colour leans on. What a print color accuracy checker cannot do is promise a match, so the reading is best treated as a filter deciding which colours are worth a proof rather than as an answer in itself.\n\n- Limits: one colour at a time, a fixed margin rule rather than a profile, an arithmetic CMYK approximation, and no rendering intent, stock or ink selection.\n- As a screen to print color check it answers will my color print correctly with a caveat rather than a verdict — the honest reading of a cmyk color shift warning is that the colour is in the group most likely to move, so treat the print safe colors question as a first filter and confirm with a proof.",
+    "howTo": [
+      "Pick the colour that is heading for print.",
+      "Read the CMYK approximation and the verdict line beneath it.",
+      "Treat the orange verdict as a prompt to test a proof rather than as a prediction of how far the colour will move."
+    ],
+    "whenToUse": "Use this when a screen colour is being considered for print and you want an early warning before artwork is produced. Use the gamut page when the ink approximation itself is the question, or a profile-based tool when the conversion has to be relied on. The {{color-gamut-checker|gamut checker}} covers the same CMYK approximation from the gamut side, and the {{cmyk-channel-mixer|CMYK channel mixer}} works the ink channels directly.",
+    "faqs": [
+      {
+        "q": "What decides the verdict?",
+        "a": "A margin test on the colour's channels: each has to sit between five and two hundred and fifty. Push any channel beyond that and the colour is flagged as likely to shift."
+      },
+      {
+        "q": "Is this a soft proof?",
+        "a": "No. There is no preview of the printed result, no print standard and no ink or stock selection — the figures are an arithmetic conversion, not a colour-managed separation."
+      },
+      {
+        "q": "Which colours get flagged most?",
+        "a": "Near-blacks, near-whites and fully saturated hues, because those are the values that push a channel to the ends of the range where a four-ink process struggles."
+      },
+      {
+        "q": "Does a pass mean the printed colour will match?",
+        "a": "No. A pass says the channels are comfortably inside the range, which makes a shift less likely. Only a proof against the real press, ink and stock settles the question."
+      },
+      {
+        "q": "Can it predict how the ink will actually look on paper?",
+        "a": "No. The verdict is a fixed margin rule around an arithmetic CMYK conversion rather than a profile-based separation: there is no paper preview, no soft proof, no rendering intent and no ink-limit modelling, so the reading is early triage rather than a press-accurate proof."
+      }
+    ]
+  },
+  {
+    "slug": "color-theory-reference-tool",
+    "keywords": [
+      "color theory reference tool",
+      "color wheel quick reference",
+      "harmony cheat sheet",
+      "color relationships guide"
+    ],
+    "intro": "The color theory reference tool puts the wheel on screen — twelve hues, pickable, with the classic relationships one glance away when you need a color wheel quick reference mid-project.",
+    "content": "Every color theory conversation eventually needs the wheel: which hues neighbour which, what sits opposite what, where the triad lands. The color theory reference tool is that wheel, interactive — twelve hues arranged in their canonical order, any one pickable as the anchor, with the classic relationships readable directly from the arrangement rather than reconstructed from memory.\n\n- What makes it a reference rather than a lesson is the directness.\n- The wheel is the theory's entire geometry in one image: analogous pairs are neighbours because that is what adjacency means; complements are opposites because that is what 180 degrees means; a triad is the triangle you can trace with your eyes.\n- Choosing an anchor hue and scanning its relationships answers the mid-project questions — what opposes this brand blue, what flatters this orange — faster than any prose, and with less risk of a misremembered rule.\n- The harmony generators then execute whichever relationship you identify: the wheel points, they compute.\n\nThe twelve-hue arrangement itself encodes the primaries, secondaries and tertiaries of the traditional wheel — the RYB artist's model rather than the RGB of screens, which is why red sits opposite green and blue opposite orange, the relationships illustrators and interior designers still work in. That conventionality is deliberate: a color relationships guide is only useful if it speaks the shared language, and the traditional wheel is the shared language.\n\nA color wheel quick reference earns its keep precisely because the rules it summarises are easy to half-remember. Complementary, analogous, triadic, split complementary, tetradic: each is a fixed geometric relationship, and each answers a different question about how much contrast a design needs. Keeping the geometry on one page means a relationship can be checked in seconds rather than reconstructed from a wheel and a spreadsheet, and the check is what keeps a palette out of near-miss territory — two hues that are almost analogous, or a triangle that is slightly off, both read as mistakes rather than as choices. The reference is also the fastest way to explain a decision to somebody else. When a stakeholder asks why those three colours, showing the triangle is more persuasive than describing it, and the same diagram makes the consequence of a change visible before the change is made.\n\n- Where the tool fits in daily work is exactly where its name puts it — the quick consultation.\n- Not the place to learn color theory; the place to check a relationship before committing it.\n- The interactive wheel offers a deeper dive with lightness control and selection mechanics; the learning playground wraps the theory in guided exploration; and this reference stays what it should be — a harmony cheat sheet that keeps the geometry honest when memory wavers.\n\nThe habit that makes it stick is to check the relationship at the moment the palette is chosen rather than at review, when changing a hue costs a rebuild instead of a field. Keep the reference and the harmony generators side by side: one tells you what the relationship is, the other hands you the values that satisfy it. And when a stakeholder asks why the palette looks the way it does, the diagram is the explanation.",
+    "howTo": [
+      "Pick the anchor hue on the twelve-part wheel.",
+      "Read its relationships from the geometry — neighbours, opposite, triangles.",
+      "Hand the chosen relationship to the matching harmony generator to compute values."
+    ],
+    "whenToUse": "Use this as the mid-project wheel check — what opposes, what neighbours, what triangles. Use the interactive wheel for deeper exploration with lightness control, the harmony generators to execute a chosen relationship, and the theory guide for the full lesson. The {{color-wheel-interactive|interactive wheel}} offers a deeper dive with lightness control, the {{oklch-color-playground|OKLCH playground}} wraps the theory in guided exploration, and the {{color-harmony-generator|harmony generator}} applies the relationships to a palette.",
+    "faqs": [
+      {
+        "q": "Which color model is the wheel based on?",
+        "a": "The traditional twelve-hue RYB artist's wheel — primaries red, yellow, blue — which is the convention most color theory teaching and the shared vocabulary use."
+      },
+      {
+        "q": "Why do the relationships differ from my screen's RGB logic?",
+        "a": "The artist's wheel encodes pigment-mixing relationships and their cultural convention; RGB is an additive display model. Design references overwhelmingly use the traditional wheel."
+      },
+      {
+        "q": "Can it compute the actual hex values for a harmony?",
+        "a": "That is the harmony generators' job — identify the relationship here, then set your base in the complementary, triadic or analogous tool to get values."
+      },
+      {
+        "q": "Does it cover split-complementary and tetradic relationships?",
+        "a": "The geometry is all on the wheel — split pairs sit either side of the opposite, tetrads form rectangles — and the dedicated generators compute each scheme's exact values."
+      },
+      {
+        "q": "Is it meant for learning color theory?",
+        "a": "No — it is the quick consultation rather than a course: it checks a relationship before a palette is committed, where the interactive wheel offers a deeper dive with lightness control and the playground wraps the theory in guided exploration."
+      }
+    ]
+  },
+  {
+    "slug": "color-naming-challenge",
+    "keywords": [
+      "color naming challenge",
+      "name that color quiz",
+      "css color name quiz",
+      "guess the color name",
+      "color name test"
+    ],
+    "intro": "The color naming challenge shows a swatch and four standard CSS color names, and keeps a running score and streak as you work out which one is right.",
+    "content": "A round has one swatch and four buttons. The swatch fills the left card under the heading Name this color, and below it sit four names drawn from the standard CSS named-colour list — one of them is the target, and the other three are other entries from the same list, chosen so that none of them shares the target's hex value. Two columns of buttons keep the choices short enough to read at a glance.\n\n- The pool is what makes the challenge instructive rather than trivial.\n- The names are the ones a stylesheet actually accepts — the long list of two hundred or so keyword colours that browsers resolve, from the obvious ones to the pairings nobody remembers.\n- Because the three distractors are real entries from the same list, a round is rarely as easy as it looks: two named colours can be a few degrees apart, and the difference between them is exactly what has to be recognised.\n\nThe scoring is the part worth watching. The result card shows two figures — a score out of rounds played, and a streak that counts consecutive correct answers and resets to zero the moment one goes wrong. That pairing makes the streak the more honest measure of skill: a score of eighty percent assembled across dozens of rounds means something different from eight consecutive correct answers.\n\nFeedback is immediate and specific. Before a guess the card says only that a standard name needs to be chosen; afterwards it either confirms the choice or states what the colour actually is, giving both the name and its hex code. That last detail is what turns a wrong answer into a lookup rather than a dead end — the hex can be taken away and used, and the name learned from it.\n\nThe CSS color name quiz format also happens to teach the one thing the list is genuinely useful for. Named colours are readable in source and memorable in review, which is why they survive in stylesheets even where a token system exists. Knowing that a particular shade is called the name it is called — rather than being a plausible-looking guess — is the difference between using them deliberately and avoiding them.\n\nWhat it does not offer is any help. There is no hint, no narrowing of the options after a wrong answer, no explanation of why a name belongs to a colour, no difficulty setting and no way to weight the rounds towards the names that keep being missed. The score and the streak last for the visit and are then forgotten.\n\n- Limits: four options per round, one round at a time, a session-only score, no history and no export.\n- As a color naming challenge it is a clean guess the color name loop against the standard list, and for anyone who wants a fast css color name quiz — a name that color quiz with a streak to keep honest — it is a swatch, four buttons and a button to move on — a color name test that costs nothing but the rounds you give it.",
+    "howTo": [
+      "Look at the swatch and read the four names offered.",
+      "Pick the one you believe is the standard CSS name for that colour.",
+      "Read the verdict in the result card, then press Next color — a wrong answer resets the streak."
+    ],
+    "whenToUse": "Use this to check how well the standard CSS colour names are known, or to settle which of two similar names belongs to a shade. Use the colour memory test when the target is recall of a shade rather than its vocabulary, or the named colour lookup when a list is what is needed. Once the standard names are familiar, the {{color-name-lookup|color name lookup}} answers what a value is called and the {{color-name-generator|name generator}} handles the reverse direction.",
+    "faqs": [
+      {
+        "q": "Where do the four names come from?",
+        "a": "The standard CSS named-colour list. One option is the target and the other three are other entries from the same list, chosen so none of them shares the target's hex value."
+      },
+      {
+        "q": "What is the difference between score and streak?",
+        "a": "Score is correct answers out of rounds played. Streak counts consecutive correct answers and resets to zero as soon as one is wrong."
+      },
+      {
+        "q": "What happens when I answer wrongly?",
+        "a": "The card reports the colour's actual name and its hex value, so the round doubles as a correction. There is no hint before the answer."
+      },
+      {
+        "q": "Is the score saved?",
+        "a": "No. Score, rounds and streak last only for the visit, and there is no history of which names have been missed."
+      },
+      {
+        "q": "Does a wrong guess narrow the options?",
+        "a": "No. There is no hint, no narrowing of the four options after a wrong answer and no explanation of why a name was wrong; the round simply scores and moves on, and the score is session-only with no history and no export."
+      }
+    ]
+  },
+  {
+    "slug": "color-memory-test",
+    "keywords": [
+      "color memory test",
+      "test color recall",
+      "remember the shade",
+      "hue discrimination test",
+      "color recall score"
+    ],
+    "intro": "The color memory test shows a single shade for three seconds, hides it, and asks you to pick it out of five near-identical swatches.",
+    "content": "A round has two phases. First a large swatch appears under the heading Memorise this color, and the panel notes that it hides after three seconds — a timer runs behind the scenes and the phase changes on its own, so there is no button to press and no way to sit with the colour longer. Then the swatch is replaced by five candidates under the heading Which one was it?, shuffled.\n\n- The five candidates are the exact colour plus four hue-shifted neighbours at plus and minus fifteen and thirty degrees, all generated at the same lightness and chroma.\n- The original is therefore always present, and the four decoys are close enough in hue that the choice is made on memory of the shade rather than on recognising a different colour family.\n\nPicking one gives an immediate verdict in the result card: either a confirmation that the exact swatch was found, or a statement of what the target actually was, printed as its hex code. The score card then shows two figures — a fraction of correct answers out of rounds played, and an accuracy percentage computed from the same two numbers, rounded.\n\nThe three-second exposure is what makes the test about recall rather than about comparison. With the target on screen it would be trivial; holding a shade in mind for even a few seconds and then choosing between neighbours a few degrees apart is genuinely difficult, and the accuracy figure over several rounds is where a pattern shows up. A score near one in five is what guessing would produce, so the useful reading is anything well above that.\n\nThe controls are deliberately thin. One button moves to the next round and doubles as a skip, the previous verdict stays on screen until it is pressed, and the score accumulates for the visit without being stored. There is no difficulty setting, no timer pressure on the guess itself, no distribution of your answers and no record of which hues you get wrong — a chart of that would be more instructive than the accuracy alone.\n\nThe test is more revealing over several rounds than in any single one. Because the hue offsets are fixed at fifteen and thirty degrees in both directions, a run of rounds samples the whole wheel, and an accuracy well above the one-in-five that guessing would produce is a real signal of shade memory rather than luck. Repeating a handful of rounds is also the clearest demonstration of a point colour theory keeps making: a few degrees of hue are almost invisible when two swatches are apart, and entirely obvious when they are adjacent.\n\n- Limits: five options per round, one exposure time, a session-only score, no history and no export.\n- As a color memory test it is a clean test color recall loop, and for anyone wondering whether they can remember the shade they just saw, the hue discrimination test that follows — plus its color recall score — answers it in a handful of rounds.",
+    "howTo": [
+      "Look at the colour while it is shown; it hides after three seconds.",
+      "Pick the swatch you believe is the exact shade from the five offered.",
+      "Press Next round to continue — the score and accuracy build up as rounds accumulate."
+    ],
+    "whenToUse": "Use this when you want to test shade recall rather than colour knowledge, or to see how much of a difference a few degrees of hue actually makes. Use the naming challenge when the vocabulary is the subject, or the sequence game when order rather than shade is being tested. The {{simultaneous-contrast-visualizer|simultaneous contrast visualizer}} shows why a remembered shade shifts, and the {{color-naming-challenge|naming challenge}} is the other game in this corner of the catalogue.",
+    "faqs": [
+      {
+        "q": "How long is the colour shown?",
+        "a": "Three seconds. The phase changes automatically, so there is no control to extend the exposure and the shade is visible only once per round."
+      },
+      {
+        "q": "What are the other four swatches?",
+        "a": "Hue-shifted versions of the target at plus and minus fifteen and thirty degrees, at the same lightness and chroma, so they differ mainly in hue."
+      },
+      {
+        "q": "How is the accuracy worked out?",
+        "a": "Correct answers divided by rounds played, rounded to a percentage. A score near one in five is what random guessing would produce."
+      },
+      {
+        "q": "Is the score kept between visits?",
+        "a": "No. Score, rounds and accuracy last for the session only, and there is no record of which hues were missed."
+      },
+      {
+        "q": "What are the four wrong options?",
+        "a": "Hue-shifted neighbours a few degrees either side of the exact colour, so a guess made from memory has to beat near-misses rather than obvious decoys. One exposure time applies to every round, and the score resets with the session."
+      }
+    ]
+  },
+  {
+    "slug": "color-histogram",
+    "keywords": [
+      "color histogram",
+      "image color histogram",
+      "rgb histogram generator",
+      "analyze image colors"
+    ],
+    "intro": "The color histogram charts how an image's pixels are distributed across the red, green and blue channels, with one bucket per value, so you can read exposure and color balance at a glance.",
+    "content": "- The color histogram reads an image you upload and charts how its pixels are distributed across the red, green and blue channels.\n- Each channel gets its own bar chart with two hundred and fifty-six buckets, one for every possible value, so you can see at a glance whether an image is dark and clipped, bright and blown out, or spread comfortably across the range.\n- It is the diagnostic you want before color-correcting a photograph, or before deciding whether a scanned document is usable.\n\nA histogram is a count, not a picture. The horizontal axis runs from the darkest value to the lightest and the vertical axis shows how many pixels fall into each bucket, scaled so the tallest bar fills the chart. Because the three channels are drawn separately, a color cast is easy to spot: if the red distribution sits noticeably to the right of the blue, the image is warm, and a green curve pushed toward the shadows suggests too much magenta in the midtones.\n\nReading an image color histogram well takes a little practice. A healthy exposure usually shows a broad, roughly bell-shaped spread that reaches both ends without piling up against either wall. A spike pressed against the far left means crushed shadows with lost detail; a spike on the right means clipped highlights that cannot be recovered. A single tall, narrow spike in the middle often indicates a flat, low-contrast image, or a large area of uniform color such as a studio backdrop.\n\n- The tool scales the image down before sampling, so very large files stay responsive, and pixels that are mostly transparent are skipped.\n- That matters for the common case of a logo with a soft alpha edge, which would otherwise distort the counts with invisible areas.\n- If a histogram looks strange, transparency is usually the reason rather than a bug: an image with a large transparent region is charting only its visible pixels.\n\nAs an rgb histogram generator it complements the palette tools elsewhere in this section. A palette extractor answers which colors an image contains; the histogram answers how those colors are distributed and whether the tonal range is healthy. Reach for it when you want to analyze image colors rather than name them, and remember it measures the whole frame rather than pointing at a region, so it works best alongside your eyes rather than as a replacement for them.\n\nA histogram is also worth reading in pairs. Compare the charts for two frames from the same shoot, or for a brand color alongside its photographic rendering, and the difference in spread tells you more than either chart alone. If one image crowds both ends of the range and the other sits comfortably inside it, the first has been pushed harder in editing and will be harder to match. Because the tool samples every visible pixel, it also quietly flags images that are effectively single tone: a chart with one dominant spike and very little else is a flat graphic or a silhouette rather than a photograph, and it will not respond to tonal adjustments the way a photograph does.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Read the three charts: each channel runs from darkest to lightest along the horizontal axis.",
+      "Look for a broad spread that reaches both ends when judging exposure.",
+      "Upload a second frame to compare two charts side by side."
+    ],
+    "whenToUse": "Use the histogram to judge exposure and color balance before corrections. Use the palette from image tool to extract the colors themselves, and the dominant color finder when you need a single representative value. A palette tool such as the {{color-palette-extractor|palette extractor}} or the {{dominant-color-finder|dominant color finder}} answers which colours are present, which is a different question from how they are distributed.",
+    "faqs": [
+      {
+        "q": "What do the axes represent?",
+        "a": "The horizontal axis runs from the darkest to the lightest value and the vertical axis shows how many pixels fall in each bucket, scaled to the tallest bar."
+      },
+      {
+        "q": "What does a spike at the edge mean?",
+        "a": "A spike at the left means crushed shadows and a spike at the right means clipped highlights. Detail in those regions cannot be recovered by editing."
+      },
+      {
+        "q": "Why is each channel drawn separately?",
+        "a": "Separate curves make a color cast visible. If one channel sits noticeably to a side, the image is tinted in that direction."
+      },
+      {
+        "q": "Does it handle transparent PNGs?",
+        "a": "Mostly transparent pixels are skipped when sampling, so a logo with soft edges charts only its visible content."
+      },
+      {
+        "q": "Does the chart tell me whether an image is correctly exposed?",
+        "a": "No. It counts and plots how pixels are distributed across the red, green and blue channels; whether that distribution is right depends on the image's intent, and no target, warning or verdict is offered. Very large files are scaled down before sampling, so the counts describe a reduced read of the image."
+      }
+    ]
+  },
+  {
+    "slug": "dominant-color-finder",
+    "keywords": [
+      "dominant color finder",
+      "find dominant color of image",
+      "extract dominant color",
+      "image dominant color",
+      "most common color in image"
+    ],
+    "intro": "The dominant color finder extracts the single most common color from an image by counting its pixels into quantised buckets and returning the mean of the largest one.",
+    "content": "- The dominant color finder is a one-drop tool.\n- Upload an image and it returns a single swatch labelled Dominant, with the hex value underneath and a copy button beside it.\n- A Replace image button resets the state so another file can be measured.\n- There are no settings to adjust, because the question — what colour does this image mostly consist of — has one answer.\n\nGetting that answer right is more interesting than it sounds, because there are two plausible readings of the phrase and they behave very differently when you set out to find dominant color of image data. One is to average every pixel. That is easy, and it is usually wrong for the purpose: averaging a photograph blends the sky, the subject and the shadows into a muddy mid-tone that appears nowhere in the picture. The other reading, which is what this tool does, is to count how much of the image each colour occupies and return the most popular one.\n\nThe counting is done by quantising. Each channel is reduced to five bits — thirty-two levels instead of two hundred and fifty-six — and every pixel is filed into a bucket keyed by its quantised colour. The largest bucket wins, and the swatch shows the mean of the actual pixel values that landed there, so the result is a true colour from the image rather than the coarse centre of a bucket. Quantising matters for a practical reason: without it, a photograph with smooth gradients would spread its pixels across thousands of near-identical values and no single bucket would represent anything. With it, visually identical colours are treated as identical, which is what the eye does anyway.\n\nTwo details of the sampling are worth knowing. The image is downscaled before it is read, which averages fine detail away and makes the counting fast — so the answer reflects the image as a whole rather than the sharpest texture within it. And pixels that are more than half transparent are skipped entirely, which is why a fully transparent image produces a message instead of a colour; nothing was sampled. Partially transparent areas are read at their stated colour, so a logo with soft edges will be judged on its opaque body.\n\nThe usual workflow is to measure first and design second. Run a photograph through the tool to extract dominant color for a card, a banner or a background tint — the image dominant color is usually a better basis for the surrounding interface than a colour picked by eye — and then build outward from that value — a border, a tinted background panel or an accent — so the page and the image agree without the colour being picked by eye. It is equally useful in reverse for checking a delivery: a brand shot that returns a muddy grey rather than the intended green tells you the composition has more background than subject.\n\n- Where it stops: one colour, not a palette, so a photograph with two equally weighted themes will report whichever narrowly wins.\n- There is no cropping or region selection, so a large border or letterbox band can dominate the count.\n- And the result is a screen-sampled approximation, not a colour-managed measurement of the original file.\n- For the common case — grabbing the most common color in image content, in one upload — this is the shortest path from an image to its dominant color, and the one that most reliably matches what a person would name if asked what colour the picture is.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Read the single swatch and its hex — the bucket covering the most area wins, so the answer is the colour the image is most made of.",
+      "Reach for the palette extractor when the image has more than one theme.",
+      "Use the value as the base for a scheme rather than as a finished decision."
+    ],
+    "whenToUse": "Use this when you want one representative colour from an image — to tint a card, blend a photograph into a layout, or check what an image actually consists of. Use the image colour picker for sampling a specific spot, and a palette extractor when you need the image's several main colours instead of one. When a set rather than a single answer is wanted, the {{color-palette-extractor|palette extractor}} returns a whole palette and the {{color-histogram|color histogram}} shows the distribution behind it.",
+    "faqs": [
+      {
+        "q": "Is the dominant colour the same as the average colour?",
+        "a": "No, and that is the difference that matters. An average blends every pixel into a mid-tone that need not appear in the image; the dominant colour is whichever colour covers the most area."
+      },
+      {
+        "q": "How many colours are considered?",
+        "a": "Each channel is quantised to 32 levels, giving roughly 32,000 distinct buckets. Similar shades count as the same colour, which is what makes the most popular one meaningful."
+      },
+      {
+        "q": "Can I pick a region of the image?",
+        "a": "No. The whole image is sampled, so a large background or border will influence the result. Crop the image first if only part of it matters."
+      },
+      {
+        "q": "Why did I get a message instead of a colour?",
+        "a": "The image had no pixels that were at least half opaque, so there was nothing to count. Fully transparent PNGs are the usual cause."
+      },
+      {
+        "q": "What if an image has two equally dominant colours?",
+        "a": "It returns one value, not a palette: the largest histogram bucket wins and its mean is reported, so a border or letterbox band can dominate the answer. There is no cropping or region selection to exclude it, and a fully transparent image reports that no opaque pixels were found."
+      }
+    ]
+  },
+  {
+    "slug": "palette-balance-analyzer",
+    "keywords": [
+      "palette balance analyzer",
+      "palette average lightness",
+      "check palette balance",
+      "palette chroma average",
+      "analyze color palette weight"
+    ],
+    "intro": "The palette balance analyzer reports the average lightness and average chroma of a palette in perceptual terms, giving two numbers that describe how heavy and how vivid the set is.",
+    "content": "- The palette balance analyzer places a palette editor beside a summary card.\n- The editor holds five colours with fields to change them, removal buttons and an Add color button.\n- The card reports two figures: the average lightness of the palette and its average chroma, both to two decimal places, recalculating as the palette changes.\n\nBoth numbers are computed in a perceptual colour model, which is what makes them worth reading. The palette average lightness is the mean of each colour's perceived brightness on a scale from zero to one, so a palette of four mid-tones and one near-black reports slightly below the middle, and a palette of pale tints reports high. The palette chroma average — the mean distance from grey on the same scale — tells you how colourful the set is, so a group of muted colours reports low and a group of vivid ones reports high. To analyze color palette weight, those two numbers are the summary that matters most. Together they characterise a palette on its two most important global axes: how light it is, and how colourful it is.\n\nThe practical use is comparison, and it is also the answer to how to check palette balance across a set of candidates. Read the two figures for a palette, write them down, load the next one, and read them again. Two palettes with a similar average lightness and chroma will feel like siblings even when their hues differ completely, and a palette that has been refined by eye across several sessions can be checked against a reference to see whether it has drifted towards brighter or more saturated colours — which it will have, because the eye recalibrates as you work and small individual adjustments accumulate. Since the figures are means of a perceptual measure, they also travel between palettes of different sizes, so a five-colour set and a nine-colour one are comparable.\n\n- What the tool deliberately does not do is offer a verdict.\n- There is no ideal average, no target band and no warning, because what counts as balanced depends on the brief: a muted editorial palette and a vivid game palette are both balanced on their own terms.\n- It is a measurement, not an assessment, and the judgement stays with whoever is looking at the two numbers.\n\nThe corollary is the main limitation, and it is a real one. A mean hides its distribution completely. Two near-black colours and two near-white ones average to a comfortable mid lightness, as does a palette of four mid-tones — and those two palettes will behave nothing alike in a design, one being a high-contrast pair with no middle and the other a low-contrast set with no extremes. Averages also cannot tell you whether a palette has the range a design needs, whether its colours are related to each other, or anything at all about hue, since hue is the axis the tool ignores entirely. Reading the two figures as a whole-palette summary rather than as a description of its colours is the correct use.\n\nWithin those limits, as a palette balance analyzer it does one thing usefully: it puts a number on the two properties that are hardest to judge by eye and easiest to drift on. For checking that a palette has a defensible average lightness and chroma — or for comparing several candidates against each other — the summary card is quick, and it is a useful sanity check before a palette is handed to someone else.",
+    "howTo": [
+      "Load the palette into the editor, editing or adding colours as needed.",
+      "Read the average lightness figure to see how heavy the set is overall.",
+      "Read the average chroma figure to see how vivid it is.",
+      "Compare the two numbers across palettes to tell whether they feel like siblings."
+    ],
+    "whenToUse": "Use this when comparing candidate palettes or checking that one has drifted. Use the accessibility or contrast tools when the question is whether particular colours are usable rather than how the palette weighs overall. The {{visual-weight-analyzer|visual weight analyzer}} shows how a palette's lightness orders on screen, and the {{contrast-checker|contrast checker}} supplies the pairing verdict the summary deliberately withholds.",
+    "faqs": [
+      {
+        "q": "What are the two figures measuring?",
+        "a": "Average perceived lightness and average chroma across the palette, both in a perceptual colour model. Lightness describes how heavy the set is; chroma describes how far its colours sit from grey."
+      },
+      {
+        "q": "Is there a target value for a balanced palette?",
+        "a": "No. The tool reports measurements rather than a score, because what counts as balanced depends on the brief — a muted palette and a vivid one are both balanced in their own terms."
+      },
+      {
+        "q": "What does it miss?",
+        "a": "Distribution, entirely. Four mid-tones and a mix of near-black and near-white can share an average lightness while behaving completely differently, and hue is not measured at all."
+      },
+      {
+        "q": "Can I compare two palettes?",
+        "a": "By recording the numbers for each — the figures are comparable between palettes of different sizes because they are means. The comparison tool shows two palettes at once."
+      },
+      {
+        "q": "Is there an ideal average lightness to aim for?",
+        "a": "No. There is no ideal average, no target band and no warning, because what counts as balanced depends on the surface and the intent. A mean also hides its distribution, so a palette with extremes and a palette of mid-tones can report the same figure."
+      }
+    ]
+  },
+  {
+    "slug": "visual-weight-analyzer",
+    "keywords": [
+      "visual weight analyzer",
+      "color weight comparison",
+      "which color is heavier",
+      "oklch lightness",
+      "palette weight"
+    ],
+    "intro": "The visual weight analyzer sorts a palette by OKLCH lightness and sizes each swatch in proportion, so it is obvious at a glance which colors carry more weight.",
+    "content": "The palette editor at the top holds five colours and behaves like every other palette tool in this domain: swatches can be changed, added and removed. The default set is black, a blue, a purple, a green and white. Below the editor, a card titled Heaviest to lightest lays the same colours out as squares, ordered by lightness so that the darker a colour is, the larger its square, with each hex value available in a tooltip.\n\n- The ordering is by oklch lightness and nothing else, which keeps the comparison honest.\n- Hue and chroma cannot influence the order at all, so a vivid yellow and a dull one of the same lightness land in the same place.\n- That matters because visual weight is often read in practice as saturation, and this tool deliberately separates the two questions rather than blending them.\n\nSize encodes the same quantity a second time, and that is what makes the arrangement legible. A square's side is thirty pixels plus eighty scaled by one minus lightness, so white arrives at the floor of about thirty pixels and black at roughly a hundred and ten. The order already said which colour is heavier; the sizing shows how much, so a palette with two colours close in lightness reads as two similar squares while a wide spread reads as a staircase.\n\nIn use this answers questions that come up whenever a palette is assembled without a scheme. Which colour should be the background? Which one is carrying more attention than the area it holds deserves? Will these two mid-tones read as a pair? Turning the comparison into a shape makes those calls quicker, and it is the fastest way to notice that an accent sits at the same weight as the surface it is meant to sit on.\n\nThe default palette is a demonstration in itself. Black sits at the bottom of the lightness range and white at the top, and their squares are the two extremes of the row; the blue, purple and green in between land in a narrow band of sizes because all three are mid-tone. Replacing one of them with a pale tint or a deep shade changes the shape of the row immediately, which is the fastest way to see how much of a palette's apparent balance comes from lightness alone rather than from the hues chosen.\n\n- Some limits follow from the design.\n- Perceptual weight is more than lightness, and the tool does not pretend otherwise: area, saturation, position and surrounding colours all contribute in a real interface and none of them appear here.\n- The default five colours are only a starting point, the sort direction cannot be flipped, and no numbers are printed beyond the hex values in the tooltips.\n\nWithin those bounds the page does one thing cleanly. As a color weight comparison it orders a palette by oklch lightness and renders that gradient as area, which is a good deal more useful than it sounds — a visual weight analyzer answers which color is heavier in a set without arithmetic, and the palette weight view makes the answer readable in a single glance.",
+    "howTo": [
+      "Edit the palette in the top card, or keep the default five as a starting point.",
+      "Read the squares in the Heaviest to lightest card — they are ordered by lightness and sized in proportion.",
+      "Hover a square to read its hex value if you need the exact colour."
+    ],
+    "whenToUse": "Use this when a palette needs its tonal hierarchy checked — deciding a surface, spotting an accent that is too heavy, or confirming a set has enough spread. Use the palette balance analyzer when the question is the mix of light and dark rather than the order. The {{palette-balance-analyzer|palette balance analyzer}} puts numbers to the same lightness story across a set, and the {{color-hierarchy-analyzer|hierarchy analyzer}} applies the weights to three roles in context.",
+    "faqs": [
+      {
+        "q": "What decides the order?",
+        "a": "OKLCH lightness alone. Hue and chroma are ignored, so two colours of the same lightness sit together however different they look."
+      },
+      {
+        "q": "What do the square sizes mean?",
+        "a": "Side length scales from about thirty pixels for the lightest colour to roughly a hundred and ten for the darkest, so the sizes show the size of the gaps as well as the order."
+      },
+      {
+        "q": "Does saturation affect the result?",
+        "a": "No. A muted colour and a vivid one with the same lightness are placed identically, which is deliberate — it keeps the measurement to one variable."
+      },
+      {
+        "q": "Can I sort the other way round?",
+        "a": "No. The display is always heaviest to lightest, and there is no control to reverse it or to sort by chroma instead."
+      },
+      {
+        "q": "Does lightness alone determine visual weight?",
+        "a": "No. Area, saturation, position and surrounding colours all contribute in a real interface and none of them appear in the measure, so the ordering is a statement about lightness rather than a complete account of weight. The default five colours are a starting point, and the sort direction cannot be flipped."
+      }
+    ]
+  },
+  {
+    "slug": "warm-cool-analyzer",
+    "keywords": [
+      "warm cool analyzer",
+      "warm vs cool colors",
+      "is my color warm or cool",
+      "hue based temperature",
+      "color temperature classification"
+    ],
+    "intro": "The warm cool analyzer classifies a colour as warm or cool from its hue alone, reporting the degrees it used and the family that follows from them.",
+    "content": "Pick a colour and the tool returns a verdict. The card on the right is titled Temperature and shows either Warm or Cool in large type, then a line recording the hue in degrees and a short family description. The rule behind it is fixed: a hue between zero and seventy degrees, or at three hundred and twenty degrees and above, is warm; everything else is cool.\n\n- The line is drawn where it is because of where the warm range sits on the wheel.\n- Orange and red occupy the low degrees, and red continues past the end of the circle into the three-hundreds, where magenta begins, so the classification has to handle the wrap-around at three hundred and sixty.\n- The test compares the hue against two bands joined at that seam and covers the full circle without a gap.\n\nCool is the answer for anything outside those bands, which places mid greens and mid cyans firmly on the cool side. Violet around three hundred degrees is judged cool as well, since the warm band does not begin until three hundred and twenty — arguable to the eye, but consistent, and the boundary is at least stated rather than implied.\n\nThe verdict is about hue only. Lightness and chroma are ignored, so a near-black green and a vivid green are both cool, and a pale yellow and a saturated orange are both warm. That keeps the answer reproducible and narrowly defined, and it explains the cases where the tool disagrees with the eye: near-neutral colours have no meaningful hue, and their verdict follows whatever small hue residue they carry.\n\nThe boundary values are worth remembering, because the two bands are the entire rule. A hue of exactly seventy degrees is warm and seventy-one is cool; three hundred and nineteen is cool and three hundred and twenty is warm. Colours that straddle the line — an orange-yellow, a violet-red — flip their verdict on a single degree, and the hue printed in the card makes it easy to see when a colour is close to an edge rather than comfortably inside one band.\n\nThe honest uses are the ones that depend on the definition rather than on taste. Sorting a library of colours into warm and cool batches, checking that a set is not accidentally all warm, and verifying that a hue written into a specification really is on the warm side are all quick here. The question of whether a palette feels warm is a different one, and this page deliberately does not answer it.\n\n- Limits: one colour, one answer, a fixed threshold, no family naming beyond the warm or cool verdict and its short description, no lightness or saturation input and no palette view.\n- It is a color temperature classification with exactly one input: as a warm cool analyzer it turns warm vs cool colors into a number and a band, and for anyone asking is my color warm or cool, the hue based temperature reading is one pick away.",
+    "howTo": [
+      "Pick the colour to classify.",
+      "Read the verdict: Warm for hues from 0 to 70 degrees or from 320 to 360, Cool otherwise.",
+      "Note the reported hue if the colour sits near the 70 or 320 degree boundary."
+    ],
+    "whenToUse": "Use this when a colour has to be sorted into a warm or cool group and the definition matters more than the impression — building batch palettes, checking a specification, keeping a set consistent. Use the colour psychology or mood tools when the question is about feeling rather than hue. The {{color-temperature-analyzer|temperature analyzer}} puts a Kelvin figure on a single colour, the {{color-temperature-adjuster|temperature adjuster}} acts on the reading, and the {{warm-to-cool-color-shifter|warm-to-cool shifter}} moves a value across the line.",
+    "faqs": [
+      {
+        "q": "How is the boundary decided?",
+        "a": "Hues from 0 to 70 degrees and from 320 to 360 degrees are warm; everything in between is cool. The band wraps across the end of the circle so reds on both sides are treated the same."
+      },
+      {
+        "q": "Why is violet rated cool?",
+        "a": "Because the warm band stops at 320 degrees. Violet sits below that, so it falls on the cool side even though it neighbours magenta."
+      },
+      {
+        "q": "Is saturation taken into account?",
+        "a": "No. Only the hue angle is tested, so a desaturated colour's verdict follows the small amount of hue it still carries."
+      },
+      {
+        "q": "Can I check a whole palette?",
+        "a": "Not on this page — it takes one colour at a time. A palette-wide temperature read is a different tool in this domain."
+      },
+      {
+        "q": "Does it name colour families beyond warm and cool?",
+        "a": "No. The rule is two bands and a fixed threshold: anything outside the warm hues is cool, so mid greens and mid cyans land firmly on the cool side and there is no family naming beyond the warm or cool verdict. Lightness and chroma are ignored, which means a near-black green and a vivid green return the same answer."
+      }
+    ]
+  }
+]

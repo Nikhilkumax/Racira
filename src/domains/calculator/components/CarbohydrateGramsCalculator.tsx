@@ -240,7 +240,7 @@ export default function CarbohydrateGramsCalculator() {
     setMounted(true);
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calories, proteinPercent, fatPercent]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

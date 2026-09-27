@@ -1,0 +1,522 @@
+[
+  {
+    "slug": "color-blending-art-tool",
+    "keywords": [
+      "color blending art tool",
+      "blend colors for art",
+      "artistic color mixing",
+      "experiment with color blends"
+    ],
+    "intro": "The color blending art tool is a playful workspace for exploring how two colors behave when combined, showing the full spread of intermediate tones as a strip you can read like a mini gradient.",
+    "content": "The color blending art tool is built for exploration rather than calculation. You drop two colors into it, sweep the mix control, and watch a strip of intermediate tones appear from one to the other. It is the same underlying blend as the precise design mixer in this section, but the emphasis here is on discovery: trying unlikely pairs, watching where a blend turns muddy, and finding the accidental in-between colours that make a piece feel considered rather than flat.\n\nOne of the most useful habits in colour work is studying what happens between two colours, not just at them. The artistic color mixing on show here is that study made interactive. Many of the named colours people find most appealing sit between two obvious ones, and sweeping the mix across a strip exposes those intermediates as discrete steps you can lift out and use directly. A muted dusty rose, for example, often appears somewhere in the middle of a blend between a red and a soft neutral, and it is far easier to find by sweeping than by guessing a hex.\n\nBecause the blend is a linear interpolation in red, green and blue, the path between two colours is predictable and free of surprises once you know the model. Complementary colours meet in the middle at a desaturated grey, which is either a problem to avoid or a pleasing neutral to exploit depending on what you are making. Analogous colours meet at a point that feels like a natural extension of both, which is why near-hue blends stay harmonious across the whole strip. Reading those two patterns is most of what makes exploratory blending useful.\n\nFor creative work the strip functions as a ready-made palette. Rather than committing to a single blended value, treat each intermediate as a candidate and pick two or three that work together, then use them as a small group in a composition. Because they all share a lineage, they tend to sit together without clashing, which is a quick route to a cohesive palette without opening a wheel or reasoning about harmony rules. Painters use exactly this approach physically, mixing a graded scale between two pigments and taking several stops from it.\n\n- Two honest notes keep the tool useful.\n- First, it models light rather than pigment, so if you are mentally mixing paint the results will disagree with what a physical palette does; reach for the subtractive mixer when pigment behaviour is the point.\n- Second, a blend is not a harmony: two randomly chosen colours will still produce an arbitrary midpoint, and a beautiful strip does not guarantee a beautiful composition.\n- Used as a fast way to generate and compare candidate in-betweens, it is a genuinely creative tool rather than just a converter.\n\nIts real use is to blend colors for art in an exploratory way: try an unlikely pair, sweep the range, and keep the accidental mid-tones. Using it purely to experiment with color blends costs nothing and often surfaces a palette you would never have specified deliberately, which is the point of a creative tool over a precise one.",
+    "howTo": [
+      "Set Color A and Color B.",
+      "Drag the Mix slider to the proportion you want.",
+      "Read the result swatch and copy its hex."
+    ],
+    "whenToUse": "Use this tool when you want to explore and harvest in-between colours for a creative project. Use the precise colour blend tool when you need one documented intermediate value, and the subtractive mixer when you are reasoning about pigment. For the neighbouring steps, see the {{color-blend-tool|color blend tool}} and the {{daily-color-generator|daily color generator}}.",
+    "faqs": [
+      {
+        "q": "Is this different from the colour blend tool?",
+        "a": "The blend maths is the same. This version is presented for exploration, encouraging you to sweep the range and lift out several intermediate colours rather than fix on one value."
+      },
+      {
+        "q": "Can I use the strip as a palette?",
+        "a": "Yes. Each intermediate is a candidate colour, and because they share the same blend they tend to sit together well. Pick two or three that work as a small group."
+      },
+      {
+        "q": "Why do some blends go grey in the middle?",
+        "a": "Blending opposite hues in the additive RGB model cancels toward grey. It can be an unwanted dip or a useful neutral, depending on the effect you want."
+      },
+      {
+        "q": "Does it match mixing paint?",
+        "a": "No. It models light. Physical pigments follow subtractive mixing and will produce noticeably different results, so use the subtractive mixer for paint questions."
+      },
+      {
+        "q": "What does the color blending art tool not do?",
+        "a": "First, it models light rather than pigment, so if you are mentally mixing paint the results will disagree with what a physical palette does; reach for the subtractive mixer when pigment behaviour is the point. Second, a blend is not a harmony: two randomly chosen colours will still produce an arbitrary midpoint, and a "
+      }
+    ]
+  },
+  {
+    "slug": "color-memory-game",
+    "keywords": [
+      "color memory game",
+      "repeat the color sequence",
+      "simon style color game",
+      "color sequence memory test",
+      "watch and repeat colors"
+    ],
+    "intro": "The color memory game flashes a growing sequence of colour tiles and asks you to repeat it in order, extending the run by one tile each time you get it right.",
+    "content": "Four tiles drive the page: a red, a blue, a green and an amber, arranged in a two-by-two grid that is dimmed to half opacity when it is not the game's turn to speak. A sequence of tile positions is flashed one at a time about seven-tenths of a second apart, the flashing tile brightening and lifting slightly, and when the sequence ends the tiles become clickable.\n\nFrom there the loop is the familiar one. Repeating the whole sequence correctly extends it by a single random tile and the tool plays it back again. Repeating it incorrectly ends the run, with the panel saying so and the sequence restarting from one tile on the next attempt. Partial progress counts for nothing, which is what gives the game its shape.\n\nThe progress card reports two numbers and a line of status. Sequence length is the current run, and best this session is the longest sequence completed — held for the visit rather than saved, so a reload clears it. The status line changes with the phase: an invitation before the first press, a warning to watch while the tiles flash, a countdown of remaining tiles during your turn, and a plain statement that the sequence restarted when a run ends.\n\nPlaying it well is mostly about not rushing. The tiles differ by hue rather than by brightness, and the two tiles that are easiest to confuse sit diagonally opposite each other, so the sequence has to be held as a set of positions rather than as a pattern of colours. Runs of five or six are common; longer ones need the sequence chunked into groups.\n\nStart and restart share one button, so the page is a single control plus the grid — no difficulty setting, no speed change, no colour-blind alternative for the tile palette and no scoring beyond the best length. The four tile colours are fixed.\n\nWhy the four tiles work for this is worth noting. They differ in hue but not in lightness or chroma, so the sequence cannot be held in memory as a pattern of light and dark, and the two most confusable tiles sit diagonally rather than next to each other. That makes the round a test of ordered recall with almost no other cue attached to it, and it is the reason the color memory game is harder than its simple four-tile grid looks — long runs are reachable only by chunking the sequence into groups of three or four.\n\nLimits: four fixed tiles, one speed, no saved scores, no reverse mode and no way to change the sequence length other than reaching it.\n\n- Used as a color sequence memory test it is a watch and repeat colors game with a clear counter, and the repeat the color sequence part is exactly what the name of a simon style color game promises.\n- Nothing is timed, nothing is stored and no difficulty can be dialled up, so a run ends when attention does rather than when a clock does.",
+    "howTo": [
+      "Press Start; the first tile flashes.",
+      "Watch the whole sequence, then click the tiles in the same order.",
+      "Keep going — each correct repeat adds a tile; a wrong tile ends the run and shows the best length so far."
+    ],
+    "whenToUse": "Use this when you want a short test of sequential colour recall — it exercises holding an ordered list in memory rather than judging a shade. Use the colour memory test when the round should be about matching one shade, or the matching game when pairs are the mechanism. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "How many tiles are there?",
+        "a": "Four, fixed as a red, a blue, a green and an amber, laid out in a two-by-two grid. The tiles dim between turns and brighten as they flash."
+      },
+      {
+        "q": "Does a mistake end the whole game?",
+        "a": "It ends the run. The panel says the sequence restarts from one tile, and the best length recorded so far stays on screen."
+      },
+      {
+        "q": "How fast does the sequence play?",
+        "a": "One tile roughly every seven-tenths of a second with a short pause before it starts. The speed is fixed and there is no difficulty setting."
+      },
+      {
+        "q": "Is the best score saved?",
+        "a": "No — it is kept for the session only and labelled that way, so reloading the page resets it to zero."
+      },
+      {
+        "q": "What does the color memory game not do?",
+        "a": "Used as a color sequence memory test it is a watch and repeat colors game with a clear counter, and the repeat the color sequence part is exactly what the name of a simon style color game promises. Nothing is timed, nothing is stored and no difficulty can be dialled up, so a run ends when attention does rather than whe"
+      }
+    ]
+  },
+  {
+    "slug": "pastel-color-generator",
+    "keywords": [
+      "pastel color generator",
+      "pastel color palette",
+      "soft pastel colors",
+      "pastel hex codes",
+      "light pastel shades"
+    ],
+    "intro": "The pastel color generator produces five soft colors at a fixed high lightness and low saturation, in random hues, with each pastel hex code ready to copy.",
+    "content": "The pastel color generator returns five swatches at a time, each with its hex value and a copy button, and a button that generates a fresh set. Every colour it produces sits at the same high lightness and the same modest saturation, which is the entire specification: pastels are defined by their position at the pale end of the range, not by any particular hue.\n\nBoth of the fixed values matter. Lightness sits around eighty-eight percent, which is high enough that the colour reads as tinted rather than as coloured, and low enough that it has not washed out to white. Saturation is held near 0.08, which is where a colour stops being a vivid mid-tone and becomes a soft one; below that it drifts towards grey. At those two settings, hue is what varies, and it varies across the whole wheel.\n\nThat last point shapes how the set behaves and is worth being clear about. Each of the five swatches is generated independently, drawing its own hue, so the result is five separate pastel colours rather than a coordinated pastel scheme. Sometimes that produces a pleasant spread; sometimes it produces several similar pinks and one stray green. There is no attempt at harmony, because the generator's subject is the tone rather than the relationships.\n\n- The way to use it follows from that.\n- Generate a set, keep the two or three that sit well together, and generate again for the rest — or take a single swatch as a starting point and let a harmony or monochromatic tool derive the related shades from it, which will hold together far better than five independent draws.\n- Copying all five straight into a design is what gives pastel palettes their occasional reputation for looking arbitrary.\n\nOne perceptual quirk is worth anticipating before it surprises you. At a constant chroma, pastels do not look equally saturated across hues: the yellows, greens and oranges at that lightness come out looking paler and closer to cream than the pinks, blues and violets, which keep more of their identity. The measured values are identical; the appearance is not, because the eye is more sensitive to colour difference in some regions than others. If a pastel palette needs to look even, the warm entries usually need a touch more chroma than the cool ones, which can be done by hand after copying.\n\nWhere pastels are appropriate is well established: children's products, wellness and beauty, wedding and celebration material, food and bakery branding, and any interface that should feel gentle rather than urgent. They are also a standard way to colour large background areas without competing with content. The caveat that comes with them is legibility — a pastel is a surface, not a text colour, and text in a pastel tone against white will fail a contrast check almost every time.\n\n- Limits: five colours, no coordination between them, no control over lightness or chroma, no contrast checking, and no history, so regenerating discards the previous set.\n- Used as a pastel color generator, though, it does the hard part of the job reliably — producing light pastel shades at a consistent tonal level, which is genuinely difficult to do by eye because the first colour always looks vivid next to the fourth.\n- Take the two or three that work, and you have soft pastel colors with pastel hex codes attached and a pastel color palette to build on without any mixing by hand.",
+    "howTo": [
+      "Press the generate button to produce five pastel swatches.",
+      "Keep the ones that work together and generate again for the rest.",
+      "Or take one swatch into a harmony tool to derive related shades from it.",
+      "Use the pastels as surfaces and fills, and check any text colour against them separately."
+    ],
+    "whenToUse": "Use this when a design should feel gentle — wellness, celebration, food, children's products — or when a large background area needs colour without competing with content. Use the neon generator for the opposite end of the tonal range. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why are the colours all the same brightness?",
+        "a": "Lightness is pinned around 88 percent and saturation near 0.08, which is what makes a colour pastel rather than merely light. Only the hue varies between swatches."
+      },
+      {
+        "q": "Are the five colours a coordinated palette?",
+        "a": "No. Each draws its own hue independently, so the set shares a tone rather than a relationship. Keeping two or three and regenerating usually gives a better result."
+      },
+      {
+        "q": "Why do the yellows look paler than the pinks?",
+        "a": "At the same measured chroma, some hues appear less saturated than others — warm colours read closer to cream at high lightness. If the set should look even, add a little chroma to the warm entries by hand."
+      },
+      {
+        "q": "Can I use pastels for text?",
+        "a": "Rarely. A pastel against white fails the 4.5 to 1 requirement for body text almost every time, so treat these as surfaces and fills and choose text colours separately."
+      },
+      {
+        "q": "What does the pastel color generator not do?",
+        "a": "Used as a pastel color generator, though, it does the hard part of the job reliably — producing light pastel shades at a consistent tonal level, which is genuinely difficult to do by eye because the first colour always looks vivid next to the fourth. Take the two or three that work, and you have soft pastel colors with"
+      }
+    ]
+  },
+  {
+    "slug": "neon-color-generator",
+    "keywords": [
+      "neon color generator",
+      "neon color palette",
+      "bright neon colors",
+      "neon hex codes",
+      "fluorescent colors generator"
+    ],
+    "intro": "The neon color generator produces five colors at a fixed high brightness and maximum saturation in random hues, giving the fluorescent look of neon signage.",
+    "content": "The neon color generator returns five swatches at a time, each with its hex value and a copy button, plus a button that generates a fresh set. The defaults are vivid the moment the page loads: every swatch sits at a high lightness and at the highest saturation the colour space will allow, which together produce the glowing, poster-like quality the name promises.\n\n- Both of those parameters are fixed.\n- Lightness is pinned around seventy-five percent, which is bright without washing out to white and is the level at which a colour reads as emissive rather than merely saturated.\n- Saturation is pushed to roughly 0.3, which is well beyond what most palettes use.\n- The hue, by contrast, is entirely free: each of the five swatches is drawn independently from the full wheel, so a set can contain anything from a hot pink to a lime to a cyan.\n\nThat independence is worth understanding before using the palette. There is no coordination between the five colours and no attempt to build a harmony — the generator's subject is intensity, not relationships. The practical consequence is that the set reliably looks like an eighties arcade cabinet or a nightclub sign and unreliably looks like a considered scheme. The way to use it is to generate until a set happens to work, or to take one colour and build the rest around it deliberately.\n\nA technical detail affects how many of the results are usable, and it is a real limitation rather than a footnote. Very high saturation pushes some hues outside the range a standard display can render — yellows and greens most of all, since the sRGB gamut is narrowest in that region. When the requested colour falls outside, the conversion returns the closest displayable value, so a swatch that should have been a blazing yellow-green comes back slightly duller than the others. In practice this means a neon palette generated here is not uniformly neon: the pinks, cyans and magentas tend to be the most vivid because they sit comfortably inside the gamut, and the pure greens and yellows are reined in.\n\nWhere these colours belong is on dark backgrounds, and that is not a stylistic preference so much as a functional one. A colour at this brightness against white is not legible as text and looks washed out as a fill; against a near-black surface it behaves the way neon actually does, appearing to emit light. Games, music and nightlife branding, event posters, cyberpunk and retro futures all use that effect deliberately, and it is also a reliable way to make a small accent — a badge, a status dot, a single line on a chart — impossible to miss.\n\n- Limits worth keeping in mind: no contrast checking, so any text on or over these colours needs testing; no constraint on the hue range, so a set that should stay within one part of the wheel cannot be steered; no history, so generating again discards what you had; and no export beyond copying individual neon hex codes.\n- As a bright neon colors source or a fluorescent colors generator, it does the one thing asked of it — five neon color palette swatches in one click — and the honest advice is the same as with any unconstrained set: harvest the ones that work rather than shipping all five.",
+    "howTo": [
+      "Press the generate button to produce five neon swatches.",
+      "Keep the ones that suit the piece and generate again for the rest.",
+      "Place them against a dark background so the brightness reads as glow rather than glare.",
+      "Copy individual hex values from the swatches."
+    ],
+    "whenToUse": "Use this when a design wants the fluorescent, high-energy look — games, music, events, retro-future branding. Use a pastel, muted or themed generator when the palette should be restrained or coordinated instead. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why do some swatches look duller than others?",
+        "a": "The saturation requested is higher than a standard display can render for some hues, yellows and greens especially. Those colours are returned as the closest displayable value, so they come back slightly reined in."
+      },
+      {
+        "q": "Are the five colours coordinated?",
+        "a": "No. Each is drawn independently from the full hue wheel, so the set shares intensity, not harmony. Generate until a set works, or build the others around one colour."
+      },
+      {
+        "q": "What background suits these colours?",
+        "a": "A dark one. At this brightness they read as emissive against near-black, and appear washed out or illegible against white."
+      },
+      {
+        "q": "Is the palette contrast-checked?",
+        "a": "No. High-brightness colours still fail contrast against light surfaces, so test any text or UI pairing before using it."
+      },
+      {
+        "q": "What does the neon color generator not do?",
+        "a": "As a bright neon colors source or a fluorescent colors generator, it does the one thing asked of it — five neon color palette swatches in one click — and the honest advice is the same as with any unconstrained set: harvest the ones that work rather than shipping all five."
+      }
+    ]
+  },
+  {
+    "slug": "muted-color-generator",
+    "keywords": [
+      "muted color generator",
+      "muted color palette",
+      "desaturated colors",
+      "low saturation palette",
+      "muted tones generator"
+    ],
+    "intro": "The muted color generator produces five colors at very low saturation, drawn from anywhere on the wheel, for palettes that should feel restrained rather than vivid.",
+    "content": "The muted color generator returns five swatches, each with its hex value and a copy button, and a button that generates another set. It has no configuration: the tool exists to produce colours inside a specific band, and the band is the whole specification.\n\n- That band is defined mostly by saturation, which is held between roughly 0.03 and 0.07 in a perceptual colour space — very close to grey, but not grey.\n- At that level a colour still has a recognisable identity: a muted blue reads as blue, a muted olive reads as olive, and neither shouts.\n- Lightness varies between about forty and seventy percent, which keeps every swatch in the mid-range where a colour is legible on either a light or a dark surface, and the hue is unconstrained, spanning the whole wheel.\n\nThat last choice is the one that shapes how the palette behaves, and it is worth being clear about.\n\n- Each of the five swatches is generated independently, with its own random hue, so the result is not a family of related colours — it is five separate muted colours that happen to share a tonal character.\n- Sometimes that produces a pleasing spread across the wheel; sometimes it produces several near-neighbours and one outlier.\n- The generator does not coordinate the hues, because its subject is saturation rather than harmony.\n\nWhat follows from that is how to use it. This is a generator to harvest from rather than to accept whole. Generate a set, keep the two or three that work together, and generate again for the rest — or take a single colour as a starting point and let a harmony or monochromatic tool derive the related steps from it, which will give a more coherent scheme. Reaching straight for the copy button and shipping all five is what produces the slightly arbitrary feel that muted palettes are sometimes accused of.\n\nWhere the tool is genuinely strong is the case that motivated it. Many design briefs call for restraint — editorial sites, portfolios, wellness and lifestyle brands, anything where the imagery should carry the colour and the interface should get out of the way. Saturated colours fight that brief; greys alone can feel unfinished. Muted tones occupy the space in between, and producing five of them at a consistent level of restraint by hand is genuinely fiddly, because the eye adjusts as you go and the first colour starts to look vivid next to the fourth.\n\nWorth knowing: there is no contrast checking, and low-saturation colours are the ones most likely to fail against a surface at a similar lightness, so any pairing needs testing. There is also no way to constrain the hue range, so a palette that should stay cool cannot be nudged that way, and there is no history — generating again replaces the set, so copy anything worth keeping before pressing the button.\n\nUsed as a desaturated colors source, though, it does its one job well. For a muted color palette that should read as quiet, or as a low saturation palette for a design that lets imagery lead, this hands over muted tones at a consistent restraint in a click. As a muted tones generator it is far easier than mixing each colour towards grey by eye, because the eye recalibrates as you go and the first colour always starts to look vivid next to the fourth.",
+    "howTo": [
+      "Press the generate button to produce five muted swatches.",
+      "Keep the ones that work together and generate again for the rest.",
+      "Copy individual hex values — or take one colour into a harmony tool to derive related steps.",
+      "Check contrast on any pairing you intend to use for text and background."
+    ],
+    "whenToUse": "Use this when a design should be restrained and the imagery supplies the colour — editorial, portfolio, lifestyle. Use the muted tones from a single brand colour when the palette has to stay tied to a specific hue, which a harmony or monochromatic tool will do. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why are the colours so close to grey?",
+        "a": "Saturation is held between roughly 0.03 and 0.07 in perceptual terms — enough for each colour to keep its identity, little enough that nothing shouts."
+      },
+      {
+        "q": "Are the five colours related to each other?",
+        "a": "No. Each is generated independently with its own random hue, so the set shares a tonal character rather than a family relationship. Keeping two or three and regenerating is usually better than using all five."
+      },
+      {
+        "q": "Does the generator avoid contrast problems?",
+        "a": "No. Low-saturation colours at similar lightness to their surface are exactly the ones that fail, so any pairing needs checking before it ships."
+      },
+      {
+        "q": "Can I keep the palette for next time?",
+        "a": "Not in the tool — generating again replaces the set. Copy the hex values you want to keep first."
+      },
+      {
+        "q": "What does the muted color generator not do?",
+        "a": "Each of the five swatches is generated independently, with its own random hue, so the result is not a family of related colours — it is five separate muted colours that happen to share a tonal character. Sometimes that produces a pleasing spread across the wheel; sometimes it produces several near-neighbours and one ou"
+      }
+    ]
+  },
+  {
+    "slug": "warm-color-generator",
+    "keywords": [
+      "warm color generator",
+      "warm colors palette",
+      "red orange yellow colors",
+      "generate warm colors"
+    ],
+    "intro": "The warm color generator produces five colours drawn from the red, orange and yellow band of the wheel, with a single button that re-rolls the whole set.",
+    "content": "One button does all of it: Generate warm palette. Each press fills five swatches with new colours drawn from the warm arc of the hue circle, from three hundred and forty degrees around through red and orange to eighty degrees. The colours are generated after the page mounts rather than during rendering, so a fresh load never starts with an empty grid and the first paint is stable.\n\nThe arc is defined in OKLCH and covers the warm half of the wheel deliberately. The band runs from just before red, through the reds and oranges, to the yellow-green boundary, so nothing in the set can drift into blues, greens or purples. Hue is randomised within that band, which means one press can produce an orange-heavy set and the next a red-heavy one, and both are still unmistakably warm.\n\n- Lightness is held between roughly fifty-five and seventy-five percent and chroma between about 0.12 and 0.2, the range that keeps a colour warm without turning it into a pastel or a fluorescent accent.\n- All three values are randomised independently, so there is no guarantee the five colours harmonise with each other: they share a temperature, not a scheme, and the result is best read as a pool of candidates rather than a finished palette.\n\nThat distinction is the practical point. Building a warm colors palette usually starts from a mood rather than a fixed brand value — a food brand, an autumn campaign, a hospitality interface, a warning set that should feel energetic rather than alarming. Generating five plausible hues in one press is a faster way to explore that space than dragging a picker along the warm edge by hand.\n\nWhat it will not do is keep a hue. There is no lock, no seed, no single-colour mode and no way to ask for warmer or milder; every press is a fresh draw from the same band. Nothing is printed except the hex value on each swatch, and there is no naming, no contrast checking, no gradient or token export and no distinction between a warm accent and a warm surface.\n\nCompare the output with its neighbours and the narrowness is the point. The cool generator draws from the opposite arc of the wheel, the pastel and neon generators fix a lightness or a chroma and let hue travel the whole circle, and the themed presets fix both. This one fixes nothing except the band, so two presses in a row give genuinely different palettes while both stay warm — which is what makes it good for exploring a direction rather than for producing a specification.\n\nLimits, side by side with the useful part: five colours, one band, one button and no control beyond pressing it again.\n\n- Used as a warm color generator it is exactly as narrow as that sounds, and it earns its place by removing the hardest step — choosing the first red.\n- To generate warm colors here means working with red orange yellow colors as a starting point, five hex values to react to rather than an empty picker.",
+    "howTo": [
+      "Press Generate warm palette; five colours appear in the red, orange and yellow band.",
+      "Press again to re-roll the set — each press is a fresh draw from the same arc.",
+      "Note the hex value of any swatch worth keeping before pressing again, since nothing is locked."
+    ],
+    "whenToUse": "Use this when a project needs a warm starting point and the hue matters less than the temperature — food, hospitality, autumn campaigns. Use the themed palette generators when the whole set should follow a concept, or the cool colour generator when the mood is the opposite one. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Which hues can appear?",
+        "a": "Only the warm arc: from about three hundred and forty degrees through red and orange to eighty degrees. Blues, greens and purples are outside the band and cannot be produced."
+      },
+      {
+        "q": "Are the five colours designed to work together?",
+        "a": "Not as a scheme. They share a temperature range but each is drawn independently, so the set is a pool of candidates rather than a harmony."
+      },
+      {
+        "q": "Can I regenerate to keep one colour?",
+        "a": "No. There is no lock and no seed, so a re-roll replaces all five. Copy a hex value you want to keep before pressing the button again."
+      },
+      {
+        "q": "Does this produce pastels or neon colours?",
+        "a": "Neither. Lightness stays between about fifty-five and seventy-five percent and chroma between 0.12 and 0.2, which keeps the colours warm and moderately saturated."
+      },
+      {
+        "q": "What does the warm color generator not do?",
+        "a": "Used as a warm color generator it is exactly as narrow as that sounds, and it earns its place by removing the hardest step — choosing the first red. To generate warm colors here means working with red orange yellow colors as a starting point, five hex values to react to rather than an empty picker."
+      }
+    ]
+  },
+  {
+    "slug": "cool-color-generator",
+    "keywords": [
+      "cool color generator",
+      "cool color palette",
+      "generate a cool color scheme",
+      "cyan blue violet palette"
+    ],
+    "intro": "The cool color generator builds a five-color palette from the cool half of the wheel, drawing each swatch from the cyan, blue and violet band.",
+    "content": "- The cool color generator produces a palette of five swatches drawn from the cool side of the colour wheel, and it is that restriction rather than any cleverness in the generation that defines it.\n- Press the button and the five slots are filled from a hue band running from about 180 degrees through blue and on to 280, which in plain terms means cyan, blue and violet.\n- Nothing warm can appear, however many times you press, because the warm end of the wheel is simply outside the range the generator draws from.\n- That makes it a useful escape hatch when a design needs a cool direction and you want options rather than a theory lesson.\n\nThe lightness range is mid, from about 50 to 75 percent, and saturation sits between a modest and a fairly strong level. Those bounds are what keep the output usable as a palette rather than a set of novelty colours: nothing comes out near-black or neon, so the swatches are plausible as surfaces, accents or chart series without adjustment. Each of the three properties is drawn independently for each swatch, which has a consequence worth knowing before you use the result.\n\n- That consequence is that the palette is genuinely a palette and not a ramp.\n- Because hue, lightness and saturation all vary independently, there is no guaranteed progression from light to dark, and no guarantee that the five swatches are spread out rather than clustered.\n- Press repeatedly and you will sometimes get five colours that sit very close together, and sometimes a set with a clear lead colour and four supporting tones.\n- That is the price of generating rather than curating, and it is also why the button is the whole interface: if a set does not work, generating another costs nothing.\n\nThe swatches are drawn once the page is interactive rather than baked into the markup, so a cool color palette appears on load and changes on each press. Every swatch carries its hex value and a copy button, which means the result can be lifted into a project without a second step. What you do not get is any guidance about roles: nothing in the output says which of the five should be a background and which an accent, and that assignment is the part that actually determines whether a palette works.\n\nTypical uses are starting points rather than finished schemes. It is a reasonable way to begin a dashboard, an internal tool, a technical product page or anything where the brief says cool or calm without being more specific. It is equally useful as a prompt when you are stuck on direction, because looking at five cyan and blue options side by side is faster than trying to imagine them. From there, the natural next steps are to build a ramp around the colour you choose using the shade and tint tools, and to check your chosen pairings before they are used for text.\n\nTwo limits are worth stating plainly. The generator does not check its own output: it says nothing about whether the five colours have enough contrast to be used together, so a set that looks coherent can still contain a pair that fails as text and background, and a contrast checker is the tool for that question. Nor does it produce relationships: if you need a complement or a triad rather than a range, the harmony tools compute those angles exactly.\n\nRead it as a cool color generator in the practical sense: one control, five values, all of them from the cool half of the spectrum, ready to copy. When the goal is simply to generate a cool color scheme — a cyan blue violet palette with mid lightness and moderate saturation — the value of starting here is that the whole warm end of the wheel is ruled out for you, and deciding between five options is a much smaller problem than deciding between all of them.",
+    "howTo": [
+      "Press the generate button to roll five colours from the cool range.",
+      "Press again for a fresh roll — the set is random each time.",
+      "Copy the values you want to keep before rerolling, because nothing is stored.",
+      "Reach for the warm generator when the set needs the other side of the scale."
+    ],
+    "whenToUse": "Use it for a cool starting point — dashboards, technical products, calm interfaces — or as a prompt when you know a direction is cool but not yet which hue. Use the harmony tools when you need an exact relationship and the shade or tint generators to build a ramp from a chosen swatch. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why can no warm colors appear?",
+        "a": "Because the generator draws its hues from a band running roughly from 180 to 280 degrees, which covers cyan, blue and violet. The warm end of the wheel is outside that range entirely."
+      },
+      {
+        "q": "Do the five colors form a light-to-dark ramp?",
+        "a": "No. Hue, lightness and saturation are drawn independently for each swatch, so the set may be evenly spread or may cluster. It is a palette rather than a progression."
+      },
+      {
+        "q": "Will the colors work together for text?",
+        "a": "Not automatically. The generator does not measure its own output, so check any pairing you intend for text with a contrast checker before using it."
+      },
+      {
+        "q": "How do I get a different set?",
+        "a": "Press the button. Every press redraws all five swatches, so regenerating until a set feels right is the intended way to use it and costs nothing."
+      },
+      {
+        "q": "What does the cool color generator not do?",
+        "a": "Because hue, lightness and saturation all vary independently, there is no guaranteed progression from light to dark, and no guarantee that the five swatches are spread out rather than clustered. Press repeatedly and you will sometimes get five colours that sit very close together, and sometimes a set with a clear lead "
+      }
+    ]
+  },
+  {
+    "slug": "earth-tone-color-generator",
+    "keywords": [
+      "earth tone color generator",
+      "earth tone colors",
+      "earth tone palette",
+      "muted warm color palette",
+      "brown and ochre palette"
+    ],
+    "intro": "The earth tone color generator produces a five-color palette from the warm part of the color wheel — terracottas, ochres and olive greens at low saturation — with every swatch written out as a CSS custom property.",
+    "content": "The earth tone color generator returns five swatches at a time with their hex values, plus a CSS panel listing them as numbered custom properties that can be copied in one go. A single Regenerate button produces a new set. There are no other controls, because the point of the tool is a specific band of colour rather than a configurable one.\n\n- That band is defined by two constraints.\n- The hues all fall between roughly ten and eighty degrees on the wheel, which is the arc running from a warm red-orange through terracotta and ochre to a yellowed olive; nothing in this palette is cool.\n- And chroma is held between about 0.06 and 0.14, which is low enough that no swatch reads as vivid.\n- Those two together are what make a colour earthly rather than merely brown: the warmth supplies the clay and pigment character, while the limited saturation keeps the result looking like a material sample rather than a paint chip.\n\nLightness is the third variable and it is a ladder rather than a random draw. The five swatches climb from roughly thirty-five to sixty-five percent in even steps, so the set always contains a deep terracotta at one end and a lighter straw tone at the other, with three intermediate values between them. That even spread is what makes the palette usable without adjustment — there is a dark enough value for text or a border and a light enough one for a surface, and the middle values fill the roles in between. It also means the output is a gradient in all but name, so the swatches sit together naturally.\n\nWhat Regenerate actually re-rolls is only the chroma. The hues of the five positions and their lightness ladder are computed rather than random, so each press keeps the same overall structure — the same warm-to-olive progression at the same tonal spacing — and shifts only how saturated each swatch is. That behaviour is worth knowing, because it makes regeneration predictable: you are choosing a saturation level for the set rather than gambling on a new palette, and a set you like can be nudged without losing what you liked about it.\n\nThe workflow is to regenerate until the palette feels dry enough or rich enough for the material you have in mind, then copy the CSS block. A brown and ochre palette of this kind is best read as a ladder rather than a set of equal colours: since the properties are numbered by position, mapping them onto real tokens is a matter of walking from the darker end, which suits text, borders and shadowed surfaces, up to the lighter end, which suits page backgrounds and highlight fills. Fewer decisions are needed than building an earth tone palette from scratch, because the tonal spacing is already even. Renaming the numbered properties to something semantic is the one manual step, and it is the same step every generated palette needs.\n\n- Being straight about the limits: this is a fixed band, not a configurable one, so there is no way to push the palette greener or paler than the ranges allow, and ten degrees of overlap at the cool end means you cannot get a genuinely neutral grey.\n- There is no contrast checking and no light or dark variant.\n- As a source of earth tone colors to design against, though, it removes the hardest part of building a muted warm color palette — knowing which combinations of hue, lightness and low saturation actually hold together as brown and ochre — and it hands you the syntax already written.",
+    "howTo": [
+      "Press the generate button for a fresh five-colour set drawn from the earth preset.",
+      "Press again to reroll within the same hue, lightness and chroma bands.",
+      "Copy the hex values you want to keep before the next roll."
+    ],
+    "whenToUse": "Use this when a project needs a warm, muted, natural-material direction — craft, food, ceramics, outdoors, editorial — and you want a five-colour set with usable tonal spread. Use the desert or forest themed generators when the reference is a specific landscape rather than materials. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why are none of the colours vivid?",
+        "a": "Chroma is capped at about 0.14, which is deliberately low. Muted saturation is what separates an earth tone from a bright orange or a pure yellow."
+      },
+      {
+        "q": "Is the palette different every time?",
+        "a": "Only in saturation. The five hues and the lightness ladder are computed from fixed bands, so Regenerate gives the same structure with slightly different chroma rather than an entirely new set."
+      },
+      {
+        "q": "Can I make the palette greener or greyer?",
+        "a": "Not from the interface — the hue and chroma bands are fixed. The result is always a warm palette spanning roughly the ten to eighty degree arc of the wheel."
+      },
+      {
+        "q": "How do the five colours relate to each other?",
+        "a": "They form a lightness ladder from about thirty-five to sixty-five percent, evenly spaced. The darkest reads as terracotta, the lightest as straw, and the middle three fill the range between."
+      },
+      {
+        "q": "What does the earth tone color generator not do?",
+        "a": "There is no contrast checking and no light or dark variant. As a source of earth tone colors to design against, though, it removes the hardest part of building a muted warm color palette — knowing which combinations of hue, lightness and low saturation actually hold together as brown and ochre — and it hands you the sy"
+      }
+    ]
+  },
+  {
+    "slug": "color-matching-game",
+    "keywords": [
+      "color matching game",
+      "match color pairs game",
+      "memory card color game",
+      "color matching practice",
+      "find matching colors"
+    ],
+    "intro": "The color matching game deals twelve face-down cards built from six colours and asks you to clear the grid by turning over matching pairs.",
+    "content": "Each round deals twelve cards from six colours: the six are generated at a fixed lightness and chroma with random hues, each is duplicated into a pair, and the twelve are shuffled across the grid. Face-down cards are empty bordered squares and a face-up card shows its colour, so the grid gives nothing away until a card is turned.\n\nThe rules are the ones the shape implies. Two cards can be open at a time; turning the second one counts as a flip, and if the two colours match, the pair stays face up after a brief pause. If they do not match, both turn back down again about seven-tenths of a second later, which is long enough to register the colours and short enough to keep the round moving.\n\nThe progress panel keeps two figures. Pairs found counts cleared pairs out of six, and Flips counts the attempts — the number that actually measures how well the round went, since a pair found in the first few flips says more than the fact of clearing the grid eventually. Both reset when a new deal is made.\n\nWhere the game is more than a distraction is in the hue set it deals. Six colours at the same lightness and the same chroma differ only by hue angle, and with random hues drawn from the full circle it is entirely possible to get two greens and no yellow — so the practical skill is holding a shade in memory long enough to match it against one that looks similar but is not identical. That is the same judgement an interface asks for when two near-identical accent colours have to be told apart.\n\nThe button below the figures reshuffles at any time and reads Play again once all six pairs are cleared, so a finished round can be restarted without hunting for a control. There is no timer, no score attached beyond the flip count, no difficulty setting and nothing stored between visits.\n\nPlaying a few rounds is also a reasonable check on a palette that has gone stale. Colours that can be told apart comfortably in a design file are sometimes revealed here as near-identities — two greens a few degrees apart will cost extra flips, and a set that produces them is a set that will produce unreadable charts later. Read that way the color matching game is more than a break in the work: it is a quick, if indirect, test of whether a palette's colours are actually distinguishable, and a match color pairs game is a pleasant way to discover that they are not.\n\n- Limits: six pairs, twelve cards, random hues each deal, a flip counter and nothing else — no timer, no best score, no hint, no difficulty.\n- As a color matching practice game it is a memory card color game with an honest count, and for anyone who wants to find matching colors under time pressure there is deliberately no clock here at all.",
+    "howTo": [
+      "Turn over one card to reveal its colour.",
+      "Turn a second card; a matching pair stays face up, a mismatch turns both back down.",
+      "Clear all six pairs, then press Reshuffle or Play again for a new deal."
+    ],
+    "whenToUse": "Use this as a light way to practise distinguishing near-identical hues, or as a break between palette work. Use the colour memory test when the question is recall of a single shade, or the naming challenge when the vocabulary is what needs testing. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "How many cards and colours are there?",
+        "a": "Twelve cards built from six colours, each duplicated into a pair and shuffled. Pairs found counts up to six."
+      },
+      {
+        "q": "What are the six colours?",
+        "a": "They are generated fresh each deal at a fixed lightness and chroma with random hues, so two deals rarely produce the same set and similar hues can appear together."
+      },
+      {
+        "q": "Is the move count a score?",
+        "a": "It is the flip count — every pair of turns increments it. A low figure is the good result, and there is no other scoring."
+      },
+      {
+        "q": "Is there a timer or a saved best?",
+        "a": "Neither. The round starts with a reshuffle button, keeps only the two figures during play, and forgets everything when the page is reloaded."
+      },
+      {
+        "q": "What does the color matching game not do?",
+        "a": "As a color matching practice game it is a memory card color game with an honest count, and for anyone who wants to find matching colors under time pressure there is deliberately no clock here at all."
+      }
+    ]
+  },
+  {
+    "slug": "zodiac-color-generator",
+    "keywords": [
+      "zodiac color generator",
+      "zodiac sign colors",
+      "horoscope color palette",
+      "astrology color",
+      "birthday sign palette"
+    ],
+    "intro": "The zodiac color generator gives each of the twelve signs a five-color palette, derived deterministically from the letters of the sign's own name.",
+    "content": "A dropdown lists the twelve signs from Aries to Pisces, and a card beneath it renders a palette labelled with whichever sign is chosen. Each palette holds five swatches; change the sign and the five colours change with it, and return to a sign you have visited before and the identical values come back.\n\nThat repeatability is the whole mechanism, and it is worth stating plainly. The sign's name is fed through a small rolling hash — each character folded into a running total that is reduced to a number between zero and three hundred and fifty-nine — and that number becomes the base hue. The five swatches are then spaced forty-seven degrees apart around the wheel from that hue, so the palette is a slice of the colour circle at a fixed arc rather than a themed set of colours.\n\nLightness cycles through three values across the five swatches and chroma is fixed, so every zodiac palette carries the same structure and the same apparent weight; only the base hue moves. Two signs whose hashes land close together therefore produce visibly similar palettes, and nothing tries to keep them apart — there is no spacing between names, no re-roll and no seed to change.\n\nBecause the base hue comes out of a hash, the palettes vary in character without anyone choosing them. Some signs land on a red-orange base and produce a warm set, others land in the blues and come out cool, and a few land near the yellow-green boundary, where the forty-seven degree steps travel through unusual territory. Nothing corrects that and nothing should — the variety is what makes each sign's set recognisable on sight.\n\nIt is also not astrology. No ephemeris, ruling planets or traditional correspondences are consulted, and the hue for Aries follows from the letters of the word rather than from any reference. Read that way the tool is honest and useful: a stable way to attach a reproducible palette to a label, which is exactly what it claims to be.\n\nThat has real uses — themed content where every sign needs an identifiable colour, a quiz or horoscope page that should look the same on every visit, avatars or badges whose colours must not change. Because the derivation is a hash of the name, the same approach generalises to any label, which is what makes the output stable rather than lucky.\n\nThe palette is also stable across sessions and devices, which is more than the random generators in this domain can claim: a visitor returning to the same sign sees the same five colours, so a badge, an avatar or a chart series does not change between visits. That stability is the property that makes the approach worth using at all, and it comes from the hash rather than from any stored data.\n\n- Limits: twelve fixed names, five swatches each, no date-range input, no brightness or saturation control, no export and no astrology color data at all.\n- Used as a zodiac color generator it hands over a horoscope color palette that never changes between visits, and for zodiac sign colors as a birthday sign palette it is one selection and a stable set of five.",
+    "howTo": [
+      "Choose a sign from the dropdown, from Aries to Pisces.",
+      "Read the five swatches in the card labelled with that sign.",
+      "Switch signs to compare palettes, and switch back — the same sign always returns the same five colours."
+    ],
+    "whenToUse": "Use this when themed content needs a reproducible palette per sign — horoscope pages, quizzes, badges, seasonal features. Use the zodiac generators for travel or gemstones when the palette should follow a supplied dataset rather than a hash of the name. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Why does the same sign always give the same colours?",
+        "a": "The sign's name is run through a rolling hash that produces a base hue, and the five swatches are placed at fixed offsets from it. Nothing in the calculation is random."
+      },
+      {
+        "q": "Are the colours based on astrology?",
+        "a": "No. No planets, elements or traditional correspondences are used — the palette follows the letters of the sign's name and nothing else."
+      },
+      {
+        "q": "Can two signs give similar palettes?",
+        "a": "Yes. Nothing spaces the signs apart, so two names whose hashes land close on the wheel produce palettes that look alike."
+      },
+      {
+        "q": "Can I change the brightness or saturation?",
+        "a": "No. Lightness cycles through three fixed values and chroma is constant, so only the base hue varies between signs."
+      },
+      {
+        "q": "What does the zodiac color generator not do?",
+        "a": "Used as a zodiac color generator it hands over a horoscope color palette that never changes between visits, and for zodiac sign colors as a birthday sign palette it is one selection and a stable set of five."
+      }
+    ]
+  },
+  {
+    "slug": "birth-month-color-generator",
+    "keywords": [
+      "birth month color generator",
+      "birth month colors",
+      "color palette for your birth month",
+      "color by birth month"
+    ],
+    "intro": "The birth month color generator turns a month into a small, repeatable color palette, so you always get the same colors back for the same month.",
+    "content": "- The birth month color generator takes a month you select and returns a five-color palette tied to it.\n- It is a light, creative tool rather than a scientific one, and the design reflects that honestly: the palette is produced by hashing the month name into a starting hue and then spreading five colors across it, so the same month always yields the same result and a different month yields a visibly different set.\n- Nothing about it claims to be an authority on personality or astrology; it is a deterministic palette that happens to be keyed to a calendar month.\n\nDeterminism is the interesting property here. Many palette tools are random and change every time you press a button, which makes them awkward to share or to pin to a specific person. This one is reproducible: if you like the palette for your birth month, you can come back next week and get exactly the same swatches, and anyone else who opens the same month will see the same colors. That is what makes it usable for personal art, birthday cards, invitation themes or a custom avatar background that should not drift.\n\n- The palette itself is built in a controlled way rather than by rolling fully random colors.\n- The derived hue anchors all five entries, lightness varies across a narrow band so no swatch is dramatically darker than its neighbours, and chroma is held modest so the result reads as a coherent set rather than five unrelated saturated colors.\n- The practical effect is that any month gives you a palette that is a workable starting point, not a jarring mess you have to fix before you can use it.\n\nYou should treat the output as a seed, not a finished brand. Five colors on their own rarely constitute a design system, but they are a reasonable base: pick one as a primary, one as a darker shade for text and borders, and use the rest for accents and highlights. Because the palette stays in a narrow lightness band, you will usually want to extend it by darkening or lightening one entry, and the dedicated shade and tint generators in this section do exactly that from any single color.\n\nFor a color palette for your birth month, the honest framing is that it is a creative prompt. It gives you a consistent set of colors to work from and saves the blank-page problem of choosing a starting hue, while leaving every real decision about hierarchy, contrast and usage to you. If you need a palette guaranteed to be accessible, run the results through a contrast checker; if you need a longer ramp, feed one of the colors into the tint, shade or tailwind generators to expand it into a full scale.\n\nPeople often look up birth month colors to give a gift, a card or an avatar a personal touch, and the value here is that the answer never changes between visits. Searching for a color by birth month this way gives you a fixed, shareable set rather than a roll of the dice, so two people with the same month see identical swatches and can build something together from it.",
+    "howTo": [
+      "Pick a birth month from the dropdown.",
+      "Read the palette derived from that month's name.",
+      "Copy the values you want to keep.",
+      "Switch months to compare the sets."
+    ],
+    "whenToUse": "Use this generator when you want a repeatable, personal palette keyed to a month. Use the random palette generator when you want fresh variety each time, or the accessible palette generator when the palette must guarantee contrast. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "Is the palette the same every time?",
+        "a": "Yes. The month name is hashed to a fixed starting hue, so the same month always produces the same five colors on every device and every visit."
+      },
+      {
+        "q": "Is this based on astrology?",
+        "a": "No. It is a deterministic color derivation keyed to the month name. The tool makes no astrological or personality claims about the colors it returns."
+      },
+      {
+        "q": "How many colors do I get?",
+        "a": "Five. They share a hue family with modest chroma, so they read as a set. Extend any one of them with the shade or tint generators if you need a longer ramp."
+      },
+      {
+        "q": "Can I use this for a real brand?",
+        "a": "It is a fine seed, but check contrast before shipping. A generated palette is not verified for accessibility, so validate key pairs with a contrast checker."
+      },
+      {
+        "q": "What does the birth month color generator not do?",
+        "a": "The derived hue anchors all five entries, lightness varies across a narrow band so no swatch is dramatically darker than its neighbours, and chroma is held modest so the result reads as a coherent set rather than five unrelated saturated colors. The practical effect is that any month gives you a palette that is a worka"
+      }
+    ]
+  },
+  {
+    "slug": "emotion-color-finder",
+    "keywords": [
+      "emotion color finder",
+      "colors for emotions",
+      "emotion palette generator",
+      "joy sadness anger color palettes"
+    ],
+    "intro": "The emotion color finder maps the classic emotion set to palettes — choose joy, sadness, anger or trust, and receive the five-color family keyed to that feeling.",
+    "content": "Emotions have color reputations: joy is yellow, sadness is blue, anger is red — associations old enough to appear in every language's metaphors. The emotion color finder builds its palettes on that vocabulary: a fixed menu of the classic emotions — joy, sadness, anger, trust, fear, surprise, anticipation, disgust — each selection deriving a five-color family keyed to the feeling. It is the joy sadness anger color palettes set, one emotion at a time.\n\nThe mapping lives where language and color already meet. Each emotion seeds the derivation from its conventional color territory — joy's warm yellows, anger's aggressive reds, trust's steady blues — with the palette deriving around that anchor in a coherent register, so sadness arrives as a family of weighty blues and greys rather than one lonely swatch. The determinism is deliberate: the same emotion always yields the same palette, on every device, so a team can speak in emotions and see the same colors — a shared vocabulary for mood-boarding, character design and emotional UI states.\n\n- The tool's home turf is emotional design: mood boards that start from a feeling rather than a reference image, character and scene palettes for illustration, UI states that should feel like the state they announce, and creative prompts where the constraint is a feeling instead of a word count.\n- The mood generator works the adjacent menu — moods like calm and energetic, broader than emotions — and the text tool accepts any word at all; this one keeps the classic emotion set because the vocabulary is the point: colors for emotions, keyed to the words everyone already uses.\n\nEmotion-based palettes work because the mapping is conventional rather than arbitrary: the associations were set by decades of shared usage, and an audience recognises them before it can explain them. That makes the output genuinely useful as a starting point, and it also defines the limit, since a convention describes expectation rather than governing perception. The tool shines when the brief itself is emotional — a launch, a wellness product, a campaign with a mood rather than a message — because it converts an adjective into values that can be reviewed. It also works well as a constraint, since a family derived from one named emotion holds together better than a set assembled from several, and the determinism means everyone is looking at the same palette. Where the emotion is genuinely complex, the practical move is to start from the nearest available one and let the work correct it.\n\nAs an emotion palette generator it is deliberately curated: a fixed menu, deterministic derivations, honest about mapping convention rather than reading minds. For the question what does joy look like as a palette — and the seven siblings — it is the direct answer.\n\nKeeping the emotion word attached to the palette is worth the extra line, since it explains the derivation a season later and gives the next review a starting point rather than a set of values to defend from scratch. Where the palette is reused, the word is also the fastest way to explain the intended mood to somebody who was not in the original conversation.",
+    "howTo": [
+      "Choose the emotion from the menu — joy, sadness, anger and the rest.",
+      "Read the derived five-color family, deterministic for that emotion.",
+      "Use the palette for mood-boards, characters or emotional UI — and refine in the editor if needed."
+    ],
+    "whenToUse": "Use this when the brief is a feeling from the classic set. Use the mood generator for broader moods, the text tool for arbitrary words, and the palette editor to take the derived family the last mile. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "How are the emotion palettes derived?",
+        "a": "Each emotion anchors to its conventional color territory — joy's yellows, anger's reds — and the palette derives deterministically around that anchor in a coherent register."
+      },
+      {
+        "q": "Why does the same emotion always give the same palette?",
+        "a": "The derivation is deterministic by design, so the emotion is a shared key: everyone who selects trust sees the same family, which makes the vocabulary usable across a team."
+      },
+      {
+        "q": "Is the emotion-to-color mapping scientific?",
+        "a": "It is built on well-attested convention — the metaphors languages actually use — rather than lab measurement. For emotional design, convention is usually the material that matters."
+      },
+      {
+        "q": "Can I get a palette for a feeling not on the menu?",
+        "a": "The text mood tool accepts any word — type the feeling there; this tool keeps the classic emotion set as its curated vocabulary."
+      },
+      {
+        "q": "What does the emotion color finder not do?",
+        "a": "The mood generator works the adjacent menu — moods like calm and energetic, broader than emotions — and the text tool accepts any word at all; this one keeps the classic emotion set because the vocabulary is the point: colors for emotions, keyed to the words everyone already uses."
+      }
+    ]
+  },
+  {
+    "slug": "lucky-number-color",
+    "keywords": [
+      "lucky number color",
+      "color for a number",
+      "number to color generator",
+      "deterministic color from number",
+      "numeric color palette"
+    ],
+    "intro": "The lucky number color tool turns any number you type into a fixed five-color palette, so the same number always produces the same colors.",
+    "content": "- The lucky number color tool is a single text field and a palette.\n- Type a number into the box — seven is the default — and five swatches appear below, each with its hex value and a copy button, under a heading naming the number you entered.\n- Change the number and the palette changes with it.\n- There is no button to press and nothing to generate.\n\nThe mechanism behind it is worth understanding, because it explains both what the tool is good at and where its limits are. The number is treated as text, a hash is computed from its characters, and that hash is reduced to a starting hue. The five swatches then walk around the wheel from that starting point at fixed intervals, with their lightnesses varying in a repeating pattern across three values. There is no lookup table of colours associated with numbers and no numerology involved — the relationship is deterministic arithmetic on the characters you typed.\n\nWhat that buys you is stability, which is the whole point of using a number as the input. Seven always produces the same five colours, today and in a year, on any device, and so does any other number. The palette is reproducible from the number alone, so it can be written down as a single digit and regenerated later without recording five hex values — a useful property when a palette has to be attached to something that already has an identifier.\n\nThere are two consequences of hashing text that are easy to trip over. The first is that whitespace and leading zeros count: seven, oh-seven and a seven with a space before it are three different strings and produce three different palettes. Trim the input if you want a canonical result. The second is that the field accepts anything, so words work as well as digits, and a name will hash just as happily as a number. Nothing is validated because nothing needs to be.\n\nWhat the tool does not claim to do is assign colours by meaning. Numbers carry colour associations in various traditions, and this tool ignores all of them. If you are looking for the color for a number in that sense — the hue folklore attaches to it — you will get arithmetic instead. Similarly, a coincidence in the output is not a signal — two numbers that happen to produce similar palettes do so because their hashes landed near each other, nothing more.\n\nThe most honest use is as a labelled colour pair: give a user, a team, an order or a product a number, and the palette follows from it predictably. It is a compact way to make something visually identifiable from a value that is already being tracked, and because the colours come out at a constant lightness in a repeating pattern, sets of these palettes look like they belong to the same family even though the hues differ. For personal projects the framing as a lucky number color is harmless fun, and the underlying behaviour is a deterministic color from number arithmetic that anyone can rely on.\n\n- Limits: five colours per number, fixed brightness and chroma, no way to adjust the palette beyond changing the number, and no export other than copying swatches one at a time.\n- As a number to color generator it is narrow, and as a numeric color palette source it is dependable rather than expressive.",
+    "howTo": [
+      "Type a number into the field — seven is the default.",
+      "Read the five swatches that appear beneath it.",
+      "Copy individual hex values, and note the number itself as the way to regenerate the same palette later."
+    ],
+    "whenToUse": "Use this when a palette needs to be derived from an existing identifier and stay stable — teams, orders, users, categories. Use a themed or palette generator when you want to choose the colours instead of deriving them. For the neighbouring steps, see the {{daily-color-generator|daily color generator}} and the {{color-of-the-year-browser|color of the year browser}}.",
+    "faqs": [
+      {
+        "q": "How are the colours decided?",
+        "a": "The number is hashed as text to produce a starting hue, then five swatches walk around the wheel from there at fixed intervals with lightnesses in a repeating pattern."
+      },
+      {
+        "q": "Does the same number always give the same palette?",
+        "a": "Yes. The result is deterministic arithmetic, so the five hex values are identical wherever and whenever the number is entered."
+      },
+      {
+        "q": "Why does adding a leading zero change the colours?",
+        "a": "Because the input is hashed as text, so 7, 07 and a 7 with a space are three different strings. Trim the input for a canonical result."
+      },
+      {
+        "q": "Are the colours based on traditional number symbolism?",
+        "a": "No. There is no lookup table of colours for numbers — only arithmetic on the characters typed. Any resemblance to a traditional association is coincidence."
+      },
+      {
+        "q": "What does the lucky number color not do?",
+        "a": "As a number to color generator it is narrow, and as a numeric color palette source it is dependable rather than expressive."
+      }
+    ]
+  }
+]

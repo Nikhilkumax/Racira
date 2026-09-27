@@ -46,6 +46,12 @@ export interface RecorderToolShellProps {
   hint?: string;
   /** Download filename prefix (default "recording"). */
   filePrefix?: string;
+  /** Seconds to count down before recording starts (default 0 = immediate). */
+  countdownSec?: number;
+  /** Hard recording limit in seconds — recording auto-stops (default: none). */
+  maxDurationSec?: number;
+  /** Called when recording actually starts (after countdown/request). */
+  onRecordingStart?: () => void;
 }
 
 type RecStage = "idle" | "requesting" | "recording" | "processing" | "done" | "error";
@@ -72,8 +78,12 @@ export default function RecorderToolShell({
   buildOutput,
   hint,
   filePrefix = "recording",
+  countdownSec = 0,
+  maxDurationSec,
+  onRecordingStart,
 }: RecorderToolShellProps) {
   const [stage, setStage] = useState<RecStage>("idle");
+  const [countdown, setCountdown] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
   const [output, setOutput] = useState<RecorderOutput | null>(null);
@@ -92,6 +102,21 @@ export default function RecorderToolShell({
     streamRef.current?.getTracks().forEach((t) => t.stop());
     streamRef.current = null;
   }, []);
+
+  // Auto-stop timer for maxDurationSec.
+  const autoStopRef = useRef<number | null>(null);
+  const clearAutoStop = useCallback(() => {
+    if (autoStopRef.current !== null) {
+      window.clearTimeout(autoStopRef.current);
+      autoStopRef.current = null;
+    }
+  }, []);
+  useEffect(
+    () => () => {
+      clearAutoStop();
+    },
+    [clearAutoStop],
+  );
 
   useEffect(() => cleanup, [cleanup]);
 
@@ -171,6 +196,12 @@ export default function RecorderToolShell({
       setElapsed(0);
       timerRef.current = window.setInterval(() => setElapsed((s) => s + 0.1), 100);
       setStage("recording");
+      onRecordingStart?.();
+      if (maxDurationSec && maxDurationSec > 0) {
+        autoStopRef.current = window.setTimeout(() => {
+          recorderRef.current?.stop();
+        }, maxDurationSec * 1000);
+      }
     } catch (err) {
       console.error(err);
       cleanup();
@@ -188,11 +219,31 @@ export default function RecorderToolShell({
       );
       setStage("error");
     }
-  }, [source, audioConstraints, buildOutput, filePrefix, downloadUrl, cleanup]);
+  }, [source, audioConstraints, buildOutput, filePrefix, downloadUrl, cleanup, maxDurationSec, clearAutoStop, onRecordingStart]);
 
   const stopRecording = useCallback(() => {
+    clearAutoStop();
     recorderRef.current?.stop();
-  }, []);
+  }, [clearAutoStop]);
+
+  // Countdown wrapper: wait countdownSec, then start (used by scheduled tools).
+  const startWithCountdown = useCallback(() => {
+    if (countdownSec <= 0) {
+      void startRecording();
+      return;
+    }
+    setErrorMsg("");
+    setCountdown(countdownSec);
+    let left = countdownSec;
+    const iv = window.setInterval(() => {
+      left -= 1;
+      setCountdown(left);
+      if (left <= 0) {
+        window.clearInterval(iv);
+        void startRecording();
+      }
+    }, 1000);
+  }, [countdownSec, startRecording]);
 
   const busy = stage === "requesting" || stage === "processing";
   const SourceIcon = source === "mic" ? Mic : MonitorSpeaker;
@@ -203,12 +254,14 @@ export default function RecorderToolShell({
         {stage !== "recording" ? (
           <button
             type="button"
-            onClick={() => void startRecording()}
-            disabled={busy}
+            onClick={startWithCountdown}
+            disabled={busy || countdown > 0}
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
           >
-            {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <SourceIcon className="h-4 w-4" />}
-            {stage === "requesting"
+            {busy || countdown > 0 ? <Loader2 className="h-4 w-4 animate-spin" /> : <SourceIcon className="h-4 w-4" />}
+            {countdown > 0
+              ? `Starting in ${countdown}…`
+              : stage === "requesting"
               ? source === "mic"
                 ? "Requesting mic…"
                 : "Waiting for picker…"

@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/domains/finance/blog/theme-provider";
 import { QueryProvider } from "@/domains/finance/blog/query-provider";
 import { site as FINANCE_SITE } from "@/domains/finance/site";
 import { Metadata, Viewport } from "next";
@@ -33,9 +32,7 @@ export default function RootLayout({
       
       <>
         <QueryProvider>
-          <ThemeProvider>
-            {children}
-          </ThemeProvider>
+          {children}
         </QueryProvider>
       </>
     

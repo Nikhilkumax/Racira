@@ -71,7 +71,18 @@ export default function HomeLoanCalculator() {
   const [annualInsurance, setAnnualInsurance] = useState(DEFAULTS.annualInsurance);
   const [monthlyHoa, setMonthlyHoa] = useState(DEFAULTS.monthlyHoa);
 
-  const [results, setResults] = useState<HomeLoanResults | null>(null);
+  const [results, setResults] = useState<HomeLoanResults | null>(() => calculateHomeLoan({
+    propertyPrice: parseFloat(DEFAULTS.propertyPrice) || 0,
+    downPaymentPct: parseFloat(DEFAULTS.downPaymentPct) || 0,
+    downPaymentAmt: parseFloat(DEFAULTS.downPaymentAmt) || 0,
+    dpMode: DEFAULTS.dpMode,
+    interestRate: parseFloat(DEFAULTS.interestRate) || 0,
+    loanTerm: parseFloat(DEFAULTS.loanTerm) || 0,
+    annualPropertyTax: parseFloat(DEFAULTS.annualPropertyTax) || 0,
+    annualInsurance: parseFloat(DEFAULTS.annualInsurance) || 0,
+    monthlyHoa: parseFloat(DEFAULTS.monthlyHoa) || 0,
+  }));
+  const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -116,8 +127,7 @@ export default function HomeLoanCalculator() {
   };
 
   useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setMounted(true);
   }, []);
 
   const handlePriceChange = (val: string) => {
@@ -284,7 +294,7 @@ export default function HomeLoanCalculator() {
                   {/* 4. Chart */}
                   <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[280px]">
                     <h3 className="text-base font-bold mb-2 w-full text-left">Monthly Distribution</h3>
-                    <ResponsiveContainer width="100%" height={200}>
+                    {mounted && (<ResponsiveContainer width="100%" height={200}>
                       <RechartsPieChart>
                         <Pie
                           data={results.chartData}
@@ -298,7 +308,7 @@ export default function HomeLoanCalculator() {
                         </Pie>
                         <Tooltip content={<CustomTooltip />} />
                       </RechartsPieChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer>)}
                     <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2 w-full">
                       {results.chartData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">

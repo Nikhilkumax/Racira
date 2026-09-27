@@ -1,0 +1,236 @@
+[
+  {
+    "slug": "complementary-palette-generator",
+    "keywords": [
+      "complementary palette generator",
+      "color and its opposite",
+      "complementary color pairs",
+      "opposite color generator"
+    ],
+    "intro": "The complementary palette generator takes one base color and returns it together with its direct opposite on the wheel, exactly 180 degrees away. The result is a fixed two-color pair: the base you set, and the complement the rule derives from it.",
+    "content": "Complementary is the most decisive harmony there is: take the base hue, add 180 degrees, and the result is the color and its opposite across the wheel. The complementary palette generator performs that rotation in OKLCH, holding your base's lightness and chroma steady while the hue swings to the far side. What comes back is one of the simplest complementary color pairs available, the base and its complement, drawn as swatches you can copy straight into a stylesheet. The count is set by the rule rather than by a setting: complementary is a two-color relationship and this tool adds no third value. Nothing here is random, so the same base always returns the same pair.\n\nThe rotation happens in OKLCH, and hue is the only coordinate that moves. Lightness and chroma are taken from the base, so both halves of the pair are exactly as light and as saturated as the color you set; a complementary color pair is therefore a pure hue relationship rather than a tonal one. Because OKLCH is perceptually even, the complement lands where the eye expects it rather than where a naive RGB turn would place it, which is why the pair reads as a genuine opposite rather than a slightly tilted relative. The base always appears first in the strip, so the color you must keep is never ambiguous.\n\n- The count is fixed at two. There is no count control and no third color, however much the layout might want one.\n- Only the 180 degree relationship is available here. The analogous, triadic, tetradic and split-complementary rules each live in their own tool.\n- No contrast check. Both members inherit the same lightness, which is the exact case where text over color tends to fail, so pairings have to be verified elsewhere.\n- No ordering or sorting. The strip stays in derivation order, base first, and the two swatches are never ranked by lightness or hue.\n- No lightness or chroma controls. The only input is the base color; every tonal decision belongs to the tints or shades tools afterwards.\n\nUse the pair by assigning roles rather than splitting the space evenly. A reliable pattern keeps one member as the surface and the other as the accent, with the accent confined to a small area, because equal areas of two complements compete and only area settles that competition. Where both members have to carry text, split either one into a lightness ramp first so the pair gains depth to work with. Warning colour work, iconography and sports kits are the classic homes for the rule, since there two colours must be unmistakably distinct at a glance.\n\nAs an opposite color generator this tool gives the raw relationship in a single step, with no wheel to read and no ruler to hold. Choose a base that already sits where you want the set to live, because everything derived here arrives at the base's own weight: a mid-tone base gives a mid-tone complement and a muted base gives a muted one. Keep a note of the base you used, since the complement is reproducible from it and from nothing else.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the two swatches: the base, then its 180° complement.",
+      "Copy the hex value from either swatch."
+    ],
+    "whenToUse": "Use the complementary generator when a decisive two-color contrast is the goal, such as an accent against a surface. The {{split-complementary-palette-generator|split-complementary generator}} trades some of that punch for two softer neighbours, the {{triadic-palette-generator|triadic generator}} adds a third voice, and the {{10-color-palette-generator|10-color palette generator}} lets you compare rules without leaving the page. Verify any text-on-color pairing with the {{contrast-checker|contrast checker}}, and use the {{palette-sorter|palette sorters}} when the strip needs an order.",
+    "faqs": [
+      {
+        "q": "Why do the two colors look evenly matched in weight?",
+        "a": "By design. The rule copies the base's lightness and chroma to the complement, so only the hue changes. Vary one side's lightness with the tints or shades tools when a member has to recede."
+      },
+      {
+        "q": "Can I get more than two colors from this tool?",
+        "a": "No. Complementary is a two-color relationship and the count follows from the rule, so the output is exactly the base and its opposite. For three or four colours, use the triadic or tetradic generator."
+      },
+      {
+        "q": "Is this the same as an HSL complement?",
+        "a": "Often not. This tool rotates hue in OKLCH, a perceptually uniform space, so the opposite lands where vision expects it. Tools that rotate in HSL or RGB can return a complement that looks tilted or muted."
+      },
+      {
+        "q": "Can I use the two colors as text and background?",
+        "a": "Check them first. Same-lightness pairs frequently miss contrast thresholds; the contrast checker returns the ratio, and the minimum contrast auto-fixer can nudge one side until it passes."
+      },
+      {
+        "q": "Which swatch is my original color?",
+        "a": "The first one, on the left, in every case. The complement always follows it, so the base you set is never ambiguous in the strip."
+      }
+    ]
+  },
+  {
+    "slug": "analogous-palette-generator",
+    "keywords": [
+      "analogous palette generator",
+      "three neighboring hues",
+      "analogous color scheme",
+      "30 degree color harmony"
+    ],
+    "intro": "The analogous palette generator derives a three-color set from one base, using the base hue together with the two hues 30 degrees to either side. It is the quietest harmony here: neighbouring hues, one small step apart.",
+    "content": "An analogous palette generator builds its set from hues that sit next to each other on the wheel: the base, minus 30 degrees, and plus 30 degrees. That yields a run of three neighboring hues in which every member is a neighbour rather than an opposite, so the effect is continuity instead of contrast. The base is placed in the middle of the strip, with the two derived hues flanking it, which makes the relationship visible at a glance. The count is fixed by the rule at three, and the analogous color scheme is the gentlest set this domain produces.\n\nThe rotation is applied in OKLCH, and hue is the only coordinate that moves: lightness and chroma are carried over from the base, so all three swatches share the base's weight and differ only by hue. Keeping the weight constant is what stops the set from reading as a gradient; the 30 degree color harmony is a small hop in hue, and the uniform lightness makes the neighbours read as one family. Because OKLCH spaces hue perceptually, the minus and plus steps look evenly placed to the eye even though they are equal rotations from the base.\n\n- The spread is fixed at 30 degrees either side. There is no control for widening or narrowing the run.\n- The count is fixed at three. There is no count control and no fourth hue.\n- No contrast check. Neighbouring hues at equal lightness are the hardest set to separate for text, so pairings must be verified elsewhere.\n- No ordering or sorting. The strip keeps derivation order: minus 30, base, plus 30.\n- No lightness or chroma controls. The base is the only input, so tonal work moves to the tints and shades tools afterwards.\n\nUse the run where the palette should feel calm and continuous rather than pointed: a section background, a two-step hover, or a chart that steps gently through one family. Because neighbouring hues sit close together, the practical work is making them distinguishable. Adjacent swatches can read as one colour at small sizes, so assigning them to large, separate areas helps. If the set needs a point of emphasis, pair it with a complementary accent rather than adding a fourth neighbour, since the analogous color scheme is at its best when something else supplies the contrast.\n\nKeep a note of the base hue when the set is settled, because the whole trio is derived from it and reproducing the palette later means reproducing that one choice. A subtle palette also benefits from being tested on real content rather than the swatch strip: fill an actual surface and a real heading with the three hues, and the run either holds together as intended or shows where it needs a lightness step.\n\nThe set is also fully deterministic, which matters when a palette has to be reproduced: the same base always yields the same minus 30, base and plus 30 trio, on any machine and in any session. That makes an analogous palette generator useful for design tokens, where two neighbouring hues often serve successive states such as rest and hover, since the values can be regenerated exactly rather than eyeballed from a screenshot. Where the base is a brand colour, the derived neighbours inherit its identity automatically, so a quiet interface can be built from a single decision instead of three.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the three swatches: the -30° hue, the base, then the +30° hue.",
+      "Copy the hex value from any swatch you want to keep."
+    ],
+    "whenToUse": "Use the analogous generator when the palette should read as one family, such as gentle backgrounds, quiet chart steps or atmospheric gradients. The {{complementary-palette-generator|complementary generator}} is this set's opposite in temperament, the {{triadic-palette-generator|triadic generator}} spreads the same idea into a balanced triangle, and the {{monochromatic-palette-generator|monochromatic generator}} holds the hue and varies lightness instead. Check any text pair with the {{contrast-checker|contrast checker}}, and use the {{palette-sorter|palette sorters}} if the strip needs an order.",
+    "faqs": [
+      {
+        "q": "Why is the base in the middle of the strip?",
+        "a": "The rule derives one hue below the base and one above, so the base naturally sits between them. It is always present, which keeps the color you must keep inside the set."
+      },
+      {
+        "q": "Can I make the neighbouring hues closer or further apart?",
+        "a": "No. The analogous color scheme is fixed at 30 degrees either side. A narrower spread would collapse towards one hue and a wider one would stop being analogous; other spreads are served by the triadic and tetradic tools."
+      },
+      {
+        "q": "Why do the three colors look so similar?",
+        "a": "That is the rule working as intended. Neighbouring hues at a shared lightness read as one family. Separate them by role and area, or pull one member's lightness apart with the tints and shades tools."
+      },
+      {
+        "q": "Is this the same as a monochromatic palette?",
+        "a": "No. Analogous varies hue and holds lightness, while the monochromatic generator does the reverse, holding hue and stepping lightness. They are two routes to a quiet palette from different axes."
+      },
+      {
+        "q": "Can the three hues carry text against each other?",
+        "a": "Rarely without help. Neighbours at equal lightness give very low contrast, so check the pair with the contrast checker and darken or lighten one side before assigning text."
+      }
+    ]
+  },
+  {
+    "slug": "triadic-palette-generator",
+    "keywords": [
+      "triadic palette generator",
+      "three evenly spaced colors",
+      "triadic color scheme",
+      "120 degree color harmony"
+    ],
+    "intro": "The triadic palette generator builds a three-color scheme from any base: the base plus the two hues 120° and 240° away. It returns three evenly spaced colors and no more.",
+    "content": "A triadic palette generator performs the wheel's equilateral triangle: take the base, add 120 degrees, and add 240. The three resulting hues are evenly spaced, so no member of the triadic color scheme sits next to another and none dominates by geometry. The tool returns three evenly spaced colors, the base first and the two derived hues after it, with the base's lightness and chroma carried through to all three. That even spacing is the source of the set's balance, and it is the reason a triad reads as a committee of equals rather than as a pair with a spare.\n\nThe rotation runs in OKLCH, and hue is the only coordinate that changes. Lightness and chroma are read from the base, so all three swatches carry the same weight and differ only by their 120 degree color harmony positions around the wheel. Because OKLCH is perceptually even, those positions land where the eye expects the triangle to be rather than where a naive RGB rotation would scatter them. The result is the flat, poster-like set triads are known for: three evenly spaced colors held at a single tonal level.\n\n- The spacing is fixed at 120 degrees. There is no control over the triangle's size or rotation beyond choosing the base.\n- The count is fixed at three. There is no count control and no extra leg.\n- No contrast check, so equal-weight hues must be verified elsewhere before they carry text.\n- No ordering or sorting: the strip stays in derivation order, base then plus 120 then plus 240.\n- No lightness or chroma controls. The base is the only input, so ramps are built afterwards with the tints and shades tools.\n\nUse the triad where three equal voices are wanted and none should stand above the others: illustration, poster work, or a small categorical chart. In an interface, assign roles rather than areas. Let one leg take most of the surface, let a second carry the hierarchy, and save the third for the rare moment that must be found quickly, because without a role the three evenly spaced hues compete for the same job. If a palette needs four voices instead of three, the tetradic generator extends the same geometry to a rectangle; if the balance feels too broad, the split-complementary generator settles for a quieter pair.\n\nThe triangle is also the most durable of the small schemes. Because no leg is anyone's neighbour, darkening one for a night mode or desaturating another for print keeps the relationship recognisable under changes that would wreck a pair or a random set, which is why triads hold up in a design system rather than only in a single composition.\n\nThe scheme is also a natural teaching device, because the arithmetic is exact: set a primary red and the triangle lands on the yellow and blue of the school wheel, then move the base and watch all three legs rotate in lockstep. In production the same precision is what makes a triad reproducible, because the two derived hues are a fixed 120 degrees from the base, so a token set built on it can be regenerated from one value without drift. Test the triangle on real content rather than the swatch row, since three equal-weight hues read very differently once one of them is given a large surface.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the three swatches: base, +120°, +240°.",
+      "Copy the hex value of any swatch."
+    ],
+    "whenToUse": "Use the triadic generator when three equal, well-separated hues are the goal and no colour should dominate by geometry. The {{tetradic-palette-generator|tetradic generator}} extends the same idea to four, the {{analogous-palette-generator|analogous generator}} gives a quieter neighbouring run, and the {{split-complementary-palette-generator|split-complementary generator}} suits a base plus two supporting hues. Verify any text pairing with the {{contrast-checker|contrast checker}}, and reach for the {{palette-sorter|palette sorters}} when the strip needs an order.",
+    "faqs": [
+      {
+        "q": "Why are the three colors equally vivid?",
+        "a": "The rule copies the base's lightness and chroma to all three legs, so the hue triangle is pure. Real interfaces usually vary lightness across the legs, and the tints and shades tools build those ramps."
+      },
+      {
+        "q": "Which of the three should dominate?",
+        "a": "Geometry does not decide that, usage does. A common split gives one leg the surface, one the text and one the accents, with the contrast checker confirming which legs can carry text."
+      },
+      {
+        "q": "Is this just any three colors?",
+        "a": "No. The 120 degree separation is what makes it triadic: the hues are maximally spaced for a three-color set. Three arbitrary colors share none of that balance."
+      },
+      {
+        "q": "Can I start from a colour I already have?",
+        "a": "That is the intended flow. Set your existing brand or image colour as the base and the other two legs derive from it, keeping the scheme anchored to the colour you must keep."
+      },
+      {
+        "q": "Can I change the count to two or four?",
+        "a": "No. The triadic color scheme is three colours and the count follows from the rule, with no count control. Two legs is the complementary generator's job and four is the tetradic generator's."
+      }
+    ]
+  },
+  {
+    "slug": "tetradic-palette-generator",
+    "keywords": [
+      "tetradic palette generator",
+      "four color rectangle harmony",
+      "tetradic color scheme",
+      "double complementary palette"
+    ],
+    "intro": "The tetradic palette generator derives four hues from one base: the base plus 90°, 180° and 270°, forming the wheel's rectangle. It is the widest standard harmony here, and it returns exactly four colors.",
+    "content": "A tetradic palette generator draws the wheel's rectangle: base, base plus 90, base plus 180 and base plus 270. Read another way, that is a double complementary palette, two complementary pairs sharing one wheel, which is why the four color rectangle harmony offers more vocabulary than any other standard scheme. The richness cuts both ways, though. Four strong hues at equal weight compete, and the geometry itself gives no hierarchy to settle the fight, so this is the rule that most rewards discipline.\n\nThe rotation is applied in OKLCH, and hue is the only coordinate that moves. Lightness and chroma come from the base, so all four swatches share a single weight and differ only in where they sit on the wheel, which keeps the tetradic color scheme flat and predictable. Because OKLCH is perceptually even, the rectangle's corners land where the eye expects them. Where the base sits near the ends of the lightness range, the derived values keep its weight rather than darkening or lightening on their own.\n\n- The geometry is fixed at 90, 180 and 270 degrees. The rectangle cannot be stretched or rotated except by changing the base.\n- The count is fixed at four. There is no count control and no fifth colour.\n- No contrast check. Equal-weight hues still need verifying before they carry text.\n- No ordering or sorting: the strip keeps derivation order, base then plus 90 then plus 180 then plus 270.\n- No lightness or chroma controls. The base is the only input, so any ramps are built afterwards with the tints and shades tools.\n\nTreat the rectangle as two pairs rather than four equals. Let one complementary pair carry the dominant load, surface and primary accent, and hold the second pair in reserve for secondary accents, links and states. That reading turns the tetradic color scheme from a shouting match into a system, and it is why the double complementary palette keeps appearing in design systems that need four hue families without descending into rainbow. A rough proportion of seventy, twenty, seven and three works because the eye reads the two largest hues as structure and the two smallest as accents.\n\nFour hues is also the point at which a palette starts to need governance rather than selection. Check the arrangement against real content instead of the swatch row, because four voices only work while three of them stay quiet. If four prove one too many, the triadic generator is the same idea with a point removed, and it is usually the more manageable scheme.\n\nThe rectangle is also a useful frame for a brand system with fixed accents, because the shape is anchored to the base and the two pairs stay a known distance from the brand hue. In practice that makes it possible to reserve one pair for product surfaces and the other for marketing, without either drifting into an unrelated set. Rotating the base lets the same proportions be tried at different temperatures, so the shape can be kept while the mood is swapped, and the whole rectangle can be reproduced later from the base value alone.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the four swatches: base, +90°, +180°, +270°.",
+      "Split the rectangle into two pairs and assign roles before copying values."
+    ],
+    "whenToUse": "Use the tetradic generator when a scheme genuinely needs four hue families anchored to one colour. The {{triadic-palette-generator|triadic generator}} is the same geometry with a point removed and is easier to govern, the {{split-complementary-palette-generator|split-complementary generator}} is the quieter three-colour option, and the {{10-color-palette-generator|10-color palette generator}} lets you compare these rules side by side. Confirm which legs can carry text with the {{contrast-checker|contrast checker}}, and use the {{palette-sorter|palette sorters}} to expose the structure of the strip.",
+    "faqs": [
+      {
+        "q": "Why is it called a double complementary palette?",
+        "a": "Because the rectangle is two complementary pairs sharing a wheel: the base and its opposite, plus the two hues 90 degrees either side. The classic tetradic color scheme and the double complementary palette are the same shape."
+      },
+      {
+        "q": "How do I keep four colors from looking chaotic?",
+        "a": "Treat them as two pairs rather than four equals. Let one pair dominate the surface and the primary accent, and keep the second pair for secondary accents so three of the four hues stay quiet."
+      },
+      {
+        "q": "Can I adjust the angles between the four colors?",
+        "a": "No. The four color rectangle harmony is fixed at 90, 180 and 270 degrees, and only the base changes the placement. A square arrangement is the same tool started from a different hue."
+      },
+      {
+        "q": "Which of the four should carry text?",
+        "a": "Whichever the contrast checker approves against its background. Equal-weight hues rarely pass on their own, so darken one leg with the shades tool before assigning it to text."
+      },
+      {
+        "q": "Can I drop down to three colors later?",
+        "a": "Yes, and often you should. Copy the legs that earned their place into the triadic generator or the palette locker, where a smaller set is easier to govern."
+      }
+    ]
+  },
+  {
+    "slug": "split-complementary-palette-generator",
+    "keywords": [
+      "split complementary palette generator",
+      "base plus two neighbors of its complement",
+      "split complementary color scheme",
+      "150 and 210 degree harmony"
+    ],
+    "intro": "The split-complementary palette generator returns three colors: the base plus the two hues 150° and 210° away, the neighbours of the base's complement. It is the softer cousin of the complementary pair.",
+    "content": "A split complementary palette generator takes the base and derives the two hues that sit either side of its opposite, at 150 and 210 degrees. In other words it is the base plus two neighbors of its complement, which gives a split complementary color scheme its characteristic tension: the same pull as a complementary pair, resolved into two supporting hues instead of one. The tool returns exactly three swatches, base first and the two derived hues after it, all at the base's own lightness and chroma. The count follows from the rule, and the 150 and 210 degree harmony is what sets it apart from its blunter relative.\n\nThe rotation happens in OKLCH, and hue is the only coordinate that moves. Lightness and chroma are read from the base, so every swatch shares one weight and the set differs only by hue. That shared weight is what keeps the two derived hues reading as support rather than as competition. Because OKLCH is perceptually even, the shoulders of the complement land where the eye expects them, so the scheme reads as a deliberate softening of the opposite rather than as three near-arbitrary hues.\n\n- The angles are fixed at 150 and 210 degrees. There is no control for widening or narrowing the split.\n- The count is fixed at three. There is no count control and no fourth hue.\n- No contrast check. The three hues sit at one lightness and usually need adjusting before they carry text.\n- No ordering or sorting: the strip keeps derivation order, base then plus 150 then plus 210.\n- No lightness or chroma controls, so the base is the only input and tonal work happens afterwards in the tints and shades tools.\n\nReach for the split when the pure complement feels too loud but a single hue feels too plain. It suits a base plus two accents that must feel related to the opposite side of the wheel without shouting, such as a primary colour with two companion accents or a headline hue with two quieter supports. Assign the base the largest area and let the derived hues share the accent work, because three equal-weight hues compete for the same space. Where all three must carry text, split one of them into a lightness ramp first.\n\nThe practical difference from a complementary pair is one of temperature and of volume. A complementary set is a duel between two colours; a split-complementary set is a base with a warm and a cool supporter, which is easier to place into a layout because the accent responsibility is divided. Keep a record of the base, since the whole trio is reproducible from that single value and the rule.\n\nThe two supporters are usually one warm and one cool, because they sit on opposite sides of the complement. That gives a split complementary color scheme a built-in temperature range that a single accent cannot provide, which is why the rule works well for editorial layouts where a headline colour needs both a highlight and a quieter counterpoint. As with every rule here the trio is deterministic, so a settled set can be regenerated for a token file rather than copied by hand.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the three swatches: base, +150°, +210°.",
+      "Copy the hex value of any swatch."
+    ],
+    "whenToUse": "Use the split-complementary generator when a base needs two softer supporters rather than one decisive opposite. The {{complementary-palette-generator|complementary generator}} is the pure pair and is blunter, the {{triadic-palette-generator|triadic generator}} is a fully balanced three, and the {{analogous-palette-generator|analogous generator}} keeps everything on one side of the wheel. Check any text pair with the {{contrast-checker|contrast checker}}, and use the {{palette-sorter|palette sorters}} if the three hues need an order.",
+    "faqs": [
+      {
+        "q": "How is this different from a complementary pair?",
+        "a": "It replaces the single opposite with the two hues either side of it, so the contrast is spread across two supporters instead of one. The complementary generator returns the blunter two-color version."
+      },
+      {
+        "q": "Why 150 and 210 degrees?",
+        "a": "They are the two neighbours of the 180 degree complement, 30 degrees to either side. That is what makes the split complementary color scheme read as related to the opposite while staying softer."
+      },
+      {
+        "q": "Can I narrow or widen the split?",
+        "a": "No. The 150 and 210 degree harmony is fixed by the rule and only the base moves the three hues. Other spreads belong to the triadic and tetradic tools."
+      },
+      {
+        "q": "Which hue should dominate?",
+        "a": "Usually the base. Give it the largest area and let the two derived hues carry accents, since they sit at the same lightness and compete if given equal space."
+      },
+      {
+        "q": "Can the three colours work as text on colour?",
+        "a": "Not reliably at a shared lightness. Run the pair through the contrast checker and darken or lighten one side; the tints and shades tools make that ramp quickly."
+      }
+    ]
+  },
+  {
+    "slug": "monochromatic-palette-generator",
+    "keywords": [
+      "monochromatic palette generator",
+      "variations on a single hue",
+      "monochromatic color scheme",
+      "lightness steps of one hue"
+    ],
+    "intro": "The monochromatic palette generator holds one hue and returns five lightness steps from it: the base plus two steps above and two below. It is the only harmony in this set that never rotates hue.",
+    "content": "A monochromatic palette generator does not move around the wheel at all. It holds the base's hue and chroma and walks its lightness, returning five steps: 0.30 and 0.15 below the base, the base itself in the middle, and 0.15 and 0.30 above it. That fixed set of lightness steps of one hue is what makes a monochromatic color scheme read as a single colour seen at five depths. It is the safest palette in the domain, and the one with no hue contrast at all to lean on.\n\nThe work happens in OKLCH, where lightness is a perceptual axis rather than a channel value, so the five steps look evenly spaced to the eye. Hue and chroma come straight from the base, which is why the five variations on a single hue share a temperature and a character rather than drifting into grey as they lighten. Where the base sits close to the top or bottom of the range, a step is clamped so the value stays valid; at the extremes the set compresses and one or two steps may land on the same near-white or near-black value.\n\n- The steps are fixed at 0.15 and 0.30 below and above the base. There is no control over the spacing.\n- The count is fixed at five, with no count control to add or remove a step.\n- No contrast check. Low separation is the class of problem this palette creates, so pairs must be verified elsewhere.\n- No ordering control: the strip runs darkest to lightest, with the base in the middle.\n- No hue or chroma controls. The base decides the colour, and the only thing the rule varies is how light each step is.\n\nUse the monochrome set when a single colour has to carry a whole surface: a section background through three tints, a text hierarchy, or a data chart that steps through one family. Assign roles along the lightness axis. The darkest step lands on text, the middle steps on surfaces and borders, and the lightest on backgrounds, and the palette stops needing a second hue. Because the steps share a chroma, the set keeps a consistent saturation even when a step lands near white.\n\nWhere a point of emphasis is unavoidable, bring in one accent from the complementary generator rather than adding another step, because a monochromatic color scheme has no built-in contrast to spare. Keep the base value with the palette; the five steps are reproducible from that one input and the fixed increments, which makes the set easy to recreate or hand off.\n\nGiven how much of an interface is neutral by nature, a monochrome set often covers more of a screen than any other rule. It supplies the surfaces, borders and type weights a layout already needs, and the fixed increments keep those steps consistent across components rather than re-invented on every screen. Because hue and chroma travel together, a saturated base yields saturated steps and a muted base yields a muted set, so the family keeps its character even at the pale end. As a first palette it is also the most forgiving, because there is nothing to balance between hues, only distance along one axis.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value.",
+      "Read the five swatches, darkest to lightest, with the base in the middle.",
+      "Copy the hex value of any step."
+    ],
+    "whenToUse": "Use the monochromatic generator when one hue has to do all the work and the palette should feel calm and continuous. The {{analogous-palette-generator|analogous generator}} is the neighbouring-hues alternative, the {{color-tints-generator|tints}} and {{color-shades-generator|shades}} tools build longer ramps from a single value, and the {{complementary-palette-generator|complementary generator}} supplies the one accent a monochrome set often needs. Check any text pair with the {{contrast-checker|contrast checker}}, because lightness alone carries the hierarchy here.",
+    "faqs": [
+      {
+        "q": "Why does this one return five colors while the others return two to four?",
+        "a": "Because the rule varies lightness instead of hue. Five steps, two above the base and two below, is what gives the set enough range to build a surface and a text hierarchy from one colour."
+      },
+      {
+        "q": "Does the hue ever change?",
+        "a": "No. The lightness steps of one hue keep the hue and chroma fixed and move lightness only, which is why the set never drifts towards grey or towards a neighbouring hue."
+      },
+      {
+        "q": "Why do some steps look almost identical near a very light base?",
+        "a": "Steps are clamped at the ends of the lightness range. A near-white base has little room above it, so the top steps compress and can land on similar values."
+      },
+      {
+        "q": "Can I change the spacing or the number of steps?",
+        "a": "No. The increments are fixed at 0.15 and 0.30 and the count is fixed at five. For longer, finer ramps the tints and shades tools stretch a single value further."
+      },
+      {
+        "q": "Is a monochrome palette safe for text?",
+        "a": "Safer than most, but not automatically. Lightness is the only tool it has, so check the pair anyway; the contrast checker confirms whether a step can carry text against another."
+      }
+    ]
+  }
+]

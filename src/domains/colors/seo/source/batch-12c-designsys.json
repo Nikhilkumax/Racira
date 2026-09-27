@@ -1,0 +1,519 @@
+[
+  {
+    "slug": "tailwind-color-reference",
+    "keywords": [
+      "tailwind color palette reference",
+      "tailwind colors list",
+      "tailwind color names",
+      "tailwind shades hex",
+      "tailwind color families"
+    ],
+    "intro": "The Tailwind color palette reference lists all eighteen Tailwind color families from slate to rose, each shown as an eleven-step ramp from 50 to 950 with every hex value printed.",
+    "content": "- The page is organised as one block per family.\n- Eighteen families are covered — slate, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink and rose — and each block holds eleven tiles labelled 50 to 950, with the hex value printed beneath every swatch.\n- On a wide screen a family fits across a single row, so the shape of the ramp is visible at a glance.\n\nThe base value of each family is Tailwind's own published colour — the slate at #64748b, the red at #ef4444, the blue at #3b82f6, and so on — and that is the anchor of the reference. Each base is the value the framework ships as the five hundred step, which is what makes this list useful as a lookup: find the family by name and the anchor colour is the one you already know.\n\nThe eleven numbered steps are generated here rather than copied from the framework's own scale. Each step is computed at a fixed lightness — 0.97 for the fifty, then 0.93, 0.85, 0.75, 0.65, 0.55, 0.47, 0.40, 0.32, 0.22 and 0.14 for the nine-fifty — while the family's hue and chroma are held constant. The result is a ramp with the right shape and the right hue, and individual steps that will not always match the exact values in a Tailwind install.\n\nThat distinction matters when the numbers are going into a project. Use the base hex, the step label or the family name with confidence, since those come straight from the framework. Use the generated step hexes as a preview of the ramp and a starting point, and take the exact values from the installed package when a pixel-exact match is required.\n\nAs a tailwind color palette reference it is the fastest way to see the framework's families side by side, which is not something a documentation page does well: eighteen ramps stacked in one scroll shows how much of the system sits in the warm end, how the neutrals compare to the saturated families, and where the pale steps land relative to white. The tailwind color names are all here, and the order they appear in — slate through rose — follows the wheel closely enough to compare neighbours.\n\nWhy a reference page rather than the documentation itself is mostly a question of shape. Eighteen ramps stacked in one scroll can be compared against each other, which a per-colour documentation page cannot manage: it is easy to see here that the green and the emerald families are close enough to be alternatives, that the two darkest steps of the blues converge, and how far the yellow and lime ramps sit from white at their pale ends. For anyone assembling a set from the framework's own tailwind color families rather than from a brand colour, that comparison is the useful part of the page, and it is the reason a plain list of values is still worth keeping around.\n\nLimits: no search box, no copy buttons, no alpha or dark-mode variants, and no way to filter the list down to a few families.\n\n- The eleven steps are the only scale shown, so the framework's own bespoke values for specific components are not included.\n- Within those bounds, the tailwind colors list with every tailwind shades hex value printed is a complete, honest reference to the system's colour families.",
+    "howTo": [
+      "Find the family you need by scrolling to its block — they run slate to rose.",
+      "Read the eleven steps from 50 at the lightest to 950 at the darkest.",
+      "Take the hex printed under the step you want, which the tiles label as a Tailwind scale number."
+    ],
+    "whenToUse": "Use this when a Tailwind project needs the framework's own colour values, or when you want to see the whole system at once while choosing a family. Use the Tailwind colour exporter when the output has to be a config block for a brand colour instead of the framework's own palette. A ramp derived from your own brand colour is what the {{tailwind-palette-generator|Tailwind palette generator}} builds, and that ramp leaving as a config block is the {{tailwind-css-color-exporter|Tailwind CSS color exporter}}'s job.",
+    "faqs": [
+      {
+        "q": "Are these the real Tailwind values?",
+        "a": "The base colour of each family is Tailwind's published value, and the fifty-to-nine-fifty steps are generated from it at fixed lightnesses, so individual steps can differ from an installed package."
+      },
+      {
+        "q": "How many families are shown?",
+        "a": "Eighteen, from slate through rose, each with eleven steps. The families match the ones the framework ships, including the two neutrals at the start of the list."
+      },
+      {
+        "q": "Can I copy a hex value?",
+        "a": "Not with a button — the value is printed as text under each swatch, so it has to be selected by hand. There is also no search box to jump to a family."
+      },
+      {
+        "q": "Why does a step look different from the one I use in code?",
+        "a": "Because the steps are computed from the base colour's hue and chroma rather than copied, so treat them as a preview of the ramp and take exact values from the package."
+      },
+      {
+        "q": "Can I compare families side by side?",
+        "a": "Yes — every family is a block on one page, so scrolling lines them up; there is no filter to narrow the list, which makes the stacked layout the comparison."
+      }
+    ]
+  },
+  {
+    "slug": "material-design-color-reference",
+    "keywords": [
+      "material design color palette",
+      "material colors list",
+      "material design color names",
+      "material palette hex codes",
+      "material color families"
+    ],
+    "intro": "The Material Design color palette reference shows nineteen Material families — red, deep purple, light blue, lime, brown and the rest — each as an eleven-step ramp with the base hex and every step value.",
+    "content": "Nineteen families are laid out one block each: red, pink, purple, deep-purple, indigo, blue, light-blue, cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange, brown, gray and blue-gray. Every block carries eleven tiles labelled 50 through 950 with the hex printed under each swatch, and the hyphenated names are kept as the framework writes them, so searching for light-blue finds the same family the framework does.\n\n- Each family is anchored on Material's own base colour: the red at #f44336, the blue at #2196f3, the teal at #009688, the amber at #ffc107.\n- Those are the published values for the five hundred step, and they are the part of this page that can be used verbatim in a project.\n- The nineteen of them together give a good sense of the system's temperament — heavy on the cool half of the wheel, with three neutrals at the end for surfaces and text.\n\nThe numbered steps themselves are generated rather than sampled. Each is placed at a fixed lightness — 0.97 at the pale end down to 0.14 at the darkest — with the family's hue and chroma held constant through the ramp. So the preview has the right hue and a plausible progression, and the steps will not always match the framework's published palette values exactly.\n\nOne difference is worth expecting before it surprises you. Material's own system is not a plain eleven-step ramp: it publishes a base scale plus separate accent values, and the darkest families in the list — brown and the two grays — behave differently from the saturated hues, because a near-neutral has very little chroma for a lightness ladder to work with. Raising one of those bases through the same ladder produces a set of near-neutrals with barely any colour in them, which is honest to the model and not a bug.\n\nAs a material design color palette reference the page is most useful for two jobs: finding the base value of a family by name, and comparing families against each other when picking one for a product. Seeing nineteen ramps stacked is also a quick lesson in how similar a pale tint of a red and a pale tint of an orange look, which is the failure mode pale steps usually cause.\n\nReading the list as a whole also shows where the material color families overlap. The two blues and the two greens are close cousins, the yellow and the amber are nearly the same hue at different lightnesses, and the pink sits between the red and the purple rather than beside either of them. Those relationships are hard to see one documentation page at a time, and they matter as soon as a product needs four or five distinct accents rather than a single family: picking blue, light-blue and cyan together would leave three colours that no legend could separate.\n\nLimits: no search, no copy buttons, no accent steps, no dark-theme values and no alpha variants.\n\n- The material design color names are exactly the framework's, and each material palette hex codes entry is printed under its swatch.\n- Within those limits the material colors list is honest about what it is — the framework's base colours, expanded into a generated ramp.",
+    "howTo": [
+      "Scroll to the family you want; the blocks run red, pink and purple through to brown, gray and blue-gray.",
+      "Read the eleven steps from 50 to 950, each labelled with its step number.",
+      "Copy the printed hex for the step you need, or take the base value from the family you recognise."
+    ],
+    "whenToUse": "Use this when a project follows Material and needs a family's anchor colour, or when comparing Material families while choosing one. Use the palette generators when the ramp should come from your own brand colour rather than from the framework's palette. Carrying a brand colour through that ramp structure is what the {{material-ui-color-exporter|Material UI color exporter}} does, and the same ramp without the theme wrapper is the {{material-palette-generator|Material palette generator}}'s output.",
+    "faqs": [
+      {
+        "q": "Which Material families are included?",
+        "a": "Nineteen, including the two blues, both greens, the two oranges and the three neutrals — brown, gray and blue-gray — with the framework's hyphenated names preserved."
+      },
+      {
+        "q": "Are the step values the framework's own?",
+        "a": "The base colour of each family is; the eleven steps from 50 to 950 are generated at fixed lightnesses using the base's hue and chroma, so they can differ from published values."
+      },
+      {
+        "q": "Why do the brown and gray ramps look so flat?",
+        "a": "Because those families carry very little chroma, so a lightness ladder produces a near-neutral set at every step. The saturated families show far more colour through the same ramp."
+      },
+      {
+        "q": "Where are the accent colours?",
+        "a": "They are not on this page. Only the base scale is shown, so any accent step published alongside the framework's palette has to be looked up separately."
+      },
+      {
+        "q": "What are the three neutrals for?",
+        "a": "Surfaces and text: brown, gray and blue-gray close the list and do the work no hue can, which is why a Material interface can be almost entirely neutral and still look deliberate."
+      }
+    ]
+  },
+  {
+    "slug": "bootstrap-color-reference",
+    "keywords": [
+      "bootstrap color palette",
+      "bootstrap theme colors",
+      "bootstrap color names",
+      "bootstrap palette hex",
+      "bootstrap css colors"
+    ],
+    "intro": "The Bootstrap color palette reference lists the eight theme colours — primary, secondary, success, danger, warning, info, light and dark — each expanded into an eleven-step ramp with hex values.",
+    "content": "- This is a short list compared with the hue-heavy frameworks, and that is the point of it.\n- Bootstrap's colour system is built on eight semantic tokens rather than a wheel of families: primary at #0d6efd, secondary at #6c757d, success at #198754, danger at #dc3545, warning at #ffc107, info at #0dcaf0, light at #f8f9fa and dark at #212529.\n- Each one gets a block of eleven tiles labelled 50 through 950, with the hex printed beneath every swatch.\n\nThe semantic naming is what makes the reference different from a hue list. A reader arrives knowing they want the danger colour or the success colour and needing its value, not knowing which blue to pick — and the eight tokens answer that directly. The two neutrals, light and dark, sit at the ends of the luminance range, which is why their ramps behave so differently from the other six: the base of light is nearly white and the base of dark is nearly black, so a fixed lightness ladder pushes both towards the middle.\n\nEvery base hex above is Bootstrap's own published theme value, and those are the numbers that belong in a project. The eleven numbered steps are generated from each base rather than sampled from the framework's compiled CSS, computed at a fixed lightness with the base's hue and chroma held constant — so a step gives you a preview of the ramp in the right hue, while an exact compiled value may differ.\n\nOne gap is worth knowing about in advance. Bootstrap's compiled output does not stop at a plain ramp: its utilities include subtle backgrounds, emphasis variants and border colours derived from the same eight tokens, and none of those appear here. What the page shows is the token and a scale under it, which covers most lookups but not every class the framework ships.\n\nIn use this is a fast reference for anyone styling against Bootstrap: pull the primary value, check what a pale step of info looks like as a background, or confirm that the warning yellow is as light as it appears. Because there are only eight blocks, the whole system fits in one screen or two, which no other reference on this site manages.\n\nComparing the tokens against each other is where the eight-block layout earns its place. Success and danger are close in luminance, which is why they work as a pair in a status row; warning is much lighter than either and needs a dark text colour on it; info and primary are close enough in hue that using both in one interface usually reads as a mistake rather than as a decision. Reading the ramps side by side makes those relationships explicit before a component is styled, which is far harder to judge from a documentation page showing one token at a time.\n\n- Limits: eight tokens, eleven generated steps each, no search, no copy buttons, no subtle or emphasis variants, and no dark-mode values.\n- As a bootstrap color palette reference it covers the bootstrap theme colors completely — the bootstrap color names are the framework's own and every bootstrap palette hex value is printed under its swatch, which is what the eight bootstrap css colors were always meant to be looked up for.",
+    "howTo": [
+      "Find the theme token you need — primary, secondary, success, danger, warning, info, light or dark.",
+      "Read the eleven steps in that block, from 50 at the lightest to 950 at the darkest.",
+      "Use the printed hex, or take the family's base value which is Bootstrap's own published colour."
+    ],
+    "whenToUse": "Use this when a project is built on Bootstrap and a theme colour's value is needed quickly, or when checking whether a pale step of a token works as a background. Use the Tailwind or Material references when a broader set of hue families is wanted. When the theme values should come from a brand palette instead of the framework's own, the {{bootstrap-color-exporter|bootstrap color exporter}} writes that block, and the state tokens that have to carry text are worth putting through the {{contrast-checker|contrast checker}}.",
+    "faqs": [
+      {
+        "q": "Why only eight colours?",
+        "a": "Because Bootstrap's colour system is a set of semantic tokens rather than a wheel of hue families. The eight cover primary, secondary, the four status roles and two neutrals."
+      },
+      {
+        "q": "Are the base values the framework's own?",
+        "a": "Yes — each token's base is Bootstrap's published theme colour. The eleven numbered steps are generated from those bases rather than copied from the compiled stylesheet."
+      },
+      {
+        "q": "Where are the subtle and emphasis variants?",
+        "a": "They are not shown. The framework derives extra background, border and emphasis values from the same tokens, and this reference stops at the token plus its numbered ramp."
+      },
+      {
+        "q": "Why do the light and dark ramps look so different?",
+        "a": "Because their bases sit at the ends of the luminance range. Pushing a near-white or a near-black base through a fixed lightness ladder moves it much further than it moves a mid-tone."
+      },
+      {
+        "q": "Do the ramps extend each token's own scale?",
+        "a": "Each block is generated at fixed lightnesses in that token's hue and chroma, so it is a visual extension rather than Bootstrap's own subtle and emphasis values, which the framework derives differently."
+      }
+    ]
+  },
+  {
+    "slug": "ant-design-color-reference",
+    "keywords": [
+      "ant design color palette",
+      "ant design colors list",
+      "antd color palette",
+      "ant design color names",
+      "ant design palette hex"
+    ],
+    "intro": "The Ant Design color palette reference covers twelve Ant families — volcano, gold, geekblue, magenta and the rest — each as a ten-step ramp with the anchor hex and every step value.",
+    "content": "Twelve families are shown, one block each: red, volcano, orange, gold, yellow, lime, green, cyan, blue, geekblue, purple and magenta. Each block holds ten tiles at the labels 50 through 900, with the hex printed beneath every swatch, and the families are ordered roughly around the wheel so the warm hues sit together and the cool ones follow.\n\n- The names are the reason this reference is worth its own page.\n- Ant Design uses poetic identifiers rather than plain hue words — volcano for a deep orange, geekblue for a blue-violet, and a gold that sits noticeably warmer than its yellow neighbour.\n- Reading an Ant interface or theme file means decoding those names, and this page decodes them into values: volcano at #fa541c, gold at #faad14, geekblue at #2f54eb, magenta at #eb2f96, blue at #1677ff.\n\nEach anchor above is Ant's own published colour for the family. The ten steps under it are generated here at fixed lightnesses with the base's hue and chroma held constant, which previews the ramp in the right hue while leaving individual steps short of a pixel-exact match with the compiled theme.\n\nOne convention differs from the framework and is worth noting. Ant's own scale numbers its steps from one to ten, with one at the lightest, and the framework's components reference those numbers directly. This page relabels the same ten-value ladder as 50 through 900 for consistency with the other references, so the shade Ant calls one appears here as 50.\n\nThe families also illustrate a habit of the system: it dedicates two blue families and two orange-adjacent ones, and it names a magenta that is closer to a pink than the name suggests. Seeing all twelve ramps stacked makes those distinctions clearer than reading the tokens one at a time, and it is the fastest way to decide whether a project needs geekblue and blue both.\n\nComparing families is where the stacked layout pays off. The orange and the volcano are close enough to be alternatives rather than companions, the gold and the yellow overlap through most of their ramps, and the two blues are separated by a clear step towards violet — which is exactly the distinction the naming exists to preserve. Anyone building a legend from four or five of these families can check the spacing before committing, and a set that looked reasonable as names can be seen to be too crowded as colours.\n\n- Limits: no search, no copy buttons, no alpha values, no dark-theme tokens and no mapping back to the framework's component variables, so a token name cannot be resolved here — only a family.\n- As an ant design color palette reference it provides the ant design colors list with every ant design palette hex value printed, the antd color palette decoded by name, and the ant design color names anyone working in the system actually sees.\n- The page is static data rather than a generated palette, so a value noted here is the same value on the next visit — which is what makes a reference dependable in the first place.",
+    "howTo": [
+      "Find the family by its Ant name — volcano, gold, geekblue, magenta and so on.",
+      "Read the ten steps, relabelled here from 50 to 900 in place of the framework's own numbering.",
+      "Note the hex under the step you need, or take the anchor colour the family is built on."
+    ],
+    "whenToUse": "Use this when a project uses Ant Design and a family name has to be turned into a value, or when comparing the framework's similar hues — blue against geekblue, gold against yellow. Use the Material or Bootstrap references when the system is a different one. A family that has to become tokens is the {{color-token-generator|color token generator}}'s job, and the step that will carry text is worth checking in the {{contrast-checker|contrast checker}}.",
+    "faqs": [
+      {
+        "q": "What is geekblue?",
+        "a": "One of Ant's family names, for a blue-violet at #2f54eb. It sits between the framework's blue and purple and is a good example of why the names exist."
+      },
+      {
+        "q": "Why do the step labels not match the framework?",
+        "a": "Ant numbers its steps one to ten with one at the lightest. The same ladder is relabelled here as 50 through 900 so the references on this site read consistently."
+      },
+      {
+        "q": "Are the anchor colours the framework's?",
+        "a": "Yes — each family's base value is Ant's published colour. The ten numbered steps are generated from it at fixed lightnesses rather than copied from the compiled theme."
+      },
+      {
+        "q": "Can I look up a component token here?",
+        "a": "No. The page decodes family names, not the framework's component variables, and there is no search or copy interaction."
+      },
+      {
+        "q": "Do the generated steps line up with Ant's numbered palettes?",
+        "a": "Not exactly — each of the ten steps is generated at a fixed lightness in the family's hue, so the anchor is Ant's own value while the steps around it are this page's rendering rather than the framework's numbered tints."
+      }
+    ]
+  },
+  {
+    "slug": "fluent-ui-color-reference",
+    "keywords": [
+      "fluent ui color palette",
+      "fluent design colors",
+      "microsoft fluent colors",
+      "fluent ui color names",
+      "fluent palette hex"
+    ],
+    "intro": "The Fluent UI color palette reference lists the twelve Fluent colour families — communication blue, navy blue, royal blue and the rest — each as an eleven-step ramp with hex values.",
+    "content": "Twelve families are shown, one block each: communication-blue, navy-blue, royal-blue, teal, green, dark-green, red, dark-red, magenta, purple, orange and yellow. Every block carries eleven tiles labelled 50 through 950 with the hex printed under each swatch, so each family reads as a strip from its palest step to its deepest.\n\n- The naming is the fingerprint of this system.\n- Fluent does not stop at blue: it ships three of them, and the difference between communication-blue at #0078d4 and royal-blue at #004e8c is not subtle once the ramps are side by side.\n- It also ships two of both red and green — a bright pair and a dark pair — so the second half of the list is worth reading closely when a UI needs a state colour that sits apart from the brand one.\n\nEach anchor above is a Fluent published colour. The eleven steps around it are generated here at fixed lightnesses, holding the base's hue and chroma constant, which previews the family in the right hue while leaving individual steps short of an exact match with a themed build of the framework.\n\nOne difference between this page and the framework is worth knowing about. Fluent's real system is delivered as role-based tokens with light and dark themes, where a colour is referenced by the job it does — a background, a border, a text colour — and the themes swap the underlying values. This page shows the raw families and their steps, so it answers what a named colour looks like rather than which token a component should use.\n\nIn use, the reference suits two jobs: resolving one of the framework's colour names into a value, and comparing the families before one is chosen. Twelve ramps in one scroll also makes the system's emphasis obvious — three blues and two each of red and green is a stronger commitment to those hues than most colour systems make.\n\nComparing the families is where the stacked layout earns its keep. The three blues are deliberately graded — royal darker than communication, navy darker still — so a product can move between them for states without leaving the blue family. The two reds and the two greens work the same way, and the magenta and the purple sit close enough that only one of them is usually needed. Seeing those gradations laid out makes it obvious which of the framework's colours are alternatives to each other and which are genuinely different roles.\n\nLimits: no search, no copy buttons, no alpha values, no light or dark theme variants and no token names, so a component's role cannot be looked up here.\n\n- Within those bounds, as a fluent ui color palette reference it gives the microsoft fluent colors in full — every fluent design colors family with its fluent palette hex values printed and the fluent ui color names exactly as the framework writes them.\n- The page is static apart from the swatches it paints: the same twelve families render on every visit, so a value noted today is the value tomorrow.",
+    "howTo": [
+      "Find the family you need; the blocks run from the three blues through to orange and yellow.",
+      "Read the eleven steps from 50 at the lightest to 950 at the darkest.",
+      "Take the hex printed under the step, or use the anchor colour that the family is built from."
+    ],
+    "whenToUse": "Use this when a project follows Fluent UI and a family's values are needed, or when the framework's three blues have to be compared. Use the Tailwind or Material references when a different system is in play. The two neutral ramps invite a direct comparison with the {{ibm-carbon-color-reference|IBM Carbon color reference}}, and a borrowed family that has to be formalised is what the {{design-token-generator|design token generator}} carries.",
+    "faqs": [
+      {
+        "q": "Why are there three blue families?",
+        "a": "Because the framework ships them — communication blue, navy blue and royal blue — alongside a teal. The ramps make the difference between them visible where hex values alone do not."
+      },
+      {
+        "q": "Do the step values come from the framework?",
+        "a": "The anchor colour of each family does. The eleven steps are generated at fixed lightnesses from that base, so they preview the ramp rather than reproduce a themed build's values."
+      },
+      {
+        "q": "Where are the light and dark theme tokens?",
+        "a": "Not on this page. The framework delivers colours through role-based tokens that swap between themes, and this reference shows the raw families only."
+      },
+      {
+        "q": "Can I copy the value from each swatch?",
+        "a": "No. Values are printed as text under each swatch, and there is no search or filter for the twelve blocks."
+      },
+      {
+        "q": "Which family should carry the brand?",
+        "a": "Communication-blue is the product default and the other two blues are its darker registers, so the brand decision is usually already answered; the pair of reds and greens exist to keep state colours distinct from it."
+      }
+    ]
+  },
+  {
+    "slug": "chakra-ui-color-reference",
+    "keywords": [
+      "chakra ui color palette",
+      "chakra colors list",
+      "chakra ui colors",
+      "chakra color scale",
+      "chakra palette hex"
+    ],
+    "intro": "The Chakra UI color palette reference shows the ten Chakra colour families — gray, red, orange, teal, cyan, purple and the rest — each as an eleven-step ramp with the step values printed.",
+    "content": "- Ten families are laid out one block each: gray, red, orange, yellow, green, teal, blue, cyan, purple and pink.\n- Every block carries eleven tiles labelled 50 through 950 with the hex printed beneath each swatch, and each block begins with Chakra's published anchor for that family — the gray at #718096, the red at #e53e3e, the teal at #319795, the purple at #805ad5, the pink at #d53f8c.\n\nThe set is deliberately narrow compared with the frameworks that ship eighteen or nineteen families. Ten hues and a single gray is enough for a component library, and reading them stacked makes the reason clear: each family is far enough from its neighbours on the wheel that two of them used together will not be mistaken for each other, which matters more in a system consumed as props than in a palette meant for illustration.\n\nEach anchor value above is Chakra's own published colour. The eleven steps around it are generated here at fixed lightnesses with the family's hue and chroma held constant, which gives a preview of the ramp in the right hue while individual steps may differ from the framework's compiled palette.\n\nOne convention differs and is worth stating. The framework's own scale runs from 50 to 900 — ten values with no 950 — and its semantic props resolve through tokens on top of those steps. This page normalises the ladder to 50 through 950, eleven steps, so the darkest tile here has no counterpart in the framework and the step numbers are not interchangeable with prop names.\n\nWhere the page pays off is in choosing rather than in lookup: comparing the orange against the yellow before committing an accent, checking whether the gray is warm or cool enough to sit under a brand colour, or seeing how pale the fifty of a family actually is before using it as a surface. Ten ramps is a size that fits the eye at once, which the larger systems cannot manage.\n\nComparing the families is useful in the same way. The blue and the cyan are close enough that a legend should not carry both; the teal sits between the green and the cyan and can serve as either; the orange and the yellow are separated mostly by lightness rather than by hue. Because the set is small, those relationships are visible at a glance, and a palette that looks varied as a list of names can be seen to be crowded once the ramps are stacked together.\n\nLimits: no search, no copy buttons, no alpha variants, no semantic tokens and no 900-terminated scale.\n\n- As a chakra ui color palette reference it provides the chakra colors list complete with every chakra palette hex value printed, the chakra ui colors resolved by family name, and each chakra color scale readable in one row.\n- The ramps are fixed data rather than a generated palette, so two visits show the same ten families and the same anchor colours — which is the property a reference page needs, and the reason these values can be quoted rather than reproduced.",
+    "howTo": [
+      "Scroll to the family by name — ten blocks from gray through pink.",
+      "Read the steps from 50 at the lightest to 950 at the darkest.",
+      "Note the printed hex, or use the anchor colour that the family is anchored on."
+    ],
+    "whenToUse": "Use this when a project follows Chakra UI and a family's values are needed, or when comparing its ten families while choosing an accent. Use the Chakra exporter when the output should be component configuration rather than a reference to read. Step spacing is easiest to compare against the {{radix-color-reference|Radix color reference}}, and the alpha scales a ten-step ramp does not list are a single value away in the {{alpha-color-generator|alpha color generator}}.",
+    "faqs": [
+      {
+        "q": "How many families are there?",
+        "a": "Ten plus a single gray, which is narrower than the frameworks that ship eighteen or more. Each family is spaced far enough from its neighbours to stay distinguishable."
+      },
+      {
+        "q": "Why is there a 950 step when Chakra stops at 900?",
+        "a": "The scale is normalised here to eleven steps for consistency with the other references. The darkest tile has no counterpart in the framework, so the labels are not prop names."
+      },
+      {
+        "q": "Are the hex values the framework's?",
+        "a": "Each family's anchor is Chakra's published colour. The eleven numbered steps are generated from that anchor at fixed lightnesses rather than copied from a compiled palette."
+      },
+      {
+        "q": "Can I search for a token?",
+        "a": "No. The page shows families and steps only — there is no token lookup, no search box and no copy button."
+      },
+      {
+        "q": "Why do the tiles get darker from left to right?",
+        "a": "The ramp runs on a fixed lightness ladder from 50 down to 950 while the hue stays constant, so direction is the lightness axis — which is also what makes two families comparable at a glance."
+      }
+    ]
+  },
+  {
+    "slug": "radix-color-reference",
+    "keywords": [
+      "radix color palette",
+      "radix colors list",
+      "radix ui colors",
+      "radix color scale",
+      "radix themes colors"
+    ],
+    "intro": "The Radix color palette reference shows twelve Radix families — tomato, crimson, plum, violet, indigo and the rest — each as a ten-step ramp with the base hex and every step value printed.",
+    "content": "- Twelve families are laid out one block each: tomato, red, crimson, pink, plum, purple, violet, indigo, blue, cyan, teal and green.\n- Every block carries ten tiles with the hex printed under each swatch, and the step labels run 50, 100, 200, 300, 400, 500, 600, 700, 800 and 900.\n\nThe family names are the most distinctive thing about this reference and the reason it is worth having separately from the other colour-system pages. Radix names its families after objects as often as after hues — tomato, crimson, plum — and the tomato ramps towards orange-red in a way that a family called red would not. Anyone reading a Radix-themed interface runs into those names constantly, and this page is where they can be resolved into values.\n\nEach family is anchored on Radix's published base: tomato at #e54d2e, red at #e5484d, crimson at #e93d82, plum at #ab4aba, violet at #6e56cf, blue at #0090ff, teal at #12a594. Those anchors are the framework's own colours and can be used as they stand; the ten steps around each one are generated at fixed lightnesses from the base's hue and chroma, so they approximate the ramp rather than reproducing the package's published scale.\n\nTwo differences from the framework's real system are worth stating plainly, because both will be noticed by anyone who uses Radix every day. The published scale runs to twelve steps rather than ten, with the last steps reserved for text and borders against a coloured surface. And it ships alpha variants of every family for layering over images and gradients. Neither is present here: this is the hue family from pale to deep, which covers the common case of picking a colour and noting its value.\n\nUsed as a reference, the page pays off when a project needs to know what a family looks like before committing to it, or when two similar names — pink and crimson, plum and purple — have to be told apart. Twelve ramps stacked in one scroll also show how much of the system is spent on the cool half of the wheel.\n\nComparing the families is the other half of the use. Radix deliberately spaces its hues close together in the purple and pink region — plum, purple, violet and crimson sit within a few degrees of each other — and far apart in the greens and blues, which is a choice a reader only notices when the ramps are stacked. For a product that needs several distinguishable accents, that spacing is useful information before a palette is committed to, and it is easier to judge from twelve rows of tiles than from twelve separate pages of documentation.\n\n- Limits: no search, no copy buttons, no alpha variants, no twelve-step scale and no naming beyond the family itself, so a class or token name cannot be looked up here.\n- Within those bounds, as a radix color palette reference it delivers the radix colors list with each radix color scale printed in full, which is what anyone comparing radix ui colors or wiring radix themes colors needs from a lookup page.",
+    "howTo": [
+      "Find the family by its Radix name — tomato, crimson, plum and the rest.",
+      "Read the ten steps from 50 at the lightest to 900 at the darkest.",
+      "Note the hex for the step you need, or use the base colour that anchors the family."
+    ],
+    "whenToUse": "Use this when a project follows Radix and a family's name has to be resolved to values, or when comparing families before choosing one. Use the Radix colour exporter when the output needs to be a token file for a project rather than a reference to read. The nearest system to compare step spacing against is the {{open-color-reference|Open Color reference}}, and the measured lightness and chroma behind any ramp are what the {{palette-balance-analyzer|palette balance analyzer}} reports.",
+    "faqs": [
+      {
+        "q": "Why are the families named after objects?",
+        "a": "That is Radix's own naming — tomato, crimson, plum and so on. It keeps similar hues distinguishable, and the tomato ramp sits further towards orange than a plain red would."
+      },
+      {
+        "q": "Where are the twelve steps?",
+        "a": "Not on this page. The published scale runs to twelve, with the final steps intended for text and borders; this reference shows ten steps per family."
+      },
+      {
+        "q": "Are alpha variants included?",
+        "a": "No. Radix ships translucent versions of every family for layering, and this reference covers only the solid ramp."
+      },
+      {
+        "q": "Do the hex values come from the framework itself?",
+        "a": "Each family's base is Radix's published colour. The ten numbered steps are generated from it at fixed lightnesses, so they preview the ramp rather than copy the published scale."
+      },
+      {
+        "q": "Do the families sit at the same lightness from step to step?",
+        "a": "Yes — every family is generated on the same lightness ladder, so step 500 in one family sits at the same lightness as step 500 in another, which is what makes cross-family comparison meaningful."
+      }
+    ]
+  },
+  {
+    "slug": "open-color-reference",
+    "keywords": [
+      "open color palette",
+      "open color list",
+      "opencolor palette",
+      "open color hex codes",
+      "open color shades"
+    ],
+    "intro": "The Open Color palette reference lays out thirteen Open Color families — gray, red, grape, indigo, cyan and the rest — each as a ten-step ramp with hex values printed under every swatch.",
+    "content": "- Thirteen families are shown, one block each: gray, red, pink, grape, violet, indigo, blue, cyan, teal, green, lime, yellow and orange.\n- Each block holds ten tiles at the step labels 50, 100, 200, 300, 400, 500, 600, 700, 800 and 900, with the hex printed beneath each swatch.\n\nOpen Color's own convention numbers its shades from zero to nine rather than with Tailwind-style names, and this page relabels that same ten-value ladder as 50 through 900. That is worth knowing when comparing against the package: the order and the count match, the labels do not, so the shade a project calls nine appears here as 900.\n\nEach family is anchored on Open Color's published base: the gray at #868e96, the red at #fa5252, the grape at #be4bdb, the blue at #228be6, the teal at #12b886, the yellow at #fab005. Those are the framework's own values and the part of the page that can be used exactly as written. The ten steps above and below each anchor are generated here at fixed lightnesses, holding the base's hue and chroma constant, so they preview the ramp rather than reproduce the package's numbered values.\n\nThe set itself has a recognisable character that the stacked blocks make obvious. Open Color keeps its saturated hues fairly bright and its neutrals at a single family, which is why the grays here sit alone at one end of the list while most other frameworks ship two or three neutral ramps. It is also one of the few systems in this cluster that names a grape and a violet separately, which makes the purple region of the list worth reading closely when two similar purples are needed.\n\nIn practice this is a lookup for anyone using the package directly: find the family, pick the shade, read the value. It is also a practical way to see whether a project needs all thirteen families or whether four or five would carry the interface, since thirteen ramps in one scroll makes the redundancies plain.\n\nReading the families in order also shows where the set's gaps are. There is a single gray and no second neutral, so a project that needs both a warm and a cool grey will have to derive one; the pink and the grape are close enough that using both would be a mistake; and the lime and yellow ramps sit nearest to white at their pale ends, which makes them the weakest candidates for a light surface. Thirteen blocks make those judgements quick, and quick is what a reference page is for.\n\nLimits: no search, no copy buttons, no alpha values, no dark variants and no way to filter the list.\n\n- The open color list shows the framework's base values exactly, and every open color hex codes entry is printed under its swatch.\n- Read as an open color palette reference or as a shorthand opencolor palette chart, it is the whole system in one page with its ten open color shades per family.",
+    "howTo": [
+      "Scroll to the family you need — thirteen blocks from gray through orange.",
+      "Read the ten steps, relabelled here from 50 to 900 in place of the package's own numbering.",
+      "Take the hex printed under the step, or use the family's base colour if that is what you know."
+    ],
+    "whenToUse": "Use this when a project uses Open Color and a family's value is needed, or when comparing its thirteen families while narrowing a palette down. Use the Radix or Tailwind references when a system with alpha variants or a wider neutral range is wanted. Step spacing is the thing to compare against the {{radix-color-reference|Radix color reference}}, and a set of these shades that has to reach a stylesheet is the {{color-palette-css-exporter|color palette CSS exporter}}'s output.",
+    "faqs": [
+      {
+        "q": "Why do the step labels not match the package?",
+        "a": "Open Color numbers its shades zero to nine. The ten steps are the same ladder in the same order, relabelled here as 50 through 900 for consistency with the other references."
+      },
+      {
+        "q": "How many colour families are listed?",
+        "a": "Thirteen, including a single gray family rather than the several neutrals some frameworks ship, and separate grape and violet families."
+      },
+      {
+        "q": "Are the hex values the package's own?",
+        "a": "Each family's base colour is; the ten numbered steps are generated from that base at fixed lightnesses, so they preview the ramp rather than reproduce numbered package values."
+      },
+      {
+        "q": "Is there a way to copy a value?",
+        "a": "No. The hex is printed as text under each swatch, so values have to be selected by hand, and there is no search to jump between families."
+      },
+      {
+        "q": "Which family is the neutral?",
+        "a": "gray — it is the only block in the set built for surfaces and text; every other family is a hue with a full ten-step ramp, so the palette's neutrals come from that single family."
+      }
+    ]
+  },
+  {
+    "slug": "ibm-carbon-color-reference",
+    "keywords": [
+      "ibm carbon color palette",
+      "carbon design colors",
+      "carbon color tokens",
+      "ibm color palette",
+      "carbon palette hex"
+    ],
+    "intro": "The IBM Carbon color palette reference shows eleven Carbon families — blue, cool-gray, warm-gray, magenta and the rest — each as a ten-step ramp with the anchor hex printed under every swatch.",
+    "content": "Eleven families are laid out one block each: blue, cool-gray, warm-gray, green, red, magenta, purple, cyan, teal, yellow and orange. Every block carries ten tiles labelled 50 through 900 with the hex printed beneath each swatch, so a family reads as a strip from its palest step to its deepest.\n\nThe neutrals are what make this reference distinctive. Carbon ships two of them, cool-gray at #697077 and warm-gray at #7c7975, and the difference between the two is small enough that it only becomes visible when both ramps sit side by side — one drifting blue, the other drifting yellow. Reading them here is more useful than reading their hex values, which look almost identical in isolation.\n\n- Each family is anchored on Carbon's published colour:blue at #0f62fe, green at #198038, red at #da1e28, magenta at #d12771, purple at #8a3ffc, teal at #009d9a, yellow at #f1c21b.\n- Those anchors are the framework's own values.\n- The ten steps around each are generated here at fixed lightnesses with the base's hue and chroma constant, so the ramps preview the family in the right hue rather than reproducing the framework's numbered scale exactly.\n\nOne naming difference is worth knowing. Carbon's tokens are labelled by role and step in the framework itself — a colour is identified by its family and a number that runs the other way from the usual convention, with lower numbers darker. This page normalises everything to 50 at the lightest and 900 at the deepest, so the number on a tile is not the number in a Carbon token.\n\nIn use the page suits anyone working in a Carbon-based interface who needs to see a family before choosing it, or who is mapping a design onto the token set and wants the anchors. Eleven ramps in one scroll also shows how strongly the system leans on blue and its two neutrals, with the warm hues kept to a smaller share of the palette.\n\nComparing the families shows the system's restraint. A large share of the hues is committed to blue and its two greys, the warm end is kept to a red, an orange and a yellow, and the magenta and the purple sit close enough together that a product would rarely need both. That distribution is deliberate in a design system built for dense enterprise interfaces, where a few dependable hues do more work than a wide wheel, and eleven ramps in one scroll make it legible in a way a token list never does.\n\nLimits: no search, no copy buttons, no alpha or dark-theme values, no role names and no mapping from the framework's token identifiers.\n\n- As an ibm carbon color palette reference it gives the carbon design colors, and every carbon palette hex value printed, in the order the families are published — enough to read the ibm color palette as one system and to resolve carbon color tokens back to actual colours.\n- Nothing here changes between visits: the eleven families are fixed data with their anchors built in, which is exactly what makes a reference worth consulting twice.",
+    "howTo": [
+      "Find the family you need — the two grays are first, then the saturated hues.",
+      "Compare the cool-gray and warm-gray ramps if the choice between them matters.",
+      "Read the hex printed under the step you want, remembering the labels are normalised here."
+    ],
+    "whenToUse": "Use this when a project follows Carbon and a family's values are needed, or when the two neutral ramps have to be compared directly. Use the Material or Bootstrap references when the system is a different one. Turning a family into tokens is what the {{color-token-generator|color token generator}} does, and the lightness and chroma figures behind the two greys are what the {{palette-balance-analyzer|palette balance analyzer}} reports.",
+    "faqs": [
+      {
+        "q": "What is the difference between cool-gray and warm-gray?",
+        "a": "A small shift in hue direction — one leans blue, the other yellow. Both are near-neutral, so the difference is easiest to see with the two ramps side by side."
+      },
+      {
+        "q": "Do the step numbers match Carbon's tokens?",
+        "a": "No. The labels are normalised to 50 at the lightest and 900 at the deepest, while the framework numbers its own steps in the opposite direction, so the numbers are not interchangeable."
+      },
+      {
+        "q": "Do the anchor colours come from the framework?",
+        "a": "Each family's base value is Carbon's published colour. The ten numbered steps are generated from it at fixed lightnesses rather than copied from the framework's scale."
+      },
+      {
+        "q": "Can I look up a role or token name?",
+        "a": "Not here — the page shows families and steps only, with no search and no mapping back to the framework's token identifiers."
+      },
+      {
+        "q": "Are the anchors usable on their own?",
+        "a": "Yes — each family's anchor is the framework's published value, so it can be taken verbatim; the ten steps around it are previews at fixed lightnesses and are the part to treat as an approximation."
+      }
+    ]
+  },
+  {
+    "slug": "adobe-spectrum-color-reference",
+    "keywords": [
+      "adobe spectrum color reference",
+      "spectrum design system colors",
+      "adobe design tokens colors",
+      "spectrum color palette tool"
+    ],
+    "intro": "The Adobe Spectrum color reference browses the Spectrum design system's core palette — each color family as a labeled shade ramp, copy-ready for design tokens.",
+    "content": "Spectrum is Adobe's design system — the visual language behind Creative Cloud and the company's product surface — and its color architecture is a study in enterprise restraint: a set of core hues, each expressed as a labeled ramp, each ramp designed for roles before aesthetics. The Adobe Spectrum color reference lays those families out as browsable swatch rows — every shade labeled with its step and hex — so the system's colors can be studied, compared and copied without opening Adobe's tooling.\n\nReading a mature design system's palette is education in itself. Spectrum's ramps are built for accessibility-first deployment: the dark steps are calibrated for text on light surfaces, the light steps for text on dark, and the mid steps carry the brand presence. Browsing the families side-by-side shows the discipline — consistent spacing between steps, consistent saturation logic across hues — that distinguishes a designed system from an assembled one. For teams building their own token architecture, it is a reference implementation worth imitating; for teams working inside Adobe's ecosystem, it is the palette of record.\n\nEach swatch copies its hex directly, so the tool doubles as a palette donor: a Spectrum blue can seed an interface prototype, a family can be compared against your own ramp for calibration, and the enterprise-neutral greys are a dependable starting scale for any product UI. The other design-system references — GitHub Primer, Atlassian — present their systems in the same browsable form, and setting them side-by-side is a masterclass in how the big platforms solved the same problems differently.\n\n- A design system's palette is a record of its constraints, and reading one is closer to reading an engineering document than a mood board.\n- Spectrum's ramps were built for surfaces that must survive long sessions and dense information: the steps are spaced so that adjacent values can serve as surface and edge without flattering each other, and the restrained register keeps text legible without leaning on contrast alone.\n- What the browser makes visible is that discipline: the same number of steps in every family, the same relationship between the dark end and the light end, and an accent set deliberately smaller than the surface set.\n- That ratio is the most transferable lesson — place a family from your own system beside these ramps and the differences in step spacing become obvious, which is usually where a home-grown palette proves either too crowded or too sparse.\n\nThe grey family deserves a look on its own, since it carries most of the interface and is the hardest ramp to get right. The semantic colours are worth comparing against their own brand set too, because that is where a system's judgement shows most clearly.\n\nAs a Spectrum design system colors browser it is deliberately a reference: the adobe design tokens colors laid out, labeled and copy-ready — a spectrum color palette tool for studying how the enterprise systems do it, and for borrowing honestly when your own system needs a proven starting point.",
+    "howTo": [
+      "Browse the color families, each shown as a labeled shade ramp.",
+      "Compare ramps for step spacing and saturation logic across hues.",
+      "Copy any swatch's hex for prototypes, calibration or token seeds."
+    ],
+    "whenToUse": "Use this to study or borrow from Adobe's system palette. Use the Primer and Atlassian references for the sibling systems, the Material and Tailwind exporters when a derived ramp must match those frameworks, and the token exporters to formalise what you borrow. Values that should join a working palette rather than be read are the {{palette-importer|palette importer}}'s job, and a borrowed value that has to carry your own text roles belongs in the {{contrast-checker|contrast checker}}.",
+    "faqs": [
+      {
+        "q": "Is this the complete Spectrum palette?",
+        "a": "It presents the core color families as labeled ramps — the working set most design work needs. Adobe's full system adds semantic and component-level tokens beyond this scope."
+      },
+      {
+        "q": "Can I use Spectrum colors in my own product?",
+        "a": "Color values are facts; the value is studying the system's structure. For products inside Adobe's ecosystem the official tokens are the sanctioned source — elsewhere, treat the palette as a reference."
+      },
+      {
+        "q": "Why do the ramps look muted compared to marketing palettes?",
+        "a": "Enterprise systems tune for long-session legibility and accessibility at scale — calmer saturation, careful step spacing. That restraint is the lesson the ramps teach."
+      },
+      {
+        "q": "How does it compare to the Primer reference?",
+        "a": "Same browsing format, different system: Spectrum leans Adobe's warm enterprise neutrality; Primer leans GitHub's cool developer-tooling register. Comparing both is instructive."
+      },
+      {
+        "q": "How many steps does each ramp show?",
+        "a": "Ten, labelled 50 to 900, generated at fixed lightnesses around the family's anchor — the same ladder for every family, so a step number means the same lightness wherever it appears."
+      }
+    ]
+  },
+  {
+    "slug": "github-primer-color-reference",
+    "keywords": [
+      "github primer color reference",
+      "primer design system colors",
+      "github color palette hex",
+      "primer color tokens tool"
+    ],
+    "intro": "The GitHub Primer color reference browses the Primer design system's palette — functional color families as labeled ramps, from the signature blues to the semantic states.",
+    "content": "Primer is GitHub's design system, and its palette is a case study in functional color: every hue earns its place by doing a job — the signature blues carry brand and action, the greens carry success, the reds carry danger, the greys carry the enormous weight of a text-first interface. The GitHub Primer color reference lays those families out as browsable ramps, each swatch labeled and copy-ready, so the github color palette hex values are one click away and the system's logic is visible in the arrangement.\n\nWhat Primer teaches is the economy of a developer-tooling palette. Because GitHub's surface is mostly text and code, the ramps are calibrated for legibility first: the greys form the real backbone — surfaces, borders, muted text — while the chromatic families stay in their lanes, appearing where meaning demands them. Browsing the system shows the ratio: how few saturated colors a product needs when the neutrals are designed well. That is the lesson worth stealing, and the reason the primer color tokens tool is as useful to teams building their own systems as to those working in GitHub's orbit.\n\nEach swatch copies its hex for prototypes, calibration or token seeds; the ramps' step spacing shows Primer's accessibility calibration — dark steps tuned for text on light, light for text on dark. The sibling references present Adobe Spectrum and Atlassian's systems in the same form, and the three together are a survey of how the major platforms answered the same brief: functional color at scale, trustworthy in the dark corners of a UI nobody styled deliberately.\n\nFunctional colour is a discipline about proportion, and Primer demonstrates it better than almost any public system because its surface is text and code rather than imagery. In that context the neutrals carry the interface — backgrounds, borders, muted text, hover states — while the chromatic families are rationed to meanings: a blue for actions, a green for success, reds and oranges for the states that must interrupt. The consequence is a palette whose saturated entries can be counted on one hand while its greys come in more steps than most teams would think to write. The lesson transfers directly to product work, where a palette that feels loud usually has too much accent relative to its working surfaces rather than too much saturation in the accent itself. Comparing here also shows how a system handles states, since disabled and hover values are the entries a home-grown palette most often leaves to chance.\n\nReading the ramps as a whole, rather than sampling a favourite blue, is what makes the exercise worthwhile. The dark-mode families deserve the same attention, because a set tuned for light rarely inverts cleanly without its own calibration.\n\n- As a Primer design system colors browser it is deliberately a reference — browsable, labeled, honest about being a study aid.\n- For teams calibrating their own functional palettes, it is the dev-tooling benchmark; for GitHub-adjacent work, it is the palette of record in swatch form.",
+    "howTo": [
+      "Browse the functional families — brand blues, semantic states, the grey backbone.",
+      "Study the ramps' spacing and how little saturation the system spends.",
+      "Copy swatch hexes for prototypes or calibration against your own palette."
+    ],
+    "whenToUse": "Use this to study or borrow from GitHub's system palette. Use the Spectrum and Atlassian references for sibling systems, the dark-mode palette generator when Primer's dark-surface logic is the lesson needed, and the token exporters to formalise borrowed values. Calibrating your own palette against this one is what the {{palette-comparison|palette comparison}} is for, and borrowed values have to meet your own text roles in the {{contrast-checker|contrast checker}}.",
+    "faqs": [
+      {
+        "q": "Which color modes does it show?",
+        "a": "The core color families as light-mode ramps — the canonical values the system documents. Primer's dark mode re-maps the same tokens to different values."
+      },
+      {
+        "q": "Why are the greys the most interesting part?",
+        "a": "Because a text-first product lives on its neutrals — Primer's grey ramp does most of the visual work, and its calibration is the system's real achievement."
+      },
+      {
+        "q": "Can I copy values for my own design system?",
+        "a": "Yes — each swatch copies its hex. Treat borrowed values as a starting calibration; a system earns its own palette by adapting the structure, not just the colors."
+      },
+      {
+        "q": "How current is this against Primer's latest release?",
+        "a": "It presents the core families' canonical values; Primer evolves its tokens between releases, so the official source remains the record for version-sensitive work."
+      },
+      {
+        "q": "How do the ramps relate to Primer's tokens?",
+        "a": "They show families rather than tokens: each block is one family's ladder, so a value can be read directly while a semantic token name still has to come from the system's own documentation."
+      }
+    ]
+  },
+  {
+    "slug": "atlassian-design-color-reference",
+    "keywords": [
+      "atlassian design color reference",
+      "atlassian design system colors",
+      "adg color palette hex",
+      "atlaskit color tokens tool"
+    ],
+    "intro": "The Atlassian design color reference browses the Atlassian Design System's palette — brand blues, semantic states and neutral ramps, labeled and copy-ready.",
+    "content": "Atlassian's design system colors a very specific world — collaboration software where tables, boards and docs run for eight hours a day — and its palette reflects that audience: calm brand blues, carefully rationed semantic color, and a neutral structure built for information density without fatigue. The Atlassian design color reference lays those families out as browsable ramps, each swatch labeled and copy-ready, making the adg color palette hex values accessible without the design system's full documentation weight.\n\nThe system's lesson is semantic discipline at enterprise scale. The blue family carries interaction and brand; green, red, yellow and purple each hold a state lane — success, danger, warning, discovery — and the greens stay green across contexts rather than drifting with marketing campaigns. Browsing the ramps shows the calibration that eight-hour legibility demands: mid-tone saturation, generous neutral share, step spacing tuned for text roles at each depth. For teams building dashboards and productivity tools, that register is the relevant benchmark — closer to most products' reality than consumer-vivid systems.\n\nEach swatch copies its hex for prototypes and calibration; the families compare cleanly against the sibling references — Adobe Spectrum's enterprise neutrality, GitHub Primer's text-first economy — and the three surveyed together show three coherent answers to the same enterprise brief. The dark-mode palette generator is the natural companion study: enterprise systems live or die by their dark-mode remapping, and the atlaskit color tokens tool's light ramps are the first half of that story.\n\nEnterprise software is the hardest environment for colour, because the interface is dense, the sessions are long, and the audience includes people who will look at the tool for eight hours a day. Atlassian's palette reflects those conditions: restrained saturation, surfaces pitched carefully enough to sit behind tables and boards without vibrating, and a small set of accents that carry status across a very large product. The interesting part to study is how much of the palette exists to separate layers — a card on a board, a row in a table, a panel on a page — since that is the problem a dense interface actually has, and it is solved with steps close enough that the eye reads structure rather than decoration. Teams building admin and productivity surfaces can borrow the discipline directly, and teams working inside Atlassian's ecosystem get the swatch-level view the documentation assumes they already have.\n\nTwo habits are worth copying whatever the framework. Keep status colours out of the brand palette, so a green never has to double as a marketing accent. And reserve the strongest value in the set for the one element that must be found first on a given screen. Both are cheap to adopt early and expensive to retrofit, which is why studying a mature system before a project starts pays off disproportionately.\n\n- As an Atlassian Design System colors browser it is deliberately a reference: labeled ramps, honest scope, one click per hex.\n- For teams calibrating productivity-tool palettes or working in Atlassian's ecosystem, it is the swatch-level view the system docs assume you already have.",
+    "howTo": [
+      "Browse the brand and semantic families, each as a labeled ramp.",
+      "Note the semantic lanes — each state color holds one meaning across steps.",
+      "Copy swatch hexes for prototypes, dashboards or palette calibration."
+    ],
+    "whenToUse": "Use this to study or borrow from Atlassian's system palette, especially for dashboard and productivity contexts. Use the Spectrum and Primer references for sibling systems, and the contrast checker when borrowed values meet your own text roles. The measured lightness and chroma behind a ramp are what the {{palette-balance-analyzer|palette balance analyzer}} reports, and a borrowed set that has to travel into code is the {{design-token-generator|design token generator}}'s output.",
+    "faqs": [
+      {
+        "q": "Which product palette does this show?",
+        "a": "The core Atlassian Design System families — brand blues, semantic states, neutrals — as canonical ramps. Individual products layer product-specific accents on top."
+      },
+      {
+        "q": "Why does the palette feel calmer than consumer brands?",
+        "a": "Eight-hour information work punishes saturation — the ramps are tuned for long-session legibility and dense UIs, which is exactly the register most enterprise products need."
+      },
+      {
+        "q": "Can I copy values into my own design system?",
+        "a": "Yes — every swatch copies its hex. Study the lane discipline as much as the values; the semantic restraint is the system's real lesson."
+      },
+      {
+        "q": "Does it include the dark mode values?",
+        "a": "It presents the light-mode canonical ramps; dark-mode remapping is its own discipline — the dark-mode palette generator covers that side."
+      },
+      {
+        "q": "What do the ten steps in each ramp represent?",
+        "a": "Fixed lightness positions from 50 at the light end to 900 at the dark end, generated around each family's anchor — a consistent ladder rather than the system's official token scale."
+      }
+    ]
+  },
+  {
+    "slug": "web-safe-color-palette",
+    "keywords": [
+      "web safe color palette",
+      "216 web safe colors",
+      "netscape color cube",
+      "browser safe hex",
+      "websafe color chart"
+    ],
+    "intro": "The web safe color palette lays out all 216 colours of the browser safe cube — every combination of 0, 51, 102, 153, 204 and 255 — as one grid of swatches.",
+    "content": "The page is a single grid: two hundred and sixteen coloured squares, six across on a narrow screen and twelve across on a wide one. Each square is one of the browser safe values, and each carries its hex code in a hover tooltip; there are no labels in the grid and no copy buttons, so this reads as a reference chart rather than a working palette.\n\nThe set is built by taking six channel values — zero, fifty-one, one hundred and two, one hundred and fifty-three, two hundred and four and two hundred and fifty-five — and combining them in every order. Six values to the third power is two hundred and sixteen, and the arrangement is the classic Netscape color cube: a regular lattice in which neighbouring squares differ by exactly one step in a single channel, which is why each band reads as a gradient of one primary.\n\nStructurally the grid is a map of RGB space. Read left to right and the red channel climbs in six steps; move down and the green channel does the same; the blue channel changes in blocks. Any colour in the set can be described by three indices rather than by a hex string, which is why designers once kept the cube in their heads. As a web safe color palette it is also a reminder of how coarse those two hundred and sixteen values are: two neighbouring squares can differ by so little that no modern display would call them distinct.\n\n- The historical reason for the cube was dithering.\n- Displays that could not render arbitrary colours approximated them by mixing pixels from a fixed palette, and staying on the grid avoided both the dithering and the banding that came with it.\n- Modern screens render millions of colours and nothing outside the cube is unsafe any more, so this is a reference rather than a constraint — the name survives because the set is still a clean, evenly spaced lattice.\n\nThat even spacing is what keeps it useful. Because every step is a fixed fifty-one in one channel, the cube is a dependable source of colours that differ by predictable amounts: handy for building a ramp with no surprises, for choosing two clearly distinct values without hunting for widely varying hues, or for checking a colour against a coarse grid.\n\nWhat the gaps cost is worth stating. Two hundred and sixteen colours contain no vivid modern hue and nothing near the saturated ends of the wheel, so an accent chosen in OKLCH will almost never be in here. The grid also has no search, no way to enter a colour and find its nearest safe value, no labels and no copy interaction, so a value taken from it has to be read from the tooltip and typed by hand.\n\n- Within those bounds, as a browser safe hex reference it is what the name promises: 216 web safe colors in a lattice, useful as a websafe color chart and as a reminder of what the netscape color cube actually contained.\n- Anyone who needs a value from it reads the hex from a hover tooltip, so visible labels and copy buttons are the obvious next step for anyone leaning on it regularly.",
+    "howTo": [
+      "Scan the grid for the region you want — each band steps one primary channel by fifty-one.",
+      "Hover a square to read its hex value.",
+      "Type the value into your file, since the swatches themselves do not copy."
+    ],
+    "whenToUse": "Use this when you need a fixed, evenly spaced palette for a reference or a constrained system — retro interfaces, quick ramps, teaching the cube. Use the colour picker or the palette generators when the requirement is a modern colour rather than a browser safe one. The nearest value in another fixed set is what the {{nearest-named-color-finder|nearest named color finder}} answers, and the other classic fixed reference is the {{css-named-colors-reference|CSS named colors reference}}.",
+    "faqs": [
+      {
+        "q": "Why exactly 216 colours?",
+        "a": "Six channel values — 0, 51, 102, 153, 204 and 255 — combined in every order: six cubed is two hundred and sixteen."
+      },
+      {
+        "q": "Are these colours still safer than others?",
+        "a": "No. The constraint came from displays that dithered, and modern screens render any hex value. The cube survives as a neat lattice rather than a requirement."
+      },
+      {
+        "q": "Can I enter a colour and find its nearest safe match?",
+        "a": "Not on this page. The grid is a fixed reference with hover tooltips, so matching an arbitrary colour to the cube has to be done by eye."
+      },
+      {
+        "q": "Are the hex codes labelled?",
+        "a": "Only in a hover tooltip on each square. There are no printed labels and no copy buttons, which makes the grid a chart rather than a working palette."
+      },
+      {
+        "q": "Why is the grid six wide?",
+        "a": "Because the cube is built from six channel values — 0, 51, 102, 153, 204 and 255 — so each row of six is one channel stepping through its levels, which is why the layout reads as a cube unfolded rather than as an ordered chart."
+      }
+    ]
+  }
+]

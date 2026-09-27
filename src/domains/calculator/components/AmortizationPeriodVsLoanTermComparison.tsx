@@ -90,7 +90,7 @@ export default function AmortizationPeriodVsLoanTermComparison() {
   const money0 = (n: number) => `$${n.toLocaleString("en-US", { maximumFractionDigits: 0 })}`
 
   return (
-    <div className="w-full">
+    <div className="racira-page-container py-4">
       {/* BREADCRUMB */}
       <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
         <span className="hover:text-primary transition-colors">Finance</span>

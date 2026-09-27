@@ -1,0 +1,441 @@
+[
+  {
+    "slug": "color-shades-generator",
+    "keywords": [
+      "color shades generator",
+      "shades of a color",
+      "generate darker shades of a hex color",
+      "css shade ramp"
+    ],
+    "intro": "The color shades generator takes one color and returns ten progressively darker versions of it, each shown with its hex value and a copy button.",
+    "content": "The color shades generator builds a darker ramp from a single colour. Choose a base and the tool produces ten steps, arranged lightest to darkest, each rendered as a swatch carrying its own hex value and a copy button. The base colour itself is deliberately absent from the strip: every entry is a shade of it, the first only slightly deeper and the last approaching black. That is the whole tool, and its simplicity is the point — you get a usable ramp for a single colour without deciding anything except which colour to start from.\n\n- What the strip contains are shades of a color in the literal sense: darker versions of one hue, with hue and colourfulness left untouched so that the ramp still reads as a single colour.\n- The construction is worth describing because it explains how the ramp behaves.\n- Shading works by reducing perceptual lightness while leaving hue and chroma exactly as they were.\n- The ten steps are spaced evenly as fractions of the base lightness, so the first swatch sits at roughly nine tenths of the original brightness, the middle lands near half, and the final entry is under a tenth.\n- Because the spacing is proportional rather than absolute, a very light base produces a ramp with tighter steps and a dark base produces larger ones, which mirrors how lightness is actually perceived.\n\n- Holding chroma constant is what keeps the ramp feeling like one colour rather than a set of related greys.\n- It does introduce a limit worth knowing: as lightness falls, a saturated colour can travel outside the range the screen can display, and those extremes get clamped when they are written as hex.\n- The practical symptom is that the darkest two or three entries can look slightly flatter or more muted than the arithmetic suggests.\n- That is normal for a lightness-only ramp, not a fault, and it is the reason the very darkest steps are usually used as near-neutral surfaces rather than as accent colours.\n\nThe obvious use is interface work. Almost every design system needs a base colour plus several darker states for presses, borders, dark surfaces and text, and generating them together from one value keeps the relationships consistent across the whole palette instead of leaving a set of greys that were each chosen by eye and do not quite belong to the same family. Because each swatch carries a copy button, moving the ramp into a stylesheet is a matter of copying values in sequence, and the strip's ordering makes it obvious where a token name such as a numbered scale should land.\n\nIt also works well as a comparison device. Two different base colours produce two ramps, and laying them side by side shows immediately whether their dark ends are equally usable, which is the kind of question that is difficult to answer from a single swatch. If the darkest steps are too close together for your taste, the answer is not a setting here: a ramp built by mixing toward a specific dark colour, or a hand-tuned scale, gives finer control.\n\nTwo nearby tools complete the picture, and the distinction is worth holding on to. Shades darken a colour by reducing lightness; tints lighten one by raising it toward white; tones mute one by draining chroma while holding lightness. Together those three cover the classic ways a single hue is varied, and the shade ramp is the one you reach for whenever a css shade ramp of darker states is needed for a flat base colour. Which is exactly the reason to generate darker shades of a hex color here rather than pick them by hand. In practice the workflow is one decision and no configuration, and what you get is a complete darker ramp with the values already on screen.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the strip of ten darker steps — hue and chroma are held, only lightness falls.",
+      "Copy the hex of the step that fits the job.",
+      "Reach for the tint or tone generator when the ramp should get lighter or duller instead."
+    ],
+    "whenToUse": "Use this generator when you need a darker ramp from one base color — pressed and hover states, borders or dark surfaces. Use the tint generator to lighten a color instead, and the tone generator to mute one without changing its lightness. The {{color-tints-generator|tints}} and {{color-tones-generator|tones}} generators complete the strip — lighter and duller versions of the same base — and the {{palette-importer|palette importer}} is the route in when the base arrives as a list.",
+    "faqs": [
+      {
+        "q": "How many shades are produced?",
+        "a": "Ten, ordered from just below the base colour through to a near-black at the darkest end. The base itself is not one of the ten."
+      },
+      {
+        "q": "Does shading change the hue?",
+        "a": "No. Lightness is reduced while hue and chroma are held, which keeps the ramp recognisably the same colour rather than drifting toward grey."
+      },
+      {
+        "q": "How is it different from a tint?",
+        "a": "A shade moves toward black by reducing lightness, a tint moves toward white by increasing it, and a tone reduces chroma at the same lightness. All three vary one hue in different directions."
+      },
+      {
+        "q": "Are the darkest steps usable as accents?",
+        "a": "They can look flatter than expected, because a saturated colour held at low lightness can fall outside what a screen can display and get clamped. They usually work better as surfaces."
+      },
+      {
+        "q": "Does the strip include the base colour?",
+        "a": "No. The ladder is ten darker versions of the base, and the base itself is not one of them: each step divides the base lightness by eleven, so the strip starts a little below the original and stops at roughly a tenth of its lightness. Hue and chroma stay put, which is what keeps the ramp reading as one colour."
+      }
+    ]
+  },
+  {
+    "slug": "color-tints-generator",
+    "keywords": [
+      "color tints generator",
+      "tints of a color",
+      "lighter shades of a color",
+      "generate tints",
+      "tint palette hex"
+    ],
+    "intro": "The color tints generator produces ten progressively lighter versions of any color, each as a copyable hex value, by stepping lightness towards white while holding the hue and saturation.",
+    "content": "The color tints generator takes one colour and returns a strip of ten swatches. Pick a colour and the tool will generate tints of a color as a strip of ten swatches, each carrying its hex value and a copy button. There is nothing else to configure, and the count is fixed at ten.\n\n- A tint, in the sense this tool uses the word, is a colour moved towards white: hue and saturation are preserved and only lightness changes.\n- That is what separates a tint from a shade, which moves towards black, and from a tone, which moves towards grey.\n- Both of the other operations have their own generators in this domain, and using the wrong one is a common source of muddy palettes — a shade of a mid blue is recognisably the same colour, whereas moving it towards grey loses its identity entirely.\n\nThe spacing is even in perceptual terms, which matters more here than it might sound. The ten tints are placed at fixed fractions of the distance between the base colour's lightness and full white — one eleventh, two elevenths, and so on to ten elevenths — so the first step is a subtle lift and the last is very nearly white, with each swatch the same amount lighter than the one before it. Because the arithmetic works in a perceptual colour space rather than in the red, green and blue channels, the steps look evenly spaced rather than bunching up at the light end, which is what usually happens when lightness is nudged naively.\n\nOne property of the ladder is worth knowing before you use it. The base colour is not included in the strip: all ten swatches are lighter than the colour you picked, and the lightest is a near-white with only a trace of the original hue. That means the strip tells you where to go next rather than confirming where you are, and if the base itself belongs in the palette it has to be added separately.\n\nA second property follows from the spacing being relative. The tints are fractions of the distance from your colour's lightness to white, so the same ten-step ladder describes a much larger perceived change for a dark base than for a light one. A near-black produces ten steps that span most of the tonal range; a pale base produces ten steps that are all fairly close together. Neither is wrong, but it is worth choosing a base colour deliberately rather than assuming the ladder behaves the same way from any starting point.\n\nIn use, the strip is what a design system needs for hover states, backgrounds at descending emphasis, disabled states and surface layers. Working down the strip from the lightest tint gives a natural set of inset surfaces, and taking two or three adjacent tints gives a family that stays clearly related. Because each swatch copies independently, assembling a token file from the results is a paste rather than a series of conversions.\n\n- Limits: ten tints and no more, always lighter, never darker, no inclusion of the base, no contrast checking, and no export beyond the individual swatch values.\n- Used as a color tints generator, though, it covers the operation that palettes most often need, and for anyone who wants ten lighter shades of a color with the values attached it is one colour pick and a copy — a tint palette hex list without any arithmetic by hand.",
+    "howTo": [
+      "Pick the base colour with the field at the top.",
+      "Read the strip of ten swatches, which run from a subtle lift to almost white.",
+      "Copy individual values from the swatches for surface layers, hovers and disabled states."
+    ],
+    "whenToUse": "Use this when a palette needs lighter variants of one colour — surface layers, hover states, backgrounds at lower emphasis. Use the shade generator for darker variants, or the tone generator when the colour should also lose saturation. The {{color-shades-generator|shade generator}} and {{color-tones-generator|tone generator}} are the sibling ladders for darker and duller versions, and the {{color-lighten-tool|lighten tool}} handles a single one-off step.",
+    "faqs": [
+      {
+        "q": "What is the difference between a tint and a shade?",
+        "a": "A tint moves a colour towards white and a shade moves it towards black. Both preserve the hue, so a tint is the lighter of the two directions."
+      },
+      {
+        "q": "Is the base colour included in the strip?",
+        "a": "No. All ten swatches are lighter than the colour you chose, with the last one close to white. Add the base separately if the palette needs it."
+      },
+      {
+        "q": "Why does a dark base give a wider range?",
+        "a": "Because the steps are fractions of the distance from the base lightness to white. A dark colour has further to travel, so the same ten steps span a larger perceived change."
+      },
+      {
+        "q": "Do the tints keep the original hue and saturation?",
+        "a": "Yes. Only lightness changes, and it changes in a perceptual colour space, so the steps look evenly spaced rather than bunching up at the light end."
+      },
+      {
+        "q": "Is the original colour part of the tint strip?",
+        "a": "No. The base is not one of the ten tints and nothing darker appears either: each entry is a fraction of the way from the base towards white, so the strip always reads as lighter versions of one hue."
+      }
+    ]
+  },
+  {
+    "slug": "color-tones-generator",
+    "keywords": [
+      "color tones generator",
+      "desaturate a color",
+      "muted color ramp",
+      "tones of a color"
+    ],
+    "intro": "The color tones generator produces ten progressively muted versions of one color, draining saturation while holding lightness and hue exactly in place.",
+    "content": "The color tones generator drains the colourfulness out of a single colour and shows the result as a ramp of ten steps, from a slightly softened version of the original down to something close to a neutral grey. Every step keeps the base's hue and, crucially, its lightness, so nothing in the strip gets darker or lighter — only less saturated. Each swatch shows its hex with a copy button. It is the third member of a small family, and the property it holds constant is the one that makes it useful.\n\n- Toning works by scaling chroma while leaving lightness untouched, and the ten entries are evenly spaced fractions of the base's saturation, so the first swatch barely differs from the original and the last retains only a trace of colour.\n- Because the base itself is not one of the ten, the strip begins just inside it and moves steadily toward grey.\n- The greys it arrives at are not arbitrary: since lightness is fixed, the most muted entry is the neutral that shares the base's brightness, which is exactly the neutral that sits behind everything else in the ramp.\n\nHolding lightness is what separates this from the neighbouring tools, and the distinction is worth holding on to because the three operations solve different problems. Shading keeps chroma and lowers lightness, producing stronger dark steps. Tinting keeps chroma and raises lightness, producing softer light steps. Toning keeps lightness and lowers chroma, producing quieter versions at the same visual weight. Only the third leaves a colour's brightness alone, which is why it is the right one when a hue is simply too loud rather than too bright.\n\nThe everyday use is taming a palette without rebuilding it. A saturated brand colour can be perfect at full strength on a button and overwhelming when used for a large panel, a background band or a chart series, and the fix is usually tone rather than shade or tint. Running the same colour through this ramp produces a set of deliberately quieter variants that still read as the same family, so the page keeps its identity while shedding the shouting. It is equally useful for building subdued support colours — borders, dividers, disabled states and secondary text — from the same hue the rest of the interface uses.\n\nIt also earns its place as a diagnostic. Because brightness never changes across the strip, the ten swatches isolate saturation as the only variable, which makes it easy to see how much of a colour's impact comes from colourfulness rather than from how light or dark it is. If a design still feels strong at the muted end of the ramp, the problem is not saturation.\n\nThere are a couple of practical limits.\n\n- Because lightness is fixed while saturation falls, the muted entries converge on a mid-tone grey, and endpoints at very high or very low lightness produce quite similar neutrals; a ramp built by mixing toward an explicit grey will separate those more clearly.\n- And muting a colour does not soften its contrast: a desaturated colour at the same lightness has roughly the same luminance as the vivid original, so a muted tone can be just as unreadable behind text as the version it came from.\n- Check pairings with a contrast checker rather than assuming that quieter means safer.\n\nUsed as a color tones generator, it answers a narrow question precisely: what does this exact hue look like at lower and lower saturation, with nothing else touched? When you want tones of a color that keep their original weight, or a muted color ramp drawn from one source rather than a set of greys chosen by eye, that precision is the whole value — and when a hue simply needs to desaturate a color rather than darken or lighten it, this is the one of the three to reach for.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the strip of ten entries — lightness is held while chroma falls.",
+      "Pick the muted step that fits; the far end is nearly grey.",
+      "Use the saturation reducer instead when a single chosen amount is wanted."
+    ],
+    "whenToUse": "Use this generator when a color is too saturated rather than too bright — large panels, chart series and subdued support colors. Use the shade generator to darken instead, and the tint generator to lighten. The {{saturation-reducer|saturation reducer}} mutes one colour by a chosen amount, and the {{color-shades-generator|shade generator}} and {{color-tints-generator|tint generator}} move lightness instead of chroma.",
+    "faqs": [
+      {
+        "q": "What stays the same across the ten tones?",
+        "a": "Hue and lightness. Only saturation is reduced, so every step has the same brightness as the base and the ramp reads as one colour quietly receding."
+      },
+      {
+        "q": "How is this different from a shade or a tint?",
+        "a": "A shade lowers lightness to darken, a tint raises it to lighten, and a tone reduces saturation while holding lightness. Toning is the only one that preserves brightness."
+      },
+      {
+        "q": "Is the most muted tone truly grey?",
+        "a": "It keeps a trace of the base's hue. Because lightness does not move, it is the neutral that matches the base's brightness rather than an arbitrary grey."
+      },
+      {
+        "q": "Does a muted color contrast less with text?",
+        "a": "Not necessarily. Reducing saturation barely changes luminance, so a muted tone can be just as unreadable behind text as the vivid original. Check the pairing directly."
+      },
+      {
+        "q": "Why do the muted entries converge on a mid-tone?",
+        "a": "Because lightness is fixed while chroma falls: at the far end the entries hold almost no colour, so there is little left to distinguish them, and the base colour is not one of the ten."
+      }
+    ]
+  },
+  {
+    "slug": "color-lighten-tool",
+    "keywords": [
+      "color lighten tool",
+      "lighten a color",
+      "lighten hex color by percentage",
+      "make a color lighter"
+    ],
+    "intro": "The color lighten tool raises any color's lightness by a chosen percentage, producing a lighter value that keeps the original hue and saturation intact.",
+    "content": "The color lighten tool raises a color's lightness by a percentage you choose, returning a lighter version that keeps the original hue and saturation. Drag the slider and the tool lifts the color's perceptual lightness by that fraction, then shows the result as a large swatch beside your input. It answers the question that comes up constantly in interface work: what is the light, hover or highlight version of this exact color, written as a value you can paste?\n\n- The lightening is applied in OKLCH rather than by adding to the red, green and blue channels.\n- That choice keeps the result clean.\n- Raising channels independently tends to wash out saturation as the values climb, so a blue lightened enough starts to look pale and grey, and a saturated orange drifts toward yellow.\n- Working on the lightness axis alone means the lighter color is recognisably the same color, only brighter, with hue and chroma preserved by construction.\n\n- The slider spans zero to one hundred percent, which covers everything from no change to very nearly white, but most useful lightening sits in a narrower band.\n- Five to fifteen percent gives a subtle highlight or hover state, twenty to thirty gives a distinctly lighter surface, and beyond that you are usually looking at a genuinely different tone rather than a state.\n- Because the swatch updates live, you can find that band by eye rather than guessing a number and checking it afterwards.\n\nBuilding states from a base color is the primary use. A design system typically needs a base, a hover and a highlight value for every interactive color, and deriving them by lightening keeps the relationships consistent across the whole palette. When the base later changes, the derived states change with it rather than drifting apart, which is the maintenance benefit of deriving rather than hand-picking. If you need to lighten hex color by percentage inside a token pipeline, the result is a plain hex string you can store directly.\n\nTwo things to watch. First, as you lighten a color its contrast against light backgrounds falls, so a hover state that is too light can lose legibility against a pale surface; verify pairings with a contrast checker. Second, if you want a softer rather than simply brighter tone, pair lightening with a chroma adjustment using the saturation tools. Used for states and light variants, though, it is a fast and predictable way to make a color lighter without drifting its hue.\n\nIt is also worth lightening in small steps when you are building a ramp. Rather than asking for one big jump, run the base through the tool several times, feeding each result back in, and you get a sequence of increasingly light tones that share the original hue exactly. That sequence is more dependable than sampling a lightness slider at random positions, because every step derives from the last rather than from the base independently. Record the percentages you used and the ramp can be rebuilt elsewhere, since it is a simple, repeatable rule rather than a set of hand-chosen colors.",
+    "howTo": [
+      "Set the colour in the field.",
+      "Drag the slider to the percentage of lightening you want, from zero to one hundred.",
+      "Read the result swatch and copy its hex.",
+      "Check the contrast if the lighter value will carry text."
+    ],
+    "whenToUse": "Use this tool to derive hover, highlight and light-surface variants from a base color. Use the darken tool for the opposite direction, and the tint generator when you want a whole ramp of lighter steps rather than one value. The {{color-tints-generator|tint generator}} lays out ten lighter steps at once, and the {{color-darken-tool|darken tool}} is the same operation in the other direction.",
+    "faqs": [
+      {
+        "q": "Does lightening change the hue?",
+        "a": "No. Lightness is raised in OKLCH while hue and chroma are held, so the result is recognisably the same color, just brighter."
+      },
+      {
+        "q": "How much should I lighten for a hover state?",
+        "a": "Five to fifteen percent is typical for a subtle state and twenty to thirty for a distinctly lighter one. Judge it on the live swatch rather than a fixed rule."
+      },
+      {
+        "q": "Why not just increase the RGB values?",
+        "a": "Raising channels independently washes out saturation. Adjusting perceptual lightness keeps the color stable instead of drifting toward grey."
+      },
+      {
+        "q": "Does a lighter colour always reduce contrast?",
+        "a": "Against light backgrounds, yes. On dark surfaces a lighter color gains contrast, so check the pairing with a contrast checker before using it for text."
+      },
+      {
+        "q": "What happens at one hundred percent?",
+        "a": "The colour goes to pure white: lightness is raised in OKLCH, so the whole step happens on the lightness axis with hue and chroma preserved. Contrast against light backgrounds falls as the value rises, which is the thing to watch when building a state."
+      }
+    ]
+  },
+  {
+    "slug": "color-darken-tool",
+    "keywords": [
+      "color darken tool",
+      "darken a color",
+      "darken hex color by percentage",
+      "darken color online"
+    ],
+    "intro": "The color darken tool reduces any color's lightness by a percentage you choose, returning a darker version that keeps the original hue and saturation intact.",
+    "content": "The color darken tool takes a color and a percentage and returns a darker version of it. Move the slider and the tool lowers the color's perceptual lightness by that fraction, leaving hue and chroma untouched, and shows the result as a large swatch next to your input. It is the direct way to answer a question that comes up constantly in interface work: what is the pressed, deeper or shaded version of this exact colour.\n\n- The darkening is applied in OKLCH rather than by subtracting from the red, green and blue channels.\n- That choice is what keeps the result clean.\n- Reducing RGB channels independently tends to shift hue as the channels approach zero, so a blue darkened enough starts to look purple and a saturated orange can go brown.\n- Working on the lightness axis alone means the darker color is recognisably the same color, just deeper, which is what a hover or active state should be.\n- Hue and chroma are preserved by construction.\n\n- The slider runs from zero to one hundred percent, so the range covers everything from no change to very nearly black.\n- In practice most useful darkening sits in a much narrower band: ten to twenty percent for a subtle interactive state, twenty to thirty for a distinct pressed shade, and more than that only when you want a genuinely different tone rather than a state.\n- Because the swatch updates live, you can find that band by eye instead of guessing a numeric value and checking it afterwards.\n\nBuilding state colours is the primary use. A design system typically needs a base, a hover and an active value for every interactive color, and deriving them by darkening keeps the relationships consistent across the whole palette. When the base color later changes, the derived states change with it rather than drifting apart, which is the maintenance benefit of deriving rather than hand-picking. The same logic applies to borders, dividers and any element that should read as a deeper sibling of a surface colour.\n\nTwo things to watch. First, darkening reduces the colour's lightness but not its saturation, so a highly saturated colour darkened far enough can start to look vivid even though it is darker; if you want a muted deep tone, pair darkening with a reduction in chroma using the saturation tools. Second, darkening lowers contrast against dark backgrounds, so a darkened state that sits on a dark surface may lose legibility; verify pairings with a contrast checker. Used for states and shaded variants, though, deriving a darker tone this way is faster and more reliable than nudging channels by hand.\n\nWhen you need to darken a color for a state and want the value to be reproducible, this is quicker than editing channels by hand: pick the base, choose how far to darken hex color by percentage, and copy the result. It is also a convenient way to darken color online while inspecting a palette, because the live swatch updates as you drag and you can stop the moment the tone looks right.",
+    "howTo": [
+      "Set the colour in the field.",
+      "Drag the slider to the percentage of darkening you want, from zero to one hundred.",
+      "Read the result swatch and copy its hex.",
+      "Check the contrast if the darker value will carry text."
+    ],
+    "whenToUse": "Use this tool to derive hover, pressed and shaded variants from a base colour. Use the lighten tool for the opposite direction, and adjust saturation as well when you want a muted deep tone rather than a vivid one. The {{color-shades-generator|shade generator}} shows ten darker steps side by side, and the {{color-lighten-tool|lighten tool}} covers the opposite direction.",
+    "faqs": [
+      {
+        "q": "Does darkening change the hue?",
+        "a": "No. Lightness is reduced in OKLCH while hue and chroma are preserved, so the darker colour is recognisably the same hue rather than drifting toward another."
+      },
+      {
+        "q": "How much should I darken for a hover state?",
+        "a": "Ten to twenty percent is typical for a subtle state and twenty to thirty for a distinctly pressed one. Judge it on the live swatch rather than a fixed rule."
+      },
+      {
+        "q": "Why not just reduce the RGB values?",
+        "a": "Independent channel reduction shifts hue as values approach zero, so colours can go purple or brown. Adjusting perceptual lightness keeps the colour stable."
+      },
+      {
+        "q": "Does a darker colour always have more contrast?",
+        "a": "Only against lighter backgrounds. On dark surfaces a darkened colour loses contrast, so check legibility with a contrast checker before using it for text."
+      },
+      {
+        "q": "Is darkening the same as reducing saturation?",
+        "a": "No. The step is applied to lightness in OKLCH, so chroma and hue are untouched — darkening reduces the colour's lightness but not its saturation, and contrast against dark backgrounds falls as the value drops."
+      }
+    ]
+  },
+  {
+    "slug": "saturation-booster",
+    "keywords": [
+      "saturation booster",
+      "boost color saturation",
+      "make a color more vivid",
+      "increase saturation hex",
+      "saturation boost slider"
+    ],
+    "intro": "The saturation booster raises a colour's saturation by a percentage you choose, from 0 to 30 percent, and shows the result beside the original.",
+    "content": "The layout is two panels. On the left, a colour field opens on a mid blue, and under it a slider labelled Boost saturation runs from zero to thirty percent, opening at twenty. On the right, a card titled Result holds one large swatch showing the boosted colour, and it updates as either control moves.\n\n- What the slider does is an addition rather than a multiplier: the number is divided by a hundred and added to the colour's saturation in the perceptual space the rest of this domain works in, so twenty percent means a fifth of the full saturation range more than the colour already had.\n- That framing matters for a colour that is already vivid — a saturated yellow at ninety percent has little room left and will barely move, while a muted grey-blue at ten percent will change noticeably from the same setting.\n\nLightness and hue are left alone, which is the property that makes the tool useful rather than merely available. Boosting saturation by adjusting a colour by eye usually drags the hue along with it, and a palette that starts on one orange ends up with three slightly different ones. Here the hue angle is untouched, so a set of colours boosted by the same amount stays within the same families.\n\nThe range is deliberately narrow. Thirty percent at the top is a noticeable change and not a garish one, which suits the everyday need: recovering a colour that was desaturated for a background and is being reused as an accent, or pushing a pastel far enough to read as a brand colour. Beyond that the tool will not go, and a colour that needs to be neon has to be built rather than nudged.\n\nWhat it does not do is report anything. There is no before-and-after ratio, no chroma value, no warning when a boosted colour leaves the printable range and no export — the original and the result sit side by side and that is the whole output. It is also a one-way control: this page only boosts, and reducing saturation is a separate tool with its own slider.\n\nComparing the two swatches is how the setting gets decided. A boost that changes the colour noticeably without pushing it out of its family is usually what a surface or an accent wanted; a result that reads as a different colour means the setting was too high for that hue, since yellows and greens move further at the same percentage than blues and purples do. Because the tool holds one colour at a time, a palette is normally boosted swatch by swatch with the same setting, which keeps the relationships between them intact.\n\n- Limits: one colour, one direction, a maximum of thirty percent, no relative or multiplicative mode, no undo and no value readout beyond the swatch.\n- As a saturation booster it answers boost color saturation directly, and for anyone wanting to make a color more vivid this is the saturation boost slider that tells you what it did rather than guessing — enough to increase saturation hex values in a palette without shifting their hues.",
+    "howTo": [
+      "Pick the colour in the field on the left.",
+      "Move the Boost saturation slider; it runs from 0 to 30 percent and starts at 20.",
+      "Read the result swatch on the right and note the change before applying the same setting to other colours."
+    ],
+    "whenToUse": "Use this when a colour already in the palette needs more presence without its hue changing. Use the saturation reducer when the direction is the other way, the vibrance adjuster when the slider should cross zero, or the saturation explorer when the whole range needs looking at rather than one step. When the goal is a quieter version the {{saturation-reducer|saturation reducer}} subtracts along the same axis, and the {{vibrance-adjuster|vibrance adjuster}} moves either way from neutral.",
+    "faqs": [
+      {
+        "q": "How much can the saturation rise?",
+        "a": "Up to thirty percent, in one-percent steps, with the slider starting at twenty. It is an addition to the colour's saturation rather than a multiplication of it."
+      },
+      {
+        "q": "Does the hue change?",
+        "a": "No. Only saturation moves — lightness and hue are left alone, which keeps a colour recognisably in the same family after boosting."
+      },
+      {
+        "q": "Why does a vivid colour barely change?",
+        "a": "Because the setting adds to existing saturation. A colour already near the top of the range has little room left, while a muted one shows the same setting much more strongly."
+      },
+      {
+        "q": "Can I reduce saturation here?",
+        "a": "No. The slider only runs upward from zero, so reducing a colour means using the saturation reducer or the symmetric vibrance adjuster."
+      },
+      {
+        "q": "How much does thirty percent change the colour?",
+        "a": "The percentage is divided by a hundred and added to the OKLCH chroma, so thirty percent is a noticeable change rather than a different colour. Lightness and hue stay where they were, and no chroma figure or before-and-after ratio is reported."
+      }
+    ]
+  },
+  {
+    "slug": "saturation-reducer",
+    "keywords": [
+      "saturation reducer",
+      "reduce color saturation",
+      "desaturate a color",
+      "make a color less vivid",
+      "muted color hex"
+    ],
+    "intro": "The saturation reducer lowers a colour's saturation by up to 30 percent, showing the muted result beside the original with its hue and lightness untouched.",
+    "content": "Two panels again: a colour field that opens on a mid blue with a slider beneath it labelled Reduce saturation, running from zero to thirty percent and starting at twenty, and a result card on the right holding a single large swatch of the muted colour.\n\n- The slider subtracts rather than multiplies.\n- The chosen percentage is divided by a hundred and taken away from the colour's saturation, so twenty percent removes a fifth of the available chroma.\n- A colour that arrives fully saturated therefore changes a great deal, while one that is already muted has less left to give and moves only slightly — the opposite of what a multiplier would do, and the reason the same setting produces visibly different amounts of change across a palette.\n\nHue and lightness stay exactly where they were, which is what separates a deliberate desaturation from dropping the colour towards grey. Both the hue angle and the lightness reading are preserved, so a muted version of a brand colour still belongs to the brand's family and can sit next to the original without either looking off.\n\nThat property is the everyday use. Most interfaces need a quieter version of a colour for surfaces, secondary text, disabled states and chart backgrounds, and building those by mixing in grey produces cooler, flatter results than reducing saturation in the colour's own space. Because the range stops at thirty percent, the result is muted without being washed out, and it stays a colour rather than becoming a neutral.\n\nThe tool reports nothing beyond the swatch pair. There is no chroma figure, no indication of how close the colour is to grey, no contrast check against whatever it will sit on and no export. It also only reduces: the same implementation with a positive sign is the saturation booster, and this page will not brighten a colour that has already gone too far.\n\nWorking one colour at a time is the intended rhythm. A palette usually gets muted in sequence with the same setting, so a set of surfaces or secondary text keeps its internal relationships rather than being quietened by varying amounts, and the narrow range makes that easy to repeat exactly. Where a single colour needs more than the slider can give, the tone generator moves it towards grey instead, which is the right tool when the goal is a neutral rather than simply a quieter colour.\n\nLimits: one colour, one direction, thirty percent maximum, no relative mode, no saved history and no readout.\n\n- As a saturation reducer it handles reduce color saturation and desaturate a color in a single slider, and for a muted color hex value that keeps its hue rather than drifting towards grey, it is the make a color less vivid version with the direction fixed and the range stated.\n- Quietening a colour in its own space is what keeps a muted surface recognisable as part of the same family rather than a grey substitute for it, and that is the whole difference this slider makes.",
+    "howTo": [
+      "Choose the colour to mute in the field on the left.",
+      "Drag the Reduce saturation slider between 0 and 30 percent to set how much comes off.",
+      "Compare the result swatch with the original and note the muted value."
+    ],
+    "whenToUse": "Use this when a palette needs quieter versions of its colours for surfaces, borders, disabled states or secondary text. Use the tone generator when the colour should also move towards grey, or the vibrance adjuster when the slider has to cross zero. The {{saturation-booster|saturation booster}} pushes the same axis upward, the {{vibrance-adjuster|vibrance adjuster}} moves in both directions, and the {{color-tones-generator|tone generator}} performs the operation ten times over as a ladder.",
+    "faqs": [
+      {
+        "q": "How far can the saturation drop?",
+        "a": "Thirty percent at the most, in one-percent steps, added as a subtraction from the colour's existing saturation rather than applied as a multiplier."
+      },
+      {
+        "q": "Does it change the hue or the lightness?",
+        "a": "Neither. Both are preserved exactly, so a muted version of a colour still reads as a member of the same family."
+      },
+      {
+        "q": "Will a pale colour become grey?",
+        "a": "Not within the range offered. The colour loses chroma but keeps its hue and lightness, so it stays a colour rather than becoming a neutral."
+      },
+      {
+        "q": "Can I boost a colour here?",
+        "a": "No — the slider subtracts only. Raising saturation is what the saturation booster does with the same implementation and the sign reversed."
+      },
+      {
+        "q": "Can the colour go fully grey?",
+        "a": "No. The slider tops out at thirty percent and the percentage is subtracted from the chroma with a floor at zero, so the result is a quieter version of the same colour rather than a grey, while hue and lightness stay exactly where they were."
+      }
+    ]
+  },
+  {
+    "slug": "vibrance-adjuster",
+    "keywords": [
+      "vibrance adjuster",
+      "vibrance vs saturation",
+      "adjust color vibrance",
+      "symmetric saturation slider",
+      "color intensity control"
+    ],
+    "intro": "The vibrance adjuster moves a colour's saturation either way from a single slider that runs from minus 30 to plus 30 percent and opens at zero.",
+    "content": "The page holds a colour field, a slider labelled Saturation, and a large result swatch. The slider is the difference between this tool and the two directional ones beside it in the domain: it starts at zero, which leaves the colour unchanged, and it travels thirty percent in either direction, so the same control raises and lowers chroma.\n\n- That symmetric behaviour is what the name describes, and it is close to the sense vibrance carries in photo editing, where the adjustment is meant to be intelligent about what it touches.\n- Here it is not: the number is divided by a hundred and added to the colour's saturation, so a positive setting works by addition and a negative one by subtraction, with no protection for already-saturated colours and no weighting by how much chroma a colour has.\n- Knowing that makes the tool predictable and keeps the comparison with a photographic vibrance control honest.\n\nThe default of zero is deliberate. A slider that opens in the middle lets the colour field be used as the primary control while the slider stays neutral until it is needed, and it means the result swatch can be trusted to show exactly the colour entered until the slider moves.\n\nWhere it earns its place is in the middle of a decision rather than at the end of one. Auditioning whether a colour should carry more or less intensity is easier on one control that goes both ways than by switching between two tools, and the symmetric range makes the comparison fair — thirty percent up and thirty percent down are the same size of change by construction.\n\nWhat it does not give is any reading of the result. Saturation is not printed, the amount of change is not summarised, there is no lock on lightness or hue beyond the fact that the underlying operation leaves them alone, and nothing checks whether the adjusted colour still works as text or as a surface. It is also limited to one colour with no palette view.\n\nThat neutral starting point is what makes the page useful at the start of a decision rather than at the end. Leaving the slider at zero shows the entered colour untouched, and moving it a few points either way is often enough to settle whether a candidate is too loud or too quiet for the job it will do. Read as a color intensity control rather than as an image editor, the vibrance adjuster is honest about being one number — saturation, added or subtracted, with the colour itself as the reference point between the two directions.\n\n- Limits: a single colour, a thirty percent ceiling in each direction, no relative or adaptive mode despite the name, no saved state and no export.\n- Read as an adjust color vibrance control rather than a photographic one, it is a clean symmetric saturation slider: one colour intensity control where the starting point is the colour itself, and the vibrance vs saturation question is answered plainly — this is saturation, by addition and subtraction.",
+    "howTo": [
+      "Pick the colour in the field.",
+      "Move the Saturation slider negative to quieten the colour, or positive to strengthen it.",
+      "Return the slider to zero to get the entered colour back unchanged."
+    ],
+    "whenToUse": "Use this when auditioning a colour at several intensities and both directions are needed from one control. Use the saturation booster or reducer when only one direction is wanted, or the saturation explorer when the whole range should be seen at once. For a single direction the {{saturation-booster|saturation booster}} and {{saturation-reducer|saturation reducer}} are the one-way controls, and the {{color-tones-generator|tone generator}} lays the same axis out as a ten-step strip.",
+    "faqs": [
+      {
+        "q": "What range does the slider cover?",
+        "a": "Minus thirty to plus thirty percent, starting at zero. Steps are single percent, so both directions cover the same amount of change."
+      },
+      {
+        "q": "Is this the same as vibrance in photo software?",
+        "a": "No. Photographic vibrance protects already-saturated colours; this tool simply adds or subtracts saturation, so a vivid colour at a high setting will lose its balance."
+      },
+      {
+        "q": "What happens at zero?",
+        "a": "Nothing — the result swatch shows the colour exactly as entered. That is what the default position is for, so the slider stays neutral until it is moved."
+      },
+      {
+        "q": "Does it preserve hue and lightness?",
+        "a": "Yes. Only saturation changes, in either direction, so the colour stays in the same family whatever the setting."
+      },
+      {
+        "q": "Why does the slider start in the middle?",
+        "a": "Zero is neutral, which keeps the colour field's own setting intact until a direction is chosen. The range runs thirty percent each way, subtracting from or adding to chroma in OKLCH, and the result is shown as a swatch without any printed reading."
+      }
+    ]
+  },
+  {
+    "slug": "exposure-adjuster",
+    "keywords": [
+      "exposure adjuster",
+      "brighten a color",
+      "darken a color hex",
+      "exposure slider",
+      "color lightness control"
+    ],
+    "intro": "The exposure adjuster brightens or darkens a colour from a slider that runs from 0 to 200 percent and sits at 100, showing the result in a large swatch.",
+    "content": "The controls are a colour field, a slider labelled brightness with a range from zero to two hundred and a starting value of one hundred, and a result card holding one large swatch. One hundred is the neutral point: below it the colour is darkened, above it the colour is lightened, and the swatch follows the slider continuously.\n\n- The arithmetic is a scaled lightness change rather than a photographic exposure.\n- Leaving the neutral point by twenty points applies a lighten or a darken of (20/200) — a tenth of the operation's full strength — so the two halves of the slider produce symmetric amounts of change around the neutral.\n- That means the fifty-point mark is a quarter of the way to black and the hundred-and-fifty mark a quarter of the way to white, which makes the slider easy to reason about even though no formula is shown anywhere on the page.\n\nWhat it does not model is light.\n\n- An exposure control in photography multiplies the light reaching a sensor, which clips highlights and preserves the character of the shadows; this tool moves a colour's lightness directly, so a colour pushed far up the range simply becomes paler and eventually reaches white.\n- Treating the slider as a lightness control rather than as a camera setting gives the results you would expect from the code.\n\nHue and saturation are preserved through both directions, which is what makes the tool useful in a palette rather than only on a single swatch. Producing the hover, pressed or disabled variant of a colour is the everyday case: a hundred and ten is a subtle lift, a hundred and thirty is a noticeably lighter version for a hover state, and ninety gives the pressed version while keeping the hue recognisable.\n\nThe page offers no measurement and no export. There is no lightness readout, no contrast check between the adjusted colour and anything it might sit on, no comparison against the original colour beyond seeing the swatch, and no palette view for adjusting a set together. It is also only a preview: the value has to be taken away by reading the swatch.\n\nThe two halves of the slider are useful in different places. Lighter variants — one hundred and ten through one hundred and thirty — cover hover states, disabled surfaces and chart backgrounds; the darker half covers pressed states, borders drawn on light surfaces and text set on pale fills. Because one control reaches both, a complete state set can be built from a single colour without switching tools, and the neutral point gives a reliable way back to the original value when an experiment has gone too far.\n\nLimits: one colour, a 0 to 200 range around a neutral of 100, a lightness operation rather than a true exposure, and no readout, history or export. As an exposure adjuster it does the two jobs the name implies — brighten a color above the neutral point or darken a color hex value below it — and as a color lightness control with an exposure slider it is the simplest way to move a colour without touching its hue.",
+    "howTo": [
+      "Pick the colour in the field.",
+      "Set the slider below 100 to darken, above 100 to lighten; it runs 0 to 200.",
+      "Read the adjusted colour from the result swatch, which updates as the slider moves."
+    ],
+    "whenToUse": "Use this when a colour needs a lighter or darker variant for a state, and the hue must stay put. Use the lighten or darken tools when the amount should be stated as a fraction, or the tint and shade generators when a whole ladder is wanted instead of one step. The {{color-lighten-tool|lighten tool}} and {{color-darken-tool|darken tool}} make the same lightness change from a percentage set directly, and the {{css-filter-generator|CSS filter generator}} writes a brightness value into a filter declaration.",
+    "faqs": [
+      {
+        "q": "What does 100 percent mean?",
+        "a": "The neutral point — the colour is unchanged. Values below it darken the colour and values above it lighten it, with the same amount of change either side."
+      },
+      {
+        "q": "Is this a real exposure adjustment?",
+        "a": "No. It moves the colour's lightness rather than simulating how light reaches a sensor, so highlights never clip and a colour pushed far enough simply becomes pale."
+      },
+      {
+        "q": "Are hue and saturation kept?",
+        "a": "Yes, through both directions. That is what makes the tool usable for hover and pressed states, where the variant has to stay recognisably the same colour."
+      },
+      {
+        "q": "Does it report the resulting value?",
+        "a": "Not as text — the result is a swatch the colour can be read from. There is no lightness figure, no contrast check and no export."
+      },
+      {
+        "q": "Is this the same as photographic exposure?",
+        "a": "No. The slider runs from zero to two hundred with a neutral of one hundred, and the operation is a scaled lightness change — lightness is shifted by up to half in OKLCH — rather than a multiplication of the light reaching a sensor, so nothing clips the way a real exposure change would."
+      }
+    ]
+  },
+  {
+    "slug": "color-mixer-2",
+    "keywords": [
+      "color mixer",
+      "mix two colors",
+      "blend two colors",
+      "color mixing calculator",
+      "mix two colors together"
+    ],
+    "intro": "The color mixer blends two colors by ratio, returning the exact midpoint plus readable 25, 50 and 75 percent previews so you can pick the step that actually works.",
+    "content": "The color mixer is a two-input blending tool. You set Color A and Color B with standard pickers, then drag a slider from zero to one hundred percent to control how much of B goes into the result. Under the large result swatch the tool also renders the twenty-five, fifty and seventy-five percent points side by side, so the whole scale of intermediate colors is visible at once rather than tested one ratio at a time. You can blend two colors into any weight you like, type a hex directly, or pick by eye and watch the result follow.\n\n- The arithmetic is a straight interpolation between the two colors' red, green and blue channels, applied independently to each.\n- Every channel travels linearly from the first color's value to the second's, which is precisely the same operation a graphics editor performs when you fade a semi-transparent layer over the one beneath it.\n- Because the blend happens per channel in device space, it matches what a browser will render for the same pair, but it is emphatically not a pigment mix: blue and yellow at the halfway point land on a grey-green, never the green a paint tin would give you.\n\nThe preview strip is the part people underuse. A fifty percent blend is often the least attractive option, because averaging two distant hues pulls chroma toward grey; the quarter and three-quarter points usually keep more of the source character. That is why two-color ramps in real design systems rarely put their midpoint at the arithmetic centre, and why it is worth glancing along the strip before settling on a value.\n\nReach for it when you need an intermediate color that genuinely belongs to both parents: the in-between step in a two-stop ramp, a hover shade sitting between base and pressed, or a fallback for a gradient that only supports two stops. It is equally useful for previewing what an overlay will look like at half strength before you commit to it in CSS. Use it when the question is what lies between two specific colors, and the palette version when the same question applies to every neighbouring pair in a longer set.\n\nTwo limits are worth stating plainly so the result is not misread.\n\n- Channel interpolation is symmetric and lossless, but it knows nothing about perception, so complementary pairs mixing toward dirty grey is expected behaviour rather than a bug; a perceptual or subtractive blend would behave differently and often more pleasantly.\n- The output is also fully opaque, a single solid value with no alpha channel, so it should be stored as a hex rather than assumed to carry transparency.\n\nTreat it as a dependable color mixing calculator rather than a colour-management system: no profiles, no pigment model, no alpha, just a predictable way to mix two colors together in the same device space your stylesheet will use. That narrowness is the point. Because the maths is exactly what the browser does, the swatch on screen is a reliable promise of the pixels you will ship, which makes it safe to copy the result straight into a token file and move on without a second opinion from a design file.",
+    "howTo": [
+      "Set Color A and Color B.",
+      "Read the fifty percent result and the twenty-five, fifty and seventy-five percent previews.",
+      "Choose the ratio that behaves the way the design needs and copy its hex."
+    ],
+    "whenToUse": "Use it to find an intermediate value between two colors, or to preview how a half-strength overlay will read. Use the palette mixer when you need the midpoints between every adjacent pair in a longer list. The {{color-mixer-3plus|palette mixer}} blends a whole list by adjacent pairs, and the {{additive-color-mixer|additive}} and {{subtractive-color-mixer|subtractive}} mixers work in light and pigment rather than in channels.",
+    "faqs": [
+      {
+        "q": "Does it mix like paint?",
+        "a": "No. The blend happens per RGB channel in device space, so it behaves like fading one color over another rather than mixing two pigments. Blue and yellow give a dull grey-green, not green."
+      },
+      {
+        "q": "Why is the fifty percent result sometimes muddy?",
+        "a": "Averaging two hues that sit far apart on the wheel pulls saturation toward neutral. The twenty-five and seventy-five percent positions usually hold more character."
+      },
+      {
+        "q": "Does the result carry transparency?",
+        "a": "No. It returns one opaque color as a hex value. If you need alpha, apply it to the source colors instead."
+      },
+      {
+        "q": "Will the swatch match what a browser renders?",
+        "a": "Yes. The interpolation is the same per-channel operation a browser performs, so the value shown is the value you get."
+      },
+      {
+        "q": "Is the half-way blend always the best one?",
+        "a": "No. The preview strip shows the blend at twenty-five, fifty and seventy-five percent, and the half-way point is often the least useful of the three, because channel interpolation is symmetric and knows nothing about perception."
+      }
+    ]
+  },
+  {
+    "slug": "color-mixer-3plus",
+    "keywords": [
+      "palette mixer",
+      "mix three colors",
+      "blend multiple colors",
+      "mix multiple colors together"
+    ],
+    "intro": "The palette mixer collapses a color list inward by mixing every adjacent pair at the halfway point, so three colors become two and each press of the button thins the set.",
+    "content": "The palette mixer operates on a list rather than a single pair. You keep an editable palette — add entries, remove them, adjust any value — and one action averages each neighbouring pair, replacing the whole list with the midpoints. A three-entry set collapses to two, a five-entry set to four, and pressing the button again keeps folding the palette inward until a single color remains. Where a two-color tool answers what lies between one specific pair, this answers the same question for a whole set in one press.\n\nThere is deliberately no ratio control here.\n\n- Every adjacent pair is averaged at the halfway point, and the result replaces the palette instead of appearing beside it, so each press is a step in a sequence rather than a single lookup.\n- That makes the tool as much a compression device as a blending one: you are not inspecting a mix, you are marching a palette toward its centre one generation at a time.\n\nThe natural workflow starts from a set you already like. Press once and you have the intervening values — handy for building a gradient whose stops need to be evenly spread, or for adapting a five-color scheme to an interface that only has room for three. Because the surviving colors are genuine averages of their neighbours, the thinned palette still reads as a member of the same family; nothing foreign is introduced.\n\nRepeated pressing is where the behaviour becomes interesting. Each pass turns n colors into n minus one, so a five-entry list reaches a single swatch after four presses, and that final value is effectively a weighted average that has been drawn toward the middle of the original set. Watching the list slim down is a quick way to find the palette's centre of gravity, which is useful when you want a single representative tint for a system rather than a full scheme.\n\nUse it when you need to blend multiple colors into a smaller, coherent set, or when you want to mix three colors and inspect what the pairwise results look like before deciding which to keep. The pair blender remains the right choice when only two colors are involved and you want fine control over the ratio; this one is for breadth. Neither tool invents hues — both stay inside the range defined by the colors you supply.\n\n- The same caveat applies as to any channel-space blend: averaging colours that sit opposite each other produces a desaturated result rather than a vivid third colour, so a palette of high-contrast accents will dull noticeably after a pass or two.\n- If that happens, mixing in a perceptual space or curating by hand will serve better.\n- For tidying an over-long palette or generating evenly spaced steps, though, collapsing adjacent pairs is a fast and predictable way to mix multiple colors together.\n\nOne last habit is worth adopting: keep the original list somewhere before you press, since the action overwrites the palette in place and the previous generation is not retained. Undo may not restore it, so duplicating the set first turns a destructive experiment into a reversible one, and lets you compare two generations side by side before choosing which to carry forward.",
+    "howTo": [
+      "Load the list you want to blend — add or remove rows as needed.",
+      "Press Mix adjacent pairs; every neighbouring pair is averaged at the half.",
+      "Press again to halve the list once more, keeping the original values somewhere safe."
+    ],
+    "whenToUse": "Use this version when the palette is longer than two and you want the midpoint of every adjacent pair at once, or when you want to fold a set inward to a single representative color. The {{color-mixer-2|two-color mixer}} shows one blend at three ratios, and the {{palette-importer|palette importer}} is the way to bring a list in before mixing.",
+    "faqs": [
+      {
+        "q": "Does it average the whole palette into one color?",
+        "a": "Not in a single step. It mixes each adjacent pair, so the list shrinks by one each press. Repeat until one color remains if that is the goal."
+      },
+      {
+        "q": "Can I control the mix weight?",
+        "a": "No. Every pair is averaged at the halfway point. For a custom ratio between two colors, use the two-color mixer instead."
+      },
+      {
+        "q": "Does it replace the palette or add to it?",
+        "a": "It replaces the palette with the mixed results, which is what makes repeated presses behave like a sequence of generations."
+      },
+      {
+        "q": "Why did my bright palette turn dull?",
+        "a": "Averaging strongly contrasting hues pulls them toward neutral. The behaviour is expected in channel space; blend perceptually if you need to preserve chroma."
+      },
+      {
+        "q": "What happens when I press the button twice?",
+        "a": "Each pass turns n colours into n minus one: every adjacent pair is averaged at the half and no ratio control is offered, so a five-colour palette becomes four and then three. Keep the original list somewhere before pressing, because the pass replaces the palette in place."
+      }
+    ]
+  }
+]

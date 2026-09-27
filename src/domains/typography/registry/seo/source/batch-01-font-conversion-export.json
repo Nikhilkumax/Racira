@@ -1,0 +1,283 @@
+[
+  {
+    "slug": "font-base64-encoder",
+    "keywords": [
+      "font base64 encoder",
+      "base64 encoding",
+      "data URI",
+      "inline font CSS"
+    ],
+    "intro": "The font base64 encoder reads one local font file and returns a data: URI together with the @font-face rule that consumes it. The panel states the size cost of inlining before the URI reaches a stylesheet.",
+    "content": "The font base64 encoder turns a local font file into a data: URI. You pick the file with the file dialog, the browser reads it through FileReader, and the bytes come back through base64 encoding as data:<mime>;charset=utf-8;base64,... — nothing is uploaded, because the read happens on this machine. The panel reports the effective MIME type, the binary size, the base64 size with its inflation percentage and the final URI length in characters, so the cost of inlining is visible before you paste anything.\n\n- Accepted file types: .woff2, .woff, .ttf, .otf, .eot, plus the generic font/* filter.\n- MIME options: detect from extension, font/woff2, font/woff, font/ttf, font/otf.\n- Extension detection maps woff2, woff, ttf and otf to their font/* types and eot to application/vnd.ms-fontobject; an unrecognised extension falls back to font/woff2.\n- Outputs: a data: URI block, a usage @font-face snippet, and a CSS family name field used as the font-family in that snippet.\n- Guidance panel listing the cases where inlining is worth it, and the case where it is not.\n\nThe size figures come from the encoded string rather than from a re-read of the file: the binary figure is the base64 payload length multiplied by three and divided by four, and the base64 figure is the payload length itself. That is why the reported inflation is the familiar 33.3% — base64 uses four characters for every three bytes, so a 30 KB font arrives as roughly 40 KB of text. The generated declaration pairs that data URI with font-display: swap, and the preview truncates the URI to its first 96 characters so the panel stays readable; the full string is the one printed in the URI block above it.\n\n- One file per run. There is no batch mode, so a family with four faces means four passes.\n- No subsetting and no compression: the tool encodes the file exactly as it is, and every byte you saved by removing glyphs is yours to find elsewhere.\n- The usage snippet is a display convenience. Its src value is cut at 96 characters, so copy the URI from the URI panel when you paste into a real stylesheet.\n- Size numbers are derived from the base64 length, not measured on disk, so they are estimates within a byte or two rather than a checksum.\n- The file filter is advisory. Any file can be selected through the dialog, and nothing validates that the bytes are a font.\n\nInlining replaces a linked file with an inline font CSS block, and it earns its place in three situations: a subset under roughly 15 KB on the critical path, a self-contained SVG or HTML artifact that must not fetch extra files, and a template such as an email signature where external requests get stripped. It is the wrong tool for a full alphabet font, because the base64 block has to be parsed as part of the document and it bypasses the browser's normal font cache — the same face loaded by URL would be fetched once and reused instead. When the intent is self-hosting rather than inlining, the font CSS generator writes the file-based declaration and the character extractor produces the subset range that keeps the file small.",
+    "howTo": [
+      "Set the CSS family name the declaration should use.",
+      "Leave MIME type on detect from extension, or choose the type explicitly when the file has no usable extension.",
+      "Choose the font file — the panel fills in the effective MIME, both sizes and the URI length.",
+      "Copy the data: URI block, or the usage snippet when you want the surrounding @font-face rule too."
+    ],
+    "whenToUse": "Reach for this when a font has to travel inside the document rather than beside it: a single small face on the critical path, a self-contained artifact, or a template that strips external requests. When the font is served from a directory instead, the {{font-css-generator|font CSS generator}} writes the file-based @font-face set and the preload hint, and the {{font-face-declaration-builder|@font-face declaration builder}} covers the single-declaration case with metric overrides. Keep the payload small first: the {{font-character-extractor|font character extractor}} produces the unicode-range list a subsetter needs, which is also what a split {{font-face-generator|@font-face generator}} setup uses to load only the ranges a page needs.",
+    "faqs": [
+      {
+        "q": "Does the font file leave my device?",
+        "a": "No. The file is read with the browser's FileReader API and encoded in this tab; there is no upload step and no server round-trip, so the URI is produced entirely locally."
+      },
+      {
+        "q": "Why does the data URI come out about a third larger than the font?",
+        "a": "Base64 encodes every three bytes as four characters, which is a 33.3% increase. The panel prints both figures so the added weight is visible before the URI is committed to a stylesheet."
+      },
+      {
+        "q": "Is the reported binary size exact?",
+        "a": "It is an estimate derived from the base64 payload length rather than a second read of the file. Expect it to match the file size within a byte or two, not to act as a checksum."
+      },
+      {
+        "q": "Why is the URI in the usage snippet shorter than the one in the URI panel?",
+        "a": "The snippet truncates the URI at 96 characters so the preview stays readable. The URI panel holds the complete string, and that is the copy to paste into production CSS."
+      },
+      {
+        "q": "Should I inline a full family this way?",
+        "a": "No. A full alphabet inflates the document, delays parsing and defeats the browser font cache. Inline a small subset at most, and serve the rest as files."
+      }
+    ]
+  },
+  {
+    "slug": "font-css-generator",
+    "keywords": [
+      "font css generator",
+      "@font-face block",
+      "self-hosted family",
+      "font preload link"
+    ],
+    "intro": "The font CSS generator turns a self-hosted family's file list into a complete set of @font-face rules plus a preload hint for the weight used above the fold. Each weight and italic is declared as its own face.",
+    "content": "The font CSS generator builds the whole @font-face block for a self-hosted family from a short table of faces. You set the CSS family name, the directory slug the files live under, the file format, the font-display value and the weight to preload, then describe each face as a weight, a style and a file suffix. The output is one declaration per face in the order you listed them, followed by a font preload link for the chosen weight. The readout counts the declarations, the distinct files referenced and the directory the URLs are built from.\n\n- Formats: woff2, woff and ttf, applied to every face in the table at once.\n- font-display values: swap, block, fallback and optional, each labelled with its behaviour during load.\n- Preload weight options: 300, 400, 500, 600 and 700.\n- Face weights run the full 100 to 900 range, with normal or italic styling per face and a free-text file suffix.\n- The table opens with five faces — 300 normal, 400 normal, 400 italic, 500 normal and 700 normal — and Add face appends a 600 normal entry you can edit.\n\nEvery declaration is assembled from the same three inputs, so the URLs follow one predictable shape: /fonts/<slug>/<slug>-<face-suffix>.<format>. The format value is written twice, once inside url() and once as the format() hint, which is what lets the browser skip a file it cannot decode before downloading it. The preload tag is generated separately: it looks up the first normal-style face whose weight matches the preload selection and emits a link with as=\"font\", the matching type attribute and crossorigin, which is required because font fetches are always CORS-mode even on the same origin. Italic faces are declared with font-style: italic rather than a separate family, so an italic run inside a paragraph switches to the italic file without any extra CSS.\n\n- One format for the whole set. A mixed deployment — woff2 with a woff fallback — has to be generated as two passes and merged by hand.\n- URLs are composed from the naming convention. If your build emits different filenames, the suffixes in the table must be edited to match exactly.\n- No unicode-range descriptor, so a family split into subsets across several files cannot be expressed here.\n- The preload tag covers one weight and always the normal style; italic and additional weights are not preloaded.\n- Directory slug, format and font-display are global, and nothing verifies that the referenced files exist at those paths.\n\nUse it when a family is genuinely self-hosted and the deployment naming is predictable — the common case for a design system that ships woff2 files from a single folder and wants one declaration per face with an honest font-display value. Pair it with a preload for the single weight that renders above the fold, and leave the rest to load on demand. When one declaration with metric overrides is the real requirement, the @font-face declaration builder covers that case; when the family comes from Google's CDN rather than your own directory, the Google Fonts CSS generator is the right source of markup.",
+    "howTo": [
+      "Enter the CSS font-family value and the directory slug the font files are served from.",
+      "Choose the file format and the font-display behaviour, then set the weight to preload.",
+      "Describe each face in the table — weight, normal or italic, and the file suffix — adding rows for any weight the family ships.",
+      "Copy the @font-face rules and the preload link into the document head."
+    ],
+    "whenToUse": "This is the page for a family you host yourself and want declared face by face. For the single-declaration case with size-adjust and ascent overrides, the {{font-face-declaration-builder|@font-face declaration builder}} is the tighter fit, and the {{font-base64-encoder|font base64 encoder}} is the alternative when the font has to travel inside the document instead of beside it. When the family comes from a hosted collection, the {{google-fonts-css-generator|Google Fonts CSS generator}} writes the request markup, and the {{font-loading-strategy-builder|font loading strategy builder}} is where preload, font-display and fallback decisions get planned as a whole.",
+    "faqs": [
+      {
+        "q": "Why does every face get its own @font-face rule?",
+        "a": "A weight or an italic is a separate file, and each file needs its own declaration. One family name with several descriptors is what lets a font-weight value and an italic run select the right file without extra CSS."
+      },
+      {
+        "q": "What does the preload tag actually change?",
+        "a": "It starts the font download earlier than the CSS would, which shortens the swap for the weight that renders above the fold. It covers one weight and the normal style, so preloading more than that is a manual edit."
+      },
+      {
+        "q": "Can I generate a woff2 rule with a woff fallback?",
+        "a": "Not in one pass. The format applies to the whole set, so produce the woff2 set, then generate the woff set and merge the two declarations for a family that needs a legacy path."
+      },
+      {
+        "q": "Where do the file URLs come from?",
+        "a": "They are composed from the directory slug and each face's file suffix as /fonts/<slug>/<slug>-<suffix>.<format>. If your build names files differently, edit the suffixes to match."
+      },
+      {
+        "q": "Which font-display value should I pick?",
+        "a": "swap keeps text visible immediately and swaps when the font arrives; optional may skip the webfont entirely on a slow connection, and block and fallback trade a period of invisible or fallback text for a shorter swap. The consequences are labelled on each option."
+      }
+    ]
+  },
+  {
+    "slug": "font-face-declaration-builder",
+    "keywords": [
+      "@font-face declaration builder",
+      "metric overrides",
+      "size-adjust",
+      "font-display"
+    ],
+    "intro": "The @font-face declaration builder writes a single declaration with the descriptors that decide production behaviour — font-display, optional unicode-range, and the size-adjust, ascent-override and descent-override trio that metrics-matches a fallback so the swap does not shift layout.",
+    "content": "The @font-face declaration builder assembles one declaration from a family name, a src URL, a format, a weight value, a font-display choice and an optional unicode-range, then adds the three metric overrides that control how much space the face occupies. The readout translates those overrides into numbers instead of leaving them abstract: the overridden em box, what a line-height of 1.0 renders as before size-adjust, and the same value after size-adjust is applied. A second output writes the matching fallback declaration, which reuses the same overrides on a local font.\n\n- Formats offered: woff2, woff, truetype and opentype, written into the format() hint.\n- font-display values: auto, block, swap, fallback and optional.\n- font-weight accepts a single value or a range, so 400 and \"400 700\" both work — the range form is what a variable file needs.\n- Metric override ranges: size-adjust and ascent-override from 50% to 200%, descent-override from 0% to 100%, each clamped in code before it reaches the CSS.\n- The fallback declaration resolves through local(\"Arial\"), local(\"Helvetica\") and local(\"Liberation Sans\").\n- Reference metrics for common fallbacks are printed in the panel: Arial at 90.5 ascent and 21.2 descent, Georgia at 91.7 and 21.9, Segoe UI at 107.9 and 26.8.\n\nThe arithmetic is the point of the readout. The natural box is ascent plus descent as a percentage of the em, so 100 and 25 describe a 125% box; size-adjust scales the glyphs, and the adjusted figure multiplies the two together. Setting a webfont's box to match the fallback it replaces is what stops the layout from jumping when the file arrives — the fallback is temporarily rendered with the webfont's own metrics, so line heights computed during the swap are the values the final render keeps. The overrides work on any face, including a font that is not being swapped, and they are the supported alternative to rewriting every line-height in a stylesheet.\n\n- The metrics are yours to supply. The tool does not read them out of a font binary, so the numbers come from the reference list, from documentation, or from another tool that inspects the file.\n- The src URL and weight value are free text. Nothing checks that the file exists or that the weight matches the file's real axis.\n- unicode-range is passed through verbatim. A malformed series is written into the CSS exactly as typed.\n- One declaration per run, and the fallback uses a fixed three-family local() stack rather than a platform-specific one.\n- The em box figures model the overrides, not the rendered text, so they describe spacing behaviour rather than appearance.\n\nReach for it when a self-hosted face has to slot into an existing layout without a visible reflow: a brand font replacing a system face in body copy, a heading face with unusual vertical metrics, or a subset loaded through a unicode-range window. Copy the fallback declaration alongside the main one — the pair is what makes the swap invisible, and shipping only the first half is the usual mistake. Where a whole family needs declaring, the font CSS generator writes the full set of rules; where the concern is the loading sequence rather than the metrics, the font loading strategy builder plans preload, display and fallback together.",
+    "howTo": [
+      "Set the font-family name, the src URL and the format the file is served in.",
+      "Enter the font-weight value — a single number, or a range such as 400 700 for a variable file.",
+      "Pick a font-display behaviour and, if the face is a subset, paste its unicode-range.",
+      "Move the size-adjust, ascent-override and descent-override sliders until the adjusted em box matches the fallback, then copy both declarations."
+    ],
+    "whenToUse": "Use this when one face has to land in an existing layout without a reflow, or when a subset should load only for the ranges it covers. It pairs with the {{font-css-generator|font CSS generator}}, which declares a whole family face by face, and with the {{font-base64-encoder|font base64 encoder}} when the file is inlined rather than served. If the loading order itself is the problem, the {{font-loading-strategy-builder|font loading strategy builder}} plans preload and display across the page, and the {{font-character-extractor|font character extractor}} produces the unicode-range list a subset needs in the first place.",
+    "faqs": [
+      {
+        "q": "What do the three overrides actually do?",
+        "a": "size-adjust scales the glyphs, and ascent-override plus descent-override redefine the vertical box the line box is measured against. Applied together they make a webfont occupy the same space as the fallback it replaces, which removes the layout shift at swap time."
+      },
+      {
+        "q": "Where do I get the real metric values?",
+        "a": "The tool does not read them from the font file, so use the reference values in the panel — Arial, Georgia and Segoe UI are listed — or take them from the font's documentation or an inspector that reads its tables."
+      },
+      {
+        "q": "Should I ship the fallback declaration too?",
+        "a": "Yes. The fallback is the half that stops the shift: it renders the temporary text with the webfont's metrics. Shipping the main declaration alone leaves the layout moving when the file arrives."
+      },
+      {
+        "q": "Can font-weight be a range here?",
+        "a": "It can. The field accepts a single value or a range such as 400 700, and the range form is the correct descriptor for a variable file that spans those weights."
+      },
+      {
+        "q": "Is the unicode-range checked?",
+        "a": "No. The value is written into the descriptor exactly as typed, so a mistyped series reaches the stylesheet unchanged. The range notation produced by the font character extractor is the safe source for it."
+      }
+    ]
+  },
+  {
+    "slug": "font-character-extractor",
+    "keywords": [
+      "font character extractor",
+      "unicode-range",
+      "subsetting",
+      "unique characters"
+    ],
+    "intro": "The font character extractor reduces a body of copy to the unique characters it contains and to the compact unicode-range notation a subsetter takes. It is the input step of subsetting, not a font reader.",
+    "content": "The font character extractor works from text rather than from a font file. You paste the copy the font has to cover, choose whether whitespace counts, and the tool returns the distinct characters, a category breakdown, and a collapsed unicode-range list. That range list is the compact form a subsetting step consumes, and it is also what a @font-face unicode-range descriptor needs when a face is split across several files.\n\n- Whitespace handling: exclude, which is the default and the recommended setting for ranges, or include.\n- Readouts: unique characters, ranges produced, UTF-8 payload in bytes, astral code points, and the reduction against full Latin-1.\n- Category table covering lowercase letters, uppercase letters, digits, punctuation and symbols, and whitespace.\n- Outputs: the extracted character string, the unicode-range list, and a characters-plus-summary block.\n\nThe range collapse is straightforward but decisive: the distinct code points are sorted ascending and any run where each value is exactly one above the last is merged into a single start-end range. A paragraph of ordinary English typically reduces to a handful of ranges, which is far shorter than the character list and directly usable as a descriptor. Two numbers keep the result honest. The UTF-8 payload counts encoded bytes with TextEncoder, so a page of accented letters is visibly heavier than the same page in plain ASCII. The astral count reports code points above U+FFFF, because those are the ones a subsetter or an older toolchain is most likely to mishandle. The reduction percentage compares the distinct count against the 191 printable Latin-1 code points, which is a useful reminder of how much of a font a normal page never touches. A page that reuses a small character set stays cheap; one that mixes scripts pulls hundreds more code points into the list.\n\n- It reads paste, not fonts. There is no cmap lookup, so it cannot tell you which characters a file actually contains — only which ones your copy needs.\n- Code points, not grapheme clusters. A combining mark is a separate character here, and an emoji built from several code points counts as several.\n- Ligatures and composed sequences are invisible to it: \"fi\" is two characters, and no shaping is modelled.\n- The reduction figure uses printable Latin-1 as its baseline, so it describes that comparison rather than a real font's glyph count.\n- Ranges describe coverage, not order: the list is sorted by code point, not by first appearance in the text.\n\nUse it as the first step whenever a face is too heavy for what a page renders: paste the real copy, excluding whitespace, and take the range list to whatever performs the subset. The same list is useful without subsetting at all, because splitting a large family into a Latin file and an extended file is done with unicode-range descriptors. When the copy includes symbols, the special character picker and the Unicode block explorer help assemble the exact characters, and the character code converter is the quick way to check a code point before it goes into a range.",
+    "howTo": [
+      "Paste the copy the font must cover into the source text area.",
+      "Leave whitespace on exclude for a range list, or switch to include when spaces are part of what you are counting.",
+      "Read the panel: unique characters, ranges produced, UTF-8 payload and any astral code points.",
+      "Copy the unicode-range list, or the characters-plus-summary block when the character set itself is the deliverable."
+    ],
+    "whenToUse": "This is the page to visit before cutting a font down to size, because the range list it produces is the specification a subsetter follows. When the characters themselves need finding rather than counting, the {{unicode-character-explorer|Unicode character explorer}} and the {{special-character-picker|special character picker}} are the places to look them up, and the {{unicode-block-explorer|Unicode block explorer}} explains which ranges a script lives in. Code points that need converting between notations go through the {{character-code-converter|character code converter}}, and the list this tool produces is what a {{font-face-generator|@font-face generator}} or a split family uses as its unicode-range descriptor.",
+    "faqs": [
+      {
+        "q": "Does this read my font file?",
+        "a": "No. It works from pasted text and never opens a font binary, so it reports the characters your copy uses rather than the glyphs the file contains. Reading a file's real coverage is a different job."
+      },
+      {
+        "q": "Why exclude whitespace by default?",
+        "a": "Range lists are usually built to describe visible coverage, and including a space pulls the range wider for no benefit. Switch to include when the character count itself is what you are reporting."
+      },
+      {
+        "q": "How is the unicode-range list built?",
+        "a": "Distinct code points are sorted and any consecutive run is merged into a start-end pair, so a few ranges stand in for the whole set. That is the notation subsetters and unicode-range descriptors both accept."
+      },
+      {
+        "q": "What does the astral code point count mean?",
+        "a": "It counts characters above U+FFFF, which need two UTF-16 units. They are the ones most likely to break in a toolchain that assumes one unit per character, so the count is worth watching."
+      },
+      {
+        "q": "Why is the reduction percentage measured against Latin-1?",
+        "a": "Printable Latin-1 is 191 code points, a familiar yardstick for how much of a font a page actually exercises. It is a comparison figure, not a claim about the glyph count of any particular file."
+      }
+    ]
+  },
+  {
+    "slug": "variable-font-axis-exporter",
+    "keywords": [
+      "variable font axis exporter",
+      "font-variation-settings",
+      "woff2-variations",
+      "registered property"
+    ],
+    "intro": "The variable font axis exporter writes the complete CSS contract for a variable face: the @font-face with its weight range, the axes as custom properties, and the rendering rules that use a registered property wherever one exists.",
+    "content": "The variable font axis exporter produces the three pieces of CSS a variable font needs: a @font-face whose descriptors describe the axes, a set of axis tokens as custom properties, and the rules that apply them. You choose a reference family, name the CSS family, give the font URL, set the weight range descriptor — and optionally a width range — then export. The axis table is the part worth reading before copying: it states which axes can be driven by a standard property and which can only be reached through font-variation-settings.\n\n- Reference families with declared axes: Fraunces (wght 300-700, opsz 9-144), Source Serif 4 (wght 300-700, opsz 8-60), Inter (wght 300-700) and DM Sans (wght 300-700, opsz 9-40), each with its default.\n- Registered-property axis catalogue: wght through font-weight, wdth through font-stretch, opsz through font-optical-sizing, ital through font-style: italic, and slnt through font-style with an oblique angle.\n- Custom-only axes in the catalogue: GRAD -200 to 150, SOFT 0 to 100 and WONK 0 to 1, none of which have a standard property.\n- Outputs: the variable @font-face with format(\"woff2-variations\"), an axis token block, and a custom-axis rule when any exported axis lacks a registered property.\n- Sample text and size, up to 120px, previewed with the reference family's own axes.\n\nThe distinction the tool is built around is cascade. An axis with a registered property — weight, width, optical size, italic, slant — is reachable through ordinary CSS, so it inherits, animates and responds to media queries like any other declaration. An axis without one can only be set through font-variation-settings, which overrides everything for that axis, including inheritance, and is not interpolated the same way by every engine. That is why the exported token block names each axis as a custom property with its range in a comment and then applies the registered ones through their real properties, leaving font-variation-settings for exactly the axes that have no alternative. The @font-face describes the weight range you supplied, which is what allows a browser to instance any weight in that range from a single file.\n\n- The axis list is declared, not read. It comes from the built-in table for the four reference families, so the export describes any variable font only after you replace the family name, URL and ranges by hand.\n- The weight and width descriptors are free text. Nothing validates them against the file's real fvar table.\n- The slant descriptor is written as a fixed oblique angle range when that axis is present, rather than following the axis values.\n- It exports CSS only — no font file is produced, opened or modified.\n- The preview drives the catalogue family's real axes, so what you see is that family, not the font you are describing.\n\nThe natural use is a design system that ships one variable file and wants predictable, cascading control over it: export the contract, replace the placeholders with the real asset details, and keep the tokens in one place so weight and optical size are changed by name rather than by magic numbers. For exploratory work on the same file, the variable font sliders are the faster way to feel the axes, and the CSS variable font builder is the page for assembling the surrounding typographic system. Whichever route the CSS takes, the character extractor's range list is what keeps the delivered file small.",
+    "howTo": [
+      "Pick the reference family whose axes match the font you are describing.",
+      "Set the CSS family name, the font URL and the weight range descriptor, and add a width range if the file has one.",
+      "Type sample text and set a size to see the axes move using the reference family.",
+      "Copy the @font-face, then the axis tokens and custom-axis rule, and replace the placeholder family and URL with the real asset."
+    ],
+    "whenToUse": "Choose it when one variable file has to be driven by name across a whole interface and the exported contract is going into a design system. If the goal is to explore what the axes do before committing to CSS, the {{variable-font-sliders|variable font sliders}} are quicker, and the {{css-variable-font-builder|CSS variable font builder}} places the same file in a wider typographic system. Every axis the contract exposes should be explainable to whoever maintains it, which is what the tokens and the registered-property notes are for. Where several faces have to be declared side by side, the {{font-css-generator|font CSS generator}} handles the family-wide case, and the {{font-loading-strategy-builder|font loading strategy builder}} decides when the variable file is fetched.",
+    "faqs": [
+      {
+        "q": "Why does the export prefer font-weight over font-variation-settings?",
+        "a": "font-weight is a registered property, so it inherits and animates like any CSS value. font-variation-settings overrides the axis outright and is not interpolated identically across engines, so it is kept for axes with no registered property."
+      },
+      {
+        "q": "Does it read my font's axes?",
+        "a": "No. The axis table comes from the built-in reference families. The export then describes any variable font once you replace the family name, URL and ranges with the real values."
+      },
+      {
+        "q": "What does format(\"woff2-variations\") mean in the output?",
+        "a": "It is the format hint for a variable WOFF2 file. Browsers that support variations use it as written; the descriptor is what pairs the file with the ranges declared above it."
+      },
+      {
+        "q": "Why do some axes get called custom-only?",
+        "a": "Axes such as GRAD, SOFT and WONK have no CSS property that maps to them, so the only way to set them is font-variation-settings. The exported rule collects those axes in one place rather than scattering overrides."
+      },
+      {
+        "q": "Can I animate these axes?",
+        "a": "Animating font-weight is smooth on a variable file. Animating font-variation-settings is not interpolated the same way in every engine, which is the other reason the registered properties come first."
+      }
+    ]
+  },
+  {
+    "slug": "font-glyph-png-exporter",
+    "keywords": [
+      "font glyph png exporter",
+      "png contact sheet",
+      "canvas",
+      "webfont"
+    ],
+    "intro": "The font glyph PNG exporter draws chosen characters into a canvas with the browser's own text engine and exports the sheet as a PNG. Because the live renderer does the drawing, the image carries the real shaping, kerning and antialiasing of the font.",
+    "content": "The font glyph PNG exporter takes a face and a string of characters and returns a PNG contact sheet of those glyphs. You pick from the preview catalogue, type the characters to export, set the glyph size, the column count and the padding per cell, choose background and ink colours, and the canvas redraws immediately. The panel reports how many glyphs were drawn, the canvas dimensions, an estimate of the PNG's byte weight and the background setting, and the download button saves the file with a slug derived from the family name.\n\n- Faces: every family in the preview catalogue, labelled with its name and kind.\n- Glyph size from 16px to 320px, in steps of 4, defaulting to 120px.\n- Columns from 1 to 12, defaulting to 6, and padding per cell from 0 to 80px, defaulting to 16px.\n- Background and ink are direct colour inputs; the default is a white sheet with near-black ink.\n- Characters are deduplicated and spaces are skipped, so the sheet holds one cell per distinct visible glyph.\n- Readouts: glyph count, canvas size in pixels, PNG size estimate and whether the background is still the default white.\n\nThe sheet is laid out arithmetically. A cell is the glyph size plus twice the padding, the canvas width is the cell multiplied by the column count, and the height is the cell multiplied by however many rows the character list needs. Each glyph is centred in its own cell with ctx.textAlign and ctx.textBaseline set to the middle, and the font string passed to the context is the catalogue family's full stack — so what lands in the PNG is the same face the preview uses, shaped by the same engine that renders the page. The image is read back with toDataURL, which is also where the byte estimate comes from: the encoded payload is measured and converted at the usual three-quarters ratio.\n\n- No transparent background. A white sheet is the default and the tool deliberately does not offer alpha, because layered PNG alpha around antialiased edges produces dark fringes in some design tools.\n- It is a raster export. A PNG cannot scale past its pixel size, so production iconography still belongs in a font editor that can emit outlines.\n- One glyph per cell, drawn alone. There is no pair or paragraph mode, so kerning between two letters and ligature substitution are not shown.\n- If the webfont has not finished loading, the canvas catches the fallback face — re-render after the font is ready rather than trusting the first draw.\n- Spaces are dropped instead of becoming cells, so the sheet is not a proofing of your spacing.\n\nReach for it when a designed image is the deliverable rather than a font: a spec sheet for a client, a draught of an icon set, a glyph-by-glyph comparison between two faces, or a title card made from the letters themselves. Export at two to four times the final display size and downscale in the design tool, which is the cheapest way to keep small glyphs crisp. To compare the same characters across faces, the glyph comparison tool lines them up; the glyph browser is where a face's full character map is browsed, and the font specimen sheet serves the case where a whole specimen page is wanted rather than a character grid.",
+    "howTo": [
+      "Pick a face from the catalogue and type the characters the sheet should contain.",
+      "Set the glyph size, the column count and the padding between cells until the grid looks right.",
+      "Choose background and ink colours, keeping the default white when the image will be composited later.",
+      "Download the PNG, or open it in a tab when you only need to check the render."
+    ],
+    "whenToUse": "Use it when the output is an image: a client-facing spec sheet, a glyph comparison, or a title card built from the letters themselves. Where the goal is browsing what a face contains rather than exporting a picture, the {{glyph-browser|glyph browser}} is the faster surface, and the {{glyph-comparison-tool|glyph comparison tool}} puts two faces side by side on the same characters. A full specimen with sizes, weights and text blocks is what the {{font-specimen-sheet|font specimen sheet}} produces, and characters that seem to be missing from a face are worth checking with the {{missing-glyph-detector|missing glyph detector}} before they are drawn.",
+    "faqs": [
+      {
+        "q": "Why can I not export a transparent background?",
+        "a": "Transparency around antialiased glyph edges often shows as dark fringes once an image is scaled inside a design tool. The exporter keeps the sheet opaque so the edges stay clean."
+      },
+      {
+        "q": "Can I use the PNG as production iconography?",
+        "a": "Not really. It is a raster image fixed at the size you exported; a PNG cannot scale cleanly past its pixel size, so icons that ship should have their outlines exported from a font editor instead."
+      },
+      {
+        "q": "Why are some characters missing from the sheet?",
+        "a": "Duplicates are collapsed into one cell and spaces are skipped, so the sheet holds each distinct visible glyph once. A character that appears to be gone is usually a repeated one."
+      },
+      {
+        "q": "The canvas shows a different face than I selected — why?",
+        "a": "The canvas draws with whatever face the browser currently has loaded. If the webfont has not arrived yet, the fallback is drawn until it does; re-render after the font loads."
+      },
+      {
+        "q": "Is the PNG size exact?",
+        "a": "It is an estimate computed from the length of the encoded data URL, converted at the usual three-quarters ratio. It is close enough to judge weight, not a byte-exact figure."
+      }
+    ]
+  },
+  {
+    "slug": "font-license-inspector",
+    "keywords": [
+      "font license inspector",
+      "webfont serving",
+      "spdx identifier",
+      "audit checklist",
+      "manifest entry"
+    ],
+    "intro": "The font license inspector states what the common font licences permit — webfont serving, app embedding, modification and redistribution — and walks a project's fonts through an eight-point audit. It does not read terms out of a font binary.",
+    "content": "The font license inspector answers the question that decides whether a font can ship: what does its licence allow? It presents a comparison of the licence families fonts are actually released under, each with its SPDX identifier and a per-permission answer, plus a checklist for auditing the fonts already in a project and a manifest entry that records the result next to the asset. You choose a licence, name the font being audited and work through the checklist; the panel reports the SPDX identifier, whether webfont serving and app embedding are permitted, whether modification and subsetting are allowed and what attribution is required.\n\n- Licence families compared: SIL Open Font License 1.1 (OFL-1.1), Apache License 2.0, Ubuntu Font Licence 1.0, MIT/Expat, Freeware or unknown terms, and commercial desktop-licensed fonts.\n- The comparison table carries four permission columns — webfont serving, app embedding, modification and redistribution — and any row can be selected to load its terms.\n- Audit checklist, eight items: whether the source is recorded, whether the licence file is stored beside the font, whether webfont serving is explicitly allowed, whether app embedding is covered, whether modification and subsetting are permitted, whether a modified font has been renamed, whether attribution is in place, and whether the terms are recorded in the project's asset manifest.\n- Progress and status readouts: a count of completed items and a status that reads audit complete, in progress, or not yet audited.\n- Manifest output: a JSON entry with the family, source, version, licence name and SPDX identifier, three boolean permission flags and the expected licence file path.\n\nThe answers differ in exactly the ways that catch teams out. OFL-1.1 permits commercial use, webfont serving and modification, but a derivative must use a different reserved name and the licence must travel with the font. Apache-2.0 is permissive with an explicit patent grant and asks for the notice file plus a statement of changes. MIT is rare for fonts but occasionally used for small releases. Freeware and unknown terms are treated as an unknown: the tool answers \"check the readme\" rather than implying a right. A commercial desktop licence typically covers design use only, with webfont serving and app embedding sold as separate grants — which is precisely the situation where a project ships a font it never had permission to serve. The manifest entry exists so that question is answered once, in the repository, instead of being re-researched wrongly by the next person who touches the asset.\n\n- Six licence families are covered, not the whole SPDX list. Anything unusual has to be read directly.\n- It cannot detect a font's licence. Terms live in the accompanying licence file, not in a name table, and no file is opened here.\n- The manifest flags are derived from the selected licence family, so an answer such as \"check the readme\" produces a false permission rather than a verdict.\n- Checklist state lives in the page only and resets on reload, so the completed audit is the manifest entry, not the ticks.\n- It is a reference, not legal advice, and licences get amended — the LICENSE file that shipped with the font is the authority.\n\nTreat it as the pre-flight check before a font is self-hosted or bundled: select the licence, read the permissions that matter for the delivery, then record the outcome in the manifest so the decision survives the project. The narrower engineering questions that follow — how the declaration is shaped, how heavy the file is and how much of the alphabet is actually needed — belong to the font CSS generator, the font base64 encoder and the character extractor. If the audit concludes the font is not distributable, the pairings and stacks built from system and open faces are where the design continues.",
+    "howTo": [
+      "Select the licence the font ships under and name the font being audited.",
+      "Read the permission readouts for webfont serving, app embedding, modification and attribution before touching any asset.",
+      "Work through the eight audit questions, leaving the ones you cannot answer unchecked.",
+      "Copy the manifest entry into the project's asset record, replacing the source and version placeholders with the real values."
+    ],
+    "whenToUse": "Open it before self-hosting a font or bundling one into an app, because those are the two cases where a desktop licence is not sufficient on its own. The engineering work that follows depends on the answer: how the declaration is written is the {{font-css-generator|font CSS generator}}'s job, how the file is delivered is the {{font-base64-encoder|font base64 encoder}}'s, and how large the delivered file needs to be is what the {{font-character-extractor|font character extractor}} establishes before any subset is cut. When a licence permits modification, the {{font-face-declaration-builder|@font-face declaration builder}} is where the modified file's declaration and metric overrides get written.",
+    "faqs": [
+      {
+        "q": "Can the tool tell me the licence of a font file I have?",
+        "a": "No. Licence terms live in the accompanying licence file rather than in the font's tables, and this tool opens no binary at all — it is a reference for the terms plus an audit checklist for what you already know."
+      },
+      {
+        "q": "Is a free download the same as permission to use it on a website?",
+        "a": "No, and that is the most common misunderstanding the tool is built to interrupt. Freeware often grants no redistribution and no webfont embedding, and a commercial desktop licence typically covers design use only."
+      },
+      {
+        "q": "What does OFL-1.1 require if I modify a font?",
+        "a": "Derivatives must use a different reserved name and the licence must travel with the font. Renaming after modification is one of the audit questions for exactly that reason."
+      },
+      {
+        "q": "Why record a manifest entry instead of just storing the licence file?",
+        "a": "The manifest states the decision in machine-readable form — which permissions were relied on and where the licence file lives — so the next person to touch the asset does not have to repeat the research or guess."
+      },
+      {
+        "q": "Does the checklist save my progress?",
+        "a": "No. The ticks are page state and reset on reload; the durable output is the manifest entry you copy out. Completing the ticks is the ritual, the entry is the record."
+      }
+    ]
+  }
+]

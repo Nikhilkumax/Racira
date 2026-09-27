@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "color-format-validator",
+    "keywords": [
+      "color format validator",
+      "validate css color string",
+      "check if a color is valid",
+      "canonical hex"
+    ],
+    "intro": "The color format validator reports whether a string is a colour a browser will accept, and shows the canonical hex when it is — the quickest way to find out why a declaration silently did nothing.",
+    "content": "The color format validator takes a string and answers one question: will a browser accept this as a colour? Type or paste a value and the badge flips between Valid and Invalid as you edit; when a value is accepted the page also shows a swatch and its canonical hex, so you can see what the parser understood rather than what you hoped it understood. Use it to validate css color string values that arrived from a template, a spreadsheet, a design export or a user input field, and to check if a color is valid before it is committed to a theme file.\n\n- Accepted: three, four, six and eight digit hex; rgb() and rgba() with commas or spaces and an optional slash alpha; hsl() and hsla(); hwb(); lab(); lch(); oklch(); the color() function for wide-gamut spaces such as display-p3; the keyword transparent; and the full set of CSS named colours.\n- Rejected: five-digit hex, hsv() and cmyk() functions, the keyword currentColor, and the newer relative-colour syntax such as rgb(from red r g b), which a current parser does not yet read.\n\nThe check is a parse rather than a pattern match. The same colour library the rest of this domain converts with is asked to read the string; if it returns a colour the value is valid, and if it does not, the value is not. That distinction matters because hand-written regular expressions almost always disagree with the browser: a regex that matches six-digit hex will reject hsl(), hwb(), oklch() and every named colour, which is the usual reason a home-grown validation helper passes a value that the browser then ignores. Parsing also catches the mistakes that look fine at a glance — a hex with the wrong number of digits, a missing percent sign, a stray space inside a function, a colour name that is not in the standard list.\n\nFour limits are worth knowing.\n\n- Valid here means the parser understands the value, not that every target browser does. Percentage alpha and the newest syntaxes may pass a current parser and still fail an older engine, so test in the browsers you support when the difference matters.\n- The hex readout is six digits. An 8-digit input is parsed correctly but its alpha is not shown in the reading, so do not treat that row as a transparency report.\n- The answer is binary. The page reports valid or invalid rather than pointing at the character that broke the parse.\n- It checks one value at a time, which is fine for a stylesheet but slow for auditing a column of colours from a data export.\n\nThe habit this page supports is checking the last mile. An invalid colour is dropped by the browser without an error message, and the element quietly keeps whatever it inherited, so the symptom is usually a wrong-looking page rather than a broken build. When a value passes and needs rewriting into another notation, the converter is the next step; when the question is whether text on that colour can actually be read, the contrast checker measures rather than parses.",
+    "howTo": [
+      "Type or paste the value into the colour string field.",
+      "Read the badge: Valid or Invalid, updated as you edit.",
+      "When it is valid, check the swatch and the canonical hex to confirm the parse went the way you meant.",
+      "Move a valid value on to the converter or the contrast checker, and fix an invalid one at the source."
+    ],
+    "whenToUse": "Use this when a colour is misbehaving and the string itself is the suspect. The {{color-format-converter|format converter}} is the reverse direction — it turns a colour you already have into every notation — the {{css-named-colors-reference|CSS named colours reference}} answers which names are legal in the first place, and the {{contrast-checker|contrast checker}} picks up where parsing stops and measures whether a valid pair can be read.",
+    "faqs": [
+      {
+        "q": "Why does a value my browser rejects come back as valid?",
+        "a": "The parser follows the current specification, so very new syntax can validate here while an older engine refuses it. Test in the target browsers when that gap matters."
+      },
+      {
+        "q": "Does it tell me which part of the string is wrong?",
+        "a": "No — the answer is valid or invalid, which keeps the check instantaneous. Compare a failing value against a known-good one of the same kind to spot the difference."
+      },
+      {
+        "q": "Is a colour name such as rebeccapurple accepted?",
+        "a": "Yes, every name in the CSS named-colour list parses, along with transparent. Names that are not on the list are rejected like any other unknown token."
+      },
+      {
+        "q": "What does the hex value beside a valid colour show?",
+        "a": "The canonical six-digit equivalent of whatever you entered, produced by parsing and reformatting. It is a confirmation of what the parser read, not a copy of your input."
+      },
+      {
+        "q": "Can it check the relative-colour syntax or a color() space like display-p3?",
+        "a": "Wide-gamut color() values parse, so they validate and produce a swatch. Relative colours such as rgb(from red r g b) do not parse yet and are reported as invalid."
+      }
+    ]
+  },
+  {
+    "slug": "alpha-color-generator",
+    "keywords": [
+      "alpha color generator",
+      "rgba color generator",
+      "8-digit hex",
+      "color with transparency"
+    ],
+    "intro": "The alpha color generator pairs a colour with an opacity percentage and prints both spellings of the result — an rgba() function and an 8-digit hex value — over a checkerboard that makes the transparency visible.",
+    "content": "Transparency is written two ways in CSS, and the alpha color generator produces both from a single control. Set a colour, drag the alpha slider, and the result panel shows a checkerboard preview with two copy rows beneath it: an rgba color generator value such as rgba(59, 130, 246, 0.50), and the matching 8-digit hex value, #3B82F680, for the same colour at the same half opacity.\n\n- rgba — decimal channels with the alpha as a two-decimal fraction, the form most stylesheets, templates and older linters expect.\n- hex8 — the same colour with its transparency byte appended, which is the color with transparency written as one string and the form design tokens and CSS variables usually prefer.\n- The preview composites the value over a twenty-pixel checkerboard tile of four grey and white quadrants, which is the only honest way to show alpha: a translucent colour painted on plain white is indistinguishable from a lighter opaque one.\n\nThe two outputs are computed differently, and that explains the last digit. The rgba string divides the slider by one hundred and prints two decimals; the hex value multiplies the same percentage by 255, rounds it, and appends the result as a byte. That is why fifty percent is 0x80 rather than 0x50 — the transparency channel counts in the same zero-to-255 range as the colour channels, not in percentages — and why the two strings describe the same intent with slightly different numbers: 0.50 against 128/255, which is 0.5020.\n\nA practical use is building a tint scale from one brand colour. Instead of defining faint, medium and strong variants by hand, generate the steps from the same base so the family stays mathematically consistent and a later brand change updates the whole ladder by moving one value. The catch is that every variant built this way inherits whatever surface it is painted on, which is why such a scale should be reviewed on the darkest and the lightest background it will meet rather than on the checkerboard alone.\n\n- The slider moves in whole percents, so alpha arrives in 101 steps and the rgba string always lands on two decimals.\n- The two notations do not map onto each other exactly. Pick one as the token and note the other beside it rather than treating the strings as interchangeable.\n- The base colour is always opaque. The field normalises input to six-digit hex, so a translucent value cannot be used as the starting point.\n- The preview composites over a checkerboard rather than over the surface the colour will actually sit on, so the final appearance still depends on whatever is behind it in the page.\n\nUse it for overlays, scrims, focus rings, hairlines and layered surfaces, where the colour is meant to composite with what is behind it. Where the value has to stay identical no matter what it is painted on, generate an opaque variation instead — alpha follows its backdrop, a lightened or darkened colour does not. When the alpha is already known and only the flattened result matters, the opacity calculator composites it against a real background and hands back the solid equivalent, which is also the value to quote when a downstream tool cannot render transparency at all.",
+    "howTo": [
+      "Set the base colour with the field at the top of the page.",
+      "Drag the alpha slider to the opacity you want; the percentage is shown beside it.",
+      "Watch the checkerboard preview for how much of the surface will show through.",
+      "Copy the rgba row for functional syntax, or the hex8 row when the value has to be a single token."
+    ],
+    "whenToUse": "Use this when a colour has to composite with what is behind it — overlays, scrims, borders and layered surfaces. The {{opacity-calculator|opacity calculator}} answers the opposite question by flattening a translucent value into the solid colour it produces, the {{color-overlay-generator|overlay generator}} applies alpha over a real image, the {{css-color-formatter|CSS color formatter}} covers the opaque notations, and the {{color-preview-on-background|color-on-background preview}} shows how a finished value reads on a chosen surface.",
+    "faqs": [
+      {
+        "q": "Why is fifty percent alpha 0x80 instead of 0x50?",
+        "a": "The final hex pair counts transparency in the same zero-to-255 range as the colour channels. Half of 255 rounds to 128, which is 0x80; 0x50 would be about thirty-one percent."
+      },
+      {
+        "q": "Which of the two strings should I store as a token?",
+        "a": "Store whichever your tooling reads back more reliably — usually the 8-digit hex in a token file and the rgba string in component code — and note the other beside it so the two are never edited apart."
+      },
+      {
+        "q": "Why does the swatch show a checkerboard?",
+        "a": "Because a checkerboard is the standard way to reveal transparency. Without it, a translucent colour on a white card looks exactly like a lighter opaque colour, and the alpha is invisible."
+      },
+      {
+        "q": "Can I start from a colour that already has transparency?",
+        "a": "No. The field normalises what you enter to six-digit hex, so the base is always opaque and the slider is the only source of alpha."
+      },
+      {
+        "q": "Does alpha change the colour itself?",
+        "a": "The six-digit base colour is unchanged; alpha only decides how much of the surface behind shows through. That is why the same translucent value reads differently on a light and a dark page."
+      }
+    ]
+  }
+]

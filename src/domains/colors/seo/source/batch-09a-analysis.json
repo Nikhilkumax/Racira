@@ -1,0 +1,435 @@
+[
+  {
+    "slug": "color-mood-analyzer",
+    "keywords": [
+      "color mood analyzer",
+      "what does my color mean",
+      "color psychology meaning tool",
+      "analyze color mood"
+    ],
+    "intro": "The color mood analyzer reads any color's hue and returns the psychological register it sits in — what the color conventionally communicates and the moods it carries.",
+    "content": "Every hue arrives with baggage. Red arrives with urgency, blue with calm, green with growth — associations absorbed from biology, culture and a century of branding, and deployed deliberately every time a designer picks a palette. The color mood analyzer makes that layer explicit: set any color, and the tool reads its hue and returns the psychological register it falls in, with the conventional meaning spelled out in plain language.\n\n- The mechanism is honest about being a mapping, not a mind-reader.\n- Hue is bucketed into the standard psychological bands — the warm actives, the cool steadies, the natural middle, the violet specials — and each band carries its summary of what the color conventionally communicates.\n- Lightness and chroma modulate the reading in practice — a pale blue and a navy do not say the same thing — but hue is the load-bearing axis of color association, and that is the axis this tool reads.\n- As a color psychology meaning tool it gives you the conventional register; the cultural overlays and the exceptions are yours to apply.\n\nWhere an analyze color mood pass earns its keep: brand and campaign reviews, where the question is whether the palette says what the brief claims; landing page audits, where the accent color's emotional register should match the call to action; and palette diplomacy, where a stakeholder asks what this teal means and deserves a grounded answer rather than a shrug. The mood color generator works the opposite direction — from mood word to palette — and the symbolism reference widens the lens to cultural and regional variation for work crossing borders.\n\nColour psychology is a soft science with a hard commercial edge, and the analysis is most useful when it is read as vocabulary rather than verdict. The associations reported — blues as calm and trustworthy, oranges as energetic, deep greens as grounded — are conventions built out of decades of advertising, packaging and interface design rather than laws of perception. That does not make them weak. A convention the audience already holds is exactly what a brand can lean on, and a colour that contradicts the register needs a reason. Where the analysis pays off is in mixture: the same blue reads institutional on a bank site and clinical on a wellness product, because meaning is set by everything around the swatch. Read the reported mood as what an average viewer brings to the colour before seeing any context, then judge how much of that the surrounding design actually supports.\n\nWhere the intended mood and the reported one disagree, that gap is worth closing deliberately rather than hoping the audience reads past it — and the fix is usually type, copy or imagery rather than a different hue.\n\n- What the tool will not do is settle arguments by itself: color association is a convention with real spread across cultures and contexts.\n- But for the everyday question of what does my color mean in the register designers actually operate in, it gives the conventional answer quickly — the shared starting point that the debate can proceed from.",
+    "howTo": [
+      "Set the color whose mood you want read.",
+      "Read the register name and its conventional meaning.",
+      "Apply context — audience, culture, lightness and chroma — before treating the reading as final."
+    ],
+    "whenToUse": "Use this when a single color's conventional register is the question. Use the mood generator to travel the opposite direction, the symbolism reference for cultural depth, and the seasonal or warm-cool analyzers when the question is temperature rather than psychology. To travel the opposite direction, the {{color-from-text-mood-tool|mood color generator}} turns words into a palette, the {{color-symbolism-reference|symbolism reference}} widens the lens to cultural and regional variation, and the {{warm-cool-analyzer|warm-cool analyzer}} answers the temperature question rather than the psychological one.",
+    "faqs": [
+      {
+        "q": "Is color psychology scientific?",
+        "a": "Hue associations are well-documented conventions with biological and cultural roots, but they are tendencies, not laws. The tool reports the conventional register; real audiences vary."
+      },
+      {
+        "q": "Why does lightness not change the reading?",
+        "a": "Hue carries the primary association, so the tool buckets by hue. In practice a pale blue and a navy differ in tone — treat the reading as the base register and modulate by hand."
+      },
+      {
+        "q": "Does the meaning change across cultures?",
+        "a": "Considerably in places — white signals mourning in some traditions, red carries luck in others. The symbolism reference covers that layer; this tool gives the broadly Western default."
+      },
+      {
+        "q": "Can it analyze a whole palette?",
+        "a": "It reads one color at a time; run each palette member through, or use the warm-cool analyzer for the set's overall temperature in one view."
+      },
+      {
+        "q": "Can the reported mood settle a design debate on its own?",
+        "a": "No. Colour association is a convention with real spread across cultures and contexts, so the reading is a shared starting point rather than a verdict. Where the intended mood and the reported one disagree, the gap is usually closed with type, copy or imagery rather than a different hue."
+      }
+    ]
+  },
+  {
+    "slug": "color-psychology-reference",
+    "keywords": [
+      "color psychology",
+      "color psychology reference",
+      "what does each color mean",
+      "color meanings chart"
+    ],
+    "intro": "The color psychology reference reads any color's hue and reports the colour family it belongs to along with the associations typically attached to it.",
+    "content": "The color psychology reference takes a single color and tells you what family it belongs to and what that family tends to signify. Choose any value and the tool splits the screen: your swatch on one side, and on the other the name of the colour band it falls into plus a short list of associations — blue returns trust, calm and stability, red returns energy, passion and urgency, and so on through the spectrum. It is a lookup rather than an essay, and the whole point is speed: you get an answer in the time it takes to pick a colour.\n\n- Underneath, the tool works by hue.\n- It takes your colour's hue angle in a perceptually uniform space and finds which of eight bands it lands in: red near the top of the circle, then orange, yellow, green, blue, purple and magenta wrapping around, with red covering both ends because the circle joins back on itself.\n- Each band carries a family name and a short association.\n- Because the classification is based on hue alone, the result has a property worth understanding before you rely on it.\n\nThat property is that lightness and saturation are ignored entirely.\n\n- A pale sky tint, a mid blue and a near-black navy all return the same answer, because they share a hue.\n- It also means a very desaturated colour still resolves to a family, even when its hue is barely perceptible: a warm grey can report itself as orange, which is technically true of its hue angle and almost certainly not what a viewer perceives.\n- Treat the output as a statement about hue rather than about the colour as experienced.\n\nThe associations themselves are cultural shorthand rather than findings. The idea that colours carry meanings is real and useful — it is why warning interfaces lean red and why so much of the financial sector is blue — but the specific list is a convention of one particular design culture, and the same hue can carry opposite connotations elsewhere. White is mourning in parts of East Asia and purity in much of the West; green reads as growth in branding and as a religious colour in other contexts. The tool gives you a starting point for that conversation, not the conclusion of it.\n\nWhere it earns its place is the early, practical stage of choosing. When you are picking a palette for a product and need a defensible reason for a direction, being able to say that a hue sits in the trust band is a useful shorthand in a review. It is equally handy for the reverse check: choosing a shade and confirming which family it actually belongs to, which is not always obvious for muddy or tertiary colours, since a teal can sit closer to blue or to green depending on its exact angle.\n\nRead it as a color psychology reference in the narrow sense — a named band plus a short association, mapped from hue and nothing else. Used that way it is quick and consistent, and if you want to know what does each color mean in the broadest strokes it covers a color meanings chart's worth of ground in one screen. For the parts it deliberately leaves out, pair it with a tool that reports lightness and chroma, and with a contrast checker when the question is whether the colour will actually work behind text.",
+    "howTo": [
+      "Set a colour with the picker or by typing a hex value.",
+      "Read the family it lands in and the short list of associations beside it.",
+      "Check whether the hue sits near a band boundary — a teal can fall closer to blue or to green depending on its exact angle."
+    ],
+    "whenToUse": "Use this reference for a quick read on which family a colour belongs to and the associations commonly attached to it. Use the palette balance analyzer when you need measured lightness and chroma figures rather than cultural shorthand. When measured figures matter more than cultural shorthand, the {{palette-balance-analyzer|palette balance analyzer}} reports lightness and chroma, and the {{color-mood-analyzer|color mood analyzer}} reads a single colour's conventional register.",
+    "faqs": [
+      {
+        "q": "How does it decide which color a value is?",
+        "a": "By hue. The colour's hue angle is matched against eight bands covering the circle, and each band carries a family name and a short list of associations."
+      },
+      {
+        "q": "Why do a pale blue and a dark navy give the same answer?",
+        "a": "Because only the hue is considered. Lightness and saturation are ignored, so any colour that shares a hue angle resolves to the same family."
+      },
+      {
+        "q": "Why does a greyed-out color report a vivid family?",
+        "a": "A desaturated colour still has a hue angle, even when it is barely visible. The result describes that angle rather than what a viewer would perceive."
+      },
+      {
+        "q": "Are the associations objective?",
+        "a": "No. They are cultural shorthand widely used in design and marketing, and the same hue can carry different or opposite meanings in other traditions."
+      },
+      {
+        "q": "Are lightness and saturation part of the classification?",
+        "a": "No. The classification is by hue alone, so a pale sky tint, a mid blue and a near-black navy all return the same family. A very desaturated colour still resolves to a band too: a warm grey can report itself as orange, which is true of its hue angle and almost certainly not what a viewer perceives."
+      }
+    ]
+  },
+  {
+    "slug": "seasonal-color-finder",
+    "keywords": [
+      "seasonal color finder",
+      "spring summer autumn winter colors",
+      "seasonal color analysis tool",
+      "which season is my color"
+    ],
+    "intro": "The seasonal color finder reads a color's temperature and depth and places it in its season — spring, summer, autumn or winter — the four registers of seasonal color analysis.",
+    "content": "Seasonal color analysis sorts the world of color into four registers named for the seasons: spring's clear warmth, summer's cool softness, autumn's deep earthiness, winter's crisp high contrast. The seasonal color finder places any color in that taxonomy — set a value, and the tool returns its season, derived from the axes that actually separate the four: warm versus cool hue, and clear-versus-soft depth.\n\n- The four-way split has enough structure to be worth knowing precisely.\n- Spring colors are warm and bright — coral, fresh green, golden yellow; summer colors are cool and muted — powder blue, lavender, rose; autumn colors are warm and deep — rust, olive, mustard; winter colors are cool and strong — true red, royal blue, black and white.\n- Knowing which season is my color therefore means knowing two things about it: which side of the warm-cool line the hue sits on, and how much chroma and depth it carries.\n- A seasonal color analysis tool that reads both axes can place a color confidently; one that reads only temperature cannot tell spring from autumn or summer from winter.\n\nThe framework earns its keep in two domains. Personal color consulting uses it to match palettes to complexions — the seasonal registers were built for draping tests and wardrobe planning, and remain the shared language of that industry. Design work borrows the registers as palettes with coherent personalities: a spring-branded product page, an autumn-toned restaurant identity. The themed seasonal palette generators produce full sets per season; this tool answers the placement question for a single color you already have — a brand fill that must sit inside an autumn system, a swatch being checked against a summer wardrobe.\n\nSeasonal analysis is a framework for the way palettes flatter or fight each other, and the four seasons are its shorthand: spring for warm and clear, summer for cool and muted, autumn for warm and muted, winter for cool and clear. The axes underneath are the useful part — warmth and clarity, meaning hue direction and chroma — and they determine whether colour A sits comfortably beside colour B or makes it look dirty. Applied to design, the framework answers a question that comes up constantly once a brand colour has to be extended: which supporting hues will make the anchor look brighter, and which will make it look grubby. Reading a colour's season is the first half of that answer; keeping the supporting set inside the same quadrant is the second.\n\n- Placement also explains why combinations that look right in isolation fail in situ: a spring colour beside an autumn surface reads as a mismatch even when both are attractive on their own.\n- Building a set inside one season and borrowing a single accent from a neighbouring one is a reliable recipe for a palette that looks intentional.\n\nAs a spring summer autumn winter colors reference in tool form, it is deliberately simple: one color in, one season out. For the full seasonal sets, the generators are one click away; for single-color placement — which season a color belongs to — this is the direct answer.",
+    "howTo": [
+      "Set the color you want to place.",
+      "Read the season — derived from the hue's temperature and the color's depth.",
+      "Use the placement: wardrobe matching, brand-system alignment, or palette selection."
+    ],
+    "whenToUse": "Use this to place a single color in the seasonal taxonomy. Use the seasonal palette generators to produce full sets per season, the warm-cool analyzer for temperature alone, and the skin-tone finder when the matching target is a complexion rather than a system. For complete sets in one register the {{seasonal-palette-generator|seasonal palette generators}} produce five-colour schemes, the {{warm-cool-analyzer|warm-cool analyzer}} reads temperature alone, and the {{skin-tone-color-finder|skin-tone finder}} handles the complexion case.",
+    "faqs": [
+      {
+        "q": "What determines a color's season?",
+        "a": "Two axes: hue temperature (warm toward spring and autumn, cool toward summer and winter) and depth (clear and bright versus deep and muted). Together they separate the four registers."
+      },
+      {
+        "q": "Can a color belong to two seasons?",
+        "a": "Borderline colors exist — a soft warm green leans spring but can pass in autumn systems. The tool returns the closest placement; judgment handles the borders."
+      },
+      {
+        "q": "Is this the same system personal stylists use?",
+        "a": "It is the same four-season framework — spring, summer, autumn, winter — applied to a single color rather than a whole complexion assessment."
+      },
+      {
+        "q": "How do I get the full palette for a season?",
+        "a": "The seasonal palette generators produce complete five-color sets for each season, derived in a register consistent with the framework."
+      },
+      {
+        "q": "Can I mix two seasons in one palette?",
+        "a": "A set is safest inside one season, because a spring colour beside an autumn surface reads as a mismatch even when both are attractive on their own. Borrowing a single accent from a neighbouring season is the reliable way to introduce variety without breaking the register."
+      }
+    ]
+  },
+  {
+    "slug": "skin-tone-color-finder",
+    "keywords": [
+      "skin tone color finder",
+      "match colors to skin tone",
+      "skin tone swatch scale",
+      "complexion matching colors"
+    ],
+    "intro": "The skin tone color finder presents a curated scale of skin-tone swatches — from deep umber to pale porcelain — so you can match a complexion or pick harmonious colors against one.",
+    "content": "Skin tones occupy a specific and surprisingly narrow band of color space: warm hues, moderate chroma, lightness spanning the full human range. The skin tone color finder renders that band as a curated strip of swatches — a progression from deep umber through bronze, tan and beige to pale porcelain — each labeled with its hex, each a fair representative of the complexions it stands for.\n\nThe tool serves two related jobs. The first is matching: when a design must include a faithful skin reference — an avatar system, an illustration palette, a foundation shade chart — the scale provides honest starting values rather than the single flat peach that passes for skin in lazy palettes. Real complexions vary across the strip, and a palette that acknowledges that range reads as more human than one that does not. The second job is harmony: picking colors that sit well beside a complexion — clothing swatches against a portrait, background colors behind a face, makeup-adjacent branding — where the question is what flatters this tone, and having the tones themselves on screen makes the judgment visual rather than hypothetical.\n\n- The strip's construction reflects what skin actually is: hues locked to the warm band, chroma capped where pigment sits, lightness doing the work of range.\n- That is why the swatches read as a family despite spanning the full depth of the scale — and why colors derived from any of them, via the tints and shades tools, inherit the same believability.\n- For broader complexion-adjacent references, the hair-tone and eye-tone tools extend the human-palette set; the seasonal finder overlaps where warm skin meets autumn or spring registers.\n\n- Skin tones are the most demanding colour problem in illustration and product design, for a reason with a clear technical description: the range is narrow in hue, wide in lightness, and very vulnerable to whatever surface it sits on.\n- A complexion colour that looks correct on white turns orange against a warm beige card and grey against a cool one, because the eye judges it relative to its neighbours rather than in isolation.\n- Working from a labelled scale solves the largest part of the problem, replacing a value invented from memory with one that has been checked.\n- What remains is contextual: how much of the surrounding palette to keep neutral so the subject is not tinted by it, how bright a background can be before the lighter end of the scale loses its edge, and where a supporting colour is needed to keep the artwork from flattening.\n\nKeeping one scale across a set of illustrations matters as much as choosing a good one, because consistency between images is what makes a range of tones read as a single visual language rather than a series of guesses.\n\nAs a match colors to skin tone instrument, it is deliberately a reference rather than a calculator — a skin tone swatch scale to look at, compare against and copy from. Complexion matching colors chosen beside an honest scale beat values invented from memory every time.",
+    "howTo": [
+      "Browse the scale from deep to pale and find the swatch that matches your target complexion.",
+      "Copy its hex as the skin reference for your palette or illustration.",
+      "Judge companion colors visually against the swatch, or derive ramps from it with the tints and shades tools."
+    ],
+    "whenToUse": "Use this for avatar systems, illustration palettes, shade charts and any work that must represent or flatter skin. Use the hair-tone and eye-tone tools for the rest of the human palette, and the seasonal finder when matching skin to the seasonal framework. The {{hair-color-reference|hair-tone reference}} and the {{eye-color-reference|eye-tone reference}} extend the human-palette set, and the {{seasonal-color-finder|seasonal finder}} overlaps wherever warm skin meets the autumn or spring registers.",
+    "faqs": [
+      {
+        "q": "How many tones does the scale cover?",
+        "a": "A curated set spanning the full human range from deep umber to pale porcelain, chosen as fair representatives rather than an exhaustive chart."
+      },
+      {
+        "q": "Are these hex values exact matches for real skin?",
+        "a": "They are representative values for the bands they cover — real complexions vary with lighting and individual pigment. Treat them as honest starting points, not clinical matches."
+      },
+      {
+        "q": "Can I derive variations from a tone?",
+        "a": "Yes — the tints and shades tools extend any swatch into ramps while keeping the warm hue family, which is how believable skin shading is built."
+      },
+      {
+        "q": "Why do all the swatches look related?",
+        "a": "They share the warm hue band and capped chroma that real skin occupies; only lightness varies across the scale. That shared register is what makes the strip read as one family."
+      },
+      {
+        "q": "Why does a skin tone change appearance on different backgrounds?",
+        "a": "A complexion colour is judged relative to its neighbours, so the same tone turns orange against a warm beige card and grey against a cool one. How neutral the surrounding palette stays, and how bright a background can be before the lighter end of the scale loses its edge, are the contextual decisions that remain."
+      }
+    ]
+  },
+  {
+    "slug": "relative-luminance-calculator",
+    "keywords": [
+      "relative luminance calculator",
+      "wcag luminance of a color",
+      "compute color luminance",
+      "linear rgb luminance value"
+    ],
+    "intro": "The relative luminance calculator computes the WCAG relative luminance of any color — the linearised brightness figure every contrast ratio is built from.",
+    "content": "Relative luminance is the number underneath every accessibility verdict: the WCAG-defined brightness of a color after its sRGB channels are linearised and combined with vision's weighting — the green channel counting most, blue least. The relative luminance calculator computes that figure for any color you set, reporting the 0-to-1 value that contrast ratios are made from.\n\nThe definition deserves one paragraph of honesty, because the tool's whole value is computing it correctly.\n\n- Luminance is not perceived lightness: it is a physically-rooted measure in which the channels are first linearised — undoing the gamma curve that display encodes apply — then combined with fixed coefficients approximating the eye's sensitivity.\n- Skipping the linearisation is the classic error, and it silently corrupts every downstream ratio; the value here is the defined one, computed exactly as the WCAG formula prescribes, which is why the contrast tools that share this library agree with it to the digit.\n\nWhat the raw number offers that ratios do not is the single-color view. Contrast is a relationship between two colors; luminance is a property of one — which makes it the right quantity for reasoning about a color in isolation: how much brightness headroom a surface has, whether two accents differ enough in luminance to be distinguishable by achromatopsia simulation, how a color will behave in the ratio maths before pairing it. The full conversion panel beside it shows the same color in every standard format — hex, RGB, HSL, OKLCH, LAB — so the luminance figure lands in context rather than in isolation.\n\nLuminance is the number underneath every contrast claim, and reading it directly is sometimes the only honest way to answer a question. The definition is precise: linearise each channel from its gamma-encoded sRGB value, then weight the channels by their contribution to perceived brightness — roughly three tenths for red, six tenths for green and one tenth for blue. The weighting explains why parts of the guidance feel arbitrary until they are checked. Green carries so much brightness that a saturated green can be lighter than a mid grey, and blue so little that a deep blue sits close to black, and those are the surprises a ratio hides and a luminance value exposes. The practical uses are narrow but real: confirming that a hover state is genuinely darker than its resting state, ordering a ramp, or checking that a tinted surface is lighter than the one below it. Once the number is visible the palette's structure becomes obvious, because steps that are nearly the same show up as nearly the same value.\n\n- As a wcag luminance of a color instrument, the tool is deliberately narrow: one color in, the defined luminance out, computed the way the specification says.\n- For the two-color questions the number feeds, the contrast checkers and ratio calculator are one click away — but when the question is compute color luminance for a single value, this is the direct, linear rgb luminance value answer.\n- Quoting the value in a review settles disagreements quickly, because two people arguing about which swatch is darker are usually arguing about perception while one number settles the physics.",
+    "howTo": [
+      "Set the color whose luminance you need.",
+      "Read the relative luminance value in the 0-to-1 scale.",
+      "Feed it into contrast reasoning, or read the same color's other formats from the panel."
+    ],
+    "whenToUse": "Use this when a single color's WCAG luminance is the question — headroom checks, achromatopsia reasoning, formula verification. Use the contrast checkers for two-color verdicts, and the perceptual lightness calculator when the question is perceived lightness rather than the WCAG figure. For a two-colour verdict the {{contrast-ratio-calculator|contrast ratio calculator}} turns the figure into a ratio, and the {{perceptual-lightness-calculator|perceptual lightness calculator}} answers the appearance question that luminance alone does not.",
+    "faqs": [
+      {
+        "q": "How is relative luminance different from lightness?",
+        "a": "Luminance linearises the channels and weights them by the eye's sensitivity — green-heavy — while perceptual lightness (as in OKLCH) models appearance. They agree on ordering only roughly; the WCAG ratios use luminance."
+      },
+      {
+        "q": "What is the value range?",
+        "a": "Zero to one: black is 0, white is 1, and everything else falls between. The contrast ratio between two colors derives from dividing the larger luminance by the smaller after bias terms."
+      },
+      {
+        "q": "Why do some tools report different luminance for the same color?",
+        "a": "Almost always a skipped or incorrect linearisation step. This tool follows the WCAG definition exactly, which is why its values agree with the contrast tools here."
+      },
+      {
+        "q": "Can I use luminance alone to judge accessibility?",
+        "a": "Not directly — accessibility verdicts come from ratios between pairs. But luminance headroom is the right lens for reasoning about a single surface color."
+      },
+      {
+        "q": "Why not work with the contrast ratio directly?",
+        "a": "Contrast is a relationship between two colours, while luminance is a property of one, which makes it the right lens for a surface considered alone — how much brightness headroom it has, whether two accents stay distinguishable in an achromatopsia simulation, or how the ratio maths will behave before a pairing is chosen."
+      }
+    ]
+  },
+  {
+    "slug": "perceptual-lightness-calculator",
+    "keywords": [
+      "perceptual lightness calculator",
+      "oklch lightness of a color",
+      "perceived lightness tool",
+      "how light does a color look"
+    ],
+    "intro": "The perceptual lightness calculator reports how light a color actually looks — its OKLCH lightness — the appearance-based figure that WCAG luminance only approximates.",
+    "content": "Two colors with identical WCAG luminance can look unmistakably different in brightness — the legacy formula's known blind spot, because it weights channels for physical measurement rather than appearance. The perceptual lightness calculator answers the question the eye is actually asking: how light does this color look? Its answer is the OKLCH lightness component — set a color, read its perceived lightness on the 0-to-1 scale, calibrated so that equal steps look like equal steps.\n\n- The difference between the two lightness figures is not academic.\n- Yellow and blue at the same WCAG luminance do not look equally light — yellow looks far brighter — and the OKLCH figure reflects that while luminance does not.\n- That is why perceptual lightness is the right quantity for most design judgments: ordering a palette from light to dark, choosing which of two accents reads as the highlight, building monochromatic ramps where steps should look even, and judging whether text will feel bold or delicate on a surface.\n- The luminance calculator remains the correct tool for the legal contrast numbers; this tool is the correct one for the visual questions.\n\n- The full conversion panel situates the reading: the same color's hex, RGB, HSL and LAB values alongside, so the lightness figure can be compared against the color's other coordinates — and the monochromatic finder puts the axis to work, building ramps that step evenly in exactly this lightness.\n- The relativity caveat is worth keeping in mind: perceived lightness shifts with surrounding colors — a mid-grey looks darker on white than on black — so the figure is the color's own lightness, not its appearance in a specific layout.\n\nPerceived lightness is the most negotiable term in colour work, which is why a single number for it is such a relief. Two colours can share a luminance value and look entirely different in weight, because saturation, surrounding contrast and the adaptation state of the eye all pull on the impression. The OKLCH lightness coordinate is designed to track that impression rather than the physics, so a value of sixty reads as roughly the same lightness whatever the hue — which is precisely what most design decisions need. The uses are unglamorous and constant: building a ramp whose steps look evenly spaced, deciding whether two brand colours are truly a pair or one clearly dominant, and checking that a hover state is a visible step away from its resting state rather than a nudge. Reading it beside the luminance value is the quickest way to see where perception and physics part company, and that divergence is the whole reason the newer colour spaces exist.\n\nAs an oklch lightness of a color instrument, it is one field and one number — the perceived lightness tool answer to how light does a color look, in the space designed to make that question well-posed.\n\nQuoting it in a hand-off is often clearer than describing a swatch in words, because a single number says where a value sits on the ladder without anyone needing to see both swatches side by side. Where a design needs even steps, this is the coordinate to plan them in rather than the one the picker happens to show.",
+    "howTo": [
+      "Set the color whose perceived lightness you want.",
+      "Read the OKLCH lightness value on the 0-to-1 scale.",
+      "Use it for ordering, ramp-building and appearance judgments — and luminance for legal contrast."
+    ],
+    "whenToUse": "Use this for how light a color looks — palette ordering, ramps, highlight choices. Use the luminance calculator for WCAG figures, the contrast checkers for accessibility verdicts, and the monochromatic finder to build ramps in this same metric. The {{relative-luminance-calculator|luminance calculator}} supplies the WCAG figure for accessibility work, the {{contrast-checker|contrast checker}} applies the thresholds, and the {{color-monochromatic-finder|monochromatic finder}} builds ramps that step evenly in this same lightness axis.",
+    "faqs": [
+      {
+        "q": "Why does OKLCH lightness differ from WCAG luminance?",
+        "a": "Luminance weights channels for physical measurement; OKLCH lightness models appearance. Yellow and blue with equal luminance have clearly different perceived lightness — OKLCH captures that, luminance does not."
+      },
+      {
+        "q": "What scale is the lightness value on?",
+        "a": "Zero to one, where 0 is black, 1 is white, and equal differences are designed to look equal — the property that makes ramps and orderings trustworthy."
+      },
+      {
+        "q": "Does the background change the number?",
+        "a": "No — the value is the color's own lightness. Simultaneous contrast changes how light it looks in context, which is the simultaneous contrast visualizer's subject."
+      },
+      {
+        "q": "Which should I use for accessibility work?",
+        "a": "Luminance, via the contrast tools — WCAG thresholds are defined on it. Perceptual lightness is for design judgment, not legal compliance."
+      },
+      {
+        "q": "Does the figure account for the colors around the swatch?",
+        "a": "No. The reading is the colour's own lightness, and perceived lightness shifts with its surroundings — a mid grey looks darker on white than on black — so the figure is the value to plan with rather than a prediction of appearance in a specific layout."
+      }
+    ]
+  },
+  {
+    "slug": "color-distance-calculator",
+    "keywords": [
+      "color distance calculator",
+      "color difference calculator",
+      "rgb distance between two colors",
+      "oklch color distance"
+    ],
+    "intro": "The color distance calculator measures how far apart two colors are, reporting both the raw rgb distance between two colors and a perceptual OKLCH figure.",
+    "content": "The color distance calculator measures how far apart two colors are. Give it a pair of values and it reports two numbers: the straight-line distance between them in red, green and blue space, and an OKLCH-based figure that accounts for how the eye weights lightness, chroma and hue. There is no single correct answer to how different two colors are, so the tool shows both rather than pretending one number is definitive. Use it to ask whether two shades are distinguishable, or how far a generated color drifted from its target.\n\n- The rgb distance between two colors is the Euclidean length of the vector joining them in the three-channel cube: the square root of the sum of the squared differences on each channel.\n- It is fast, easy to reason about, and matches how a pixel edit behaves, but it is not perceptual.\n- Two colors can sit far apart in RGB and look almost identical, or be close in RGB and read as clearly different, because equal numeric steps are not equal steps to the eye.\n\nThe oklch color distance addresses that by working in a space designed to be perceptually uniform. Lightness and chroma are compared directly, and hue is compared as an angular difference scaled into the same range before all three are combined into a single distance. The result tracks perceived difference far more closely than the RGB figure, which is why it is the more useful number when you are asking whether a change will be noticed rather than merely measured.\n\nBoth numbers are useful in different contexts. Reach for the channel distance when you are debugging pixel operations, comparing large numbers of samples, or working inside a pipeline that already thinks in RGB. Reach for the perceptual figure when you are judging a palette, checking whether a hover state moved enough to be seen, or documenting how far a generated color ended up from the one you asked for. Reporting both keeps the tool honest about the fact that distance depends on the space you measure it in.\n\nAs a color difference calculator it is deliberately read-only: you compare, you do not modify. That makes it a good companion to the generators on this site, where you can produce a candidate color and then measure its distance from your reference before committing. Copy either figure into a design note, or use it as a threshold while tuning an algorithm. If the decision is about legibility rather than similarity, the contrast checker answers that different and more specific question.\n\n- Two practical notes keep the numbers meaningful.\n- First, the perceptual figure here is an approximation rather than a full CIEDE2000 delta-E, so treat it as a guide to relative difference rather than an absolute standard to quote in a specification.\n- Second, distance is not the same as contrast: two colors can be perceptually distant and still produce unreadable text if their luminance is similar.\n- Pair this tool with a contrast checker when the question is legibility, and use the distance figures when the question is how much a color actually moved.",
+    "howTo": [
+      "Set color A and color B with the two fields.",
+      "Read the RGB Euclidean distance for raw channel separation.",
+      "Read the OKLCH figure for how different the pair will look to the eye.",
+      "Run the same pair through a contrast checker when legibility rather than difference is the question."
+    ],
+    "whenToUse": "Use this calculator when you need to quantify similarity or drift between two colors. Use the contrast checker when the question is whether text will be readable, since that is a luminance ratio rather than a distance. The {{color-comparison-tool|color comparison tool}} runs the same two readings side by side for a review verdict, and when the question is legibility the {{contrast-checker|contrast checker}} supplies the luminance ratio instead.",
+    "faqs": [
+      {
+        "q": "Why does it report two different numbers?",
+        "a": "One is a raw channel distance in RGB and the other is derived from a perceptually uniform space. They answer subtly different questions, so both are shown instead of burying the choice."
+      },
+      {
+        "q": "Which of the two is the perceptual one?",
+        "a": "The OKLCH figure. It compares lightness, chroma and hue in a space designed to match how the eye judges difference, so it tracks perceived change more closely than the RGB number."
+      },
+      {
+        "q": "Is this a standard delta-E?",
+        "a": "No. It is an approximation built on OKLCH rather than a full CIEDE2000 implementation, so it is best used for relative comparison rather than as an absolute figure."
+      },
+      {
+        "q": "Does a large distance guarantee readable text?",
+        "a": "No. Distance measures similarity, not contrast. Two colors far apart in hue can still share a luminance and produce unreadable text; check that with a contrast checker."
+      },
+      {
+        "q": "Is the perceptual distance figure an absolute standard?",
+        "a": "It is an approximation rather than a full CIEDE2000 delta-E, so it is a guide to relative difference rather than a specification figure. Distance is also not contrast: two colours can be perceptually distant and still produce unreadable text if their luminance is similar."
+      }
+    ]
+  },
+  {
+    "slug": "color-gamut-checker",
+    "keywords": [
+      "color gamut checker",
+      "srgb gamut check",
+      "cmyk approximation",
+      "is my color printable",
+      "gamut warning color"
+    ],
+    "intro": "The color gamut checker compares a colour against the sRGB space and prints its CMYK approximation, which is the number that decides whether a colour is likely to be printable.",
+    "content": "Pick a colour and the page returns three things: a large swatch, a gamut verdict against sRGB, and an approximation of the same colour in CMYK written as the familiar four figures. The layout puts the swatch on the left and the readings on the right, so the colour and its numbers are visible together.\n\n- One property of the tool is worth stating before anything else, because it explains the verdict: a hex value is an sRGB value by definition.\n- Any colour that can be typed into the field is inside the space being tested, so the gamut line reads In gamut for every valid input and an out-of-gamut warning cannot be produced from a hex code.\n- The reading that carries real information is the CMYK one beside it.\n\nThe CMYK figures are an arithmetic conversion from the same colour rather than a profile-based separation, so they approximate what a print process would produce rather than predicting it. What they are good for is spotting the colours that will not survive conversion: a vivid green or an electric blue typically arrives with one channel near a hundred percent and the others low, which is the shape of a colour that a four-ink process cannot reproduce.\n\nReading the conversion alongside the swatch is the practical use of the page. A brand colour chosen on screen can look entirely reasonable and then arrive with a CMYK breakdown that no coated stock will match, and seeing both at once makes that explicit before a print run rather than after. For screen-only work the same figures are a useful sanity check that a chosen colour is not sitting at the edge of what any process can show.\n\nWhat the page does not do is compare two spaces properly. There is no wide-gamut input, no oklch or P3 entry, no render intent and no soft-proof preview, so the honest reading is a screen value with its ink approximation attached rather than a colour-managed comparison.\n\nReading the conversion beside the swatch is the habit worth forming. The colours most likely to raise a flag in a real print workflow are the ones whose ink figures show a single channel close to full with the others low, and this page makes that pattern visible immediately rather than after a press check. A gamut warning color on screen is still only a warning, though: the figures here are arithmetic rather than profiled, so the practical use is to shortlist candidates and confirm the survivors with a proof instead of treating the reading as final.\n\n- Limits: one colour at a time, a verdict that valid inputs always pass, an arithmetic CMYK approximation with no profile, no print standard selection and no export beyond reading the figures.\n- Within those bounds, as a color gamut checker it answers is my color printable with a cmyk approximation to look at, and as an srgb gamut check it is at least explicit that the answer for any hex colour is yes.",
+    "howTo": [
+      "Pick the colour you want to check.",
+      "Read the gamut line and the CMYK approximation on the right.",
+      "Judge the ink figures — a channel near full alongside low others is the shape of a colour print cannot hold."
+    ],
+    "whenToUse": "Use this when a screen colour is heading for print and its ink approximation needs a first look. Use the print accuracy checker when the question is whether a colour sits too close to the ends of the range, or a profile-based tool when the conversion has to be accurate. The {{print-color-accuracy-checker|print accuracy checker}} is the tool for whether a colour sits too close to the ends of the CMYK range, and the {{cmyk-channel-mixer|CMYK channel mixer}} works the ink channels directly.",
+    "faqs": [
+      {
+        "q": "Why does it always say In gamut?",
+        "a": "Because a hex colour is an sRGB value by definition, so it cannot fall outside the space being tested. The CMYK figures beside it are where the useful information is."
+      },
+      {
+        "q": "Are the CMYK numbers a real separation?",
+        "a": "No — they are an arithmetic conversion from the same colour rather than a profile-based separation, so they approximate what a press would produce rather than predicting it."
+      },
+      {
+        "q": "What does a high single channel mean?",
+        "a": "That the colour relies on one ink being almost fully saturated, which is the usual reason a vivid screen colour cannot be matched on paper."
+      },
+      {
+        "q": "Can I check a wide-gamut colour?",
+        "a": "Not here. Only hex values can be entered, so there is no way to test an oklch or P3 colour that falls outside sRGB."
+      },
+      {
+        "q": "Can a hex colour ever come back out of gamut?",
+        "a": "No. A hex value is an sRGB value by definition, so any colour that can be typed into the field is inside the space being tested and the verdict reads In gamut for every valid input. The reading that carries real information is the CMYK approximation beside it."
+      }
+    ]
+  },
+  {
+    "slug": "color-temperature-analyzer",
+    "keywords": [
+      "color temperature analyzer",
+      "kelvin value of a color",
+      "warm or cool color checker",
+      "estimate color temperature"
+    ],
+    "intro": "The color temperature analyzer estimates a Kelvin value for any color from its hue — a warm or cool color checker that puts a number on how warm a color reads.",
+    "content": "Color temperature began in physics: the Kelvin value of a glowing blackbody, from candle-flame ambers near 2000K to north-sky blues approaching 10000K. Design borrowed the scale as a feeling — warm colors, cool colors — and the color temperature analyzer bridges the two, estimating a Kelvin reading for any color from where its hue sits on the wheel. Set a value, read a temperature, and the vague question of how warm is this color acquires a number.\n\n- The honest mechanism: the estimate is a hue-based heuristic, not a spectral measurement.\n- Hue swings around the wheel map onto the Kelvin band, with the warm oranges and ambers landing at the low end and the blues at the high end; greens and violets — hues with no true blackbody equivalent — land at interpolated midpoints.\n- That makes the reading a faithful ranking within warm or within cool, and a serviceable cross-group comparison, while real spectral color temperature — the domain of photographic white balance and lighting engineering — needs actual spectral data this single hex cannot provide.\n\nFor a warm or cool color checker, the estimate does the everyday work: ranking a palette's members by warmth, checking whether an accent's temperature suits a brand's register, choosing which of two neutrals reads cooler against a background, and assigning background temperatures behind a subject. The temperature adjuster acts on the reading — shifting a color warmer or cooler by degrees — and the warm-cool analyzer frames the whole palette's balance rather than one member's number.\n\nTemperature is a useful axis because it explains an interaction that saturation and hue do not: why a warm and a cool colour placed together make each other look more vivid, and why two colours at the same warm end look inert beside each other. The scale runs from candlelight through daylight to overcast sky, and a colour's position on it is a statement about the light it implies rather than about the pigment. That framing is what makes it practical in interfaces, where a warm surface reads as interior and human and a cool one as clinical and technical, and where the two can be mixed deliberately to separate functional zones. The analyser gives an estimate color temperature reading for any value, which is enough to sort a palette into warm and cool camps and to spot the swatch that is fighting its neighbours. Treat the Kelvin output as a rank rather than a measurement and it stays useful.\n\nWhere a palette needs to feel coherent, keeping every hue on the same side of the scale does more work than any amount of brightness tuning, and where a single warm accent has to stand out from a cool set the reading says how far apart the two actually are.\n\n- What the tool refuses is false precision: an estimate to the nearest Kelvin from a single hex would be theatre.\n- The color temperature analyzer instead gives the Kelvin value of a color as a well-defined heuristic — one that ranks reliably, explains itself, and hands the subtle truth about greens and violets along with the number.",
+    "howTo": [
+      "Set the color whose temperature you want estimated.",
+      "Read the Kelvin figure and where it sits in the warm-to-cool band.",
+      "Compare across palette members, or hand the color to the temperature adjuster to move it."
+    ],
+    "whenToUse": "Use this to put a comparative number on warmth for a single color. Use the temperature adjuster to act on the reading, the warm-cool analyzer for whole-palette balance, and the gamut checker when the question is physical reproducibility rather than perceived warmth. The {{color-temperature-adjuster|temperature adjuster}} acts on the reading, the {{warm-cool-analyzer|warm-cool analyzer}} reads a whole palette's balance, and the {{color-gamut-checker|gamut checker}} covers the print-side question.",
+    "faqs": [
+      {
+        "q": "How accurate is the Kelvin estimate?",
+        "a": "It is a hue-based heuristic: reliable for ranking colors within the warm or cool ranges, approximate across them. True spectral color temperature requires spectral data, not a single hex."
+      },
+      {
+        "q": "Why do greens and violets give odd temperatures?",
+        "a": "No blackbody glows green or violet, so those hues have no physical Kelvin anchor — the estimate interpolates them onto the scale, and they should be read as midpoint values."
+      },
+      {
+        "q": "Can it replace my camera's white balance meter?",
+        "a": "No — photographic white balance needs the scene's spectral content. This tool reads one color's hue and is meant for design comparisons."
+      },
+      {
+        "q": "Does lightness affect the reading?",
+        "a": "The estimate keys on hue, so a pale amber and a deep amber report similarly. Perceived warmth is mostly hue; tone modulates it — the warm-cool analyzer shows that context."
+      },
+      {
+        "q": "How accurate is the Kelvin figure for greens and violets?",
+        "a": "Those hues have no true blackbody equivalent, so they land at interpolated midpoints rather than on a measured curve. The estimate is a faithful ranking within warm or within cool, and a serviceable cross-group comparison, while real spectral temperature needs actual spectral data a single hex cannot provide."
+      }
+    ]
+  },
+  {
+    "slug": "color-hierarchy-analyzer",
+    "keywords": [
+      "color hierarchy analyzer",
+      "color hierarchy tool",
+      "preview color hierarchy",
+      "primary secondary muted color preview"
+    ],
+    "intro": "The color hierarchy analyzer is a live preview of how a primary, secondary and muted color behave together on real controls, so you can see the ordering before you build it.",
+    "content": "The color hierarchy analyzer is a live preview of how three coordinated colors behave together. You set a primary, a secondary and a muted supporting color, and the tool renders a sample panel with a primary call to action, a secondary button and muted body text, so the relationship between the three tiers is visible immediately rather than something you have to imagine. It answers a question that palette strips cannot: given these three colors and a real interface, does the eye land on the right one first?\n\n- Color hierarchy is created by relative weight, not by hue alone.\n- The primary color is the one the eye reaches first, usually because it is the most saturated or the most contrasting against the surrounding surface.\n- The secondary sits behind it, close enough in family to feel related but deliberately quieter.\n- The muted tone carries supporting copy, where legibility matters but attention does not.\n- Because those judgements depend on comparison, seeing all three applied at realistic size is the only reliable test; a secondary that looks restrained in isolation can compete with the primary once the two share a screen.\n\nThe preview uses real buttons and paragraphs rather than flat swatches, and that is deliberate. A swatch tells you what a color is; a button tells you what it does. Once the colors are applied to controls at their real size, problems that were invisible in a palette become obvious: a muted tone that is too dark and pulls the eye, a secondary that disappears into the surface behind it, or a primary that looks handsome in isolation but sits too close in luminance to its own background to be readable at all.\n\nTreat it as a color hierarchy tool for the early, fluid stage of a build. Tune the three roles against the preview until the ordering reads correctly, then lock them in and derive interactive states from the same values using the lighten and darken tools. Because only three values drive the whole panel, changing direction is cheap, which makes it an unusually fast primary secondary muted color preview to iterate against: swap the primary and the entire hierarchy re-tests in a second.\n\nTwo limits are worth stating plainly.\n\n- The tool is a preview rather than a measurement, so it will not tell you the contrast ratio of any pairing; run the colors through a contrast checker for that.\n- And a three-level hierarchy is a simplification, since real design systems usually add surfaces, borders and states on top of it.\n- Use it whenever you want to preview color hierarchy quickly, and confirm the extended palette still reads in the intended order once those extra roles exist.\n\nOne more habit makes the tool more useful: change the primary first, then the secondary, then the muted tone, and judge each move against the other two rather than in isolation. Reordering them in that sequence keeps the comparison honest, because a muted tone chosen while the primary is still undecided often turns out too strong once the primary finally lands. It is a small workflow detail, but it is the difference between a hierarchy that survives review and one that has to be rebuilt later.",
+    "howTo": [
+      "Set the primary colour first, then the secondary, then the muted tone.",
+      "Read the preview, which applies the three roles to real controls rather than flat swatches.",
+      "Change the primary first when tuning, since the other two are read relative to it.",
+      "Confirm the ordering still holds once surfaces, borders and states are added."
+    ],
+    "whenToUse": "Use this analyzer to judge the relative weight of a three-color hierarchy on real controls. Use a contrast checker when you need the numeric ratio of a pairing, and the palette balance analyzer when you want aggregate lightness and chroma figures. When you need the numeric ratio of a pairing a {{contrast-checker|contrast checker}} supplies it, and the {{palette-balance-analyzer|palette balance analyzer}} measures lightness and chroma across a whole set.",
+    "faqs": [
+      {
+        "q": "Does it measure contrast?",
+        "a": "No. It previews how the three roles look applied to real controls. For numeric ratios, run the specific pairs through a contrast checker."
+      },
+      {
+        "q": "Why use buttons instead of plain swatches?",
+        "a": "Because a control at its real size shows whether a color recedes or advances in a way a flat swatch hides. The ordering is what a hierarchy is testing."
+      },
+      {
+        "q": "How many colors can I test?",
+        "a": "Three roles: primary, secondary and muted. They are the backbone of most interfaces; add states on top once the ordering is right."
+      },
+      {
+        "q": "Should light and dark themes use the same values?",
+        "a": "Often not. Colors can reverse their apparent order between surfaces, so define theme-specific values when the hierarchy flips."
+      },
+      {
+        "q": "Does it report the contrast ratio of the hierarchy?",
+        "a": "No — it is a preview rather than a measurement, so the ratios have to come from a contrast checker. A three-level hierarchy is also a simplification: real design systems add surfaces, borders and states on top, and the extended palette still has to read in the intended order once those roles exist."
+      }
+    ]
+  },
+  {
+    "slug": "color-swatch-generator",
+    "keywords": [
+      "color swatch generator",
+      "printable color swatch",
+      "swatch sheet with hex codes",
+      "print a color palette"
+    ],
+    "intro": "The color swatch generator lays a palette out as labelled swatch cards — color, hex value and rgb equivalent — and prints that sheet from the browser.",
+    "content": "The color swatch generator turns a palette into a printable sheet of swatch cards. Edit a list of colours on the left and the right panel renders each one as a card: a block of the colour, its hex value in uppercase, and its rgb equivalent beneath. A print button then sends the sheet to the browser's own print dialog. It exists for the moment a palette has to leave the screen — for a wall, a sample book, a client meeting or a hand-off to someone who works on paper rather than in code.\n\n- The content of each card is chosen for that purpose rather than for decoration.\n- The colour block is large enough to judge at a glance, the hex is printed in a monospaced face so digits are unambiguous and can be read aloud or typed without confusing a one for an ell or a zero for an oh, and the rgb triple sits underneath because print and screen workflows ask for that notation at least as often.\n- There are no names and no descriptive labels, since the tool has no way to know what each colour is for.\n\n- Printing happens through the browser rather than through a generated file, and that is a deliberate kind of simplicity.\n- There is no download to manage, no page-size setting and no exporting step: the sheet on screen is what the print dialog receives, and the usual print options apply for scaling, paper size, orientation and margins.\n- It also means the sheet can be saved as a PDF from the same dialog, which is often the format people actually want when a palette has to be attached to documentation or sent to a printer who will not be opening a browser.\n\nThe workflow is short by design. Add the colours you want, name nothing, and print. Because the palette editor is live, adjusting a value updates the card immediately, so a last-minute correction before printing does not mean regenerating anything. That makes it useful mid-meeting, when someone asks whether a shade could be slightly warmer, and the answer can be produced and printed in the same minute rather than returned to later.\n\nIt is worth distinguishing this from its neighbours, because several tools produce similar-looking output for different destinations. A PNG swatch export renders labelled cards as an image file, which is better for slides and pull requests but is a picture rather than something you can print cleanly at any size. A palette strip image produces an unlabelled bar, useful as decoration but not as a specification. And the plain image export gives the simplest artefact of all. This tool is the one to reach for when the destination is paper.\n\nWhen the requirement is simply to print a color palette on paper, there is nothing else to configure, which is the whole appeal of doing it this way rather than through a layout application. A couple of practical notes about printing colours honestly. Ink and paper will not reproduce a screen colour exactly, and vivid saturated colours in particular tend to arrive duller on a desktop printer, so a printed swatch is a reference rather than a proof; a calibrated proof comes from a print process, not a browser. There is also nothing in the sheet that records the paper or printer used, so if you keep printed swatches for comparison it is worth writing that on the page yourself.\n\nUsed as a color swatch generator for physical reference, the appeal is that it removes every intermediate tool: no design application, no layout file, no export pipeline. You get a printable color swatch sheet with hex codes straight out of the browser, which is exactly what is needed when a swatch sheet with hex codes has to exist on paper and the only thing that should stand between the palette and the printer is a couple of clicks.",
+    "howTo": [
+      "Add the colours you want on the sheet.",
+      "Check the cards: a large colour block, the hex in a monospaced face and the rgb triple underneath.",
+      "Print the page and set paper size, orientation and margins in the browser's dialog.",
+      "Save as PDF from the same dialog when the sheet has to be attached or sent."
+    ],
+    "whenToUse": "Use this generator when a palette needs to exist on paper or as a PDF. Use the swatch PNG export for slides and documents, the palette strip for unlabelled decoration, and the SVG exporter when you need editable vector markup. The {{color-palette-png-generator|palette strip PNG}} is the unlabelled decoration for slides, the {{color-swatch-png-generator|labelled swatch export}} puts the codes on individual cards, and the {{color-palette-svg-exporter|SVG exporter}} produces editable markup when the artifact has to be reworked.",
+    "faqs": [
+      {
+        "q": "What appears on each swatch card?",
+        "a": "A block of the colour, its uppercase hex value in a monospaced face, and the rgb equivalent underneath. There are no names, because the tool cannot know what each colour is for."
+      },
+      {
+        "q": "How does printing work?",
+        "a": "Through the browser's own print dialog, using the sheet as rendered on screen. Your usual paper size, orientation and margin options apply, and you can save as a PDF from the same dialog."
+      },
+      {
+        "q": "Will the printed colours match the screen?",
+        "a": "Not exactly. Ink and paper reproduce colour differently, and vivid saturated shades in particular tend to print duller, so treat a printed swatch as a reference rather than a proof."
+      },
+      {
+        "q": "Is this the same as the PNG swatch export?",
+        "a": "No. The PNG export produces labelled cards as an image file, which suits slides and documents. This one produces a live sheet intended for printing or saving as a PDF."
+      },
+      {
+        "q": "Can the sheet be saved as a file?",
+        "a": "The print dialog is where the file is made: the sheet on screen is what the dialog receives, so the usual options for paper size, orientation, margins and scaling apply, and saving as PDF from the same dialog is often the format a printer or a documentation page actually wants."
+      }
+    ]
+  }
+]

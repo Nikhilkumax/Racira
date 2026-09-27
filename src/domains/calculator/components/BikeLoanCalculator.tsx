@@ -233,7 +233,19 @@ export default function BikeLoanCalculator() {
   const [accessoriesAndGear, setAccessoriesAndGear] = useState(DEFAULTS.accessoriesAndGear);
   const [includeTaxAndFeesInLoan, setIncludeTaxAndFeesInLoan] = useState(DEFAULTS.includeTaxAndFeesInLoan);
 
-  const [results, setResults] = useState<BikeLoanResults | null>(null);
+  const [results, setResults] = useState<BikeLoanResults | null>(() => calculateBikeLoan({
+    bikePrice: parseFloat(DEFAULTS.bikePrice) || 0,
+    downPaymentAmt: parseFloat(DEFAULTS.downPaymentAmt) || 0,
+    tradeInValue: parseFloat(DEFAULTS.tradeInValue) || 0,
+    amountOwedOnTradeIn: parseFloat(DEFAULTS.amountOwedOnTradeIn) || 0,
+    salesTaxRate: parseFloat(DEFAULTS.salesTaxRate) || 0,
+    titleAndRegistrationFees: parseFloat(DEFAULTS.titleAndRegistrationFees) || 0,
+    accessoriesAndGear: parseFloat(DEFAULTS.accessoriesAndGear) || 0,
+    interestRate: parseFloat(DEFAULTS.interestRate) || 0,
+    loanTermMonths: parseFloat(DEFAULTS.loanTermMonths) || 0,
+    includeTaxAndFeesInLoan: DEFAULTS.includeTaxAndFeesInLoan,
+  }));
+  const [mounted, setMounted] = useState(false);
   const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
   const printRef = useRef<HTMLDivElement>(null);
 
@@ -252,6 +264,10 @@ export default function BikeLoanCalculator() {
     };
     setResults(calculateBikeLoan(inputs));
   };
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleReset = () => {
     setBikePrice(DEFAULTS.bikePrice);
@@ -279,11 +295,6 @@ export default function BikeLoanCalculator() {
       includeTaxAndFeesInLoan: DEFAULTS.includeTaxAndFeesInLoan
     }));
   };
-
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -419,7 +430,7 @@ export default function BikeLoanCalculator() {
                   {/* 4. Chart */}
                   <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[280px]">
                     <h3 className="text-base font-bold mb-2 w-full text-left">Cost Distribution</h3>
-                    <ResponsiveContainer width="100%" height={200}>
+                    {mounted && (<ResponsiveContainer width="100%" height={200}>
                       <RechartsPieChart>
                         <Pie
                           data={results.chartData}
@@ -433,7 +444,7 @@ export default function BikeLoanCalculator() {
                         </Pie>
                         <Tooltip content={<CustomTooltip />} />
                       </RechartsPieChart>
-                    </ResponsiveContainer>
+                    </ResponsiveContainer>)}
                     <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2 w-full">
                       {results.chartData.map((d, i) => (
                         <div key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">

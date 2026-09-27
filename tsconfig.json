@@ -39,7 +39,13 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     ".next-build-test/types/**/*.ts",
-    ".next-preview/types/**/*.ts"
+    ".next-preview/types/**/*.ts",
+    ".next-b3/types/**/*.ts",
+    ".next-voicecheck/types/**/*.ts",
+    ".next-adsbuild/types/**/*.ts",
+    ".next-sievecheck/types/**/*.ts",
+    ".next-seolive/types/**/*.ts",
+    ".next-gs/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

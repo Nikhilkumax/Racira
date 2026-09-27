@@ -1,357 +1,623 @@
 "use client";
+
 import React, { useState } from "react";
-import { RotateCcw, Printer, Plus, Trash2 } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw, Plus, X } from "lucide-react";
 
-const fmt = (n: number, dec = 0) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-
-const GRADE_VALUES: Record<string, number> = { "A+": 4.0, "A": 4.0, "A-": 3.7, "B+": 3.3, "B": 3.0, "B-": 2.7, "C+": 2.3, "C": 2.0, "C-": 1.7, "D+": 1.3, "D": 1.0, "D-": 0.7, "F": 0.0 };
-
-interface Course { id: number; name: string; grade: string; credits: string; }
-
-interface Inputs {
-  mode: "semester" | "cumulative" | "needed";
-  courses: Course[];
-  currentGpa: string;
-  currentCredits: string;
-  targetGpa: string;
-  remainingCredits: string;
+interface CourseRow {
+  id: number;
+  name: string;
+  credits: number;
+  letter: string;
 }
 
-interface CourseRow { name: string; grade: string; credits: number; points: number; }
-
-interface Result {
-  label: string;
-  value: number;
-  sub: string;
-  stat1: { label: string; value: string };
-  stat2: { label: string; value: string };
-  stat3: { label: string; value: string };
-  rows: { label: string; value: string; highlight?: boolean; total?: boolean }[];
-  chart: { name: string; value: number }[];
-  chartTitle: string;
-  summary: { label: string; value: string; bold?: boolean }[];
+interface GpaInputs {
+  courses: CourseRow[];
+  priorGpa: number;
+  priorCredits: number;
+  upcomingCredits: number;
+  expectedGpa: number;
 }
 
-const DEFAULT_COURSES: Course[] = [
-  { id: 1, name: "Mathematics", grade: "A", credits: "3" },
-  { id: 2, name: "English Literature", grade: "B+", credits: "3" },
-  { id: 3, name: "Physics", grade: "B", credits: "4" },
+const GRADE_POINTS: { letter: string; points: number; min: number }[] = [
+  { letter: "A+", points: 4.0, min: 97 },
+  { letter: "A", points: 4.0, min: 93 },
+  { letter: "A−", points: 3.7, min: 90 },
+  { letter: "B+", points: 3.3, min: 87 },
+  { letter: "B", points: 3.0, min: 83 },
+  { letter: "B−", points: 2.7, min: 80 },
+  { letter: "C+", points: 2.3, min: 77 },
+  { letter: "C", points: 2.0, min: 73 },
+  { letter: "C−", points: 1.7, min: 70 },
+  { letter: "D+", points: 1.3, min: 67 },
+  { letter: "D", points: 1.0, min: 63 },
+  { letter: "D−", points: 0.7, min: 60 },
+  { letter: "F", points: 0.0, min: 0 },
 ];
 
-const DEFAULTS: Inputs = { mode: "semester", courses: DEFAULT_COURSES, currentGpa: "3.2", currentCredits: "60", targetGpa: "3.5", remainingCredits: "30" };
-let nextId = 10;
+const DEFAULT_COURSES: CourseRow[] = [
+  { id: 1, name: "Calculus I", credits: 4, letter: "A−" },
+  { id: 2, name: "English Composition", credits: 3, letter: "B+" },
+  { id: 3, name: "Chemistry", credits: 4, letter: "B" },
+  { id: 4, name: "History", credits: 3, letter: "A" },
+];
 
-function courseRows(courses: Course[]): { rows: CourseRow[]; credits: number; points: number } {
-  const rows = courses.map(c => {
-    const credits = Math.max(0, parseFloat(c.credits) || 0);
-    return { name: c.name || "Course", grade: c.grade, credits, points: (GRADE_VALUES[c.grade] ?? 0) * credits };
-  });
-  return { rows, credits: rows.reduce((s, r) => s + r.credits, 0), points: rows.reduce((s, r) => s + r.points, 0) };
+const DEFAULTS: GpaInputs = {
+  courses: DEFAULT_COURSES,
+  priorGpa: 3.2,
+  priorCredits: 30,
+  upcomingCredits: 15,
+  expectedGpa: 3.5,
+};
+
+const fmt = (v: number, d = 2) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const pointsFor = (letter: string): number => {
+  const found = GRADE_POINTS.find((g) => g.letter === letter);
+  return found ? found.points : 0;
+};
+
+interface CourseDetail {
+  name: string;
+  credits: number;
+  letter: string;
+  points: number;
+  qualityPoints: number;
 }
 
-function calculate(inputs: Inputs): Result {
-  const { rows, credits, points } = courseRows(inputs.courses);
-  const curGpa = Math.min(4, Math.max(0, parseFloat(inputs.currentGpa) || 0));
-  const curCredits = Math.max(0, parseFloat(inputs.currentCredits) || 0);
-  const target = Math.min(4, Math.max(0, parseFloat(inputs.targetGpa) || 0));
-  const remaining = Math.max(0, parseFloat(inputs.remainingCredits) || 0);
+interface GpaResult {
+  valid: boolean;
+  errorMsg: string;
+  termCredits: number;
+  termQualityPoints: number;
+  termGpa: number;
+  totalCredits: number;
+  cumulativeGpa: number;
+  cumulativeQualityPoints: number;
+  projectedGpa: number;
+  projectedCredits: number;
+  bestCaseGpa: number;
+  worstCaseGpa: number;
+  details: CourseDetail[];
+  scale: { letter: string; points: number; min: number }[];
+}
 
-  if (inputs.mode === "semester") {
-    const gpa = credits > 0 ? points / credits : 0;
-    return {
-      label: "Semester GPA",
-      value: gpa,
-      sub: credits + " credit hours · " + fmt(points, 1) + " grade points",
-      stat1: { label: "Semester GPA", value: gpa.toFixed(2) },
-      stat2: { label: "Total Credits", value: fmt(credits) },
-      stat3: { label: "Grade Points", value: fmt(points, 1) },
-      rows: [
-        ...rows.map(r => ({ label: r.name + " (" + r.grade + ")", value: r.credits + " cr · " + fmt(r.points, 1) + " pts" })),
-        { label: "Total Credits", value: fmt(credits), total: true },
-        { label: "Grade Points", value: fmt(points, 1), total: true },
-        { label: "Semester GPA", value: gpa.toFixed(2), highlight: true },
-      ],
-      chart: rows.map(r => ({ name: r.name.length > 12 ? r.name.slice(0, 12) + "…" : r.name, value: Math.round(r.points * 100) / 100 })),
-      chartTitle: "Grade Points by Course",
-      summary: [
-        { label: "Semester GPA", value: gpa.toFixed(2), bold: true },
-        { label: "Total Credits", value: fmt(credits) },
-        { label: "Grade Points", value: fmt(points, 1) },
-        { label: "Courses", value: fmt(rows.length) },
-        { label: "Best Grade", value: rows.length ? rows.reduce((a, b) => (GRADE_VALUES[a.grade] ?? 0) > (GRADE_VALUES[b.grade] ?? 0) ? a : b).grade : "—" },
-      ],
-    };
+function computeGpa(input: GpaInputs): GpaResult {
+  const { courses, priorGpa, priorCredits, upcomingCredits, expectedGpa } = input;
+
+  const blank: GpaResult = {
+    valid: false,
+    errorMsg: "",
+    termCredits: 0,
+    termQualityPoints: 0,
+    termGpa: 0,
+    totalCredits: 0,
+    cumulativeGpa: 0,
+    cumulativeQualityPoints: 0,
+    projectedGpa: 0,
+    projectedCredits: 0,
+    bestCaseGpa: 0,
+    worstCaseGpa: 0,
+    details: [],
+    scale: [],
+  };
+
+  if (courses.length === 0) {
+    return { ...blank, errorMsg: "Add at least one course to calculate a grade point average." };
+  }
+  if (courses.some((c) => !Number.isFinite(c.credits) || c.credits <= 0)) {
+    return { ...blank, errorMsg: "Every course needs a credit value greater than zero." };
+  }
+  if (priorCredits < 0 || upcomingCredits < 0) {
+    return { ...blank, errorMsg: "Credit totals cannot be negative." };
   }
 
-  if (inputs.mode === "cumulative") {
-    const totalCredits = curCredits + credits;
-    const cumGpa = totalCredits > 0 ? (curGpa * curCredits + points) / totalCredits : 0;
-    const semGpa = credits > 0 ? points / credits : 0;
+  const details: CourseDetail[] = courses.map((c) => {
+    const points = pointsFor(c.letter);
     return {
-      label: "New Cumulative GPA",
-      value: cumGpa,
-      sub: "Across " + fmt(totalCredits) + " total credits",
-      stat1: { label: "Cumulative GPA", value: cumGpa.toFixed(2) },
-      stat2: { label: "Semester GPA", value: semGpa.toFixed(2) },
-      stat3: { label: "Total Credits", value: fmt(totalCredits) },
-      rows: [
-        { label: "Previous Cumulative GPA", value: curGpa.toFixed(2) },
-        { label: "Previous Credits", value: fmt(curCredits) },
-        ...rows.map(r => ({ label: r.name + " (" + r.grade + ")", value: r.credits + " cr · " + fmt(r.points, 1) + " pts" })),
-        { label: "This Semester GPA", value: semGpa.toFixed(2), highlight: true },
-        { label: "Total Credits", value: fmt(totalCredits), total: true },
-        { label: "New Cumulative GPA", value: cumGpa.toFixed(3), highlight: true },
-      ],
-      chart: rows.map(r => ({ name: r.name.length > 12 ? r.name.slice(0, 12) + "…" : r.name, value: Math.round(r.points * 100) / 100 })),
-      chartTitle: "Grade Points by Course",
-      summary: [
-        { label: "Previous GPA", value: curGpa.toFixed(2) },
-        { label: "Previous Credits", value: fmt(curCredits) },
-        { label: "Semester GPA", value: semGpa.toFixed(2) },
-        { label: "New Credits", value: fmt(credits) },
-        { label: "Total Credits", value: fmt(totalCredits) },
-        { label: "New Cumulative GPA", value: cumGpa.toFixed(3), bold: true },
-      ],
+      name: c.name || "Course",
+      credits: c.credits,
+      letter: c.letter,
+      points,
+      qualityPoints: points * c.credits,
     };
-  }
+  });
 
-  const totalCredits = curCredits + remaining;
-  const needed = remaining > 0 ? (target * totalCredits - curGpa * curCredits) / remaining : 0;
-  const achievable = needed <= 4.0;
+  const termCredits = details.reduce((p, c) => p + c.credits, 0);
+  const termQualityPoints = details.reduce((p, c) => p + c.qualityPoints, 0);
+  const termGpa = termCredits > 0 ? termQualityPoints / termCredits : 0;
+
+  const totalCredits = termCredits + priorCredits;
+  const cumulativeQualityPoints = termQualityPoints + priorGpa * priorCredits;
+  const cumulativeGpa = totalCredits > 0 ? cumulativeQualityPoints / totalCredits : 0;
+
+  const projectedCredits = totalCredits + upcomingCredits;
+  const projectedGpa =
+    projectedCredits > 0
+      ? (cumulativeQualityPoints + expectedGpa * upcomingCredits) / projectedCredits
+      : 0;
+
+  const bestCaseGpa = projectedCredits > 0 ? (cumulativeQualityPoints + 4 * upcomingCredits) / projectedCredits : 0;
+  const worstCaseGpa = projectedCredits > 0 ? cumulativeQualityPoints / projectedCredits : 0;
+
   return {
-    label: "Required GPA in Remaining Credits",
-    value: needed,
-    sub: achievable ? "Achievable within the 4.0 scale" : "Target exceeds the 4.0 maximum",
-    stat1: { label: "Required GPA", value: needed > 4.0 ? ">4.0" : needed < 0 ? "N/A" : needed.toFixed(2) },
-    stat2: { label: "Target Cumulative GPA", value: target.toFixed(2) },
-    stat3: { label: "Remaining Credits", value: fmt(remaining) },
-    rows: [
-      { label: "Current Cumulative GPA", value: curGpa.toFixed(2) },
-      { label: "Completed Credits", value: fmt(curCredits) },
-      { label: "Target Cumulative GPA", value: target.toFixed(2) },
-      { label: "Remaining Credits", value: fmt(remaining) },
-      { label: "Total Credits at Graduation", value: fmt(totalCredits), total: true },
-      { label: "Required GPA (remaining)", value: needed > 4.0 ? "Not achievable (>4.0)" : needed < 0 ? "Already achieved" : needed.toFixed(2), highlight: true },
-    ],
-    chart: [
-      { name: "Current GPA", value: Math.round(curGpa * 100) / 100 },
-      { name: "Required GPA", value: Math.min(4, Math.round(needed * 100) / 100) },
-      { name: "4.0 Max", value: 4.0 },
-    ],
-    chartTitle: "Current vs Required GPA",
-    summary: [
-      { label: "Current GPA", value: curGpa.toFixed(2) },
-      { label: "Completed Credits", value: fmt(curCredits) },
-      { label: "Target GPA", value: target.toFixed(2) },
-      { label: "Remaining Credits", value: fmt(remaining) },
-      { label: "Required GPA", value: needed > 4.0 ? ">4.0 (not achievable)" : needed.toFixed(2), bold: true },
-      { label: "Achievable?", value: achievable ? "Yes" : "No — lower the target", bold: true },
-    ],
+    valid: true,
+    errorMsg: "",
+    termCredits: Number(termCredits.toFixed(2)),
+    termQualityPoints: Number(termQualityPoints.toFixed(2)),
+    termGpa: Number(termGpa.toFixed(4)),
+    totalCredits: Number(totalCredits.toFixed(2)),
+    cumulativeGpa: Number(cumulativeGpa.toFixed(4)),
+    cumulativeQualityPoints: Number(cumulativeQualityPoints.toFixed(2)),
+    projectedGpa: Number(projectedGpa.toFixed(4)),
+    projectedCredits: Number(projectedCredits.toFixed(2)),
+    bestCaseGpa: Number(bestCaseGpa.toFixed(4)),
+    worstCaseGpa: Number(worstCaseGpa.toFixed(4)),
+    details,
+    scale: GRADE_POINTS.map((g) => ({ letter: g.letter, points: g.points, min: g.min })),
   };
 }
 
-const GpaCalculator = () => {
-  const [inputs, setInputs] = useState<Inputs>(DEFAULTS);
-  const [result, setResult] = useState<Result>(() => calculate(DEFAULTS));
-  const setMode = (m: Inputs["mode"]) => { setInputs(prev => ({ ...prev, mode: m })); setResult(calculate({ ...inputs, mode: m })); };
-  const setNum = (k: "currentGpa" | "currentCredits" | "targetGpa" | "remainingCredits") => (v: string) => setInputs(prev => ({ ...prev, [k]: v }));
+const inputClass =
+  "h-9 w-full rounded-md border border-input bg-background px-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-foreground";
 
-  const num = (v: string) => parseFloat(v) || 0;
-  const hasErrors = num(inputs.currentGpa) < 0 || num(inputs.currentGpa) > 4 || num(inputs.currentCredits) < 0 || num(inputs.targetGpa) < 0 || num(inputs.targetGpa) > 4 || num(inputs.remainingCredits) < 0;
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function GpaCalculator() {
+  const [courses, setCourses] = useState<CourseRow[]>(DEFAULT_COURSES);
+  const [priorGpa, setPriorGpa] = useState(String(DEFAULTS.priorGpa));
+  const [priorCredits, setPriorCredits] = useState(String(DEFAULTS.priorCredits));
+  const [upcomingCredits, setUpcomingCredits] = useState(String(DEFAULTS.upcomingCredits));
+  const [expectedGpa, setExpectedGpa] = useState(String(DEFAULTS.expectedGpa));
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): GpaInputs => ({
+    courses,
+    priorGpa: Math.max(0, Math.min(4.5, parseFloat(priorGpa) || 0)),
+    priorCredits: parseFloat(priorCredits) || 0,
+    upcomingCredits: parseFloat(upcomingCredits) || 0,
+    expectedGpa: Math.max(0, Math.min(4.5, parseFloat(expectedGpa) || 0)),
+  });
+
+  const [calcInputs, setCalcInputs] = useState<GpaInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<GpaResult>(() => computeGpa(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeGpa(inputs));
+  };
+
+  const reset = () => {
+    setCourses(DEFAULT_COURSES);
+    setPriorGpa(String(DEFAULTS.priorGpa));
+    setPriorCredits(String(DEFAULTS.priorCredits));
+    setUpcomingCredits(String(DEFAULTS.upcomingCredits));
+    setExpectedGpa(String(DEFAULTS.expectedGpa));
+    setCalcInputs(DEFAULTS);
+    setResults(computeGpa(DEFAULTS));
+  };
+
+  const updateCourse = (id: number, patch: Partial<CourseRow>) => {
+    setCourses((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c)));
+  };
 
   const addCourse = () => {
-    nextId++;
-    setInputs(prev => ({ ...prev, courses: [...prev.courses, { id: nextId, name: "New Course", grade: "B", credits: "3" }] }));
+    setCourses((prev) => [
+      ...prev,
+      { id: prev.length > 0 ? Math.max(...prev.map((c) => c.id)) + 1 : 1, name: "New Course", credits: 3, letter: "B" },
+    ]);
   };
+
   const removeCourse = (id: number) => {
-    if (inputs.courses.length <= 1) return;
-    setInputs(prev => ({ ...prev, courses: prev.courses.filter(c => c.id !== id) }));
+    setCourses((prev) => (prev.length > 1 ? prev.filter((c) => c.id !== id) : prev));
   };
-  const updateCourse = (id: number, field: keyof Course, value: string) => {
-    setInputs(prev => ({ ...prev, courses: prev.courses.map(c => c.id === id ? { ...c, [field]: value } : c) }));
-  };
-
-  const handleCalculate = () => { if (!hasErrors) setResult(calculate(inputs)); };
-  const reset = () => { setInputs(DEFAULTS); setResult(calculate(DEFAULTS)); };
-  const handlePrint = () => window.print();
-
-  const valueColor = inputs.mode === "needed" ? (result.value <= 4.0 ? "text-primary" : "text-red-500") : "text-primary";
 
   const faqs = [
-    { question: "What is GPA and how is it calculated?", answer: "GPA is the average of your grade points weighted by credit hours: sum of (grade points × credits) divided by total credits. An A (4.0) in 3 credits contributes 12 points; a B (3.0) in 4 credits contributes 12 points." },
-    { question: "What is the difference between semester and cumulative GPA?", answer: "Semester GPA covers one term; cumulative GPA averages every course since enrollment. Employers and graduate schools look at the cumulative number, though a rising semester trend is also a strong signal." },
-    { question: "How do I calculate the GPA I need to reach a target?", answer: "Required GPA = (Target × Total Credits − Current GPA × Completed Credits) ÷ Remaining Credits. With the defaults — 3.2 over 60 credits, targeting 3.5 with 30 credits left — the requirement is 4.10, which exceeds the 4.0 cap, so the target is not achievable." },
-    { question: "What is a weighted GPA?", answer: "Weighted GPA adds bonus points for honors, AP, or IB courses (typically +0.5 or +1.0). This calculator uses the standard unweighted 4.0 scale; to model weighting, enter the weighted numeric value of each grade." },
-    { question: "What GPA is needed for honors?", answer: "Common thresholds: Cum Laude 3.5, Magna Cum Laude 3.7, Summa Cum Laude 3.9, Dean's List often 3.5. Requirements vary by institution, so check your school's catalog." },
-    { question: "How much can a semester raise my GPA?", answer: "The larger your credit history, the smaller the effect. One 4.0 semester of 15 credits lifts a 60-credit 3.0 GPA to about 3.20; it lifts a 30-credit 3.0 GPA to about 3.33. High-credit courses are the strongest lever." },
+    {
+      question: "How is GPA calculated?",
+      answer:
+        "Each course is converted to grade points on a four point scale, multiplied by its credit hours to produce quality points, and the total quality points are divided by the total credits. An A minus in a four credit course contributes fourteen point eight quality points, and four credits are added to the denominator at the same time.",
+    },
+    {
+      question: "Why do credits matter more than the number of courses?",
+      answer:
+        "A four credit course moves the average further than a one credit course because it carries more weight in the denominator. That is why a good result in a heavy course lifts a term GPA noticeably, and why dropping a course late can raise or lower the average depending on the grade it would have earned.",
+    },
+    {
+      question: "How do I combine a term GPA with my cumulative GPA?",
+      answer:
+        "Convert both to quality points by multiplying each GPA by its credit total, add the quality points and the credits separately, then divide. Averaging the two GPAs directly is the most common mistake and produces the wrong figure whenever the credit totals differ.",
+    },
+    {
+      question: "What is a good GPA?",
+      answer:
+        "On a four point scale, 3.5 and above is usually described as strong, 3.0 as solid and 2.0 as the minimum most colleges require to stay in good standing. Graduate and professional programmes often look for 3.0 to 3.5, but the requirement varies widely and departments sometimes weight the final two years more heavily.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Education", href: "/calculator#education" }, { label: "GPA Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Education", href: "/calculator#education" },
+          { label: "GPA Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">GPA Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex rounded-lg border border-input overflow-hidden">
-              {(["semester", "cumulative", "needed"] as const).map(m => (
-                <button key={m} type="button" onClick={() => setMode(m)} className={`flex-1 py-2.5 text-sm font-medium transition-colors ${inputs.mode === m ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}>
-                  {m === "semester" ? "Semester" : m === "cumulative" ? "Cumulative" : "Needed GPA"}
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Courses">
+              <div className="flex flex-col gap-2">
+                {courses.map((course) => (
+                  <div key={course.id} className="grid grid-cols-[1fr_64px_74px_32px] gap-2 items-center">
+                    <input
+                      type="text"
+                      value={course.name}
+                      onChange={(e) => updateCourse(course.id, { name: e.target.value })}
+                      className={inputClass}
+                    />
+                    <input
+                      type="number"
+                      value={course.credits}
+                      min="0"
+                      onChange={(e) => updateCourse(course.id, { credits: parseFloat(e.target.value) || 0 })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") runCalculate();
+                      }}
+                      className={inputClass}
+                    />
+                    <select
+                      value={course.letter}
+                      onChange={(e) => updateCourse(course.id, { letter: e.target.value })}
+                      className={inputClass}
+                    >
+                      {GRADE_POINTS.map((g) => (
+                        <option key={g.letter} value={g.letter}>
+                          {g.letter}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      onClick={() => removeCourse(course.id)}
+                      aria-label="Remove course"
+                      className="h-9 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center transition-colors"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={addCourse}
+                  className="mt-1 flex items-center justify-center gap-1.5 h-8 rounded-md border border-dashed border-border bg-background hover:bg-secondary text-sm font-semibold text-primary transition-colors"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  Add Course
                 </button>
-              ))}
+                <p className="text-[11px] text-muted-foreground">Columns: course name, credits, letter grade.</p>
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Prior Record">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="prior-gpa"
+                        label="Prior Cumulative GPA"
+                        value={priorGpa}
+                        onChange={setPriorGpa}
+                        onEnter={runCalculate}
+                        tooltip="GPA from earlier terms, on the same four point scale."
+                      />
+                      <CompactInput
+                        id="prior-credits"
+                        label="Prior Credits"
+                        value={priorCredits}
+                        onChange={setPriorCredits}
+                        onEnter={runCalculate}
+                        suffix="cr"
+                        tooltip="Total credits completed before this term."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Next Term Projection">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="upcoming-credits"
+                        label="Upcoming Credits"
+                        value={upcomingCredits}
+                        onChange={setUpcomingCredits}
+                        onEnter={runCalculate}
+                        suffix="cr"
+                        tooltip="Credits you plan to take next."
+                      />
+                      <CompactInput
+                        id="expected-gpa"
+                        label="Expected GPA"
+                        value={expectedGpa}
+                        onChange={setExpectedGpa}
+                        onEnter={runCalculate}
+                        tooltip="The GPA you expect to earn over those credits."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
             </div>
 
-            {(inputs.mode === "cumulative" || inputs.mode === "needed") && (
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col">
-                  <label htmlFor="cur-gpa" className="text-sm font-medium mb-1">Current Cumulative GPA</label>
-                  <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                    <input id="cur-gpa" type="number" min="0" max="4" step="0.01" value={inputs.currentGpa} onChange={(e) => setNum("currentGpa")(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="cur-credits" className="text-sm font-medium mb-1">Credits Completed</label>
-                  <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                    <input id="cur-credits" type="number" min="0" step="any" value={inputs.currentCredits} onChange={(e) => setNum("currentCredits")(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {inputs.mode === "needed" && (
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col">
-                  <label htmlFor="target" className="text-sm font-medium mb-1">Target Cumulative GPA</label>
-                  <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                    <input id="target" type="number" min="0" max="4" step="0.01" value={inputs.targetGpa} onChange={(e) => setNum("targetGpa")(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <label htmlFor="remaining" className="text-sm font-medium mb-1">Remaining Credits</label>
-                  <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                    <input id="remaining" type="number" min="0" step="any" value={inputs.remainingCredits} onChange={(e) => setNum("remainingCredits")(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground" />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {inputs.mode !== "needed" && (
-              <>
-                <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mt-1">Courses</div>
-                <div className="flex flex-col gap-2">
-                  {inputs.courses.map(c => (
-                    <div key={c.id} className="grid grid-cols-[1fr_76px_64px_36px] gap-2 items-center">
-                      <input type="text" value={c.name} onChange={(e) => updateCourse(c.id, "name", e.target.value)} className="h-10 w-full px-3 text-sm rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-foreground" placeholder="Course name" />
-                      <select value={c.grade} onChange={(e) => updateCourse(c.id, "grade", e.target.value)} className="h-10 w-full px-2 text-sm rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-foreground font-bold cursor-pointer">
-                        {Object.keys(GRADE_VALUES).map(g => <option key={g} value={g}>{g}</option>)}
-                      </select>
-                      <input type="number" min="0.5" step="0.5" value={c.credits} onChange={(e) => updateCourse(c.id, "credits", e.target.value)} className="h-10 w-full px-2 text-sm text-center rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none text-foreground" />
-                      <button type="button" onClick={() => removeCourse(c.id)} disabled={inputs.courses.length <= 1} aria-label="Remove course" className="h-10 w-9 flex items-center justify-center text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-30"><Trash2 className="h-4 w-4" /></button>
-                    </div>
-                  ))}
-                </div>
-                <button type="button" onClick={addCourse} className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"><Plus className="h-4 w-4" /> Add Course</button>
-              </>
-            )}
-
-            {hasErrors && (
-              <p className="text-xs text-red-500 font-medium">GPA values must be between 0 and 4.0; credits must be ≥ 0.</p>
-            )}
-            <div className="flex gap-2.5 mt-1">
-              <button type="button" onClick={handleCalculate} disabled={hasErrors} className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/90 text-primary-foreground active:scale-[0.98]"}`}>Calculate</button>
-              <button type="button" onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"><RotateCcw className="h-4 w-4" /></button>
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none"><Printer className="h-3.5 w-3.5" /> Print</button>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-xs font-bold text-primary mb-1 uppercase tracking-wider">{result.label}</div>
-              <div className={`text-4xl font-bold mb-1 tracking-tight ${valueColor}`}>{result.value > 4.0 ? ">4.0" : result.value < 0 ? "N/A" : result.value.toFixed(inputs.mode === "cumulative" ? 3 : 2)}</div>
-              <div className="text-sm text-muted-foreground font-medium">{result.sub}</div>
+            )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Term GPA</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? fmt(results.termGpa, 3) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${fmt(results.termCredits, 0)} credits and ${fmt(results.termQualityPoints, 1)} quality points`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
             </div>
 
+            {/* 3-STAT BAR */}
             <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{result.stat1.label}</span>
-                <span className="font-extrabold text-foreground">{result.stat1.value}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Cumulative GPA</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? fmt(results.cumulativeGpa, 3) : "—"}
+                </span>
               </div>
               <div className="w-px h-8 bg-border"></div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{result.stat2.label}</span>
-                <span className="font-extrabold text-primary">{result.stat2.value}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Credits</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.totalCredits, 1) : "—"}</span>
               </div>
               <div className="w-px h-8 bg-border"></div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">{result.stat3.label}</span>
-                <span className="font-extrabold text-foreground">{result.stat3.value}</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Projected</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? fmt(results.projectedGpa, 3) : "—"}
+                </span>
               </div>
             </div>
 
+            {/* COURSE TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Detail</th>
-                    <th className="p-2.5 pr-3 text-right w-[160px]">Value</th>
+                    <th className="p-2.5 pl-3">Course</th>
+                    <th className="p-2.5 text-right">Credits</th>
+                    <th className="p-2.5 text-right">Grade</th>
+                    <th className="p-2.5 text-right">Points</th>
+                    <th className="p-2.5 pr-3 text-right w-[120px]">Quality Pts</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {result.rows.map((r) => (
-                    <tr key={r.label} className={`hover:bg-secondary/20 transition-colors ${r.total ? "border-t-2 font-bold bg-secondary/30" : ""} ${r.highlight ? "bg-amber-500/10" : ""}`}>
-                      <td className={`p-2.5 pl-3 font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.label}</td>
-                      <td className={`p-2.5 pr-3 text-right font-semibold ${r.highlight ? "text-amber-700" : "text-foreground"}`}>{r.value}</td>
+                  {results.details.map((row) => (
+                    <tr key={row.name} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.name}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.credits, 1)}</td>
+                      <td className="p-2.5 text-right text-foreground">{row.letter}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.points, 1)}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.qualityPoints, 2)}</td>
+                    </tr>
+                  ))}
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Term total</td>
+                    <td className="p-2.5 text-right text-foreground">{fmt(results.termCredits, 1)}</td>
+                    <td className="p-2.5 text-right text-foreground">—</td>
+                    <td className="p-2.5 text-right text-foreground">{fmt(results.termGpa, 3)}</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">{fmt(results.termQualityPoints, 2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* SCALE TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Letter</th>
+                    <th className="p-2.5 text-right">Percent From</th>
+                    <th className="p-2.5 pr-3 text-right w-[140px]">Grade Points</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.scale.map((row) => (
+                    <tr key={row.letter} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.letter}</td>
+                      <td className="p-2.5 text-right text-foreground">{row.min}%</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.points, 1)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-4">
-              <h3 className="text-sm font-bold text-foreground mb-3">{result.chartTitle}</h3>
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={result.chart} margin={{ top: 4, right: 16, left: 8, bottom: 4 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                  <YAxis domain={inputs.mode === "needed" ? [0, 5] : undefined} tick={{ fontSize: 11 }} />
-                  <Tooltip formatter={(v: number) => [v.toFixed(2), "GPA / Points"]} />
-                  <ReferenceLine y={4.0} stroke="#ef4444" strokeDasharray="4 4" />
-                  <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-
+            {/* SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
-              <h3 className="text-base font-semibold mb-4">Summary</h3>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                {result.summary.map((s) => (
-                  <div key={s.label} className="flex flex-col">
-                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{s.label}</span>
-                    <span className={`text-sm font-extrabold ${s.bold ? "text-primary" : "text-foreground"}`}>{s.value}</span>
-                  </div>
-                ))}
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Courses Entered</span>
+                  <span className="text-base font-bold text-foreground">{calcInputs.courses.length}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Prior GPA</span>
+                  <span className="text-base font-bold text-foreground">{fmt(calcInputs.priorGpa, 3)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Prior Credits</span>
+                  <span className="text-base font-bold text-foreground">{fmt(calcInputs.priorCredits, 1)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cumulative Quality Points</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.cumulativeQualityPoints, 1)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Best Possible Next Term</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.bestCaseGpa, 3)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Worst Possible Next Term</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.worstCaseGpa, 3)}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a GPA Calculator?</h2>
-            <p>This GPA calculator converts letter grades and credit hours into a GPA on the standard 4.0 scale with three modes. <strong>Semester GPA</strong> averages one term's courses — the defaults (A, B+, B across 10 credits) produce a 3.39 GPA. <strong>Cumulative GPA</strong> merges a new semester into your existing record. <strong>Needed GPA</strong> works backwards from a target to show exactly what average you need in the credits you have left.</p>
-            <h2 className="text-2xl font-bold mb-3">How GPA Is Calculated</h2>
-            <p><strong>GPA = Σ(Grade Points × Credit Hours) ÷ Σ(Credit Hours)</strong>. Example: A (4.0) × 3 + B+ (3.3) × 3 + B (3.0) × 4 = 33.9 points ÷ 10 credits = 3.39. In Needed mode the formula is inverted: Required = (Target × Total − Current × Completed) ÷ Remaining.</p>
-            <h2 className="text-2xl font-bold mb-3">Example: The 4.4 Problem</h2>
-            <p>A student with a 3.2 GPA over 60 credits targeting 3.5 with 30 credits left needs (3.5 × 90 − 3.2 × 60) ÷ 30 = 4.10 — above the 4.0 maximum. The calculator flags this as unachievable so the student can reset expectations, for example to a 3.35 target, which requires (3.35 × 90 − 192) ÷ 30 = 3.62.</p>
+            <p>
+              A GPA calculator converts letter grades and credit hours into a grade point average on the standard four point
+              scale. Enter each course with its credit value and grade, and the tool returns the term GPA, the quality points
+              behind it, and the cumulative average that results when the term is folded into your existing record.
+            </p>
+            <p>
+              Grade point averages carry weight well beyond graduation. Scholarships, honours lists, graduate admissions,
+              internships and many first-job screens all use them, and a single heavy-credit course can move the number more
+              than students expect. Calculating the figure yourself makes the effect of each course visible while there is
+              still time to respond to it.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each letter grade maps to grade points: an A or A plus is four point zero, an A minus three point seven, and the
+              scale steps down through B, C and D before an F contributes nothing. Multiplying grade points by credit hours
+              produces quality points, and the term GPA is total quality points divided by total credits attempted.
+            </p>
+            <p>
+              Cumulative GPA uses the same arithmetic across the whole record. The prior GPA is converted back into quality
+              points using the prior credit total, the new term is added on top, and the combined quality points are divided by
+              the combined credits. Averaging the two GPAs directly instead of weighting them by credits is the most frequent
+              mistake and gets worse as the credit totals diverge.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the term GPA, with the cumulative average, total credits and a projection in the three-stat
+              bar. The first table lists every course with its credits, letter, grade points and quality point contribution so
+              each step of the arithmetic can be traced, and the second table reproduces the standard letter-to-points scale.
+            </p>
+            <p>
+              Use the projection to answer the question that matters most near the end of a degree: how much can the average
+              still move? Enter the credits you plan to take and the GPA you expect from them, and the projected figure shows
+              the realistic outcome. The summary panel also reports the best and worst cases, which is the range a perfect or a
+              failing term would produce.
+            </p>
+            <p>
+              Remember that some institutions attach different weights to honours, advanced placement or pass-fail courses, and
+              a few use a five point scale for advanced classes. The calculator follows the conventional four point scale with
+              plus and minus grades, so adjust the letters you enter if your school treats them differently.
+            </p>
+            <p>
+              Finally, track the credit totals as carefully as the grades. A term with fifteen credits counts three times as
+              heavily towards the cumulative average as a five credit summer session, which is why a strong summer can move a
+              stalled record faster than another full term at the same performance level. Keep the calculation updated after
+              every term rather than once a year, because the earlier a slippage is visible the cheaper it is to correct: a
+              single retaken course carries far more weight in a short record than in a long one.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/gpa-calculator" />
           <PopularCalculators exclude="/calculator/gpa-calculator" />
@@ -359,5 +625,4 @@ const GpaCalculator = () => {
       </div>
     </>
   );
-};
-export default GpaCalculator;
+}

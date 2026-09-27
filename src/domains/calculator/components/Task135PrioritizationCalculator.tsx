@@ -132,7 +132,7 @@ const Task135PrioritizationCalculator = () => {
   ];
 
   return (
-    <div onKeyDown={handleKeyDown}>
+    <div className="racira-page-container py-4" onKeyDown={handleKeyDown}>
       <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           <div className="grid grid-cols-2 gap-3">

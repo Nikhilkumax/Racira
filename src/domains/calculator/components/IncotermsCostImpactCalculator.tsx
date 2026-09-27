@@ -152,7 +152,7 @@ export default function IncotermsCostImpactCalculator() {
   useEffect(() => { 
     setMounted(true);
     handleCalculate(); 
-  }, [incoterm]); // Auto-calculate when incoterm changes
+  }, []); // Auto-calculate when incoterm changes
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -203,7 +203,7 @@ export default function IncotermsCostImpactCalculator() {
                     key={term} 
                     onClick={() => setIncoterm(term as IncotermType)}
                     className={`h-10 rounded-md font-bold text-sm transition-colors border ${incoterm === term ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}
-                  >Calculate</button>
+                  >{term}</button>
                 ))}
               </div>
             </div>

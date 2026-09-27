@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "heading-caption-pairing",
+    "keywords": [
+      "heading caption pairing",
+      "caption floor",
+      "figure unit",
+      "two steps below"
+    ],
+    "intro": "The heading and caption pairing renders the classic figure unit as one composition: a heading, an image slot and a caption beneath it. Captions are the smallest type a design uses, so the face that pairs with a heading is rarely the same one used for body copy.",
+    "content": "The heading caption pairing takes a heading face and a caption face, with a size for each, and renders them together in the figure unit a document actually uses.\n\n- Both slots draw on the whole catalogue, so a display face can be paired with a serif caption or a sans heading with a monospace caption.\n- Heading size runs from 16px to 96px and the caption from 8px to 24px, defaulting to 36px and 13px.\n- The composition renders the heading, a dashed image slot and the caption in that order, so the vertical relationship is judged rather than just the two faces.\n- The ratio of heading to caption size is reported, which is the figure that decides whether the caption reads as a caption.\n- A caption floor check flags anything below 11px as risky on mobile, and a same-face check reports when both slots hold the same family.\n\nThe two-step rule behind the tool is what the size ratio measures. A caption conventionally sits about two steps below its heading on the scale, and when the gap is too small the caption competes with the heading for attention while a gap that is too large makes the caption read as a footnote. Because the heading is set at weight 600 and the caption is drawn in a muted colour with a looser leading, the composition also shows the two other levers that separate the roles when the faces happen to be the same: weight and colour. That is what the same-face check exists for. A single-family system is entirely workable, and the panel states the alternative explicitly rather than leaving the user to guess: vary the weight or the colour, or accept that the caption will read as part of the heading. The exported CSS writes the two rules separately, so the figure element and its caption can be styled without touching the prose.\n\n- The image slot is a placeholder rectangle, so nothing checks how a real photograph or chart interacts with the heading's weight.\n- Only two roles are modelled, so the body copy between the heading and the caption is not shown even though a figure usually sits inside a paragraph flow.\n- The caption colour is a muted foreground token rather than a value you set, so a caption's contrast against the real background is not measured.\n- The suggested sizes are defaults rather than derived from a scale, so a project with its own ladder should enter its own values.\n- Nothing reports the two faces' x-heights, so a caption whose lowercase is disproportionately small or large is not flagged.\n\nUse it when a figure, a chart or a table needs a caption styled against the heading above it, when a caption has drifted to a size that competes with the heading, or when the same family is being used for both roles and the separation has to come from weight and colour. Where the display and body relationship is the question rather than heading and caption, the display body pairing tool reports the size ratio for a hero composition. The display and body pairing tool covers the hero case, the serif and sans pairing tool covers heading over body, and the caption and footnote scale derives the sizes from a scale rather than from defaults.",
+    "howTo": [
+      { "step": "Choose the heading face and the caption face, watching the same-face readout since that determines whether weight and colour must do the work." },
+      { "step": "Paste a real heading and a real caption, because the ratio reads differently on a long caption than on a short one." },
+      { "step": "Set the heading size and caption size and read the ratio, keeping the caption above the 11px floor for mobile." },
+      { "step": "Adjust weight and colour if both slots share a family, then copy the two CSS rules into the figure styles." }
+    ],
+    "whenToUse": "Reach for it when a figure, chart or table needs a caption styled against the heading above it, when a caption has grown to a size that competes with its heading, or when one family is doing both jobs and the separation needs checking. It is the third role most designs forget to pair deliberately. For the hero and body relationship the {{display-body-pairing-tool|display body pairing tool}} is the closer tool, the {{serif-sans-pairing-tool|serif sans pairing tool}} covers heading over body copy, and the {{caption-and-footnote-scale|caption and footnote scale}} derives caption sizes from a type scale rather than leaving them to be chosen.",
+    "faqs": [
+      {
+        "q": "Why is a caption below 11px risky?",
+        "a": "Because small text is where legibility fails first, and a phone held at reading distance makes an 9px caption genuinely hard to read even at high contrast. The panel flags anything under 11px rather than blocking it, since a print-oriented design can legitimately go smaller. The safer pattern is to keep the caption at 12px or above and separate it from the heading by weight and colour instead."
+      },
+      {
+        "q": "What does the two-step-below convention mean numerically?",
+        "a": "It means the caption sits roughly two steps down a type scale from its heading, which the ratio readout expresses as a multiple. With a heading at 36px and a caption at 13px the ratio is about 2.8 times. When the ratio drops below about two, the caption starts to compete with the heading; when it climbs above four, the caption reads as a detached footnote rather than part of the figure."
+      },
+      {
+        "q": "Can the caption use the same face as the heading?",
+        "a": "Yes, and the same-face readout tells you what that costs. The roles then have to separate by weight and colour, which the composition demonstrates with a 600-weight heading and a muted caption. A single-family system is common and reads as disciplined rather than lazy, provided the weight difference is real rather than nominal."
+      },
+      {
+        "q": "Why is the caption a muted colour by default?",
+        "a": "Because a caption is supporting information, and colour is the cheapest way to say so without dropping the size further. The muted token is applied in the exported rule, which means the caption's contrast is inherited from the design system rather than measured here. A caption that has to remain legible at small size should be checked against its real background elsewhere."
+      },
+      {
+        "q": "Should the heading inside a figure be a real heading element?",
+        "a": "It should be marked up so the structure survives: a figure with a caption belongs together, and the text above it is usually a heading level appropriate to the document rather than a decorative line. The exported CSS styles the two roles, and the markup decision is left to the implementation. The pair of rules is written separately for exactly that reason."
+      }
+    ]
+  },
+  {
+    "slug": "contrast-pairing-checker",
+    "keywords": [
+      "contrast pairing checker",
+      "typographic contrast",
+      "style axes",
+      "wcag contrast"
+    ],
+    "intro": "The contrast pairing checker evaluates two type treatments against both kinds of contrast that decide whether they can be told apart. Colour contrast is measured with the WCAG formula, and typographic contrast is counted across the axes that a pair can differ on.",
+    "content": "The contrast pairing checker takes two type treatments, a shared background and a text size class, then reports both a measured contrast ratio for each treatment and the number of style axes on which the two differ.\n\n- Each treatment carries a family, a colour, a weight from 300 to 800 and a size from 10px to 96px, so weight and size differences can be expressed as well as colour.\n- The background is shared, which is what makes the two ratios comparable, and each treatment's WCAG contrast against it is measured with the relative-luminance formula.\n- Four verdicts are reported: each treatment against the AA and AAA thresholds, at the body level of 4.5 and 7 to 1 or the large-text level of 3 and 4.5 to 1.\n- Four style axes are counted: family classification, weight, size and colour, and the count of those that differ is reported out of four.\n- The pairing verdict calls the pair distinguishable when at least two axes differ, and too similar when fewer do.\n\nThe reason both measurements are needed is that passing WCAG says nothing about hierarchy. Two faces at the same size and weight in similar greys can clear 4.5 to 1 comfortably and still read as a mistake, because the reader cannot tell which of them is the heading. The style axes count is the answer to that: a pair that differs on classification and weight is separated by shape and mass, while a pair that differs only in colour is relying on a difference that disappears in a grayscale print or for a reader with reduced colour vision. The measurement table sets the two kinds of evidence side by side, with the four WCAG verdicts on the upper rows and the four axes on the lower ones, and the note states plainly that typographic contrast is a count rather than a ratio.\n\n- The axis count treats each difference as equal, so a family change and a twenty-per-cent size change score the same.\n- Contrast is measured against one flat background, so a treatment over a gradient or an image is not represented.\n- The large-text class is a manual toggle rather than derived from the treatment sizes, so it has to be set deliberately.\n- Only two treatments are compared, so a three-level hierarchy has to be checked as three separate pairs.\n- Nothing evaluates the result in grayscale or under a colour-vision deficiency, which is the case where a colour-only separation fails.\n\nUse it when a heading and a subheading look too alike, when a design relies on colour alone to separate two roles, or when a pair has to be defended on both accessibility and hierarchy grounds at once. The two-part table is the quickest way to show which is actually failing. Where only the colour needs measuring, the contrast text checker does that with its luminance breakdown, and a whole palette belongs to the color on color text checker. The contrast text checker measures a single pair precisely, the color on color text checker covers a whole palette, and the font accessibility evaluator scores the wider set of text criteria for one specification.",
+    "howTo": [
+      { "step": "Enter the sample text and set each treatment's family, colour, weight and size, and the background they share." },
+      { "step": "Set the text size class, since the AA and AAA thresholds change between body text and large text." },
+      { "step": "Read the two ratios and their verdicts in the measurement table, then check the four style axes for what actually differs." },
+      { "step": "If the verdict is too similar, change an axis the reader can perceive without colour, such as weight or size, and measure again." }
+    ],
+    "whenToUse": "Reach for it when two roles look too similar on a page, when a design separates hierarchy by colour alone and needs the risk shown, or when a pair has to satisfy an accessibility review and a design review at the same time. The table gives one answer for each. For the colour measurement alone, the {{contrast-text-checker|contrast text checker}} is the narrower tool, a full palette belongs to the {{color-on-color-text-checker|color on color text checker}}, and the {{font-accessibility-evaluator|font accessibility evaluator}} covers contrast, spacing and reflow for one specification.",
+    "faqs": [
+      {
+        "q": "Why is passing WCAG not enough for a pairing?",
+        "a": "Because the contrast rule asks whether text can be read, not whether two roles can be told apart. Two treatments in similar greys at 4.6 to 1 are both legible and both look like the same level of the hierarchy. The style axes count answers the second question, which is why the tool reports both rather than choosing one."
+      },
+      {
+        "q": "What counts as a style axis that differs?",
+        "a": "Four things: the family classification, the weight, the size and the colour. Each is compared between the two treatments, and the count of differences is reported out of four. Classification differences are the most durable because they survive grayscale, size changes and any loss of colour vision, which is why at least two differing axes is the threshold for a readable hierarchy."
+      },
+      {
+        "q": "Why is a colour-only difference a weakness?",
+        "a": "Because it disappears in circumstances the design cannot control. Printed in grayscale, viewed by a reader with reduced colour vision, or rendered on a screen with a strong colour cast, two treatments that differ only in hue can become identical. Weight and size differences survive all three, so they are the safer way to separate levels."
+      },
+      {
+        "q": "Does the size class change the measured ratio?",
+        "a": "No, the ratio is a property of the two colours. What changes is the threshold it is compared against: body text needs 4.5 to 1 for AA and 7 to 1 for AAA, while large text needs 3 and 4.5 to 1. The toggle exists because the tool cannot know from the treatment sizes alone whether the design intends the text to count as large."
+      },
+      {
+        "q": "Can I compare three levels at once?",
+        "a": "Not directly. The tool evaluates a pair, so a three-level hierarchy is checked as heading against subheading, then subheading against body, and then heading against body if the two are far enough apart. Each pair is quick, and the intermediate comparison is the one that usually reveals the problem."
+      }
+    ]
+  },
+  {
+    "slug": "font-harmony-visualizer",
+    "keywords": [
+      "font harmony visualizer",
+      "metric profiles",
+      "x-height agreement",
+      "divergence"
+    ],
+    "intro": "The font harmony visualizer plots two families against five shared metrics and shows where they align and where they diverge. Harmony is not sameness: a pairing usually needs the x-heights close so the text sits on the same optical line, plus one or two deliberate divergences elsewhere.",
+    "content": "The font harmony visualizer compares two faces across five metrics and reports which axes they share, which diverge, and whether the resulting pairing reads as harmonious.\n\n- Five axes are compared on a reference scale of zero to ten: x-height, width, stroke contrast, apparent weight and warmth.\n- Each catalogue face carries a metric profile, so the comparison works from recorded values rather than from an assumption about the classification.\n- A pair is harmonious when the x-height agreement is close and exactly one or two other axes diverge deliberately.\n- If the x-heights differ by more than one point the verdict tells you to set the sizes by eye rather than by number.\n- No divergence at all is reported as too alike, since a pairing with no axis of separation has no hierarchy.\n\nThe x-height rule is the one that matters most in practice. Two faces at the same nominal size look unequal when their lowercase bodies are different heights, so a pairing with mismatched x-heights has to be corrected by nudging one of the sizes rather than by trusting the numbers in the stylesheet. The visualizer responds to that directly: the rendered pairing sets the body sample at a scaled size derived from the heading size, so the correction can be seen rather than calculated. The metric table then explains each axis in terms of its consequence, from an identical score described as no separation on that axis, through a difference of up to two points described as close enough to read as a system, to a difference of four or more warned about as a strong divergence that the pairing has to hold together some other way. The total divergence across all five axes is reported as a figure out of fifty, which gives a sense of how far apart the two faces are overall rather than axis by axis.\n\n- The metric profiles are reference values on a ten-point scale rather than measurements taken from the font files.\n- Only five axes are covered, so details such as serif shape, terminal angle and the contrast of the figures are outside the model.\n- Warmth is a subjective axis that has been given a number for comparison, not a measurable property.\n- The rendered pairing scales the body sample from the heading size using a fixed ratio, so it demonstrates a correction rather than reporting the optimal one.\n- Two faces are compared at a time, so a three-face system is checked as three pairs.\n\nUse it when a pairing looks slightly wrong and the reason needs identifying, when two faces with different x-heights have to be reconciled, or when a design team wants a shared vocabulary for why a pairing works. The consequence column is the part that turns numbers into decisions. Where the pairing has to come from a shortlist, the font pairing suggester scores every combination, and where the two faces are being judged on measured width, the multi font comparison reports it. The font pairing suggester generates candidates, the multi font comparison measures their widths, and the contrast pairing checker covers whether the two roles can be told apart at all.",
+    "howTo": [
+      { "step": "Choose the two faces, then enter a heading sample and a body sample so the pairing is judged on real text as well as on metrics." },
+      { "step": "Read the x-height agreement first, since a difference greater than one point is what forces sizes to be set by eye." },
+      { "step": "Check the shared and diverging axis readouts, aiming for exactly one or two deliberate divergences." },
+      { "step": "Compare the rendered pairing against the scaled sizes, then set the two sizes in the design to match what the correction shows." }
+    ],
+    "whenToUse": "Reach for it when a pairing looks subtly wrong and the cause needs naming, when a project has two faces with different x-heights and the body size needs correcting, or when a team wants a shared reason for why one pairing works and another does not. The consequence column is what makes the vocabulary stick. For generating the shortlist the {{font-pairing-suggester|font pairing suggester}} is the starting point, the {{multi-font-comparison|multi font comparison}} measures candidate widths, and the {{serif-sans-pairing-tool|serif sans pairing tool}} covers the heading and body arrangement directly.",
+    "faqs": [
+      {
+        "q": "Why do the x-heights have to match?",
+        "a": "Because the x-height is what the eye registers as the size of lowercase text. Two faces set at the same nominal size with different x-heights look like different sizes, so the smaller-bodied face has to be set larger to sit optically level. The rule reported here is a difference of more than one point on the scale, beyond which the sizes have to be adjusted by eye."
+      },
+      {
+        "q": "Why is no divergence a problem?",
+        "a": "Because two faces that agree on everything give the reader no signal about which is which. Harmony comes from a shared framework with one or two deliberate differences, such as identical x-heights and warmth but contrasting stroke contrast. When nothing diverges, the roles have to be separated by weight or size alone, which the verdict reports as too alike."
+      },
+      {
+        "q": "Where do the metric values come from?",
+        "a": "They are reference profiles recorded per family on a ten-point scale, not values read out of the font files. That makes them comparable across faces and consistent between sessions, at the cost of precision. Where a real figure is needed rather than a comparison, the font file itself has to be inspected."
+      },
+      {
+        "q": "What does the total divergence figure mean?",
+        "a": "It sums the differences across all five axes, so it expresses how far apart the two faces are overall. A low total with matching x-heights and one clear divergence is the harmonious case; a high total means the faces differ on most axes, which can still work as a deliberate contrast but has to be held together by tone."
+      },
+      {
+        "q": "Why is the body sample scaled from the heading size?",
+        "a": "Because that is the correction the x-height mismatch calls for. Setting the body text at a size derived from the heading demonstrates what the two faces look like once they sit on the same optical line, so the adjustment can be checked visually instead of calculated. It is a demonstration of one correction rather than a calculation of the best one."
+      }
+    ]
+  },
+  {
+    "slug": "brand-font-stack-builder",
+    "keywords": [
+      "brand font stack builder",
+      "four slot",
+      "custom properties",
+      "brand prefix"
+    ],
+    "intro": "The brand font stack builder collects all four face decisions a brand needs, display, text, interface and monospace, and emits the complete set of CSS custom properties a design system consumes. It exists so the whole stack is decided in one place rather than drifting across files.",
+    "content": "The brand font stack builder takes a brand prefix and four face slots, then renders each slot and exports the custom properties and role rules that define them.\n\n- Four slots are filled: display, text, interface and monospace, each drawn from the catalogue and each carrying its own fallback chain in the emitted stack.\n- A brand prefix is used to name the custom properties, slugified into a safe form so a name with spaces or punctuation still produces valid CSS.\n- Each slot is previewed with content suited to it: a display line, a paragraph, an interface label row and a line of code.\n- The readouts report how many distinct families the four slots actually use, whether the generic fallbacks are named for all four, and how many stylesheet requests the set implies.\n- The exported CSS writes one custom property per slot and one rule per role, so a component consumes a variable name rather than a family name.\n\nThe prefix convention is the part that makes the output portable. Naming a property with the brand in it keeps the variables from colliding with a component library's own tokens, and the slugification means a brand typed with a space, an ampersand or any punctuation still produces a property name a stylesheet can use. The distinct-family readout is the other useful check: four slots do not have to mean four families, and a system that fills display and text with the same face is reporting that its hierarchy rests on weight and size rather than on shape. The monospace slot is deliberately included even for brands with no technical content, because code, keyboard shortcuts, tabular figures and version strings appear in most design systems eventually, and deciding the face once is cheaper than adding a fifth stack later.\n\n- The slots are filled from the catalogue, so a brand whose faces are not loaded here cannot be represented.\n- The emitted stacks carry the catalogue's fallback chain rather than a project-specific one, so a different local fallback has to be edited in afterwards.\n- The prefix is used for property names, and nothing else about a design system's naming convention, such as scale prefixes or semantic roles, is modelled.\n- Weights, sizes and loading strategy are all outside the tool, so the stacks describe families only.\n- The four slots are fixed, so a system that needs a separate accent or editorial face has to extend the output by hand.\n\nUse it when a brand's typography is being defined once for several products, when a design system needs its font variables settled, or when four slots have been decided in different places and have to be brought together. Where the emitted stacks need to survive a slow connection, the loading strategy is the companion decision rather than part of this one. The CSS font stack builder produces the stacks themselves in detail, the system font stack generator covers the platform-native alternative, and the editorial style guide generator turns the same decisions into a written guide.",
+    "howTo": [
+      { "step": "Enter the brand prefix that will name the custom properties, checking that the slugified form is one you would accept in a stylesheet." },
+      { "step": "Fill the four slots from the catalogue, reading the distinct-family count to see whether the system is genuinely using four faces." },
+      { "step": "Check the slot preview, paying attention to the monospace slot even if the brand has no technical content yet." },
+      { "step": "Copy the custom properties and role rules, then substitute the project's own fallback chain if it differs from the catalogue's." }
+    ],
+    "whenToUse": "Reach for it when a brand's typography has to be defined once across products, when a design system's font variables are being established, or when the four slots were decided separately and need reconciling. Where the stacks need their fallbacks worked out in detail the {{css-font-stack-builder|CSS font stack builder}} does that, the {{system-font-stack-generator|system font stack generator}} covers faces that ship with the platform, and the {{editorial-style-guide-generator|editorial style guide generator}} writes the decisions up as a guide.",
+    "faqs": [
+      {
+        "q": "Why is the brand name part of the property name?",
+        "a": "To keep the variables from colliding with whatever else the stylesheet defines. A generic name such as font-display is a good way to be overwritten by a component library. The prefix is slugified before use, so a brand typed with spaces or punctuation still produces a valid custom property rather than a broken declaration."
+      },
+      {
+        "q": "Do I need four distinct families?",
+        "a": "No, and the distinct-family readout is there to make the choice visible. Many systems fill the display and text slots with the same family and separate the roles by weight and size. What matters is that the decision is deliberate: four slots filled from four unrelated faces without a reason is the pattern that reads as assembled rather than designed."
+      },
+      {
+        "q": "Why include a monospace slot at all?",
+        "a": "Because code, keyboard shortcuts, tabular figures and version strings appear in most design systems eventually, and adding a stack later means revisiting components. Deciding the face when the rest of the system is decided costs one selection now. A brand with no technical content can point the slot at the text face and revisit it if needed."
+      },
+      {
+        "q": "Where do the fallbacks come from?",
+        "a": "From the catalogue's own stacks, which name generic families for each face. A product with a specific local fallback, such as a particular system face that matches the webfont's metrics, should edit the emitted stacks afterwards rather than accept the generic chain. The metric overrides that stop a fallback from reflowing are a separate decision."
+      },
+      {
+        "q": "Does this set the weights and sizes?",
+        "a": "No. The tool defines families and nothing else, which is deliberate: weights and sizes belong to a type scale, and the roles it emits are family roles. A design system needs both, and keeping them separate means the scale can change without reopening the family decision."
+      }
+    ]
+  },
+  {
+    "slug": "monospace-pairing-tool",
+    "keywords": [
+      "monospace pairing tool",
+      "advance width",
+      "ambiguity checks",
+      "ligatures"
+    ],
+    "intro": "The monospace pairing tool pairs a fixed-width face with a proportional partner and previews the two together as code and prose. Monospace is used for code, tabular data and metadata, where character alignment matters more than reading rhythm.",
+    "content": "The monospace pairing tool takes a monospace face, a proportional partner and a code sample, then renders the pair in the two contexts they share and runs the checks that decide whether the combination is viable.\n\n- The monospace slot draws only on monospace faces and the partner slot only on proportional ones, so the roles cannot be filled wrongly.\n- The estimated advance width is reported as the code size multiplied by 0.6, which is the typical width of one character in a monospace face.\n- That figure converts into the number of characters that fit a 640 pixel line, which is the count a code block or a terminal actually depends on.\n- Code size runs from 9px to 28px, defaulting to 13px, and is the only size control since the partner face follows the document's own setting.\n- Alignment checks render the classic ambiguous pairs: figure one against lowercase l, zero against uppercase O, the bracket set, and a run of pipe characters.\n\nThe checks are what separate a usable monospace face from an unusable one in an editor or a table. A face without a distinguishable zero and capital O makes a code block ambiguous, and the usual fix is a slashed or dotted zero, which the panel names. The pipe character is the other common failure: in a proportional face it is narrow, and in a monospace face it should touch its neighbours so that a table rule drawn with pipes reads as continuous. Ligatures get their own line in the exported CSS, and it disables them deliberately, because a ligature that renders a not-equal or arrow operator as a single glyph makes the source ambiguous the moment someone copies it into another editor. The advance width figure is the practical counterpart to those checks: it says how wide a line of code will be at the chosen size, which is what determines whether a block needs horizontal scrolling in the layout it sits in.\n\n- The advance width is an estimate from a typical ratio rather than a measurement of the selected face.\n- The partner face is previewed at the document's own size, so the relationship between the two sizes is not adjustable here.\n- Only one code size is set, so a design with separate sizes for inline code and block code is checked in two passes.\n- The ambiguity checks are rendered rather than scored, so whether a given zero is distinguishable is a judgement the panel does not make.\n- Nothing evaluates the two faces' figures against each other, which matters when a monospace face appears inside a table set in the proportional one.\n\nUse it when a documentation site or a product interface needs a code face chosen, when an existing monospace face produces ambiguous characters in an editor, or when the width of a code block has to be estimated before a layout is built. Where the pairing has to be discovered rather than tested, the Google Fonts pairing picker offers a broader sweep. The Google Fonts pairing picker covers a wider set of candidates, the kerning pair inspector examines the spacing of individual pairs, and the font rendering preview shows how the code face rasterises at small sizes.",
+    "howTo": [
+      { "step": "Choose the monospace face and the proportional partner, then paste a representative code sample rather than a single line." },
+      { "step": "Set the code size and read the estimated advance width and the characters-per-line figure for a 640 pixel block." },
+      { "step": "Read the ambiguity checks, particularly the zero against the capital O and the run of pipes." },
+      { "step": "Copy the CSS, which keeps ligatures disabled for code and leaves the partner face to the document's own rules." }
+    ],
+    "whenToUse": "Reach for it when a documentation site, a developer tool or a product interface needs its code face chosen, when an existing monospace face makes characters ambiguous in an editor, or when the width of a code block has to be known before a layout is committed. The pipe and zero checks catch most real problems. For a wider sweep of candidate pairings, the {{google-fonts-pairing-picker|Google Fonts pairing picker}} covers more faces, while the {{kerning-pair-inspector|kerning pair inspector}} examines individual pairs and the {{font-rendering-preview|font rendering preview}} shows the rasterised result at small sizes.",
+    "faqs": [
+      {
+        "q": "Why disable ligatures in code?",
+        "a": "Because a ligature replaces a sequence of characters with a single glyph, so the source shown on screen no longer matches the characters in the file. Copying that code into another editor produces the original sequence, which means what is read is not what is copied. Coding ligatures are a deliberate preference for some readers, and the CSS here takes the safe default."
+      },
+      {
+        "q": "What makes a zero ambiguous?",
+        "a": "Being too close in shape to the capital O. In a code context the difference matters because an identifier containing a zero and one containing an O are different identifiers. The conventional fixes are a slashed zero, a dotted zero, or a narrower capital O, and the check renders both characters so the distinction can be judged directly."
+      },
+      {
+        "q": "How is the advance width calculated?",
+        "a": "The code size is multiplied by 0.6, which is the typical advance width of one character in a monospace face. It is an estimate rather than a measurement, which is why the figure is labelled as such: real faces range a little either side of that ratio, and a face with a wider set will fit fewer characters on the same line."
+      },
+      {
+        "q": "Why does the pipe character matter?",
+        "a": "Because it is commonly used to draw table rules and boundaries in plain text, and a pipe that does not reach its neighbours leaves visible gaps in the line. In a monospace face the character is designed to touch, which is what makes an ASCII table read as a table. The check renders a run of them for exactly that reason."
+      },
+      {
+        "q": "Should inline code be the same size as block code?",
+        "a": "Often not. Inline code sits within a line of prose, so it usually needs to be slightly smaller than the surrounding text to keep the line spacing steady, while a code block is read on its own and can be larger. The tool sets one size, so the two cases are checked in separate passes."
+      }
+    ]
+  }
+]

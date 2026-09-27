@@ -29,6 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 const DEPOSIT_YEARS = 15;
@@ -47,11 +48,14 @@ export default function SukanyaSamriddhiCalculator() {
   const [interestRate, setInterestRate] = useState("8.2");
   const [girlAge, setGirlAge] = useState("5");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ yearlyDeposit, interestRate, girlAge }));
 
   const result = useMemo(() => {
-    const deposit = parseFloat(yearlyDeposit) || 0;
-    const rate = (parseFloat(interestRate) || 0) / 100;
-    const age = parseInt(girlAge) || 0;
+    const deposit = parseFloat(calcInputs.yearlyDeposit) || 0;
+    const rate = (parseFloat(calcInputs.interestRate) || 0) / 100;
+    const age = parseInt(calcInputs.girlAge) || 0;
 
     const r = rate;
     let balance = 0;
@@ -74,9 +78,12 @@ export default function SukanyaSamriddhiCalculator() {
       maturityYear: new Date().getFullYear() + (21 - Math.min(age, 10)),
       yearlyBreakdown,
     };
-  }, [yearlyDeposit, interestRate, girlAge]);
+  }, [calcInputs]);
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ yearlyDeposit, interestRate, girlAge });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -90,6 +97,8 @@ export default function SukanyaSamriddhiCalculator() {
           },
         ]}
       />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
 
         {/* LEFT: inputs (Mortgage Calculator template) */}
         <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
@@ -142,6 +151,7 @@ export default function SukanyaSamriddhiCalculator() {
                 setYearlyDeposit("150000");
                 setInterestRate("8.2");
                 setGirlAge("5");
+                setCalcInputs({ yearlyDeposit: "150000", interestRate: "8.2", girlAge: "5" });
                 setShowResults(false);
               }}
             >
@@ -315,6 +325,11 @@ export default function SukanyaSamriddhiCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/sukanya-samriddhi-calculator" />
+      </div>
     </div>
   );
 }

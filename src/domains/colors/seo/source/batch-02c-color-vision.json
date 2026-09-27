@@ -1,0 +1,362 @@
+[
+  {
+    "slug": "color-blindness-simulator",
+    "keywords": [
+      "color blindness simulator",
+      "cvd simulation",
+      "protanopia deuteranopia preview",
+      "image color blindness preview"
+    ],
+    "intro": "Color Blindness Simulator shows one color through four different color vision deficiencies at once, and can push the same simulation through an entire image.",
+    "content": "Color Blindness Simulator shows a single color as it would appear through four different color vision deficiencies, all at once, and can apply the same treatment to a whole image. Enter one color and the page renders a row of swatches, beginning with the untouched original so that every simulated swatch has a reference beside it.\n\nThe row covers the deficiencies the simulator models, in order:\n\n- Protanopia, the absence of the long-wavelength cone that carries red, which turns reds toward olive and darkens them noticeably.\n- Deuteranopia, the absence of the medium-wavelength cone, the commonest dichromacy and the one that collapses red and green into each other.\n- Tritanopia, the absence of the short-wavelength cone, which affects the blue and yellow axis and is far rarer than the other two.\n- Achromatopsia, the loss of color vision altogether, where the swatch is reduced to a single luminance value.\n- Plus the untouched original, sitting first in the row as the only swatch that is not a simulation.\n\nEach swatch comes from multiplying the red, green and blue channels by a fixed three-by-three matrix, following the Brettel and Machado approximations. Protanopia combines the channels with 0.567 and 0.433 on the first row, 0.558 and 0.442 on the second, and 0.242 and 0.758 on the third. Deuteranopia uses 0.625 and 0.375, then 0.7 and 0.3, then 0.3 and 0.7. Tritanopia uses 0.95 and 0.05, then 0.433 and 0.567, then 0.475 and 0.525. Achromatopsia applies the same luminance weights of 0.299 red, 0.587 green and 0.114 blue to all three output channels, which is why its swatch always lands on a grey. The matrices act on the 8-bit channel values directly and the results are clamped inside the 0 to 255 range, so this is an approximation of each deficiency rather than a colorimetrically exact transform.\n\nThe image half of the page works the same arithmetic over pixels. Drop an image in, choose one of the four deficiencies from the dropdown, and the canvas is redrawn through that matrix. The picture is scaled so its longest edge is at most 800 pixels before processing, which keeps the redraw quick but means the simulated canvas is a downsampled version of what you supplied. A button replaces the image whenever you want to try another.\n\nSome limits are worth holding in mind, because a simulation is easy to over-read.\n\n- Four deficiencies with no severity control. Every matrix is full strength, so the partial forms, which are much more common than the complete ones, are not represented.\n- Nothing is exported. The swatches and the canvas are for reading on screen, and no file is produced.\n- One image at a time, with no camera feed and no live capture.\n- The matrices approximate how these deficiencies are typically modelled. They are not a measurement of any individual's vision.\n- Legibility is not judged. The page shows what the colors become, not whether the result can still be used.\n\nUse the swatch row as a fast check on a single brand color, then run the simulation over a real screenshot of your interface, an image color blindness preview of the screens you actually ship. That is where the combinations you did not think about will surface. When two colors in a chart turn into the same swatch, the fix is almost always to separate them in lightness rather than in hue.\n\nIt is worth being clear about what a cvd simulation can and cannot establish. The protanopia deuteranopia preview swatches answer the question of whether two particular colors survive one conversion each, and they make no attempt to rank a palette or score a design. Read them as a set of views to think with rather than as a pass mark.",
+    "howTo": [
+      "Pick a color in the swatch field to populate the row of simulated views.",
+      "Compare the original against the protanopia, deuteranopia, tritanopia and achromatopsia swatches, looking for pairs that become hard to tell apart.",
+      "Drop an image into the simulation panel to see the same deficiency applied across a whole picture.",
+      "Choose the deficiency from the dropdown and use the replace button to swap the image when you want to compare another screen."
+    ],
+    "whenToUse": "Use the color blindness simulator when you want one color seen through every deficiency at once, and when you need to push that view across a whole screenshot rather than a single swatch. If one deficiency is the concern, the dedicated {{deuteranopia-simulator|deuteranopia simulator}} and {{tritanopia-simulator|tritanopia simulator}} pages keep the comparison to a single pair, the {{deuteranomaly-simulator|deuteranomaly simulator}} covers the partial form, and picking text colors that survive the same problem belongs with the {{color-blind-friendly-color-picker|color blind friendly color picker}}.",
+    "faqs": [
+      {
+        "q": "How accurate are the simulated swatches?",
+        "a": "They are approximations. The matrices follow the Brettel and Machado approaches and are applied straight to the 8-bit channel values with clamping, which is a standard simplification rather than a colorimetric model. They are good enough to reveal where colors collapse together, which is what the tool is for."
+      },
+      {
+        "q": "Why is the achromatopsia swatch always grey?",
+        "a": "Because that matrix uses the same luminance weights on all three output channels, so the red, green and blue results are equal by construction. Any color put through it comes out neutral, with only its lightness preserved."
+      },
+      {
+        "q": "Does the image simulation run at full resolution?",
+        "a": "No. Images are scaled so the longest edge is at most 800 pixels before the matrix is applied, which keeps processing fast. The result is a faithful downsample of your picture for the purpose of judging color, not a full-resolution export."
+      },
+      {
+        "q": "Can I simulate a partial deficiency like deuteranomaly here?",
+        "a": "Not on this page. The four swatches use full-strength matrices with no severity control, so the milder anomalous forms are not represented. The anomaly pages exist for that case, though they share the same complete matrices."
+      },
+      {
+        "q": "Is a swatch comparison enough to tell whether my design is safe?",
+        "a": "It is a useful first pass, not a verdict. Two colors surviving the simulation separately can still be confusing together in a legend or a chart. Use the swatch row to find obvious collapses, then check the real screens."
+      }
+    ]
+  },
+  {
+    "slug": "color-blindness-test",
+    "keywords": [
+      "color blindness test",
+      "color vision self check",
+      "cvd screening",
+      "normal and simulated swatches"
+    ],
+    "intro": "Color Blindness Test is a quick color vision self check: it shows one color beside simulations of four common deficiencies so you can spot the ones that look identical to you.",
+    "content": "Color Blindness Test is a fast color vision self check rather than a clinical screen. It takes one color, renders it beside simulations of four common color vision deficiencies, and leaves the comparison to you. The useful signal is the opposite of what you might expect: it is the pairing where the normal and simulated swatches look the same that tells you something, because a deficiency the simulation is modelling would be one you cannot distinguish in the same way a viewer with it cannot.\n\nThe page lays out a small, fixed set of views:\n\n- The original color first, as the reference every other swatch is judged against.\n- Four simulated swatches, one for each deficiency the engine models: protanopia, deuteranopia, tritanopia and achromatopsia.\n- Normal and simulated swatches presented in the same row at the same size, so a difference or a match is a single glance away.\n- An image mode that applies one of the same four simulations to a picture you supply, for the case where a single color is not enough.\n\nBehind the swatches are four fixed three-by-three matrices that recombine the red, green and blue channels, applied directly to the 8-bit values and clamped to the 0 to 255 range. The achromatopsia entry is the only one whose output is guaranteed neutral, because it applies the same luminance weighting to all three channels. Because every matrix is applied at full strength, what you are comparing against is a complete deficiency rather than a graded one, and the page shows all four at once so no single result has to be trusted on its own.\n\nThe limits follow from it being a self check rather than a test with a score.\n\n- It is not a diagnosis. Recognising a color in a simulation is not a measure of your vision, and nothing here should be read as one.\n- It cannot tell you which deficiency you may have. It shows four versions of a color and you decide whether one of them is indistinguishable, which is a subjective comparison and not a result.\n- One color at a time, so checking a whole palette means working through it entry by entry.\n- The simulations are full deficiencies. A mild anomaly, which is by far the more common case, may see a clear difference that the swatch does not show.\n- Nothing is scored, stored or compared over time, and no history is kept between visits.\n\nUse it as a first look at a color you are unsure about, and as a way to get a feel for how much information a hue actually carries once a channel is removed. If two swatches match for you, treat that as a cue to separate the colors by lightness rather than as a finding about your eyes, and if you need more than a cue, the full simulation view and the image simulation give you a broader comparison to work from.\n\nAs a form of cvd screening it is deliberately shallow, and that is the honest description of the page. It produces a view rather than a score, so it will not tell you where on a range you sit or whether you should seek further advice. What it does well is make the loss of information visible on a single screen, which is often enough to change how a chart, a legend or a status color is set up.",
+    "howTo": [
+      "Choose a color in the swatch field, ideally one from a palette you are already working on.",
+      "Read the row from left to right, comparing the original against each deficiency in turn.",
+      "Note any pair where the normal and simulated swatches look indistinguishable to you, since that is the cue the page produces.",
+      "Switch to the image panel and run your most color-dependent screen through one of the simulations to check the same question in context."
+    ],
+    "whenToUse": "Use the color blindness test when you want a quick self check of how a single color reads across several deficiencies in one view. The wider comparison, including the image simulation across all four types, is the {{color-blindness-simulator|color blindness simulator}}; a one-to-one comparison for a specific deficiency is the {{protanopia-simulator|protanopia simulator}} or {{deuteranopia-simulator|deuteranopia simulator}}; and choosing text colors that hold up once hues are gone belongs with the {{color-blind-friendly-color-picker|color blind friendly color picker}}.",
+    "faqs": [
+      {
+        "q": "Is this the same as an Ishihara plate test?",
+        "a": "No. Ishihara plates rely on figures hidden in a field of dots and are designed to reveal a specific deficiency. This page simulates what a color would look like, leaving the comparison to you, so it is a self check rather than a screening instrument."
+      },
+      {
+        "q": "What does it mean if the normal and simulated swatches match for me?",
+        "a": "It means the color distinction that the simulation removes is one you were not depending on in that view. It is a useful cue about how much that hue was doing, but it is not a result about your vision and it should not be read as one."
+      },
+      {
+        "q": "Can it tell me which deficiency I have?",
+        "a": "No. It shows four simulated versions of one color and you decide whether any of them look indistinguishable from the original. There is no scoring, no threshold and no output beyond the comparison on screen."
+      },
+      {
+        "q": "Why does the page show all four deficiencies instead of one?",
+        "a": "Because a single color can behave very differently across them, and comparing four swatches at once removes the need to trust any one result. It also makes visible how much of a color's information is carried by the red and green channels, which the two commonest deficiencies affect."
+      },
+      {
+        "q": "Does uploading an image send it anywhere?",
+        "a": "No. The processing happens in the browser on a canvas, so the picture never leaves the machine it was opened on, and nothing is uploaded or stored."
+      }
+    ]
+  },
+  {
+    "slug": "deuteranopia-simulator",
+    "keywords": [
+      "deuteranopia simulator",
+      "green cone simulation",
+      "deuteranopia hex",
+      "cvd deuteranopia"
+    ],
+    "intro": "Deuteranopia Simulator shows a color beside the same color as a deuteranopic viewer would see it, using the deuteranopia matrix the tool's engine applies.",
+    "content": "Deuteranopia Simulator takes one color and renders it twice: once untouched, and once as a deuteranopic viewer would see it. The two large swatches sit side by side, so the answer to the only question the page asks is impossible to miss, and the hex value of the simulated result is there when you need to record it.\n\nDeuteranopia is the absence of the medium-wavelength cone, and it is the most common of the complete deficiencies. What it removes is the separation between red and green, which means:\n\n- Reds and greens converge on a similar yellowish tone, and the distinction between them largely disappears.\n- Hues that sit between red and green, such as oranges and browns, shift rather than vanish, because their luminance is still doing work.\n- Blues and yellows are largely unaffected, since they depend on the short-wavelength cone instead.\n- Lightness is preserved throughout, which is why a well-designed palette can survive this deficiency purely on luminance.\n\nThe simulated swatch is produced by a fixed three-by-three matrix applied to the 8-bit red, green and blue channels. Its first row is 0.625 red plus 0.375 green, its second is 0.7 red plus 0.3 green, and its third is 0.3 green plus 0.7 blue. The results are clamped back into the 0 to 255 range, and the output is converted to hex so it can be copied directly. That matrix is an approximation of how deuteranopia is typically modelled, not a measurement of any individual's vision, and it is applied at full strength with no severity control.\n\nBecause the page is built around a single comparison, its boundaries are narrow.\n\n- Only deuteranopia is simulated. Other deficiencies need their own pages or the multi-type simulator.\n- The view is one color at a time. A palette has to be checked color by color.\n- There is no image mode, so a screenshot cannot be run through this matrix here.\n- Full strength only, with no slider for the partial form that deuteranomaly describes.\n- The simulated swatch is what the matrix produces, not a prediction of what a specific person will perceive.\n\nUse this page when red and green are both load-bearing in a design, which is the situation deuteranopia punishes most. Compare the swatch pair, then look at the hex value of the simulated color and ask whether it sits far enough from its neighbours in lightness. If the two swatches differ mainly in hue and barely in lightness, that is the case worth fixing, because lightness is the only channel this deficiency reliably leaves intact.\n\nAs a green cone simulation the page is narrow on purpose: it converts one color once and shows the result, rather than ranking a palette or scoring a design. That makes the deuteranopia hex value printed beneath the swatch the most portable output it produces, and it is worth copying for any color destined for a dark surface or a print run. What the page cannot say is whether the conversion is acceptable in context, since a cvd deuteranopia result that looks fine in isolation can still collapse against a neighbouring color in a real chart.",
+    "howTo": [
+      "Enter the color you want to test in the swatch field.",
+      "Read the two large swatches side by side, with the original labelled on the left and the simulated result on the right.",
+      "Note the hex value printed under the simulated swatch if you need to record the result.",
+      "Compare the lightness of the simulated color with the other colors it will sit next to, since that is the channel deuteranopia leaves working."
+    ],
+    "whenToUse": "Use the deuteranopia simulator when red and green both carry meaning in a design and you want the single most common deficiency checked directly. The partial form is covered by the {{deuteranomaly-simulator|deuteranomaly simulator}}, the other complete deficiency that affects red and green is the {{protanopia-simulator|protanopia simulator}}, all four types together including the image mode are on the {{color-blindness-simulator|color blindness simulator}}, and choosing colors that survive the problem in the first place is the {{color-blind-friendly-color-picker|color blind friendly color picker}}.",
+    "faqs": [
+      {
+        "q": "How common is deuteranopia?",
+        "a": "It is the most common complete deficiency, affecting roughly one in a hundred men and a much smaller share of women. The partial form, deuteranomaly, is considerably more common still, which is why the two are often discussed together."
+      },
+      {
+        "q": "Does the simulation account for severity?",
+        "a": "No. The matrix is applied at full strength, so the result shows a complete absence of the medium-wavelength cone rather than a graded reduction. Someone with a mild anomaly will typically see more color than the swatch suggests."
+      },
+      {
+        "q": "Why do red and green look different after the simulation rather than disappearing?",
+        "a": "Because they do not vanish, they converge. Both end up nearer a yellowish tone, and what remains of the difference is mainly their luminance. That is why the practical fix is to separate colors in lightness rather than trying to find a hue that survives."
+      },
+      {
+        "q": "Can I paste the simulated hex value into a design file?",
+        "a": "Yes, the value is printed in hex for that purpose. Treat it as a reference for how the color is modelled rather than as a color to ship, since it describes a simulation rather than a target for your palette."
+      },
+      {
+        "q": "Does this page check whether my interface is usable?",
+        "a": "No. It converts one color and shows the result. Whether a chart, legend or status indicator still works once that conversion is applied depends on the whole set of colors, which is easier to judge with the multi-type simulator over a real screen."
+      }
+    ]
+  },
+  {
+    "slug": "protanopia-simulator",
+    "keywords": [
+      "protanopia simulator",
+      "red cone simulation",
+      "protanopia hex",
+      "cvd protanopia"
+    ],
+    "intro": "Protanopia Simulator renders a color beside the same color as a protanopic viewer would see it, using the protanopia matrix and printing the resulting hex value.",
+    "content": "Protanopia Simulator shows a color twice: as it is, and as a protanopic viewer would see it. The two swatches are drawn large and side by side, which keeps the comparison to a single glance, and the hex value of the simulated result is printed underneath so the conversion can be recorded.\n\nProtanopia is the absence of the long-wavelength cone that carries red, and it differs from the other red-green deficiency in one respect that matters for design:\n\n- Reds lose saturation and darken noticeably, which means a red that was already dark can become nearly black.\n- Red and green converge toward a similar olive tone, so the hue axis between them largely closes.\n- Blues and yellows stay comparatively intact, since they depend on the short-wavelength cone.\n- Because reds also drop in luminance, a protanopic viewer can find a dark red harder to see than a deuteranopic viewer would, which is the practical difference between the two pages.\n\nThe simulated swatch comes from a fixed three-by-three matrix applied directly to the 8-bit red, green and blue channels. Its first row is 0.567 red plus 0.433 green, its second is 0.558 red plus 0.442 green, and its third is 0.242 green plus 0.758 blue, with the outputs clamped back into the 0 to 255 range and formatted as hex. The matrix is an approximation of how protanopia is usually modelled rather than an exact colorimetric transform, and it is applied at full strength with no way to ask for a partial result.\n\nThe narrowness of the page is worth being explicit about.\n\n- One deficiency only. The other complete type needs its own page, and the image mode lives elsewhere.\n- A single color at a time, so a palette is checked entry by entry.\n- No image or screenshot input.\n- Full-strength conversion, with nothing to represent a mild reduction in red sensitivity.\n- The output describes the model, not any individual viewer.\n\nReach for this page when a design leans on red, and especially when red is used against a dark surface or as a status color. Check the simulated swatch for two properties in particular: whether it has drifted toward the other colors in the set, and whether it has lost enough lightness to disappear against its background. Because this deficiency darkens reds as well as shifting them, a red that reads as vivid to you can be both duller and dimmer here, and that combination is what usually breaks an alert color.\n\nRead the page as a red cone simulation rather than as a palette review, because that is exactly what it is: one input color, one conversion and one printed result. The protanopia hex value below the simulated swatch is the useful artefact, letting you compare the converted color against the rest of your set without leaving the page. What it will not do is tell you whether a cvd protanopia viewer can still tell two colors apart, since that depends on the pair rather than on either color taken alone.",
+    "howTo": [
+      "Set the color you want converted in the swatch field.",
+      "Compare the two large swatches, with the original on the left and the protanopic simulation on the right.",
+      "Read the hex value under the simulated swatch and note how far it has moved in lightness, not only in hue.",
+      "Check that value against the dark surfaces it might sit on, since protanopia darkens reds rather than merely dulling them."
+    ],
+    "whenToUse": "Use the protanopia simulator when red carries meaning and you need to see how far a red moves once the long-wavelength cone is removed, which is the case it handles differently from the other red-green page. For the partial form, see the {{protanomaly-simulator|protanomaly simulator}}; for the other complete red-green deficiency, the {{deuteranopia-simulator|deuteranopia simulator}}; for all four deficiencies and the image simulation in one place, the {{color-blindness-simulator|color blindness simulator}}; and for text colors that survive the same conversion, the {{accessible-color-pair-finder|accessible color pair finder}}.",
+    "faqs": [
+      {
+        "q": "What is the difference between this and deuteranopia?",
+        "a": "They remove different cones and their effects are not identical. Protanopia loses the long-wavelength cone, so reds both shift toward olive and darken. Deuteranopia loses the medium-wavelength cone, so hue separation collapses without the same loss of red luminance."
+      },
+      {
+        "q": "Why does my red look almost black after the simulation?",
+        "a": "Because protanopia reduces red luminance as well as saturation. A dark red has little lightness to spare, so once the red contribution is removed the result sits close to black. Lifting the color's lightness is usually the fix rather than changing its hue."
+      },
+      {
+        "q": "Is a protanopic viewer likely to see exactly this swatch?",
+        "a": "Not exactly. The matrix models the deficiency in a standard way and applies it at full strength, so the swatch shows a typical complete case rather than any individual's perception, which will vary with severity and with the display being used."
+      },
+      {
+        "q": "Can I test an image on this page?",
+        "a": "No, this page works on a single color and shows one comparison. The image simulation, which downsamples a picture to a maximum 800 pixels on its longest edge before applying a matrix, is on the multi-type simulator."
+      },
+      {
+        "q": "Does the simulated hex value belong in my palette?",
+        "a": "No. It is a reference for how the model converts your color, useful for checking separation and lightness. Shipping it as a palette color would mean designing for the simulation rather than for the range of viewers the simulation is trying to represent."
+      }
+    ]
+  },
+  {
+    "slug": "tritanopia-simulator",
+    "keywords": [
+      "tritanopia simulator",
+      "blue cone simulation",
+      "tritanopia hex",
+      "blue yellow color blindness"
+    ],
+    "intro": "Tritanopia Simulator shows a color beside the same color as a tritanopic viewer would see it, modelling the rarer blue-yellow deficiency.",
+    "content": "Tritanopia Simulator renders a color and its tritanopic simulation side by side, in the same large two-swatch layout the other single-deficiency pages use. It is the page to reach for when a design depends on blue and yellow, which is the axis the two common red-green deficiencies leave untouched.\n\nTritanopia is the absence of the short-wavelength cone, and it behaves differently enough from the red-green deficiencies that it is worth understanding on its own terms:\n\n- Blue and yellow converge, so a blue and a green can become difficult to separate while red stays comparatively distinct.\n- Blue darkens, in the same way red darkens under protanopia, because the cone being removed contributes luminance at that end of the spectrum.\n- Yellow is affected as well, which is why the deficiency is described as a blue-yellow condition rather than a blue one.\n- It is far rarer than the two red-green types, so a palette that is only tested for those can still fail a small but real group of viewers.\n\nThe simulated color is produced by a fixed three-by-three matrix over the 8-bit red, green and blue channels. Its first row is 0.95 red plus 0.05 green, its second is 0.433 green plus 0.567 blue, and its third is 0.475 green plus 0.525 blue, with the outputs clamped inside the 0 to 255 range and written out as hex. Note how little the red channel changes: the transformation is concentrated in the green and blue rows, which is the arithmetic reason the red-green axis survives better than the blue-yellow one here. As with the other pages, the matrix approximates the deficiency and is applied at full strength.\n\nA few things sit outside this page.\n\n- One deficiency only, with no combined view and no image simulation.\n- A single color per comparison, so a palette takes one pass per entry.\n- No severity control, which matters because acquired tritan-like deficiencies are often partial rather than complete.\n- The output is a model, not a prediction about a particular viewer.\n- No export beyond copying the hex value that is printed.\n\nUse it whenever blue and yellow are doing structural work: a two-series chart, a warm and cool status pair, or a gradient that runs from blue to yellow as a way of showing magnitude. Read the simulated swatch for two things, whether it has moved toward the greens in your set, and whether it has lost enough lightness to merge with its background. Both are common failures in this deficiency, and both are easier to correct by separating lightness than by searching for a hue that survives.\n\nThis is a blue cone simulation and nothing more, which is worth saying because the page is easy to over-read. The tritanopia hex value under the simulated swatch is what you take away from it, together with a view of how far a blue has moved. Set beside the more familiar red-green checks, it also makes the case for treating blue yellow color blindness as its own problem: a design can pass every red-green review and still lean on a blue and a yellow that this conversion pushes close together.",
+    "howTo": [
+      "Enter the color you want simulated in the swatch field.",
+      "Compare the original swatch with the tritanopic simulation beside it, looking at blues and yellows in particular.",
+      "Read the hex value printed under the simulated swatch to record how the color was changed.",
+      "Check whether the simulated result has drifted toward the greens or lost lightness against the surfaces it will sit on."
+    ],
+    "whenToUse": "Use the tritanopia simulator when blue and yellow carry meaning in a chart, a gradient or a status pair, since that is the axis this deficiency attacks and the one the red-green tools do not cover. Charts that depend on several hues benefit from the full {{color-blindness-simulator|color blindness simulator}}, blue-heavy palettes are worth checking against the {{palette-accessibility-checker|palette accessibility checker}}, and choosing text colors that survive any of these conversions is the {{color-blind-friendly-color-picker|color blind friendly color picker}}.",
+    "faqs": [
+      {
+        "q": "How rare is tritanopia compared with the other deficiencies?",
+        "a": "It is much rarer. The two red-green forms each affect about one in a hundred men, while the blue-yellow form is far less common. It is still worth checking, because a design that leans on blue and yellow can fail badly for that smaller group."
+      },
+      {
+        "q": "Why does the red channel barely change in this simulation?",
+        "a": "Because the deficiency is at the short-wavelength end, so the matrix concentrates its effect in the green and blue rows, where the red contribution is minimal. That is why reds generally stay recognisable while blues and yellows shift."
+      },
+      {
+        "q": "Can blue and green really become confusing?",
+        "a": "Yes. Removing the short-wavelength cone pushes blue toward the middle of the spectrum, so a blue and a green in the same chart can end up close in both hue and lightness. Separating them by lightness is the usual remedy."
+      },
+      {
+        "q": "Does the simulation cover the acquired forms of the condition?",
+        "a": "Only in shape, not in severity. The matrix is applied at full strength, while acquired blue-yellow loss is often partial and can differ between the two eyes, so this page shows a complete case rather than the range."
+      },
+      {
+        "q": "Should I test a gradient with this page?",
+        "a": "Test its endpoints. The matrix converts colors rather than samples, so applying it to the two ends of a blue-to-yellow gradient tells you where the ramp will land. Intermediate stops can be checked the same way if the gradient carries meaning."
+      }
+    ]
+  },
+  {
+    "slug": "achromatopsia-simulator",
+    "keywords": [
+      "achromatopsia simulator",
+      "total color blindness simulation",
+      "grayscale conversion",
+      "luminance conversion"
+    ],
+    "intro": "Achromatopsia Simulator reduces a color to the neutral tone a viewer with no color vision would see, which is the most demanding test a palette can face.",
+    "content": "Achromatopsia Simulator shows a color and the neutral tone it becomes when no color signal is available at all. The comparison is stark by construction, because the simulated side is always a grey: the original and the result differ only in lightness, and every distinction the design was making with hue is gone.\n\nAchromatopsia is the complete absence of color vision, and it is rare, but the simulation is still the most useful stress test in the set:\n\n- The simulated swatch is guaranteed neutral, since the same luminance weight is applied to all three output channels.\n- Only lightness survives, so any two colors that were separated by hue alone will collapse together.\n- It is a stricter test than any of the single-channel deficiencies, because none of the three color axes is available.\n- Designs that pass it are almost always safe for the other deficiencies, since they have been forced to encode information in lightness rather than hue.\n\nThe conversion uses a single luminance formula applied identically to each output channel: 0.299 of the red value, 0.587 of the green and 0.114 of the blue. Those are the recursive luminance weights that standard grayscale conversion uses, and because the same total is written to red, green and blue, the result is neutral by definition. The arithmetic happens on the 8-bit channel values and is clamped into the 0 to 255 range before being written out as hex. Note how much of the total comes from green: a green color converts to a much lighter grey than a blue of the same apparent brightness, which is why two colors that look equally vivid can land at very different greys.\n\nThe page is deliberately minimal, and that is its limitation as much as its strength.\n\n- One color at a time, so a palette has to be worked through entry by entry.\n- No image simulation on this page.\n- The output is a single grey per color, with no intermediate or partial color vision option.\n- It does not tell you whether the resulting greys are distinguishable from each other, which is the question that actually decides whether a palette survives.\n- The grey is a model of how the colors convert, not a claim about any particular viewer's perception.\n\nUse it as the final check on a chart or a status system, after the individual pairs have passed their contrast thresholds. The practical test is to collect the grey values of every color in a set and ask whether they are far enough apart to be told apart at a glance, because that is the only channel left. Where two greys are close, increase the difference in the original colors' lightness rather than changing their hues.\n\nAs a total color blindness simulation the page is the bluntest check available, which is precisely why it is worth running first on a chart. The luminance conversion it applies uses the standard grayscale weights, so the result is also what you would see if the artwork were printed in black and white. That makes it dual-purpose: a palette that survives this check is both more robust for viewers and safer for grayscale reproduction.",
+    "howTo": [
+      "Enter a color in the swatch field to see it beside its grayscale conversion.",
+      "Note the hex value of the simulated swatch, which is always a neutral tone.",
+      "Repeat for each color in the palette, and compare the resulting greys against each other rather than one at a time.",
+      "Where two greys are close, adjust the lightness of the original colors until the neutral versions separate."
+    ],
+    "whenToUse": "Use the achromatopsia simulator as the strictest check on a palette, especially for charts, status colors and anything that has to work in print or in a grayscale reproduction. It pairs well with the {{color-blindness-simulator|color blindness simulator}} when you want all four deficiencies in one row, with the {{palette-accessibility-checker|palette accessibility checker}} when the question is contrast rather than separation, and with the {{text-readability-checker|text readability checker}} when the neutral result needs to be judged as actual text on a surface.",
+    "faqs": [
+      {
+        "q": "Why is the simulated swatch always a plain grey?",
+        "a": "Because the conversion writes the same luminance value to all three channels, which makes the output neutral by definition. There is no hue left to show, only the light or dark tone the color carries."
+      },
+      {
+        "q": "Which colors turn into light greys and which into dark ones?",
+        "a": "It depends mostly on green content, because green carries 0.587 of the luminance weight against 0.299 for red and 0.114 for blue. A saturated green converts to a distinctly light grey, while a blue of similar visual brightness lands much darker."
+      },
+      {
+        "q": "Is a palette that passes this check safe for everyone?",
+        "a": "It is a strong indication rather than a guarantee. A palette that separates its colors by lightness has removed its dependence on hue, which is the main cause of failure across the deficiencies, but individual pairings still need their own contrast checks."
+      },
+      {
+        "q": "Does the page show whether my greys are distinguishable?",
+        "a": "No. It gives you one grey per color and leaves the comparison to you. Converting every palette entry and lining the results up is the way to answer that question, since two greys that sit close together are the failure this check is looking for."
+      },
+      {
+        "q": "Can I convert an image here?",
+        "a": "Not on this page, which works on a single color. The image path, which downsamples a picture to a maximum of 800 pixels on its longest edge and then applies a matrix, is part of the multi-type simulator."
+      }
+    ]
+  },
+  {
+    "slug": "deuteranomaly-simulator",
+    "keywords": [
+      "deuteranomaly simulator",
+      "partial color blindness",
+      "green weakness",
+      "deuteranomaly prevalence"
+    ],
+    "intro": "Deuteranomaly Simulator previews a color as a viewer with reduced green sensitivity would see it, covering the partial deficiency that is more common than the complete one.",
+    "content": "Deuteranomaly Simulator previews what a color becomes for a viewer with reduced sensitivity in the medium-wavelength cone. It draws the original and the simulated version as a large pair, and the reason the page matters is arithmetic rather than aesthetic: deuteranomaly is the most common color vision deficiency of any kind, so a palette that fails here fails for more people than any other single check on this site.\n\nDeuteranomaly is described as partial rather than complete, and that description carries the important nuance:\n\n- Green sensitivity is reduced rather than absent, so red and green separation narrows instead of closing.\n- Deuteranomaly prevalence among men is around one in twenty, which puts it well ahead of the complete deuteranopia it is often confused with.\n- What a viewer sees sits between typical color vision and a full deuteranopic view, and where on that range they sit varies from person to person.\n- The practical effect on a design is usually the same as for the complete form but milder, meaning reduced hue separation between reds and greens with lightness intact.\n\nOne detail of this page is worth stating plainly, because it affects how the result should be read. The simulation is produced by the same matrix the deuteranopia page uses, applied to the 8-bit red, green and blue channels: 0.625 red plus 0.375 green on the first row, 0.7 red plus 0.3 green on the second, and 0.3 green plus 0.7 blue on the third, clamped into the 0 to 255 range. That matrix models the complete deficiency at full strength. So the swatch on the right shows a full deuteranopia projection rather than a graded partial one, and it should be read as a worst case for this group rather than as a picture of the average viewer with deuteranomaly.\n\nThat gap between the label and the model is the main limitation, and it comes with a few others.\n\n- No severity control, so the partial range the tool is named for cannot be dialled in.\n- One color at a time, with no palette view.\n- No image simulation on this page.\n- The output is the complete-deficiency projection, which is typically a harder case than a viewer with the anomaly actually experiences.\n- The hex value printed is a product of that model, not a measurement of any individual's perception.\n\nTreat the page as a conservative test. If a red and a green survive the full projection, they will separate comfortably for someone with the partial form, and that is a useful property to design against. If lightness is the only thing keeping them apart, the projection will show it, and the fix is to widen that difference until even the complete case holds.\n\nIt helps to be precise about the label. This is a partial color blindness page in the sense that deuteranomaly is the partial form of the deficiency, but the swatch shows the complete projection, so green weakness is represented at its limit rather than at a typical level. Used that way it is a conservative check, and a pair that separates cleanly under it will separate for every viewer whose anomaly sits short of the complete case.",
+    "howTo": [
+      "Enter the color you want to preview in the swatch field.",
+      "Compare the original swatch with the simulated result beside it, paying attention to how much separation red and green have lost.",
+      "Read the hex value under the simulated swatch as a record of the conversion.",
+      "Decide whether the result is still distinguishable from the other colors it will appear with, remembering that this is the stricter complete-deficiency projection."
+    ],
+    "whenToUse": "Use the deuteranomaly simulator when you want the conservative version of a red-green check, since it applies the complete deuteranopia projection and therefore covers the partial form too. The complete deficiency on its own terms is the {{deuteranopia-simulator|deuteranopia simulator}}, the red end of the same problem is the {{protanomaly-simulator|protanomaly simulator}}, a whole screen rather than one color is better served by the {{color-blindness-simulator|color blindness simulator}}, and text colors that survive it are the business of the {{accessible-color-pair-finder|accessible color pair finder}}.",
+    "faqs": [
+      {
+        "q": "How is deuteranomaly different from deuteranopia?",
+        "a": "Deuteranopia is the complete absence of the medium-wavelength cone and deuteranomaly is a reduced sensitivity in the same cone. The anomaly is far more common, the effect is milder, and the range of experience within it is wide."
+      },
+      {
+        "q": "Does this page show a partial result?",
+        "a": "Not in severity. It uses the same complete matrix as the deuteranopia page, applied at full strength, so the simulated swatch represents a full deuteranopia projection. Reading it as a worst case for the affected group is the accurate interpretation."
+      },
+      {
+        "q": "Why is deuteranomaly worth checking first?",
+        "a": "Because of how many people it covers. Its deuteranomaly prevalence among men is around one in twenty, making it more common than every complete deficiency combined. A single check on a red and green pairing therefore protects a larger group than any other simulation here."
+      },
+      {
+        "q": "If my colors pass this page, are they safe for all red-green deficiencies?",
+        "a": "Passing the complete projection is a strong signal for this cone, and the protan side is a separate check on its own page. A palette that separates colors by lightness rather than hue tends to pass both, which is why luminance is the more reliable thing to design with."
+      },
+      {
+        "q": "Can I see the difference between mild and severe cases here?",
+        "a": "No. There is a single full-strength matrix and no severity input, so the page cannot show the range that the anomaly describes. It represents the conservative end of that range rather than any point within it."
+      }
+    ]
+  },
+  {
+    "slug": "protanomaly-simulator",
+    "keywords": [
+      "protanomaly simulator",
+      "partial red blindness",
+      "red weakness",
+      "protanomaly prevalence"
+    ],
+    "intro": "Protanomaly Simulator previews a color as a viewer with reduced red sensitivity would see it, applying the complete protanopia projection as a conservative check.",
+    "content": "Protanomaly Simulator previews a color for a viewer whose sensitivity to the long-wavelength cone is reduced rather than absent. The page shows the original and the simulated result as a large pair, which makes it the quickest way to see how much of a red survives when the red channel stops contributing as it usually does.\n\nProtanomaly sits on the same axis as protanopia, so the two are often grouped, but there are real differences in what a design should expect:\n\n- Red sensitivity is reduced rather than missing, so reds lose vividness progressively rather than collapsing at once.\n- Protanomaly prevalence among men is around one in a hundred, which makes it markedly less common than the green anomaly but still far more common than the complete form.\n- Red also loses some luminance, which is the reason this page is worth separating from the green anomaly: a dark red becomes harder to see, not merely duller.\n- Where a viewer sits between typical color vision and a complete protan view varies widely, so a single simulated swatch cannot represent the group.\n\nThe swatch is produced by the same matrix the protanopia page uses, applied directly to the 8-bit red, green and blue channels: 0.567 red plus 0.433 green on the first row, 0.558 red plus 0.442 green on the second, and 0.242 green plus 0.758 blue on the third, with results clamped into the 0 to 255 range before being written out as hex. That matrix models the complete deficiency at full strength. What appears on the right is therefore the severest case for this cone rather than a graded partial view, and the gap between that and a typical viewer with the anomaly is the single most important thing to know about this page.\n\nThe limits follow from the same source.\n\n- No severity control, so the partial range the page is named for cannot be reproduced.\n- One color per comparison, with no palette or image mode.\n- The simulated result is a complete-deficiency projection, which is generally harder than the anomaly itself.\n- The hex value describes the model, not a prediction of what a particular viewer will see.\n- Nothing is measured from a real display, so panel differences are not reflected.\n\nUse it as the strict version of a red check. Alerts, negative states, required-field markers and any red-versus-green pairing are the places it earns its keep, and the question to ask of the simulated swatch is whether it still separates from its neighbours in lightness once red has contributed as little as the matrix allows. If it does, someone with the partial form will see at least as much separation, because their red channel is still doing some work.\n\nThe naming is worth disentangling, because it shapes how the result should be used. Partial red blindness describes the audience the page is aimed at, while the conversion itself is the complete matrix, so red weakness appears at its limit rather than at the milder level most affected viewers experience. Read that way the swatch sets a floor: anything that still separates under it will separate for everyone whose red sensitivity is reduced by less.",
+    "howTo": [
+      "Set the color you want previewed in the swatch field.",
+      "Read the two swatches together, checking how much the red has lost in both saturation and lightness.",
+      "Note the hex value printed for the simulated result if the conversion needs recording.",
+      "Compare that result against the other colors it will appear with, and widen the lightness gap if it has become hard to separate."
+    ],
+    "whenToUse": "Use the protanomaly simulator when red carries meaning and you want the conservative end of the partial red deficiency covered in one check. The fully protanopic view is the {{protanopia-simulator|protanopia simulator}}, the green counterpart is the {{deuteranomaly-simulator|deuteranomaly simulator}}, a screen rather than a single color is better handled by the {{color-blindness-simulator|color blindness simulator}}, and text that has to remain legible after the conversion is the subject of the {{text-readability-checker|text readability checker}}.",
+    "faqs": [
+      {
+        "q": "Is protanomaly a mild version of protanopia?",
+        "a": "It sits on the same axis but it is not simply a milder label. Sensitivity to the long-wavelength cone is reduced rather than absent, and where an individual falls along that range varies considerably, so a single swatch cannot stand in for the whole group."
+      },
+      {
+        "q": "Why is red harder to see rather than just duller?",
+        "a": "Because the long-wavelength cone contributes luminance as well as hue information. Removing or reducing it both desaturates a red and lowers its perceived brightness, which is why a dark red can become difficult to distinguish from a dark background."
+      },
+      {
+        "q": "Does the page show the partial case it is named after?",
+        "a": "No. It reuses the complete protanopia matrix at full strength, so the simulated swatch is a worst-case projection. That makes the page useful as a conservative test, and it means the label describes the audience rather than the arithmetic."
+      },
+      {
+        "q": "What kinds of design fail here most often?",
+        "a": "Status systems that use red and green for opposite meanings, and alert text set in a mid-tone red on a dark surface. Both rely on hue for the distinction and on red for luminance, which are exactly the two things this deficiency reduces."
+      },
+      {
+        "q": "Can I use the printed hex value as a replacement color?",
+        "a": "It is better read as a diagnostic. The value shows where the model sends your color, which is useful for judging separation, but adopting it as a palette entry would mean designing for the simulation rather than for the range of viewers it represents."
+      }
+    ]
+  },
+  {
+    "slug": "color-blind-friendly-color-picker",
+    "keywords": [
+      "color blind friendly color picker",
+      "cvd friendly palette",
+      "accessible text colors",
+      "luminance contrast picking"
+    ],
+    "intro": "Color Blind Friendly Color Picker starts from a color and returns neutral text and surface colors that reach AA contrast against it, which is the separation color vision deficiencies leave intact.",
+    "content": "Color Blind Friendly Color Picker takes a color and returns neutral colors that reach AA contrast against it. The approach is deliberately indirect: rather than simulating a deficiency, it picks the other half of a pairing on the one channel that every deficiency leaves working, which is lightness. If a pairing is separated by luminance, it survives the loss of hue, and that is the property this page is built to find.\n\nStart with the base color, and the tool walks a ramp of neutrals against it:\n\n- Twenty-one neutral steps, generated by moving lightness from 0 to 1 in 5% increments with chroma held at zero.\n- A single filter at 4.5 to 1 against your base, which removes every candidate that would not be safe for ordinary text.\n- Ratio ordering, strongest first, so the top of the list is the most separated pairing rather than the most harmonious one.\n- A shortlist of eight, each shown as text over your base color with its hex value and ratio.\n\nThe candidates are built in OKLCH at zero chroma and converted to hex, and each ratio is the standard WCAG 2.x figure: the channels are linearised out of sRGB, weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, and the lighter value plus 0.05 is divided by the darker plus 0.05. This is luminance contrast picking rather than color matching, which is why the results are greys, and why they hold up when hue information disappears.\n\nWhat the page does not do matters as much as what it does.\n\n- It does not simulate any deficiency. The results are chosen for contrast, and they help because lightness survives those conditions, not because the tool models them.\n- Every candidate is a pure neutral. A tinted alternative has to be derived from one of the listed values and then re-checked, since its hue will change the ratio.\n- The threshold is fixed at 4.5 to 1, so there is no way to request the 3 to 1 large-text figure or the 7 to 1 enhanced level directly.\n- Separation between two non-text colors is not addressed. A chart series palette still needs its own review.\n- One base color at a time, with no alpha.\n\nUse it when a brand color is fixed and you need text or surface colors that stay readable for viewers who lose hue distinctions. The recommended pattern is to take a neutral from the top of the list for body copy, which keeps the pairing separated in the one channel that survives, and then to verify the result in the simulation pages before shipping.\n\nIt is worth separating what this page is from what it is not. A cvd friendly palette needs its separation to sit on the axis the deficiencies leave intact, and the candidates here supply accessible text colors on exactly that basis, which is why every suggestion comes out neutral. Nothing on the page simulates a deficiency, so the results are a strong starting point and should be confirmed in the simulation views rather than treated as a final verdict.",
+    "howTo": [
+      "Enter the color that has to stay in the swatch field, which will act as the surface.",
+      "Read the eight candidates, each previewed as text on that color.",
+      "Pick a value from near the top of the list when the text is small, and further down when a softer pairing is wanted, checking the printed ratio each time.",
+      "Re-check the chosen pairing in a simulation page to confirm it still separates once hue is removed."
+    ],
+    "whenToUse": "Use the color blind friendly color picker when a fixed brand color has to carry text and you want the pairing chosen on lightness rather than hue. Confirming the result against actual deficiencies is the job of the {{color-blindness-simulator|color blindness simulator}}, checking that the pairing also reads well is the {{text-readability-checker|text readability checker}}, auditing a whole existing palette rather than one base is the {{palette-accessibility-checker|palette accessibility checker}}, and a plain threshold verdict on any pair is the {{wcag-21-aa-checker|WCAG 2.1 AA checker}}.",
+    "faqs": [
+      {
+        "q": "Does this tool simulate color blindness?",
+        "a": "No. It chooses neutral colors that reach a contrast threshold against your base. Those neutrals help under color vision deficiencies because lightness is the channel the deficiencies leave intact, but no simulation is involved in producing them."
+      },
+      {
+        "q": "Why are the suggestions all greys rather than tinted colors?",
+        "a": "Because the ramp runs at zero chroma, so lightness is the only variable. That keeps the result unambiguous and guarantees the separation is carried by luminance, which is the property that survives when hue information is lost."
+      },
+      {
+        "q": "Will a neutral pairing look right with a strongly branded palette?",
+        "a": "Usually it does, since neutral text over a colored surface is a common pattern. If the palette needs a tinted alternative, start from the listed neutral and shift it a few degrees in hue, then re-check the ratio, because tinting always moves it."
+      },
+      {
+        "q": "Can I get the enhanced AAA level from this list?",
+        "a": "The filter is fixed at 4.5 to 1 and the results are ordered strongest first, so entries near the top often clear 7 to 1 too. The page does not label them, so read the printed ratio rather than the position in the list."
+      },
+      {
+        "q": "Does this help with chart colors as well as text?",
+        "a": "Only indirectly. The candidates are for text and surface pairings against one base color. Series that have to be told apart from each other need their own check, usually by giving them clearly different lightness values rather than different hues."
+      }
+    ]
+  }
+]

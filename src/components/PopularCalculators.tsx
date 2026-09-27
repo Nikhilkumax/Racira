@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { calculatorRegistry, getCategoryIcon } from "@/domains/calculator/registry";
+import { isAliasSlug } from "@/domains/calculator/canonicalSlugs";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
 
 const PopularCalculators = ({ exclude, currentSlug }: { exclude?: string; currentSlug?: string }) => {
   const excludeSlug = currentSlug ? `/calculator/${currentSlug}` : exclude;
   const items = calculatorRegistry
     .filter(c => `/calculator/${c.slug}` !== excludeSlug && c.slug !== currentSlug)
-    .filter((c) => isLiveTool(c, "calculator"))
+    // Skip alias slugs (duplicate-content groups) — only canonical tool URLs
+    // are linked from related-calculator sections.
+    .filter((c) => isLiveTool(c, "calculator") && !isAliasSlug(c.slug))
     .slice(0, 8);
 
   return (

@@ -1,265 +1,611 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, Clock } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-interface TimeResult {
-  totalSeconds: number;
-  totalMinutes: number;
-  totalHours: number;
-  totalDays: number;
-  resultString: string;
-  isError: boolean;
-  errorMsg?: string;
+type TimeOp = "add" | "sub";
+
+interface TimeInputs {
+  days1: number;
+  hours1: number;
+  minutes1: number;
+  seconds1: number;
+  days2: number;
+  hours2: number;
+  minutes2: number;
+  seconds2: number;
+  op: TimeOp;
+  clockHour: number;
+  clockMinute: number;
 }
 
-const calculateTime = (
-  op: "add" | "sub",
-  d1: string, h1: string, m1: string, s1: string,
-  d2: string, h2: string, m2: string, s2: string
-): TimeResult | null => {
-  const days1 = parseFloat(d1 || "0");
-  const hours1 = parseFloat(h1 || "0");
-  const mins1 = parseFloat(m1 || "0");
-  const secs1 = parseFloat(s1 || "0");
-
-  const days2 = parseFloat(d2 || "0");
-  const hours2 = parseFloat(h2 || "0");
-  const mins2 = parseFloat(m2 || "0");
-  const secs2 = parseFloat(s2 || "0");
-
-  if (isNaN(days1) || isNaN(hours1) || isNaN(mins1) || isNaN(secs1) ||
-      isNaN(days2) || isNaN(hours2) || isNaN(mins2) || isNaN(secs2)) {
-    return null;
-  }
-
-  try {
-    // Convert to total seconds
-    const totalSecs1 = (days1 * 86400) + (hours1 * 3600) + (mins1 * 60) + secs1;
-    const totalSecs2 = (days2 * 86400) + (hours2 * 3600) + (mins2 * 60) + secs2;
-
-    let finalSecs = 0;
-    if (op === "add") {
-      finalSecs = totalSecs1 + totalSecs2;
-    } else {
-      finalSecs = totalSecs1 - totalSecs2;
-    }
-
-    const isNeg = finalSecs < 0;
-    const absSecs = Math.abs(finalSecs);
-
-    const rDays = Math.floor(absSecs / 86400);
-    const rHours = Math.floor((absSecs % 86400) / 3600);
-    const rMins = Math.floor((absSecs % 3600) / 60);
-    const rSecs = absSecs % 60;
-
-    let resStr = isNeg ? "-" : "";
-    if (rDays > 0) resStr += `${rDays} Days, `;
-    if (rHours > 0 || rDays > 0) resStr += `${rHours} Hours, `;
-    if (rMins > 0 || rHours > 0 || rDays > 0) resStr += `${rMins} Minutes, `;
-    resStr += `${rSecs} Seconds`;
-
-    // Clean up trailing comma if needed (though format above won't have it at the end)
-    
-    return {
-      totalSeconds: finalSecs,
-      totalMinutes: parseFloat((finalSecs / 60).toFixed(4)),
-      totalHours: parseFloat((finalSecs / 3600).toFixed(4)),
-      totalDays: parseFloat((finalSecs / 86400).toFixed(4)),
-      resultString: resStr,
-      isError: false
-    };
-
-  } catch (err) {
-    return { totalSeconds: 0, totalMinutes: 0, totalHours: 0, totalDays: 0, resultString: "", isError: true, errorMsg: "Calculation error." };
-  }
+const DEFAULTS: TimeInputs = {
+  days1: 0,
+  hours1: 5,
+  minutes1: 30,
+  seconds1: 0,
+  days2: 0,
+  hours2: 2,
+  minutes2: 45,
+  seconds2: 0,
+  op: "add",
+  clockHour: 9,
+  clockMinute: 0,
 };
 
-const TimeCalculator = () => {
-  const [op, setOp] = useState<"add" | "sub">("add");
-  const [d1, setD1] = useState("0");
-  const [h1, setH1] = useState("5");
-  const [m1, setM1] = useState("30");
-  const [s1, setS1] = useState("0");
+interface FormatRow {
+  label: string;
+  value: string;
+}
 
-  const [d2, setD2] = useState("0");
-  const [h2, setH2] = useState("2");
-  const [m2, setM2] = useState("45");
-  const [s2, setS2] = useState("0");
+interface TimeResult {
+  valid: boolean;
+  errorMsg: string;
+  seconds1: number;
+  seconds2: number;
+  totalSeconds: number;
+  negative: boolean;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  hhmmss: string;
+  clockTime: string;
+  clockDayOffset: number;
+  decimalHours: number;
+  decimalMinutes: number;
+  formats: FormatRow[];
+}
 
-  const [result, setResult] = useState<TimeResult | null>(null);
+const pad = (v: number) => String(v).padStart(2, "0");
 
-  const calculate = () => {
-    setResult(calculateTime(op, d1, h1, m1, s1, d2, h2, m2, s2));
+function computeTime(input: TimeInputs): TimeResult {
+  const {
+    days1,
+    hours1,
+    minutes1,
+    seconds1,
+    days2,
+    hours2,
+    minutes2,
+    seconds2,
+    op,
+    clockHour,
+    clockMinute,
+  } = input;
+
+  const blank: TimeResult = {
+    valid: false,
+    errorMsg: "",
+    seconds1: 0,
+    seconds2: 0,
+    totalSeconds: 0,
+    negative: false,
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    hhmmss: "",
+    clockTime: "",
+    clockDayOffset: 0,
+    decimalHours: 0,
+    decimalMinutes: 0,
+    formats: [],
   };
 
-  useEffect(() => { calculate(); }, []);
+  const parts = [days1, hours1, minutes1, seconds1, days2, hours2, minutes2, seconds2];
+  if (parts.some((p) => !Number.isFinite(p))) {
+    return { ...blank, errorMsg: "Enter a number in each duration field, using 0 where there is none." };
+  }
+  if (parts.some((p) => p < 0)) {
+    return { ...blank, errorMsg: "Durations must be positive. Use the subtract option to take one away from the other." };
+  }
 
-  const wrap = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground font-mono text-center";
+  const s1 = days1 * 86400 + hours1 * 3600 + minutes1 * 60 + seconds1;
+  const s2 = days2 * 86400 + hours2 * 3600 + minutes2 * 60 + seconds2;
+  const raw = op === "add" ? s1 + s2 : s1 - s2;
+  const negative = raw < 0;
+  const abs = Math.abs(raw);
+
+  const days = Math.floor(abs / 86400);
+  const hours = Math.floor((abs % 86400) / 3600);
+  const minutes = Math.floor((abs % 3600) / 60);
+  const seconds = abs % 60;
+  const hhmmss = `${negative ? "−" : ""}${days > 0 ? `${days}d ` : ""}${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+
+  const clockSeconds = clockHour * 3600 + clockMinute * 60 + raw;
+  const wrap = Math.floor(clockSeconds / 86400);
+  const inDay = ((clockSeconds % 86400) + 86400) % 86400;
+  const clockTime = `${pad(Math.floor(inDay / 3600))}:${pad(Math.floor((inDay % 3600) / 60))}:${pad(inDay % 60)}`;
+
+  const formats: FormatRow[] = [
+    { label: "Days, hours, minutes, seconds", value: `${days} d ${hours} h ${minutes} m ${seconds} s` },
+    { label: "Clock-style duration", value: hhmmss },
+    { label: "Total hours", value: (abs / 3600).toFixed(4) },
+    { label: "Total minutes", value: (abs / 60).toFixed(4) },
+    { label: "Total seconds", value: String(abs) },
+    { label: "Total weeks", value: (abs / 604800).toFixed(6) },
+    { label: "Working days at 8 hours", value: (abs / 28800).toFixed(4) },
+  ];
+
+  return {
+    valid: true,
+    errorMsg: "",
+    seconds1: s1,
+    seconds2: s2,
+    totalSeconds: raw,
+    negative,
+    days,
+    hours,
+    minutes,
+    seconds,
+    hhmmss,
+    clockTime,
+    clockDayOffset: wrap,
+    decimalHours: Number((raw / 3600).toFixed(6)),
+    decimalMinutes: Number((raw / 60).toFixed(6)),
+    formats,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function TimeCalculator() {
+  const [days1, setDays1] = useState(String(DEFAULTS.days1));
+  const [hours1, setHours1] = useState(String(DEFAULTS.hours1));
+  const [minutes1, setMinutes1] = useState(String(DEFAULTS.minutes1));
+  const [seconds1, setSeconds1] = useState(String(DEFAULTS.seconds1));
+  const [days2, setDays2] = useState(String(DEFAULTS.days2));
+  const [hours2, setHours2] = useState(String(DEFAULTS.hours2));
+  const [minutes2, setMinutes2] = useState(String(DEFAULTS.minutes2));
+  const [seconds2, setSeconds2] = useState(String(DEFAULTS.seconds2));
+  const [op, setOp] = useState<TimeOp>(DEFAULTS.op);
+  const [clockHour, setClockHour] = useState(String(DEFAULTS.clockHour));
+  const [clockMinute, setClockMinute] = useState(String(DEFAULTS.clockMinute));
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): TimeInputs => ({
+    days1: parseFloat(days1) || 0,
+    hours1: parseFloat(hours1) || 0,
+    minutes1: parseFloat(minutes1) || 0,
+    seconds1: parseFloat(seconds1) || 0,
+    days2: parseFloat(days2) || 0,
+    hours2: parseFloat(hours2) || 0,
+    minutes2: parseFloat(minutes2) || 0,
+    seconds2: parseFloat(seconds2) || 0,
+    op,
+    clockHour: parseFloat(clockHour) || 0,
+    clockMinute: parseFloat(clockMinute) || 0,
+  });
+
+  const [calcInputs, setCalcInputs] = useState<TimeInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<TimeResult>(() => computeTime(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeTime(inputs));
+  };
+
+  const reset = () => {
+    setDays1(String(DEFAULTS.days1));
+    setHours1(String(DEFAULTS.hours1));
+    setMinutes1(String(DEFAULTS.minutes1));
+    setSeconds1(String(DEFAULTS.seconds1));
+    setDays2(String(DEFAULTS.days2));
+    setHours2(String(DEFAULTS.hours2));
+    setMinutes2(String(DEFAULTS.minutes2));
+    setSeconds2(String(DEFAULTS.seconds2));
+    setOp(DEFAULTS.op);
+    setClockHour(String(DEFAULTS.clockHour));
+    setClockMinute(String(DEFAULTS.clockMinute));
+    setCalcInputs(DEFAULTS);
+    setResults(computeTime(DEFAULTS));
+  };
 
   const faqs = [
-    { question: "Why is time math so difficult?", answer: "Humans naturally think in the decimal system (Base-10) where numbers cleanly roll over at 10, 100, and 1000. Time uses the Sexagesimal system (Base-60), invented by the ancient Sumerians. Because minutes and seconds roll over at 60 instead of 100, you cannot simply add '1.30' and '2.45' together on a standard calculator to get 4 hours and 15 minutes." },
-    { question: "How does this calculator handle subtraction?", answer: "If you subtract a larger amount of time from a smaller amount of time, the calculator will return a negative time value. For example, 1 hour minus 3 hours equals -2 hours. This is highly useful for payroll calculations when attempting to calculate how many hours a project fell behind schedule." },
-    { question: "Are decimals supported?", answer: "Yes. You can enter '1.5' into the Hours box, and the calculator will correctly interpret it as 1 hour and 30 minutes. The calculator converts all inputs into a massive pool of raw seconds, performs the mathematics, and then re-packages the seconds into days, hours, and minutes." },
-    { question: "Why does Base-60 exist?", answer: "The Sumerians and Babylonians loved the number 60 because it is a highly composite number. It can be divided evenly by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60. This made early fractional mathematics incredibly easy for ancient astronomers and navigators before the invention of the decimal point." },
+    {
+      question: "How do I add two durations together?",
+      answer:
+        "Convert both durations to seconds, add the totals, then break the result back into days, hours, minutes and seconds. Working in a single unit avoids the carrying mistakes that happen when you add hours and minutes separately, and the calculator shows each intermediate total so the conversion can be checked.",
+    },
+    {
+      question: "How do I subtract one time from another?",
+      answer:
+        "Switch the operation to subtract and enter the duration being taken away in the second row. If the result is negative the calculator marks it with a minus sign and still reports the magnitude, which usually means the durations were entered the wrong way around rather than that a negative time exists.",
+    },
+    {
+      question: "Why does 5 hours 30 minutes plus 2 hours 45 minutes equal 8 hours 15 minutes?",
+      answer:
+        "Seventy-five minutes carries one hour into the hours column, leaving fifteen minutes behind. That carrying is the reason time arithmetic cannot be treated like decimal arithmetic: there are sixty minutes in an hour and sixty seconds in a minute, so sums wrap at sixty rather than at one hundred.",
+    },
+    {
+      question: "How do I work out what time it will be later?",
+      answer:
+        "Enter a start time in the advanced options and the calculator adds the duration to it, wrapping past midnight when necessary. Five hours thirty minutes after nine in the morning is 14:30, and adding ten hours to that start would land at 19:00 the same day. The display uses a twenty-four hour clock.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Time Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Everyday Life", href: "/calculator#everyday-life" },
+          { label: "Time Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Time Calculator</h1>
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          
-          <div className="card-calculator flex flex-col gap-5 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-primary mb-1.5 font-bold">Time 1</label>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="First Duration">
               <div className="grid grid-cols-4 gap-2">
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Days</div><div className={wrap}><input type="number" value={d1} onChange={e => setD1(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Hours</div><div className={wrap}><input type="number" value={h1} onChange={e => setH1(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Mins</div><div className={wrap}><input type="number" value={m1} onChange={e => setM1(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Secs</div><div className={wrap}><input type="number" value={s1} onChange={e => setS1(e.target.value)} className={ci} step="any" /></div></div>
+                <CompactInput id="days-1" label="Days" value={days1} onChange={setDays1} onEnter={runCalculate} min="0" />
+                <CompactInput id="hours-1" label="Hours" value={hours1} onChange={setHours1} onEnter={runCalculate} min="0" />
+                <CompactInput id="minutes-1" label="Mins" value={minutes1} onChange={setMinutes1} onEnter={runCalculate} min="0" />
+                <CompactInput id="seconds-1" label="Secs" value={seconds1} onChange={setSeconds1} onEnter={runCalculate} min="0" />
               </div>
-            </div>
+            </SubSection>
 
-            <div className="flex justify-center my-1">
-              <div className="flex rounded-md border border-input overflow-hidden h-10 w-48 shadow-sm">
-                <button type="button" onClick={() => setOp("add")} className={`flex-1 text-sm font-bold transition-colors ${op === "add" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>+ Add</button>
-                <button type="button" onClick={() => setOp("sub")} className={`flex-1 text-sm font-bold transition-colors border-l border-input ${op === "sub" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}>- Subtract</button>
+            <SubSection title="Operation">
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setOp("add")}
+                  aria-pressed={op === "add"}
+                  className={
+                    op === "add"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Add (+)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setOp("sub")}
+                  aria-pressed={op === "sub"}
+                  className={
+                    op === "sub"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Subtract (−)
+                </button>
               </div>
-            </div>
+            </SubSection>
 
-            <div className="flex flex-col">
-              <label className="text-base font-medium text-orange-500 mb-1.5 font-bold">Time 2</label>
+            <SubSection title="Second Duration">
               <div className="grid grid-cols-4 gap-2">
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Days</div><div className={wrap}><input type="number" value={d2} onChange={e => setD2(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Hours</div><div className={wrap}><input type="number" value={h2} onChange={e => setH2(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Mins</div><div className={wrap}><input type="number" value={m2} onChange={e => setM2(e.target.value)} className={ci} step="any" /></div></div>
-                <div><div className="text-xs text-muted-foreground text-center mb-1 font-bold">Secs</div><div className={wrap}><input type="number" value={s2} onChange={e => setS2(e.target.value)} className={ci} step="any" /></div></div>
+                <CompactInput id="days-2" label="Days" value={days2} onChange={setDays2} onEnter={runCalculate} min="0" />
+                <CompactInput id="hours-2" label="Hours" value={hours2} onChange={setHours2} onEnter={runCalculate} min="0" />
+                <CompactInput id="minutes-2" label="Mins" value={minutes2} onChange={setMinutes2} onEnter={runCalculate} min="0" />
+                <CompactInput id="seconds-2" label="Secs" value={seconds2} onChange={setSeconds2} onEnter={runCalculate} min="0" />
               </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Clock Time">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="clock-hour"
+                        label="Start Hour"
+                        value={clockHour}
+                        onChange={setClockHour}
+                        onEnter={runCalculate}
+                        min="0"
+                        suffix="h"
+                        hint="0 to 23 on a 24-hour clock."
+                        tooltip="Time of day the duration starts from."
+                      />
+                      <CompactInput
+                        id="clock-minute"
+                        label="Start Minute"
+                        value={clockMinute}
+                        onChange={setClockMinute}
+                        onEnter={runCalculate}
+                        min="0"
+                        suffix="m"
+                        tooltip="Minutes past the start hour."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
             </div>
 
-            <div className="flex gap-2.5 mt-4">
-              <button type="button" onClick={calculate} className="flex-1 flex items-center justify-center gap-2 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={() => { setOp("add"); setD1("0"); setH1("5"); setM1("30"); setS1("0"); setD2("0"); setH2("2"); setM2("45"); setS2("0"); }} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {result && result.isError ? (
-              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5 flex items-center gap-3">
-                <div className="flex-1">
-                  <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Input Error</div>
-                  <div className="text-base font-medium text-foreground">Please check your inputs and try again.</div>
-                </div>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-            ) : result && (<>
-              
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-                <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Resulting Time Span</div>
-                <div className="text-4xl font-extrabold text-primary tracking-tight">{result.resultString}</div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  {op === "add" ? "Time 1 + Time 2" : "Time 1 − Time 2"} · {Math.abs(result.totalSeconds).toLocaleString()} seconds
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                {[
-                  ["Total Hours", `${result.totalHours}`],
-                  ["Total Minutes", `${result.totalMinutes}`],
-                  ["Total Seconds", `${result.totalSeconds.toLocaleString()}`],
-                ].map(([l, v], i) => (
-                  <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                    <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                    <div className="text-base font-bold text-foreground font-mono">{v}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="card-calculator !p-0 border border-border bg-card shadow-sm overflow-hidden">
-                <div className="bg-secondary/50 p-4 border-b border-border/50">
-                  <h3 className="font-bold text-foreground">Decimal Equivalents</h3>
-                </div>
-                <div className="divide-y divide-border/50">
-                  <div className="grid grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground uppercase">Total Days</div>
-                    <div className="text-right font-mono text-muted-foreground">{result.totalDays}</div>
-                  </div>
-                  <div className="grid grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground uppercase">Total Hours</div>
-                    <div className="text-right font-mono text-muted-foreground">{result.totalHours}</div>
-                  </div>
-                  <div className="grid grid-cols-2 p-4 items-center bg-secondary/10">
-                    <div className="text-sm font-bold text-foreground uppercase">Total Minutes</div>
-                    <div className="text-right font-mono text-primary font-bold">{result.totalMinutes.toLocaleString()}</div>
-                  </div>
-                  <div className="grid grid-cols-2 p-4 items-center">
-                    <div className="text-sm font-bold text-foreground uppercase">Total Seconds</div>
-                    <div className="text-right font-mono text-muted-foreground">{result.totalSeconds.toLocaleString()}</div>
-                  </div>
-                </div>
-              </div>
-
-            </>)}
-            {result && !result.isError && (
-              <>
-                <div className="rounded-lg border border-border bg-card p-5">
-                  <h3 className="text-base font-bold mb-4">Result Components</h3>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <BarChart data={[{ name: "Days", value: Math.floor(Math.abs(result.totalSeconds) / 86400) }, { name: "Hours", value: Math.floor((Math.abs(result.totalSeconds) % 86400) / 3600) }, { name: "Minutes", value: Math.floor((Math.abs(result.totalSeconds) % 3600) / 60) }, { name: "Seconds", value: Math.abs(result.totalSeconds) % 60 }]} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                      <XAxis dataKey="name" tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-                      <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} width={40} />
-                      <Tooltip formatter={(v: number) => `${v}`} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
-                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                  <p className="text-xs text-muted-foreground mt-2 text-center">The result re-packaged from seconds into days, hours, minutes, and seconds.</p>
-                </div>
-
-                <div className="bg-muted/30 rounded-lg p-5">
-                  <h3 className="text-base font-bold mb-4">Summary Statistics</h3>
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-base">
-                    {[
-                      ["Time Span", result.resultString],
-                      ["Total Seconds", result.totalSeconds.toLocaleString()],
-                      ["Total Minutes", `${result.totalMinutes}`],
-                      ["Total Hours", `${result.totalHours}`],
-                      ["Total Days", `${result.totalDays}`],
-                      ["Operation", op === "add" ? "Addition" : "Subtraction"],
-                    ].map(([l, v]) => (
-                      <div key={l} className="flex justify-between">
-                        <span className="text-muted-foreground">{l}:</span>
-                        <span className="font-semibold text-foreground font-mono">{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
             )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Resulting Duration</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? results.hhmmss : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.days} days, ${results.hours} hours, ${results.minutes} minutes and ${results.seconds} seconds`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
+            </div>
+
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Hours</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? results.decimalHours.toFixed(4) : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Minutes</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? results.decimalMinutes.toFixed(2) : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Clock Time</span>
+                <span className="font-extrabold text-foreground">{results.valid ? results.clockTime : "—"}</span>
+              </div>
+            </div>
+
+            {/* FORMAT TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Format</th>
+                    <th className="p-2.5 pr-3 text-right w-[190px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.formats.map((row) => (
+                    <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                    </tr>
+                  ))}
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Start time plus duration</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">
+                      {results.valid
+                        ? `${pad(calcInputs.clockHour)}:${pad(calcInputs.clockMinute)} → ${results.clockTime}`
+                        : "—"}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* COMPONENT TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Component</th>
+                    <th className="p-2.5 text-right">First</th>
+                    <th className="p-2.5 pr-3 text-right w-[150px]">Second</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="p-2.5 pl-3 font-semibold text-foreground">Days</td>
+                    <td className="p-2.5 text-right text-foreground">{calcInputs.days1}</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">{calcInputs.days2}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="p-2.5 pl-3 font-semibold text-foreground">Hours</td>
+                    <td className="p-2.5 text-right text-foreground">{calcInputs.hours1}</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">{calcInputs.hours2}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="p-2.5 pl-3 font-semibold text-foreground">Minutes</td>
+                    <td className="p-2.5 text-right text-foreground">{calcInputs.minutes1}</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">{calcInputs.minutes2}</td>
+                  </tr>
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="p-2.5 pl-3 font-semibold text-foreground">Seconds</td>
+                    <td className="p-2.5 text-right text-foreground">{calcInputs.seconds1}</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">{calcInputs.seconds2}</td>
+                  </tr>
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Equivalent seconds</td>
+                    <td className="p-2.5 text-right text-foreground">{results.seconds1.toLocaleString()}</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">{results.seconds2.toLocaleString()}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Operation</span>
+                  <span className="text-base font-bold text-foreground">
+                    {calcInputs.op === "add" ? "Adding both durations" : "Subtracting the second duration"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Result Sign</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.negative ? "Negative" : "Positive"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Days</span>
+                  <span className="text-base font-bold text-foreground">{results.days}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Hours Left Over</span>
+                  <span className="text-base font-bold text-foreground">{results.hours}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Clock Day Offset</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.clockDayOffset === 0 ? "Same day" : `${results.clockDayOffset} day(s)`}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Seconds</span>
+                  <span className="text-base font-bold text-foreground">{results.totalSeconds.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Base-60 Problem</h2>
-            <p>If you try to add 2 hours and 45 minutes to 3 hours and 30 minutes using a standard desk calculator, you might type <code>2.45 + 3.30</code>. The calculator will output <code>5.75</code>. This is mathematically correct in the Base-10 decimal system, but it is entirely incorrect for calculating time. 5.75 hours is not 5 hours and 75 minutes. Because time rolls over at 60, the correct answer is 6 hours and 15 minutes.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Time Calculator?</h2>
+            <p>
+              A time calculator adds or subtracts durations expressed in days, hours, minutes and seconds. Give it two
+              durations and it returns the combined or remaining time in several formats at once: a clock-style figure, the
+              total hours, the total minutes, the total seconds and the equivalent number of eight-hour working days.
+            </p>
+            <p>
+              Durations are not decimal numbers, which is exactly why they cause so many mistakes. Sixty minutes make an
+              hour, not one hundred, so adding two times by treating the minute columns like ordinary arithmetic produces
+              answers that are wrong by precisely the amount that should have been carried. Converting everything to seconds
+              first removes that class of error entirely.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Why do we use Base-60?</h2>
-            <p>The modern world uses the metric system (Base-10) for almost every scientific measurement: length, weight, and volume. The major exception is Time. The division of hours into 60 minutes, and minutes into 60 seconds, is a remnant of the Sexagesimal numeral system invented by the ancient Sumerians roughly 5,000 years ago, and later passed down to the Babylonians.</p>
-            <p>Why did they choose 60? The number 60 is a "highly composite" number. It can be divided evenly into whole numbers by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60. Before the invention of the decimal point, ancient astronomers and mathematicians needed a system that allowed them to easily break things into simple fractions. A third of an hour is a clean 20 minutes. A quarter of an hour is a clean 15 minutes. Try dividing 100 into a clean third, and you will see the genius of the Babylonian system.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each duration is converted into seconds using the standard multipliers: eighty-six thousand four hundred
+              seconds in a day, three thousand six hundred in an hour and sixty in a minute. The two totals are then added or
+              subtracted as plain numbers, which is safe because seconds are a single consistent unit with no carrying
+              involved at any stage.
+            </p>
+            <p>
+              The result is converted back by dividing out complete days, then hours, then minutes, keeping the remainder at
+              each step. That yields the familiar day, hour, minute and second breakdown alongside the clock-style string. If
+              a start time is supplied in the advanced panel, the duration is added to it and the total wraps past midnight, so
+              an overnight shift shows the following day rather than a number beyond twenty-four.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">How Time Addition Works</h2>
-            <p>To accurately add or subtract time, computers bypass the Base-60 problem entirely by converting everything into a single, massive pool of <strong>Seconds</strong>. For example, 1 hour and 1 minute is converted into 3,660 seconds. The computer then adds the seconds together using standard decimal math. Once the final number of seconds is calculated, the computer physically packages those seconds back up, dividing them into blocks of 86,400 to find days, blocks of 3,600 to find hours, and blocks of 60 to find minutes.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the duration in clock style, with total hours, total minutes and the resulting clock time
+              in the three-stat bar. The first table presents the result in every useful format, from a full day-hour-minute-
+              second breakdown through to working days at eight hours, and it also shows the start time converted into an
+              arrival time.
+            </p>
+            <p>
+              The second table breaks both input durations into their components and converts each one into seconds, which is
+              the quickest way to spot a field entered in the wrong unit. A duration typed as two hundred minutes shows as
+              twelve thousand seconds, and the clock-style output immediately reveals that it is really three hours and twenty
+              minutes.
+            </p>
+            <p>
+              Watch the sign on subtraction. A negative result means the second duration was larger than the first, which
+              usually signals the inputs were entered the wrong way round rather than a genuine negative interval. The summary
+              panel flags the sign explicitly so the comparison does not have to be repeated by hand.
+            </p>
+            <p>
+              Finally, keep the conversion factors in mind when moving between systems. Timesheets usually want decimal hours,
+              where thirty minutes is 0.5 rather than 0.30, and billing systems often want decimal minutes. The format table
+              provides both, so the same duration can be reported correctly whatever the receiving system expects. Keeping a
+              running total of several shifts is the same exercise repeated: add each duration in turn, or convert them all to
+              seconds first and divide once at the end, and the answer will agree either way.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/time-calculator" />
           <PopularCalculators exclude="/calculator/time-calculator" />
@@ -267,5 +613,4 @@ const TimeCalculator = () => {
       </div>
     </>
   );
-};
-export default TimeCalculator;
+}

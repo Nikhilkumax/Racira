@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "color-analogous-finder",
+    "keywords": [
+      "color analogous finder",
+      "find analogous colors for a color",
+      "adjacent hue colors",
+      "neighbouring colors on the color wheel"
+    ],
+    "intro": "The color analogous finder takes one color and returns the two hues immediately beside it, giving you the exact adjacent hue colors to harmonise a layout around.",
+    "content": "The color analogous finder returns the two hues that sit immediately beside a color you supply. Give it a base hex and it reports three values: the original, the neighbour thirty degrees lower in hue, and the neighbour thirty degrees higher. You get the exact hex for each, which is the difference between this finder and a palette generator that hands you a scheme to evaluate; here the question is narrower and the answer is precise, what are the adjacent hue colors to this specific value.\n\n- The two neighbours are computed in OKLCH with lightness and chroma pinned to the base, so only the hue moves.\n- That is what makes them usable as drop-in companions: a button, a badge and a link built from the three colours will have matching apparent brightness, and none of them will leap out simply because it happens to be lighter.\n- The thirty degree step is the conventional analogous spacing, small enough that the group reads as one family and large enough that the colours remain distinguishable when placed side by side.\n\nWhere this is genuinely handy is deciding which element gets which hue. A common pattern is to use the base for the primary surface, the lower neighbour for a pressed or active state and the upper neighbour for a hover or highlight, so an interaction changes hue slightly while keeping the same weight on the page. Because the finder gives you named values for each role, you can wire those into a component without inventing intermediate colours or drifting into a different saturation by accident.\n\nIt is also a quick way to extend a single brand colour you have already chosen. Rather than opening a wheel and eyeballing two nearby tones, you read the neighbours directly, and you know they were derived from your exact base rather than approximated. If you later need a longer scale, the neighbours can be fed into the shade and tint generators to add lightness steps without changing hue, which keeps the extension consistent with the original derivation.\n\n- Two cautions are worth carrying into practice.\n- First, adjacent hues are close by definition, so they will not provide the contrast needed to separate text from its background; rely on lightness for legibility and reserve the neighbours for decorative roles.\n- Second, do not confuse these with the complementary or triadic finders in this section, which deliberately place hues far apart to create tension.\n- If your layout needs energy, the neighbouring colors on the color wheel are the wrong tool, and reaching for a complementary pair will serve you better.\n- Used for calm, coherent groupings, however, the finder is quick and unambiguous.\n\nThe straightforward way to use it is to find analogous colors for a color you have already committed to: run the base through the finder, copy the two neighbours, and assign them to related roles such as hover, active and highlight. Because the values are exact rather than eyeballed, the three stay in a documented relationship that survives later edits and review.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the trio: the base plus the hues thirty degrees either side of it.",
+      "Assign the base to the primary element and the neighbours to supporting ones.",
+      "Reach for the complementary or triadic finders when the scheme needs more separation."
+    ],
+    "whenToUse": "Reach for this finder when you have a base colour and want the two exact neighbouring hues to assign to related UI roles. Use the complementary or triadic finders when you need high-contrast accents instead of a close family. The {{color-monochromatic-finder|monochromatic finder}} keeps one hue and moves lightness instead, and the {{color-triadic-finder|triadic finder}} spreads the same base across three evenly spaced hues.",
+    "faqs": [
+      {
+        "q": "What exactly does it return?",
+        "a": "Three colours: your base, the hue thirty degrees below it and the hue thirty degrees above it, each given as a hex value with lightness and chroma unchanged."
+      },
+      {
+        "q": "Why keep lightness and chroma fixed?",
+        "a": "So the three colours carry the same visual weight. Only the hue differs, which is what lets you swap them between roles without changing the layout's balance."
+      },
+      {
+        "q": "Can these colours be used for text on each other?",
+        "a": "No. Neighbouring hues are too close to produce readable contrast. Use a lightness difference for text and keep the neighbours for decorative surfaces and states."
+      },
+      {
+        "q": "How is this different from the analogous palette generator?",
+        "a": "Both derive the same neighbours. This finder reports them as individual values for specific roles, while the generator presents them as a scheme to evaluate as a set."
+      },
+      {
+        "q": "How far apart are the neighbouring hues?",
+        "a": "Thirty degrees either side of the base, computed in OKLCH with lightness and chroma pinned to the base's own values. That is close enough that the three read as one family, and close enough that adjacent hues are easy to mistake for each other at small sizes."
+      }
+    ]
+  },
+  {
+    "slug": "color-triadic-finder",
+    "keywords": [
+      "color triadic finder",
+      "triadic color scheme",
+      "three color harmony",
+      "120 degree color harmony"
+    ],
+    "intro": "The color triadic finder spreads one base color into three evenly spaced hues, each a third of the circle apart, at unchanged lightness and saturation.",
+    "content": "The color triadic finder takes one colour and returns a three-part scheme built from it. The base is kept as the first swatch, and the other two are the same colour rotated a third of the way around the hue circle in each direction, so the three sit one hundred and twenty degrees apart. That even spacing is the whole idea: no hue in a three color harmony of this kind is closer to another than to the third, which is why the result reads as three co-equal partners rather than a colour and its supporting cast. Each swatch carries its hex and a copy button.\n\nBecause the points are evenly distributed, the arrangement is usually drawn as an equilateral triangle inscribed on the wheel, and that picture explains the scheme's character. There is no dominant colour and no direct opposition either — every pair is separated by the same rotational distance, so the set has variety without the head-on tension of a complementary pair. That balance is what makes triadic schemes popular for illustrations, charts and playful interfaces where several colours need to coexist at similar importance without any one of them being obviously the accent.\n\n- The three hues are computed in a perceptually uniform space, with lightness and saturation copied from the base and only the hue angle moved.\n- Holding the other two properties fixed matters for two reasons.\n- It makes the three swatches visually even, so a preference between them is a judgement about hue rather than about brightness creeping in from the arithmetic.\n- And it makes the scheme adjustable as a single object: lighten the base and the entire set follows, keeping the relationship intact while changing its overall tone.\n\nA triadic color scheme is one of the oldest named relationships in colour theory, and the three hues produced here are its exact form. In practice it is rarely applied as three equal thirds of a screen. Even spacing in hue does not imply even spacing in use, and a workable pattern is to let one of the three lead, use the second for supporting structure such as borders and secondary buttons, and save the third for genuinely small accents. Because all three are the same distance apart, placing two of them on large adjacent surfaces tends to produce a restless result rather than a considered one. The scheme gives you a coherent set of colours; the proportions are still your decision.\n\nTwo limits are worth knowing in advance.\n\n- Constant saturation means some angles fall outside the range a screen can reproduce at that lightness, and a 120 degree color harmony that crosses those regions can produce one swatch noticeably flatter than the other two once values are written as hex — a limitation of the display gamut rather than of the rotation.\n- And the scheme says nothing about legibility: two evenly spaced hues can share a luminance and be unreadable together as text and background, so any pairing meant for text should be checked with a contrast checker first.\n\nIt is also worth being clear about which relative this is not. If you want the strongest possible opposition in two colours, a complementary scheme gives you one pairing rather than three. If you want four with a built-in structure, the tetradic option spreads hues at quarter turns. And if the design needs colours that already belong together rather than a set that spans the circle, an analogous scheme is the better fit — the triadic answer is variety by construction, and that is exactly the effect it will have.\n\nUsed as a color triadic finder, the tool is one decision and one result: choose a base, read three values, and go. What it cannot tell you is which of the three deserves to lead, and that usually depends on the brand and the content rather than on the geometry.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the three hues — the base plus the points one hundred and twenty degrees either side.",
+      "Give one hue the primary role and keep the other two as accents or surfaces.",
+      "Check the pairs you intend to use before committing to them."
+    ],
+    "whenToUse": "Use this finder when a design needs three evenly weighted, genuinely different colors — illustrations, charts and friendly interfaces. Use the complementary option for a single strong opposition, the tetradic option for four, and the analogous option for closely related hues. The {{color-tetradic-finder|tetradic finder}} widens the arrangement to four hues, and the {{split-complementary-palette-generator|split-complementary generator}} keeps a three-part spread without the exact opposite.",
+    "faqs": [
+      {
+        "q": "How are the three colors spaced?",
+        "a": "Evenly. The base is kept and the other two are its hue rotated one hundred and twenty degrees each way, so the three sit a third of the circle apart."
+      },
+      {
+        "q": "Is a triadic scheme always balanced?",
+        "a": "In hue, yes — no colour is closer to one than the other. Visually it depends on how much of each you use, so the proportions are still your decision."
+      },
+      {
+        "q": "Why does one swatch sometimes look duller?",
+        "a": "Lightness and saturation are fixed, and some hue and saturation combinations fall outside what a screen can display at that brightness, so the value rounds less vividly."
+      },
+      {
+        "q": "Can I use a triadic pair for text?",
+        "a": "Not automatically. Evenly spaced hues can share a luminance, so verify any text and background pairing with a contrast checker before using it."
+      },
+      {
+        "q": "Why do some hues come back less vivid than the base?",
+        "a": "Because saturation is held constant across all three: the rotation happens in a perceptually uniform space with the base's lightness and chroma preserved, and some hue angles cannot carry the same chroma, so those swatches land slightly flatter once written as hex."
+      }
+    ]
+  },
+  {
+    "slug": "color-tetradic-finder",
+    "keywords": [
+      "color tetradic finder",
+      "tetradic color scheme",
+      "four color harmony",
+      "square color scheme generator"
+    ],
+    "intro": "The color tetradic finder derives a four-color tetradic scheme from one base color by stepping ninety degrees around the hue circle at fixed lightness and saturation.",
+    "content": "The color tetradic finder builds a four-colour scheme from a single base. Choose a colour and the tool returns it alongside three partners, each sitting a further quarter-turn around the hue circle — ninety degrees, one hundred and eighty, and two hundred and seventy from the original. Laid out in order, the four swatches form a symmetric arrangement with the base and its opposite diametrically facing and the two intermediates between them. Every swatch shows its hex value and offers a copy button, so the scheme can be lifted straight into a project.\n\nThe geometry is what makes this a tetradic color scheme rather than something looser.\n\n- The name simply means four, and the arrangement produced here places them at even quarter turns, which is the form usually drawn as a square on a wheel.\n- Two of the four are directly opposed, and the other two are likewise opposed, so the scheme contains two complementary axes crossing at a right angle.\n- That structure is the reason the set feels balanced without any one colour dominating, and it is also why it can look busy if all four are given equal visual weight.\n\nAll four colours are generated in a perceptually uniform space with lightness and saturation held exactly where the base had them. Only hue moves. That keeps the group visually even — none of the four arrives lighter or duller than the others as an accident of arithmetic — and it means the scheme you are judging is a judgement about hue relationships and nothing else. Adjusting the base's lightness or saturation later shifts the whole group together, which makes the scheme easy to tune as a unit rather than colour by colour.\n\nA four color harmony is one of the oldest named schemes, and the four hues produced here are its canonical form. Using it well is mostly a question of proportion rather than of picking. A workable pattern is to let one of the four carry the interface, give a second a supporting role, and reserve the remaining two for accents, so the scheme's symmetry is present in the palette without every screen showing all four at full strength. Because the pairs are complementary, any two adjacent entries in the row sit in strong contrast, which is useful for calls to action and dangerous for large adjacent surfaces.\n\nThere are two limits worth stating.\n\n- First, holding saturation constant means some quarter turns land outside what a screen can display — certain hue and saturation combinations only exist within a narrow band of lightness — so an individual swatch can come back slightly less vivid after rounding to a hex value.\n- Second, a tetradic scheme says nothing about legibility: two of these colours can be far apart in hue and still share enough luminance to be unusable as text and background.\n- Check any pairing you intend for text with a contrast checker before building on it.\n\nIt is also worth distinguishing this from the three-colour and two-colour options in the same family, since the choice between them is really a choice about how much tension a design can carry. A complementary pair is the most emphatic and the simplest; a triadic set spreads three colours evenly and reads as more varied but less opposed; the four-way tetradic used here is the richest and the hardest to keep calm. If you want related colours rather than opposed ones, an analogous scheme is the better starting point.\n\nAs a square color scheme generator the tool is a single decision followed by a copyable result: set a base, read the four values, and decide how much of each the design will actually show. What it will not do is tell you which of the four should be the primary — that depends on the brand, the content and the context, and no fixed rotation can answer it.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the four hues, spaced ninety degrees apart.",
+      "Choose which one leads and which two recede; four equal hues will otherwise compete.",
+      "Check the pairs you intend to use before committing to them."
+    ],
+    "whenToUse": "Use this finder when a design needs four related colors with a built-in structure of two complementary axes. Use the triadic option for three hues, the complementary option for a single opposing pair, and the analogous option when you want harmony rather than tension. The {{color-triadic-finder|triadic finder}} is the three-hue relative, and the {{color-analogous-finder|analogous finder}} stays inside a thirty-degree band for a quieter set.",
+    "faqs": [
+      {
+        "q": "How are the four colors derived?",
+        "a": "The base is taken as the first colour and the others are its hue rotated by ninety, one hundred and eighty and two hundred and seventy degrees, with lightness and saturation unchanged."
+      },
+      {
+        "q": "Why is this sometimes called a square scheme?",
+        "a": "Because the four hues sit at even quarter turns around the circle, which is traditionally drawn as a square. The word tetradic just means the scheme contains four colours."
+      },
+      {
+        "q": "Do all four have the same brightness?",
+        "a": "Yes. Only hue is changed, so lightness and saturation match the base. Individual swatches can still round slightly flatter if the combination falls outside what a screen can display."
+      },
+      {
+        "q": "Can I use two of them for text and background?",
+        "a": "Only if their luminance differs enough. A complementary pair can easily share a brightness and be unreadable as text, so check the pairing with a contrast checker."
+      },
+      {
+        "q": "Does the scheme include the base colour?",
+        "a": "Yes. The base is one of the four, with the other three at ninety, one hundred and eighty and two hundred and seventy degrees from it, so the arrangement reads as a square on the wheel with the base as one corner."
+      }
+    ]
+  },
+  {
+    "slug": "color-monochromatic-finder",
+    "keywords": [
+      "color monochromatic finder",
+      "monochromatic palette from one color",
+      "single hue color scheme",
+      "one color palette generator"
+    ],
+    "intro": "The color monochromatic finder derives a five-step palette from one color — the same hue throughout, lightness doing all the work — for the cleanest scheme color theory offers.",
+    "content": "Monochromatic is the scheme with one rule and no exceptions: take a single hue and vary nothing but its lightness. The color monochromatic finder applies that rule from any base — set a color, and the tool returns the five-step family: two darker steps, the original, two lighter, each the same hue and chroma as the base, separated by even lightness intervals. It is the one color palette generator whose output is guaranteed to cohere, because coherence is not designed but inherited.\n\n- The guarantee is the scheme's power.\n- Every swatch shares the base's temperature, personality and association; nothing in the set can clash, because nothing in the set is different except its weight.\n- That makes monochromatic the safest strong statement in design — a brand color expressed as a whole system, a moody photograph's palette formalised, an interface that wants its accent color to be the architecture.\n- The even steps are what make it functional as well as safe: equal lightness intervals mean the family distributes cleanly across surface, border, text and accent roles without one step crowding another.\n\n- The scheme's known limitation is the mirror of its strength: with hue fixed, all hierarchy is tonal, and low-chroma bases can drift toward grey at the extremes.\n- The remedies are the standard ones — verify text-carrying pairs with the contrast checker, extend the ramp with the shades and tints tools when five steps are not enough, and if the family feels flat, the saturation adjusters can give the whole register a nudge without breaking the single-hue promise.\n\nOne hue carried through every value is the most reliable palette there is and the hardest to make interesting, and the finder's value is that it makes the constraint explicit. With a single hue as the only variable, hierarchy has to come from lightness and area alone, so a monochromatic interface lives or dies on how well its ladder is spaced and how honestly its surfaces are separated. The upside is that nothing fights: there is no harmony to get wrong, no second hue to tune against a brand colour, and the palette survives translation into print, greyscale, dark mode and a mediocre projector without losing its structure. Product work that has to be legible under every condition benefits most, because a single-hue set carries text, buttons, states and charts while the eye is never asked to interpret a hue it has not seen before.\n\nAs a source of a monochromatic palette from one color, the finder sits between the raw expansion of the single-color-to-full-palette tool — same construction, different framing — and the harmony generators that introduce second hues. When the brief calls for a single hue color scheme with zero risk and maximum identity, this is the scheme and this is the tool.\n\nExtend the ladder with the tints and shades tools when a surface needs a step the ramp does not carry, and check the extremes against the text that will sit on them, since a single-hue palette has no second colour to fall back on when contrast fails.",
+    "howTo": [
+      "Set the base color whose family you want.",
+      "Read the five-step ramp — same hue throughout, even lightness steps.",
+      "Assign roles by lightness, verifying text pairs with the contrast checker."
+    ],
+    "whenToUse": "Use this for a single-hue system built from a color you must keep. Use the shades and tints tools to extend the ramp, the single-color-to-full-palette tool for the same idea framed as expansion, and the harmony generators when a second hue becomes welcome. The {{color-shades-generator|shade generator}} and {{color-tints-generator|tint generator}} extend the same ladder in one direction each, and the {{color-tones-generator|tone generator}} drains chroma instead of moving lightness.",
+    "faqs": [
+      {
+        "q": "Does monochromatic mean shades of grey?",
+        "a": "No — it means one hue at varied lightness. A monochromatic blue palette spans navy to powder blue, all the same hue; only an achromatic scheme is grey."
+      },
+      {
+        "q": "Why do the light steps look washed out on low-chroma colors?",
+        "a": "Chroma is inherited from the base, and pale colors amplify softness. If the top end needs presence, raise chroma deliberately — or choose a more saturated base."
+      },
+      {
+        "q": "How is this different from the tints and shades tools?",
+        "a": "Same underlying ramp; this tool presents the complete five-step family at once as a scheme, while those generate one direction — darker or lighter — at your chosen step count."
+      },
+      {
+        "q": "Can the scheme carry all text roles?",
+        "a": "Usually yes — the ramp's lightness span typically includes a passing text pair. Verify the specific pair with the contrast checker before committing."
+      },
+      {
+        "q": "How many swatches come back, and which is the base?",
+        "a": "Five: the base in the middle with lightness steps of plus and minus fifteen and thirty percent either side, clamped where the range runs out. Hue and chroma are held, so every swatch shares the base's temperature."
+      }
+    ]
+  },
+  {
+    "slug": "image-recolor-tool",
+    "keywords": [
+      "image recolor tool",
+      "recolor an image",
+      "tint an image one color",
+      "monochrome image tint",
+      "change image color online"
+    ],
+    "intro": "The image recolor tool repaints an entire photo in one color, keeping its brightness detail while replacing every hue with a single tint you choose.",
+    "content": "The image recolor tool takes an uploaded image and a tint colour and rebuilds the picture as a single-hue monochrome. Drop a file onto the upload area, choose a tint, and the canvas beside the controls redraws immediately. Change the tint and it redraws again; Replace image clears the file. There are no other settings, because there is no second colour involved.\n\n- The transformation is the same family as a duotone, with one end of the gradient removed.\n- Each pixel's brightness is computed from its original colour, and that brightness is then used to scale the tint.\n- The result is that white areas become exactly the tint colour, black areas stay black, and every mid-tone becomes a darker version of the tint.\n- The hue of the original image is discarded completely — two photographs of the same subject will come out with identical colouring if their brightness patterns agree.\n\nThe most useful consequence of that formula is a rule for choosing the tint. Because the brightest pixels are painted with the tint at full strength, the tint defines the ceiling of the image's brightness: nothing in the result can be lighter than the tint itself. Choose a deep navy and the whole picture darkens, including anything that was bright; choose a pale yellow and it brightens. That single sentence explains most of the surprising results people get from this kind of tool, and it is the reason a mid-tone tint reproduces the original's overall weight most faithfully.\n\nA second property, visible only in comparison, is that this tool works at the image's native resolution. The canvas is sized to the file rather than downsampled first, so fine detail survives — a useful distinction from the duotone generator in this domain, which caps its working size for responsiveness. The trade is that very large files take longer to process on every tint change.\n\nThe obvious uses are making a set of mismatched images look deliberate — to recolor an image set with one brand colour so the differences in native colouring disappear — and pushing an image back so it works as a background behind text. The same formula gives the classic monochrome image tint, where a photograph is reduced to a single hue so that composition and contrast become the subject rather than colour. It is also a quick way to see an image's structure, because removing the hue leaves only form and contrast, which is often the fastest check on whether a composition works.\n\nTwo limits are worth stating.\n\n- The transparency channel is left untouched, so a PNG with soft edges keeps them, which is usually what you want and occasionally surprising when a mostly transparent image recolours unevenly.\n- And there is no export: the result is drawn on a canvas with no download button, so the route to keeping it is to save the canvas from the browser or reproduce the effect at full resolution in an image editor.\n\nCompared with its neighbours, this is the simplest option in the group — one tint, no second colour, no tonal mapping to arrange. Where the duotone generator maps brightness between two chosen colours, this maps it between black and one colour, which is the classic monochrome approach. If the goal is to tint an image one color so that a set of photographs finally look like they belong together, or to change image color online without installing anything, one upload and one colour is the whole workflow.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Choose the tint colour — remember that the brightest parts of the image take the tint at full strength.",
+      "Adjust the tint until the overall brightness feels right.",
+      "Save the canvas from the browser, or reuse the tint at full resolution in an image editor."
+    ],
+    "whenToUse": "Use this when a photograph needs to be rendered in a single hue — brand-consistent imagery, background treatments, or unifying a set of mismatched pictures. Use the duotone generator when two colours should map the tonal range instead of one. The {{duotone-generator|duotone generator}} maps the image between two chosen tones rather than tinting with one, and the {{color-replacer|color replacer}} swaps a single target colour instead of tinting every pixel.",
+    "faqs": [
+      {
+        "q": "Does any of the original colour remain?",
+        "a": "No. Only brightness survives; every pixel is repainted with the tint at an intensity set by its original lightness."
+      },
+      {
+        "q": "Why did the whole image get darker?",
+        "a": "Because the brightest pixels are painted with the tint at full strength, so nothing can be lighter than the tint itself. A darker tint darkens everything."
+      },
+      {
+        "q": "How is this different from the duotone generator?",
+        "a": "A duotone maps brightness between two chosen colours. This maps it between black and one colour, and it also processes at the image's native resolution rather than downsampling first."
+      },
+      {
+        "q": "How do I save the result?",
+        "a": "There is no download button. Save the canvas through the browser, or note the tint and apply the same effect at full resolution elsewhere."
+      },
+      {
+        "q": "How do I choose the tint colour?",
+        "a": "Pick the tint that the brightest parts of the image should become, because each pixel is multiplied by the tint in proportion to its own luminance — a mid-tone pixel lands roughly halfway between black and the tint, so the tint reads darkest wherever the image was darkest."
+      }
+    ]
+  },
+  {
+    "slug": "additive-color-mixer",
+    "keywords": [
+      "additive color mixer",
+      "additive rgb mixing",
+      "mix light colors together",
+      "additive color calculator"
+    ],
+    "intro": "The additive color mixer combines two colors the way emitted light does, summing their red, green and blue channels to show the additive rgb mixing result of overlapping light sources.",
+    "content": "- The additive color mixer combines two colors by adding their channels, which is how light behaves when two beams overlap.\n- You choose two colors and the tool adds the red values together, the green values together and the blue values together, clamping each sum at the maximum of 255.\n- The result is the color you would see where two spotlights of those colors overlap on a dark stage, or how two glowing pixels would combine if their energy were additive.\n\nThis is the model behind every screen. A display draws red, green and blue subpixels, and the viewer's eye integrates their light, so the browser rendering two overlapping translucent colored layers in the additive family behaves the way this tool predicts. Red plus green produces yellow, green plus blue produces cyan, and blue plus red produces magenta, all of which surprise people who are used to thinking in paint. The clamping at 255 is what keeps the sums inside the displayable range: once a channel is already at maximum, adding more light cannot brighten it further.\n\nIt is deliberately the opposite of the subtractive colour mixer in this same section, which multiplies channels instead. Additive mixing describes emitters such as screens, projectors, LEDs and stage lights. Subtractive mixing describes pigments, inks and filters, where each layer removes light rather than contributing it. Knowing which model applies is the single biggest source of confusion when people compare a printed proof against an on-screen design, and the two tools exist to make that distinction concrete.\n\n- A useful property of additive mixing is that it can only brighten.\n- Because every operation is a sum, the result is always at least as bright as the brighter input in each channel, and the mixed color can never be darker than either source.\n- That makes the tool a fast sanity check: if a proposed blend needs to come out darker, additive mixing cannot be the right model and you want the subtractive mixer or a weighted blend instead.\n\nFor practical work, additive mixing is the correct mental model for glow effects, light leaks, particle systems, and layered emissive UI elements. It is not a substitute for a designer-grade colour picker with alpha compositing, which weights the blend rather than simply summing it. When you want to know what two lights produce, or want to confirm that a red and green additive pair will read as yellow rather than brown, this is the calculator to reach for.\n\nAs an additive color calculator it is also a quick way to check a plan before building it. If you want to mix light colors together in a glow layer, a projector overlap or a set of emissive indicators, check the arithmetic here first: the addition of channels tells you immediately whether a pair will read as a distinct third hue or dissolve into white. The same additive rgb mixing model explains why overlapping translucent screens brighten toward white in the middle, which is a common surprise when stacking luminous overlays without controlling their combined intensity.",
+    "howTo": [
+      "Set Light A and Light B.",
+      "Read the sum: each channel is added and clamped at two hundred and fifty-five.",
+      "Compare the result with the two inputs — additive mixing is the mental model for glow and projection, not for pigment.",
+      "Use the subtractive mixer when the two colours are inks or filters rather than lights."
+    ],
+    "whenToUse": "Use additive mixing for anything that emits light: screens, LEDs, projectors, stage lighting and emissive glow effects. Switch to the subtractive mixer for pigments and inks, and to the two-color blend tool when you want a weighted interpolation rather than a pure sum. The {{subtractive-color-mixer|subtractive mixer}} is the pigment-side counterpart, and the {{cmyk-channel-mixer|CMYK channel mixer}} exposes the four ink channels directly.",
+    "faqs": [
+      {
+        "q": "Why does red plus green give yellow?",
+        "a": "Because the eyes response to red and green stimuli together is perceived as yellow. Both the red and green channels are boosted, and the combination reads as a bright hue between them."
+      },
+      {
+        "q": "Why does the result sometimes look clipped?",
+        "a": "Channel sums are clamped at 255, the brightest value a display can show. Once a channel is saturated, adding more of the same light cannot brighten it further."
+      },
+      {
+        "q": "Is this the same as mixing paint?",
+        "a": "No. Paint follows subtractive mixing, where each pigment removes light and the result gets darker. Use the subtractive mixer for pigment and ink questions."
+      },
+      {
+        "q": "Can additive mixing make a darker color?",
+        "a": "No. Every operation is a sum, so the result is always at least as bright as the brighter input in each channel. Use a weighted blend when you need to go darker."
+      },
+      {
+        "q": "Can additive mixing make a colour darker?",
+        "a": "No. Each channel is a sum clamped at two hundred and fifty-five, so the result can only brighten: red and green sum to yellow, and adding a third light moves the answer towards white rather than away from it."
+      }
+    ]
+  },
+  {
+    "slug": "subtractive-color-mixer",
+    "keywords": [
+      "subtractive color mixer",
+      "mix pigments",
+      "subtractive color mixing",
+      "cyan and yellow make green",
+      "pigment mixing calculator"
+    ],
+    "intro": "The subtractive color mixer combines two pigment colors by multiplying their channels, so cyan and yellow produce green the way inks and filters behave.",
+    "content": "The subtractive color mixer takes two colours and returns what you get when you mix pigments, combined the way inks, filters and translucent layers combine. Each colour has its own field, and the mixed result appears beside them as a large swatch. The defaults are cyan and yellow, which is a deliberate choice: multiplied together they produce a pure green, which is the answer most people remember from school and the quickest proof that the tool is modelling the right thing.\n\n- The arithmetic is per-channel multiplication.\n- Each of the red, green and blue values is scaled by the corresponding value of the other colour and divided by the full range, which is equivalent to treating both colours as filters or translucent inks that each remove part of the spectrum and letting the two removals compound.\n- It is the same operation as the multiply blend mode in image editing, and it is the correct model for ideal subtractive primaries.\n- Cyan removes red, yellow removes blue, and layering them leaves green — which is exactly what the arithmetic returns.\n\nThat model explains why this differs so sharply from mixing the same two colours of light. The additive mixer in this domain adds channels and moves towards white; this one multiplies and moves towards black. Every pairing here produces something darker than either input, which is the signature behaviour of pigment — mixing paints never yields a brighter result than its brightest component, and past three or four colours almost everything heads for a muddy brown.\n\nWhat the tool does not model is the behaviour of real pigment, and it is worth being clear about the gap. Real inks and paints scatter light, contain impurities, and vary in particle size and transparency, so a physical cyan and yellow mixed in a jar produces a green that is duller and greener-yellow than the ideal multiplication predicts, and the outcome depends on the medium and the proportions. There is also no black channel here, so this is not a CMYK conversion — it is two-colour multiplication rather than a four-ink model, and printing work would need a proper profile-based conversion.\n\nWhere the ideal model is genuinely useful is in reasoning about overlays and filters rather than about paint. A translucent coloured panel over another colour, a multiply blend in a design tool, and a coloured gel over a light all behave the way this arithmetic describes, so the tool is a reliable predictor for those cases and an approximation for ink. It is also a compact way to answer the questions people actually ask about mixing: what does blue and yellow make, what happens when you layer these two tints, and why does mixing more than three colours always end up brown.\n\n- Limits: two colours at a time, no proportion control — the mixture is always equal parts, so a two-to-one blend has to be approximated by mixing a mid-tone first — no opacity, no black channel, and no output beyond the resulting hex value.\n- As a pigment mixing calculator for ideal primaries it is exact, and as a subtractive color mixing demonstration it makes the important contrast with additive mixing obvious in one glance: cyan and yellow make green here, and make a pale grey in the additive tool beside it.",
+    "howTo": [
+      "Set the two pigment colours, starting from the cyan and yellow default if you want to see the classic result.",
+      "Read the mixed swatch for the combined colour.",
+      "Copy the resulting hex value if you need it in a design file."
+    ],
+    "whenToUse": "Use this when reasoning about layered translucency, multiply blends or ideal subtractive primaries. Use an additive mixer for light, or a profile-based CMYK conversion when the target is print. The {{additive-color-mixer|additive mixer}} is the light-side opposite, and the {{cmyk-channel-mixer|CMYK channel mixer}} works the same subtractive idea through ink percentages.",
+    "faqs": [
+      {
+        "q": "How is the mixture calculated?",
+        "a": "Each channel of one colour is multiplied by the corresponding channel of the other. It is the same operation as a multiply blend, and it models two ideal filters or translucent inks."
+      },
+      {
+        "q": "Why does mixing always produce something darker?",
+        "a": "Because multiplication moves towards black — each colour removes part of the spectrum, and the removals compound. That is the defining behaviour of subtractive mixing."
+      },
+      {
+        "q": "Does this match real paint?",
+        "a": "Approximately. Real pigments scatter light and contain impurities, so a physical cyan and yellow give a duller green than the ideal arithmetic predicts, and the result depends on the medium and proportions."
+      },
+      {
+        "q": "Can I control the proportions?",
+        "a": "No — the mixture is always equal parts. For an uneven blend, approximate it by mixing a mid-tone first and combining that."
+      },
+      {
+        "q": "Why does the result differ from mixing paint in real life?",
+        "a": "Because the arithmetic is an ideal per-channel multiplication rather than a model of pigment: real paints scatter, absorb unevenly and carry fillers that keep a mixture from going fully dark, so the tool is best read as the idealised version of the process rather than a prediction of a specific tube."
+      }
+    ]
+  },
+  {
+    "slug": "cmyk-channel-mixer",
+    "keywords": [
+      "cmyk channel mixer",
+      "cmyk to rgb mixer",
+      "mix cmyk channels",
+      "cmyk color calculator"
+    ],
+    "intro": "The CMYK channel mixer lets you set cyan, magenta, yellow and black independently and shows the resulting RGB color, making the relationship between the two models concrete.",
+    "content": "The CMYK channel mixer exposes the four ink channels that describe subtractive color and shows the RGB color they produce. Each slider runs from zero to one hundred percent, and the tool converts the four values to a red, green and blue swatch in real time. It is the clearest way to feel how the two models relate, because you are manipulating the ink values and watching the screen values respond.\n\n- The conversion itself is the standard simple form.\n- Each RGB channel is derived from its complement minus the black contribution: red is 255 times one minus cyan times one minus black, and the same pattern applies to green from magenta and blue from yellow.\n- Setting cyan to zero and all others to zero gives red, because removing cyan leaves red light.\n- Raising all four values together darkens the result toward black via the shared black channel, which is what the K slider is doing: it subtracts uniformly from every channel rather than tinting the result.\n\nWorking in CMYK is different from working in RGB in a way that matters for print. Inks are subtractive, so each channel represents how much of one ink is laid down, and the presence of all three colour inks approaches black but rarely reaches it cleanly, which is exactly why a separate black channel exists. The mixer demonstrates this: at high cyan, magenta and yellow with zero black you get a near-black muddy brown rather than a clean neutral, and only raising the black channel produces a true dark neutral. That is the practical reason print workflows carry a fourth channel.\n\nA useful exercise is to hunt for neutral greys. Set cyan, magenta and yellow to equal values and move the black slider; you will see the result shift between a coloured dark tone and a clean grey depending on how the channels are balanced. Slight imbalances, which are easy to introduce when mixing by eye, produce a visible colour cast across an entire print run. Building a grey from matched channels and then adding black is the disciplined approach, and seeing the cast appear and disappear as you nudge one slider makes the reason obvious.\n\n- The important caveat is that this is a direct mathematical conversion between channel values, not a colour-managed workflow.\n- Real print output depends on the ink set, the paper, the press profile and a rendering intent, so a CMYK value here will not predict what a specific press produces.\n- Treat the mixer as a model for learning and for quick channel arithmetic, and use a proper ICC profile for production colour.\n- Within that scope it is precise, immediate, and far clearer than trying to reason about two colour models in your head.\n\nIt works as a cmyk to rgb mixer for quick checks and as a cmyk color calculator for working out the screen equivalent of an ink value you were given. If you need to mix cmyk channels by hand to reach a target tone, the four sliders give you the whole space to search, one channel at a time.",
+    "howTo": [
+      "Set the four ink sliders — cyan, magenta, yellow and black, each from zero to one hundred percent.",
+      "Read the resulting swatch: each screen channel is derived as two hundred and fifty-five times one minus the ink, times one minus black.",
+      "Try hunting for neutral greys by setting all three of cyan, magenta and yellow to the same value.",
+      "Carry the value to the print accuracy checker when a margin verdict is wanted."
+    ],
+    "whenToUse": "Use this mixer to explore or reason about ink channel values and see their RGB equivalent. For predicting real print output, use a colour-managed workflow with an ICC profile; for on-screen colour work, stay in the RGB and HSL tools. The {{color-gamut-checker|gamut checker}} and the {{print-color-accuracy-checker|print accuracy checker}} look at the same conversion from the print side, and the {{rgb-channel-adjuster|RGB channel adjuster}} edits the screen-side channels.",
+    "faqs": [
+      {
+        "q": "Why does CMYK sometimes give a muddy black?",
+        "a": "The three colour inks together approach black but rarely reach a clean neutral, which is why a separate black channel exists. Raising K produces a truer dark."
+      },
+      {
+        "q": "How is the RGB value calculated?",
+        "a": "Each screen channel is its complement minus the black contribution: red from cyan and K, green from magenta and K, blue from yellow and K."
+      },
+      {
+        "q": "Is this accurate for printing?",
+        "a": "It is an exact mathematical conversion between channel values, not a soft-proof. Real output depends on the profile, ink and paper, so use ICC-based tooling for production."
+      },
+      {
+        "q": "Why do equal CMY values still show a cast?",
+        "a": "Because the channels only neutralise each other when they are perfectly balanced. A small imbalance shows up as a colour cast, which this mixer makes visible."
+      },
+      {
+        "q": "Do these CMYK values match a printer profile?",
+        "a": "No. Each RGB channel is derived arithmetically from the ink percentages with no ICC profile, no paper, no ink limits and no rendering intent, so the figures are a working approximation rather than a soft proof."
+      }
+    ]
+  },
+  {
+    "slug": "color-variations-generator",
+    "keywords": [
+      "color variations generator",
+      "tints shades and tones",
+      "color variations chart",
+      "light and dark variations of a color"
+    ],
+    "intro": "The color variations generator lays out one base color as three labelled rows — tints, shades and tones — five swatches each, so all the classic variations are visible at once.",
+    "content": "The color variations generator takes a single base colour and shows it three ways at once. Under the colour picker sit three labelled rows of five swatches: a Tints row running from a pale wash to something nearly white, a Shades row running from a mid-dark to something close to black, and a Tones row running from a barely-tinted grey to a moderately muted version of the hue. Every swatch carries its hex value and a copy button. The point of the layout is comparison: three answers to three different questions, visible together rather than one at a time.\n\n- Each row is constructed differently, and the differences are what make the chart useful.\n- The tints keep the base's hue but drop chroma to a small fraction of it while raising lightness through a fixed sequence of light values, which is why a tint reads as a softened version of the colour rather than simply a lighter one.\n- The shades hold chroma at full strength and step lightness downward through a fixed dark sequence, preserving the colour's character as it deepens.\n- The tones are the odd one out in a useful way: lightness is pinned to whatever the base already has, and only chroma moves, so every entry in that row has the same brightness as your starting colour.\n\nThere is a structural detail worth understanding before you lean on the chart.\n\n- The tint and shade rows use fixed target lightness values rather than steps relative to your base, so the result is a standard set rather than a scaled version of the colour you chose.\n- Start from a very light base and the shade row is a large jump downward; start from a very dark base and the tint row is a large jump upward.\n- Only the tone row is derived from the base itself, because it keeps the base's lightness by definition.\n- Knowing that turns a possible surprise into an expectation.\n\nReading the chart is mostly about which direction preserves the colour's identity. Tints and shades usually keep a hue recognisable because saturation is present in at least one of them, while tones converge on neutral as chroma falls, so a heavily toned swatch can look like a different colour entirely. If a design needs variations that still feel like the original, the tint and shade rows are the safer source; if it needs something quieter that still sits in the same area, the tone row is the right one.\n\nThe everyday use is building a small system from one brand colour: a light surface, a base, a pressed state, a border and a muted text tone can all be read off a single chart in a few seconds. It is also useful as a reference while reviewing, because seeing all three families side by side makes it obvious when a palette has drifted into using tints as if they were shades. And because each swatch carries its value, taking five of them into a stylesheet is a matter of copying in sequence.\n\nWhere it differs from the dedicated tools is breadth against depth. The separate shade, tint and tone generators each produce ten steps of one kind, in a continuous sequence you can read as a ramp. This one gives you five of each kind and lets you compare across kinds, which is the better fit for choosing a direction rather than building a full ramp. Because the palette editor is live, changing the base re-renders all fifteen swatches together, so the whole chart can be explored quickly.\n\nUsed as a color variations generator it does one job cleanly: given a colour, show its light and dark variations of a color alongside its muted ones, in one glance. When you want a color variations chart to reason about directions rather than to pick precise steps, that is exactly the right amount of information, and the tints shades and tones rows together cover the classic vocabulary of colour variation without a second tool.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the three rows: tints towards white at reduced chroma, shades towards black, and tones that drain chroma at the base's lightness.",
+      "Notice that only the tone row keeps the lightness the eyes read as the colour's weight.",
+      "Move to the dedicated shade, tint or tone generator when one direction needs a deeper ladder."
+    ],
+    "whenToUse": "Use this chart to compare variation directions for one colour before committing to a ramp. Use the dedicated shade, tint and tone generators when you need ten continuous steps of a single kind. The dedicated {{color-shades-generator|shade}}, {{color-tints-generator|tint}} and {{color-tones-generator|tone}} generators give one row at a time with ten steps each, where this chart trades depth for breadth.",
+    "faqs": [
+      {
+        "q": "What are the three rows?",
+        "a": "Tints, shades and tones, five swatches each. Tints lighten with reduced chroma, shades darken while holding chroma, and tones keep the base's lightness while reducing chroma."
+      },
+      {
+        "q": "Why does the shade row sometimes look like a big jump?",
+        "a": "The tint and shade rows use fixed lightness sequences rather than steps relative to your base. A very light base makes the shade row a large jump, and a very dark base makes the tint row a large one."
+      },
+      {
+        "q": "Which row keeps the colour most recognisable?",
+        "a": "Tints and shades, because each holds saturation in the other axis. Tones converge on neutral as chroma falls, so heavy tones can read as a different colour."
+      },
+      {
+        "q": "How many steps of each kind do I get?",
+        "a": "Five of each. If you need a longer continuous ramp in one direction, the dedicated tint, shade or tone generator produces ten."
+      },
+      {
+        "q": "Why are only five steps shown per row?",
+        "a": "Breadth against depth: three five-step rows show the directions a colour can move in one view — tints at reduced chroma, shades at full chroma and tones at the base's lightness — while the dedicated generators lay out ten steps along one axis."
+      }
+    ]
+  },
+  {
+    "slug": "color-shift-generator",
+    "keywords": [
+      "color shift generator",
+      "shift hue of a color",
+      "hue rotation preview",
+      "alternate hues of a color"
+    ],
+    "intro": "The color shift generator shows one color rotated to seven hue positions at once, from sixty degrees back to sixty degrees forward, each labelled with its offset.",
+    "content": "- The color shift generator shows what a colour looks like when its hue is rotated.\n- Pick a base and the tool renders seven swatches in a row, each one that base turned by a fixed amount around the colour circle: sixty degrees anticlockwise, thirty, fifteen, none at all, then fifteen, thirty and sixty in the other direction.\n- Every swatch is labelled with its offset in degrees, so the middle entry is always your original colour and the row reads as a symmetric fan around it.\n- If your instinct is to shift hue of a color by a fixed amount and see what happens, this row of seven is the fastest way to find out.\n- It answers a question that is easy to ask and tedious to work out by hand: what else could this colour have been, without changing anything else about it?\n\nThe rotations happen in a perceptually uniform space rather than by adding to red, green and blue. That distinction is the reason the row is usable. Rotating channels independently changes brightness as a side effect, so a shifted colour can come back noticeably lighter or darker and the comparison stops being fair. Rotating the hue angle with lightness and chroma held produces seven swatches that are equally bright and equally saturated, which means the only variable you are looking at is hue. Judging a direction from this row is therefore judging hue alone, exactly as intended.\n\nReading the row is a quick lesson in how much a small shift matters. The fifteen-degree steps are close enough that the difference reads as a gentle variation, which is roughly the territory of analogous palettes and of a subtle accent sitting beside a base. The thirty-degree steps separate more clearly and start to feel like distinct colours working in concert. The sixty-degree steps are firmly different hues that share a family resemblance without being interchangeable, which is useful when a design needs a second colour that is related but plainly its own.\n\nThe most common use is deciding on a secondary or accent colour. Instead of opening a wheel and hunting, you see the plausible neighbours of your base laid out in order and can pick the one at the distance you want. It is also a fast way to check whether a colour is doing too much of the work: if all seven swatches look interchangeable in context, your design may be relying on hue where it should be relying on lightness or size instead.\n\nThere is an important limit that follows from holding the other two properties fixed.\n\n- Because chroma is constant, some rotations land outside what a screen can display — a saturated yellow, for instance, can only exist at a certain lightness, so rotating a dark blue sixty degrees toward yellow produces a colour that has to be clamped on output and comes back less vivid than the others.\n- When one swatch in the row looks noticeably duller than its neighbours, that is usually the reason rather than a mistake in the rotation.\n\nTwo wordings for the same idea are worth recognising so you do not go looking for a separate tool: shifting the hue of a colour and rotating its hue angle are the same operation, and a hue rotation preview like this one is the quickest way to see the range available. If a specific relationship is what you need rather than a range — a true complement, a triad, a tetrad — the dedicated harmony tools compute those exact angles. Used to explore, though, the fan of seven is an unusually efficient way to see the alternate hues of a color before committing to one, and it makes the size of each step obvious in a way that reading degrees never does.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the seven swatches, running from sixty degrees below to sixty degrees above the base.",
+      "Note how far fifteen degrees moves the colour before choosing an accent.",
+      "Use the hue rotator when a single rotation value has to be applied and read out."
+    ],
+    "whenToUse": "Use this generator to preview a range of hues around a base color and choose how far to shift for an accent or secondary color. Use the harmony tools when you need specific relationships such as complementary or triadic. The {{hue-rotator|hue rotator}} applies a single rotation you set, and the {{color-temperature-adjuster|temperature adjuster}} frames the same move as a warm or cool correction.",
+    "faqs": [
+      {
+        "q": "How many hues are shown?",
+        "a": "Seven: sixty, thirty and fifteen degrees anticlockwise, the original, then fifteen, thirty and sixty degrees clockwise, each labelled with its offset."
+      },
+      {
+        "q": "Does the shift change brightness?",
+        "a": "No. The rotation happens in a perceptually uniform space with lightness and chroma held, so the swatches are equally bright and only the hue varies."
+      },
+      {
+        "q": "Why does one swatch look duller than the rest?",
+        "a": "Some hue and saturation combinations cannot be displayed at that lightness, so the value gets clamped on output. It is a limit of the screen, not an error in the rotation."
+      },
+      {
+        "q": "Is a hue rotation the same as a shift?",
+        "a": "Yes. Shifting the hue of a colour and rotating its hue angle describe the same operation, and this tool previews that operation across a fixed range of offsets."
+      },
+      {
+        "q": "Does the row include the original colour?",
+        "a": "Yes. Seven swatches are shown, from sixty degrees below to sixty degrees above the base, with the base itself at zero in the middle. Lightness and chroma are held throughout, so only hue changes across the row."
+      }
+    ]
+  }
+]

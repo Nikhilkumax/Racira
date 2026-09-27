@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "glyph-browser",
+    "keywords": [
+      "glyph browser",
+      "advance width",
+      "canvas api",
+      "code point"
+    ],
+    "intro": "The glyph browser walks the printable code points of a chosen face and measures each one with the browser's own text engine, so the widths it reports are the rendered metrics rather than a table copied from elsewhere. Cells that a fallback face draws are marked.",
+    "content": "The glyph browser pages through a face's printable code points, draws each one in a grid and measures its advance width in the canvas api at the size you choose. The measurement is the part that makes it useful: the browser's shaping engine reports what the font does when it is rendered, including the kerning and default feature behaviour that apply to a single glyph.\n\nFour controls set the walk, and one of them accepts two input formats.\n\n- Face, chosen from the catalogue, which decides both the grid and the measurements.\n- Start code point, entered either as a hexadecimal value with a leading 0x or as a plain decimal number, clamped to the printable range.\n- Glyph count, from 16 to 480, which is how far past the start the grid runs.\n- Cell size, from 12 to 96 pixels, which changes both the rendering and the units the advance widths are measured in.\n\nThe readouts turn the grid into an assessment, and the average advance is the quickest figure for comparing two candidates' economy of space before a paragraph is set in either of them. The shown and native counts answer whether the face really covers the range or is borrowing glyphs from a fallback, the average advance is given in pixels and as a fraction of the em, and the range line names the first and last code point displayed. Every cell carries its hexadecimal code, and a cell the face does not draw is labelled as a fallback, using the browser's own font-matching check rather than a guess. Selecting a glyph opens a detail panel with its code point, its advance width in pixels and in em units, and buttons that copy the character, the code point and an HTML entity, which is the sequence a designer actually needs when a symbol has to be documented for a developer, along with the face and size the measurement was taken at.\n\nFour limits follow from measuring in the browser rather than reading a table.\n\n- A width taken at 12 pixels is rounded by the renderer, so comparisons of similar faces are more reliable at the larger sizes the slider allows.\n- The measurement describes the glyph as the browser shapes it, with default features on, so a width that changes under a stylistic set will not match what a different rule produces.\n- The fallback check depends on the font actually being loaded, which means a face that has not finished loading can look less complete than it is.\n- The walk is clamped to the printable range, so control characters and the private use area are out of scope by design.\n\nUse it when a face's coverage is being assessed before it is chosen, when a symbol seen in a design has to be identified by code point, or when the real advance widths of a face matter — for example alongside a monospace companion, in a table of figures, or where a display setting has to fit a fixed width.",
+    "howTo": [
+      { "step": "Pick the face and confirm the native count, since a low figure on a wide range means the grid is showing fallback glyphs rather than the font's own." },
+      { "step": "Enter the start code point in whichever form you have it, hexadecimal or decimal, and set a count that covers the ranges you care about." },
+      { "step": "Raise the cell size before comparing widths between faces, because small sizes round the measurements." },
+      { "step": "Select the glyph you need and copy the character, the code point or the HTML entity, checking the detail panel's drawn-by row first." }
+    ],
+    "whenToUse": "Reach for it when a face's coverage has to be judged before it is adopted, when a symbol in a design has to be identified and handed to a developer, or when real advance widths matter for aligning figures. The measured-width column is the honest part. For a symbol that is not covered at all the {{missing-glyph-detector|missing glyph detector}} names the fallbacks, the {{unicode-character-explorer|Unicode character explorer}} gives the block and encoding context, and the {{font-glyph-png-exporter|font glyph PNG exporter}} turns individual glyphs into images.",
+    "faqs": [
+      {
+        "q": "How does the tool measure a glyph's width?",
+        "a": "It asks the browser's own text engine, through the canvas measurement API, at the size you set. That means the number includes whatever the renderer applies to a single glyph, such as kerning contexts and the font's default features, rather than being read from a separate metrics table."
+      },
+      {
+        "q": "What does the fallback label on a cell mean?",
+        "a": "It means the face does not contain that code point, so the browser would substitute another font at render time. The label comes from the platform's font-matching check, which is the same machinery that decides at paint time, so it reflects what the visitor will actually see on this machine."
+      },
+      {
+        "q": "Why is the advance width given in em units as well as pixels?",
+        "a": "Because pixels alone do not travel. An em value is the width relative to the font size, so it can be compared with another face measured at a different size, and it converts into any size the design later uses. The pixel figure is there so the current setting can be read at a glance."
+      },
+      {
+        "q": "Can I browse the whole font?",
+        "a": "The walk covers up to 480 consecutive code points from wherever you start, clamped to the printable range, so a large CJK font is covered in several passes rather than one. That is deliberate: measuring hundreds of glyphs in one go is slower and the grid becomes unreadable long before it runs out of code points."
+      },
+      {
+        "q": "Why do two faces show different widths for the same letter?",
+        "a": "Because advance width is a design decision, not a constant. A condensed face fits more characters into the same line precisely because its advances are narrower, and the average advance readout is the quickest way to see the difference between two candidates before reading a single paragraph."
+      }
+    ]
+  },
+  {
+    "slug": "unicode-character-explorer",
+    "keywords": [
+      "unicode character explorer",
+      "unicode block",
+      "code point",
+      "utf-8 bytes"
+    ],
+    "intro": "The Unicode character explorer indexes the blocks that matter to typography, with each block's range, size and a curated printable sample, plus an inspector for any character you paste. Samples are curated rather than generated because a whole block rendered blindly is mostly unassigned slots.",
+    "content": "The Unicode character explorer pairs a searchable index of Unicode blocks with an inspector for individual characters, which is the combination that answers the two questions typography work raises: which block does this belong to, and what exactly is this character in code.\n\nThe inspector reports four encodings for any character pasted into it.\n\n- The code point in hexadecimal with its decimal value, so the same character can be described in either notation.\n- The block it belongs to, looked up by range rather than by name, which matters for characters near a boundary.\n- Its utf-8 bytes and its hexadecimal HTML entity, which are the two forms a front-end task usually needs.\n- A copy button for the character itself, since the point of inspecting is usually to reuse it.\n\nThe block index holds curated samples because a block rendered wholesale is mostly gaps. Basic Latin shows the Latin alphabet, digits and punctuation; Latin Extended-A shows Central and Eastern European letters; the General Punctuation block shows the dashes, quotes and invisible spacing characters that cause real layout bugs; the symbol blocks show arrows, mathematical operators, box drawing and geometric shapes; and the emoji blocks show pictographs and faces. Filtering works on the block name and on the hexadecimal range, so a code point found elsewhere can be traced to its block by typing part of its value, and a character that has already been identified can be placed without pasting it.\n\nThe framing the tool gives the list is the part worth keeping: a font's coverage is not a count of glyphs but a set of claims, and each block a family covers costs design time and file size. Display faces generally stop after Basic Latin plus a few punctuation blocks, while text families continue through Latin Extended, Greek and Cyrillic, and specialist families extend into symbols or CJK. When a glyph is missing, the browser falls back to the next family in the stack for that character alone, which is why a mixed-script page can render with three typefaces — sometimes seamlessly, sometimes not.\n\nFour limits apply, and they are worth knowing before the index is quoted.\n\n- The index is a curated subset of the several hundred Unicode blocks, chosen for typography rather than for completeness.\n- Each sample lists printable characters only, so a block's size in code points is never the number of characters shown.\n- The character inspector describes the first character of whatever is pasted, so a sentence has to be entered one character at a time.\n- The UTF-8 byte count covers that first character only, which makes it useful for sizing a field and not for sizing a document.\n- None of this tests a specific font: whether a chosen face carries a character is a coverage question, which the missing glyph detector answers directly.\n\nThe two halves are complementary in practice — the index narrows down where a character lives, and the inspector says exactly what it is once it has been found.",
+    "howTo": [
+      { "step": "Paste the character you are working with into the inspector and read its code point, block and UTF-8 bytes before deciding how to write it in code." },
+      { "step": "Filter the block list by name or by part of a hexadecimal range to find the block a code point belongs to." },
+      { "step": "Read the sample column to see what the block actually contains in practice, remembering that non-printable and unassigned code points are not shown." },
+      { "step": "Copy the character or its entity from the inspector rather than retyping it, since visually identical characters can come from different blocks." }
+    ],
+    "whenToUse": "Reach for it when a character in a document has to be identified before it is replaced or escaped, when a face's script coverage is being discussed and the block names matter, or when a symbol that looks like a hyphen turns out to be something else entirely. The block context is what makes the identification reliable. For the coverage of a specific face the {{missing-glyph-detector|missing glyph detector}} is the direct test, the {{unicode-block-explorer|Unicode block explorer}} covers the plane structure behind the blocks, and the {{character-code-converter|character code converter}} lists every encoding of a character at once.",
+    "faqs": [
+      {
+        "q": "Why are the block samples curated instead of complete?",
+        "a": "Because a block contains unassigned and control code points alongside printable characters, so rendering the whole range produces mostly empty boxes. Each sample lists the characters a designer is likely to meet, which is what makes the index readable at a glance."
+      },
+      {
+        "q": "What is a block, exactly?",
+        "a": "It is a contiguous range of code points that Unicode groups by purpose or script, such as General Punctuation or Cyrillic. Blocks are the unit fonts are usually described in, since a family's coverage is naturally summarised as which blocks it supports rather than as a list of characters."
+      },
+      {
+        "q": "Why does the tool show UTF-8 bytes?",
+        "a": "Because byte length is what file size and network transfer are measured in, and it differs from the character count. A Latin letter is one byte, most accented letters and CJK characters are two or three, and an emoji is four — which is why a paragraph's weight cannot be estimated from its length in characters."
+      },
+      {
+        "q": "How do I tell two similar characters apart?",
+        "a": "By code point rather than by eye. A typographic apostrophe, a prime and a straight quote can look nearly identical at small sizes but come from three different blocks, and the inspector names the block for the character you pasted. The copy button then captures the right one."
+      },
+      {
+        "q": "Does the explorer tell me whether my font has a character?",
+        "a": "No. It describes the character and the block it lives in, not the coverage of any particular face. Whether a chosen font contains a code point depends on the file, and the missing glyph detector asks the browser's font-matching engine that question directly."
+      }
+    ]
+  },
+  {
+    "slug": "special-character-picker",
+    "keywords": [
+      "special character picker",
+      "html entity",
+      "numeric reference",
+      "typographic punctuation"
+    ],
+    "intro": "The special character picker collects the characters a typist needs but cannot type: dashes, real quotes, primes, legal marks, units and arrows. Every entry carries a named html entity and a numeric reference, so it can be dropped into HTML, Markdown or plain text without guessing.",
+    "content": "The special character picker gathers the characters that a keyboard cannot produce and that copy-paste usually mangles, organised into four groups with their names and both entity forms.\n\nThe four groups, and the characters that cause the most trouble:\n\n- Typographic punctuation: the em dash and en dash, the ellipsis, the bullet, the middle dot, the section and paragraph signs, and the dagger pair.\n- Quotes and primes: curly single and double quotes, the prime and double prime used for feet and inches, and the guillemets for French and Italian setting.\n- Legal, math and units: copyright, registered and trademark marks, degrees, plus-minus, multiplication and division signs, the micro and ohm signs, and the euro.\n- Arrows and marks: the four cardinal arrows, the left-right arrow, a check mark, a star and a heart.\n\nEach row gives the character, its name, its named entity and its numeric reference, and two ways to take it away. The add button appends it to a build-a-string field that can be copied as a whole line, which is how a run of dashes and quotes is assembled for a caption or a legal line; the copy button puts that single character on the clipboard. Filtering works across the character, the name and the entity, so typing dash or arrow narrows the table without leaving the group.\n\nThe entity forms are shown side by side because they are not interchangeable in practice. A named entity is readable in source and says what it means, which is why it suits templates and documentation; a numeric reference is universal and needs no name to be defined, which is why it survives in contexts where the page's character encoding has been through too many hands. Both decode to the same character, and the group label makes the distinction obvious while the row is open rather than after something has rendered as mojibake.\n\nFour things the catalogue deliberately does not decide for you, and each one turns up in review.\n\n- It cannot tell whether the chosen font contains a character, so a correct section sign can still fall back to another face and render at a different weight.\n- It cannot arbitrate style: an en dash for a numeric range and an em dash for a break is a house rule rather than a fact, and both characters sit in the same group.\n- Every row offers an html entity and a numeric reference but no guidance for a plain text file, where neither is decoded and the character itself has to be pasted.\n- Choosing between the two entity forms is a decision about the destination rather than about the character, since both decode to the same value.\n- The catalogue is finite, so anything exotic belongs in a block explorer, which is where the search by code point lives.\n\nUse it as the everyday shelf rather than the whole repertoire: most of what a page needs is a dash, a quote or a symbol, and those are the characters the four groups cover.",
+    "howTo": [
+      { "step": "Choose the group that matches the job and filter by the character's name, so the table stops showing the groups you do not need." },
+      { "step": "Use add to build a string when several marks belong together, or copy for a single character pasted into a document." },
+      { "step": "Pick the entity form from the row: the named form for readable source, the numeric form wherever encoding is uncertain." },
+      { "step": "Check the pasted result in the destination, since a correct character can still render from a fallback face at a different weight." }
+    ],
+    "whenToUse": "Reach for it when a page has straight quotes that should be curly, when a caption needs a real en dash rather than a hyphen, or when someone has to be handed the entity for a character instead of being told its name. The two entity forms are the practical part. For symbols beyond the catalogue the {{dingbat-and-symbol-explorer|dingbat and symbol explorer}} walks whole blocks, the {{character-code-converter|character code converter}} lists every encoding of a character at once, and the {{unicode-character-explorer|Unicode character explorer}} identifies a character whose name is unknown.",
+    "faqs": [
+      {
+        "q": "What is the difference between the named and numeric entity?",
+        "a": "Both decode to the same character; the named form is human-readable in source and the numeric form is universal. Named entities suit templates and code that is read by people, while numeric references are safer where a document may be re-encoded or processed by a system that does not know the name."
+      },
+      {
+        "q": "Why does an apostrophe sometimes look wrong after pasting?",
+        "a": "Because a straight apostrophe and a typographic one are different characters, and a font may draw them at different weights or widths. The picker supplies the typographic form; if it renders at an odd weight, the family in use does not contain it and the browser has substituted a fallback for that character alone."
+      },
+      {
+        "q": "What are primes used for?",
+        "a": "Feet and inches, minutes and seconds, and coordinates. They are separate characters from quotes and are drawn as slanted marks rather than curls, which is why substituting a right quote for a prime is a common typesetting error that a careful reader will notice in measurements."
+      },
+      {
+        "q": "Should a range use an en dash or a hyphen?",
+        "a": "An en dash is the usual choice for a numeric range such as pages 10 to 20, with a hyphen reserved for compound words. That is a style convention rather than a property of the characters, so both sit in the same group and a house style guide is what decides."
+      },
+      {
+        "q": "Can I add my own characters to the list?",
+        "a": "Not to the catalogue, which is a curated set. The build-a-string field accepts anything typed or pasted into it, and the block explorers cover the rest of the symbol repertoire by code point, which is the route for a character that is not in the four groups."
+      }
+    ]
+  },
+  {
+    "slug": "dingbat-and-symbol-explorer",
+    "keywords": [
+      "dingbat and symbol explorer",
+      "symbol blocks",
+      "code point",
+      "paged grid"
+    ],
+    "intro": "The dingbat and symbol explorer walks Unicode's symbol blocks in a paged grid, showing each code point with its hexadecimal value and a copy button. Blocks are the reliable unit here: unlike emoji, dingbats and marks are single code points with stable shapes.",
+    "content": "The dingbat and symbol explorer pages through the symbol blocks of Unicode, ninety-six characters at a time, with the block's range and purpose stated beside the grid. It is the tool for the case where a symbol has been seen in a design and has to be identified and reused.\n\nEight blocks are indexed, each chosen because it turns up in real work.\n\n- Arrows and mathematical operators, for flows, notation and set symbols.\n- Geometric shapes and miscellaneous symbols, which are the shape vocabulary of diagrams plus weather, chess and card marks.\n- Dingbats, holding check marks, crosses, stars, scissors and envelopes.\n- Miscellaneous symbols and arrows, the extra stars and arrows that icon work tends to reach for.\n- Box drawing and braille patterns, the latter doubling as a block-shading trick in terminal work.\n\nEach cell carries the character, its code point in the U+ format and a copy button, and the grid pages rather than scrolls so a block of several hundred characters stays readable. Filtering by code is the fastest way to confirm a specific character: type part of a U+ value and the grid narrows to the matches, resetting to the first page. The block selector shows each block's size, which is useful context — the arrows block and the dingbats block are the same order of magnitude, while braille offers exactly two hundred and fifty-six patterns and nothing else.\n\nThe caveats table is the part worth reading before a symbol ships. A glyph may render as a box when the current font lacks the code point, in which case the browser either falls back or draws the notdef glyph. Some marks in the miscellaneous symbols and dingbats ranges have emoji variants, selected by a variation selector, and are drawn in colour on platforms that prefer the emoji presentation. Width varies: symbols taken from East Asian fonts are often full-width, which breaks alignment in a monospaced context. And the copy target matters, since pasting into plain text carries the character while an HTML document may be better served by the numeric reference; both forms are safe, and only one of them survives an encoding mishap.\n\nFour limits are structural rather than incidental.\n\n- The index is a curated set of symbol blocks rather than the whole plane, so a specialised block has to be reached through a general Unicode reference.\n- The paged grid shows what a code point is, not whether a particular font contains it, so coverage stays a separate question.\n- Paging is fixed at ninety-six characters per page, which keeps a large block readable at the cost of a few clicks when the target sits near the end of a range.\n- The filter matches on the code point alone, since a symbol has no reliable name to search by until it has been identified.\n\nRead the grid as the identification tool and the caveats table as the shipping checklist: between them, most of the surprises a borrowed symbol produces have already been named.",
+    "howTo": [
+      { "step": "Choose the block closest to the kind of symbol you need, then read its note to confirm the range covers the character." },
+      { "step": "Filter by a partial code point when you know roughly where the symbol lives, and use the paging controls to walk a large block." },
+      { "step": "Copy the character from the grid, then check the caveats table for the width and presentation traps that apply to that range." },
+      { "step": "Confirm in the destination page that the symbol renders from the intended font rather than a colour emoji or a fallback box." }
+    ],
+    "whenToUse": "Reach for it when a symbol in a mock-up has to be identified and handed over, when an icon candidate is being chosen from the text repertoire rather than from an icon set, or when a mark renders as a box or a colour emoji and the reason has to be found. The caveats table is the diagnostic. For arbitrary characters outside the symbol blocks the {{unicode-character-explorer|Unicode character explorer}} inspects anything pasted, the {{unicode-block-explorer|Unicode block explorer}} shows which plane a block sits in, and the {{special-character-picker|special character picker}} covers the punctuation typists reach for daily.",
+    "faqs": [
+      {
+        "q": "Why is a symbol showing as a box?",
+        "a": "Because the font in use does not contain that code point, so the browser either substitutes a fallback face or draws the missing-glyph box when no fallback has it either. The character is correct; the coverage is the problem, and the fix is a font that carries the block or a numeric reference with a fallback declared."
+      },
+      {
+        "q": "Why did a black-and-white symbol turn into colour?",
+        "a": "Because several ranges, notably miscellaneous symbols and dingbats, have emoji variants. A variation selector can force the text presentation, and some platforms choose the emoji form by default. The caveats table names the range so the behaviour can be anticipated rather than discovered in production."
+      },
+      {
+        "q": "What is braille doing in a symbol explorer?",
+        "a": "Its patterns are used as a block-shading hack in terminal interfaces, where a two-by-four grid of dots produces smoother bars than the shade blocks allow. That is why the block is listed with its exact size rather than as a note about accessibility."
+      },
+      {
+        "q": "Why does a copied symbol shift the layout?",
+        "a": "Because symbol widths differ and East Asian fonts often render them full-width. In a monospaced context, or inside a table column of fixed width, a full-width symbol changes the alignment of everything beside it. Checking the width in the destination is the only reliable test."
+      },
+      {
+        "q": "Is it safe to use these characters instead of an icon font?",
+        "a": "For simple marks it is often better: the character needs no extra file and inherits the text colour and size. The trade is coverage across fonts and platforms, so the safe approach is a handful of very common marks, with anything decorative drawn as an icon rather than borrowed from Unicode."
+      }
+    ]
+  },
+  {
+    "slug": "kerning-pair-inspector",
+    "keywords": [
+      "kerning pair inspector",
+      "kerning adjustment",
+      "shaped width",
+      "em/1000"
+    ],
+    "intro": "The kerning pair inspector measures the difference between a shaped pair and the sum of its two glyphs, which is exactly the adjustment the font applied. The number comes from the browser's own shaping engine rather than from a table copied out of the file.",
+    "content": "The kerning pair inspector compares two measurements of the same pair: the width of the pair as the browser shapes it, and the sum of the widths of its glyphs measured separately. The difference is the kerning adjustment the font actually applied, read from the renderer rather than from a specification.\n\nThe inputs are deliberately few, and two of them matter for accuracy.\n\n- Face, from the catalogue, since kerning data varies from family to family and even between weights.\n- The pair to inspect, from the classic A and V through to lower-case pairs and figure pairs.\n- The measurement size, from 12 to 200 pixels, which should be large enough that the renderer does not round the result.\n- A pair list, space separated, which produces a table of comparisons in one pass; the current pair is always included.\n\nThe readouts give the shaped width, the sum of the glyph widths, the difference in pixels and the same difference in em/1000 units, which is the unit kerning tables are authored in. The verdict line turns the number into a reading: a negative difference means the pair was tightened, which is the usual case where a diagonal meets a vertical, as in A and V or T and o; a positive difference means the font adds space; and a difference of zero means no adjustment was applied, which does not prove the face lacks kerning data, because plenty of pairs genuinely need none. The panel's guidance puts a normal kern between twenty and sixty units, notes that beyond a hundred the two letters visually merge and optical spacing is the better fix, and warns that letter-spacing is added on top of kerning and will hide small adjustments, so measurements should be taken with tracking at zero.\n\nThe rendered preview makes the comparison physical: the same pair is drawn twice, once with kerning on and once with kerning disabled, and the difference between the two columns is the font's own adjustment. The exported CSS is a small rule whose only interesting line is the kerning property set to normal, with a comment explaining that leaving it unset or disabling it discards the pair adjustments the measurement just quantified.\n\nFour limits apply to what the measurement can claim.\n\n- The measurement describes the browser's shaping at the chosen size and with default features, so a pair that changes under a discretionary ligature or a stylistic set will not match the number here.\n- The sum of the parts assumes each glyph is independent, which is true for two letters and not for a sequence containing marks or combined forms.\n- The rendered on-off comparison depends on the platform having a fallback face to compare against, so the two columns can look identical on a system with unusual font matching.\n- The thresholds in the verdict column are the tool's own reading of accepted practice rather than a specification, useful as a scale and not as a rule.\n\nWhat it settles reliably is the common case: two letters, one face, a size large enough to avoid rounding, and a figure in units per thousand of the em that can be compared with any other pair in the same face.",
+    "howTo": [
+      { "step": "Choose the face first, because kerning data differs per family and per weight and the measurement is only meaningful for the face in use." },
+      { "step": "Enter the pair and raise the measurement size above about 48 pixels, so renderer rounding is small relative to the adjustment." },
+      { "step": "Read the difference in em per thousand units, which is the figure to compare against a normal kern of twenty to sixty." },
+      { "step": "Compare the two rendered columns to see whether the adjustment is visible, then copy the rule with kerning explicitly enabled." }
+    ],
+    "whenToUse": "Reach for it when text set in caps looks unevenly spaced, when a display setting has two letters that appear to collide, or when someone claims a face ships no kerning and the claim needs testing rather than repeating. The rendered on-off comparison is the proof. For spacing across a whole run the {{letter-spacing-calculator|letter spacing calculator}} and the {{font-letter-spacing-tester|font letter spacing tester}} handle tracking, the {{opentype-feature-explorer|OpenType feature explorer}} shows the feature tags that change shaping, and the {{glyph-comparison-tool|glyph comparison tool}} sets the same pair in several faces at once.",
+    "faqs": [
+      {
+        "q": "How is the kerning adjustment measured?",
+        "a": "By measuring the pair as the browser shapes it and subtracting the widths of the two glyphs measured separately. The difference is the adjustment the font applied to bring them together, which is the same value a kerning table would record, obtained from the renderer instead of the file."
+      },
+      {
+        "q": "Why does a pair show no adjustment?",
+        "a": "Most likely because it genuinely needs none. A zero difference does not prove the font lacks kerning data, since many pairs are drawn with enough sidebearing already. To test a face properly, try several classic pairs such as A and V, T and o, and the figure pairs, where an absence of adjustment is unusual."
+      },
+      {
+        "q": "What is a normal kerning value?",
+        "a": "Between about minus twenty and minus sixty units per thousand of the em for a pair that visibly benefits from tightening. Beyond a hundred the letters start to merge and the pair usually needs optical spacing instead of kerning, which is a drawing decision rather than a property of the font."
+      },
+      {
+        "q": "Why does letter-spacing hide the adjustment?",
+        "a": "Because tracking is added to every gap in the run, including the gap inside the pair, so a small tightening is partly cancelled by the added space. A measurement taken with tracking applied describes the combination rather than the font's own kerning, which is why the tool tells you to measure with tracking at zero."
+      },
+      {
+        "q": "Does the measurement change with the size?",
+        "a": "It should scale proportionally, which is why the difference is converted into units per thousand of the em. At very small sizes the renderer rounds glyph widths to whole pixels and the ratio drifts, so measuring at forty-eight pixels or above is the reliable range."
+      }
+    ]
+  },
+  {
+    "slug": "opentype-feature-explorer",
+    "keywords": [
+      "opentype feature explorer",
+      "font-feature-settings",
+      "small caps",
+      "tabular figures"
+    ],
+    "intro": "The OpenType feature explorer toggles the features webfonts actually ship and shows each sample line changing as the tags are switched. Two facts are stated rather than hidden: features are font-dependent, and the modern CSS properties are preferred over raw tag settings.",
+    "content": "The OpenType feature explorer switches the features a webfont may or may not contain and renders a sample line for each one, so the effect can be seen before it is trusted. Twelve tags are covered, from the ones every text face ships to the ones only a few families implement.\n\nThe tags are grouped by what they change.\n\n- Shaping basics: kerning and standard ligatures, which are on by default in any sensible stylesheet.\n- Letterform variants: discretionary ligatures, small caps, and stylistic alternates with the first two stylistic sets, which are the tags most likely to be missing from a given face.\n- Figures: old-style figures, tabular figures and fractions, which matter whenever numbers sit in a table or a paragraph.\n- Position and case: superscript forms and case-sensitive punctuation, which adjust marks near capitals.\n\nThe samples are not decorative, they are the evidence. The tabular figures sample stacks four ones over four nines, which is where equal widths show themselves as a clean column; the old-style sample shows how the same digits sit within a line of text; the small caps sample is set in lower case so the rendered result exposes whether the face has real small capitals or is synthesising them by shrinking capitals; and the case-sensitive sample puts capitals inside brackets, where the difference between a default and an adjusted form is visible immediately.\n\nThe two CSS modes are the part that matters in a stylesheet. The raw mode writes font-feature-settings as a list of all twelve tags with each value set to one or zero, which is explicit and also blunt: the tags that are off are actively disabled, and the declaration has to be maintained whenever a new tag is used. The property mode emits the registered font-variant properties instead — variant-ligatures, variant-numeric, variant-caps, variant-position and variant-alternates — which inherit and cascade like ordinary CSS and leave anything unmapped at its default. The reference table lists which property corresponds to each tag, so a design system can be written in properties and only fall back to raw tags for unregistered stylistic sets.\n\nTwo honest limits are stated on the panel, and two more follow from the way features are requested.\n\n- A feature the font does not contain is ignored silently, with no error and no warning, so an unconfirmed tag produces no visible change and no complaint; the panel therefore lists which tags the chosen face plausibly ships, as a guide rather than a guarantee.\n- Feature interaction is not modelled, since two tags can affect the same glyph, so combining several on one line is the only way to see the true result.\n- The raw mode writes all twelve tags with explicit values, so the declaration has to be regenerated whenever a tag is added to the design.\n- Nothing compares the rendered output against a synthesised alternative, so a face without true small capitals will simply look as though the feature did nothing.\n\nRead the samples as the evidence and the reference table as the mapping: what a tag does is a property of the font, and what CSS should carry is a property of the project.",
+    "howTo": [
+      { "step": "Choose the face first and read the likely-present column, since the tags a face supports are the ones worth switching on." },
+      { "step": "Toggle the tags one at a time and watch their sample lines, using the custom sample field when the text you care about differs from the default." },
+      { "step": "Switch between the raw and property CSS modes to see both declarations and decide which the project's stylesheet should carry." },
+      { "step": "Copy the generated declaration, then confirm on a real page that the face actually contains the features and that nothing is being synthesised." }
+    ],
+    "whenToUse": "Reach for it when a design calls for small caps or old-style figures and it is unclear whether the face ships them or the browser is faking them, when a stylesheet needs to move from raw feature tags to the registered properties, or when a typographic detail behaves differently in different browsers. Seeing the sample change is the test. For spacing rather than features the {{kerning-pair-inspector|kerning pair inspector}} measures pair adjustments, the {{variable-font-sliders|variable font sliders}} explore axis values, and the {{font-specimen-sheet|font specimen sheet}} shows the whole repertoire as a printable page.",
+    "faqs": [
+      {
+        "q": "What happens if a font lacks the feature I enable?",
+        "a": "Nothing, and nothing is reported: the tag is ignored silently, the sample line stays as it was, and there is no error in the console. That is why the panel lists which tags the chosen face plausibly carries — a feature that a face does not contain cannot be requested into existence."
+      },
+      {
+        "q": "Should I use font-feature-settings or the font-variant properties?",
+        "a": "Prefer the properties wherever one exists, because they inherit and cascade and can be overridden by component styles. Raw tag settings are a single declaration that is not inherited in the same way and must list every tag it wants to affect, so they belong to unregistered stylistic sets and to cases the properties cannot express."
+      },
+      {
+        "q": "How do I know whether a face ships real small caps?",
+        "a": "By comparing the rendering against a synthesised version. Real small capitals are drawn at a slightly larger height and a heavier stem than scaled capitals, so a line set in lower case with the small caps feature on should look steadier than one where the browser shrinks capitals to fit. The panel's likely-present list points at faces that ship the feature."
+      },
+      {
+        "q": "Why do tabular figures matter?",
+        "a": "Because proportional digits have different widths, so numbers in a table or a column do not align. Tabular figures are drawn on a single advance width, which makes a column of figures line up. The sample uses stacked ones and nines precisely because that pair exposes the difference most clearly."
+      },
+      {
+        "q": "What are stylistic sets?",
+        "a": "Numbered groups of alternates that a type designer chooses to expose, such as an alternate a, g or single-storey form. They are not standardised beyond their tags, so a set that changes a letter in one family may do something different in another, and the sample line is the only reliable description."
+      }
+    ]
+  }
+]

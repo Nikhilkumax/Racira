@@ -1,248 +1,694 @@
 "use client";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, BookOpen } from "lucide-react";
-import { PieChart as RPie, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { ChevronDown, RotateCcw, Plus, X } from "lucide-react";
 
 interface GradeRow {
+  id: number;
   name: string;
   score: number;
   weight: number;
 }
 
-interface GradeResult {
+interface GradeInputs {
   rows: GradeRow[];
-  totalWeight: number;
-  weighted: number;
-  letter: string;
   finalWeight: number;
-  neededOnFinal: number | null;
   target: number;
-  chartData: { name: string; value: number; pct: number }[];
+  curve: number;
 }
 
+const DEFAULT_ROWS: GradeRow[] = [
+  { id: 1, name: "Homework", score: 92, weight: 20 },
+  { id: 2, name: "Midterm", score: 85, weight: 30 },
+  { id: 3, name: "Quizzes", score: 88, weight: 15 },
+];
+
+const DEFAULTS: GradeInputs = {
+  rows: DEFAULT_ROWS,
+  finalWeight: 35,
+  target: 90,
+  curve: 0,
+};
+
+const fmt = (v: number, d = 2) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
 const LETTERS: [number, string][] = [
-  [90, "A"], [80, "B"], [70, "C"], [60, "D"],
+  [97, "A+"],
+  [93, "A"],
+  [90, "A−"],
+  [87, "B+"],
+  [83, "B"],
+  [80, "B−"],
+  [77, "C+"],
+  [73, "C"],
+  [70, "C−"],
+  [67, "D+"],
+  [63, "D"],
+  [60, "D−"],
 ];
 
 function letterFor(pct: number): string {
-  for (const [min, l] of LETTERS) if (pct >= min) return l;
+  for (const [min, letter] of LETTERS) {
+    if (pct >= min) return letter;
+  }
   return "F";
 }
 
-function calcGrade(rows: GradeRow[], finalWeight: number, target: number): GradeResult {
-  const totalWeight = rows.reduce((p, r) => p + r.weight, 0);
-  const weighted = totalWeight > 0 ? rows.reduce((p, r) => p + r.score * r.weight, 0) / totalWeight : 0;
-  const remaining = 100 - finalWeight;
-  const neededOnFinal = finalWeight > 0 && remaining > 0
-    ? (target - weighted * (remaining / 100)) / (finalWeight / 100)
-    : null;
-
-  // Weight distribution for the donut chart (rows + final), normalized to sum to 100%
-  const pieRaw = [
-    ...rows.map((r) => ({ name: r.name, value: Math.max(0, r.weight) })),
-    { name: "Final Exam", value: Math.max(0, finalWeight) },
-  ].filter((d) => d.value > 0);
-  const totalW = pieRaw.reduce((p, d) => p + d.value, 0);
-  let acc = 0;
-  const piePcts = pieRaw.map((d) => {
-    const p = totalW > 0 ? (d.value / totalW) * 100 : 0;
-    acc += p;
-    return p;
-  });
-  if (totalW > 0 && pieRaw.length > 0) {
-    let maxIdx = 0;
-    for (let i = 1; i < piePcts.length; i++) if (piePcts[i] > piePcts[maxIdx]) maxIdx = i;
-    piePcts[maxIdx] += 100 - acc;
-  }
-  const chartData = pieRaw.map((d, i) => ({ name: d.name, value: d.value, pct: piePcts[i] }));
-
-  return { rows, totalWeight, weighted, letter: letterFor(weighted), finalWeight, neededOnFinal, target, chartData };
+function gpaPointsFor(pct: number): number {
+  if (pct >= 93) return 4.0;
+  if (pct >= 90) return 3.7;
+  if (pct >= 87) return 3.3;
+  if (pct >= 83) return 3.0;
+  if (pct >= 80) return 2.7;
+  if (pct >= 77) return 2.3;
+  if (pct >= 73) return 2.0;
+  if (pct >= 70) return 1.7;
+  if (pct >= 67) return 1.3;
+  if (pct >= 63) return 1.0;
+  if (pct >= 60) return 0.7;
+  return 0.0;
 }
 
-const DEFAULTS = {
-  rows: [
-    { name: "Homework", score: 92, weight: 20 },
-    { name: "Midterm", score: 85, weight: 30 },
-    { name: "Quizzes", score: 88, weight: 15 },
-  ],
-  finalWeight: 35,
-  target: 90,
-};
+interface RowDetail {
+  name: string;
+  score: number;
+  weight: number;
+  contribution: number;
+}
 
-const faqs = [
-  { question: "How is a weighted grade calculated?", answer: "Multiply each assignment score by its weight, sum the products, and divide by the total weight applied. If homework (20%) scores 92 and midterm (30%) scores 85, the weighted contribution is 92×0.20 + 85×0.30 = 43.9 points so far." },
-  { question: "What score do I need on the final?", answer: "Rearranging the weighted formula: needed = (target − current×(100−final weight)/100) ÷ (final weight/100). If your current weighted score is 88 and the final is worth 30%, you need (90 − 88×0.70) ÷ 0.30 = 94.7% to reach 90." },
-  { question: "What is a good grade scale?", answer: "The common US scale is A ≥ 90, B ≥ 80, C ≥ 70, D ≥ 60. Many courses add plus/minus adjustments. Check your syllabus — some schools use 93+ for an A or a curved scale." },
-];
+interface WhatIfRow {
+  finalScore: number;
+  course: number;
+  letter: string;
+}
 
-export default function GradeCalculator() {
-  const [rows, setRows] = useState<GradeRow[]>(DEFAULTS.rows);
-  const [finalWeight, setFinalWeight] = useState(`${DEFAULTS.finalWeight}`);
-  const [target, setTarget] = useState(`${DEFAULTS.target}`);
-  const [result, setResult] = useState<GradeResult>(() => calcGrade(DEFAULTS.rows, DEFAULTS.finalWeight, DEFAULTS.target));
+interface TargetRow {
+  target: number;
+  letter: string;
+  needed: number;
+  possible: boolean;
+}
 
-  const updateRow = (i: number, field: keyof GradeRow, value: string) => {
-    const next = rows.map((r, idx) => idx === i ? { ...r, [field]: field === "name" ? value : parseFloat(value) || 0 } : r);
-    setRows(next);
+interface GradeResult {
+  valid: boolean;
+  errorMsg: string;
+  totalWeight: number;
+  remainingWeight: number;
+  weighted: number;
+  curved: number;
+  letter: string;
+  gpaPoints: number;
+  pointsBanked: number;
+  neededOnFinal: number;
+  possible: boolean;
+  bestPossible: number;
+  worstPossible: number;
+  details: RowDetail[];
+  whatIf: WhatIfRow[];
+  targets: TargetRow[];
+  scale: { letter: string; min: number; gpa: number }[];
+}
+
+function computeGrade(input: GradeInputs): GradeResult {
+  const { rows, finalWeight, target, curve } = input;
+
+  const blank: GradeResult = {
+    valid: false,
+    errorMsg: "",
+    totalWeight: 0,
+    remainingWeight: 0,
+    weighted: 0,
+    curved: 0,
+    letter: "F",
+    gpaPoints: 0,
+    pointsBanked: 0,
+    neededOnFinal: 0,
+    possible: false,
+    bestPossible: 0,
+    worstPossible: 0,
+    details: [],
+    whatIf: [],
+    targets: [],
+    scale: [],
   };
 
-  const handleCalculate = () => {
-    const fw = parseFloat(finalWeight);
-    const tg = parseFloat(target);
-    if (isNaN(fw) || isNaN(tg)) return;
-    setResult(calcGrade(rows, fw, tg));
+  if (rows.length === 0) {
+    return { ...blank, errorMsg: "Add at least one graded component before calculating." };
+  }
+  if (rows.some((r) => !Number.isFinite(r.score) || !Number.isFinite(r.weight) || r.weight < 0)) {
+    return { ...blank, errorMsg: "Every component needs a valid score and a weight of zero or more." };
+  }
+  if (!Number.isFinite(finalWeight) || finalWeight < 0 || finalWeight > 100) {
+    return { ...blank, errorMsg: "The final exam weight must be between 0 and 100 percent." };
+  }
+
+  const totalWeight = rows.reduce((p, r) => p + Math.max(0, r.weight), 0) + finalWeight;
+  if (totalWeight <= 0) {
+    return { ...blank, errorMsg: "Assign some weight to at least one component so a grade can be formed." };
+  }
+
+  const gradedWeight = rows.reduce((p, r) => p + Math.max(0, r.weight), 0);
+  const weighted =
+    gradedWeight > 0 ? rows.reduce((p, r) => p + r.score * Math.max(0, r.weight), 0) / gradedWeight : 0;
+  const curved = weighted + curve;
+  const remainingWeight = Math.max(0, 100 - gradedWeight);
+  const pointsBanked = (weighted * gradedWeight) / 100;
+  const pointsRemaining = 100 - gradedWeight;
+  const neededOnFinal = pointsRemaining > 0 ? ((target - pointsBanked) / pointsRemaining) * 100 : 0;
+  const possible = neededOnFinal <= 100;
+  const bestPossible = pointsBanked + pointsRemaining;
+  const worstPossible = pointsBanked;
+
+  const details: RowDetail[] = rows.map((r) => ({
+    name: r.name || "Component",
+    score: r.score,
+    weight: Math.max(0, r.weight),
+    contribution: (r.score * Math.max(0, r.weight)) / 100,
+  }));
+
+  const whatIf: WhatIfRow[] = [60, 70, 80, 90, 100].map((finalScore) => {
+    const course = pointsBanked + (finalScore * pointsRemaining) / 100;
+    return { finalScore, course: Number(course.toFixed(2)), letter: letterFor(course + curve) };
+  });
+
+  const targets: TargetRow[] = [90, 80, 70, 60].map((t) => {
+    const needed = pointsRemaining > 0 ? ((t - pointsBanked) / pointsRemaining) * 100 : 0;
+    return {
+      target: t,
+      letter: letterFor(t),
+      needed: Number(needed.toFixed(2)),
+      possible: needed <= 100,
+    };
+  });
+
+  const scale = LETTERS.map(([min, letter]) => ({ letter, min, gpa: gpaPointsFor(min) }));
+
+  return {
+    valid: true,
+    errorMsg: "",
+    totalWeight: Number(totalWeight.toFixed(2)),
+    remainingWeight: Number(remainingWeight.toFixed(2)),
+    weighted: Number(weighted.toFixed(2)),
+    curved: Number(curved.toFixed(2)),
+    letter: letterFor(curved),
+    gpaPoints: Number(gpaPointsFor(curved).toFixed(2)),
+    pointsBanked: Number(pointsBanked.toFixed(2)),
+    neededOnFinal: Number(neededOnFinal.toFixed(2)),
+    possible,
+    bestPossible: Number(bestPossible.toFixed(2)),
+    worstPossible: Number(worstPossible.toFixed(2)),
+    details,
+    whatIf,
+    targets,
+    scale,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function GradeCalculator() {
+  const [rows, setRows] = useState<GradeRow[]>(DEFAULT_ROWS);
+  const [finalWeight, setFinalWeight] = useState(String(DEFAULTS.finalWeight));
+  const [target, setTarget] = useState(String(DEFAULTS.target));
+  const [curve, setCurve] = useState(String(DEFAULTS.curve));
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): GradeInputs => ({
+    rows,
+    finalWeight: parseFloat(finalWeight) || 0,
+    target: parseFloat(target) || 90,
+    curve: parseFloat(curve) || 0,
+  });
+
+  const [calcInputs, setCalcInputs] = useState<GradeInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<GradeResult>(() => computeGrade(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeGrade(inputs));
   };
 
   const reset = () => {
-    setRows(DEFAULTS.rows);
-    setFinalWeight(`${DEFAULTS.finalWeight}`);
-    setTarget(`${DEFAULTS.target}`);
-    setResult(calcGrade(DEFAULTS.rows, DEFAULTS.finalWeight, DEFAULTS.target));
+    setRows(DEFAULT_ROWS);
+    setFinalWeight(String(DEFAULTS.finalWeight));
+    setTarget(String(DEFAULTS.target));
+    setCurve(String(DEFAULTS.curve));
+    setCalcInputs(DEFAULTS);
+    setResults(computeGrade(DEFAULTS));
   };
 
-  const breakdown = [
-    { label: "Weighted Average (so far)", value: `${result.weighted.toFixed(2)}%`, highlight: false },
-    { label: "Letter Grade (so far)", value: result.letter, highlight: true },
-    { label: "Total Weight Entered", value: `${result.totalWeight}%`, highlight: false },
-    { label: "Final Exam Weight", value: `${result.finalWeight}%`, highlight: false },
-    { label: `Needed on Final for ${result.target}%`, value: result.neededOnFinal !== null ? `${result.neededOnFinal.toFixed(1)}%` : "—", highlight: false },
+  const updateRow = (id: number, patch: Partial<GradeRow>) => {
+    setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  };
+
+  const addRow = () => {
+    setRows((prev) => [
+      ...prev,
+      { id: prev.length > 0 ? Math.max(...prev.map((r) => r.id)) + 1 : 1, name: "New Component", score: 85, weight: 10 },
+    ]);
+  };
+
+  const removeRow = (id: number) => {
+    setRows((prev) => (prev.length > 1 ? prev.filter((r) => r.id !== id) : prev));
+  };
+
+  const faqs = [
+    {
+      question: "How is a weighted grade calculated?",
+      answer:
+        "Multiply each score by its weight, add the products, then divide by the total weight earned so far. Homework at ninety-two with a twenty percent weight contributes eighteen point four points and a midterm at eighty-five with thirty percent adds twenty-five point five. Dividing by the weight already assessed, rather than by one hundred, gives the current standing.",
+    },
+    {
+      question: "What score do I need on the final exam?",
+      answer:
+        "Take the points still needed for your target, then divide by the weight the final carries. If you have banked fifty-eight points and want ninety overall with a thirty-five percent final, you need the remaining thirty-two points from that thirty-five percent, which works out at about ninety-one percent on the exam.",
+    },
+    {
+      question: "What is the difference between a weighted and a points-based grade?",
+      answer:
+        "A weighted course treats categories as percentages of the final grade, so each category is normalised before it is combined. A points-based course simply totals every mark and divides by the total available. The two often agree, but they diverge whenever categories contain different numbers of items, and the syllabus decides which applies.",
+    },
+    {
+      question: "How do curves and extra credit change the result?",
+      answer:
+        "A curve adds a fixed number of percentage points to the final score before the letter is assigned, which lifts every result by the same amount. Extra credit usually adds to the points earned rather than to the percentage, so its effect depends on how the course totals marks. The calculator applies a flat curve so the letter grade shown matches a curved syllabus.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Grade Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Education", href: "/calculator#education" },
+          { label: "Grade Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Grade Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-            <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-1">
-              <BookOpen className="w-4 h-4" /> Weighted Grade & Final Exam
-            </div>
-            <div className="space-y-2">
-              {rows.map((r, i) => (
-                <div key={i} className="grid grid-cols-[1fr_70px_70px] gap-2">
-                  <input type="text" value={r.name} onChange={(e) => updateRow(i, "name", e.target.value)} className="input-calc" placeholder="Assignment" />
-                  <input type="number" value={r.score} onChange={(e) => updateRow(i, "score", e.target.value)} className="input-calc" placeholder="Score %" min={0} max={100} />
-                  <input type="number" value={r.weight} onChange={(e) => updateRow(i, "weight", e.target.value)} className="input-calc" placeholder="Wt %" min={0} max={100} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Graded Components">
+              <div className="flex flex-col gap-2">
+                {rows.map((row) => (
+                  <div key={row.id} className="grid grid-cols-[1fr_70px_70px_32px] gap-2 items-end">
+                    <input
+                      type="text"
+                      value={row.name}
+                      onChange={(e) => updateRow(row.id, { name: e.target.value })}
+                      className="h-9 w-full rounded-md border border-input bg-background px-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-foreground"
+                    />
+                    <input
+                      type="number"
+                      value={row.score}
+                      onChange={(e) => updateRow(row.id, { score: parseFloat(e.target.value) || 0 })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") runCalculate();
+                      }}
+                      className="h-9 w-full rounded-md border border-input bg-background px-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-foreground"
+                    />
+                    <input
+                      type="number"
+                      value={row.weight}
+                      onChange={(e) => updateRow(row.id, { weight: parseFloat(e.target.value) || 0 })}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") runCalculate();
+                      }}
+                      className="h-9 w-full rounded-md border border-input bg-background px-2.5 text-sm shadow-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-foreground"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeRow(row.id)}
+                      aria-label="Remove component"
+                      className="h-9 w-8 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground flex items-center justify-center transition-colors"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={addRow}
+                  className="mt-1 flex items-center justify-center gap-1.5 h-8 rounded-md border border-dashed border-border bg-background hover:bg-secondary text-sm font-semibold text-primary transition-colors"
+                >
+                  <Plus className="h-3.5 w-3.5" />
+                  Add Component
+                </button>
+                <p className="text-[11px] text-muted-foreground">Columns: name, score out of 100, weight in percent.</p>
+              </div>
+            </SubSection>
+
+            <SubSection title="Target & Final Exam">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="final-weight"
+                  label="Final Exam Weight"
+                  value={finalWeight}
+                  onChange={setFinalWeight}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  tooltip="How much of the course grade the final exam is worth."
+                />
+                <CompactInput
+                  id="target"
+                  label="Target Grade"
+                  value={target}
+                  onChange={setTarget}
+                  onEnter={runCalculate}
+                  suffix="%"
+                  tooltip="The course percentage you want to finish with."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Curve">
+                    <CompactInput
+                      id="curve"
+                      label="Curve Adjustment"
+                      value={curve}
+                      onChange={setCurve}
+                      onEnter={runCalculate}
+                      suffix="pts"
+                      hint="Percentage points added to every score before grading."
+                      tooltip="Leave at zero for an uncurved course."
+                    />
+                  </SubSection>
                 </div>
-              ))}
+              )}
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-sm font-semibold text-foreground mb-1 block">Final Exam Weight (%)</label>
-                <input type="number" value={finalWeight} onChange={(e) => setFinalWeight(e.target.value)} className="input-calc" min={0} max={100} />
-              </div>
-              <div>
-                <label className="text-sm font-semibold text-foreground mb-1 block">Target Grade (%)</label>
-                <input type="number" value={target} onChange={(e) => setTarget(e.target.value)} className="input-calc" min={0} max={100} />
-              </div>
-            </div>
-            <div className="flex gap-2 pt-2">
-              <button onClick={handleCalculate} className="btn-calculate flex-1">Calculate</button>
-              <button onClick={reset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0">
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 min-w-0">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5">
-              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Current Grade</div>
-              <div className="flex items-baseline gap-3 flex-wrap">
-                <span className="text-4xl font-extrabold text-primary tracking-tight">{result.weighted.toFixed(2)}%</span>
-                <span className="text-2xl font-bold text-muted-foreground">({result.letter})</span>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <p className="text-sm text-muted-foreground mt-1">
-                {result.neededOnFinal !== null
-                  ? `Score ${result.neededOnFinal.toFixed(1)}% or higher on the final to finish with ${result.target}%.`
-                  : "Enter a final exam weight to see what you need on it."}
-              </p>
+            )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Current Course Grade</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.curved, 2)}%` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `Letter grade ${results.letter} from ${fmt(results.totalWeight, 0)}% of the course assessed`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
             </div>
 
-            {/* 2. 3-STAT BAR */}
-            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-              {[["Weighted Average", `${result.weighted.toFixed(2)}%`], ["Letter Grade", `${result.letter}`], ["Needed on Final", result.neededOnFinal !== null ? `${result.neededOnFinal.toFixed(1)}%` : "—"]].map(([l, v], i) => (
-                <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""}`}>
-                  <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">{l}</div>
-                  <div className="text-base font-bold text-foreground">{v}</div>
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Points Banked</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.pointsBanked, 2) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Needed on Final</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.neededOnFinal, 2)}%` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">GPA Points</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.gpaPoints, 2) : "—"}</span>
+              </div>
+            </div>
+
+            {results.valid && !results.possible && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-4">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Target out of reach</div>
+                <div className="text-sm text-foreground">
+                  {`A ${fmt(calcInputs.target, 0)}% course grade needs more than 100% on the remaining work. The highest finish still available is ${fmt(results.bestPossible, 2)}%.`}
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
 
-            <div className="card-calculator !p-4 border border-border bg-card">
-              <h3 className="text-base font-bold mb-3">Result Breakdown</h3>
-              <table className="w-full text-left text-sm">
+            {/* COMPONENT TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Quantity</th>
-                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Component</th>
+                    <th className="p-2.5 text-right">Score</th>
+                    <th className="p-2.5 text-right">Weight</th>
+                    <th className="p-2.5 pr-3 text-right w-[130px]">Points</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {breakdown.map((row) => (
-                    <tr key={row.label} className={row.highlight ? "bg-amber-500/10" : ""}>
-                      <td className={`p-2.5 pl-3 ${row.highlight ? "text-amber-700 font-semibold" : "text-muted-foreground"}`}>{row.label}</td>
-                      <td className={`p-2.5 pr-3 text-right font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.value}</td>
+                  {results.details.map((row) => (
+                    <tr key={row.name} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.name}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.score, 2)}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.weight, 1)}%</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.contribution, 2)}</td>
+                    </tr>
+                  ))}
+                  <tr className="hover:bg-secondary/20 transition-colors">
+                    <td className="p-2.5 pl-3 font-semibold text-foreground">Final exam (not yet taken)</td>
+                    <td className="p-2.5 text-right text-foreground">—</td>
+                    <td className="p-2.5 text-right text-foreground">{fmt(calcInputs.finalWeight, 1)}%</td>
+                    <td className="p-2.5 pr-3 text-right text-foreground">—</td>
+                  </tr>
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Total</td>
+                    <td className="p-2.5 text-right text-foreground">—</td>
+                    <td className="p-2.5 text-right text-foreground">{fmt(results.totalWeight, 0)}%</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">{fmt(results.pointsBanked, 2)}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* WHAT IF TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">If the Final Scores</th>
+                    <th className="p-2.5 text-right">Course Grade</th>
+                    <th className="p-2.5 pr-3 text-right w-[110px]">Letter</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.whatIf.map((row) => (
+                    <tr key={row.finalScore} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.finalScore}%</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.course, 2)}%</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{row.letter}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            {/* 4. CHART */}
-            <div className="rounded-lg border border-border bg-card p-5">
-              <h3 className="text-base font-bold mb-4">Weight Distribution</h3>
-              <ResponsiveContainer width="100%" height={250}>
-                <RPie>
-                  <Pie data={result.chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85} innerRadius={50} paddingAngle={2}>
-                    {result.chartData.map((d, idx) => (
-                      <Cell key={idx} fill={["hsl(var(--primary))", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"][idx % 5]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(v: number, n: string) => [`${v}%`, n]} contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", backgroundColor: "var(--card)", color: "var(--foreground)" }} />
-                </RPie>
-              </ResponsiveContainer>
-              <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-2">
-                {result.chartData.map((d, i) => (
-                  <span key={i} className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                    <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: ["hsl(var(--primary))", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"][i % 5] }} />
-                    {d.name} · {d.pct.toFixed(1)}%
-                  </span>
-                ))}
-              </div>
+            {/* TARGET TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Target Letter</th>
+                    <th className="p-2.5 text-right">Needed on Final</th>
+                    <th className="p-2.5 pr-3 text-right w-[120px]">Achievable</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.targets.map((row) => (
+                    <tr key={row.target} className={row.possible ? "hover:bg-secondary/20 transition-colors" : "bg-destructive/5"}>
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">
+                        {row.letter} ({row.target}%)</td>
+                      <td className="p-2.5 text-right text-foreground">{`${fmt(row.needed, 2)}%`}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{row.possible ? "Yes" : "No"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
+            {/* SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
-              <div className="text-sm font-bold mb-3">Summary Statistics</div>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
-                {[
-                  { label: "Assignments Entered", value: `${result.rows.length}` },
-                  { label: "Weight Remaining", value: `${100 - result.finalWeight}%` },
-                  { label: "Grade Scale", value: "A ≥ 90 · B ≥ 80 · C ≥ 70" },
-                  { label: "Need 100% on Final?", value: result.neededOnFinal !== null && result.neededOnFinal > 100 ? "Yes — goal may be out of reach" : "Reachable" },
-                ].map((s) => (
-                  <div key={s.label} className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">{s.label}</span>
-                    <span className="font-semibold">{s.value}</span>
-                  </div>
-                ))}
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Weight Assessed</span>
+                  <span className="text-base font-bold text-foreground">
+                    {fmt(results.totalWeight - calcInputs.finalWeight, 0)}%
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Uncurved Average</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.weighted, 2)}%</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Curve Applied</span>
+                  <span className="text-base font-bold text-foreground">{fmt(calcInputs.curve, 2)} pts</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Remaining Weight</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.remainingWeight, 0)}%</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Best Possible Finish</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.bestPossible, 2)}%</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Worst Possible Finish</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.worstPossible, 2)}%</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">About the Grade Calculator</h2>
-            <p>Courses rarely grade everything equally — a final exam worth 35% matters far more than homework worth 5%. A weighted average multiplies each score by its weight before averaging: with homework at 20% and midterm at 30%, a 92 and an 85 contribute 18.4 and 25.5 points. Dividing by the total weight applied gives the current standing.</p>
-            <h3>Planning for the final</h3>
-            <p>The most useful question a student can ask is "what do I need on the final?" The answer comes from solving the weighted-average equation for the unknown: needed = (target − current × remaining weight) ÷ final weight. If you're at 88 with a 30% final, hitting a 90 target requires 94.7% — a hard but possible goal that tells you exactly how to allocate study time. If the required score exceeds 100%, the target is mathematically out of reach and the realistic aim shifts to damage control.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Grade Calculator?</h2>
+            <p>
+              A grade calculator combines your scores with the weight each one carries to show where you stand in a course,
+              what you need on the final exam to reach a target, and which letter grade that implies. Add a component for each
+              assignment, quiz, project or exam, set its weight from the syllabus, and the running course average updates
+              immediately.
+            </p>
+            <p>
+              The useful part is not the average itself but the planning it allows. Knowing that an eighty-eight is banked
+              and a ninety is still within reach changes how much effort an exam deserves, and knowing that a target has
+              already slipped out of range prevents wasted stress. The same arithmetic works for any weighted scoring system.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each component contributes its score multiplied by its weight. The calculator adds those contributions and
+              divides by the weight already assessed, which is why the current average is based only on graded work rather
+              than on the whole course. A sixty percent weight graded at ninety points yields fifty-four of the hundred points
+              available, and forty points remain unearned.
+            </p>
+            <p>
+              From the banked points, the score needed on the final follows by dividing the shortfall by the remaining weight.
+              If forty points are still outstanding and the final exam is worth forty percent, then a twenty-point shortfall
+              requires fifty percent on the exam. That formula is the whole reason a single exam can rescue a course, or
+              destroy one.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the current course percentage and its letter, with banked points, the score needed for
+              your target and the equivalent grade point average in the three-stat bar. The first table lists every component
+              with its score, weight and point contribution so the arithmetic is visible rather than hidden.
+            </p>
+            <p>
+              The what-if table answers the question students ask most: what course grade follows from scoring sixty, seventy,
+              eighty, ninety or a hundred on the final. The target table then inverts the problem and shows the exam score each
+              letter grade would require, flagging the ones that are no longer reachable so the realistic goal is obvious.
+            </p>
+            <p>
+              Watch the weights rather than the scores when assessing a course. A quiz averaging ninety-five with a five 
+              percent weight moves the final grade far less than an exam averaging eighty at thirty percent. Entering the
+              syllabus weights correctly is the single most important step, because a wrong weight changes the answer more
+              than any other input.
+            </p>
+            <p>
+              Finally, use the curve field when your instructor grades against an adjusted scale. Applying the points before
+              the letter is assigned mirrors how a curved syllabus actually works, and it shows the difference between an
+              eighty-nine that stands and one that needs a two-point lift to become an A.
+            </p>
+            <p>
+              Rerun the calculation after every returned assignment. Small scores all count towards the same total, and an
+              early quiz that feels insignificant can sit behind a full letter grade by the end of the term. Treating the
+              running figure as a live number rather than a surprise in December is the simplest habit that keeps a target
+              grade within reach.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/grade-calculator" />
           <PopularCalculators exclude="/calculator/grade-calculator" />

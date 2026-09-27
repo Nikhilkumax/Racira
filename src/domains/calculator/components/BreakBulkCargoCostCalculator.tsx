@@ -1,303 +1,838 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Calculator, RotateCcw, Ship, Printer } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-interface CargoResults {
-  weight: number;
-  volume: number;
-  revenueTons: number;
-  billingBasis: string;
-  freightCost: number;
-  portFees: number;
-  totalCost: number;
-  chartData: { metric: string; value: number }[];
-  summaryStats: { label: string; value: string }[];
-  breakdown: { label: string; amount: string; isTotal?: boolean; colorClass?: string }[];
+interface BreakBulkInputs {
+  weightT: number;
+  volumeCbm: number;
+  stevedorePerT: number;
+  storageDays: number;
+  handlingPerCbm: number;
+  portDues: number;
+  lashingPerT: number;
+  storagePerTDay: number;
+  haulagePerKm: number;
+  distanceKm: number;
+  trucks: number;
+  documentationFee: number;
+  cargoValue: number;
+  insurancePct: number;
+  containerAlternative: number;
+  decimals: number;
 }
 
-const calculateCargoCost = (weight: number, volume: number, freightRate: number, portFeeRate: number): CargoResults => {
-  // W/M Rule: 1 Metric Ton (MT) = 1 Cubic Meter (CBM)
-  // The carrier charges based on whichever is strictly greater.
-  
-  let billingBasis = "";
-  let revenueTons = 0;
-  
-  if (volume > weight) {
-    billingBasis = "Measure (Volume)";
-    revenueTons = volume;
-  } else if (weight > volume) {
-    billingBasis = "Weight";
-    revenueTons = weight;
-  } else {
-    billingBasis = "Weight/Measure (Equal)";
-    revenueTons = weight;
-  }
-
-  const freightCost = revenueTons * freightRate;
-  const portFees = revenueTons * portFeeRate;
-  const totalCost = freightCost + portFees;
-
-  const chartData = [
-    { metric: "Weight (MT)", value: weight },
-    { metric: "Volume (CBM)", value: volume },
-  ];
-
-  const summaryStats = [
-    { label: "Revenue Tons (W/M)", value: `${revenueTons.toFixed(2)} RT` },
-    { label: "Billing Basis", value: billingBasis },
-    { label: "Ocean Freight", value: `$${freightCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-    { label: "Total Logistics Cost", value: `$${totalCost.toLocaleString("en-US", { maximumFractionDigits: 0 })}` },
-  ];
-
-  const breakdown = [
-    { label: "Cargo Weight", amount: `${weight.toFixed(2)} MT` },
-    { label: "Cargo Volume", amount: `${volume.toFixed(2)} CBM` },
-    { label: `Chargeable Revenue Tons (${billingBasis})`, amount: `${revenueTons.toFixed(2)} RT`, colorClass: "text-blue-500 font-bold" },
-    { label: `Base Freight Rate`, amount: `$${freightRate.toFixed(2)} / RT` },
-    { label: "Ocean Freight Subtotal", amount: `$${freightCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, isTotal: true },
-    { label: `Port/Stevedoring Fees ($${portFeeRate}/RT)`, amount: `$${portFees.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` },
-    { label: "Total Estimated Cost", amount: `$${totalCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, isTotal: true, colorClass: "text-emerald-500" },
-  ];
-
-  return { weight, volume, revenueTons, billingBasis, freightCost, portFees, totalCost, chartData, summaryStats, breakdown };
+const DEFAULTS: BreakBulkInputs = {
+  weightT: 250,
+  volumeCbm: 400,
+  stevedorePerT: 18,
+  storageDays: 5,
+  handlingPerCbm: 3.5,
+  portDues: 1200,
+  lashingPerT: 4,
+  storagePerTDay: 0.9,
+  haulagePerKm: 2.4,
+  distanceKm: 60,
+  trucks: 2,
+  documentationFee: 450,
+  cargoValue: 250000,
+  insurancePct: 0.3,
+  containerAlternative: 9000,
+  decimals: 0,
 };
 
-const DEFAULTS = {
-  weight: "45",
-  volume: "62",
-  freightRate: "120",
-  portFeeRate: "25",
-};
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const money = (v: number, d = 0) => `$${fmt(v, d)}`;
+
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}
+
+interface CostResult {
+  valid: boolean;
+  errorMsg: string;
+  stevedoring: number;
+  handling: number;
+  lashing: number;
+  storage: number;
+  inland: number;
+  insurance: number;
+  portDues: number;
+  documentation: number;
+  total: number;
+  perTonne: number;
+  perCbm: number;
+  freightTonnes: number;
+  perFreightTonne: number;
+  density: number;
+  vsContainer: number;
+  verdict: string;
+  verdictColor: string;
+  breakdown: BreakdownRow[];
+}
+
+function calculateBreakBulk(input: BreakBulkInputs): CostResult {
+  const blank = (errorMsg: string): CostResult => ({
+    valid: false,
+    errorMsg,
+    stevedoring: 0,
+    handling: 0,
+    lashing: 0,
+    storage: 0,
+    inland: 0,
+    insurance: 0,
+    portDues: 0,
+    documentation: 0,
+    total: 0,
+    perTonne: 0,
+    perCbm: 0,
+    freightTonnes: 0,
+    perFreightTonne: 0,
+    density: 0,
+    vsContainer: 0,
+    verdict: "",
+    verdictColor: "text-muted-foreground",
+    breakdown: [],
+  });
+
+  const nums = [
+    input.weightT,
+    input.volumeCbm,
+    input.stevedorePerT,
+    input.storageDays,
+    input.handlingPerCbm,
+    input.portDues,
+    input.lashingPerT,
+    input.storagePerTDay,
+    input.haulagePerKm,
+    input.distanceKm,
+    input.trucks,
+    input.documentationFee,
+    input.cargoValue,
+    input.insurancePct,
+    input.containerAlternative,
+    input.decimals,
+  ];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field to total the cargo cost.");
+  if (input.weightT <= 0) return blank("Cargo weight must be greater than zero.");
+  if (input.volumeCbm <= 0) return blank("Cargo volume must be greater than zero.");
+  if (input.storageDays < 0) return blank("Storage days cannot be negative.");
+  if (input.trucks < 0) return blank("Truck count cannot be negative.");
+  if (input.distanceKm < 0) return blank("Distance cannot be negative.");
+  if (input.cargoValue < 0) return blank("Cargo value cannot be negative.");
+  if (input.insurancePct < 0 || input.insurancePct > 100) return blank("Insurance rate should be between 0% and 100%.");
+  const negatives = [
+    input.stevedorePerT,
+    input.handlingPerCbm,
+    input.portDues,
+    input.lashingPerT,
+    input.storagePerTDay,
+    input.haulagePerKm,
+    input.documentationFee,
+    input.containerAlternative,
+  ];
+  if (negatives.some((v) => v < 0)) return blank("Rates and charges cannot be negative.");
+
+  const d = Math.max(0, Math.min(2, input.decimals));
+  const stevedoring = input.weightT * input.stevedorePerT;
+  const handling = input.volumeCbm * input.handlingPerCbm;
+  const lashing = input.weightT * input.lashingPerT;
+  const storage = input.weightT * input.storagePerTDay * input.storageDays;
+  const inland = input.haulagePerKm * input.distanceKm * input.trucks;
+  const insurance = input.cargoValue * (input.insurancePct / 100);
+  const portDues = input.portDues;
+  const documentation = input.documentationFee;
+
+  const total = stevedoring + handling + lashing + storage + inland + insurance + portDues + documentation;
+  const perTonne = total / input.weightT;
+  const perCbm = total / input.volumeCbm;
+  const density = input.weightT / input.volumeCbm;
+  // Revenue-tonne convention: a break-bulk freight tonne is the greater of one
+  // tonne of weight or one cubic metre of volume (the W/M rule).
+  const freightTonnes = Math.max(input.weightT, input.volumeCbm);
+  const perFreightTonne = total / freightTonnes;
+
+  const vsContainer = total - input.containerAlternative;
+  const verdict =
+    vsContainer <= 0
+      ? `Break-bulk is ${money(Math.abs(vsContainer), d)} cheaper than the container option`
+      : `Break-bulk costs ${money(vsContainer, d)} more than the container option`;
+  const verdictColor = vsContainer <= 0 ? "text-emerald-600" : "text-orange-600";
+
+  const breakdown: BreakdownRow[] = [
+    { label: `Stevedoring · ${fmt(input.weightT, 0)} t at ${money(input.stevedorePerT, 2)}/t`, value: money(stevedoring, d) },
+    { label: `Cargo handling · ${fmt(input.volumeCbm, 0)} m³ at ${money(input.handlingPerCbm, 2)}/m³`, value: money(handling, d) },
+    { label: `Lashing, dunnage & securing · ${money(input.lashingPerT, 2)}/t`, value: money(lashing, d) },
+    { label: `Storage · ${fmt(input.storageDays, 0)} day(s) at ${money(input.storagePerTDay, 2)}/t/day`, value: money(storage, d) },
+    { label: `Inland haulage · ${fmt(input.trucks, 0)} truck(s) × ${fmt(input.distanceKm, 0)} km`, value: money(inland, d) },
+    { label: `Marine cargo insurance · ${fmt(input.insurancePct, 2)}% of ${money(input.cargoValue, 0)}`, value: money(insurance, d) },
+    { label: "Port dues, wharfage & terminal charges", value: money(portDues, d) },
+    { label: "Documentation, agency & customs fees", value: money(documentation, d) },
+    { label: "Cost per tonne of cargo", value: money(perTonne, 2), highlight: true },
+    { label: "Cost per cubic metre", value: money(perCbm, 2), highlight: true },
+    { label: `Cost per freight tonne (W/M basis ${fmt(freightTonnes, 0)})`, value: money(perFreightTonne, 2) },
+  ];
+
+  return {
+    valid: true,
+    errorMsg: "",
+    stevedoring,
+    handling,
+    lashing,
+    storage,
+    inland,
+    insurance,
+    portDues,
+    documentation,
+    total,
+    perTonne,
+    perCbm,
+    freightTonnes,
+    perFreightTonne,
+    density,
+    vsContainer,
+    verdict,
+    verdictColor,
+    breakdown,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  prefix,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">{label}</label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none">{prefix}</span>}
-      <input id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground" {...props} />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none">{suffix}</span>}
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
     </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
   </div>
 );
 
 export default function BreakBulkCargoCostCalculator() {
-  const [weight, setWeight] = useState(DEFAULTS.weight);
-  const [volume, setVolume] = useState(DEFAULTS.volume);
-  const [freightRate, setFreightRate] = useState(DEFAULTS.freightRate);
-  const [portFeeRate, setPortFeeRate] = useState(DEFAULTS.portFeeRate);
-  
-  const [results, setResults] = useState<CargoResults | null>(null);
-  const [mounted, setMounted] = useState(false);
-  const printRef = useRef<HTMLDivElement>(null);
+  const [weightT, setWeightT] = useState(String(DEFAULTS.weightT));
+  const [volumeCbm, setVolumeCbm] = useState(String(DEFAULTS.volumeCbm));
+  const [stevedorePerT, setStevedorePerT] = useState(String(DEFAULTS.stevedorePerT));
+  const [storageDays, setStorageDays] = useState(String(DEFAULTS.storageDays));
+  const [handlingPerCbm, setHandlingPerCbm] = useState(String(DEFAULTS.handlingPerCbm));
+  const [portDues, setPortDues] = useState(String(DEFAULTS.portDues));
+  const [lashingPerT, setLashingPerT] = useState(String(DEFAULTS.lashingPerT));
+  const [storagePerTDay, setStoragePerTDay] = useState(String(DEFAULTS.storagePerTDay));
+  const [haulagePerKm, setHaulagePerKm] = useState(String(DEFAULTS.haulagePerKm));
+  const [distanceKm, setDistanceKm] = useState(String(DEFAULTS.distanceKm));
+  const [trucks, setTrucks] = useState(String(DEFAULTS.trucks));
+  const [documentationFee, setDocumentationFee] = useState(String(DEFAULTS.documentationFee));
+  const [cargoValue, setCargoValue] = useState(String(DEFAULTS.cargoValue));
+  const [insurancePct, setInsurancePct] = useState(String(DEFAULTS.insurancePct));
+  const [containerAlternative, setContainerAlternative] = useState(String(DEFAULTS.containerAlternative));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  const handleCalculate = () => {
-    setResults(calculateCargoCost(
-      parseFloat(weight) || 0, 
-      parseFloat(volume) || 0, 
-      parseFloat(freightRate) || 0, 
-      parseFloat(portFeeRate) || 0
-    ));
+  const getInputs = (): BreakBulkInputs => ({
+    weightT: parseFloat(weightT) || 0,
+    volumeCbm: parseFloat(volumeCbm) || 0,
+    stevedorePerT: parseFloat(stevedorePerT) || 0,
+    storageDays: parseFloat(storageDays) || 0,
+    handlingPerCbm: parseFloat(handlingPerCbm) || 0,
+    portDues: parseFloat(portDues) || 0,
+    lashingPerT: parseFloat(lashingPerT) || 0,
+    storagePerTDay: parseFloat(storagePerTDay) || 0,
+    haulagePerKm: parseFloat(haulagePerKm) || 0,
+    distanceKm: parseFloat(distanceKm) || 0,
+    trucks: parseFloat(trucks) || 0,
+    documentationFee: parseFloat(documentationFee) || 0,
+    cargoValue: parseFloat(cargoValue) || 0,
+    insurancePct: parseFloat(insurancePct),
+    containerAlternative: parseFloat(containerAlternative) || 0,
+    decimals: parseFloat(decimals),
+  });
+
+  const [calcInputs, setCalcInputs] = useState<BreakBulkInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<CostResult>(() => calculateBreakBulk(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateBreakBulk(inputs));
   };
 
-  const handleReset = () => {
-    setWeight(DEFAULTS.weight); setVolume(DEFAULTS.volume); setFreightRate(DEFAULTS.freightRate); setPortFeeRate(DEFAULTS.portFeeRate);
-    setResults(calculateCargoCost(45, 62, 120, 25));
+  const reset = () => {
+    setWeightT(String(DEFAULTS.weightT));
+    setVolumeCbm(String(DEFAULTS.volumeCbm));
+    setStevedorePerT(String(DEFAULTS.stevedorePerT));
+    setStorageDays(String(DEFAULTS.storageDays));
+    setHandlingPerCbm(String(DEFAULTS.handlingPerCbm));
+    setPortDues(String(DEFAULTS.portDues));
+    setLashingPerT(String(DEFAULTS.lashingPerT));
+    setStoragePerTDay(String(DEFAULTS.storagePerTDay));
+    setHaulagePerKm(String(DEFAULTS.haulagePerKm));
+    setDistanceKm(String(DEFAULTS.distanceKm));
+    setTrucks(String(DEFAULTS.trucks));
+    setDocumentationFee(String(DEFAULTS.documentationFee));
+    setCargoValue(String(DEFAULTS.cargoValue));
+    setInsurancePct(String(DEFAULTS.insurancePct));
+    setContainerAlternative(String(DEFAULTS.containerAlternative));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateBreakBulk(DEFAULTS));
   };
 
-  useEffect(() => { 
-    setMounted(true);
-    handleCalculate(); 
-  }, []);
+  const weightNum = parseFloat(weightT);
+  const volumeNum = parseFloat(volumeCbm);
+  const stevNum = parseFloat(stevedorePerT);
+  const daysNum = parseFloat(storageDays);
 
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Break-Bulk Cost Est</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:right}th{background:#f5f5f5;text-align:left}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+  const errors = {
+    weightT: !Number.isFinite(weightNum) || weightNum <= 0 ? "Must be greater than zero" : "",
+    volumeCbm: !Number.isFinite(volumeNum) || volumeNum <= 0 ? "Must be greater than zero" : "",
+    stevedorePerT: !Number.isFinite(stevNum) || stevNum < 0 ? "Cannot be negative" : "",
+    storageDays: !Number.isFinite(daysNum) || daysNum < 0 ? "Cannot be negative" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-card border border-border p-2 rounded-lg shadow-sm text-xs font-semibold">
-          <span className="text-muted-foreground mr-2">{payload[0].payload.metric}:</span>
-          <span className="text-foreground">{payload[0].value.toFixed(2)}</span>
-        </div>
-      );
-    }
-    return null;
-  };
+  const faqs = [
+    {
+      question: "What counts as break-bulk cargo?",
+      answer:
+        "Break-bulk is cargo carried as individual units rather than in a container or as a pumped liquid: bagged rice, steel coils, timber, machinery, palletised bags and project equipment. Each piece or parcel is loaded, lashed and discharged separately, which is why the cost structure has lines for stevedoring, lashing and dunnage that a container booking would bury inside a single door-to-door rate.",
+    },
+    {
+      question: "What is the W/M or freight tonne basis?",
+      answer:
+        "Break-bulk and conventional liner tariffs quote per freight tonne, defined as the greater of one metric tonne of weight or one cubic metre of volume. A dense cargo such as steel is charged on weight, and a light cargo such as timber is charged on measurement. The calculator reports cost per tonne, per cubic metre and per freight tonne so you can see which basis your tariff is really using.",
+    },
+    {
+      question: "Which costs dominate a break-bulk movement?",
+      answer:
+        "Stevedoring and shore handling usually lead, followed by storage if the cargo waits for customs or a berth. Lashing and dunnage is a smaller but unavoidable line for awkward or stacked cargo, and inland haulage scales directly with distance and truck count. Insurance is proportional to declared value, so it is the line that moves most when the cargo is expensive relative to its weight.",
+    },
+    {
+      question: "When is a container cheaper than break-bulk?",
+      answer:
+        "Containers win when the cargo fits standard dimensions, when volumes are steady and when the destination can handle container handling efficiently. Break-bulk becomes competitive for over-dimensional project pieces, very dense cargo where weight limits bind, and ports without container berths. Comparing the two totals side by side, as this calculator does, is the quickest way to see the crossover for a specific shipment.",
+    },
+  ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Business", href: "/calculator#business" }, { label: "Break-Bulk Cargo Cost Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Business", href: "/calculator#business" },
+          { label: "Break-Bulk Cargo Cost Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Break-Bulk Cargo Cost Calculator</h1>
-        
-        <div className="racira-page-container grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start">
-          
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            <div className="flex items-center gap-2 mb-1">
-              <Ship className="h-5 w-5 text-primary" />
-              <h2 className="text-2xl font-bold mb-3">Cargo Specifications</h2>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="wt" label="Total Weight" value={weight} onChange={setWeight} suffix="MT" tooltip="Total gross weight in Metric Tons (1,000 kg)." />
-              <CompactInput id="vol" label="Total Volume" value={volume} onChange={setVolume} suffix="CBM" tooltip="Total gross volume in Cubic Meters." />
-            </div>
-            
-            <hr className="border-border my-2" />
-            
-            <div className="flex items-center gap-2 mb-1">
-              <Calculator className="h-5 w-5 text-primary" />
-              <h2 className="text-2xl font-bold mb-3">Rates (Per W/M)</h2>
-            </div>
-            
-            <CompactInput id="frate" label="Ocean Freight Rate" value={freightRate} onChange={setFreightRate} prefix="$" suffix="/ RT" tooltip="Base ocean freight rate per Revenue Ton." />
-            <CompactInput id="prate" label="Port/Handling Fees" value={portFeeRate} onChange={setPortFeeRate} prefix="$" suffix="/ RT" tooltip="Stevedoring, wharfage, or handling fees per Revenue Ton." />
 
-            <div className="flex gap-3 mt-4">
-              <button type="button" onClick={handleCalculate} className="h-10 w-full flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center transition-colors shadow-sm">Calculate</button>
-              <button type="button" onClick={handleReset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors shrink-0" aria-label="Reset">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Cargo & Terminal">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="cargo-weight"
+                  label="Cargo Weight"
+                  value={weightT}
+                  onChange={setWeightT}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  step="any"
+                  suffix="t"
+                  error={errors.weightT}
+                  tooltip="Total cargo weight in metric tonnes."
+                />
+                <CompactInput
+                  id="cargo-volume"
+                  label="Cargo Volume"
+                  value={volumeCbm}
+                  onChange={setVolumeCbm}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  step="any"
+                  suffix="m³"
+                  error={errors.volumeCbm}
+                  tooltip="Total measurement of the cargo in cubic metres."
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactInput
+                  id="stevedore-rate"
+                  label="Stevedoring Rate"
+                  value={stevedorePerT}
+                  onChange={setStevedorePerT}
+                  onEnter={runCalculate}
+                  min="0"
+                  step="any"
+                  prefix="$"
+                  suffix="/t"
+                  error={errors.stevedorePerT}
+                  hint="Typical break-bulk loading and discharge runs $15–25 per tonne."
+                  tooltip="Cost to load and discharge one tonne of cargo."
+                />
+                <CompactInput
+                  id="storage-days"
+                  label="Storage Days"
+                  value={storageDays}
+                  onChange={setStorageDays}
+                  onEnter={runCalculate}
+                  min="0"
+                  step="1"
+                  suffix="days"
+                  error={errors.storageDays}
+                  tooltip="Days the cargo waits in the terminal or shed after discharge."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Port Charges & Securing">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="handling-rate"
+                        label="Handling Rate"
+                        value={handlingPerCbm}
+                        onChange={setHandlingPerCbm}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        suffix="/m³"
+                        tooltip="Shore handling charged on measurement."
+                      />
+                      <CompactInput
+                        id="port-dues"
+                        label="Port Dues & Wharfage"
+                        value={portDues}
+                        onChange={setPortDues}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        tooltip="Terminal, wharfage and port dues for the shipment."
+                      />
+                      <CompactInput
+                        id="lashing-rate"
+                        label="Lashing & Dunnage"
+                        value={lashingPerT}
+                        onChange={setLashingPerT}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        suffix="/t"
+                        tooltip="Securing materials and labour charged per tonne."
+                      />
+                      <CompactInput
+                        id="storage-rate"
+                        label="Storage Rate"
+                        value={storagePerTDay}
+                        onChange={setStoragePerTDay}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        suffix="/t/day"
+                        tooltip="Shed or yard storage per tonne per day."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Inland & Documentation">
+                    <div className="grid grid-cols-3 gap-3">
+                      <CompactInput
+                        id="haulage-rate"
+                        label="Haulage Rate"
+                        value={haulagePerKm}
+                        onChange={setHaulagePerKm}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        suffix="/km"
+                        tooltip="Trucking rate per kilometre per truck."
+                      />
+                      <CompactInput
+                        id="distance"
+                        label="Distance"
+                        value={distanceKm}
+                        onChange={setDistanceKm}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        suffix="km"
+                        tooltip="One-way road distance to the final destination."
+                      />
+                      <CompactInput
+                        id="trucks"
+                        label="Trucks"
+                        value={trucks}
+                        onChange={setTrucks}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="1"
+                        tooltip="Number of truck loads required."
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <CompactInput
+                        id="documentation"
+                        label="Documentation & Agency"
+                        value={documentationFee}
+                        onChange={setDocumentationFee}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        tooltip="Customs brokerage, agency and paperwork."
+                      />
+                      <CompactInput
+                        id="cargo-value"
+                        label="Cargo Value"
+                        value={cargoValue}
+                        onChange={setCargoValue}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        tooltip="Declared value used to price marine cargo insurance."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Insurance, Comparison & Display">
+                    <div className="grid grid-cols-3 gap-3">
+                      <CompactInput
+                        id="insurance-pct"
+                        label="Insurance Rate"
+                        value={insurancePct}
+                        onChange={setInsurancePct}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="100"
+                        step="any"
+                        suffix="%"
+                        tooltip="Cargo insurance as a percentage of declared value."
+                      />
+                      <CompactInput
+                        id="container-alt"
+                        label="Container Option"
+                        value={containerAlternative}
+                        onChange={setContainerAlternative}
+                        onEnter={runCalculate}
+                        min="0"
+                        step="any"
+                        prefix="$"
+                        tooltip="All-in cost of shipping the same cargo in containers."
+                      />
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="2"
+                        step="1"
+                        tooltip="Decimal places used for money figures."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            {results && (
-              <div ref={printRef} className="flex flex-col gap-4">
-                
-                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-primary transition-colors print:hidden" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1 font-bold">
-                    Total Estimated Cost
-                  </div>
-                  <div className="text-4xl font-bold text-primary mb-2">
-                    ${results.totalCost.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium flex items-center gap-2">
-                    Chargeable Revenue Tons: <span className="font-bold text-foreground">{results.revenueTons.toFixed(2)} RT</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-                  {results.summaryStats.map((stat, i) => (
-                    <div key={i} className={`p-4 text-center ${i > 0 ? "border-l border-border" : ""} ${i === 2 ? "max-sm:border-l-0 max-sm:border-t" : ""} ${i === 3 ? "max-sm:border-t" : ""}`}>
-                      <div className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider mb-1">{stat.label}</div>
-                      <div className="text-sm font-bold truncate">{stat.value}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  <div className="card-calculator !p-0 border border-border bg-card overflow-hidden">
-                    <table className="w-full text-left border-collapse">
-                      <thead className="bg-secondary/50 border-b border-border">
-                        <tr>
-                          <th className="p-3 text-xs font-bold uppercase text-muted-foreground tracking-wider">Cost Breakdown</th>
-                          <th className="p-3 text-right text-xs font-bold uppercase text-muted-foreground tracking-wider">Amount</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border/50">
-                        {results.breakdown.map((item, idx) => (
-                          <tr key={idx} className={item.isTotal ? "font-bold bg-secondary/20 border-t-2 border-border" : ""}>
-                            <td className="text-[14px] py-3 px-3">{item.label}</td>
-                            <td className={`text-[14px] py-3 px-3 text-right ${item.colorClass || ""}`}>{item.amount}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[250px]">
-                    <h3 className="text-sm font-bold mb-4 w-full text-left">W/M Revenue Ton Comparison</h3>
-                    {mounted && (
-                      <ResponsiveContainer width="100%" height={220}>
-                        <BarChart data={results.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                          <XAxis dataKey="metric" tickLine={false} axisLine={false} tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }} dy={10} />
-                          <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--secondary))' }} />
-                          <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                            {results.chartData.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.value === results.revenueTons ? "hsl(var(--primary))" : "hsl(var(--muted))"} />
-                            ))}
-                          </Bar>
-                        </BarChart>
-                      </ResponsiveContainer>
-                    )}
-                    <p className="text-xs text-muted-foreground mt-4 text-center">
-                      * Billed on the highest bar (Revenue Tons)
-                    </p>
-                  </div>
-                </div>
-
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
             )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Total Cargo Cost</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? money(results.total, calcInputs.decimals) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${money(results.perTonne, 2)} per tonne across ${fmt(calcInputs.weightT, 0)} t and ${fmt(calcInputs.volumeCbm, 0)} m³`
+                  : "Fix the highlighted inputs to see the total"}
+              </div>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Per Tonne</span>
+                <span className="font-extrabold text-foreground">{results.valid ? money(results.perTonne, 2) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Per m³</span>
+                <span className="font-extrabold text-foreground">{results.valid ? money(results.perCbm, 2) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Vs Container</span>
+                <span className={`font-extrabold ${results.verdictColor}`}>
+                  {results.valid ? `${results.vsContainer <= 0 ? "−" : "+"}${money(Math.abs(results.vsContainer), 0)}` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Cost Line</th>
+                    <th className="p-2.5 pr-3 text-right w-[150px]">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the shipment details to see the cost build-up.
+                      </td>
+                    </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Total landed cost</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{money(results.total, calcInputs.decimals)}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cargo weight</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(calcInputs.weightT, 1)} t` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cargo volume</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(calcInputs.volumeCbm, 1)} m³` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cargo density</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.density, 3)} t/m³` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Freight tonne basis</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.freightTonnes, 0)} W/M` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Stevedoring share</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt((results.stevedoring / results.total) * 100, 1)}%` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Storage charges</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? money(results.storage, 0) : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Insurance premium</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? money(results.insurance, 0) : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Per freight tonne</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? money(results.perFreightTonne, 2) : "—"}
+                  </span>
+                </div>
+              </div>
+              {results.valid && <p className={`text-[11px] mt-3 ${results.verdictColor}`}>{results.verdict}.</p>}
+            </div>
           </div>
         </div>
 
-        <div className="racira-page-container mt-8">
-          <AdPlaceholder className="mb-10" />
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What is Break-Bulk Cargo?</h2>
-            <p><strong>Break-bulk</strong> cargo refers to goods that must be loaded individually onto a ship, rather than being placed in intermodal containers (like standard 20ft or 40ft shipping containers) or transported in bulk (like oil or grain). Common examples of break-bulk include large machinery, construction equipment, steel beams, structural timber, and oversized vehicles (RO-RO).</p>
-            
-            <h3>Understanding the W/M (Weight or Measure) Rule</h3>
-            <p>Because ocean carriers have limited space (volume) and limited buoyancy (weight capacity), they charge based on whichever factor takes up more of the ship's total capacity. This is known as the <strong>W/M (Weight or Measure) Rule</strong>.</p>
-            <ul>
-              <li><strong>Weight:</strong> Measured in Metric Tons (MT), where 1 MT = 1,000 kg.</li>
-              <li><strong>Measure (Volume):</strong> Measured in Cubic Meters (CBM).</li>
-            </ul>
-            <p>For standard ocean freight, the ratio is <strong>1 MT = 1 CBM</strong>. A Revenue Ton (RT) is strictly the greater of the two numbers.</p>
-            
-            <h2 className="text-2xl font-bold mb-3">Example Calculation</h2>
-            <p>Imagine you are shipping a large, lightweight turbine. It weighs 25 Metric Tons (MT), but it is very bulky and takes up 60 Cubic Meters (CBM) of space.</p>
-            <p>If the freight rate is $120 per W/M, the carrier will look at both numbers:</p>
-            <ul>
-              <li>Cost based on Weight: 25 MT × $120 = $3,000</li>
-              <li>Cost based on Volume: 60 CBM × $120 = $7,200</li>
-            </ul>
-            <p>The carrier will charge based on Volume (the larger number). The chargeable "Revenue Tons" is 60 RT, and the total freight cost is $7,200.</p>
-            
-            <h2 className="text-2xl font-bold mb-3">Why Are Port and Stevedoring Fees Billed by W/M?</h2>
-            <p>Unlike container shipping where ports charge a flat fee per box (THC - Terminal Handling Charge), break-bulk cargo requires specialized labor and equipment to load and secure. Cranes (stevedoring) and port storage are constrained by both weight and physical dimensions, so these secondary logistics fees almost universally apply the same W/M rule to calculate your final port bill.</p>
-          </section>
-          <FAQSection faqs={[
-            { question: "What is the difference between Break-Bulk and Bulk?", answer: "Bulk cargo is unpackaged and poured directly into the ship's hold (e.g., coal, crude oil, grain). Break-bulk is packaged, strapped, or assembled as individual pieces (e.g., pallets, drums, large generators) but not put inside standard shipping containers." },
-            { question: "What is a Revenue Ton (RT)?", answer: "A Revenue Ton is the billing unit used by ocean and air carriers. In ocean freight, 1 RT is equal to either 1 Metric Ton or 1 Cubic Meter, whichever yields the higher revenue for the carrier." },
-            { question: "Does air freight use the same W/M rule?", answer: "Yes, but the ratio is different. Because airplanes are much more weight-sensitive than ships, air freight typically uses a ratio where 1 CBM = 167 kg (or 1 Metric Ton = 6 CBM). Air freight is overwhelmingly billed by weight rather than volume unless the cargo is extremely light and fluffy." },
-            { question: "How can I reduce break-bulk costs?", answer: "The most effective way is to reduce volume. By dismantling large machinery for shipment and packing it more densely (or even fitting it into standard open-top containers), you can significantly reduce the CBM, lowering your total Revenue Tons." },
-          ]} pageUrl="https://racira.com/calculator/break-bulk-cargo-cost-calculator" />
+            <h2 className="text-2xl font-bold mb-3">What Is a Break-Bulk Cargo Cost Calculator?</h2>
+            <p>
+              A break-bulk cargo cost calculator totals the individual charges that arise when cargo is handled piece by piece
+              instead of in a container: stevedoring, shore handling, lashing and dunnage, terminal storage, port dues, inland
+              haulage, documentation and marine cargo insurance. It returns the landed cost, the unit costs per tonne, per cubic
+              metre and per freight tonne, and a comparison against a container alternative.
+            </p>
+            <p>
+              Break-bulk quotes are hard to compare because the lines are quoted on different bases. Stevedoring follows weight,
+              shore handling follows measurement, storage follows time in the terminal, and insurance follows declared value. A
+              single all-in figure hides which of those is driving the total, which is exactly what this tool makes visible.
+            </p>
 
-      <section className="mt-12 space-y-8 text-base text-foreground">
-        <div>
-          <h2 className="text-2xl font-bold mb-3">What Is a Break Bulk Cargo Cost Calculator?</h2>
-          <p className="text-muted-foreground leading-relaxed">The Break Bulk Cargo Cost Calculator is a practical online tool designed to give you fast, reliable answers for everyday decisions. Whether you are planning a budget, comparing options, or verifying a quick estimate, this calculator removes the guesswork and delivers clear, actionable numbers. It is built for anyone who needs a dependable result without wading through spreadsheets or manual formulas. By focusing on the inputs that actually matter, the Break Bulk Cargo Cost Calculator keeps the experience simple while still producing a trustworthy output you can act on with confidence.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">How It Works</h2>
-          <p className="text-muted-foreground leading-relaxed">Using the Break Bulk Cargo Cost Calculator is straightforward. Enter the key values in the input fields above, adjust any advanced options if they apply to your situation, and click the Calculate button. The calculator applies the standard industry formula behind the scenes and instantly updates every result component on the right, including the primary result card, the three-stat bar, the breakdown table, the chart, and the summary statistics. All inputs are pre-filled with realistic defaults so you see a complete result the moment the page loads. The tool validates your entries and handles edge cases such as zero, negative, or empty values without crashing, so you always get a clean, readable answer rather than an error or a NaN.</p>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
-          <p className="text-muted-foreground leading-relaxed">The results panel is organized so the most important number is always at the top, followed by supporting metrics that put that number in context. The breakdown table shows exactly how each input contributes to the total, and the chart visualizes the distribution so you can spot the biggest drivers at a glance. Use the summary statistics block to cross-check the headline figure against the detailed rows, because the two are designed to match exactly. Adjust any input and click Calculate again to compare scenarios side by side, which makes the Break Bulk Cargo Cost Calculator useful for both quick checks and deeper what-if analysis.</p>
-        </div>
-      </section>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each cost line is computed from its own driver. Stevedoring multiplies cargo weight by the per-tonne rate, handling
+              multiplies volume by the per-cubic-metre rate, lashing and dunnage follows weight, and storage is weight multiplied
+              by the daily rate multiplied by days waiting. Port dues and documentation are flat charges, and inland haulage is the
+              per-kilometre rate multiplied by distance and truck count. Insurance is the declared value multiplied by the rate in
+              percent.
+            </p>
+            <p>
+              The totals are then normalised three ways. Cost per tonne divides the total by cargo weight, cost per cubic metre
+              divides it by volume, and cost per freight tonne divides it by the greater of the two, which is the W/M convention
+              used in liner tariffs for break-bulk and bagged cargo. Comparing the three shows immediately whether the shipment is
+              being priced on weight or on measurement, since a dense cargo such as steel coils produces a much lower cost per cubic
+              metre than a light one such as timber.
+            </p>
+            <p>
+              Cargo density, weight divided by volume in tonnes per cubic metre, is the number that decides which basis binds. Sea
+              water sits near one tonne per cubic metre, so cargo denser than that is charged on weight and lighter cargo on
+              measurement. The comparison against a container option subtracts the alternative total from the break-bulk total and
+              states which is cheaper, so the crossover for a particular shipment is explicit rather than assumed.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the total landed break-bulk cost with the cost per tonne underneath. The three-stat bar adds the
+              cost per cubic metre and the difference against the container alternative, so the headline comparison is available
+              without reading the table.
+            </p>
+            <p>
+              The breakdown table lists each charge with the rate and multiplier that produced it, then the three unit costs, and
+              finishes with the total. The summary panel reports the shipment's physical characteristics, the freight-tonne basis
+              in use, the share of the total taken by stevedoring, and the storage, insurance and per-freight-tonne figures.
+            </p>
+            <p>
+              Rates vary widely between ports and by commodity, so use the rates from your own quotations rather than the defaults.
+              Heavy-lift surcharges, demurrage after free time, port congestion and currency effects are not modelled, and neither
+              are cargo-specific requirements such as fumigation or surveying. Treat the total as the core operating cost that those
+              extras will be added to, and check that the comparison cargo would actually fit the container option you are pricing.
+            </p>
+          </section>
+          <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/break-bulk-cargo-cost-calculator" />
           <PopularCalculators exclude="/calculator/break-bulk-cargo-cost-calculator" />
         </div>
       </div>

@@ -1,180 +1,761 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
-import { loanEmiCore, annuityPayment } from "./logicCore";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
+import { annuityPayment } from "./logicCore";
 
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+interface LoanInputs {
+  amount: string;
+  rate: string;
+  term: string;
+  termUnit: "years" | "months";
+  extraMonthly: string;
+  oneTimeExtra: string;
+  startMonth: string;
+  startYear: string;
+}
+
+const DEFAULTS: LoanInputs = {
+  amount: "25000",
+  rate: "6.5",
+  term: "5",
+  termUnit: "years",
+  extraMonthly: "0",
+  oneTimeExtra: "0",
+  startMonth: "Jan",
+  startYear: "2026",
+};
+
+const num = (v: string) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const money = (v: number) => `$${fmt(v, 2)}`;
+
+interface ScheduleRow {
+  period: number;
+  payment: number;
+  principal: number;
+  interest: number;
+  balance: number;
+}
+
+interface ScenarioRow {
+  label: string;
+  monthly: number;
+  totalInterest: number;
+  highlight: boolean;
+}
+
+interface LoanResult {
+  valid: boolean;
+  errorMsg: string;
+  principal: number;
+  periods: number;
+  monthly: number;
+  totalPaid: number;
+  totalInterest: number;
+  interestShare: number;
+  monthsToPayoff: number;
+  payoffLabel: string;
+  interestSaved: number;
+  monthsSaved: number;
+  firstMonthInterest: number;
+  lastMonthInterest: number;
+  schedule: ScheduleRow[];
+  yearlyRows: ScheduleRow[];
+  termRows: ScenarioRow[];
+  rateRows: ScenarioRow[];
+}
+
+function addMonths(startYearStr: string, startMonthStr: string, count: number): string {
+  const startIdx = Math.max(0, MONTHS.indexOf(startMonthStr));
+  const total = startIdx + Math.max(0, count);
+  const y = (parseInt(startYearStr) || 2026) + Math.floor(total / 12);
+  return `${MONTHS[total % 12]} ${y}`;
+}
+
+function scenario(loan: number, ratePct: number, months: number): { monthly: number; totalInterest: number } {
+  const r = ratePct / 100 / 12;
+  const monthly = annuityPayment(loan, r, months);
+  return { monthly, totalInterest: monthly * months - loan };
+}
+
+function compute(i: LoanInputs): LoanResult {
+  const P = num(i.amount);
+  const apr = num(i.rate);
+  const months = i.termUnit === "years" ? Math.round(num(i.term) * 12) : Math.round(num(i.term));
+  const r = apr / 100 / 12;
+
+  const blank: LoanResult = {
+    valid: false,
+    errorMsg: "",
+    principal: P,
+    periods: 0,
+    monthly: 0,
+    totalPaid: 0,
+    totalInterest: 0,
+    interestShare: 0,
+    monthsToPayoff: 0,
+    payoffLabel: "",
+    interestSaved: 0,
+    monthsSaved: 0,
+    firstMonthInterest: 0,
+    lastMonthInterest: 0,
+    schedule: [],
+    yearlyRows: [],
+    termRows: [],
+    rateRows: [],
+  };
+
+  if (P <= 0 || months <= 0) {
+    return { ...blank, errorMsg: "Enter a loan amount above zero and a term of at least one month." };
+  }
+
+  const monthly = annuityPayment(P, r, months);
+  const baselineTotal = monthly * months;
+  const baselineInterest = baselineTotal - P;
+
+  const extraEvery = Math.max(0, num(i.extraMonthly));
+  const oneTime = Math.max(0, num(i.oneTimeExtra));
+
+  const schedule: ScheduleRow[] = [];
+  let balance = P;
+  let totalPaid = 0;
+  let totalInterest = 0;
+  let period = 0;
+
+  while (balance > 0.005 && period < months * 3) {
+    period++;
+    const interest = balance * r;
+    let principal = monthly - interest + extraEvery;
+    if (period === 1) principal += oneTime;
+    if (principal > balance) principal = balance;
+    const payment = interest + principal;
+    balance -= principal;
+    totalPaid += payment;
+    totalInterest += interest;
+    schedule.push({
+      period,
+      payment,
+      principal,
+      interest,
+      balance: Math.max(0, balance),
+    });
+  }
+
+  const yearlyRows: ScheduleRow[] = [];
+  for (let y = 0; y < Math.ceil(schedule.length / 12); y++) {
+    const slice = schedule.slice(y * 12, (y + 1) * 12);
+    if (slice.length === 0) break;
+    yearlyRows.push({
+      period: y + 1,
+      payment: slice.reduce((s, row) => s + row.payment, 0),
+      principal: slice.reduce((s, row) => s + row.principal, 0),
+      interest: slice.reduce((s, row) => s + row.interest, 0),
+      balance: slice[slice.length - 1].balance,
+    });
+  }
+
+  const termRows: ScenarioRow[] = [3, 5, 7].map((years) => {
+    const s = scenario(P, apr, years * 12);
+    return {
+      label: `${years} years`,
+      monthly: s.monthly,
+      totalInterest: s.totalInterest,
+      highlight: Math.abs(years * 12 - months) < 1,
+    };
+  });
+
+  const rateRows: ScenarioRow[] = [apr - 1, apr, apr + 1]
+    .filter((v) => v > 0)
+    .map((ratePct) => {
+      const s = scenario(P, ratePct, months);
+      return {
+        label: `${fmt(ratePct, 2)}% APR`,
+        monthly: s.monthly,
+        totalInterest: s.totalInterest,
+        highlight: Math.abs(ratePct - apr) < 0.0001,
+      };
+    });
+
+  const first = schedule[0];
+  const last = schedule[schedule.length - 1];
+
+  return {
+    valid: true,
+    errorMsg: "",
+    principal: P,
+    periods: schedule.length,
+    monthly,
+    totalPaid,
+    totalInterest,
+    interestShare: totalPaid > 0 ? (totalInterest / totalPaid) * 100 : 0,
+    monthsToPayoff: schedule.length,
+    payoffLabel: addMonths(i.startYear, i.startMonth, schedule.length),
+    interestSaved: Math.max(0, baselineInterest - totalInterest),
+    monthsSaved: Math.max(0, months - schedule.length),
+    firstMonthInterest: first ? first.interest : 0,
+    lastMonthInterest: last ? last.interest : 0,
+    schedule,
+    yearlyRows,
+    termRows,
+    rateRows,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, prefix, suffix, tooltip }: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
       {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
       <input
         id={id}
         type={type}
         value={value}
+        min={min}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
     </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
   </div>
 );
 
-const LoanCalculator = () => {
-  const DEFAULTS = { principal: "25000", rate: "6.5", years: "5" };
-  const [principal, setPrincipal] = useState(DEFAULTS.principal);
-  const [rate, setRate] = useState(DEFAULTS.rate);
-  const [years, setYears] = useState(DEFAULTS.years);
-  const [result, setResult] = useState<any>(null);
+interface CompactSelectProps {
+  id: string;
+  label: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (v: string) => void;
+  hint?: string;
+}
 
-  const calculate = (pV = principal, rV = rate, yV = years) => {
-    const P = parseFloat(pV), r = parseFloat(rV) / 100 / 12, n = parseFloat(yV) * 12;
-    if (isNaN(P) || isNaN(r) || isNaN(n) || P <= 0 || n <= 0) return;
-    let monthly: number = annuityPayment(P, r, n);
-    const totalPaid = monthly * n;
-    const totalInterest = totalPaid - P;
+const CompactSelect = ({ id, label, value, options, onChange, hint }: CompactSelectProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 pr-8 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground appearance-none cursor-pointer"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="h-3.5 w-3.5 absolute right-3 text-muted-foreground pointer-events-none" />
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
 
-    let balance = P;
-    const chartData: { name: string; balance: number; principal: number; interest: number }[] = [];
-    for (let yr = 0; yr <= parseFloat(yV); yr++) {
-      chartData.push({ name: `Yr ${yr}`, balance: parseFloat(balance.toFixed(2)), principal: parseFloat(P.toFixed(0)), interest: parseFloat((totalInterest * (yr / parseFloat(yV))).toFixed(0)) });
-      for (let m = 0; m < 12 && balance > 0; m++) {
-        const intPmt = balance * r;
-        const prinPmt = monthly - intPmt;
-        balance = Math.max(0, balance - prinPmt);
-      }
-    }
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground font-bold mb-2">{title}</div>
+    {children}
+  </div>
+);
 
-    setResult({
-      primary: `$${monthly.toFixed(2)}/mo`,
-      subtitle: `$${P.toLocaleString()} loan at ${rV}% APR over ${yV} years`,
-      rows: [
-        { label: "Loan Amount", value: `$${P.toLocaleString()}` },
-        { label: "Annual Interest Rate", value: `${rV}%` },
-        { label: "Loan Term", value: `${yV} years (${n} payments)` },
-        { label: "Monthly Payment", value: `$${monthly.toFixed(2)}` },
-        { label: "Total Amount Paid", value: `$${totalPaid.toFixed(2)}` },
-        { label: "Total Interest", value: `$${totalInterest.toFixed(2)}` },
-        { label: "Interest % of Total", value: `${((totalInterest / totalPaid) * 100).toFixed(1)}%` },
-      ],
-      chartData,
-      summary: [
-        { label: "Monthly Payment", value: `$${monthly.toFixed(2)}` },
-        { label: "Total Paid", value: `$${totalPaid.toFixed(2)}` },
-        { label: "Total Interest", value: `$${totalInterest.toFixed(2)}` },
-        { label: "Principal", value: `$${P.toLocaleString()}`, border: true, bold: true },
-      ],
-    });
+export default function LoanCalculator() {
+  const [inputs, setInputs] = useState<LoanInputs>(DEFAULTS);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [viewMode, setViewMode] = useState<"yearly" | "monthly">("yearly");
+
+  const [calcInputs, setCalcInputs] = useState<LoanInputs>(DEFAULTS);
+  const [results, setResults] = useState<LoanResult>(() => compute(DEFAULTS));
+
+  const set = (key: keyof LoanInputs) => (v: string) => setInputs((prev) => ({ ...prev, [key]: v }));
+
+  const runCalculate = () => {
+    setCalcInputs(inputs);
+    setResults(compute(inputs));
   };
 
-  useEffect(() => { calculate(); }, []);
-  const reset = () => { setPrincipal(DEFAULTS.principal); setRate(DEFAULTS.rate); setYears(DEFAULTS.years); calculate(DEFAULTS.principal, DEFAULTS.rate, DEFAULTS.years); };
+  const reset = () => {
+    setInputs(DEFAULTS);
+    setCalcInputs(DEFAULTS);
+    setResults(compute(DEFAULTS));
+    setViewMode("yearly");
+  };
+
+  const amortRows = viewMode === "yearly" ? results.yearlyRows : results.schedule.slice(0, 60);
+
+  const breakdownRows: { label: string; value: string }[] = [
+    { label: "Loan amount", value: money(results.principal) },
+    { label: "Total interest", value: money(results.totalInterest) },
+    { label: "Total paid", value: money(results.totalPaid) },
+    { label: "Interest share of payments", value: `${fmt(results.interestShare, 1)}%` },
+    { label: "Number of payments", value: fmt(results.periods) },
+    { label: "Interest saved by extra payments", value: money(results.interestSaved) },
+    { label: "Months saved by extra payments", value: fmt(results.monthsSaved) },
+  ];
 
   const faqs = [
-    { question: "What is the loan payment formula?", answer: "Monthly Payment = P × [r(1+r)^n] / [(1+r)^n − 1], where P = loan amount, r = monthly interest rate (annual rate / 12), n = total number of payments." },
-    { question: "How does loan term affect total interest?", answer: "Longer terms mean lower monthly payments but much more total interest. A $25,000 loan at 6.5% for 3 years: $766/mo, $2,577 interest. For 7 years: $375/mo, $6,430 interest — 2.5× more interest for fewer monthly dollars." },
-    { question: "What is APR vs interest rate?", answer: "The interest rate is the cost of borrowing the principal. APR (Annual Percentage Rate) includes the interest rate plus fees (origination, points, closing costs). APR gives a truer cost of the loan. This calculator uses APR/interest rate interchangeably for simplicity." },
-    { question: "What happens if I make extra payments?", answer: "Extra payments go directly toward the principal, reducing the balance faster and cutting total interest significantly. Even one extra payment per year can shorten a 5-year loan by several months." },
-    { question: "What is an amortization schedule?", answer: "An amortization schedule shows each monthly payment broken down into principal and interest. Early payments are mostly interest; later payments are mostly principal. The balance decreases slowly at first, then accelerates — this is why paying off early saves so much interest." },
-    { question: "What credit score do I need for a good loan rate?", answer: "Typically: 760+ = excellent rates (prime). 720–759 = good rates. 680–719 = fair rates (1–2% higher). Below 680 = subprime rates (3–5% higher or denial). A 1% rate difference on a $25,000 loan over 5 years = ~$650 extra in interest." },
+    {
+      question: "How is a monthly loan payment calculated?",
+      answer:
+        "The payment comes from the standard amortisation formula, which sets one level instalment that clears the balance in exactly the agreed number of periods given the interest rate. Interest is charged each period on whatever principal is still outstanding, and the remainder of the payment reduces that balance, so the split shifts from interest towards principal as the loan matures.",
+    },
+    {
+      question: "What is loan amortisation?",
+      answer:
+        "Amortisation is the process of paying a debt down through scheduled payments rather than in one lump sum. Each payment covers the interest that has accrued since the last one and then chips away at the principal. Early payments are mostly interest because the balance is large; later payments are mostly principal because the balance is small.",
+    },
+    {
+      question: "Do extra payments really save money?",
+      answer:
+        "Yes, because every extra dollar goes directly against the principal and therefore reduces every future interest charge. Even a small extra amount each month can remove years from a long loan, and the calculator reports exactly how much interest and how many months the extras save compared with paying strictly on schedule.",
+    },
+    {
+      question: "What is the difference between the interest rate and the APR?",
+      answer:
+        "The interest rate is the cost of borrowing the principal, while the APR folds in most fees charged to arrange the loan and expresses them as an annual rate. The APR is therefore the better number for comparing offers from different lenders, even though the monthly payment is driven by the base interest rate.",
+    },
+    {
+      question: "Should I choose a shorter term or a lower monthly payment?",
+      answer:
+        "A shorter term raises the monthly payment but cuts the total interest dramatically, while a longer term protects monthly cash flow at a higher lifetime cost. The term comparison table prices the same loan over three standard lengths so the trade-off is visible in both directions before you commit.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Finance", href: "/calculator#finance" }, { label: "Loan Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Finance", href: "/calculator#finance" },
+          { label: "Loan Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            
-            <CompactInput id="principal" label="Loan Amount" value={principal} onChange={setPrincipal} prefix="$" />
-            <CompactInput id="rate" label="Annual Interest Rate (APR)" value={rate} onChange={setRate} suffix="%" />
-            <CompactInput id="years" label="Loan Term" value={years} onChange={setYears} suffix="years" />
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Loan Payment Calculator</h1>
 
-            <div className="flex gap-3">
-              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
-              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
-                <RotateCcw className="w-4 h-4" />
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Loan Details">
+              <div className="flex flex-col gap-3">
+                <CompactInput
+                  id="loan-amount"
+                  label="Loan Amount"
+                  value={inputs.amount}
+                  onChange={set("amount")}
+                  onEnter={runCalculate}
+                  min="0"
+                  prefix="$"
+                  tooltip="The total amount you are borrowing before interest."
+                />
+                <CompactInput
+                  id="loan-rate"
+                  label="Interest Rate (APR)"
+                  value={inputs.rate}
+                  onChange={set("rate")}
+                  onEnter={runCalculate}
+                  min="0"
+                  suffix="%"
+                  tooltip="Annual rate. Enter 6.5 for six and a half percent."
+                />
+                <CompactInput
+                  id="loan-term"
+                  label="Loan Term"
+                  value={inputs.term}
+                  onChange={set("term")}
+                  onEnter={runCalculate}
+                  min="0"
+                  suffix={inputs.termUnit === "years" ? "years" : "months"}
+                />
+                <CompactSelect
+                  id="loan-term-unit"
+                  label="Term Unit"
+                  value={inputs.termUnit}
+                  onChange={(v) => setInputs((prev) => ({ ...prev, termUnit: v as "years" | "months" }))}
+                  options={[
+                    { value: "years", label: "Years" },
+                    { value: "months", label: "Months" },
+                  ]}
+                />
+                <div className="grid grid-cols-2 gap-3">
+                  <CompactSelect
+                    id="loan-start-month"
+                    label="First Payment"
+                    value={inputs.startMonth}
+                    onChange={set("startMonth")}
+                    options={MONTHS.map((m) => ({ value: m, label: m }))}
+                  />
+                  <CompactInput
+                    id="loan-start-year"
+                    label="Year"
+                    value={inputs.startYear}
+                    onChange={set("startYear")}
+                    onEnter={runCalculate}
+                    min="1900"
+                  />
+                </div>
+              </div>
+            </SubSection>
+
+            <SubSection title="Prepayment Options">
+              <button
+                type="button"
+                onClick={() => setShowAdvanced(!showAdvanced)}
+                className="text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+              </button>
+              {showAdvanced && (
+                <div className="bg-secondary/20 border border-border mt-3 rounded-lg p-4 animate-fade-in-up !overflow-visible">
+                  <div className="flex flex-col gap-3">
+                    <CompactInput
+                      id="extra-monthly"
+                      label="Extra Monthly Payment"
+                      value={inputs.extraMonthly}
+                      onChange={set("extraMonthly")}
+                      onEnter={runCalculate}
+                      min="0"
+                      prefix="$"
+                      hint="Added to every scheduled payment"
+                    />
+                    <CompactInput
+                      id="extra-one-time"
+                      label="One-Time Extra Payment"
+                      value={inputs.oneTimeExtra}
+                      onChange={set("oneTimeExtra")}
+                      onEnter={runCalculate}
+                      min="0"
+                      prefix="$"
+                      hint="Applied together with the first payment"
+                    />
+                  </div>
+                </div>
+              )}
+            </SubSection>
+
+            <div className="flex items-center gap-2 mt-1">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                aria-label="Reset"
+                onClick={reset}
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
-          <div className="space-y-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Monthly Payment</div>
-                <div className="text-4xl font-bold text-primary">{result.primary}</div>
-                <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
+
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid ? (
+              <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-5 text-sm text-destructive font-semibold">
+                {results.errorMsg || "Enter valid loan details to see results."}
               </div>
-              <div className="card-calculator !p-4 border border-border bg-card">
-                <h3 className="text-base font-semibold mb-3">Loan Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {result.rows?.map((r: any, i: number) => (
-                    <tr key={i} className="border-b last:border-0">
-                      <td className="py-2 text-muted-foreground">{r.label}</td>
-                      <td className="text-right font-medium">{r.value}</td>
-                    </tr>
-                  ))}
-                </tbody></table>
-              </div>
-              {result.chartData && (
-                <div className="card-calculator !p-4 border border-border bg-card">
-                  <h3 className="text-base font-semibold mb-3">Remaining Balance Over Time</h3>
-                  <ResponsiveContainer width="100%" height={240}>
-                    <AreaChart data={result.chartData}>
-                      <defs>
-                        <linearGradient id="loanGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.05} />
-                        </linearGradient>
-                      </defs>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                      <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
-                      <Tooltip formatter={(v: any) => [`$${Number(v).toLocaleString()}`, "Balance"]} />
-                      <Area type="monotone" dataKey="balance" stroke="hsl(var(--primary))" fill="url(#loanGrad)" strokeWidth={2} />
-                    </AreaChart>
-                  </ResponsiveContainer>
+            ) : (
+              <>
+                {/* PRIMARY RESULT CARD */}
+                <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Monthly Payment</div>
+                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{money(results.monthly)}</div>
+                  <div className="text-sm text-muted-foreground font-medium">
+                    {`Results for a ${money(results.principal)} loan at ${fmt(num(calcInputs.rate), 2)}% APR over ${fmt(results.periods)} payments`}
+                  </div>
                 </div>
-              )}
-              <div className="bg-muted/30 rounded-lg p-6">
-                <h3 className="text-base font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  {result.summary?.map((s: any, i: number) => (
-                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
-                      <span className="text-muted-foreground">{s.label}</span>
-                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
+
+                {/* 3-STAT BAR */}
+                <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Loan Amount</span>
+                    <span className="font-extrabold text-foreground">{money(results.principal)}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Total Interest</span>
+                    <span className="font-extrabold text-foreground">{money(results.totalInterest)}</span>
+                  </div>
+                  <div className="w-px h-8 bg-border"></div>
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Payoff Date</span>
+                    <span className="font-extrabold text-foreground">{results.payoffLabel}</span>
+                  </div>
+                </div>
+
+                {/* PAYMENT SUMMARY */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Loan Summary</th>
+                        <th className="p-2.5 pr-3 text-right w-[150px]">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {breakdownRows.map((row) => (
+                        <tr key={row.label} className="hover:bg-secondary/20 transition-colors">
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* AMORTIZATION TABLE */}
+                <div className="rounded-lg border border-border bg-card">
+                  <div className="flex items-center justify-between gap-2 p-3 border-b border-border">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground font-bold">Amortization Schedule</span>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("yearly")}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-colors ${viewMode === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}
+                      >
+                        Yearly
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setViewMode("monthly")}
+                        className={`px-3 py-1 text-xs font-bold rounded-md transition-colors ${viewMode === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary"}`}
+                      >
+                        Monthly
+                      </button>
                     </div>
-                  ))}
+                  </div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-sm">
+                      <thead>
+                        <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                          <th className="p-2.5 pl-3">{viewMode === "yearly" ? "Year" : "Payment"}</th>
+                          <th className="p-2.5 text-right">Payment</th>
+                          <th className="p-2.5 text-right text-emerald-600">Principal</th>
+                          <th className="p-2.5 text-right text-rose-600">Interest</th>
+                          <th className="p-2.5 pr-3 text-right">Balance</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border/50">
+                        {amortRows.map((row) => (
+                          <tr key={row.period} className="hover:bg-secondary/20 transition-colors">
+                            <td className="p-2.5 pl-3 font-semibold text-foreground">{row.period}</td>
+                            <td className="p-2.5 text-right text-foreground">{money(row.payment)}</td>
+                            <td className="p-2.5 text-right text-emerald-600">{money(row.principal)}</td>
+                            <td className="p-2.5 text-right text-rose-600">{money(row.interest)}</td>
+                            <td className="p-2.5 pr-3 text-right text-foreground">{money(row.balance)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {viewMode === "monthly" && (
+                    <div className="p-2.5 pl-3 text-[11px] text-muted-foreground border-t border-border">
+                      Showing the first {amortRows.length} of {results.periods} payments. Switch to Yearly for the full schedule.
+                    </div>
+                  )}
                 </div>
-              </div>
-            </>)}
+
+                {/* TERM COMPARISON */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Term Comparison</th>
+                        <th className="p-2.5 text-right">Monthly Payment</th>
+                        <th className="p-2.5 pr-3 text-right w-[150px]">Total Interest</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {results.termRows.map((row) => (
+                        <tr
+                          key={row.label}
+                          className={`hover:bg-secondary/20 transition-colors ${row.highlight ? "bg-primary/5 font-semibold" : ""}`}
+                        >
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                          <td className="p-2.5 text-right text-foreground">{money(row.monthly)}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{money(row.totalInterest)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* RATE SCENARIOS */}
+                <div className="overflow-x-auto rounded-lg border border-border bg-card">
+                  <table className="w-full text-left border-collapse text-sm">
+                    <thead>
+                      <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                        <th className="p-2.5 pl-3">Rate Scenario</th>
+                        <th className="p-2.5 text-right">Monthly Payment</th>
+                        <th className="p-2.5 pr-3 text-right w-[150px]">Total Interest</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border/50">
+                      {results.rateRows.map((row) => (
+                        <tr
+                          key={row.label}
+                          className={`hover:bg-secondary/20 transition-colors ${row.highlight ? "bg-primary/5 font-semibold" : ""}`}
+                        >
+                          <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                          <td className="p-2.5 text-right text-foreground">{money(row.monthly)}</td>
+                          <td className="p-2.5 pr-3 text-right text-foreground">{money(row.totalInterest)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* SUMMARY STATISTICS */}
+                <div className="bg-muted/30 rounded-lg p-5">
+                  <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Rate Used</span>
+                      <span className="text-base font-bold text-foreground">{`${fmt(num(calcInputs.rate), 2)}% APR`}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Interest as Share of Loan</span>
+                      <span className="text-base font-bold text-foreground">
+                        {`${fmt(results.principal > 0 ? (results.totalInterest / results.principal) * 100 : 0, 1)}%`}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">First Month Interest</span>
+                      <span className="text-base font-bold text-foreground">{money(results.firstMonthInterest)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Final Month Interest</span>
+                      <span className="text-base font-bold text-foreground">{money(results.lastMonthInterest)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total Paid</span>
+                      <span className="text-base font-bold text-foreground">{money(results.totalPaid)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cost per $1 Borrowed</span>
+                      <span className="text-base font-bold text-foreground">
+                        {results.principal > 0 ? `${fmt(results.totalPaid / results.principal, 3)}` : "—"}
+                      </span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Interest Saved by Extras</span>
+                      <span className="text-base font-bold text-foreground">{money(results.interestSaved)}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Time Saved by Extras</span>
+                      <span className="text-base font-bold text-foreground">
+                        {results.monthsSaved > 0
+                          ? `${Math.floor(results.monthsSaved / 12)} yr ${Math.round(results.monthsSaved % 12)} mo`
+                          : "None"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Is a Loan Calculator?</h2>
-            <p>A loan calculator computes your monthly payment for any installment loan using the amortization formula — the same math used by banks for auto loans, personal loans, and student loans. Pre-filled with a $25,000 loan at 6.5% APR over 5 years, it shows the exact monthly payment, total amount paid, total interest cost, and a declining balance chart showing how your loan balance reduces month by month.</p>
-            <p>Whether you are financing a car, consolidating debt, taking a personal loan, or comparing different loan offers, this calculator gives you the full picture instantly — empowering you to negotiate better terms and understand the true cost of borrowing.</p>
-            <h2 className="text-2xl font-bold mb-3">The Loan Payment Formula</h2>
-            <p><strong>M = P × [r(1+r)^n] / [(1+r)^n − 1]</strong></p>
-            <p>Where M = monthly payment, P = loan principal, r = monthly interest rate (annual rate ÷ 12), n = total number of monthly payments. For $25,000 at 6.5% for 5 years: r = 0.065/12 ≈ 0.005417, n = 60. M = 25000 × [0.005417 × (1.005417)^60] / [(1.005417)^60 − 1] ≈ $489.15/month. Total paid: $29,349. Total interest: $4,349.</p>
-            <h2 className="text-2xl font-bold mb-3">How Amortization Works</h2>
-            <p>Each monthly payment is split between interest and principal. In early payments, most goes to interest; as the balance drops, more goes to principal. For the $25,000 loan: Payment 1 = $135.42 interest + $353.73 principal. Payment 60 = $2.64 interest + $486.51 principal. This is why paying extra in the early months is so powerful — you reduce the principal faster, decreasing the interest base for all future payments.</p>
-            <h2 className="text-2xl font-bold mb-3">Comparing Loan Terms</h2>
-            <p>The term length dramatically affects both monthly payment and total interest. For a $25,000 loan at 6.5%: 3 years: $766/mo, $2,577 total interest. 5 years: $489/mo, $4,349 total interest. 7 years: $375/mo, $6,430 total interest. Choosing the 7-year term saves $114/month versus the 5-year but costs $2,081 more in interest. The right choice depends on your cash flow needs versus total cost priority.</p>
-            <h2 className="text-2xl font-bold mb-3">The Impact of Interest Rate</h2>
-            <p>A 1% difference in rate on a $25,000 5-year loan: at 5.5%, payment = $478/mo, interest = $3,706. At 6.5%, payment = $489/mo, interest = $4,349. At 7.5%, payment = $501/mo, interest = $5,006. The 2% spread costs $1,300 over the life of the loan — worth shopping multiple lenders. On a $400,000 mortgage, the same 2% difference means $180,000+ extra in interest over 30 years.</p>
-            <h2 className="text-2xl font-bold mb-3">Tips for Reducing Loan Costs</h2>
-            <p>Make bi-weekly payments instead of monthly — you end up making 26 half-payments (= 13 full payments) instead of 12, knocking years off your loan. Make even small extra principal payments — $50/month extra on a 5-year loan saves hundreds in interest and pays it off faster. Compare APR (not just interest rate) across lenders — origination fees can make a "lower rate" loan more expensive. If you have good credit, refinance when rates drop. Use the <a href="/calculator/compound-interest-calculator">compound interest calculator</a> to see how investing the monthly savings from a shorter term builds wealth.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Loan Payment Calculator?</h2>
+            <p>
+              A loan payment calculator turns the three numbers on every loan agreement, the amount borrowed, the annual
+              rate and the term, into the figures that matter: the monthly payment, the total interest and the date the
+              debt clears. It replays the loan one payment at a time, so you can see how much of each instalment is
+              interest and how much actually reduces the balance, rather than accepting a single figure from a lender.
+            </p>
+            <p>
+              Because the calculator also accepts extra monthly or one-time payments, it doubles as a prepayment planner.
+              Small voluntary increases that feel painless month to month can remove years from a long loan, and the report
+              quantifies both the interest and the time those extras buy back. That makes it useful before signing any
+              fixed-rate instalment loan, whether it is a car loan, a personal loan, a student loan, a home improvement
+              loan or a small business loan, and just as useful afterwards as a payoff tracker.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The payment comes from the standard amortisation formula, which sets one level instalment that clears the
+              balance in exactly the agreed number of periods at the given rate. The monthly rate is the annual percentage
+              rate divided by twelve, and interest for each period is charged on whatever principal is still outstanding.
+              The rest of the payment reduces that balance, so the interest share shrinks and the principal share grows as
+              the loan matures.
+            </p>
+            <p>
+              The calculator keeps a running balance and repeats that calculation month by month until the debt is
+              cleared, recording every payment, the interest inside it and the remaining balance. Extra payments are added
+              on top of the scheduled amount and go straight against the principal, which lowers every future interest
+              charge. A second run of the same loan without extras produces the baseline totals, and the difference
+              between the two runs is reported as the interest and the months you save.
+            </p>
+            <p>
+              Two comparison panels round out the picture. The term table prices the same loan over three standard lengths
+              so you can see what a shorter commitment costs each month and saves in total, and the rate panel re-prices
+              the loan one point above and below your quoted rate so that the cost of a rate rise, or the benefit of a
+              refinance, is visible in dollars rather than described in the abstract.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the level monthly payment, and the three-stat bar reports the loan amount, the total
+              interest and the payoff date. The first table itemises the whole loan, the second is the amortisation
+              schedule in yearly or monthly form, and the last two panels compare terms and rates against your own
+              scenario.
+            </p>
+            <p>
+              Read the schedule to see why early payments are expensive. On a typical car or personal loan a large slice
+              of the first year goes to interest, and it is only later that principal dominates. That pattern is the
+              entire argument for extra payments made early rather than late, because a dollar of principal removed in
+              month three saves interest in every month that follows it.
+            </p>
+            <p>
+              Judge affordability from the payment plus your other obligations rather than from the loan in isolation, and
+              remember that the total interest figure assumes you hold the loan to maturity. Most borrowers refinance,
+              sell or pay off early, which reduces the realised interest below the printed total. Treat the schedule as a
+              plan, re-run it whenever a rate or term changes, and check the interest share of the loan against the term
+              comparison to confirm the length you have chosen is the one you actually want.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/loan-calculator" />
           <PopularCalculators exclude="/calculator/loan-calculator" />
@@ -182,6 +763,4 @@ const LoanCalculator = () => {
       </div>
     </>
   );
-};
-export default LoanCalculator;
-
+}

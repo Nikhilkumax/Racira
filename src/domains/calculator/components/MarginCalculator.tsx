@@ -96,7 +96,7 @@ export default function MarginCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.mode, vals.cost, vals.revenue, vals.margin, vals.markup]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

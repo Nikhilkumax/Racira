@@ -389,13 +389,22 @@ export default function ScaleBarTool() {
     width, height, lineWidth, stepMode, stepRows, divStyle, barStyle, color]);
 
   const bar = useMemo(() => computeBar(params), [params]);
-  // The drawing is gated on a feasible segment. When "One segment equals" is
-  // longer than the bar's own real span (`segFits` false) there is no honest bar
-  // to draw: the paper readouts would contradict each other (segment > full bar)
-  // and the step count would be the clamped minimum pretending segments fit. So
-  // the result — readout, preview and downloads — stays withheld, with an
-  // explanation in its place, until the input is corrected.
-  const svgStr = useMemo(() => (bar && bar.segFits ? renderBarSvg(bar, params) : ""), [bar, params]);
+  // A result is truthful only when BOTH geometric gates hold:
+  //   • segFits    — "one segment equals" is short enough to fit the bar (item 1)
+  //   • manualFits — a Manual bar's OWN paper length is within the documented
+  //                  Width range, i.e. the rows preserved across a scale change
+  //                  still describe a bar this tool can actually draw
+  // When either fails there is no honest number set to show: the paper readouts
+  // would contradict the bar's own stated bounds and the step count would
+  // pretend the divisions fit. So the result — readout, preview and downloads —
+  // stays withheld, with an explanation in its place, until the input is fixed.
+  const segInvalid = bar !== null && !bar.segFits;
+  const manualInvalid = bar !== null && !bar.manualFits;
+  const resultInvalid = segInvalid || manualInvalid;
+  const svgStr = useMemo(
+    () => (bar && !resultInvalid ? renderBarSvg(bar, params) : ""),
+    [bar, resultInvalid, params],
+  );
 
   const handleExportSvg = useCallback(() => { if (svgStr) exportSvg(svgStr); }, [svgStr]);
   const handleExportPng = useCallback(() => { if (svgStr) exportPng(svgStr); }, [svgStr]);
@@ -409,11 +418,17 @@ export default function ScaleBarTool() {
   // "One segment equals" must fit inside the bar's own real span. That span
   // (Width × scale, or the largest Manual boundary) comes straight from the
   // geometry, which never depends on segVal — so this bound is not circular.
-  const resultInvalid = bar !== null && !bar.segFits;
   const segMaxReal = bar ? bar.totalRealValue : null;
   const segNum = parseFloat(segVal);
   const segError = segVal.trim() !== "" && (!Number.isFinite(segNum) || segNum <= 0);
   const segBounded = segMaxReal !== null ? fmtLength(segMaxReal, 4) : "—";
+  // What the Manual gate is complaining about: the largest preserved boundary
+  // and the paper it demands at the scale now in force.
+  const manualMaxReal = bar && bar.boundariesReal.length > 0
+    ? bar.boundariesReal[bar.boundariesReal.length - 1]
+    : null;
+  const manualMaxLabel = manualMaxReal !== null ? `${fmtLength(manualMaxReal, 4)} ${unit}` : "—";
+  const manualPaperLabel = bar ? `${fmtTrim(bar.totalPaperMm, 2)} mm` : "—";
   // fmtLength (not fmtTrim): the unit table reaches 1e-24…1e24, where four
   // fixed decimals would print an extreme unit as a bare "0" — claiming the
   // bar has no length when it does.
@@ -608,8 +623,8 @@ export default function ScaleBarTool() {
               longer fits another one. The value is never rewritten for the user. */}
           <Row label="One segment equals" unit={unit} testid="row-seg">
             <NumField name="seg" value={segVal} onChange={setSegVal}
-              invalid={resultInvalid || segError} />
-            {resultInvalid ? (
+              invalid={segInvalid || segError} />
+            {segInvalid ? (
               <p data-testid="seg-invalid" className="mt-1 text-[11px] font-medium text-destructive">
                 Longer than the whole bar: at this scale it only spans {segBounded} {unit}.
               </p>
@@ -792,19 +807,32 @@ export default function ScaleBarTool() {
       <div data-testid="result-panel" className="rounded-xl border-2 border-primary/40 bg-primary/5 p-4">
         <PanelTitle>Result</PanelTitle>
 
-        {/* When the segment cannot fit the bar there is no honest number set to
-            show, so the readout is replaced by the reason and the downloads
-            stay disabled until it is fixed — rather than printing a segment
-            wider than the bar it would be drawn on. */}
+        {/* When either gate fails there is no honest number set to show, so the
+            readout is replaced by the reason and the downloads stay disabled
+            until it is fixed — rather than printing a bar the tool itself says
+            it cannot represent. Both reasons use this one box. */}
         {resultInvalid ? (
           <div data-testid="result-invalid" role="alert"
             className="rounded-xl border border-destructive/40 bg-destructive/5 px-4 py-3">
             <p className="text-sm font-semibold text-destructive">Cannot draw this bar.</p>
-            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-              “One segment equals” is {segVal} {unit}, but the whole bar only spans {segBounded} {unit} in real life,
-              so not even one segment fits on it. Set the segment to at most {segBounded} {unit}, or widen the bar /
-              change the scale.
-            </p>
+            {segInvalid ? (
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                “One segment equals” is {segVal} {unit}, but the whole bar only spans {segBounded} {unit} in real life,
+                so not even one segment fits on it. Set the segment to at most {segBounded} {unit}, or widen the bar /
+                change the scale.
+              </p>
+            ) : (
+              /* Same gate, same treatment as the segment case. Manual rows are
+                 kept across a scale change on purpose, so the bar they describe
+                 can outgrow the tool's own paper range; the rows are NOT
+                 rewritten — the result and every export are withheld instead. */
+              <p data-testid="manual-invalid" className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                The step rows below are preserved when the scale changes, and at {scaleLabel} the largest boundary
+                ({manualMaxLabel}) needs {manualPaperLabel} of paper — more than the {SLIDER_RANGES.width.max} mm a
+                Manual bar can be. Reduce the step values, or change the scale / unit. Rows past the range are marked
+                “out of range”.
+              </p>
+            )}
           </div>
         ) : (
         <>

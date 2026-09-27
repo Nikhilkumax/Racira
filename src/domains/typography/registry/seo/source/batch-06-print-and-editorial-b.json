@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "footnote-and-endnote-formatter",
+    "keywords": [
+      "footnote and endnote formatter",
+      "reference marker",
+      "hanging indent",
+      "footnote rule"
+    ],
+    "intro": "The footnote and endnote formatter sets the notes block that runs under a rule at the foot of a page, together with the reference markers that connect it to the text. The marker style is the decision with the most downstream effect, so the tool states what each one is for before you commit to it.",
+    "content": "The footnote and endnote formatter takes one note per line, a reference marker style and four measures, then returns the notes block, the in-text reference marks and the CSS that produces both.\n\n- Four marker styles are offered: superscript numerals, bracketed numerals in square brackets, symbols, and an inline parenthetical form.\n- The symbol set cycles through asterisk, dagger, double dagger, section and pilcrow, which is the conventional sequence for a page carrying only a handful of notes.\n- Note size runs from 6pt to 12pt, the body size from 8pt to 14pt, the note leading from 8pt to 18pt, and the footnote rule from 10 to 100 percent of the column width.\n- Numbering can start anywhere from 1 to 99, which is how a chapter that continues a sequence is set without renumbering by hand.\n- The marker table reports the marker, the closed-up form and the case each style suits, so the choice is made against a stated reason rather than by habit.\n\nThe rule above the notes is a fraction of the column rather than the full measure, which is the convention that keeps a notes block from reading as a second column of text. The notes themselves use a hanging indent, so a reference that runs over more than one line starts its continuation aligned with the note text rather than under the number, and the CSS does that with a left padding and a matching negative text indent. The in-text mark is set at 65 percent of the body size with a line height of zero and a superscript alignment, and it is given a small negative left margin so the mark hangs outside the measure the way optical punctuation does, which keeps the spacing of the line it sits in from shifting.\n\n- The symbol set runs out after five notes and cycles, so a page with more notes than that needs numerals instead.\n- The notes block is set directly beneath the preview text rather than positioned at the foot of a page, since nothing here paginates a document.\n- Notes are taken as typed, one per line: the tool does not detect markers in the body text and pair them with notes automatically.\n- There is no support for cross-references, repeated references or shortened forms after a first full citation.\n- The rule is a single hairline at one width, so a two-weight rule or a bracketed notes block is outside the tool.\n\nUse it when the notes area of a page is being set and the marker style is still open, since the choice between numerals, symbols and inline references is the decision that everything else follows from. Superscript numerals are the convention for a text with figures, bracketed numerals survive being copied into plain text, and symbols are reserved for a page carrying only a few notes. Where the notes sit inside a page geometry, the book interior layout preview reports the text block and margins they have to fit, the print type specification sheet records the note size in points for the printer, and the index page layout preview covers the other apparatus page at the back of the book.",
+    "howTo": [
+      { "step": "Paste the notes one per line, then choose the reference marker style and the number the sequence starts at." },
+      { "step": "Set the note size, the body size it sits under, the note leading and the width of the rule as a share of the column." },
+      { "step": "Read the marker table to confirm the closed-up form and the case each style suits, since the mark appears in the text as well as in the block." },
+      { "step": "Copy the generated CSS, which carries the rule, the hanging indent and the in-text reference mark styling." }
+    ],
+    "whenToUse": "Reach for it when a document's notes area is being set, when a book is moving from a word processor to a typeset layout and the markers need standardising, or when a page carrying many notes has to be made legible without shrinking the text. For the page around the notes, the {{book-interior-layout-preview|book interior layout preview}} gives the text block and margin proportions, the {{print-type-specification-sheet|print type specification sheet}} records the sizes in points, and the {{index-page-layout-preview|index page layout preview}} covers the apparatus page that sits at the other end of the book.",
+    "faqs": [
+      {
+        "q": "When should I use symbols instead of numerals?",
+        "a": "When a page carries only a few notes and no long sequence. The conventional set runs asterisk, dagger, double dagger, section and pilcrow, which gives five markers before it has to repeat. Past that, the reader loses track of which mark belongs to which note, and numerals become the only workable choice."
+      },
+      {
+        "q": "Why is the rule only part of the column width?",
+        "a": "Because the notes block is apparatus rather than body text. A short rule separates it from the text without implying a second column, and the conventional widths sit between a quarter and a half of the measure. The tool lets it run anywhere from a tenth to the full column for cases where a heavier separation is wanted."
+      },
+      {
+        "q": "What is the hanging indent for?",
+        "a": "It keeps a reference that wraps onto a second line aligned with the note text rather than under its number. Without it, a two-line reference looks like two separate notes. The generated CSS does it with a left padding on the note and a negative text indent of the same value."
+      },
+      {
+        "q": "Why does the reference mark have a negative margin?",
+        "a": "So it hangs outside the measure instead of pushing the word it follows. A superscript numeral takes up horizontal space at the end of a line, and without the small negative margin the line spacing shifts slightly wherever a mark appears. Hanging it is the same correction applied to optical punctuation."
+      },
+      {
+        "q": "Can I set endnotes differently from footnotes?",
+        "a": "The tool formats one notes block, so endnotes use the same block with a different position in the document. What does change in practice is the marker numbering, which is why the sequence start is adjustable: a chapter of endnotes typically continues the numbering rather than restarting it at one."
+      }
+    ]
+  },
+  {
+    "slug": "running-head-planner",
+    "keywords": [
+      "running head planner",
+      "recto and verso",
+      "chapter opening",
+      "signature"
+    ],
+    "intro": "The running head planner plans the head content of a whole run of pages rather than previewing one. It answers the questions a book designer has to settle before typesetting: which pages carry no head at all, which head goes on which side, and where the page number sits relative to the head text.",
+    "content": "The running head planner takes a book title, a list of chapter opening pages and four settings, then returns a page-by-page plan of head content and folio placement, plus the CSS Paged Media equivalent.\n\n- The recto head is the book title, typed once, and the verso head is derived from the chapter list as the chapter that most recently started.\n- Chapter opening pages are typed as a comma-separated list of page numbers, so the head suppression falls on exactly the pages a chapter begins.\n- Opening pages can either suppress the head or keep it, which is the difference between a conventional trade book and a reference work.\n- Page numbers can sit on the outer edge, the inner edge, centred, or be omitted entirely, and the plan states the placement per page rather than as a rule.\n- A signature size from 4 to 64 pages is used for one calculation: how many sheets the planned pages will occupy, since a plan that spills one page past a signature boundary adds a whole sheet.\n\nOdd pages become recto and even pages verso, and the plan applies that automatically, so the alternation between the book title and the chapter head falls on the right sides without being set by hand. Chapter openings are detected by comparing each page in the plan against the list, and the verso head names the chapter that started at or before that page, which is what makes a reader who opens the book in the middle able to tell where they are. The folio placement follows the same recto and verso alternation: on the outer edge it sits left on a verso page and right on a recto page, so the number always falls under the reader's thumb. The generated CSS Paged Media block writes those decisions as page rules for left, right and blank pages, using a named running head string and the page counter, so the plan can be carried into a paged-media renderer rather than only being read.\n\n- The plan covers a window of pages, from 4 to 32, rather than a whole book, so a long extent has to be checked in several passes.\n- Verso heads name the chapter position with a placeholder short title rather than a real per-chapter title, which has to be substituted by hand.\n- Only three head variants exist: the book title on recto pages, the chapter head on verso pages and the front matter head before the first chapter.\n- The signature calculation is a ceiling of pages divided by signature size, so imposition details and any allowance for plates are outside it.\n- Folio suppression on blank pages is written into the CSS rather than being visible in the plan table.\n\nUse it before a book is typeset, since the head and folio scheme is expensive to change once pages exist, and again when a designer wants to know where the chapter openings fall in a signature. The signature note is the useful part of the page count: it turns a head plan into a production consequence. Where a single page's head layout needs judging rather than the sequence, the running head previewer renders the pages themselves, the book interior layout preview reports the margins the head sits in, and the chapter header designer settles what the chapter opening page does instead.",
+    "howTo": [
+      { "step": "Type the book title that will serve as the recto head, and list the chapter opening pages as a comma-separated sequence." },
+      { "step": "Choose whether chapter openings suppress the head or keep it, and where the page numbers sit relative to the head text." },
+      { "step": "Set the first page number, the number of pages in the plan and the signature size, then read the page-by-page table." },
+      { "step": "Check the sheet count in the signature note, then copy the CSS Paged Media block for the renderer you are using." }
+    ],
+    "whenToUse": "Reach for it when a book's running head scheme is being decided, when an existing book keeps confusing readers who open it in the middle, or when a chapter list needs checking against signature boundaries before imposition. It plans the sequence, which is the part a single-page preview cannot show. For the rendering of one page, the {{running-head-previewer|running head previewer}} shows the head against the body copy, the {{book-interior-layout-preview|book interior layout preview}} supplies the margins it sits in, and the {{chapter-header-designer|chapter header designer}} covers the page where the head is suppressed.",
+    "faqs": [
+      {
+        "q": "How does the plan decide which head lands on which side?",
+        "a": "By convention the book title sits on the recto page and the chapter title on the verso, so the reader sees where the book is on the right and where they are in it on the left. The planner applies that automatically from the page number, since odd pages are recto and even pages are verso."
+      },
+      {
+        "q": "Why suppress the head on a chapter opening?",
+        "a": "Because the chapter title already dominates that page. Repeating it in the head at the top of the same page is redundant, and the convention in trade books is to drop the head and let the opening page carry its own space. Reference works often keep the head instead, which is why it is a setting rather than a fixed rule."
+      },
+      {
+        "q": "What does the signature figure tell me?",
+        "a": "How many sheets the planned pages occupy at the chosen signature size, calculated as the page count divided by the signature size and rounded up. It matters because printers impose in signatures, so a book that runs one page past a boundary adds a whole sheet. Adjusting the plan or the extent by a few pages can avoid that."
+      },
+      {
+        "q": "Can heads alternate differently on the same spread?",
+        "a": "They do alternate, and the planner shows it page by page: the verso head names the chapter and the recto head names the book. What the planner does not model is a spread where a chapter opens on the recto page, which leaves the verso head of that spread belonging to the previous chapter. Check that case against the chapter list."
+      },
+      {
+        "q": "Does the CSS actually place the heads?",
+        "a": "In a paged-media renderer, yes. The generated block names a running head string, positions it with the top-left and top-right page margin boxes for left and right pages, places the page counter on the opposite side, and clears both on blank pages. It is a portable way of expressing the plan rather than a substitute for it."
+      }
+    ]
+  },
+  {
+    "slug": "chapter-header-designer",
+    "keywords": [
+      "chapter header designer",
+      "chapter opening",
+      "top drop",
+      "epigraph"
+    ],
+    "intro": "The chapter header designer builds the page that opens a chapter, which is the one page in a book with no running head and generous top space. Four patterns cover the conventions in common use, and each one is measured against the text column rather than drawn in isolation.",
+    "content": "The chapter header designer takes a chapter number, a title, an optional epigraph and five settings, then renders the opening page and exports the CSS behind the chosen pattern.\n\n- Four patterns are offered: number above title with a rule and then text, a large number alone, a centred title with an epigraph, and a side-aligned vertical number.\n- Title size runs from 14pt to 72pt, the number from 8pt to 40pt, and the top drop from 0 to 180px.\n- The face is chosen from the catalogue with mono faces excluded, since the opening page is a display setting rather than a text one.\n- The top drop is reported both in pixels and in line boxes, dividing by an assumed 24px line box, so the space above the title can be related to the rhythm of the page below it.\n- The title size is also reported in pixels, using the 96 over 72 point-to-pixel ratio, so the opening can be checked against a screen rendering of the same design.\n\nThe top drop is the decision that the rest of the page inherits. It is the distance from the top of the page to the start of the header block, and setting it by eye is what produces an opening page that sits differently from the chapter that follows. Reporting it in line boxes makes the relationship explicit: a drop of seventy pixels is a little under three line boxes at a standard body setting. The side-aligned pattern writes the number as a vertical piece of type with the float cleared to the left and a margin to hold it off the text, which is the modern variant where the number reads as a spine label rather than as a heading. The rule under the header is a short bar rather than a full-measure line, which keeps the block reading as a title rather than as a section divider, and the preview draws every pattern at the same drop so the choices can be compared without re-entering values.\n\n- Ornaments, images and initial letters on the opening page are outside the tool, and the drop cap itself is a separate element.\n- The preview measures the drop from the top of its own container rather than from a page edge, so the head margin of a real page is not applied.\n- Four patterns are offered and cannot be combined, so a hybrid opening has to be built by editing the exported CSS.\n- The vertical number in the side pattern is drawn in a flex row in the preview rather than as a floated writing-mode block, so the two are close but not identical.\n- The title weight is fixed at 600 and the first line of body copy is not aligned to a baseline grid.\n\nUse it when a book's chapter openings are being designed, since the drop and the title scale set the rhythm the whole chapter inherits, and again when an opening page has to be justified against a screen equivalent. Where the head sequence across the book is the question rather than one page, the running head planner covers what each page carries, and where the opening page needs the geometry behind it, the book interior layout preview gives the margins the drop is measured from.",
+    "howTo": [
+      { "step": "Choose the pattern, then enter the chapter number, title and epigraph so the block is built from real content." },
+      { "step": "Pick the face and set the title and number sizes, watching the pixel equivalent readout if the same design also exists on screen." },
+      { "step": "Adjust the top drop and read the line-box figure, which relates the opening space to the body rhythm below it." },
+      { "step": "Compare the patterns at the same drop, then copy the generated CSS for the one you keep." }
+    ],
+    "whenToUse": "Reach for it when a book's opening pages are being designed and the drop has to be agreed, or when an existing chapter opening feels detached from the text that follows it. It is also the quickest way to compare the traditional number-above-title block against the modern side-aligned number without building both. For the rest of the book's head scheme the {{running-head-planner|running head planner}} plans the sequence, the {{drop-cap-generator|drop cap generator}} handles the first paragraph where one is used, and the {{book-interior-layout-preview|book interior layout preview}} gives the margins the drop is measured against.",
+    "faqs": [
+      {
+        "q": "How much top drop should a chapter opening have?",
+        "a": "Enough that the title block sits clearly below where a running head would be, which in practice means a drop of roughly a third of the page's head margin plus one or two line boxes. The tool reports the figure in line boxes so it can be related to the body rhythm rather than judged by eye, and a book that uses one drop throughout reads more calmly than one that varies it per chapter."
+      },
+      {
+        "q": "Why is there no running head on a chapter opening?",
+        "a": "Because the chapter title is already on the page. The convention drops the head to give the opening its own space, and the readout states that the head is suppressed on this page. A reference book may keep the head for consistency, which is why the planner treats suppression as a setting rather than a rule."
+      },
+      {
+        "q": "What is the epigraph for?",
+        "a": "It is the quotation or line that sits under a chapter title, set in italic and centred in the pattern that supports it. Only the centred pattern renders it, and it is optional: leaving the field empty simply omits the line rather than leaving a gap. The epigraph belongs to the opening page and is not repeated in the head."
+      },
+      {
+        "q": "Does the side-aligned number work in a browser?",
+        "a": "The exported CSS writes it as a float with a vertical writing mode and a margin, which is a real technique rather than a preview trick. The preview draws it inside a flex row, so the two are close but not identical. Check the exported version in the target renderer before the pattern is committed to a book."
+      },
+      {
+        "q": "Why does the title size have a pixel readout?",
+        "a": "Because the same design often exists as a web reading sample or an EPUB alongside the printed book. Points are the right unit for the page and pixels are the right unit for the screen, and the readout converts at 96 to the inch so the two can be held at the same apparent size. The drop is reported in line boxes for the same reason."
+      }
+    ]
+  },
+  {
+    "slug": "table-of-contents-typesetter",
+    "keywords": [
+      "table of contents typesetter",
+      "leader dots",
+      "tabular figures",
+      "page numbers"
+    ],
+    "intro": "The table of contents typesetter builds a contents list with real leader dots, which is the part of a contents page that is easiest to get wrong. The two portable techniques are a flex row with a dotted border and a gradient background with controllable dot spacing, and the tool writes both.",
+    "content": "The table of contents typesetter takes one entry per line in a title and page format, then lays out the contents page with the leader style, the page number handling and the indents you choose, and exports the CSS.\n\n- Entries are typed one per line as a title, a vertical bar and a page number, and a line beginning with a space, a middle dot or a hyphen is treated as a sub-entry.\n- Three leader styles are available: a dotted border on a flexible row, a repeating gradient with controllable dot spacing, and no leaders at all.\n- Page numbers can be right-aligned with leaders leading to them, placed before the title, or omitted entirely.\n- Leader gap runs from 2px to 16px, dot size from 1px to 4px and the sub-entry indent from 0 to 4rem.\n- The entry table reports the title, the page, whether the line was read as top level or a sub-entry, and how the page numbers are being handled.\n\nThe two leader techniques are not equivalent. A dotted border on a flexible row is the simplest and renders uniformly, but the dots are drawn by the browser's border style, so their size and spacing are not really controllable and they sit slightly above the baseline. The gradient approach draws each dot as a radial gradient tile, with the background size set to the gap plus the dot size and the repeat set to horizontal, which gives exact control over both the spacing and the diameter at the cost of a background image that has to be positioned to sit on the baseline. The numbers are set with tabular figures so the digits line up in a column, which is what lets a reader scan page numbers rather than read them, and sub-entries are marked by indentation and a slight reduction in opacity rather than by a smaller size, so the hierarchy is positional.\n\n- Level detection is a heuristic on the first character of the line, so a sub-entry has to be typed with a leading space, dot or hyphen to be treated as one.\n- Page numbers are entered by hand. Nothing counts pages or derives them from a document.\n- The left-numbered style puts the page before the title and has no leaders at all, since leaders only make sense when the number is at the end of the row.\n- Only two levels exist, top level and sub-entry, so a third level has to be built by editing the exported CSS.\n- Gradient dots are a background rather than real glyphs, so they do not appear if backgrounds are disabled when printing.\n\nUse it when a contents page is being set by hand, when a generated contents list has to be restyled to match a printed book, or when leader dots are being argued about and both techniques need comparing on the same entries. Where the contents list sits in the page geometry, the book interior layout preview gives the text block it has to fit and the running head planner settles whether the contents pages carry a head at all.",
+    "howTo": [
+      { "step": "Type the entries one per line as title, a vertical bar and the page number, prefixing sub-entries with a dash or a middle dot." },
+      { "step": "Choose the leader style and the page number handling, and set the leader gap, the dot size and the sub-entry indent." },
+      { "step": "Check the entry table to confirm which lines were read as sub-entries, since the level comes from the first character of the line." },
+      { "step": "Copy the generated CSS, which carries the flex row, the leader technique and the tabular figures for the numbers." }
+    ],
+    "whenToUse": "Reach for it when a contents page is being set and the leader dots need to match a house style, when a contents list generated by another system has to be restyled, or when both leader techniques need comparing before one is chosen. Where the page it sits on is being planned, the {{book-interior-layout-preview|book interior layout preview}} supplies the geometry, the {{index-page-layout-preview|index page layout preview}} does the equivalent job for the index, and the {{running-head-planner|running head planner}} covers the head the contents pages carry.",
+    "faqs": [
+      {
+        "q": "Which leader technique should I ship?",
+        "a": "The dotted border is simpler and needs no background, which suits most projects and prints reliably. The gradient version gives exact control over dot spacing and diameter, which is what a house style with a specified leader demands. If neither is critical, the border is the safer choice because it does not depend on background printing."
+      },
+      {
+        "q": "Why are tabular figures needed for page numbers?",
+        "a": "Because proportional digits have different widths, so a column of page numbers does not line up and the reader has to read each number rather than scan the column. Tabular figures give every digit the same width, which aligns the ones, tens and hundreds columns. The same setting is what keeps numbers from shifting as they change in a table."
+      },
+      {
+        "q": "How are sub-entries detected?",
+        "a": "From the first character of the line. A line beginning with a space, a middle dot or a hyphen is treated as a sub-entry and gets the indent; anything else is top level. That is a heuristic rather than a parse, which is why the entry table shows the level it decided on so a misread line can be spotted before the CSS is copied."
+      },
+      {
+        "q": "Can I have three levels of entry?",
+        "a": "Not directly. The tool models a top level and one level of sub-entry, which covers most contents pages. A third level has to be added by editing the exported CSS, where the structure is a flex row per entry and an indent rule per level, so adding a further class is a small change rather than a rewrite."
+      },
+      {
+        "q": "Why does the dotted border sit slightly high?",
+        "a": "Because a border is drawn at the edge of the box rather than on the baseline, so the dots appear a little above where they would sit if they were type. The generated CSS compensates with a small upward transform on the leader element, which is why the value is written explicitly rather than left out."
+      }
+    ]
+  },
+  {
+    "slug": "index-page-layout-preview",
+    "keywords": [
+      "index page layout preview",
+      "hanging indent",
+      "sub-entries",
+      "tabular figures"
+    ],
+    "intro": "The index page layout preview sets a book index as it is actually read: a two-column page with runover indents for continuation lines, sub-entries under their parents, and a page number column that aligns by digit. The indents and the column count are the two decisions that decide whether an index can be scanned.",
+    "content": "The index page layout preview takes one entry per line as a term and its page numbers, then sets the column count, the entry size and leading, and three indent values, returning a typeset index, a column breakdown and the CSS.\n\n- Entries are typed one per line as a term followed by commas and page numbers, and a line whose term begins with a dash is treated as a sub-entry.\n- The column count runs from one to three, with two as the default, since two or three columns are the norm for a printed index.\n- Entry size runs from 6pt to 14pt and leading from 8pt to 20pt, defaulting to 9.5pt on 11.5pt.\n- A hanging indent puts continuation lines under the term rather than under the entry number, using a left padding and an equal negative text indent.\n- The readout reports the entry count, the entries per column, the number of sub-entries and the resulting column height in points.\n\nThe runover indent is what makes a long entry read as one entry rather than two: a term whose page list wraps onto a second line starts that line aligned with the term, so the reader's eye does not have to decide whether a new entry has begun. Sub-entries take a further indent, which places them under their parent by position rather than by size, and the convention list in the panel states the reason: hierarchy in an index is expressed by where a line starts, not by making it smaller. Page numbers are set with tabular figures so the digits align down the column, and hyphenation is switched off entirely, because a hyphenated term is a term a reader cannot find. The column height figure is the leading multiplied by the entries per column plus one line, which is the estimate a page plan needs to know whether the index will fit its allotted pages.\n\n- Entries are set exactly as typed. Nothing sorts them, merges duplicates or normalises a page range.\n- The hanging indent slider is present but not wired into the generated CSS; the runover indent is what sets the hanging value in practice.\n- Sub-entries exist at one level only, and a further level has to be added by editing the CSS.\n- Column balancing is left to the browser, so the last column can be short by several lines.\n- Cross-references, see-also entries and any styling that distinguishes them are outside the tool.\n\nUse it when an index is being set and the indent scheme is still being decided, when a generated index has to be restyled to fit a page, or when a column count needs checking against the number of entries before pages are allocated. The entry and column counts are what a page plan is built from. Where the page geometry has to be fixed first, the book interior layout preview reports the text block the index will occupy, and the table of contents typesetter covers the contents page that mirrors it at the front of the book.",
+    "howTo": [
+      { "step": "Paste the entries one per line, with the term first and its page numbers after commas, prefixing sub-entries with a dash." },
+      { "step": "Set the column count, the entry size and the leading, then choose the runover and sub-entry indents." },
+      { "step": "Read the entry count, entries per column and column height to see whether the index fits the pages it has been allotted." },
+      { "step": "Copy the index CSS, which carries the runover indent, the disabled hyphenation and the tabular figures for the page numbers." }
+    ],
+    "whenToUse": "Reach for it when an index is being typeset for print, when a generated index from a word processor needs to be made scannable, or when the space an index needs has to be estimated before pages are allocated. It is also the quickest way to show why hyphenation must be off in an index. For the page it sits on, the {{book-interior-layout-preview|book interior layout preview}} gives the text block and margins, the {{table-of-contents-typesetter|table of contents typesetter}} covers the contents page, and the {{print-type-specification-sheet|print type specification sheet}} records the index size in points for the printer.",
+    "faqs": [
+      {
+        "q": "Why must an index never be hyphenated?",
+        "a": "Because a hyphenated term becomes two fragments that a reader cannot find. Someone searching the index for letterspacing will not look at a line ending in letter with spacing on the next line. The generated CSS therefore disables hyphenation outright, which is the one place in a typeset book where ragged word spacing is preferable to a break."
+      },
+      {
+        "q": "What does the runover indent do?",
+        "a": "It aligns the second and later lines of a long entry with the first line's text rather than with its start, so the entry reads as one unit. It is built from a left padding and an equal negative text indent, which is the same technique a hanging indent uses. Without it, a wrapped page list looks like a separate entry."
+      },
+      {
+        "q": "Why are page numbers set in tabular figures?",
+        "a": "So that the numbers form a column the eye can scan. Proportional digits have different widths, so the ones and twos would not line up vertically and the reader would have to read each number instead of scanning. Tabular figures make every digit the same width, which is what a page-number column depends on."
+      },
+      {
+        "q": "How many columns should an index have?",
+        "a": "Two or three for a printed book, with two the usual choice. A single-column index is only justified on a very narrow page, because an index is read by scanning short entries and a wide single column wastes the scan. The tool reports entries per column and the resulting column height, which is what tells you whether the count fits the pages you have."
+      },
+      {
+        "q": "Does the tool sort the entries?",
+        "a": "No. Entries are set exactly as typed, so sorting, merging duplicate terms and normalising page ranges all happen before the text is pasted in. The one thing it reads from the input is the sub-entry marker, which is a leading dash on the term."
+      }
+    ]
+  }
+]

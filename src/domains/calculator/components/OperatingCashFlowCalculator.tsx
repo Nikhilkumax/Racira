@@ -78,7 +78,7 @@ export default function OperatingCashFlowCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.netIncome, vals.da, vals.arChange, vals.inventoryChange, vals.apChange, vals.otherNonCash]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

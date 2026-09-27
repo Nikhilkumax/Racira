@@ -1,0 +1,711 @@
+[
+  {
+    "slug": "color-harmony-generator",
+    "keywords": [
+      "color harmony generator",
+      "color harmony calculator",
+      "generate color harmonies",
+      "complementary triadic tetradic palette"
+    ],
+    "intro": "The color harmony generator derives every classic harmony from one base color and shows them together, so you can compare relationships before choosing a direction.",
+    "content": "The color harmony generator takes one base color and lays out every classic harmony derived from it, side by side. Rather than making you choose between complementary and triadic and re-enter the color each time, it shows complementary, analogous, triadic, tetradic and split-complementary at once, each as a row of swatches that begins with your base. It is the fastest way to see which relationship suits a project, because comparison is the whole point.\n\n- Each harmony is a fixed set of hue rotations applied to the base.\n- Complementary is a single rotation of 180 degrees.\n- Analogous takes the neighbours at minus and plus 30.\n- Triadic spreads three hues evenly at 120 and 240.\n- Tetradic uses a rectangle at 90, 180 and 270, and split-complementary replaces the single opposite with two hues at 150 and 210.\n- Because all of them start from the same value, switching between them never changes the lightness or saturation you began with.\n- When you generate color harmonies this way, the only variable is hue.\n\nThe rotations are applied in OKLCH, so lightness and chroma are held constant and only hue moves. That is what makes the rows comparable: analogous colors sit quietly together, complementary colors oppose each other at full strength, and the complementary triadic tetradic palette rows all keep the same apparent lightness rather than drifting darker or washed out. Working in a perceptually uniform space also avoids a common complaint about harmonies built in older models, where derived colors looked accidentally uneven.\n\n- Reading the rows is a quick education in how much tension each relationship creates.\n- If the brief is calm and cohesive, the analogous row will look right and the complementary row will feel agitated beside it.\n- If you want a single strong accent against a dominant color, the complementary row gives the most separation.\n- Triadic and tetradic sit in between, useful when a design needs several co-equal colors that nevertheless belong together.\n- Seeing all five at once turns those trade-offs into something concrete.\n\nUse it as a color harmony calculator while you are still deciding on a direction, then move to the dedicated generator for the harmony you chose once you have committed to it. Because every row shares the same base, you can also compare a light and a dark version of a project by changing the base once and re-reading all five rows. If you need to know whether any pair in a chosen harmony is legible for text, run the two colors through a contrast checker before you build.\n\nKeep in mind that a harmony is a relationship, not a finished palette. Two analogous colors are not automatically legible together, and a triadic set is not automatically balanced in area; the proportions you assign matter as much as the hues. Use the rows here to choose a direction, then decide how much of each color a screen will actually show, and verify any text pairing separately. A harmony generator gives you colors that belong together; making them work in a layout is a separate step that depends on size, spacing and contrast rather than hue alone.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the five harmony cards — complementary, analogous, triadic, tetradic and split complementary.",
+      "Each card shows the base beside the hues that relationship derives from it.",
+      "Copy the values from the arrangement that fits the scheme."
+    ],
+    "whenToUse": "Use this generator to compare harmonies on one base color before committing. Use the separate complementary, triadic or analogous generators when you have already chosen a relationship and want to focus on it. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Which harmonies are included?",
+        "a": "Complementary, analogous, triadic, tetradic and split-complementary, each shown as a row of swatches derived from the same base color."
+      },
+      {
+        "q": "Why do the derived colors keep the same brightness?",
+        "a": "The rotations happen in OKLCH with lightness and chroma fixed, so only hue changes and the rows remain directly comparable."
+      },
+      {
+        "q": "How is tetradic different from square?",
+        "a": "The tetradic row here uses the rectangular arrangement at 90, 180 and 270 degrees from the base. A square harmony is the evenly spaced four-hue variant."
+      },
+      {
+        "q": "Can I use two colors from a row as text and background?",
+        "a": "Only if their luminance differs enough. Verify any pairing with a contrast checker before using it for text."
+      },
+      {
+        "q": "What does the color harmony generator not do?",
+        "a": "If the brief is calm and cohesive, the analogous row will look right and the complementary row will feel agitated beside it. If you want a single strong accent against a dominant color, the complementary row gives the most separation. Triadic and tetradic sit in between, useful when a design needs several co-equal colo"
+      }
+    ]
+  },
+  {
+    "slug": "color-wheel-theory-guide",
+    "keywords": [
+      "color wheel theory guide",
+      "learn the color wheel",
+      "color wheel lesson",
+      "interactive color theory tutorial"
+    ],
+    "intro": "The color wheel theory guide teaches the wheel by building it — primaries, secondaries and tertiaries placed and explained, with the classic relationships one interaction away.",
+    "content": "- The color wheel is color theory's first artifact and its most misunderstood: everyone has seen it, few can say why red sits opposite green or why a triad balances.\n- The color wheel theory guide builds the wheel instead of asserting it — the primaries first, then the secondaries they mix into, then the tertiaries filling the gaps — each placement explained as it lands, so the wheel's geometry becomes consequences rather than trivia.\n\nThe build-up matters because each layer encodes a mixing fact. Three primaries because the eye's cones triangulate color from three signals; three secondaries because each pair of primaries mixes to one; six tertiaries because each primary neighbours two secondaries and the in-between hues are the palette's connective tissue. Once the twelve are placed, the relationships stop being arbitrary rules: complements are the hues that mix to neutral, analogous neighbors are the ones that share a primary, and a triad is the arrangement where no hue shares — the geometry is the theory, and the guide makes the derivation visible.\n\nThe interactive layer turns the lesson into experimentation: pick any hue as the anchor and watch its relationships highlight — its complement, its neighbours, its triangle — so the abstract rules become habits of seeing. That habit is the actual deliverable, because the wheel's relationships are the vocabulary every harmony generator speaks: the complementary, triadic and analogous tools execute what this guide teaches, and knowing why the schemes sit where they sit is the difference between using them and merely clicking them.\n\n- Most people meet the colour wheel as a craft object and never learn what it models, which is why the vocabulary of colour theory stays opaque long after the wheel itself becomes familiar.\n- Treating the guide as an interactive color theory tutorial closes that gap by letting each relationship be tried rather than described: move the base hue and watch the triangle, the square and the complementary pair rotate with it, and the geometry stops being a diagram and becomes a consequence.\n- It is also the honest way to learn the wheel's limits, since the classic construction is a hue circle — useful for relationships, silent about lightness, saturation and perception.\n- Knowing where the model ends is what stops a designer forcing an answer out of it, and it makes the perceptual tools that come later read as refinements rather than as contradictions.\n\nOne relationship per sitting is usually enough, since the aim is to recognise the geometry on sight rather than to memorise six names. Once the triangle is familiar, the palette generators built on it become legible rather than magical, and the wheel turns into a tool rather than a diagram.\n\nAs a learn the color wheel resource it is deliberately the lesson, not the lookup — the reference tool handles quick consultations; the interactive wheel offers deeper play; and this guide carries the one task neither can: making a color wheel lesson land as understanding rather than decoration, for anyone who has ever wondered why the wheel looks the way it does.",
+    "howTo": [
+      "Follow the build: primaries, then secondaries, then tertiaries — read why each lands where it does.",
+      "Pick hues on the finished wheel and watch their relationships highlight.",
+      "Take a relationship to the harmony generators and watch the same geometry produce values."
+    ],
+    "whenToUse": "Use this to learn or teach why the wheel works. Use the reference tool for mid-project lookups, the interactive wheel for free exploration, and the harmony generators to execute the relationships the guide explains. For the neighbouring steps, see the {{bezold-effect-visualizer|bezold effect visualizer}} and the {{color-afterimage-tool|color afterimage tool}}.",
+    "faqs": [
+      {
+        "q": "Why does it use red-yellow-blue primaries?",
+        "a": "The traditional artist's wheel is the RYB model — the shared vocabulary of art teaching and most harmony tools. Screen-light primaries (RGB) shuffle the geometry; the relationships carry over with renamed anchors."
+      },
+      {
+        "q": "Why is red opposite green and not cyan?",
+        "a": "In the RYB wheel, green is red's mix-opposite — the pair that neutralises each other in pigment. Screen RGB says cyan; the artist's wheel says green. Both are 'right' in their own model."
+      },
+      {
+        "q": "Is this enough to design with color?",
+        "a": "It is the vocabulary — schemes, temperature, relationships. The rest is practice with tools that speak it: the harmony generators, the contrast checkers, and your eye."
+      },
+      {
+        "q": "What should I learn after the wheel?",
+        "a": "Perceptual spaces — the OKLCH playground is the natural next step — because the wheel's even steps are not perceptually even, and modern tools can do better."
+      },
+      {
+        "q": "What does the color wheel theory guide not do?",
+        "a": "Treating the guide as an interactive color theory tutorial closes that gap by letting each relationship be tried rather than described: move the base hue and watch the triangle, the square and the complementary pair rotate with it, and the geometry stops being a diagram and becomes a consequence. It is also the honest "
+      }
+    ]
+  },
+  {
+    "slug": "simultaneous-contrast-visualizer",
+    "keywords": [
+      "simultaneous contrast",
+      "simultaneous contrast visualizer",
+      "why colors look different on different backgrounds",
+      "color perception illusion",
+      "contrast illusion colors"
+    ],
+    "intro": "The simultaneous contrast visualizer shows one color as a circle on both black and white backgrounds, side by side, so the way the surroundings change its appearance can be seen directly.",
+    "content": "- The simultaneous contrast visualizer places a single colour as a circle inside two panels, one filled with black and one with white, next to each other.\n- Choose the colour with the field and both circles update.\n- Nothing is measured and nothing is labelled, because the demonstration is the output: the two circles are rendered from an identical hex value and they will not look identical.\n\nWhat you are seeing is simultaneous contrast, one of the oldest known effects in colour perception. It is the classic color perception illusion, and it explains why contrast illusion colors cannot be judged from a value: the eye does not judge a colour in isolation, it judges it relative to its surroundings, and a small area inside a large area is pulled perceptually away from that surround. On black, the colour appears lighter and more luminous; on white, the same value appears darker and slightly denser. The illusion persists even when you know the two values are the same, which is precisely why it is worth having a page that shows it — knowing about the effect does not switch it off.\n\nWhy colors look different on different backgrounds is not a curiosity either — the practical consequences are everywhere in interface work, and they are the reason this belongs alongside the accessibility tools rather than among the toys. A brand colour chosen from a swatch on a white page will look noticeably lighter when it is applied as text or an icon on a dark header, so a palette signed off in one context can feel different in another. Two surfaces that read as clearly distinct in a mockup can appear nearly identical once they occupy different proportions of a screen. And a mid-tone placed beside a very dark tone will appear brighter than the same mid-tone placed beside a very light one, which is how hierarchy emerges from nothing more than adjacency.\n\nThe choice of the two surrounds is deliberate and worth noting. Black and white are the extremes, so they produce the largest perceptual shift a screen can show; that makes this the clearest version of the effect, and it also means it is not the version you will meet most often. In a real interface, the surrounds are mid-tones and the shift is smaller, though still real. There is no third background option here, so a mid-grey comparison has to be set up elsewhere.\n\nWhat the tool does not provide is any measurement of the effect.\n\n- There is no way to sample the two circles, no calculation of how much lift is applied, and no indication of how large the shift is in any formal colour model — the point is that the shift is perceptual rather than numerical, since the underlying values are identical by construction.\n- It is also purely a demonstration of surrounds, not of the related effects that come from size, motion or contrast with adjacent edges.\n\nUsed as a quick check on a palette, it earns its place in a review. When a colour has been approved on one background and has to work on another, putting it through here shows whether it will still read the same way — and for any interface that mixes light and dark surfaces, that is a question worth answering with the eye rather than with the hex value. As a simultaneous contrast visualizer it does one thing, but it does it in the way the effect is best understood: two identical circles, two surrounds, and the difference your own eye supplies.",
+    "howTo": [
+      "Pick the colour you want to test with the field.",
+      "Compare the circle on the black panel with the circle on the white panel.",
+      "Judge how the appearance shifts, and whether the colour still works on both kinds of surface."
+    ],
+    "whenToUse": "Use this when a colour has to work on both light and dark surfaces, or when teaching why a palette looks different in context. Use the contrast checker when the question is legibility rather than appearance. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Are the two circles actually the same colour?",
+        "a": "Yes — both are rendered from the single value you chose. The difference in appearance comes entirely from the surrounding panels."
+      },
+      {
+        "q": "Why black and white specifically?",
+        "a": "Because they are the extremes, so they produce the largest perceptual shift a display can demonstrate. Real interfaces usually surround a colour with mid-tones, where the effect is smaller but still present."
+      },
+      {
+        "q": "Can I use a grey background instead?",
+        "a": "Not on this page — the two panels are fixed at black and white. A mid-tone comparison would need to be set up in a design tool."
+      },
+      {
+        "q": "Does it measure the effect?",
+        "a": "No. The shift is perceptual rather than numerical, and the underlying values are identical by construction, so there is nothing to measure — the comparison is the output."
+      },
+      {
+        "q": "What does the simultaneous contrast visualizer not do?",
+        "a": "There is no way to sample the two circles, no calculation of how much lift is applied, and no indication of how large the shift is in any formal colour model — the point is that the shift is perceptual rather than numerical, since the underlying values are identical by construction. It is also purely a demonstration of"
+      }
+    ]
+  },
+  {
+    "slug": "bezold-effect-visualizer",
+    "keywords": [
+      "bezold effect visualizer",
+      "bezold spreading effect",
+      "color depends on neighbors demo",
+      "simultaneous color shift demo"
+    ],
+    "intro": "The Bezold effect visualizer demonstrates how one color changes appearance depending on its neighbors — the spreading effect, rendered as a live two-background comparison.",
+    "content": "Wilhelm von Bezold noticed it in rugs: change one thread color and the whole carpet's character shifts, because each color spreads its influence into its neighbours. The Bezold effect visualizer renders the demonstration in its cleanest form: one color, two contexts — the same swatch centered on black and on white — and the two renders side-by-side. The color is identical in both panels by pixel value; the appearance is not, and the difference is entirely in your visual system.\n\nWhat the demo shows is the spreading effect's mechanism: light backgrounds bleed brightness into the color, dark backgrounds pull it darker, and the same hex acquires two personalities. This is why a mid-tone that sparkles on white sulks on black; why UI palettes need re-tuning, not copying, when a dark mode ships; why print proofs are judged against the substrate they will live on. The color depends on neighbors demo makes the dependency undeniable — not as theory but as two panels your own eyes cannot reconcile.\n\nThe design consequences are the tool's payload. Context is part of every color decision: a palette chosen on a white artboard is a hypothesis, not a fact, until it meets its real background. Adjacent colors interact whether invited or not — the same mechanism that makes Bezold's rugs shift makes a gray button look lighter beside black than beside white. The simultaneous contrast visualizer scales the demonstration to the interface question; the color context explorer arranges one color against many surfaces at once; and this visualizer keeps the minimum pair — the cleanest possible statement of the effect.\n\nThe demonstration is worth doing once properly, because the effect is stronger than most people expect from a diagram. Two identical swatches, placed on different backgrounds, genuinely appear to be different colours, and the effect persists after you know it is happening, which is what makes it a fact about perception rather than a trick. The design consequences are concrete. A neutral placed on a warm surface takes on the surface's temperature and stops reading as neutral. A brand colour specified on white looks like a different colour on the tinted card it ends up on. And two states that are distinguishable in the palette can become indistinguishable in a component, because each is carrying the tint of its own surroundings. That is why context matters more than swatch review, and why a simultaneous color shift demo is worth running on a real screen before a palette is signed off.\n\nThe classic variant of the effect — a thin line appearing to change colour as it crosses contrasting ground — is worth seeing too, since it explains a whole class of illustration and outline quirks. Where the shift cannot be removed, separating the pair with a border is the practical response.\n\nAs a bezold spreading effect instrument it is deliberately the two-panel demo: identical values, different neighbors, different appearances. The lesson costs one look and pays for itself every time a palette changes context — which is to say, every time a design ships.",
+    "howTo": [
+      "Set the test color in the field.",
+      "Compare the two panels — the same swatch on black and on white.",
+      "Accept the verdict: the color's appearance is a property of its context, and plan palettes accordingly."
+    ],
+    "whenToUse": "Use this to demonstrate or verify context dependence with the minimum pair. Use the simultaneous contrast visualizer for interface-scale demos, the color context explorer for many backgrounds at once, and the dark-mode generator when the lesson sends you re-tuning a palette. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{color-afterimage-tool|color afterimage tool}}.",
+    "faqs": [
+      {
+        "q": "Are the two swatches really the same color?",
+        "a": "Yes — identical pixel values. Every difference you see is your visual system spreading the neighbors' influence into the target, which is the effect."
+      },
+      {
+        "q": "How does this differ from simultaneous contrast?",
+        "a": "They are siblings — simultaneous contrast is the general framing of context-dependent appearance; the Bezold effect is the spreading version, classically demonstrated with patterns and neighbors."
+      },
+      {
+        "q": "What is the practical takeaway for dark mode?",
+        "a": "Colors must be re-tuned, not copied: the same values acquire different weight on dark surfaces. The dark-mode palette generator exists for exactly that re-tuning."
+      },
+      {
+        "q": "Why does my design look different on my client's screen?",
+        "a": "Contexts differ — surrounding UI, window chrome, adjacent panels. The effect you are seeing between these panels happens between every element and its neighbors in production."
+      },
+      {
+        "q": "Where does the bezold effect visualizer stop short?",
+        "a": "As a bezold spreading effect instrument it is deliberately the two-panel demo: identical values, different neighbors, different appearances. The lesson costs one look and pays for itself every time a palette changes context — which is to say, every time a design ships."
+      }
+    ]
+  },
+  {
+    "slug": "color-afterimage-tool",
+    "keywords": [
+      "color afterimage tool",
+      "afterimage effect color",
+      "negative afterimage color",
+      "complementary afterimage"
+    ],
+    "intro": "The color afterimage tool shows the negative afterimage you would expect after staring at a color, pairing the source swatch with the complementary tone your eye produces.",
+    "content": "The color afterimage tool demonstrates the negative afterimage effect by showing a color you are invited to stare at alongside the tone your visual system tends to produce when you look away. You pick a color, fix your gaze on it, and the tool shows the predicted afterimage so you can compare it against what you actually see on the neutral panel beside it. It is an educational demonstration of how the eye adapts to sustained colour input.\n\n- The afterimage arises because the colour-sensitive cells in the retina adapt to a constant stimulus.\n- Stare at a saturated red, and the red-sensitive cones reduce their response, so when you switch to a neutral surface the balance tips toward the opposing channels and you perceive a greenish or cyan tone that is not physically present.\n- The tool models this with the classic approximation: it takes the complement of each channel, effectively inverting the color, which is the standard stand-in for what adaptation produces.\n\nThe inversion is an approximation rather than a physiological simulation, and the tool is presented as such. A real afterimage depends on stare duration, the size of the field, the ambient light and the individual viewer, and it fades within seconds. Inverting the channels reproduces the qualitative direction of the effect, that a red tends to leave a cyan impression and a blue leaves a yellow one, without pretending to compute the exact hue and saturation an individual will experience.\n\nAs a design reference the tool is more useful than it first appears. The colors it surfaces are the same pairings the eye generates spontaneously, which is why complementary combinations feel stable and balanced. Illustrators use afterimages deliberately to push a colour impression into a viewer's eye and create glow effects without laying down the second colour at all. Knowing which tone will appear lets you leave space for it in the composition and control the effect rather than discovering it accidentally.\n\n- One practical caveat is that afterimages are easy to confuse with genuine colour bleeding, and both are sensitive to your display and ambient light.\n- To get a clean demonstration, view a large swatch on a neutral background in moderate, consistent lighting and hold your gaze steady rather than scanning.\n- Small or brightly lit swatches produce weaker effects.\n- Used that way, the complementary afterimage the tool predicts lines up closely with what most people report seeing, and the demonstration makes an abstract piece of colour vision concrete in seconds.\n\nThe afterimage effect color depends on the source: saturated, long-wavelength colours leave the strongest impression, which is why red and orange are the classic demonstrations. The negative afterimage color you see is the inverse along each channel, so a red leaves a cyan trace and a green leaves a magenta one. Comparing the predicted tone with what you actually perceive is the whole exercise, and it is a fast way to show that colour vision is adaptive rather than a fixed measurement of the light arriving at the eye.",
+    "howTo": [
+      "Set the colour with the picker.",
+      "Stare at the filled block for about twenty seconds.",
+      "Then look at the blank block beside it — the afterimage appears there.",
+      "Compare what you see with the predicted value printed beneath, which is the colour's exact inverse."
+    ],
+    "whenToUse": "Use this tool to demonstrate or study the negative afterimage effect and to find the complementary pairings the eye produces. Use the simultaneous contrast visualizer when you want to see how a surrounding background shifts a color's apparent hue. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Why does the afterimage look like an inverted color?",
+        "a": "Adaptation reduces the response of the cones that are being stimulated, so after you look away the opposing channels dominate. Inverting the channels approximates that shift."
+      },
+      {
+        "q": "How long should I stare?",
+        "a": "Roughly fifteen to twenty seconds on a fairly large swatch in steady light, then look at the neutral panel. Scanning or looking away early weakens the effect."
+      },
+      {
+        "q": "Is the inversion exact?",
+        "a": "No. It is a standard approximation of the direction the effect takes. Real afterimage strength and hue vary with the viewer, lighting and how long you look."
+      },
+      {
+        "q": "How is this useful in design?",
+        "a": "It explains why complementary pairs feel balanced and lets you create deliberate glow effects by encouraging the eye to generate the second color itself."
+      },
+      {
+        "q": "What does the color afterimage tool not do?",
+        "a": "To get a clean demonstration, view a large swatch on a neutral background in moderate, consistent lighting and hold your gaze steady rather than scanning. Small or brightly lit swatches produce weaker effects. Used that way, the complementary afterimage the tool predicts lines up closely with what most people report se"
+      }
+    ]
+  },
+  {
+    "slug": "color-context-simulator",
+    "keywords": [
+      "color context simulator",
+      "see a color on different backgrounds",
+      "background color comparison",
+      "color on white and black background"
+    ],
+    "intro": "The color context simulator places one color on four different backgrounds at once, so you can see how white, black and coloured surroundings change the way it reads.",
+    "content": "- The color context simulator takes a single color and shows it simultaneously on four backgrounds: white, black, a mid blue and a green.\n- You pick the color, and the tool renders it as an identical circle on each surface, so any difference in apparent hue, brightness or saturation comes entirely from the surroundings rather than from the color itself.\n- It is the fastest way to demonstrate that a color has no fixed appearance independent of its context.\n\nThis effect is a real perceptual phenomenon rather than a rendering trick. The visual system judges color relative to its neighbourhood rather than in absolute terms, so the same patch looks lighter against a dark background and heavier against a light one, and shifts slightly in perceived hue when surrounded by a strong colour. Designers run into the practical consequence constantly: a brand color that looked perfect on a white marketing page can look dull or washed out on a dark dashboard, and vice versa, even though the hex value never changed.\n\nThe four backgrounds in the tool cover the situations that matter most. White and black bracket the lightness extremes and reveal whether the color depends on a particular background to look right. The blue background is the most instructive, because a color close to it in hue tends to recede while a contrasting hue advances, which is exactly why choosing a surface colour is as consequential as choosing the accent itself. The green background gives a second hue reference so you can compare how the color behaves against a warm-adjacent and a cool-adjacent field.\n\nA practical workflow is to pick the color you intend to use as an accent and check it on all four panels before committing. If it holds up on white and black but disappears on blue, you know it will need to be used away from blue surfaces, or adjusted for those contexts. If it shifts noticeably between the light and dark panels, plan for a separate variant per theme rather than reusing one value, which is what most design systems end up doing for exactly this reason.\n\n- Two caveats are worth keeping in mind.\n- The comparison is qualitative: the tool shows that a shift occurs and what it looks like, but it does not measure the magnitude, and small shifts are within normal variation between viewers and screens.\n- And the backgrounds are fixed rather than user-configurable, so for testing against your own surface colors you should place the swatch in situ.\n- Within those limits, seeing one color on different backgrounds side by side is the quickest way to build the habit of evaluating color in context instead of in isolation.\n\nUse it whenever you need to see a color on different backgrounds before committing to a surface. The four-panel view is a background color comparison in the literal sense, letting you judge a color on white and black background panels as well as against neighbouring hues, and it turns a question that is usually answered by intuition into one you can look at directly.",
+    "howTo": [
+      "Set the colour with the picker.",
+      "Compare the same disc against white, black, blue and green backgrounds.",
+      "Notice how much the surrounding surface changes what the colour appears to be."
+    ],
+    "whenToUse": "Use this simulator when you are choosing an accent or surface colour and want to confirm it holds up on light and dark and against neighbouring hues. Use the contrast checker when the question is legibility rather than appearance. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Which backgrounds does it use?",
+        "a": "White, black, a mid blue and a green. That brackets the lightness extremes and gives both a close-hue and a contrasting-hue reference."
+      },
+      {
+        "q": "Why does the colour look different on each panel?",
+        "a": "The visual system judges colour relative to its surroundings. The hex is identical on every panel; only the perceived hue, brightness and saturation shift."
+      },
+      {
+        "q": "Does this affect accessibility?",
+        "a": "It affects perceived legibility but not the measured contrast ratio. Use a contrast checker for the numeric ratio and this tool for the perceptual judgement."
+      },
+      {
+        "q": "Should I use one colour across light and dark themes?",
+        "a": "Often not. If the color shifts noticeably between the panels, define a separate variant per theme, which is common practice in mature design systems."
+      },
+      {
+        "q": "What does the color context simulator not do?",
+        "a": "The comparison is qualitative: the tool shows that a shift occurs and what it looks like, but it does not measure the magnitude, and small shifts are within normal variation between viewers and screens. And the backgrounds are fixed rather than user-configurable, so for testing against your own surface colors you shoul"
+      }
+    ]
+  },
+  {
+    "slug": "just-noticeable-difference-calculator",
+    "keywords": [
+      "just noticeable difference calculator",
+      "jnd color difference",
+      "smallest visible color change",
+      "color delta threshold tool"
+    ],
+    "intro": "The just noticeable difference calculator measures two colors' distance in perceptual terms — the color delta threshold read that says whether a change is visible or imaginary.",
+    "content": "Somewhere between identical and obviously different lies the boundary the just noticeable difference calculator maps: the JND — the smallest change a typical observer can detect. The tool takes two colors, computes their separation in perceptual space, and reports the distance in terms that mean something to the eye — so the question is this change visible? stops being a matter of squinting and becomes a measurement.\n\nThe perceptual framing is what separates this from raw channel arithmetic. RGB distance measures machine coordinates; a JND measures how far apart the colors look, which requires a space built to match appearance — the same perceptual reasoning that powers the OKLCH tools here. The two-color comparison reports both readings, and the disagreement between them is the lesson: pairs that score far apart in RGB can sit within a JND perceptually (invisible change), and modest RGB shifts can cross the threshold where the eye is sensitive (obvious change). The number that predicts what a person notices is the perceptual one.\n\n- The tool's home turf is the changes-too-small-to-eyeball territory: did the export pipeline shift this brand color? did the compression move this gradient stop? is this token change a real change or a rounding artifact?\n- In each case the delta is real in the machine but possibly imaginary to a human — and the color delta threshold read settles which.\n- The color comparison tool frames the same measurement as a general comparison; this one asks the narrower, sharper question — the smallest visible color change boundary — and answers it for a specific pair.\n\nDifference measurement exists because the eye is a poor judge of small changes. Two values viewed in sequence are easy to compare; the same two viewed minutes apart, on different surfaces, or by different people are not, and the error grows exactly in the range where the decision matters — the hover state that must be visible, the disabled state that must be distinguishable, the border that must not appear. A color delta threshold tool turns those questions into a number computed in a perceptually uniform space, so the answer is stable and repeatable and can be attached to a review comment instead of an opinion. The threshold is the useful part: below it the pair reads as one colour, above it as two, and where a pair sits matters more than how far apart the two values look in a picker's coordinates.\n\nIn practice the number is used as a floor rather than a target: pick the value you like, then check that its distance from its neighbour clears the threshold for the job. That habit removes most of the mystery from apparently identical states and makes the difference between a deliberate step and an accidental one visible.\n\nWhat the tool will not do is certify invisibility universally: JNDs vary with age, display and adaptation. But as a jnd color difference reference for the changes that must be judged — visible or not — it replaces the squint with a number, and the number is computed in the space where the eye actually lives.",
+    "howTo": [
+      "Set color A — the original or reference value.",
+      "Set color B — the changed value under test.",
+      "Read the perceptual distance and judge whether the change crosses the visible threshold."
+    ],
+    "whenToUse": "Use this for pipeline shifts, compression checks and token diffs where the change may be sub-visible. Use the color comparison tool for general two-color measurement, the pixel color picker to obtain the values, and the CVD simulators when the visibility question involves color vision differences. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "What size change counts as a JND?",
+        "a": "It depends on the colors and the viewing conditions, but in perceptual-space terms, changes below a small fraction of the space's typical scale are generally invisible — the tool's reading lets you compare against that order of magnitude."
+      },
+      {
+        "q": "Why not just measure RGB distance?",
+        "a": "Because the eye does not live in RGB: equal RGB steps are unequal to vision. The perceptual reading predicts what a person notices; the RGB reading predicts what a machine stored."
+      },
+      {
+        "q": "My pipeline shifted a color — the JND says invisible. Do I care?",
+        "a": "Probably not visually — but consistency audits may still care that the value changed. The tool tells you users will not see it; the rest is policy."
+      },
+      {
+        "q": "Does the JND differ for color-blind viewers?",
+        "a": "Yes — thresholds shift under CVD, which is why the simulators exist. This tool answers for typical trichromatic vision."
+      },
+      {
+        "q": "What does the just noticeable difference calculator not do?",
+        "a": "In each case the delta is real in the machine but possibly imaginary to a human — and the color delta threshold read settles which. The color comparison tool frames the same measurement as a general comparison; this one asks the narrower, sharper question — the smallest visible color change boundary — and answers it fo"
+      }
+    ]
+  },
+  {
+    "slug": "color-rendering-index-reference",
+    "keywords": [
+      "color rendering index reference",
+      "cri lighting scale explained",
+      "cri 80 vs 90 difference",
+      "light quality color reference"
+    ],
+    "intro": "The color rendering index reference explains the CRI scale — how lighting scores from CRI 50 to 100 change the way colors appear under them, and which scores suit which rooms.",
+    "content": "- A paint chip that looks perfect in the store can look dead at home, and the culprit is usually the light: the color rendering index measures how faithfully a light source reveals color, and the difference between a CRI 70 bulb and a CRI 95 one is the difference between colors surviving and colors surrendering.\n- The color rendering index reference lays the scale out — what CRI means, how the bands from 50 to 100 behave, and which score a given room deserves.\n\nThe scale's logic is worth internalizing once. CRI 100 is defined as daylight-like fidelity — colors render as they would under reference light. The 80s are the mainstream: fine for corridors and storage, where cost beats fidelity, but where skin tones dull and reds brown. The 90s are where design lives: kitchens, bathrooms, studios and retail — anywhere food looks appetizing, complexions look alive and materials read true. Below 80, colors mute progressively; the low band belongs to warehouses and streetlights, where efficiency is the only brief. The cri 80 vs 90 difference, in practice, is the difference between acceptable and deliberate — the band where lighting starts serving design instead of merely illuminating.\n\n- The reference earns its keep at the decision point: choosing bulbs for a renovation, diagnosing why a room's palette feels wrong, specifying lighting for a studio or a shop.\n- Pair it with the color temperature side of the same decisions — the temperature analyzer handles a color's warmth, and lighting temperature (Kelvin) is the sibling question that CRI does not answer: a light can be warm and faithful, or warm and terrible.\n- Both coordinates matter; this reference owns the fidelity one.\n\nCRI answers a question that is easy to ask and hard to settle without numbers: how faithfully does a light source render what it illuminates. The scale runs to one hundred, where a perfect source would reproduce a standard reference, and the practical consequence of a low score is a scene whose colours look plausible individually but wrong together — a red that turns brown, a fabric that reads flat, a white that shifts. Two cautions come with the number. A high score does not guarantee a pleasing light, since the measure says nothing about tint or temperature, and a fixture can score well overall while performing poorly in the specific reds that matter for skin and food. Nor is the scale the whole story for modern LED sources, where the shape of the spectrum matters as much as its closeness to the reference.\n\nFor design work the takeaway is narrow and useful: if a colour has to survive a physical environment, specify it under the light it will actually be seen in rather than in neutral daylight, because the reference conditions are rarely what the room provides. Where a product will be photographed, that test is worth doing before the palette is locked.\n\nAs a cri lighting scale explained resource it is deliberately prose-plus-scale: the light quality color reference that turns a bulb-box number into a design decision — and explains, finally, why the store looked better than the kitchen.",
+    "howTo": [
+      "Read the scale bands — what 50s, 80s and 90s actually render.",
+      "Match the band to the room: fidelity where color matters, efficiency where it does not.",
+      "Pair with the Kelvin question — temperature and rendering are separate light choices."
+    ],
+    "whenToUse": "Use this when choosing or diagnosing lighting for color-critical rooms. Use the color temperature analyzer for a color's own warmth, the temperature adjuster to act on it, and the swatch tools to test palettes under the light you settle on. For the neighbouring steps, see the {{color-psychology-reference|color psychology reference}} and the {{color-wheel-theory-guide|color wheel theory guide}}.",
+    "faqs": [
+      {
+        "q": "Is CRI 90 really worth the premium?",
+        "a": "Where color matters — kitchens, bathrooms, studios, retail — yes: the 90s render skin, food and materials recognisably, while the 80s merely get by. Corridors and storage can happily stay in the 80s."
+      },
+      {
+        "q": "Does CRI relate to warm or cool light?",
+        "a": "No — CRI measures fidelity, temperature measures warmth. A warm 2700K bulb can be high-CRI and faithful, or warm and miserable; the two coordinates are independent."
+      },
+      {
+        "q": "Why did my room's colors look flat until I changed bulbs?",
+        "a": "Almost certainly low CRI — colors render muted under unfaithful light, no matter how good the palette is. The reference's band table maps the symptom to the score."
+      },
+      {
+        "q": "Is CRI the only fidelity metric?",
+        "a": "It is the common one, with known blind spots — especially in deep reds. Newer metrics refine it, but the 80s-versus-90s decision the reference supports is where CRI remains the practical guide."
+      },
+      {
+        "q": "What does the color rendering index reference not do?",
+        "a": "Pair it with the color temperature side of the same decisions — the temperature analyzer handles a color's warmth, and lighting temperature (Kelvin) is the sibling question that CRI does not answer: a light can be warm and faithful, or warm and terrible. Both coordinates matter; this reference owns the fidelity one."
+      }
+    ]
+  },
+  {
+    "slug": "munsell-color-system-reference",
+    "keywords": [
+      "munsell color system reference",
+      "munsell hue value chroma",
+      "munsell notation explained",
+      "munsell color chart tool"
+    ],
+    "intro": "The Munsell color system reference browses the century-old notation that organized color by hue, value and chroma — the munsell notation explained as a browsable chart.",
+    "content": "- Before OKLCH, before HSL, Albert Munsell built the color order that got it right: three independent axes — hue, value (lightness), chroma (saturation) — each numbered, each scale even, each color addressed like a coordinate.\n- The Munsell color system reference presents that structure as a browsable chart: hue families as columns, value steps as rows, and the munsell notation explained alongside — the 5R 4/14-style addresses that soil scientists, art conservators and the USDA still use daily.\n\nThe system's claim to fame is being first and being right. Its value scale is perceptually even; its chroma scale stretches as far as each hue can reach rather than pretending all hues saturate equally; and its notation is absolute — a Munsell address names a color the way coordinates name a place, which is why industries that must communicate color without samples (soil science, brewing, dentistry, conservation) adopted it and never left. Browsing the chart shows the design decisions modern spaces inherited: the separation of lightness from colorfulness that HSL blurs and OKLCH restores, the uneven-reach chroma that flat scales misrepresent.\n\nThe reference serves two audiences. The practical one needs the addresses: matching a conservation spec, decoding a soil survey, or translating a legacy document's Munsell notations into hex — the browsable families put the addresses next to their colors. The educational one needs the ideas: Munsell is where the hue-value-chroma decomposition — the spine of every modern perceptual space — was first done properly, and seeing the original arrangement makes the modern tools' design decisions look like the continuations they are.\n\nMunsell is worth the effort because it answers a question the other systems only gesture at: what a colour is made of. Three coordinates, each with a defined origin and a defined step — hue as a numbered wheel, value as a lightness ladder from black to white, chroma as distance from the neutral axis — and the notation reads as a set of measured properties rather than a position on a chart. That is why the system survives in soil science, dentistry, brewing and anywhere a colour has to be recorded unambiguously for somebody else to read. It is also the clearest existing argument that colour is three-dimensional: working through one family in the notation makes it obvious that a palette can step in value and chroma as well as hue, which is the insight most colour anxiety comes from missing. The modern perceptual spaces owe the structure a debt, which makes the reference useful history as well as practice.\n\nCopying a handful of values into a project is the fastest way to feel the difference between a measured colour and a picked one.\n\nAs a munsell hue value chroma browser it is deliberately the historical system in working form — a munsell color chart tool that explains the notation and shows the space, honoring the hundred-year-old answer to the question every color order system asks: how should color be organized?\n\nFollowing one chroma step across several hues is the exercise that repays the visit, because it shows how unevenly the space is distributed and why a hue-by-hue ramp lifted from a picker rarely looks balanced.",
+    "howTo": [
+      "Browse the hue families; each column is a hue, each row a value step.",
+      "Read the notation — hue value/chroma — and how it addresses each swatch.",
+      "Note the chroma reach differing by hue — the system's honest answer to saturation's unevenness."
+    ],
+    "whenToUse": "Use this to decode Munsell notations or study the ancestor of modern color spaces. Use the OKLCH playground for the modern perceptual successor, the named colors reference for CSS's flat list, and the Pantone and RAL references for the print-industrial order systems. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "What do the numbers in a Munsell notation mean?",
+        "a": "Hue value/chroma — for example 5R 4/14: the hue family and its position within it, the lightness step, and the saturation strength. The address is absolute and needs no sample to communicate."
+      },
+      {
+        "q": "Why does chroma reach differ between hues?",
+        "a": "Because it does in reality — yellows can reach far higher chroma than blues at equal value. Munsell's honest, per-hue chroma scales are one of the system's innovations."
+      },
+      {
+        "q": "Who still uses Munsell?",
+        "a": "Soil science, brewing, dentistry, art conservation and government standards — anywhere color must be specified without a screen or a shared sample book."
+      },
+      {
+        "q": "How does it relate to OKLCH?",
+        "a": "Directly — Munsell established the hue-value-chroma decomposition and perceptual evenness that OKLCH implements computationally. The reference is the paper ancestor; the playground is the digital heir."
+      },
+      {
+        "q": "Where does the munsell color system reference stop short?",
+        "a": "Following one chroma step across several hues is the exercise that repays the visit, because it shows how unevenly the space is distributed and why a hue-by-hue ramp lifted from a picker rarely looks balanced."
+      }
+    ]
+  },
+  {
+    "slug": "natural-color-system-reference",
+    "keywords": [
+      "natural color system reference",
+      "ncs color notation",
+      "ncs color chart explained",
+      "scandinavian color standard tool"
+    ],
+    "intro": "The Natural Color System reference explains and browses the NCS notation — the Scandinavian standard that describes colors by their resemblance to six elementary colors.",
+    "content": "- The Natural Color System takes a different door into color order than Munsell's three axes: every color, it proposes, can be described by how much it resembles six elementary colors — white, black, yellow, red, blue and green — the pure percepts that human vision treats as irreducible.\n- The Natural Color System reference explains that logic and browses the resulting notation: NCS addresses like S 2050-Y10R read as percentages of blackness and chromaticness plus a hue position between two elementaries, and the ncs color notation becomes decodable rather than cryptic.\n\nThe system's signature is its perceptual honesty about hue. Rather than numbering hues around a wheel, NCS positions each color between its two nearest elementary hues — Y10R is a yellow sitting a step toward red — which matches how people actually describe color: orange is yellow-some-red, teal is green-some-blue. The blackness and chromaticness percentages front-load the two judgments that matter most in Scandinavian architecture and design, where the system is the national standard: how dark, how colorful, which way the hue leans. The ncs color chart explained here shows how those three judgments generate the whole space.\n\nThe reference serves the European workflow — NCS is the color language of Scandinavian and broader European construction, interiors and public signage — where specs arrive in NCS and need translation to hex for screens, or vice versa. It also serves the comparative education: set beside Munsell's three-axis order, NCS's resemblance model shows there is more than one right way to organize color, and the differences are philosophical, not just notational. The Pantone and RAL references cover the print-industrial and industrial-German siblings.\n\nNCS is built on a different premise from most colour systems: instead of starting from a geometric model, it starts from what the eye reports. Six elementary perceptions — white, black, yellow, red, blue, green — with every other colour described as a mixture of them, and the notation recording the proportions as percentages, so a value states how much it resembles white, how much black, and where its chromatic content falls between the two hue pairs. The consequence is a system that predicts appearance rather than position, and designers often find it states problems more directly than coordinates do: two colours that ought to look equally far from a base are easier to check when the notation says so. It is also the working standard across Scandinavian and much of European industry, which makes it the natural reference wherever those specifications are in play, and makes a scandinavian color standard tool worth having open next to a print brief.\n\nReading a handful of familiar colours in the notation is the quickest way to see how differently it thinks about the same space.\n\nAs an ncs color chart explained resource it is the Scandinavian standard in browsable form — the system that asks, of every color, the disarmingly human question: how much white, how much black, which elementary hues, and in what proportion?\n\nComparing it with Munsell, which answers the same question geometrically rather than perceptually, is the shortest route to understanding what each system is actually for.",
+    "howTo": [
+      "Read the notation anatomy — blackness, chromaticness, and the hue between two elementaries.",
+      "Browse the families and match addresses to swatches.",
+      "Translate spec values to hex for screen work, or hex toward NCS for European specs."
+    ],
+    "whenToUse": "Use this to decode NCS specifications or study its resemblance model. Use the Munsell reference for the three-axis ancestor, the RAL reference for industrial German colors, and the converters for the screen-side translations. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "How do I read an NCS code like S 2050-Y10R?",
+        "a": "S prefixes the standard edition; 20 is blackness (20%), 50 is chromaticness (50%), and Y10R is the hue — yellow with a 10% step toward red. The three numbers describe the color completely."
+      },
+      {
+        "q": "Why does NCS position hues between elementary colors?",
+        "a": "Because that is how vision and language work — orange is understood as yellow-toward-red. The resemblance model matches description, not mixing physics."
+      },
+      {
+        "q": "Where is NCS the standard?",
+        "a": "Across Scandinavia and much of Europe for architecture, construction and public signage — the specification language those industries write in."
+      },
+      {
+        "q": "Can NCS colors be shown exactly on screen?",
+        "a": "Approximately — like all physical standards, NCS swatches exceed screen gamut in places. The reference's hex values are faithful screen representations, not calibrations."
+      },
+      {
+        "q": "Where does the natural color system reference stop short?",
+        "a": "Comparing it with Munsell, which answers the same question geometrically rather than perceptually, is the shortest route to understanding what each system is actually for."
+      }
+    ]
+  },
+  {
+    "slug": "color-gamut-visualizer",
+    "keywords": [
+      "color gamut visualizer",
+      "srgb vs p3 gamut check",
+      "out of gamut color tool",
+      "gamut coverage checker"
+    ],
+    "intro": "The color gamut visualizer shows where a color sits relative to the gamuts that display it — sRGB, P3 and beyond — and flags what survives the journey to print.",
+    "content": "- A color is not a color until a device renders it, and devices disagree: the sRGB web standard draws one boundary around what ordinary monitors show, Display-P3 widens it for modern screens, and CMYK print shrinks it drastically.\n- The color gamut visualizer places any color in that landscape — showing its sRGB standing, an approximate CMYK rendering of what print would make of it, and the verdict on whether the color survives the journey.\n- It is a srgb vs p3 gamut check in tool form, for the moment a vivid screen color meets a medium that cannot keep up.\n\nThe common failure the tool explains is the vivid-blue-to-purple print disaster. Screen blues at high saturation sit outside CMYK's reach; the print conversion pulls them toward violet, and the brand's blue arrives on paper wrong. The out of gamut color tool verdict makes the risk visible before the press does: colors inside the gamut render as themselves; colors outside get their approximate printed appearance, and the distance between the two swatches is the size of the surprise. The same logic extends toward the wide-gamut future — P3-capable displays show more than sRGB, so colors specified carelessly look different across the monitor fleet.\n\nThe practical deployments: pre-print checks on brand colors, deciding which accents survive a print collateral run, and understanding why the screen-approved design looks muted in the catalog. The converters supply the CMYK numbers when the print path is chosen; the gamut checker shares this tool's verdict machinery for a lighter-weight question; and the display-side lesson — specify in spaces, not devices — is the one the OKLCH tools reinforce from the other direction.\n\nGamut is the reason a beautiful screen colour can become a disappointing print, and it deserves better than a footnote in the brief. The useful framing is coverage per hue rather than one overall percentage: a colour can be perfectly printable in its lightness while sitting outside the range of saturation the ink can reach, and it is exactly those values — vivid purples, bright greens, saturated cyans — that cause the surprise. Seeing where a value sits relative to the printable region turns an abstract risk into a specific decision: shift this hue slightly, accept a duller version here, or plan to specify that element as a spot ink instead. Modern displays complicate the picture further, since a palette that exceeds the sRGB reference is now common, and a print check has to account for the fact that the screen itself may be showing something no ink can match.\n\nChecking the palette rather than the individual colour is the habit that pays, since a gamut problem is usually a pattern across a family rather than one unlucky value.\n\nAs a gamut coverage checker it is deliberately the boundary tool: where does this color live, what survives, what does print make of it. For designs that will meet ink, it is the check that prevents the purple surprise. Where a brand colour fails the check, the useful question is not whether to accept a compromise but where in the interface that difference will genuinely be noticed.",
+    "howTo": [
+      "Set the color you plan to use across media.",
+      "Read the sRGB verdict and the approximate CMYK rendering side-by-side.",
+      "If print matters and the shift is visible, choose a print-safe variant or plan a spot color."
+    ],
+    "whenToUse": "Use this before committing vivid colors to print, or when displays disagree about a brand color. Use the converters for the CMYK numbers, the temperature analyzer for warmth questions, and the approximation tool when the conversation runs toward Pantone. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Why does my vivid blue print as purple?",
+        "a": "The color sits outside CMYK's gamut — print inks cannot reach that saturation at that hue — so conversion pulls it inward, and blues characteristically drift violet. The verdict panel shows the shift before the press does."
+      },
+      {
+        "q": "What is the difference between sRGB and P3 here?",
+        "a": "P3 displays render a wider gamut, so a color outside sRGB but inside P3 looks richer on modern screens and ordinary on older ones. Specifying in sRGB guarantees consistency; using the wider gamut trades it for vibrance."
+      },
+      {
+        "q": "Is the CMYK preview exact?",
+        "a": "It is an approximation — real conversions depend on profile, substrate and press. The preview's job is showing whether a shift exists and its rough size, not issuing the final proof."
+      },
+      {
+        "q": "How do I keep brand colors consistent across media?",
+        "a": "Specify print-safe variants for ink, screen values for display, and treat the Pantone bridge as the cross-media contract — checked here before committing."
+      },
+      {
+        "q": "Where does the color gamut visualizer stop short?",
+        "a": "As a gamut coverage checker it is deliberately the boundary tool: where does this color live, what survives, what does print make of it. For designs that will meet ink, it is the check that prevents the purple surprise. Where a brand colour fails the check, the useful question is not whether to accept a compromise but "
+      }
+    ]
+  },
+  {
+    "slug": "color-symbolism-reference",
+    "keywords": [
+      "color symbolism reference",
+      "color meanings across cultures",
+      "what colors mean in different countries",
+      "global color symbolism tool"
+    ],
+    "intro": "The color symbolism reference browses what colors mean across cultures — where white weddings and white mourning coexist, and why red means luck, danger or revolution depending on the map.",
+    "content": "The mood analyzer reports what a color means in the broadly Western convention; the symbolism reference reports what it means everywhere else — because color meanings are cultural contracts, and the contracts differ. The color symbolism reference browses the major hues against their cross-cultural registers: white as purity here and mourning there; red as luck and celebration in one tradition, danger in a second, revolution in a third; green as paradise in one geography, something to avoid in finance contexts in another. It is the what colors mean in different countries survey, in browsable form.\n\nThe reference exists because the failure it prevents is expensive and quiet: a campaign ships globally with a palette tuned to one culture's conventions and lands wrong in another — white bridal motifs in a market where white is funerary, a green-heavy promotion that reads as financial loss where the convention inverts. Color meanings across cultures is not trivia; it is the due diligence layer of any design that crosses a border, and the reference puts the layer's findings where the palette decisions happen.\n\n- The browsing form teaches the deeper pattern: meanings cluster by tradition, religion and history, and the same hue can carry opposite loads a few thousand kilometers apart.\n- That is why the tool refuses the comfort of a single verdict per color — the honest answer to what does red mean is where and to whom, and the entries are written accordingly.\n- The mood analyzer covers the Western default register for single-color questions; the psychology reference adds the marketing-layer meanings; and this reference owns the global map, where the conventions are many and the designer's job is navigation, not selection.\n\nSymbolism is where colour decisions stop being aesthetic and become contextual, and a browsable reference is valuable because it shows how widely the conventions spread and how often they contradict each other. White reads as mourning across much of East Asia and as purity across Europe and North America; green is sacred in many Islamic traditions and unlucky in parts of the West; the same red that signals celebration in one market signals danger in another. None of that makes symbolism unusable — it makes it a research task rather than an assumption, and the reference frames it that way, laying out historical, regional and religious usage so a designer can see where a choice will be read as intended and where it will be misread. For anything shipping across markets, that check is far cheaper before a palette is fixed than after a campaign is translated.\n\nKeeping notes next to the swatches is what turns a one-off check into a reusable decision record for the next market.\n\nAs a global color symbolism tool it is deliberately a browser rather than a rulebook: meanings surveyed, contexts labeled, and the final call left where it belongs — with the audience research this reference informs but cannot replace.\n\nThe habit worth keeping is to record the check alongside the palette, so the reasoning survives the person who did the research.",
+    "howTo": [
+      "Look up each palette hue's cross-cultural entries before shipping across markets.",
+      "Note where meanings oppose — the spots where one palette cannot serve all audiences.",
+      "Adjust per-market, or choose register-neutral colors for global surfaces."
+    ],
+    "whenToUse": "Use this as the due-diligence layer for cross-border design. Use the mood analyzer for the Western register of a single color, the psychology reference for marketing-layer meanings, and local research to confirm what this reference surfaces. For the neighbouring steps, see the {{color-psychology-reference|color psychology reference}} and the {{color-wheel-theory-guide|color wheel theory guide}}.",
+    "faqs": [
+      {
+        "q": "Why do color meanings differ so much across cultures?",
+        "a": "They are cultural contracts — shaped by religion, history, climate and language — not universal biology. The biology-level associations are thin; the cultural ones are deep and divergent."
+      },
+      {
+        "q": "Is there a universally safe palette?",
+        "a": "Not exactly, but register-neutral choices — deep neutrals, restrained accents — travel better than symbolically loaded hues. The reference shows which hues carry the heaviest loads."
+      },
+      {
+        "q": "Does this cover every country?",
+        "a": "It surveys the major documented traditions and their divergences; fine-grained regional and subcultural variation always deserves local confirmation."
+      },
+      {
+        "q": "How do I use this with the mood analyzer?",
+        "a": "The analyzer gives the Western conventional register; the symbolism reference shows where that register does not travel. Together they cover the single-hue question at home and abroad."
+      },
+      {
+        "q": "What does the color symbolism reference not do?",
+        "a": "That is why the tool refuses the comfort of a single verdict per color — the honest answer to what does red mean is where and to whom, and the entries are written accordingly. The mood analyzer covers the Western default register for single-color questions; the psychology reference adds the marketing-layer meanings; an"
+      }
+    ]
+  },
+  {
+    "slug": "color-naming-history-tool",
+    "keywords": [
+      "color naming history tool",
+      "origin of color names",
+      "history of color words",
+      "where color names come from"
+    ],
+    "intro": "The color naming history tool browses the standard color names with their stories — where color words come from, and why the CSS list reads like a travelogue.",
+    "content": "The standard color names are a museum nobody labels: chartreuse is a liqueur, magenta a battle, aliceblue a fictional heroine's pinafore. The color naming history tool adds the labels — browsing the named-color list with the origin of color names attached, so the history of color words becomes visible in the list every stylesheet quotes.\n\n- The stories follow the patterns all vocabulary follows.\n- Many names are places of manufacture: the dyes and pigments that built trade routes — a crimson from an insect, an ochre from the earth, the chartreuse liqueur that gave its yellow-green to the world.\n- Others are discoveries and accidents: magenta named for the 1859 battle where the dye debuted, mauve's aniline accident that launched the synthetic dye industry.\n- The rest are literature and familiarity — aliceblue and its Alice-in-Wonderland siblings, named by a programmer with favorite books — and the whole collection, browsed with origins, reads as a compressed history of trade, chemistry and fandom.\n\nThe tool's value is the layer it adds to a list designers quote daily. Knowing that Peru is a country, that burlywood is a wood, that navajowhite is neither navajo nor particularly white, changes how the names sit in a stylesheet — and occasionally saves a brand from a name whose history it did not check. The named colors reference covers the same list as pure lookup; the nearest-named finder handles arbitrary colors; the name generator invents evocative names in the tradition this tool documents; and this one keeps the archive — where color words come from, told name by name.\n\nColour names are a record of what a culture could make, trade and see, which is why the history is more useful than it first appears. Many ordinary words descend from pigments — a name that began as a mineral, a dye or a place — and the order in which a language acquires colour terms is remarkably consistent across cultures. Those stories are precisely what a tool for where color names come from puts beside the swatches, and a name with a story attached is the one that sticks when a palette has to be discussed in a review. The exercise also builds a healthy respect for how approximate naming is. A name covers a region rather than a point, the regions shift between languages and eras, and that looseness is the reason hex values exist — as a correction to naming rather than a replacement for it.\n\nReading two languages side by side is the fastest way to see where the boundaries fall differently.\n\nAs a history of color words resource it is deliberately narrative: each entry a swatch, a name, and the story of how the two met — the museum, finally labeled.\n\nThe oldest entries are the most interesting, since they show what a culture had to work with, and the newest show how quickly a colour acquires a name once a product adopts it. Reading both ends of the list together is the fastest way to see that naming is an ongoing negotiation rather than a settled table.",
+    "howTo": [
+      "Browse the list; each entry pairs the swatch and name with its origin.",
+      "Follow the patterns — trade-route dyes, chemical accidents, literary tributes.",
+      "Quote names with their histories in mind, especially in brand-adjacent work."
+    ],
+    "whenToUse": "Use this for the stories behind the names you quote daily, and for checking a name's baggage before it enters a brand. Use the named colors reference for pure lookup, the name generator for evocative new names, and the finder to match colors to the archive. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Why is the CSS list so eclectic?",
+        "a": "It inherited the X11 list, which accumulated names from tradition, literature and one programmer's favorites — hence the travelogue: dyes, battles, countries and an Alice."
+      },
+      {
+        "q": "Which name has the most surprising history?",
+        "a": "Magenta is a strong contender — a dye named after an 1859 battle, which then named a color of light. Chartreuse's liqueur origin runs a close second."
+      },
+      {
+        "q": "Can I rely on the histories for scholarship?",
+        "a": "The entries are well-attested popular histories, appropriate for design context — for academic work, the etymological sources behind each entry are the deeper trail."
+      },
+      {
+        "q": "Does it cover non-CSS historical names?",
+        "a": "The focus is the standard list designers actually quote; famous names outside it appear where the story connects to the list."
+      },
+      {
+        "q": "Where does the color naming history tool stop short?",
+        "a": "The oldest entries are the most interesting, since they show what a culture had to work with, and the newest show how quickly a colour acquires a name once a product adopts it. Reading both ends of the list together is the fastest way to see that naming is an ongoing negotiation rather than a settled table."
+      }
+    ]
+  },
+  {
+    "slug": "color-trend-analyzer",
+    "keywords": [
+      "color trend analyzer",
+      "color of the year history",
+      "pantone color of the year list",
+      "track color trends over time"
+    ],
+    "intro": "The color trend analyzer browses the color-of-the-year record — the pantone color of the year list as a swatch timeline — and reads what the sequence says about taste's drift.",
+    "content": "Once a year, the color industries crown a color, and the crowns have accumulated into a record worth reading: a decade-plus of color-of-the-year choices that traces taste's drift — the lavender-blues of one era, the living corals of another, the earthy calm of the most recent years. The color trend analyzer browses that record as a swatch timeline — each year, its color, its hex — and frames the pattern: what the sequence says about where palettes came from and where they are drifting.\n\nThe record rewards two readings. The design-historical one: the choices track the mood of their moment — recession-era practicality, recovery-era optimism, the pandemic-era turn toward comfort — and knowing the arc equips designers to place their own work in time, or deliberately against it. The practical one: the color of the year is a supply-chain event — paint aisles, product lines and campaign palettes fill with it within months — so the track color trends over time view doubles as a forecast of what clients will ask for and what shelves will hold. Both readings run on the same browsable data.\n\n- The tool's honesty is in what the timeline is not: not a mandate.\n- The color of the year history is a record of institutional taste — one company's influence amplified by an industry — and the useful posture is informed choice, not obedience.\n- The color of the year browser presents the same record as pure reference; the cultural palettes reference widens the lens to traditions the annual crown ignores; and this analyzer keeps the analytical frame — years as data points, the sequence as signal.\n\nTrend history is more useful as a sequence than as a set of announcements, which is what a browsable list of the years makes possible. Read in order, the colours show a pattern: moods shift in pairs, warm years following cool ones and saturated seasons following muted ones, and a colour announced as a surprise almost always turns out to have been building in packaging and interiors for a season or two beforehand. That pattern is the practical value, because it indicates how far ahead a trend is being consumed rather than simply what it was. Keeping the hex values alongside the names makes the sequence usable as well: a palette can be graded against a decade of colours to see where it belongs, and a campaign can compare its own accent against the neighbouring years without hunting for swatches. A pantone color of the year list, read that way, is a small dataset rather than a gallery.\n\nCharting the values makes the drift between announcements visible, which is the part that guides a decision.\n\nAs a color of the year history tool it is the trend conversation grounded in its primary source: the colors themselves, in order, with the hex values that let the argument start from swatches instead of memories.\n\nGrading a palette against the sequence is the practical check, since a set that reads as current usually sits close to the neighbouring years rather than echoing one from a decade ago.",
+    "howTo": [
+      "Browse the timeline — each year's color as a labeled swatch.",
+      "Read the arc: what the sequence says about the moods that chose it.",
+      "Use the record to place your work in time — or to anticipate the palette climate clients will bring."
+    ],
+    "whenToUse": "Use this to ground trend discussions in the actual record. Use the color of the year browser for pure reference, the cultural palettes reference for the traditions beyond the annual crown, and the harmony generators to build with whatever the timeline suggests. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Whose color of the year is this record based on?",
+        "a": "The Pantone Color Institute's annual selection — the most influential of the color-of-the-year institutions — with the record presented as a design-historical timeline."
+      },
+      {
+        "q": "Should I use the color of the year in my work?",
+        "a": "As information, not instruction: the choice signals the palette climate but does not fit every brand. The analyzer's frame is informed choice, not annual obedience."
+      },
+      {
+        "q": "Why do recent years lean earthy and muted?",
+        "a": "The arc tracks the mood of its moment — recent selections favor comfort and grounding, a readable response to the years that produced them. The timeline makes the pattern visible."
+      },
+      {
+        "q": "Can I get the hex values for each year?",
+        "a": "Yes — each swatch carries its hex and copies directly, so the record is usable, not just viewable."
+      },
+      {
+        "q": "What does the color trend analyzer not do?",
+        "a": "The color of the year history is a record of institutional taste — one company's influence amplified by an industry — and the useful posture is informed choice, not obedience. The color of the year browser presents the same record as pure reference; the cultural palettes reference widens the lens to traditions the annu"
+      }
+    ]
+  },
+  {
+    "slug": "color-from-text-mood-tool",
+    "keywords": [
+      "color from text mood tool",
+      "palette from a word",
+      "mood to color generator",
+      "generate palette from text"
+    ],
+    "intro": "The color from text mood tool turns a word into a palette — type a mood, a name or a phrase, and receive the five-color family the text deterministically derives.",
+    "content": "Type a word — calm, velocity, grandmother's kitchen — and the color from text mood tool answers with a palette: five colors derived from the text itself, deterministic and instant. The same word always yields the same family; change one letter and the family shifts. It is a mood to color generator that treats text as a seed and palettes as fruit, with no configuration between the word and the swatches.\n\nThe derivation is honest hashing: the text folds into a hue seed, and the palette derives around it in a fixed register — five colors, balanced spacing, one family. That determinism is the tool's character: unlike a random generator, it is a lookup with infinite keys, so a project can standardize on the word (a team can share ocean and all see the same palette) and a brand can check whether its own name produces a family worth wearing. The register is deliberately neutral — the derivation does not read semantics, so calm and chaos can land near each other — and that neutrality is the honest line between hashing and pretending to understand.\n\nWords carry colour more reliably than most briefs admit, because the associations are learned early and shared widely. A tool that turns a sentence into a family is therefore less gimmicky than it sounds: what it really does is make the implicit palette in a word explicit and arguable, which is exactly what a design conversation needs at the start. A palette from a word is a starting position rather than an answer, and starting positions are the scarce thing in early exploration — a blank canvas costs more time than a mediocre palette that can be corrected. The determinism helps too: the same word produces the same family for everyone in the room, so the discussion is about the palette rather than about who remembers what. Feed the brief's own language in and the first review has something concrete to react to, which is usually the difference between a meeting that decides and one that circles.\n\nKeeping the input words with the output palettes turns the collection into a rough map of how the project talks about itself.\n\nThe tool earns its keep as an ideation accelerator: the blank-palette problem solved by a word — any word, the first one that comes to mind — and the resulting family nudged from there. Names to palettes for personal projects; mood words for campaigns; the client's one-line brief fed straight in for a starting set to argue with. The mood color generator works the curated direction — a fixed menu of moods, each mapped with more editorial intent — and the emotion finder keys on the emotion vocabulary specifically; this tool is the open-textured sibling: generate palette from text, any text, and let the determinism be the feature. Because the derivation is repeatable, the word is worth keeping as a note beside the palette it produced, so the reasoning is recoverable when a later review asks why those values were chosen.",
+    "howTo": [
+      "Type the word or phrase whose mood you want colored.",
+      "Read the derived five-color family — deterministic for this exact text.",
+      "Iterate on the wording (one letter changes the result) or hand the palette to the editor to refine."
+    ],
+    "whenToUse": "Use this for instant, shareable palettes from any text — ideation, naming exploration, team prompts. Use the mood generator for curated mood words, the emotion finder for the emotion vocabulary, and the palette editor to refine what the hash produced. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Does the tool understand the word's meaning?",
+        "a": "No — it hashes the text into a color seed deterministically. The word calm does not guarantee calm colors; the honesty is the feature, and curation is the editor's job."
+      },
+      {
+        "q": "Why does one letter change the whole palette?",
+        "a": "The derivation hashes the exact string, so any change produces a new seed. The determinism that makes palettes shareable also makes them sensitive — iterate on wording deliberately."
+      },
+      {
+        "q": "Will everyone see the same palette for the same word?",
+        "a": "Yes — same text, same seed, same family, on any device. That is what makes it usable as a shared reference."
+      },
+      {
+        "q": "Can I refine the derived palette?",
+        "a": "Copy it into the palette editor or locker — the tool's job is the seed; refinement belongs to the tools downstream."
+      },
+      {
+        "q": "Where does the color from text/mood tool stop short?",
+        "a": "The tool earns its keep as an ideation accelerator: the blank-palette problem solved by a word — any word, the first one that comes to mind — and the resulting family nudged from there. Names to palettes for personal projects; mood words for campaigns; the client's one-line brief fed straight in for a starting set to a"
+      }
+    ]
+  },
+  {
+    "slug": "color-blindness-test-ishihara",
+    "keywords": [
+      "ishihara style color test",
+      "ishihara plate test online",
+      "color blindness plate test",
+      "ishihara dots demo"
+    ],
+    "intro": "The Ishihara-style test renders the classic plate format — dot mosaics where numbers hide from certain kinds of color vision — as a design demonstration of what CVD really costs.",
+    "content": "The Ishihara plates are the world's most famous color vision test: circles of dots where a number hides in color, visible to typical vision and invisible — or visible wrongly — to deficient vision. The Ishihara-style test renders that format here: a dot mosaic with an embedded figure, shown alongside the simulation of how the plate reads under color vision differences. It is an ishihara plate test online in form, and a design demonstration in purpose.\n\n- The simulation is what makes this version a tool rather than a diagnosis.\n- A real Ishihara test answers a clinical question about the viewer; this rendering answers a design question about the image: take the plate and view it through the CVD simulations — the same matrices that power the simulators here — and watch the embedded figure dissolve under protanopia or deuteranopia exactly as it does for viewers with those conditions.\n- That is the most visceral demonstration available of what color vision deficiency costs: not muted colors, but information that simply is not there.\n- The color blindness test presents the general comparison row; this one stages the classic plate because the format makes the loss undeniable.\n\n- The design lesson travels far beyond plates.\n- Any signal encoded only in hue — a red error badge, a green success dot, a chart's red-vs-green series — is an Ishihara plate to someone in the audience: a number that is not there.\n- The robustness responses are standard and effective — pair hue with lightness, shape or a label — and the simulators verify the fixes.\n- The medical honesty stands: real screening belongs with a professional, whose plates are calibrated and whose administration is controlled.\n\nThe plates are famous for a reason worth stating precisely: they test the discriminations that matter most in everyday interfaces, not the ones that are easiest to measure. A plate hides a figure in dots that vary in lightness but not in hue, so anyone whose red-green axis is compressed loses the figure while a typical viewer finds it instantly — and the same construction produces the failure that matters in a chart legend or a status indicator. Reproducing the format digitally allows the simulated view to be shown beside the original, which is where the design lesson lands: the plate stops being a puzzle and becomes a demonstration of what disappears. Used as an ishihara style color test on design work rather than as a screening instrument, the point is the reminder rather than the score. A color blindness plate test run against your own palette is worth more than one run against somebody else's eyesight.\n\nAs an ishihara dots demo it is the classic format in service of design empathy: one plate, its simulated disappearances, and the standing reminder that somewhere in the audience, the number is missing.\n\nRunning the plate against a real chart or status list, rather than against swatches alone, is where the reminder becomes a change: the hue that disappears is usually carrying a meaning nobody intended to hide.",
+    "howTo": [
+      "View the plate — typical vision reads the embedded figure; note its value.",
+      "Switch through the CVD simulations and watch the figure dissolve or survive.",
+      "Apply the lesson: hue-only signals are plates to someone — add a second channel."
+    ],
+    "whenToUse": "Use this to build empathy and demonstrate CVD's information cost vividly. Use the color blindness test for the general comparison, the individual simulators for specific deficiencies, and the friendly picker when the fix is choosing safer colors. For the neighbouring steps, see the {{color-blindness-test|color blindness test}} and the {{color-wheel-theory-guide|color wheel theory guide}}.",
+    "faqs": [
+      {
+        "q": "Is this a real Ishihara test?",
+        "a": "No — it is an Ishihara-style demonstration with simulated plates, for design education. Actual screening requires calibrated plates and professional administration."
+      },
+      {
+        "q": "Why does the figure disappear under simulation?",
+        "a": "Because the figure and background differ mainly in hue, which the simulated deficiency collapses — exactly what happens for viewers with that condition. The disappearing number is the point."
+      },
+      {
+        "q": "What should designers take from the plate?",
+        "a": "That hue-only encoding hides information from a significant minority. Every red/green signal needs a second channel — lightness, shape, text — and the simulators verify the repair."
+      },
+      {
+        "q": "Can I check my own vision here?",
+        "a": "Not reliably — the plate here is a design demo, not a calibrated instrument. If you suspect a color vision difference, professional screening is the valid path."
+      },
+      {
+        "q": "What does the color blindness test (ishihara-style) not do?",
+        "a": "Any signal encoded only in hue — a red error badge, a green success dot, a chart's red-vs-green series — is an Ishihara plate to someone in the audience: a number that is not there. The robustness responses are standard and effective — pair hue with lightness, shape or a label — and the simulators verify the fixes. The"
+      }
+    ]
+  },
+  {
+    "slug": "primary-secondary-tertiary-colors",
+    "keywords": [
+      "primary secondary tertiary colors",
+      "color wheel primary colors",
+      "secondary colors list",
+      "tertiary colors hex",
+      "color theory primary secondary tertiary"
+    ],
+    "intro": "The primary secondary tertiary colors reference lays out the three groups of the color wheel — red, green and blue, then yellow, magenta and cyan, then the six in-between hues — with hex values for each.",
+    "content": "The primary secondary tertiary colors reference is a fixed set of three cards. The first holds the color wheel primary colors: red, green and blue. The second holds the secondary colors list: yellow, magenta and cyan. The third holds six tertiary colours, the mixtures that sit between a primary and its neighbouring secondary. Every swatch shows its hex value and a copy button, and there is nothing to configure — this is a reference page rather than a tool.\n\nWhat makes it worth reading is which system of colour mixing it describes, because the two familiar systems disagree, and the disagreement is the source of most confusion about primary colours. On a screen the primaries are red, green and blue, because those are the channels a display emits; mixing all three at full strength produces white, and pairs of them produce the secondaries — yellow, magenta and cyan. In pigments the relationship inverts: the primaries are cyan, magenta and yellow, their pairs produce red, green and blue, and the secondaries you learned at school are different again. Both tables are correct, and a page that only showed one would leave the other looking wrong.\n\nThe tertiary row follows the additive system, which is the one this page is built on. Each entry is a half-and-half mixture of two channels, counted as two hundred and fifty-five down to one hundred and twenty-eight: red with half green gives orange, half red with full green gives a yellow-green, half green with full blue gives an azure, half red with full blue gives a violet, full red with half blue gives a rose, and full green with half blue gives a spring green. Those six complete the wheel, sitting between a secondary and a primary.\n\n- A detail that surprises people is that these are not merely the most saturated versions of their hues — two of them are close to the widest colours a screen can produce at all.\n- Pure green sits near the edge of what the display can render, which is why it appears almost unnaturally bright next to its neighbours, and pure blue is markedly darker than the other two at full intensity.\n- Both facts are useful when judging a design that uses them: equal numeric intensity does not mean equal perceived brightness, so a set built from these three values will look unbalanced even though the numbers are symmetrical.\n\nIn use, the page is a reference for explaining and for starting points. When a brief asks for a colour wheel primary colors set, these are the values a screen actually uses, which differ from the pigment set a traditional colour wheel illustrates. When someone needs a tertiary colors hex lookup — the six hues between the primaries and secondaries — the third card supplies them, and the copy buttons make lifting a value into a design file a click. Bring the color theory primary secondary tertiary diagram from a classroom next to this page and the disagreement is immediately visible, in a way that a written explanation rarely makes as clear.\n\nIt does not attempt to be a full colour theory course: there is no subtractive table, no discussion of how pigment mixing differs from light, no named tertiary terminology, and no tool for building a wheel from your own colours. What it does is lay the three groups out accurately for the additive system, with the hex values attached, which is the form most people actually need when working on a screen.",
+    "howTo": [
+      "Read the primaries card for red, green and blue — the channels a display emits.",
+      "Read the secondaries card for the pairs: yellow, magenta and cyan.",
+      "Use the tertiary card for the six mixtures between a primary and a secondary.",
+      "Copy any hex value from its swatch."
+    ],
+    "whenToUse": "Use this as a reference when explaining or checking colour relationships, or when a design needs a wheel-derived starting point. Use the harmony tools when you want a scheme generated from a base colour rather than the textbook sets. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "Why are the secondaries yellow, magenta and cyan?",
+        "a": "Because this page describes additive mixing, where the primaries are red, green and blue. In pigments the primaries are cyan, magenta and yellow and the secondaries come out red, green and blue instead."
+      },
+      {
+        "q": "How are the tertiary colours defined here?",
+        "a": "As half-and-half mixtures of two channels — red with half green, half red with full green, and so on for the six combinations that fill the gaps in the wheel."
+      },
+      {
+        "q": "Why does the green swatch look so much brighter?",
+        "a": "Pure green sits near the edge of what a display can render and is perceived as far brighter than pure blue at the same numeric intensity, so a set built from the three primaries will look uneven despite symmetrical values."
+      },
+      {
+        "q": "Is there a subtractive version?",
+        "a": "No. This reference covers the additive, screen-side system only, which is why its secondaries differ from a traditional painter's colour wheel."
+      },
+      {
+        "q": "What does the primary, secondary & tertiary colors not do?",
+        "a": "Pure green sits near the edge of what the display can render, which is why it appears almost unnaturally bright next to its neighbours, and pure blue is markedly darker than the other two at full intensity. Both facts are useful when judging a design that uses them: equal numeric intensity does not mean equal perceived"
+      }
+    ]
+  },
+  {
+    "slug": "oklch-color-playground",
+    "keywords": [
+      "oklch color playground",
+      "oklch color picker",
+      "oklch to hex",
+      "perceptual color picker",
+      "oklch lightness chroma hue"
+    ],
+    "intro": "The OKLCH color playground exposes lightness, chroma and hue as three independent sliders and converts the result to a hex value you can copy.",
+    "content": "- The OKLCH color playground gives you three sliders and a swatch.\n- Lightness runs from zero to one hundred percent, chroma from zero to forty percent, and hue through the full three hundred and sixty degrees, with the starting point set at a mid lightness, moderate chroma and a violet hue.\n- The result appears beside the controls as a large swatch with its hex value and a copy button, updating as the sliders move.\n\nThe reason a playground like this exists is that OKLCH separates three things that most people find tangled together in HSL, which is what makes it work as an oklch color picker: the axes stop influencing each other. The swatch beside the sliders doubles as an oklch to hex conversion, so the value you settle on is immediately pasteable. In that older model, hue is an angle, saturation is a percentage and lightness is a percentage, and the three interact in a way that makes them hard to reason about: a yellow at fifty percent lightness and a blue at fifty percent lightness are not equally bright to the eye, and a colour kept at a constant saturation can still look muted at one hue and vivid at another. In a perceptual model, lightness means roughly the same thing at every hue — which is why the same lightness value produces colours that read as equally weighted whether they are red or blue.\n\nChroma is the more unfamiliar term, and in practice it is the one worth experimenting with. It is not saturation in the HSL sense: it measures how far the colour is from grey along the hue's axis, with zero being neutral grey and higher values moving towards the most vivid version of that hue a display can produce. Raising chroma at a constant lightness and hue moves a dusty blue towards a saturated one without making it darker or lighter, which is exactly the adjustment that is difficult to make in older models.\n\n- The upper limit of the chroma slider is what turns this from a demonstration into a useful tool.\n- The maximum chroma available differs by hue and by lightness — yellows and greens can go further at high lightness, blues and violets further at lower ones — so the same chroma value is inside the display's range for some combinations and outside it for others.\n- When the requested colour falls outside the range a screen can show, the conversion returns the closest displayable colour, which means the swatch can stop changing as you push the slider further.\n- That behaviour is informative rather than broken, but it is worth recognising: past a certain point, more chroma is not producing a more saturated colour.\n\nWhere this earns its place is in constructing colour scales and themes. Because lightness and chroma are independent, a set of colours at identical lightness values genuinely looks even rather than merely being numerically equal, which is the property that makes a palette feel deliberate. Building five tints of a brand colour or a sequence of steps for a chart is much more controllable here than it is by eye in HSL.\n\nThe limits: the output is a single colour rather than a palette, there is no colour-space conversion beyond the hex result, no contrast checking, and no history of previous values — so a scale is built by recording values as you go. There is also no gamut warning beyond the swatch quietly refusing to change. Used as a perceptual color picker, though, it is the clearest way to see how the three axes interact, and for anyone who has wondered what an oklch lightness chroma hue triple actually produces, moving the sliders for a minute explains it better than the specification does.",
+    "howTo": [
+      "Drag the Lightness slider and watch how the colour's apparent weight changes.",
+      "Raise Chroma to move from dusty towards vivid without affecting lightness.",
+      "Sweep Hue to move around the wheel at a constant weight and saturation.",
+      "Copy the hex value from the result swatch."
+    ],
+    "whenToUse": "Use this when you need to control lightness and vividness independently — building scales, levelling a palette, or understanding what a perceptual model does. Use HSL-based tools when you specifically want the older model's behaviour. For the neighbouring steps, see the {{color-wheel-theory-guide|color wheel theory guide}} and the {{bezold-effect-visualizer|bezold effect visualizer}}.",
+    "faqs": [
+      {
+        "q": "What does chroma mean here?",
+        "a": "How far the colour sits from grey, on the axis of its hue. Zero is neutral, and higher values move towards the most vivid version of that hue the display can produce."
+      },
+      {
+        "q": "Why does the swatch stop changing at high chroma?",
+        "a": "The requested colour has left the range the display can render for that hue and lightness. The closest displayable colour is returned, so further slider movement has no visible effect."
+      },
+      {
+        "q": "How is this different from an HSL picker?",
+        "a": "Lightness here means roughly the same perceived weight at every hue, whereas in HSL the same lightness value looks brighter for yellows and darker for blues."
+      },
+      {
+        "q": "Can I build a whole palette?",
+        "a": "Not in one go — the playground returns a single colour. A scale is built by holding lightness constant and recording the values as you vary chroma or hue."
+      },
+      {
+        "q": "What does the oklch color playground not do?",
+        "a": "The maximum chroma available differs by hue and by lightness — yellows and greens can go further at high lightness, blues and violets further at lower ones — so the same chroma value is inside the display's range for some combinations and outside it for others. When the requested colour falls outside the range a screen"
+      }
+    ]
+  }
+]

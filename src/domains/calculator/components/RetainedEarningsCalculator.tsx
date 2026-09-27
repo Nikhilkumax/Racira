@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
+import PopularCalculators from "@/components/PopularCalculators";
 
 const COLORS = ['#4361ee', '#10b981', '#ef4444', '#f59e0b', '#8b5cf6'];
 
@@ -189,6 +190,10 @@ const RetainedEarningsCalculator = () => {
             </div>
           </div>
         </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/retained-earnings-calculator" />
+      </div>
     </div>
   );
 };

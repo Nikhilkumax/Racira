@@ -29,6 +29,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 function fmt(n: number): string {
@@ -44,11 +45,14 @@ export default function TreasuryBillCalculator() {
   const [discountRate, setDiscountRate] = useState("5");
   const [daysToMaturity, setDaysToMaturity] = useState("91");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ faceValue, discountRate, daysToMaturity }));
 
   const result = useMemo(() => {
-    const fv = parseFloat(faceValue) || 0;
-    const dr = (parseFloat(discountRate) || 0) / 100;
-    const days = parseFloat(daysToMaturity) || 0;
+    const fv = parseFloat(calcInputs.faceValue) || 0;
+    const dr = (parseFloat(calcInputs.discountRate) || 0) / 100;
+    const days = parseFloat(calcInputs.daysToMaturity) || 0;
 
     const discountAmount = fv * dr * (days / 360);
     const purchasePrice = fv - discountAmount;
@@ -60,16 +64,19 @@ export default function TreasuryBillCalculator() {
       purchasePrice > 0 && days > 0 ? (discountAmount / purchasePrice) * (365 / days) * 100 : 0;
 
     return { purchasePrice, discountAmount, investmentYield, annualizedYield, bondEquivalent };
-  }, [faceValue, discountRate, daysToMaturity]);
+  }, [calcInputs]);
 
   const yieldData = [
-    { name: "Bank Discount", value: Number((parseFloat(discountRate) || 0).toFixed(2)) },
+    { name: "Bank Discount", value: Number((parseFloat(calcInputs.discountRate) || 0).toFixed(2)) },
     { name: "Investment Yield", value: Number(result.investmentYield.toFixed(2)) },
     { name: "Bond Equivalent", value: Number(result.bondEquivalent.toFixed(2)) },
     { name: "Annualized", value: Number(result.annualizedYield.toFixed(2)) },
   ];
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ faceValue, discountRate, daysToMaturity });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -83,6 +90,8 @@ export default function TreasuryBillCalculator() {
           },
         ]}
       />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
 
         {/* LEFT: inputs (Mortgage Calculator template) */}
         <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
@@ -134,6 +143,7 @@ export default function TreasuryBillCalculator() {
                 setFaceValue("10000");
                 setDiscountRate("5");
                 setDaysToMaturity("91");
+                setCalcInputs({ faceValue: "10000", discountRate: "5", daysToMaturity: "91" });
                 setShowResults(false);
               }}
             >
@@ -155,7 +165,7 @@ export default function TreasuryBillCalculator() {
                 <p className="text-sm text-muted-foreground">Purchase price</p>
                 <p className="text-2xl font-bold text-primary">{fmt(result.purchasePrice)}</p>
                 <p className="text-xs text-muted-foreground">
-                  Pay this today, get {fmt(parseFloat(faceValue) || 0)} at maturity
+                  Pay this today, get {fmt(parseFloat(calcInputs.faceValue) || 0)} at maturity
                 </p>
               </CardContent>
             </Card>
@@ -299,6 +309,11 @@ export default function TreasuryBillCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/treasury-bill-calculator" />
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import PopularCalculators from "@/components/PopularCalculators";
 
 const DEFAULTS = {
   initialContribution: 5000,
@@ -217,6 +218,10 @@ const CustodialAccountGrowthCalculator = () => {
             </div>
           </div>
         </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/custodial-account-growth-calculator" />
+      </div>
     </div>
   );
 };

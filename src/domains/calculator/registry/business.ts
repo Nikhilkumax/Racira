@@ -36,13 +36,13 @@ export const businessCalculators: CalculatorDef[] = [
   {
     slug: "insurance-cost-per-shipment-calculator", name: "Insurance Cost Per Shipment Calculator", description: "Calculate Insurance Cost Per Shipment Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 83, status: "live" },
   {
-    slug: "shipping-insurance-cost-calculator", name: "Shipping Insurance Cost Calculator", description: "Compare declared-value insurance premiums across major carriers and third-party insurers, with deductibles, per-shipment cost and break-even loss rate.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 83, status: "live" },
+    slug: "shipping-insurance-cost-calculator", name: "Shipping Insurance Cost Calculator", description: "Compare declared-value insurance premiums across major carriers and third-party insurers, with deductibles, per-shipment cost and break-even loss rate.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 83, status: "live", isBuilt: true },
   {
     slug: "trade-credit-days-calculator", name: "Trade Credit Days Calculator", description: "Calculate Trade Credit Days Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 83, status: "live" },
   {
     slug: "trade-credit-terms-calculator", name: "Trade Credit Terms Calculator", description: "Calculate trade credit terms calculator online with our free tool.", category: "BUSINESS", subcategory: "Business Finance", tier: "Tier1", priorityScore: 83, status: "live" },
   {
-    slug: "break-bulk-cargo-cost-calculator", name: "Break-Bulk Cargo Cost Calculator", description: "Calculate Break-Bulk Cargo Cost Calculator online with our free tool.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 75, status: "live" },
+    slug: "break-bulk-cargo-cost-calculator", name: "Break-Bulk Cargo Cost Calculator", description: "Total break-bulk cargo cost from stevedoring, handling, lashing, storage, port dues, inland haulage, documentation and insurance, with cost per tonne, per cubic metre and per freight tonne, plus a container comparison.", category: "BUSINESS", subcategory: "Logistics & Trade", tier: "Tier1", priorityScore: 75, status: "live", isBuilt: true },
   {
     slug: "carrying-cost-of-inventory-calculator", name: "Carrying Cost of Inventory Calculator", description: "Calculate Carrying Cost of Inventory Calculator online with our free tool.", category: "BUSINESS", subcategory: "Operations & Supply Chain", tier: "Tier1", priorityScore: 75, status: "live" },
   {

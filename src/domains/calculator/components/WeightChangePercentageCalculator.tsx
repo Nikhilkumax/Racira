@@ -415,4 +415,4 @@ export default function WeightChangePercentageCalculator() {
       </div>
     </>
   );
-}
+}

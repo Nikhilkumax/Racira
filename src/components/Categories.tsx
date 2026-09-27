@@ -9,7 +9,11 @@ import { Button } from "@/components/ui/button";
 
 // Per-card pill overrides — keeps tools.ts untouched
 const PILL_OVERRIDES: Record<string, string[]> = {
-  voice: ["28 Voices", "US & UK English"],
+  // Counts mirror VOICE_COUNT / LANGUAGE_COUNT in the generated voice catalog
+  // (src/domains/voice/lib/voiceCatalog.ts). Deliberately literals: importing
+  // the catalog here would pull all 124 entries into the home page bundle for
+  // the sake of two pills.
+  voice: ["124 Voices", "38 Languages"],
 };
 
 // 8 featured slugs = 2 complete rows of 4 on desktop, 2 rows of 2 on mobile

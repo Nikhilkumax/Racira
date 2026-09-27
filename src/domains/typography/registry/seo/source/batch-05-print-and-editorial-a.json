@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "print-type-specification-sheet",
+    "keywords": [
+      "print type specification sheet",
+      "points and picas",
+      "measure in picas",
+      "print stylesheet"
+    ],
+    "intro": "The print type specification sheet turns a set of type decisions into the table a print job is quoted and checked against, with sizes in points and the measure in picas. Screen sizes are usually quoted in pixels, and a print specification has to state points explicitly, so the sheet reports both.",
+    "content": "The print type specification sheet collects the type roles of a print job and returns them as a specification table stated in points and picas, plus the print stylesheet that matches it.\n\n- Inputs cover the job name, the page size as a label, body size in points, leading in points, caption size, heading size, the measure in millimetres and the number of columns.\n- Body defaults to 10.5pt on 14pt leading, captions to 8.5pt, headings to 24pt, the measure to 120mm across two columns.\n- Sub-headings are derived at 62 percent of the heading size on 1.2 times leading, and captions at 1.35 times their own size, so the sheet only needs the two anchor values typed in.\n- Conversions run in both directions: points to pixels at 96 over 72, millimetres to picas at six picas to the inch, and millimetres to points at 72 to the inch.\n- The column breakdown subtracts a 4mm gutter between columns and reports the resulting column width and an estimated characters per line.\n\nThe conversions are the reason the sheet exists. A point is one seventy-second of an inch and a pica is twelve points, so six picas make an inch, and those ratios are what a print house quotes against. The screen column states the pixel equivalent so the same specification can be checked against a web rendering, And because a supplier may ask for the measure in picas rather than millimetres, the measure row reports it as 28.35 picas alongside its point equivalent of 340.16 points, since which of the three a house works in is a matter of its own convention. Characters per line is estimated from the column width in points divided by the body size multiplied by 0.5, which is an average character width rather than a measurement of any particular face. The generated print stylesheet writes the four principal sizes as custom properties in points, keeps the pixel equivalents in comments, and sets the measure as a maximum width so a browser print preview matches the specification.\n\n- The page size is a label rather than a real dimension, so nothing here checks that the measure and column count actually fit the page it names.\n- Gutter width is fixed at 4mm across the column calculation and cannot be set separately.\n- The characters per line figure assumes an average character width, so a condensed or extended face will drift from it.\n- Caption and heading leading are fixed multipliers, which suits a conventional job and not an unusual one.\n- No font family, weight, colour or baseline grid is recorded, so the sheet is a size specification rather than a full production document.\n\nUse it at the point where a job moves from design to production, and print it: the sheet is laid out to be printed, which is how it reaches the person setting the type. Fill in the measured values rather than the intended ones, because the sheet is only worth having if it describes what will actually be set. Where a job also needs a running head and folio position, the running head previewer works out which text falls on which page, the book interior layout preview covers the text block and margin proportions around it, and the magazine column setter does the same column arithmetic on a baseline grid instead of a plain measure.",
+    "howTo": [
+      { "step": "Name the job and enter the page size as you would quote it, then fill in body, leading, caption and heading sizes from the design." },
+      { "step": "Set the measure in millimetres and the column count, and read the resulting column width and characters per line in the table note." },
+      { "step": "Check the ratio column against the design intent: body leading should read as a multiple of the size, not a fixed gap." },
+      { "step": "Print the sheet for the production file or copy the generated print stylesheet, which carries the same sizes as points." }
+    ],
+    "whenToUse": "Reach for it when a print job is being handed over and the supplier has asked for a specification, or when a screen design has to be translated into points for print and the conversion keeps being done by hand. The pica figures are also useful for checking a measure against a standard page width before a layout is committed. Where the same job needs the pages themselves described, the {{running-head-previewer|running head previewer}} settles what each page carries, the {{book-interior-layout-preview|book interior layout preview}} reports the text block and margin proportions, and the {{magazine-column-setter|magazine column setter}} works the column count against a baseline grid.",
+    "faqs": [
+      {
+        "q": "Why does a print spec use points when the design was made in pixels?",
+        "a": "Because print is specified in physical units. A point is one seventy-second of an inch, so type set at 10.5pt has a real size on paper, while a pixel has no fixed size at all. The sheet converts points to pixels at 96 to the inch so the two can be compared, but the specification itself has to be stated in points."
+      },
+      {
+        "q": "How many points are in a pica?",
+        "a": "Twelve, and six picas make an inch. That is why the measure row reports both: a 120mm measure is 28.35 picas or 340.16 points, and a printer may ask for either. The column widths come out in millimetres because that is how page geometry is usually drawn, then convert to points for the character estimate."
+      },
+      {
+        "q": "Can I specify a different gutter between columns?",
+        "a": "Not on this sheet. The column calculation subtracts a fixed 4mm gutter between columns, which is a common starting figure for a narrow measure. If the job needs a wider gutter, treat the column width it reports as an upper bound and subtract the extra from the measure before entering it."
+      },
+      {
+        "q": "Why does the estimate say fewer characters per line than my design tool?",
+        "a": "Because it uses an average character width of half the point size, and most design tools measure the actual face. A face with a narrow lowercase or a small x-height fits more characters into the same column. The figure is there to catch a column that is obviously too narrow or too wide, not to replace a real setting."
+      },
+      {
+        "q": "Is the print stylesheet the same specification?",
+        "a": "It carries the same sizes in points as custom properties, plus a print media block that applies them and sets the measure as a maximum width. What it does not carry is the page geometry, the column grid or the face, so it is a way of making a browser print preview agree with the sheet rather than a substitute for it."
+      }
+    ]
+  },
+  {
+    "slug": "editorial-style-guide-generator",
+    "keywords": [
+      "editorial style guide generator",
+      "type scale ratio",
+      "role table",
+      "markdown style guide"
+    ],
+    "intro": "The editorial style guide generator turns a set of type decisions into the document a project needs, with every role, size, weight and leading stated rather than left implicit in a stylesheet. The output is Markdown, so it can live in the repository beside the code it describes.",
+    "content": "The editorial style guide generator takes three faces and four numbers, derives seven roles from a single scale, and writes a Markdown document containing the role table and the rules that go with it.\n\n- The three faces are display, text and UI, and they are assigned by role: display covers the display heading, H1 and H2 styles, text covers H3 and body copy, and the UI face covers captions and interface labels.\n- Seven roles are defined on one scale: display at four steps above the base, H1 at three, H2 at two, H3 at one, body at the base, and caption and UI one step below.\n- The base runs from 14px to 22px, defaulting to 17px, with a type scale ratio chosen from 1.125, 1.2, 1.25, 1.333, 1.414, 1.5 and 1.618, defaulting to 1.25.\n- Leading is set once for body copy between 1.2 and 2.2, and every other role carries its own line height: 1.05 for display, 1.1 for H1, 1.2 for H2, 1.25 for H3, 1.45 for captions and 1.4 for interface text.\n- The measure sets the upper bound named in the rules, and every size is reported in pixels and in rem alongside its weight and leading.\n\nThe role table is the part that a stylesheet cannot express: each row states the face, the pixel size, the rem value, the weight, the leading and the purpose, so a reviewer can see that the display face never appears below twice the base size and that interface text is a step below body rather than an arbitrary value. The generated guide then states six rules in prose. Body measure stays between 45 and the chosen maximum, and widening the container is done by adding columns rather than by stretching a single one. Headings never inherit body leading. Tracking is negative above twice the base size, zero at body size and positive for uppercase and captions. One emphasis mechanism is used per passage, whether bold, italic or colour. Figures in tables and captions are tabular while figures in prose may be proportional. And the UI face never appears in body copy while the display face never appears below twice the base.\n\n- The faces are typed in by name and are not checked against any catalogue, so a misspelled family silently produces a guide that names a font nobody has.\n- Five of the six rules are fixed text with the measure and the base size interpolated, so an unusual system cannot restate them.\n- Weights are assigned per role rather than adjustable, which suits a conventional hierarchy and not a display system built on one weight.\n- Colour, spacing, grid and motion are outside the guide entirely.\n- The output is Markdown only, and it is copied rather than written to a file.\n\nUse it when a project needs a type guide that reviewers and contractors can read, or when the same decisions keep being re-explained in tickets. The output is a Markdown style guide rather than a stylesheet, which is why it reads as rules, and generating it from the real numbers at the start of a project is what makes those rules enforceable later, since updating the guide and the stylesheet together is a two-minute job. Where the scale itself is the question, the type scale generator derives the steps and the modular scale calculator compares ratios, and if the hierarchy needs planning before the sizes are fixed, the type hierarchy planner works through the roles. The token generator is the companion that turns the same decisions into variables.",
+    "howTo": [
+      { "step": "Name the guide and enter the three faces the system uses for display, text and interface type." },
+      { "step": "Choose the scale ratio, then set the base size, the body leading and the maximum measure with the sliders." },
+      { "step": "Read the role table and check the size range and face count in the results box, since a guide naming three faces where the design uses two is a sign the roles have drifted." },
+      { "step": "Copy the Markdown and commit it to the repository as a type guide, then keep it in step with the stylesheet as the scale changes." }
+    ],
+    "whenToUse": "Reach for it at the start of a design system, when a team is about to build several pages from the same scale, or when a review keeps reopening questions about sizes that were never written down. It is the document that stops a hierarchy being re-invented page by page. Where the scale steps themselves need deriving, the {{type-scale-generator|type scale generator}} does the arithmetic, the {{modular-scale-calculator|modular scale calculator}} compares candidate ratios, and the {{type-hierarchy-planner|type hierarchy planner}} settles which roles a project actually needs before any size is fixed.",
+    "faqs": [
+      {
+        "q": "Why assign faces by role rather than to the whole guide?",
+        "a": "Because most editorial systems use two or three faces with narrow jobs. The display face sits at the top of the hierarchy and the UI face at the bottom, while the text face carries body copy and the H3 level. Assigning them at the role level is what lets the guide state that the UI face never appears in body copy, which is the rule most often broken."
+      },
+      {
+        "q": "Which ratio should I choose?",
+        "a": "It depends how much contrast the hierarchy needs. 1.125 and 1.2 give a gentle step suitable for dense interface text, 1.25 is the common editorial default, and 1.414, 1.5 and 1.618 give the wide jumps that suit a display-led design. A larger ratio means fewer usable steps above the base before the sizes become unusable."
+      },
+      {
+        "q": "Why do captions and UI text share a step?",
+        "a": "They are both supporting roles that should read as subordinate to body copy, so they sit one step below the base rather than at arbitrary sizes. Their weights differ, 400 for captions and 500 for interface labels, and so do their line heights, which is what keeps the two roles distinct while they share a size."
+      },
+      {
+        "q": "Is the Markdown output the same as the role table?",
+        "a": "It contains the same figures plus the faces and the six rules, formatted as a document rather than a table view. The table on screen shows pixel size, rem, weight, leading and purpose; the Markdown adds the face list, the scale statement and the numbered rules, which is what makes it readable as a guide rather than as a spec."
+      },
+      {
+        "q": "Can the rules be edited?",
+        "a": "Not in the tool. Five of the six rules are fixed text with values interpolated from your base size and measure, which keeps the guide consistent across projects. Rules that need rewriting for a particular system can be edited in the Markdown after it is copied, at the cost of that consistency."
+      }
+    ]
+  },
+  {
+    "slug": "magazine-column-setter",
+    "keywords": [
+      "magazine column setter",
+      "baseline grid",
+      "column gutter",
+      "jump head"
+    ],
+    "intro": "The magazine column setter lays out a magazine page on a baseline grid, where the column count and gutter define the horizontal grid and the leading defines the vertical one. The readout checks the two things that break first in production: a column narrow enough to hyphenate badly, and a baseline unit that does not divide the text block.",
+    "content": "The magazine column setter takes a column count, a gutter, a body size, a leading value and two faces, then reports the resulting column geometry, the baseline unit and the CSS that produces the spread.\n\n- Columns run from one to five and the column gutter from 0 to 12mm in half-millimetre steps, with defaults of three columns and a 5mm gutter.\n- Body size runs from 6pt to 14pt in quarter-point steps, defaulting to 9.5pt, and leading from 8pt to 20pt, defaulting to 12.5pt.\n- The body and headline faces come from the built-in catalogue, and a jump head can be set to one of two standard phrasings or turned off.\n- The grid is drawn on a 180mm text width, which is an A4 page less 15mm margins a side, so the column width is that width minus the gutters divided by the column count.\n- A headline block is reported in baseline units, and the generated headline style is exactly three of them, which is what keeps a heading from breaking the vertical rhythm.\n\nThe characters per line figure is the check that matters most, because a magazine column is narrow by design. It is estimated from the column width in points divided by the body size multiplied by 0.5, and the readout names the band it falls in: below 30 characters the column is very narrow and hyphenation becomes essential, between 30 and 60 it is typical for a magazine, and above 60 it is wide for a column of that kind. The baseline unit is reported as the leading in points and as its ratio to the type size, which is usually between 1.2 and 1.5 on a magazine page. The generated CSS sets the type in points, applies the column count and the gutter in millimetres, justifies the copy with automatic hyphenation, and sizes the headline at 3.2 times the body with a leading of three baseline units.\n\n- The page geometry is fixed at a 180mm text width, so a different trim size or margin scheme has to be worked out with those numbers and entered as the measure elsewhere.\n- The character estimate uses an average character width, so a condensed or extended face drifts from it.\n- Photos, captions and the wells they occupy are not modelled, even though they consume columns on a real spread.\n- The baseline grid is described rather than overlaid, so misalignment between an element and the grid is not visible in the preview.\n- Justification and hyphenation are assumed rather than optional, which is right for a magazine column and wrong for a narrow one.\n\nUse it when a spread is being set and the column count is still being decided, since the characters per line figure settles that argument quickly, and again when the baseline unit is being fixed, because a leading that does not divide the text block height shows up later as a page that cannot hold a whole number of lines. Where the columns are for a screen rather than a page, the text column layout builder covers the same arithmetic with CSS properties, the book interior layout preview covers a single text block instead of a multi-column grid, and the running head previewer covers what each page carries at the top.",
+    "howTo": [
+      { "step": "Pick the body and headline faces, then set the column count and gutter for the page you are working on." },
+      { "step": "Set the body size and leading, and watch the baseline unit readout since that ratio is what the vertical grid depends on." },
+      { "step": "Check the characters per line band in the results box and adjust the column count until it sits between 30 and 60." },
+      { "step": "Choose a jump head or turn it off, then copy the generated CSS, which carries the column geometry, the justified body and the three-unit headline." }
+    ],
+    "whenToUse": "Reach for it when a magazine spread is being laid out and the column count is not yet settled, or when a designer wants to see whether a 9.5pt body on 12.5pt leading will hold up across three columns. The baseline unit figure is also worth checking before a headline style is written, since a heading that is not a whole number of units will always look slightly off. For screen columns, the {{text-column-layout-builder|text column layout builder}} applies the same arithmetic in CSS, the {{newspaper-typography-previewer|newspaper typography previewer}} covers the tighter leadings a newspaper uses, and the {{print-type-specification-sheet|print type specification sheet}} records the resulting sizes in points for production.",
+    "faqs": [
+      {
+        "q": "Why does a magazine column run narrower than a web column?",
+        "a": "Because the page is a fixed width and the column count is a design decision rather than a length. A three-column A4 page with a 5mm gutter leaves about 56mm of text per column, which is around 30 to 40 characters at 9.5pt. That is far below the 45 to 75 band used for screen reading, which is why newspaper and magazine setting depends on hyphenation to avoid rivers."
+      },
+      {
+        "q": "What makes a baseline unit correct?",
+        "a": "It is the leading value, and what makes it correct is that the text block height divides by it into a whole number of lines. A leading of 12.5pt against a block of 240mm gives a clean line count; a leading of 12.6pt leaves a sliver at the foot of every page. The ratio to the type size, usually between 1.2 and 1.5, is the second thing the readout reports."
+      },
+      {
+        "q": "Why is the headline three baseline units?",
+        "a": "Because a heading has to occupy whole units of the vertical grid if the page is to keep its rhythm. Three units gives a headline a line box that lines up with the body text below it, and the generated CSS applies exactly that as the line height, with the size set at 3.2 times the body size."
+      },
+      {
+        "q": "Can the gutter be zero?",
+        "a": "Yes, and the column width calculation handles it, but a gutterless multi-column layout leaves no visual separation and reads as one wide block apart from the column breaks. Most magazine setting uses between 3mm and 6mm, which is enough separation to be seen at reading distance without breaking the page into unrelated strips."
+      },
+      {
+        "q": "Does the column width account for the trim size?",
+        "a": "No. The calculation works from a fixed 180mm text width, which is an A4 page with 15mm margins a side. If you are setting a different trim size, work out your text width first and use the measure fields in the specification sheet to check the resulting column width before committing to a column count."
+      }
+    ]
+  },
+  {
+    "slug": "newspaper-typography-previewer",
+    "keywords": [
+      "newspaper typography previewer",
+      "headline to body ratio",
+      "rule weights",
+      "broadsheet scale"
+    ],
+    "intro": "The newspaper typography previewer renders a broadsheet story unit: a banner headline, a deck, a byline, a rule and a multi-column body. The controls that matter are the headline size relative to the body, the leading, which newspapers run tight, and the rule weights that carry the structure when white space is scarce.",
+    "content": "The newspaper typography previewer builds a complete story unit from typed copy and a handful of controls, then reports the two ratios a newspaper setting lives on and exports the CSS behind it.\n\n- Three headline styles are offered: banner in sentence case, stacked caps, and ribbon with a rule above the headline.\n- The headline slider runs from 12pt to 84pt, the body from 6pt to 14pt in quarter-point steps, the leading from 8pt to 20pt and the column count from one to five.\n- The deck is set at 1.6 times the body size and the byline at 1.05 times with uppercase and 0.06em of tracking, so the supporting levels stay in proportion to whatever body size is chosen.\n- Three rule weights are available: hairline at half a pixel, thin at one pixel and thick at three, drawn between the byline and the body.\n- The body is justified with automatic hyphenation in the chosen number of columns, on a 4mm column gap.\n\nThe headline to body ratio is the figure that decides whether the page reads as a newspaper. It is reported to two decimals along with the leading ratio, and the panel notes that newspapers run their leadings between 1.15 and 1.25, which is deliberately tighter than the 1.45 to 1.8 that body text wants on a screen. A ratio below three to one is flagged as reading magazine-like, with the advice to raise the headline, while anything above that is called broadsheet scale. The preview also demonstrates the structural role of the rules: with white space scarce, the deck, the byline and the horizontal rule do the separating that margins would do elsewhere, and the rule weight is what makes the story unit start and end at the right place on a dense page.\n\n- The column gap is fixed at 4mm and the page is rendered on one fixed paper tone, so neither is adjustable.\n- The fold is described in the copy rather than simulated, so nothing shows what actually sits above it.\n- The headline-to-body verdict is a heuristic about scale, not a judgement about the headline itself.\n- Captions, pull quotes, images and their wells are absent, though they take up most of a real newspaper page.\n- The deck and byline sizes are fixed multipliers, and the paper stock is not modelled, so how the type behaves on newsprint is not represented.\n\nUse it when a story page needs a headline scale set against a body size, and again when a rule weight is being chosen, since the three options behave very differently on a dense page. The tight leadings it works with make it the right place to see how far leading can be pushed before the columns start to look like a wall, which is a question the screen-oriented tools do not cover. Where the setting is a magazine rather than a newspaper, the magazine column setter works the same problem on a baseline grid, the hyphenation tester covers the justification behaviour a narrow column depends on, and the print type specification sheet records the sizes in points for the printer.",
+    "howTo": [
+      { "step": "Enter the headline, deck, byline and story copy so the unit is built from real text rather than placeholder lines." },
+      { "step": "Choose the headline style and rule weight, which between them set how the story is separated from whatever sits beside it." },
+      { "step": "Set the headline and body sizes and read the headline to body ratio, then set the leading and watch the leading ratio against the 1.15 to 1.25 band." },
+      { "step": "Adjust the column count until the copy reads in the story unit, then copy the generated CSS for the newspaper block." }
+    ],
+    "whenToUse": "Use it when a news or editorial page needs its headline scale set against a body size, when a dense page needs a rule weight decided, or when someone has asked for a broadsheet look and the type currently reads as a magazine. It is also a quick way to show why a newspaper leading will not work on a screen. For magazine setting, the {{magazine-column-setter|magazine column setter}} is the closer tool, the {{hyphenation-tester|hyphenation tester}} covers the justification a narrow measure needs, and the {{book-interior-layout-preview|book interior layout preview}} applies the same discipline to pages that are read in the hand rather than on a stand.",
+    "faqs": [
+      {
+        "q": "Why is a newspaper leading so much tighter than on screen?",
+        "a": "Because the page has to fit as much copy as it can while staying readable at arm's length. A leading ratio of 1.15 to 1.25 is tight enough to save lines and still leave the lines distinct, helped by the short measure of a newspaper column. On a screen, where the measure is usually longer and the reading distance shorter, the same ratio reads as crowded."
+      },
+      {
+        "q": "What does the headline to body ratio tell me?",
+        "a": "It is the scale relationship between the two roles, headline size divided by body size. Below about three to one the page reads magazine-like and the headline lacks authority against its columns; above it, the setting takes on the proportions of a broadsheet. The panel reports the figure rather than dictating a value, because the right ratio depends on how much the headline has to carry."
+      },
+      {
+        "q": "Why do the three rule weights matter so much?",
+        "a": "Because on a dense page the rules do the structural work that white space would do. A hairline separates two stories on the same page without shouting, a thin rule marks the top of a story unit, and a thick rule is used where a section has to be clearly closed. The preview shows how much the heaviest option changes the perceived density of the page."
+      },
+      {
+        "q": "Can the headline style be mixed within a page?",
+        "a": "The tool previews one style at a time, but there is no rule against mixing them in practice: banner headlines for the lead story and stacked caps for a secondary one is a common combination on a real page. Change the style to compare the two, then copy the CSS for each and apply them by story rather than by page."
+      },
+      {
+        "q": "Does the preview show the fold?",
+        "a": "No. The page is rendered as a story unit rather than as a whole sheet, so there is no line marking where the paper folds and nothing above or below it. Whether the headline sits above the fold is a layout question that has to be checked in the page composition rather than here."
+      }
+    ]
+  },
+  {
+    "slug": "book-interior-layout-preview",
+    "keywords": [
+      "book interior layout preview",
+      "text block",
+      "margin ratios",
+      "characters per line"
+    ],
+    "intro": "The book interior layout preview lays out a page with the five regions a book page actually has, then reports the proportions between them. The measurements are the ones a print production sheet asks for: text block size, margin ratios, lines per page and the resulting characters per line.",
+    "content": "The book interior layout preview takes a page size, a type size and leading, and four margin values, then draws the resulting page and reports the geometry a production sheet needs, including the margin ratios between the regions.\n\n- Page width runs from 100mm to 230mm and height from 140mm to 330mm, defaulting to 148 by 210mm, which is A5.\n- Body size spans 6pt to 14pt in quarter-point steps and leading from 8pt to 22pt, defaulting to 10.5pt on 14pt.\n- Inner, outer, head and foot margins are all adjustable, and the folio position is set independently in millimetres from the trim.\n- Lines per page is derived from the text block height less 6mm, divided by the leading converted from points to millimetres at 0.3528.\n- Characters per line is estimated from the text block width in points divided by the body size multiplied by 0.5, and the verdict names whether it falls in the 45 to 75 band.\n\nThe five regions are what make a book page different from a web container. The text block is smaller than the page so the margins can do their work: the inner margin protects the text from the gutter, the outer margin holds the reader's thumbs, and the head and foot margins carry the running head and the folio. The panel states two of the conventions as measurements rather than rules — the inner margin should be at least as large as the outer for a page that is bound, and the foot margin should be at least as deep as the head margin because the folio sits there. The ink-on-page share reports the text block as a percentage of the whole page, which is the quickest way to see whether a page has been over- or under-margined. The generated print CSS writes the @page rule with the four margins in the correct order, justifies the body with automatic hyphenation, sets widow and orphan control to two lines, and sizes the folio at 85 percent of the body.\n\n- One page is modelled, so a facing-page spread and the creep that appears in a thick book at the gutter are not shown.\n- The baseline grid is not drawn, so a leading that does not divide the block evenly shows up only in the lines-per-page figure.\n- The margin conventions are reported as measurements without being enforced, so a page with the outer margin deeper than the inner still renders.\n- Characters per line is an estimate based on an average character width rather than the chosen face.\n- The folio is drawn as a placeholder number rather than a real page number, and no running head beyond the text you supply is set.\n\nUse it when a book's page geometry is being decided, since the text block and margin proportions are the decisions that are expensive to revisit once a book is set, and again when a pre-existing trim size has to be checked against a comfortable line count. The lines per page figure is also what a production plan is built from, because it converts into an extent once the word count is known. Where the pages need what each one carries at the top, the running head previewer works that out, the widow and orphan detector finds the bad breaks before they reach proof, and the baseline grid calculator checks that the leading divides the block evenly.",
+    "howTo": [
+      { "step": "Set the page width and height, either to a standard trim size or to the dimensions the job specifies." },
+      { "step": "Enter the body size and leading, which together decide how many lines the text block will hold." },
+      { "step": "Adjust the inner, outer, head and foot margins and the folio position, watching the text block share and the lines per page readouts." },
+      { "step": "Check the characters per line verdict, then copy the print CSS, which writes the page rule, the margins and the folio size." }
+    ],
+    "whenToUse": "Reach for it when a book's trim size and margins are being decided, when a publisher has supplied a page size and you need to know what type size will fit it comfortably, or when an existing layout is producing a line count that does not suit the manuscript. It is the tool that turns a margin scheme into numbers that can be argued with. For the running head and folio placement, the {{running-head-previewer|running head previewer}} is the companion, the {{widow-and-orphan-detector|widow and orphan detector}} catches the failures that appear once the text flows, and the {{print-type-specification-sheet|print type specification sheet}} records the resulting sizes in points for the printer.",
+    "faqs": [
+      {
+        "q": "Why must the inner margin be larger than the outer one?",
+        "a": "Because part of the inner margin disappears into the gutter when the book is bound. A page that looks symmetrical flat becomes cramped at the spine once the sections are sewn or glued, so printers set the inner margin larger to compensate. The panel reports the difference between the two so you can see whether the compensation is there."
+      },
+      {
+        "q": "How do I choose a leading that divides the block?",
+        "a": "Work backwards. Take the text block height in millimetres, convert the candidate leading to millimetres by multiplying by 0.3528, and divide, then adjust the leading by quarter points until the result is a whole number. The lines-per-page readout tells you where you landed, though the baseline grid calculator shows the alignment directly."
+      },
+      {
+        "q": "What is a good ink-on-page share?",
+        "a": "It depends on the kind of book, but common ranges sit between roughly 55 and 75 percent of the page for a text-heavy novel. Below that the margins dominate and the page reads as a gift edition; above it the page looks crowded and the lines get long. The share is reported as a percentage so it can be compared against a reference edition."
+      },
+      {
+        "q": "Why is characters per line only an estimate?",
+        "a": "Because it uses an average character width of half the point size. A face with a narrow set or a small x-height fits more characters into the same block, and a face with generous sidebearings fits fewer. The figure is there to catch a block that is clearly wrong, and the final answer comes from setting a page in the actual face."
+      },
+      {
+        "q": "Does the preview show a spread?",
+        "a": "No, one page at a time. Facing pages matter for judging margins, since the inner and outer margins mirror across the spread and the gutter is where they meet, so a spread view is worth checking in the page layout tool rather than here. The single page is enough for the geometry and the line count."
+      }
+    ]
+  }
+]

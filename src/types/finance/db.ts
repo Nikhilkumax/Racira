@@ -3,7 +3,7 @@
  * When Lovable Cloud is enabled these become the row shapes returned by Supabase.
  */
 
-export type PostStatus = "draft" | "published";
+export type PostStatus = "draft" | "scheduled" | "published";
 
 export interface Author {
   id: string;

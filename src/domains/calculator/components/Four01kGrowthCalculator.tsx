@@ -213,7 +213,7 @@ export default function Four01kGrowthCalculator() {
       <div className="racira-page-container py-6">
         <h1 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight text-foreground">401(k) Growth Calculator</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           {/* LEFT COLUMN - INPUTS */}
           <div className="card-calculator flex flex-col gap-4 p-5 shadow-sm border border-border bg-card rounded-xl">
             <div className="grid grid-cols-1 gap-4">

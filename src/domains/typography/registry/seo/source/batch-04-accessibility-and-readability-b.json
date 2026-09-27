@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "body-text-legibility-grader",
+    "keywords": [
+      "body text legibility grader",
+      "type measure",
+      "leading ratio",
+      "legibility grade"
+    ],
+    "intro": "The body text legibility grader scores a paragraph setting on the five criteria that decide how body copy reads, then weights them into a single number and a letter grade. It is not a pass or fail check: each criterion scores on a curve, so the grader reports how far a setting has drifted from comfortable rather than simply flagging it.",
+    "content": "The body text legibility grader takes a face, a size, a type measure, a leading ratio and a weight, scores each one against the range that reads well, and combines them into a weighted composite with an approximate line count for the sample.\n\n- Face selection comes from the built-in catalogue, and the face's classification shifts the size floor: 17px for a serif, 16px for a sans.\n- Size is adjustable from 12px to 32px, the measure from 20ch to 140ch, the leading from 1 to 2.4, and the weight in hundred-unit steps from 300 to 800.\n- The five criteria are weighted: measure 30 percent, leading 25 percent, size 20 percent, weight 15 percent and line box height 10 percent, since measure and leading do most of the work in a paragraph.\n- Measure scores full marks between 45ch and 80ch, then falls away in both directions rather than failing abruptly.\n- Leading scores full marks from 1.45 to 1.8 and decays outside it, and the line box criterion rewards a box of 24px or more, which is the leading multiplied by the size.\n\nSize is graded in three steps rather than one: a serif face earns full marks at 19px and above, a sans at 18px and above, and either face keeps a large part of its score when it sits exactly on its floor. Weight scores full marks from 400 to 600, drops to 0.6 below 400 because thin strokes lose definition at body sizes, and to 0.85 above 600 because heavy text starts to close up its counters. The composite becomes a legibility grade on fixed cutoffs: 92 and above is an A, 82 a B, 70 a C, 55 a D, and below that the setting is not a body text setting at all. The results panel names the weakest criterion alongside the score, which is usually the fastest route to a better grade, and estimates the number of lines the sample will occupy by dividing its length by the measure multiplied by 1.5.\n\n- The score curves are editorial positions expressed as arithmetic, not published thresholds, and a setting can score an A while still looking wrong in a particular typeface.\n- The face's x-height is represented only by the serif and sans floors, so two sans faces with very different x-heights are graded identically.\n- Contrast, colour and background are out of scope entirely: a perfectly graded paragraph can still fail accessibility on its colour pair.\n- Justification, hyphenation and paragraph spacing are not modelled, so a justified setting is graded as though the spaces were even.\n- The line estimate is a rough figure based on average character widths, and it moves with the sample text rather than with the layout.\n\nUse it when a body style needs to be argued about with numbers rather than adjectives, and read the criteria table instead of only the grade: a B with the weakest criterion showing as weight means something different from a B produced by a narrow measure. Fix measure and leading first, because they carry the most weight and they are also the two a reader notices. When the measure is the stumbling block, the paragraph width optimizer narrows it down properly, the line height optimizer settles the leading, and where the deciding factor is the reader's access needs rather than the arithmetic, the font accessibility evaluator scores the same specification against the WCAG criteria.",
+    "howTo": [
+      { "step": "Choose the face first, since its classification sets the size floor the size criterion is graded against." },
+      { "step": "Set the size, measure, leading and weight with the sliders, and replace the sample paragraph with the real copy if the line estimate matters to you." },
+      { "step": "Read the criteria table rather than just the composite: each row shows the weight, the score out of 100 and the measured value behind it." },
+      { "step": "Fix the criterion named as weakest, re-read the grade, and compare the graded paragraph rendered at the foot of the page." }
+    ],
+    "whenToUse": "Reach for it when a design system's body style is being set for the first time, or when a page reads badly and you need to know which of the five values is responsible instead of changing all of them. It is also a useful way to compare two candidate settings, because the composite makes the trade visible in a single figure. Where the measure keeps being the weak criterion, the {{paragraph-width-optimizer|paragraph width optimizer}} narrows it properly, the {{line-height-optimizer|line height optimizer}} does the same for leading, and the {{readability-score-calculator|readability score calculator}} covers the prose side of the same paragraph.",
+    "faqs": [
+      {
+        "q": "Why are the criteria weighted instead of averaged?",
+        "a": "Because the five values do not matter equally. Measure and leading carry half the total weight between them, since a paragraph of the right length with generous leading reads well even at a modest weight, while the reverse is not true. Weight and line box height get the smallest shares because they refine a setting rather than rescue one."
+      },
+      {
+        "q": "Why does a serif face need a larger size than a sans?",
+        "a": "The size floor is 17px for a serif and 16px for a sans, and the full-marks point is two pixels above whichever floor applies. Serif faces generally carry finer strokes and smaller counters, so they need a little more size before the letterforms hold together at body text sizes on a screen."
+      },
+      {
+        "q": "Why can a score be high while the paragraph still looks poor?",
+        "a": "Because the grader models five values and nothing else. Colour contrast, the typeface's own proportions, hyphenation, justification and paragraph spacing all sit outside the score. A setting that grades an A on the curve can still fail a reader on a low-contrast pair or on a face whose x-height is much smaller than the catalogue average."
+      },
+      {
+        "q": "What does the line count tell me?",
+        "a": "It is an estimate of how many lines the sample will occupy at the current measure, from the text length divided by the measure multiplied by 1.5 and rounded up. Treat it as a sanity check rather than a measurement: it assumes average character widths, so it drifts on text with long words or many numerals."
+      },
+      {
+        "q": "Is a B good enough to ship?",
+        "a": "Usually, provided the weakest criterion is not the one your readers are most sensitive to. A B produced by a slightly heavy weight is a different proposition from a B produced by a measure outside the comfortable band. Grade A means every criterion sits inside its range, so it is the target for long-form reading rather than for captions or interface text."
+      }
+    ]
+  },
+  {
+    "slug": "color-on-color-text-checker",
+    "keywords": [
+      "color on color text checker",
+      "wcag contrast",
+      "palette pairs",
+      "contrast failure count"
+    ],
+    "intro": "The color on color text checker measures a whole palette at once instead of one pair at a time, giving every foreground and background combination a ratio and a set of AA and AAA verdicts. Each pair is also rendered, so a failure can be seen as well as measured.",
+    "content": "The color on color text checker holds a working list of palette pairs, measures each one against the WCAG contrast thresholds and renders every pair as a sample line, so a pass or fail can be confirmed by eye as well as by number.\n\n- The palette pairs list starts with four labelled rows: body text on a surface, a muted caption, a link on a tinted background and a badge label on its fill.\n- Every row carries an editable label, a colour picker and a hex field for the foreground and the same pair again for the background.\n- Rows can be added or removed, so a palette can be trimmed to the combinations that will actually ship.\n- A single toggle switches the thresholds from normal text to large text, which is 24px or 18.66px at bold weight, and moves the bar from 4.5 to 1 down to 3 to 1.\n- Each measured pair shows its ratio to two decimals alongside AA and AAA verdict badges, and the sample is rendered at 16px regular or 26px bold depending on the toggle.\n\nThe measurements come from the same relative-luminance engine as the single-pair checker, so a ratio here and a ratio there always agree. What changes is the shape of the work: instead of one pair and a verdict, the panel keeps a contrast failure count that tallies every pair below the current threshold, which turns a palette review into a number that can be driven to zero. The rendered sample is deliberately blunt, carrying the text \"check it with your eyes too\", because a ratio meeting 4.5 to 1 does not guarantee that a muted grey caption reads comfortably, and a ratio just under the line is not automatically unusable for large display text.\n\n- The ratios describe flat colour pairs, so text over a gradient, a photograph, a translucent overlay or a hover tint needs its own row and its own measurement.\n- The large text toggle is global rather than per pair, so a palette mixing body copy and display text has to be measured in two passes.\n- The rendered sample uses two fixed sizes, 16px regular and 26px bold, rather than the real sizes from the design.\n- Removing a row is immediate, with no undo, so a palette being trimmed should be rebuilt from the original rather than edited destructively.\n- Nothing exports. The results are read from the screen and copied by hand into a review or a ticket.\n\nRun the palette through it whenever a colour palette or a theme is being proposed, and treat the seeded rows as the checklist of combinations that most often go unmeasured: muted captions, link colours on tinted surfaces, and label text on a filled badge. When a single pair needs a closer look, the contrast text checker measures one pair with its luminance breakdown, the contrast pairing checker applies the same measurement to a pairing decision, and the font accessibility evaluator scores the resulting type specification against the full set of text criteria.",
+    "howTo": [
+      { "step": "Edit the seeded rows so the labels describe your palette, replacing each foreground and background with the real values from the design." },
+      { "step": "Add a row for every combination you intend to ship, including muted captions, links on tinted surfaces and label text on filled elements." },
+      { "step": "Set the large text toggle to match what you are measuring, then read the contrast failure count and the verdict badges row by row." },
+      { "step": "Confirm the outcome in the rendered samples, since the eye catches a weak caption that a ratio on the line can hide." }
+    ],
+    "whenToUse": "Use it when a palette is being signed off and the question is whether the whole set of combinations survives, rather than whether one pair is acceptable. It is also the fastest way to find the two or three combinations in a design system that were never measured, because the seeded rows are the ones that usually fail. For a single pair with its luminance arithmetic, the {{contrast-text-checker|contrast text checker}} is the more precise instrument, and for the type side of the same review the {{wcag-font-size-checker|WCAG font size checker}} and the {{font-accessibility-evaluator|font accessibility evaluator}} carry the thresholds that apply once the colours are settled.",
+    "faqs": [
+      {
+        "q": "Why start with four seeded pairs?",
+        "a": "They are the combinations that most often ship unmeasured: body text on a surface, a muted caption, a link on a tint, and label text on a filled badge. They give the list a shape to edit rather than an empty screen, and each one is a real pattern from interface design rather than a placeholder."
+      },
+      {
+        "q": "Does the large text toggle change the ratio?",
+        "a": "No. The ratio is a property of the two colours and nothing else. The toggle changes which threshold the ratio is compared against, dropping the requirement from 4.5 to 1 to 3 to 1, and it also changes how the rendered sample is drawn, from 16px regular to 26px bold."
+      },
+      {
+        "q": "Why show a rendered sample when the ratio is already computed?",
+        "a": "Because a ratio sits on a line and a palette does not. A pair at 4.6 to 1 passes, but a muted caption at that ratio can still read as washed out against a busy layout, and a pair just below the threshold can be perfectly legible for large display text. The sample is there to be judged, not scored."
+      },
+      {
+        "q": "How many pairs should a palette have?",
+        "a": "As many as will actually ship, and no more. Every foreground written over every background produces a list too long to read, so trim it to the combinations in the design: body, caption, link, badge label, button label and placeholder are the usual six, and each needs only the backgrounds it really appears on."
+      },
+      {
+        "q": "Can I measure text over an image?",
+        "a": "Not directly. The checker measures two flat colours, so an image, a gradient or a translucent scrim cannot be entered as a background. The workable approach is to sample the lightest and darkest areas the text crosses, measure the pair against both, and treat the worse result as the real one."
+      }
+    ]
+  },
+  {
+    "slug": "font-for-elderly-simulator",
+    "keywords": [
+      "font for elderly simulator",
+      "presbyopia",
+      "acuity loss",
+      "contrast sensitivity"
+    ],
+    "intro": "The font for elderly simulator renders a sample under the two effects that dominate reading for older eyes, then recommends the size, weight and contrast that recover most of the loss. Presbyopia reduces the eye's ability to focus at close range while a narrowing pupil lowers retinal illuminance, and both are modelled in the preview.",
+    "content": "The font for elderly simulator applies a blur and a contrast reduction to a text sample, modelling presbyopia and the loss of contrast sensitivity that comes with it, then reports what the type setting would have to be for the same sample to read comfortably, with the CSS to produce it.\n\n- The blur control models simulated acuity loss from 0 to 3px in tenths, defaulting to 1.2px.\n- Contrast runs from 1 to 1 to 21 to 1 in half steps, defaulting to 10 to 1.\n- Size spans 12px to 40px, weight from 300 to 700 in hundred-unit steps, and the sample text is editable.\n- Faces come from the built-in catalogue with Source Serif 4 as the starting choice.\n- The recommendation table covers five settings: minimum body size of 18px with 19 to 20px preferred, minimum weight of 400 at 18px and 500 below it, contrast of 7 to 1 or better with 12 to 1 and above for long reading, line height of 1.6 to 1.8, and paragraph spacing of 1.2 to 1.5em.\n\nThe point of the preview is that the same acuity loss blurs proportionally less as the type grows. The effective blur is the blur value multiplied by sixteen and divided by the size, so at 16px a 1.2px simulation stays at 1.2px while at 24px it falls to 0.8px, which is why raising size is the most effective single change, ahead of weight and even contrast. Retinal illuminance is modelled as a contrast filter that combines the entered ratio with a base factor, so the preview darkens as the ratio drops and stops improving once the ratio is high enough that the filter reaches full strength. The panel also grades the setting directly: contrast at or above 7 to 1 satisfies the enhanced body text requirement, and a size of 18px or more is what the check looks for, with the exported CSS writing the size as a maximum of 1.125rem and the current value so it can never fall below the recommended floor.\n\n- Two effects are modelled, accommodation and pupil size, which between them account for much of the change but not all of it; field loss, floaters and cataract haze are not represented.\n- The blur is uniform across the sample, where real acuity loss varies with distance from the fixation point and with the letterform itself.\n- The contrast filter approximates retinal illuminance rather than simulating a measured response curve.\n- The checks are coarse by design: contrast passes at 7 to 1 and size passes at 18px, with no credit for being close.\n- This is a design aid, not a clinical tool, and nothing here measures a real reader's vision.\n\nUse it when an audience skews older and a design has been approved on a young reviewer's screen, since the failure mode is almost always a body size chosen for density rather than for the reader. Raise size first, then weight, then contrast, in that order, because that is the order of their effect on the simulated result. Comparing conditions rather than a single one belongs to the low vision font tester, the size thresholds for a text style are itemised by the WCAG font size checker, and the leading recommendation in the table is the same problem the line height optimizer solves at a fixed measure.",
+    "howTo": [
+      { "step": "Enter the type setting you are reviewing: face, size, weight and the contrast ratio the pair achieves, plus the sample text you want judged." },
+      { "step": "Set the simulated acuity loss, starting around 1.2px, and watch the effective blur readout as you change the size." },
+      { "step": "Compare the simulated reading experience against the recommended settings table, noting which rows your current values miss." },
+      { "step": "Copy the exported CSS, which floors the size at 1.125rem and the weight at 400, and adjust the contrast pair if the 7 to 1 row is failing." }
+    ],
+    "whenToUse": "Reach for it when a product serves an older audience and a body size has been chosen for density, when a design review keeps producing the comment that the text feels small, or when a client needs to see why 14px body text fails a large part of its readership. It is the quickest of the simulators to explain, because a single blur slider makes the argument without numbers. For a comparison of several conditions rather than one, the {{low-vision-font-tester|low vision font tester}} applies acuity, glare and contrast sensitivity side by side, the {{wcag-font-size-checker|WCAG font size checker}} states the size and spacing thresholds formally, and the {{line-height-optimizer|line height optimizer}} settles the leading the recommendation table asks for.",
+    "faqs": [
+      {
+        "q": "Why does a larger size reduce the simulated blur?",
+        "a": "Because the blur is applied as a fixed pixel radius while the letterforms grow around it. Effective blur is the simulation value scaled by sixteen divided by the current size, so the same visual impairment costs proportionally less detail at 24px than at 14px. That relationship is the whole reason size is the first lever for older readers."
+      },
+      {
+        "q": "Why recommend 18px when many designs use 16px?",
+        "a": "Because the recommendation is aimed at readers whose accommodation has already narrowed, not at a general audience. The table puts the minimum at 18px with 19 to 20px preferred, and it treats 16px as a floor for younger readers rather than a target for this one. A design can hold 16px and still pass if the weight and contrast carry the rest."
+      },
+      {
+        "q": "Is the contrast filter a real measure of retinal illuminance?",
+        "a": "No, it is a simulation. It combines the ratio you enter with a base factor so the preview loses contrast as the ratio drops and stops changing once the ratio is high enough. It is shaped to look like the effect rather than to reproduce a measured response curve, and it is there to make a comparison visible."
+      },
+      {
+        "q": "Should I raise weight or contrast first?",
+        "a": "Size first, then weight, then contrast, in that order, because that is their order of effect on the simulated result. Weight matters most when the face is light and the strokes are thin, whereas contrast only helps while the pair is below the enhanced threshold; beyond about 12 to 1 there is little left to gain."
+      },
+      {
+        "q": "Can it simulate a specific eye condition?",
+        "a": "Not a specific one. The simulator models the two changes that account for most of the difference for older readers, reduced accommodation and reduced retinal illuminance, and leaves out field loss, floaters and the scattering that cataracts cause. For the scattering case, the glare and halation preset in the low vision font tester is the closer approximation."
+      }
+    ]
+  },
+  {
+    "slug": "low-vision-font-tester",
+    "keywords": [
+      "low vision font tester",
+      "reduced acuity",
+      "halation",
+      "contrast sensitivity"
+    ],
+    "intro": "The low vision font tester applies three visual conditions to the same sample paragraph and grades the type setting behind it. Reduced acuity, glare with its halation, and loss of contrast sensitivity are shown side by side against an unaffected reference, so a face and its spacing can be judged across all three at once.",
+    "content": "The low vision font tester renders one paragraph four times, once as an unaffected reference and three times under a filtered condition, then grades the underlying type setting on four checks and returns a letter grade.\n\n- Reduced acuity is simulated with a 2px blur, which dissolves fine hairlines first and letter details second.\n- Glare and the halation that comes with it are simulated with a light blur, a brightness lift and a contrast reduction together, reproducing the way light spreads and low-contrast pairs collapse.\n- Reduced contrast sensitivity is simulated by pulling the whole rendering toward mid-grey, which is the failure mode of light grey text.\n- The checks are size at 18px or more, weight at 500 or more, a contrast ratio of 7 to 1 or better, and a measure of 75 characters or fewer.\n- Faces come from the built-in catalogue, each shown with its classification so a serif, sans or display face is identified before it is judged.\n\nWeight carries more of the decision here than it does in a general legibility review, because stroke mass is what survives a blur: a 400 weight that reads cleanly at rest can lose its thins entirely under the 2px condition, which is why the check asks for 500 or more. The measure check is deliberately tighter than the usual 45 to 75 character band, capping at 75 on the argument that a reader who is already tracking with difficulty loses their place sooner on a long line. The four checks are scored as a count rather than a weighted composite: four passes is graded A and described as robust, three is a B with one weak point, two is a C to fix before shipping, and one or none is a D. The contrast slider is independent of the simulation filters, which means the ratio can be set to whatever the real design measures and then judged under all three conditions.\n\n- The three conditions are approximations built from CSS filters, not clinical simulations, and they describe the shape of the difficulty rather than a measured response.\n- Only one filter applies per pane, so a reader affected by both glare and reduced acuity is not represented in a single rendering.\n- The grade counts passes rather than weighing them, so a setting with a failed size and a passed weight scores the same as the reverse.\n- Nothing evaluates the palette as a whole, and the colour pair behind the ratio is not shown.\n- There is no export: the setting is judged on screen and the values are copied by hand.\n\nThe comparison is what makes it useful, because most faces look acceptable under a single condition. Judge the weight first, since that is where the conditions diverge most, then the measure, and treat the size and contrast checks as the two that are cheap to fix. Where the question is specifically about an older readership and a single acuity effect, the font for elderly simulator shows the same problem with a slider instead of presets, the dyslexia font simulator covers the spacing adjustments that help readers who lose their place, and the contrast text checker measures the colour pair that supplies the ratio tested here.",
+    "howTo": [
+      { "step": "Pick the face from the catalogue and set the size, weight, contrast ratio and measure that the real design uses." },
+      { "step": "Read the four rendered conditions in order, comparing the unaffected reference against the blurred, glare and reduced-contrast panes." },
+      { "step": "Check the four results in the table and note the grade, then look at which check failed rather than only at the letter." },
+      { "step": "Raise the weight first and shorten the measure second, since those are the two values the three conditions punish hardest." }
+    ],
+    "whenToUse": "Use it when a face or a weight is being chosen and the audience includes readers with low vision, when a light-weight brand face is being proposed for body copy, or when a review needs to show why a hairline serif at 300 weight is a poor choice for a long article. It is the only tool here that shows three conditions at once, which makes it the right one for a face decision. For a single condition with a slider, the {{font-for-elderly-simulator|font for elderly simulator}} is the closer match, spacing adjustments for readers who lose their place belong to the {{dyslexia-font-simulator|dyslexia font simulator}}, and the colour pair behind the contrast figure is measured by the {{contrast-text-checker|contrast text checker}}.",
+    "faqs": [
+      {
+        "q": "Why does the weight check ask for 500?",
+        "a": "Because stroke mass is what survives a blur. Under the 2px reduced-acuity condition a 400 weight loses its hairlines and the counters begin to fill in, while a 500 weight keeps enough contrast between stem and background for the letterform to stay recognisable. It is a threshold for this simulated condition rather than a requirement for all body text."
+      },
+      {
+        "q": "Why cap the measure at 75 characters rather than 80?",
+        "a": "Because the return sweep is the first thing a reader loses when tracking is difficult. The usual band runs to 75 characters, and the check holds the line there rather than extending it, so a long line that would pass a general review is flagged here. Shortening the measure rarely costs anything and it is the cheapest of the four fixes."
+      },
+      {
+        "q": "What does the glare condition actually simulate?",
+        "a": "The scattering of light inside the eye, which shows up as halation around the letterforms. It is built from a light blur together with a brightness lift and a contrast reduction, so the sample both softens and flattens. That combination is why low-contrast pairs collapse under it: there is no surplus contrast left to lose."
+      },
+      {
+        "q": "Can two conditions be combined?",
+        "a": "Not in one pane. Each of the three filtered renderings applies a single filter chain, so a reader dealing with both glare and reduced acuity is not represented directly. The practical approach is to read the two panes in sequence and take the worse of the two verdicts as the setting's real position."
+      },
+      {
+        "q": "Why does the grade count passes instead of weighting them?",
+        "a": "Because at this level of simulation a weighted composite would imply more precision than the filters support. Four independent checks that each matter produce a count that is easy to reason about, and the detail column identifies the failing one. The letter is a summary, not a measurement."
+      }
+    ]
+  },
+  {
+    "slug": "mobile-font-size-checker",
+    "keywords": [
+      "mobile font size checker",
+      "characters per line",
+      "ios auto zoom",
+      "viewport width"
+    ],
+    "intro": "The mobile font size checker works out how many characters a line will carry inside a real phone viewport, then reports the size and measure checks that follow from it. It answers a question a desktop review cannot: whether the type that looked comfortable at 1440 pixels still works at 390.",
+    "content": "The mobile font size checker takes a viewport width, the page padding on each side, a font size and a family width factor, then computes the available text width, the characters per line and the size that would produce a 65 character measure.\n\n- Viewport width defaults to 390px and page padding to 16px a side, and the available text width is the viewport minus twice the padding.\n- Family width factors are 0.5em average for a humanist sans, 0.55em for a serif and 0.6em for a monospace face, so the same size produces different line lengths on each.\n- Characters per line is the available width divided by the size multiplied by that factor, which is the figure the measure check reads.\n- Four checks are scored: body text at 16px or more, an absolute floor of 12px, the iOS auto zoom condition for form inputs, and a measure between 45 and 75 characters.\n- The text role selector covers body text, caption, form input and heading, and the size that would give a 65 character measure is reported alongside the checks.\n\nThe iOS auto zoom check is the one that catches people out. Safari on iOS enlarges the whole page when a focused text input is smaller than 16px, so a 15px input can make a page appear to jump on first use, and the check exists to catch that case before it reaches a device. The reference table that follows gives the guidance band per element: 16px for body text and 16 to 18px comfortable, 12px minimum for secondary and caption text, 16px for form inputs with the same auto zoom reason, 14px for a button label, and 20px for a page heading. The note under the table says plainly that WCAG itself sets no absolute font-size minimum, which is why the 16px figure is presented as a widespread norm rather than as a requirement.\n\n- The character width factors are averages, so a condensed or wide face will drift from the estimate, and the panel tells you to re-measure with the real typeface when the design is tight.\n- The measure check assumes a single column: a layout with a sidebar or a card grid has less usable width than the calculation assumes.\n- No leading is modelled, and the 45 to 75 character band says nothing about line height.\n- Device coverage is limited to whatever viewport and padding you enter, so a design has to be checked once per breakpoint rather than once for phones in general.\n- The auto zoom check is stated for iOS Safari and does not describe every mobile browser's behaviour.\n\nRun it per breakpoint whenever a fluid size or a clamp is being introduced, since a size that reads well at 390 can fall under the measure band at 320 and over it on a large phone. When the characters per line figure keeps missing, the paragraph width optimizer works through the same problem with more variables, the WCAG font size checker supplies the spacing minimums that apply at the chosen size, and a fluid type scale is the structural answer rather than a per-breakpoint size fix, which is the CSS fluid typography builder's job.",
+    "howTo": [
+      { "step": "Enter the viewport width and the page padding so the available text width matches the real layout at that breakpoint." },
+      { "step": "Set the font size, choose the family width factor that matches the face, and pick the text role being checked." },
+      { "step": "Read the characters per line figure and the suggested size for a 65 character measure, then compare against the four checks." },
+      { "step": "Repeat for each breakpoint you ship, and raise any form input below 16px before it triggers the iOS auto zoom behaviour on a device." }
+    ],
+    "whenToUse": "Use it when a type scale is being adapted for mobile, when a clamp or fluid size is tuned, or when a body size chosen on a desktop layout needs to be justified at 390 pixels. It is also the quickest way to catch a form input that will zoom the whole page on an iPhone, which is a defect rather than a preference. When the measure itself is the problem, the {{paragraph-width-optimizer|paragraph width optimizer}} works it through properly, the {{wcag-font-size-checker|WCAG font size checker}} states the spacing minimums at the chosen size, and where several breakpoints need one continuous scale, the {{css-fluid-typography-builder|CSS fluid typography builder}} is the structural fix.",
+    "faqs": [
+      {
+        "q": "Why does a 15px input zoom the whole page on iOS?",
+        "a": "Because Safari on iOS enlarges the viewport when a focused text field computes to less than 16px, so the reader's first tap appears to break the layout. The check flags any input below 16px for that reason. Raising the input to 16px keeps the design intact and removes the zoom, and it is a change that rarely costs a layout anything."
+      },
+      {
+        "q": "Why are the character width factors different per family?",
+          "a": "Because a line of text is measured in glyph widths, and those differ by face. A humanist sans averages about 0.5em per character, a serif about 0.55em and a monospace face about 0.6em, so the same 16px setting carries noticeably fewer characters in monospace. The factors are averages across a family, which is why the panel warns that a condensed or wide face will drift."
+      },
+      {
+        "q": "What viewport should I check?",
+        "a": "The narrowest one you support, and every breakpoint where the size changes. 320px is the usual narrow floor, 390px represents a modern phone, and a large phone or small tablet in the 430 to 480 range is worth a pass if the layout changes there. Each check takes seconds, so run all of them."
+      },
+      {
+        "q": "Is 16px a minimum I have to meet?",
+        "a": "Not in WCAG, and the tool says so in the reference note. It is a widespread norm for mobile body text and it is also the iOS auto zoom threshold for inputs, which gives it practical force even though no criterion states an absolute minimum size. The 12px figure used here is a legibility floor rather than a standard."
+      },
+      {
+        "q": "Does the measure check account for a sidebar or a grid?",
+        "a": "No. It assumes the text spans the available width between the page paddings, so a card, a sidebar or a two-column layout on a phone has less usable width than the calculation. Enter the real text width as the viewport in those cases, or subtract the extra padding by raising the padding value."
+      }
+    ]
+  }
+]

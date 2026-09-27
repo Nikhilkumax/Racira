@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "material-palette-generator",
+    "keywords": [
+      "material palette generator",
+      "material design color scale",
+      "50 to 900 ramp",
+      "ten step ladder"
+    ],
+    "intro": "The material palette generator builds a ten-step 50 to 900 ramp from one base colour, holding the base's hue and chroma while walking lightness down in even steps.",
+    "content": "Design systems adopted numbered ramps because a number says more about a colour's role than a word does: 50 is always the lightest surface, 900 always the darkest ink, and nothing has to be memorised beyond the convention. The material palette generator produces that ramp from a single base colour, with ten steps labelled 50, 100, 200, 300, 400, 500, 600, 700, 800 and 900, laid out in a grid that runs up to ten columns on a wide screen so the whole ladder can be compared at once.\n\n- Ten steps, in the conventional order, from 50 at the light end to 900 at the dark end.\n- Lightness walks down in fixed steps of 0.08, starting at 0.95 for the 50 slot and finishing at 0.23 for 900.\n- Hue and chroma are taken from the base colour and never change across the ramp, so every step belongs to the same family.\n- Each tile shows the step name and its hex value, which makes the ladder readable at a glance.\n\nThe mechanism is a lightness ladder in OKLCH, and that choice is why the ramp looks even rather than merely regular: equal steps in perceptual lightness read as equal steps to the eye, where the same arithmetic in HSL would bunch at the dark end and spread at the light end. Keeping chroma constant across all ten steps is the one place this diverges from published Material ramps, which reduce saturation as the steps approach white and black so the extremes stay believable. Here the light end keeps the base's full chroma, which produces a more saturated 50 and 100 than most design systems ship, and the dark end stays vivid rather than turning near-black.\n\n- Chroma is constant, so the pale steps can look more colourful than a reference ramp expects.\n- No copy button on the tiles and no export block: each hex value has to be lifted by hand.\n- Nothing checks that the ramp can carry text, and a ramp alone says nothing about which steps pass against which surfaces.\n- The step names are fixed. There is no way to add a 950 slot or to renounce the labels in favour of role names.\n\nRead as a material design color scale, the convention is what carries the meaning: a 50 to 900 ramp tells a developer which step to reach for without opening a style guide, and a ten step ladder is enough resolution to cover surfaces, borders, states and text inside one hue family. That grammar is the reason numbered ramps outlived the frameworks that popularised them.\n\nUse it when a project already speaks in numbered steps and a new hue has to join the convention — an accent family, a secondary brand colour, a data-series ramp. Because the base's hue survives intact, dropping a different input colour produces a ladder that sits beside the existing one without argument. Where the output has to be literal Material Design, check the pale steps against the published values rather than assuming a match, and where the destination is a Tailwind theme instead, the Tailwind exporter writes the ramp with 950 included and a config snippet attached.",
+    "howTo": [
+      "Set the base colour with the picker field.",
+      "Read the ten-step ramp, 50 through 900, left to right.",
+      "Check the pale steps against your design system's reference if a literal match matters.",
+      "Lift the hex values you need from the tiles, or move to the exporter tools for a written block."
+    ],
+    "whenToUse": "Use this when a numbered ramp has to be derived from one hue. The {{tailwind-palette-generator|Tailwind palette generator}} is the same idea with an extra 950 step and a config snippet, the {{color-shades-generator|shades generator}} gives a shorter ladder without step names, and the {{contrast-checker|contrast checker}} answer whether a chosen step can carry text.",
+    "faqs": [
+      {
+        "q": "How are the ten steps spaced?",
+        "a": "Lightness falls by 0.08 per step in OKLCH, from 0.95 at 50 to 0.23 at 900. Perceptual spacing is what makes the ladder look even rather than bunching at one end."
+      },
+      {
+        "q": "Is this an official Material Design palette?",
+        "a": "The steps follow the convention, not the specification. Published ramps also reduce chroma near the ends, while this generator holds the base's chroma throughout."
+      },
+      {
+        "q": "Why do the light steps look more colourful than expected?",
+        "a": "Because chroma is constant. A true reference ramp desaturates towards white; here the base's chroma survives all the way to step 50."
+      },
+      {
+        "q": "Can I export the ramp as code?",
+        "a": "Not from this page — the tiles show names and values but no copy block. The Tailwind exporter and the CSS variable tools write ramps out as text."
+      },
+      {
+        "q": "Does the ramp tell me which steps are readable?",
+        "a": "No. It is a set of values, not an accessibility report. Send any pair through the contrast checker before it carries text."
+      }
+    ]
+  },
+  {
+    "slug": "tailwind-palette-generator",
+    "keywords": [
+      "tailwind palette generator",
+      "tailwind color scale",
+      "50 to 950 ramp",
+      "tailwind config snippet"
+    ],
+    "intro": "The tailwind palette generator writes an eleven-step 50 to 950 colour scale from one base hue and hands back a ready-to-paste tailwind.config.js snippet.",
+    "content": "A Tailwind colour scale is a ladder with a name attached, and the tailwind palette generator produces both: eleven steps from 50 to 950 derived from one base colour, plus a config snippet that already contains them. Set the base and the page shows a tailwind color scale at fixed lightness values — 0.97, 0.93, 0.85, 0.75, 0.65, 0.55, 0.47, 0.4, 0.32, 0.22 and 0.14 — with the base's hue and chroma carried through every step.\n\n- Eleven steps: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900 and 950.\n- Lightness values are fixed per step rather than evenly spaced, which mirrors how hand-tuned scales are built: the light end moves gently, the dark end compresses.\n- Hue and chroma come from the base, so the whole scale belongs to one family.\n- Output: a tailwind.config.js snippet extending theme.colors with a brand key, complete with a copy button.\n\nThe fixed lightness table is the part worth understanding. Between 50 and 400 the steps move quickly because pale tints separate visually even when they are close in lightness; between 500 and 950 they compress because dark values need less travel to look different. That asymmetry is deliberate and it is what makes a generated scale usable next to a hand-written one. Because chroma is inherited unchanged, the lightest steps can look more saturated than a published palette's equivalents — the same trade-off the Material ramp makes on this site.\n\n- The snippet is emitted as a CommonJS tailwind.config.js fragment; projects on other config styles will need to adapt it.\n- One brand key only. A second family means running the tool again and merging the results by hand.\n- No per-swatch copy buttons and no plain CSS output; the config block is the one export.\n- Nothing is measured for contrast, and the pale steps in particular are unlikely to carry text.\n\nUse it when a brand hue has to become a full scale in a Tailwind project — it removes the usual evening of squinting at hex values and guessing which step should be lighter. Keep the generated values in source control and regenerate only when the brand hue changes, because hand-editing steps inside a generated scale is how a palette starts drifting. Where the destination is CSS custom properties rather than a Tailwind config, the variable tools write that instead, and where a shorter ladder is enough, the shade generator covers six steps without step names. Treat the output as a 50 to 950 ramp with a fixed shape rather than as eleven independently chosen colours, and let the tailwind config snippet be the only place those values are written down: a scale that lives in two files drifts within a month. Because every step descends from one hue, the theme never collects a stray blue that belongs to another family, which is the quiet advantage of generating a scale instead of copying one, and of regenerating only when the hue itself changes.",
+    "howTo": [
+      "Set the base colour with the picker field.",
+      "Review the eleven steps from 50 to 950, noting how the light end moves quickly and the dark end compresses.",
+      "Copy the tailwind.config.js snippet from the output panel.",
+      "Paste it into the theme's extend block and keep the generated values under source control."
+    ],
+    "whenToUse": "Use this when a Tailwind project needs a brand scale from a single hue. The {{css-color-variables-generator|CSS variables generator}} writes custom properties instead, the {{material-palette-generator|Material palette generator}} produces a ten-step ramp with conventional step names, and the {{palette-accessibility-checker|palette accessibility checker}} shows which steps can carry text.",
+    "faqs": [
+      {
+        "q": "Why are the steps not evenly spaced in lightness?",
+        "a": "Because even spacing is not the same as even appearance. Pale tints separate easily, so those steps move fast, while dark values need less travel to look distinct and are compressed towards 950."
+      },
+      {
+        "q": "What does the generated config look like?",
+        "a": "A CommonJS tailwind.config.js fragment that extends theme.colors with a brand object containing all eleven steps as quoted hex strings, ready to paste into an existing extend block."
+      },
+      {
+        "q": "Does the scale match the Tailwind default palette?",
+        "a": "It follows the same step names but the values are derived from your base hue, so it will sit beside the defaults rather than replacing them."
+      },
+      {
+        "q": "Why do the light steps look saturated?",
+        "a": "Chroma is inherited from the base without reduction, so step 50 and 100 keep the full chroma. Published scales usually desaturate there."
+      },
+      {
+        "q": "Can I generate two brand families at once?",
+        "a": "No. Each run produces one family under a single brand key; a second hue means a second run and a manual merge of the two config objects."
+      }
+    ]
+  },
+  {
+    "slug": "brand-palette-generator",
+    "keywords": [
+      "brand palette generator",
+      "palette from a name",
+      "deterministic brand colors",
+      "five role slots"
+    ],
+    "intro": "The brand palette generator hashes a brand name into a hue and lays out five role slots — primary, accent, secondary, surface and foreground — so the same name always returns the same palette.",
+    "content": "Most colour tools ask for a colour; this one asks for a word. Type a brand name and the brand palette generator hashes it into a hue — each character folded into a running value, multiplied by 31 and reduced modulo 360 — then builds five slots around that hue. The same name always produces the same palette, on any machine and in any session, which is the property that makes a palette from a name useful as a placeholder rather than as a joke.\n\n- Primary — the brand hue at lightness 0.55 and chroma 0.18.\n- Accent — the same construction thirty degrees around the wheel, lighter and slightly less saturated.\n- Secondary — the opposite hue, one hundred and eighty degrees away.\n- Surface — a near-white tint of the brand hue, lightness 0.95 with chroma 0.02.\n- Foreground — a near-black tint of the same hue, lightness 0.2 with chroma 0.04.\n\nWhat the tool produces is closer to a working set than a random one. Deterministic brand colors mean a mock built today can be reproduced next month without saving anything, and the role slots are the five that a small product actually needs: one identity colour, one highlight, one opposing colour, plus a light and a dark neutral derived from the identity hue. Because the neutral pair is tinted rather than grey, the whole set reads as designed even when the name it came from is meaningless.\n\n- The mapping is a simple hash, so similar names produce unrelated hues and one renamed character changes the entire palette.\n- There is no contrast guarantee: the foreground is dark and the surface is light, but nothing measures whether the primary can be read on either.\n- Only five slots, no tonal steps, and no export beyond copying individual hex values.\n- The name affects hue alone; chroma and lightness are fixed, so two brands have palettes of identical weight.\n\nHaving five role slots rather than five colours is what makes the output usable in a layout. Primary, accent, secondary, surface and foreground answer the questions a screen actually asks — what carries the brand, what draws the eye, what opposes it, what the page sits on and what the text is — so a mock can be assembled without inventing names for values that have none. Typing the name back into the field reproduces the set exactly, which is what keeps the arrangement usable weeks later and makes the tool a commit-time placeholder rather than a one-off curiosity.\n\nUse it as a starting point for a mock, a concept or a side project where no brand exists yet, and as a reproducibility trick when a design has to survive a rebuild: keep the name and the palette comes back. Where a brand's real colours exist, check them against the generated set for a sense of how far the hashed hue sits from the identity — the comparison tool will show the difference in average lightness and chroma, and the shade tools fill in the tonal steps this page deliberately omits.",
+    "howTo": [
+      "Type the brand name into the field; the hue is derived from it immediately.",
+      "Read the five labelled slots: primary, accent, secondary, surface and foreground.",
+      "Copy the hex values, and keep the name with them so the palette can be regenerated.",
+      "Add tonal steps from the shade tools if the product needs more than five values."
+    ],
+    "whenToUse": "Use this when a project needs plausible brand colours before a brand exists. The {{random-palette-generator|random palette generator}} rolls without a tie to any input, the {{palette-comparison|palette comparison}} tool measures how far a generated set sits from the real one, and the {{color-shades-generator|shades generator}} extends any slot into a usable tonal ladder.",
+    "faqs": [
+      {
+        "q": "Is the palette random?",
+        "a": "No. The name is hashed into a hue deterministically, so the same name always returns exactly the same five colours — no dice, no seed, no drift."
+      },
+      {
+        "q": "How is the hue derived from the name?",
+        "a": "Each character is folded into a running value that is multiplied by 31 and reduced modulo 360, so the hue depends on the name's letters and their order rather than on its length or meaning."
+      },
+      {
+        "q": "Why does adding one letter change every colour?",
+        "a": "Because the hash mixes the whole string: a single extra character changes the resulting hue, and every slot is derived from that hue."
+      },
+      {
+        "q": "Are the five slots enough for a real product?",
+        "a": "For a small interface, often yes — the set includes light and dark neutrals as well as three colours. Larger systems need tonal steps the page does not generate."
+      },
+      {
+        "q": "Does it check readability?",
+        "a": "No. The foreground and surface are conventionally light and dark, but nothing verifies that the primary or accent can be read on them. Measure the pairs you intend to use."
+      }
+    ]
+  },
+  {
+    "slug": "palette-importer",
+    "keywords": [
+      "palette importer",
+      "paste hex colors",
+      "import json palette",
+      "color list to swatches"
+    ],
+    "intro": "The palette importer turns a pasted list of colours into swatches: paste a JSON array or a comma-separated string, press import, and the palette appears as a strip.",
+    "content": "Bringing colours into a tool is the step that usually costs the most effort, so the palette importer keeps it deliberately blunt. One field takes a paste, one button loads it, and the result is a row of swatches. Type or paste a JSON array such as [\"#3B82F6\",\"#A855F7\",\"#EF4444\"] and the parser keeps the string entries; paste a plain list separated by commas, spaces or newlines and it splits on those instead.\n\n- Accepted input: a JSON array of colour strings, or a loose list separated by whitespace, commas or newlines.\n- The loader tries JSON first and falls back to splitting, so both a copied export and a hand-typed list work.\n- Output: a swatch strip that runs two columns wide on a phone and six across on a desktop.\n- Nothing is stored: the imported palette lasts for the session and has to be pasted again to return.\n\nThe decision to accept loose input rather than insisting on JSON is what makes the tool practical for a colour list to swatches conversion. Values lifted from a design file, a spreadsheet column or a chat message arrive in whatever punctuation the source used, and the splitter handles all of it rather than rejecting the paste. That flexibility has a cost, though, and it is worth being explicit about: entries are not validated as colours. A stray word or a malformed hex string passes through as a string and renders as a swatch with no colour behind it, so a mostly empty strip usually means the paste contained something that was not a colour.\n\n- No validation: entries that are not colours still count as entries, and nothing reports them.\n- No names or roles. Order is the only structure, so a token file has to be mapped afterwards.\n- No export, no editing after import, and no sorting — the sorter is a separate tool.\n- Long lists render as one long strip with no pagination or wrapping controls.\n\nUse it as the entry point for any palette that exists somewhere else: a client's brand list, a measured sample, a JSON export from another tool, or the values you copied out of a random roll worth keeping. Once the colours are in, the sorters and comparators take over, and the CSS variable tools turn a settled list into named declarations. Before trusting an imported set, run the entries through the format validator if anything looks off — it will tell you which value is not a colour, which is faster than counting swatches. Both routes into the strip cover the two things people actually do — paste hex colors lifted from a design file, or import json palette exports from another tool — and the job is a color list to swatches conversion rather than an edit, so cleaning values up belongs to the tools downstream. Where the list has to become code rather than swatches, the CSS variable tools finish the job. Keeping the source list somewhere safe is the only discipline the page asks for, since nothing here survives the session.",
+    "howTo": [
+      "Paste the colour list into the field — a JSON array or a plain comma-separated string.",
+      "Press import; the loader tries JSON first and falls back to splitting on punctuation.",
+      "Check the strip: a missing swatch usually means one entry was not a valid colour.",
+      "Sort the imported palette or write it out as tokens with the other palette tools."
+    ],
+    "whenToUse": "Use this whenever a palette already exists outside this site — a brand list, a measured sample or an export from another tool. The {{palette-sorter|palette sorter}} orders what you import, the {{palette-comparison|palette comparison}} tool measures it against another set, and the {{css-color-variables-generator|CSS variables generator}} turns the settled list into named custom properties.",
+    "faqs": [
+      {
+        "q": "What formats does the field accept?",
+        "a": "A JSON array of colour strings, or a loose list separated by commas, spaces or newlines. The loader tries JSON first and falls back to splitting, so hand-typed lists work too."
+      },
+      {
+        "q": "Are the imported values checked?",
+        "a": "No. Entries are taken as strings without validation, so a malformed value appears as an entry with no colour behind it rather than as an error message."
+      },
+      {
+        "q": "Can I name the colours as I import them?",
+        "a": "Not here — the palette is a list in order, with no roles attached. Naming happens afterwards, usually when the values are written out as custom properties."
+      },
+      {
+        "q": "Is the imported palette saved?",
+        "a": "No. Nothing persists between visits, so keep the source list somewhere safe and paste it again whenever the palette is needed."
+      },
+      {
+        "q": "How do I find a bad value in a long list?",
+        "a": "Run the entries through the format validator: it reports which string is not a colour, which is quicker than counting swatches to find the gap."
+      }
+    ]
+  },
+  {
+    "slug": "palette-sorter",
+    "keywords": [
+      "palette sorter",
+      "sort colors by hue",
+      "sort by oklch lightness",
+      "sort by chroma"
+    ],
+    "intro": "The palette sorter orders any list of colours by hue, by OKLCH lightness or by chroma — three sorts that each reveal a different structure in the same palette.",
+    "content": "Order is information. The same six colours in one sequence read as a ramp and in another as a set, so the palette sorter offers three ways to sort a list and lets the arrangement say what the palette is actually made of. Colours are entered or edited in a list on the left; three buttons on the right apply the sorts, and each one reorders the list in place.\n\n- Sort colors by hue: orders colours around the wheel, which turns a palette into a spectrum and exposes gaps where a hue family is missing.\n- Sort by oklch lightness: orders from dark to light, which reads like an elevation ladder and is the fastest way to see whether a set has usable surfaces.\n- Sort by chroma: orders from muted to saturated, which separates the quiet colours from the loud ones and usually identifies the accent by position.\n- Every sort runs on OKLCH coordinates, so the hue order follows perceptual spacing rather than the raw numbers of the input format.\n\nSorting by hue answers a question about coverage: a palette that looks varied at a glance often turns out to occupy one narrow arc of the wheel, and the sorted strip makes that obvious. Sorting by lightness answers a question about structure: if the first four values are all in the 0.5 to 0.7 band, the palette has no surfaces and no ink, whatever its colours are. Sorting by chroma answers a question about emphasis: the value at the loud end is going to be read as the accent whether you intended it or not. Each sort is reversible in the sense that the palette is rebuilt from the same values, so nothing is lost by trying all three.\n\n- Sorting never changes a colour, only its position, so a palette that was unbalanced before stays unbalanced.\n- No descending option on any sort: the direction is fixed as the tool defines it.\n- No export and no persistence. The order has to be copied out manually, and the page starts from its default set each visit.\n- Nothing measures contrast, so a palette that sorts neatly can still be unusable for text.\n\nIt also helps to know that the sorts compose rather than compete: hue order answers where the palette sits on the wheel, oklch lightness order answers how much tonal range it has, and chroma order answers which value will read as the accent whether or not you intended one. Applying all three in a row turns a palette review into three specific questions instead of one vague impression.\n\nThe useful habit is to sort before you finalise, not after. A set that survives all three arrangements — spread across hues, laddered by lightness, distinct in chroma — is almost always a stronger palette than one that only looks good in the order it was typed. When the arrangement is for a reader rather than for you, sort by hue for swatch sheets and by lightness for scales and legends, and keep the unsorted order for anything that has to match a source document exactly.",
+    "howTo": [
+      "Enter or edit the palette in the list, adding and removing rows as needed.",
+      "Press the hue sort to see how much of the wheel the palette covers.",
+      "Press the lightness sort to find out whether the set contains real surfaces and inks.",
+      "Press the chroma sort to identify the accent by position rather than by opinion."
+    ],
+    "whenToUse": "Use this when a palette's order matters — a swatch sheet, a legend, a scale, or a set that needs auditing for coverage. The {{palette-comparison|palette comparison}} tool measures two palettes against each other, the {{palette-importer|palette importer}} is where an existing list comes from, and the {{palette-balance-analyzer|palette balance analyzer}} reports the averages that a sort only hints at.",
+    "faqs": [
+      {
+        "q": "What do the three sorts actually order by?",
+        "a": "Hue angle, OKLCH lightness and OKLCH chroma respectively. All three use the same perceptual colour space, so the orders are stable for a given set of values."
+      },
+      {
+        "q": "Can I reverse a sort or choose the direction?",
+        "a": "Not on this page. Each sort has one fixed direction, and the list can be edited afterwards but not flipped with a control."
+      },
+      {
+        "q": "Does sorting fix a bad palette?",
+        "a": "No. Ordering changes how the palette reads, not what it contains. A set with no dark values still has no dark values after sorting."
+      },
+      {
+        "q": "Which sort should I use before shipping a palette?",
+        "a": "Lightness first — it exposes whether the set can cover surfaces, text and borders at all. Then chroma, which shows what will be read as the accent by accident."
+      },
+      {
+        "q": "Is the sorted palette saved?",
+        "a": "No. Nothing persists, and the page returns to its default colours on the next visit, so copy the values out once the order is settled."
+      }
+    ]
+  },
+  {
+    "slug": "palette-comparison",
+    "keywords": [
+      "palette comparison",
+      "compare two palettes",
+      "average lightness and chroma",
+      "shared colors"
+    ],
+    "intro": "The palette comparison puts two editable palettes side by side and reports the numbers that actually differ between them: counts, average lightness, average chroma and any shared colours.",
+    "content": "Two palettes side by side do not explain themselves, which is why this page adds a summary underneath. The palette comparison gives each palette its own editor — add, remove and edit rows independently — and then reports four facts about the pair: how many colours each contains, each palette's average lightness, its average chroma, and which values appear in both.\n\n- Colour count per palette, which is usually the first thing to differ and the least important.\n- Average lightness, computed in OKLCH across each palette, so two sets can be compared for weight rather than for colour.\n- Average chroma, which answers whether one palette is quieter than the other and by how much.\n- Shared colours, listed by hex value when the two palettes contain exactly the same string, with an explicit message when nothing is shared.\n\nThe metrics are deliberately few, because the useful comparisons are few. Average lightness settles the most common argument in a palette review — whether a proposed set is broadly lighter or darker than the one in use — and average chroma settles its twin, whether the new palette is louder. The shared-colour check is exact-match only, which makes it a duplicate detector rather than a similarity test: two values one channel apart are reported as different, and that is the correct behaviour for spotting a copy of a token that should have been reused.\n\n- Averages describe a palette's centre, not its range. A set with one near-black and one near-white can average out to the same figure as a set of mid-tones.\n- No per-colour comparison: the summary says nothing about which specific value in A resembles which in B.\n- Exact matches only for the shared list, so near-duplicates pass silently.\n- No export and no persistence; the two palettes start from defaults each visit.\n\nReading the summary is a matter of knowing which figure settles which argument. When someone asks whether a new palette is too heavy, compare two palettes on average lightness alone; when the complaint is that it shouts, read average lightness and chroma together, because a set can be dark and quiet at the same time. The shared colors line answers a different question — whether the proposal is genuinely new or partly a copy of the palette already in use — and it is the fastest way to catch a token that was redefined instead of reused. A proposal that shares three of six values with the palette already in use is an iteration rather than a new direction, and that judgement is much harder to make from two strips side by side.\n\nThe page is most useful in a review: paste the palette in use into one side, the proposal into the other, and the summary turns an argument about taste into two numbers and a duplicate list. Where the question is perceptual rather than statistical — how far apart two specific colours are — the distance calculator answers it directly, and where the question is readability, the palette accessibility checker tests the values against a real background rather than against each other.",
+    "howTo": [
+      "Load the palette in use into the left editor.",
+      "Load the proposed palette into the right editor.",
+      "Compare the average lightness and chroma figures first — they settle most review arguments.",
+      "Check the shared list to catch values that should be reused rather than redefined."
+    ],
+    "whenToUse": "Use this during a palette review, when two sets have to be judged against each other rather than on their own. The {{palette-balance-analyzer|palette balance analyzer}} reports the same averages for one palette, the {{color-distance-calculator|colour distance calculator}} measures specific pairs, and the {{palette-accessibility-checker|palette accessibility checker}} tests whether either set works against a background.",
+    "faqs": [
+      {
+        "q": "What does the summary compare?",
+        "a": "Four things: the colour count of each palette, average OKLCH lightness, average OKLCH chroma, and the values that appear in both. Nothing else is measured."
+      },
+      {
+        "q": "How are shared colours detected?",
+        "a": "By exact hex match. A value one channel away from another is not reported as shared, which makes the list a duplicate detector rather than a similarity test."
+      },
+      {
+        "q": "Do the averages describe a palette's range?",
+        "a": "No. An average describes the centre: a palette holding one near-black and one near-white can produce the same figure as one made entirely of mid-tones."
+      },
+      {
+        "q": "Can I compare more than two palettes?",
+        "a": "Not at once. The page holds two editors, so a third palette means a second run with one side replaced."
+      },
+      {
+        "q": "Are the two palettes saved when I leave?",
+        "a": "No. Both start from default sets on every visit, so paste the values again or keep them in a document for reference."
+      }
+    ]
+  }
+]

@@ -30,6 +30,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Breadcrumb from "@/components/Breadcrumb";
+import PopularCalculators from "@/components/PopularCalculators";
 import Link from "next/link";
 
 export default function SupplyAndDemandEquilibriumPriceCalculator() {
@@ -38,12 +39,15 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
   const [c, setC] = useState("20");
   const [d, setD] = useState("1.5");
   const [showResults, setShowResults] = useState(false);
+  // Snapshot of the inputs behind the displayed results; it changes only when
+  // Calculate runs, so typing never recalculates (Gold Standard rule).
+  const [calcInputs, setCalcInputs] = useState(() => ({ a, b, c, d }));
 
   const result = useMemo(() => {
-    const aN = parseFloat(a) || 0;
-    const bN = parseFloat(b) || 0;
-    const cN = parseFloat(c) || 0;
-    const dN = parseFloat(d) || 0;
+    const aN = parseFloat(calcInputs.a) || 0;
+    const bN = parseFloat(calcInputs.b) || 0;
+    const cN = parseFloat(calcInputs.c) || 0;
+    const dN = parseFloat(calcInputs.d) || 0;
 
     if (bN + dN === 0) {
       return { price: 0, quantity: 0, invalid: true, demandAtP: 0, supplyAtP: 0 };
@@ -54,12 +58,12 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
     const supplyAtP = cN + dN * price;
 
     return { price, quantity, invalid: false, demandAtP, supplyAtP };
-  }, [a, b, c, d]);
+  }, [calcInputs]);
 
-  const aN = parseFloat(a) || 0;
-  const bN = parseFloat(b) || 0;
-  const cN = parseFloat(c) || 0;
-  const dN = parseFloat(d) || 0;
+  const aN = parseFloat(calcInputs.a) || 0;
+  const bN = parseFloat(calcInputs.b) || 0;
+  const cN = parseFloat(calcInputs.c) || 0;
+  const dN = parseFloat(calcInputs.d) || 0;
 
   const chartData = useMemo(() => {
     const maxP = Math.max(result.price * 1.6, 1);
@@ -73,7 +77,10 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
     return pts;
   }, [aN, bN, cN, dN, result.price]);
 
-  const handleCalculate = () => setShowResults(true);
+  const handleCalculate = () => {
+    setCalcInputs({ a, b, c, d });
+    setShowResults(true);
+  };
 
   return (
     <div className="racira-page-container py-4">
@@ -87,6 +94,8 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
           },
         ]}
       />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
 
         {/* LEFT: inputs (Mortgage Calculator template) */}
         <div className="card-calculator flex flex-col gap-4 !p-5 border border-border bg-card shadow-sm">
@@ -124,6 +133,7 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
                 setB("2");
                 setC("20");
                 setD("1.5");
+                setCalcInputs({ a: "100", b: "2", c: "20", d: "1.5" });
                 setShowResults(false);
               }}
             >
@@ -309,6 +319,11 @@ export default function SupplyAndDemandEquilibriumPriceCalculator() {
         </>
       )}
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/supply-and-demand-equilibrium-price-calculator" />
+      </div>
     </div>
   );
 }

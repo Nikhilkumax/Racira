@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "10-color-palette-generator",
+    "keywords": [
+      "10-color palette generator",
+      "harmony palette generator",
+      "palette from a base color",
+      "analogous and triadic palettes"
+    ],
+    "intro": "The 10-color palette generator turns one base color and one harmony rule into a small related set of swatches. It returns between two and five colors — the rule fixes the count rather than a setting — each shown with its hex value.",
+    "content": "The 10-color palette generator is a harmony palette generator: you set one base color, choose one harmony rule, and the whole set derives from that single pair of inputs. Nothing in the result is random, so the same two inputs always return the same swatches, and your base color is always one of them. The rule alone decides how many colors come back, and every rule reads from that same base, so the set stays recognisably one family.\n\n- Complementary — one hue 180° from the base (2 colors).\n- Analogous — the base plus ±30° either side (3 colors).\n- Triadic — 120° and 240° from the base (3 colors).\n- Split-complementary — 150° and 210° from the base (3 colors).\n- Tetradic — 90°, 180° and 270° from the base (4 colors).\n- Monochromatic — no hue rotation; lightness steps of ±0.15 and ±0.30 from the base, clamped at the ends (5 colors).\n\nThe rotation happens in OKLCH, and hue is the only coordinate that moves: lightness and chroma are read from the base, so every derived swatch is as light and as saturated as the color you set, and the strip holds together because the values differ by hue rather than by weight — that is what makes a palette from a base color coherent. Because OKLCH is perceptually even, the rotated hues land where the eye expects them rather than where a naive RGB turn would drop them. Because the maths is fixed, the same base and rule reproduce the same set on any device. Your base is always present in the strip: first for complementary, triadic, tetradic and split-complementary, and in the middle for analogous and monochromatic.\n\n- There is no count control. The harmony rule is the only thing that sets how many colors appear, and five is the maximum, so the tool cannot return eight or ten however its name reads.\n- No contrast check. It gives no text-safety reading, so any derived pair that carries text has to be verified elsewhere before it ships.\n- No ordering. The swatches arrive in derivation order and are never sorted, so a set can easily hold two colors too close to tell apart.\n\nPick the rule by how many colors the job needs rather than by taste. Two suit an accent and its companion; three suit a small chart series or badge set, and both triadic and split-complementary deliver three evenly separated hues. Four or five come from tetradic and monochromatic, the two rules built for that many values. Where the relationship is already decided, a single-rule finder gets to the answer in one step; this page is for choosing between the rules.\n\nBecause the 10-color palette generator draws everything from one base and one rule, changing either input regenerates the whole set — useful while a brand color is fixed and the palette around it is still open: hold the base, try analogous and triadic palettes until the strip behaves the way the layout needs, then copy the hex values worth keeping. Where a lighter variant of one hue is wanted instead of a second hue, a lightness ladder is the better derivation. Note which rule produced a set, since two rules can land close together and the record is what makes the derivation reproducible later.",
+    "howTo": [
+      "Set the base color with the picker or by typing a hex value into the field.",
+      "Choose a harmony rule from the dropdown — complementary, analogous, triadic, tetradic, split-complementary or monochromatic.",
+      "Read the swatch strip: the rule decides how many colors appear and which hues they are.",
+      "Copy the hex value from any swatch you want to keep."
+    ],
+    "whenToUse": "Use this when one fixed base color has to produce a small related set and you want to compare rules side by side: an accent pair, a three-color chart series, a badge set. The single-rule finders — {{complementary-palette-generator|complementary}}, {{analogous-palette-generator|analogous}}, {{triadic-palette-generator|triadic}}, {{tetradic-palette-generator|tetradic}}, {{split-complementary-palette-generator|split-complementary}} and {{monochromatic-palette-generator|monochromatic}} — run the same derivations one rule at a time, which is easier once the relationship is already decided. The {{5-color-palette-generator|5-color}} and {{8-color-palette-generator|8-color}} palette generators open the identical base-plus-harmony workbench at a fixed count, which suits a brief that starts from a target size rather than from a harmony.\n\nUse the {{contrast-checker|contrast checker}} before shipping any derived pair that carries text, and the {{palette-sorter|palette sorters}} when the strip needs an order. For a subtler set that stays inside one neighbourhood of the wheel, the {{single-color-to-full-palette|single-color-to-full-palette tool}} spreads the same base across a sixty-degree band at fixed lightness.",
+    "faqs": [
+      {
+        "q": "How many colors does it return, and what decides the count?",
+        "a": "Two to five. The harmony rule sets it: two for complementary, three for analogous, triadic and split-complementary, four for tetradic, five for monochromatic. A specific count cannot be requested."
+      },
+      {
+        "q": "Why is it called the 10-color palette generator if it returns at most five?",
+        "a": "The name comes from the page slug rather than from the output. The tool cannot return eight or ten colors, so treat the title as a page name and the harmony rule as the specification."
+      },
+      {
+        "q": "Does it change lightness or saturation, or only hue?",
+        "a": "For every rule except monochromatic it changes only hue: rotations run in OKLCH with the base's lightness and chroma preserved, so the derived swatches match the base's weight. Monochromatic varies lightness instead, in steps of 0.15."
+      },
+      {
+        "q": "Does the tool check contrast or order the swatches?",
+        "a": "No. It performs no contrast check, no text-safety reading and no sorting, so a derived set can hold two colors too close to distinguish. Run the pair through the contrast checker, and use the palette sorters when the strip needs an order."
+      },
+      {
+        "q": "Can I copy the palette into CSS all at once?",
+        "a": "Not in this view — each swatch copies its own hex value. When a whole set has to reach code, the palette exporters in this category produce a ready-to-paste block for CSS, Tailwind or design tokens."
+      }
+    ]
+  }
+]

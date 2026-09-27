@@ -25,6 +25,19 @@ export function isValidColor(input: string): boolean {
   return !!parseColor(input);
 }
 
+/**
+ * The gate a hex input uses before committing what was typed.
+ *
+ * culori's parse() (and so isValidColor) is deliberately permissive: besides
+ * full hex it accepts partial forms like "#9999" (CSS #RGBA) and bare "9999".
+ * Committing those mid-edit normalizes them into a complete colour and pushes
+ * it back into the field, replacing the raw text the user is typing with a
+ * colour they never entered. A hex field only commits 3- or 6-digit hex.
+ */
+export function isCompleteHex(input: string): boolean {
+  return /^#?[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(input.trim());
+}
+
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 const round = (n: number, p = 0) => Math.round(n * 10 ** p) / 10 ** p;
 
@@ -253,6 +266,35 @@ export function kmeansPalette(pixels: number[][], k: number, iters = 8): number[
   return centroids.map(c => c.map(Math.round));
 }
 
+/**
+ * The single most prevalent colour in a sample of pixels.
+ *
+ * Each channel is quantised to 5 bits (32 levels) and pixels are counted into
+ * histogram buckets; the largest bucket wins and its mean is returned. This is a
+ * real dominant colour, which is not the same as the average of every pixel:
+ * averaging a photo blends its extremes into a muddy mid-tone, whereas counting
+ * returns the colour that actually covers the most area.
+ */
+export function dominantColor(pixels: number[][]): number[] | null {
+  if (!pixels.length) return null;
+  const buckets = new Map<number, { n: number; r: number; g: number; b: number }>();
+  for (const p of pixels) {
+    const key = ((p[0] >> 3) << 10) | ((p[1] >> 3) << 5) | (p[2] >> 3);
+    const acc = buckets.get(key) ?? { n: 0, r: 0, g: 0, b: 0 };
+    acc.n += 1;
+    acc.r += p[0];
+    acc.g += p[1];
+    acc.b += p[2];
+    buckets.set(key, acc);
+  }
+  let best: { n: number; r: number; g: number; b: number } | null = null;
+  for (const acc of buckets.values()) {
+    if (!best || acc.n > best.n) best = acc;
+  }
+  if (!best) return null;
+  return [Math.round(best.r / best.n), Math.round(best.g / best.n), Math.round(best.b / best.n)];
+}
+
 export async function imageFileToPixels(file: File, sampleSize = 100): Promise<{ pixels: number[][]; width: number; height: number; canvas: HTMLCanvasElement }> {
   const img = await fileToImage(file);
   const canvas = document.createElement("canvas");
@@ -337,7 +379,7 @@ export const CSS_NAMED_COLORS: Array<[string, string]> = [
   ["maroon","#800000"],["mediumaquamarine","#66CDAA"],["mediumblue","#0000CD"],["mediumorchid","#BA55D3"],
   ["mediumpurple","#9370DB"],["mediumseagreen","#3CB371"],["mediumslateblue","#7B68EE"],["mediumspringgreen","#00FA9A"],
   ["mediumturquoise","#48D1CC"],["mediumvioletred","#C71585"],["midnightblue","#191970"],["mintcream","#F5FFFA"],
-  ["mistyrose","#FFE4E1"],["moccasin","#FFE4B4"],["navajowhite","#FFDEAD"],["navy","#000080"],
+  ["mistyrose","#FFE4E1"],["moccasin","#FFE4B5"],["navajowhite","#FFDEAD"],["navy","#000080"],
   ["oldlace","#FDF5E6"],["olive","#808000"],["olivedrab","#6B8E23"],["orange","#FFA500"],
   ["orangered","#FF4500"],["orchid","#DA70D6"],["palegoldenrod","#EEE8AA"],["palegreen","#98FB98"],
   ["paleturquoise","#AFEEEE"],["palevioletred","#DB7093"],["papayawhip","#FFEFD5"],["peachpuff","#FFDAB9"],

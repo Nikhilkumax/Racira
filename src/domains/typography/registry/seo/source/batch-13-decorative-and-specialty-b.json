@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "retro-type-style-maker",
+    "keywords": [
+      "retro type style maker",
+      "decade preset",
+      "neon glow",
+      "chrome gradient"
+    ],
+    "intro": "The retro type style maker holds five decade presets, and each one is a bundle rather than a filter: a face, two three-colour palettes and the CSS treatment that carries the period. Bundling them is the point, because a retro look is the face and the palette and the shadow moving together.",
+    "content": "The retro type style maker renders a word in one of five decade presets and exports the CSS behind it. Every preset answers the same three questions at once — which face, which colours, and which treatment — because changing only one of them produces something that reads as a contemporary setting with a period ornament attached.\n\nThe presets differ in the mechanism each one relies on, which is why they are reproducible rather than nostalgic.\n\n- 1950s diner — Bebas Neue, condensed caps with a hard offset shadow in the accent colour, sitting on a cream or amber ground.\n- 1970s warm — Fraunces at weight 700 with a little positive tracking, the analogue warmth carried by a rounded serif rather than an effect.\n- 1980s neon — Poppins with three stacked glows at 6, 18 and 36 pixels, all in the accent colour so the halo bleeds outward rather than sits as an edge.\n- 1990s grunge — Roboto Slab with minus 0.02em tracking and a one-pixel dark offset, which reads as imperfect registration on absorbent paper.\n- Y2K chrome — Space Grotesk filled with a vertical light-dark-light chrome gradient, white through the accent and back, clipped to the letterforms.\n\nTwo values drive the range. The size slider runs from 24px to 180px, is clamped at both ends and is written into the export in rem to four decimal places, so the declaration survives a root size other than 16px. The effect intensity runs from 0.2 to 3 and multiplies the diner offset, the neon glow radii and the grunge offset; the chrome ramp and the seventies spacing ignore it. Each decade ships two three-colour palettes, and the middle colour is the ground the preview sits on, which is why the same preset can look loud or quiet without touching the treatment. The exported class carries the accent and ink colours as custom properties, so a later palette edit happens in one place instead of across declarations.\n\nWhat the export leaves to whoever pastes it is worth knowing before the class is copied.\n\n- The chrome preset writes background-clip with a transparent fill and no fallback colour or selection style, so a browser that lacks the property shows nothing until a plain colour is added by hand.\n- Intensity covers three of the five treatments only; the gradient ramp and the seventies' letter-spacing are fixed values.\n- Faces come from the catalogue, so a project with a licensed display face cannot preview it here.\n- Nothing compares the palette against the text colour, so a low-contrast combination can be produced and exported without a warning.\n- The preview sets the weight itself at 800 for all presets, so the exported weight is not what the preview shows for every decade.\n\nReach for it when a headline or a poster needs a period flavour and the direction has to be shown rather than described, and when the same treatment has to be reused across a campaign rather than re-invented per asset. The honest limitation is that these are typefaces wearing period clothes, not lettering, so a piece that has to read as drawn or painted belongs further along the decorative shelf.",
+    "howTo": [
+      { "step": "Pick the decade first and read the face and treatment readouts before touching the text, since the preset decides both the family and the effect." },
+      { "step": "Enter the real words rather than a placeholder, because condensed caps and a chrome ramp behave very differently at one word and at six." },
+      { "step": "Choose one of the two palettes for that decade, then use the intensity slider to move between a subtle edge and an aggressive neon glow." },
+      { "step": "Copy the CSS and add the two pieces the export leaves out for the chrome preset: a plain fallback colour and a selection background." }
+    ],
+    "whenToUse": "Reach for it when a retro direction has to be shown in minutes, when an existing headline looks period from a distance and wrong up close, or when a campaign needs four decade variants of one line built on the same structure. The bundle is the useful idea: face, palette and treatment chosen once. Where the period is a lettering tradition rather than a decade, the {{lettering-style-previewer|lettering style previewer}} covers brush and marker looks, while the {{hand-lettering-guide-sheet|hand-lettering guide sheet}} and the {{calligraphy-guideline-generator|calligraphy guideline generator}} handle practice guides, and the {{logo-type-tester|logo type tester}} checks whether the result survives at small sizes.",
+    "faqs": [
+      {
+        "q": "Why does one preset change the face as well as the effect?",
+        "a": "Because a period look is the typeface and the treatment together. A neon glow on a transitional serif still reads as a serif with a glow, while the geometric sans makes the outline and the saturation agree. The presets keep the pairing deliberate so the two choices are not made independently and then reconciled."
+      },
+      {
+        "q": "Does the intensity slider affect every preset?",
+        "a": "No. It multiplies the diner offset, the three neon glow radii and the grunge offset, so those three respond across a range from barely visible to heavy. The Y2K chrome ramp and the seventies tracking are fixed values, so the slider leaves those two presets where they are."
+      },
+      {
+        "q": "Can I keep the treatment but change the colours?",
+        "a": "Yes, and that is why the accent and ink colours are written as custom properties rather than inlined. Editing the two variables changes the shadow, the glow and the ground at once. A third colour that is not part of the palette has to be typed into the declarations directly."
+      },
+      {
+        "q": "Why does the chrome preset need extra CSS after copying?",
+        "a": "Because a gradient fill is a background image clipped to the text with the fill set to transparent. A browser without the clip property paints nothing, and a text selection would be invisible since the fill is transparent. The export therefore has to be given a plain fallback colour and a selection background before it ships."
+      },
+      {
+        "q": "Which preset holds up on a long line of text?",
+        "a": "The seventies preset, since weight 700 in a rounded serif stays readable at length and needs no effect to carry it. The chrome ramp depends on the letter height, so it fades on a wrapped line, and the neon glow at 36 pixels blurs serifs and thin joins until the words stop separating."
+      }
+    ]
+  },
+  {
+    "slug": "hand-lettering-guide-sheet",
+    "keywords": [
+      "hand-lettering guide sheet",
+      "x-height",
+      "cap height",
+      "slant guide"
+    ],
+    "intro": "The hand-lettering guide sheet prints the ruled page a lettering practice session needs: baseline, x-height, cap height, ascender and descender lines plus an optional slant guide. Every measure is expressed as a ratio of the x-height, which is how exemplars are actually specified.",
+    "content": "The hand-lettering guide sheet builds a printable practice page from one number: the x-height. Everything else on the page is a ratio of it — the cap height, the ascender, the descender and the slant — so a sheet can be re-proportioned for a different script without redrawing anything.\n\nFour guide sets are available, and each one suits a different stage of practice.\n\n- Full set — baseline, x-height, cap height, ascender and descender, which is the sheet for learning a new alphabet.\n- Cap-height only — for practicing capitals where the lowercase body is not the subject.\n- Ascender and descender focus — the two extremes only, for a script whose loops are the hard part.\n- Slant practice — adds the slanted guide line at the chosen angle, for italic and copperplate drills.\n\nFive ratios control the proportions, and the tool keeps them inspectable rather than hiding them behind a preset. Cap height defaults to 1.45 times the x-height, with a range from 1 to 1.8. The ascender starts at 1.6 and is forced to at least the cap height, since an ascender that sits below the capitals is a drawing error rather than a style choice. The descender defaults to 0.75 and can drop to 0.2, which is the shallow case for a script with almost no tails. Slant runs from 0 to 45 degrees, and the sheet reports the horizontal offset one x-height of slant produces, which is the number a ruler can actually check.\n\nThe page is built to print at 100 percent. Each row is the ascender plus the descender plus a fixed 24-pixel gap, the sheet height is the row height times the number of practice rows plus a margin, and the controls are hidden from the printed output. Practice words sit above the baseline, and the guide lines are drawn in light grey and dashed colours so they stay subordinate to the strokes — a guide that competes with the lettering stops being a guide. Up to eight rows fit on a sheet, and the practice word, the reference face and the ratio set can all be changed before printing.\n\nWhere the sheet is limited is worth reading before it is printed for a class.\n\n- The guide lines are geometric ratios, not the metrics of the reference face, so a face with an unusually large x-height will not sit on the cap line the way the sheet implies.\n- The slant guide is a single skewed line rather than a set of slant lines across the row, so a long practice word needs the angle read from the ruler readout rather than eyeballed down the page.\n- Printing depends on the browser dialog: scaling the job below 100 percent shrinks the measured proportions along with everything else.\n- There is no PDF export and no saved sheet, so a set of sheets for a class has to be printed one configuration at a time.\n- Nothing measures the result, so the sheet cannot tell whether the practice strokes are landing on the guides.\n\nUse it when a practice session needs a page that matches a real script's proportions, and again when a lettering commission has to be specified numerically for someone else to draw. The ratio readouts double as the specification: cap height, ascender and descender as multiples of the x-height are exactly the numbers a brief can carry.",
+    "howTo": [
+      { "step": "Set the x-height in pixels first, since every other measure on the sheet scales from it and the printed size follows from that number." },
+      { "step": "Adjust the cap, ascender and descender ratios to match the script, keeping the ascender at or above the cap height as the tool enforces." },
+      { "step": "Choose the guide set and the slant, then type the practice word that will be printed on every row." },
+      { "step": "Print at 100 percent scale and check the row height readout against the paper, since browser scaling changes the measured proportions." }
+    ],
+    "whenToUse": "Reach for it when a lettering practice page has to match a script's real proportions, when a class needs one sheet per alphabet rather than a generic ruled pad, or when a commission has to be specified so another hand can reproduce the size. The ratio model is the transferable part: cap, ascender and descender as multiples of the x-height. For measuring an existing face rather than planning a sheet, the {{type-scale-generator|type scale generator}} and the {{modular-scale-calculator|modular scale calculator}} give the size ladder, while the {{calligraphy-guideline-generator|calligraphy guideline generator}} works the same ground in nib widths for broad-edge scripts.",
+    "faqs": [
+      {
+        "q": "Why is the x-height the only size the sheet asks for?",
+        "a": "Because every other measure on a practice sheet is defined as a multiple of it. Cap heights sit around one and a half x-heights, ascenders a little above that, descenders below, and calligraphic proportions are taught in nib widths of the x-height. One base number plus four ratios describes the whole page."
+      },
+      {
+        "q": "Do the guides follow the metrics of the reference face?",
+        "a": "No, and that is deliberate. The sheet is a drawing guide, so the lines are the geometric ratios you set rather than the font's own metrics. If a specific face's x-height or cap height is the target, measure it first and enter those ratios, since the guide lines will not bend to the loaded font."
+      },
+      {
+        "q": "What does the slant offset readout mean?",
+        "a": "It is the horizontal distance one x-height of slant covers, taken as the tangent of the angle. It is useful because a slanted line on a page is hard to verify by eye while a distance is measurable: set a ruler vertically by one x-height and check that the slant line has moved across by that many pixels."
+      },
+      {
+        "q": "Why is the ascender forced above the cap height?",
+        "a": "Because lowercase ascenders normally rise above the capitals, and a sheet with the ascender line below the cap line invites practice strokes that would be wrong on real letterforms. The tool raises the value to the cap height whenever a lower one is entered, which keeps the sheet drawable even when the two controls disagree."
+      },
+      {
+        "q": "Can I use the sheet for a different paper size?",
+        "a": "Yes, by changing the x-height rather than the paper. The proportions survive any scale, so a 48-pixel x-height on A4 and a 24-pixel x-height on a smaller pad describe the same hand at two sizes. What does not survive is browser print scaling, which shrinks the rendered lines away from the printed measurements."
+      }
+    ]
+  },
+  {
+    "slug": "calligraphy-guideline-generator",
+    "keywords": [
+      "calligraphy guideline generator",
+      "nib width",
+      "slanted guide",
+      "line spacing"
+    ],
+    "intro": "The calligraphy guideline generator rules a writing page from the two things calligraphy proportions are actually taught in: nib widths for broad-edge scripts and millimetres for pointed-pen work. Slant, ascender and descender rules follow the chosen script rather than being set from scratch.",
+    "content": "The calligraphy guideline generator draws the ruled sheet a calligrapher writes on, and it starts from the script rather than from the page. Four scripts are modelled, each with the proportions it is normally taught in, and the slanted guide and line spacing follow from that choice rather than being set separately.\n\n- Italic, the cancellaresca hand — five nib widths of x-height with a modest forward slant, so a two-millimetre nib gives a ten-millimetre x-height.\n- Foundational hand — four nib widths, upright, circular bowls, which is why it is the teaching script.\n- Copperplate, a pointed-pen script — no nib-width relationship at all; the proportion comes from the pointed-stroke ratio and the x-height is entered in millimetres, with a steep slant near 55 degrees.\n- Uncial — five nib widths and upright, rounded majuscule forms with almost no ascenders.\n\nFor the three broad-edge scripts the x-height is derived from the nib width rather than typed, and the panel states the arithmetic, so a 2mm nib at five widths reads as a 10mm x-height. The slant is initialised from the script and remains adjustable from 0 to 75 degrees, which matters because the pointed-pen hands sit far steeper than the broad-edge ones. Ascenders are taken at 1.6 times the x-height and descenders at 0.7, both stated as derivations in the reference table rather than presented as fixed rules of calligraphy. The millimetre-to-pixel conversion the sheet uses is 3.78, the figure approximated from a 96 dots-per-inch screen, and the line spacing is the ascender plus the x-height plus the descender plus a small gap, reported in millimetres so it can be compared with the nib on the desk.\n\nOn the page, the baseline is drawn solid and the other rules dashed, the slant appears as one skewed line per row, and the practice alphabet is set small and grey at the baseline of each row. Up to ten rows can be generated, and the print action hides the controls so only the sheet comes out. The intentional limitation of the page is that it describes proportions, not a hand: the same rules that serve a formal italic will not make a beginner's strokes even.\n\nThe printed sheet comes with a few caveats that are easy to miss.\n\n- The sheet prints at whatever scale the browser dialog uses, so a scaled job loses the millimetre relationships the table reports.\n- The pixel conversion is fixed at 3.78, so a device with a different assumed resolution shows a slightly different physical size on screen; the printed result is what carries the measurement.\n- The practice alphabet is a single line of characters and cannot be set in more than one size per sheet.\n- Copperplate proportions are entered directly, since a pointed nib has no width relationship to the x-height and the tool does not pretend otherwise.\n- Nothing checks the nib against the x-height after you override the derived value, so an unrealistic combination can be printed.\n\nUse it at the start of a calligraphy session when the nib has to be matched to a comfortable x-height, and when a script's slant or ascender rule has to be confirmed rather than remembered.",
+    "howTo": [
+      { "step": "Choose the script, which sets the nib-width relationship, the slant and the default x-height together." },
+      { "step": "Enter the nib width for a broad-edge hand and read the derived x-height, or type the x-height directly for pointed-pen work." },
+      { "step": "Set the slant and the number of rows, then read the line spacing in millimetres to check it against the dip of the nib." },
+      { "step": "Print the page and confirm the scale is 100 percent, because the table's measurements assume it." }
+    ],
+    "whenToUse": "Reach for it when a nib has to be matched to a comfortable x-height, when a script's slant and ascender rules need confirming in millimetres, or when a calligraphy class needs ruled sheets that follow the teaching proportions instead of a generic ruling. The nib-width arithmetic is the part worth carrying away. Where the sheet is for a drawn hand rather than a nib, the {{hand-lettering-guide-sheet|hand-lettering guide sheet}} works in x-height ratios, the {{lettering-style-previewer|lettering style previewer}} covers brush and marker traditions, and the {{monogram-letter-designer|monogram letter designer}} takes the same proportions into a single framed letter.",
+    "faqs": [
+      {
+        "q": "Why is the x-height derived from the nib width?",
+        "a": "Because that is how broad-edge proportions are taught and how they stay consistent. A hand is defined as a number of nib widths tall, so the x-height changes whenever the nib does, and entering the nib once keeps the sheet matched to the pen in your hand rather than to an abstract size."
+      },
+      {
+        "q": "Why does Copperplate skip the nib-width relationship?",
+        "a": "Because a pointed nib has no edge width to measure. Its stroke weight comes from pressure, so the proportions are set by the pointed-stroke ratio and the x-height is entered in millimetres. The tool says so on the panel instead of inventing a width for a pen that does not have one."
+      },
+      {
+        "q": "What millimetre figure does the sheet trust?",
+        "a": "The printed one. The screen conversion uses 3.78 pixels per millimetre, taken from a 96 dots-per-inch assumption, so the on-screen ruler may be a fraction out depending on the display. Print at 100 percent and the millimetres in the table are the millimetres on the paper."
+      },
+      {
+        "q": "How is the line spacing worked out?",
+        "a": "It is the ascender plus the x-height plus the descender plus a small gap, all converted to millimetres. That is the smallest spacing in which a full ascender and a full descender can coexist without the next row's ascenders touching the row above's descenders."
+      },
+      {
+        "q": "Can I use the same slant for every script?",
+        "a": "You can, but the scripts disagree about it for a reason. Broad-edge hands sit near upright because the nib is held at an angle to the baseline, while pointed-pen scripts want a steep slant that suits the flex of the nib. The tool seeds each script with its own value and leaves it adjustable."
+      }
+    ]
+  },
+  {
+    "slug": "monogram-letter-designer",
+    "keywords": [
+      "monogram letter designer",
+      "interlocking letters",
+      "frame clearance",
+      "inline svg"
+    ],
+    "intro": "The monogram letter designer sets two or three initials in a frame and exports the mark as inline SVG. A monogram is a spacing problem before it is a drawing problem, so the tool reports the overlap, the tracking and the frame clearance the letters actually have.",
+    "content": "The monogram letter designer takes up to three initials, sets them in a chosen face and frames the result, then exports the whole mark as inline SVG that scales from a favicon to signage.\n\nFour choices shape the mark, and the last three are all about how the letters share the box.\n\n- Layout — interlocked, evenly spaced or stacked. Interlocking letters are the classic two-letter form, evenly spaced leaves each initial its own column, and stacking suits three initials that would otherwise crowd.\n- Frame — none, circle, rounded square, diamond or shield, each drawn as a stroked path that scales with the box rather than as a fixed image.\n- Size — 60px to 320px, with the letter size derived from it: two initials are set at roughly 0.62 of the box, three drop to about 0.42 so the row still fits.\n\nOverlap and tracking are separate controls because they solve different problems. Overlap runs from 0 to 0.4 em and shifts each successive letter toward the previous one, which is what makes two initials interlock. Tracking runs from minus 0.05 to 0.4 em and changes the space between letters without moving their anchors. A three-letter mark usually needs the middle letter treated differently — reduced, raised or tracked out — and the panel says so rather than letting the row become a block. The frame stroke is adjustable from 0 to 12px and is redrawn proportionally in the small-size previews, since a stroke that reads at 320px looks like a heavy collar at 24px.\n\nThree properties decide whether the mark survives.\n\n- The frame is sized to the letters' optical bounds rather than their em boxes, because a mathematically centred monogram looks high on the page; the frame clearance readout reports how much of the box the letters leave free.\n- Legibility at small sizes is reported from the letter count, and three initials in a tight frame are flagged as the case that needs a simpler treatment.\n- The exported SVG carries an accessible label built from the initials, so the mark is not silent to a screen reader when it is the only content of a link or a header.\n\nA few things are left to whoever places the mark.\n\n- The export is one flat ink colour; a two-colour monogram or a metallic fill has to be styled in the surrounding code.\n- The preview ladder shows 24, 40 and 64 pixels only, so intermediate sizes have to be judged in a browser rather than on the page.\n- Nothing checks the initials against the frame at extreme overlaps, so a hostile combination can be exported as it stands.\n- The letters are set in the catalogue faces, so initials in a proprietary logo face cannot be proofed here.\n- The SVG is a live text element rather than outlines, so a viewer without the face installed falls back to the generic family.\n\nUse it when a mark has to be settled quickly, when an existing monogram reads as crowded or as floating in its frame, or when a design system needs the same initials at three scales.",
+    "howTo": [
+      { "step": "Enter the initials and read the legibility readout, since a third letter changes how much of the box each one can take." },
+      { "step": "Pick the layout and the frame, then set the size to the largest context the mark appears in." },
+      { "step": "Use overlap to interlock and tracking to even out the spacing, watching the frame clearance readout rather than judging the centre by eye." },
+      { "step": "Read the small-size ladder before exporting, and simplify the frame or drop a letter if the 24-pixel version stops reading." }
+    ],
+    "whenToUse": "Reach for it when initials have to be set as a mark, when an existing monogram is crowded, high in its frame or unreadable at favicon size, or when one set of initials has to work on a letterhead and in a browser tab. Overlap and clearance are the two numbers that decide most of it. For the surrounding wordmark, the {{logo-type-tester|logo type tester}} tests the same mark at small sizes, the {{lettering-style-previewer|lettering style previewer}} covers drawn alternatives, and the {{type-hierarchy-planner|type hierarchy planner}} keeps a lockup consistent across the rest of a page.",
+    "faqs": [
+      {
+        "q": "How many initials can a monogram carry?",
+        "a": "Three at most, and two is usually better. A two-letter mark interlinks without effort, while three needs the middle letter reduced or raised to keep the row from reading as a solid bar. The tool caps the input at three and reports the legibility verdict for the count you enter."
+      },
+      {
+        "q": "What is the difference between overlap and tracking?",
+        "a": "Overlap moves each successive letter toward the previous one, so the forms interlock and share space. Tracking changes the spacing between letters without moving their anchors, which evens out a pair that will not touch. Interlocking marks are tuned with overlap; spaced marks with tracking."
+      },
+      {
+        "q": "Why does a mathematically centred monogram look wrong?",
+        "a": "Because centring uses the em box while the eye reads the ink. A cap with no descender leaves space at the bottom of its box, so a perfectly centred setting appears to float high. The frame is therefore sized to the letters' optical bounds, and the clearance readout reports the room those bounds leave."
+      },
+      {
+        "q": "Is the exported SVG editable type or outlines?",
+        "a": "It is live text inside an SVG, so the initials stay editable and the file stays small. The trade-off is that the face has to be available wherever the mark renders; converting the text to outlines before shipping avoids a fallback face appearing on someone else's machine."
+      },
+      {
+        "q": "Why does the small-size preview redraw the frame stroke?",
+        "a": "Because a stroke scales with the viewBox, and a 6px rule that looks refined at 320 pixels reads as a heavy band at 24 pixels. The small previews thin or thicken the frame proportionally so the mark can be judged at browser-tab size rather than only at logo size."
+      }
+    ]
+  },
+  {
+    "slug": "logo-type-tester",
+    "keywords": [
+      "logo type tester",
+      "wordmark",
+      "hairline",
+      "favicon"
+    ],
+    "intro": "The logo type tester sets a wordmark at logo size and again at a ladder down to 12 pixels, then reports the features that break first when a face is scaled down. Wordmarks fail at sizes the designer never previews, which is the whole reason the ladder exists.",
+    "content": "The logo type tester takes a word or a company name, sets it in a chosen face and shows the same setting twice: once at logo size, where it will be judged, and once down a ladder of 12, 16, 20 and 24 pixels, where it will actually be seen most often.\n\nThe controls map to the decisions a wordmark makes, and each one has a readout attached.\n\n- Face and weight, from 300 to 800, with the counter-survival readout keyed to the weight: below 500 the light strokes are flagged as vanishing under 20 pixels.\n- Tracking, from minus 0.05 to 0.3 em, plus the case setting, because uppercase is the common wordmark choice and it needs positive tracking far more than sentence case.\n- Logo size from 24 to 200 pixels, which sets the size of the reference setting and the approximate width readout, computed as the character count times the size times a per-character factor adjusted by the tracking.\n- Mark lockup, either the wordmark alone or a placeholder mark to the left of or above it, which is where the alignment question appears: a cap height should meet the optical centre of the mark rather than its box centre.\n\nThe scaling checks the tool states are the practical part. Any stroke that thins to a single pixel at 16 pixels has to be thickened or dropped. Counters in e, a and o must keep a visible hole at the smallest size, which is why light weights and tight apertures fail first. Capitals need roughly 0.02em more tracking for each step down so they do not touch. The lockup alignment is judged against the mark rather than the line box. And the monochrome test remains the arbiter: a mark that needs two colours to separate its letters has letterform problems rather than colour problems.\n\nTwo verifications are reported directly. Hairline risk comes from the face's category, flagging serifs as the first to thin out and display faces as the most resilient. The favicon check reports that a wordmark of more than two or three characters should hand the small size to a standalone mark instead, since a wordmark at 16 pixels is a texture rather than a name.\n\nWhat the tool does not settle has to be checked elsewhere.\n\n- The small-size ladder is fixed at four sizes, so intermediate steps have to be checked in a browser.\n- The width readout is an approximation based on an average character factor, not a measurement of the actual face.\n- Nothing rasterises the wordmark, so the favicon itself is not produced here.\n- The exported CSS sets white-space so the mark cannot wrap, which is correct for a wordmark but needs care inside a narrow container.\n- Contrast against the background is not evaluated, so a wordmark can be exported in a colour that disappears on its surface.\n\nUse it before a wordmark is locked, and again when a mark that looked fine on a slide fails in a browser tab.",
+    "howTo": [
+      { "step": "Enter the real name, not a placeholder, since its length and letter combinations decide whether the mark fits a lockup at all." },
+      { "step": "Choose the face, weight and case, then set tracking while watching the width readout and the counter-survival note." },
+      { "step": "Read the small-size ladder and the two risk readouts, and note which feature fails first as the size drops." },
+      { "step": "Copy the CSS for the large setting and plan the small cut separately if the ladder showed a break." }
+    ],
+    "whenToUse": "Reach for it when a wordmark is about to be locked and has only been seen at presentation size, when a mark that works on a slide dissolves in a browser tab, or when someone needs the argument for a dedicated small cut with heavier weight and wider tracking. The small-size ladder is the evidence. For the mark beside the words, the {{monogram-letter-designer|monogram letter designer}} covers initials, the {{type-hierarchy-planner|type hierarchy planner}} sets the rest of the page around the lockup, and the {{font-pairing-suggester|font pairing suggester}} finds a face for the supporting text.",
+    "faqs": [
+      {
+        "q": "Why does a wordmark need a separate small-size cut?",
+        "a": "Because optically correcting for size cannot be done by scaling. Below about 20 pixels a thin stroke falls under one pixel and disappears, counters close, and capitals begin to touch. The small cut thickens the weight, opens the tracking and often simplifies the shapes, which is a different drawing rather than a larger scale."
+      },
+      {
+        "q": "What does the hairline risk readout mean?",
+        "a": "It is a statement about the face's category rather than a measurement. Serif faces lose their fine strokes first as they shrink, display faces are built from heavier forms and hold up longest, and text sans faces sit between the two. It tells you where to look on the ladder rather than what you will see."
+      },
+      {
+        "q": "Why add tracking as the size drops?",
+        "a": "Because spacing that reads correctly at 96 pixels looks crowded at 16. The counters and sidebearings shrink with the glyphs while the eye needs proportionally more separation, so capitals in particular need a little positive tracking per step down. The check table puts the figure at roughly 0.02em per step."
+      },
+      {
+        "q": "How accurate is the wordmark width readout?",
+        "a": "It is an estimate. The width is the character count times the size times an average per-character factor that the tracking adjusts, so a face with unusually wide or narrow forms will differ from the figure. It is useful for comparing two settings of the same word rather than for setting a precise container width."
+      },
+      {
+        "q": "Should a wordmark be used as the favicon?",
+        "a": "Only if it is two or three characters. At 16 pixels a longer word becomes a grey texture and loses its letterforms, which is why the tool's check suggests the standalone mark for anything longer. The monogram or mark carries the identity at that size while the full wordmark stays for roomier placements."
+      }
+    ]
+  }
+]

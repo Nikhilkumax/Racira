@@ -12,10 +12,22 @@ export function ImageDropzone({
 }) {
   const ref = useRef<HTMLInputElement>(null);
   const [drag, setDrag] = useState(false);
+  const [error, setError] = useState<string>("");
 
   function handle(files: FileList | null) {
     const f = files?.[0];
-    if (f && f.type.startsWith("image/")) onFile(f);
+    if (!f) return;
+    if (!f.type.startsWith("image/")) {
+      setError("That file isn't an image. Choose a PNG, JPG, WebP or GIF.");
+      return;
+    }
+    // Decode before handing the file off: a corrupt/unsupported image would
+    // otherwise reject later and leave the tool silently stuck on the dropzone.
+    const url = URL.createObjectURL(f);
+    const probe = new Image();
+    probe.onload = () => { URL.revokeObjectURL(url); setError(""); onFile(f); };
+    probe.onerror = () => { URL.revokeObjectURL(url); setError("That image couldn't be read — the file may be corrupt."); };
+    probe.src = url;
   }
 
   return (
@@ -33,12 +45,13 @@ export function ImageDropzone({
       <Upload className="h-8 w-8 text-muted-foreground" />
       <p className="text-sm font-medium">Drop an image here, or click to upload</p>
       <p className="text-xs text-muted-foreground">PNG, JPG, WebP, GIF</p>
+      {error && <p role="alert" className="text-xs font-medium text-destructive">{error}</p>}
       <input
         ref={ref}
         type="file"
         accept="image/*"
         className="hidden"
-        onChange={(e) => handle(e.target.files)}
+        onChange={(e) => { handle(e.target.files); e.currentTarget.value = ""; }}
       />
     </div>
   );

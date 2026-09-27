@@ -169,7 +169,7 @@ export default function MindfulnessPracticeRoiCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dailyMins, hourlyWage, focusImprovementPct]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -196,7 +196,7 @@ export default function MindfulnessPracticeRoiCalculator() {
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Mindfulness Practice ROI Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px] mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
           
           {/* LEFT: Inputs */}
           <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">

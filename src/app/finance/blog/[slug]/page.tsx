@@ -8,9 +8,14 @@ import { getPostBySlug, getRelated } from "@/domains/finance/data/posts";
 import { renderMarkdown } from "@/domains/finance/lib/markdown";
 import type { PostWithRelations, Tag } from "@/types/finance/db";
 
+// ISR: post pages re-render at most every 10 minutes. A scheduled post's
+// page (previously 404) becomes reachable on the next re-render after its
+// published_at passes — no cron needed.
+export const revalidate = 600;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
   return {
     title: post.meta_title,
@@ -19,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: post.title,
       description: post.meta_description,
       images: [post.cover_url],
-      url: `/blog/${slug}`,
+      url: `/finance/blog/${slug}`,
       type: "article",
       authors: [post.author.name],
       publishedTime: post.published_at,
@@ -32,16 +37,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       images: [post.cover_url],
     },
     alternates: {
-      canonical: `/blog/${slug}`,
+      canonical: `/finance/blog/${slug}`,
     },
   };
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post || post.status !== "published") return notFound();
-  const related = getRelated(post, 3);
+  const related = await getRelated(post, 3);
   const html = renderMarkdown(post.content);
   const date = new Date(post.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
@@ -68,11 +73,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <article>
         <header className="border-b border-border/60" style={{ background: "var(--gradient-hero)" }}>
           <div className="racira-page-container py-14">
-            <Link href="/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+            <Link href="/finance/blog" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
               <ArrowLeft className="h-3.5 w-3.5" /> All articles
             </Link>
             <Link
-              href={`/category/${post.category.slug}`}
+              href={`/finance/category/${post.category.slug}`}
               className="mt-6 inline-block text-xs font-semibold uppercase tracking-wider text-primary"
             >
               {post.category.name}
@@ -82,7 +87,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
             </h1>
             <p className="mt-4 text-lg text-muted-foreground">{post.excerpt}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              <Link href={`/authors/${post.author.slug}`} className="flex items-center gap-2 hover:text-foreground">
+              <Link href={`/finance/authors/${post.author.slug}`} className="flex items-center gap-2 hover:text-foreground">
                 <img src={post.author.avatar_url} alt="" className="h-9 w-9 rounded-full" />
                 <span className="font-medium text-foreground">{post.author.name}</span>
               </Link>
@@ -103,7 +108,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           {post.tags.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2 border-t border-border/60 pt-6">
               {post.tags.map((t: Tag) => (
-                <Link key={t.id} href={`/tag/${(t as any).slug}`} className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground">
+                <Link key={t.id} href={`/finance/tag/${(t as any).slug}`} className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground">
                   #{(t as any).name}
                 </Link>
               ))}
@@ -115,7 +120,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
               <img src={post.author.avatar_url} alt="" className="h-14 w-14 rounded-full" />
               <div>
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{post.author.role}</div>
-                <Link href={`/authors/${post.author.slug}`} className="mt-1 block font-display text-xl font-semibold hover:text-primary">
+                <Link href={`/finance/authors/${post.author.slug}`} className="mt-1 block font-display text-xl font-semibold hover:text-primary">
                   {post.author.name}
                 </Link>
                 <p className="mt-2 text-sm text-muted-foreground">{post.author.bio}</p>

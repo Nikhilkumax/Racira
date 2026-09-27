@@ -1,417 +1,607 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator, ChevronDown } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-const ACTIVITY_LEVELS = [
-  { val: "bmr",       label: "Basal Metabolic Rate (BMR)", multiplier: 1.0 },
-  { val: "sedentary", label: "Sedentary: little or no exercise", multiplier: 1.2 },
-  { val: "light",     label: "Light: exercise 1–3 times/week", multiplier: 1.375 },
-  { val: "moderate",  label: "Moderate: exercise 4–5 times/week", multiplier: 1.55 },
-  { val: "active",    label: "Active: daily exercise or intense 3–4×/week", multiplier: 1.725 },
-  { val: "very",      label: "Very Active: intense exercise 6–7×/week", multiplier: 1.9 },
-  { val: "extra",     label: "Extra Active: very intense daily, or physical job", multiplier: 2.0 },
+type Sex = "male" | "female";
+
+interface CalorieInputs {
+  sex: Sex;
+  age: number;
+  heightCm: number;
+  weightKg: number;
+  activity: number;
+  bodyFat: number;
+  proteinPerKg: number;
+}
+
+const DEFAULTS: CalorieInputs = {
+  sex: "male",
+  age: 30,
+  heightCm: 178,
+  weightKg: 78,
+  activity: 1.55,
+  bodyFat: 20,
+  proteinPerKg: 1.8,
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+const ACTIVITY_LEVELS: { value: number; label: string; note: string }[] = [
+  { value: 1.2, label: "Sedentary", note: "Little or no exercise" },
+  { value: 1.375, label: "Light", note: "Light exercise 1–3 days a week" },
+  { value: 1.55, label: "Moderate", note: "Moderate exercise 3–5 days a week" },
+  { value: 1.725, label: "Active", note: "Hard exercise 6–7 days a week" },
+  { value: 1.9, label: "Athlete", note: "Twice-daily training" },
 ];
 
-const fmt = (n: number) => Math.round(n).toLocaleString("en-US");
+interface GoalRow {
+  label: string;
+  weeklyChangeKg: number;
+  dailyDelta: number;
+  calories: number;
+  note: string;
+}
 
-const CalorieCalculator = () => {
-  // Unit system
-  const [unitSystem, setUnitSystem] = useState<"metric" | "us">("metric");
-  // Inputs
-  const [age, setAge] = useState("25");
-  const [gender, setGender] = useState<"male" | "female">("male");
-  const [heightCm, setHeightCm] = useState("180");
-  const [heightFt, setHeightFt] = useState("5");
-  const [heightIn, setHeightIn] = useState("10");
-  const [weightKg, setWeightKg] = useState("65");
-  const [weightLbs, setWeightLbs] = useState("165");
-  const [activity, setActivity] = useState("moderate");
-  // Advanced
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [resultUnit, setResultUnit] = useState<"cal" | "kj">("cal");
-  const [formula, setFormula] = useState<"mifflin" | "harris" | "katch">("mifflin");
-  const [bodyFat, setBodyFat] = useState("20");
-  // Result
-  const [result, setResult] = useState<any>(null);
+interface ActivityRow {
+  label: string;
+  multiplier: number;
+  tdee: number;
+  maintenancePortions: string;
+  selected: boolean;
+}
 
-  const [error, setError] = useState("");
+interface CalorieResult {
+  valid: boolean;
+  errorMsg: string;
+  bmr: number;
+  bmrLean: number;
+  tdee: number;
+  leanMass: number;
+  proteinGrams: number;
+  carbGrams: number;
+  fatGrams: number;
+  waterLitres: number;
+  goals: GoalRow[];
+  activityRows: ActivityRow[];
+}
 
-  const runCalc = (
-    sys = unitSystem, ag = age, gen = gender,
-    hcm = heightCm, hft = heightFt, hin = heightIn,
-    wkg = weightKg, wlbs = weightLbs, act = activity,
-    ru = resultUnit, fm = formula, bf = bodyFat
-  ) => {
-    setError("");
-    const nAge = parseInt(ag);
-    const nBf = parseFloat(bf);
-    let W = sys === "metric" ? parseFloat(wkg) : parseFloat(wlbs) * 0.453592;
-    let H = sys === "metric" ? parseFloat(hcm) : parseFloat(hft) * 30.48 + parseFloat(hin) * 2.54;
-    if (isNaN(nAge) || nAge < 15 || nAge > 80) { setError("Age must be between 15 and 80."); return; }
-    if (isNaN(W) || W <= 0) { setError("Please enter a valid weight."); return; }
-    if (isNaN(H) || H <= 0) { setError("Please enter a valid height."); return; }
-    let bmr = 0;
-    if (fm === "mifflin") {
-      bmr = gen === "male" ? 10*W + 6.25*H - 5*nAge + 5 : 10*W + 6.25*H - 5*nAge - 161;
-    } else if (fm === "harris") {
-      bmr = gen === "male" ? 13.397*W + 4.799*H - 5.677*nAge + 88.362 : 9.247*W + 3.098*H - 4.330*nAge + 447.593;
-    } else if (fm === "katch") {
-      if (isNaN(nBf) || nBf <= 0 || nBf >= 100) { setError("Body fat % must be between 1–99."); return; }
-      bmr = 370 + 21.6 * W * (1 - nBf / 100);
-    }
-    if (bmr <= 0) return;
-    const actObj = ACTIVITY_LEVELS.find(a => a.val === act) || ACTIVITY_LEVELS[3];
-    const tdee = bmr * actObj.multiplier;
-    const factor = ru === "kj" ? 4.184 : 1;
-    const unit = ru === "kj" ? "kJ" : "Cal";
-    const goals = [
-      { label: "Extreme Loss (2 lb/wk)", cal: tdee - 1000, color: "#ef4444", type: "loss" },
-      { label: "Weight Loss (1 lb/wk)",  cal: tdee - 500,  color: "#f97316", type: "loss" },
-      { label: "Mild Loss (0.5 lb/wk)",  cal: tdee - 250,  color: "#f59e0b", type: "loss" },
-      { label: "Maintain Weight",         cal: tdee,         color: "#3b82f6", type: "maintain" },
-      { label: "Mild Gain (0.5 lb/wk)",  cal: tdee + 250,  color: "#10b981", type: "gain" },
-      { label: "Weight Gain (1 lb/wk)",  cal: tdee + 500,  color: "#6366f1", type: "gain" },
-      { label: "Fast Gain (2 lb/wk)",    cal: tdee + 1000, color: "#8b5cf6", type: "gain" },
-    ];
-    const chartData = goals.map(g => ({ label: g.label.split(" (")[0], value: Math.round(Math.max(0, g.cal) * factor), color: g.color }));
-    const allLevels = ACTIVITY_LEVELS.map(l => ({ label: l.label.split(":")[0], value: Math.round(bmr * l.multiplier * factor) }));
-    setResult({ bmr: bmr * factor, tdee: tdee * factor, goals: goals.map(g => ({ ...g, cal: g.cal * factor })), chartData, allLevels, unit, actObj });
+function computeCalorie(input: CalorieInputs): CalorieResult {
+  const { sex, age, heightCm, weightKg, activity, bodyFat, proteinPerKg } = input;
+
+  const blank: CalorieResult = {
+    valid: false,
+    errorMsg: "",
+    bmr: 0,
+    bmrLean: 0,
+    tdee: 0,
+    leanMass: 0,
+    proteinGrams: 0,
+    carbGrams: 0,
+    fatGrams: 0,
+    waterLitres: 0,
+    goals: [],
+    activityRows: [],
   };
 
-  const calculate = () => runCalc();
+  if (!Number.isFinite(age) || !Number.isFinite(heightCm) || !Number.isFinite(weightKg)) {
+    return { ...blank, errorMsg: "Enter your age, height and weight to estimate daily calorie needs." };
+  }
+  if (weightKg <= 0 || heightCm <= 0) {
+    return { ...blank, errorMsg: "Height and weight must both be greater than zero." };
+  }
+  if (age < 10 || age > 100) {
+    return { ...blank, errorMsg: "Enter an age between 10 and 100 years." };
+  }
 
-  useEffect(() => { runCalc(); }, []);
+  const bmr =
+    sex === "male"
+      ? 10 * weightKg + 6.25 * heightCm - 5 * age + 5
+      : 10 * weightKg + 6.25 * heightCm - 5 * age - 161;
+
+  const bf = Math.max(0, Math.min(70, Number.isFinite(bodyFat) ? bodyFat : 20));
+  const leanMass = weightKg * (1 - bf / 100);
+  const bmrLean = 370 + 21.6 * leanMass;
+
+  const multiplier = ACTIVITY_LEVELS.some((a) => a.value === activity) ? activity : 1.55;
+  const tdee = bmr * multiplier;
+
+  const goalSpecs: { label: string; weekly: number; note: string }[] = [
+    { label: "Extreme weight loss", weekly: -1, note: "Very aggressive, medical supervision advised" },
+    { label: "Aggressive weight loss", weekly: -0.75, note: "Hard to sustain for long periods" },
+    { label: "Standard weight loss", weekly: -0.5, note: "The usual half kilo per week target" },
+    { label: "Mild weight loss", weekly: -0.25, note: "Slow but very sustainable" },
+    { label: "Maintain weight", weekly: 0, note: "Eat at your maintenance level" },
+    { label: "Mild weight gain", weekly: 0.25, note: "Supports lean gains with training" },
+    { label: "Standard weight gain", weekly: 0.5, note: "Faster bulk, more fat gain likely" },
+  ];
+
+  const goals: GoalRow[] = goalSpecs.map((g) => {
+    const dailyDelta = (g.weekly * 7700) / 7;
+    return {
+      label: g.label,
+      weeklyChangeKg: g.weekly,
+      dailyDelta: Math.round(dailyDelta),
+      calories: Math.max(1000, Math.round(tdee + dailyDelta)),
+      note: g.note,
+    };
+  });
+
+  const activityRows: ActivityRow[] = ACTIVITY_LEVELS.map((level) => {
+    const rowTdee = bmr * level.value;
+    return {
+      label: level.label,
+      multiplier: level.value,
+      tdee: Math.round(rowTdee),
+      maintenancePortions: `${fmt(rowTdee / 500, 2)} × 500 kcal`,
+      selected: level.value === multiplier,
+    };
+  });
+
+  const proteinGrams = Math.round(weightKg * Math.max(0.8, Math.min(3, proteinPerKg)));
+  const fatGrams = Math.round((tdee * 0.27) / 9);
+  const carbGrams = Math.max(0, Math.round((tdee - proteinGrams * 4 - fatGrams * 9) / 4));
+
+  return {
+    valid: true,
+    errorMsg: "",
+    bmr: Math.round(bmr),
+    bmrLean: Math.round(bmrLean),
+    tdee: Math.round(tdee),
+    leanMass: Number(leanMass.toFixed(1)),
+    proteinGrams,
+    carbGrams,
+    fatGrams,
+    waterLitres: Number(((weightKg * 0.033) + (multiplier - 1.2) * 0.7).toFixed(2)),
+    goals,
+    activityRows,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  type?: string;
+  min?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({ id, label, value, onChange, onEnter, hint, type = "number", min, suffix, tooltip }: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function CalorieCalculator() {
+  const [sex, setSex] = useState<Sex>(DEFAULTS.sex);
+  const [age, setAge] = useState(String(DEFAULTS.age));
+  const [heightCm, setHeightCm] = useState(String(DEFAULTS.heightCm));
+  const [weightKg, setWeightKg] = useState(String(DEFAULTS.weightKg));
+  const [activity, setActivity] = useState(String(DEFAULTS.activity));
+  const [bodyFat, setBodyFat] = useState(String(DEFAULTS.bodyFat));
+  const [proteinPerKg, setProteinPerKg] = useState(String(DEFAULTS.proteinPerKg));
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): CalorieInputs => ({
+    sex,
+    age: parseFloat(age) || 0,
+    heightCm: parseFloat(heightCm) || 0,
+    weightKg: parseFloat(weightKg) || 0,
+    activity: parseFloat(activity) || 1.55,
+    bodyFat: parseFloat(bodyFat) || 0,
+    proteinPerKg: parseFloat(proteinPerKg) || 1.8,
+  });
+
+  const [calcInputs, setCalcInputs] = useState<CalorieInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<CalorieResult>(() => computeCalorie(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeCalorie(inputs));
+  };
 
   const reset = () => {
-    setUnitSystem("metric"); setAge("25"); setGender("male");
-    setHeightCm("180"); setHeightFt("5"); setHeightIn("10");
-    setWeightKg("65"); setWeightLbs("165"); setActivity("moderate");
-    setResultUnit("cal"); setFormula("mifflin"); setBodyFat("20"); setError("");
-    runCalc("metric","25","male","180","5","10","65","165","moderate","cal","mifflin","20");
+    setSex(DEFAULTS.sex);
+    setAge(String(DEFAULTS.age));
+    setHeightCm(String(DEFAULTS.heightCm));
+    setWeightKg(String(DEFAULTS.weightKg));
+    setActivity(String(DEFAULTS.activity));
+    setBodyFat(String(DEFAULTS.bodyFat));
+    setProteinPerKg(String(DEFAULTS.proteinPerKg));
+    setCalcInputs(DEFAULTS);
+    setResults(computeCalorie(DEFAULTS));
   };
 
-  const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
-  const wrap = "flex items-center rounded-md border border-input bg-background h-9 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
-  const suf = "pr-3 text-sm text-muted-foreground shrink-0";
-  const handleKey = (e: React.KeyboardEvent) => { if (e.key === "Enter") calculate(); };
+  const maintenance = results.goals.find((g) => g.weeklyChangeKg === 0);
 
   const faqs = [
-    { question: "Is the Losertown calorie calculator accurate?", answer: "Yes — the Losertown calorie calculator uses the clinically validated Mifflin-St Jeor formula, which estimates TDEE within 10% for ~82% of people in controlled studies. For athletes, switching to Katch-McArdle (with body fat %) improves accuracy further. No online tool matches a metabolic chamber test, but the Losertown calorie calculator is as accurate as any non-invasive method available." },
-    { question: "How many calories should I burn daily to lose weight?", answer: "A 500 Cal/day deficit produces ~1 lb/week of fat loss (3,500 Cal ≈ 1 lb fat). For 0.5 lb/week, use a 250 Cal deficit. The maximum safe deficit is ~1,000 Cal/day (~2 lb/week). Never go below 1,200 Cal/day (women) or 1,500 Cal/day (men) without medical supervision. Use the Losertown calorie calculator to find your TDEE, then subtract your target deficit." },
-    { question: "Does sauna burn calories?", answer: "Yes. A 30-minute traditional sauna session burns approximately 100–200 calories above resting rate. The infrared sauna calories calculator estimates slightly more (150–250 Cal/session) due to deeper heat penetration. However, most immediate post-sauna weight loss is water weight, not fat. Use the calories burned in sauna calculator alongside your Losertown calorie calculator total for a complete daily picture." },
-    { question: "What is the best calorie calculator online?", answer: "The best online calorie calculators use Mifflin-St Jeor for general users and Katch-McArdle for athletes. Our Losertown calorie calculator supports all three BMR formulas, US and Metric units, seven calorie goal levels, and Calories/Kilojoules output — making it one of the most comprehensive free tools available. No login required." },
-    { question: "How does a calorie deficit work?", answer: "A calorie deficit means you consume fewer calories than you burn. Since 1 lb of fat stores ~3,500 Calories, a daily deficit of 500 Cal creates a 3,500 Cal weekly deficit — resulting in approximately 1 lb of fat loss per week. Use your TDEE from the Losertown calorie calculator as the baseline, then subtract your chosen deficit target from the calorie goals table." },
-    { question: "What is BMR and how is it calculated?", answer: "Basal Metabolic Rate (BMR) is the calories your body burns at complete rest to maintain vital functions — breathing, circulation, cell repair. Mifflin-St Jeor (male): BMR = 10W + 6.25H − 5A + 5. Female: BMR = 10W + 6.25H − 5A − 161. W = weight (kg), H = height (cm), A = age (years). BMR typically accounts for 60–75% of total daily calorie burn." },
-    { question: "What is the difference between the deskcycle calorie calculator and TDEE?", answer: "The deskcycle calorie calculator estimates calories burned during under-desk pedaling sessions (typically 150–300 Cal/hour). TDEE (from the Losertown calorie calculator) estimates your total all-day calorie burn. To incorporate DeskCycle into your TDEE, either add session calories manually or upgrade your activity multiplier from Sedentary to Light — the latter approach is more accurate for consistent daily DeskCycle use." },
-    { question: "How does pickleball affect my calorie calculations?", answer: "The pickleball calories burned calculator estimates 400–600 Cal/hour for recreational play and 600–700 Cal/hour for competitive singles. Regular pickleball (3–4 sessions/week) qualifies as Light to Moderate activity in the Losertown calorie calculator, pushing your activity multiplier from 1.2 to 1.375–1.55 and increasing TDEE by 200–400 Cal/day compared to a sedentary baseline." },
+    {
+      question: "How many calories should I eat to lose weight?",
+      answer:
+        "Subtract a deficit from your maintenance level, which is the total daily energy expenditure. Half a kilogram of fat per week requires roughly a five hundred calorie daily deficit, because a kilogram of fat stores about seven thousand seven hundred calories. Smaller deficits of two hundred to three hundred calories are easier to hold, which usually matters more than the theoretical speed.",
+    },
+    {
+      question: "Why does calorie need change with activity?",
+      answer:
+        "Basal metabolic rate covers only the energy used at rest, and physical activity adds to it. Multiplying by 1.2 for a sedentary day and by 1.9 for twice-daily training produces a range of several hundred calories at the same body size. Choosing the level honestly is the single most important input, since overestimating activity hides the deficit that was planned.",
+    },
+    {
+      question: "Are all calories the same?",
+      answer:
+        "For body weight, energy balance dominates, but the composition of those calories affects appetite, muscle retention and health. Adequate protein protects lean mass during a deficit, fibre improves satiety, and very low fat intakes interfere with hormone production. The same calorie total can therefore produce quite different results depending on what makes up the food.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Losertown Calorie Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Health", href: "/calculator#health" },
+          { label: "Calorie Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Losertown Calorie Calculator</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Calorie Calculator</h1>
+
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-
-
-            {/* Unit tabs */}
-            <div className="flex rounded-md border border-input overflow-hidden h-9">
-              {(["metric","us"] as const).map((u,i)=>(
-                <button key={u} type="button" onClick={()=>setUnitSystem(u)}
-                  className={`flex-1 text-sm font-semibold transition-colors ${unitSystem===u?"bg-primary text-primary-foreground":"bg-secondary text-muted-foreground hover:bg-secondary/80"} ${i>0?"border-l border-input":""}` }>
-                  {u==="metric"?"Metric":"US Units"}
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="About You">
+              <div className="grid grid-cols-3 gap-3">
+                <CompactInput id="age" label="Age" value={age} onChange={setAge} onEnter={runCalculate} suffix="yrs" />
+                <CompactInput
+                  id="height"
+                  label="Height"
+                  value={heightCm}
+                  onChange={setHeightCm}
+                  onEnter={runCalculate}
+                  suffix="cm"
+                />
+                <CompactInput
+                  id="weight"
+                  label="Weight"
+                  value={weightKg}
+                  onChange={setWeightKg}
+                  onEnter={runCalculate}
+                  suffix="kg"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setSex("male")}
+                  aria-pressed={sex === "male"}
+                  className={
+                    sex === "male"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Male
                 </button>
-              ))}
-            </div>
-
-            {error&&<div className="text-sm text-red-500 bg-red-500/10 border border-red-500/20 rounded-md px-3 py-1.5">{error}</div>}
-
-            {/* Age + Gender */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col">
-                <label className="text-sm font-semibold text-foreground mb-1">Age <span className="text-xs font-normal text-muted-foreground">(15–80)</span></label>
-                <div className={wrap}>
-                  <input type="number" value={age} onChange={e=>setAge(e.target.value)} onKeyDown={handleKey} min={15} max={80} className={ci}/>
-                  <span className={suf}>yrs</span>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setSex("female")}
+                  aria-pressed={sex === "female"}
+                  className={
+                    sex === "female"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Female
+                </button>
               </div>
-              <div className="flex flex-col">
-                <label className="text-sm font-semibold text-foreground mb-1">Gender</label>
-                <div className="flex rounded-md border border-input overflow-hidden h-9">
-                  {(["male","female"] as const).map((g,i)=>(
-                    <button key={g} type="button" onClick={()=>setGender(g)}
-                      className={`flex-1 text-sm font-semibold capitalize transition-colors ${gender===g?"bg-primary text-primary-foreground":"bg-secondary text-muted-foreground hover:bg-secondary/80"} ${i>0?"border-l border-input":""}` }>
-                      {g}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+            </SubSection>
 
-            {/* Height + Weight */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col">
-                <label className="text-sm font-semibold text-foreground mb-1">Height</label>
-                {unitSystem==="metric"?(
-                  <div className={wrap}>
-                    <input type="number" value={heightCm} onChange={e=>setHeightCm(e.target.value)} onKeyDown={handleKey} className={ci}/>
-                    <span className={suf}>cm</span>
-                  </div>
-                ):(
-                  <div className="flex gap-1.5">
-                    <div className={wrap+" flex-1"}>
-                      <input type="number" value={heightFt} onChange={e=>setHeightFt(e.target.value)} onKeyDown={handleKey} className={ci}/>
-                      <span className={suf}>ft</span>
-                    </div>
-                    <div className={wrap+" flex-1"}>
-                      <input type="number" value={heightIn} onChange={e=>setHeightIn(e.target.value)} onKeyDown={handleKey} className={ci}/>
-                      <span className={suf}>in</span>
-                    </div>
-                  </div>
-                )}
+            <SubSection title="Activity Level">
+              <div className="grid grid-cols-3 gap-1.5">
+                {ACTIVITY_LEVELS.map((level) => (
+                  <button
+                    key={level.value}
+                    type="button"
+                    onClick={() => setActivity(String(level.value))}
+                    aria-pressed={parseFloat(activity) === level.value}
+                    className={
+                      parseFloat(activity) === level.value
+                        ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-[11px] shadow-sm transition-all active:scale-[0.98]"
+                        : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-[11px] transition-colors"
+                    }
+                  >
+                    {level.label}
+                  </button>
+                ))}
               </div>
-              <div className="flex flex-col">
-                <label className="text-sm font-semibold text-foreground mb-1">Weight</label>
-                <div className={wrap}>
-                  {unitSystem==="metric"?(
-                    <><input type="number" value={weightKg} onChange={e=>setWeightKg(e.target.value)} onKeyDown={handleKey} className={ci}/><span className={suf}>kg</span></>
-                  ):(
-                    <><input type="number" value={weightLbs} onChange={e=>setWeightLbs(e.target.value)} onKeyDown={handleKey} className={ci}/><span className={suf}>lbs</span></>
-                  )}
-                </div>
-              </div>
-            </div>
+              <p className="text-[11px] text-muted-foreground mt-1.5">
+                {ACTIVITY_LEVELS.find((l) => l.value === parseFloat(activity))?.note ?? "Moderate exercise 3–5 days a week"}
+              </p>
+            </SubSection>
 
-            {/* Activity */}
-            <div className="flex flex-col">
-              <label className="text-sm font-semibold text-foreground mb-1">Activity Level</label>
-              <select value={activity} onChange={e=>setActivity(e.target.value)}
-                className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-primary/20 text-foreground">
-                {ACTIVITY_LEVELS.map(l=>(<option key={l.val} value={l.val}>{l.label}</option>))}
-              </select>
-            </div>
-
-            {/* Advanced — text link like Mortgage */}
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={()=>setShowAdvanced(v=>!v)}
-                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced?"rotate-180":""}`}/>
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
-              {showAdvanced&&(
-                <div className="grid grid-cols-2 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">Results Unit</div>
-                    <div className="flex gap-4">
-                      {([["cal","Calories"],["kj","Kilojoules"]] as const).map(([v,l])=>(
-                        <label key={v} className="flex items-center gap-1.5 text-sm cursor-pointer">
-                          <input type="radio" className="w-4 h-4 accent-primary" checked={resultUnit===v} onChange={()=>setResultUnit(v)}/>{l}
-                        </label>
-                      ))}
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Composition">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="body-fat"
+                        label="Body Fat"
+                        value={bodyFat}
+                        onChange={setBodyFat}
+                        onEnter={runCalculate}
+                        suffix="%"
+                        tooltip="Used for a lean-mass estimate of metabolic rate."
+                      />
+                      <CompactInput
+                        id="protein-per-kg"
+                        label="Protein per kg"
+                        value={proteinPerKg}
+                        onChange={setProteinPerKg}
+                        onEnter={runCalculate}
+                        suffix="g"
+                        tooltip="Protein target per kilogram of body weight."
+                      />
                     </div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">BMR Formula</div>
-                    <div className="flex flex-col gap-1.5">
-                      {([["mifflin","Mifflin St Jeor"],["harris","Revised Harris-Benedict"],["katch","Katch-McArdle"]] as const).map(([v,l])=>(
-                        <label key={v} className="flex items-center gap-1.5 text-sm cursor-pointer">
-                          <input type="radio" className="w-4 h-4 accent-primary" checked={formula===v} onChange={()=>setFormula(v)}/>{l}
-                        </label>
-                      ))}
-                    </div>
-                    {formula==="katch"&&(
-                      <div className="flex items-center gap-2 mt-2.5">
-                        <label className="text-sm font-medium whitespace-nowrap">Body Fat:</label>
-                        <div className={wrap+" w-24"}>
-                          <input type="number" value={bodyFat} onChange={e=>setBodyFat(e.target.value)} min={1} max={60} className={ci}/>
-                          <span className={suf}>%</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  </SubSection>
                 </div>
               )}
             </div>
 
-            {/* Buttons */}
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={calculate}
-                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-9 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={reset}
-                className="px-3 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-9 transition-colors flex items-center justify-center" aria-label="Reset">
-                <RotateCcw className="h-4 w-4"/>
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex flex-col gap-3">
-            {result&&(
-              <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card">
-
-
-                {/* TDEE hero */}
-                <div className="bg-primary/10 border-l-4 border-primary rounded-xl p-5 text-center">
-                  <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Maintenance Calories (TDEE)</div>
-                  <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">{fmt(result.tdee)} {result.unit}</div>
-                  <div className="text-sm text-muted-foreground font-medium">BMR {fmt(result.bmr)} {result.unit} × {result.actObj.multiplier} — {result.actObj.label.split(":")[0]}</div>
-                </div>
-
-                {/* Goals table */}
-                <div className="overflow-x-auto rounded-lg border border-border bg-card">
-                  <table className="w-full text-left border-collapse text-sm">
-                    <thead><tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                      <th className="p-2.5 pl-3">Goal</th>
-                      <th className="p-2.5 text-right">Daily {result.unit}</th>
-                      <th className="p-2.5 pr-3 text-right">Weekly Δ</th>
-                    </tr></thead>
-                    <tbody className="divide-y divide-border/50">
-                      {result.goals.map((g:any,i:number)=>(
-                        <tr key={i} className={`hover:bg-secondary/20 transition-colors ${g.type==="maintain"?"font-bold bg-secondary/30 text-foreground border-t border-border":"text-muted-foreground"}`}>
-                          <td className="p-2.5 pl-3 flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full shrink-0" style={{backgroundColor:g.color}}/>
-                            <span className="font-semibold text-foreground text-xs">{g.label}</span>
-                          </td>
-                          <td className="p-2.5 text-right text-foreground font-semibold">{g.cal>0?fmt(g.cal):"—"}</td>
-                          <td className="p-2.5 pr-3 text-right text-xs">{g.type==="loss"?"-":"+"}{g.type==="maintain"?"0":(g.type==="loss"?fmt(Math.abs(g.cal-result.tdee)):fmt(g.cal-result.tdee))}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Chart */}
-                <div>
-                  <div className="text-sm font-semibold text-foreground mb-2">Calorie Goals Chart ({result.unit}/day)</div>
-                  <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={result.chartData} margin={{top:4,right:10,left:0,bottom:55}}>
-                      <XAxis dataKey="label" tick={{fontSize:8}} angle={-30} textAnchor="end" interval={0}/>
-                      <YAxis tick={{fontSize:10}}/>
-                      <Tooltip formatter={(v:any)=>[`${Number(v).toLocaleString()} ${result.unit}`,""]}/>
-                      <ReferenceLine y={Math.round(result.tdee)} stroke="#3b82f6" strokeDasharray="4 2"/>
-                      <Bar dataKey="value" radius={[4,4,0,0]}>
-                        {result.chartData.map((e:any,i:number)=>(<Cell key={i} fill={e.color}/>))}
-                      </Bar>
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-
-                {/* Activity breakdown */}
-                <div>
-                  <div className="text-sm font-semibold text-foreground mb-2">Calories by Activity Level</div>
-                  <table className="w-full text-sm"><tbody>
-                    {result.allLevels.map((l:any,i:number)=>(
-                      <tr key={i} className="border-b border-border/50 last:border-0">
-                        <td className="py-1.5 text-muted-foreground">{l.label}</td>
-                        <td className="text-right font-medium text-foreground">{l.value.toLocaleString()} {result.unit}</td>
-                      </tr>
-                    ))}
-                  </tbody></table>
-                </div>
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
             )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Maintenance Calories</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.tdee)} kcal` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${fmt(results.bmr)} kcal at rest plus activity · lean-mass estimate ${fmt(results.bmrLean)} kcal`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
+            </div>
+
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Resting Rate</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.bmr)} kcal` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Lean Mass</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.leanMass, 1)} kg` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Water Target</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.waterLitres, 2)} L` : "—"}</span>
+              </div>
+            </div>
+
+            {/* GOALS TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Goal</th>
+                    <th className="p-2.5 text-right">Weekly Change</th>
+                    <th className="p-2.5 text-right">Daily Delta</th>
+                    <th className="p-2.5 pr-3 text-right w-[140px]">Calories</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.goals.map((row) => (
+                    <tr
+                      key={row.label}
+                      className={row.weeklyChangeKg === 0 ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}
+                    >
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">
+                        {row.label}
+                        <span className="block text-[11px] font-normal text-muted-foreground">{row.note}</span>
+                      </td>
+                      <td className="p-2.5 text-right text-foreground">
+                        {row.weeklyChangeKg === 0 ? "Steady" : `${row.weeklyChangeKg > 0 ? "+" : "−"}${Math.abs(row.weeklyChangeKg)} kg`}
+                      </td>
+                      <td className="p-2.5 text-right text-foreground">
+                        {row.dailyDelta === 0 ? "0" : `${row.dailyDelta > 0 ? "+" : "−"}${Math.abs(row.dailyDelta)}`}
+                      </td>
+                      <td className="p-2.5 pr-3 text-right font-semibold text-foreground">{fmt(row.calories)} kcal</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* ACTIVITY TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">If Your Activity Is</th>
+                    <th className="p-2.5 text-right">Factor</th>
+                    <th className="p-2.5 pr-3 text-right w-[150px]">Maintenance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.activityRows.map((row) => (
+                    <tr key={row.label} className={row.selected ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                      <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                      <td className="p-2.5 text-right text-foreground">{row.multiplier.toFixed(3)}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{`${fmt(row.tdee)} kcal`}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Maintenance</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.tdee)} kcal`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Standard Cut</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(maintenance ? maintenance.calories - 500 : 0)} kcal`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Protein</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.proteinGrams)} g`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Carbohydrate</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.carbGrams)} g`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Fat</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.fatGrams)} g`}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Weekly Intake</span>
+                  <span className="text-base font-bold text-foreground">{`${fmt(results.tdee * 7)} kcal`}</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="max-w-[1200px] mt-10">
-          {/* JSON-LD: FAQ + BreadcrumbList schema */}
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://racira.com" },
-                  { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://racira.com/calculator" },
-                  { "@type": "ListItem", "position": 3, "name": "Losertown Calorie Calculator", "item": "https://racira.com/calculator/calorie-calculator" },
-                ],
-              },
-              {
-                "@type": "FAQPage",
-                "mainEntity": [
-                  { "@type": "Question", "name": "Is the Losertown calorie calculator accurate?", "acceptedAnswer": { "@type": "Answer", "text": "The Losertown calorie calculator uses the same clinically validated Mifflin-St Jeor formula as top calorie tools. It estimates within 10% of actual TDEE for ~82% of people. For best accuracy, use Katch-McArdle if you know your body fat percentage." } },
-                  { "@type": "Question", "name": "How many calories should I burn daily to lose weight?", "acceptedAnswer": { "@type": "Answer", "text": "A 500 Cal/day deficit produces ~1 lb/week weight loss. For 0.5 lb/week, aim for a 250 Cal/day deficit. Never exceed a 1,000 Cal/day deficit without medical supervision." } },
-                  { "@type": "Question", "name": "Does sauna burn calories?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. A 30-minute sauna session burns approximately 100–200 extra calories above resting rate. Infrared saunas may burn slightly more. Most of the immediate weight loss is water, not fat." } },
-                  { "@type": "Question", "name": "What is the best calorie calculator online?", "acceptedAnswer": { "@type": "Answer", "text": "The best calorie calculators use Mifflin-St Jeor for general users and Katch-McArdle for athletes. Our Losertown calorie calculator supports all three BMR formulas, US and Metric units, and outputs results in both Calories and Kilojoules." } },
-                  { "@type": "Question", "name": "How does a calorie deficit work?", "acceptedAnswer": { "@type": "Answer", "text": "A calorie deficit means burning more calories than you consume. 3,500 Calories = ~1 lb of fat. A daily deficit of 500 Cal creates a 3,500 Cal weekly deficit, resulting in approximately 1 lb of fat loss per week." } },
-                ],
-              },
-            ],
-          }) }} />
-
-          <AdPlaceholder className="mb-10" />
+        <div className="max-w-[1180px] mt-8">
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">What Is the Losertown Calorie Calculator?</h2>
-            <p>The <strong>Losertown calorie calculator</strong> is a free, science-backed tool that estimates how many calories you need each day to lose weight, maintain your current weight, or build muscle. It calculates your <strong>Basal Metabolic Rate (BMR)</strong> — the energy your body burns at complete rest — then multiplies it by an activity factor to produce your Total Daily Energy Expenditure (TDEE). Pre-filled with a 25-year-old male, 180 cm, 65 kg, moderate activity: TDEE ≈ 2,510 Cal/day.</p>
-            <p>Unlike generic "2,000 Cal/day" guidance, the <strong>Losertown calculator calorie</strong> approach gives you a personalized target based on your actual body and lifestyle. Whether you're cutting, bulking, or just trying to understand your energy balance, this tool gives you the numbers you need in seconds — in Calories or Kilojoules, Metric or US units.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Calorie Calculator?</h2>
+            <p>
+              A calorie calculator estimates how much energy your body uses in a day and turns that figure into targets for
+              losing, maintaining or gaining weight. It starts from basal metabolic rate, adds an activity factor for movement and
+              training, and then applies the deficit or surplus that matches a chosen weekly rate of change.
+            </p>
+            <p>
+              The maintenance figure is the number worth knowing first. Eating at that level keeps weight stable, and every other
+              target is simply a fixed amount above or below it. Knowing it turns vague advice about eating less into a specific
+              daily number that can be planned, logged and adjusted.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">How the Losertown Calorie Calculator Works</h2>
-            <p>The <strong>Losertown calorie calculator</strong> uses a two-step formula. First, it calculates your BMR — the calories burned just staying alive (breathing, circulation, organ function). Three validated formulas are supported:</p>
-            <ul>
-              <li><strong>Mifflin-St Jeor (1990):</strong> Male BMR = 10W + 6.25H − 5A + 5. Female BMR = 10W + 6.25H − 5A − 161. Most accurate for the general population.</li>
-              <li><strong>Revised Harris-Benedict (1984):</strong> A slightly older formula that tends to overestimate BMR by ~5%. Still widely used in clinical settings.</li>
-              <li><strong>Katch-McArdle:</strong> BMR = 370 + 21.6 × LBM (kg). Uses lean body mass — most accurate for athletes who know their body fat percentage.</li>
-            </ul>
-            <p>Second, your BMR is multiplied by an activity factor ranging from 1.2 (sedentary) to 2.0 (extra active) to produce your TDEE. The result is your maintenance calorie level — eat below it to lose weight, above it to gain.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The resting rate comes from the Mifflin-St Jeor equation, which uses weight, height, age and sex, or from the
+              Katch-McArdle equation using lean body mass when a body fat figure is supplied. Multiplying by an activity factor
+              between 1.2 and 1.9 produces maintenance calories, and the spread between those two numbers is the main reason
+              calorie estimates from different tools disagree.
+            </p>
+            <p>
+              Goal calories come from the energy stored in body tissue. A kilogram of fat holds roughly seven thousand seven
+              hundred calories, so half a kilogram a week needs a daily deficit of about five hundred and fifty calories. The
+              calculator applies the same arithmetic in reverse for weight gain and floors every target at a thousand calories to
+              avoid suggesting an intake that cannot cover basic needs.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">How Accurate Is the Losertown Calorie Calculator?</h2>
-            <p>Yes — within the expected range of any population-level formula. The Mifflin-St Jeor equation (the default in our <strong>Losertown calorie calculator</strong>) estimates TDEE within 10% for ~82% of tested subjects in controlled studies. That's as accurate as any non-invasive method gets without metabolic chamber testing.</p>
-            <p>Where variance creeps in: individual metabolic differences, hormonal factors, gut microbiome, and muscle-to-fat ratio. If the calculator's output isn't producing expected weight change after 3–4 weeks of consistent tracking, adjust by ±100–200 Cal/day. Use the <a href="/calculator/bmr-calculator">BMR Calculator</a> and the <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> together for a complete picture.</p>
-            <p>Compared with other tools: Cronometer, MyFitnessPal, and calculator.net all use the same underlying Mifflin-St Jeor equation. The difference between tools is UX, not math. Our <strong>Losertown calorie calculator</strong> adds multi-formula support and real-time kJ conversion that most competitors lack.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Calories Burned in Different Activities</h2>
-            <p>Your TDEE is only one side of the equation. Understanding how many calories specific activities burn helps you build a smarter deficit strategy.</p>
-            <h3>Cycling Calories Burned</h3>
-            <p>Cycling is one of the most efficient calorie-burning exercises. The <strong>most accurate cycling calorie calculator</strong> factors in body weight, speed, terrain, and duration. At a moderate pace (12–14 mph), a 70 kg person burns approximately 400–600 Cal/hour. At intense race pace (20+ mph), this jumps to 800–1,000+ Cal/hour. Use your <a href="/calculator/calorie-calculator">Losertown calorie calculator</a> baseline alongside cycling estimates to set an accurate daily target.</p>
-            <h3>Pickleball Calories Burned</h3>
-            <p>Pickleball is surging in popularity, and the <strong>pickleball calories burned calculator</strong> estimates 400–600 Cal/hour for recreational play and up to 700 Cal/hour for competitive matches. Because it combines cardio bursts with rest periods, it's similar to HIIT in metabolic demand — excellent for older adults managing calorie deficits without high injury risk.</p>
-            <h3>Sauna Calories Burned</h3>
-            <p>The <strong>calories burned in sauna calculator</strong> and <strong>calories burned in a sauna calculator</strong> are popular tools for people who use sauna sessions for recovery and weight management. A 30-minute traditional sauna session burns approximately 100–200 calories above resting rate. The <strong>infrared sauna calories calculator</strong> shows slightly higher estimates (150–250 Cal/30 min) because infrared heat penetrates deeper, raising core temperature more efficiently. Use the <a href="/calculator/calorie-calculator">Losertown calorie calculator</a> to <strong>calculate calories burned in sauna</strong> alongside your workout totals for an accurate daily picture.</p>
-            <h3>DeskCycle Calories Burned</h3>
-            <p>The <strong>deskcycle calorie calculator</strong> estimates 150–300 Cal/hour depending on resistance and pedaling speed. DeskCycles (under-desk pedal machines) are ideal for sedentary office workers who want to increase daily TDEE without traditional workouts. Adding a DeskCycle session to your workday could shift your activity multiplier from Sedentary (×1.2) to Light (×1.375), adding ~275 Cal/day to your TDEE without setting foot in a gym.</p>
-
-            <h2 className="text-2xl font-bold mb-3">How Sauna Calorie Calculators Work</h2>
-            <p>When you use a <strong>calories burned in a sauna calculator</strong>, the estimate is based on elevated heart rate during heat exposure. Saunas raise core body temperature, triggering cardiovascular responses similar to light exercise (heart rate 100–150 bpm). The formula used to <strong>calculate calories burned in sauna</strong> is derived from MET (Metabolic Equivalent of Task) values: sauna MET ≈ 1.5–2.0, versus rest at MET 1.0.</p>
-            <p>The <strong>infrared sauna calories calculator</strong> assigns slightly higher MET values because far-infrared wavelengths cause deeper tissue heating, maintaining elevated metabolic demand longer post-session. However, most immediate weight loss in a sauna is water weight — not fat. To count sauna calories in your <strong>Losertown calorie calculator</strong> total, add them only to weekly activity burn, not daily TDEE, since sessions are irregular.</p>
-            <p>Also see: <a href="/calculator/bmr-calculator">BMR Calculator</a> and <a href="/calculator/protein-calculator">Protein Calculator</a> for a complete weight management toolkit.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Tips to Improve Weight Loss Accuracy</h2>
-            <p><strong>1. Track food consistently.</strong> TDEE estimates are meaningless if calorie intake isn't logged. Use a food scale and an app for at least 2 weeks to calibrate your real intake vs. your estimate. Studies show people underestimate intake by 20–40% on average.</p>
-            <p><strong>2. Be honest about activity level.</strong> The single biggest error in using the <strong>Losertown calorie calculator</strong> is selecting "Active" when real-world behavior is "Light." When in doubt, go one level down and adjust after 2–3 weeks of data.</p>
-            <p><strong>3. Prioritize sleep.</strong> Poor sleep elevates ghrelin (hunger hormone) and suppresses leptin (satiety hormone), causing 20–30% higher calorie intake on sleep-deprived days. Even a perfectly calculated calorie deficit is undermined by chronic poor sleep.</p>
-            <p><strong>4. Stay hydrated.</strong> Dehydration is often misread as hunger. Drinking 2–3 litres of water daily can reduce unnecessary calorie intake by 100–200 Cal/day. Also, adequate hydration improves the accuracy of body weight measurements used in the <strong>Losertown calculator calorie</strong> formula.</p>
-            <p><strong>5. Recalculate regularly.</strong> TDEE decreases as you lose weight. For every 10 lbs lost, your TDEE drops by approximately 50–100 Cal/day. Run the <strong>Losertown calorie calculator</strong> again at every significant milestone to keep your deficit on track. Use the <a href="/calculator/tdee-calculator">TDEE Calculator</a> for ongoing monitoring.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Comparison: Losertown Calorie Calculator vs Other Tools</h2>
-            <table className="w-full text-sm border-collapse mt-2 mb-4">
-              <thead><tr className="bg-muted/40">
-                <th className="text-left p-2 border border-border">Feature</th>
-                <th className="text-center p-2 border border-border">Losertown Calculator</th>
-                <th className="text-center p-2 border border-border">calculator.net</th>
-                <th className="text-center p-2 border border-border">MyFitnessPal</th>
-              </tr></thead>
-              <tbody>
-                {[["📊 3 BMR Formulas","✅","✅","❌"],["Calories + kJ","✅","❌","❌"],["Metric + US Units","✅","✅","✅"],["Katch-McArdle","✅","✅","❌"],["Goal Calorie Table","✅","❌","✅"],["No Login Required","✅","✅","❌"]].map(([f,a,b,c],i)=>(
-                  <tr key={i} className="border-b border-border">
-                    <td className="p-2 border border-border">{f}</td>
-                    <td className="text-center p-2 border border-border">{a}</td>
-                    <td className="text-center p-2 border border-border">{b}</td>
-                    <td className="text-center p-2 border border-border">{c}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <h2 className="text-2xl font-bold mb-3">Benefits of Using the Losertown Calorie Calculator</h2>
-            <p>Using the <strong>Losertown calorie calculator</strong> removes guesswork from your nutrition strategy. Instead of following one-size-fits-all advice, you get a number calibrated to your body size, age, gender, and actual activity. This is the same methodology used by registered dietitians in clinical settings — just packaged as a free, instant online tool.</p>
-            <p>Whether your goal is fat loss, muscle gain, or simply understanding your energy balance, the <strong>Losertown calculator calorie</strong> output gives you an actionable starting point. Pair it with the <a href="/calculator/protein-calculator">Protein Calculator</a> and <a href="/calculator/calorie-deficit-calculator">Calorie Deficit Calculator</a> to build a complete, data-driven nutrition plan.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows maintenance calories with the resting rate and lean-mass estimate beneath it, while the
+              three-stat bar adds lean mass and a hydration target. The first table lists every goal from aggressive loss through
+              maintenance to standard gain, with the weekly rate and the daily calorie figure for each, and the second shows how
+              maintenance changes across activity levels.
+            </p>
+            <p>
+              Start at the standard loss or mild loss level rather than the aggressive end. Larger deficits cause faster initial
+              weight change but also more hunger, worse training performance and more lean mass loss, and adherence usually
+              collapses within a few weeks. Slower losses that hold lean tissue produce a better result when measured over months
+              rather than days.
+            </p>
+            <p>
+              Treat the numbers as an opening estimate and adjust from evidence. Track intake and weight for two to three weeks,
+              then compare the predicted change with what actually happened. If weight is stable when a deficit was planned, the
+              true maintenance level is lower than the estimate, and the target should come down by a hundred to two hundred
+              calories rather than starting over.
+            </p>
+            <p>
+              Finally, remember that food labels, portion estimates and restaurant meals all carry error, often ten percent or
+              more. Precision in the calculation is useful, but consistency in what you actually eat matters more. Weekly averages
+              smooth out the day-to-day noise from water, sodium and digestion, and they are the fairest way to judge whether the
+              plan is working. If the target is genuinely difficult to hit, adding steps or a short training session raises
+              maintenance calories and makes the same plate of food go further, which is often easier than cutting portions
+              again.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/calorie-calculator" />
           <PopularCalculators exclude="/calculator/calorie-calculator" />
@@ -419,6 +609,4 @@ const CalorieCalculator = () => {
       </div>
     </>
   );
-};
-
-export default CalorieCalculator;
+}

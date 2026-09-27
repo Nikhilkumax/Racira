@@ -274,6 +274,9 @@
   .seo-prose ol {
     @apply list-decimal pl-6 mb-4 space-y-2;
   }
+  .seo-prose ul {
+    @apply list-disc pl-6 mb-4 space-y-2;
+  }
   .seo-prose li {
     @apply text-base leading-relaxed;
     color: hsl(var(--muted-foreground));
@@ -283,6 +286,15 @@
   }
   .seo-prose strong {
     @apply font-semibold text-foreground;
+  }
+  /* Inline sibling-tool links from the `{{slug|display text}}` syntax in the
+     "vs related tools" copy. Body copy stays at one plain weight, so a link is
+     marked by colour and underline only — never by bold. */
+  .seo-prose a {
+    @apply text-primary underline underline-offset-2 decoration-primary/40 transition-colors;
+  }
+  .seo-prose a:hover {
+    @apply text-primary/80 decoration-primary;
   }
 
   /* Horizontal-scroll affordance for wide tables (no JS, no listeners).

@@ -114,7 +114,7 @@ export default function PortDwellTimeCostCalculator() {
   useEffect(() => { 
     setMounted(true);
     handleCalculate(); 
-  }, [isPrePulled]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -167,7 +167,9 @@ export default function PortDwellTimeCostCalculator() {
                 <button 
                   onClick={() => setIsPrePulled(true)}
                   className={`h-9 rounded-md font-bold text-[13px] transition-colors border ${isPrePulled ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}
-                >Calculate</button>
+                >
+                  Pre-Pulled
+                </button>
                 <button 
                   onClick={() => setIsPrePulled(false)}
                   className={`h-9 rounded-md font-bold text-[13px] transition-colors border ${!isPrePulled ? "bg-red-500 text-white border-red-500" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}

@@ -60,8 +60,8 @@ export const AAChecker = makeContrastChecker(4.5, "WCAG 2.1 AA");
 export const AAAChecker = makeContrastChecker(7, "WCAG 2.1 AAA");
 export const APCAChecker = makeContrastChecker(4.5, "WCAG 3.0 APCA (approx.)");
 export const LargeText = makeContrastChecker(3, "Large text AA");
-export const UIComponent = makeContrastChecker(3, "UI component (3:1)");
-export const FocusIndicator = makeContrastChecker(3, "Focus indicator (3:1)");
+export const UIComponent = makeContrastChecker(3, "UI component (3:1)", "component");
+export const FocusIndicator = makeContrastChecker(3, "Focus indicator (3:1)", "ring");
 
 export const NicknameGen = makeNameGenerator("Color nickname");
 

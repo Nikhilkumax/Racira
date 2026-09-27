@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
 
 export default function ClosingCostCalculator() {
   const [homePrice, setHomePrice] = useState<number>(350000);
@@ -236,6 +237,10 @@ export default function ClosingCostCalculator() {
             <p className="text-muted-foreground">Upfront payments for ongoing homeownership expenses, typically placed into an escrow account. This usually includes property taxes and homeowners insurance premiums.</p>
           </div>
         </div>
+      </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/closing-cost-calculator" />
       </div>
     </div>
   );

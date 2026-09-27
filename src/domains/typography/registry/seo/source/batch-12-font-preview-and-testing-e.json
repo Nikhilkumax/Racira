@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "google-fonts-pairing-picker",
+    "keywords": [
+      "google fonts pairing picker",
+      "curated pairing",
+      "stylesheet request",
+      "preconnect"
+    ],
+    "intro": "The Google Fonts pairing picker offers six curated pairings from the catalogue, each with the exact stylesheet request it needs, the two custom properties to paste and the size ratio that suits its role. It is the shortest path from a pairing decision to working code.",
+    "content": "The Google Fonts pairing picker takes one of six curated pairings and a handful of settings, then emits the stylesheet link block, the custom properties and the role rules the pairing requires.\n\n- The six pairings cover distinct roles: a high-contrast display serif over a neutral grotesque for editorial and luxury work, a soft optical-size serif with a technical sans for brands, a large x-height serif with a geometric sans for documentation, a slab over a geometric sans for marketing, two warm faces for a blog, and condensed display caps over a documentary serif for magazines and news.\n- Each pairing carries a note describing why it works, from the contrast between voice and neutral through to the harmonious case where both faces share a tone.\n- The weights to request are chosen from four options, from a single 400 through to four weights, which is what keeps the stylesheet request to the weights the design actually uses.\n- The body size runs from 12px to 24px and the heading-to-body ratio from 1.2 to 4, with the heading size derived by multiplication rather than set separately.\n- The stylesheet request is generated from the pair and the chosen weights, with a display value of swap so the fallback renders while the file loads.\n\nThe emitted link block is the part that saves the most time, because it includes the two preconnect hints alongside the stylesheet request. The font host serves CSS from one domain and font files from another, so the preconnect to the stylesheet host alone leaves the font connection to be opened later; naming both is what removes the extra round trip. The request itself is built in the multi-family form, which fetches both families in one request rather than two, and the weights are limited to the ones selected, since a request that asks for every weight is the commonest cause of a bloated font payload. The CSS then declares two family properties and two size steps, so the heading size follows from the body size and the ratio instead of being set independently and drifting when one of them changes.\n\n- Six pairings are offered, all drawn from this domain's catalogue, so a pairing outside that set is not represented.\n- The request is built for the Google Fonts host, so a self-hosted or alternative provider needs the URL replaced.\n- Weights are chosen from four presets rather than one at a time, so an unusual weight combination has to be edited after copying.\n- The sizes are reported in pixels, so a rem-based system has to convert the two values.\n- Nothing checks whether the pairing suits the content, and the roles named for each pair are a guide rather than a rule.\n\nUse it when a pairing has been chosen and the code is needed quickly, when a self-hosted setup is being migrated to a hosted one, or when the weight list in an existing request needs trimming. The preconnect pair is usually the difference between a fast and a merely acceptable first paint. Where the pairing still has to be chosen, the font pairing suggester ranks every combination in the catalogue, the serif and sans pairing tool presents the editorial arrangement with its rationale, and the Google Fonts CSS generator covers the full set of rules for a family once the pairing is settled. The font pairing suggester generates candidates, the Google Fonts CSS generator writes the family rules, and the font loading strategy builder covers the loading sequence around the request.",
+    "howTo": [
+      { "step": "Choose the curated pairing whose role matches the project, then read its note to confirm the reasoning fits." },
+      { "step": "Set the body size and the heading ratio, watching the derived heading size in the results box." },
+      { "step": "Select the weights to request, keeping the list to the weights the design uses rather than requesting the whole family." },
+      { "step": "Copy the link block into the document head and the custom properties into the stylesheet, then check that both preconnects went in." }
+    ],
+    "whenToUse": "Reach for it when a pairing is settled and the code is the next step, when a request needs its weight list trimmed, or when a migration from self-hosted files to a hosted stylesheet is being done. Where the pairing is still open, the {{font-pairing-suggester|font pairing suggester}} ranks the combinations, the {{serif-sans-pairing-tool|serif sans pairing tool}} covers the editorial arrangement, and the {{font-loading-strategy-builder|font loading strategy builder}} plans what happens before the file arrives.",
+    "faqs": [
+      {
+        "q": "Why are there two preconnect hints?",
+        "a": "Because the stylesheet and the font files are served from different hosts. The first preconnect opens the connection to the stylesheet host, and the second, which carries the cross-origin attribute, opens the one the font files come from. Without the second, the browser only discovers the font host after parsing the stylesheet, which costs an extra round trip on the first visit."
+      },
+      {
+        "q": "Why limit the weights in the request?",
+        "a": "Because each weight is a separate font file inside the returned CSS, and only the ones the design uses are worth downloading. Requesting the whole family is the most common cause of a font payload that is several times larger than it needs to be. The weight presets exist so the request can be matched to the design without editing the URL by hand."
+      },
+      {
+        "q": "What does the display value do?",
+        "a": "It decides what the reader sees while the font file is arriving. Swap renders the fallback immediately and replaces it when the file lands, which is why the generated request uses it: text is never invisible, and the cost is a single reflow. The alternative values trade that reflow for a period of blank or fallback text, and the trade is set out in the web font tester."
+      },
+      {
+        "q": "Can I use the generated CSS without the link block?",
+        "a": "Yes, since the two are independent. The CSS declares the family properties and role rules and works with any source of the font files, including self-hosted ones. If the files are self-hosted, drop the link block and add an at-rule instead, which is what the declaration builder produces."
+      },
+      {
+        "q": "Why is the heading size derived rather than set?",
+        "a": "Because a ratio holds the relationship when either value changes. If the body size moves from 16px to 18px, a derived heading follows it and the hierarchy stays the same, while a heading set independently would silently change its proportion. The two size steps are written as properties for the same reason."
+      }
+    ]
+  },
+  {
+    "slug": "font-style-contrast-analyzer",
+    "keywords": [
+      "font style contrast analyzer",
+      "stylistic axes",
+      "contrast score",
+      "pairing role"
+    ],
+    "intro": "The font style contrast analyzer scores two faces on five stylistic axes and reports the difference as a profile rather than a single verdict. Pairings work when they differ deliberately on one or two axes and fail when they differ on none or on all five.",
+    "content": "The font style contrast analyzer compares two faces across five stylistic axes, totals the differences and reports both a score out of a hundred and the verdict that follows from it.\n\n- The five axes are serif character, stroke contrast, width, weight and warmth, each scored from zero to five where zero is neutral and five is a strong expression of the axis.\n- Profile values are recorded per family in the catalogue, so the comparison runs on reference values rather than on an assumption drawn from the classification.\n- A pairing role can be set to heading and body, interface and editorial, or display and text, since the role context changes how much contrast is desirable.\n- The contrast score is the total difference across the five axes expressed as a percentage of the maximum, so it is comparable between pairings.\n- The verdict bands run from identical profiles through subtle contrast, clear contrast and extreme contrast, with advice attached to the extremes.\n\nWhat the score measures is deliberate difference rather than quality. Identical profiles are reported as a pairing that will read as a mistake, because two faces that agree on every axis give the reader no signal about which is which. A total difference of three or less is called subtle contrast: harmonious, and dependent on weight or colour to separate the roles. The clear range runs to eight, and above that the verdict warns of a strong voice clash that has to be intentional. The role selector changes the reading of the same number, because a heading and body pairing tolerates far more contrast than an interface and editorial split, where similarity is what makes the two feel like one product rather than two. The table reports the per-axis differences with a bar for each face, so the profile is visible rather than only the total, and the rendered pair sets the second face at half the first's size and states that ratio explicitly.\n\n- The profiles are reference values recorded for comparison, not metadata read from the font files.\n- Warmth and serif character are qualitative properties given numbers, so two judges could score the same face differently.\n- Five axes are covered, so details such as terminal shape, figure style and the spacing of individual pairs are outside the model.\n- The score treats every axis as equally important, so a difference in warmth counts the same as a difference in stroke contrast.\n- The rendered pair uses a fixed half-size relationship, so the sizes are demonstrated rather than optimised.\n\nUse it when a pairing looks wrong and the cause needs locating on a specific axis, when two faces have to be compared on something other than classification, or when a team wants to argue about a pairing with a shared scale rather than adjectives. Where the comparison is about whether the roles can be told apart at all, the contrast pairing checker counts the axes a reader can perceive. The font harmony visualizer plots the same kind of profile with an emphasis on x-height, the contrast pairing checker adds the colour measurement, and the font pairing suggester turns the profiles into a shortlist.",
+    "howTo": [
+      { "step": "Choose face A for the stronger role and face B for the supporting one, then set the pairing role to match the context." },
+      { "step": "Read the five per-axis differences in the table rather than only the score, since one large difference and five small ones are different situations." },
+      { "step": "Compare the total against the verdict bands and read the advice, which differs between the subtle and the clear ranges." },
+      { "step": "Check the rendered pair at the stated ratio, then adjust sizes if the score points to a separation the reader cannot perceive." }
+    ],
+    "whenToUse": "Reach for it when a pairing looks slightly wrong and the axis responsible needs identifying, when two faces have to be compared beyond their classification, or when a design discussion needs a shared scale rather than opinions. For the perceptual side of the same question, the {{contrast-pairing-checker|contrast pairing checker}} measures colour and counts visible differences, the {{font-harmony-visualizer|font harmony visualizer}} emphasises x-height agreement, and the {{multi-font-comparison|multi font comparison}} measures the faces against each other at one size.",
+    "faqs": [
+      {
+        "q": "What makes a contrast score good or bad?",
+        "a": "Neither extreme is good. Identical profiles mean the reader cannot tell the roles apart, and a very high total means the two faces have no shared language and the page reads as two designs. The working range is clear contrast, which is a total difference of about four to eight across the five axes, plus one deliberate divergence in the right place."
+      },
+      {
+        "q": "Why does the role selector change the interpretation?",
+        "a": "Because different pairings want different amounts of separation. A heading and body pairing needs enough contrast that the hierarchy is obvious, while an interface and editorial pairing usually wants similarity, so that a help article and the product around it read as one thing. The same score can therefore be right in one role and wrong in another."
+      },
+      {
+        "q": "Where do the profile numbers come from?",
+        "a": "They are reference values recorded per family for comparison, not metadata extracted from the font files. That makes them consistent between sessions and comparable across faces, at the cost of precision: a face scored four on warmth is warmer than one scored two, but the figures are not measurements."
+      },
+      {
+        "q": "What should I do when the verdict says subtle contrast?",
+        "a": "Separate the roles by something other than the faces, which is what the advice column suggests: a weight difference, a colour difference, or a larger size jump. A pairing in the subtle band is harmonious and perfectly workable, provided the hierarchy is carried by another decision, and the same applies to two treatments that share a family."
+      },
+      {
+        "q": "Can the score be compared between different pairings?",
+        "a": "Yes, that is what expressing it as a percentage of the maximum makes possible. Two candidate pairings can be scored and the two totals compared directly, which turns a subjective choice into a bounded one. What the comparison cannot say is which pairing suits the content, only how far apart the two faces are."
+      }
+    ]
+  },
+  {
+    "slug": "type-scale-generator",
+    "keywords": [
+      "type scale generator",
+      "scale ratio",
+      "role steps",
+      "css variables"
+    ],
+    "intro": "The type scale generator assigns each role on a page a step on one geometric scale, previews every role at its true size and exports the result as CSS variables. Line heights follow the usual pattern: tighter as the sizes grow.",
+    "content": "The type scale generator takes a base size, a ratio and a step number for each role, then renders every role at its true size and writes the whole scale out as custom properties.\n\n- Eight roles are mapped: the six heading levels, body and a small size, each with its own step on the scale.\n- The base size runs from 10px to 24px, and the scale ratio is chosen from six named options spanning the minor third at 1.2 through to the golden ratio at 1.618.\n- Role steps are editable per role and clamped between minus six and ten, so a role can sit below the base as well as above it.\n- A role's size is the base multiplied by the ratio raised to its step, which is what makes the whole scale follow from two numbers.\n- The exported CSS variables are named per role and written in pixels to three decimal places, so no role depends on another through arithmetic in the stylesheet.\n\nThe defaults show how a conventional hierarchy is built: the first heading sits five steps above the base, the second four, and each level down loses one step until the sixth heading and the body share step zero, with the small size one step below. The preview is what makes the numbers arguable, because every role is rendered at its actual size in one column with its computed pixel value shown, and the line height is derived rather than fixed: a heading's leading falls as its size grows, from around 1.4 at the smaller steps towards 1.05 at the top, while body and small text hold steady at 1.6. That pattern exists because large type needs proportionally less leading than small type, and hard-coding one value across a scale is the usual way a heading ends up looking cramped at the top of the ladder. The span readout reports the ratio between the first heading and the body, which is the single number that describes how dramatic the scale is.\n\n- The exported sizes are in pixels, so a rem-based or fluid system has to convert them.\n- Line heights are computed by a formula rather than set per role, so a role needing unusual leading has to be overridden afterwards.\n- The scale is geometric only, so a scale built on two interleaved ratios is not representable.\n- Steps are clamped, and a value outside the range is silently reduced to the nearest bound rather than rejected.\n- Nothing checks whether two adjacent roles are actually distinguishable at their rendered sizes, which is a judgement the preview supports rather than automates.\n\nUse it when a page's hierarchy is being defined from scratch, when an existing set of sizes needs checking against a single ratio, or when the number of distinct sizes is being reduced. The span readout is the quickest summary of how the scale will feel. Where the arithmetic itself has to be inspected step by step, the modular scale calculator shows the table of multipliers, and where the scale has to be fluid across viewports, the fluid type scale builder turns the same steps into clamp values. The modular scale calculator shows the underlying table, the fluid type scale builder makes the scale responsive, and the font size preview converts the resulting sizes into rem and points.",
+    "howTo": [
+      { "step": "Set the base size and choose the ratio, which immediately rescales every role in the preview." },
+      { "step": "Adjust the step number for each role, watching the preview column as each one moves at its true size." },
+      { "step": "Check that adjacent roles are still distinguishable, since two roles sharing a step will render identically." },
+      { "step": "Read the span readout for the heading-to-body ratio, then copy the variables into the stylesheet." }
+    ],
+    "whenToUse": "Reach for it when a hierarchy is being built from scratch, when a set of sizes that grew ad hoc needs reconciling against one ratio, or when the number of sizes has to be reduced without losing the levels. For the underlying arithmetic the {{modular-scale-calculator|modular scale calculator}} shows every multiplier in a table, the {{fluid-type-scale-builder|fluid type scale builder}} derives the responsive version with clamp, and the {{font-size-preview|font size preview}} converts the resulting sizes into rem and points for the stylesheet and the printer.",
+    "faqs": [
+      {
+        "q": "How many steps should a heading sit above the base?",
+        "a": "Enough that the first heading dominates without the page looking like a poster. The defaults put it five steps above the base, which at the major third ratio gives a span of roughly three times the body size. A span readout between two and four times is the common working range for an editorial page, and interfaces tend to sit lower."
+      },
+      {
+        "q": "Why do smaller ratios suit interfaces?",
+        "a": "Because an interface has more roles packed into a smaller range of sizes. A ratio of 1.2 or 1.25 gives distinguishable steps without any single size becoming disproportionate, while the golden ratio produces dramatic jumps that suit a display-led design with few levels. The ratio is the main lever on how much contrast the whole hierarchy has."
+      },
+      {
+        "q": "Why is the line height computed instead of set?",
+        "a": "Because large type needs less leading than small type. The formula tightens the leading as sizes grow, from about 1.4 down towards 1.05 at the top of the scale, while body and small text hold at 1.6. Setting one value everywhere is what makes a large heading look cramped and a caption look loose at the same time."
+      },
+      {
+        "q": "What happens if two roles share a step?",
+        "a": "They render at the same size, which the preview will show clearly since both rows carry their computed pixel values. That is sometimes deliberate, as with body and the sixth heading in the defaults, though a heading at body size needs to separate itself by weight or family instead. Two adjacent roles sharing a step without a reason is the commonest scale defect."
+      },
+      {
+        "q": "Why export the sizes as variables rather than as rules?",
+        "a": "Because the scale is a decision about sizes, and the rules that apply them belong elsewhere. Emitting one variable per role means the sizes can be consumed by headings, components and utilities without each of them re-deriving the arithmetic, and a change to the ratio can be applied in one place. It also keeps the scale independent of the element names."
+      }
+    ]
+  },
+  {
+    "slug": "modular-scale-calculator",
+    "keywords": [
+      "modular scale calculator",
+      "geometric scale",
+      "scale table",
+      "effective ratio"
+    ],
+    "intro": "The modular scale calculator works the arithmetic of a geometric type scale: each size is the base multiplied by the ratio raised to the step. Steps run in both directions from the base, so the table shows the sizes above and below it in one view.",
+    "content": "The modular scale calculator takes a base size, a unit, a ratio and a step count, then prints a scale table covering every step from the top of the scale down to the bottom.\n\n- The base unit can be pixels, rems or points, and the table converts each row into the other unit using a root size you supply.\n- Ten named ratios are offered, from the minor second at 1.067 through the major third at 1.25 to the octave at 2, and a custom ratio can be typed for anything else.\n- Steps up and down can be set from one to ten, so the table always runs symmetrically around the base rather than only upward.\n- Each row reports its step label, the multiplier applied to the base, the resulting size and its conversion into the other unit.\n- The readouts report the effective ratio, the full range of the scale, and the size increase produced by five steps.\n\nThe two directions are what make the table useful. Steps above the base give the heading sizes, and steps below give captions and footnote sizes, so a scale that runs from minus three to plus five can be read as a single ladder. Each row's multiplier is shown as well as the result, which is what makes the compounding visible: at a major third, one step up is 1.25 times the base, two steps is 1.5625 and five steps is 3.05, so the sizes do not increase by a constant amount but by a constant proportion. That is the property that distinguishes a geometric scale from a hand-built list of sizes, and it is also why small ratios are needed when a page carries many levels: at a ratio of 1.5, five steps above the base already place a heading at seven and a half times the body size. The custom ratio exists for the case where a project's own scale does not come from the named set.\n\n- The table is arithmetic only: it says nothing about whether the sizes suit a layout or whether the resulting line lengths work.\n- The conversion between units uses a single root size, so a document that changes its root at a breakpoint is not represented.\n- Named ratios are offered as a convenience rather than as recommendations, and the custom option accepts any value above one.\n- Steps are capped at ten in each direction, which keeps the table readable and bounds the largest size it can show.\n- Nothing models leading, so the vertical consequence of each size has to be worked out elsewhere.\n\nUse it when a scale has to be checked rather than chosen, when a set of sizes needs its ratios explained, or when a client asks why the heading is exactly that size. The multiplier column answers that question arithmetically. Where the steps have to be assigned to roles, the type scale generator does that mapping, and where the scale has to be fluid, the fluid type scale builder derives the clamp values. The type scale generator maps the steps to roles, the font size preview converts the sizes a second way against the browser's root, and the fluid type scale builder makes the same scale responsive between two viewports.",
+    "howTo": [
+      { "step": "Enter the base size and choose the unit the design works in, then read the base row to confirm the value landed as expected." },
+      { "step": "Pick a ratio from the named set or type a custom value, and watch the range readout change with it." },
+      { "step": "Set the number of steps up and down so the table covers every size the page needs, and check that adjacent steps are distinguishable." },
+      { "step": "Read the multiplier column to see the compounding, then copy the sizes into the scale or into a design token file." }
+    ],
+    "whenToUse": "Reach for it when a scale needs verifying rather than choosing, when the ratios behind an existing set of sizes have to be explained, or when a project's sizes have to be reconciled onto one ratio. The multiplier column makes the compounding visible, which is what makes the arithmetic arguable. For assigning steps to roles, the {{type-scale-generator|type scale generator}} does the mapping, the {{font-size-preview|font size preview}} converts the sizes into the units a stylesheet and a printer need, and the {{fluid-type-scale-builder|fluid type scale builder}} turns the scale into a responsive one.",
+    "faqs": [
+      {
+        "q": "What does geometric mean here?",
+        "a": "That each step multiplies the previous one by the same ratio, so sizes grow by a constant proportion rather than a constant amount. At a major third, one step is 1.25 times the base and five steps is 3.05 times it. That is what keeps the relationships between the sizes consistent however far up the scale a role sits."
+      },
+      {
+        "q": "Why run steps below the base as well as above it?",
+        "a": "Because captions, footnotes and legal text sit below the body size, and they belong on the same scale rather than being chosen separately. A scale running from minus three to plus five covers a caption through to a display heading in one ladder. The symmetry is only of convenience: the step count is what you set."
+      },
+      {
+        "q": "Which ratio should a page use?",
+        "a": "It depends how many levels there are. A page with six or seven distinct sizes needs a gentle ratio such as 1.125 or 1.2, because a larger one pushes the upper steps to unusable sizes. A display-led page with three or four levels can afford 1.333 or 1.5. The range readout shows the consequence of the choice immediately."
+      },
+      {
+        "q": "How accurate is the unit conversion?",
+        "a": "Exact for the arithmetic, and dependent on the root size you supply for rems. A rem is one root em, so the conversion assumes a single root value for the whole document. A project that changes its root font size at a breakpoint has two valid conversions, and the table can only show one of them."
+      },
+      {
+        "q": "Can a scale mix two ratios?",
+        "a": "Not in this tool, which works on one ratio at a time. Mixed scales are real, usually built by taking alternate steps from two interleaved ratios to produce more usable sizes in the middle of the range. They have to be assembled by hand from two tables, and the type scale generator's per-role steps are where the combined result is expressed."
+      }
+    ]
+  },
+  {
+    "slug": "fluid-type-scale-builder",
+    "keywords": [
+      "fluid type scale builder",
+      "clamp",
+      "slope and intercept",
+      "viewport range"
+    ],
+    "intro": "The fluid type scale builder turns two design points into a scale of clamp values, so type grows continuously between a narrow and a wide viewport instead of jumping at breakpoints. Every step shares one viewport range and one slope.",
+    "content": "The fluid type scale builder takes a min and max viewport, a min and max body size, a root size and a ratio, then derives the clamp value for each role on the scale.\n\n- The viewport pair defaults to 360 pixels at the narrow end and 1440 at the wide end, which is the range most designs are drawn against.\n- The body size pair defaults to 15px and 18px, so the smallest viewport gets the smaller value and the largest gets the larger one.\n- Five roles are derived: the first, second and third heading levels at three, two and one steps above the body, the body itself at step zero, and a small size one step below.\n- The ratio on which the steps are built can be set, so the whole scale follows one proportion as well as one viewport range.\n- Each role is emitted as a clamp with a minimum, a preferred term and a maximum, written in rem units against the root size you supply.\n\nThe arithmetic behind the preferred term is a straight line through the two design points, and the slope and intercept are its two parameters. The slope is the difference between the two sizes divided by the difference between the two viewport widths, and the intercept is the smaller size minus the slope multiplied by the smaller viewport width. The preferred term is then the intercept plus the slope expressed against the viewport, which is why the output reads as a fixed rem value plus a viewport-relative one. Below the minimum viewport the font pins to the minimum size and above the maximum it pins to the maximum, so the text never grows beyond the range the design was tested in. The readouts give the slope in both viewport units and pixels per pixel, the intercept in pixels, and the preferred term in its final form, which is the useful thing to check before the CSS is pasted: a very steep slope means the type will change noticeably across the range, and a preferred term whose rem component dominates means the viewport influence is small.\n\n- The scale is derived from one body pair multiplied by the ratio, so a role needing a size outside that progression has to be written by hand.\n- Only one viewport range is modelled, so a third breakpoint with its own range needs a separate calculation and a media query.\n- The output assumes a stable root size, and a document that changes its root at a breakpoint invalidates the rem components.\n- The clamp values are generated for the five roles listed, so captions, quotes and interface text are outside the scale.\n- Nothing checks the result against a real layout, so whether the largest size fits its container has to be tested on the page.\n\nUse it when a type scale has to be responsive rather than stepped, when the jumps between breakpoints are visible and unwanted, or when a design pair has been drawn at two viewport widths and the middle of the range needs filling in. The slope readout is the part to check first, since a steep line is the commonest reason a fluid scale looks wrong at the ends. Where a single fluid value is needed rather than a scale, the clamp calculator works on one dimension, and where the steps themselves need deriving, the type scale generator and the modular scale calculator do that. The CSS clamp calculator covers a single value, the type scale generator derives the steps, and the CSS fluid typography builder writes the wider set of fluid typography rules.",
+    "howTo": [
+      { "step": "Enter the two viewport widths the design was drawn at, then the body size at each of them." },
+      { "step": "Set the root size and the ratio, and read the slope and intercept to see how steep the line through the two points is." },
+      { "step": "Check the role table, which lists each step's size range and its clamp value, and confirm adjacent steps stay distinguishable at both ends." },
+      { "step": "Copy the variables, then test the largest size in its real container at the wide viewport before the scale is adopted." }
+    ],
+    "whenToUse": "Reach for it when a scale has to be responsive rather than stepped, when the size jumps between breakpoints are visible, or when a design pair exists at two widths and the range between them has to be filled in continuously. For a single fluid value the {{css-clamp-calculator|CSS clamp calculator}} is the narrower tool, the {{type-scale-generator|type scale generator}} derives the steps that the fluid version grows from, and the {{modular-scale-calculator|modular scale calculator}} shows the multipliers behind the ratio.",
+    "faqs": [
+      {
+        "q": "What are the slope and intercept actually computing?",
+        "a": "They are the two parameters of the straight line that passes through your two design points. The slope is the size change per unit of viewport width, and the intercept is where that line would sit at a viewport of zero. Those two numbers become the preferred term of the clamp, with the intercept as a fixed rem value and the slope multiplied by the viewport as the fluid part."
+      },
+      {
+        "q": "Why does the value pin at the ends?",
+        "a": "Because the clamp has a minimum and a maximum around the preferred term. Below the smaller viewport the line would keep producing smaller sizes, and above the larger one it would keep growing, so the clamp pins the value at the sizes the design was tested at. That is the entire purpose of using a clamp rather than a viewport-relative value on its own."
+      },
+      {
+        "q": "What slope is too steep?",
+        "a": "It depends on how much change the design wants across the range, but a slope that produces more than about a forty per cent size change between the two viewports tends to be visible as the window is resized. The readout gives the slope in viewport units, so a value around 0.3 to 0.5vw per hundred for body copy at a common range is typical, and higher values are usually only wanted for display headings."
+      },
+      {
+        "q": "Why are the sizes written in rem rather than pixels?",
+        "a": "So the scale still respects a reader's own font size setting. A clamp whose ends are expressed in rem scales with the root, which means a reader who has set a larger base size gets a larger scale rather than the same one. The viewport-relative middle part is what makes the scale fluid, and the rem parts are what keep it accessible."
+      },
+      {
+        "q": "Do I still need breakpoints?",
+        "a": "For the type scale, usually not, since the values interpolate continuously. Layout still changes at breakpoints, so a design will keep them for columns, spacing and components. What the fluid scale removes is the type sizes changing abruptly at each one, which is the usual reason a page appears to reflow its text as the window narrows."
+      }
+    ]
+  }
+]

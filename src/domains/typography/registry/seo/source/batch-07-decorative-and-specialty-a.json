@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "lettering-style-previewer",
+    "keywords": [
+      "lettering style previewer",
+      "hand lettering",
+      "stroke modulation",
+      "lettering preset"
+    ],
+    "intro": "The lettering style previewer shows the common hand lettering traditions as close CSS approximations, with the caveat stated on the page: real lettering has stroke modulation, bounce and irregular spacing that no font reproduces. Use the presets to pick a direction, then letter it properly.",
+    "content": "The lettering style previewer renders your text in one of six lettering traditions, each built from a real catalogue face plus a handful of CSS declarations, and it also lists what the approximation cannot do.\n\n- The six lettering preset options are brush script, sans marker, slab poster, condensed display, geometric monoline and ink pen, each naming the face it borrows and the effect it fakes.\n- Brush script uses an italic serif at weight 600 with a hair of rotation, standing in for a continuous thick-and-thin stroke.\n- Sans marker uses a grotesque at weight 700 with a hard half-pixel text shadow, which fakes the bleed of an ink edge.\n- Slab poster and condensed display are both uppercase settings, one heavy with a little tracking and one narrow with uniform stroke, which is the wood type and the packaging tradition respectively.\n- Geometric monoline uses a circular sans at weight 500 with wide tracking, and ink pen uses a true italic serif, which carries the calligraphic entry and exit strokes of a pen.\n- Size runs from 18px to 160px, tracking from minus 0.05em to 0.3em, and the baseline slant from six degrees one way to six the other.\n\nThe honest part of the tool is the table of what a font cannot fake. Stroke modulation is the first entry, because a real nib widens and narrows along the stroke while a font keeps one outline per glyph. Bounce is second: hand lettering puts each letter on its own baseline, and rotating the whole word only tilts the row. Irregular spacing is third, and it is the actual source of the hand-made feel, since a letterer tightens and loosens each pair by eye. Ink texture and per-pair ligature drawing complete the list, both being raster or drawn effects rather than anything an outline can carry. The exported CSS composes the stack, the size in rem to four decimals, the tracking, the rotation and the preset's own declarations into one class that can be dropped onto a heading.\n\n- The presets are approximations, and the panel says so rather than presenting them as lettering faces.\n- Rotation is applied to the whole word, so it tilts rather than bounces; a per-letter baseline would need one element per glyph.\n- The ink bleed in the marker preset is a half-pixel hard shadow, which reads as an offset edge rather than a bleed.\n- Faces are drawn from the catalogue, so a project with its own script face cannot be previewed here.\n- The exported transform creates a containing block and can affect neighbouring layout, which is worth knowing before it is applied to a hero heading.\n\nUse it at the start of a lettering job, when the question is which tradition suits the words rather than how the strokes are drawn. Picking the preset is the cheap part; the finished lettering then happens in a drawing tool or by hand. Where the outcome is a monogram rather than a running word, the monogram letter designer works on the single letter, the logo type tester checks it at the sizes a logo actually appears, and the retro type style maker covers the period-flavoured variants of the same traditions.",
+    "howTo": [
+      { "step": "Pick the tradition from the preset list, reading the note under the preview since each one states what it is faking and how." },
+      { "step": "Type the real words rather than a placeholder, because lettering traditions read differently at different lengths and letter combinations." },
+      { "step": "Set the size, then use tracking and baseline slant to find the feel: the alternatives to a custom drawing are a little tracking out and a little upward slant." },
+      { "step": "Read the table of what a font cannot fake before copying the CSS, so the approximation is used as a reference rather than shipped as finished lettering." }
+    ],
+    "whenToUse": "Reach for it when a lettering direction has to be chosen quickly, when a client needs to see three traditions side by side before committing to a commission, or when a heading wants the flavour of a lettering style without a full drawing job. The caveat table is the other reason to open it: it is the argument for commissioning real lettering when the difference matters. For a single letter, the {{monogram-letter-designer|monogram letter designer}} is the closer tool, the {{logo-type-tester|logo type tester}} checks how the result holds up at the sizes a mark is used, and the {{retro-type-style-maker|retro type style maker}} covers the period variants of the same look.",
+    "faqs": [
+      {
+        "q": "Can I ship the exported CSS as final lettering?",
+        "a": "For a decorative heading, often yes, and it will look like a typeface rather than like lettering. What it will not have is per-letter bounce, stroke modulation or irregular spacing, which is exactly the difference the table on the page lists. If the piece is meant to read as hand-lettered, the preset is the reference for a real drawing rather than the finished article."
+      },
+      {
+        "q": "Why does the rotation tilt the whole word?",
+        "a": "Because a transform applies to the element rather than to each glyph. Bounce in hand lettering puts every letter at a slightly different angle and height on the baseline, which needs one element per letter and a rotation per letter. A single transform on the word is a rough stand-in for a slanted baseline."
+      },
+      {
+        "q": "How is the marker bleed faked?",
+        "a": "With a half-pixel text shadow in the text colour, which thickens one edge of each glyph and reads as the edge of an ink mark. It is not a bleed: real ink spreads in every direction and varies with pressure and paper, while a shadow offset is uniform and hard-edged."
+      },
+      {
+        "q": "Which preset suits a short display line?",
+        "a": "Condensed display and slab poster both work at a word or two, since their narrow or heavy forms hold up without much surrounding text. Brush script and ink pen need more words to show their rhythm and tend to look lost on a single short line. Geometric monoline sits between the two and suits a mid-length line."
+      },
+      {
+        "q": "Do the presets change the typeface?",
+        "a": "They each name one catalogue face, so switching preset switches the font family as well as the CSS declarations. That means two presets are not comparable as pure effects: the comparison is between a face and a treatment together, which is how lettering is chosen in practice anyway."
+      }
+    ]
+  },
+  {
+    "slug": "outlined-text-generator",
+    "keywords": [
+      "outlined text generator",
+      "text stroke",
+      "paint order",
+      "hollow text"
+    ],
+    "intro": "The outlined text generator produces hollow lettering with CSS, where the outline is drawn by a text stroke and the paint order keeps that stroke from eating into the glyph. The paint order is the part that makes thick outlines look right rather than eroded.",
+    "content": "The outlined text generator takes a string, a size, a text stroke width and two or three colours, then renders the result and exports the CSS that produces it.\n\n- The stroke width runs from half a pixel to 8px, reported both in pixels and as a percentage of the em so the weight of the outline can be related to the type size.\n- The fill can be transparent for a hollow letter, white, near-black or amber, and the background is a separate colour so the hollow can be judged against the surface it sits on.\n- Size spans 24px to 160px and letter spacing from 0 to 0.2em, which is the range hollow caps need, since a stroke makes letters look tighter than a solid fill does.\n- The readout states the paint order as stroke then fill, which is the setting that stops the stroke from cutting into the counters.\n- Browser support is reported as complete for the stroke property across modern browsers, which is why it is the technique used here rather than an SVG outline.\n\nThe order of painting is the whole trick. A stroke is centred on the glyph outline, so half of its width falls inside the letter and, painted over the fill, it erodes the shape from within. Setting the paint order to stroke first, fill second puts the fill back on top of the inner half, which leaves the outline sitting outside the letterform at its intended weight. That matters most at thick widths in hollow text, where an eroded cap can close its counters entirely. The stroke is also reported as a share of the em, because a 2px outline on a 64px letter is a fine line while the same 2px on a 24px letter is a heavy frame, and the ratio is what tells you which you are looking at.\n\n- The preview sets the weight to 800 regardless of the chosen face, since hollow lettering needs heavy forms to stay legible, so the result is not a preview of a light or regular weight.\n- Nothing checks the stroke colour against the background, so an outline in a colour close to the surface can be produced and will be hard to read.\n- Fill options are a fixed list of four, so an arbitrary fill colour has to be typed into the CSS after copying.\n- Descenders and fine terminals can still look pinched at the heaviest stroke widths, and the preview is the place to notice it.\n- The output is CSS only: no image export, and nothing rasterises the result for use where a picture is required.\n\nUse it for display caps where the hollow form is the design: a hero heading, a section number, a poster line. Keep the stroke width at a small share of the em for anything that has to be read at a distance, and check the outline colour against the background rather than trusting the preview's contrast. Where the letter needs depth rather than an edge, the shadow text generator stacks soft layers, the 3D text effect preview builds an extrusion, and a fill that changes across the letter is the text gradient maker's job.",
+    "howTo": [
+      { "step": "Type the words in caps, since hollow lettering is nearly always a display setting and lowercase forms lose their counters first." },
+      { "step": "Set the size, then raise the stroke width and watch the percentage of em readout rather than judging the outline by eye alone." },
+      { "step": "Choose the fill and the background together, which is where a hollow letter is either legible or invisible." },
+      { "step": "Copy the CSS and paste it into the component, remembering that the paint order declaration is what keeps the stroke outside the letterform." }
+    ],
+    "whenToUse": "Reach for it when a display heading wants a hollow treatment, when a poster or a section number needs an outlined figure, or when someone has produced an outlined heading with a stroke that has eaten the letters and the fix has to be explained. The paint order line is usually the whole answer. Line heights and page placement can be checked against the same specification with the {{type-scale-generator|type scale generator}}, while the {{shadow-text-generator|shadow text generator}}, the {{3d-text-effect-preview|3D text effect preview}} and the {{text-gradient-maker|text gradient maker}} cover the other display treatments.",
+    "faqs": [
+      {
+        "q": "Why does an outlined heading look eroded at thick widths?",
+        "a": "Because the stroke is centred on the glyph outline rather than drawn outside it, so half of its width lands inside the letter. Painted after the fill it covers that inner half and thins the form. Setting the paint order to stroke first and fill second restores the letter and leaves the outline outside, which is why the generated CSS includes it."
+      },
+      {
+        "q": "Why is the preview always at weight 800?",
+        "a": "Because hollow lettering needs heavy forms. A light weight has thin strokes to begin with, and an outline drawn on top of a hairline stem leaves a shape that reads as two parallel lines rather than a letter. The preview therefore shows the setting at a weight that works, and the CSS leaves the weight to the component it is pasted into."
+      },
+      {
+        "q": "Is a transparent fill the same as no fill?",
+        "a": "For the hollow look it is, and the difference appears when the background is not flat. A transparent fill lets whatever is behind the text show through the counters, while a fill set to the background colour blocks it. On a flat surface the two are identical; over an image they are not."
+      },
+      {
+        "q": "What stroke width should I use?",
+        "a": "Judge it as a share of the em rather than in pixels. A stroke of about 1 to 3 percent of the em reads as a fine outline, while 5 percent and above starts to look like a frame, and the readout reports the ratio for the values you enter. Large display sizes tolerate a heavier stroke than small ones for the same reason."
+      },
+      {
+        "q": "Can I outline text with a gradient stroke?",
+        "a": "Not with this property, since the stroke takes a single colour. A gradient outline needs the text rendered as an SVG path with a stroked shape, or the gradient applied to the fill instead. The text gradient maker covers the fill case, which is the one that usually looks better anyway."
+      }
+    ]
+  },
+  {
+    "slug": "shadow-text-generator",
+    "keywords": [
+      "shadow text generator",
+      "text shadow layers",
+      "blur radius",
+      "shadow preset"
+    ],
+    "intro": "The shadow text generator builds a shadow from stacked layers, because every convincing text shadow is a stack rather than a single offset. A small hard layer gives definition and a larger soft one gives depth, and each layer carries its own alpha so overlaps never go solid.",
+    "content": "The shadow text generator takes a string, a size, two colours and a list of text shadow layers, then renders the result and exports the shadow declaration.\n\n- Five shadow preset options cover the common cases: a soft lift below the type, a hard offset for a printed feel, a long soft shadow for depth, an emboss pair with a light layer above and a dark layer below, and a neon haze of two accent layers at different blurs.\n- Each layer carries an offset in x and y from minus 40 to 40 pixels, a blur radius from 0 to 60 pixels, and a colour chosen from a list of alpha values including black at 90, 55, 25 and 12 percent, white at 75 percent and two accent values.\n- Layers can be added and removed, so a three-layer effect can be built from a two-layer preset.\n- The largest blur radius is reported as a ratio of the type size, with a warning above 0.3 that the effect is very soft and may look fuzzy.\n- The CSS writes the size in rem and the shadow as a comma-separated list, which is how the layers survive the copy.\n\nThe alpha values are why the stack works. A shadow in solid black over solid black does not read as depth; it reads as a second copy of the text. Using a partly transparent colour means the overlap between layers accumulates gradually, and a light layer placed above a dark one produces the embossed edge that neither layer gives alone. The blur-to-size ratio is the other rule the panel states: offsets and blurs in pixels do not scale with the type, so a shadow tuned on a 72px heading becomes a blur when the same class is applied to a 20px label. Keeping the ratio under about a third of the type size is a working threshold, and deriving the pixel values from the font size is the responsive answer when the same treatment has to work at several sizes.\n\n- The layer colours are a fixed list, so an arbitrary shadow colour has to be edited into the CSS after copying.\n- Offsets are absolute pixels, so the shadow does not scale automatically with the type size, which is the reason for the ratio warning rather than a fix.\n- The preview renders a single line, so a shadow that behaves well on one line is not tested for how it stacks over several.\n- There is no support for a stroked or outlined letter underneath the shadow, though the two treatments can be combined by hand.\n- Nothing reports the paint cost, which matters when a heavily layered shadow sits on an element that animates.\n\nUse it when a heading needs depth or lift and a single offset looks flat, and again when a shadow has to be diagnosed: three layers with descending alpha is almost always the answer, whatever the effect is called. Where the letter wants an edge rather than a shadow, the outlined text generator draws a stroke, the 3D text effect preview stacks hard shadows into an extrusion, and the neon text previewer layers glow around a light core. The shadow presets are also the quickest reference for the difference between definition and depth, and the neon text previewer shows the same layer technique applied to glow.",
+    "howTo": [
+      { "step": "Start from the preset closest to the effect you have in mind, then read the note under the preview to see how many layers it uses." },
+      { "step": "Set the size and the text and background colours before adjusting layers, since both change how much shadow the eye can read." },
+      { "step": "Adjust each layer's offsets and blur, keeping the largest blur under about a third of the type size, and add or remove layers as needed." },
+      { "step": "Copy the CSS and check the value of the blur ratio readout, converting the offsets to size-relative units if the treatment will be reused at other sizes." }
+    ],
+    "whenToUse": "Reach for it when a heading needs lift or depth and a single offset shadow looks flat, when a shadow has to work on both a light and a dark surface, or when an existing shadow has to be made to scale with the type rather than staying fixed. The layer model is the useful idea, not the presets. For an edge rather than a shadow, the {{outlined-text-generator|outlined text generator}} draws a stroke; for an extrusion, the {{3d-text-effect-preview|3D text effect preview}} stacks hard shadows; and for a lit tube, the {{neon-text-previewer|neon text previewer}} layers glow around a bright core.",
+    "faqs": [
+      {
+        "q": "Why stack layers instead of using one shadow?",
+        "a": "Because one layer can express either definition or depth but not both. A small blur with a stronger alpha sharpens the letter's edge against the background, while a large blur with a weaker alpha suggests the object lifting off the surface. Combined, the pair reads as a raised letter; alone, each reads as a flat effect."
+      },
+      {
+        "q": "Why do the shadow colours use alpha?",
+        "a": "So that overlapping layers build up gradually instead of stacking into a solid block. A hard offset shadow in solid black over black text looks like a second copy of the word rather than a depth cue. With alpha, the overlap between the definition layer and the depth layer accumulates without any single layer turning opaque."
+      },
+      {
+        "q": "What does the blur-to-size ratio tell me?",
+        "a": "Whether the shadow will still make sense when the type size changes. Offsets and blur radii are absolute pixels, so the same declaration on a smaller heading produces a proportionally larger shadow. The ratio is the largest blur divided by the type size, and above roughly a third the effect starts to read as fuzz rather than as depth."
+      },
+      {
+        "q": "How do I make a shadow scale with the text?",
+        "a": "Derive the values from the type size rather than typing them as pixels: an em-based shadow can be expressed in the shadow's own units in newer CSS, or the values can be set from a custom property on the component. The panel states the rule directly, since the tool writes fixed pixels for clarity."
+      },
+      {
+        "q": "Which preset suits text over an image?",
+        "a": "The long soft shadow, because its wide blur separates the letters from a busy background without a visible offset. On a flat surface a hard offset reads as a deliberate print effect, but over a photograph it competes with the image detail and tends to look like a rendering error."
+      }
+    ]
+  },
+  {
+    "slug": "3d-text-effect-preview",
+    "keywords": [
+      "3d text effect preview",
+      "extruded text",
+      "paint cost",
+      "perspective"
+    ],
+    "intro": "The 3D text effect preview builds an extruded look the way CSS actually does it: a stack of hard-edged shadows, one per depth step, plus an optional perspective transform for the vanishing direction. The readout reports the shadow count, which is the real cost of the effect.",
+    "content": "The 3D text effect preview takes a string, a size, a depth, a step, a direction and an optional perspective, then generates the shadow stack that draws the extruded text and exports the CSS.\n\n- Depth runs from 1px to 40px and the step from half a pixel to 4px, and the number of layers is the depth divided by the step and rounded, so a 14px depth at a 1px step generates fourteen layers.\n- Direction is an angle from 0 to 360 degrees, which sets the horizontal and vertical components of every layer's offset through cosine and sine.\n- Perspective is off, a slight tilt at 12 degrees or a strong tilt at 24, applied as a rotation on an axis with a perspective distance set to six times the type size.\n- Layers darken toward the front of the extrusion and fade toward the tail, with each layer's alpha derived from its position in the stack.\n- The final layer adds a single one-pixel blur, which softens the last edge of the extrusion so the tail does not end in a hard line.\n\nEach layer is a hard-edged shadow with no blur, which is what makes the extrusion read as a solid body rather than a smudge: the offsets step evenly along the chosen direction, so the shadows tile into a continuous side surface. The paint cost is the part the panel makes explicit. Every layer is a separate rasterised shadow, so the count is the number of times the text is drawn, and a 40px depth at a half-pixel step produces eighty layers against the browser's paint budget. Above 24 layers the readout calls the cost high and advises against animating that element, since a hero animation repaints every frame. The alternative when the effect has to move is an SVG text object extruded as geometry, which animates as a transform rather than as a repaint.\n\n- The extrusion is flat: a real three-dimensional object has lit and shaded sides, and a stack of shadows has one uniform tone.\n- The perspective option rotates the whole element rather than shearing the extrusion, so the body of the letters does not recede in the way a modelled object would.\n- Only hard shadows and one soft tail layer are generated, so bevels, outlines and reflections are outside the tool.\n- The paint cost warning is a threshold on layer count rather than a measurement of any particular page.\n- The preview renders one line at a fixed weight of 800, so the effect is not tested over multiple lines.\n\nUse it for a poster or hero treatment where the depth is part of the design, and check the layer count before deciding it can animate. If the effect is going to move, the depth should come down and the step up, since layer count is what governs the cost. Where the letter needs an edge rather than a body, the outlined text generator draws a stroke, the shadow text generator stacks a few soft layers for depth instead of an extrusion, and the neon text previewer builds the opposite treatment with glow rather than shade.",
+    "howTo": [
+      { "step": "Type the display string in caps or a heavy weight, since an extrusion on thin letterforms closes the counters." },
+      { "step": "Set the size, then choose a depth and a step: the depth sets how long the extrusion is and the step sets how smooth its edge reads." },
+      { "step": "Set the direction angle so the extrusion points away from the light, then try the perspective options if the letter needs to recede." },
+      { "step": "Read the layer count and the paint cost before copying the CSS, and reduce the depth if the element is going to be animated." }
+    ],
+    "whenToUse": "Reach for it when a hero heading or a poster line needs physical depth, when an existing text effect has to be sized without rebuilding it, or when someone has proposed animating a text effect and the layer count needs checking first. The cost readout is the part worth opening the tool for on its own. For an edge instead of a body, the {{outlined-text-generator|outlined text generator}} draws an outline, the {{shadow-text-generator|shadow text generator}} stacks a few soft layers, and the {{text-gradient-maker|text gradient maker}} handles a fill that changes across the letter.",
+    "faqs": [
+      {
+        "q": "Why does a deeper extrusion cost so much?",
+        "a": "Because each layer is a separate shadow that the browser rasterises, so the text is effectively drawn once per layer. A 14px depth at a 1px step is fourteen draws; the same depth at a half-pixel step is twenty-eight. The count is what the readout reports, and it is why a deep effect on a large heading is more expensive than any font choice."
+      },
+      {
+        "q": "Should I animate an extruded heading?",
+        "a": "Only if the layer count is low. Any animation on the element forces the shadows to be repainted, and above roughly two dozen layers the cost becomes visible on a mid-range device. Reducing the depth or raising the step is the quickest fix, and if the effect has to keep its weight while moving, an SVG extrusion animates as a transform instead."
+      },
+      {
+        "q": "What does the step control change?",
+        "a": "How finely the side of the extrusion is sampled. A small step produces a smooth side with many layers, while a larger step produces visible banding between the shadow tiles, which sometimes reads as a deliberate hard-edged style. The layer count is the depth divided by the step, so the two controls trade directly against each other."
+      },
+      {
+        "q": "Does the perspective tilt the extrusion?",
+        "a": "It rotates the element rather than reshaping the extrusion, so the letters lean into or out of the page while their bodies keep the same thickness. A modelled three-dimensional object would show the sides foreshortening as it turned. The result is still useful for a poster effect, but it is a rotation rather than a true perspective of the extrusion."
+      },
+      {
+        "q": "Can I use this effect on more than one line?",
+        "a": "It works, but the cost multiplies with the number of lines, since every line carries the full shadow stack. Two or three lines of a display heading are usually acceptable at a moderate depth; a whole paragraph is not. The preview renders a single line for that reason, so a multi-line use should be measured on the real page."
+      }
+    ]
+  },
+  {
+    "slug": "neon-text-previewer",
+    "keywords": [
+      "neon text previewer",
+      "text glow",
+      "glow intensity",
+      "8-digit hex"
+    ],
+    "intro": "The neon text previewer layers a glow around a bright core, which is what makes CSS neon read as a lit tube rather than as coloured blur. The halo and the core are separate layers, and a white highlight at the centre is what completes the effect.",
+    "content": "The neon text previewer builds six stacked glow layers around white type and exports the CSS that produces the tube effect.\n\n- The text glow stack is six layers: a white highlight at a four-pixel blur, then two full-colour layers at seven and twenty-one pixels, then three progressively larger layers at 42, 82 and 102 pixels with their alpha baked into the colour.\n- Glow intensity runs from 0.2 to 2 and scales every blur radius and every alpha together, so the tube can be dialled from a faint edge to a heavy bloom.\n- The glow colour accepts a picker or a typed hex value, and the outer radius is reported as the largest blur multiplied by the intensity.\n- The background defaults to a very dark navy, and it is adjustable, because the effect depends on a dark ground more than on any other single setting.\n- The text itself stays white at weight 600 with a little tracking, which is what a lit tube looks like at its core.\n\nThe layering is the technique. A single coloured shadow around white text reads as a soft smear; what makes neon convincing is the progression from the hot white centre out through the full-strength colour and into progressively larger halos with falling alpha. The alphas are written as 8-digit hex colours, which is the compact way to express a colour and its transparency together, and they are computed from the intensity so the whole glow scales from one control rather than six. The panel also states the readability caveat: the glow decorates, and a solid core is what keeps the text legible. At high intensity the halo bleeds into the letter spacing and the effective contrast of the letters against their ground drops, which is why the core stays white rather than taking the glow colour. The generated declaration sets the type to white and carries the six layers in order, leaving the background to whatever element it is applied to rather than baking in the dark navy shown in the preview.\n\n- The eight-digit hex alpha form is well supported in modern browsers, but it is the reason the exported CSS is not suitable for a target that requires older syntax.\n- Only one glow colour is produced, so a two-tube sign in contrasting colours needs two elements.\n- High intensity values bloom into the gaps between letters and reduce legibility, and nothing enforces a maximum beyond the slider's range.\n- Six blurred shadows on large text is a heavy paint cost, and the panel does not report it the way the extrusion tool does.\n- The effect assumes a dark background: on a light surface the glow washes out the letters rather than surrounding them.\n\nUse it for signage-style headings, a night-mode hero, or a seasonal treatment where the glow is the point, and keep the intensity low when the words have to be read rather than admired. Where the letter needs shade rather than light, the shadow text generator covers depth, the 3D text effect preview covers extrusion, and a fill that changes across the letter is the text gradient maker's job.",
+    "howTo": [
+      { "step": "Type the words and set the size, then choose a background dark enough for the glow to read against." },
+      { "step": "Pick the glow colour, which is the tube's colour, and leave the text itself white since the highlight is what reads as the lit core." },
+      { "step": "Raise the intensity and watch the outer glow radius readout, stopping before the halo bleeds into the word spacing." },
+      { "step": "Copy the CSS and re-check the letters at their final size, since legibility falls as the glow grows." }
+    ],
+    "whenToUse": "Reach for it when a heading wants a sign-like glow, when a dark theme needs an accent treatment for a few words, or when an existing neon effect looks like coloured blur rather than a lit tube and the layer structure needs explaining. Where the effect is depth rather than light, the {{shadow-text-generator|shadow text generator}} stacks soft shadows, the {{3d-text-effect-preview|3D text effect preview}} builds an extrusion, and the {{outlined-text-generator|outlined text generator}} produces the hollow form that a glow sits well inside.",
+    "faqs": [
+      {
+        "q": "Why is the text white when the glow is coloured?",
+        "a": "Because a lit tube is brightest at its centre. The eye reads a white core surrounded by coloured light as a glowing object, while text set in the glow colour reads as coloured text with a soft edge. Keeping the type white is also what preserves legibility as the intensity rises."
+      },
+      {
+        "q": "What does the intensity control actually change?",
+        "a": "Every blur radius and every alpha in the stack, in proportion. At 0.2 the effect is a faint edge around the letters; at 2 the outermost layer is blurred by more than two hundred pixels. Because it scales the whole stack rather than one layer, the relationship between the core and the halo stays intact as the tube gets brighter."
+      },
+      {
+        "q": "How do the fading layers get their transparency?",
+        "a": "From eight-digit hex colours, which carry the alpha in the last two digits alongside the colour. That is what allows the outer layers to be the same colour as the tube while fading smoothly, and it is also why the exported CSS needs a renderer that supports the eight-digit form."
+      },
+      {
+        "q": "Should I use this for body text?",
+        "a": "No. Glow is a display treatment: large text with a bright halo loses its edge definition and the letters start to merge where the halos overlap. Headings, a logo lockup or a single amplified word are the cases it suits. For readable text on a dark ground, a high-contrast pair without glow is the better answer."
+      },
+      {
+        "q": "How do I get two colours in one sign?",
+        "a": "Set two elements, each with its own glow colour, rather than trying to combine both in one stack. The layer structure is generated from a single colour, so a second colour needs its own declaration. Placing the two words side by side and letting their halos overlap is what produces the mixed-light look."
+      }
+    ]
+  }
+]

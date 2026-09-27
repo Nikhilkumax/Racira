@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "color-name-lookup",
+    "keywords": [
+      "color name lookup",
+      "name of a color",
+      "nearest css named color",
+      "rgb distance"
+    ],
+    "intro": "The color name lookup finds the CSS name closest to any color you pick, shows that named swatch beside your value, and reports how far apart the two are in RGB distance.",
+    "content": "The color name lookup answers one question — what is this color called? A colour goes in, either picked or typed into the field, and one answer comes back: the nearest css named color, drawn as a labelled swatch, with the rgb distance between your value and that name printed underneath it. It is a one-question page with a one-line answer, which is the point: naming a colour is a lookup rather than a judgement call.\n\n- The table it searches is the 141-name CSS list this domain uses everywhere else, aliceblue through yellowgreen.\n- Matching is nearest-neighbour by RGB distance: the red, green and blue channels are compared, squared and summed, and the smallest total wins.\n- The readout is three things at once — the name, the named colour's own hex value, and the distance rounded to a whole number.\n- The comparison is exhaustive, so the answer is the true nearest entry rather than an approximate one, and it is stable between visits and browsers.\n\nTwo details make the number worth reading. First, the metric is Euclidean in raw RGB, which is cheap but not perceptual: the default blue #3B82F6 snaps to royalblue #4169E1 at a distance of 33, while the pale grey-blue #E0E5EC snaps to lavender #E6E6FA at 15 — a smaller number, and a name that feels less accurate, because RGB distance does not know how eyes work. Second, the input is quantised before the search begins: a colour that arrived from a screenshot or a design export has already been rounded to whole 8-bit channels, so the comparison starts from that rounded value rather than the original.\n\nNaming is also a translation step between teams. A developer reading the name of a color in a ticket has a roughly shared picture of what it means, while the same value written as hex is exact and unreadable at a glance; that trade — shared vocabulary against precise value — is the reason both spellings often end up in the same document, with the name for discussion and the hex for code.\n\n- The distance is a ranking device, not a measure of how different two colours look. Treat small numbers as a hint that the name is close, not as proof.\n- The table holds 141 names. British spellings such as grey and darkslategrey are absent, so a greyish value comes back as a gray-spelled name or as a different colour entirely.\n- Two values carry two names each: aqua and cyan share #00FFFF, fuchsia and magenta share #FF00FF. Either spelling can be returned for those values.\n- It names colours only. There is no readability check, no print accuracy and no transparency handling on this page.\n\nUse it when a colour needs a human name — a ticket, an asset description, a note in a review — and treat the name as shorthand rather than as a value. Where the destination is code, copy the hex; where an exact name matters, read it from the named-colour table instead of trusting a snap; and where the real question is how far apart two chosen colours are, the distance calculator answers it directly rather than as a side effect of naming.",
+    "howTo": [
+      "Set the colour with the picker field, or type a hex value and let the field normalise it.",
+      "Read the result card: the named swatch, its label and its hex value.",
+      "Check the RGB distance underneath to judge how close the match actually is.",
+      "Copy the hex for code, or quote the name when a human-readable label is what is needed."
+    ],
+    "whenToUse": "Use this when a colour needs a name for humans rather than a value for a compiler. The {{nearest-named-color-finder|nearest named colour finder}} is the same lookup framed as a snapping step, the {{css-named-colors-reference|CSS named colours reference}} is the table to read from when the exact name matters, and the {{color-distance-calculator|colour distance calculator}} measures the gap between two chosen colours instead of naming one.",
+    "faqs": [
+      {
+        "q": "How is the nearest name chosen?",
+        "a": "Every entry in the 141-name table is compared against your colour by Euclidean distance in RGB, and the smallest distance wins. The search is exhaustive, so nothing is skipped."
+      },
+      {
+        "q": "Why does the default blue come back as royalblue rather than a closer-sounding name?",
+        "a": "Because royalblue #4169E1 really is the closest table entry by RGB distance — 33 units away. No name in the list is closer, which is a limit of the table rather than of the match."
+      },
+      {
+        "q": "Is the distance a measure of how different the colours look?",
+        "a": "No. It is raw RGB arithmetic, which ignores perception: a small distance can still look like a different colour, and a large one across two dark values can be hard to see. Use it to rank candidates."
+      },
+      {
+        "q": "Why do some grey colours come back with a different name?",
+        "a": "The table carries the gray spelling only, so grey and darkslategrey are not candidates. A greyish value therefore settles on whichever gray-spelled or neighbouring entry is numerically closest."
+      },
+      {
+        "q": "Can it tell me whether the named colour is readable as text?",
+        "a": "No. Naming and contrast are separate jobs here; send the foreground and background pair through the contrast checker for that answer."
+      }
+    ]
+  },
+  {
+    "slug": "nearest-named-color-finder",
+    "keywords": [
+      "nearest named color finder",
+      "snap a color to a name",
+      "css color names",
+      "quantise a color"
+    ],
+    "intro": "The nearest named color finder snaps any colour to the closest CSS name and reports the distance it had to travel, which is the honest way to see what a name costs you in precision.",
+    "content": "Snapping is a lossy step, and the nearest named color finder makes the loss visible. Point it at a colour and it returns the closest entry in the CSS name table together with the RGB distance between the two, so the answer arrives with its own error bar. That is the difference between this page and a plain lookup: the question is not only which name applies, but how much of the original value disappears when the name is used instead. Snap a color to a name in one step, and read what the step cost in the figure underneath.\n\nThe snap is exhaustive and deterministic. Every one of the 141 css color names is compared in RGB, the squared channel differences are summed, and the smallest total wins; ties resolve toward the earlier entry in the table, so the same colour always snaps the same way. Because the table is small, there is no shortcut worth taking and no chance of a missed neighbour — the result is the true nearest entry, not an approximation of one.\n\n- More precision than the table can hold is discarded, which is the point of naming at all.\n- The distance readout is the residue: 0 means the colour is exactly a named value, and larger numbers mean the name is a summary rather than a restatement.\n- The snapped value always exists in CSS, so it can be pasted into a stylesheet as a keyword without a conversion step.\n\nMeasurements are where the metric shows its limits. Euclidean RGB distance is blind to perception, and the failures are not subtle: a muted olive such as #7A7A52 snaps to dimgray #696969 at a distance of 33, and the near-black slate #0F172A snaps to black at 50 rather than to any slate-coloured name, because no dark slate-grey entry sits closer in raw channel space. Those are correct answers to the question as asked and poor answers to the question most people mean. In other words, the metric will quantise a color perfectly well and understand nothing about it.\n\n- The table is coarse: 141 values have to cover the whole gamut, so average gaps are large and a snap can shrug off a visibly different colour.\n- Only one candidate comes back. There is no second-best list, so a bad snap cannot be compared against an alternative from this page.\n- British spellings are missing from the table, so grey values land on gray-spelled or unrelated entries.\n- Snapping changes the value, and a changed value changes contrast: a pair that passed before the snap may not pass after it.\n\nUse it for design operations rather than for design decisions: naming a swatch so a ticket reads cleanly, describing an asset so a search finds it, sanity-checking that a colour a colleague mentioned is roughly the one in the file. Where the exact value matters, keep the hex; where the name has to be authoritative, read the table; and where two candidates both look plausible, measure the pair rather than the snap. Snapping is a description, and descriptions do not have to be exact — they have to be checkable, which is what the distance figure makes them.",
+    "howTo": [
+      "Set the colour you want to describe with the picker field.",
+      "Read the snapped swatch and its name — that is the value CSS would accept as a keyword.",
+      "Check the distance: near zero means the name is faithful, a large number means it is a summary.",
+      "Keep the original hex for anything precision-sensitive, and use the name only where a human is the audience."
+    ],
+    "whenToUse": "Use this when a colour has to be described in words and precision is negotiable. The {{color-name-lookup|colour name lookup}} answers the same question with less emphasis on the distance, the {{css-named-colors-reference|CSS named colours reference}} is the source list when the name itself has to be exact, and the {{color-distance-calculator|colour distance calculator}} compares two chosen colours when the snap is not the comparison you actually wanted.",
+    "faqs": [
+      {
+        "q": "What does a distance of zero mean?",
+        "a": "That your colour is exactly one of the named values in the table, so the name restates it rather than approximating it. Larger numbers mean information was discarded."
+      },
+      {
+        "q": "Why did a muted olive snap to a grey name?",
+        "a": "Because raw RGB distance does not model perception: #7A7A52 lands 33 units from dimgray and from nothing closer. The algorithm is right; the metric is simply not perceptual."
+      },
+      {
+        "q": "Can I see the second-closest name for comparison?",
+        "a": "No — the page returns one candidate. If two names both look plausible, compare them by measuring the colours themselves instead of re-running the snap."
+      },
+      {
+        "q": "Does the snapped name keep my colour's exact value?",
+        "a": "No, snapping replaces the value with the named one. Keep the hex alongside the name whenever the value is used downstream, because the substitute is a different colour."
+      },
+      {
+        "q": "Is the result the same every time for the same input?",
+        "a": "Yes. The search is exhaustive over a fixed table and ties resolve toward the earlier entry, so a given colour always snaps to the same name."
+      }
+    ]
+  },
+  {
+    "slug": "css-named-colors-reference",
+    "keywords": [
+      "css named colors reference",
+      "css color names",
+      "search color names",
+      "named color values"
+    ],
+    "intro": "The CSS named colors reference is the searchable table of the names CSS defines, each shown as a swatch with its hex value and a copy button.",
+    "content": "The CSS named colors reference is the table itself rather than a tool wrapped around it. Names sit in a responsive grid — two columns on a phone, six on a wide screen — and each card shows the swatch, the name and its hex value with a copy button beside it. A search field above the grid filters the list as you type.\n\nThe search is a substring match over the name, which is exactly the behaviour you want when the name is half-remembered. Typing sky finds skyblue and lightskyblue and darkskyblue but not a colour whose name merely means sky, and typing dark narrows the list to the dark-prefixed family — the darkolivegreen and darkseagreen entries alongside the rest. Because the filter runs on every keystroke, the grid is a practical way to answer questions like which two names share a value or what the hex of aliceblue actually is, without leaving the page for a specification document.\n\nA reference page has one job beyond listing: it should answer the small questions that come up while writing css color names into a stylesheet, and the filter is how it does that. Search color names by the fragment you remember and the grid narrows to a handful of swatches, so darkseagreen and mediumseagreen can be compared by eye rather than by argument. The same habit runs in reverse when you need named color values to paste into a token file: type the family, read the hex off the card, copy it.\n\nWhat the build's table contains is worth stating precisely, because a reference is only as good as its list.\n\n- 141 names, ordered alphabetically from aliceblue to yellowgreen.\n- Two values with two names each: aqua and cyan both mean #00FFFF, and fuchsia and magenta both mean #FF00FF.\n- The gray spelling only. grey, darkslategrey and the other British spellings are not part of this table, though CSS accepts them.\n- No transparent or currentcolor entries: those are keywords a browser understands, not fixed named values, and nothing here pretends otherwise.\n\nThe strengths and the limits are the same fact seen twice: a name is shorter to remember than a hex string and says nothing about how the colour should be used. Nothing in this table tells you whether a name is safe for text, which names are old and which were added later, or how a value behaves under a colour-vision deficiency. It lists values, and the rest of the domain exists for the other questions — the lookup names an arbitrary colour, the finder snaps one to this table, and the contrast tools measure what happens when two of these values meet.\n\nRead it the way you would read a dictionary: for definitions, not for style. When a name is going into a stylesheet, copy the hex beside it, because a keyword survives a rename-free refactor but a hex string behaves the same in every tool and every language, and because a value that has to be checked later is easier to check when it is written in one notation everywhere.",
+    "howTo": [
+      "Type part of a name into the search field to filter the grid.",
+      "Scan the swatches to find the value you meant rather than the name you remembered.",
+      "Use the copy button on a card to take its hex value for a stylesheet or a token file.",
+      "Clear the filter to read the list in alphabetical order when browsing rather than searching."
+    ],
+    "whenToUse": "Use this when the name is the question — spelling it correctly, finding its value, or checking whether a colour has a name at all. The {{color-name-lookup|colour name lookup}} does the reverse by naming a colour you already have, the {{nearest-named-color-finder|nearest named colour finder}} snaps a value into this table and reports what the snap cost, and the {{color-format-validator|format validator}} checks whether a name you have written will actually be accepted.",
+    "faqs": [
+      {
+        "q": "How many names does the table hold?",
+        "a": "141 alphabetical entries. It is the same list the lookup and snapping tools search, so a colour that has no name anywhere else has none here either."
+      },
+      {
+        "q": "Why are the British spellings missing?",
+        "a": "This build's table carries the gray spelling family only, so grey and darkslategrey are absent. Browsers still accept those keywords; the reference simply does not list them."
+      },
+      {
+        "q": "Why do aqua and cyan both appear with the same value?",
+        "a": "Because they are two accepted names for #00FFFF, as fuchsia and magenta both mean #FF00FF. Both spellings exist so that old stylesheets written with either name keep working."
+      },
+      {
+        "q": "Is it better to write a name or a hex value in CSS?",
+        "a": "Names read well in a prototype and are easy to remember; hex values are unambiguous and portable. For anything that a token file or another tool has to read, copy the hex."
+      },
+      {
+        "q": "Does the search handle misspellings?",
+        "a": "No. Filtering is a plain substring match on the name, so a typo returns an empty grid rather than a suggestion. The rest of the name usually still finds it."
+      }
+    ]
+  },
+  {
+    "slug": "pantone-approximation-tool",
+    "keywords": [
+      "pantone approximation tool",
+      "pantone match",
+      "nearest css name",
+      "print color reference"
+    ],
+    "intro": "The Pantone approximation tool takes a picked colour and returns the nearest entry in the CSS name table — an approximation for discussion, because this tool ships no licensed Pantone library.",
+    "content": "The honest description of this page is shorter than its name suggests. Pantone is a proprietary colour system: a Pantone reference identifies an ink or a pigmented surface, published in families such as Coated, Uncoated and the paper-oriented Textile codes, and the matching data is licensed. This tool does not carry that data. What it does instead is run the nearest css name lookup: your colour is compared against the 141 named CSS values, the closest one is returned as a labelled swatch, and the RGB distance between the two is printed beside it.\n\nThat makes the pantone match a conversation starter rather than a specification. The output has no Pantone code in it at all, so nothing here can be pasted into a print order. Used knowingly, the result is still useful: a named CSS colour is far easier to describe to a colleague than a hex string, and the distance figure tells you how loose the comparison is before anyone builds on it.\n\n- The comparison metric is Euclidean distance in RGB, computed over the named CSS table.\n- The answer includes the name, its hex value and the rounded channel distance.\n- The search is exhaustive across those 141 entries, so the nearest one is genuinely the nearest in that table.\n- No Pantone code, no Pantone library and no ink reference is produced anywhere in the output.\n\nWhy the conversion is hard in the first place is worth knowing, because it explains why no tool of this size can do it properly. A Pantone code describes a pigment applied to a substrate; a hex value describes emitted light in sRGB. Turning one into the other requires measured spectral data for a particular ink on a particular stock, and the answer changes when the material changes. A licensed library or a physical swatch book exists because the conversion is a measurement, not a formula. Approximation pages like this one can help you choose a direction; they cannot certify a colour.\n\nWhat a print color reference is for, then, is agreement. Everyone in the chain — designer, client, printer, supplier — needs the same words to mean the same thing, and a shared vocabulary is how that happens. That is the real use of the pantone approximation tool: it produces a description everyone can look at together, and the distance figure keeps that description honest about how loose it is. None of this requires the words to be official, only that the people reading them understand them the same way.\n\nUse it as a first pass. Pick the colour you had in mind, note the returned name and distance, and treat both as descriptive rather than authoritative. Where a print decision is real, confirm against a licensed reference or a physical swatch under the light the job will be judged in. For the sharper version of the same question, the colour distance calculator compares two specific colours numerically, and the palette importer is the place to keep your own house table of measured values once you have them.",
+    "howTo": [
+      "Set the colour with the picker field.",
+      "Read the returned CSS name, its hex value and the RGB distance.",
+      "Judge the distance before using the name: a large number means the approximation is loose.",
+      "Take the result to a licensed reference or a physical swatch before any print decision is made."
+    ],
+    "whenToUse": "Use this when you need a rough vocabulary for a colour in a conversation about print. The {{pantone-to-hex-reference|Pantone to HEX reference}} frames the same limitation as a reference question, the {{ral-to-hex-reference|RAL to HEX reference}} does the same for the European paint standard, and the {{palette-importer|palette importer}} is where a measured house table of real values belongs.",
+    "faqs": [
+      {
+        "q": "Does this tool return a Pantone code?",
+        "a": "No. The output is a CSS name, its hex value and an RGB distance. No Pantone code can be produced because no licensed Pantone data is part of this build."
+      },
+      {
+        "q": "Why can a Pantone reference not be converted to hex exactly?",
+        "a": "Because the two describe different things: an ink on a surface against light emitted by a screen. Exact conversion needs measured data for that ink and stock, which is what the licensed libraries provide."
+      },
+      {
+        "q": "What is the distance figure actually telling me?",
+        "a": "How far, in raw RGB channel terms, the named colour sits from the one you picked. It ranks candidates; it does not describe how similar they look."
+      },
+      {
+        "q": "Is a Pantone match from here safe to send to a printer?",
+        "a": "No. A printer needs the licensed reference or a supplier's colour data. Treat anything from this page as a description for discussion, not as a specification."
+      },
+      {
+        "q": "What should I use instead when accuracy matters?",
+        "a": "A licensed Pantone reference, a physical swatch book or a measured colour chip. Once you have measured values, keep them in an imported palette so the numbers live in one place."
+      }
+    ]
+  },
+  {
+    "slug": "pantone-to-hex-reference",
+    "keywords": [
+      "pantone to hex",
+      "pantone hex conversion",
+      "licensed color data",
+      "pantone codes"
+    ],
+    "intro": "The Pantone to HEX reference explains the conversion honestly: a Pantone code identifies ink, a hex value identifies screen light, and this page holds no licensed Pantone table to bridge them.",
+    "content": "Asking for pantone to hex is really two questions in one, and separating them explains everything about this page. The first is a data question: what measured sRGB value corresponds to a given Pantone reference? The second is a tool question: what can a page with no licensed dataset actually do? The answer to the first lives in licensed colour libraries and physical swatch books. The answer to the second is what this page offers — a nearest-name lookup that describes a picked colour using the CSS table, with the distance between the two reported so the approximation is not mistaken for data.\n\n- The page returns a CSS name, its hex value and an RGB distance; it does not return Pantone codes.\n- The licensed color data behind a real Pantone-to-hex conversion is not part of this build.\n- The lookup searches the 141 named CSS values exhaustively, so the returned name is the closest of those rather than a guess.\n\nHere is why the licensed data is not optional. Pantone references come in families — Coated and Uncoated stock behave differently, and the textile codes use a different paper — so a bare code does not fully specify an ink. Even with a library, the value you get describes a standard substrate, not your substrate; printed on uncoated card, the same reference reads differently. Anyone who has compared a screen mock against a proof knows the gap this leaves, and it cannot be closed by arithmetic in a browser tab.\n\nThe practical way to work with that gap is to keep a house table. When someone measures the printed or manufactured sample, the measured values belong in one reviewable place rather than in several people's notes: import them as a palette, name the roles, and let the survey work be checkable. Then, when a new job starts, the measured values are already there and the question is only which of them applies.\n\nSo use this page as a decoder for description, not for production. A CSS name and a distance figure are a perfectly good way to say which direction a colour leans. They are not a colour match. Where the exact numbers matter, a licensed reference, a measurement or a swatch under the lighting the job will be judged in is what settles it, and the tools here are happy to hold the results once you have them. A workable routine for a pantone hex conversion starts with the material rather than the screen: settle the substrate, ask the printer or supplier which reference family applies, and only then look at values, because the value that matters is the one measured on that material. Working backwards from a screen mock, name the colour here, note the distance, and treat the name as the opening of a conversation. Recording the outcome — reference used, material, measured value and the light it was checked under — is what turns this job's decision into the next job's data. Two or three such records are usually enough to make the next approximation far less of a guess.",
+    "howTo": [
+      "Pick or type the colour you are trying to describe.",
+      "Read the CSS name and distance the page returns, and treat both as descriptive.",
+      "Note that no Pantone code is produced — nothing here substitutes for licensed colour data.",
+      "Keep measured values in an imported palette so the numbers live in one reviewable place."
+    ],
+    "whenToUse": "Use this to understand why the conversion is approximate, and to describe a colour quickly. The {{pantone-approximation-tool|Pantone approximation tool}} performs the lookup itself, the {{ral-to-hex-reference|RAL to HEX reference}} covers the same problem for the European paint standard, and the {{color-format-validator|format validator}} is the check to run before any value is committed to a stylesheet.",
+    "faqs": [
+      {
+        "q": "Why is there no Pantone code output anywhere on this page?",
+        "a": "Because Pantone data is licensed and this build does not include it. What the page can honestly produce is a CSS name, its hex value and the RGB distance to your colour."
+      },
+      {
+        "q": "If I know the Pantone code, can I get the hex here?",
+        "a": "Not from this page. Enter the nearest colour you know and read the name; for the actual reference value, use a licensed library or a physical swatch book."
+      },
+      {
+        "q": "Why do two references look identical on screen but differ in print?",
+        "a": "Because paper and ink change the result. Coated and uncoated stock, and different substrates in manufacturing, shift an ink away from its standard value, which is why a code alone does not fully specify a colour."
+      },
+      {
+        "q": "Is a satin or gloss finish part of the same problem?",
+        "a": "Yes. Finish affects how light leaves the surface, so the same reference can read differently under the same light on a different finish. Physical comparison is the only reliable check."
+      },
+      {
+        "q": "What is the best way to store measured values?",
+        "a": "As an imported palette with role names rather than loose notes. The palette importer accepts pasted values or JSON, so the measured set becomes a shared, checkable reference."
+      }
+    ]
+  },
+  {
+    "slug": "ral-to-hex-reference",
+    "keywords": [
+      "ral to hex",
+      "ral color codes",
+      "ral classic",
+      "paint color conversion"
+    ],
+    "intro": "The RAL to HEX reference covers the European paint standard and what this page can honestly do with it: describe a colour using the nearest CSS name, because no RAL dataset ships with the build.",
+    "content": "RAL is a colour standard from the painting and coatings world, and it is specified by code rather than by value. RAL Classic uses four digits — a blue such as 5015, a green such as 6005 — and RAL Design uses seven, in a system built for architectural and industrial finishes. That structure is the whole point of the standard: a code is a durable instruction that survives a supplier change, a colour card fading in a workshop drawer, or a designer leaving the project. What a code is not is a hex value.\n\nSo the ral color codes question splits the same way it does for any proprietary system. The reference data belongs to the standard's publisher. This page does not carry it. What it does carry is the nearest-name lookup: your colour is compared with the 141 CSS named values, the closest is drawn as a swatch with its name and hex, and the RGB distance between the two is printed beside it.\n\n- The output is a CSS name, a hex value and a numeric distance.\n- No RAL code is produced, and no RAL table is included in the build.\n- The comparison is exhaustive over those 141 entries, so the nearest entry is the genuine nearest in that set.\n\nRAL sits in the physical world in a way screens cannot reproduce. A finish has sheen, texture and a substrate: the same reference looks different in a matte powder coat on metal, in a satin wall paint and in a glossy plastic moulding, and it changes again with the light in the room. A screen value is emitted light, so a paint color conversion can only ever be a description of direction — warmer, greener, greyer — unless it is grounded in measured data or a physical chip.\n\nPractical use follows from that. When a colour has to be specified for a physical finish, quote the RAL code in the specification and keep the screen value as a preview aid, not the other way round. When a screen palette has to approximate a painted surface, work from a measured value rather than from a memory of the colour, and keep those measured values in an imported palette where the whole team can reach the same numbers. And when the mock and the sample disagree, believe the sample: it is the object the code describes. There is a naming discipline worth borrowing from the standard too. Because ral to hex converts between a code and a screen value rather than between two screen values, keep the code in the specification and the value in the implementation, and note which reference family the code came from. A system that records a code plus a measured value survives a supplier change; one that records a screenshot does not, because a screenshot cannot be re-issued to a manufacturer. Where a range of finishes is offered, record the finish beside the code, since the same reference in a different sheen is a different result on the wall.",
+    "howTo": [
+      "Set the colour you are approximating with the picker field.",
+      "Read the returned CSS name, hex value and distance.",
+      "Quote the RAL code in the specification and use the screen value only as a preview.",
+      "Keep measured values from real samples in an imported palette for the next job."
+    ],
+    "whenToUse": "Use this when a screen colour has to be described next to a physical finish. The {{pantone-to-hex-reference|Pantone to HEX reference}} and the {{pantone-approximation-tool|Pantone approximation tool}} cover the same ground for the print system, and the {{palette-importer|palette importer}} is where measured sample values belong once they exist.",
+    "faqs": [
+      {
+        "q": "How is a RAL reference structured?",
+        "a": "RAL Classic uses four digits, such as 5015 for a blue, and RAL Design uses seven. The code is the durable part of the reference; the value behind it belongs to the standard's publisher."
+      },
+      {
+        "q": "Can this page output a RAL code?",
+        "a": "No. There is no RAL dataset in the build, so the page returns the nearest CSS name with its hex and distance instead of inventing a code."
+      },
+      {
+        "q": "Why can the same RAL colour look different on two products?",
+        "a": "Because finish and substrate change how light leaves the surface. Matte powder coat, satin paint and gloss plastic read differently even when they carry the same code."
+      },
+      {
+        "q": "Should a design system store RAL codes or hex values?",
+        "a": "Store the code where the specification is physical and use hex for the screen preview. Keeping both, with the code authoritative, is what stops a preview from being mistaken for the approved colour."
+      },
+      {
+        "q": "What settles a disagreement between a screen mock and a painted sample?",
+        "a": "The sample. It is the object the reference describes; measure it and record the measured value so the next round starts from data rather than memory."
+      }
+    ]
+  }
+]

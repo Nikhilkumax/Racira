@@ -10,8 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
-  contrastRatio, darken, lighten, mix, randomHex, rgbToHex, toHex, toHslObj,
-  toHslString, toOklchObj, toOklchString, toRgb255, toRgbString, toCmyk,
+  CSS_NAMED_COLORS, contrastRatio, darken, lighten, mix, randomHex, rgbToHex, shiftHue, simulateCVD, toHex,
+  toHslObj, toHslString, toOklchObj, toOklchString, toRgb255, toRgbString, toCmyk,
 } from "@/domains/colors/lib/color";
 
 function Card({ children, title }: { children: React.ReactNode; title?: string }) {
@@ -38,11 +38,12 @@ export function makeThemedPalette(presets: Record<string, { hues: number[]; l?: 
     const keys = Object.keys(presets);
     const [k, setK] = useState(keys[0]);
     const [seed, setSeed] = useState(0);
+    const [colors, setColors] = useState<string[]>([]);
     const p = presets[k];
-    const colors = useMemo(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const _ = seed;
-      return buildPalette(p.hues, p.l, p.c);
+    // Generate after mount: Math.random() must not run during SSR, otherwise the
+    // server HTML and the client render diverge (hydration mismatch).
+    useEffect(() => {
+      setColors(buildPalette(p.hues, p.l, p.c));
     }, [k, seed, p]);
     return (
       <div className="grid gap-6">
@@ -90,26 +91,27 @@ export const earth = makeThemedPalette({ Earth: { hues: [30, 50, 80, 20, 10], l:
 
 /* ===================== Single-color generator with style ===================== */
 
+const STYLED_RANGES: Record<"warm" | "cool" | "muted" | "vibrant", { h: [number, number]; l: [number, number]; c: [number, number] }> = {
+  warm: { h: [-20, 80], l: [0.55, 0.75], c: [0.12, 0.2] },
+  cool: { h: [180, 280], l: [0.5, 0.75], c: [0.1, 0.2] },
+  muted: { h: [0, 360], l: [0.4, 0.7], c: [0.03, 0.07] },
+  vibrant: { h: [0, 360], l: [0.6, 0.75], c: [0.22, 0.32] },
+};
+
 export function makeStyledColor(style: "warm" | "cool" | "muted" | "vibrant") {
   return function StyledColor() {
-    const ranges: Record<typeof style, { h: [number, number]; l: [number, number]; c: [number, number] }> = {
-      warm: { h: [-20, 80], l: [0.55, 0.75], c: [0.12, 0.2] },
-      cool: { h: [180, 280], l: [0.5, 0.75], c: [0.1, 0.2] },
-      muted: { h: [0, 360], l: [0.4, 0.7], c: [0.03, 0.07] },
-      vibrant: { h: [0, 360], l: [0.6, 0.75], c: [0.22, 0.32] },
-    };
-    const r = ranges[style];
     const [seed, setSeed] = useState(0);
-    const colors = useMemo(() => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const _ = seed;
-      return Array.from({ length: 5 }, () => {
+    const [colors, setColors] = useState<string[]>([]);
+    // Generate after mount (see makeThemedPalette) to avoid SSR/CSR mismatch.
+    useEffect(() => {
+      const r = STYLED_RANGES[style];
+      setColors(Array.from({ length: 5 }, () => {
         const h = r.h[0] + Math.random() * (r.h[1] - r.h[0]);
         const l = r.l[0] + Math.random() * (r.l[1] - r.l[0]);
         const cc = r.c[0] + Math.random() * (r.c[1] - r.c[0]);
         return toHex(`oklch(${l} ${cc} ${(h + 360) % 360})`);
-      });
-    }, [seed]);
+      }));
+    }, [seed, style]);
     return (
       <div className="grid gap-6">
         <Button onClick={() => setSeed((s) => s + 1)}>Generate {style} palette</Button>
@@ -539,6 +541,295 @@ export function PersonalityQuiz() {
   );
 }
 
+/* ===================== Games: memory, matching, naming ===================== */
+
+const MEMORY_TILES = ["#EF4444", "#3B82F6", "#10B981", "#F59E0B"];
+
+/** Sequence memory: watch a growing run of tiles light up, then repeat it in order. */
+export function ColorMemoryGame() {
+  const [seq, setSeq] = useState<number[]>([]);
+  const [cursor, setCursor] = useState(0);
+  const [flash, setFlash] = useState<number | null>(null);
+  const [status, setStatus] = useState<"idle" | "watch" | "play" | "over">("idle");
+  const [best, setBest] = useState(0);
+
+  useEffect(() => {
+    if (status !== "watch" || seq.length === 0) return;
+    let cancelled = false;
+    const timers: Array<ReturnType<typeof setTimeout>> = [];
+    seq.forEach((tile, i) => {
+      timers.push(setTimeout(() => { if (!cancelled) setFlash(tile); }, i * 700 + 400));
+      timers.push(setTimeout(() => { if (!cancelled) setFlash(null); }, i * 700 + 700));
+    });
+    timers.push(setTimeout(() => {
+      if (cancelled) return;
+      setFlash(null);
+      setCursor(0);
+      setStatus("play");
+    }, seq.length * 700 + 500));
+    return () => { cancelled = true; timers.forEach(clearTimeout); };
+  }, [status, seq]);
+
+  function begin() {
+    setBest((b) => Math.max(b, seq.length));
+    setSeq([Math.floor(Math.random() * MEMORY_TILES.length)]);
+    setStatus("watch");
+  }
+
+  function tap(i: number) {
+    if (status !== "play") return;
+    setFlash(i);
+    setTimeout(() => setFlash(null), 180);
+    if (seq[cursor] !== i) {
+      setBest((b) => Math.max(b, seq.length - 1));
+      setStatus("over");
+      return;
+    }
+    if (cursor + 1 === seq.length) {
+      setBest((b) => Math.max(b, seq.length));
+      setSeq([...seq, Math.floor(Math.random() * MEMORY_TILES.length)]);
+      setStatus("watch");
+    } else {
+      setCursor(cursor + 1);
+    }
+  }
+
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card title="Watch, then repeat">
+        <div className="grid grid-cols-2 gap-3">
+          {MEMORY_TILES.map((c, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => tap(i)}
+              disabled={status !== "play"}
+              aria-label={`Color tile ${i + 1}`}
+              className="h-28 rounded-xl border border-border transition disabled:cursor-default"
+              style={{ backgroundColor: c, opacity: flash === i ? 1 : 0.5, transform: flash === i ? "scale(1.04)" : "scale(1)" }}
+            />
+          ))}
+        </div>
+        <Button className="mt-5" onClick={begin}>{status === "idle" ? "Start" : "Restart"}</Button>
+      </Card>
+      <Card title="Progress">
+        <p className="text-sm text-muted-foreground">Sequence length</p>
+        <p className="text-3xl font-bold">{seq.length}</p>
+        <p className="mt-4 text-sm text-muted-foreground">Best this session</p>
+        <p className="text-3xl font-bold">{best}</p>
+        <p className="mt-4 text-sm">
+          {status === "idle" && "Press start, watch the sequence, then repeat it in order."}
+          {status === "watch" && "Watch carefully…"}
+          {status === "play" && `Your turn — ${seq.length - cursor} tile${seq.length - cursor === 1 ? "" : "s"} to go.`}
+          {status === "over" && "Wrong tile. The sequence restarts from one."}
+        </p>
+      </Card>
+    </div>
+  );
+}
+
+/** Recall test: one swatch is shown briefly, then you pick it from four near neighbours. */
+export function ColorMemoryTest() {
+  const [target, setTarget] = useState("#3B82F6");
+  const [options, setOptions] = useState<string[]>([]);
+  const [phase, setPhase] = useState<"show" | "guess">("show");
+  const [picked, setPicked] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [rounds, setRounds] = useState(0);
+
+  function nextRound() {
+    const base = toHex(`oklch(0.62 0.16 ${Math.floor(Math.random() * 360)})`);
+    const opts = [-30, -15, 15, 30].map((d) => shiftHue(base, d)).concat(base).sort(() => Math.random() - 0.5);
+    setTarget(base);
+    setOptions(opts);
+    setPicked(null);
+    setPhase("show");
+  }
+
+  useEffect(() => { nextRound(); }, []);
+
+  useEffect(() => {
+    if (phase !== "show") return;
+    const t = setTimeout(() => setPhase("guess"), 3000);
+    return () => clearTimeout(t);
+  }, [phase, target]);
+
+  function choose(c: string) {
+    if (phase !== "guess" || picked) return;
+    setPicked(c);
+    setRounds((r) => r + 1);
+    if (c === target) setScore((s) => s + 1);
+  }
+
+  const accuracy = rounds ? Math.round((score / rounds) * 100) : 0;
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card title={phase === "show" ? "Memorise this color" : "Which one was it?"}>
+        {phase === "show" ? (
+          <Swatch color={target} size="lg" />
+        ) : (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {options.map((c) => (
+              <button key={c} type="button" onClick={() => choose(c)} aria-label={`Answer ${c}`} className="rounded-lg border border-border">
+                <Swatch color={c} size="lg" />
+              </button>
+            ))}
+          </div>
+        )}
+      </Card>
+      <Card title="Result">
+        <p className="text-sm">
+          {picked
+            ? picked === target
+              ? "Correct — that was the exact swatch."
+              : `Not quite. The target was ${target.toUpperCase()}.`
+            : phase === "show"
+              ? "The swatch hides after three seconds."
+              : "Pick the shade you just saw."}
+        </p>
+        <p className="mt-4 text-sm text-muted-foreground">Score</p>
+        <p className="text-3xl font-bold">{score} / {rounds}</p>
+        <p className="mt-4 text-sm text-muted-foreground">Accuracy</p>
+        <p className="text-3xl font-bold">{accuracy}%</p>
+        <Button className="mt-5" onClick={nextRound}>{picked ? "Next round" : "Skip"}</Button>
+      </Card>
+    </div>
+  );
+}
+
+/** Matching game: clear a shuffled grid by pairing identical swatches. */
+export function ColorMatchingGame() {
+  const [cards, setCards] = useState<Array<{ id: string; color: string }>>([]);
+  const [open, setOpen] = useState<number[]>([]);
+  const [matched, setMatched] = useState<number[]>([]);
+  const [moves, setMoves] = useState(0);
+
+  function deal() {
+    const base = Array.from({ length: 6 }, () => toHex(`oklch(0.62 0.17 ${Math.floor(Math.random() * 360)})`));
+    setCards(base.flatMap((c) => [c, c]).map((c, i) => ({ id: `${i}-${c}`, color: c })).sort(() => Math.random() - 0.5));
+    setOpen([]);
+    setMatched([]);
+    setMoves(0);
+  }
+
+  useEffect(() => { deal(); }, []);
+
+  function flip(i: number) {
+    if (open.length === 2 || open.includes(i) || matched.includes(i)) return;
+    const next = [...open, i];
+    setOpen(next);
+    if (next.length === 2) {
+      setMoves((m) => m + 1);
+      const [a, b] = next;
+      if (cards[a].color === cards[b].color) {
+        setTimeout(() => { setMatched((m) => [...m, a, b]); setOpen([]); }, 350);
+      } else {
+        setTimeout(() => setOpen([]), 700);
+      }
+    }
+  }
+
+  const solved = matched.length / 2;
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card title="Match the pairs">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+          {cards.map((card, i) => {
+            const faceUp = open.includes(i) || matched.includes(i);
+            return (
+              <button
+                key={card.id}
+                type="button"
+                onClick={() => flip(i)}
+                aria-label={faceUp ? `Swatch ${card.color}` : "Hidden swatch"}
+                className="h-20 rounded-lg border border-border transition"
+                style={{ backgroundColor: faceUp ? card.color : undefined }}
+              />
+            );
+          })}
+        </div>
+      </Card>
+      <Card title="Progress">
+        <p className="text-sm text-muted-foreground">Pairs found</p>
+        <p className="text-3xl font-bold">{solved} / 6</p>
+        <p className="mt-4 text-sm text-muted-foreground">Flips</p>
+        <p className="text-3xl font-bold">{moves}</p>
+        <Button className="mt-5" onClick={deal}>{solved === 6 ? "Play again" : "Reshuffle"}</Button>
+      </Card>
+    </div>
+  );
+}
+
+/** Naming challenge: a swatch from the standard list is shown, pick the right name. */
+export function ColorNamingChallenge() {
+  const [target, setTarget] = useState<{ name: string; hex: string }>({ name: "blue", hex: "#0000FF" });
+  const [options, setOptions] = useState<string[]>([]);
+  const [picked, setPicked] = useState<string | null>(null);
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [rounds, setRounds] = useState(0);
+
+  function nextRound() {
+    const [name, hex] = CSS_NAMED_COLORS[Math.floor(Math.random() * CSS_NAMED_COLORS.length)];
+    const pool = new Set<string>([name]);
+    let guard = 0;
+    while (pool.size < 4 && guard++ < 300) {
+      const [n, h] = CSS_NAMED_COLORS[Math.floor(Math.random() * CSS_NAMED_COLORS.length)];
+      if (h.toUpperCase() !== hex.toUpperCase()) pool.add(n);
+    }
+    setTarget({ name, hex });
+    setOptions([...pool].sort(() => Math.random() - 0.5));
+    setPicked(null);
+  }
+
+  useEffect(() => { nextRound(); }, []);
+
+  function choose(n: string) {
+    if (picked) return;
+    setPicked(n);
+    setRounds((r) => r + 1);
+    if (n === target.name) {
+      setScore((s) => s + 1);
+      setStreak((s) => s + 1);
+    } else {
+      setStreak(0);
+    }
+  }
+
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card title="Name this color">
+        <Swatch color={target.hex} size="lg" />
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          {options.map((n) => (
+            <Button
+              key={n}
+              variant={picked === n ? "default" : "outline"}
+              onClick={() => choose(n)}
+            >
+              {n}
+            </Button>
+          ))}
+        </div>
+      </Card>
+      <Card title="Result">
+        <p className="text-sm">
+          {picked
+            ? picked === target.name
+              ? "Correct."
+              : `That one is ${target.name} (${target.hex.toUpperCase()}).`
+            : "Pick the standard name that matches the swatch."}
+        </p>
+        <p className="mt-4 text-sm text-muted-foreground">Score</p>
+        <p className="text-3xl font-bold">{score} / {rounds}</p>
+        <p className="mt-4 text-sm text-muted-foreground">Streak</p>
+        <p className="text-3xl font-bold">{streak}</p>
+        <Button className="mt-5" onClick={nextRound}>{picked ? "Next color" : "Skip"}</Button>
+      </Card>
+    </div>
+  );
+}
+
 export function LuckyNumberColor() {
   const [n, setN] = useState("7");
   return (
@@ -644,20 +935,147 @@ export function PaletteSorter() {
     </div>
   );
 }
-export function PaletteExporter() {
-  const [colors, setColors] = usePalette();
-  const json = JSON.stringify(colors, null, 2);
-  const css = colors.map((c, i) => `--color-${i + 1}: ${c.toUpperCase()};`).join("\n");
-  return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <PaletteEditor colors={colors} setColors={setColors} />
-      <Card title="Export">
-        <Label>JSON</Label><pre className="mt-2 overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{json}</pre><CopyButton value={json} className="mt-2" />
-        <Label className="mt-4">CSS</Label><pre className="mt-2 overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{css}</pre><CopyButton value={css} className="mt-2" />
-      </Card>
-    </div>
-  );
+type PaletteExportFormat = "json" | "csv" | "svg" | "png" | "swatch" | "swatchPng";
+
+function paletteCsv(colors: string[]) {
+  const rows = colors.map((c, i) => {
+    const { r, g, b } = toRgb255(c);
+    return [i + 1, c.toUpperCase(), r, g, b, toHslString(c)].join(",");
+  });
+  return ["index,hex,r,g,b,hsl", ...rows].join("\n");
 }
+
+function paletteSvg(colors: string[]) {
+  const cell = 96;
+  const width = Math.max(1, colors.length) * cell;
+  const rects = colors.map((c, i) => `  <rect x="${i * cell}" y="0" width="${cell}" height="96" fill="${c.toUpperCase()}" />`).join("\n");
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="96" viewBox="0 0 ${width} 96">\n${rects}\n</svg>`;
+}
+
+/** Renders the palette to a PNG data URL: a plain strip, or a labelled swatch card sheet. */
+function palettePng(colors: string[], labelled: boolean) {
+  const cell = labelled ? 220 : 160;
+  const height = labelled ? 260 : 200;
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, colors.length) * cell;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return "";
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  colors.forEach((c, i) => {
+    ctx.fillStyle = c.toUpperCase();
+    ctx.fillRect(i * cell, 0, cell, labelled ? height - 56 : height);
+    if (labelled) {
+      ctx.fillStyle = "#111111";
+      ctx.font = "600 16px ui-sans-serif, system-ui, sans-serif";
+      ctx.fillText(c.toUpperCase(), i * cell + 14, height - 34);
+      ctx.fillStyle = "#6B7280";
+      ctx.font = "12px ui-sans-serif, system-ui, sans-serif";
+      ctx.fillText(`swatch ${i + 1}`, i * cell + 14, height - 14);
+    }
+  });
+  return canvas.toDataURL("image/png");
+}
+
+function downloadDataUrl(dataUrl: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = dataUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+/**
+ * Palette exporter, parameterised by the artefact it produces. Each format is a
+ * genuinely different deliverable (JSON data, CSV rows, SVG markup, a PNG image
+ * or an on-screen printable swatch sheet), which is why they are separate tools
+ * rather than one component rendered under several slugs.
+ */
+export function makePaletteExporter(format: PaletteExportFormat) {
+  return function PaletteExport() {
+    const [colors, setColors] = usePalette();
+    const labelled = format === "swatchPng";
+    const json = JSON.stringify(colors.map((c) => c.toUpperCase()), null, 2);
+    const csv = paletteCsv(colors);
+    const svg = paletteSvg(colors);
+    const [img, setImg] = useState("");
+
+    useEffect(() => {
+      if (format !== "png" && format !== "swatchPng") return;
+      setImg(palettePng(colors, format === "swatchPng"));
+    }, [colors, format]);
+
+    return (
+      <div className="grid gap-6 md:grid-cols-2">
+        <PaletteEditor colors={colors} setColors={setColors} />
+        {format === "json" && (
+          <Card title="JSON">
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{json}</pre>
+            <CopyButton value={json} className="mt-2" />
+          </Card>
+        )}
+        {format === "csv" && (
+          <Card title="CSV">
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{csv}</pre>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <CopyButton value={csv} />
+              <Button variant="outline" onClick={() => downloadDataUrl(`data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`, "palette.csv")}>Download .csv</Button>
+            </div>
+          </Card>
+        )}
+        {format === "svg" && (
+          <Card title="SVG">
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{svg}</pre>
+            <div className="mt-2 flex flex-wrap gap-2">
+              <CopyButton value={svg} />
+              <Button variant="outline" onClick={() => downloadDataUrl(`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`, "palette.svg")}>Download .svg</Button>
+            </div>
+          </Card>
+        )}
+        {(format === "png" || format === "swatchPng") && (
+          <Card title={labelled ? "Swatch sheet (PNG)" : "Palette strip (PNG)"}>
+            {img ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img} alt="Generated color swatches" className="w-full rounded-md border border-border" />
+                <Button className="mt-3" onClick={() => downloadDataUrl(img, labelled ? "color-swatches.png" : "palette.png")}>Download .png</Button>
+              </>
+            ) : (
+              <p className="text-sm text-muted-foreground">Generating image…</p>
+            )}
+          </Card>
+        )}
+        {format === "swatch" && (
+          <Card title="Printable swatch sheet">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {colors.map((c, i) => (
+                <div key={i} className="overflow-hidden rounded-lg border border-border">
+                  <div className="h-20" style={{ backgroundColor: c }} />
+                  <div className="px-2 py-1.5">
+                    <p className="font-mono text-xs font-semibold">{c.toUpperCase()}</p>
+                    <p className="text-[10px] text-muted-foreground">{toRgbString(c)}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Button className="mt-3" onClick={() => window.print()}>Print swatch sheet</Button>
+          </Card>
+        )}
+      </div>
+    );
+  };
+}
+
+export const PaletteJsonExporter = makePaletteExporter("json");
+export const PaletteCsvExporter = makePaletteExporter("csv");
+export const PaletteSvgExporter = makePaletteExporter("svg");
+export const PalettePngExporter = makePaletteExporter("png");
+export const SwatchPngExporter = makePaletteExporter("swatchPng");
+export const SwatchSheetGenerator = makePaletteExporter("swatch");
+/** Back-compat alias: the JSON exporter. */
+export const PaletteExporter = PaletteJsonExporter;
 export function PaletteImporter() {
   const [text, setText] = useState('["#3B82F6","#A855F7","#EF4444"]');
   const [colors, setColors] = useState<string[]>([]);
@@ -684,10 +1102,29 @@ export function PaletteImporter() {
 export function PaletteComparison() {
   const [a, setA] = usePalette(["#3B82F6", "#A855F7", "#EF4444"]);
   const [b, setB] = usePalette(["#10B981", "#F59E0B", "#06B6D4"]);
+  // Two editors side by side are not a comparison on their own, so the summaries
+  // below report the figures that actually differ between the two palettes.
+  const stats = (colors: string[]) => ({
+    count: colors.length,
+    l: colors.length ? colors.reduce((s, c) => s + toOklchObj(c).l, 0) / colors.length : 0,
+    c: colors.length ? colors.reduce((s, c) => s + toOklchObj(c).c, 0) / colors.length : 0,
+  });
+  const sa = stats(a), sb = stats(b);
+  const shared = a.filter((x) => b.includes(x));
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div><h4 className="mb-2 font-semibold">Palette A</h4><PaletteEditor colors={a} setColors={setA} /></div>
-      <div><h4 className="mb-2 font-semibold">Palette B</h4><PaletteEditor colors={b} setColors={setB} /></div>
+    <div className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div><h4 className="mb-2 font-semibold">Palette A</h4><PaletteEditor colors={a} setColors={setA} /></div>
+        <div><h4 className="mb-2 font-semibold">Palette B</h4><PaletteEditor colors={b} setColors={setB} /></div>
+      </div>
+      <Card title="Comparison">
+        <div className="grid gap-2 text-sm">
+          <p><span className="text-muted-foreground">Colors</span> — A: {sa.count}, B: {sb.count}</p>
+          <p><span className="text-muted-foreground">Average lightness</span> — A: {sa.l.toFixed(2)}, B: {sb.l.toFixed(2)}</p>
+          <p><span className="text-muted-foreground">Average chroma</span> — A: {sa.c.toFixed(2)}, B: {sb.c.toFixed(2)}</p>
+          <p>{shared.length ? `Shared colors: ${shared.map((c) => c.toUpperCase()).join(", ")}` : "No colors are shared between the two palettes."}</p>
+        </div>
+      </Card>
     </div>
   );
 }
@@ -745,7 +1182,13 @@ export function PaletteFromSingle() {
 
 /* ===================== Accessibility — variant pages ===================== */
 
-export function makeContrastChecker(thresh: number, label: string) {
+/**
+ * Contrast checker with a fixed threshold, varied by what the ratio is being
+ * judged against. `sample` picks the preview, because a 3:1 requirement means
+ * different things for body copy, a focus ring and a component boundary — showing
+ * all three as a line of body text would misrepresent the last two.
+ */
+export function makeContrastChecker(thresh: number, label: string, sample: "text" | "ring" | "component" = "text") {
   return function CCVariant() {
     const [a, setA] = useState("#1F2937");
     const [b, setB] = useState("#FFFFFF");
@@ -754,13 +1197,25 @@ export function makeContrastChecker(thresh: number, label: string) {
     return (
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
-          <ColorField label="Foreground" value={a} onChange={setA} />
+          <ColorField label={sample === "text" ? "Foreground" : "Indicator"} value={a} onChange={setA} />
           <div className="mt-3" /><ColorField label="Background" value={b} onChange={setB} />
         </Card>
         <Card title={label}>
           <p className="text-5xl font-bold">{r.toFixed(2)}:1</p>
           <p className={`mt-3 text-lg font-semibold ${pass ? "text-emerald-600" : "text-red-600"}`}>{pass ? "Pass" : "Fail"} (≥ {thresh}:1)</p>
-          <div className="mt-4 rounded-lg p-6" style={{ background: b, color: a }}>Sample text here</div>
+          {sample === "ring" ? (
+            <div className="mt-4 rounded-lg p-6" style={{ background: b }}>
+              <span className="inline-block rounded-md border-2 px-4 py-2 text-sm font-medium" style={{ borderColor: a, color: a }}>Focused control</span>
+              <p className="mt-3 text-sm" style={{ color: a }}>2px focus ring against the surface</p>
+            </div>
+          ) : sample === "component" ? (
+            <div className="mt-4 rounded-lg p-6" style={{ background: b }}>
+              <span className="inline-block rounded-md px-4 py-2 text-sm font-medium" style={{ background: a, color: b }}>Button</span>
+              <p className="mt-3 text-sm" style={{ color: a }}>Component fill against the surface</p>
+            </div>
+          ) : (
+            <div className="mt-4 rounded-lg p-6" style={{ background: b, color: a }}>Sample text here</div>
+          )}
         </Card>
       </div>
     );
@@ -769,7 +1224,9 @@ export function makeContrastChecker(thresh: number, label: string) {
 
 export function AccessiblePaletteGenerator() {
   const [bg, setBg] = useState("#FFFFFF");
-  const colors = useMemo(() => {
+  const [colors, setColors] = useState<string[]>([]);
+  // Generate after mount (randomHex uses RNG) to avoid SSR/CSR mismatch.
+  useEffect(() => {
     const out: string[] = [];
     let tries = 0;
     while (out.length < 5 && tries < 200) {
@@ -777,7 +1234,7 @@ export function AccessiblePaletteGenerator() {
       if (contrastRatio(c, bg) >= 4.5) out.push(c);
       tries++;
     }
-    return out;
+    setColors(out);
   }, [bg]);
   return (
     <div className="grid gap-6">
@@ -803,26 +1260,9 @@ export const CVDAchromatopsia = function () { return <CVDPreview type="achromato
 
 function CVDPreview({ type }: { type: "protanopia" | "deuteranopia" | "tritanopia" | "achromatopsia" }) {
   const [c, setC] = useState("#3B82F6");
-  const r = toRgb255(c);
-  function sim(): { r: number; g: number; b: number } {
-    if (type === "achromatopsia") {
-      const g = Math.round(0.299 * r.r + 0.587 * r.g + 0.114 * r.b);
-      return { r: g, g, b: g };
-    }
-    const M: Record<string, number[]> = {
-      protanopia: [0.567, 0.433, 0, 0.558, 0.442, 0, 0, 0.242, 0.758],
-      deuteranopia: [0.625, 0.375, 0, 0.7, 0.3, 0, 0, 0.3, 0.7],
-      tritanopia: [0.95, 0.05, 0, 0, 0.433, 0.567, 0, 0.475, 0.525],
-    };
-    const m = M[type];
-    return {
-      r: Math.round(Math.min(255, m[0] * r.r + m[1] * r.g + m[2] * r.b)),
-      g: Math.round(Math.min(255, m[3] * r.r + m[4] * r.g + m[5] * r.b)),
-      b: Math.round(Math.min(255, m[6] * r.r + m[7] * r.g + m[8] * r.b)),
-    };
-  }
-  const s = sim();
-  const hex = rgbToHex(s.r, s.g, s.b);
+  // Simulated through the shared matrix in lib/color.ts so this single-colour
+  // preview and the image-based CVD tools can never drift apart.
+  const hex = simulateCVD(c, type);
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card><ColorField value={c} onChange={setC} /><div className="mt-3"><Swatch color={c} label="Original" size="lg" /></div></Card>
@@ -959,6 +1399,41 @@ export function CssFilterGenerator() {
   );
 }
 
+/**
+ * Foreground colour composited over a chosen background, with a text sample so the
+ * pairing can be judged in context. Distinct from CssColorPreview, which renders a
+ * single CSS background value.
+ */
+export function ColorOnBackgroundPreview() {
+  const [fg, setFg] = useState("#3B82F6");
+  const [bg, setBg] = useState("#FFFFFF");
+  return (
+    <div className="grid gap-6">
+      <Card>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <ColorField label="Color" value={fg} onChange={setFg} />
+          <ColorField label="Background" value={bg} onChange={setBg} />
+        </div>
+      </Card>
+      <div className="rounded-xl border border-border p-8" style={{ backgroundColor: bg }}>
+        <div className="flex flex-wrap items-center gap-6">
+          <div className="h-32 w-32 shrink-0 rounded-lg border border-border" style={{ backgroundColor: fg }} />
+          <div>
+            <p className="text-3xl font-semibold" style={{ color: fg }}>Sample text</p>
+            <p className="mt-2 text-sm" style={{ color: fg }}>Smaller supporting copy in the same color.</p>
+          </div>
+        </div>
+      </div>
+      <Card title="Pairing">
+        <div className="grid gap-2 text-sm">
+          <p><span className="text-muted-foreground">Color</span> <span className="font-mono">{fg.toUpperCase()}</span></p>
+          <p><span className="text-muted-foreground">Background</span> <span className="font-mono">{bg.toUpperCase()}</span></p>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 export function CssBackdropFilter() {
   const [blur, setBlur] = useState(12);
   const [sat, setSat] = useState(120);
@@ -1089,14 +1564,14 @@ export function GradientStopEditor() {
 
 export function MeshGradient() {
   const [seed, setSeed] = useState(0);
-  const blobs = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const _ = seed;
-    return Array.from({ length: 5 }, () => ({
+  const [blobs, setBlobs] = useState<Array<{ c: string; x: number; y: number }>>([]);
+  // Generate after mount so SSR and client output stay identical.
+  useEffect(() => {
+    setBlobs(Array.from({ length: 5 }, () => ({
       c: randomHex(),
       x: Math.round(Math.random() * 100),
       y: Math.round(Math.random() * 100),
-    }));
+    })));
   }, [seed]);
   const bg = blobs.map((b) => `radial-gradient(at ${b.x}% ${b.y}%, ${b.c}, transparent 50%)`).join(", ");
   return (
@@ -1228,13 +1703,26 @@ export function AnimatedGradient() {
 
 export function GradientReverser() {
   const [g, setG] = useState("linear-gradient(90deg, #3B82F6, #A855F7, #EF4444)");
+  // Reversing the order of the stops is NOT enough to reverse the ramp: each
+  // position travels with its colour, so CSS sorts them back into place and paints
+  // the original gradient. The ramp only flips when every position is mirrored
+  // (p becomes 100 - p), which also means stops written without a position have to
+  // be given one before they can be mirrored — hence the computed default below.
   const reversed = useMemo(() => {
     const m = g.match(/linear-gradient\(([^)]+)\)/i);
     if (!m) return g;
-    const parts = m[1].split(",").map((s) => s.trim());
-    const head = parts[0].includes("deg") || parts[0].includes("to ") ? parts.shift() : null;
-    const r = parts.reverse();
-    return `linear-gradient(${head ? head + ", " : ""}${r.join(", ")})`;
+    const parts = m[1].split(",").map((s) => s.trim()).filter(Boolean);
+    const head = parts[0].includes("deg") || parts[0].includes("to ") ? parts.shift()! : null;
+    const parsed = parts.map((part, i) => {
+      const hit = part.match(/^(.*?)\s+(-?[\d.]+)%$/);
+      const color = hit ? hit[1].trim() : part;
+      const pos = hit ? parseFloat(hit[2]) : parts.length > 1 ? (i / (parts.length - 1)) * 100 : 0;
+      return { color, pos };
+    });
+    const flipped = parsed
+      .map((s) => `${s.color} ${Number((100 - s.pos).toFixed(1))}%`)
+      .reverse();
+    return `linear-gradient(${head ? head + ", " : ""}${flipped.join(", ")})`;
   }, [g]);
   return (
     <div className="grid gap-6">
@@ -1414,6 +1902,12 @@ export function FlagExplorer() {
       {flags.map((f) => (
         <Card key={f.name} title={f.name}>
           <div className="flex gap-2">{f.colors.map((c, i) => <div key={i} className="h-16 flex-1 rounded" style={{ background: c }} />)}</div>
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
+            {f.colors.map((c, i) => (
+              <span key={i} className="font-mono text-[11px] text-muted-foreground">{c.toUpperCase()}</span>
+            ))}
+            <CopyButton value={f.colors.map((c) => c.toUpperCase()).join(" ")} label="Copy palette" />
+          </div>
         </Card>
       ))}
     </div>
@@ -1600,16 +2094,33 @@ export function HarmonyVisualizer() {
 export function InteractiveColorWheel() {
   const HUES = 24;
   const [l, setL] = useState(0.65);
+  const [picked, setPicked] = useState<string | null>(null);
   const colors = Array.from({ length: HUES }, (_, i) => toHex(`oklch(${l} 0.2 ${(i * 360) / HUES})`));
   return (
-    <div className="grid gap-6">
-      <Card><Label>Lightness: {Math.round(l * 100)}%</Label><Slider min={20} max={90} value={[l * 100]} onValueChange={(v) => setL(v[0] / 100)} className="mt-2" /></Card>
-      <div className="relative mx-auto h-96 w-96">
-        {colors.map((c, i) => {
-          const angle = (i * 360) / HUES;
-          return <button key={i} className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border" style={{ background: c, transform: `translate(-50%, -50%) rotate(${angle}deg) translate(150px) rotate(-${angle}deg)` }} title={c} />;
-        })}
-      </div>
+    <div className="grid gap-6 md:grid-cols-2">
+      <Card>
+        <Label>Lightness: {Math.round(l * 100)}%</Label>
+        <Slider min={20} max={90} value={[l * 100]} onValueChange={(v) => setL(v[0] / 100)} className="mt-2" />
+        <div className="relative mx-auto mt-4 h-96 w-96">
+          {colors.map((c, i) => {
+            const angle = (i * 360) / HUES;
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setPicked(c)}
+                aria-label={`Select ${c}`}
+                className="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-border"
+                style={{ background: c, transform: `translate(-50%, -50%) rotate(${angle}deg) translate(150px) rotate(-${angle}deg)` }}
+                title={c}
+              />
+            );
+          })}
+        </div>
+      </Card>
+      <Card title="Selected">
+        {picked ? <Swatch color={picked} size="lg" /> : <p className="text-sm text-muted-foreground">Click a hue to select it.</p>}
+      </Card>
     </div>
   );
 }

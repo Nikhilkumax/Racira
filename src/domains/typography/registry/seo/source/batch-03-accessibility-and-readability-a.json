@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "readability-score-calculator",
+    "keywords": [
+      "readability score calculator",
+      "flesch reading ease",
+      "gunning fog index",
+      "reading grade level"
+    ],
+    "intro": "The readability score calculator runs six standard readability formulas over one pasted text sample and reports them together, because no single formula is the authority. You paste the copy once and the panels return the scores, the counts they are built from and a plain-language band for the result.",
+    "content": "The readability score calculator takes a block of text and applies six published formulas to it, then shows the intermediate counts on the same screen so a score can be argued with rather than just accepted.\n\n- Flesch Reading Ease returns a 0 to 100 ease score rather than a grade: 206.835 minus 1.015 times words per sentence minus 84.6 times syllables per word.\n- Flesch-Kincaid Grade gives a US school grade from 0.39 times words per sentence plus 11.8 times syllables per word minus 15.59.\n- The Gunning Fog index treats any word of three syllables or more as complex and applies 0.4 times the sum of words per sentence and 100 times the complex share.\n- SMOG, designed for health and consumer writing, takes 1.043 times the square root of complex words times 30 divided by sentences, plus 3.1291.\n- Automated Readability Index uses characters instead of syllables: 4.71 times letters per word plus 0.5 times words per sentence minus 21.43.\n- Coleman-Liau works from letters per 100 words and sentences per 100 words, weighted 0.0588 and 0.296 respectively.\n\nSyllables are approximated the way the formulas were designed to be fed. A word is split into vowel groups, one group is subtracted for a silent final e that is not a consonant plus le ending, a further group is removed for a non-syllabic es or ed ending unless the vowel pair already forms a syllable of its own, and no word is ever allowed to fall below one syllable. Words and sentences are counted from the sample as typed, complex words are those reaching three syllables, and reading time is the word count at 200 words per minute, rounded up with a floor of one minute. Sentences break on a period, exclamation mark or question mark followed by whitespace or the end of the text, so an abbreviation that ends in a period counts as a sentence boundary.\n\n- The syllable figure is an approximation, so the scores land close to, not identical to, a hand count; proper nouns and loanwords are the usual source of drift.\n- Every formula here is calibrated on English prose, so writing in another language produces a number that means nothing.\n- Only letters and digits are counted as words, so a line of punctuation or a row of symbols is skipped rather than treated as an error.\n- The formulas read surface features only. They say nothing about whether a sentence makes sense, and short sentences of hard vocabulary can still score well.\n- Nothing is highlighted sentence by sentence, so tracking down the clause that raised the grade means editing the text and running it again.\n\nTreat the reading grade level figures as a spread rather than a target: the tool averages Flesch-Kincaid, Gunning Fog, the ARI and Coleman-Liau, and that average is the number to quote when someone asks what reading level a page needs. For regulated copy, health, legal or government text, quote the weakest formula instead of the average, because the reader you are protecting sits at the bottom of the range. Readability is only one axis of legibility: a score in the plain-English band still reads badly if the measure is too wide or the leading too tight, which is where the line height optimizer and the paragraph width optimizer take over.",
+    "howTo": [
+      { "step": "Paste or type the copy into the sample field. The default sample is replaced as soon as you type, and every score recomputes on each keystroke." },
+      { "step": "Read the counts first — words, sentences, syllables, complex words, words per sentence, syllables per word and reading time at 200 words per minute — since these are what the formulas consume." },
+      { "step": "Compare the six formula results and the average of the four grade-level scores in the interpretation panel, which also names the Flesch band the sample falls into." },
+      { "step": "Edit the copy in place and watch the scores move. Rewriting one clause is usually enough to shift a grade level, so re-run rather than estimate." }
+    ],
+    "whenToUse": "Reach for it when copy has to hit a stated reading level — a patient information sheet, a policy summary, a school text — or when a page reads heavy and you want the reason in numbers rather than opinion. It pairs naturally with the {{line-height-optimizer|line height optimizer}} because a plain-English grade still reads poorly at tight leading, and with the {{paragraph-width-optimizer|paragraph width optimizer}} when the measure rather than the prose is what is tiring the reader. Where the concern is the reader's access needs rather than the writing, the {{font-accessibility-evaluator|font accessibility evaluator}} covers the styling side of the same problem.",
+    "faqs": [
+      {
+        "q": "Which of the six formulas should I quote?",
+        "a": "Quote the average of the four grade-level formulas for a general audience, and the weakest of them for regulated copy. Flesch Reading Ease is the only result that is not expressed as a school grade, which makes it useful as a headline figure, but it moves with syllables per word rather than sentence length, so it can look flattering on short sentences built from hard vocabulary."
+      },
+      {
+        "q": "Why do Gunning Fog and SMOG disagree?",
+        "a": "They treat complex words differently. Gunning Fog uses the share of complex words in the whole sample, so length dilutes it, while SMOG takes the square root of complex words multiplied by 30 divided by the sentence count, so it is far more sensitive to how many sentences the sample contains. SMOG is also the more conservative of the two on short passages, which is why it is the usual choice for health writing."
+      },
+      {
+        "q": "Does pasting markup or code change the result?",
+        "a": "Yes. Nothing strips tags, so the letters inside an element name or a CSS property are counted as words, and each tag inflates the octosyllabic and character counts. Paste the rendered prose rather than the markup, and expand any abbreviation you are actually measuring, since a period that ends an abbreviation is read as a sentence break."
+      },
+      {
+        "q": "Is the syllable count exact?",
+        "a": "No, and it is not meant to be. Syllables come from vowel groups corrected for a silent final e and for non-syllabic es and ed endings, with a floor of one per word. That is the approximation the published formulas were fitted against, and it is why the tool reports the syllable total as a count rather than presenting it as a dictionary lookup."
+      },
+      {
+        "q": "Can I use the scores for another language?",
+        "a": "No. All six formulas were calibrated on English word and sentence structure, and the syllable approximation assumes English spelling. A Spanish or German sample will return a grade, but the number is not comparable to the published bands, and the Flesch Reading Ease band names on the interpretation panel do not transfer either."
+      }
+    ]
+  },
+  {
+    "slug": "contrast-text-checker",
+    "keywords": [
+      "contrast text checker",
+      "wcag contrast ratio",
+      "relative luminance",
+      "large text classification"
+    ],
+    "intro": "The contrast text checker measures one text and background pair against the WCAG 2.x contrast rules and reports the ratio, the luminance behind it and a pass or fail verdict for each level. You supply the two colours, the font size and the weight, and it decides whether the text counts as large before judging anything.",
+    "content": "The contrast text checker takes a foreground colour, a background colour, a font size in pixels and a weight, classifies the text, then measures the pair against the WCAG contrast ratio rules and returns a verdict for each conformance level that applies to it.\n\n- Both colours accept a hex field or a picker, and each value is normalised before measurement so a three-digit shorthand and a six-digit value are compared identically.\n- Font size is entered in pixels in half-pixel steps, and the weight selector spans 300 to 800.\n- Large text is classified automatically: 24px or more at any weight, or 18.66px and above once the weight reaches 700, which is the 14pt bold boundary from WCAG 1.4.3.\n- Verdicts are reported per level. AA needs 4.5 to 1 for normal text and 3 to 1 for large text; AAA needs 7 to 1 and 4.5 to 1 for the same split.\n- The preview re-renders your own string at the chosen size and weight, then prints a second line at 75 percent of that size, floored at 11px, because small text is where a weak pair fails first.\n\nThe number itself comes from the standard relative luminance formula. Each channel is linearised out of the 0 to 255 sRGB value, the three are weighted 0.2126 red, 0.7152 green and 0.0722 blue, and the ratio is the lighter luminance plus 0.05 divided by the darker luminance plus 0.05. That constant is what stops black on near-black from reporting an infinite ratio, and it is why every result carries two decimals. The panel prints both luminances to five decimals next to the normalised hex pair and the rendering-engine hex values, so a ratio that looks wrong can be traced to the colour that produced it rather than argued about.\n\n- One pair is evaluated at a time. A hover state, a placeholder, a disabled control or a focus ring needs its own run.\n- Contrast is measured between two flat colours, so text over a gradient, a photograph or a translucent overlay cannot be represented here.\n- The verdict covers the ratio only. Size and weight affect the large text classification rather than the ratio, so raising the weight does not rescue a pair that fails at body size.\n- The 3 to 1 requirement for interface borders and icons is stated in the footnote but not scored, since it applies to non-text elements rather than to a text pair.\n- Nothing reads your stylesheet. The colours measured are the ones typed in, including any that never reach production.\n\nMeasure the pairs you actually intend to ship rather than reaching for the checker at the end: the muted grey used for captions, the label inside a filled button and the placeholder text are the three that fail most often. When a pair comes up short, changing the background usually preserves the design for longer than brightening the text, because it moves the whole surface rather than one string. If the palette itself is the problem, the color on color text checker compares several pairings in a single pass, the WCAG font size checker states the thresholds and spacing minimums that apply at a given size, and the contrast pairing checker does the same work across a font pairing rather than a single sample.",
+    "howTo": [
+      { "step": "Set the text colour and the background, either by picking from the colour wells or by typing the hex values into the fields beside them." },
+      { "step": "Enter the font size in pixels and choose the weight, so the tool can classify the text as large or normal before applying a threshold." },
+      { "step": "Read the contrast ratio, the classification and the luminance pair in the results box, then check the per-level verdict lines for the AA and AAA outcome." },
+      { "step": "Judge the pair in the preview, including the 75 percent secondary line, and edit the sample string to your own copy before making a decision." }
+    ],
+    "whenToUse": "Use it whenever a colour has to be justified against an accessibility requirement: a brand palette being applied to body copy, a caption colour that has drifted to light grey, or a dark-mode surface that was chosen by eye. It is also the fastest way to settle an argument about whether a pair is close enough, because the ratio and the thresholds are printed side by side. When the decision is about type rather than colour, the {{wcag-font-size-checker|WCAG font size checker}} covers size, spacing and resize criteria, and the {{font-accessibility-evaluator|font accessibility evaluator}} scores a whole specification in one table.",
+    "faqs": [
+      {
+        "q": "What exactly counts as large text here?",
+        "a": "Two conditions, either of which qualifies: 24px or larger at any weight, or 18.66px or larger once the weight reaches 700. The second boundary is the 14pt bold case from WCAG 1.4.3, and it is why the weight selector matters — the same size can be judged against different thresholds depending on the weight you choose."
+      },
+      {
+        "q": "Why is 0.05 added to each luminance before dividing?",
+        "a": "It is part of the WCAG formula and it keeps the ratio finite. Without the constant, two dark colours with luminances close to zero would produce an enormous or undefined ratio. Adding it to both terms, then dividing the larger by the smaller, compresses the scale so that black on white lands at the familiar 21 to 1 rather than at infinity."
+      },
+      {
+        "q": "Do I need to check every state of the same pair?",
+        "a": "Yes, and it is the check most often skipped. Text that is legible at rest can fail once a hover tint or a disabled opacity is applied, because both change a colour the base pair never measured. Run each state as its own pair, and treat placeholder text and focus rings as pairs in their own right rather than as details of the base state."
+      },
+      {
+        "q": "Is 3 to 1 enough for icons and borders?",
+        "a": "Yes, for non-text elements, which is a separate requirement from the text thresholds: interface components and graphical objects need 3 to 1 against their adjacent colour. This tool states that figure for reference but does not score it, because it evaluates a text pair rather than an icon, a border or a control outline."
+      },
+      {
+        "q": "Why does the AAA result fail when AA passes?",
+        "a": "Because the enhanced level is a stricter target, not a stricter measurement. A pair sitting at 5 to 1 passes AA for normal text and fails AAA, which wants 7 to 1. Both verdicts describe the same measured ratio against different requirements, so the tool prints them together rather than collapsing them into a single grade."
+      }
+    ]
+  },
+  {
+    "slug": "dyslexia-font-simulator",
+    "keywords": [
+      "dyslexia font simulator",
+      "letter spacing",
+      "reading measure",
+      "accessible text settings"
+    ],
+    "intro": "The dyslexia font simulator places two renderings of the same paragraph side by side, one at browser defaults and one at settings chosen for dyslexic readers, and writes out the CSS that produces the second. It is a comparison tool rather than a font installer: you drive six sliders and read the values that change.",
+    "content": "The dyslexia font simulator renders one text sample twice and exposes the difference as a set of numbers plus the declaration block that reproduces it, so a recommendation can be handed to a developer rather than described.\n\n- Font size from 14px to 26px, defaulting to 19px, comfortably above the 16px browser norm.\n- Line height from 1.2 to 2.4 in steps of 0.05, defaulting to 1.8.\n- Letter spacing from 0 to 0.3em in hundredths, defaulting to 0.12em.\n- Word spacing from 0 to 0.4em, defaulting to 0.16em.\n- Reading measure from 30ch to 90ch, defaulting to 60 characters per line.\n- Weight from 300 to 700 in steps of 50, defaulting to 450, so the text is slightly heavier than regular without reading as bold.\n\nThe settings follow the accepted style guidance for dyslexic readers rather than any single product: a larger sans face with generous tracking, wide leading, a short measure, ragged-right text and dark grey on off-white instead of maximum-contrast black on white. The generated rule names Atkinson Hyperlegible with Verdana and Tahoma behind it, sets text-align to left so the copy is never justified, and hard-codes the reading colours as #1c1c1c on #faf8f3. Next to the CSS the panel reports the characters-per-line target and converts the effective reading width to rem by multiplying the size by the measure and dividing by sixteen, which is the figure to quote in a layout review.\n\n- The right-hand pane is a comparison, not a claim that any font cures dyslexia. The spacing and size controls are the parts supported by readability guidance.\n- Only one stack is written. A different face has to be substituted by hand, and the tool cannot tell whether the named file is installed, so the fallbacks are what many readers will actually see.\n- Six values are adjustable and nothing else: case, hyphenation, column count and alignment are pinned to the recommended settings.\n- The toggle affects the preview pane only, so the CSS can be copied while the adjustment is switched off and the two will disagree.\n- This is a browser rendering, not an assistive-technology test. It says nothing about screen reader output or about how the settings interact with a user stylesheet.\n\nHand the exported rule over as a starting point, treating it as accessible text settings rather than a prescription, and keep the measure between 45 and 70 characters: beyond that the eye has to hunt for the start of the next line, which is exactly the effort these settings exist to remove. Letter spacing past roughly 0.15em starts to break up word shapes, so take as much as the reader needs and no more. Body size is the other half of the problem on small screens, which is what the mobile font size checker examines, and where the goal is comparing faces for low-vision readers rather than tuning one, the low vision font tester is the closer fit. The line height optimizer covers leading at a fixed measure, and the letter spacing calculator covers tracking when the adjustment has to be applied to an existing design system.",
+    "howTo": [
+      { "step": "Paste your own paragraph into the sample field so both panes render text you care about, then set the size, leading, tracking, word spacing, measure and weight with the sliders." },
+      { "step": "Compare the browser-default pane against the adjusted pane, watching the characters-per-line and reading-width readouts as the measure slider moves." },
+      { "step": "Toggle the adjustment off and on to see how much of the improvement comes from spacing alone rather than from the named face." },
+      { "step": "Copy the generated CSS block and the effective reading width, then hand both to whoever maintains the stylesheet." }
+    ],
+    "whenToUse": "Use it when a reader has asked for more comfortable body text and you need to show what changes and by how much, or when a page of long-form copy is being tuned for a general audience and the default settings look tight. It is also a quick way to demonstrate to a stakeholder why justified text and a wide measure are a poor pairing for readers who lose their place. Where the underlying ability rather than the reading configuration is the question, the {{readability-score-calculator|readability score calculator}} measures the prose, and the {{font-accessibility-evaluator|font accessibility evaluator}} evaluates a whole type specification against the WCAG criteria.",
+    "faqs": [
+      {
+        "q": "Will these settings help every dyslexic reader?",
+        "a": "No, and the tool does not claim they will. Larger text, wider spacing and a shorter measure are the adjustments with the broadest support, and they help many readers who lose their place in dense copy. The named face is a starting suggestion rather than a treatment, and individual readers differ enough that the sliders exist precisely so the values can be tuned rather than adopted wholesale."
+      },
+      {
+        "q": "Why does the output name Atkinson Hyperlegible?",
+        "a": "It is written into the declaration as the first choice, with Verdana and Tahoma behind it, because a rule has to name something concrete. It is a suggestion rather than a requirement — replace the family name with whatever face the project already licenses, and keep the fallback chain so the settings survive when the first file is missing."
+      },
+      {
+        "q": "Why is the text left-aligned instead of justified?",
+        "a": "Because justification evens the line endings by varying the spaces between words, and those uneven gaps are exactly what makes a line hard to scan for a reader who is already working to keep their place. Ragged right keeps word spacing constant, which costs a slightly rougher edge and buys a steadier rhythm."
+      },
+      {
+        "q": "Why off-white rather than a pure white background?",
+        "a": "The generated rule uses #1c1c1c on #faf8f3 rather than black on white. Full contrast is not automatically easier to read: a bright white field increases glare and halation, and dark grey on a warm off-white holds a high ratio while reducing that glare. The pair still clears the contrast thresholds by a wide margin."
+      },
+      {
+        "q": "Can I apply these values to an existing stylesheet?",
+        "a": "Yes, and that is the intended use. Every value is written in a portable unit — pixels for size, unitless line height, em for tracking, ch for the measure — so the declaration can be added to a class and applied to an article body without touching the rest of the design. The reading-width readout tells you what the resulting column will measure."
+      }
+    ]
+  },
+  {
+    "slug": "wcag-font-size-checker",
+    "keywords": [
+      "wcag font size checker",
+      "text spacing minimums",
+      "resize text",
+      "contrast thresholds"
+    ],
+    "intro": "The WCAG font size checker takes one text style and reports it against the success criteria that actually govern size and spacing, not only the contrast rule. Enter size, weight, measured contrast ratio and required zoom, and it classifies the text and scores each criterion.",
+    "content": "The WCAG font size checker evaluates a single text style against four numbered success criteria and returns a pass or fail for each, with the thresholds that applied written next to the result.\n\n- Contrast (Minimum), 1.4.3, requires 4.5 to 1 for normal text and 3 to 1 once the text is classified as large.\n- Contrast (Enhanced), 1.4.6, raises those to 7 to 1 and 4.5 to 1 for the same two classes.\n- Large-text classification follows WCAG: 24px or more at any weight, or 18.66px or more at weight 700, with the point equivalent reported as the pixel size multiplied by 0.75.\n- Resize text, 1.4.4, is scored against the zoom level you enter: support up to 200 percent passes outright, and beyond 200 percent the check only passes when the base size is at least 16px.\n- Text spacing minimums from 1.4.12 are reported as four values converted to pixels at the current size: line height at 1.5 times the size, paragraph spacing at twice the size, letter spacing at 0.12em and word spacing at 0.16em.\n\nThe check list deliberately mixes hard criteria with best practice. AA contrast, AAA contrast, the body-text norm and the resize condition are scored and counted, while the large-text classification is printed as information rather than a verdict, which keeps the failure count in the results panel honest. Everything recomputes from the four inputs, so the spacing table moves the moment the size changes: at 16px it asks for 24px of leading, 32px between paragraphs, 1.92px of tracking and 2.56px of word spacing, and a reader has to be able to apply all four without losing content or functionality. The note under the table warns against locking line height with fixed pixel heights, which is the usual way a compliant-looking style fails the criterion in practice.\n\n- The contrast ratio is typed in rather than measured from two colours, so this tool answers which thresholds apply rather than whether a specific pair meets them.\n- The spacing minimums are targets. Nothing inspects a stylesheet or verifies that a declaration survives a user stylesheet being applied over it.\n- Reflow at 320 CSS pixels, focus appearance and target size sit outside the four criteria evaluated here.\n- The 16px body-text figure is a widely used norm rather than a WCAG minimum, and the panel labels it as best practice for that reason.\n- A fixed pixel height on a text container is not detected, even though it is the commonest reason the spacing overrides fail.\n\nUse it as the checklist for a type style before a design review: quote the classification, both contrast thresholds and the four spacing minimums for the size in question, and the conversation stops being about taste. When a style fails, fix the ratio first, since contrast is measurable and unambiguous, then move to spacing. To measure a candidate pair rather than a claimed ratio, the contrast text checker returns the real figure, the CSS line height tool covers the leading end of the spacing criterion, and the mobile font size checker handles the case where the base size passes on a desktop and fails on a phone.",
+    "howTo": [
+      { "step": "Enter the font size in pixels and select the weight, so the tool can decide whether the style is treated as large text." },
+      { "step": "Type the contrast ratio you measured for the pair, and set the zoom level the design has to survive." },
+      { "step": "Work through the check list, reading the detail line under each criterion — it states the threshold that applied and the value you supplied." },
+      { "step": "Copy the four text-spacing minimums from the table at your chosen size and verify them against the stylesheet, remembering that a fixed pixel height will defeat them." }
+    ],
+    "whenToUse": "Reach for it when a type style has to be defended against a checklist, when a designer wants to know whether 18px counts as large text, or when the spacing minimums for a given size need to be written down before a build. It is particularly useful in review, because each row states the requirement next to the measured value, which turns a vague objection into a specific number. For a full specification rather than one style, the {{font-accessibility-evaluator|font accessibility evaluator}} scores contrast, resize, spacing and reflow together, and the {{body-text-legibility-grader|body text legibility grader}} judges how the result actually reads.",
+    "faqs": [
+      {
+        "q": "Why is the resize check tied to the zoom level I enter?",
+        "a": "Because 1.4.4 asks that text be resizable up to 200 percent without loss of content or functionality, and any support beyond that is a design decision rather than a requirement. The check passes outright at 200 percent or below, and above it the passing condition becomes a base size of at least 16px, which is the point where a larger zoom stops breaking a layout."
+      },
+      {
+        "q": "Is 16px a WCAG requirement?",
+        "a": "No. It is a widely adopted norm for body text, and the panel labels it as best practice rather than a criterion. Where 16px does carry weight is the resize check, which only passes above 200 percent zoom when the base size reaches it, and the large-text classification, where 24px is the real threshold."
+      },
+      {
+        "q": "Which criterion governs line height?",
+        "a": "Text spacing, 1.4.12. It does not mandate a particular line height for the page as authored; it requires that a reader who applies a line height of 1.5 times the font size, paragraph spacing of twice the font size, letter spacing of 0.12em and word spacing of 0.16em can do so without anything being clipped or lost."
+      },
+      {
+        "q": "Why does the large-text row always pass?",
+        "a": "Because it is a classification rather than a criterion. Knowing whether the style counts as large text is what decides which contrast threshold the other two rows use, so the row reports the class and its consequence instead of inventing a pass or fail that WCAG does not have."
+      },
+      {
+        "q": "Where do the 0.12em and 0.16em figures come from?",
+        "a": "They are the spacing overrides named in the text spacing criterion itself, which fixes tracking at 0.12em and word spacing at 0.16em as the values a reader must be able to apply. The table multiplies both by the current font size so the requirement arrives as pixels rather than as a ratio to convert by hand."
+      }
+    ]
+  },
+  {
+    "slug": "font-accessibility-evaluator",
+    "keywords": [
+      "font accessibility evaluator",
+      "wcag 1.4.12",
+      "text reflow",
+      "accessible type css"
+    ],
+    "intro": "The font accessibility evaluator scores a whole type specification against the WCAG criteria that apply to text and, for each one, states what was required, what was measured and what would fix it. You choose a face and set the specification; the tool returns the criteria table, a live preview and a CSS block.",
+    "content": "The font accessibility evaluator takes a face, a size, a weight, two colours and four spacing values, then runs the specification through the criteria that apply to text and reports a pass or fail per criterion alongside the change that would resolve it.\n\n- Faces come from the built-in catalogue with Inter as the starting choice, and each entry carries the stack that is written into the exported CSS.\n- Size runs from 10px to 48px, weight in hundred-unit steps from 300 to 800, and the measure from 20ch to 140ch.\n- Line height runs from 1 to 2.4, letter spacing from 0 to 0.3em and paragraph spacing from 0 to 4em, each clamped inside its range before it is evaluated.\n- Five criteria are scored: contrast at AA, contrast at AAA, resize text, text spacing and text reflow.\n- Every failing row carries a fix, from darkening the text for a weak ratio to capping the measure so the copy can wrap inside a 320 pixel viewport.\n\nText spacing, WCAG 1.4.12, is the criterion a type specification most often fails, and it is evaluated as a conjunction of three conditions: line height must reach 1.5, paragraph spacing must equal at least twice the size, and letter spacing must reach 0.12em. Missing any one of them fails the row. Reflow is scored from the measure and passes at 80 characters or fewer, on the reasoning that a wider setting cannot wrap inside a narrow viewport without two-dimensional scrolling. The accessible type CSS the panel exports then rebuilds the same specification as a class: the size is converted to rem by dividing by sixteen to four decimals, the line height is floored at 1.5, the letter spacing at 0.12em and paragraph margins at 2em, so applying the block cannot reintroduce a value the table has just failed. A second paragraph renders in the preview at the specified paragraph spacing, which means the spacing criterion can be judged against real text instead of an abstract number.\n\n- Images of text, 1.4.5, is not scored, because it needs the page markup rather than a type specification.\n- The resize and reflow rows reason about the specification, not a rendered page, so a fixed-height container elsewhere in the layout stays invisible here.\n- Contrast is evaluated for one pair only. Hover, focus, disabled and placeholder states are separate specifications and need their own run.\n- The preview renders in the browser, so the chosen face is subject to whatever is installed on the machine viewing it.\n- Nothing is saved or versioned. The evaluation is a snapshot of the current settings, and changing the face clears the comparison.\n\nRun it once per text role rather than once per page, because a caption and a heading rarely share thresholds, and treat the fix column as review notes: a specification that passes all five rows has a defensible answer for contrast, spacing and reflow in one place. Where the copy itself is the problem rather than the styling, the readability score calculator measures the prose, the body text legibility grader scores how the text reads at a glance, and the paragraph width optimizer settles the measure when the reflow row keeps failing. The line height optimizer is the companion for the leading value, and the contrast text checker measures the pair the contrast rows depend on.",
+    "howTo": [
+      { "step": "Pick the face from the catalogue, then set the size, weight and the two colours that make up the text pair you are evaluating." },
+      { "step": "Set the measure, line height, letter spacing and paragraph spacing, watching the preview since it renders at exactly the values being scored." },
+      { "step": "Read the evaluation table row by row, noting the requirement, the measured value and the fix for any criterion showing a fail." },
+      { "step": "Adjust until the passed count reaches five out of five, then copy the exported CSS, which already floors the leading and tracking at the values the table requires." }
+    ],
+    "whenToUse": "Use it when a type specification has to be signed off, when a design system's body style is being reviewed for the first time, or when a single failing criterion needs to be isolated from the rest. It is the broadest of the accessibility checks here, since it scores contrast, resize, spacing and reflow in one table rather than one criterion at a time. For a narrower question, the {{wcag-font-size-checker|WCAG font size checker}} states the thresholds and spacing minimums for a single size, and the {{dyslexia-font-simulator|dyslexia font simulator}} shows what the spacing adjustment looks like on real copy.",
+    "faqs": [
+      {
+        "q": "Why does the text-spacing row test three values at once?",
+        "a": "Because the criterion itself is a conjunction: a reader must be able to apply a line height of 1.5, paragraph spacing of twice the font size and letter spacing of 0.12em together without loss of content. Passing on one value while failing on another does not satisfy it, so the row reports the measured triple and fails if any element is short."
+      },
+      {
+        "q": "How can reflow be scored from a measure?",
+        "a": "The measure is a proxy. A line longer than about 80 characters cannot wrap inside a 320 pixel viewport without the container scrolling in two directions, which is what the criterion forbids, so capping the measure keeps the specification on the right side of it. It is a conservative reading of the criterion rather than a rendered test."
+      },
+      {
+        "q": "Does the exported CSS pass by construction?",
+        "a": "It is biased that way. The block floors the line height at 1.5, the letter spacing at 0.12em and paragraph margins at 2em, and it writes sizes in rem so the resize criterion holds, which means the values that were failing in the table cannot survive into the copied code."
+      },
+      {
+        "q": "Why is the images-of-text criterion not in the table?",
+        "a": "Because it cannot be judged from a type specification. Whether a heading is real text or a picture of text is a property of the markup, so evaluating it needs the page rather than a set of numbers. The criteria that are scored are the ones derivable from size, weight, colour, measure and spacing."
+      },
+      {
+        "q": "Should I evaluate every text role separately?",
+        "a": "Yes. Body copy, captions and headings have different sizes and thresholds, so a specification that passes for the body style can fail for a 12px caption whose colour was reused from the body text. Each role gets its own run, its own colour pair and its own saved CSS block."
+      }
+    ]
+  }
+]

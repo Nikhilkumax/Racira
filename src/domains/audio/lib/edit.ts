@@ -1254,3 +1254,26 @@ export function apply8D(
   }
   return [left, right];
 }
+
+// ---------------------------------------------------------------------------
+// RBJ notch — the one cookbook shape the batch-4 set lacked (hum removal)
+// ---------------------------------------------------------------------------
+
+/**
+ * RBJ notch filter (cookbook "notch" case): unity gain everywhere except a
+ * narrow stop-band at freqHz, whose width is governed by q. The harmonics
+ * variant is just notches stacked at integer multiples of the fundamental.
+ */
+export function notchCoeffs(sampleRate: number, freqHz: number, q: number): BiquadCoeffs {
+  const w0 = (2 * Math.PI * freqHz) / sampleRate;
+  const alpha = Math.sin(w0) / (2 * q);
+  const cos0 = Math.cos(w0);
+  const a0 = 1 + alpha;
+  return {
+    b0: 1 / a0,
+    b1: (-2 * cos0) / a0,
+    b2: 1 / a0,
+    a1: (-2 * cos0) / a0,
+    a2: (1 - alpha) / a0,
+  };
+}

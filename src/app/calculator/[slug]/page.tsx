@@ -20,6 +20,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { calculatorRegistry } from "@/domains/calculator/registry";
+import { canonicalSlug, isAliasSlug } from "@/domains/calculator/canonicalSlugs";
 import { CALCULATOR_SITE } from "@/domains/calculator/site";
 import { CATEGORY_SUMMARY } from "../summaryData";
 import { toSlug } from "@/lib/utils/slug";
@@ -36,6 +37,9 @@ const seenSlugs = new Set<string>();
 const FULL_SCOPE = calculatorRegistry.filter((t) => {
   const key = calcKey(t);
   if (STUB_SET.has(key)) return false;
+  // Alias slugs (duplicate-content groups) render their canonical sibling —
+  // exclude them so hero counts match the grids that list one card per tool.
+  if (isAliasSlug(key)) return false;
   if (seenSlugs.has(key)) return false;
   seenSlugs.add(key);
   return true;
@@ -94,6 +98,21 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// Tool lookup that also resolves ALIAS slugs (duplicate-content groups and
+// legacy rename aliases — see domains/calculator/canonicalSlugs.ts) to their
+// canonical registry entry, so alias URLs render the canonical tool's page
+// (same component, same name/breadcrumb) with a canonical tag instead of 404.
+const findToolBySlug = (s: string) => {
+  const canonical = canonicalSlug(s);
+  if (canonical !== s) {
+    const byCanonical = calculatorRegistry.find((t) => (t as any).slug === canonical);
+    if (byCanonical) return byCanonical;
+  }
+  return calculatorRegistry.find(
+    (t) => (t as any).slug === s || toSlug((t as any).name) === s
+  );
+};
+
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
   
@@ -151,15 +170,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  // Check if it's a tool
-  const tool = calculatorRegistry.find(t => 
-    ((t as any).slug === resolvedParams.slug || toSlug((t as any).name) === resolvedParams.slug)
-  );
+  // Check if it's a tool (alias slugs resolve to their canonical entry)
+  const tool = findToolBySlug(resolvedParams.slug);
 
   if (tool) {
+    const toolSlug = (tool as any).slug || toSlug((tool as any).name);
     const title = `${tool.name} — Free Online Calculator`;
     const description = tool.description || `Free online ${tool.name}.`;
-    const url = `https://racira.com/calculator/${resolvedParams.slug}`;
+    // Aliases (duplicate-content groups + legacy rename aliases) canonicalize
+    // to their canonical sibling's URL; canonical slugs self-reference.
+    const canonicalUrlSlug = isAliasSlug(resolvedParams.slug) ? canonicalSlug(resolvedParams.slug) : toolSlug;
+    const url = `https://racira.com/calculator/${canonicalUrlSlug}`;
     const meta: Metadata = { title, description, alternates: { canonical: url } };
     // Calculators that are not genuinely built (soon, or stub-tagged "live")
     // render the coming-soon template — browsable but excluded from the index.
@@ -252,6 +273,8 @@ function SubcategoryView({ parentCategory, subcategory, slug }: { parentCategory
     const tSubSlug = toSlug(t.subcategory || "General");
     if (tCatSlug !== categorySlug || tSubSlug !== slug) return false;
     const key = (t as any).slug || toSlug((t as any).name);
+    // Alias slugs (duplicate-content groups) render one card — the canonical one.
+    if (isAliasSlug(key)) return false;
     if (stubSlugs.has(key)) return false;
     if (seen.has(key)) return false;
     seen.add(key);
@@ -416,9 +439,10 @@ export default async function PolymorphicPage({ params }: Props) {
   }
 
   // 3. Is it a genuinely-live tool? Non-live (soon) and stub-tagged slugs 404.
-  const tool = calculatorRegistry.find(t => 
-    ((t as any).slug === slug || toSlug((t as any).name) === slug)
-  );
+  //    Alias slugs (duplicate-content groups + legacy renames) resolve to their
+  //    canonical tool's page — same component, canonical tag points at the
+  //    canonical URL (see findToolBySlug / canonicalSlugs.ts).
+  const tool = findToolBySlug(slug);
 
   if (tool && isLiveTool(tool, "calculator")) {
     return <ToolView slug={slug} tool={tool} />;

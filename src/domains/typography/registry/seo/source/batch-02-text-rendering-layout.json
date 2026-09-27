@@ -1,0 +1,402 @@
+[
+  {
+    "slug": "text-justification-previewer",
+    "keywords": [
+      "text justification previewer",
+      "justified text",
+      "space stretch",
+      "hyphenation"
+    ],
+    "intro": "The text justification previewer renders one paragraph under each alignment and models the space stretch justified text needs on every line. You set the alignment, the hyphenation mode, the measure and the size, and the panel returns an approximate characters-per-line figure, a stretch multiplier and a verdict on whether the measure can carry justification at all.",
+    "content": "The text justification previewer works on a single paragraph. You paste the copy, choose an alignment, set the measure in characters and the size in pixels, and decide how hyphenation should behave; the preview redraws immediately while a reference table pairs the measure with an approximate characters-per-line count, a space stretch multiplier and a verdict. The generated stylesheet rule is written at the same time, so the readouts and the CSS always describe the same settings.\n\n- Alignment modes: ragged right, justified, centred and ragged left.\n- hyphens values: auto for language-aware hyphenation, manual for soft hyphens only, and none.\n- Measure from 28ch to 110ch, defaulting to 62ch, and size from 12px to 24px, defaulting to 16px.\n- A consecutive-hyphen switch that adds hyphenate-limit-lines: 2 when it is on; the rule always carries hyphenate-limit-chars: 6 3 3.\n- Faces come from the shared preview catalogue, with Lora as the default.\n- The reference table reports the measure, the approximate characters per line, the stretch multiplier and a verdict of too narrow, workable or too wide.\n- A second table row states whether rivers of white are likely, which depends only on the hyphenation mode.\n\nThe stretch figure is a model rather than a measurement of the rendered paragraph. With justification off it stays at 1.00x; with justification on and hyphens set to none it rises to 1.18x, because a line with no legal break point must absorb its leftover space in the gaps between words; with any hyphenation mode available it settles at 1.06x. The characters-per-line estimate divides the measure by 3.1% of the pixel size, a rough average advance for a text face, so a 62ch measure at 16px reads as about 125 characters. The verdict comes from the measure alone: below 45ch the panel reports too narrow to justify, above 85ch too wide, and in between workable. The rule also carries overflow-wrap: break-word, so an unbreakable string cannot push the line wider than the measure that was set.\n\n- The stretch multiplier is a fixed value per hyphenation mode, not a measurement of the paragraph you paste.\n- The characters-per-line estimate assumes an average advance, so wide or condensed faces drift from it.\n- Justification quality depends on the browser's hyphenation dictionary, which the panel cannot see or report on.\n- Centred and ragged-left alignments are drawn for comparison, but the stretch and rivers rows describe justification only.\n- The generated rule fixes line-height at 1.6 and hyphenate-limit-chars at 6 3 3, and neither is adjustable here.\n\nUse it to decide whether a measure can carry justified text before the stylesheet is written, and to see what switching hyphenation on does to the texture at that width. Once the decision is made, the hyphenation controls themselves belong to the tester that exercises hyphens, hyphenate-limit-chars and language selection. A measure that spans several columns should be checked in the column layout builder, and when the real problem is a line that ends with a single stranded word, the widow and orphan detector measures where that word will actually fall.",
+    "howTo": [
+      "Pick an alignment; justified is the mode the space-stretch model describes.",
+      "Set hyphens to auto, manual or none and watch the rivers row change with the mode.",
+      "Drag the measure and size sliders until the verdict reads workable for the copy you pasted.",
+      "Copy the generated rule, which carries the text-align, hyphens and hyphenate-limit-chars values."
+    ],
+    "whenToUse": "Reach for it when a wide measure has to be justified and you want to see the cost in space stretch before committing to a stylesheet. The hyphenation that makes justification survivable is exercised in the {{hyphenation-tester|hyphenation tester}}, where the language, the character limits and the consecutive-line cap are all adjustable. A measure that will span several columns belongs to the {{text-column-layout-builder|text column layout builder}}, and a single stranded word at the end of a paragraph is what the {{widow-and-orphan-detector|widow and orphan detector}} reports from real font metrics.",
+    "faqs": [
+      {
+        "q": "Why does the stretch figure jump when I turn hyphenation off?",
+        "a": "A justified line with no legal break point has to absorb all its leftover space between words, and the panel models that as 1.18x against 1.06x when hyphenation is available. That increase is the mechanical cause of the rivers a narrow measure shows."
+      },
+      {
+        "q": "Is the space stretch a real measurement of my paragraph?",
+        "a": "No. It is a fixed multiplier per hyphenation mode rather than a read of the rendered lines. Use it to compare settings and see the direction of the change, and judge the final texture in the preview."
+      },
+      {
+        "q": "What does the verdict column actually check?",
+        "a": "The measure alone: below 45ch it reports too narrow to justify, above 85ch too wide, and between the two workable. It never inspects the words in your paragraph, so a workable measure can still produce a bad line."
+      },
+      {
+        "q": "Can I justify text without hyphenation?",
+        "a": "You can, but the word gaps widen and rivers become likely on anything but a very wide measure. Leaving hyphens on auto keeps the spaces tighter, and the rivers row states which of those outcomes to expect."
+      },
+      {
+        "q": "Why is the generated line height fixed?",
+        "a": "The rule fixes line-height at 1.6 and hyphenate-limit-chars at 6 3 3 so the output stays predictable. Edit those two declarations in the stylesheet when the design calls for different values."
+      }
+    ]
+  },
+  {
+    "slug": "hyphenation-tester",
+    "keywords": [
+      "hyphenation tester",
+      "hyphenate-limit-chars",
+      "soft hyphen",
+      "language-aware hyphenation"
+    ],
+    "intro": "The hyphenation tester renders a paragraph with the CSS hyphenation controls applied and names the dictionary the browser needs for the selected language. You set the face, the language, the hyphens value, the character limits and the measure, and the readouts translate those choices into before and after minimums, the required dictionary and whether the measure makes hyphenation essential.",
+    "content": "The hyphenation tester is built around the controls that actually change output: hyphens, hyphenate-limit-chars, hyphenate-limit-lines and the measure of the container. The language-aware hyphenation that browsers implement requires a dictionary for the declared language, and the tool states which dictionary is needed rather than implying that any face will hyphenate correctly on its own. Alongside the automatic path, a separate panel converts a hyphenated word such as trans-contin-ental into invisible soft hyphen characters, which is the manual route for headlines and brand terms.\n\n- hyphens values: auto for the browser dictionary, manual for soft hyphens only, and none.\n- Languages: en-US, en-GB, de-DE labelled for long compounds, fr-FR, es-ES and pt-BR.\n- hyphenate-limit-chars presets: 5 2 2 aggressive, 6 3 3 balanced, 8 4 4 conservative and 10 5 5 minimal.\n- Consecutive hyphenated lines from 1 to 5, written as hyphenate-limit-lines.\n- Measure from 16ch to 90ch, defaulting to 34ch, with the readout calling hyphenation essential below 30ch and optional above it.\n- Justify is a separate switch that changes the paragraph to text-align: justify.\n- The manual panel renders the entered word with the hyphens replaced by U+00AD, so the soft hyphen positions can be checked in the chosen face.\n\nThe generated rule carries the standard hyphens property, the -webkit- prefixed copy for engines that still need it, the character limits, the consecutive-line cap and two max-width declarations, the second being min(100%, the measure in characters) so the block cannot overflow a narrow container. The limit readout splits the preset into its parts: 6 3 3 requires a word of at least six characters with three characters before the hyphen and three after it, which is why a word shorter than the combined minimum cannot break at all. With hyphens set to manual nothing hyphenates until a soft hyphen is inserted, because a browser will not infer a break point from spelling alone; that is the switch that keeps a brand term whole.\n\n- The dictionary comes from the browser or the operating system; the tool only declares the language.\n- Soft hyphens are invisible in most editors and are lost when copy passes through some tools.\n- Automatic hyphenation can break a proper noun or a product name in a way no dictionary check prevents.\n- The language selector must match the paragraph's real language, or the break points come from the wrong dictionary.\n- The preview paragraph is rendered at a fixed 16px, so behaviour at other sizes has to be judged elsewhere.\n\nUse it when ragged-right text is producing a loose edge or when justified text needs tighter spacing, and treat the language setting as the switch that matters most rather than the character presets. When the measure itself is the variable, the same test belongs beside the justification model or the multi-column layout, where width and column count move together. If the goal is avoiding a short last line rather than breaking words at all, the widow and orphan detector measures the paragraph and flags the stranded line directly.",
+    "howTo": [
+      "Choose the face and the language whose hyphenation dictionary should apply.",
+      "Set hyphens to auto, manual or none, then pick the hyphenate-limit-chars preset.",
+      "Cap the consecutive hyphenated lines and set the measure until the readout calls hyphenation essential or optional.",
+      "Paste the copy, check the rendered paragraph, and copy the CSS block including the language declaration."
+    ],
+    "whenToUse": "Open it when a narrow measure is leaving a ragged edge or when justified text needs the tighter spacing that hyphenation supplies. The character presets are a convenience, but the language switch is the one that decides whether break points come from a dictionary at all. When the paragraph's width is the open question rather than its breaks, the {{text-justification-previewer|text justification previewer}} models the space stretch and the {{text-column-layout-builder|text column layout builder}} checks the measure across columns. A paragraph that breaks cleanly but still ends with one stranded word is the case the {{widow-and-orphan-detector|widow and orphan detector}} measures directly.",
+    "faqs": [
+      {
+        "q": "Why does nothing hyphenate while hyphens is set to manual?",
+        "a": "Manual mode breaks a word only where a soft hyphen already exists, because browsers do not infer break points from spelling. The paragraph stays unhyphenated until you insert U+00AD characters with the panel below it."
+      },
+      {
+        "q": "Which character preset should I start from?",
+        "a": "6 3 3 balanced is the middle ground: at least six characters in the word, three before the break and three after. Move to 5 2 2 for tight measures, where more breaks are wanted, and to 10 5 5 when breaks should be rare."
+      },
+      {
+        "q": "Does the tool ship hyphenation dictionaries?",
+        "a": "No. It declares the language and the browser or operating system supplies the dictionary. A missing dictionary is the usual reason automatic hyphenation looks random on one machine and correct on another."
+      },
+      {
+        "q": "Why does the generated rule repeat max-width twice?",
+        "a": "The second declaration is min(100%, the measure), so the block respects the container on small screens while continuing to honour the character measure when the room is there. The first declaration is the plain measure for older engines."
+      },
+      {
+        "q": "Can hyphenation break my brand name?",
+        "a": "It can, because the browser follows the dictionary rather than your naming rules. Use manual mode and place soft hyphens yourself for terms that may break only at approved points."
+      }
+    ]
+  },
+  {
+    "slug": "text-column-layout-builder",
+    "keywords": [
+      "text column layout builder",
+      "column-width",
+      "column-fill",
+      "multi-column CSS"
+    ],
+    "intro": "The text column layout builder writes a multi-column CSS block from either a target column width or a fixed column count, then reports how many columns the container will really produce and how wide they will be. You choose the sizing mode, the gap, the rule, the fill behaviour, the container width and the face, and the built-in character estimate checks the result against the comfortable 40 to 75 character band.",
+    "content": "The text column layout builder turns a short panel of controls into a complete multi-column CSS block. You set the sizing mode, the count or the column width, the column gap, an optional rule, the column-fill value, the container width, the text face and the copy; the readouts report the resulting column count, the effective column width and an approximate characters-per-column figure that is labelled as too narrow, in the 40 to 75 band, or too wide.\n\n- Sizing modes: column-width, where the browser fits as many columns as the container allows, and column-count, where the number is fixed.\n- Column count from 1 to 6, or column width from 10rem to 60rem.\n- Column gap from 0 to 8rem in quarter-rem steps, defaulting to 2rem.\n- Column rule options: none, 1px solid, 1px dashed and 1px dotted.\n- column-fill: balance for equal heights or auto to fill the columns in order.\n- Container width from 240px to 1400px, defaulting to 900px, and a preview that renders two paragraphs so the break behaviour between columns is visible.\n- The generated rule always carries widows: 2, orphans: 2 and hyphens: auto.\n- A gotchas panel covering column balance, break-inside, reflow limits and print units.\n\nIn width mode the effective count is computed by adding the gap to the container and dividing by the column width plus the gap, floored, so a 900px container with 26rem columns and a 2rem gap yields the count the browser will actually fit rather than the count you hoped for. In count mode the effective width is the container minus the gaps divided by the count. The character estimate divides that width by half the 16px base size, the same average-advance assumption the preview relies on, which is why it is reported as approximate. The default gap of 2rem is 32px at that base size, a common gutter for a two-column article. The preview applies the real column properties to two paragraphs, and each paragraph carries break-inside: avoid so it is never split across a boundary, the behaviour a heading or a figure needs in production.\n\n- The rule is always 1px; thicker or hairline separators are a stylesheet edit.\n- The character estimate is an average advance rather than a measurement of the selected face.\n- Column balance is a browser estimate, so the last column can still end up shorter than its neighbours.\n- The preview container is capped at the chosen pixel width, and a fluid container behaves differently above and below that value.\n- A column layout cannot be re-ordered by the page's own grid, so the container must be wide enough for the whole set.\n\nUse it when a wide measure needs slicing: an article body, a documentation index or a print page with a specified column width. The character band is the number worth watching, and the builder reports it on every change, which is faster than measuring columns by hand. The justification question inside each column is what the justification previewer models, and the surrounding page furniture, such as running heads and column rules, belongs to the print specifications that record those decisions for production.",
+    "howTo": [
+      "Choose column-width to let the browser fit columns, or column-count to fix the number.",
+      "Set the count or the width, then adjust the gap and decide whether a rule separates the columns.",
+      "Pick balance or auto fill, set the container width, and read the resulting columns and character band.",
+      "Paste the copy and copy the generated rule, keeping widows, orphans and hyphens if the text should break cleanly."
+    ],
+    "whenToUse": "Use it when one measure has to become several: a feature article, a documentation index or a printed page whose column width is already specified. The builder answers the two questions that come first, how many columns fit and how wide each one lands, before any content is set. The breaks inside a column belong to the {{hyphenation-tester|hyphenation tester}}, and the justification of each column is what the {{text-justification-previewer|text justification previewer}} models. When the columns are part of a page design rather than a web article, the {{magazine-column-setter|magazine column setter}} carries the same decisions into print.",
+    "faqs": [
+      {
+        "q": "What is the difference between column-width and column-count?",
+        "a": "Width mode states a preferred column width and lets the browser fit as many columns as the container allows, so the count changes with the viewport. Count mode fixes the number and lets the width fall out of the container instead."
+      },
+      {
+        "q": "Why do my character counts fall outside the 40-75 band?",
+        "a": "The estimate uses an average advance and the band is a readability target rather than a hard limit. Adjust the column width, the gap or the container width until the readout lands inside it."
+      },
+      {
+        "q": "Why does the last column look shorter than the others?",
+        "a": "That is column balancing, which is a browser estimate rather than a solved computation. A slightly different container width or the auto fill mode usually evens the columns out."
+      },
+      {
+        "q": "Can I use this layout for print?",
+        "a": "The CSS is valid for print, but a fixed paper size is easier to reason about in physical units. Keep the gap and the rule sizes in millimetres or points in the print stylesheet."
+      },
+      {
+        "q": "Why do paragraphs never split across columns in the preview?",
+        "a": "The preview marks each paragraph break-inside: avoid so the block stays whole, which is the declaration a heading or a figure needs. Remove it where a long paragraph should be allowed to flow between columns."
+      }
+    ]
+  },
+  {
+    "slug": "drop-cap-generator",
+    "keywords": [
+      "drop cap generator",
+      "initial-letter",
+      "cap height",
+      "line boxes"
+    ],
+    "intro": "The drop cap generator writes the first-letter rule for an opening paragraph from the number of lines the cap should span. It offers the modern initial-letter property and the float plus font-size construction that production stylesheets still carry, and it reports the computed cap size, the indent the following lines need and how many line boxes the cap clears.",
+    "content": "The drop cap generator starts from a paragraph and a line count. You choose the cap face from the preview catalogue with the monospace families filtered out, set how many lines the letter should span, the body size, the body line height and the cap colour, and select a technique. The panel then reports the sink in lines, the float method's cap size in pixels and em, the indent needed to clear it and the number of line boxes it occupies, while the preview draws the paragraph with the calculated cap in place.\n\n- Lines spanned from 2 to 5, defaulting to 3.\n- Body size from 12px to 24px, defaulting to 16px, and body line height from 1.2 to 2.2, defaulting to 1.6.\n- Cap face from the shared catalogue, excluding the monospace families.\n- Techniques: initial-letter (modern) and float + font-size (portable).\n- A cap colour input, defaulting to a near-black ink.\n- Readouts: the sink in lines, the cap font size in pixels and em, the indent needed and the cleared line boxes.\n- The generated rule differs by technique: one initial-letter declaration, or a float with a computed font size, line height and top margin.\n\nThe float construction is computed from an assumption rather than read from the font binary: the cap height is taken as 0.7em, so the cap font size is the spanned line boxes divided by 0.7, and the cap's rendered height is that size multiplied back by 0.7. The rule then sets line-height to the line box divided by the cap size and a negative top margin equal to the overhang divided by the cap size, which is what pulls the glyph up so its top lands on the intended line boundary. The indent figure multiplies the cap size by three quarters, a working clearance rather than a measured sidebearing. The initial-letter branch is far smaller: one property whose value is the number of lines, plus a small right margin.\n\n- Cap height is assumed at 0.7em, so a face with unusually tall or short capitals needs the value checked by eye.\n- The preview always draws the float construction, even when initial-letter is the selected technique, so engine differences appear only in the stylesheet.\n- initial-letter support varies by engine, and the float branch is the one that renders everywhere.\n- The preview strips the paragraph's first character for the cap, so an opening quotation mark becomes the cap instead of a letter.\n- Body size and line height are the only typographic context offered; leading and measure are fixed by the page.\n\nUse it for a chapter opening, a long-form lede or a magazine feature where the first letter has to hold the paragraph open. Export both branches and keep the float version as the fallback, then check the three failures the preview is there to catch: a cap whose height does not land on a line boundary, a first line short enough to wrap under the cap, and a translucent colour that reads darker where the cap overlaps the indent. The related opening treatment without the sink is handled by the initial cap styler, and the chapter furniture around it belongs to the chapter header designer.",
+    "howTo": [
+      "Choose the cap face and the number of lines the letter should span.",
+      "Set the body size and the body line height, then pick the initial-letter or the float technique.",
+      "Adjust the cap colour and paste the paragraph the opening belongs to.",
+      "Copy the generated first-letter rule and keep the float branch as a fallback for engines without initial-letter support."
+    ],
+    "whenToUse": "Keep it for the moments when a document genuinely opens: a chapter, a feature lede, a section that has to announce itself. The float construction is the safer default on the web because it does not depend on initial-letter support, and the initial-letter branch is the shorter rule for projects that can rely on it. The lighter opening treatments, a raised cap or small caps, are what the {{initial-cap-styler|initial cap styler}} compares, and the designed quotation case is the {{pull-quote-designer|pull quote designer}}. When the drop cap sits inside a printed page, the {{chapter-header-designer|chapter header designer}} carries the surrounding furniture.",
+    "faqs": [
+      {
+        "q": "Which technique should I ship?",
+        "a": "Ship the float construction unless the whole project targets engines with initial-letter support. The float rule is longer but renders consistently, and the modern property is a one-line replacement where support allows."
+      },
+      {
+        "q": "Why does the preview look the same when I choose initial-letter?",
+        "a": "The preview always draws the float construction so the indent and clearance can be judged; the selected technique changes only the CSS that is generated. Engine differences show up when the stylesheet is applied, not in the panel."
+      },
+      {
+        "q": "Why does the cap need a negative top margin?",
+        "a": "A floated glyph is positioned against its own line box rather than the body baseline. The margin pulls it upward so the cap's height lines up with the spanned line boxes instead of sitting low in the first line."
+      },
+      {
+        "q": "What is the indent figure for?",
+        "a": "It estimates how far the following lines must clear the cap's ink, derived from the cap size rather than the face's real sidebearings. Treat it as a starting point and confirm it visually against the opening copy."
+      },
+      {
+        "q": "Can the cap be a ligature or a quotation mark?",
+        "a": "The rule targets the first letter, so whatever character opens the paragraph becomes the cap. A paragraph that opens with a quotation mark hangs the quote rather than a letter, which is usually not the intent."
+      }
+    ]
+  },
+  {
+    "slug": "initial-cap-styler",
+    "keywords": [
+      "initial cap styler",
+      "raised cap",
+      "small caps",
+      "first word in caps"
+    ],
+    "intro": "The initial cap styler compares the four openings a chapter can carry: no initial, a small cap, a raised cap and a first word in caps. You set the face, the body size, the line height, the initial scale and the cap tracking, and the panel reports the raised rise above the first baseline and whether the opening line needs an indent.",
+    "content": "The initial cap styler is a comparison surface. Each of its four styles renders the same opening paragraph, and the readouts name the applied style, the raised cap's rise above the first baseline and the first-line indent needed. The raised branch floats the initial at a line height below one with a right margin equal to the tracking value; the small-cap branch sets the letter at one em in font-variant small-caps; the first-word branch sets the opening word in synthesised small caps at 62% of the initial scale; the no-initial branch leaves the paragraph untouched.\n\n- Opening styles: raised cap, small cap, first word in caps and no initial.\n- Body size from 12px to 24px, defaulting to 16px, and line height from 1.2 to 2.2, defaulting to 1.6.\n- Initial scale from 1.2em to 4em, defaulting to 1.9em.\n- Cap tracking from 0 to 0.2em in five-thousandth steps, defaulting to 0.06em.\n- A face selector over the shared catalogue, defaulting to Source Serif 4.\n- Readouts: the applied style, the raised rise in pixels and the first-line indent.\n- The generated rule is a single opening block whose selectors change with the style.\n\nThe tracking slider moves in steps of 0.005em, so the default 0.06em sits close to a sixteenth of an em. The rise figure multiplies the initial scale, the body size and a 0.7 cap-height factor, the same modelling shortcut the drop cap construction uses; the value is an estimate for a typical serif face rather than a reading from the font's tables. The tracking control applies to every style that spaces capitals, which is why the small-cap and first-word branches both take a letter-spacing value. The first-word branch scales the opening word by 0.62 of the initial scale, which lifts it above the body text without making it compete with a full raised cap. The raised branch produces no text-indent because a float clears the opening line by construction.\n\n- The rise is modelled with a 0.7 cap-height assumption rather than measured per face or per letter.\n- Small caps are synthesised when the face has no drawn small-cap cut, so the letterforms are scaled capitals.\n- A raised cap only works when the first line holds enough words to clear the float; a short opening line lets the second line slide under the ascender.\n- The panel renders one style at a time, so variants are judged by switching back and forth.\n- No indent control is exposed, and no per-face fitting is attempted.\n\nUse it on a chapter or section opening that should announce a new part of a document without the drama of a drop cap. A raised cap is the safer web choice because it leaves the line count alone, and the rise readout is the number that says whether the float has room in the first line. When the letter should sink into the text block instead, the drop cap generator covers that construction; when the lifted text is a quotation rather than an opening letter, the pull quote designer is the right surface.",
+    "howTo": [
+      "Choose one of the four opening styles, starting with the raised cap or the small cap.",
+      "Pick the face and set the body size and line height the chapter uses.",
+      "Adjust the initial scale and the cap tracking, then read the rise and indent figures.",
+      "Paste the real opening copy and check that the first line clears the float before copying the rule."
+    ],
+    "whenToUse": "Use it when a section opening needs presence but not the displacement of a drop cap: a raised cap or a spaced small cap keeps the paragraph's line count intact. The rise figure is what decides whether the chosen scale fits the first line. When the letter should instead sink into the block, the {{drop-cap-generator|drop cap generator}} writes that construction, and a quotation lifted out of the flow belongs to the {{pull-quote-designer|pull quote designer}}. The wider hierarchy of headings and openers around it is what the {{type-hierarchy-planner|type hierarchy planner}} sets out.",
+    "faqs": [
+      {
+        "q": "Raised cap or drop cap?",
+        "a": "A raised cap sits on the first baseline and rises above it, so the paragraph keeps its normal line count. A drop cap sinks into the block and displaces lines. Use raised when the opening should stay calm and dropped when it should dominate."
+      },
+      {
+        "q": "Why does a raised cap need a long first line?",
+        "a": "The cap is floated, so the first line's words must be long enough to wrap past it. A short opening line lets the following line slide under the ascender, which is exactly the failure the preview is there to catch."
+      },
+      {
+        "q": "Are the small caps real or synthesised?",
+        "a": "They are synthesised unless the face ships a dedicated small-cap cut, so the browser draws scaled capitals. That is acceptable for most interfaces but visible in a long run of text."
+      },
+      {
+        "q": "What does the rise figure mean?",
+        "a": "It is the height of the raised cap above the first baseline, modelled from the scale, the body size and a 0.7 cap-height factor. Treat it as an estimate and confirm the result visually."
+      },
+      {
+        "q": "Why is there no indent control?",
+        "a": "The raised initial is a float, so the first line clears it by construction and no text-indent is needed. Wrap-indent tuning belongs to the drop cap construction instead."
+      }
+    ]
+  },
+  {
+    "slug": "pull-quote-designer",
+    "keywords": [
+      "pull quote designer",
+      "hanging quotation mark",
+      "quote-to-body ratio",
+      "attribution"
+    ],
+    "intro": "The pull quote designer composes a quotation lifted out of the flow and states the relationship between its size and the body text it interrupts. You enter the quotation, the attribution and the source, choose the quote face and the two sizes, decide how the opening mark and the rule are handled, and the readouts report the quote-to-body ratio, whether that ratio reads as a distinct voice, and the computed attribution size.",
+    "content": "The pull quote designer starts with the text of the quotation and ends with a blockquote rule whose parts are all visible in the panel. The quotation, attribution and source are typed in; the face, the quote size and the body size are chosen from controls; the opening mark can hang outside the measure, sit inline or be omitted; the rule can be a left border, a top border or nothing; and an italic switch decides the style. The readouts report the quote-to-body ratio, a hierarchy verdict and the size the attribution will take.\n\n- Quotation mark treatments: hanging outside the measure, inline in the flow, or omitted when the attribution already implies a quotation.\n- Rule options: a 3px left rule with 1.25rem of padding, a 2px top rule with 1rem of padding, or spacing alone.\n- Quote size from 18px to 64px, defaulting to 28px, and body size from 12px to 24px, defaulting to 16px.\n- An italic toggle that uses the italic cut when the face has one.\n- Attribution and source fields rendered as a small-caps footer at 80% of the body size with 0.04em of letter-spacing.\n- Hierarchy readout: below 1.4x the quote reads too close to the body, above 3x it may dominate the page, and between the two it reads as a clearly larger voice.\n- A preview that prints a line of body copy after the quotation at the body size, so the size jump can be judged in context.\n\nThe hanging quotation mark is produced with a negative text-indent on the blockquote, which pulls the opening mark outside the measure while the box keeps its width: the ink moves, the layout does not. The attribution is a block-level footer inside the blockquote rather than a separate paragraph, which is what keeps it attached to the quotation on narrow screens. The rule and the mark are separate decisions on purpose, because a quotation that hangs its mark and carries no border reads differently from one that is boxed in by a left rule. The preview's trailing body line is the piece that makes the ratio meaningful, since a quote can only be judged against the text it interrupts.\n\n- The model is a single quotation: nested quotations inside the pulled text are not styled or numbered.\n- Italic depends on the face having a true italic cut; otherwise the browser synthesises a slant.\n- The rule is fixed at 3px on the left and 2px on the top, so heavier editorial rules need a stylesheet edit.\n- The quote is a standalone block, and there is no inline variant where body text wraps around it.\n- The ratio thresholds are guidance rather than a measurement of the design's hierarchy.\n\nUse it when a long article needs a pause and the quotation is worth pulling out of the flow: a feature opener, a case-study testimonial or an interview answer. Keep the ratio between 1.4x and 3x of the body size, hang the opening mark rather than indenting the quotation, and let the attribution stay small and quiet. The other opening treatments in a document belong to the drop cap generator and the initial cap styler, and the spacing around the quotation is reconciled with the surrounding baseline by the vertical rhythm builder.",
+    "howTo": [
+      "Paste the quotation and fill in the attribution and source fields.",
+      "Choose the quote face and set the quote and body sizes so the ratio reads as a distinct voice.",
+      "Pick the quotation mark treatment and the rule, then decide whether the quotation is italic.",
+      "Copy the blockquote rule and its footer styling into the stylesheet."
+    ],
+    "whenToUse": "Reach for it when a single sentence deserves to be lifted out of a long piece: a feature opener, a testimonial or the answer that carries an interview. The quote-to-body ratio is the decision that makes or breaks it, and the panel states the range that works. When the lifted type is an opening letter rather than a quotation, the {{drop-cap-generator|drop cap generator}} and the {{initial-cap-styler|initial cap styler}} cover those constructions. The spacing between the quotation and the surrounding text is what the {{vertical-rhythm-builder|vertical rhythm builder}} reconciles, and a quotation that body copy should wrap around is the case the {{text-box-shape-wrapper|text box shape wrapper}} handles.",
+    "faqs": [
+      {
+        "q": "What quote-to-body ratio should I aim for?",
+        "a": "Between 1.4x and 3x the body size. Below 1.4x the quotation reads as another paragraph, and above 3x it competes with the page's headings rather than sitting between them."
+      },
+      {
+        "q": "Why hang the opening quotation mark?",
+        "a": "A hanging mark aligns the first letter of the quotation with the text edge, so the quote begins flush with the column instead of one character in. The negative indent moves only the ink and leaves the box width alone."
+      },
+      {
+        "q": "How is the attribution styled?",
+        "a": "It renders as a block-level footer in small caps at 80% of the body size, with slight letter-spacing and the muted colour. That contrast keeps it readable without giving it the weight of the quotation."
+      },
+      {
+        "q": "Can I place the quote inline so text wraps around it?",
+        "a": "No. The designer builds a standalone block. A float-based layout where body copy wraps around an element is what the text box shape wrapper demonstrates."
+      },
+      {
+        "q": "Does the italic switch always work?",
+        "a": "Only when the face has a true italic cut. Otherwise the browser slants the roman, which is acceptable for a short quotation but noticeable across several lines."
+      }
+    ]
+  },
+  {
+    "slug": "running-head-previewer",
+    "keywords": [
+      "running head previewer",
+      "recto and verso",
+      "folio",
+      "head size"
+    ],
+    "intro": "The running head previewer renders the small line at the top of a book page and alternates it across a two-page spread. You set the book title for the recto, the chapter for the verso, the page layout, the head face, the head size, the outside margin and the head weight, and the tool draws both pages so the folio's position on the outer edge is visible rather than described.",
+    "content": "The running head previewer is a print mock rather than a code generator. It takes the two texts a two-sided book needs, the layout mode, the head face, the head size in pixels, the outside margin in millimetres and a head weight, then draws the pages with a head line, a body block and a footer that echoes the margin. In two-sided mode two panels are rendered, and the alternation between the chapter head and the book head is the point of the exercise.\n\n- Page layouts: two-sided, with recto and verso alternation, or single-sided with one head.\n- Head size from 8px to 20px, defaulting to 16px, with the point equivalent reported.\n- Outside margin from 2mm to 40mm, defaulting to 12mm, with the inch equivalent reported.\n- Head weight from 300 to 700 in hundred-unit steps, defaulting to 400.\n- In two-sided mode the verso page 42 carries the chapter head with the folio on the left, and the recto page 43 carries the book title with the folio on the right, so the number always falls on the outer edge.\n- The head face comes from the shared catalogue, defaulting to Source Serif 4.\n- A footer line on each panel states the outer margin value and repeats the folio.\n\nThe arithmetic is the part a print specification keeps. The head size is set in pixels and reported in points by multiplying by 0.75, and the outside margin is converted from millimetres to inches by dividing by 25.4, which is what happens when type is chosen on screen but the page is specified on paper. The head sits above a rule and the body copy begins below it, separated by the margin rather than by another rule, which is the convention these panels demonstrate. At the default 16px the head line converts to 12pt, a common size for a book head, and the default 12mm margin is just under half an inch. Each page panel also prints an explanation of the head's size and weight in the context of the body copy, so the comparison does not have to be held in memory.\n\n- The page numbers are fixed at 42 and 43; nothing here paginates a real document.\n- The tool previews only. It exports no CSS, no paged-media markup and no print stylesheet.\n- Single-sided mode drops the chapter alternation, so the verso head cannot be judged from it.\n- The weight control moves in hundred-unit steps and assumes the chosen face carries those weights.\n- Nothing enforces a minimum clearance between the head line and the text block; the margin is a value, not a constraint.\n\nUse it to settle the two decisions a running head always raises: which text goes where, and where the folio falls on the outer edge. Judge the head size against the body copy and keep the head lighter than the chapter title below it, since a bold running head competes with the page's own hierarchy. The planning side of the same problem, what each page carries and how sections alternate, belongs to the running head planner, and the numbers chosen here are recorded for production in the print type specification sheet.",
+    "howTo": [
+      "Enter the book title for the recto head and the chapter for the verso head.",
+      "Choose the two-sided or single-sided layout and the face for the head line.",
+      "Set the head size, the outside margin and the head weight, then read the point and inch conversions.",
+      "Check both pages in the preview to confirm the folio falls on the outer edge before recording the specification."
+    ],
+    "whenToUse": "Use it before a book interior is specified, when the placement of the head and the folio still has to be agreed. The preview answers the two-page question visually, which is faster than reading a description of recto and verso rules. The surrounding page plan, including what each section carries, is the {{running-head-planner|running head planner}}'s job, and the full specification of head size, margin and weight belongs in the {{print-type-specification-sheet|print type specification sheet}}. The book-level layout this head sits in is previewed by the {{book-interior-layout-preview|book interior layout preview}}.",
+    "faqs": [
+      {
+        "q": "Which head goes on which page?",
+        "a": "In a two-sided layout the verso carries the chapter or part title and the recto carries the book title. The folio always sits on the outer edge, left on the verso and right on the recto."
+      },
+      {
+        "q": "How large should a running head be?",
+        "a": "One or two steps smaller than the body text is the usual answer, and the panels make that comparison in context. The point conversion is reported so the chosen value can be recorded in a print specification."
+      },
+      {
+        "q": "Why is there no exported CSS?",
+        "a": "A running head belongs to a paged-media context, and the tool is a mock rather than a generator. Its purpose is to settle placement and relative size before a print stylesheet or a layout application takes over."
+      },
+      {
+        "q": "Does the tool paginate my document?",
+        "a": "No. The two pages are fixed examples at 42 and 43, and the alternation is what is being demonstrated rather than a real page sequence."
+      },
+      {
+        "q": "Should the running head be bold?",
+        "a": "Usually not. A lighter weight keeps the head from competing with the chapter title, and the weight control makes that difference visible against the body copy."
+      }
+    ]
+  },
+  {
+    "slug": "text-box-shape-wrapper",
+    "keywords": [
+      "text box shape wrapper",
+      "shape-outside",
+      "shape-margin",
+      "float"
+    ],
+    "intro": "The text box shape wrapper builds the two declarations that wrap body copy around a shape: a float that reserves the block, and a shape-outside value that decides where the text may enter. You choose the face, one of four shapes, the float side, the size of the float box, the shape-margin and the text size, and the panel reports the resolved shape function, the clearance beyond the contour and the fallback behaviour.",
+    "content": "The text box shape wrapper turns a shape choice into a working wrap. The controls are the text face, the shape function, the float side, the size of the float box, the shape-margin and the text size, and the preview shows body copy flowing around a tinted box so the contour can be judged directly. The generated rule keeps the float and the shape in one block, and a second output documents what happens in an engine that does not support shape-outside.\n\n- Shapes: circle(50% at 50% 50%), ellipse(45% 55% at 50% 50%), inset(6% 8% 10% 4% round 12px) and a triangle polygon whose points are 0% 0%, 100% 0% and 50% 100%.\n- A no-shape option that leaves a rectangular float, which is the fallback every other choice degrades to.\n- Float side of left or right, with half a rem of margin on the opposite side.\n- Float box from 60px to 420px, square for every shape.\n- shape-margin from 0 to 4rem in five-hundredth steps, defaulting to 1.25rem.\n- Text size from 12px to 22px, with Inter as the default face.\n- Readouts: the resolved shape function, the clearance converted to pixels and the statement that an unsupported engine wraps text to the float's rectangle.\n\nshape-outside changes where inline content may flow; it does not change the element's background, border or box model, which is why a transparent float can still steer a paragraph. The generated block carries the float and the shape together, and the at-supports note records the fallback rather than pretending it away. The support test asks specifically for shape-outside: circle(50%), so an engine that cannot parse that function takes the fallback path. The clearance readout multiplies the shape-margin into pixels, because the value is authored in rem but the gap it creates is physical. The preview tints the float so the contour is visible, and that tint is a preview convenience: in production the same element is usually invisible and the wrapped copy is the only evidence of its outline.\n\n- The shape governs text flow only; the float's size, background and position are separate decisions.\n- The polygon preset is a single triangle rather than an editable point list.\n- The float box is square, so an ellipse is drawn inside a square and reaches the same height as a circle.\n- The element must be floated; a grid or flex-positioned box does not create the same wrap.\n- At very small text sizes the line height is short relative to the contour, and the wrap can look stepped rather than smooth.\n\nUse it when an article carries a portrait, a diagram or a decorative block and the copy should follow its outline instead of running past it. Keep the shape-margin generous, because a contour the text touches reads as an accident while a visible clearance reads as a decision. When the wrap belongs to an opening letter rather than an image, the drop cap generator covers that construction, and the optical margin alignment preview is where the text edge itself is checked for a small glyph-level hang.",
+    "howTo": [
+      "Pick the text face and choose the shape the copy should follow.",
+      "Set the float side and the size of the float box.",
+      "Adjust the shape-margin until the clearance reads comfortably, then set the text size.",
+      "Paste the copy and copy the generated rule, keeping the at-supports note as the fallback documentation."
+    ],
+    "whenToUse": "Use it when an image or a decorative block should have copy around its contour rather than beside it: a portrait in a profile, a diagram in a technical piece, a circular badge in a landing page. The shape-margin is the control that turns a tight wrap into a deliberate one. When the contour is an opening letter, the construction belongs to the {{drop-cap-generator|drop cap generator}}, and a lifted quotation is the {{pull-quote-designer|pull quote designer}}'s job. The text edge itself, including glyph-level hangs, is what the {{optical-margin-alignment-preview|optical margin alignment preview}} checks, and the broader measure around the shape is set by the {{text-column-layout-builder|text column layout builder}}.",
+    "faqs": [
+      {
+        "q": "Does shape-outside change the element's size?",
+        "a": "No. It changes where inline content may flow around the element, while width, height, background and border are unaffected. That is why an invisible box can still steer the paragraph."
+      },
+      {
+        "q": "What happens in a browser without shape-outside support?",
+        "a": "The text wraps to the float's rectangle, which is the layout the page had before shapes existed. The generated at-supports block records that fallback for the stylesheet."
+      },
+      {
+        "q": "Why is the float box square even for the ellipse?",
+        "a": "The presets keep one size for the box so the control stays simple. The ellipse is drawn inside that square, so widening it is a stylesheet edit rather than a slider move."
+      },
+      {
+        "q": "Can I use an image instead of a coloured box?",
+        "a": "Yes. The shape is independent of what the float contains, so the same declarations wrap copy around an image once the image replaces the tinted preview box."
+      },
+      {
+        "q": "How much shape-margin is enough?",
+        "a": "Enough that no line visibly touches the contour. Around one rem is a common starting point, and the readout converts the value to pixels so the clearance is concrete."
+      }
+    ]
+  },
+  {
+    "slug": "optical-margin-alignment-preview",
+    "keywords": [
+      "optical margin alignment",
+      "hanging punctuation",
+      "sidebearing",
+      "text-indent"
+    ],
+    "intro": "The optical margin alignment preview shows the same line aligned to its box edge and then hung by the amount a glyph's ink sits inside its advance width. You choose the face, paste a line, set the size and the hang amount, and the panel reports the first character's code point, whether it appears in the measured table and the offset that is applied.",
+    "content": "The optical margin alignment preview exists because a text block aligned on its box edge looks ragged wherever a glyph's ink starts inside its advance width. A quotation mark, a bullet, a pointed capital and the numeral 1 all open a visible notch, and hanging punctuation pulls that ink out to the true edge. The tool renders the box-edge and optically hung versions of the same line side by side, with dashed guides marking the edge, and reports which character is at the start and what hang it is given.\n\n- A measured table of starting values: the opening double quote at 0.36em, the single quote at 0.26em, the bullet at 0.30em, the em dash at 0.12em, the numeral 1 at 0.08em, and the capitals A, V, T and J between 0.06em and 0.04em.\n- Hang amount from 0 to 0.6em in hundredth steps, defaulting to 0.36em for a line that opens with a double quote.\n- An on and off switch that renders both states at once.\n- hanging-punctuation values of first last, first or none, written into the generated rule and noted as Safari-supported.\n- Line size from 12px to 64px, defaulting to 22px, with Fraunces as the default face.\n- Readouts: the first character, its code point, its label in the measured table or a note that it is not covered, and the applied offset.\n- Per-character overrides keyed on a data-first attribute, so a quote can hang further than a capital without changing the markup.\n\nThe portable construction is a negative text-indent paired with equal padding, so the hung ink sits outside the box while the block keeps its width and nothing downstream reflows. The measured table supplies per-glyph starting points rather than one value for everything, because the ink of a quotation mark sits much further inside its advance than the ink of a capital A. The generated rule writes the hanging-punctuation property first and leaves it in place for engines that support it, which is why the preview works even where that property is ignored: the indent does the visible work.\n\n- The sidebearing figures are typical fractions for text faces, not values read from the selected font's tables.\n- hanging-punctuation support is limited, which is why the negative indent is the portable path.\n- Only the first glyph is hung; a line that opens with two marks receives a single offset.\n- One amount applies to the whole line unless the per-character overrides are used, so different glyph classes need the extra rules.\n- The comparison is drawn at one size, while optical alignment at display sizes usually needs a different amount than at text sizes.\n\nUse it on any block whose edge is judged by eye: a quotation opening with a mark, a list whose bullets appear to sit inside the margin, a heading that starts with a pointed capital. The adjustment is small and the panel is honest about where the numbers come from, so keep the amount adjustable per face rather than fixing it once. The designed quotation component is the pull quote designer's territory, and the contour case, where the text edge follows a shape rather than a glyph, is what the text box shape wrapper builds.",
+    "howTo": [
+      "Choose the face and paste the line, starting it with the punctuation or capital that should hang.",
+      "Set the size and switch optical alignment on to see the hung version beside the box-edge version.",
+      "Adjust the hang amount, or take the value for the starting character from the measured table.",
+      "Copy the rule, including the hanging-punctuation declaration and the per-character overrides, and keep the amount adjustable per face."
+    ],
+    "whenToUse": "Use it wherever a text edge is judged visually and a glyph's ink refuses to reach it: a pull quote that opens with a mark, a bulleted list, a display heading that starts with a capital. The difference is a fraction of an em, and that is exactly why it is worth measuring rather than guessing. A designed quotation belongs to the {{pull-quote-designer|pull quote designer}}, while the case where the edge follows an image or a shape is the {{text-box-shape-wrapper|text box shape wrapper}}. When a whole block of ragged-right text has an uneven edge, the fix is usually the measure, and that is what the {{text-justification-previewer|text justification previewer}} and the {{paragraph-width-optimizer|paragraph width optimizer}} examine.",
+    "faqs": [
+      {
+        "q": "Why do quotation marks need a larger hang than capitals?",
+        "a": "The ink of a quotation mark sits much further inside its advance width than the ink of a capital. A pointed capital like A overhangs by a few hundredths of an em, while an opening double quote needs about a third of an em to reach the same visual edge."
+      },
+      {
+        "q": "Where do the table's figures come from?",
+        "a": "They are typical sidebearing fractions for text faces, not readings from the selected font. Treat them as starting points and adjust the amount for the face in front of you."
+      },
+      {
+        "q": "What does hanging-punctuation support look like in practice?",
+        "a": "The property is written into the generated rule and works in Safari. Elsewhere it is ignored, and the negative indent is what produces the visual hang, so the effect does not depend on that support."
+      },
+      {
+        "q": "Does hanging a glyph change the layout?",
+        "a": "No. The block keeps its width and only the ink moves outside it, so nothing after the block reflows. That is the difference between optical alignment and a true outdent into the margin."
+      },
+      {
+        "q": "Do I need the per-character overrides?",
+        "a": "Only when the opening glyph varies. A single amount is enough for a fixed template, while a component that can start with a quote, a bullet or a numeral needs the data-first rules to hang each class correctly."
+      }
+    ]
+  },
+  {
+    "slug": "widow-and-orphan-detector",
+    "keywords": [
+      "widow and orphan detector",
+      "single-word last line",
+      "canvas measuretext",
+      "text-wrap: pretty"
+    ],
+    "intro": "The widow and orphan detector measures a paragraph in the real face at the real size, simulates the line breaks and reports which paragraphs are at risk of a single-word last line. You set the size, the measure, the line height, the widows and orphans value and the font stack, then paste the copy; the panel returns counts of widows, orphans and short last lines with a per-paragraph breakdown.",
+    "content": "The widow and orphan detector is a measurement tool rather than a style generator. It takes the size, the measure in pixels, the line height, the widows and orphans value and a free-text font stack, then splits the pasted text into paragraphs and analyses each one. The report counts single-word last lines, short first lines and short last lines, and a table gives every paragraph its line count, the number of words on its final line, its average fill and a flag.\n\n- Report columns: the paragraph number, its line count, the words on the last line, the average fill percentage of the preceding lines, and a flag of widow, orphan, short last line or clean.\n- Widows and orphans from 1 to 4, defaulting to 2, written into the generated rule as both properties.\n- Measure from 240px to 1200px, defaulting to 600px; size from 12px to 28px, defaulting to 17px; line height from 1.2 to 2.4.\n- A font stack field that accepts any CSS family list, defaulting to Source Serif 4 with Georgia and serif fallbacks.\n- A short last line is flagged when the final line fills less than a quarter of the measure, and an orphan when the first line is similarly short.\n- The generated rule adds widows, orphans, text-wrap: pretty and a paragraph spacing value of 0.9em.\n\nThe measurement is a greedy line-break simulation driven by the Canvas measureText call. Each word is measured at the chosen pixel size and font stack, the widths accumulate with the space width until the measure is exceeded, and the break is taken at the last word that fits, which reproduces how a browser fills a paragraph without hyphenation or justification. The average fill figure divides the summed widths of every line except the last by the number of those lines times the measure, so a paragraph that is comfortable throughout but ends badly is distinguished from one that is loose everywhere. When no Canvas context is available, the detector falls back to a rough half-em advance per character and says so.\n\n- The simulation is greedy and unhyphenated, so a browser with hyphenation or justification enabled will break the paragraph differently.\n- Canvas measurement depends on the face being loaded; an unloaded webfont measures in the fallback stack.\n- CSS widows and orphans are hints, honoured unevenly across engines, and a value of 2 is not a guarantee.\n- text-wrap: pretty is recent, and engines without it ignore the declaration.\n- A paragraph of only one line can never be flagged, so very short copy passes without a verdict.\n\nRun it when long copy is about to ship inside a fixed measure: an article body, a documentation column, a printed column. Fix the paragraphs it flags rather than adding rules across the whole site, since the corrections are local: a slightly different measure, a small change in leading, or a reworded sentence. The detector reports the outcome of the first two immediately because it re-measures whenever a slider moves. A paragraph that width alone cannot fix is the case the justification previewer and the hyphenation tester address, and the same logic applied across several columns is what the column layout builder checks.",
+    "howTo": [
+      "Set the size, the measure and the line height the copy will actually ship at.",
+      "Choose the widows and orphans value and paste the font stack the page uses.",
+      "Paste one paragraph per line break and read the counts and the per-paragraph table.",
+      "Copy the generated rule, or adjust the measure until the flagged paragraphs come back clean."
+    ],
+    "whenToUse": "Reach for it when copy is about to be set in a fixed measure and the last lines are the risk: an article body, a documentation column, a print column. It converts a judgement call into a count, and it reports the two corrections that usually work, a different measure and a different leading, as soon as they are tried. A paragraph that breaks badly because of long words is the {{hyphenation-tester|hyphenation tester}}'s problem, and the {{text-justification-previewer|text justification previewer}} explains why a tight measure with no hyphenation produces rivers. The text edge itself, independent of the paragraph's last line, is what the {{optical-margin-alignment-preview|optical margin alignment preview}} examines.",
+    "faqs": [
+      {
+        "q": "What counts as a widow here?",
+        "a": "A paragraph with more than one line whose final line holds a single word. The count and the table both report it, and the last-line width is shown so a short line that still holds two words is not confused with a true widow."
+      },
+      {
+        "q": "Why does the detector need the real font stack?",
+        "a": "Line breaks depend on the actual widths of the face. The stack is measured with the Canvas API at the chosen size, so a fallback family or a different weight changes the analysis and the flagged paragraphs with it."
+      },
+      {
+        "q": "Do widows and orphans in CSS actually work?",
+        "a": "They are hints rather than rules, and engines honour them unevenly. The detector reports what your paragraph will look like and leaves the hint in the generated CSS, but expect some browsers to ignore the values."
+      },
+      {
+        "q": "Why can a one-line paragraph never be flagged?",
+        "a": "A widow needs a preceding line to break away from, so a single-line paragraph cannot strand its last line in the same way. Keeping it out of the count avoids noise in a list of short copy."
+      },
+      {
+        "q": "How accurate is the Canvas simulation?",
+        "a": "It reproduces a greedy, unhyphenated break using the face's real metrics, which matches an engine with the same settings. Hyphenation, justification or an unloaded webfont will move the line breaks away from the estimate."
+      }
+    ]
+  }
+]

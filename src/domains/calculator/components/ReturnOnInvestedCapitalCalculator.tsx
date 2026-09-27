@@ -70,7 +70,7 @@ export default function ReturnOnInvestedCapitalCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.ebit, vals.taxRate, vals.debt, vals.equity, vals.cash]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

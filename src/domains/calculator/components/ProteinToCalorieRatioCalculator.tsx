@@ -176,7 +176,7 @@ export default function ProteinToCalorieRatioCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [totalCalories, proteinGrams]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

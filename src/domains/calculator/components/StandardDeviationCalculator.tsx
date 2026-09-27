@@ -1,162 +1,581 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
 import FAQSection from "@/components/FAQSection";
 import PopularCalculators from "@/components/PopularCalculators";
-import { RotateCcw, Calculator } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-const StandardDeviationCalculator = () => {
-  const DEFAULTS = { nums: "4, 7, 13, 2, 1, 8, 6, 11, 5, 9" };
-  const [nums, setNums] = useState(DEFAULTS.nums);
-  const [popMode, setPopMode] = useState(false);
-  const [result, setResult] = useState<any>(null);
+type Spread = "sample" | "population";
 
-  const calculate = (input = nums, pop = popMode) => {
-    const values = input.split(/[,\s]+/).map(Number).filter(n => !isNaN(n));
-    if (values.length < 2) return;
-    const n = values.length;
-    const mean = values.reduce((a, b) => a + b, 0) / n;
-    const variance = values.reduce((acc, v) => acc + Math.pow(v - mean, 2), 0) / (pop ? n : n - 1);
-    const stdDev = Math.sqrt(variance);
-    const sorted = [...values].sort((a, b) => a - b);
-    const median = n % 2 === 0 ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2 : sorted[Math.floor(n / 2)];
-    const chartData = values.map((v, i) => ({ name: `#${i + 1}`, value: v, mean: parseFloat(mean.toFixed(4)) }));
-    setResult({
-      primary: stdDev.toFixed(6),
-      subtitle: `${pop ? "Population" : "Sample"} Std Dev of ${n} values (mean = ${mean.toFixed(4)})`,
-      rows: [
-        { label: "Count (n)", value: n },
-        { label: "Sum", value: values.reduce((a, b) => a + b, 0).toFixed(4) },
-        { label: "Mean (μ / x̄)", value: mean.toFixed(6) },
-        { label: "Median", value: median.toFixed(4) },
-        { label: "Variance", value: variance.toFixed(6) },
-        { label: "Std Dev", value: stdDev.toFixed(6) },
-        { label: "Min", value: sorted[0] },
-        { label: "Max", value: sorted[n - 1] },
-        { label: "Range", value: (sorted[n - 1] - sorted[0]).toFixed(4) },
-        { label: "Coeff. of Variation", value: `${((stdDev / mean) * 100).toFixed(2)}%` },
-      ],
-      chartData, mean,
-      summary: [
-        { label: "Count", value: n },
-        { label: "Mean", value: mean.toFixed(4) },
-        { label: "Variance", value: variance.toFixed(6) },
-        { label: "Standard Deviation", value: stdDev.toFixed(6), border: true, bold: true },
-      ],
-    });
+const DEFAULT_DATA = "4, 7, 13, 2, 1, 8, 6, 11, 5, 9";
+
+interface DeviationRow {
+  index: number;
+  value: number;
+  deviation: number;
+  squared: number;
+}
+
+interface SdResult {
+  valid: boolean;
+  errorMsg: string;
+  count: number;
+  sum: number;
+  mean: number;
+  median: number;
+  variance: number;
+  stdDev: number;
+  min: number;
+  max: number;
+  range: number;
+  iqr: number;
+  q1: number;
+  q3: number;
+  cv: number;
+  withinOne: number;
+  withinTwo: number;
+  rows: DeviationRow[];
+}
+
+const fmt = (v: number, d = 4) =>
+  Number.isFinite(v) ? v.toLocaleString(undefined, { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+function parseValues(raw: string): number[] {
+  return raw
+    .split(/[,\s;]+/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0)
+    .map(Number)
+    .filter((n) => Number.isFinite(n));
+}
+
+function percentile(sorted: number[], p: number): number {
+  const idx = (sorted.length - 1) * p;
+  const lo = Math.floor(idx);
+  const hi = Math.ceil(idx);
+  return sorted[lo] + (sorted[hi] - sorted[lo]) * (idx - lo);
+}
+
+function computeSd(raw: string, spread: Spread, decimals: number): SdResult {
+  const values = parseValues(raw);
+
+  const blank: SdResult = {
+    valid: false,
+    errorMsg: "",
+    count: 0,
+    sum: 0,
+    mean: 0,
+    median: 0,
+    variance: 0,
+    stdDev: 0,
+    min: 0,
+    max: 0,
+    range: 0,
+    iqr: 0,
+    q1: 0,
+    q3: 0,
+    cv: 0,
+    withinOne: 0,
+    withinTwo: 0,
+    rows: [],
   };
 
-  useEffect(() => { calculate(); }, []);
-  const reset = () => { setNums(DEFAULTS.nums); setPopMode(false); calculate(DEFAULTS.nums, false); };
+  if (values.length === 0) {
+    return { ...blank, errorMsg: "Enter at least one number, separated by commas, spaces or new lines." };
+  }
+  if (spread === "sample" && values.length < 2) {
+    return { ...blank, errorMsg: "A sample standard deviation needs at least two values. Switch to population or add data." };
+  }
+
+  const n = values.length;
+  const sum = values.reduce((a, b) => a + b, 0);
+  const mean = sum / n;
+  const divisor = spread === "population" ? n : n - 1;
+  const variance = values.reduce((acc, v) => acc + (v - mean) * (v - mean), 0) / divisor;
+  const stdDev = Math.sqrt(variance);
+  const sorted = [...values].sort((a, b) => a - b);
+  const median = percentile(sorted, 0.5);
+  const q1 = percentile(sorted, 0.25);
+  const q3 = percentile(sorted, 0.75);
+  const cv = mean !== 0 ? (stdDev / Math.abs(mean)) * 100 : 0;
+  const withinOne = stdDev > 0 ? values.filter((v) => Math.abs(v - mean) <= stdDev).length : n;
+  const withinTwo = stdDev > 0 ? values.filter((v) => Math.abs(v - mean) <= 2 * stdDev).length : n;
+
+  const rows: DeviationRow[] = values
+    .map((value, index) => {
+      const deviation = value - mean;
+      return { index: index + 1, value, deviation, squared: deviation * deviation };
+    })
+    .sort((a, b) => a.value - b.value)
+    .map((r, i) => ({ ...r, index: i + 1 }));
+
+  return {
+    valid: true,
+    errorMsg: "",
+    count: n,
+    sum: Number(sum.toFixed(decimals)),
+    mean: Number(mean.toFixed(decimals)),
+    median: Number(median.toFixed(decimals)),
+    variance: Number(variance.toFixed(decimals)),
+    stdDev: Number(stdDev.toFixed(decimals)),
+    min: sorted[0],
+    max: sorted[n - 1],
+    range: Number((sorted[n - 1] - sorted[0]).toFixed(decimals)),
+    iqr: Number((q3 - q1).toFixed(decimals)),
+    q1: Number(q1.toFixed(decimals)),
+    q3: Number(q3.toFixed(decimals)),
+    cv: Number(cv.toFixed(4)),
+    withinOne,
+    withinTwo,
+    rows,
+  };
+}
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  prefix?: string;
+  suffix?: string;
+  tooltip?: string;
+  hint?: string;
+  type?: string;
+  min?: string;
+  step?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  prefix,
+  suffix,
+  tooltip,
+  hint,
+  type = "number",
+  min,
+  step,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      {prefix && (
+        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>
+      )}
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const CompactTextArea = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
+      {label}
+    </label>
+    <textarea
+      id={id}
+      value={value}
+      rows={4}
+      onChange={(e) => onChange(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && !e.shiftKey && onEnter) onEnter();
+      }}
+      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-foreground resize-y"
+    />
+    {hint && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+export default function StandardDeviationCalculator() {
+  const [data, setData] = useState(DEFAULT_DATA);
+  const [spread, setSpread] = useState<Spread>("sample");
+  const [decimals, setDecimals] = useState("4");
+  const [showAdv, setShowAdv] = useState(false);
+
+  const getInputs = (): { raw: string; spread: Spread; decimals: number } => ({
+    raw: data,
+    spread,
+    decimals: Math.max(0, Math.min(8, parseFloat(decimals) || 4)),
+  });
+
+  const [calcInputs, setCalcInputs] = useState(() => getInputs());
+  const [results, setResults] = useState<SdResult>(() => computeSd(DEFAULT_DATA, "sample", 4));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(computeSd(inputs.raw, inputs.spread, inputs.decimals));
+  };
+
+  const reset = () => {
+    setData(DEFAULT_DATA);
+    setSpread("sample");
+    setDecimals("4");
+    setCalcInputs({ raw: DEFAULT_DATA, spread: "sample", decimals: 4 });
+    setResults(computeSd(DEFAULT_DATA, "sample", 4));
+  };
 
   const faqs = [
-    { question: "What is standard deviation?", answer: "Standard deviation measures how spread out values are around the mean. A low SD means values cluster near the mean; a high SD means they are widely scattered." },
-    { question: "When to use population vs sample SD?", answer: "Use population SD (divides by n) when you have data for the entire population. Use sample SD (divides by n−1, Bessel's correction) when your data is a sample from a larger population — which is most common in practice." },
-    { question: "What is the standard deviation formula?", answer: "Sample SD = √[Σ(xᵢ − x̄)² / (n−1)]. Population SD = √[Σ(xᵢ − μ)² / n]. The difference is n−1 (sample) vs n (population) in the denominator." },
-    { question: "What does a standard deviation of 0 mean?", answer: "All values are identical — there is no variation in the dataset." },
-    { question: "What is the empirical rule (68-95-99.7)?", answer: "For a normal distribution: 68% of values fall within ±1 SD, 95% within ±2 SD, and 99.7% within ±3 SD of the mean. Values beyond ±3 SD are considered outliers." },
-    { question: "What is the coefficient of variation?", answer: "CV = (SD / mean) × 100%. It expresses standard deviation as a percentage of the mean, enabling comparison of variability across datasets with different scales." },
+    {
+      question: "What is the difference between sample and population standard deviation?",
+      answer:
+        "Population standard deviation divides the squared deviations by the number of values, while the sample version divides by one less than the count. The sample version is larger and is the correct choice whenever the data is a subset of something bigger, because it corrects for the fact that a sample mean is never exactly the true mean.",
+    },
+    {
+      question: "How is standard deviation calculated step by step?",
+      answer:
+        "Find the mean, subtract it from every value to get the deviations, square each deviation, average those squares to get the variance, then take the square root. The table in the results shows every one of those steps, so the arithmetic can be checked line by line when the answer matters.",
+    },
+    {
+      question: "What does a standard deviation actually tell me?",
+      answer:
+        "It measures how far values typically sit from the average. In a roughly bell-shaped distribution about sixty-eight percent of values fall within one standard deviation of the mean and about ninety-five percent within two. A small standard deviation means the values cluster tightly, and a large one means they are spread out.",
+    },
+    {
+      question: "When should I use the coefficient of variation instead?",
+      answer:
+        "The coefficient of variation divides the standard deviation by the mean, turning it into a percentage. That makes it possible to compare spread between data sets with different units or very different averages, such as the variability of two products measured in grams and kilograms. Bigger numbers mean more relative variability.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Math", href: "/calculator#math" }, { label: "Standard Deviation Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Math", href: "/calculator#math" },
+          { label: "Standard Deviation Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Standard Deviation Calculator</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1200px]">
-          <div className="card-calculator flex flex-col gap-5 !p-6 border border-border bg-card">
-            <div>
-              <label className="text-base font-medium block mb-1.5">Numbers (comma or space separated)</label>
-              <textarea value={nums} onChange={e => setNums(e.target.value)}
-                className="w-full px-3 py-2 text-lg rounded-md border border-input bg-background focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all" rows={3} />
-            </div>
-            <div>
-              <label className="text-base font-medium block mb-1.5">Type</label>
-              <div className="flex gap-2">
-                <button onClick={() => { setPopMode(false); calculate(nums, false); }}
-                  className={`flex-1 h-10 rounded-md border text-sm font-medium transition-colors ${!popMode ? "bg-primary text-primary-foreground border-primary" : "border-border hover:bg-secondary"}`}>
-                  Sample (n−1)
+
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Data Set">
+              <CompactTextArea
+                id="data-set"
+                label="Values"
+                value={data}
+                onChange={setData}
+                onEnter={runCalculate}
+                hint="Separate numbers with commas, spaces or new lines."
+              />
+            </SubSection>
+
+            <SubSection title="Spread Type">
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSpread("sample")}
+                  aria-pressed={spread === "sample"}
+                  className={
+                    spread === "sample"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
+                  Sample (n − 1)
                 </button>
-                <button onClick={() => { setPopMode(true); calculate(nums, true); }}
-                  className={`flex-1 h-10 rounded-md border text-sm font-medium transition-colors ${popMode ? "bg-primary text-primary-foreground border-primary" : "border-border hover:bg-secondary"}`}>
+                <button
+                  type="button"
+                  onClick={() => setSpread("population")}
+                  aria-pressed={spread === "population"}
+                  className={
+                    spread === "population"
+                      ? "h-9 rounded-md bg-primary text-primary-foreground font-semibold text-sm shadow-sm transition-all active:scale-[0.98]"
+                      : "h-9 rounded-md border border-border bg-background hover:bg-secondary text-foreground font-semibold text-sm transition-colors"
+                  }
+                >
                   Population (n)
                 </button>
               </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Display">
+                    <CompactInput
+                      id="decimals"
+                      label="Decimal Places"
+                      value={decimals}
+                      onChange={setDecimals}
+                      onEnter={runCalculate}
+                      min="0"
+                      tooltip="How many digits to show after the decimal point in the results."
+                    />
+                  </SubSection>
+                </div>
+              )}
             </div>
-            <div className="flex gap-3">
-              <button onClick={() => calculate()} className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md font-semibold text-base flex items-center justify-center gap-2 transition-colors">Calculate</button>
-              <button onClick={reset} className="h-10 w-10 border border-border rounded-md flex items-center justify-center hover:bg-secondary transition-colors">
-                <RotateCcw className="w-4 h-4" />
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
-          <div className="space-y-4">
-            {result && (<>
-              <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-4">
-                <div className="text-xs text-muted-foreground mb-1 uppercase tracking-wider">Standard Deviation</div>
-                <div className="text-4xl font-bold text-primary">{result.primary}</div>
-                <div className="text-sm text-muted-foreground mt-1">{result.subtitle}</div>
+
+          {/* RIGHT: RESULTS PANEL */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="card-calculator !p-4 border border-border bg-card">
-                <h3 className="text-base font-semibold mb-3">Statistical Breakdown</h3>
-                <table className="w-full text-base"><tbody>
-                  {result.rows?.map((r: any, i: number) => (
-                    <tr key={i} className="border-b last:border-0">
-                      <td className="py-2 text-muted-foreground">{r.label}</td>
-                      <td className="text-right font-medium">{r.value}</td>
+            )}
+
+            {/* PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">
+                {calcInputs.spread === "population" ? "Population Standard Deviation" : "Sample Standard Deviation"}
+              </div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? fmt(results.stdDev, calcInputs.decimals) : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.count} values with a mean of ${fmt(results.mean, calcInputs.decimals)}`
+                  : "Fix the highlighted inputs to see an answer"}
+              </div>
+            </div>
+
+            {/* 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Variance</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.variance, calcInputs.decimals) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Mean</span>
+                <span className="font-extrabold text-foreground">{results.valid ? fmt(results.mean, calcInputs.decimals) : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Coeff. of Variation</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.cv, 2)}%` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* DEVIATION TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card max-h-[360px] overflow-y-auto">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead className="sticky top-0">
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">#</th>
+                    <th className="p-2.5 text-right">Value</th>
+                    <th className="p-2.5 text-right">Deviation</th>
+                    <th className="p-2.5 pr-3 text-right w-[130px]">Squared</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.rows.map((row) => (
+                    <tr key={row.index} className="hover:bg-secondary/20 transition-colors">
+                      <td className="p-2.5 pl-3 text-muted-foreground">{row.index}</td>
+                      <td className="p-2.5 text-right font-semibold text-foreground">{fmt(row.value, calcInputs.decimals)}</td>
+                      <td className="p-2.5 text-right text-foreground">{fmt(row.deviation, calcInputs.decimals)}</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{fmt(row.squared, calcInputs.decimals)}</td>
                     </tr>
                   ))}
-                </tbody></table>
+                  <tr className="font-bold bg-secondary/30 border-t border-border">
+                    <td className="p-2.5 pl-3 text-foreground">Σ</td>
+                    <td className="p-2.5 text-right text-foreground">{fmt(results.sum, calcInputs.decimals)}</td>
+                    <td className="p-2.5 text-right text-foreground">0</td>
+                    <td className="p-2.5 pr-3 text-right text-emerald-600">
+                      {fmt(results.variance * (calcInputs.spread === "population" ? results.count : results.count - 1), calcInputs.decimals)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">
+                Summary Statistics
               </div>
-              {result.chartData && (
-                <div className="card-calculator !p-4 border border-border bg-card">
-                  <h3 className="text-base font-semibold mb-3">Values vs Mean</h3>
-                  <ResponsiveContainer width="100%" height={240}>
-                    <BarChart data={result.chartData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" tick={{ fontSize: 10 }} />
-                      <YAxis tick={{ fontSize: 11 }} />
-                      <Tooltip />
-                      <ReferenceLine y={result.mean} stroke="#ef4444" strokeDasharray="4 4" label={{ value: "Mean", fill: "#ef4444", fontSize: 11 }} />
-                      <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Count</span>
+                  <span className="text-base font-bold text-foreground">{results.count}</span>
                 </div>
-              )}
-              <div className="bg-muted/30 rounded-lg p-6">
-                <h3 className="text-base font-semibold mb-4">Summary</h3>
-                <div className="space-y-3">
-                  {result.summary?.map((s: any, i: number) => (
-                    <div key={i} className={`flex justify-between text-base ${s.border ? "border-t pt-3" : ""}`}>
-                      <span className="text-muted-foreground">{s.label}</span>
-                      <span className={`font-medium ${s.bold ? "font-bold text-primary" : ""}`}>{s.value}</span>
-                    </div>
-                  ))}
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Sum</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.sum, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Median</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.median, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Range</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.range, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Quartile 1</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.q1, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Quartile 3</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.q3, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Interquartile Range</span>
+                  <span className="text-base font-bold text-foreground">{fmt(results.iqr, calcInputs.decimals)}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Min / Max</span>
+                  <span className="text-base font-bold text-foreground">
+                    {fmt(results.min, calcInputs.decimals)} / {fmt(results.max, calcInputs.decimals)}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Within 1 SD</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.count > 0 ? `${results.withinOne} of ${results.count}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Within 2 SD</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.count > 0 ? `${results.withinTwo} of ${results.count}` : "—"}
+                  </span>
                 </div>
               </div>
-            </>)}
+            </div>
           </div>
         </div>
+
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
             <h2 className="text-2xl font-bold mb-3">What Is a Standard Deviation Calculator?</h2>
-            <p>A standard deviation calculator measures how spread out a dataset is around its mean. It computes all key descriptive statistics: mean, median, variance, standard deviation, range, and coefficient of variation — giving you a complete picture of your data's distribution in one step. This calculator supports both sample SD (divides by n−1, for data sampled from a larger population) and population SD (divides by n, for complete dataset analysis).</p>
-            <p>Standard deviation is the most widely used measure of statistical dispersion. It appears in finance (portfolio risk, volatility), quality control (Six Sigma), scientific research (margin of error), education (grading on a curve), weather forecasting, and sports analytics.</p>
-            <h2 className="text-2xl font-bold mb-3">The Standard Deviation Formula</h2>
-            <p><strong>Sample SD:</strong> s = √[Σ(xᵢ − x̄)² / (n − 1)]</p>
-            <p><strong>Population SD:</strong> σ = √[Σ(xᵢ − μ)² / n]</p>
-            <p>Steps: (1) Find the mean x̄ = Σxᵢ / n. (2) Compute each deviation xᵢ − x̄. (3) Square each deviation. (4) Sum the squared deviations. (5) Divide by n−1 (sample) or n (population). (6) Take the square root. For the default dataset [4,7,13,2,1,8,6,11,5,9]: mean = 6.6, sample variance ≈ 13.6, sample SD ≈ 3.69.</p>
-            <h2 className="text-2xl font-bold mb-3">Sample vs Population Standard Deviation</h2>
-            <p>Bessel's correction (dividing by n−1 instead of n) corrects for the bias that arises when estimating population variance from a sample. Because sample means tend to be closer to sample data than the true population mean, dividing by n underestimates the population variance. Dividing by n−1 corrects this, producing an unbiased estimator. Use sample SD in virtually all research and data analysis contexts.</p>
-            <h2 className="text-2xl font-bold mb-3">The Empirical Rule (68-95-99.7 Rule)</h2>
-            <p>For normally distributed data: approximately 68% of values fall within one SD of the mean (μ ± σ), 95% within two SDs (μ ± 2σ), and 99.7% within three SDs (μ ± 3σ). Values more than 3 SDs from the mean are statistical outliers. This rule is the foundation of z-scores, hypothesis testing, and quality control limits.</p>
-            <h2 className="text-2xl font-bold mb-3">Applications of Standard Deviation</h2>
-            <p><strong>Finance:</strong> Stock volatility is measured by SD of daily returns. A high-SD stock (e.g., 3% daily SD) is riskier than a low-SD stock (0.5% daily SD). Portfolio theory uses SD to quantify and minimize risk. <strong>Quality control:</strong> Six Sigma aims for processes where the defect rate is beyond 6 standard deviations from the target — fewer than 3.4 defects per million. <strong>Research:</strong> Standard error = SD/√n; confidence intervals = mean ± 1.96 × SE (for 95% CI). <strong>Education:</strong> Standardized test scores (SAT, IQ) are scaled using mean and SD of the reference population.</p>
-            <h2 className="text-2xl font-bold mb-3">Tips for Using This Calculator</h2>
-            <p>Enter numbers separated by commas or spaces. Toggle between Sample and Population mode — the results update immediately. The bar chart shows each value with a red dashed line at the mean — values far from the line contribute most to the standard deviation. For z-score analysis, use the <a href="/calculator/z-score-calculator">z-score calculator</a>. For probability distributions, see the <a href="/calculator/normal-distribution-calculator">normal distribution calculator</a>.</p>
+            <p>
+              A standard deviation calculator measures how widely a set of numbers spreads around its average. Paste in a
+              list of values and it returns the standard deviation, the variance that sits behind it, and a full table of
+              every deviation from the mean. Both the sample and population formulas are available, so the same data can be
+              described either as a complete set or as a subset of a larger one.
+            </p>
+            <p>
+              The value of the measure is comparability. Two investments can have identical average returns and completely
+              different risk, and two production lines can hit the same target size with very different consistency. Standard
+              deviation turns that consistency into a single number, which is why it underpins quality control, portfolio
+              analysis, grading curves and scientific measurement.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The calculation starts with the mean of the values. Each value is then subtracted from the mean to give its
+              deviation, and each deviation is squared so that negative and positive gaps cannot cancel out. Those squares are
+              averaged, and the square root of that average is the standard deviation, which returns the result to the same
+              units as the original data.
+            </p>
+            <p>
+              The only difference between the two formulas is the divisor. A population divides by the number of values, while
+              a sample divides by one less than the count. Dividing by the smaller number inflates the result slightly, which
+              corrects for the tendency of a sample to understate the true spread. Use the population version when the data is
+              the entire group you care about.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card shows the standard deviation, with the variance, the mean and the coefficient of variation in
+              the three-stat bar. The table lists every value with its deviation from the mean and the square of that
+              deviation, sorted from smallest to largest, and the summary panel adds the median, quartiles, range and the
+              counts of values falling within one and two standard deviations.
+            </p>
+            <p>
+              Read the deviation column to see the shape of the data. A few large positive and negative entries mean the set
+              contains outliers that pull the mean away from the middle, and the median in the summary panel will sit further
+              from the mean in that case. The interquartile range ignores those extremes entirely and can be the more honest
+              measure of typical spread.
+            </p>
+            <p>
+              Finally, compare the standard deviation with the mean before drawing conclusions. A standard deviation of five
+              is enormous for data averaging 20 and trivial for data averaging 5000, which is exactly what the coefficient of
+              variation expresses. For roughly bell-shaped data, about two thirds of the values sit within one standard
+              deviation of the mean and about nineteen in twenty within two.
+            </p>
+            <p>
+              When you compare two data sets, keep the units and the sample size in view. A standard deviation calculated
+              from five readings is far less stable than one calculated from five hundred, so treat small-sample figures as
+              rough guides rather than firm limits. Running the same measurement again and averaging the results reduces the
+              standard deviation of the average by roughly the square root of the number of runs, which is why repeat testing
+              is such an effective way to tighten an estimate.
+            </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/standard-deviation-calculator" />
           <PopularCalculators exclude="/calculator/standard-deviation-calculator" />
@@ -164,5 +583,4 @@ const StandardDeviationCalculator = () => {
       </div>
     </>
   );
-};
-export default StandardDeviationCalculator;
+}

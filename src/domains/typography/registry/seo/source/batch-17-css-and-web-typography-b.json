@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "css-fluid-typography-builder",
+    "keywords": [
+      "css fluid typography builder",
+      "slope",
+      "intercept",
+      "clamp"
+    ],
+    "intro": "The CSS fluid typography builder derives the slope and intercept pair for every step of a scale, so type grows smoothly between two viewports instead of jumping at a breakpoint. Each step is exported as a clamp declaration and a token.",
+    "content": "The CSS fluid typography builder takes a modular scale and turns every step into a declaration that grows linearly between a mobile and a desktop viewport. The output is not a set of breakpoints but a pair of values per step: a slope, which is how fast the size grows per pixel of viewport width, and an intercept, which is the size the line would have at a zero-width viewport.\n\nSix inputs describe the ramp, and each one moves the result.\n\n- The base size and the ratio generate the scale, exactly as they would in a fixed ladder.\n- The mobile and desktop viewports set the endpoints of the ramp: below the first, every step holds its minimum, and above the second it holds its maximum.\n- The step count decides how many rungs are emitted, from two to seven.\n- The mobile-to-desktop scale factor, from 0.5 to 1.0, decides how much smaller each step is at the narrow end.\n\nThe arithmetic per step is two lines. The slope is the difference between the maximum and the minimum size divided by the difference between the two viewport widths; the intercept is the minimum size minus the slope multiplied by the mobile viewport. The preferred value in the declaration is then the intercept expressed in rem plus the slope expressed in viewport width units, and the clamp holds the minimum at one end and the maximum at the other. Expressing the intercept in rem matters for accessibility: when a visitor raises their default font size, the rem part of the preferred value grows with it while the viewport part does not, so the type responds to the user's setting rather than to the screen alone.\n\nThe panel states the ramp's shape in words as a check: how wide the viewport range is, and what the mobile-to-desktop ratio works out to. The table reports each step's minimum, maximum and preferred term in full, and the rendered ramp is laid out below it so the growth can be watched by resizing the window rather than read off numbers. The exported block declares one custom property per step — from the top of the scale down to the base — and then one class per step that applies it, so a component can adopt a single step without copying the whole scale.\n\nFour limits are worth knowing before the tokens are adopted.\n\n- The preferred value assumes a sixteen-pixel root, so a project that changes the root size shifts the rem component of every step.\n- Viewport-based growth ignores container width, so a step inside a narrow sidebar still grows with the browser rather than with the box it sits in; a container query is the modern answer.\n- A seven-step scale produces fourteen declarations before anything is styled, which is the price of expressing a ramp as tokens.\n- The mobile-to-desktop factor applies to every step equally, so a scale whose small steps should compress more than its display sizes needs those steps adjusted by hand.\n- Nothing checks the midpoint of the ramp, so a value that grows convincingly at both ends can still pass slowly through the middle.\n\nRead the table as the specification of the ramp: the minimum, the maximum and the preferred term of each step together describe the whole of its behaviour.",
+    "howTo": [
+      { "step": "Set the base size and ratio to match the fixed scale the design already uses, so the fluid version is a change of mechanism rather than of sizing." },
+      { "step": "Enter the two viewports at which the design should be smallest and largest, since they define where the ramp starts and stops." },
+      { "step": "Set the mobile-to-desktop factor and check the stated ramp width, then read the table to see the minimum and maximum of each step." },
+      { "step": "Resize the preview to watch the growth, then copy the token block and the per-step classes." }
+    ],
+    "whenToUse": "Reach for it when a type scale has to move continuously rather than in steps, when a hero heading is too small on a flagship phone and too large on a wide monitor at the same breakpoint, or when a design system wants one declaration per size instead of one per breakpoint. The slope and intercept pair is the idea to keep. For a single value rather than a scale, the {{css-clamp-calculator|CSS clamp calculator}} does the same arithmetic on two endpoints; the {{modular-scale-calculator|modular scale calculator}} builds the fixed ladder this ramp is derived from, and the {{heading-scale-visualizer|heading scale visualizer}} covers a heading ladder with a simpler approximation.",
+    "faqs": [
+      {
+        "q": "What are the slope and intercept in plain terms?",
+        "a": "They describe a straight line: the slope is how many pixels the size grows for each pixel of viewport width, and the intercept is the size the line would have at a viewport of zero. The declaration adds the two together — a fixed part and a growing part — and lets the clamp bounds cut the line off at each end."
+      },
+      {
+        "q": "Why express the intercept in rem?",
+        "a": "So the fixed part of the size follows the visitor's own font-size setting. A declaration built entirely from viewport units ignores that setting and can defeat zooming. With the intercept in rem, someone who raises their default size gets larger type, while the viewport term still adds the responsive growth."
+      },
+      {
+        "q": "What happens outside the two viewports?",
+        "a": "The clamp bounds take over. Below the mobile viewport the preferred value would go on shrinking, so the minimum holds it; above the desktop viewport it would go on growing, so the maximum holds it. That is the point of clamping a linear ramp: the growth is bounded at both ends by design values."
+      },
+      {
+        "q": "Does this replace media queries?",
+        "a": "For font sizes, largely yes, and that is the usual reason to adopt it: one declaration covers the range instead of three sets of rules. Media queries are still the tool for changing layout, and container queries are the tool when the size should depend on the component's box rather than on the viewport."
+      },
+      {
+        "q": "How many steps should a fluid scale have?",
+        "a": "As few as the design needs, and rarely more than five. Each step adds two declarations and one class, and every additional rung is another value to keep consistent. If a scale needs seven steps, it is worth checking whether two of them are roles that could share a size instead."
+      }
+    ]
+  },
+  {
+    "slug": "css-clamp-calculator",
+    "keywords": [
+      "css clamp calculator",
+      "intercept",
+      "preferred value",
+      "viewport endpoints"
+    ],
+    "intro": "The CSS clamp calculator draws the straight line between two sizes at two viewport widths and writes the declaration that follows it. It also shows what the line does at five points across the range, which is where a wrong endpoint becomes obvious.",
+    "content": "The CSS clamp calculator takes two sizes and two viewport endpoints and returns the clamp declaration that interpolates between them, with every intermediate value printed. It is the single-value version of a fluid scale, and the place to get the arithmetic right before a scale depends on it.\n\nThe result comes with four readouts that make the line inspectable.\n\n- The slope, given both as pixels per pixel of viewport and in viewport units per hundred, which is the figure that goes into the declaration.\n- The intercept in pixels, which is the size at a viewport of zero before the bounds cut the line off.\n- The preferred value, written as an intercept in rem plus a slope in viewport units, which is the middle term of the clamp.\n- The growth across the range, which is simply the maximum size minus the minimum and is the figure to sanity-check first.\n\nA behaviour table then evaluates the line at nought, a quarter, a half, three quarters and all of the range. For each point it prints the viewport width, the value the line would give, the value after clamping, and whether the result is pinned or fluid. The two ends are pinned by definition, and the middle three are where a mistake shows: if the linear value at three quarters of the range is already above the maximum, the desktop endpoint is set too low and the type stops growing early. Comparing the linear column with the rendered column also shows how much of the range is actually spent in motion rather than pinned at a bound.\n\nThe arithmetic has one safeguard built in: the calculator refuses to produce a line unless the maximum viewport is larger than the minimum and the maximum size is at least the minimum size. Without that, a slope would run backwards and the clamp would snap between its bounds instead of interpolating. The exported CSS also carries a plain pixel fallback before the clamp declaration, so an engine without clamp support gets a sensible middle size rather than the minimum or nothing at all, and the pixel variant is offered separately for projects that only need the fixed value.\n\nFour limits are worth knowing before the declaration ships.\n\n- The line is straight: there is no easing, so a design that wants type to accelerate in the middle needs two clamps across two ranges rather than one.\n- The declaration responds to the viewport rather than to the component's container, so a value inside a narrow column still grows with the window; a container query is the tool for that case.\n- The rem-based intercept assumes a sixteen-pixel root, so a project with a different root shifts the fixed part of every preferred value.\n- Nothing here knows what the right endpoints are. The arithmetic is exact and the design decision is yours, which is the honest division of labour, and the behaviour table is there so the endpoints can at least be checked after the fact.",
+    "howTo": [
+      { "step": "Enter the minimum and maximum sizes first, since their difference is the total growth and the figure to sanity-check against the design." },
+      { "step": "Enter the two viewport endpoints, ensuring the maximum is the larger and that both match real breakpoints in the design." },
+      { "step": "Read the slope, intercept and preferred value, then use the behaviour table to confirm the value is still fluid in the middle of the range." },
+      { "step": "Copy the CSS with its pixel fallback, or the pixel variant alone when the value does not need to grow." }
+    ],
+    "whenToUse": "Reach for it when one value has to grow between two viewports and the arithmetic should be right the first time, when a clamp declaration is suspected of pinning too early, or when a fluid scale built elsewhere needs its individual steps checked. The behaviour table is the diagnostic. For a whole scale in one pass, the {{css-fluid-typography-builder|CSS fluid typography builder}} derives every step; the {{type-scale-generator|type scale generator}} gives the fixed sizes the endpoints come from, and the {{baseline-grid-calculator|baseline grid calculator}} checks what the resulting line boxes do to a vertical grid.",
+    "faqs": [
+      {
+        "q": "What does the preferred value mean?",
+        "a": "It is the middle term of the clamp: a fixed size in rem plus a rate of growth in viewport units. Between the two viewport endpoints that expression is the whole story, and outside them the clamp's own bound takes over. Writing the fixed part in rem is what lets it respect a visitor's font-size setting."
+      },
+      {
+        "q": "How can I tell if the endpoints are wrong?",
+        "a": "Read the behaviour table. If the clamped value stops changing before the last row, the maximum size is reached too early and the upper viewport is set too low. If the value is still at its minimum by the middle row, the growth is too slow or the lower endpoint is too wide."
+      },
+      {
+        "q": "Why include a pixel fallback?",
+        "a": "Because the declaration is ignored wholesale by an engine that does not parse clamp, and the fallback keeps the type at a sensible middle size in that case. It costs one extra line. The separate pixel variant exists for projects that genuinely do not want any growth and only need the computed value."
+      },
+      {
+        "q": "Can clamp replace media queries entirely?",
+        "a": "For a single value, effectively yes: one declaration covers the range. What it cannot do is respond to the space a component actually has, since viewport units describe the window rather than the box. When a heading sits inside a narrow column on a wide screen, a container query is the correct tool and clamp is not."
+      },
+      {
+        "q": "What range of sizes suits a clamp?",
+        "a": "It suits any range where linear growth looks natural, which is most body and heading sizes. Very large display sizes often want a sublinear ramp, since the perceived difference between 96 and 128 pixels is smaller than between 16 and 21. When the growth has to slow at the top, split the range and clamp each half."
+      }
+    ]
+  },
+  {
+    "slug": "text-shadow-builder",
+    "keywords": [
+      "text shadow builder",
+      "text-shadow",
+      "blur radius",
+      "layers"
+    ],
+    "intro": "The text shadow builder stacks layers, because every convincing shadow is a stack rather than a single offset. Each layer carries its own offsets, blur radius and colour, and the declaration is written in the same order the CSS paints it.",
+    "content": "The text shadow builder assembles a text-shadow declaration from a list of layers, previews it on real text and exports the exact CSS. Layers rather than presets is the choice that matters: a single shadow can give definition or depth, and only a stack gives both.\n\nEach layer carries four values and one of them is the reason the effect reads as depth.\n\n- Offset X and offset Y, each from minus 40 to 40 pixels, which place the layer relative to the letterform.\n- Blur radius from 0 to 60 pixels, where a hard edge and a soft halo are the two ends of the scale.\n- A colour, entered as a text field that accepts alpha — the same hex value with a two-digit alpha suffix keeps the layer from turning solid where layers overlap.\n- The layer order itself, since the first layer listed paints on top.\n\nThe order explains the standard recipe: a small offset with a tight blur and a strong colour goes first to sharpen the letter's edge against the background, and a larger offset with a wide blur and a partly transparent colour goes second to suggest the letter lifting off the surface. Reversed, the wide soft layer sits over the sharp one and the edge disappears. Alpha is the other half of the technique: two overlapping opaque layers produce a second copy of the text, while partly transparent layers accumulate into a gradient that reads as depth.\n\nThe panel also reports the declaration length, which is a rough proxy for how far the effect has travelled from a single value, and shows the layer count. Text, size from 16 to 96 pixels and weight are all adjustable, and the preview sits on a background colour you choose, since a shadow tuned on white can vanish on a dark surface. Two limitations are built into the model: values are absolute pixels, so a shadow tuned at 48 pixels becomes a disproportionate blur when the same class is applied at 16; and nothing reports the paint cost, which matters when a heavy stack sits on an element that animates.\n\nFive things are deliberately left to the component the declaration lands in.\n\n- There is no stroked or outlined letter beneath the shadow, though the two properties coexist when both are applied to the same text.\n- There is no per-character variation, so a shadow that changes along a word is a drawing exercise rather than a declaration.\n- Nothing reports the paint cost, which matters most when a heavy stack sits on an element that animates or scrolls.\n- The preview renders a single line, so a stack that behaves well on one line is not tested for how it accumulates across a paragraph.\n- The colour input is a text field: a value the browser cannot parse is skipped silently and that layer simply stops contributing to the effect.\n\nTreat the declaration as the mechanical part of the treatment, and make the surrounding decisions — size, weight, background and any outline — where the text actually lives.",
+    "howTo": [
+      { "step": "Start with the two default layers and read the preview, since they already demonstrate the sharp-plus-soft pairing most effects need." },
+      { "step": "Set the text, its size and the background colour before tuning the layers, because both change how much shadow the eye can read." },
+      { "step": "Adjust each layer's offsets and blur radius, adding an alpha value to the colour where layers overlap, and add or remove layers as the effect requires." },
+      { "step": "Copy the CSS and decide whether the values should become size-relative, since the declaration is written in fixed pixels." }
+    ],
+    "whenToUse": "Reach for it when a heading needs depth and a single offset looks flat, when an existing shadow has turned into an unreadable smear, or when several layers of a live effect have to be documented as one declaration. Layer order is the part worth remembering. For an edge rather than a shadow the {{outlined-text-generator|outlined text generator}} draws a stroke, for an extrusion the {{3d-text-effect-preview|3D text effect preview}} stacks hard shadows, and for a glow the {{neon-text-previewer|neon text previewer}} layers colour around a bright core.",
+    "faqs": [
+      {
+        "q": "Why does layer order matter in a text shadow?",
+        "a": "Because the first layer listed paints on top. A tight, strong layer above a wide, faint one gives a crisp edge with depth behind it; the same two layers in the opposite order bury the edge under the soft one. That is why the default stack starts with the definition layer and ends with the depth layer."
+      },
+      {
+        "q": "Why use colours with alpha in the layers?",
+        "a": "So overlapping layers build up gradually instead of turning into a solid block. Two opaque shadows over the same letter look like two copies of the word, while partly transparent layers let the overlap read as a shadow falling away from the letters. The text colour field accepts the eight-digit hex form for exactly that."
+      },
+      {
+        "q": "Should the blur radius scale with the text size?",
+        "a": "Yes. A blur of 8 pixels is a soft halo on a 16 pixel label and an invisible detail on a 72 pixel heading, so the same declaration reads differently at each size. Converting the offsets and the blur to values derived from the font size is how one effect survives a responsive scale."
+      },
+      {
+        "q": "Does a text shadow affect layout?",
+        "a": "Not for the element itself: the shadow is painted outside the box and does not change its size, so nothing reflows. It can, however, overflow a container with overflow hidden, and it does contribute to the area the browser has to composite, which is the cost to watch on animated elements."
+      },
+      {
+        "q": "Can I combine a shadow with an outline?",
+        "a": "Yes, and the two properties coexist: the stroke draws the letter's edge while the shadow layers sit behind it. The tool covers only the shadow half, so the outline is applied where the CSS is used. Keep the stroke's paint order in mind, since a stroke painted over the fill erodes the letterform."
+      }
+    ]
+  },
+  {
+    "slug": "text-gradient-maker",
+    "keywords": [
+      "text gradient maker",
+      "background-clip",
+      "gradient text",
+      "worst stop contrast"
+    ],
+    "intro": "The text gradient maker builds gradient text the way CSS actually does it — a background image clipped to the letterforms with a transparent fill — and reports the contrast of the worst stop against the page. It also writes the fallback and the selection rule that gradient text needs.",
+    "content": "The text gradient maker assembles the three declarations that gradient text is made of, plus the two that keep it from failing: a background image, background-clip set to text, a transparent colour, a plain fallback colour and an explicit selection background.\n\nThe controls map onto the stops and the geometry of the ramp.\n\n- Two or three stops, chosen by a stop-count control, with a colour picker for each: from, an optional midpoint, and to.\n- An angle from 0 to 360 degrees, which decides the direction the ramp runs across the text.\n- A size from 18 to 140 pixels, since gradient text is a display treatment and rarely suits body copy.\n- A fallback colour, used by engines that cannot clip a background to text.\n\nThe generated block is worth reading line by line, because each part answers a specific failure. The clip property paints the ramp only where the letters are; the transparent colour lets the ramp show through; the plain colour before it means an engine without support paints solid text rather than nothing, and a support query then restores the transparent fill where clipping is available. The selection rule sets a background for highlighted text, which is the failure nobody notices until a reader drags across the heading and the text disappears because its fill is transparent.\n\nThe contrast half is the part that separates this from a colour picker. The tool converts each stop to a relative luminance and returns the contrast ratio of the worst stop against the surface, along with whether that ratio clears the three-to-one threshold for large text. Since a gradient's lightest stop is what a reader struggles with, the worst stop is the number that matters, and it is reported rather than averaged. The honest caveat is that the calculation assumes a white page background and evaluates the stops rather than the blended pixels between them: a two-stop ramp passes through intermediate colours, and one of those can be lighter than either endpoint. Where the treatment is used over an image or a photograph, the ratio here no longer describes what a reader sees.\n\nFive further limits shape where the treatment is safe to use.\n\n- The mid-stop control only appears in three-stop mode, so a two-stop ramp has no way to bias its own midpoint.\n- Both modes emit a linear gradient, so the stop-count control chooses how many colours the ramp passes through rather than the kind of ramp it is.\n- Nothing measures the gradient across multiple lines, and a ramp that reads well on one line can leave the last line of a wrapped heading entirely in its palest colour.\n- The worst stop contrast is evaluated at the stops rather than between them, so a blend that passes through a lighter colour than either endpoint can still fail on screen.\n- The fallback colour is a single value, so an engine without clipping gets flat text in the one colour chosen rather than an approximation of the ramp.\n\nTreat the effect as a display treatment for one or two lines, and keep the fallback colour close to the darkest stop so the unclipped version still reads.",
+    "howTo": [
+      { "step": "Enter the words and set the size, remembering that gradient fills suit display type rather than paragraphs." },
+      { "step": "Choose two or three stops and an angle, watching the ramp in the preview rather than picking colours in the abstract." },
+      { "step": "Read the worst stop contrast and the large-text verdict, and darken the lightest stop until it clears the threshold you need." },
+      { "step": "Copy the CSS with the fallback colour and the selection rule intact, since both exist to cover a specific failure." }
+    ],
+    "whenToUse": "Reach for it when a display heading wants colour that varies across the letters, when gradient text has already failed in one of the three predictable ways — no clip support, an invisible selection or a stop that is too light to read — or when the contrast of a gradient has to be checked rather than eyeballed. The worst-stop number is the one to quote. For flat coloured text the {{contrast-pairing-checker|contrast pairing checker}} is the dedicated check, the {{outlined-text-generator|outlined text generator}} and the {{shadow-text-generator|shadow text generator}} cover the other display treatments, and the {{type-scale-generator|type scale generator}} supplies the display sizes the effect is used at.",
+    "faqs": [
+      {
+        "q": "How does gradient text work in CSS?",
+        "a": "The gradient is set as a background image on the text element, the background is clipped to the letterforms with background-clip set to text, and the text colour is made transparent so the clipped background shows through. Without the transparent fill the letters paint over the gradient and nothing appears to change."
+      },
+      {
+        "q": "Why does the generated CSS include a plain colour as well?",
+        "a": "Because the clip property is not universally available and a transparent fill with no clipping paints an invisible heading. The plain colour is declared first, so an engine that cannot clip renders solid text, and a support query then replaces it with the transparent fill only where clipping works."
+      },
+      {
+        "q": "Why does selected gradient text disappear?",
+        "a": "Because the fill is transparent, so the browser's selection highlight covers a colour that is not being painted, and inverting nothing leaves nothing. Declaring a background colour for the selection pseudo-element restores a visible highlight, which is why the generated block includes that rule rather than leaving it to chance."
+      },
+      {
+        "q": "What is the worst stop contrast and why not average it?",
+        "a": "It is the contrast ratio of the palest stop against the surface, and it is the number a reader meets at the thin end of the ramp. Averaging the stops would hide exactly the failure that matters, since a gradient with three dark stops and one very light one still has a legibility problem where the light one lands."
+      },
+      {
+        "q": "Is the contrast check valid over an image?",
+        "a": "No. The calculation assumes a flat white surface, so it describes text on a plain background only. Over a photograph the ratio changes with every pixel behind the letters, and the practical fix is a scrim or a solid panel rather than a different gradient."
+      }
+    ]
+  },
+  {
+    "slug": "css-letter-spacing-tool",
+    "keywords": [
+      "css letter spacing tool",
+      "tracking tokens",
+      "uppercase tracking",
+      "letter-spacing"
+    ],
+    "intro": "The CSS letter spacing tool writes the tracking values a stylesheet really needs: one per role, from a tight display setting to a positive uppercase bump, emitted as custom properties. Body text stays at zero on purpose, and the tool says so.",
+    "content": "The CSS letter spacing tool turns two base sizes and one uppercase bump into a full set of tracking tokens, one per text role, and exports them as custom properties with a role table explaining each value.\n\nThe role set covers the decisions a stylesheet actually makes.\n\n- Display and hero roles take negative tracking, minus 0.02em, because large letterforms show their sidebearings as gaps.\n- The first and second heading levels continue in the same direction, minus 0.015em and minus 0.01em, so the tightening is progressive rather than abrupt.\n- Body text sits at exactly zero, which the panel states as a rule rather than a default: tracking body copy fights the spacing the type designer drew.\n- Small text and captions take a hair of positive tracking, 0.01em, which is the rasterisation case rather than a stylistic one.\n- Uppercase takes the bump value, adjustable from 0.01 to 0.15em, because capitals are drawn to be spaced and look crowded when set against each other.\n- Button labels take half the uppercase bump when the label is sentence case, and tabular figures take the same small positive value as captions, to separate digits in dense tables.\n\nEach row reports its size, its tracking in em and the same value converted to pixels at that size, which is what makes the numbers checkable: a tracking of 0.01em is a third of a pixel at 32 pixels of body text and a visible 0.14 at a 14 pixel uppercase label. The pixel column is also how the case gets made to a reviewer: a bare em value looks like a rounding error until it is converted into the gap it produces. The exported block names a custom property per role, derived from the role name, followed by a couple of usage examples for the uppercase and display cases. The counter-example beside it sets the same uppercase string twice, once untracked and once with the bump, which is the quickest way to show someone why caps need positive tracking at all.\n\nThe starting values are optical rules of thumb rather than measurements, and the tool is clear about the difference between a template and a specification.\n\n- A condensed grotesque with tight sidebearings wants more uppercase tracking at small sizes than a wide geometric sans, so the bump is a starting point per family.\n- A face with an unusually large x-height reads as crowded at the same nominal size, which shows up first in the small-text row.\n- The role table is fixed at nine entries, so a design with a different set of roles maps the tokens onto them rather than adding rows.\n- Every value is authored in em, so one letter-spacing declaration holds across every breakpoint while the pixel column stays a readout of what that means at each size.\n- Nothing here replaces kerning: tracking acts on every gap in a run, so a bad pair inside a word needs the typeface's own kerning rather than a token.\n\nThe templates are deliberately plain values, which is what makes them easy to override when a face turns out to want something different.",
+    "howTo": [
+      { "step": "Set the body and display sizes, since the pixel column is derived from them and is what makes the em values legible." },
+      { "step": "Set the uppercase bump and watch the caps row and the button row move together, since one is half of the other." },
+      { "step": "Read the role table and check the roles that sit at zero against the roles that are tracked, so the pattern is deliberate." },
+      { "step": "Copy the token block and use the variables in component styles rather than retyping the values, then check the uppercase counter-example against a real label." }
+    ],
+    "whenToUse": "Reach for it when a stylesheet needs tracking values as a system rather than as one-offs, when uppercase labels look cramped at small sizes, or when several heading levels are being tuned and the tracking should tighten progressively instead of being decided per component. The zero for body text is the rule to keep. For converting a single value between units, the {{letter-spacing-calculator|letter spacing calculator}} handles em, pixels and design-tool tracking; the {{font-letter-spacing-tester|font letter spacing tester}} shows the values on real text, and the {{css-typography-token-generator|CSS typography token generator}} exports the sizes these tokens are applied at.",
+    "faqs": [
+      {
+        "q": "Why is the tracking for body text zero?",
+        "a": "Because a text face's spacing is an optical decision made by its designer. Adding tracking to running copy opens gaps between every pair of letters and breaks the texture that makes a paragraph readable. The exceptions are very small sizes, where a little positive tracking helps rasterisation, and dense tabular figures."
+      },
+      {
+        "q": "Why does uppercase need a positive bump?",
+        "a": "Capitals are drawn to sit beside lowercase letters, so their sidebearings assume a wider neighbour. Set against each other they crowd, which is why an uppercase label at the same size as body text looks tighter. The bump is applied as a custom property so a label can inherit it without repeating the value."
+      },
+      {
+        "q": "How large should the uppercase bump be?",
+        "a": "Between 0.01 and 0.15em, and the right value depends on the size and the face. Small caps and short labels want more, wide tracking at large sizes starts to look like a deliberate style. In the template, the button label takes half the bump because its label is usually sentence case with a hint of tracking."
+      },
+      {
+        "q": "Can I add more roles to the table?",
+        "a": "Not through the tool: nine roles are fixed and each produces one custom property. A project with different roles renames or maps them after export, which is straightforward because the properties are plain values. What the tool provides is the shape of a tracking system rather than a complete one."
+      },
+      {
+        "q": "Are the recommended values face-independent?",
+        "a": "No, they are starting points. Faces differ in sidebearing, in x-height and in how much contrast their strokes carry, so two faces at the same size can want different tracking. The pixel column and a look at the rendered counter-example are what confirm the value for a specific family."
+      }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "css-line-height-tool",
+    "keywords": [
+      "css line height tool",
+      "unitless",
+      "line-height",
+      "line box"
+    ],
+    "intro": "The CSS line height tool writes the line-height declaration for every role in a small scale, and shows what each unit computes to at the chosen size. Four output units are offered, and the panel argues for one of them rather than leaving the choice to habit.",
+    "content": "The CSS line height tool takes a body size, three leading values and an output unit, then writes the declarations for a six-role scale and reports what each one computes to.\n\nThe four output units look interchangeable and behave very differently the moment a value is inherited.\n\n- Unitless, the default and the recommendation, is inherited as a number and re-resolved against each element's own font-size.\n- rem makes the line box a fixed multiple of the root size, so a nested element keeps the root's leading rather than its own.\n- px produces an exact length, and is the only mode that can guarantee a line box which is a whole number of pixels.\n- percent computes against the element's font-size at the point of declaration and is then inherited as a computed length, so it looks like unitless but inherits like pixels.\n\nThe role set is derived from the body size rather than entered per role: Display at three times the body, H1 at 2.25, H2 at 1.75, H3 at 1.375, Body at one, and Caption at 0.8, with the display, heading and body leadings controlled separately and the caption's worked out as the body leading minus a tenth, floored at 1.35 so a tight body setting cannot shrink the caption below a usable leading. The table reports each role's size, its ratio, the line-height in the selected unit and the line box in pixels, which is the column that makes the unit choice visible: the same 1.5 ratio is a 24 pixel box on body text and a 72 pixel box on a display heading.\n\nThe case for unitless is inheritance, and it is worth understanding rather than copying. A unitless value is a ratio, so an element inside a paragraph resolves it against its own font size and keeps the same optical leading. A pixel or rem value is inherited as a finished length, so a heading inside a paragraph receives the paragraph's line box and its leading becomes an accident of where it sits in the tree. There are two exceptions the panel names: rem is defensible when the leading must stay proportional to the root rather than to the element, which is rare, and pixels are the right choice when the line box has to be an exact multiple of a vertical grid.\n\nFour things about the scale are fixed rather than free, and each one is the reason another tool exists.\n\n- The six roles sit at fixed multiples of the body size, so a scale with different steps has to be expressed by editing the exported classes.\n- Three leading controls cover all six roles, which is enough for a small system and not enough for one where every level is tuned separately.\n- The character estimate assumes half an em per character, so it is a sanity check rather than a measurement.\n- Nothing checks the resulting line boxes against a baseline grid, which is where the grid tools take over.\n\nThe exported classes carry a size and a leading but no weight or tracking, since those belong to the roles rather than to the leading system. Read the computed column first, then choose the unit for the reason it is right rather than the one used last time.",
+    "howTo": [
+      { "step": "Set the body size and the body leading, since every other role is derived from those two values." },
+      { "step": "Adjust the heading and display leadings and watch the line box column rather than the ratio column, because the box is what the layout meets." },
+      { "step": "Choose the output unit deliberately: unitless for anything that inherits, pixels only when the box must be an exact length." },
+      { "step": "Set the measure and read the characters-per-line estimate, then copy the declarations for the roles the page actually uses." }
+    ],
+    "whenToUse": "Reach for it when a scale needs leading values rather than one global line-height, when a heading nested inside running text has picked up the wrong leading through inheritance, or when someone needs the argument for unitless stated in a form they can act on. The inheritance behaviour is the part to take away. For the leading values themselves the {{line-height-optimizer|line height optimizer}} derives them from size and measure, the {{baseline-grid-calculator|baseline grid calculator}} snaps the resulting boxes to a grid, and the {{css-typography-token-generator|CSS typography token generator}} exports sizes and leadings together as tokens.",
+    "faqs": [
+      {
+        "q": "Why is unitless the recommended line-height?",
+        "a": "Because it is inherited as a ratio and resolved against each element's own size. Text at 16 pixels and a heading at 40 pixels both keep the same optical leading, and a change of size never leaves a stale box behind. A length works out to exactly one value and is then inherited as that finished value."
+      },
+      {
+        "q": "What happens when a pixel line-height is inherited?",
+        "a": "The child element receives the parent's computed line box, not a new one based on its own size. A small heading inside a paragraph therefore gets the paragraph's leading, which is usually far too much, and the effect is invisible until a nested element is inspected. That is the failure unitless values exist to prevent."
+      },
+      {
+        "q": "Is a percentage the same as unitless?",
+        "a": "It looks the same and inherits differently. A percentage resolves against the font size at the point where it is declared and is inherited as a computed length, so it behaves like a pixel value for anything nested. Unitless is the only form that stays a ratio all the way down the tree."
+      },
+      {
+        "q": "When is a pixel line-height worth using?",
+        "a": "When the line box has to be a whole number of pixels, which is the case on a baseline grid. Everything on the grid is a multiple of the same unit, so a ratio that lands between pixels defeats the point. The trade is that a change of font size no longer updates the box, so the value is tied to one size."
+      },
+      {
+        "q": "How accurate is the characters-per-line readout?",
+        "a": "It assumes half an em per character, so it is an estimate rather than a measurement. It is useful for a quick check that a 60-character column has not become a 100-character one, and the dedicated measure tools are what confirm the number for a real face at a real size."
+      }
+    ]
+  }
+]

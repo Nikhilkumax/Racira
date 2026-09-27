@@ -138,7 +138,7 @@ export default function ArmVsFixedRateCalculator() {
   const isArmCheaperOverall = results.totalArmPaid < results.totalFixedPaid;
 
   return (
-    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="racira-page-container py-4">
       {/* Header */}
       <div className="mb-12 text-center">
         <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
@@ -149,9 +149,9 @@ export default function ArmVsFixedRateCalculator() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* Input Section */}
-        <div className="lg:col-span-4 w-full space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           <div className="bg-card rounded-3xl border border-border/50 shadow-xl overflow-hidden backdrop-blur-sm p-8">
             <h3 className="text-xl font-bold mb-6">General Loan Details</h3>
             
@@ -253,7 +253,7 @@ export default function ArmVsFixedRateCalculator() {
         </div>
 
         {/* Results Section */}
-        <div className="lg:col-span-8 w-full space-y-6">
+        <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center">
               <h3 className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Fixed Monthly Payment</h3>

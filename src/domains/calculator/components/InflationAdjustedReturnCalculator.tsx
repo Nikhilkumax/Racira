@@ -86,7 +86,7 @@ export default function InflationAdjustedReturnCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.initialInvestment, vals.nominalReturn, vals.inflationRate, vals.years]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

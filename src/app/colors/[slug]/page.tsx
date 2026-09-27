@@ -11,6 +11,8 @@ import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { SubcategoryCard } from "@/components/shared/SubcategoryCard";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
+import SeoContent from "@/components/shared/SeoContent";
+import { RelatedTools } from "@/domains/colors/components/related-tools";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -152,6 +154,10 @@ function ToolView({ tool, categoryKey }: { tool: any, categoryKey: ToolCategory 
           <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
             <Cmp />
           </div>
+          {/* Related tools — a separate full-width row, not part of the SEO block. */}
+          <RelatedTools currentSlug={tool.slug} category={tool.category} />
+          {/* Editorial SEO block — full container width, unboxed, only when authored. */}
+          {tool.seo && <SeoContent seo={tool.seo} toolName={tool.name} />}
         </div>
       </main>
       <footer className="border-t border-border py-8 mt-16">

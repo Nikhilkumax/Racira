@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "font-previewer",
+    "keywords": [
+      "font previewer",
+      "preview sample text",
+      "letter spacing slider",
+      "italic toggle"
+    ],
+    "intro": "The font previewer renders your own copy in any face from the shared catalogue and adjusts the four properties that change how a setting reads. Size, weight, leading and tracking are all live, with an italic toggle, and the page also shows the same face down a size ladder.",
+    "content": "The font previewer takes a sample string and five controls, then renders the preview sample text large, again down a fixed ladder of sizes, and once more as the CSS that would reproduce it.\n\n- The family list is the catalogue the whole typography domain loads, so every face in the picker has its webfonts on the page already.\n- Size runs from 12px to 160px, defaulting to 64px, which is a display size rather than a body one.\n- Weight is a row of buttons rather than a slider, so only the weights a face actually ships can be selected, and the default is 600.\n- The letter spacing slider spans minus 5 to 20 pixels in half-pixel steps, while line height spans 0.8 to 2.5 in steps of 0.05 with a default of 1.2.\n- The italic toggle switches the style, and the preview panel is sized to hold a display setting without reflowing the page as the sample changes.\n\nThe built-in ladder is the part that separates this from a single-line preview. The sample is rendered again at 14, 18, 24, 32, 48, 72 and 96 pixels with the same weight, tracking and italic setting, each row labelled in pixels and truncated with an ellipsis, so the face's behaviour across the whole range is visible without touching the sliders. That is what makes a display face that looks confident at 72px reveal whether it holds up at 18px, and vice versa. The tracking control is deliberately in pixels rather than ems, which is what a designer reaches for when nudging a heading, while the CSS panel writes the same value out with the family stack, size, weight, leading, tracking and style so the setting can be lifted into a stylesheet.\n\n- The face list is the shared catalogue. A font file that is not loaded by this domain cannot be previewed here.\n- The italic toggle applies a synthetic slant when a face ships no true italic, and nothing warns you when that happens.\n- The built-in ladder uses seven fixed sizes and a line height of 1.1, so it is not a substitute for a ladder you choose yourself.\n- No metric data is shown, so two faces that look similar here cannot be compared on x-height or cap height.\n- The output is a handful of declarations rather than a class, and nothing is saved between visits.\n\nUse it when a face is being chosen for a specific line of copy, when a heading needs its tracking nudged against a real layout, or when you want to see how a family behaves from 14px to 96px before committing to it. Where the size ladder has to match a real scale, the waterfall font preview takes an editable list of sizes, and where the copy itself matters more than the display setting, the custom text font preview prints its own word and character counts. The web font tester covers what the reader sees before the file arrives, the custom text font preview is the version built for pasting real copy, and the waterfall font preview takes an editable ladder of sizes when the 14-to-96 default does not match a project's scale.",
+    "howTo": [
+      { "step": "Paste the copy you actually want to judge into the sample field, then pick the family from the catalogue list." },
+      { "step": "Drag the size slider from a display size down to a body size and back, watching whether the face keeps its character at both ends." },
+      { "step": "Set the weight from the buttons, then use line height and tracking to find the setting where the sample sits comfortably." },
+      { "step": "Check the same face down the waterfall panel, then copy the CSS block with the six declarations you want to keep." }
+    ],
+    "whenToUse": "Reach for it when a face is being chosen for a headline, when a setting needs a small correction to tracking or leading, or when a client needs to see the same copy in a family from the catalogue in seconds. It is the general-purpose entry point to the domain's faces. For a size ladder that matches a real type scale, the {{waterfall-font-preview|waterfall font preview}} is the closer tool, the {{font-specimen-sheet|font-specimen sheet}} lays out the full character set for a handover, and the {{custom-text-font-preview|custom text font preview}} is the version to use when the copy is a paragraph rather than a headline.",
+    "faqs": [
+      {
+        "q": "Why are the weight options buttons rather than a slider?",
+        "a": "Because a face only ships the weights it ships. A slider would imply that every value between 100 and 900 is available, whereas the buttons offer the weights in the catalogue. Selecting one that a particular face does not carry simply renders the nearest available weight rather than synthesising a new one."
+      },
+      {
+        "q": "Is the italic real or synthesised?",
+        "a": "It depends on the face. Some catalogue families ship a true italic with its own letterforms, and others do not, in which case the browser slants the roman. Nothing in the panel says which applies, so if the italic is central to a design, compare it against the roman and check whether the letterforms changed shape rather than just leaning."
+      },
+      {
+        "q": "What does the waterfall panel add?",
+        "a": "It shows the same setting at seven sizes at once, from 14px to 96px, which is how you see whether a face that looks confident at display size holds together in a caption. Every row shares the weight, tracking and italic setting of the main preview, so the panel is a view of the current setting rather than a separate comparison."
+      },
+      {
+        "q": "Why is tracking measured in pixels here?",
+        "a": "Because that is how tracking is adjusted on a display heading: a designer nudges the space between letters by a pixel or two until the line sits right. The CSS panel writes the same pixel value, so the visual adjustment and the declaration always agree. For tracking that scales with the type size, ems are the better unit and the custom preview uses them."
+      },
+      {
+        "q": "Can I preview a font file from my own machine?",
+        "a": "Not here. The picker offers the faces this domain loads, which is deliberate: it keeps one catalogue so a family can never appear in a list without its webfont being available. A file you own has to be added to that catalogue, or tested in the declaration builder and rendered on a page of your own."
+      }
+    ]
+  },
+  {
+    "slug": "web-font-tester",
+    "keywords": [
+      "web font tester",
+      "font display",
+      "layout shift",
+      "fallback metrics"
+    ],
+    "intro": "The web font tester previews the two states a reader can actually see, the fallback before the file arrives and the loaded state after it, and reports the layout shift each font display strategy costs. The choice is made on that trade-off rather than on the loaded state alone.",
+    "content": "The web font tester renders one sample twice, once in a system fallback and once in the chosen face, and pairs that with the layout shift cost of the four font display strategies across the text blocks on a page.\n\n- Swap shows the fallback immediately and swaps when the file lands, which is the strategy with one visible reflow.\n- Block holds the text invisible for up to three seconds while the file loads, which removes the reflow at the cost of a blank paragraph.\n- Fallback takes a hundred-millisecond blocking period and then uses the fallback permanently if the file has not arrived.\n- Optional uses the webfont only when it is already cached or the connection is fast, which costs nothing for a returning visitor.\n- The font display value and the selected face are written into a complete at-rule, with the source path derived from the family name and a weight range of 300 to 700.\n\nThe shift figures are the reason the panel exists. A webfont and a system fallback rarely share line-height metrics, and the conventional difference sits between three and six percent per line, so the tool estimates a four percent shift per block for swap, one and a half percent for fallback, none for block because nothing is rendered until the file arrives, and four percent for optional on the first visit. Multiplying that by the number of blocks on screen produces the total shift risk, which is the shape of the problem rather than a measurement: a page with twelve paragraphs carries twelve times the movement of a page with one. The panel then states the three fixes that actually reduce it, which are preloading the file used above the fold, subsetting to the characters the page uses, and tuning the fallback metrics with size-adjust and the two metric overrides so the fallback occupies the same space as the webfont.\n\n- The percentages are conventional estimates, not measurements taken from your two faces, so a pair with very different metrics will be worse than reported.\n- Nothing here loads a real font over a real network, so the blocking periods are described rather than timed.\n- The source path in the generated at-rule is derived from the family name rather than being a path you can verify.\n- Six blocks and a hundred blocks are treated linearly, whereas the shift score a browser reports aggregates differently.\n- The fallback pane always uses the same system stack, so a project whose fallback is a specific local face is not represented exactly.\n\nUse it when a webfont is being introduced, when a page's text visibly moves as it loads, or when the case for preloading and metric overrides has to be made to someone who has not seen the reflow. The fallback and loaded panes side by side are the quickest version of that argument. Where the loading sequence rather than the display value is being planned, the font loading strategy builder covers preload and priority, the font face declaration builder writes the metric overrides the panel recommends, and the font CSS generator produces the whole set of rules for a family.",
+    "howTo": [
+      { "step": "Choose the webfont and the font display value, then read the strategy verdict line under the loaded preview." },
+      { "step": "Compare the two panes at the same size and sample, since the amount of movement is easiest to judge when the paragraphs sit one above the other." },
+      { "step": "Set the number of text blocks on screen and read the total shift risk, which is the per-block estimate multiplied by that count." },
+      { "step": "Copy the at-rule and add the preload, subsetting and metric override steps the panel lists." }
+    ],
+    "whenToUse": "Reach for it when a webfont is being added to a page, when text visibly jumps during load and the cause needs naming, or when a design review has approved a face without anyone checking what happens before it arrives. It is also the clearest way to show why block is a poor choice for body copy. For the full loading plan the {{font-loading-strategy-builder|font loading strategy builder}} covers preload and priority, the {{font-face-declaration-builder|font face declaration builder}} writes the metric overrides that stop the reflow, and the {{font-css-generator|font CSS generator}} produces the rules for a whole family at once.",
+    "faqs": [
+      {
+        "q": "Which font display value should I start with?",
+        "a": "Swap for body copy, because the reader sees text immediately and the cost is one reflow. Block suits a display heading where a flash of the wrong face would be worse than a brief blank, but it is a poor choice for a paragraph since the text can stay invisible for seconds. Optional is the safest for performance and the least predictable, since a slow first visit never shows the webfont at all."
+      },
+      {
+        "q": "How accurate is the shift estimate?",
+        "a": "It is a convention rather than a measurement. Without the two font files the tool cannot know how their metrics differ, so it uses the three to six percent line-height difference that typically separates a webfont from a system fallback, and reports four percent per swapped block. Treat the total as a way of comparing strategies and page shapes, not as a score a browser would agree with."
+      },
+      {
+        "q": "What actually stops the text from moving?",
+        "a": "Making the fallback occupy the same space as the webfont. Three things do that: preloading the file so it arrives early, subsetting it so it arrives small, and overriding the fallback's metrics with size-adjust, ascent-override and descent-override. The metric overrides are the ones that remove the reflow properly, and they are written by the declaration builder for exactly this purpose."
+      },
+      {
+        "q": "Why does block show no shift?",
+        "a": "Because nothing is drawn until the file arrives, so there is no fallback rendering to move. That is the trade: the shift is zero and the reader may wait up to three seconds looking at empty space. The estimate reflects the missing movement, not a recommendation, which is why the verdict line calls block unsuitable for body copy."
+      },
+      {
+        "q": "Does the number of blocks really multiply the shift?",
+        "a": "Roughly, and it is the reason the control exists. Each paragraph that reflows contributes its own movement, so a long article carries far more of it than a landing page with two lines. A browser aggregates the score differently, measuring the movement of content around the viewport, so the multiplication is a way of comparing a template's risk rather than predicting a number."
+      }
+    ]
+  },
+  {
+    "slug": "custom-text-font-preview",
+    "keywords": [
+      "custom text font preview",
+      "real copy",
+      "word count",
+      "preview css"
+    ],
+    "intro": "The custom text font preview is the paste-in-a-paragraph version of the previewer, built for real copy rather than a specimen line. It reports the word and character counts of what you paste and writes the CSS that reproduces the rendering.",
+    "content": "The custom text font preview takes a block of real copy and four type controls, renders it at the resulting setting and exports the class that produces it.\n\n- The family list is the shared catalogue, each entry labelled with its classification so a serif, sans or display face is identified before it is judged.\n- Size runs from 8px to 120px, weight comes from the catalogue's weight list, and the defaults are a 32px, 500 weight setting for a piece of display copy.\n- Tracking spans minus 0.1em to 0.4em in steps of five thousandths, and line height spans 0.9 to 2.4 in steps of two hundredths.\n- The readouts report the family classification, the word count and the character count of the pasted text.\n- The preview CSS is a single class carrying the stack, the pixel size, the weight, the em letter spacing and the unitless leading.\n\nThe word and character counts are what make this the version to reach for when the copy is real rather than a specimen. A headline of four words behaves differently from a pangram, and the counts are the quickest way to see that a paragraph is longer than the container it is being previewed in. Tracking is in ems here rather than pixels, which means the adjustment scales if the same setting is applied at another size, and the preview falls back to the domain's default sample string when the field is empty, so an empty field never renders nothing. The size range starts lower than the display-oriented previewers, at 8px, because the copy being tested may be a caption or a legal line rather than a headline.\n\n- Only faces from the shared catalogue can be previewed, and no face metadata is shown beyond its classification.\n- The word count splits on whitespace, so a hyphenated compound counts as one word and a language without spaces between words counts as one word for the whole passage.\n- There is no italic control and no per-line or per-paragraph override, so a mixed setting has to be judged in several passes.\n- The character count includes punctuation and spaces, which is useful for a rough measure but not for a character budget.\n- Nothing is saved, and the exported class keeps the pixel size, so it is not responsive as written.\n\nUse it when a real sentence or paragraph has to be judged in a candidate face, when a client has supplied their own copy to preview, or when the numbers matter and the length of a line needs checking before it goes into a layout. Where the question is how a face behaves across a range of sizes, the waterfall font preview answers it directly, and where several faces have to be compared on the same copy, the multi-font comparison puts them side by side. The font previewer is the display-oriented sibling, the font size preview answers the size question for a single face, and the waterfall font preview covers the whole ladder if the copy has to hold up at every step.",
+    "howTo": [
+      { "step": "Paste the real copy into the text field, then choose the family, watching the classification readout since it changes what sizes will read well." },
+      { "step": "Set the size and weight first, then adjust tracking and leading around them rather than the other way round." },
+      { "step": "Read the word and character counts to confirm the paste is complete and to see how long the passage actually is." },
+      { "step": "Copy the exported class and, if the same setting is needed at several sizes, convert the pixel size to rem so it scales." }
+    ],
+    "whenToUse": "Reach for it when a specific piece of copy has to be judged in a candidate face, when a paragraph rather than a headline is the thing being set, or when the length of a line needs a numeric check. It is the tool for real content rather than specimens. Where the same copy has to be compared across several faces, the {{multi-font-comparison|multi font comparison}} lays them out together, the {{font-size-preview|font size preview}} narrows the size question, and the {{waterfall-font-preview|waterfall font preview}} shows the copy down an entire size ladder.",
+    "faqs": [
+      {
+        "q": "Why does the word count look wrong for hyphenated words?",
+        "a": "Because the count splits on whitespace, so a hyphenated compound counts as one word and a line break inside a word does not split it either. The figure is there to confirm that a paste arrived intact and to give a rough sense of length, not to produce a manuscript count. For a language that does not separate words with spaces, expect the whole passage to count as one."
+      },
+      {
+        "q": "Why is tracking in ems here and in pixels elsewhere?",
+        "a": "Because this tool is about copy at potentially several sizes. An em-based tracking value scales with the font size, so a setting tuned here stays proportionally correct if the same class is applied at a different size. The display preview uses pixels because nudging a heading by a pixel or two is how that adjustment is actually made."
+      },
+      {
+        "q": "Which size should I start from for a paragraph?",
+        "a": "Around 16px to 19px for body copy, which is why the range starts at 8px rather than at a display size. Below about 16px the measure and leading start to matter more than the face itself, and above 24px the text is a display setting rather than a paragraph. The classification readout tells you which kind of face you are sizing."
+      },
+      {
+        "q": "Is the exported class responsive?",
+        "a": "No. It writes the pixel size, the pixel-domain sizing and the unitless leading exactly as previewed, so it renders the same at every viewport. Converting the font size to rem and, if needed, replacing it with a clamp is the usual next step, and the fluid type scale builder does that conversion properly."
+      },
+      {
+        "q": "What happens if I leave the text field empty?",
+        "a": "The preview falls back to the domain's default sample string, so the panel never renders an empty box. The word and character counts drop to zero, which is the signal that the field is empty rather than that the copy failed to paste."
+      }
+    ]
+  },
+  {
+    "slug": "waterfall-font-preview",
+    "keywords": [
+      "waterfall font preview",
+      "size ladder",
+      "editable size list",
+      "truncated rows"
+    ],
+    "intro": "The waterfall font preview renders the same sample down a size ladder, so fit, weight and rhythm can be judged at every size on one screen. The ladder is editable, which is what lets it match a real type scale rather than a generic one.",
+    "content": "The waterfall font preview takes a sample, a face, a weight and a comma-separated list of sizes, then renders the sample once per size down the size ladder, each row labelled with its pixel value.\n\n- The default ladder is 12, 14, 16, 20, 24, 32, 40, 56, 72 and 96 pixels, which covers a caption through to a display heading.\n- The editable size list is typed rather than chosen, so any set of sizes can be tested, including the exact steps of a project's type scale.\n- Up to fourteen values are rendered, each clamped to a maximum of 300 pixels, and values that cannot be parsed are dropped rather than breaking the ladder.\n- Weight is chosen from five values between 300 and 700, applied to every row at once.\n- The readouts report how many sizes were rendered, the range they span, and the classification of the family being previewed.\n\nRendering every row at a single weight is the point: a waterfall is about how one setting behaves as it grows, so holding weight, tracking and leading constant is what makes the rows comparable. Each row uses a line height of 1.15 and truncates with an ellipsis, which keeps the ladder's rhythm even when the sample is long, and every row carries the full sample as a title so the truncated text can still be read by hovering. The reference panel writes the family stack followed by a comment for each size in the ladder, which is a record of what was tested rather than a usable stylesheet. That distinction matters: the ladder is a comparison instrument, and the sizes it renders come from what you type rather than from any scale the tool derives.\n\n- Truncated rows mean a long sample cannot be compared end to end at every size in the ladder; only the first part of the string is visible.\n- Fourteen sizes are the ceiling, which is enough for a ladder and not enough for a full specimen.\n- The ladder shares one weight for every row, so the interaction between size and weight has to be explored in two passes.\n- Sizes above 300 pixels are dropped silently, as are values that do not parse.\n- The reference output is a comment block rather than CSS, and it names the family rather than giving you declarations to paste.\n\nUse it when a face has to hold up across a project's whole scale rather than at one size, when a type scale has been proposed and the sizing needs checking in the real face, or when a display face is being considered for smaller sizes and the question is where it stops working. Type the scale's own steps into the ladder so the preview matches the design. Where the face needs testing at different weights as well, the variable font sliders vary two axes at once, and where several faces need the same ladder, the multi-font comparison stacks them. The font size preview answers the size question for a single face, the type scale generator derives the steps to test, and the font previewer is the display-oriented sibling with its own fixed ladder.",
+    "howTo": [
+      { "step": "Choose the family and weight, then replace the default ladder with the exact size steps your scale uses, comma-separated." },
+      { "step": "Set a sample long enough to show the face's rhythm but short enough to read comfortably on each row." },
+      { "step": "Read the ladder from the bottom up, since a face that holds at 72px and collapses at 14px is the usual finding." },
+      { "step": "Check the sizes-rendered and range readouts to confirm the ladder parsed as typed, then keep the reference block as a record of what was tested." }
+    ],
+    "whenToUse": "Reach for it when a face is being considered for a whole type scale, when a proposed scale needs checking in the real face before it is committed to a design system, or when the question is where a display face stops working as the size drops. It answers that faster than changing one previewer's size slider ten times. Where several faces are being compared on the same ladder, the {{multi-font-comparison|multi font comparison}} stacks them, the {{font-specimen-sheet|font-specimen sheet}} gives the full character set, and the {{font-line-height-tester|font line height tester}} covers the leading each row in the ladder would need.",
+    "faqs": [
+      {
+        "q": "Why can I only see part of my text on each row?",
+        "a": "Because each row truncates with an ellipsis. Without it, a long sample at 96px would push the following rows off the screen and the ladder would stop being a ladder. Every row carries the full sample as its title, so hovering reveals the rest, and for a full read the sample belongs in a single-size preview instead."
+      },
+      {
+        "q": "How many sizes can the ladder hold?",
+        "a": "Fourteen, and each is clamped to 300 pixels. That is enough for a type scale with a step per role plus a few display sizes. Values that do not parse, or that fall outside the range, are dropped silently, which is why the sizes-rendered readout is worth checking after pasting a long list."
+      },
+      {
+        "q": "Why is the weight the same for every row?",
+        "a": "Because a waterfall compares sizes, and mixing weights would introduce a second variable. A face is usually heavier at small sizes and lighter at large ones, so the interesting interaction is between size and weight; that is explored by setting one weight, reading the ladder, then setting another and comparing the two passes."
+      },
+      {
+        "q": "Can I use the reference output as a stylesheet?",
+        "a": "Not directly. It writes the family stack and a comment per size, so it records what the ladder contained rather than declaring rules. The size steps themselves are the useful part, and they belong in the type scale where they can be turned into proper classes with the leading each one needs."
+      },
+      {
+        "q": "Why start the default ladder at 12px?",
+        "a": "Because a waterfall is most useful when it spans the whole range a face is used across. Twelve pixels is the lower end of what appears in a real interface, 96 is a display heading, and the steps between are the common ones. Replacing the list with a project's own scale is the intended use."
+      }
+    ]
+  },
+  {
+    "slug": "pangram-font-tester",
+    "keywords": [
+      "pangram font tester",
+      "alphabet coverage",
+      "missing letters",
+      "text face"
+    ],
+    "intro": "The pangram font tester renders a sentence that contains every letter of the alphabet, then counts which letters actually appeared. Because a pangram exercises the whole lowercase alphabet in one line, it is the fastest fair test of a text face.",
+    "content": "The pangram font tester takes a pangram, a face, a size and a weight, then renders the sample and reports the alphabet coverage it achieves.\n\n- The pangram list offers several classic sentences rather than one, so the sample can be changed without typing a new sentence.\n- Coverage is counted against the lowercase alphabet and reported as a fraction out of twenty-six, with the missing letters named individually.\n- Size runs from 10px to 96px, defaulting to 28px, and weight comes from the catalogue's list with 400 as the default.\n- A second line renders the digits and the punctuation set in the same face at the same weight, so figures and marks can be judged alongside the letters.\n- The character count of the sample is reported, which is the check that a paste or an edited pangram did not lose anything.\n\nThe coverage count is what makes the tool more than a sample box. A pangram is only a fair test if every letter is in it, and the count turns that assumption into a number: a sample showing twenty-four of twenty-six letters has two letterforms unexamined, and the panel names them so the gap can be filled. Coverage deliberately counts lowercase only, and the panel says so, because a text face's lowercase is where most of the reading happens and where a face's rhythm is decided. Digits and punctuation are rendered on their own line rather than being counted, since a pangram rarely contains them and a face's figure style is judged differently: old-style figures that sit below the baseline behave very differently from lining figures at the same size.\n\n- Coverage counts lowercase letters only, so a face with an unusual uppercase design is not tested by the count.\n- The pangram list is fixed, so a custom sentence has to be edited in after copying one from the list.\n- Digits and punctuation are rendered but not counted, so a missing glyph in either appears as a fallback rather than as a warning.\n- Only one size and one weight are shown at a time, and there is no tracking or leading control.\n- Glyph-level problems such as a badly drawn pair or a poorly spaced letter are visible but not measured.\n\nUse it when a text face is being judged on its letters rather than on a display line, when a webfont has to be checked for a complete alphabet before it is shipped, and when a family's lowercase needs comparing against another face on the same sentence. The named missing letters are the detail that makes the check worth repeating. Where the full character set matters, the font specimen sheet lays it out, and where individual glyphs need inspecting rather than whole words, the glyph browser shows them one at a time. The font specimen sheet covers the whole character set for a handover, the multi font comparison puts two faces on the same sentence, and the font previewer is the place to adjust tracking and leading once a face has passed the alphabet test.",
+    "howTo": [
+      { "step": "Pick a pangram from the list, then choose the face you are testing and set the size and weight you expect to use it at." },
+      { "step": "Read the coverage figure and the missing-letters readout, and if any letter is missing, treat the sample as an incomplete test." },
+      { "step": "Judge the lowercase letterforms for rhythm and consistency, since that is what the sentence is there to show." },
+      { "step": "Compare the digits and punctuation line against the letters to see whether the figures match the text in weight and colour." }
+    ],
+    "whenToUse": "Reach for it when a text face is being chosen, when a webfont is being checked for a complete alphabet before shipping, or when two faces need comparing on the same sentence so the letterforms can be judged rather than the words. It is the fastest genuine test of a lowercase design. Where the whole character set, not just the letters, has to be inspected, the {{font-specimen-sheet|font-specimen sheet}} lays it out, the {{font-previewer|font previewer}} covers the display setting with tracking and leading, and the {{font-size-preview|font size preview}} answers how the same face behaves at another size.",
+    "faqs": [
+      {
+        "q": "Why is coverage counted in lowercase only?",
+        "a": "Because that is where most reading happens and where a face's design is most exposed. Uppercase letters are usually a smaller, simpler set, and a face can have a perfectly good alphabet while its lowercase sits unevenly. Counting lowercase makes the check specific to the part of the design the sample is testing."
+      },
+      {
+        "q": "What if a letter is reported as missing?",
+        "a": "Then the sample is not a complete test and the missing letters are the ones you have not seen. Either choose another pangram from the list or add the letters to the sentence you are using, since the point of a pangram is that one line exercises the whole alphabet. Editing the sentence changes the character count, which the readout shows."
+      },
+      {
+        "q": "Why render digits and punctuation separately?",
+        "a": "Because a pangram contains almost none of them. Digits are judged differently from letters: the choice between lining and old-style figures, and whether the figures match the text in colour, only shows when they are set in a line of their own. The same applies to quotation marks, brackets and dashes, which are where a font's details are often weakest."
+      },
+      {
+        "q": "Can I test my own sentence?",
+        "a": "The list is fixed, but any entry can be replaced with your own text in the underlying component. What you lose by doing that is the coverage guarantee, which the readout will show immediately. For testing a specific phrase rather than the alphabet, the custom text font preview is the better fit."
+      },
+      {
+        "q": "Does the tool measure anything about the letterforms?",
+        "a": "No, and nothing could from a rendering alone. The count measures coverage; the judgement of rhythm, spacing and weight consistency is visual. Metrics that can be measured, such as x-height and cap height, come from the font file rather than from a rendered sample, which is why a specimen sheet and a pair comparison are complementary."
+      }
+    ]
+  }
+]

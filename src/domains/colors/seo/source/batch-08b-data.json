@@ -1,0 +1,397 @@
+[
+  {
+    "slug": "color-palette-extractor",
+    "keywords": [
+      "color palette extractor",
+      "extract colors from image",
+      "image to color palette",
+      "get palette from photo"
+    ],
+    "intro": "The color palette extractor clusters the pixels of any uploaded image into a palette of two to sixteen representative colors, chosen with a slider.",
+    "content": "The color palette extractor pulls a working palette out of any image. Upload a picture and it returns a grid of swatches representing the colors the image is actually made of, with a slider to choose anywhere between two and sixteen entries and a preview of the source beside them. It is the answer to a very common starting problem: you have a photograph, a logo or a piece of reference art whose mood you want to keep, and you need that mood expressed as a handful of values you can build with. It is the quickest way to extract colors from image files you already own, instead of squinting at a screenshot and guessing at hex values.\n\nThe extraction is clustering rather than counting. The image is scaled down, its pixels are grouped into the number of clusters you requested, and each cluster's centre becomes one entry in the palette. The consequence is worth understanding: this finds the colors an image is made of, not the colors it contains most of. A small, vivid accent and a large expanse of neutrals can each earn a place in the palette, which is usually what you want for design work but is not the same as a frequency chart. If you specifically need proportions, a percentage breakdown of the same image is a different question.\n\nChoosing the number of colors is the only real decision:\n\n- A slider sets anywhere between two and sixteen entries, with five or six the sweet spot for most purposes — enough variety to build a scheme, few enough that the result still reads as a set.\n- Raising the count starts pulling out accents that the smaller palette averaged away, which is useful when a highlight color is needed.\n- Pushing it much higher has diminishing returns, because a photograph contains gradients rather than a fixed set of swatches, and the extra clusters end up splitting near-identical neighbours that look like duplicates on screen.\n\nA few mechanics are worth knowing because they explain surprising results:\n\n- The image is sampled at reduced size before clustering, so fine detail such as thin lines or text can be lost, and a colour that occupies a few pixels may not appear at all.\n- Pixels that are mostly transparent are skipped entirely, which is why a logo with a soft alpha edge produces a palette of its visible content rather than a muddied set including the invisible area.\n- The clustering is deterministic for a given image and count, so reopening the same file gives you the same palette rather than a slightly different one each time.\n\nThe obvious use is brand extraction: feeding a logo through to find the colors it implies, then reusing them consistently. It is just as useful for matching an interface to an existing photograph, for turning a moodboard into a starting palette, or for checking whether two images from a set are actually compatible in colour. Where the extracted values land in a design system is a separate decision, and the shade and tint generators are the natural next step for building a ramp around a chosen entry.\n\nTwo limits follow from what the clustering can and cannot know:\n\n- The output is a set of colours with no roles attached — nothing tells you which should be a background and which an accent.\n- An extracted palette is therefore a raw material rather than a finished scheme, and the roles and contrast checks come after it.\n\nUsed as an image to color palette starting point it does its job quickly and without ceremony: upload, adjust the count, and you have a set of values that genuinely belong to the image you started with, ready to be assigned roles and hardened with contrast checks. That is a far better beginning than guessing at colors by eye, which is exactly what makes it a dependable route to get palette from photo reference material.",
+    "howTo": [
+      "Drop an image onto the upload area; the source is previewed beside the result.",
+      "Set the number of colours with the slider — anywhere between two and sixteen.",
+      "Read the swatch grid, and raise the count when a highlight colour was averaged away.",
+      "Copy the hex values you want to build with."
+    ],
+    "whenToUse": "Use the extractor to derive a starting palette from a photograph, logo or moodboard image. Use the dominant color finder when you need a single representative value, and the percentage analyzer when you need proportions. When you need a single representative value the {{dominant-color-finder|dominant color finder}} answers that question, the {{color-histogram|color histogram}} gives proportions rather than a set, and the {{color-shades-generator|shade generator}} builds a ramp around a chosen entry.",
+    "faqs": [
+      {
+        "q": "How many colors can I extract?",
+        "a": "Between two and sixteen, set with a slider. Five or six is the usual sweet spot; higher counts start splitting near-identical neighbours."
+      },
+      {
+        "q": "Does it report how much of the image each color covers?",
+        "a": "No. The palette is built by clustering pixels, so it shows which colors the image is made of rather than what proportion each occupies."
+      },
+      {
+        "q": "Why is a color I can see missing?",
+        "a": "The image is sampled at reduced size and mostly transparent pixels are skipped, so a tiny detail or a faint area may not survive into the palette."
+      },
+      {
+        "q": "Will I get the same palette if I re-upload the image?",
+        "a": "Yes. The clustering is deterministic for a given image and color count, so the same file produces the same palette each time."
+      },
+      {
+        "q": "How do I choose the number of colors?",
+        "a": "Five or six is the sweet spot for most purposes. Raising the count pulls out accents a smaller palette averaged away, which helps when a highlight colour is needed; pushing it much higher splits near-identical neighbours that look like duplicates on screen."
+      }
+    ]
+  },
+  {
+    "slug": "color-json-generator",
+    "keywords": [
+      "color json generator",
+      "palette to json",
+      "generate json color palette",
+      "json color object generator"
+    ],
+    "intro": "The color json generator turns an editable list of colors into a keyed JSON object you can paste into a config file, theme module or token pipeline.",
+    "content": "The color json generator turns a working palette into a JSON object you can paste straight into a project. You edit a list of colors, add or remove entries, and the tool produces a keyed object where each color is written under a generated name with its uppercase hex value. It is the quickest way to get a palette out of your head and into a configuration file, a theme module or a design-token pipeline without hand-writing the braces. If you have ever had to convert a palette to json by hand, this replaces the whole chore.\n\nThe shape it produces is deliberately minimal and valid:\n\n- One key per colour, generated positionally as color-1, color-2 and upward.\n- Every value an uppercase six-digit hex string, so the values stay exact and there is no rounding to think about when the file is read back.\n- A pretty-printed object with two-space indentation, so the result reads cleanly in a diff and drops straight into a .json file or a JavaScript module.\n\nThe output is deliberately minimal and valid. Each entry is a string key mapped to a hex string, wrapped in a pretty-printed object with two-space indentation, so the result reads cleanly in a diff and can be dropped into a .json file or a JavaScript module without editing. Because hex is used throughout, the values stay exact and there is no rounding to think about when the file is read back.\n\nUse it when you want to generate a json color palette that downstream code can consume by key rather than by literal. Referencing colors by name is what makes a theme change survivable: updating one value in the JSON updates every consumer, whereas scattered literals have to be hunted down one at a time. Starting that file from a generated object, rather than typing it, also removes the risk of a stray comma that would break the parse.\n\nThe palette editor is live: add a colour, remove one, or change a value, and the object updates as you type. The keys are positional — color-1, color-2 and so on — so the JSON is a scaffold rather than a finished naming scheme. Role-based keys such as surface or danger survive a rebrand, while keys named after position do not, and that renaming happens in the file after the copy.\n\nAs a json color object generator it is intentionally narrow:\n\n- It produces one flat object rather than a full token system with types and descriptions, so the richer shape design tooling expects belongs to the design token generator.\n- The keys are positional, which leaves the naming work to you after the copy.\n- Hex is the only notation in the output — no rgb(), no hsl() and no alpha channel.\n\nWhere it earns its place is in the handoff between design and code. A designer picks colors by eye and a developer needs them as data, and this is the shortest path between the two: paste the palette in, copy the object out, commit it. Because the output is a plain object rather than a component or a build step, it can feed a Tailwind config, a CSS-in-JS theme, a charting library or a snapshot test with no adaptation at all. If a teammate asks how to generate json color palette entries that their code can read by key, this tool produces exactly that in a few seconds, and the result stays readable enough that a reviewer can check it by eye in a pull request.",
+    "howTo": [
+      "Set each colour in the palette rows, adding or removing entries until the list is complete.",
+      "Watch the JSON panel update as the list changes.",
+      "Copy the object and paste it into a JSON file, a theme module or a config.",
+      "Rename the positional keys to the roles the colours serve."
+    ],
+    "whenToUse": "Use this generator for a plain, keyed JSON palette. Use the design token generator when the target tooling needs typed tokens, and the colour token generator when you want hex, rgb and hsl recorded per color. When the target tooling needs typed tokens the {{design-token-generator|design token generator}} is the richer shape, and when each colour should carry hex, rgb and hsl side by side the {{color-token-generator|color token generator}} records all three.",
+    "faqs": [
+      {
+        "q": "What shape is the output?",
+        "a": "A pretty-printed JSON object whose keys are generated color names and whose values are uppercase hex strings, ready to paste into a config or module."
+      },
+      {
+        "q": "Can I rename the keys?",
+        "a": "The editor generates names as you add colors. For role-based naming, treat the output as a starting point and rename in your code, or use the design token generator."
+      },
+      {
+        "q": "Are the values exact?",
+        "a": "Yes. The tool writes hex throughout, so there is no rounding or precision loss when the file is read back."
+      },
+      {
+        "q": "Does it validate the JSON?",
+        "a": "The output is generated from the palette and is structurally valid by construction, including correct comma placement, so it will not break on a trailing-comma error."
+      },
+      {
+        "q": "Are the generated keys role-based?",
+        "a": "No. Keys are positional — color-1, color-2 and so on — because the tool cannot know what each value is for. Renaming them to roles such as surface or danger happens in the file after the copy."
+      }
+    ]
+  },
+  {
+    "slug": "color-token-generator",
+    "keywords": [
+      "color token generator",
+      "palette to color tokens",
+      "color tokens with rgb and hsl",
+      "design token json"
+    ],
+    "intro": "The color token generator turns an editable palette into an array of named token objects, each carrying a dotted name with its hex, rgb triple and hsl value.",
+    "content": "The color token generator sits between a bare list of hex codes and a full design system. You keep a palette in the editor on the left, and the panel on the right produces a JSON array in which every colour has become a token: an object with a dotted name, an uppercase hex value, a comma-separated rgb triple and an hsl string. A copy button lifts the whole array onto the clipboard, so the result can be pasted into a configuration file, a theme module or a script without editing.\n\nThe shape of each entry is worth reading once, because it determines where the output can be used:\n\n- A dotted name such as color.brand.1, which is the convention most token tooling expects.\n- An uppercase six-digit hex string.\n- An rgb value as three bare numbers separated by commas rather than a quoted CSS function, which is what colour libraries and canvas code usually want.\n- A complete hsl function string, ready to drop into a stylesheet.\n\nThat last point is the practical argument for generating color tokens rather than writing them. A palette that exists as hex in one file and as rgb in another has two sources of truth, and they diverge the first time someone edits only one of them. Producing all three notations from a single value means every consumer reads the same colour, whether it is a stylesheet asking for hex, a charting library asking for channels, or a hue-based tool asking for hsl. Multiplied across a palette, that removes a whole category of slow, hard-to-see bugs.\n\nThe names are the one thing the tool cannot decide for you. It emits dotted, positional paths because it has no idea what each colour is for, and positional names age badly: a token called color dot brand dot three tells a future reader nothing about whether it is a surface or a state. Treat the generated array as scaffolding and rename the entries to the roles they serve, which is what makes a palette survive a rebrand. The JSON structure, on the other hand, rarely needs editing.\n\nIn practice the output lands in three places. A plain data file imported by application code, which is the simplest case and needs no key renaming at all if you use positional lookups. A design token json file consumed by a build step, where the dotted names matter and the extra notations save conversion. And documentation, where an array of objects is easy to render as a table because every token has the same four fields in the same order.\n\nA few things are deliberately out of scope:\n\n- There are no types, descriptions or reference graphs, which is what separates this from a full W3C-style design token generator.\n- There is no alpha channel, so translucent values have to be handled downstream.\n- Names are positional — color.brand.1 through color.brand.n — because the tool cannot know what each colour is for, so the role naming is left to you.\n\nRead it as a color token generator in the literal sense: take a palette, get back an array of self-describing colour objects with their notations already aligned. When the goal is to move a palette to color tokens with rgb and hsl side by side, or to produce a design token json file that a build can consume without a conversion step in between, this is the shortest route from the colours on screen to the file that code reads.",
+    "howTo": [
+      "Build the palette in the editor on the left.",
+      "Read the JSON array on the right: each colour becomes one object with name, hex, rgb and hsl.",
+      "Copy the array and rename the positional entries to the roles they serve before committing it."
+    ],
+    "whenToUse": "Use this generator when a palette needs to become named, machine-readable tokens carrying more than one notation. Use the W3C-style token generator when types and descriptions are required, and the JSON exporter when a plain list of values is enough. The {{design-token-generator|W3C-style token generator}} adds types and descriptions, and when a plain list of values is enough the {{color-palette-json-exporter|JSON exporter}} is the lighter target.",
+    "faqs": [
+      {
+        "q": "What does each token object contain?",
+        "a": "Four fields: a dotted name, an uppercase six-digit hex value, an rgb triple as bare comma-separated numbers, and an hsl value as a ready-to-paste function string."
+      },
+      {
+        "q": "Why produce rgb and hsl as well as hex?",
+        "a": "Different consumers want different notations — stylesheets take hex, colour libraries and canvas take channels, hue-based tooling takes hsl. Deriving all three from one source keeps them from drifting apart."
+      },
+      {
+        "q": "Can I rename the tokens?",
+        "a": "The tool emits positional dotted names because it does not know each colour's role. Take the array as scaffolding and rename the entries to roles, which is what keeps them meaningful after a rebrand."
+      },
+      {
+        "q": "How is this different from the design token generator?",
+        "a": "That one produces the typed shape with a value and a type field. This one stops at names and notations, which is lighter and usually enough for application code."
+      },
+      {
+        "q": "Can I use the rgb value directly in CSS?",
+        "a": "Not directly — the rgb field is three bare numbers for libraries and canvas code, while the hsl field is a complete function string. For CSS, use the hex value or the hsl string."
+      }
+    ]
+  },
+  {
+    "slug": "color-csv-exporter",
+    "keywords": [
+      "color csv exporter",
+      "palette csv export",
+      "hex rgb csv",
+      "export colors to csv",
+      "palette spreadsheet"
+    ],
+    "intro": "The color CSV exporter writes a palette as a comma-separated table with one row per colour — index, hex, red, green, blue and HSL — ready to copy or download.",
+    "content": "The page is a palette editor on the left and a CSV card on the right. The editor holds five colours by default — a blue, a purple, a red, a green and an amber — and they can be changed, added or removed before exporting. The card prints the generated text in a scrollable block with two controls beneath it: a copy button and a Download .csv button that saves a file named palette.csv.\n\nThe format is fixed and worth knowing before the file is opened:\n\n- The first line is a header row of six column names: index, hex, r, g, b and hsl.\n- Each following line is one colour, numbered from one, with its hex value in upper case and its red, green and blue channels as whole numbers from zero to two hundred and fifty-five.\n- HSL is written in the functional form a stylesheet would accept, and values are separated by commas with no quoting and no padding.\n\nThat shape is what makes the export useful rather than merely available. Spreadsheets open it with the header as column names, so a palette can be sorted, annotated with notes on where each colour is used, or handed to a reviewer who does not work in code. The same file drops into a design handoff without conversion, because the hex column and the HSL column hold values in the forms both sides already use.\n\nA small detail matters for anyone round-tripping the palette: the HSL figure is a formatted string, not three separate numeric columns, so sorting by hue in a spreadsheet means splitting that column first. The red, green and blue channels are separate, which makes them the practical columns for arithmetic or charting.\n\nWhat the page does not offer is a choice of format. The editor exports CSV only — no JSON, no SVG, no PNG card and no token file — and there is no column selection, no delimiter setting and no way to paste a palette in for re-export. The colours come from the editor or they do not come at all.\n\nThe practical case for a table rather than an image is that a table can be edited. A palette exported as CSV can be annotated with where each colour is used, sorted by hue after the HSL column is split, merged with a second palette to check for near-duplicates, or handed to a reviewer who works in a spreadsheet. That is a different job from exporting a swatch image for a document, and it is what a color csv exporter is for: the same colours in rows, with the numbers separated so they can be used rather than only looked at.\n\nLimits are worth knowing before the file leaves the page:\n\n- One palette and one format: this page exports CSV only — no JSON, no SVG, no PNG card and no token file.\n- Six fixed columns, with no column selection, no delimiter setting and no way to paste a palette in for re-export.\n- The HSL figure is a formatted string rather than three separate numeric columns, so sorting by hue in a spreadsheet means splitting that column first, where the red, green and blue channels are the practical columns for arithmetic or charting.\n\nRead plainly, as a hex rgb csv export with the palette spreadsheet use in mind, the file it writes is exactly the table described: an export colors to csv at one row per colour, and the simplest palette csv export on the site.",
+    "howTo": [
+      "Edit the palette in the left-hand card — the default five can be changed, added to or removed.",
+      "Read the CSV text in the right-hand card, which updates as the palette changes.",
+      "Copy the text or press Download .csv to save the file as palette.csv."
+    ],
+    "whenToUse": "Use this when a palette has to leave the browser as a table — a spreadsheet for review, a handoff to a designer or a check of the channel values. Use the SVG or PNG palette exporters when the output should be an image, or the palette importer when a list is coming back the other way. When the output should be an image instead, the {{color-palette-svg-exporter|SVG palette exporter}} produces vector markup and the {{color-palette-png-generator|PNG palette generator}} draws a strip; when a list comes back the other way, the {{palette-importer|palette importer}} is the way in.",
+    "faqs": [
+      {
+        "q": "What columns does the CSV have?",
+        "a": "A header row of index, hex, r, g, b and hsl, then one line per colour with those six values in that order and no quoting."
+      },
+      {
+        "q": "Can I export JSON instead?",
+        "a": "Not here — this page writes CSV only. JSON output comes from the JSON palette exporter, which is a separate tool in the domain."
+      },
+      {
+        "q": "Why is HSL one column rather than three?",
+        "a": "It is written in the functional form a stylesheet accepts, so it arrives as a single value. Split the column in a spreadsheet if hue has to be sorted numerically."
+      },
+      {
+        "q": "Is the file downloaded or shown?",
+        "a": "Both. The text is printed in a card with a copy button, and a second button downloads it as palette.csv."
+      },
+      {
+        "q": "Which columns are best for arithmetic or charting?",
+        "a": "The r, g and b columns, because they are separate whole numbers. The hsl column is a formatted string, so it has to be split before it can be sorted or compared numerically."
+      }
+    ]
+  },
+  {
+    "slug": "color-array-generator",
+    "keywords": [
+      "color array generator",
+      "javascript color array from palette",
+      "colors as js array",
+      "palette to array export"
+    ],
+    "intro": "The color array generator turns an editable palette into a JavaScript array literal — colors as js, formatted, quoted and copy-ready for any script.",
+    "content": "JavaScript wants its colors as an array — chart libraries take arrays, canvas scripts iterate arrays, generative sketches index arrays — and hand-writing the literal is where quotes, commas and casing go to die. The color array generator does the formatting: build the palette in the editor, and the tool emits the array literal — every color quoted, comma-separated, correctly cased — ready to paste into any script. It is the colors as js bridge between a palette and the code that will consume it.\n\nThe editor-first flow matters because palettes in code are living things. A chart's series colors get adjusted after seeing the legend; a generative sketch's palette evolves over an afternoon of iterations. Editing lives in the palette rows — recolor, rename, reorder — and the array literal regenerates on every change, so the source of truth stays the palette and the output stays mechanical. The copy hands over the complete literal, formatted for direct paste into the consuming script's top or config.\n\nThe array form earns its keep wherever code iterates: series assignments in a charting library, a canvas animation cycling through hues, a game's faction colors, a test fixture asserting a palette's contract. For structures beyond arrays — named keys, nested objects — the color object generator emits the object literal form of the same palette; for JSON-shaped config files, that tool's output is the dialect those files expect. The other exporters speak framework and stylesheet dialects; this one speaks plain script.\n\nHanding a palette to code is a different job from designing one, and most of the friction lives in the syntax rather than the values. Charts want an ordered array, canvas work wants the values in a specific sequence, tests want a list that can be spread and iterated, and a palette arriving as a paragraph of hex codes has to be re-keyed before any of it runs. Producing colors as js array output removes that step and the class of bug that comes with it, since a list generated from one source cannot disagree with itself about ordering or casing. It also makes the palette reproducible: regenerate after a tweak and the diff shows exactly which value moved, which is far harder to read in a hand-edited list. Where several files consume the values, keeping the array in one module and importing it is what stops a second, slightly different copy from appearing later.\n\nThe formatting choices are worth getting right the first time:\n\n- Every value is quoted, comma-separated and correctly cased, one per line.\n- The literal regenerates on every edit, so the source of truth stays the palette and the output stays mechanical.\n- Only opaque hex is represented; translucent values have to be computed elsewhere and pasted in by hand, and the literal carries no names.\n\nAs a javascript color array from palette instrument it is deliberately the smallest useful export: a palette to array export with the syntax handled and nothing else assumed. For the chart, the sketch or the test that just wants colors as js — quoted, separated, valid — this is the shortest path from palette to running code.",
+    "howTo": [
+      "Build the palette in the editor — one row per color.",
+      "Watch the JavaScript array literal regenerate with each edit.",
+      "Copy the literal into your script, config or test."
+    ],
+    "whenToUse": "Use this when code consumes colors as a list — charts, canvas, tests. Use the object generator for keyed structures, the JSON generator for config files, and the token exporters when a pipeline rather than a script is the consumer. For keyed structures the {{color-object-generator|color object generator}} emits an object literal, the {{color-json-generator|JSON generator}} speaks the config-file dialect, and the {{color-token-generator|token generator}} is for a pipeline rather than a script.",
+    "faqs": [
+      {
+        "q": "What format are the array entries?",
+        "a": "Quoted hex strings, comma-separated — the literal form every JavaScript context accepts, cased consistently for diff-friendly diffs."
+      },
+      {
+        "q": "Can I change the order of the colors?",
+        "a": "Yes — order in the editor is order in the array, which matters for indexed consumers like chart series."
+      },
+      {
+        "q": "How is this different from the JSON generator?",
+        "a": "The JSON generator emits a keyed object for config files; this emits a plain array literal for code that iterates. Same palette, different JavaScript shape."
+      },
+      {
+        "q": "Does it handle alpha or other formats?",
+        "a": "The output is opaque hex — the array's most portable form. Translucent values can be computed with the opacity tools and pasted into the array by hand."
+      },
+      {
+        "q": "Is the array keyed by name?",
+        "a": "No. It is a plain ordered list of quoted hex strings; for named, keyed output the color object generator produces the object literal form of the same palette."
+      }
+    ]
+  },
+  {
+    "slug": "color-object-generator",
+    "keywords": [
+      "color object generator",
+      "javascript color object export",
+      "palette as named object",
+      "js config colors tool"
+    ],
+    "intro": "The color object generator emits a palette as a JavaScript object literal — named keys, quoted values — the palette as named object form configs and components import.",
+    "content": "Arrays carry order; objects carry meaning. The moment a palette's colors have roles — primary, danger, surface, accent — the right JavaScript shape is an object: named keys, quoted values, readable at the point of use as config.primary rather than config[0]. The color object generator produces that shape from an editable palette — build the rows with their names, and the tool emits the object literal, formatted and copy-ready. It is the palette as named object form, exported correctly.\n\nThe editor holds the values, and the naming step happens after the copy: the tool exports a flat object literal whose keys are positional — color1, color2 and so on — while role names such as primary, surface or danger are what you apply to those keys in the file. That keeps the two halves honest: values are edited where they belong, in the rows, and the js config colors output regenerates as values change, with the copy handing over the complete literal ready for a config module, a component's props or a theme stub.\n\nThe object form serves the consumers that read by name: theme configuration objects, component default props, canvas scenes addressing colors by role, test fixtures asserting a named contract. The array generator serves the consumers that iterate; the JSON generator emits the same keyed shape in JSON dialect for config files outside JavaScript proper; and the token exporters go further — typed, grouped, pipeline-ready — when the palette graduates to a design-token system. Between them, the family covers the export spectrum; this tool holds the middle: structured, named, plain JavaScript.\n\nConfiguration files care about names, and that is the difference between an object export and a list. A keyed literal gives every value an address, so a component can ask for surface-raised or text-muted rather than remembering an index, and the palette survives being reordered or extended. It also makes the mapping explicit: the moment values are named, the naming decisions become reviewable, and a name that describes a colour rather than a role stands out as a problem before it reaches a component. That is why a js config colors tool is worth reaching for at the point where a palette stops being a design artefact and starts being a dependency. Keeping the export flat and predictable matters as much as the values, since nested structures and mixed quoting are what make a generated file hard to diff or reuse in a second framework.\n\nThe generated shape also tends to reveal gaps in the palette itself. Writing the object forces the question of what each value is for, and palettes usually turn out to be missing a state, a border or an overlay that had been improvised separately in each component. Two limits keep the tool narrow:\n\n- Keys are positional until you rename them, so the naming work stays in the file rather than in the editor.\n- The output is hex only — no rgb, hsl or alpha — and one flat object with no nesting, types or descriptions.\n\nAs a javascript color object export instrument it is deliberately the naming tool: an editable palette in, a keyed literal out, valid by construction. For palettes whose colors mean things — which is most palettes, once they meet code — this is the shape and this is the export.",
+    "howTo": [
+      "Build the palette rows, naming each color for the role it plays.",
+      "Watch the object literal regenerate as names and values change.",
+      "Copy the literal into your config, component or test."
+    ],
+    "whenToUse": "Use this when colors are addressed by name in code — configs, props, themes. Use the array generator for ordered lists, the JSON generator for config-file dialects, and the token exporters for pipeline-grade structure. For ordered lists the {{color-array-generator|array generator}} emits the array form of the same palette, the {{color-json-generator|JSON generator}} produces config-file dialect, and the {{design-token-generator|token generator}} goes further with typed, grouped output.",
+    "faqs": [
+      {
+        "q": "What key naming works best?",
+        "a": "Role names — primary, surface, danger — read best at the point of use. Avoid positional names like color1; they defeat the object's whole advantage."
+      },
+      {
+        "q": "Can I use this for theme config files?",
+        "a": "Yes — the literal drops into theme objects and default-prop configs directly; the JSON generator is there when the file must be strict JSON rather than a JavaScript literal."
+      },
+      {
+        "q": "How is this different from the token generator?",
+        "a": "Tokens add typing and grouping for pipelines; this emits the plain object literal code consumes directly. Same palette, one step less ceremony."
+      },
+      {
+        "q": "Does key order matter?",
+        "a": "JavaScript objects preserve insertion order for iteration, so the editor's row order is the object's key order — worth keeping intentional."
+      },
+      {
+        "q": "Do the generated keys have role names?",
+        "a": "No. Keys are positional — color1, color2 and so on — because the tool cannot know what each value is for. Renaming them to primary, surface or danger is a step taken in the file, and that is what keeps the palette readable after a rebrand."
+      }
+    ]
+  },
+  {
+    "slug": "color-palette-json-exporter",
+    "keywords": [
+      "color palette json exporter",
+      "palette to json array",
+      "export palette as json",
+      "hex array json"
+    ],
+    "intro": "The color palette JSON exporter turns an editable palette into a pretty-printed JSON array of uppercase hex values, ready to paste into code.",
+    "content": "The color palette JSON exporter edits a palette and writes it out as JSON. You keep a list of colors and the panel beside it shows the result: a JSON array in which each entry is an uppercase six-digit hex string, indented two spaces and spread one value per line. A copy button lifts the whole thing onto the clipboard. It is the direct answer to a recurring chore, which is taking colours you chose visually and getting them into a place where code can read them without hand-typing hashes and commas.\n\nThe exact shape is worth stating because it decides where the output can be used:\n\n- What comes out is a JSON array, not an object: it opens with a square bracket, holds a string per colour, and closes.\n- The values are uppercased for consistency and indented two spaces, one per line, so the result reads cleanly in a diff.\n- Because it is an array, order is preserved exactly as you arranged it, which is what a ramp, a chart series or anything positional depends on.\n\nThat array-versus-object distinction is the one real design choice in an exporter like this. An array keeps sequence, which is what you want for a ramp, a chart series or anything positional where the first colour means something different from the fourth. An object lets you reach a colour by name, which is what you want once values have roles attached. This tool produces the array form. If your target needs keys, the object and token generators cover that direction, and the CSS exporter produces declarations rather than data.\n\nIn practice the palette-to-json array route shows up wherever a list of values has to be consumed programmatically. Charting libraries take a series palette as an array. Test fixtures often snapshot a palette. Canvas and WebGL pipelines want plain values. Documentation sites generate colour tables from a JSON file. In all of those cases the array is exactly the right container, and generating it here removes the class of bug where a stray comma or a missing quote breaks a parse.\n\nThe workflow is deliberately short: edit the palette, watch the output update, copy it, paste it where it belongs. Because the editor is live there is no export step to remember, and the output can never disagree with what is on screen. Keeping the palette in one generated file rather than scattering literals through a codebase is the maintenance benefit, and starting from generated output rather than typing it by hand is what removes the typographic risk.\n\nTwo limits are worth knowing before you commit to this format:\n\n- The output carries no names, so nothing in the file says which colour is a surface and which is an accent; that meaning lives only in the order and in your own documentation.\n- It records hex only, with no rgb or hsl equivalents and no alpha channel, so a pipeline that needs those has to convert downstream.\n\nFor a clean palette to json array that code can read immediately, that narrowness is exactly what makes it paste-ready, so it remains the fastest way to export palette as json when the consumer expects a plain list of hex values, and where a target simply wants a hex array json file and nothing else, this produces it in one copy.\n\n",
+    "howTo": [
+      "Edit the palette in the left-hand card, adding or removing rows as needed.",
+      "Read the JSON array in the panel beside it — it updates with every change.",
+      "Copy the array into a .json file, a module, a fixture or a build script."
+    ],
+    "whenToUse": "Use this exporter when a list of colour values needs to be machine-readable as an array. Use the object or token generators when keys and types are required, and the CSS exporter for stylesheet declarations. When keys and types are needed, the {{color-object-generator|object generator}} and the {{color-token-generator|token generator}} cover that direction, and the {{color-palette-css-exporter|CSS exporter}} produces declarations rather than data.",
+    "faqs": [
+      {
+        "q": "Is the output an array or an object?",
+        "a": "An array. It is a square-bracketed list of uppercase hex strings, indented and one per line, which preserves the order you arranged."
+      },
+      {
+        "q": "Are the hex values uppercase?",
+        "a": "Yes. Values are normalised to uppercase six-digit hex for consistency wherever a case-sensitive comparison might be made."
+      },
+      {
+        "q": "Does it record colour names or roles?",
+        "a": "No. The array holds values only, so any meaning such as surface or accent lives in the order and in your own documentation."
+      },
+      {
+        "q": "Can I paste it directly into a config file?",
+        "a": "Yes, for any target that accepts a JSON array of strings — a chart palette, a fixture, a build script or a documentation source."
+      },
+      {
+        "q": "Does the array keep the order I arranged?",
+        "a": "Yes. It is an array rather than an object, so the sequence is preserved exactly as the rows stand, which is what a ramp or a chart series depends on."
+      }
+    ]
+  },
+  {
+    "slug": "color-palette-css-exporter",
+    "keywords": [
+      "color palette css exporter",
+      "palette to css variables",
+      "css color variables generator",
+      "export palette as css"
+    ],
+    "intro": "The color palette CSS exporter turns an editable palette into a ready-to-paste :root block of numbered custom properties, one declaration per color.",
+    "content": "The color palette CSS exporter edits a palette and writes the CSS custom properties for it. You keep a list of colors — add, remove, or adjust any of them — and the output beside it is a :root block containing one declaration per color, numbered from one, with the hex value uppercased. A copy button lifts the whole block onto the clipboard. It is the shortest route from a set of colors you have chosen to a stylesheet that can reference them by name, turning a palette to css variables with no hand editing at all.\n\nThe output shape is deliberately plain:\n\n- A :root block with one declaration per colour, numbered from one.\n- Each declaration indented two spaces for readability in a diff, with property names following the numbered pattern --brand-1, --brand-2 and upward.\n- Every value a six-digit hex, with no comments, no fallbacks and no nested theme blocks, so the block pastes directly into a stylesheet, a CSS-in-JS template or a build step that concatenates stylesheets.\n\nThe reason to put colors in custom properties rather than writing the values inline is maintenance. A literal repeated in twelve places has to be found and changed twelve times, and the risk is that one gets missed and the interface develops a slightly-off shade that nobody can quite explain. A variable changes once. That matters most when a theme swaps: if every surface and accent reads from a property, switching palettes is a matter of redefining the block rather than rewriting rules. It is also what makes runtime theming on a website practical at all.\n\nNaming is the one thing the tool cannot decide for you. It emits numbered names because it has no idea what the colors are for, and numbered names are a poor long-term choice: a property called brand dash three tells a future reader nothing about whether it is a border or a call to action. The sensible workflow is to take the generated block as a starting point and rename each declaration to the role it serves, because role-based names survive a rebrand while appearance-based ones do not.\n\nBecause the palette editor is live, iterating is cheap: adjust a color and the declaration updates immediately, so you can paste, preview and paste again. That makes it useful early in a project, when the palette is still moving, and later when a single shade needs nudging. If the target is not plain CSS but a framework config, the design token generator produces a structured object instead, and if the goal is JSON data rather than stylesheet declarations, the JSON exporter covers that direction.\n\nA few things are intentionally out of scope:\n\n- The block declares a single set of properties, with no light-and-dark variants, no media queries and no alpha handling.\n- Property names are numbered rather than role-based, because the tool has no idea what the colors are for, so renaming each declaration to the role it serves happens in the stylesheet and is what makes the names survive a rebrand.\n- Theme architecture is yours to wrap around the leaf declarations.\n\nNothing more is claimed for it than that: it is a css color variables generator rather than a theme architecture, and when the requirement is simply to export palette as css declarations that paste cleanly, that narrowness is exactly the feature.",
+    "howTo": [
+      "Edit the palette in the left-hand card until the values are right.",
+      "Read the :root block beside it — each change updates the declarations immediately.",
+      "Copy the block into a stylesheet, a CSS-in-JS template or a build step.",
+      "Rename the numbered properties to the roles they serve before committing."
+    ],
+    "whenToUse": "Use this exporter when you want a palette as a paste-ready block of CSS custom properties. Use the design token generator when the target is a token object, and the JSON exporter when you need data rather than declarations. When the target is a token object rather than declarations the {{design-token-generator|design token generator}} produces the structured shape, and for data rather than a stylesheet the {{color-palette-json-exporter|JSON exporter}} is the match.",
+    "faqs": [
+      {
+        "q": "What exactly does the output look like?",
+        "a": "A colon-root block with one custom property per color, indented for readability, each value an uppercase six-digit hex, and a copy button for the whole block."
+      },
+      {
+        "q": "Can I rename the properties?",
+        "a": "The tool emits numbered names because it does not know each color's role. Take the block as a starting point and rename the declarations to the roles they serve."
+      },
+      {
+        "q": "Does it generate light and dark themes?",
+        "a": "No. It produces one flat set of declarations. Wrapping them in media queries or theme selectors is a project-level decision left to you."
+      },
+      {
+        "q": "Why use variables instead of the hex values directly?",
+        "a": "A color written once can be changed once. Variables also make theme swapping and runtime theming practical, because every consumer follows the declaration."
+      },
+      {
+        "q": "Can I generate light and dark variants in one go?",
+        "a": "No. The block declares a single set of properties; theme variants, media queries and alpha handling are decisions about how a project structures themes, so those wrappers are added around the exported declarations."
+      }
+    ]
+  },
+  {
+    "slug": "color-palette-svg-exporter",
+    "keywords": [
+      "color palette svg exporter",
+      "palette to svg",
+      "svg swatch strip",
+      "export palette as svg code"
+    ],
+    "intro": "The color palette SVG exporter writes your palette as vector markup — one rectangle per colour — which you can copy or download as an .svg file.",
+    "content": "The color palette SVG exporter converts a palette into vector markup rather than pixels. Edit the list of colours and the tool produces an SVG document containing one rectangle per colour, laid out left to right, with each rectangle carrying its fill value. You can copy the markup or download it as a file, and because the output is text it behaves like text everywhere: it can be read, edited, reviewed in a diff and committed to a repository.\n\nThe markup is deliberately minimal:\n\n- The document declares the SVG namespace, sets a width and height, and includes a viewBox so the strip scales predictably.\n- Each rectangle is ninety-six pixels square and positioned at an x offset equal to its index multiplied by ninety-six, so the strip grows one cell at a time as colours are added.\n- There are no groups, no transforms and no embedded styles — just filled rectangles in document order, which keeps the file simple enough to hand-edit.\n\nThe reason to choose SVG over a raster export is resolution independence. A vector strip can be scaled to a hero banner or shrunk into a favicon without any loss of edge quality, which matters for anything that will be displayed at different sizes. Because it is text, it can also be inlined directly into an HTML document, which avoids a separate network request, or assigned as a CSS background image with the markup embedded as a data URI. Neither trick works with a PNG.\n\nThree uses come up repeatedly. Display assets, where a crisp strip is needed at an unpredictable size. Inline decoration, where a small vector block is cheaper than a round trip for an image. And generation, where a build step or a template needs markup it can assemble rather than a binary it has to bundle. In each case the value is that the artefact stays editable and diffable instead of being a frozen bitmap.\n\nThere are a few deliberate omissions:\n\n- The markup carries no text labels, so the hex values are not printed on the artwork and a viewer sees only the colours.\n- The layout is a single row of equal squares with no spacing, padding or borders, so gaps between the blocks are edits you make to the rectangles' coordinates.\n- Only rectangles are emitted, with nothing for rounded corners or gradients, which keeps the output legible but leaves styling to you.\n\nFor producing a colour SVG swatch strip, then, the tool is at its most useful as a starting point: generate the markup, then either take it as-is or open it and adjust. Copying the source rather than downloading a file is often the better habit, because the markup is short enough to read at a glance and small enough to paste straight into a stylesheet or a component, which is exactly where an editable vector artefact earns its keep. For a palette to svg conversion you intend to keep in a repository, the markup is the durable form: readable in review, diffable between changes and rebuildable at any size. And when someone asks you to export palette as svg code that they can edit themselves, that editability — not the file itself — is the real deliverable.",
+    "howTo": [
+      "Edit the palette until the colours are right.",
+      "Read the SVG markup beside it, which updates as the list changes.",
+      "Copy the markup or press Download .svg.",
+      "Adjust the rectangle coordinates or sizes in the markup when the layout needs changing."
+    ],
+    "whenToUse": "Use this exporter when you need a scalable, editable representation of a palette for the web or for version control. Use the PNG generator when a plain image is more convenient, and the labelled swatch export when the values must be visible. When a plain image is more convenient the {{color-palette-png-generator|PNG palette generator}} draws the strip as pixels, and when the codes have to be visible the {{color-swatch-png-generator|labelled swatch export}} prints them.",
+    "faqs": [
+      {
+        "q": "What does the markup look like?",
+        "a": "An SVG document with the namespace, width, height and a viewBox, followed by one ninety-six pixel square rectangle per colour, each filled with its value and positioned left to right."
+      },
+      {
+        "q": "Why use SVG instead of a PNG?",
+        "a": "A vector strip stays sharp at any size, and because it is text it can be inlined in HTML, embedded as a CSS background, reviewed in a diff and version-controlled."
+      },
+      {
+        "q": "Are the hex codes printed on the artwork?",
+        "a": "No. The output is rectangles only, so the values are not shown. Add text elements yourself if the artwork needs to display them."
+      },
+      {
+        "q": "Can I adjust the layout?",
+        "a": "Yes. The markup is short and plain, so the rectangle coordinates, sizes or spacing can be edited directly after copying it."
+      },
+      {
+        "q": "Can the strip be scaled to any size?",
+        "a": "Yes. It is vector markup with a viewBox, so it stays crisp from a favicon up to a hero banner, and the file can be inlined into HTML or embedded as a CSS data URI."
+      }
+    ]
+  },
+  {
+    "slug": "color-palette-png-generator",
+    "keywords": [
+      "color palette png generator",
+      "palette strip image",
+      "export palette as png",
+      "color ramp image download"
+    ],
+    "intro": "The color palette PNG generator renders your palette as a horizontal strip image and downloads it, with the on-screen preview drawn from the exact same canvas.",
+    "content": "The color palette PNG generator turns a palette into a picture. You edit a list of colours, and the tool draws them as a single horizontal strip with one solid block per colour, then offers the result as a downloadable PNG, laying the palette out as a palette strip image rather than as data or markup. Because the preview on screen is the canvas that gets exported rather than a separate mock-up, what you see is precisely what lands in the file, which is a small thing that removes a lot of doubt when a swatch has been handed to someone else.\n\nThe geometry is fixed and predictable:\n\n- Each colour occupies a cell one hundred and sixty pixels wide, the strip is two hundred pixels tall, and the total width is the cell width multiplied by the number of colours.\n- A six-colour palette therefore produces a nine-hundred-and-sixty by two-hundred image, and a five-colour palette produces eight hundred by two hundred.\n- The image is redrawn whenever the palette changes, so adding or removing a colour re-proportions the strip immediately instead of leaving a stale preview behind.\n\nChoosing PNG over the other export formats is a decision about where the artefact is going. A PNG is understood everywhere and needs no viewer, no stylesheet and no markup: it drops into a slide deck, a documentation page, a pull request description, a design hand-off or a chat message and looks the same for everyone. Raster also means the pixels are final, so there is no question of how a renderer might interpolate the edges. If the destination is a document rather than a codebase, a strip image is usually the format people actually want.\n\nThere are two related jobs this covers well. The first is illustration: a header or divider that shows a scheme at a glance. The second is verification, because a strip laid out end to end is a much better way to judge whether a palette progresses evenly than a scatter of swatches seen one at a time. Adjacent steps that are too close together, or a jump that breaks the sequence, become obvious when the colours share an edge.\n\nIt is worth knowing what the image deliberately leaves out:\n\n- The strip is unlabelled: no hex values, no names and no borders between the blocks, which keeps it clean for visual use but means it is not a specification sheet.\n- The height and cell width are fixed, with no spacing, padding or label controls.\n- It is a plain raster, so for editable markup the SVG exporter is the vector route and for printed codes the labelled swatch export carries them.\n\nTreat it as a color palette png generator in the straightforward sense: edit the list, preview the strip, download the file. Keeping the palette in the tool rather than in an image editor means the strip can be regenerated the moment a value changes, which is precisely the point of generating the color ramp image rather than cutting one out of a screenshot and shipping it with stale colours. When the deliverable is a plain picture, that is the shortest route to export palette as png, and the fact that the strip is regenerated on every edit is what makes a color ramp image download worth generating rather than recreating.",
+    "howTo": [
+      "Edit the palette until the strip looks right.",
+      "Check the preview, which is the canvas that gets exported rather than a mock-up.",
+      "Press Download .png to save the strip."
+    ],
+    "whenToUse": "Use this generator when the palette needs to travel as a plain image — slides, docs, hand-offs or chat. Use the labelled swatch export when the values must be printed on the artefact, and the SVG exporter when you need editable vector markup. The {{color-palette-svg-exporter|SVG exporter}} produces editable vector markup instead of pixels, and the {{color-swatch-png-generator|labelled swatch export}} prints each value on its own card.",
+    "faqs": [
+      {
+        "q": "What size is the exported image?",
+        "a": "Each colour gets a cell one hundred and sixty pixels wide and the strip is two hundred pixels tall, so the width is that cell width multiplied by the number of colours."
+      },
+      {
+        "q": "Does the preview match the download?",
+        "a": "Yes. The on-screen preview is drawn from the same canvas that produces the PNG, so the file matches what you see exactly."
+      },
+      {
+        "q": "Are the hex values shown on the image?",
+        "a": "No. The strip is unlabelled. Use the labelled swatch export if the codes need to appear on the artefact itself."
+      },
+      {
+        "q": "Is it updated when I change a colour?",
+        "a": "Yes. The image is redrawn whenever the palette changes, so the strip re-proportions and recolours immediately rather than going stale."
+      },
+      {
+        "q": "What are the exact pixel dimensions of the strip?",
+        "a": "Each colour is 160 pixels wide and the strip is 200 pixels tall, so the width is 160 times the number of colours — 960 by 200 for six colours, 800 by 200 for five."
+      }
+    ]
+  }
+]

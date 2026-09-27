@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "ui-component-contrast-checker",
+    "keywords": [
+      "ui component contrast checker",
+      "non-text contrast",
+      "3 to 1 component contrast",
+      "button contrast"
+    ],
+    "intro": "UI Component Contrast Checker measures the color of a component boundary against the surface behind it and judges the pairing at 3 to 1, the non-text contrast requirement.",
+    "content": "UI Component Contrast Checker measures a component's color against the surface it sits on and reports the ratio to two decimal places, judged against a fixed 3 to 1 gate. It exists because a boundary is not text. A button fill, an input outline or a checked checkbox has to be distinguishable from its surroundings, but none of them has to be readable as a glyph, so the requirement is different and the sample shown here has to be different too.\n\nThe requirement this page tests comes from the non-text contrast rule in WCAG 2.1, which asks for 3 to 1 across the pieces of interface that carry meaning:\n\n- Component boundaries, meaning the fill, border or outline that makes a control recognisable as a control.\n- State indicators, such as the track of a toggle or the border of a selected card.\n- Graphical objects, including the lines and areas a chart uses to convey its data.\n- The focus indicator around an interactive element, which is close enough in kind to share the same figure but has its own dedicated check.\n\nThe second panel draws a component sample rather than a paragraph: a filled button on the chosen background, with the label set in the background color over the component color. That reversal is deliberate, because it shows the pair from both directions at once. The ratio itself is the standard WCAG 2.x contrast calculation, with each color converted to sRGB, its channels linearised, and the three linear values weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, before the lighter plus 0.05 is divided by the darker plus 0.05.\n\nWhat a single boundary check cannot cover is worth stating clearly.\n\n- The label inside the component is a separate requirement. A button fill can pass at 3 to 1 while the text on it fails at 4.5 to 1, and this page will not tell you that.\n- One pair is measured at a time. Hover, active, disabled and selected states are each their own pair and each needs its own check.\n- The component has no size. A 1px hairline border and a large filled area are treated identically, though they read very differently.\n- The page cannot know which pixels of your real component are load bearing, so it can only evaluate the colors you give it.\n- No alpha, and no third surface behind the pair.\n\nUse this check on button fills, input and textarea borders, checkbox and radio outlines, toggle tracks, tab indicators and any chart line or area that carries information. Pair it with the ordinary text check for the label sitting inside the component, and with the focus check for the ring that appears when the control is reached by keyboard.\n\nThe 3 to 1 component contrast requirement is easy to mistake for a soft target, because most brand fills clear it without help. Where it bites is at the edges of a design system: a hairline divider that carries grouping, a disabled state almost the same tone as the surface beneath it, or an outline that vanishes when the card it sits on changes color. Auditing the button contrast of every state rather than only the resting one is the cheapest way to catch those, since state colors are usually derived after the base fill has already been approved.",
+    "howTo": [
+      "Set the component or indicator color in the first field, which is labelled Indicator rather than Foreground.",
+      "Set the surface behind the component in the second field.",
+      "Read the ratio at the top of the second panel, to two decimal places.",
+      "Check the Pass or Fail line against the 3 to 1 threshold, then read the button sample to see the pair from both directions."
+    ],
+    "whenToUse": "Use the UI component contrast checker for any boundary that has to be distinguishable rather than readable: button fills, input outlines, toggle tracks, tab indicators and informative chart strokes. Text inside those components belongs with the {{wcag-21-aa-checker|WCAG 2.1 AA checker}}, the ring that appears on keyboard focus belongs with the {{focus-indicator-contrast-checker|focus indicator contrast checker}}, and mixed palettes where several boundaries are in play are easier to audit with the {{palette-accessibility-checker|palette accessibility checker}}.",
+    "faqs": [
+      {
+        "q": "Why is a component boundary allowed 3 to 1 when text needs 4.5 to 1?",
+        "a": "The two requirements measure different things. Text has to be legible as shapes, which needs more separation, while a boundary only has to be distinguishable from its surroundings. WCAG 2.1 sets 3 to 1 for the pieces of an interface that carry meaning and 4.5 to 1 for ordinary text."
+      },
+      {
+        "q": "Does a passing boundary make the text on top of it accessible?",
+        "a": "No, they are independent. The 3 to 1 figure describes the component against its surface. The label's own contrast is measured between the label color and the component fill, and it needs 4.5 to 1 at ordinary sizes."
+      },
+      {
+        "q": "Which states do I need to check for the same button?",
+        "a": "Every state that changes a color. Default, hover, active, disabled, selected and dark-mode variants are separate pairs, and each has to clear the threshold on its own. A button that passes at rest can easily fail on hover."
+      },
+      {
+        "q": "Does a shadow count as the component boundary?",
+        "a": "A shadow is an effect rather than the boundary itself, so a component identified only by a soft shadow is a poor candidate for a 3 to 1 measurement. Give the control a defined fill or border and check that instead."
+      },
+      {
+        "q": "Can I use this for a chart line?",
+        "a": "Yes. Lines and areas that carry the data are graphical objects under the same requirement, so each series color should reach 3 to 1 against the chart background. Series against each other is a separate problem this check does not address."
+      }
+    ]
+  },
+  {
+    "slug": "focus-indicator-contrast-checker",
+    "keywords": [
+      "focus indicator contrast checker",
+      "focus ring contrast",
+      "3 to 1 focus contrast",
+      "keyboard focus visibility"
+    ],
+    "intro": "Focus Indicator Contrast Checker measures the color of a focus ring against the surface behind it and judges the pairing at 3 to 1.",
+    "content": "Focus Indicator Contrast Checker measures a focus ring against the surface it will appear on and reports the ratio to two decimal places, judged at 3 to 1. The sample draws the ring the way it is usually built, as a 2px outline in the indicator color around a control whose label uses that same color, so you can see the indicator and its surface together rather than as two swatches.\n\nThe check matters because keyboard focus is the one piece of interface state that some users cannot work without. Someone navigating by keyboard has no pointer to tell them where they are, so a focus ring that disappears against a background is not a cosmetic problem. The requirement it is measured against sits alongside the non-text contrast rule, which treats the indicator as part of the interface rather than as decoration.\n\nThree things have to hold for a focus indicator to be genuinely visible, and this page only measures the first:\n\n- The ring color against its surrounding surface, which is the 3 to 1 pairing this tool evaluates.\n- The ring against the component it surrounds, which is a different pair and is not measured here.\n- The ring's area or thickness, since a thin indicator can be lost even when the colors separate well.\n\nThe ratio comes from the standard WCAG 2.x calculation: both colors are converted to sRGB, their channels are linearised, and the linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance. The lighter luminance plus 0.05 is divided by the darker plus 0.05, rounded to two decimals before comparison.\n\nThe limits here are practical rather than mathematical.\n\n- Only the ring against the background is measured. The ring against the component it wraps is a second pairing that the tool does not evaluate.\n- Thickness and area are not inputs, so a passing pair does not guarantee the indicator will be noticed.\n- One surface is measured at a time, but a control can sit on a card, on the page background and on a sticky header, and each is its own surface.\n- The tool cannot see whether something else overlaps the ring, which is a common cause of invisible focus in real pages.\n- No alpha and no third surface behind the pair.\n\nCheck the ring against every surface a control can land on, including the hover state of the row behind it, and against the component's own fill for the second pairing. If a single ring color cannot clear 3 to 1 everywhere, a common answer is to pair the ring with a contrasting outline offset so it carries its own background rather than relying on whatever is behind it.\n\nA useful habit is to treat 3 to 1 focus contrast as a floor rather than a goal, and to test keyboard focus visibility on the surfaces where a ring is most likely to be crowded out: table rows, selected list items and the primary action of a dialog. Those are the places where the indicator is drawn next to a colored fill rather than a neutral page, and they are where a ring that passes a focus ring contrast measurement in isolation still ends up hard to see. If one indicator has to work everywhere, give it a contrasting halo so it carries its own separation instead of borrowing it from whatever sits behind.",
+    "howTo": [
+      "Set the focus ring color in the first field, which is labelled Indicator.",
+      "Set the surface the control sits on in the second field.",
+      "Read the ratio at the top of the second panel, to two decimal places.",
+      "Check the Pass or Fail line against the 3 to 1 threshold, and read the sample to see the ring drawn as a 2px outline around a focused control."
+    ],
+    "whenToUse": "Use the focus indicator contrast checker for the ring that appears when a control is reached by keyboard, especially on controls that sit on more than one surface. The component's own boundary belongs with the {{ui-component-contrast-checker|UI component contrast checker}}, label legibility inside the control belongs with the {{wcag-21-aa-checker|WCAG 2.1 AA checker}}, and a whole interface where several indicators share one color is quicker to review with the {{palette-accessibility-checker|palette accessibility checker}}.",
+    "faqs": [
+      {
+        "q": "Is 3 to 1 the official requirement for a focus indicator?",
+        "a": "It is the figure the non-text contrast rule applies to interface elements, and it is the accepted working target for focus indicators. This page applies it uniformly, which makes it stricter than any arrangement that allows a lower contrast when the indicator is thicker."
+      },
+      {
+        "q": "My ring passes here but users still lose it. Why?",
+        "a": "Two common reasons. The ring may be too thin to notice at a normal viewing distance, or it may be drawn underneath a sticky element so the visible part is much smaller than designed. Check the ring's thickness and its stacking order, not just its color."
+      },
+      {
+        "q": "Should the ring be measured against the control or the page?",
+        "a": "Both, in practice. This check covers the ring against the surface behind it. The ring against the control it wraps is a separate pair, and a ring that separates well from the page can still vanish against a saturated button fill."
+      },
+      {
+        "q": "Do I need a separate check for dark mode?",
+        "a": "Yes. Dark mode is a different set of surfaces, so every pairing has to be measured again. A ring that clears 3 to 1 on a white page often fails against a dark card unless the color is changed."
+      },
+      {
+        "q": "Is it acceptable to rely on a browser default focus ring?",
+        "a": "Often, yes, provided nothing in your stylesheet removes it. The default ring is designed to be visible, so if you restyle focus, the burden of proving the replacement reaches 3 to 1 falls on your own colors."
+      }
+    ]
+  },
+  {
+    "slug": "text-readability-checker",
+    "keywords": [
+      "text readability checker",
+      "text on color preview",
+      "font size contrast",
+      "readable text check"
+    ],
+    "intro": "Text Readability Checker renders your own copy in your chosen colors at six sizes at once, so a pairing can be judged as text rather than as a pair of swatches.",
+    "content": "Text Readability Checker renders your own sentence in your chosen text and background colors at six sizes at once, from 12px up to 40px, with the contrast ratio printed underneath. It answers a question the number alone cannot: a pair can clear 4.5 to 1 and still read badly, and the only way to see that is to read it.\n\nThe preview is built to make the size question visible rather than theoretical:\n\n- 12px, the size where a pairing that only just satisfies the threshold starts to look thin.\n- 14px and 16px, the ordinary body sizes most interfaces actually use.\n- 20px and 28px, where large-text allowances begin to apply and type starts to hold up.\n- 40px, the display size at which almost any compliant pair reads comfortably.\n\nThe text is yours to set, so the preview shows the letters and word shapes your product will really print rather than a pangram. The colors are entered as a text color and a background color, and the ratio shown beside the preview is the standard WCAG 2.x calculation: both colors are converted to sRGB, their channels are linearised, and the linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, before the lighter plus 0.05 is divided by the darker plus 0.05 and rounded to two decimals.\n\nThis page deliberately does not hand down a verdict, and that shapes what it can and cannot do.\n\n- There are no pass or fail badges. The ratio is printed and the judgement is left to you, which is right for a readability question but wrong if you need a compliance answer.\n- The six sizes are fixed at 12, 14, 16, 20, 28 and 40 pixels. They are not rem values, so browser text scaling is not reflected in the preview.\n- Nothing is measured from the rendering. The number is the ratio of the two colors, not a sample of the pixels on screen, so antialiasing and font choice do not enter the result.\n- Font family and weight are not inputs, though both change how a pairing holds up at small sizes.\n- No alpha, gradients or surfaces behind the pair.\n\nUse this page after a pair has passed its threshold check, not instead of it. Paste the longest line your interface really shows, read the 12px sample first and work upwards, and if the smallest size looks weak, treat that as a signal to move a color rather than to raise the type size everywhere.\n\nA text on color preview is also the only reliable way to catch the subtler failures, which are about font size contrast rather than the pair itself. A muted grey that satisfies 4.5 to 1 can still look weak at 12px in a light weight, and a dark navy can look heavy at 40px in a bold one. Because the page pairs one color choice with six fixed sizes, a readable text check is really a question about which size the pairing is fit for, and the answer is often that the same two colors suit body copy at one width and captions at quite another.",
+    "howTo": [
+      "Set the text color and the background color in the two swatch fields.",
+      "Type or paste the copy you actually want to test into the preview text field, replacing the default pangram.",
+      "Read the preview block, working from the 12px line upwards, since the smallest size reveals the most.",
+      "Compare the printed contrast ratio underneath against the threshold your text size requires."
+    ],
+    "whenToUse": "Use the text readability checker once a pair has already passed a threshold test and you want to see how it behaves as real text at small sizes. The threshold verdicts themselves belong with the {{contrast-checker|contrast checker}} or the {{wcag-21-aa-checker|WCAG 2.1 AA checker}}, deciding which neutral to set it in is the job of the {{accessible-color-pair-finder|accessible color pair finder}}, and reviewing the pairing across a whole interface is easier with the {{palette-accessibility-checker|palette accessibility checker}}.",
+    "faqs": [
+      {
+        "q": "Why does this page not tell me whether my pair passes?",
+        "a": "Because readability is the question, not compliance. A pair can satisfy every threshold and still look weak at 12px in a thin font. The ratio is printed so you can compare it against your own requirement, and the verdicts live on the dedicated threshold checkers."
+      },
+      {
+        "q": "Are the preview sizes in pixels or points?",
+        "a": "They are pixels, fixed at 12, 14, 16, 20, 28 and 40. Because they are absolute rather than relative units, changing your browser's text size setting will not change the preview, which is worth remembering when you evaluate the smallest line."
+      },
+      {
+        "q": "Does the preview measure the actual rendered pixels?",
+        "a": "No. The ratio is computed from the two colors you entered, and the rendering is there for your eyes. Antialiasing, subpixel rendering and the font you are viewing in all affect how it looks but not the figure."
+      },
+      {
+        "q": "Which size should I judge first?",
+        "a": "The 12px line. It is the most demanding case and the fastest way to spot a pairing that is technically compliant but practically thin. If it reads cleanly there, the larger sizes will as well."
+      },
+      {
+        "q": "Can I check placeholder or secondary text here?",
+        "a": "Yes, and it is worth doing, because muted text colors are where threshold failures usually hide. Substitute the muted color as the text color and read the smallest line, treating anything below 4.5 to 1 as a candidate for a darker value."
+      }
+    ]
+  },
+  {
+    "slug": "accessible-color-pair-finder",
+    "keywords": [
+      "accessible color pair finder",
+      "readable color pairs",
+      "aa contrast neutrals",
+      "text color for background"
+    ],
+    "intro": "Accessible Color Pair Finder starts from one color and works outward, proposing neutral text colors that reach AA contrast against it without any further tuning.",
+    "content": "Accessible Color Pair Finder starts from a single color and works outward. You choose the base, and the tool builds a ramp of neutral candidates, keeps only the ones that reach 4.5 to 1 against it, sorts them from strongest to weakest and shows the best eight. It answers the common design question of what to set on top of a given color, without a round of trial and error.\n\nThe candidates are generated rather than looked up, and the way they are built is the important detail behind the results:\n\n- Twenty-one neutral steps, produced by walking lightness from 0 to 1 in fixed 5% increments with chroma held at zero throughout.\n- A single AA contrast filter at 4.5 to 1 against your base, with everything below that discarded before the list is built.\n- Ratio ordering, strongest first, so the top of the list is the most separated pairing rather than the most visually pleasing one.\n- A shortlist of eight, since the passing set is usually longer than a design decision needs.\n\nEach candidate is constructed in OKLCH with zero chroma, then converted to hex, and every ratio is the standard WCAG 2.x contrast figure: channels linearised out of sRGB, weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, then the lighter plus 0.05 divided by the darker plus 0.05, rounded to two decimals. The preview draws each candidate as text on your base color, so you can see the pairing rather than infer it.\n\nThe narrowness of the ramp is what keeps the results clean, and it is also the main limitation.\n\n- Every candidate is a pure neutral with no chroma. A warm or cool tinted grey has to be derived from one of these and re-checked, since the hex value will no longer be in the list.\n- Only the AA threshold is applied. There is no way to ask for the 7 to 1 enhanced set, so finding AAA-safe text means working up the list manually.\n- The lightness steps are fixed at 5%, which means a workable value just inside a threshold can be missed entirely.\n- Only the top eight passing candidates are shown, so the list is a shortlist rather than the complete set.\n- The base is always the background. If your base is the text and the neutral is the surface, the ratio is the same but the reading of the results is reversed.\n- No alpha, and no third surface behind the pair.\n\nReach for this page when you have a brand color that has to stay and you need text colors that work on it, which is the reverse of the usual check. For a palette that already exists, a whole-set audit is faster elsewhere, and for a pair that passes on paper but reads poorly, the readability preview is the better next step.\n\nThe list is deliberately a set of AA contrast neutrals rather than a palette generator, so the results read as answers to one question: what text color for background X still works. That framing is why the candidates are ordered by ratio and why the shortlist stops at eight, since a designer choosing readable color pairs is usually looking for the first value that clears the bar with room to spare rather than the widest possible set of options.",
+    "howTo": [
+      "Enter the base color in the swatch field, which is the surface the text will sit on.",
+      "Read the grid of candidates, each previewed as text on your base color.",
+      "Check the hex value and the ratio printed under each candidate, to two decimal places.",
+      "Pick from the top of the list for the strongest separation, or further down when you want a softer pairing, then re-check any tinted variant separately."
+    ],
+    "whenToUse": "Use the accessible color pair finder when a base color is fixed by a brand and you need to know what text colors can safely sit on it. Choosing between two known colors is the job of the {{contrast-checker|contrast checker}}, auditing a whole palette at once belongs with the {{palette-accessibility-checker|palette accessibility checker}}, checking whether a passing pair actually reads well is the {{text-readability-checker|text readability checker}}, and the same is equally true of the {{wcag-21-aa-checker|WCAG 2.1 AA checker}} verdict once a candidate is chosen.",
+    "faqs": [
+      {
+        "q": "Why are all the suggested colors greys?",
+        "a": "Because the ramp is built at zero chroma, so the lightness ramp is the only variable being explored. That keeps the results unambiguous, but it means every suggestion is a pure neutral and any tinted alternative has to be checked separately."
+      },
+      {
+        "q": "Can I get AAA-safe colors from this list?",
+        "a": "The tool only filters at 4.5 to 1, so it does not label which candidates also clear 7 to 1. Since the list is sorted strongest first, the top entries usually do, but the printed ratio is what to go by rather than the position in the list."
+      },
+      {
+        "q": "Why does my exact grey not appear in the results?",
+        "a": "Because the ramp walks lightness in fixed 5% steps, so the candidate nearest to your grey may sit just on the wrong side of a step. If you need a specific value, check it directly against the base instead of looking for it in the list."
+      },
+      {
+        "q": "Does the ordering tell me which color is best?",
+        "a": "It tells you which is most separated, which is not the same thing. The strongest pairing is the safest for small text and the least subtle as a surface color, so the right entry is usually the one that clears the threshold with the least contrast you can afford."
+      },
+      {
+        "q": "What if my base color is the text rather than the background?",
+        "a": "The ratios are unchanged, because contrast is symmetric, but the list becomes a set of surface colors rather than text colors. Read the previews accordingly, and expect the usable range to be narrower, since backgrounds have to be lighter than the text they carry."
+      }
+    ]
+  },
+  {
+    "slug": "minimum-contrast-auto-fixer",
+    "keywords": [
+      "minimum contrast auto fixer",
+      "fix failing contrast",
+      "contrast fix",
+      "pass aa contrast"
+    ],
+    "intro": "Minimum Contrast Auto-Fixer takes a color whose pairing has failed and returns neutral alternatives that reach the 4.5 to 1 AA minimum against it.",
+    "content": "Minimum Contrast Auto-Fixer starts from a color and returns the neutrals that already satisfy a contrast minimum against it. It is the repair side of the pair problem: instead of telling you whether a combination passes, it assumes one side is fixed, generates candidates for the other, and keeps only the ones that clear 4.5 to 1, strongest first.\n\nWhat the fix actually consists of is worth stating precisely, because the tool does not edit your color:\n\n- Your input color becomes the surface, and stays exactly as entered.\n- Twenty-one candidate neutrals are generated by stepping lightness from 0 to 1 in 5% increments at zero chroma.\n- Candidates below 4.5 to 1 against your color are discarded, and the rest are ordered by ratio.\n- The eight strongest survivors are shown, each previewed as text over your input color with its hex value and ratio.\n\nThe fix is therefore a substitution: the failing color in the pairing is replaced with one of the listed neutrals rather than being nudged until it passes. That is a real constraint in practice, because a brand color that fails cannot be repaired by this tool at all; what changes is the other half of the pair. The underlying figure is the usual WCAG 2.x contrast calculation, with each color linearised out of sRGB and weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, divided and offset by 0.05, and rounded to two decimals.\n\nA few boundaries follow from how narrow the fix is.\n\n- Your color is never modified. If the failing color is the one that has to stay, this page tells you what to put with it, not how to lighten or darken it.\n- Every candidate is a pure neutral. Tinted replacements have to be taken from the list and re-checked after adjustment.\n- The threshold is fixed at 4.5 to 1. There is no way to ask for 3 to 1 on a large-text pairing or 7 to 1 for the enhanced level.\n- Only the top eight passing options are listed, so the list stops short of the full passing set.\n- Passing the ratio is not the same as reading well. A neutral that just clears the line is the riskiest entry in the list when the text is small or the font is light.\n- One pair at a time, with no alpha and no surface behind it.\n\nUse this page as the last step of a fix: run the check first, confirm what actually failed, then come here for replacements. Prefer an entry that clears the threshold with room to spare rather than the first one that passes, since the aim is a pairing that survives weight changes and smaller sizes.\n\nThe name describes the job plainly: a minimum contrast auto fixer exists to fix failing contrast by returning the neutrals that pass AA contrast. What it deliberately does not do is the more ambitious form of a contrast fix, which is to nudge your own color by a few percent of lightness until it clears the threshold while keeping its hue. That is usually what a designer wants when the failing color is a brand tone, and because this page never modifies its input, a manual adjustment is the right route when the color itself has to change.",
+    "howTo": [
+      "Enter the color that must not change in the swatch field, which will act as the surface.",
+      "Read the candidate grid, each entry previewed as text on that color.",
+      "Check the ratio printed under each candidate and choose one with headroom above 4.5 to 1 rather than the first that passes.",
+      "Re-run the threshold check with the replacement in place to confirm the pairing now clears AA."
+    ],
+    "whenToUse": "Use the minimum contrast auto-fixer when a pairing has already failed a check and one side of it cannot move. Confirming the failure itself belongs with the {{contrast-checker|contrast checker}} or the {{wcag-21-aa-checker|WCAG 2.1 AA checker}}, building a fresh set of pairings from a new base is the {{accessible-color-pair-finder|accessible color pair finder}}, and checking that the replacement reads well once applied is the {{text-readability-checker|text readability checker}}.",
+    "faqs": [
+      {
+        "q": "Does this tool change my color to make it pass?",
+        "a": "No. Your input color is treated as fixed and becomes the surface for the pairing. What the tool returns are neutral partners that already meet the minimum, so applying the fix means substituting the other color in the pairing."
+      },
+      {
+        "q": "What if the failing color is the one I cannot change?",
+        "a": "Then the replacement has to come from the other side of the pair. Keep your color as the text or the surface and choose a listed neutral for the opposite role, then re-check, because the roles do not carry the same usable range."
+      },
+      {
+        "q": "Can it target AAA instead of AA?",
+        "a": "The filter is fixed at 4.5 to 1 for AA. Because the results are ordered from strongest contrast down, entries near the top often clear 7 to 1 as well, but the page does not filter or label them, so the printed ratio is what to read."
+      },
+      {
+        "q": "The suggested neutral passes but looks heavy. Is that expected?",
+        "a": "Yes. A neutral strong enough to clear the threshold against a mid-tone surface is usually well separated, and on a light or dark surface it reads as stark. Choosing an entry lower in the list trades some contrast for softness, as long as it still clears the line."
+      },
+      {
+        "q": "Why is the list so short if many colors would work?",
+        "a": "Because the candidate ramp itself is narrow: twenty-one neutrals at fixed lightness steps, filtered at the threshold and trimmed to the best eight. A wider, tinted search is outside what the ramp covers."
+      }
+    ]
+  },
+  {
+    "slug": "palette-accessibility-checker",
+    "keywords": [
+      "palette accessibility checker",
+      "palette contrast checker",
+      "check palette against white",
+      "palette aa contrast"
+    ],
+    "intro": "Palette Accessibility Checker measures every color in a palette against a single white surface and marks each one as passing or failing AA at 4.5 to 1.",
+    "content": "Palette Accessibility Checker takes a palette and measures every color in it against white, reporting the ratio for each and marking it pass or fail at 4.5 to 1. It is the reviewer's view of a palette rather than the designer's: one column of swatches, one fixed surface, and a tick or a cross for each entry.\n\nThe palette is editable and starts populated, so the page is useful immediately and can be pointed at a real set:\n\n- Five colors are seeded to begin with, covering a blue, a purple, a red, a green and an amber.\n- Each entry can be replaced by picking a new color in its row.\n- Entries can be removed individually with the button beside each row.\n- Additional colors can be added, each one generated at random and then editable in place.\n\nEvery measurement is taken against white, which is fixed rather than configurable, and each row prints the hex value in upper case alongside the ratio to two decimal places and a tick or cross for the 4.5 to 1 AA line. The arithmetic is the standard WCAG 2.x contrast ratio: each color is converted to sRGB, its channels are linearised, the linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance, and the lighter plus 0.05 is divided by the darker plus 0.05 before rounding to two decimals.\n\nBecause the surface never changes, the results have to be read with the page's assumption in mind.\n\n- White is hardcoded. Every ratio describes a color on white, so a dark-theme palette will show almost everything failing, which says nothing about how those colors behave on a dark surface.\n- One surface only. The matrix of every color against every other color is not produced, so text-on-brand combinations still need their own check.\n- AA at 4.5 to 1 is the only threshold. There is no large-text allowance, so a color intended for headings is judged at the stricter figure, and AAA is not reported at all.\n- The tick is binary. A color at 4.51 to 1 and one at 15 to 1 look identical in the list.\n- Results are not exported, so anything you want to keep has to be copied out by hand.\n- The palette has no fixed size, which means a long one has to be scrolled rather than summarised.\n\nUse this page to sweep a light-theme palette in one pass and find the entries that cannot carry text on white. For text on a dark surface, reverse the roles and check the pairs individually, and for a boundary rather than text, the component check applies the right threshold.\n\nAs a palette contrast checker the page is fast by design: a fixed surface, one threshold and a binary verdict per color. That combination makes it a sound first pass over a light theme and a poor one over a dark theme, and the distinction is worth holding on to. A palette aa contrast sweep against white answers exactly one question, which is which of these colors can carry text on a light surface, so the fastest way to use it is to check palette against white once, replace the failures, and hand the surviving colors to the pair checks for the surfaces they will really sit on.",
+    "howTo": [
+      "Review the seeded palette of five colors, replacing any entry whose row does not match your own set.",
+      "Add colors with the add button when your palette is longer than five, then edit each new entry in place.",
+      "Read the contrast against white column, where every color shows its hex value, its ratio to two decimal places and a tick or cross for 4.5 to 1.",
+      "Remove the entries you have already dealt with using the button beside each row, so the remaining failures are the only thing on screen."
+    ],
+    "whenToUse": "Use the palette accessibility checker to sweep a whole light-theme palette in one pass and find which colors cannot carry text on white. A single pair belongs with the {{contrast-checker|contrast checker}}, the components built from those palette colors belong with the {{ui-component-contrast-checker|UI component contrast checker}}, finding replacements for the entries that fail is the {{accessible-color-pair-finder|accessible color pair finder}}, and confirming that a passing color reads well as text is the {{text-readability-checker|text readability checker}}.",
+    "faqs": [
+      {
+        "q": "Why is everything failing in my dark palette?",
+        "a": "Because every measurement is taken against white. A palette built for a dark interface is deliberately low in lightness, so most of its colors will be close to white and fail the 4.5 to 1 requirement. The results are correct for a white surface and irrelevant to a dark one."
+      },
+      {
+        "q": "How many colors can the palette hold?",
+        "a": "There is no cap. It starts with five seeded colors, and you can add or remove entries freely, which is why a long palette ends up as a scroll rather than a summary view."
+      },
+      {
+        "q": "Does a tick mean the color is safe for text?",
+        "a": "It means the color reaches 4.5 to 1 against white, which is the requirement for ordinary text on that surface. It says nothing about the color as a background for other text, or about its use as a component boundary."
+      },
+      {
+        "q": "Can I check my palette against a color other than white?",
+        "a": "Not on this page, because the surface is fixed. Move the pair to the contrast checker or the ratio calculator instead, where both colors are inputs, and use this page as the quick sweep it is designed to be."
+      },
+      {
+        "q": "What is the difference between this and the pair finder?",
+        "a": "Direction. This page audits colors you already have and reports which ones fail. The pair finder starts from one fixed color and proposes neutral text colors that pass, which is the tool to reach for once the audit has told you a replacement is needed."
+      }
+    ]
+  }
+]

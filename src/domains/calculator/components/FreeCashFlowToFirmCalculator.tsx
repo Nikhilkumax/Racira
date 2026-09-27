@@ -103,7 +103,7 @@ export default function FreeCashFlowToFirmCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.method]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

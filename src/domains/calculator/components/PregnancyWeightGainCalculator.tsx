@@ -1,16 +1,9 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { RotateCcw } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -123,6 +116,14 @@ export default function PregnancyWeightGainCalculator() {
 
   const [result, setResult] = useState<ReturnType<typeof computeResult>>(() => computeResult("140", "65", "155", "20", "no"));
   const handleCalculate = () => setResult(computeResult(preWeight, height, currentWeight, currentWeek, twins));
+  const handleReset = () => {
+    setPreWeight("140");
+    setHeight("65");
+    setCurrentWeight("155");
+    setCurrentWeek("20");
+    setTwins("no");
+    setResult(computeResult("140", "65", "155", "20", "no"));
+  };
 
   const chartData = [4, 8, 12, 16, 20, 24, 28, 32, 36, 40].map((w) => {
     const r = computeResult(preWeight, height, currentWeight, String(w), twins);
@@ -137,15 +138,15 @@ export default function PregnancyWeightGainCalculator() {
         : "text-red-600";
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle>Pregnancy Weight Gain Calculator</CardTitle>
-        <CardDescription>
-          Track your weight gain against ACOG guidelines based on pre-pregnancy
-          BMI.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className="racira-page-container py-4">
+      <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">
+        Pregnancy Weight Gain Calculator
+      </h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+        {/* LEFT: INPUTS */}
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Your Details</div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="space-y-2">
             <Label htmlFor="pwg-pre">Pre-pregnancy weight (lbs)</Label>
@@ -202,6 +203,18 @@ export default function PregnancyWeightGainCalculator() {
             </Select>
           </div>
         </div>
+
+
+        <div className="flex gap-2.5 mt-2">
+          <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
+          <button type="button" onClick={handleReset} aria-label="Reset" className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm">
+            <RotateCcw className="h-4 w-4" />
+          </button>
+        </div>
+        </div>
+
+        {/* RIGHT: RESULTS */}
+        <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
 
         <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 space-y-3">
           <h3 className="font-medium">
@@ -271,31 +284,8 @@ export default function PregnancyWeightGainCalculator() {
           </p>
         </div>
 
-        <div className="flex gap-3">
-          <Button
-            type="button"
-            size="sm"
-            onClick={handleCalculate}
-          >
-            Calculate
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              setPreWeight("140");
-              setHeight("65");
-              setCurrentWeight("155");
-              setCurrentWeek("20");
-              setTwins("no");
-              setResult(computeResult("140", "65", "155", "20", "no"));
-            }}
-          >
-            Reset
-          </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

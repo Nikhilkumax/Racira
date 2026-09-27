@@ -1,0 +1,359 @@
+[
+  {
+    "slug": "tailwind-css-color-exporter",
+    "keywords": [
+      "tailwind color exporter",
+      "tailwind config colors",
+      "tailwind color scale generator",
+      "generate tailwind palette",
+      "tailwind brand colors"
+    ],
+    "intro": "The Tailwind color exporter expands one color into an eleven-step scale from 50 to 950 and writes it as a ready-to-paste tailwind.config colors block.",
+    "content": "- The Tailwind color exporter takes a single colour and produces a configuration snippet.\n- Pick a base colour and the tool builds a scale of eleven shades labelled from fifty to nine hundred and fifty, then writes them into a block of Tailwind config colors with the shades nested under a brand colour.\n- A copy button takes the whole block.\n\nThe scale is generated rather than sampled, which is the most important thing to understand about the output. Each of the eleven steps sits at a fixed lightness — the pale steps near the top of the range, the deepest near the bottom — while the hue and saturation are taken from the colour you chose. As a result every step is recognisably a version of your colour, and the whole ramp is internally consistent, with the lighter steps reading as tints and the darker ones as shades of one hue rather than as a collection of unrelated colours.\n\nOne consequence of that design is worth anticipating, because it surprises people who expect the opposite. Your chosen colour is not placed at any particular step. There is no rule that the base lands on five hundred; the ramp is a fixed lightness ladder wearing your colour, so a mid-blue may sit closest to the five hundred and six hundred steps while a pale colour sits closest to the top. If an exact value needs to appear in the scale, it has to be checked and adjusted afterwards.\n\nThe eleven steps follow the convention Tailwind adopted when it extended its own palettes: fifty at the lightest through nine hundred, with a nine hundred and fifty at the darkest for the very deepest tone. Because the scale builds from your hue and saturation, the result slots into a project that already uses the framework's naming — utilities such as the fifty, five hundred and nine hundred variants all resolve to something sensible, and the ramp behaves the way the rest of a Tailwind palette does.\n\nIn practice the workflow is a colour pick and a paste. Choose the brand colour, copy the block, drop it into the extend section of the configuration, and every shade becomes available as a utility with no further conversion. That is the whole point of exporting rather than generating a loose list of values: the output is already in the shape the build expects, so nothing has to be renamed or restructured.\n\n- Limits worth knowing: the block is written as a CommonJS module export, so a project using ES modules or the newer CSS-first configuration will need to adapt the wrapper even though the shades themselves are correct.\n- The colour name is fixed to brand, so renaming it is a manual edit; there is no dark-mode variant, no semantic aliasing and no export of other token types; and the values are hex, with no oklch form for projects that have moved to wider-gamut palettes.\n- There is also no contrast checking, so the suitability of any shade for text has to be tested separately — but within those bounds, as a tailwind color scale generator it removes the tedium of building eleven steps by hand, and for anyone who needs to generate tailwind palette shades from one brand colour or simply get tailwind brand colors into a config file, it is a single paste.",
+    "howTo": [
+      "Pick the brand colour with the field at the top.",
+      "Read the eleven generated shades, which run from 50 at the lightest to 950 at the darkest.",
+      "Copy the configuration block into the extend section of your Tailwind config.",
+      "Rename the brand key and adjust any shade that has to match an exact value."
+    ],
+    "whenToUse": "Use this when a Tailwind project needs a full shade ramp derived from a brand colour. Use the palette generator when you want to see the shades on screen without a config block, or the design token generator when the output has to be a token document instead of framework configuration. The framework's own families are laid out in the {{tailwind-color-reference|Tailwind color reference}} for comparing a derived ramp against them, and the {{contrast-checker|contrast checker}} is where the shade that will carry text gets verified.",
+    "faqs": [
+      {
+        "q": "How many shades does the exported config define?",
+        "a": "Eleven, from 50 to 950, following the scale Tailwind uses for its own palettes. Each sits at a fixed lightness with the hue and saturation of your colour."
+      },
+      {
+        "q": "Does my colour end up at 500?",
+        "a": "Not necessarily. The ramp is a fixed lightness ladder wearing your hue and saturation, so your exact colour may sit closest to a different step. Check afterwards if the precise value matters."
+      },
+      {
+        "q": "Will the snippet work in any project?",
+        "a": "The shades will, but the wrapper is a CommonJS module export. Projects using ES modules or the newer CSS-first configuration need to adapt that wrapper."
+      },
+      {
+        "q": "Can I rename the colour key?",
+        "a": "Not in the tool — the key is fixed to brand. Rename it in the copied snippet; the shades underneath are unaffected."
+      },
+      {
+        "q": "Do I need the whole config block if I only want a few shades?",
+        "a": "The copy button hands over the whole snippet, and the shades inside it are individual values — taking two or three and dropping the wrapper is a manual trim when a config file is not the destination."
+      }
+    ]
+  },
+  {
+    "slug": "material-ui-color-exporter",
+    "keywords": [
+      "material ui color exporter",
+      "mui theme palette generator",
+      "material palette from hex",
+      "mui colors export"
+    ],
+    "intro": "The Material UI color exporter derives a full MUI-style shade ramp from one color — 50 through 900 — and emits the theme snippet Material palettes expect.",
+    "content": "- Material Design's palette contract is a shade ramp: one hue expressed as eleven steps named 50 through 900, each with a job — 50 for surfaces, 500 for the primary, 700 and up for text-on-light.\n- The Material UI color exporter builds that ramp from any single color: set the base hex, and the tool derives the eleven shades in the base's hue, emits the theme snippet Material expects, and previews the ramp as swatches labelled with both their step names and the bg-brand-N classes that consume them.\n\nThe derivation respects what makes a Material ramp feel coherent: every step holds the base's hue, so the family is unmistakably one color at eleven lightnesses — the ramp that Material's elevation and state systems assume. The lightness ladder follows the canonical Material spacing, dark steps anchored near the base's depth, light steps opened toward the 50 surface. The result is a Material palette from hex that lands in the theme file without hand-tuning: the mui colors export is the full ramp, formatted as the config snippet the framework consumes.\n\n- The tool's honesty is in what it does not claim: a derived ramp is a starting point that matches the base exactly at its anchor and approximates Material's official ramps elsewhere.\n- Official Pantone-specified Material palettes exist for the standard hues; for a brand color outside that set, derivation is the only honest path, and the ramp it produces is internally consistent even where it differs from Google's hand-tuned steps.\n- The Tailwind exporter produces the equivalent ramp for Tailwind's naming; the contrast checker verifies which steps may carry text on which surfaces.\n\nMaterial's palette convention is opinionated in a way that rewards reading before generating. A hue becomes an object of eleven steps carrying textual roles — main, dark, light, contrast text — and the framework's components are written against those names rather than against the numbers. The interesting decision is therefore not which values to include but which value is main: contrast text is derived from it, the other steps are read as directional variations, and the lightest and darkest entries are usually reserved for hover and disabled treatments rather than used as fills. A ramp that gets main wrong produces a theme whose buttons look plausible in isolation and wrong in every state. Generating the ramp from one brand colour gives the eleven steps; choosing which of them carries main is the step an eye still has to make.\n\nAs an mui theme palette generator it is deliberately single-hue: one color in, the full eleven-step ramp out, theme-ready. For a whole theme's worth of hues, each brand color takes one pass — the Material palette from hex workflow that turns a brand guideline into a theme file in as many pastes as the brand has colors.\n\nWhere the brand supplies more than one hue, each takes its own pass and its own main value, and the theme's coherence comes from the naming rather than from the ramp arithmetic.",
+    "howTo": [
+      "Set the base color the ramp must derive from.",
+      "Review the eleven-step ramp — 50 through 900 — in the swatch preview.",
+      "Copy the theme snippet into your Material theme configuration."
+    ],
+    "whenToUse": "Use this to materialise a brand color as a Material shade ramp. Use the Tailwind exporter for Tailwind naming, the contrast checker for step-role assignment, and the token exporters when the ramp joins a token pipeline instead of a theme file. The framework's own families are laid out in the {{material-design-color-reference|Material Design color reference}} for comparison, and a ramp drawn from a brand colour without the theme wrapper is what the {{material-palette-generator|Material palette generator}} produces.",
+    "faqs": [
+      {
+        "q": "Will the ramp match Google's official Material colors?",
+        "a": "At your base color's step, yes by construction; elsewhere it approximates, since official ramps are hand-tuned. For standard hues, official palettes exist; for brand colors, derivation is the honest path."
+      },
+      {
+        "q": "Which step is my primary color?",
+        "a": "The step closest to your input — conventionally 500 for mid-tone brands. The swatch preview marks each step so the anchor is visible."
+      },
+      {
+        "q": "Can I export multiple hues at once?",
+        "a": "The tool derives one hue per pass — run each brand color through and combine the snippets in your theme."
+      },
+      {
+        "q": "Does the output include the class names too?",
+        "a": "The preview labels each swatch with its step and class name for reference; the copied snippet is the theme configuration itself."
+      },
+      {
+        "q": "How do I decide which step a role should use?",
+        "a": "Work from the light end for surfaces and the dark end for text on light, then check the pair rather than trusting the number — a step label is a position in the ramp, not a contrast guarantee."
+      }
+    ]
+  },
+  {
+    "slug": "chakra-ui-color-exporter",
+    "keywords": [
+      "chakra ui color exporter",
+      "chakra theme colors generator",
+      "chakra color scale from hex",
+      "chakra semantic tokens export"
+    ],
+    "intro": "The Chakra UI color exporter derives a Chakra-style color scale from one hex — 50 through 900 — and emits the theme snippet Chakra's semantic tokens expect.",
+    "content": "Chakra's theming speaks in scales: every named color is a 50-to-900 ramp, and the semantic layer — brand, danger, success — points into those ramps. The Chakra UI color exporter builds the scale half of that system from any single hex: set the base, and the tool derives the full shade ladder in the base's hue and emits the theme snippet Chakra expects, previewed as swatches labelled with their scale steps.\n\n- The derivation follows Chakra's canonical lightness spacing, so the ramp behaves the way Chakra's built-in scales do: 50 as a whisper-background, 500 as the colour's self, 600 and 700 for hover and pressed states, the deep steps for text on light surfaces.\n- Every step keeps the base's hue, which is the property that makes the scale feel like one colour wearing eleven weights.\n- That is the Chakra color scale from hex that slots into a theme file without hand-tuning each step.\n\n- The tool sits deliberately inside Chakra's architecture rather than reinventing it: the output is the scale snippet, ready to bind into a theme's colors, after which the semantic tokens — primary, secondary, states — point at the scale steps per Chakra's own convention.\n- That division keeps the export honest where it belongs (the objective ramp) and leaves the opinionated binding (which step is primary) to the system that owns it.\n- The Material and Tailwind exporters produce the equivalent ramps for their frameworks' naming, and the contrast checker referees which steps can carry text against which surfaces.\n\nChakra splits colour into two layers and the split is the whole point: a numeric scale holds the values, and semantic tokens hold the meaning. Components are written against the semantic names, so a theme that populates only the scale produces components that look right in one mode and unthemed in the other. That is why the semantic layer deserves as much attention as the ramp itself, and why a chakra semantic tokens export is worth treating as the deliverable rather than an afterthought: it is the layer that lets a dark mode, a brand variant or a high-contrast register be switched without touching a component. The scales underneath stay mechanical — one hue per pass, every step derived from the same base — and the meaning is assigned on top of them, which keeps the theme legible a year after it was assembled.\n\nAssigning meaning after the ramp rather than during it is also what keeps two hues from claiming the same role.\n\nAs a chakra theme colors generator it is one hue per pass: a chakra color scale from hex in one paste, theme-ready. A full Chakra theme is as many passes as the theme has named colors — each brand hue deriving its own scale, each scale landing in the same file, the semantic layer assembling on top.\n\nReviewing that semantic layer against a real screen, rather than against the scale, is what catches a role that has been assigned twice or a name that no longer matches what it colours.",
+    "howTo": [
+      "Set the base color for the scale.",
+      "Review the 50–900 ramp in the swatch preview.",
+      "Copy the snippet into your Chakra theme's colors, then bind semantic tokens to the steps."
+    ],
+    "whenToUse": "Use this to turn a brand hex into a Chakra scale. Use the Material or Tailwind exporters for those frameworks, the contrast checker for step-role verification, and the token exporters when the scales feed a token pipeline. The framework's built-in scales are laid out in the {{chakra-ui-color-reference|Chakra UI color reference}} for comparing a derived ramp against them, and the other component-library dialect of the same idea is what the {{shadcn-ui-color-exporter|shadcn/ui color exporter}} writes.",
+    "faqs": [
+      {
+        "q": "Which step becomes my primary?",
+        "a": "Conventionally the step nearest your input — usually 500 — with 600 as hover and 700 as pressed. The exporter emits the scale; the semantic binding follows Chakra's convention."
+      },
+      {
+        "q": "Does it emit the semanticTokens section too?",
+        "a": "No — the output is the color scale, the objective half. Semantic tokens are opinions about which steps fill which roles, and Chakra's docs define the convention."
+      },
+      {
+        "q": "Can I export several hues for one theme?",
+        "a": "One pass per hue, combining the snippets in the theme's colors — the same flow as any multi-color theme."
+      },
+      {
+        "q": "Will the derived steps match Chakra's built-in scales?",
+        "a": "They follow the canonical spacing and match your base exactly at its step; official built-ins are hand-tuned, so treat the derived ramp as a consistent starting point."
+      },
+      {
+        "q": "Which step suits a hover state?",
+        "a": "Read the ramp's spacing rather than a rule: a step or two below the base keeps the shift visible without making the state read as a different colour, and the deep end is where pressed states and text on light live."
+      }
+    ]
+  },
+  {
+    "slug": "shadcn-ui-color-exporter",
+    "keywords": [
+      "shadcn ui color exporter",
+      "shadcn css variables generator",
+      "shadcn theme colors export",
+      "hsl variables for shadcn"
+    ],
+    "intro": "The shadcn/ui color exporter emits a palette as the CSS custom properties shadcn themes consume — the shadcn css variables generator for the --background/--foreground convention.",
+    "content": "shadcn/ui themes are CSS custom properties with a contract: --background, --foreground and their named companions, declared in :root and consumed by every component. The shadcn/ui color exporter produces that block from an editable palette — build the color set, and the tool emits the variable declarations in shadcn's naming convention, copy-ready for the theme file. It is the shadcn css variables generator for the convention the component library assumes.\n\nThe export speaks shadcn's dialect specifically: the variable names follow the --role/--foreground pairing the components reference — surfaces, borders, rings, the semantic slots — so the pasted block is consumable as-is, not a generic variable dump requiring renaming. The editor rows carry names and values; the block regenerates live; the copy hands over the complete declaration set. That focus on the convention is the tool's whole value: shadcn themes break silently when variable names drift, and the generator keeps the export on-contract — a shadcn theme colors export that lands working.\n\nThe workflow it serves is theme bootstrap and brand adaptation: a palette decided elsewhere — brand guideline, derived ramp, mood board harvest — needs to become the variable block shadcn components read. Editing lives in the palette rows; the CSS variables architecture (one redeclaration per theme, dark modes as scoped swaps) comes free with the format. The generic CSS custom properties exporter emits the same architecture without the shadcn naming; the token exporters feed pipelines instead of theme files.\n\n- Shadcn's convention is unusual enough to catch people out: the palette lives in HSL channel values without the wrapper, so the components can compose their own alpha and colour-mix expressions.\n- A theme block is therefore not just a list of colours but an agreement about notation, and a file written in another format produces components that render transparent or as an unrecognised value.\n- Getting that agreement right at the start is most of the work, which is why a shadcn ui color exporter is worth running rather than transcribing by hand: the notation, the variable names and the light and dark registers all come out together.\n- The tokens are also the ones components depend on implicitly, so a missing entry does not throw — it quietly renders a fallback — and a complete block is worth more than a pretty one.\n\nChecking the dark register against the light one before shipping the theme is the last cheap step, since both are generated from the same palette and either can be the one that fails.\n\nAs an hsl variables for shadcn instrument — the notation shadcn's convention uses — it is one palette in, the theme block out, on-contract by construction. For teams starting a shadcn project from a brand palette, it is the first file in the theme directory, and the one the components silently depend on.\n\nKeep the block in one file and import it once, since splitting a register across components is how a theme quietly acquires a second, contradictory definition; where a value genuinely needs to differ, override the variable rather than the token.",
+    "howTo": [
+      "Build the palette rows with shadcn role names — background, foreground, primary, and companions.",
+      "Watch the custom property block generate in shadcn's convention.",
+      "Copy the block into your theme file; the components consume it as-is."
+    ],
+    "whenToUse": "Use this to bootstrap or rebrand a shadcn/ui theme from a palette. Use the generic CSS variables exporter for non-shadcn projects, the token exporters for pipelines, and the dark-mode palette generator for the values of the dark scope. Once the block is in place, the {{palette-accessibility-checker|palette accessibility checker}} is where the pairs a real interface depends on get audited, and the other framework whose hook is a short list of named roles is covered by the {{bootstrap-color-exporter|bootstrap color exporter}}.",
+    "faqs": [
+      {
+        "q": "Does the output use shadcn's exact variable names?",
+        "a": "Yes — the block follows the --background/--foreground style convention the components reference, so it is consumable without renaming."
+      },
+      {
+        "q": "Can it generate the dark mode block too?",
+        "a": "The exporter emits the light-scope block; the dark scope is the same variable names redeclared under a dark selector — pick values with the dark-mode palette generator and re-run."
+      },
+      {
+        "q": "Does it emit HSL channels or full colors?",
+        "a": "The output follows the notation convention shadcn's theme expects, formatted so the components render exactly what the preview showed."
+      },
+      {
+        "q": "What if my palette has more colors than shadcn's slots?",
+        "a": "Bind the core slots first; extra colors become additional custom properties in the same block, referenceable by your own components."
+      },
+      {
+        "q": "Do the variables need a particular order in the file?",
+        "a": "No — custom properties resolve by name rather than position, so the rows can be reordered freely. What matters is that every name a component references is present, since a missing one falls back silently rather than erroring."
+      }
+    ]
+  },
+  {
+    "slug": "bootstrap-color-exporter",
+    "keywords": [
+      "bootstrap color exporter",
+      "bootstrap theme colors scss",
+      "bootstrap 5 color variables",
+      "bootstrap palette variables export"
+    ],
+    "intro": "The Bootstrap color exporter turns a palette into the theme-color variables Bootstrap 5 consumes — the bootstrap theme colors scss block, convention-ready.",
+    "content": "Bootstrap's theming hangs on a short list of theme colors — primary, secondary, success, danger, warning, info — plus the surface pair, all declared as variables the framework's components consume. The Bootstrap color exporter emits that block from an editable palette: assign your colors to the roles, and the tool generates the variable declarations in Bootstrap's convention, copy-ready for the theme file. It is the bootstrap 5 color variables block, on-contract.\n\n- The role mapping is the tool's real work.\n- Bootstrap's slots are semantic — success must read as success, danger as danger — so the export is an act of casting, not formatting: which palette member becomes primary, which neutral becomes secondary, which accents take the state roles.\n- The editor rows carry the role names, the block regenerates as the casting changes, and the pasted result plugs into Bootstrap's variable chain — after which components, buttons and utilities inherit the palette without further edits.\n- That is the bootstrap theme colors scss promise: one block, the whole framework re-skinned.\n\nThe workflow it serves is the Bootstrap project meeting a brand: the framework ships sane defaults that read as generic Bootstrap, and the fastest path to a branded build is the variables block, not overrides scattered through custom CSS. Editing lives in the rows; the export stays conventional; upgrades stay safe because the block overrides variables rather than fighting compiled CSS. The shadcn exporter serves that ecosystem's convention; the generic CSS variables exporter serves framework-agnostic stylesheets; the token exporters feed pipelines that transform rather than override.\n\n- Bootstrap's theming hook is deliberately simple: a map of named colours, each of which becomes a family of classes, buttons, alerts and utilities at build time.\n- That makes the names the real decision — calling something primary or danger rather than brand-blue is what lets the framework's components wire themselves up, and it means a later change of hex does not require a search across templates.\n- The supplied family also has to satisfy the framework's own assumptions about contrast, since the components expect each colour to carry text at a given weight, and a mapped hue that is too light produces buttons whose labels are unreadable without any warning at build time.\n- Generating the block from a palette keeps the names conventional and the values deliberate, which is the combination that makes a themed Bootstrap build look designed rather than rebuilt.\n\nAs a bootstrap palette variables export instrument it is deliberately the casting tool: a palette in, the theme-colors block out, roles assigned and names conventional. For Bootstrap 5 projects starting from a brand palette, it is the shortest path from brand guideline to a framework that looks like it was always yours.\n\nWhere the framework needs a colour the brand does not supply — a warning, a muted surface — take it from the generated ramp rather than inventing one, so the set stays inside the same family while still satisfying the roles Bootstrap expects, and the theme's exceptions remain visible instead of hidden inside the map.",
+    "howTo": [
+      "Assign palette colors to Bootstrap's roles — primary, secondary, the states, surfaces.",
+      "Watch the variable block generate in Bootstrap's convention.",
+      "Copy it into your theme overrides; components and utilities inherit the cast."
+    ],
+    "whenToUse": "Use this to brand a Bootstrap 5 project from a palette. Use the shadcn exporter for that ecosystem, the generic CSS variables exporter for custom stylesheets, and the contrast checker to verify text roles against the cast surfaces. The framework's own theme values are laid out in the {{bootstrap-color-reference|Bootstrap color reference}}, and when the build compiles Sass the same tokens can be written as build-time variables by the {{scss-variable-generator|SCSS variable generator}}.",
+    "faqs": [
+      {
+        "q": "Which variables does the block override?",
+        "a": "Bootstrap's theme-color roles — primary, secondary, success, danger, warning, info — plus the surface variables, exactly the names the framework's components consume."
+      },
+      {
+        "q": "Do I need SCSS, or does plain CSS work?",
+        "a": "The block is plain variable declarations, consumable wherever Bootstrap's variables are customized — SCSS builds override before compile; CSS-only setups use the runtime custom property layer."
+      },
+      {
+        "q": "What if my palette lacks a state color?",
+        "a": "Bootstrap's semantic slots need casting — derive a success or danger from your palette's family with the harmony tools, or keep the framework defaults for states and cast only the brand roles."
+      },
+      {
+        "q": "Will upgrades to Bootstrap break the block?",
+        "a": "No — the block overrides documented variables, which is the supported customization path and stays stable across minor upgrades."
+      },
+      {
+        "q": "What happens when the brand palette changes?",
+        "a": "The export is a snapshot: regenerate the block from the new palette and swap it in. That is the point of keeping the values generated rather than hand-edited — the role names stay put while the values move."
+      }
+    ]
+  },
+  {
+    "slug": "android-xml-color-generator",
+    "keywords": [
+      "android xml color generator",
+      "colors.xml generator",
+      "android color resource generator",
+      "generate colors.xml entries"
+    ],
+    "intro": "The Android XML color generator turns a list of named colors into a ready-to-paste colors.xml resource file with correctly formed color elements for your Android project.",
+    "content": "The Android XML color generator converts a working list of named colors into a valid Android color resource file. You add entries by giving each one a name and picking its color, and the tool assembles them into the resources block Android expects, with one color element per entry carrying the name as an attribute and the hex value as its content. The whole file is shown in a copy-ready block so you can paste it straight into the res values folder.\n\nThe output is deliberately plain. Android color resources are simple by design: a resources root element wrapping color children, each identified by a name attribute that your layouts, styles and code refer to. Generating them by hand is error prone because a typo in a color element or a stray character in the hex value produces a build error rather than a warning. Producing the block from a validated list removes that class of mistake entirely.\n\nIn practice you will generate colors.xml entries for a small palette and then reference them by name throughout the app rather than repeating hex literals. That indirection is what makes a theme change survivable: updating the color once in the resource file updates every screen that references it. Starting that resource file from a generated block, instead of typing it, means the names and values are consistent from the first commit.\n\n- The editor lets you rename entries freely, which is where most of the real work happens.\n- Good resource names describe roles rather than appearance, so a color called color_surface or color_danger survives a rebrand while one called light_blue_2 does not.\n- Because the palette editing is live, you can rename while watching the generated file update, and the copy button always reflects the current state.\n\nA few practical notes make the workflow smoother. Android supports six-digit and eight-digit hex, and the eight-digit form places alpha first rather than last, which is the opposite of the CSS convention; if you need transparency it is worth confirming the format matches what your project expects. Also keep an eye on the number of colors: it is easy to accumulate dozens of near-duplicates, and a generated file is a good moment to consolidate. If you want the same palette in other platforms, the iOS and Flutter generators in this section produce the equivalent declarations from the same list.\n\nBecause it is a dedicated colors.xml generator, it also removes the most common source of resource mistakes: a hand-typed hex value or a malformed element that only fails at build time. Treating it as an android color resource generator means you can keep the file generated from a source of truth rather than maintained by hand, so renaming a colour updates every reference deliberately instead of leaving stale duplicates behind. If you maintain several product flavours or a light and dark variant, generating the block separately for each keeps the resource files consistent and makes a diff between them readable rather than a wall of near-identical hex values.",
+    "howTo": [
+      "Add a row for each color you need and give it a resource name.",
+      "Pick the color for each row using the color field.",
+      "Rename any entry so it describes a role rather than an appearance.",
+      "Copy the generated resources block and paste it into res/values/colors.xml."
+    ],
+    "whenToUse": "Use this generator when you are defining Android color resources and want a clean colors.xml to commit. Use the iOS Swift or Flutter generators in the same section when the same palette needs to ship to those platforms. A palette that has to drive several platform files from one place is what the {{design-token-generator|design token generator}} carries, and the {{color-palette-json-exporter|color palette JSON exporter}} is where the palette lives before it becomes resources.",
+    "faqs": [
+      {
+        "q": "Where does the file go?",
+        "a": "Paste the generated block into your app's res/values/colors.xml file. Android merges resource files, but keeping one colors.xml is the simplest convention."
+      },
+      {
+        "q": "Does it support alpha channels?",
+        "a": "You can type any value the field accepts, but be aware Android's eight-digit hex places alpha first while CSS places it last. Confirm the ordering your project expects."
+      },
+      {
+        "q": "How should I name the entries?",
+        "a": "Prefer role-based names such as color_surface or color_danger over appearance-based names like light_blue. Role names survive rebrands without edits."
+      },
+      {
+        "q": "Can I edit the generated file after copying?",
+        "a": "Yes, the output is plain XML. Just keep it valid on future edits; that is exactly the kind of typo this generator exists to avoid."
+      },
+      {
+        "q": "Can the output carry comments or groups?",
+        "a": "No — it is one resources block with one element per row, so comments, groups and resource qualifiers such as a values-night file are manual additions to the copied XML."
+      }
+    ]
+  },
+  {
+    "slug": "ios-swift-color-generator",
+    "keywords": [
+      "ios swift color generator",
+      "uicolor from hex",
+      "swift uicolor code",
+      "ios color constants",
+      "swift color palette code"
+    ],
+    "intro": "The iOS Swift color generator converts named hex colors into UIColor initialisers with floating-point components, ready to paste into a Swift extension.",
+    "content": "- The iOS Swift color generator takes a list of named colours and writes one Swift line per entry.\n- Two rows are provided to start with, primary and danger, and the Add button appends more, each seeded with a random colour.\n- Every row pairs a name field with a colour field and a delete button, and the output panel updates as the rows change.\n\nEach line comes out as a static let declaration whose value is a UIColor initialised with red, green and blue components as decimals between zero and one, plus an alpha of one. That conversion is the substance of the tool. UIKit does not accept hex strings, so a design-file value has to be restated as three fractions, and each division has to be done to enough decimal places that the colour is not visibly shifted. Three decimal places, which is what the output uses, is finer than a screen can show, so the converted colour is identical to the source.\n\nThere is a detail in the initialiser choice worth knowing. The form emitted takes components that UIKit interprets in the sRGB space, which is what a hex value from a design tool or a screenshot normally means. If a design system specifies colours in a wider gamut, the conversion here is not the right one, because nothing is being colour-managed — each channel is simply divided by two hundred and fifty-five. For the ordinary case of an sRGB swatch, the result is exact.\n\nThe output is a set of declarations rather than a complete file. That is deliberate: paste the lines inside a UIColor extension or a namespace struct and they compile as-is, with the names you typed becoming the accessors. There is no wrapper to reconcile and no naming convention imposed, so the token file and the call sites use the same words.\n\nWhen typing names, match what Swift expects: lowerCamelCase, and a valid identifier, since these become property names. Alpha is always one, so translucent colours cannot be expressed here — those are usually handled at the point of use in Swift anyway, with an opacity modifier applied to an opaque base colour. There is also no dark-mode variant and no asset catalogue output: a colour that has to differ between light and dark appearance needs either a dynamic initialiser or an asset entry, neither of which this page produces. And the lines carry no comments, so a large set benefits from grouping when it is pasted.\n\nBeing clear about the boundaries helps too: the output is a block of declarations rather than a file, so it needs a home inside an existing extension before it compiles. There is no asset-catalogue export, no dark-mode variant, and no wider-gamut initialiser, so a design system that relies on any of those will need edits after pasting. Compared with the other native exporters, this one sits alongside Android resources, Flutter constants and Figma tokens, sharing the same row interface with a different output. Used as an ios swift color generator, it removes the arithmetic that would otherwise be done by hand for every token: name the colours, copy the swift uicolor code, and paste the ios color constants into a swift color palette code file with the uicolor from hex conversion already done.",
+    "howTo": [
+      "Type the token names in the left column, using valid lowerCamelCase Swift identifiers.",
+      "Set each colour with the field beside its name, or add rows with Add.",
+      "Copy the declarations and paste them inside a UIColor extension or namespace struct."
+    ],
+    "whenToUse": "Use this when an iOS project needs a block of colour constants converted from a palette. Use the Flutter or Android exporters for those platforms, or the design token generator when the colours need to travel as a document instead of as code. Before the hex becomes a UIColor literal, the {{color-format-converter|color format converter}} shortens the checking, and a palette that arrives as a token document rather than rows is the {{figma-token-generator|figma token generator}}'s output.",
+    "faqs": [
+      {
+        "q": "Why are the components decimals instead of hex?",
+        "a": "UIKit takes red, green and blue as fractions between zero and one, so each channel of the hex value is divided by 255. Three decimal places is finer than a screen can show."
+      },
+      {
+        "q": "Is the conversion colour-managed?",
+        "a": "No. Each channel is simply divided by 255, which matches the sRGB interpretation a hex value from a design tool normally carries. Wider-gamut colour spaces need a different initialiser."
+      },
+      {
+        "q": "Can I output translucent colours?",
+        "a": "Not here — every line carries an alpha of one. Apply opacity at the point of use in Swift when a translucent variant is needed."
+      },
+      {
+        "q": "Does it handle dark mode?",
+        "a": "No. Each colour is a single static value. Dynamic colours that differ by appearance need a dynamic initialiser or an entry in an asset catalogue."
+      },
+      {
+        "q": "Do the declarations have to live in an extension?",
+        "a": "They are top-level static lets, so they need a home — an extension on UIColor or your own enum namespace — before they compile. The block itself carries no type declaration."
+      }
+    ]
+  },
+  {
+    "slug": "flutter-color-generator",
+    "keywords": [
+      "flutter color generator",
+      "flutter color constants",
+      "dart color from hex",
+      "flutter colors class",
+      "color 0xff"
+    ],
+    "intro": "The flutter color generator converts named hex colors into Dart constants using the Color(0xFF...) form, ready to paste into a Flutter colors class.",
+    "content": "The flutter color generator takes a list of named colours and writes out one Dart line per entry. The default rows produce a line for primary and a line for danger, and the Add button appends further rows named color plus a number. Each row pairs a name field with a colour field and a delete button, and the output panel updates as you edit.\n\n- Each line takes the form of a static const Color declaration, with the name from the left of the row and the value converted into Flutter's ARGB integer literal.\n- That conversion is the part worth understanding: Dart's Color constructor takes a single thirty-two bit integer in which the first two hex digits carry the alpha channel, not a string.\n- Flutter's convention for an opaque colour is therefore a color 0xff prefix in front of the six hex digits, which is why the value you type as a six-digit hex becomes an eight-digit literal in the output.\n- Nothing is lost in the process — the alpha is simply made explicit.\n\nThe output is a set of declarations rather than a complete class. That is the right granularity for most projects: paste the lines inside the class you already keep for design tokens and they compile immediately, with no wrapper to reconcile and no naming scheme imposed. The names you type are the names in the code, so the token file and the call sites use the same vocabulary.\n\n- In use, the workflow is to type the token names in the left column in the same casing your project expects — lowerCamelCase is the Dart convention, so surfaceMuted rather than surface-muted — set each colour, then copy.\n- Because the output is one line per row, it can be pasted in pieces as a palette grows, and the six-digit values are the same ones you would get from a design file, which keeps the handoff honest.\n\nThere are real limits worth knowing. The alpha channel is always opaque, so translucent colours cannot be expressed here; Flutter handles those with a separate withOpacity call at the point of use. Only the ARGB hex form is produced, so there is no MaterialColor swatch with its shade map and no ThemeData scaffold — a Material palette is built from a seed colour rather than from a list of literals. The output is also not a complete Dart file: it has no class declaration, no imports and no closing brace, so it is a block of declarations to place rather than something to compile on its own.\n\nCompared with the other native exporters, this one is deliberately narrow — Android resources, iOS UIColor initialisers and Flutter constants each get their own page, sharing the same row interface. Used as a flutter color generator for a token list, it is the shortest route from hex values to the flutter color constants a project needs: type the names, read off the dart color from hex conversions, and copy the lines into your flutter colors class with the color 0xff form already written.",
+    "howTo": [
+      "Type the token names in the left column, using the casing your project expects.",
+      "Set each colour with the field beside its name, or add rows with Add.",
+      "Copy the declarations and paste them inside your existing colours class."
+    ],
+    "whenToUse": "Use this when a Flutter project needs a block of colour constants from a palette. Use the iOS or Android exporters for those platforms, or the design token generator when the colours need to travel as a document rather than as code. A JavaScript-side array of the same values is what the {{color-array-generator|color array generator}} writes, and handing the palette to a build step rather than to the editor is what the {{color-csv-exporter|color CSV exporter}} is for.",
+    "faqs": [
+      {
+        "q": "Why does the output have eight hex digits?",
+        "a": "Dart's Color takes a single 32-bit integer, so the first two digits carry the alpha channel. The 0xff prefix means fully opaque, followed by the six digits of your colour."
+      },
+      {
+        "q": "Can it generate a MaterialColor swatch?",
+        "a": "No. Only plain Color constants are emitted. A Material swatch with its shade map is built from a seed colour by Flutter's own theming rather than from a list of literals."
+      },
+      {
+        "q": "Is the output a complete Dart file?",
+        "a": "No — it is a set of static const declarations with no class wrapper, imports or braces. Paste them inside the class that already holds your design tokens."
+      },
+      {
+        "q": "Can the Flutter output carry an alpha channel?",
+        "a": "Not here. Every value is written opaque. For translucency, apply withOpacity at the call site or write the alpha digits into the literal by hand."
+      },
+      {
+        "q": "Why do the names have to be valid Dart identifiers?",
+        "a": "Because each row becomes the identifier in a static const declaration — a hyphen or a space produces code that will not parse, even though nothing here validates it for you."
+      }
+    ]
+  },
+  {
+    "slug": "css-border-color-generator",
+    "keywords": [
+      "css border color generator",
+      "css border with radius",
+      "border style preview",
+      "generate border css"
+    ],
+    "intro": "The CSS border color generator combines a color, width, radius and style into a live preview and emits the finished border declarations for you to copy.",
+    "content": "The CSS border color generator assembles a border from four decisions and shows you the result immediately. You choose a colour, a width from zero to twenty pixels defaulting to two, a corner radius from zero to forty-eight pixels defaulting to twelve, and a style from solid, dashed, dotted or double, with solid selected to begin with. A preview box renders the combination, and the panel below emits the finished CSS as two declarations with a copy button. It is a small tool that removes a genuinely tedious loop, because a border is one of the few CSS features where the visual result is hard to predict from the values. Treat it as a border style preview as much as a code generator: the box on screen is where the decision actually gets made, and the declarations are a by-product of settling it.\n\nThe output is a border shorthand plus a radius declaration, which is worth noticing. The colour is embedded in the shorthand rather than being written as a separate border-colour property, so what comes out is a complete border rule you can apply to any element, followed by the corner rounding. Both declarations are plain, unminified and in a fixed order, so the result can be pasted into a stylesheet, a styled component or an inline style without editing, and it reads well in a diff.\n\nPredicting the result from the numbers is exactly where the preview pays for itself. A dashed border at one pixel looks like a dotted line because the gaps are proportionally tiny, while the same dash pattern at six pixels reads as a clearly broken rule. A dotted border at a large radius behaves differently again, because the dashes follow the curved corners and their spacing changes around them. Double borders need enough width to show two distinct lines, and a two-pixel double is indistinguishable from a solid. None of that is obvious from a value, and all of it is obvious from a preview.\n\n- The colour is the decision most worth pausing on, because borders are where contrast requirements are most often quietly missed.\n- The boundary of an interface component is expected to reach a contrast ratio of three to one against its surroundings, and a border that is a subtle tint of the surface behind it will fail that test while looking perfectly deliberate to a designer on a calibrated screen.\n- Picking the colour last, once the geometry is settled, makes it easier to judge the border on its own terms rather than as part of the shape, and any pairing that matters should be measured rather than eyeballed.\n\nA sensible order of work runs from the outside in. Corner radius is usually driven by the shape of the interface rather than by the border itself, so settle it first. Width comes next, because it determines how much of the style pattern will actually be visible. Style follows, since dash and double patterns only make sense at a width that can show them. Colour comes last, when the geometry is fixed and the remaining question is purely one of emphasis against the surface.\n\nA few limits are inherent to the approach.\n\n- The tool generates one border applied to all four sides, so asymmetric borders — a bottom rule under a header, say — have to be adapted by hand into their longhand form.\n- There is one colour for the whole border, so a gradient or an image border is out of scope, and no fallback is emitted for browsers that do not support a given style.\n- The preview also shows the border on a neutral card rather than on the surface it will really sit against, so the final judgement of contrast belongs on the page itself.\n\nUsed as a css border color generator, it turns four sliders and a dropdown into a visible result and a pasteable rule, which is the whole value. When you need a css border with radius settled quickly, or you want to generate border css for a component without the edit-and-refresh loop, this removes the guesswork, and the emitted declarations are usually exactly what you would have written by hand.",
+    "howTo": [
+      "Set the border colour with the colour field.",
+      "Set the width and radius with the sliders — up to twenty and forty-eight pixels.",
+      "Pick a style from the dropdown: solid, dashed, dotted or double.",
+      "Copy the declarations from the CSS panel."
+    ],
+    "whenToUse": "Use it to settle a border's colour, width, radius and style together and get pasteable declarations. Use a contrast checker when the border has to distinguish an interface component, since boundaries are expected to reach three to one. The other half of a card's edge treatment is the {{box-shadow-color-tool|box shadow color tool}}, and a border colour that has to travel with a theme is what the {{css-custom-properties-exporter|CSS custom properties exporter}} carries.",
+    "faqs": [
+      {
+        "q": "What CSS does it produce?",
+        "a": "Two declarations: a border shorthand carrying the width, style and colour, followed by a border-radius. Both are plain and ready to paste without editing."
+      },
+      {
+        "q": "Why does my dotted border look solid?",
+        "a": "At small widths the gaps between dots are proportionally tiny and read as a solid line. Increase the width to make the pattern visible, or preview the change before committing."
+      },
+      {
+        "q": "Can I style each side differently?",
+        "a": "Not here. The tool generates one border applied to all four sides, so asymmetric borders need adapting into their longhand form by hand."
+      },
+      {
+        "q": "Does the border need enough contrast?",
+        "a": "If it distinguishes an interface component, yes. The boundary is expected to reach a three to one ratio against its surroundings, so measure the pairing rather than judging it by eye."
+      },
+      {
+        "q": "Can I get longhand properties instead of the shorthand?",
+        "a": "Not from the panel — the output is the shorthand plus a radius declaration. Per-side declarations are a manual expansion of the copied CSS, which is also what asymmetric borders need."
+      }
+    ]
+  }
+]

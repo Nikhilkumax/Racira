@@ -576,3 +576,148 @@ export function blendParallel(
   for (let i = 0; i < out.length; i++) out[i] = dry[i] * (1 - m) + compressed[i] * m;
   return out;
 }
+
+// ---------------------------------------------------------------------------
+// Sidechain ducking + declipping (batch 29)
+// ---------------------------------------------------------------------------
+
+/**
+ * Duck `program` by the loudness of `sidechain` (voice-over ducking under
+ * music, pumping effects). Per sample, the required reduction is
+ * rangeDb + 20·log10(|sc| / threshold) clamped to [0, rangeDb]; below the
+ * threshold no ducking at all, above it, ducking up to the range.
+ *
+ * The reduction is smoothed with attack/release ballistics — same bug-driven
+ * reasoning as the compressor: unsmoothed per-sample gain jitters with the
+ * detector and is audible. Attack here is gain moving DOWN (program diving
+ * under the voice), release recovering to unity when the sidechain goes quiet.
+ * The program is delayed by `lookaheadMs` so the duck reaches full depth
+ * before the sidechain transient hits, not after.
+ *
+ * Returns the delayed-and-ducked program (sidechain must be mixed in by the
+ * caller — the tool owns that decision and the final limiting).
+ */
+export function duckBySidechain(
+  program: Float32Array,
+  sidechain: Float32Array,
+  sampleRate: number,
+  thresholdDb: number,
+  rangeDb: number,
+  attackMs: number,
+  releaseMs: number,
+  lookaheadMs: number,
+): Float32Array {
+  const look = Math.max(0, Math.round((lookaheadMs / 1000) * sampleRate));
+  const prog = look ? new Float32Array(program.length) : program;
+  for (let i = look; i < program.length; i++) prog[i] = program[i - look];
+  const thrLin = toLinear(thresholdDb);
+  const atk = Math.exp(-1 / ((attackMs / 1000) * sampleRate));
+  const rel = Math.exp(-1 / ((releaseMs / 1000) * sampleRate));
+  const out = new Float32Array(program.length);
+  let gainDb = 0;
+  for (let i = 0; i < out.length; i++) {
+    const sc = Math.abs(sidechain[i]);
+    let want = 0;
+    if (sc > thrLin) {
+      const over = 20 * Math.log10(sc / thrLin);
+      want = -Math.min(rangeDb, over);
+    }
+    gainDb =
+      want < gainDb ? atk * gainDb + (1 - atk) * want : rel * gainDb + (1 - rel) * want;
+    out[i] = prog[i] * toLinear(gainDb);
+  }
+  return out;
+}
+
+/**
+ * Repair hard-clipped audio: locate runs of consecutive samples pinned at
+ * (or within 0.1 % of) the clip ceiling/floor and rebuild each run from the
+ * surrounding signal.
+ *
+ * Architecture (each step earned by a failed simpler design):
+ *  1. A fixed half-sine bulge was backwards — its bump peaked at the run
+ *     ENDS (sin ±1) and vanished mid-run; caught because the repaired peak
+ *     never exceeded the ceiling.
+ *  2. A quadratic through the run endpoints + entry slope is pointy by
+ *     construction: extrapolating one slope and two values overshoots a real
+ *     waveform top by ~10 % (measured 1.19 vs the true 1.08 crest on a sine).
+ *     Endpoint data fundamentally cannot know where the crest was.
+ *  3. Final form — least-squares fit a quadratic to the FLANK samples on
+ *     both sides of the run (the flanks carry the waveform's real curvature),
+ *     then blend fit−clip across the run with a full-period raised cosine:
+ *     the repair is 0 at both joints (value- and slope-continuous by
+ *     construction) and full mid-run, where the crest information lives.
+ *     On the clipped-sine fixture this reconstructs the true crest from the
+ *     flank shape instead of guessing a bulge.
+ *
+ * The input is unchanged below the ceiling; runs at file boundaries fall back
+ * to a flat-topped raised-cosine bridge when too few flank samples exist.
+ * This only smooths hard clipping; it cannot restore lost harmonics — the
+ * tool copy says so honestly.
+/**
+ * Repair hard-clipped audio: locate runs of consecutive samples pinned at
+ * (or within 0.1 % of) the clip ceiling/floor and re-interpolate each run
+ * with a cubic Hermite curve through the surrounding legal samples.
+ *
+ * Architecture (each step earned by a failed simpler design — and one step
+ * earned by a bad test constant: the "true crest 1.08" used for three
+ * rewrites was arithmetic slop; the fixture is a 1.2-amplitude sine, so the
+ * true crest is 1.2, and the Hermite result of 1.19 had been within 1 % all
+ * along):
+ *  1. A fixed half-sine bulge was backwards — its bump peaked at the run
+ *     ENDS (sin ±1) and vanished mid-run; caught because the repaired peak
+ *     never exceeded the ceiling.
+ *  2. A quadratic through the run endpoints + entry slope overshoots a real
+ *     waveform top (+16 %, measured 1.39 vs the true 1.2 crest).
+ *  3. A least-squares flank fit needed time-centering to be conditioned at
+ *     all (absolute indices → t⁴ ≈ 10¹⁸ → repaired peak 6.13), and even
+ *     conditioned it overshot: flank curvature is milder than crest
+ *     curvature, so extrapolation runs on.
+ *  4. Final form — cubic Hermite INTERPOLATION across the run between the
+ *     last legal sample a and the next legal sample b, with tangents from
+ *     the signal's own slopes at both joints. It is an interpolant (bounded
+ *     by its end data), its derivative reproduces the measured joint slopes
+ *     exactly (no step or slope discontinuity), and on the clipped-sine
+ *     fixture it restores the crest to within 1 %.
+ *
+ * Runs at file boundaries fall back to tangent-zero bridges (finite, smooth).
+ * The input is unchanged below the ceiling. This only smooths hard clipping;
+ * it cannot restore lost harmonics — the tool copy says so honestly.
+ */
+
+export function declipSamples(data: Float32Array, ceiling: number): Float32Array {
+  const eps = ceiling * 0.001;
+  const out = data.slice();
+  let i = 0;
+  while (i < data.length) {
+    if (Math.abs(data[i]) < ceiling - eps) {
+      i++;
+      continue;
+    }
+    const sign = data[i] >= 0 ? 1 : -1;
+    let j = i;
+    while (j < data.length && data[j] * sign > ceiling - eps) j++;
+    const y = (k: number) => (k >= 0 && k < data.length ? sign * data[k] : 0);
+    const a = y(i - 1); // last legal sample before the run (0 at file start)
+    const b = y(j); // first legal sample after the run (0 at file end)
+    const m = j - i; // run length
+    const L = m + 1; // interpolation span: a at t=0, run at t∈(0,1), b at t=1
+    // Signal-measured slopes at the joints (backward/forward differences).
+    const s0 = i >= 2 ? a - y(i - 2) : 0;
+    const s1 = j + 1 < data.length ? y(j + 1) - b : 0;
+    const m0 = s0 * L; // Hermite tangents, per unit t
+    const m1 = s1 * L;
+    for (let k = 0; k < m; k++) {
+      const t = (k + 1) / L;
+      const t2 = t * t;
+      const t3 = t2 * t;
+      const h00 = 2 * t3 - 3 * t2 + 1;
+      const h10 = t3 - 2 * t2 + t;
+      const h01 = -2 * t3 + 3 * t2;
+      const h11 = t3 - t2;
+      out[i + k] = sign * (h00 * a + h10 * m0 + h01 * b + h11 * m1);
+    }
+    i = j;
+  }
+  return out;
+}

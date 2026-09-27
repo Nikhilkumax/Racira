@@ -161,7 +161,7 @@ export default function DailyCalorieBurnPerPoundCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unitSystem, weight, totalCalories]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

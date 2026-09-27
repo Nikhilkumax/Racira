@@ -52,7 +52,7 @@ export default function EscrowCalculator() {
   };
 
   return (
-    <div className="max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="racira-page-container py-4">
       {/* Header */}
       <div className="mb-12 text-center">
         <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4">
@@ -63,9 +63,9 @@ export default function EscrowCalculator() {
         </h1>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* Input Section */}
-        <div className="lg:col-span-5 w-full space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           <div className="bg-card rounded-3xl border border-border/50 shadow-xl overflow-hidden backdrop-blur-sm p-8">
             <h3 className="text-xl font-bold mb-6">Annual & Monthly Costs</h3>
             
@@ -138,7 +138,7 @@ export default function EscrowCalculator() {
         </div>
 
         {/* Results Section */}
-        <div className="lg:col-span-7 w-full space-y-6">
+        <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
           <div className="bg-primary/10 border-l-4 border-primary rounded-3xl p-8 shadow-2xl overflow-hidden relative">
             <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
             <div className="relative z-10">

@@ -4,10 +4,11 @@ import type { ToolDef } from "./registry/types";
 import {
   ColorConverter, ColorInfo, NamedColors, RandomColor, ColorFormatValidator,
   ColorMixer, ShadesGenerator, TintGenerator, ToneGenerator, LightenTool, DarkenTool,
-  SaturationAdjuster, HueShift, OpacityCalculator, ColorInverter, ColorReplacer, ImageRecolor,
+  SaturationAdjuster, SaturationBooster, SaturationReducer, HueShift, HslChannelAdjuster, OpacityCalculator, ColorInverter, ColorReplacer, ImageRecolor,
   ColorPicker, ImageColorPicker, MultiColorPicker, PixelColorPicker,
   PaletteGenerator, makeHarmony,
   GradientGenerator, GradientPreviewer, GradientAngleCalc, CSSGradientExporter, makeGradient,
+  SVGGradientExporter, CanvasGradientExporter, GradientImageExporter,
   ContrastChecker, AccessiblePairFinder, ReadabilityChecker, ColorBlindnessSim, DuotoneGenerator,
   ExtractColors, PaletteFromImage, GradientFromImage, ImageTheme, ColorHistogram, DominantColor, AverageColor,
 } from "./registry/impl";
@@ -29,13 +30,15 @@ import {
   makeScale, AdditiveMixer, SubtractiveMixer, RGBChannelMixer, CMYKChannelMixer,
   RelationshipExplorer, WarmCoolAnalyzer, SaturationExplorer, BrightnessExplorer,
   ColorPsychology, MoodColorGenerator, EmotionColorFinder, ZodiacColor,
-  BirthMonthColor, PersonalityQuiz, LuckyNumberColor, makeNameGenerator,
+  BirthMonthColor, LuckyNumberColor, makeNameGenerator,
+  ColorMemoryGame, ColorMemoryTest, ColorMatchingGame, ColorNamingChallenge,
   PaletteMixer, PaletteShuffler, PaletteSorter, PaletteExporter, PaletteImporter,
+  PaletteCsvExporter, PaletteSvgExporter, PalettePngExporter, SwatchPngExporter, SwatchSheetGenerator,
   PaletteComparison, PaletteBalance, PaletteAccessibility, PaletteFromSingle,
   makeContrastChecker, AccessiblePaletteGenerator,
   CVDProtanopia, CVDDeuteranopia, CVDTritanopia, CVDAchromatopsia,
   ColorTemperature, ColorGamutChecker, PrintColorAccuracy,
-  CssShadowGenerator, CssBorderGenerator, CssFilterGenerator, CssBackdropFilter,
+  CssShadowGenerator, CssBorderGenerator, CssFilterGenerator, CssBackdropFilter, ColorOnBackgroundPreview,
   TailwindClassGenerator, makeVarGenerator, makeNativeColorExport,
   GradientStopEditor, MeshGradient, GradientPresets, GradientInterpolator,
   GradientPaletteGenerator, TransparentGradient, TextGradient, BackgroundGradient,
@@ -63,8 +66,11 @@ import {
   Comp, Anal, Tri, Tet, Split, Mono,
   Linear, Radial, Conic, Multi
 } from "./registry/impl/presets";
+// Only the 10-color page uses this; the other palette generators keep the shared PaletteGenerator.
+import { TenColorPaletteGenerator } from "./registry/impl/ten-color-palette";
+import { getColorSeo } from "./seo/content";
 
-export const TOOLS: ToolDef[] = [
+const TOOLS_BASE: ToolDef[] = [
   // ===== Color Pickers (12) =====
   { slug: "color-picker", name: "Color Picker", description: "Pick any color visually", category: "pickers", icon: Pipette, component: ColorPicker, status: "live" },
   { slug: "eyedropper-tool", name: "Eyedropper Tool", description: "Sample a color from anywhere on screen", category: "pickers", icon: Crosshair, component: EyedropperTool, status: "live" },
@@ -77,7 +83,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-stack-viewer", name: "Color Stack Viewer", description: "Stack colors and inspect them together", category: "pickers", icon: Layers3, component: MultiColorPicker, status: "live" },
   { slug: "image-color-picker", name: "Image Color Picker", description: "Pick colors directly from an image", category: "pickers", icon: ImageIcon, component: ImageColorPicker, status: "live" },
   { slug: "webcam-color-picker", name: "Webcam Color Picker", description: "Pick colors from a webcam snapshot", category: "pickers", icon: Camera, component: ImageColorPicker, status: "live" },
-  { slug: "color-preview-on-background", name: "Color Preview on Background", description: "Preview a color on any background", category: "pickers", icon: PaintBucket, component: CssColorPreview, status: "live" },
+  { slug: "color-preview-on-background", name: "Color Preview on Background", description: "Preview a color on any background", category: "pickers", icon: PaintBucket, component: ColorOnBackgroundPreview, status: "live" },
 
   // ===== Palette Tools (32) =====
   { slug: "monochromatic-palette-generator", name: "Monochromatic Palette Generator", description: "Variations on a single hue", category: "palettes", icon: Droplet, component: Mono, status: "live" },
@@ -93,7 +99,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "single-color-to-full-palette", name: "Single Color to Full Palette", description: "Derive a complete palette from one color", category: "palettes", icon: Palette, component: PaletteFromSingle, status: "live" },
   { slug: "5-color-palette-generator", name: "5-Color Palette Generator", description: "Generate a 5-color palette", category: "palettes", icon: List, component: PaletteGenerator, status: "live" },
   { slug: "8-color-palette-generator", name: "8-Color Palette Generator", description: "Generate an 8-color palette", category: "palettes", icon: ListChecks, component: PaletteGenerator, status: "live" },
-  { slug: "10-color-palette-generator", name: "10-Color Palette Generator", description: "Generate a 10-color palette", category: "palettes", icon: ListOrdered, component: PaletteGenerator, status: "live" },
+  { slug: "10-color-palette-generator", name: "10-Color Palette Generator", description: "Generate a 10-color palette", category: "palettes", icon: ListOrdered, component: TenColorPaletteGenerator, status: "live" },
   { slug: "pastel-palette-generator", name: "Pastel Palette Generator", description: "Generate soft pastel palettes", category: "palettes", icon: Flower2, component: PastelPaletteGenerator, status: "live" },
   { slug: "neon-palette-generator", name: "Neon Palette Generator", description: "Generate vibrant neon palettes", category: "palettes", icon: Flame, component: NeonPaletteGenerator, status: "live" },
   { slug: "earth-tone-palette-generator", name: "Earth Tone Palette Generator", description: "Generate warm earth-tone palettes", category: "palettes", icon: Mountain, component: earth, status: "live" },
@@ -148,14 +154,14 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-gamut-checker", name: "Color Gamut Checker", description: "Check if a color sits inside common gamuts", category: "analysis", icon: ScanLine, component: ColorGamutChecker, status: "live" },
   { slug: "color-temperature-analyzer", name: "Color Temperature Analyzer", description: "Estimate a Kelvin temperature from any color", category: "analysis", icon: Flame, component: ColorTemperature, status: "live" },
   { slug: "color-hierarchy-analyzer", name: "Color Hierarchy Analyzer", description: "Analyze the hierarchy of a palette", category: "analysis", icon: Layers, component: ColorHierarchy, status: "live" },
-  { slug: "color-swatch-generator", name: "Color Swatch Generator", description: "Generate a printable color swatch", category: "analysis", icon: Grid3x3, component: PaletteExporter, status: "live" },
+  { slug: "color-swatch-generator", name: "Color Swatch Generator", description: "Generate a printable color swatch", category: "analysis", icon: Grid3x3, component: SwatchSheetGenerator, status: "live" },
   { slug: "color-wheel-interactive", name: "Color Wheel Interactive", description: "Interactive 24-hue color wheel with lightness", category: "analysis", icon: Aperture, component: InteractiveColorWheel, status: "live" },
   { slug: "brand-color-extractor", name: "Brand Color Extractor", description: "Pull brand colors out of a logo or screenshot", category: "analysis", icon: Award, component: ExtractColors, status: "live" },
   { slug: "print-color-accuracy-checker", name: "Print Color Accuracy Checker", description: "Estimate how a screen color prints", category: "analysis", icon: PaintBucket, component: PrintColorAccuracy, status: "live" },
   { slug: "color-theory-reference-tool", name: "Color Theory Reference Tool", description: "Quick reference for color theory", category: "analysis", icon: Compass, component: ColorWheel, status: "live" },
   { slug: "pantone-approximation-tool", name: "Pantone Approximation Tool", description: "Approximate Pantone matches for any color", category: "analysis", icon: Search, component: NearestColorFinder, status: "live" },
-  { slug: "color-naming-challenge", name: "Color Naming Challenge", description: "Guess the name of random colors", category: "analysis", icon: Gamepad2, component: PersonalityQuiz, status: "live" },
-  { slug: "color-memory-test", name: "Color Memory Test", description: "Test how well you remember colors", category: "analysis", icon: Brain, component: PersonalityQuiz, status: "live" },
+  { slug: "color-naming-challenge", name: "Color Naming Challenge", description: "Guess the name of random colors", category: "analysis", icon: Gamepad2, component: ColorNamingChallenge, status: "live" },
+  { slug: "color-memory-test", name: "Color Memory Test", description: "Test how well you remember colors", category: "analysis", icon: Brain, component: ColorMemoryTest, status: "live" },
 
   // ===== Color Manipulation (26) =====
   { slug: "color-shades-generator", name: "Color Shades Generator", description: "Generate darker shades of a color", category: "manipulation", icon: Moon, component: ShadesGenerator, status: "live" },
@@ -163,8 +169,8 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-tones-generator", name: "Color Tones Generator", description: "Generate desaturated tones of a color", category: "manipulation", icon: SlidersHorizontal, component: ToneGenerator, status: "live" },
   { slug: "color-lighten-tool", name: "Color Lighten Tool", description: "Lighten any color by a percentage", category: "manipulation", icon: SunDim, component: LightenTool, status: "live" },
   { slug: "color-darken-tool", name: "Color Darken Tool", description: "Darken any color by a percentage", category: "manipulation", icon: CloudRain, component: DarkenTool, status: "live" },
-  { slug: "saturation-booster", name: "Saturation Booster", description: "Increase color saturation", category: "manipulation", icon: TrendingUp, component: SaturationAdjuster, status: "live" },
-  { slug: "saturation-reducer", name: "Saturation Reducer", description: "Decrease color saturation", category: "manipulation", icon: TrendingDown, component: SaturationAdjuster, status: "live" },
+  { slug: "saturation-booster", name: "Saturation Booster", description: "Increase color saturation", category: "manipulation", icon: TrendingUp, component: SaturationBooster, status: "live" },
+  { slug: "saturation-reducer", name: "Saturation Reducer", description: "Decrease color saturation", category: "manipulation", icon: TrendingDown, component: SaturationReducer, status: "live" },
   { slug: "vibrance-adjuster", name: "Vibrance Adjuster", description: "Adjust the vibrance of any color", category: "manipulation", icon: Sparkles, component: SaturationAdjuster, status: "live" },
   { slug: "exposure-adjuster", name: "Exposure Adjuster", description: "Adjust the exposure of any color", category: "manipulation", icon: Camera, component: Bright, status: "live" },
   { slug: "color-mixer-2", name: "Color Mixer (2 colors)", description: "Mix two colors visually", category: "manipulation", icon: Blend, component: ColorMixer, status: "live" },
@@ -173,7 +179,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-temperature-adjuster", name: "Color Temperature Adjuster", description: "Shift a color toward warm or cool", category: "manipulation", icon: Flame, component: HueShift, status: "live" },
   { slug: "warm-to-cool-color-shifter", name: "Warm to Cool Color Shifter", description: "Shift between warm and cool versions of a color", category: "manipulation", icon: Snowflake, component: HueShift, status: "live" },
   { slug: "rgb-channel-adjuster", name: "RGB Channel Adjuster", description: "Adjust R, G, B channels independently", category: "manipulation", icon: Settings2, component: RGBChannelMixer, status: "live" },
-  { slug: "hsl-channel-adjuster", name: "HSL Channel Adjuster", description: "Adjust H, S, L channels independently", category: "manipulation", icon: ListFilter, component: ColorPicker, status: "live" },
+  { slug: "hsl-channel-adjuster", name: "HSL Channel Adjuster", description: "Adjust H, S, L channels independently", category: "manipulation", icon: ListFilter, component: HslChannelAdjuster, status: "live" },
   { slug: "hue-rotator", name: "Hue Rotator", description: "Rotate the hue of any color", category: "manipulation", icon: RotateCcw, component: HueShift, status: "live" },
   { slug: "opacity-calculator", name: "Opacity Calculator", description: "Calculate alpha blending values", category: "manipulation", icon: EyeOff, component: OpacityCalculator, status: "live" },
   { slug: "opacity-layering-calculator", name: "Opacity Layering Calculator", description: "Stack semi-transparent colors", category: "manipulation", icon: Layers, component: OpacityCalculator, status: "live" },
@@ -195,15 +201,15 @@ export const TOOLS: ToolDef[] = [
   { slug: "gradient-color-stop-editor", name: "Gradient Color Stop Editor", description: "Add, move and tune individual gradient stops", category: "gradients", icon: MousePointerClick, component: GradientStopEditor, status: "live" },
   { slug: "css-gradient-animation-generator", name: "CSS Gradient Animation Generator", description: "Generate animated CSS gradients", category: "gradients", icon: Sparkles, component: AnimatedGradient, status: "live" },
   { slug: "mesh-gradient-generator", name: "Mesh Gradient Generator", description: "Generate multi-blob mesh gradients", category: "gradients", icon: Aperture, component: MeshGradient, status: "live" },
-  { slug: "svg-gradient-generator", name: "SVG Gradient Generator", description: "Generate SVG <linearGradient> markup", category: "gradients", icon: FileCode, component: CSSGradientExporter, status: "live" },
-  { slug: "canvas-gradient-generator", name: "Canvas Gradient Generator", description: "Generate gradient code for HTML5 canvas", category: "gradients", icon: Brush, component: CSSGradientExporter, status: "live" },
+  { slug: "svg-gradient-generator", name: "SVG Gradient Generator", description: "Generate SVG <linearGradient> markup", category: "gradients", icon: FileCode, component: SVGGradientExporter, status: "live" },
+  { slug: "canvas-gradient-generator", name: "Canvas Gradient Generator", description: "Generate gradient code for HTML5 canvas", category: "gradients", icon: Brush, component: CanvasGradientExporter, status: "live" },
   { slug: "gradient-previewer", name: "Gradient Previewer", description: "Preview any CSS gradient instantly", category: "gradients", icon: Eye, component: GradientPreviewer, status: "live" },
   { slug: "noise-grain-texture-generator", name: "Noise & Grain Texture Generator", description: "Add a noise or grain texture to a gradient", category: "gradients", icon: Wand2, component: GradientNoise, status: "live" },
   { slug: "gradient-to-css-exporter", name: "Gradient to CSS Exporter", description: "Export a gradient as ready-to-paste CSS", category: "gradients", icon: Code2, component: CSSGradientExporter, status: "live" },
   { slug: "gradient-palette-mixer", name: "Gradient Palette Mixer", description: "Generate a discrete palette from a gradient", category: "gradients", icon: Palette, component: GradientPaletteGenerator, status: "live" },
   { slug: "gradient-collection-browser", name: "Gradient Collection Browser", description: "Browse an embedded collection of gradients", category: "gradients", icon: Grid3x3, component: GradientCollection, status: "live" },
   { slug: "gradient-angle-calculator", name: "Gradient Angle Calculator", description: "Convert between angles and gradient directions", category: "gradients", icon: Calculator, component: GradientAngleCalc, status: "live" },
-  { slug: "css-gradient-to-image-exporter", name: "CSS Gradient to Image Exporter", description: "Render a CSS gradient as a downloadable image", category: "gradients", icon: FileImage, component: CSSGradientExporter, status: "live" },
+  { slug: "css-gradient-to-image-exporter", name: "CSS Gradient to Image Exporter", description: "Render a CSS gradient as a downloadable image", category: "gradients", icon: FileImage, component: GradientImageExporter, status: "live" },
   { slug: "gradient-from-image", name: "Gradient from Image", description: "Extract a gradient from any image", category: "gradients", icon: ImagePlus, component: GradientFromImage, status: "live" },
   { slug: "image-theme-generator", name: "Image Theme Generator", description: "Generate a UI theme from an image", category: "gradients", icon: ImagePlus, component: ImageTheme, status: "live" },
 
@@ -219,7 +225,7 @@ export const TOOLS: ToolDef[] = [
   { slug: "frosted-glass-generator", name: "Frosted Glass Generator", description: "Design frosted-glass surfaces", category: "effects", icon: Snowflake, component: GlassmorphismGenerator, status: "live" },
   { slug: "gradient-overlay-generator", name: "Gradient Overlay Generator", description: "Layer a gradient over an image", category: "effects", icon: AlignVerticalSpaceBetween, component: BackgroundGradient, status: "live" },
   { slug: "brand-style-guide-generator", name: "Brand Style Guide Generator", description: "Generate a mini brand style guide", category: "effects", icon: Award, component: ColorStrategy, status: "live" },
-  { slug: "color-swatch-png-generator", name: "Color Swatch PNG Generator", description: "Export a palette as a PNG swatch sheet", category: "effects", icon: FileImage, component: PaletteExporter, status: "live" },
+  { slug: "color-swatch-png-generator", name: "Color Swatch PNG Generator", description: "Export a palette as a PNG swatch sheet", category: "effects", icon: FileImage, component: SwatchPngExporter, status: "live" },
 
   // ===== CSS & Developer Output (22) =====
   { slug: "css-hsl-color-generator", name: "CSS HSL Color Generator", description: "Generate CSS hsl() values", category: "css", icon: Code2, component: CssColorGenerator, status: "live" },
@@ -263,13 +269,13 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-json-generator", name: "Color JSON Generator", description: "Generate JSON for any color", category: "data", icon: FileJson, component: ColorJsonGenerator, status: "live" },
   { slug: "color-token-generator", name: "Color Token Generator", description: "Generate design tokens for any color", category: "data", icon: Braces, component: ColorTokenGenerator, status: "live" },
   { slug: "color-format-converter", name: "Color Format Converter", description: "Convert a color into every common format", category: "data", icon: Repeat, component: ColorConverter, status: "live" },
-  { slug: "color-csv-exporter", name: "Color CSV Exporter", description: "Export a palette as CSV", category: "data", icon: FileText, component: PaletteExporter, status: "live" },
+  { slug: "color-csv-exporter", name: "Color CSV Exporter", description: "Export a palette as CSV", category: "data", icon: FileText, component: PaletteCsvExporter, status: "live" },
   { slug: "color-array-generator", name: "Color Array Generator", description: "Generate a JavaScript color array", category: "data", icon: Code2, component: ColorJsonGenerator, status: "live" },
   { slug: "color-object-generator", name: "Color Object Generator", description: "Generate a JavaScript color object", category: "data", icon: Code, component: ColorJsonGenerator, status: "live" },
   { slug: "color-palette-json-exporter", name: "Color Palette JSON Exporter", description: "Export a palette as JSON", category: "data", icon: Database, component: PaletteExporter, status: "live" },
   { slug: "color-palette-css-exporter", name: "Color Palette CSS Exporter", description: "Export a palette as CSS", category: "data", icon: FileCode, component: CssVariablesExporter, status: "live" },
-  { slug: "color-palette-svg-exporter", name: "Color Palette SVG Exporter", description: "Export a palette as an SVG swatch", category: "data", icon: FileCode2, component: PaletteExporter, status: "live" },
-  { slug: "color-palette-png-generator", name: "Color Palette PNG Generator", description: "Export color palettes as high-quality PNG swatch images", category: "data", icon: FileImage, component: PaletteExporter, status: "live" },
+  { slug: "color-palette-svg-exporter", name: "Color Palette SVG Exporter", description: "Export a palette as an SVG swatch", category: "data", icon: FileCode2, component: PaletteSvgExporter, status: "live" },
+  { slug: "color-palette-png-generator", name: "Color Palette PNG Generator", description: "Export color palettes as high-quality PNG swatch images", category: "data", icon: FileImage, component: PalettePngExporter, status: "live" },
 
   // ===== Fun & Creative (22) =====
   { slug: "random-color-generator", name: "Random Color Generator", description: "Generate beautiful random colors", category: "fun", icon: Shuffle, component: RandomColor, status: "live" },
@@ -286,14 +292,14 @@ export const TOOLS: ToolDef[] = [
   { slug: "rgb-cube-visualizer", name: "RGB Cube Visualizer", description: "Visualize colors in an RGB cube", category: "fun", icon: Boxes, component: InteractiveColorWheel, status: "live" },
   { slug: "hue-circle-interactive", name: "Hue Circle Interactive", description: "Interactive circular hue picker", category: "fun", icon: Circle, component: ColorWheel, status: "live" },
   { slug: "color-blending-art-tool", name: "Color Blending Art Tool", description: "Blend colors to create art", category: "fun", icon: Brush, component: ColorBlender, status: "live" },
-  { slug: "color-memory-game", name: "Color Memory Game", description: "Memorize and match colors", category: "fun", icon: Gamepad2, component: PersonalityQuiz, status: "live" },
+  { slug: "color-memory-game", name: "Color Memory Game", description: "Memorize and match colors", category: "fun", icon: Gamepad2, component: ColorMemoryGame, status: "live" },
   { slug: "pastel-color-generator", name: "Pastel Color Generator", description: "Generate soft pastel colors", category: "fun", icon: Flower2, component: PastelPaletteGenerator, status: "live" },
   { slug: "neon-color-generator", name: "Neon Color Generator", description: "Generate vibrant neon colors", category: "fun", icon: Flame, component: NeonPaletteGenerator, status: "live" },
   { slug: "muted-color-generator", name: "Muted Color Generator", description: "Generate muted, low-saturation colors", category: "fun", icon: Droplet, component: Muted, status: "live" },
   { slug: "warm-color-generator", name: "Warm Color Generator", description: "Generate warm-tone colors", category: "fun", icon: Sun, component: Warm, status: "live" },
   { slug: "cool-color-generator", name: "Cool Color Generator", description: "Generate cool-tone colors", category: "fun", icon: Snowflake, component: Cool, status: "live" },
   { slug: "earth-tone-color-generator", name: "Earth Tone Color Generator", description: "Generate earth-tone colors", category: "fun", icon: Mountain, component: earth, status: "live" },
-  { slug: "color-matching-game", name: "Color Matching Game", description: "Match colors to test your eye", category: "fun", icon: Puzzle, component: PersonalityQuiz, status: "live" },
+  { slug: "color-matching-game", name: "Color Matching Game", description: "Match colors to test your eye", category: "fun", icon: Puzzle, component: ColorMatchingGame, status: "live" },
 
   // ===== Color Theory (18) =====
   { slug: "color-harmony-generator", name: "Color Harmony Generator", description: "Generate harmonies from any base color", category: "theory", icon: Compass, component: HarmonyVisualizer, status: "live" },
@@ -314,7 +320,51 @@ export const TOOLS: ToolDef[] = [
   { slug: "color-trend-analyzer", name: "Color Trend Analyzer", description: "Analyze the trends in color over time", category: "theory", icon: BarChart3, component: ColorOfTheYear, status: "live" },
   { slug: "color-from-text-mood-tool", name: "Color from Text/Mood Tool", description: "Generate a palette from a text mood", category: "theory", icon: Sparkles, component: MoodColorGenerator, status: "live" },
   { slug: "color-blindness-test-ishihara", name: "Color Blindness Test (Ishihara-style)", description: "Take an Ishihara-style color blindness test", category: "theory", icon: CircleFadingPlus, component: ColorBlindnessSim, status: "live" },
+
+  // ===== Newly registered tools (audit easy-tier) =====
+  { slug: "css-named-colors-reference", name: "CSS Named Colors Reference", description: "Browse and search the full CSS named-color list", category: "analysis", icon: Tag, component: NamedColors, status: "live" },
+  { slug: "web-safe-color-palette", name: "Web Safe Color Palette", description: "Browse the 216 web-safe colors", category: "designsys", icon: Grid3x3, component: WebSafeColors, status: "live" },
+  { slug: "color-format-validator", name: "Color Format Validator", description: "Validate any CSS color string", category: "analysis", icon: CheckCircle2, component: ColorFormatValidator, status: "live" },
+  { slug: "image-recolor-tool", name: "Image Recolor Tool", description: "Recolor an image with a luminance tint", category: "manipulation", icon: ImagePlus, component: ImageRecolor, status: "live" },
+  { slug: "color-histogram", name: "Color Histogram", description: "View RGB histograms for any image", category: "analysis", icon: BarChart3, component: ColorHistogram, status: "live" },
+  { slug: "dominant-color-finder", name: "Dominant Color Finder", description: "Find the dominant color of an image", category: "analysis", icon: Target, component: DominantColor, status: "live" },
+  { slug: "additive-color-mixer", name: "Additive Color Mixer", description: "Mix two light colors additively", category: "manipulation", icon: Combine, component: AdditiveMixer, status: "live" },
+  { slug: "subtractive-color-mixer", name: "Subtractive Color Mixer", description: "Mix two pigments subtractively", category: "manipulation", icon: Merge, component: SubtractiveMixer, status: "live" },
+  { slug: "cmyk-channel-mixer", name: "CMYK Channel Mixer", description: "Adjust C, M, Y and K channels independently", category: "manipulation", icon: Settings2, component: CMYKChannelMixer, status: "live" },
+  { slug: "palette-importer", name: "Palette Importer", description: "Import a palette from JSON or pasted text", category: "palettes", icon: Download, component: PaletteImporter, status: "live" },
+  { slug: "palette-sorter", name: "Palette Sorter", description: "Sort a palette by hue, lightness or chroma", category: "palettes", icon: ListOrdered, component: PaletteSorter, status: "live" },
+  { slug: "palette-comparison", name: "Palette Comparison", description: "Compare two palettes side by side", category: "palettes", icon: ArrowLeftRight, component: PaletteComparison, status: "live" },
+  { slug: "palette-balance-analyzer", name: "Palette Balance Analyzer", description: "Measure a palette's average lightness and chroma", category: "analysis", icon: Gauge, component: PaletteBalance, status: "live" },
+  { slug: "palette-accessibility-checker", name: "Palette Accessibility Checker", description: "Check every palette color against white", category: "accessibility", icon: Accessibility, component: PaletteAccessibility, status: "live" },
+  { slug: "visual-weight-analyzer", name: "Visual Weight Analyzer", description: "Rank palette colors by visual weight", category: "analysis", icon: Layers3, component: VisualWeight, status: "live" },
+  { slug: "warm-cool-analyzer", name: "Warm vs Cool Analyzer", description: "Classify a color as warm or cool", category: "analysis", icon: Flame, component: WarmCoolAnalyzer, status: "live" },
+  { slug: "gradient-interpolator", name: "Gradient Interpolator", description: "Interpolate discrete steps between two colors", category: "gradients", icon: SlidersHorizontal, component: GradientInterpolator, status: "live" },
+  { slug: "text-gradient-generator", name: "Text Gradient Generator", description: "Create CSS gradient text", category: "gradients", icon: TypeIcon, component: TextGradient, status: "live" },
+  { slug: "transparent-gradient-generator", name: "Transparent Gradient Generator", description: "Fade any color to transparent", category: "gradients", icon: Waves, component: TransparentGradient, status: "live" },
+  { slug: "gradient-reverser", name: "Gradient Reverser", description: "Reverse the stops of a linear gradient", category: "gradients", icon: RotateCcw, component: GradientReverser, status: "live" },
+  { slug: "css-border-color-generator", name: "CSS Border Color Generator", description: "Design CSS borders with custom colors", category: "css", icon: Square, component: CssBorderGenerator, status: "live" },
+  { slug: "css-filter-generator", name: "CSS Filter Generator", description: "Compose CSS filter() color formulas", category: "effects", icon: Wand2, component: CssFilterGenerator, status: "live" },
+  { slug: "css-backdrop-filter-generator", name: "CSS Backdrop Filter Generator", description: "Generate backdrop-filter CSS", category: "effects", icon: Aperture, component: CssBackdropFilter, status: "live" },
+  { slug: "alpha-color-generator", name: "Alpha Color Generator", description: "Generate rgba() and 8-digit hex values", category: "manipulation", icon: EyeOff, component: AlphaColorGenerator, status: "live" },
+  { slug: "color-variations-generator", name: "Color Variations Generator", description: "Show tints, shades and tones together", category: "manipulation", icon: Palette, component: ColorVariations, status: "live" },
+  { slug: "color-shift-generator", name: "Color Shift Generator", description: "Shift hue and preview every variant", category: "manipulation", icon: Shuffle, component: ColorShiftGenerator, status: "live" },
+  { slug: "primary-secondary-tertiary-colors", name: "Primary, Secondary & Tertiary Colors", description: "Reference the classic color wheel groups", category: "theory", icon: Triangle, component: PrimarySecondaryTertiary, status: "live" },
+  { slug: "oklch-color-playground", name: "OKLCH Color Playground", description: "Explore OKLCH lightness, chroma and hue", category: "theory", icon: SlidersHorizontal, component: ColorPlayground, status: "live" },
+  { slug: "zodiac-color-generator", name: "Zodiac Color Generator", description: "Get a color palette for your zodiac sign", category: "fun", icon: Star, component: ZodiacColor, status: "live" },
+  { slug: "birth-month-color-generator", name: "Birth Month Color Generator", description: "Get a color palette for your birth month", category: "fun", icon: Calendar, component: BirthMonthColor, status: "live" },
+  { slug: "emotion-color-finder", name: "Emotion Color Finder", description: "Find a color palette for an emotion", category: "fun", icon: Smile, component: EmotionColorFinder, status: "live" },
+  { slug: "lucky-number-color", name: "Lucky Number Color", description: "Turn a lucky number into a palette", category: "fun", icon: Sparkles, component: LuckyNumberColor, status: "live" },
 ];
+
+/**
+ * Attach authored editorial SEO content to tool definitions. Tools without
+ * content yet are left untouched, so <SeoContent> renders nothing extra for
+ * them (no placeholder).
+ */
+export const TOOLS: ToolDef[] = TOOLS_BASE.map((t) => {
+  const seo = getColorSeo(t.slug);
+  return seo ? { ...t, seo } : t;
+});
 
 export const TOOLS_BY_SLUG: Record<string, ToolDef> = Object.fromEntries(
   TOOLS.map((t) => [(t as any).slug, t]),

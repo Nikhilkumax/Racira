@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "contrast-checker",
+    "keywords": [
+      "contrast checker",
+      "wcag contrast ratio",
+      "aa and aaa contrast",
+      "text and background contrast"
+    ],
+    "intro": "Contrast Checker takes a text color and a background color and reports the WCAG contrast ratio between them, together with the four pass-or-fail verdicts that follow from that one number.",
+    "content": "Contrast Checker takes a text color and a background color and reports the WCAG contrast ratio between them, together with the four pass-or-fail verdicts that follow from that one number. The preview block renders your pair as a large heading above smaller body text, so the verdicts can be read directly against the thing they are judging. Because both AA and AAA contrast levels are decided from that one pair, the page doubles as a combined text and background contrast report rather than a test of a single threshold.\n\nEverything is decided from the single ratio the tool prints, and every threshold is shown at once instead of one level at a time:\n\n- WCAG AA, normal text — 4.5 to 1, the baseline for running body copy, and the ratio most teams treat as the shipping gate.\n- WCAG AA, large text — 3 to 1, the relaxed level that applies to text at roughly 24px, or 18.66px when bold.\n- WCAG AAA, normal text — 7 to 1, the enhanced level for body copy.\n- WCAG AAA, large text — 4.5 to 1, the enhanced level for large type.\n\nThose thresholds all read from the same calculation, which is the standard WCAG 2.x contrast ratio. Each color is converted to sRGB, each channel is linearised out of its gamma curve, and the three linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue to give a relative luminance. The ratio is then the lighter luminance plus 0.05 divided by the darker luminance plus 0.05, which is why the scale runs from 1 to 1 for a color against itself up to 21 to 1 for pure black on pure white. This page rounds the result to two decimal places, because the thresholds sit close enough together that one decimal is not always enough to tell a pass from a fail.\n\nSome limits are worth knowing before you treat a green badge as the whole story.\n\n- The verdicts are text thresholds only. A 3 to 1 pass says a pair is acceptable for large type, and says nothing about whether the same pair can carry a paragraph.\n- Only two colors are compared. A card, border or third surface layered behind the pair is not part of the calculation.\n- Alpha is not an input. A translucent overlay has to be flattened against its real backdrop before the number means anything.\n- The ratio is a property of two colors alone. Font weight, size and antialiasing change how a pair feels in use but never move the number.\n- Non-text elements are out of scope. Component boundaries and focus rings are also judged at 3 to 1 here, but the component and focus checks exist because the conditions that make them pass are different.\n\nStart with the pair you actually intend to ship, then read the badges in order of how the text will be used. Running body copy needs the AA normal badge, headings and display type can live with AA large, and AAA is worth chasing only where the contrast it demands does not flatten the design. If a pair sits just under a threshold and the color matters, adjust the background instead of the text color: a small change in the larger area moves the ratio further and is less visible once rendered.",
+    "howTo": [
+      "Set the text color in the first swatch and the background color in the second.",
+      "Read the contrast ratio printed in the second panel's title, to two decimal places.",
+      "Check the four badges below it, and note which of AA and AAA your pair satisfies for normal and large text.",
+      "Judge the preview block as well as the numbers, since a pair can pass at 4.5 to 1 and still read thinly at small sizes."
+    ],
+    "whenToUse": "Use the contrast checker as the general-purpose gate for a single text-and-background pair, because it answers every WCAG 2.x threshold at once and does not commit you to one level. Reach for the {{contrast-ratio-calculator|contrast ratio calculator}} when the ratio itself is the deliverable, and the {{wcag-21-aa-checker|WCAG 2.1 AA checker}} or {{wcag-21-aaa-checker|WCAG 2.1 AAA checker}} when a project has already committed to one level and you want a single verdict. Pairs that involve a visible boundary rather than text belong with the {{ui-component-contrast-checker|UI component contrast checker}} and {{focus-indicator-contrast-checker|focus indicator contrast checker}}, and any pair you suspect survives contrast but fails real reading should go through the {{text-readability-checker|text readability checker}}.",
+    "faqs": [
+      {
+        "q": "Why does a pair pass AA but fail AAA?",
+        "a": "The two levels gate on different numbers. AA asks for 4.5 to 1 for normal text, while AAA asks for 7 to 1, so a ratio of, say, 5.8 to 1 satisfies every AA badge and neither AAA one. The badges are computed independently from the same ratio, so nothing is inconsistent when they disagree."
+      },
+      {
+        "q": "My pair reads 4.4 to 1 and looks fine. Is the fail a rounding artefact?",
+        "a": "No. The badge is compared against the ratio rounded to two decimals, so 4.4 to 1 is genuinely below the 4.5 threshold rather than a display shortcut. Moving either color by a few percent of lightness is usually enough to clear it."
+      },
+      {
+        "q": "Does the checker use the contrast ratio or the newer APCA formula?",
+        "a": "It uses the WCAG 2.x contrast ratio throughout, which is the formula the AA and AAA thresholds are defined against. The label on the WCAG 3.0 APCA page makes clear that no APCA calculation happens in this tool."
+      },
+      {
+        "q": "Can I check a color with transparency in it?",
+        "a": "The two swatches take solid colors, so there is no alpha channel to evaluate. Composite the translucent color onto its real backdrop first, then paste the resulting opaque color in, otherwise the ratio will be measured against a background that is not what ships."
+      },
+      {
+        "q": "Which badge should I use for a button label?",
+        "a": "It depends on how the label is set. At ordinary body size the AA normal badge applies; at roughly 24px, or 18.66px bold, the AA large badge is the correct bar. The component check covers the button's own boundary, which is a separate requirement from its label."
+      }
+    ]
+  },
+  {
+    "slug": "contrast-ratio-calculator",
+    "keywords": [
+      "contrast ratio calculator",
+      "contrast ratio formula",
+      "relative luminance",
+      "wcag ratio scale"
+    ],
+    "intro": "Contrast Ratio Calculator isolates the single number that every contrast rule is built on, printing the WCAG ratio between two colors to two decimal places.",
+    "content": "Contrast Ratio Calculator isolates the number that every contrast rule is built on: the WCAG ratio between two colors, printed to two decimal places. It runs the same two-color engine as the contrast checker, and the difference is emphasis rather than arithmetic. Here the ratio is the headline and the pass-or-fail badges are the by-product, which makes this page the right one when you need the figure itself rather than a verdict on it.\n\nThe calculator also shows the four standard comparisons, so you can see where your figure lands on the scale without switching pages:\n\n- AA normal text at 4.5 to 1, the common shipping gate for body copy.\n- AA large text at 3 to 1, the relaxed bar for large type.\n- AAA normal text at 7 to 1, the enhanced level.\n- AAA large text at 4.5 to 1, the enhanced level for large type.\n\nThe arithmetic is the WCAG 2.x contrast ratio formula, unmodified. Each color is parsed, converted to sRGB, and each channel is linearised so that mid-tones are weighted the way human vision weights them rather than the way the raw 8-bit values suggest. The linear channels are combined as 0.2126 red, 0.7152 green and 0.0722 blue into relative luminance, and the ratio is the lighter luminance plus 0.05 divided by the darker plus 0.05. The 0.05 offset is what keeps the result finite for black on black, and it is also why the scale is not linear: the useful steps crowd together at the top end.\n\nThe scale is worth internalising, because a WCAG ratio scale figure only means something next to the thresholds it sits between. Below 3 to 1 no text passes anything. From 3 to 1 up to 4.5 to 1 only large text is covered. From 4.5 to 1 to 7 to 1 AA is satisfied completely, and above 7 to 1 both AA and AAA are met at normal text size. The very top of the range, at 21 to 1, is reserved for black on white. Reading a figure against those bands is faster than comparing it with four badges one at a time.\n\nBecause the calculator exposes the raw figure, its limits are worth stating plainly.\n\n- The ratio is symmetric. Swapping the two colors returns exactly the same number, so the figure alone never tells you which color is lighter.\n- The scale is not perceptually uniform. A full point of ratio near 21 to 1 is a much smaller visual difference than a full point near 2 to 1, which is precisely the criticism that motivated perceptual alternatives.\n- It does not produce an APCA lightness contrast value. Anything asking for an Lc figure has to come from a dedicated APCA calculator.\n- Two colors only, no alpha, and no third surface behind them.\n- Font metrics are excluded. The number describes the color pair, not the text set in it.\n\nUse the figure as a precise, quotable measurement: for a design audit, a handoff document, or a regression test where you want to assert that a pair has not drifted. Where you only need to know whether to ship, the general contrast checker gives the same number with the thresholds already attached.",
+    "howTo": [
+      "Enter the two colors you want measured in the text and background swatches.",
+      "Read the contrast ratio in the second panel heading, accurate to two decimal places.",
+      "Compare it against the four badge rows below to place your figure on the AA and AAA scale.",
+      "Change one color a few percent at a time to see how far the ratio moves, which is the fastest way to find the smallest edit that clears a threshold."
+    ],
+    "whenToUse": "Use the contrast ratio calculator when the ratio itself is what you need to record, report or assert: an audit figure, a design-system token value, or a number to quote in review. The {{contrast-checker|contrast checker}} covers the same arithmetic when all you need is a verdict, the {{wcag-30-apca-checker|WCAG 3.0 APCA checker}} is the place to look when a ratio shape is the problem rather than the level, and the {{palette-accessibility-checker|palette accessibility checker}} measures a whole set at once rather than a single pair.",
+    "faqs": [
+      {
+        "q": "How many decimal places is the reported ratio accurate to?",
+        "a": "The figure is rounded to two decimal places, which is the same precision the WCAG thresholds are usually compared at. That matters because 4.49 and 4.5 sit on opposite sides of the AA line."
+      },
+      {
+        "q": "Why is a ratio of 21 to 1 the maximum?",
+        "a": "The formula offsets both luminances by 0.05 before dividing. The brightest luminance is 1 for white and the darkest is 0 for black, so the extreme case is 1.05 divided by 0.05, which is exactly 21. No pair of opaque sRGB colors can exceed it."
+      },
+      {
+        "q": "Does it matter which color I put in the text swatch and which in the background?",
+        "a": "For the number itself, no, because the ratio is symmetric and gives the same result either way round. It matters for reading the preview, since that is what shows you which way the pair will actually be rendered."
+      },
+      {
+        "q": "Can I use the ratio to compare two different color pairs against each other?",
+        "a": "Only loosely. A pair at 6 to 1 is more contrast than a pair at 4 to 1, but the gap between them is not proportionally larger in visual terms, because the scale compresses as it rises. Treat the figures as thresholds crossed rather than as scores to rank."
+      },
+      {
+        "q": "Why does a pair at 4.5 to 1 fail one badge and pass another?",
+        "a": "The two badges measure different requirements. AA normal text and AAA large text both sit at 4.5 to 1, so a pair at exactly that figure clears both, while AA large at 3 to 1 also passes and AAA normal at 7 to 1 does not."
+      }
+    ]
+  },
+  {
+    "slug": "wcag-21-aa-checker",
+    "keywords": [
+      "wcag 2.1 aa checker",
+      "4.5 to 1 contrast",
+      "wcag 2.1 aa contrast",
+      "normal text contrast"
+    ],
+    "intro": "WCAG 2.1 AA Checker gives a single pass-or-fail verdict against the 4.5 to 1 contrast minimum that WCAG 2.1 AA sets for normal text.",
+    "content": "WCAG 2.1 AA Checker gives one answer to one question: does this pair of colors reach 4.5 to 1, the contrast minimum that WCAG 2.1 AA sets for normal text. Instead of the four badges a general checker shows, this page compares your pair against a single fixed threshold and prints Pass or Fail beside it.\n\nThe AA level of WCAG 2.1 is the one most projects are held to, and it is defined across two conditions rather than one:\n\n- Normal text needs 4.5 to 1, which covers body copy, labels, table cells and anything else read at ordinary size.\n- Large text needs 3 to 1, where large means roughly 24px, or 18.66px when bold.\n\nThe verdict on this page is decided at 4.5 to 1 for every pair you enter, so the large-text allowance is not applied. That is a deliberate simplification for the common case of checking body copy, and it is also the one behaviour to know about before you use the result to sign off a heading.\n\nThe measurement behind the verdict is the standard WCAG 2.x contrast ratio. Both colors are converted to sRGB and linearised, then weighted 0.2126 red, 0.7152 green and 0.0722 blue into a relative luminance. The lighter luminance plus 0.05 is divided by the darker plus 0.05, and the result is rounded to two decimals before the comparison. Because the comparison is a hard boundary rather than a gradient, a pair at 4.49 to 1 fails and a pair at 4.5 to 1 passes, with nothing in between.\n\nRead the result as a WCAG 2.1 AA contrast verdict for the pair, with the 4.5 to 1 contrast minimum as the only line being tested. Normal text contrast is the case the page is built around, which is why it applies that figure regardless of how large the text actually is. The verdict does not grade how far above the bar you land, so a pair at 4.5 to 1 and a pair at 12 to 1 are both simply Pass. When the margin between the two matters, the ratio printed beside the verdict is where that difference shows.\n\nA few things sit outside what a single-threshold check can tell you.\n\n- Large text is judged at the same 4.5 to 1 as body copy here, so a heading pair that only reaches 3 to 1 reports Fail even though WCAG 2.1 AA permits it for large type.\n- AAA is not evaluated at all. A passing pair tells you nothing about whether it reaches the 7 to 1 enhanced level.\n- The check covers text contrast only. Component boundaries, focus indicators and graphical objects are governed by the non-text requirement and are not assessed.\n- Two colors are compared, with no alpha and no third surface behind them.\n- The verdict says nothing about size, weight or how the text is actually rendered.\n\nUse this page when AA is the requirement you have agreed to and you want an unambiguous yes or no rather than a table. If the pair is a heading, check it against the large-text threshold instead, and if the pair is a boundary rather than text, the component and focus checks are the ones that apply.",
+    "howTo": [
+      "Pick the foreground color first, in the field labelled Foreground.",
+      "Pick the background color in the second field.",
+      "Read the ratio in the panel heading, to two decimal places.",
+      "Check the Pass or Fail line beneath it, which compares the ratio against 4.5 to 1 and shows the threshold in the same sentence."
+    ],
+    "whenToUse": "Use the WCAG 2.1 AA checker when AA is the level written into the brief and you want a single verdict for a body-copy pair. Pair it with the {{wcag-21-aaa-checker|WCAG 2.1 AAA checker}} when a project has to satisfy both levels, the {{large-text-contrast-checker|large text contrast checker}} when the pair is a heading rather than body copy, and the {{contrast-checker|contrast checker}} when you want all four thresholds side by side instead of one gate.",
+    "faqs": [
+      {
+        "q": "Why does my heading pair fail here when it looks acceptable?",
+        "a": "Because this page applies the 4.5 to 1 normal-text minimum to everything it is given. WCAG 2.1 AA allows 3 to 1 for large text, so a heading pair in the 3 to 1 to 4.5 to 1 range is permitted but will still show as Fail here. Check those pairs against the large-text threshold instead."
+      },
+      {
+        "q": "Is a pass here enough to claim WCAG 2.1 AA conformance?",
+        "a": "No. It confirms the contrast minimum for one text pair. AA covers many other requirements, and even within contrast it also sets a 3 to 1 requirement for non-text elements, which this check does not look at."
+      },
+      {
+        "q": "What happens if my pair lands exactly on 4.5 to 1?",
+        "a": "It passes. The comparison is greater than or equal to the threshold, and both the ratio and the threshold are read at two decimal places, so an exact match is a pass rather than a borderline case."
+      },
+      {
+        "q": "Does the checker account for text color over a gradient?",
+        "a": "No. It measures two solid colors. For text sitting on a gradient, check the lightest and darkest points separately and treat the worst result as the one that governs the pairing."
+      },
+      {
+        "q": "Should I darken the text or lighten the background to reach the threshold?",
+        "a": "Either changes the ratio, but they are not equivalent in practice. Adjusting the larger area usually costs less visually, so lightening a dark background slightly is often the cheaper fix, while darkening the text is the better choice when the background is locked by a brand palette."
+      }
+    ]
+  },
+  {
+    "slug": "wcag-21-aaa-checker",
+    "keywords": [
+      "wcag 2.1 aaa checker",
+      "7 to 1 contrast",
+      "aaa contrast verdict",
+      "enhanced contrast ratio"
+    ],
+    "intro": "WCAG 2.1 AAA Checker tests a color pair against the 7 to 1 enhanced contrast level, the stricter of the two thresholds WCAG 2.1 defines.",
+    "content": "WCAG 2.1 AAA Checker tests a pair of colors against 7 to 1, the enhanced contrast level that WCAG 2.1 defines above the ordinary AA minimum. It reports one ratio to two decimal places and one verdict, which makes it the fast way to find out whether a pair is anywhere near the stricter standard before you commit design time to it.\n\nThe AAA level is defined at two sizes, and both are above their AA counterparts:\n\n- Normal text needs 7 to 1, a substantial step up from the 4.5 to 1 that AA requires.\n- Large text needs 4.5 to 1, which is the same figure AA asks of body copy.\n\nThe verdict here is decided at 7 to 1 regardless of the size of the text, so the large-text allowance is not applied and a heading pair that clears AAA for large text will still report Fail.\n\nThe underlying figure is the WCAG 2.x contrast ratio. Each color is converted to sRGB, its channels are linearised, and the three linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue into relative luminance. The ratio is the lighter luminance plus 0.05 over the darker plus 0.05, rounded to two decimals before it is compared against the threshold. Reaching 7 to 1 usually means one color is very light and the other very dark, which is why AAA layouts tend to look high-contrast and spare rather than rich.\n\nRead the result as the AAA contrast verdict for the pair, with the 7 to 1 contrast threshold as the single line being tested. The page does not report how much headroom a passing pair has, so one that scrapes the threshold and one far beyond it carry the same verdict, and the enhanced contrast ratio printed in the panel heading is where that difference becomes visible. If the figure sits close to the line, treat it as unproven and move a color further before relying on it.\n\nWhat this single gate cannot tell you is as important as what it can.\n\n- Large text is judged at 7 to 1, not the 4.5 to 1 that AAA actually permits, so the check is stricter than the specification for headings.\n- It says nothing about AA. In practice anything that passes 7 to 1 also passes 4.5 to 1, but the page does not confirm that for other pairs in your palette.\n- Non-text contrast is excluded. Component boundaries and focus rings are not evaluated, and they carry their own 3 to 1 requirement.\n- No alpha, no gradients and no third surface behind the pair.\n- Font weight and rendered size are not inputs, so the verdict describes the colors and not the typography.\n\nReach for this page when AAA is a contractual or accessibility-policy requirement rather than a preference, such as public-sector work or a design system that ships an enhanced mode. If the resulting constraint flattens a palette you care about, the honest answer is usually to satisfy AAA in the reading surfaces and use AA elsewhere, rather than compromising the whole scheme.",
+    "howTo": [
+      "Set the foreground color and the background color in the two swatch fields.",
+      "Read the ratio shown in the panel heading, accurate to two decimal places.",
+      "Check the Pass or Fail line, which compares that figure against 7 to 1.",
+      "If it fails, adjust whichever color is easier to move and re-read the ratio, since small lightness changes move the figure sharply near the top of the scale."
+    ],
+    "whenToUse": "Use the WCAG 2.1 AAA checker when a policy, contract or accessibility statement commits you to the enhanced level, most often for long-form reading text that has to hold up for everyone. Use the {{wcag-21-aa-checker|WCAG 2.1 AA checker}} when AA is the agreed bar, the {{wcag-30-apca-checker|WCAG 3.0 APCA checker}} when you are questioning whether a ratio gate reflects perceived contrast at all, and the {{palette-accessibility-checker|palette accessibility checker}} when a whole palette rather than one pair has to be assessed.",
+    "faqs": [
+      {
+        "q": "How much harder is AAA than AA in practice?",
+        "a": "Considerably. AA for body copy is 4.5 to 1 and AAA is 7 to 1, so the pair has to be pushed further apart in lightness. On a light background that typically means a text color below roughly a third of the background's luminance, which rules out most mid-tone brand colors for body copy."
+      },
+      {
+        "q": "Does AAA require 7 to 1 for headings too?",
+        "a": "No. WCAG 2.1 sets 4.5 to 1 for large text at AAA. This page applies the stricter 7 to 1 to everything it is given, so a heading pair in between the two figures is acceptable by the specification but will report Fail here."
+      },
+      {
+        "q": "Is AAA the highest level WCAG defines?",
+        "a": "For contrast, yes. AAA is the top of the three conformance levels in WCAG 2.1, and contrast is one of the few requirements where meeting it is realistic for an entire site rather than an aspiration."
+      },
+      {
+        "q": "Will AAA contrast make my interface look flat?",
+        "a": "It can, because it forces a wide separation between text and its surface. The usual way through is to keep AAA for reading surfaces and body copy and let decorative fills, illustrations and non-text elements carry the visual character of the design."
+      },
+      {
+        "q": "Can a mid-tone color ever pass at 7 to 1?",
+        "a": "Only against a surface at the opposite end of the lightness range. The ratio depends on the difference between the two luminances, so a mid-tone works if the background is much lighter or much darker, but it will not reach the threshold against a surface of similar lightness."
+      }
+    ]
+  },
+  {
+    "slug": "wcag-30-apca-checker",
+    "keywords": [
+      "wcag 3.0 apca checker",
+      "apca contrast",
+      "perceptual contrast",
+      "polarity contrast"
+    ],
+    "intro": "WCAG 3.0 APCA Checker previews the direction of the next accessibility contrast model, applying a single perceptual-style gate to a text and background pair.",
+    "content": "WCAG 3.0 APCA Checker previews the direction of the next accessibility contrast model. It pairs a foreground and a background, prints the contrast figure to two decimal places, and judges it against a single threshold, with the panel labelled as an approximation of APCA rather than as an implementation of it.\n\nThe APCA work exists because the WCAG 2.x ratio has a well-known weakness, and knowing what it replaces is the point of this page:\n\n- The older ratio is symmetric, so dark text on a light background and light text on a dark background score the same even though they do not read the same.\n- The older ratio is not perceptually uniform, so equal steps of ratio do not correspond to equal steps of perceived contrast.\n- The older ratio ignores polarity, text size and font weight entirely, which is why a 4.5 to 1 result can describe two pairs that feel completely different.\n- APCA reworks the model around polarity and lightness, and reports a lightness contrast value rather than a ratio.\n\nThe figure this page prints comes from the WCAG 2.x contrast ratio calculation, rounded to two decimals, compared against a 4.5 to 1 gate. No APCA lightness contrast value is computed, and the panel heading says as much. That makes the page useful as an orientation aid, letting you see how an existing pair sits against a familiar number while you read up on the newer model, but not as evidence about how APCA would score the same pair.\n\nReading the printed figure as an APCA contrast score is the trap to avoid. What is on screen is a perceptual contrast figure in the WCAG 2.x tradition, and the polarity contrast question that motivates the newer model is left entirely unanswered by it. The quickest way to see the difference the model is arguing about is to compare a dark-on-light pair with the same two colors inverted, and note that this page returns identical numbers for both.\n\nBecause the panel is an approximation, its limits are the important part.\n\n- The number is the WCAG 2.x ratio. It cannot be quoted as an APCA lightness contrast value, and the two are not interchangeable.\n- Polarity is not modelled. Swapping the two colors returns the same figure here, whereas an APCA score would not.\n- Text size and font weight do not change the result, though both are inputs to the newer model.\n- The 4.5 to 1 threshold is borrowed from WCAG 2.x AA. It is not an APCA threshold, because APCA does not define one.\n- Two colors only, with no alpha and no surface behind them.\n\nTreat this page as a preview and a signpost. For a compliance decision today, the AA and AAA checks are the ones that map onto a published standard, and this page is the right place to start when you suspect that a ratio-shaped threshold is the wrong tool for a pair that simply does not read well.",
+    "howTo": [
+      "Enter the foreground color and the background color in the two swatch fields.",
+      "Read the panel heading, which labels the figure as an APCA approximation and gives it to two decimal places.",
+      "Compare the Pass or Fail line against the 4.5 to 1 gate shown beside it.",
+      "Swap the two colors and re-read the unchanged figure, which is the quickest way to see the polarity limitation for yourself."
+    ],
+    "whenToUse": "Use the WCAG 3.0 APCA checker when you want to know how a pair will look against a familiar ratio gate while you evaluate the perceptual model that is likely to replace it. For published compliance, the {{wcag-21-aa-checker|WCAG 2.1 AA checker}} and {{wcag-21-aaa-checker|WCAG 2.1 AAA checker}} are the checks that map onto WCAG 2.1 itself, the {{contrast-checker|contrast checker}} shows all four WCAG 2.x thresholds at once, and the {{text-readability-checker|text readability checker}} is the place to go when a pair passes on paper but still reads poorly in practice.",
+    "faqs": [
+      {
+        "q": "Does this page calculate a real APCA score?",
+        "a": "No, and the panel says so. The figure is the WCAG 2.x contrast ratio rounded to two decimals, judged against a 4.5 to 1 gate. Real APCA produces a lightness contrast value on a different scale, which this tool does not compute."
+      },
+      {
+        "q": "Why does swapping the two colors not change the result?",
+        "a": "Because the symmetric ratio is what is being measured, and swapping the inputs leaves it identical. This is exactly the property that APCA was designed to move away from, since dark-on-light and light-on-dark text genuinely score differently under the newer model."
+      },
+      {
+        "q": "Is APCA part of a published standard yet?",
+        "a": "It is a draft direction for WCAG 3.0 rather than a finished requirement. Nothing about the current AA and AAA obligations changes because of it, which is why the compliance checks in this tool still use the WCAG 2.x thresholds."
+      },
+      {
+        "q": "My pair passes here but is still hard to read. What then?",
+        "a": "That is the failure mode the APCA discussion is about. A pair can clear a ratio threshold and still read uncomfortably, usually because the text is thin or small. Raising the size or weight, or widening the lightness gap, fixes more than re-running the same colors."
+      },
+      {
+        "q": "Should I quote this figure in an accessibility statement?",
+        "a": "No. Quote the WCAG 2.x ratio from the contrast checker or the ratio calculator, which are the figures the published thresholds are defined against, and treat this page as an orientation tool only."
+      }
+    ]
+  },
+  {
+    "slug": "large-text-contrast-checker",
+    "keywords": [
+      "large text contrast checker",
+      "3 to 1 contrast",
+      "heading contrast",
+      "large text aa contrast"
+    ],
+    "intro": "Large Text Contrast Checker tests a pair against the 3 to 1 minimum that WCAG 2.1 AA allows for large text, the relaxed bar that applies to headings and display type.",
+    "content": "Large Text Contrast Checker tests a color pair against 3 to 1, the lower contrast minimum that WCAG 2.1 AA permits for large text. It is the check to use for headings, display type and oversized labels, where the stricter 4.5 to 1 requirement does not apply and checking against it would reject pairings that are perfectly acceptable.\n\nThe relaxation exists because size compensates for a certain amount of lost contrast, and it applies at two points on the type scale:\n\n- Large text at 3 to 1, where large means approximately 24px, or 18.66px when the text is bold.\n- Ordinary text at 4.5 to 1, which is the bar this page deliberately does not apply.\n- AAA large text at 4.5 to 1, one step above this page's gate, for comparison.\n\nThis page is aimed at the first of those. Every pair you enter is compared against 3 to 1 and reported as Pass or Fail with the threshold shown beside the verdict.\n\nThe figure being compared is the WCAG 2.x contrast ratio. Both colors are parsed and converted to sRGB, each channel is linearised out of its gamma curve, and the linear values are weighted 0.2126 red, 0.7152 green and 0.0722 blue to produce a relative luminance. The ratio is the lighter luminance plus 0.05 divided by the darker plus 0.05, rounded to two decimals before comparison. Because 3 to 1 is a low bar by ratio standards, a wide range of mid-tone pairs clear it, which is exactly why the large-text exemption is only safe for type that genuinely is large.\n\nThink of the result as the large text AA contrast verdict for a heading contrast pairing, with the 3 to 1 contrast bar as the only threshold tested. The allowance is generous, so most sensible foreground and background pairs clear it, and the more useful question is usually how far above the bar you sit rather than whether you passed at all. A pair that also clears 4.5 to 1 removes the need to police the size boundary entirely, which is worth the extra effort on any heading that might later be reused at a smaller size.\n\nThat last point is the main limitation, and a few others follow from it.\n\n- The tool does not know how large your text is. It applies the large-text threshold to whatever pair you enter, so using it on body copy would return a pass that the specification does not grant.\n- There is no size or weight input, so the boundary between large and ordinary text is yours to police.\n- AAA is not assessed. A pair can pass here and be nowhere near the 7 to 1 enhanced level.\n- Non-text contrast is out of scope, including borders and focus rings, which carry their own requirement.\n- Two colors only, with no alpha and no surface behind them.\n\nUse this page for headings, hero text, chart labels set large and any other type that is comfortably above the large-text size. For running copy, use the ordinary AA check instead, and for a boundary rather than text, use the component or focus check. When in doubt about whether your text counts as large, check both: a heading pair that also clears 4.5 to 1 is immune to the question entirely.",
+    "howTo": [
+      "Set the heading or display color in the foreground field.",
+      "Set the surface behind it in the background field.",
+      "Read the ratio in the panel heading, to two decimal places.",
+      "Check the Pass or Fail verdict against the 3 to 1 threshold, and confirm your text really is large before relying on it."
+    ],
+    "whenToUse": "Use the large text contrast checker for headings, display type and any label set comfortably above the large-text size, where the 3 to 1 allowance is the correct bar. Use the {{wcag-21-aa-checker|WCAG 2.1 AA checker}} for running body copy, the {{contrast-checker|contrast checker}} when you want the large-text and normal-text thresholds side by side for the same pair, and the {{ui-component-contrast-checker|UI component contrast checker}} or {{focus-indicator-contrast-checker|focus indicator contrast checker}} when the thing being judged is a boundary rather than type.",
+    "faqs": [
+      {
+        "q": "What counts as large text under WCAG 2.1?",
+        "a": "Roughly 24px for normal weight text, or about 18.66px when bold. Those correspond to 18pt and 14pt in the point sizes the specification uses, and they are the boundary below which the 4.5 to 1 requirement applies instead."
+      },
+      {
+        "q": "Is 3 to 1 safe for body copy if the text is simply big?",
+        "a": "Only while it stays above the large-text size. The ratio belongs to the pair, so the same colors that pass for a 32px heading would fail the normal-text requirement if the type were reduced later. Check the size your design will actually ship with."
+      },
+      {
+        "q": "Why does AAA use a different number for large text?",
+        "a": "AAA sets 4.5 to 1 for large text and 7 to 1 for normal text. This page applies the AA large-text figure of 3 to 1, so a pair can pass here and still fall short of the enhanced level for the same size."
+      },
+      {
+        "q": "Does bold text get a lower requirement than regular text?",
+        "a": "It gets one at a smaller size. Bold text becomes large at roughly 18.66px rather than 24px, so heavier type reaches the relaxed threshold sooner. Below that size the same 4.5 to 1 applies as for regular text."
+      },
+      {
+        "q": "Can I use a 3 to 1 pair for a button label?",
+        "a": "Only if the label is set large and the button's own boundary also meets the non-text requirement. A button label at ordinary size still needs 4.5 to 1, and the fill against its surrounding surface is a separate 3 to 1 check."
+      }
+    ]
+  }
+]

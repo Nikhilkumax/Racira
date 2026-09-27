@@ -26,14 +26,26 @@ export interface SiteIdentity {
   domain: string;
   /** Brand token for footer copyright lines and title suffixes. */
   copyrightName: string;
+  /**
+   * Optional compact display name for nav surfaces where the shared <Header/>
+   * prepends "Racira" (e.g. "Fonts" → "Racira Fonts") and for the root of a
+   * breadcrumb trail. Set it whenever the nav/breadcrumb label differs from
+   * the full brand token (copyrightName).
+   */
+  shortName?: string;
   /** Default <title> / og:title / twitter:title for the domain's landing page. */
   title: string;
   /** Optional sentence after the copyright name in footer lines (e.g. "Built for engineers and designers."). */
   footerTagline?: string;
 }
 
-/** Factory — gives every domain the same shape and a single place to define it. */
-export function defineSiteIdentity(identity: SiteIdentity): SiteIdentity {
+/**
+ * Factory — gives every domain the same shape and a single place to define it.
+ * The generic return type keeps fields a domain actually provides non-optional
+ * (e.g. typography's shortName is `string`, not `string | undefined`), so call
+ * sites can consume them without non-null assertions.
+ */
+export function defineSiteIdentity<T extends SiteIdentity>(identity: T): Readonly<T> {
   return Object.freeze({ ...identity });
 }
 

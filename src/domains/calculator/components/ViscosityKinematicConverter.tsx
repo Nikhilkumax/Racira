@@ -88,7 +88,7 @@ export default function ViscosityKinematicConverter() {
   const fromFactor = UNITS.find((u) => u.name === inputs.from)?.factor ?? 1
 
   return (
-    <div className="w-full">
+    <div className="racira-page-container py-4">
       {/* BREADCRUMB */}
       <nav className="text-sm text-muted-foreground mb-2" aria-label="Breadcrumb">
         <span className="hover:text-primary transition-colors">Converters</span>
@@ -101,9 +101,9 @@ export default function ViscosityKinematicConverter() {
         Kinematic Viscosity Converter
       </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* LEFT: INPUTS */}
-        <div className="flex flex-col gap-4">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           <div className="bg-card border border-border rounded-lg p-4">
             <div className="grid grid-cols-2 gap-3">
               <div>

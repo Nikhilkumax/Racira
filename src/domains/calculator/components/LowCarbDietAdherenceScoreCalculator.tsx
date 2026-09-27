@@ -215,7 +215,7 @@ export default function LowCarbDietAdherenceScoreCalculator() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [carbsGrams, proteinGrams, fatGrams, dietType]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;

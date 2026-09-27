@@ -86,13 +86,22 @@ export const getCalculatorBySlug = (slug: string): CalculatorDef | undefined => 
   return calculatorRegistry.find(c => c.slug === slug);
 };
 
-export const SEARCH_REGISTRY = calculatorRegistry.map(c => ({
-  name: c.name,
-  description: c.description,
-  slug: c.slug,
-  href: `/calculator/${c.slug}`,
-  category: c.category,
-  subcategory: c.subcategory,
-  isBuilt: c.status === "live",
-  status: c.status,
-}));
+import { canonicalSlug } from "./canonicalSlugs";
+
+// SEARCH_REGISTRY links every entry at its CANONICAL /calculator/<slug> URL.
+// Duplicate-content alias slugs (see canonicalSlugs.ts) map onto their
+// canonical slug so site search and related-tool links never emit the
+// noindex alias URLs.
+export const SEARCH_REGISTRY = calculatorRegistry.map(c => {
+  const slug = canonicalSlug(c.slug);
+  return {
+    name: c.name,
+    description: c.description,
+    slug,
+    href: `/calculator/${slug}`,
+    category: c.category,
+    subcategory: c.subcategory,
+    isBuilt: c.status === "live",
+    status: c.status,
+  };
+});

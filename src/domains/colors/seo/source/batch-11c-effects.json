@@ -1,0 +1,562 @@
+[
+  {
+    "slug": "glassmorphism-generator",
+    "keywords": [
+      "glassmorphism generator",
+      "glassmorphism css",
+      "frosted glass css",
+      "glass effect css",
+      "css backdrop blur glass"
+    ],
+    "intro": "The glassmorphism generator writes a complete CSS snippet for a frosted glass panel — tinted translucent fill, backdrop blur and a hairline highlight border — from four controls.",
+    "content": "- The glassmorphism generator has four controls: a Backdrop colour that sets what sits behind the glass, and a Glass tint that sets what the panel is made of.\n- Opacity, from zero to a hundred percent, controls how much of the backdrop shows through; blur, from zero to sixty pixels, controls how much it is smeared.\n- The preview shows exactly that — the backdrop filling the panel with a floating glass tile inset inside it — and the CSS card underneath carries the finished block with a copy button.\n\nThe emitted snippet is five declarations, and each one is doing a specific job. A background declaration, then backdrop-filter with the blur, then the same backdrop-filter repeated with the -webkit- prefix, then a one-pixel border of translucent white, then a sixteen pixel border radius. Copy takes all five together, so the effect carries across as a unit rather than as values to reassemble.\n\nThe background declaration is the first thing worth understanding, because it is not quite what it appears. The tint colour is not written as an rgba() value with the opacity as the fourth argument; instead the opacity percentage is converted to a two-digit hex value and appended to the tint, producing an eight-digit hex where the last two digits are alpha. Twenty percent opacity becomes a round thirty-three out of two hundred and fifty-five, which is twenty-one in hex, so a white tint at twenty percent comes out as an eight-digit value ending in twenty-one. The colour is rendered identically either way, and the hex form keeps the tint as a single token that is easy to swap.\n\nThe webkit line exists because backdrop blur was prefixed for a long time and some rendering engines still honour the older form; emitting both costs one line and removes a class of cross-browser surprise. The border and radius, by contrast, are fixed rather than adjustable — a hairline translucent white edge and sixteen pixels of corner rounding. Those two details do more for the effect than most people expect, because a glass panel with a hard edge and square corners reads as a translucent rectangle instead of a pane.\n\n- Blur does the heavy lifting: a soft backdrop makes the panel read as glass, while a sharp one leaves it looking like tinted film.\n- Opacity decides how much of the underlying content remains visible, and the honest trade is legibility — the more that shows through, the harder text on the panel is to read, and no amount of blur fixes a contrast problem.\n- Checking text against its real composite backing rather than against the tint alone is the step people skip.\n\nTwo limits are worth naming. Because the tint is written as a hex with alpha, this is a hex-based tool; if your workflow needs rgba(), convert the value after copying. And there is no second layer, no inner shadow and no text treatment here, so a full glassmorphism css treatment for a card usually means combining this snippet with your own typography and elevation rules. As a source of the base frosted glass css recipe — a reliable glass effect css block of tinted fill, backdrop blur and hairline edge — this is the shortest route, and the css backdrop blur glass values are the part almost everyone gets subtly wrong by hand.",
+    "howTo": [
+      "Set the Backdrop colour to match what will sit behind the glass.",
+      "Choose the Glass tint and adjust Opacity until the amount showing through feels right.",
+      "Raise Blur until the backdrop softens; check that text on the panel still reads.",
+      "Copy the block — the tint, blur, prefixed blur, hairline border and radius all come with it."
+    ],
+    "whenToUse": "Use this when a panel needs to sit over imagery or a gradient as translucent glass — navigation bars, overlay cards, modal headers. Use the neumorphism generator when the surface should be opaque and shaped by light rather than transparency. Where the panel's own border and inner highlight matter as much as the blur, the {{frosted-glass-generator|frosted glass generator}} treats them as first-class parts of the recipe, and a shadow that belongs to the surface underneath is what the {{shadow-color-generator|shadow color generator}} derives.",
+    "faqs": [
+      {
+        "q": "Why is the tint written as an eight-digit hex?",
+        "a": "Because the opacity is converted into the last two digits of a hex value, carrying alpha. It renders the same as an rgba() colour, and keeps the tint as a single token."
+      },
+      {
+        "q": "Can I change the border or the corner radius?",
+        "a": "Not in this tool — both are fixed at a one-pixel translucent white border and a sixteen-pixel radius. Edit those two declarations after copying if your design needs different values."
+      },
+      {
+        "q": "Why are there two backdrop-filter declarations?",
+        "a": "The second carries the -webkit- prefix, which older engines require. Emitting both avoids a class of browser inconsistencies at no real cost."
+      },
+      {
+        "q": "How do I keep text readable on the glass?",
+        "a": "Contrast has to be judged against the final composite, not the tint alone. Raising opacity or blur reduces how much of the backdrop interferes, and checking the actual result is the only reliable test."
+      },
+      {
+        "q": "Will the panel still read as glass over a flat colour?",
+        "a": "Only faintly — the blur needs detail behind it to smear, so over a flat surface the panel reads as a tinted layer rather than frosted glass. Put it over imagery or a gradient and the effect returns."
+      }
+    ]
+  },
+  {
+    "slug": "neumorphism-generator",
+    "keywords": [
+      "neumorphism generator",
+      "neumorphism css",
+      "soft ui shadows",
+      "css box shadow generator",
+      "soft ui design generator"
+    ],
+    "intro": "The neumorphism generator writes the soft UI shadow recipe — a background colour, a two-sided box shadow and a corner radius — with sliders for distance and blur.",
+    "content": "- The neumorphism generator has three controls, and the first is the one that defines the style: a Background colour that sets both the element and the surface it sits on.\n- Distance, from two to forty pixels, sets how far the two shadows are offset; blur, from two to eighty, sets how soft their edges are.\n- The preview shows a rounded square floating in a larger panel of the same colour, so the effect is judged as it will actually appear.\n\nThe CSS card holds three declarations, and together they are the complete neumorphism css recipe — the surface colour, the paired shadow and the radius. Reading the output as soft ui shadows rather than as a shadow is the mental shift the style requires. The first paints the background. The second is the interesting one — a box shadow with two entries, the first offset down and to the right in a darker tone, the second offset up and to the left in a lighter tone. That pairing is the entire technique: where a conventional shadow models light coming from one direction and blocking on the far side, this models an element pressed out of, or into, a surface that shares its colour. The third declaration rounds the corners, and the rounding matters more than it looks, because a soft shadow on a square corner reads as a glow rather than as moulded material.\n\nBoth shadow colours are derived rather than chosen. The darker entry is the background colour reduced in brightness by a fixed amount, and the lighter entry is the background colour raised by the same amount, so the relationship between the three is preserved whatever colour you pick. That is why the tool needs only one colour field: the shadows are always eight percent of lightness away from the surface in each direction, which is the standard proportion for the effect.\n\n- That derivation explains the style's signature constraint: because the shadow colours are close to the background, the effect only reads where the surface is a mid-tone with room on both sides.\n- On pure white there is nothing lighter to highlight with and the raised edge disappears; on near-black there is nothing darker to shade with.\n- Colours in the light-middle range — greys, pale blues, soft greens — are where it behaves, which is exactly the range the default sits in.\n\nThe two sliders control how pronounced the moulding is. Distance sets how far the light appears to travel, and with it how deep the element seems to sit; large values with a small blur produce a hard-edged, almost cartoonish relief, while small values keep it subtle. Blur controls the softness, and a blur that is much larger than the distance produces the diffuse, pillow-like appearance the style is known for.\n\nWhat the tool does not offer is worth stating plainly. There is no inset variant, so a pressed or recessed state — the usual way a soft UI button shows interaction — cannot be generated here and has to be written by hand; the CSS is short enough to adapt. The corner radius is fixed at twenty pixels. There is no second surface colour, so the element and its background are always the same value. And since the shadow tones are derived rather than picked, a design that wants warm highlights on a cool surface is out of reach.\n\nUsed as a neumorphism generator, though, it covers the parts that are tedious: computing two derived tones and writing the paired shadow correctly. As a css box shadow generator it produces one very specific recipe, and as a starting point for a soft UI design it hands over the recipe as a copyable block so a raised surface can be styled in one paste. Used as a soft ui design generator, the three declarations it returns are the foundation of the whole style, and the two derived tones are the part most people get wrong when writing it by hand.",
+    "howTo": [
+      "Set the Background colour — a mid-tone works best, since the shadows are derived from it.",
+      "Adjust Distance to control how far the surface appears to lift.",
+      "Adjust Blur for softness; a blur much larger than the distance gives the pillow-like look.",
+      "Copy the block and add an inset variant by hand if you need a pressed state."
+    ],
+    "whenToUse": "Use this when a light, tactile surface is wanted — dashboard cards, resting buttons, control panels. Use the glassmorphism generator when the surface should be translucent over an image instead of moulded out of its background. A shadow that belongs to its surface without the moulding is what the {{shadow-color-generator|shadow color generator}} derives, and when two shadows are more than the design needs, the {{box-shadow-color-tool|box shadow color tool}} builds a single one with its geometry and colour exposed.",
+    "faqs": [
+      {
+        "q": "Why does the element need the same colour as its background?",
+        "a": "Because the whole effect comes from light and shade on a single material. A different element colour breaks the illusion, and the shadow tones would no longer read as derived from the surface."
+      },
+      {
+        "q": "Can I generate an inset or pressed state?",
+        "a": "Not here — only the raised version is written. Adding the inset keyword to the shadow by hand produces the pressed variant."
+      },
+      {
+        "q": "Why does nothing show on a white background?",
+        "a": "The highlight shadow is a lighter version of the surface, and there is nothing lighter than white. The effect needs a mid-tone with room on both sides of it."
+      },
+      {
+        "q": "Are the shadow colours adjustable?",
+        "a": "No, they are derived from the background — eight percent lighter for one and eight percent darker for the other. A warm highlight on a cool surface would need hand-editing."
+      },
+      {
+        "q": "Can the highlight and the shade have different offsets?",
+        "a": "No — they are exact mirrors of each other, both driven by the one distance slider. That symmetry is what makes the surface look moulded, so a lopsided pair is a manual edit of the copied declaration rather than a setting here."
+      }
+    ]
+  },
+  {
+    "slug": "shadow-color-generator",
+    "keywords": [
+      "shadow color generator",
+      "colored box shadow",
+      "shadow color from a base color",
+      "css shadow color",
+      "tinted drop shadow"
+    ],
+    "intro": "The shadow color generator derives a shadow tone from a base color by lowering its lightness while keeping the hue and saturation, then writes the CSS box-shadow declaration.",
+    "content": "The shadow color generator derives a shadow color from a base color and writes it out as a ready-to-paste declaration. Choose a base colour and the tool computes a darker version with the same hue and saturation, then writes out a box shadow using that colour at partial opacity. A preview shows a card floating on a background with the shadow applied, so the effect is visible rather than merely described, and the code panel carries the declaration with a copy button.\n\nThe tone is derived rather than chosen, and that is the point of the tool. A shadow in the same hue as the surface reads as light falling on a coloured object, whereas pure black at low opacity reads as a grey smudge — the difference is subtle at low opacity and obvious when the shadow is strong or large. Deriving the tone also means the shadow stays consistent as the base colour changes, which matters in a design system where several surfaces each need their own shadow and the relationship between them should not have to be re-decided each time.\n\nThe derivation lowers lightness by a fixed amount with a floor, so the result is a markedly darker version of the base without collapsing to black. Hue and saturation are untouched, which is what keeps a warm surface producing a warm shadow. Opacity is written into the declaration as an alpha channel on the hex value, at a fixed level — enough for the shadow to be visible on a light page without becoming a hard edge.\n\n- The rest of the declaration is conventional and fixed: a vertical offset, a substantial blur and a negative spread.\n- That combination is the standard recipe for a soft, natural-looking elevation.\n- The negative spread is the detail most hand-written shadows miss — it pulls the shadow inwards so it does not bleed out sideways from under the element, which is what makes a card look lifted rather than sitting in a pool of grey.\n\nWhere this is useful is anywhere elevation is part of the design language: cards, dropdowns, modals, floating action buttons. Deriving each shadow from its own surface colour gives a set of elevations that share a structure while each staying in the right hue family, which is much harder to achieve by mixing a single grey shadow across surfaces of different colours. It also answers a specific question quickly: if the brief says the shadow should be tinted rather than neutral, this is where the tone comes from.\n\n- Offsets, blur and spread are fixed, so only the colour is derived; the geometry has to be edited in the copied declaration.\n- The floor on lightness means a very dark base produces a shadow barely darker than the surface, and dark surfaces usually want a shadow made from a lighter tone instead — the reverse of what this tool produces.\n- There is no inset variant, no multi-layer shadow and no dark-mode counterpart; within those bounds it hands over a tinted drop shadow as an editable css shadow color declaration, with a colored box shadow already matched to the surface.",
+    "howTo": [
+      "Pick the base colour — normally the surface the element will sit on.",
+      "Check the preview to see how strong the derived tone looks in place.",
+      "Copy the box-shadow declaration and adjust the offsets or blur by hand if the elevation needs to differ."
+    ],
+    "whenToUse": "Use this when a design wants tinted rather than neutral shadows, or when several surfaces each need an elevation that belongs to them. Use the neumorphism generator when the element should appear moulded out of its background rather than lifted above it. When the shadow's geometry needs to be yours rather than fixed, the {{box-shadow-color-tool|box shadow color tool}} exposes offsets, blur and spread alongside the colour, and when the shadow belongs to type rather than to a surface, the {{text-shadow-color-tool|text shadow color tool}} is the same idea one property over.",
+    "faqs": [
+      {
+        "q": "How is the shadow colour chosen?",
+        "a": "It is derived from your base colour: lightness is lowered by a fixed amount with a floor, while hue and saturation stay exactly as they were. Nothing is picked by eye."
+      },
+      {
+        "q": "Why is the opacity written into the hex value?",
+        "a": "The declaration uses an eight-digit hex where the last two digits carry alpha. The level is fixed, which keeps the shadow visible on a light page without turning into a hard edge."
+      },
+      {
+        "q": "Why the negative spread?",
+        "a": "It pulls the shadow inwards so it does not bleed out sideways from under the element. That is what makes a card read as lifted rather than sitting in a pool of grey."
+      },
+      {
+        "q": "What about dark surfaces?",
+        "a": "The floor on lightness means a very dark base produces a shadow barely darker than itself, so the effect weakens. Dark themes usually want a shadow built from a lighter tone instead."
+      },
+      {
+        "q": "Can the derived tone be used for anything other than the shadow?",
+        "a": "Yes — the hex is shown as a swatch of its own, so it can go into a border, a gradient or a second shadow. The box-shadow line is just the default way the tone is handed over."
+      }
+    ]
+  },
+  {
+    "slug": "box-shadow-color-tool",
+    "keywords": [
+      "box shadow color tool",
+      "css box shadow generator",
+      "box shadow color generator",
+      "add color to css box shadow"
+    ],
+    "intro": "The box shadow color tool pairs a color of your choice with offset, blur and spread controls to produce a ready-to-paste CSS box-shadow rule, previewed live on a card.",
+    "content": "- The box shadow color tool builds a CSS box-shadow declaration around a colour you choose.\n- The four geometry values that define a shadow — horizontal offset, vertical offset, blur radius and spread — are exposed as controls, and the colour is set separately, which is the part designers most often get wrong when hand-writing shadows.\n- Every adjustment updates both the live preview card and the generated CSS string immediately, so seeing the result and copying it happen in one pass.\n\nA box shadow in CSS is simply an offset silhouette of the element, blurred and optionally grown or shrunk by the spread value. Positive horizontal values push the shadow right, positive vertical values push it down, a larger blur softens the edge and a positive spread expands the silhouette before blurring. The color controls opacity and hue together: a soft grey at low opacity reads as a natural lift, while a saturated or dark shadow reads as a hard graphic offset. Exposing color as a first-class control, rather than hiding it inside a pre-set rgba value, is what this tool is for.\n\nOne implementation detail is worth knowing because it affects the copied output. The generated shadow composes your color with a fixed translucent alpha, so the shadow is always semi-transparent rather than fully opaque. That produces a natural-looking shadow by default, but it does mean the alpha is not separately adjustable here; if you need a specific opacity you can edit the final two hex characters or switch to an rgba value in the CSS the tool emits. The geometry and color are the parts the sliders control.\n\nThe most common use is elevation. A card that sits on a surface usually needs a soft shadow whose color is a darkened version of the surface hue rather than pure black, because black shadows on a warm background look grey and dirty. Choosing a color derived from the background, keeping the blur generous and the spread slightly negative, is the standard recipe for a believable lift, and this tool lets you dial that in and see it.\n\nThe same control set covers the opposite case as well: a hard, fully colored offset with zero blur and no spread produces the flat graphic look used by brutalist and neo-brutalist interfaces. Because you choose the color directly, you can match the offset color to an accent and get that deliberate, high-contrast look without fighting default shadow values. If you are styling text rather than a box, note that the sibling text shadow tool uses the same control set, but this generator always emits a box-shadow rule, so use it when the target is an element rather than a font.\n\nThink of it as a css box shadow generator with colour exposed as a first-class control rather than a preset picker. Most people reach for a box shadow color generator because the default shadow colours in a framework read as flat grey, and the fastest fix is to add color to css box shadow values that a plain generator leaves monochrome.",
+    "howTo": [
+      "Choose the shadow color with the color field.",
+      "Set the horizontal and vertical offsets to position the shadow.",
+      "Adjust blur to soften the edge and spread to grow or shrink the silhouette.",
+      "Copy the generated box-shadow declaration into your stylesheet."
+    ],
+    "whenToUse": "Use this tool when you are authoring a box-shadow for a surface, card or button and want to control its color directly. Use the text shadow variant when the target is text, and the shadow color generator when you want the tool to derive a harmonious shadow color for you. When the edge of the surface is the question rather than the shadow beneath it, the {{css-border-color-generator|CSS border color generator}} covers width, style and radius, and a washed shadow that has to be softened further is the {{frosted-glass-generator|frosted glass generator}}'s kind of surface.",
+    "faqs": [
+      {
+        "q": "Why is the shadow always semi-transparent?",
+        "a": "The declaration appends a fixed alpha to your color so the shadow reads naturally by default. To use a different opacity, adjust the final hex pair or switch the value to rgba in your CSS."
+      },
+      {
+        "q": "What does a negative spread do?",
+        "a": "It shrinks the shadow silhouette before blurring, which tightens the shadow inward and is a common trick for making elevation look more natural."
+      },
+      {
+        "q": "Why does a black shadow look grey on a warm background?",
+        "a": "Because the shadow is translucent and picks up the background. Choosing a darkened version of the surface color instead of pure black gives a cleaner result."
+      },
+      {
+        "q": "Can it produce a hard offset shadow?",
+        "a": "Yes. Set blur and spread to zero and pick a color; you get the flat, graphic offset used in brutalist interfaces."
+      },
+      {
+        "q": "Can I make the shadow inset?",
+        "a": "Not from the controls — the emitted declaration carries no inset keyword, so adding it is a one-word edit at the start of the value in the copied CSS."
+      }
+    ]
+  },
+  {
+    "slug": "text-shadow-color-tool",
+    "keywords": [
+      "text shadow color tool",
+      "css text shadow generator",
+      "design text shadow color",
+      "glow and drop shadow for text"
+    ],
+    "intro": "The text shadow color tool composes CSS text-shadows with a chosen color and geometry — offsets, blur and spread against a live preview of real rendered text.",
+    "content": "- A text shadow is four numbers and a color, and every one of them changes the personality of the type: the offset decides whether the shadow reads as depth or as a duplicate, the blur decides between crisp echo and soft glow, and the color decides everything about mood.\n- The text shadow color tool puts all four decisions on sliders with a live preview of actual rendered text — set the shadow color, drag the geometry, and the CSS updates beneath the sample.\n\nThe color deserves its place on the slider panel rather than being an afterthought, because shadow color is the difference between the technique's two great uses. A black or near-black shadow at low blur is the drop shadow — anchoring type to its surface, the classic print-derived depth cue. A saturated or lighter-than-text color at high blur is the glow — neon signage, title screens, the emphasis effect that made text-shadow famous. Between them sit the colored soft shadows of modern UI, where a tinted shadow (the surface's hue, darkened) reads more natural than plain black. The tool serves all three because the color field serves all three: any value, any blur, any offset.\n\n- The live preview does the quiet work of keeping the numbers honest.\n- Text shadows are notorious for looking different in the stylesheet than imagined — offsets that read as misprints, blurs that smear rather than glow — and watching real text update as each slider moves closes that gap.\n- The generated CSS is the browser's own syntax, offset-x, offset-y, blur, spread and color in order, copy-ready for any rule.\n\nText shadow does more work than most typography discussions admit. A short offset in a near-background colour is what makes type sit on a photograph without a scrim; a very soft, very light halo is what lets a heading survive over a busy image; a wide coloured glow is what makes an accent feel lit rather than printed. Those are three different jobs and they want three different settings, which is why the geometry and the colour deserve to be tuned together rather than borrowed from a preset. The usual mistakes are geometric as well: an offset larger than the stroke width reads as a duplicate rather than a shadow, a halo with too much opacity turns into a smudge, and a shadow applied to small type simply thickens it into mud. Judging the result at the size the type will actually ship at — rather than zoomed to a comfortable preview — is what keeps glow and drop shadow for text honest.\n\nAs a css text shadow generator it covers the shadow's geometry and color completely; what it deliberately does not touch is the box-shadow world of cards and panels — the shadow and border generators handle those. For the typography-specific question — design text shadow color and geometry until the type sits right — this is the focused instrument.\n\nKeep the shadow colour inside the palette and it reads as depth rather than as an unplanned second type colour, which is usually what separates a deliberate treatment from a default one.",
+    "howTo": [
+      "Choose the shadow color — dark for depth, saturated or light for glow.",
+      "Set the X and Y offsets, blur and spread on their sliders against the live text preview.",
+      "Copy the generated text-shadow declaration into your stylesheet."
+    ],
+    "whenToUse": "Use this for shadow effects on text specifically — depth, glow, tinted soft shadows. Use the box-shadow generator for panels and cards, the border generator for outlines, and the overlay generator when the effect belongs to an image rather than type. For a shadow that has to belong to a whole surface rather than to a word, the {{box-shadow-color-tool|box shadow color tool}} is the matching tool, and a glow that needs to be judged against the surface behind it is what the {{color-overlay-generator|color overlay generator}} previews.",
+    "faqs": [
+      {
+        "q": "What color should a natural drop shadow be?",
+        "a": "Usually a darker version of the surface color rather than pure black — it reads as ambient depth. Pick the surface's hue, darken it, and keep the blur moderate."
+      },
+      {
+        "q": "How do I make a neon glow?",
+        "a": "A saturated color matching or lighter than the text, zero or near-zero offsets, and a generous blur — optionally layered, which the CSS output supports with comma-separated shadows."
+      },
+      {
+        "q": "Why does my shadow look like a misplaced copy of the text?",
+        "a": "The offsets are too large for the blur — a crisp duplicate rather than a shadow. Increase blur or reduce offsets until the echo merges into depth."
+      },
+      {
+        "q": "Does spread work on text shadows?",
+        "a": "Spread is part of the modern syntax this tool outputs, though support varies by browser for text specifically — the preview reflects your environment."
+      },
+      {
+        "q": "Can the shadow be animated or transitioned?",
+        "a": "Yes — text-shadow is an animatable property, so the copied value can be transitioned on hover or focus like any other. The tool stops at the value itself, so the state change lives in your own rule."
+      }
+    ]
+  },
+  {
+    "slug": "overlay-color-generator",
+    "keywords": [
+      "overlay color generator",
+      "image overlay color css",
+      "photo scrim generator",
+      "color tint over image"
+    ],
+    "intro": "The overlay color generator drops a translucent color over an uploaded image with selectable blend modes — the photo scrim generator for text-readable heroes and tinted imagery.",
+    "content": "- The overlay color generator exists for the failing case where text sits on a photograph and the photo fights the words; the designer's answer is an overlay.\n- Upload the image, choose the overlay colour and its opacity, pick a blend mode, and the composite updates live with the CSS recipe underneath.\n- It is a photo scrim generator that shows the truth instead of asking you to imagine it.\n\nThe blend mode selector is what lifts the tool beyond flat transparency. Plain alpha blending washes an image uniformly; blend modes interact — multiply deepens into shadows, screen lifts into highlights, overlay pushes contrast both ways, hue recolors while keeping luminance. Those behaviors are the difference between a scrim that mutes and a treatment that styles, and the selector makes them one click apart: the same color over the same photo is a different design in each mode, and the live preview is where the choice gets made. The generated CSS pairs a background layer with mix-blend-mode, so what the preview shows is exactly what the stylesheet produces.\n\nThe workflow it serves is the readability contract: a color tint over image strong enough that white text passes its contrast obligations, tuned until the photograph still reads beneath. That tuning loop — opacity down until the image breathes, up until the text passes — is exactly what live preview makes fast, and the contrast checker is the referee for the final verdict on any text that will sit on the result. For glass treatments that blur rather than tint, the frosted glass generator handles backdrop-filter; for opaque color-on-color pairs, the background preview applies.\n\nAn overlay is the least destructive way to solve a contrast problem in photography-led design, because it edits the relationship between the image and the type rather than the image itself. Flat transparency is the starting point, but the interesting range sits further along. Multiply darkens while preserving the detail underneath, screen lifts a dark image without bleaching it, and overlay and soft light tint the mid tones while leaving highlights alone, which is usually what a photographic hero needs in order to keep its depth and gain a readable band for a headline. Because the effect depends on the photograph, the settings are not portable — the same values over a different image land somewhere else — so the practical approach is to tune against the actual asset at the actual crop, then check the result with the text that will sit on top of it.\n\nAs an image overlay color css instrument it covers the layer's color, strength and interaction completely — the image color overlay workflow from upload to copyable CSS, with the blend modes doing the styling that flat opacity cannot.\n\nThe other half of the job is checking the text on top, since a hero that reads well in the mock can fail over a different crop of the same photograph — so keep the tuned layer with the asset it was tuned for rather than reusing it as a general overlay colour.",
+    "howTo": [
+      "Upload the image that will sit under the overlay.",
+      "Choose the overlay color, its opacity, and a blend mode — multiply for depth, screen for lift, hue for recoloring.",
+      "Tune until text readability and image visibility balance, then copy the CSS recipe."
+    ],
+    "whenToUse": "Use this for scrims and tints on real imagery — heroes, cards, banners. Use the frosted glass generator for blur-based glass, the opacity layering calculator to flatten a stack to a solid, and the contrast checker to certify any text that lives on the result. A scrim that has to fade rather than sit flat is what the {{gradient-overlay-generator|gradient overlay generator}} builds, and a layer that changes the image's own colours instead of covering them is the {{duotone-generator|duotone generator}}.",
+    "faqs": [
+      {
+        "q": "Which blend mode should I start with?",
+        "a": "Multiply for darkening scrims, screen for lightening ones, plain normal with opacity for neutral washes. Hue recolors the photo while keeping its light structure — powerful for duotone-style effects."
+      },
+      {
+        "q": "How do I guarantee text is readable on the overlay?",
+        "a": "Tune opacity until the composite is calm, then verify the specific text/background pair with the contrast checker — the overlay's visual mood and the WCAG verdict are separate questions."
+      },
+      {
+        "q": "Does the tool upload my image anywhere?",
+        "a": "No — the image stays in your browser; the composite is rendered locally on a canvas or with CSS, and nothing is transmitted."
+      },
+      {
+        "q": "Can I use blend modes on the image itself rather than the overlay?",
+        "a": "The generated CSS places the blend on the overlay layer, which is the robust cross-browser pattern; the preview reflects exactly that construction."
+      },
+      {
+        "q": "Does the overlay change the original file?",
+        "a": "No — the image is displayed with the layer composited on top, and the file itself is untouched. What the tool produces is the recipe: an overlay colour, an opacity and a blend mode, ready to write into CSS."
+      }
+    ]
+  },
+  {
+    "slug": "duotone-generator",
+    "keywords": [
+      "duotone generator",
+      "duotone effect",
+      "duotone image",
+      "convert image to duotone",
+      "two color image effect"
+    ],
+    "intro": "The duotone generator maps an image onto a two-color gradient, replacing every pixel with a blend between a shadow colour and a highlight colour chosen by its brightness.",
+    "content": "The duotone generator takes an image and two colours — labelled Shadow and Highlight — and rebuilds the image from nothing but those two values. Upload through the dropzone and the canvas appears beside the controls; change either colour and the image is redrawn immediately. Replace image clears the file so another can be loaded.\n\nThe transformation is a gradient map, which is the defining characteristic of a duotone effect. For each pixel the tool first computes a single brightness value from the original colour, then uses that brightness as a position along a line drawn between the shadow colour and the highlight colour. Bright pixels land near the highlight, dark pixels near the shadow, and everything in between is interpolated. Nothing of the original hue survives — two photographs of the same scene lit differently will come out with the same colours if their brightness patterns match, which is why a duotone image always looks as though it was made from two inks.\n\n- The luminance figure uses the Rec.601 weights — roughly 0.299 red, 0.587 green and 0.114 blue — the same weighting older video systems used.\n- Green therefore contributes noticeably more to perceived brightness than blue, so two colours of identical intensity on screen can sit at different points on the gradient.\n- It is a good general approximation, and the one most image tooling has historically used.\n\nThe image is also scaled down to a maximum of eight hundred pixels on its longest side before it is processed. That keeps the effect responsive while dragging a colour picker, and it means the canvas you see is a working preview rather than a full-resolution render. For picking colours that is the right trade — the effect is a global mapping, so the palette decision looks the same at any size — but it does mean the canvas is not what you would want to ship to print.\n\nWhere the tool fits is quick art direction, or as a way to convert image to duotone for a set of assets that need a house style. A two color image effect like this is a reliable way to make a set of mismatched photographs feel like one family: apply the same shadow and highlight to all of them and the differences in lighting and colour cast disappear. It also works as a background treatment, pushing an image back so foreground text can sit on top without competing. Choosing the two colours is the whole craft here — a light highlight and a dark shadow give contrast, while two mid-tones give a flat, poster-like result that suits a stylised look.\n\nBe clear about the output route, because there is none built in. The result is drawn onto a canvas and there is no download button, so the way to keep it is to right-click the canvas and save the image, or capture it. Combined with the eight-hundred-pixel working size, that makes this a tool for exploring and deciding, after which the same two colours can be applied at full resolution in an image editor.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Set the Shadow colour for the darkest tones in the image.",
+      "Set the Highlight colour for the brightest tones and watch the canvas redraw.",
+      "Right-click the canvas to save the result, or reuse the same two colours at full resolution elsewhere."
+    ],
+    "whenToUse": "Use this when a set of images needs a consistent look, or when a photograph has to recede behind foreground content. Use the image recolour tool when you want to change the hue of an image while keeping its tonal structure similar to the original. When the hues should shift without collapsing to two colours, the {{image-recolor-tool|image recolor tool}} keeps the tonal structure and moves the hue instead, and a single tint over the whole frame is what the {{overlay-color-generator|overlay color generator}} previews.",
+    "faqs": [
+      {
+        "q": "Does any of the original colour survive?",
+        "a": "No. Each pixel keeps only its brightness, which is then mapped between your two colours. Original hues are discarded entirely."
+      },
+      {
+        "q": "Why does the image look smaller than the file I uploaded?",
+        "a": "It is scaled to a maximum of 800 pixels on the longest side before processing, so the canvas is a working preview. The colour choice transfers unchanged to a full-resolution edit."
+      },
+      {
+        "q": "How do I download the duotone image?",
+        "a": "There is no download button. Right-click the canvas and save the image, or note the two colours and apply them at full resolution in an image editor."
+      },
+      {
+        "q": "Which colour should be the shadow?",
+        "a": "Usually the darker, more muted of the two, since it stands in for the image's dark tones. Swapping them inverts the effect and is a quick way to produce a negative-feeling variant."
+      },
+      {
+        "q": "What happens if the two colours are close in brightness?",
+        "a": "The map flattens: the image's tonal detail lives entirely in the distance between the shadow and the highlight colour, so a pair of near-matches collapses the picture towards one tone. Keeping one end clearly darker than the other is what gives the effect its depth."
+      }
+    ]
+  },
+  {
+    "slug": "color-overlay-generator",
+    "keywords": [
+      "color overlay generator",
+      "image color overlay",
+      "mix blend mode preview",
+      "tint a photo with css blend modes"
+    ],
+    "intro": "The color overlay generator lays a colored layer over your image with thirteen CSS blend modes and an opacity slider, previewing exactly what the browser will render.",
+    "content": "The color overlay generator puts a colored layer over an image and lets you tune it until it looks right. Drop in a picture, choose an overlay color, set an opacity from zero to one hundred percent, and pick one of thirteen blend modes; the preview updates as you change anything. It answers a question that comes up constantly in layout work, which is what a photograph looks like when a brand color is washed across it, without you having to write the CSS first and refresh a page to find out. Treat it as a live mix blend mode preview and the workflow makes sense: every adjustment is rendered immediately, by the same engine that will render it in production.\n\nThe blend modes are the browser's own, not an approximation of them: multiply, screen, overlay, darken, lighten, color-dodge, color-burn, difference, exclusion, hue, saturation, color and luminosity. The preview applies your color as a layer with the chosen mode, so what you see on screen is what the same declaration renders in a stylesheet. That fidelity is the whole reason to do the experiment here rather than in an image editor, because an editor's blend maths can differ slightly from the browser's.\n\nThe modes fall into recognisable families. Multiply darkens and tints, which is why it is the usual default for a header image that needs to sit behind white text. Screen goes the other way and lightens. Overlay and soft-contrast modes increase contrast by pushing midtones apart. The four that move colour rather than tone are the interesting ones: hue, saturation, color and luminosity each transplant one property of your overlay while keeping others from the photograph. Choosing color, for example, keeps the photo's luminance — its texture, highlights and shadows — while adopting the overlay's hue and saturation, which is the classic way to tint an image without losing detail.\n\nOpacity and blend mode do different jobs, and separating them helps. The mode decides the formula, and the opacity decides how much of that result you actually see, from nothing at zero percent to the full effect at one hundred. Starting with multiply at around forty percent is a sensible first pass for a hero image; if the tint looks flat, the colour modes often give a richer result at a similar strength. Replacing the image resets to the dropzone without losing your settings.\n\n- The main limit is that this is a preview rather than an exporter.\n- There is no CSS snippet and no download button, so the way to capture the effect is to note the three settings and write them yourself, or take a screenshot.\n- That is worth knowing before you invest time in fine-tuning.\n\nIt is also worth remembering that a blended overlay is a rendering effect, not a change to the pixels. The original file is untouched, which is good for reuse but means you cannot export a flattened result from here. If you need the image itself modified rather than a layer over it, an image recolouring tool is the right kind of tool.\n\n- Used as an image color overlay experiment, it is fast and honest: pick a value, drag the opacity, cycle the modes, and settle on the pairing that keeps the subject readable.\n- The three settings are all a stylesheet needs, which makes this a cheap way to explore an effect that is otherwise fiddly to iterate on.\n- It pairs naturally with the duotone generator when two colours are wanted rather than one, and with a contrast checker when the overlaid image has to carry text on top.\n- If the aim is to tint a photo with css blend modes and then reproduce the effect in a stylesheet, the three settings shown here are the entire recipe.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Choose the overlay colour with the colour field.",
+      "Set the overlay's opacity with the slider.",
+      "Pick a blend mode and judge the result in the preview."
+    ],
+    "whenToUse": "Use this tool to preview how an overlay color and blend mode will look over an image before writing the CSS. Use an image recolouring tool when the pixels themselves need to change. When the effect should be a whole-image treatment rather than a layer, the {{duotone-generator|duotone generator}} maps the photograph onto two colours, and a tint that only has to fade is the {{transparent-gradient-generator|transparent gradient generator}}'s scrim.",
+    "faqs": [
+      {
+        "q": "How many blend modes are available?",
+        "a": "Thirteen: multiply, screen, overlay, darken, lighten, color-dodge, color-burn, difference, exclusion, hue, saturation, color and luminosity."
+      },
+      {
+        "q": "Does it export CSS?",
+        "a": "No. It is a live preview, so the output is what you see on screen. Note the color, opacity and mode, then write the declaration yourself."
+      },
+      {
+        "q": "Which mode should I use to tint a photo without losing detail?",
+        "a": "The color mode. It keeps the photograph's luminance and takes the overlay's hue and saturation, so texture and contrast survive the tint."
+      },
+      {
+        "q": "Does it change my original image?",
+        "a": "No. The overlay is a rendering layer placed over the image, so the file on your disk is untouched."
+      },
+      {
+        "q": "Which comes first, the blend mode or the opacity?",
+        "a": "The mode decides how the layer and the image combine; opacity decides how much of that result shows. So pick the mode for character and use opacity for strength — a mode that already darkens does not need much opacity to go too far."
+      }
+    ]
+  },
+  {
+    "slug": "frosted-glass-generator",
+    "keywords": [
+      "frosted glass generator",
+      "glassmorphism css generator",
+      "backdrop blur generator",
+      "frosted glass effect css"
+    ],
+    "intro": "The frosted glass generator composes the glassmorphism recipe — translucent tint, backdrop blur and edge highlight — over any backdrop, with the CSS ready to copy.",
+    "content": "Frosted glass is a recipe with four ingredients, and getting any one wrong collapses the illusion: a translucent tint, a backdrop blur, a hairline highlight along the edge, and a colorful backdrop worth looking through. The frosted glass generator assembles all four — pick the glass tint and its opacity, set the blur radius, choose a backdrop color to preview against — and renders the panel live above the generated CSS. It is a glassmorphism css generator that treats the effect as the system it is.\n\nThe tint and the blur are the load-bearing pair. The tint's opacity decides how much of the backdrop survives — too little and the panel is a plain colored card, too much and the blur has nothing to soften; the blur radius decides how transformed what survives becomes. Between them sits the effect's signature: content-colored fog, the backdrop's shapes readable as soft light behind the surface. The hairline highlight — a translucent white border — is the detail that sells it, catching a simulated rim of light the way real glass does. The tool sets all three together because tuning any alone misleads; the preview is the arbiter of the combination.\n\n- Backdrop-filter is GPU work, and panels full of it cost frames on modest hardware — one effect per surface, not a wall of glass.\n- The effect needs something behind it: frosted glass over a flat background is invisible, which is why the preview works against a chosen backdrop colour.\n- In real deployments that means imagery or a gradient underneath, and the radius is absolute rather than proportional — a blur that reads as glass across a hero is noticeably heavier on a small card and usually wants dialling back.\n- The test that matters is the real backdrop: glass tuned against a placeholder often reads as invisible or milky once the actual image is behind it.\n\n- Frosted glass is a stack rather than a single property: a backdrop blur supplies the diffusion, a translucent background tint supplies the tone and the sense of depth, and a low-opacity border supplies the edge.\n- An inner highlight or shadow supplies the impression of thickness, which is what separates glass from a flat translucent layer.\n- Change any one of them and the character changes — more blur reads as opaque, less reads as a dirty window, and an over-saturated tint turns the panel into a colour filter over the content beneath.\n- The preview matters for the same reason: the effect only exists relative to its backdrop, so it has to be tested over the actual hero image at the actual scroll position.\n\nAs a backdrop blur generator it is the focused instrument for the frosted glass effect css question: a translucent blur generator that assembles the whole recipe, previews it honestly against a real backdrop, and hands over the CSS — tint, blur, border and all — in one copy.\n\nKeep the recipe short enough to repeat elsewhere in the interface, because a glass panel that appears once reads as a decoration while the same panel used for navigation, cards and modals reads as a material, and that consistency is what makes the effect feel intentional.",
+    "howTo": [
+      "Choose the glass tint color and its opacity.",
+      "Set the blur radius and preview the panel against the chosen backdrop color.",
+      "Copy the CSS — tint, backdrop-filter, highlight border and radius included."
+    ],
+    "whenToUse": "Use this for glass panels over colorful backdrops — heroes, modals, floating cards. Use the overlay generator for tint-only scrims, the shadow color tool for the drop shadow beneath the glass, and the opacity calculator to flatten the tint to a solid when blur is dropped. When only the two filter numbers need tuning rather than the whole panel recipe, the {{css-backdrop-filter-generator|CSS backdrop filter generator}} isolates them, and the same functions applied to an element's own content rather than to what is behind it are the {{css-filter-generator|CSS filter generator}}'s subject.",
+    "faqs": [
+      {
+        "q": "Why does my glass panel look like nothing?",
+        "a": "Frosted glass needs a backdrop worth frosting — over a flat background the blur has nothing to show. Preview against an image or gradient, as the tool's backdrop field demonstrates."
+      },
+      {
+        "q": "Is backdrop-filter expensive?",
+        "a": "Yes — it is GPU compositing per element. Keep glass panels few and their areas moderate; a page of frosted panels will cost frames on weaker hardware."
+      },
+      {
+        "q": "What opacity should the tint be?",
+        "a": "Low enough that the backdrop's shapes survive as soft light — typically 10–30%. The live preview is the judge; the recipe collapses when the tint reads as a plain card."
+      },
+      {
+        "q": "Why the white border?",
+        "a": "The hairline highlight simulates the rim of light real glass catches — it is the detail that separates glassmorphism from a plain translucent rectangle."
+      },
+      {
+        "q": "Does it work over video or an animated backdrop?",
+        "a": "It does — backdrop-filter filters whatever is painted behind, video included — but a moving backdrop means the compositor is never idle, which is where the frame cost is highest. Test it on a modest device before shipping it to everyone."
+      }
+    ]
+  },
+  {
+    "slug": "gradient-overlay-generator",
+    "keywords": [
+      "gradient overlay generator",
+      "two color gradient css",
+      "gradient scrim css",
+      "linear gradient angle",
+      "overlay gradient hex"
+    ],
+    "intro": "The gradient overlay generator builds a two-colour linear gradient with an adjustable angle, previews it on a large panel and writes the background declaration with a copy button.",
+    "content": "- Three controls drive the page: a From colour, a To colour, and an angle slider that runs from zero to three hundred and sixty degrees and opens at one hundred and thirty-five.\n- The endpoints start on a blue and a purple and the angle opens on a diagonal, so the page loads with a usable scrim rather than a flat swatch.\n\nThe preview is the same declaration the code panel prints: a linear gradient at the chosen angle between the two colours, applied to a tall panel. Because both stops sit at the extremes with no positions in between, the result is a straight interpolation between the endpoints, and the angle decides the direction — zero points up the page, ninety runs left to right, one hundred and thirty-five runs diagonally down to the right, and one hundred and eighty runs top to bottom.\n\nTwo details separate this from the gradient builders elsewhere in the domain. There are exactly two stops, so it is a tool for a single transition rather than for a multi-stop build; and both stops are fully opaque, so the output is a gradient scrim rather than a fade to transparency. A gradient overlay that should let the image show through needs a colour with an alpha value, which means editing the copied declaration or using the transparent gradient tool instead.\n\nThe generated CSS is a single background declaration rather than a whole element or a set of custom properties, which makes it easy to drop onto a pseudo-element. The two things worth checking before that: the angle's effect on a wide versus a tall element, since the same degree value reads differently as the box's aspect ratio changes, and the contrast of any text that will sit on the gradient, which is a pair of separate questions because the colour changes along the ramp.\n\nAs a gradient scrim css source the page is quick and predictable: pick the two ends, settle the direction, copy one line. It is a good fit for hero overlays, tinted cards where one corner should be stronger than the other, and any surface that needs a directional wash rather than a flat fill.\n\nChoosing the two ends is the part that rewards a little thought. Stops that are close in value produce a wash that reads as a single surface, which suits page backgrounds and card headers; widening the gap between them produces a visible diagonal, which suits a hero panel or a corner accent. Because the preview updates live, that judgement is made by eye rather than by guessing at hex values, and the angle can be settled at the same time — a gradient that looks right at one hundred and thirty-five degrees often reads as heavy-handed at zero, since the ramp then climbs the full height of the element.\n\n- Limits: two stops, one of them never transparent, no stop positions, no repeating gradients, no radial or conic form, no easing, and one copy button for the whole declaration.\n- Within those limits it is a dependable gradient overlay generator: a two color gradient css background at any linear gradient angle, and every overlay gradient hex value it uses is one you supplied.",
+    "howTo": [
+      "Set the From colour and the To colour.",
+      "Drag the angle slider and watch the panel — 0 points up, 90 runs right, 180 runs down.",
+      "Copy the background declaration and apply it to the element the gradient should wash over."
+    ],
+    "whenToUse": "Use this when a surface needs a two-colour directional wash and one line of CSS is the output. Use the transparent gradient generator when the ramp should fade out rather than end on a second colour, or the multi-stop gradient builder when more than two colours are needed. When it is the type rather than the surface that should carry a gradient, the {{text-gradient-generator|text gradient generator}} is the lettering version, and a ramp that dissolves to nothing at one end is what the {{transparent-gradient-generator|transparent gradient generator}} writes.",
+    "faqs": [
+      {
+        "q": "How many colours can the gradient have?",
+        "a": "Two, at the ends of the ramp, with no stop positions in between. A third colour means using the multi-stop builder instead."
+      },
+      {
+        "q": "Can one end be transparent?",
+        "a": "Not as generated — both stops are opaque. A gradient that fades out has to come from the transparent gradient tool, or from editing an alpha channel into the copied value."
+      },
+      {
+        "q": "What does the angle do at 0 and 180?",
+        "a": "Zero degrees runs up the page and one hundred and eighty runs down it, with ninety going left to right. The visible direction depends on the shape of the element the gradient is painted into."
+      },
+      {
+        "q": "Will text on the gradient stay readable?",
+        "a": "The tool does not check that. Contrast changes along the ramp, so test the text colour against both ends rather than against a middle value."
+      },
+      {
+        "q": "Why does the page open on a diagonal?",
+        "a": "The slider opens at 135 degrees because that is the diagonal most scrims are built on — the ramp runs across the box rather than straight down, which is usually what a caption wants. Both colours and the angle are editable, so it is a starting point rather than a house style."
+      }
+    ]
+  },
+  {
+    "slug": "brand-style-guide-generator",
+    "keywords": [
+      "brand style guide generator",
+      "brand color palette from one color",
+      "brand color roles",
+      "brand palette hex",
+      "color system generator"
+    ],
+    "intro": "The brand style guide generator turns one colour into five named roles — primary, primary dark, accent, surface and text — each with its own hex value.",
+    "content": "- One colour field drives the page, and the result is a list of five rows: a swatch, a role name and a hex value.\n- The roles are primary, primaryDark, accent, surface and text, and each is derived by a fixed rule rather than chosen, so the set arrives complete and internally consistent the moment the base colour changes.\n\nThe rules are worth knowing because they explain what the output can and cannot be. Primary is the colour you entered, unchanged. Primary dark lowers its lightness by 0.15 with a floor so a near-black base cannot go further, while keeping the chroma and hue — that is the pressed or hovered version of the same colour rather than a different one. Accent keeps the lightness and chroma and rotates the hue by exactly one hundred and eighty degrees, producing the complementary colour as the second voice. Surface and text are theirs by construction: a near-white and a near-black built from the base's own hue, at very low chroma, which is what keeps a tinted paper and a tinted ink from looking grey next to the brand colour.\n\nThat construction is the value of the page. Most brand palettes assembled by hand end up with an accent that does not relate to the primary and a neutral that is either pure white or pure black, which reads colder than the rest of the set. Deriving five roles from one input removes those two decisions, and the result holds together because every role is a transformation of the same colour rather than an independent pick.\n\nBrand color roles are also the part of a style guide that gets used, which is why the page lists roles rather than a ramp. A ramp answers how light a shade should be; roles answer what each colour is for, and five named slots cover the majority of what an interface needs — a primary action, its pressed state, one supporting accent, a surface and a text colour.\n\nWhat it does not do is check the result. Nothing on the page measures the contrast between text and surface, between the primary and white, or between the accent and anything it might touch, and nothing warns when a base colour is so pale that the derived text role is the only one with usable contrast. It also does not export: the five values are shown as rows with hex printed, and taking them into a project means reading them.\n\nWorking through the roles in order is the quickest way to judge a candidate brand colour. A primary that arrives with a usable dark variant beside it and a vivid accent is a colour with range; one whose dark version is barely distinguishable from the primary, or whose accent lands on a hue nobody would use, is telling you the base needs adjusting. Because all five roles are recomputed on every change, cycling through three or four candidates takes seconds, and the decision gets made against the derived set rather than against a single swatch.\n\n- Limits: five fixed roles, no naming, no contrast checking, no export, no dark-mode counterpart and no way to add a role or override one of the derived values.\n- As a brand color palette from one color it is a small color system generator: enter a brand colour, read five brand palette hex values with their job attached, and use the brand style guide generator's arithmetic rather than deciding the relationships by hand.",
+    "howTo": [
+      "Pick the brand colour — this becomes the primary role.",
+      "Read the five rows: primary, primary dark, accent, surface and text, each with its hex value.",
+      "Change the colour to see the whole set move together, then take the values into the project."
+    ],
+    "whenToUse": "Use this when a project has a single brand colour and needs the roles around it decided consistently. Use the design token generator when the output has to be a token file, or the palette accessibility checker when the derived pairs need auditing. A wider set derived from the same single colour is what the {{single-color-to-full-palette|single color to full palette}} builds, and the same five roles packaged for code are the {{color-token-generator|color token generator}}'s output.",
+    "faqs": [
+      {
+        "q": "How is the accent worked out?",
+        "a": "The hue is rotated by one hundred and eighty degrees while lightness and chroma stay the same, so the accent is the complement of your colour at the same weight."
+      },
+      {
+        "q": "What are surface and text built from?",
+        "a": "The base colour's own hue at very low chroma — a near-white and a near-black. Deriving them from the brand colour keeps the neutrals from looking grey beside it."
+      },
+      {
+        "q": "Are the five colours contrast checked?",
+        "a": "No. Nothing on the page measures the pairs, so a pale base can produce a primary that is unusable behind white text without any warning."
+      },
+      {
+        "q": "Can I export the palette?",
+        "a": "Not from this page — the values are listed as rows with their hex codes and nothing else. A token or CSS export comes from the exporter tools."
+      },
+      {
+        "q": "What happens when the base colour is very light or very dark?",
+        "a": "The derived roles follow the base, so an extreme one produces an extreme set — surface and text are the pair to check first, since they are the two that have to sit together most often. Nothing on the page measures that for you."
+      }
+    ]
+  },
+  {
+    "slug": "color-swatch-png-generator",
+    "keywords": [
+      "color swatch png generator",
+      "swatch sheet png",
+      "palette swatch image with hex codes",
+      "export color cards as png"
+    ],
+    "intro": "The color swatch PNG generator renders each color as a labelled card — swatch, hex value and index — and exports the whole sheet as one PNG image.",
+    "content": "- The color swatch PNG generator renders the palette to a canvas and exports it as a single PNG, so one download contains the whole sheet.\n- Instead of a bare strip of blocks, every colour is drawn as a card: a large block of the colour with its uppercase hex value printed underneath, and a small caption numbering the swatch below that.\n- The hex values are legible inside the image itself.\n\nThe dimensions are fixed and easy to predict. Each card occupies two hundred and twenty pixels of width, the sheet is two hundred and sixty pixels tall, and the colour block fills the upper two hundred and four pixels with the text set in the remaining space. Width scales with the count, so four colours produce an eight-hundred-and-eighty pixel sheet and six produce one thousand three hundred and twenty. Because the header text is drawn into the pixels rather than layered over them in the page, the labels survive wherever the file goes.\n\nThat self-contained quality is the reason to choose this over the plain strip export. A palette image without values is decoration; with values printed on it, the same image becomes documentation that can stand alone. Someone opening it in a chat client, a ticket, a slide or a printed page can read the codes directly instead of asking for them, which removes a whole round of back-and-forth from design hand-offs. Sending a palette as text is fragile, because formatting gets stripped and values get reordered; sending it as one image with everything burned in is not.\n\nThe preview on screen is the exported canvas, so there is no separate rendering path that could disagree with the file. As you edit the palette the sheet is redrawn, which means a value can be corrected and the image re-downloaded in the same moment. There is no configuration at all: no card size, no columns, no background colour, no label format. The layout is one row, the labels are always the hex and an index, and the only decision available is which colours are in the list.\n\nComparing it with the near neighbours is the clearest way to place it. The unlabelled strip export gives plain blocks with no text, which suits decoration better than documentation. The printable sheet renders the same labelled cards in the page for the browser's print dialog, which is the right choice when the destination is paper or a PDF. And the SVG export gives editable vector markup rather than a raster image. This one sits in the middle: labelled like the printable sheet, but delivered as a portable image file.\n\nA few limitations follow from the fixed layout.\n\n- Because every card is the same size and the sheet is a single row, a long palette produces a very wide image with no wrapping to a second row.\n- The background behind the text is always white, which is worth knowing for a very pale palette — the hex text sits on white rather than on the colour block.\n- The caption is positional rather than a name, so roles and token names are not recorded.\n\nUsed as a color swatch png generator for hand-offs, it does exactly one thing well: it turns a working palette into a swatch sheet png with the codes already on it. When you need a palette swatch image with hex codes that will look identical on any machine, or you want to export color cards as png in one file, this is the tool that keeps the values visible instead of leaving them behind in the page they came from.",
+    "howTo": [
+      "Edit the palette rows on the left, adding or removing colours as needed.",
+      "Check the generated swatch card sheet in the panel beside them.",
+      "Press Download .png to save color-swatches.png.",
+      "Re-edit the palette and download again when a value changes."
+    ],
+    "whenToUse": "Use this export when a palette needs to travel as a single labelled image — hand-offs, tickets, slides or documentation. Use the unlabelled strip for decoration, the printable sheet for paper, and the SVG export for editable markup. When the palette has to stay editable rather than fixed in a picture, the {{color-palette-svg-exporter|color palette SVG exporter}} writes markup instead, and when it has to travel as data, the {{color-palette-json-exporter|color palette JSON exporter}} is the plainer carrier.",
+    "faqs": [
+      {
+        "q": "What is drawn on each card?",
+        "a": "A large block of the colour, its uppercase hex value printed beneath, and a small index caption numbering the swatch. All of it is rendered into the image itself."
+      },
+      {
+        "q": "What size is the exported sheet?",
+        "a": "Each card is two hundred and twenty pixels wide and the sheet is two hundred and sixty pixels tall, so the total width scales with the number of colours."
+      },
+      {
+        "q": "Why put the values in the image?",
+        "a": "So the file stands alone. A palette image with the codes printed on it can be read by anyone who receives it, without a separate text version to keep in sync."
+      },
+      {
+        "q": "Does a long palette wrap onto another row?",
+        "a": "No. The layout is a single row, so a long palette produces a wide image. Split the palette across two exports if width becomes a problem."
+      },
+      {
+        "q": "Can each card be labelled with its role instead of a number?",
+        "a": "No — the caption is the swatch's position in the palette, so swatch 1 is simply the first colour. Names and roles have to be added afterwards in whatever document the image lands in, or carried by a token file instead."
+      }
+    ]
+  },
+  {
+    "slug": "css-filter-generator",
+    "keywords": [
+      "css filter generator",
+      "css filter color formula",
+      "generate css filter",
+      "css filter for images",
+      "hue rotate css filter"
+    ],
+    "intro": "The CSS filter generator composes a filter() formula from five sliders — blur, brightness, contrast, saturate and hue-rotate — and previews the result live on a colour gradient.",
+    "content": "- The CSS filter generator gives you five sliders and a preview panel: blur runs from 0 to 20 pixels; brightness, contrast and saturation each run from 0 to 200 percent; hue-rotate runs from 0 to 360 degrees.\n- The preview is a fixed diagonal gradient of rose, violet and sky, chosen because it carries a wide spread of hues and mid-range tones — so every slider's effect is visible at once.\n- Under the preview, a card holds the finished declaration on a single line with a copy button.\n\nAll five functions are always printed, in a fixed order: blur, then brightness, contrast, saturate and hue-rotate. That makes the output stable and easy to diff — the string changes only where the numbers change — at the cost of being longer than a hand-written one. It also means the neutral values are spelled out, so a freshly loaded page emits filter: blur(0px) brightness(100%) contrast(100%) saturate(100%) hue-rotate(0deg). You can delete the functions you do not need once pasted.\n\nThe order is not cosmetic. CSS applies filter functions in sequence, each one receiving the output of the last, so blurring after a hue rotation is not the same operation as blurring before it. The generator fixes an order that matches how people normally reason about the stack — soften first, then adjust tone, then shift hue — and the preview reflects exactly that sequence. If you reorder the functions in your own stylesheet, expect the result to move away from what you saw here.\n\n- Hue-rotate deserves a caution, because it is the slider most likely to disappoint.\n- The rotation is a matrix approximation in RGB rather than a true conversion into a perceptual colour space, so it can nudge saturation and perceived lightness as well as hue — shifting a saturated blue by 120 degrees will not always land on the green you expect.\n- For precise hue changes a colour value is more predictable, so treat a hue rotate css filter as a quick approximation, best used on something you cannot edit such as a photograph or a third-party asset.\n\nAs a css filter for images tool, the practical workflow is to spill the values into shape here and then verify against the real asset. The preview is a gradient rather than your own image, so the last ten percent of tuning — how a particular skin tone or sky reacts — is best done in the browser's developer tools, where the same declaration can be typed into the styles panel and adjusted live. What this page gives you first is a defensible starting point and the exact syntax.\n\nA few limits belong on the label. The ranges stop at 200 percent, so extreme values cannot be expressed; grayscale, sepia, invert, drop-shadow and opacity are absent from the interface even though filter supports them; and the output is always in pixels and percentages, never in other units. Filters also create a new stacking context and can be expensive to animate on large surfaces. Within those boundaries, this is a fast way to generate css filter declarations and to see a css filter color formula settle into place before you commit it to a stylesheet.",
+    "howTo": [
+      "Drag the five sliders to build the filter, watching the gradient preview update live.",
+      "Copy the single-line declaration from the CSS card.",
+      "Paste it into your stylesheet and delete any functions left at their neutral values."
+    ],
+    "whenToUse": "Use this when you need a filter applied to an existing element you cannot recolour, such as a photograph or a vendor logo. Use the backdrop-filter generator when the goal is to blur or tint whatever sits behind an element instead. When the hue shift has to be precise rather than approximate, the {{hue-rotator|hue rotator}} works on the colour itself; when the target is what sits behind an element rather than inside it, the {{css-backdrop-filter-generator|CSS backdrop filter generator}} is the sibling property.",
+    "faqs": [
+      {
+        "q": "Why does the output always contain all five functions?",
+        "a": "It is generated from a fixed template, so the string is stable and diff-friendly. Neutral entries such as contrast(100%) are harmless and can be deleted after pasting."
+      },
+      {
+        "q": "Does the order of the filter functions matter?",
+        "a": "Yes. Each function receives the output of the previous one, so the same five numbers in a different order can produce a visibly different result. The preview shows the fixed order used in the output."
+      },
+      {
+        "q": "Why is the preview a gradient rather than my image?",
+        "a": "The page has no image input. The gradient spans many hues so every slider is visible at once; for fine tuning against a specific photo, paste the declaration into your browser's developer tools."
+      },
+      {
+        "q": "Can I apply grayscale or sepia here?",
+        "a": "Not from the interface — only blur, brightness, contrast, saturate and hue-rotate have sliders. You can add those functions manually to the copied declaration."
+      },
+      {
+        "q": "Does the filter apply to the element's children too?",
+        "a": "Yes — a filter on an element affects everything painted inside it, text and images included, which is why a wrapper with a blur takes its whole contents with it. Filtering only what sits behind an element is what backdrop-filter does instead."
+      }
+    ]
+  },
+  {
+    "slug": "css-backdrop-filter-generator",
+    "keywords": [
+      "css backdrop filter generator",
+      "backdrop-filter blur",
+      "frosted glass css generator",
+      "backdrop filter with saturate"
+    ],
+    "intro": "The CSS backdrop filter generator pairs a blur radius with a saturation control and previews the frosted glass effect over a live background, then hands you the declaration.",
+    "content": "- Two controls do the work: a blur radius in pixels, defaulting to twelve on a scale from zero to forty, and a saturation percentage defaulting to one hundred and twenty on a scale from zero to two hundred.\n- Between them sits a live preview in which a translucent panel is laid over a coloured background, so the effect is visible as you drag rather than after a rebuild.\n- Underneath, the tool emits the finished declaration with a copy button.\n\nWhat separates backdrop-filter blur from an ordinary blur is what gets filtered. A regular blur applies to the element's own pixels and smears its content. A backdrop filter applies to whatever is painted behind the element, leaving the element itself sharp. That is why the effect behind frosted glass is the background becoming soft while any text on the glass stays crisp, and it explains the one requirement people most often miss: the element needs some transparency of its own, because an opaque surface hides the filtered backdrop entirely.\n\nThe saturation control is the part that turns a grey smear into glass. Blurring a background averages its colours, which tends to mute them, and a heavily blurred backdrop can look washed out and lifeless as a result. Pushing saturation above one hundred percent compensates by intensifying what remains visible behind the panel, so a backdrop filter with saturate above neutral keeps the colour underneath vivid rather than draining it. Dropping below one hundred percent does the opposite and is useful when the content on the glass needs to dominate.\n\nIn practice the workflow is to fix the background first and treat the panel as a layer over it, since the whole effect depends on what is behind. Then set the blur to taste: small radii give a subtle softening that reads as a tinted panel, while larger ones produce the unmistakable frosted glass look at the cost of hiding detail. Finally bring saturation in until the backdrop has some life left, checking that text on the panel is still readable against what shows through.\n\nThe uses are mostly overlays and chrome. A frosted glass css generator like this covers sticky headers that stay legible over scrolling content, modal dialogs and bottom sheets, media player controls, quick-look panels over a wallpaper, and navigation bars over hero images. The appeal in all of those cases is the same: the panel stays visually connected to what is behind it instead of cutting it off, while still separating itself enough to hold content.\n\nThere are a few limits worth knowing.\n\n- The declaration filters the backdrop rather than the element, so it cannot blur an element's own content — that needs a different property.\n- It does not create the tint either: the colour of the glass comes from a semi-transparent background of its own, which this tool does not set.\n- Large blur radii can be expensive to composite, particularly on low-powered devices, so a generous value is worth testing on the hardware that matters.\n- And no fallback is emitted, so a browser without support simply shows the unfiltered background.\n\nRead it as a css backdrop filter generator for the two numbers that matter most: how much the backdrop blurs, and how much of its colour survives. Copy the declaration, add your own translucent background, and the effect is complete, which makes this a faster way to find the right blur and saturation values than editing a stylesheet and refreshing.",
+    "howTo": [
+      "Set the blur radius with the first slider, from zero to forty pixels.",
+      "Set the saturation with the second slider, from zero to two hundred percent.",
+      "Judge the effect on the sample panel over the gradient.",
+      "Copy the backdrop-filter declaration from the CSS panel."
+    ],
+    "whenToUse": "Use it to find a blur and saturation pair for frosted panels, sticky headers, modals and media controls. Use the distinct glassmorphism and frosted glass generators when you want the complete panel recipe with its tint rather than just the filter. When the whole panel should be generated rather than just the filter, the {{glassmorphism-generator|glassmorphism generator}} writes the tint, border and radius alongside the blur; when the element's own content should be blurred instead, the {{css-filter-generator|CSS filter generator}} is the other property.",
+    "faqs": [
+      {
+        "q": "What do the two controls change?",
+        "a": "Blur sets how much the background behind the element is smeared, from zero to forty pixels. Saturation adjusts how much of that backdrop's colour survives, from zero to two hundred percent."
+      },
+      {
+        "q": "Why does the effect not appear on my element?",
+        "a": "Because the element is opaque. A backdrop filter applies to what is painted behind it, so the element needs some transparency or the filtered backdrop is hidden."
+      },
+      {
+        "q": "Why pair saturation with the blur?",
+        "a": "Blurring averages a background, which tends to mute it. Raising saturation above neutral keeps the backdrop vivid behind the panel instead of washing it out."
+      },
+      {
+        "q": "Does it give me the frosted panel's colour?",
+        "a": "No. The declaration covers the filter only. The tint of the glass comes from a semi-transparent background you set yourself, which the preview does not include."
+      },
+      {
+        "q": "What should the element's own background be?",
+        "a": "Something semi-transparent: the filter has no tint of its own, so the panel's colour comes from a background value you set on the element. A translucent white, or black at low alpha, is the usual pairing with a saturated blur."
+      }
+    ]
+  }
+]

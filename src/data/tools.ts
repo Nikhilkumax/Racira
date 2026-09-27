@@ -105,7 +105,7 @@ export const categories: Category[] = [
   },
   {
     slug: "typography",
-    title: "Typography Tools",
+    title: "Font Tools",
     tagline: "TYPE, CRAFTED.",
     description:
       "Explore fonts, pair typefaces, and fine-tune typographic scales for any project.",
@@ -151,7 +151,8 @@ export const categories: Category[] = [
       "High-fidelity voice synthesis and text-to-speech powered by modern AI, directly in your browser.",
     icon: Mic,
     status: "active",
-    highlights: ["28 Voices", "US & UK English", "Unlimited", "Private"],
+    // Counts mirror the generated voice catalog (src/domains/voice/lib/voiceCatalog.ts).
+    highlights: ["124 Voices", "38 Languages", "Unlimited", "Private"],
   },
   {
     slug: "audio",

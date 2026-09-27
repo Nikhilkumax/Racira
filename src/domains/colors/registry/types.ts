@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { LucideIcon } from "lucide-react";
+import type { ToolSeo } from "@/components/shared/seo-types";
 
 export type ToolCategory =
   | "pickers"
@@ -23,6 +24,8 @@ export interface ToolDef {
   icon: LucideIcon;
   component?: ComponentType;
   status: "live" | "soon";
+  /** Editorial SEO content. Rendered by <SeoContent> when present. */
+  seo?: ToolSeo;
 }
 
 export const CATEGORY_META: Record<

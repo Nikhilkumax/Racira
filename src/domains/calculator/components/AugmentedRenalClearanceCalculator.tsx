@@ -1,78 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, ChevronDown, Activity, FlaskConical, Stethoscope, Printer } from "lucide-react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip as RTooltip,
-  ResponsiveContainer,
-  Cell,
-  ReferenceLine,
-} from "recharts";
-
-type Sex = "male" | "female";
-type CreatinineUnit = "mgdl" | "umol";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
 interface ArcInputs {
   age: number;
-  sex: Sex;
+  sex: string;
   weightKg: number;
   heightCm: number;
   serumCreatinine: number;
-  creatinineUnit: CreatinineUnit;
-  useMeasured: boolean;
+  creatinineUnit: string;
+  useMeasured: string;
   urineVolumeMl: number;
   urineCollectionHours: number;
   urineCreatinine: number;
-  proMode: boolean;
   sofaScore: number;
-  traumaAdmission: boolean;
-}
-
-interface ChartPoint {
-  name: string;
-  value: number;
-  isSubject: boolean;
-}
-
-interface TableRow {
-  label: string;
-  value: string;
-  key?: boolean;
-}
-
-interface ArcResult {
-  bsa: number;
-  idealBodyWeight: number;
-  adjustedBodyWeight: number;
-  dosingWeight: number;
-  creatinineMgDl: number;
-  cockcroftGault: number;
-  measuredCrCl: number;
-  normalisedCrCl: number;
-  reportedCrCl: number;
-  hasArc: boolean;
-  arcCategory: string;
-  arcColor: string;
-  arcticScore: number;
-  arcticRiskPercent: string;
-  chartData: ChartPoint[];
-  rows: TableRow[];
-  vancomycinNote: string;
-  betaLactamNote: string;
-  monitoringNote: string;
+  traumaAdmission: string;
+  decimals: number;
 }
 
 // ARC is conventionally defined as creatinine clearance at or above
-// 130 mL/min/1.73 m2 sustained over at least 24 hours.
+// 130 mL/min/1.73 m² sustained over at least 24 hours.
 const ARC_THRESHOLD = 130;
 const UMOL_TO_MGDL = 1 / 88.4;
 
@@ -83,24 +35,106 @@ const DEFAULTS: ArcInputs = {
   heightCm: 178,
   serumCreatinine: 0.62,
   creatinineUnit: "mgdl",
-  useMeasured: false,
+  useMeasured: "no",
   urineVolumeMl: 2400,
   urineCollectionHours: 24,
   urineCreatinine: 95,
-  proMode: false,
   sofaScore: 3,
-  traumaAdmission: true,
+  traumaAdmission: "yes",
+  decimals: 1,
 };
 
-export function calculateArc(i: ArcInputs): ArcResult {
+const fmt = (v: number, d = 1) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}
+
+interface ArcResult {
+  valid: boolean;
+  errorMsg: string;
+  bsa: number;
+  idealBodyWeight: number;
+  adjustedBodyWeight: number;
+  dosingWeight: number;
+  creatinineMgDl: number;
+  cockcroftGault: number;
+  measuredCrCl: number;
+  reportedCrCl: number;
+  normalisedCrCl: number;
+  hasArc: boolean;
+  arcCategory: string;
+  arcColor: string;
+  arcticScore: number;
+  arcticRiskBand: string;
+  referenceRows: { name: string; value: number }[];
+  vancomycinNote: string;
+  betaLactamNote: string;
+  monitoringNote: string;
+  verdict: string;
+  verdictColor: string;
+  breakdown: BreakdownRow[];
+}
+
+function calculateArc(i: ArcInputs): ArcResult {
+  const blank = (errorMsg: string): ArcResult => ({
+    valid: false,
+    errorMsg,
+    bsa: 0,
+    idealBodyWeight: 0,
+    adjustedBodyWeight: 0,
+    dosingWeight: 0,
+    creatinineMgDl: 0,
+    cockcroftGault: 0,
+    measuredCrCl: 0,
+    reportedCrCl: 0,
+    normalisedCrCl: 0,
+    hasArc: false,
+    arcCategory: "",
+    arcColor: "text-muted-foreground",
+    arcticScore: 0,
+    arcticRiskBand: "",
+    referenceRows: [],
+    vancomycinNote: "",
+    betaLactamNote: "",
+    monitoringNote: "",
+    verdict: "",
+    verdictColor: "text-muted-foreground",
+    breakdown: [],
+  });
+
+  const nums = [
+    i.age,
+    i.weightKg,
+    i.heightCm,
+    i.serumCreatinine,
+    i.urineVolumeMl,
+    i.urineCollectionHours,
+    i.urineCreatinine,
+    i.sofaScore,
+    i.decimals,
+  ];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field to estimate the clearance.");
+  if (i.age < 1 || i.age > 120) return blank("Age should be between 1 and 120 years.");
+  if (i.weightKg <= 0 || i.weightKg > 400) return blank("Weight should be above 0 and no more than 400 kg.");
+  if (i.heightCm <= 0 || i.heightCm > 260) return blank("Height should be above 0 and no more than 260 cm.");
+  if (i.serumCreatinine <= 0) return blank("Serum creatinine must be greater than zero.");
+  if (i.sofaScore < 0 || i.sofaScore > 24) return blank("The SOFA score should be between 0 and 24.");
+  if (i.useMeasured === "yes") {
+    if (i.urineVolumeMl <= 0) return blank("Urine volume must be greater than zero for a measured clearance.");
+    if (i.urineCollectionHours <= 0 || i.urineCollectionHours > 48) return blank("Collection time should be between 1 and 48 hours.");
+    if (i.urineCreatinine <= 0) return blank("Urine creatinine must be greater than zero for a measured clearance.");
+  }
+
+  const d = Math.max(0, Math.min(2, i.decimals));
   const age = Math.max(1, i.age);
   const weight = Math.max(1, i.weightKg);
   const height = Math.max(1, i.heightCm);
 
-  const creatinineMgDl =
-    i.creatinineUnit === "umol"
-      ? Math.max(0.01, i.serumCreatinine) * UMOL_TO_MGDL
-      : Math.max(0.01, i.serumCreatinine);
+  const creatinineMgDl = i.creatinineUnit === "umol" ? Math.max(0.01, i.serumCreatinine) * UMOL_TO_MGDL : i.serumCreatinine;
 
   // Du Bois body surface area.
   const bsa = 0.007184 * Math.pow(height, 0.725) * Math.pow(weight, 0.425);
@@ -108,12 +142,11 @@ export function calculateArc(i: ArcInputs): ArcResult {
   // Devine ideal body weight.
   const heightInches = height / 2.54;
   const inchesOver60 = Math.max(0, heightInches - 60);
-  const idealBodyWeight =
-    (i.sex === "male" ? 50 : 45.5) + 2.3 * inchesOver60;
+  const idealBodyWeight = (i.sex === "male" ? 50 : 45.5) + 2.3 * inchesOver60;
   const adjustedBodyWeight = idealBodyWeight + 0.4 * (weight - idealBodyWeight);
 
-  // Cockcroft-Gault dosing weight convention: use actual weight when below IBW,
-  // IBW when normal, and adjusted body weight when 30% or more above IBW.
+  // Cockcroft-Gault dosing weight convention: actual weight when below ideal,
+  // ideal weight when normal, adjusted body weight when 30% or more above ideal.
   let dosingWeight: number;
   if (weight < idealBodyWeight) {
     dosingWeight = weight;
@@ -123,18 +156,16 @@ export function calculateArc(i: ArcInputs): ArcResult {
     dosingWeight = idealBodyWeight;
   }
 
-  // Cockcroft-Gault: ((140 - age) x weight) / (72 x SCr), x 0.85 for females.
+  // Cockcroft-Gault: ((140 − age) × weight) / (72 × SCr), × 0.85 for females.
   const cgRaw = ((140 - age) * dosingWeight) / (72 * creatinineMgDl);
   const cockcroftGault = i.sex === "female" ? cgRaw * 0.85 : cgRaw;
 
   // Measured clearance from a timed urine collection:
-  // CrCl = (urine creatinine x urine volume) / (serum creatinine x time in min)
+  // CrCl = (urine creatinine × urine volume) / (serum creatinine × time in minutes).
   const collectionMinutes = Math.max(1, i.urineCollectionHours) * 60;
-  const measuredCrCl =
-    (Math.max(0, i.urineCreatinine) * Math.max(0, i.urineVolumeMl)) /
-    (creatinineMgDl * collectionMinutes);
+  const measuredCrCl = (Math.max(0, i.urineCreatinine) * Math.max(0, i.urineVolumeMl)) / (creatinineMgDl * collectionMinutes);
 
-  const reportedCrCl = i.useMeasured ? measuredCrCl : cockcroftGault;
+  const reportedCrCl = i.useMeasured === "yes" ? measuredCrCl : cockcroftGault;
   const normalisedCrCl = bsa > 0 ? (reportedCrCl * 1.73) / bsa : reportedCrCl;
 
   const hasArc = normalisedCrCl >= ARC_THRESHOLD;
@@ -149,67 +180,90 @@ export function calculateArc(i: ArcInputs): ArcResult {
     arcColor = "text-red-600";
   } else if (normalisedCrCl >= ARC_THRESHOLD) {
     arcCategory = "Augmented renal clearance";
-    arcColor = "text-amber-600";
+    arcColor = "text-orange-600";
   } else if (normalisedCrCl >= 90) {
     arcCategory = "Normal clearance";
     arcColor = "text-emerald-600";
   } else if (normalisedCrCl >= 60) {
     arcCategory = "Mildly reduced clearance";
-    arcColor = "text-amber-600";
+    arcColor = "text-orange-600";
   } else {
     arcCategory = "Reduced clearance — dose reduction likely";
     arcColor = "text-red-600";
   }
 
-  // ARCTIC score: age under 50 scores 6, age 50-59 scores 3, female sex scores 0
-  // and male scores 4, SOFA 4 or higher scores 1. A total of 6 or more is the
-  // published screening cut-off.
+  // ARCTIC score: age under 50 scores 6, age 50–59 scores 3, male sex scores 4,
+  // SOFA of 4 or more scores 1 and the trauma admission scores 0 or 1. A total of
+  // 6 or more is the published screening cut-off.
   let arcticScore = 0;
   if (age < 50) arcticScore += 6;
   else if (age < 60) arcticScore += 3;
   if (i.sex === "male") arcticScore += 4;
   if (Math.max(0, i.sofaScore) >= 4) arcticScore += 1;
+  if (i.traumaAdmission === "yes") arcticScore += 0;
 
-  let arcticRiskPercent: string;
-  if (arcticScore >= 10) arcticRiskPercent = "High (~70-80% of similar patients)";
-  else if (arcticScore >= 6) arcticRiskPercent = "Elevated (~50-60%) — screening cut-off met";
-  else if (arcticScore >= 4) arcticRiskPercent = "Intermediate (~25-35%)";
-  else arcticRiskPercent = "Low (under 15%)";
+  const arcticRiskBand =
+    arcticScore >= 10
+      ? "High — around 70 to 80% of similar patients"
+      : arcticScore >= 6
+        ? "Elevated — around 50 to 60%, screening cut-off met"
+        : arcticScore >= 4
+          ? "Intermediate — around 25 to 35%"
+          : "Low — under 15%";
 
-  const chartData: ChartPoint[] = [
-    { name: "This patient", value: Math.round(normalisedCrCl), isSubject: true },
-    { name: "ARC threshold", value: ARC_THRESHOLD, isSubject: false },
-    { name: "Healthy adult", value: 100, isSubject: false },
-    { name: "CKD stage 3a", value: 52, isSubject: false },
-    { name: "CKD stage 4", value: 22, isSubject: false },
+  const referenceRows = [
+    { name: "This patient", value: Math.round(normalisedCrCl) },
+    { name: "ARC threshold", value: ARC_THRESHOLD },
+    { name: "Healthy adult reference", value: 100 },
+    { name: "CKD stage 3a", value: 52 },
+    { name: "CKD stage 4", value: 22 },
   ];
 
   const vancomycinNote = hasArc
-    ? "Standard weight-based dosing will likely underexpose — consider higher total daily dose with AUC-guided monitoring"
-    : "Standard weight-based dosing with routine AUC or trough monitoring";
+    ? "Standard weight-based dosing will probably underexpose this patient — consider a higher total daily dose with AUC-guided monitoring."
+    : "Standard weight-based dosing with routine AUC or trough monitoring.";
   const betaLactamNote = hasArc
-    ? "Consider extended or continuous infusion to maintain time above MIC"
-    : "Intermittent dosing generally adequate";
+    ? "Consider extended or continuous infusion to keep the concentration above the MIC between doses."
+    : "Intermittent dosing is generally adequate at this clearance.";
   const monitoringNote = hasArc
-    ? "Re-measure clearance every 24-48 h; ARC often resolves as the acute phase settles"
-    : "Routine renal monitoring per unit protocol";
+    ? "Re-measure clearance every 24 to 48 hours; ARC often resolves as the acute phase settles."
+    : "Routine renal monitoring per unit protocol.";
 
-  const rows: TableRow[] = [
-    { label: "Serum Creatinine", value: `${creatinineMgDl.toFixed(2)} mg/dL (${(creatinineMgDl * 88.4).toFixed(1)} µmol/L)` },
-    { label: "Body Surface Area (Du Bois)", value: `${bsa.toFixed(2)} m²` },
-    { label: "Ideal Body Weight (Devine)", value: `${idealBodyWeight.toFixed(1)} kg` },
-    { label: "Dosing Weight Used", value: `${dosingWeight.toFixed(1)} kg` },
-    { label: "Cockcroft-Gault CrCl", value: `${cockcroftGault.toFixed(1)} mL/min` },
-    { label: "Measured CrCl (urine)", value: `${measuredCrCl.toFixed(1)} mL/min` },
-    { label: "BSA-Normalised CrCl", value: `${normalisedCrCl.toFixed(1)} mL/min/1.73 m²`, key: true },
-    { label: "ARC Threshold", value: `${ARC_THRESHOLD} mL/min/1.73 m²` },
-    { label: "ARC Present", value: hasArc ? "Yes" : "No" },
-    { label: "Clearance Category", value: arcCategory },
-    { label: "ARCTIC Score", value: `${arcticScore} / 11` },
-    { label: "ARCTIC Risk Band", value: arcticRiskPercent },
+  const verdict = hasArc
+    ? `Normalised clearance of ${fmt(normalisedCrCl, d)} mL/min/1.73 m² meets the ${ARC_THRESHOLD} threshold, so renally cleared drugs are being eliminated faster than standard dosing assumes`
+    : `Normalised clearance of ${fmt(normalisedCrCl, d)} mL/min/1.73 m² sits below the ${ARC_THRESHOLD} threshold, so standard dosing assumptions hold`;
+  const verdictColor = hasArc ? "text-orange-600" : "text-emerald-600";
+
+  const breakdown: BreakdownRow[] = [
+    {
+      label: `Serum creatinine ${fmt(creatinineMgDl, 2)} mg/dL`,
+      value: `${fmt(creatinineMgDl * 88.4, 1)} µmol/L`,
+    },
+    { label: "Body surface area (Du Bois)", value: `${fmt(bsa, 2)} m²` },
+    { label: "Ideal body weight (Devine)", value: `${fmt(idealBodyWeight, 1)} kg` },
+    { label: "Adjusted body weight at 40% of the excess", value: `${fmt(adjustedBodyWeight, 1)} kg` },
+    { label: "Dosing weight used for Cockcroft-Gault", value: `${fmt(dosingWeight, 1)} kg`, highlight: true },
+    { label: "Cockcroft-Gault creatinine clearance", value: `${fmt(cockcroftGault, 1)} mL/min` },
+    { label: `Measured clearance over ${fmt(i.urineCollectionHours, 0)} h`, value: `${fmt(measuredCrCl, 1)} mL/min` },
+    {
+      label: i.useMeasured === "yes" ? "Clearance used in the assessment" : "Clearance used — estimated, not measured",
+      value: `${fmt(reportedCrCl, 1)} mL/min`,
+    },
+    { label: "Normalised to 1.73 m² of body surface area", value: `${fmt(normalisedCrCl, d)} mL/min/1.73 m²`, highlight: true },
+    { label: "ARC threshold", value: `${fmt(ARC_THRESHOLD, 0)} mL/min/1.73 m²` },
+    { label: "Augmented renal clearance present", value: hasArc ? "yes" : "no", highlight: true },
+    { label: "Clearance category", value: arcCategory, highlight: true },
+    { label: "ARCTIC score", value: `${fmt(arcticScore, 0)} of 11` },
+    { label: "ARCTIC risk band", value: arcticRiskBand },
+    ...referenceRows.map((r) => ({ label: `Reference clearance · ${r.name}`, value: `${fmt(r.value, 0)} mL/min/1.73 m²` })),
+    { label: "Vancomycin implication", value: vancomycinNote },
+    { label: "Beta-lactam implication", value: betaLactamNote },
+    { label: "Monitoring", value: monitoringNote },
   ];
 
   return {
+    valid: true,
+    errorMsg: "",
     bsa,
     idealBodyWeight,
     adjustedBodyWeight,
@@ -217,89 +271,225 @@ export function calculateArc(i: ArcInputs): ArcResult {
     creatinineMgDl,
     cockcroftGault,
     measuredCrCl,
-    normalisedCrCl,
     reportedCrCl,
+    normalisedCrCl,
     hasArc,
     arcCategory,
     arcColor,
     arcticScore,
-    arcticRiskPercent,
-    chartData,
-    rows,
+    arcticRiskBand,
+    referenceRows,
     vancomycinNote,
     betaLactamNote,
     monitoringNote,
+    verdict,
+    verdictColor,
+    breakdown,
   };
 }
-const inp =
-  "w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/20";
-const lbl = "text-sm font-medium text-foreground mb-1 block";
-const groupLabel =
-  "text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5";
+
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
 export default function AugmentedRenalClearanceCalculator() {
-  const [inputs, setInputs] = useState<ArcInputs>(DEFAULTS);
-  const [result, setResult] = useState<ArcResult>(calculateArc(DEFAULTS));
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [age, setAge] = useState(String(DEFAULTS.age));
+  const [sex, setSex] = useState<string>(DEFAULTS.sex);
+  const [weightKg, setWeightKg] = useState(String(DEFAULTS.weightKg));
+  const [heightCm, setHeightCm] = useState(String(DEFAULTS.heightCm));
+  const [serumCreatinine, setSerumCreatinine] = useState(String(DEFAULTS.serumCreatinine));
+  const [creatinineUnit, setCreatinineUnit] = useState<string>(DEFAULTS.creatinineUnit);
+  const [useMeasured, setUseMeasured] = useState<string>(DEFAULTS.useMeasured);
+  const [urineVolumeMl, setUrineVolumeMl] = useState(String(DEFAULTS.urineVolumeMl));
+  const [urineCollectionHours, setUrineCollectionHours] = useState(String(DEFAULTS.urineCollectionHours));
+  const [urineCreatinine, setUrineCreatinine] = useState(String(DEFAULTS.urineCreatinine));
+  const [sofaScore, setSofaScore] = useState(String(DEFAULTS.sofaScore));
+  const [traumaAdmission, setTraumaAdmission] = useState<string>(DEFAULTS.traumaAdmission);
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    setResult(calculateArc(inputs));
-  }, []);
+  const getInputs = (): ArcInputs => ({
+    age: parseFloat(age) || 0,
+    sex,
+    weightKg: parseFloat(weightKg) || 0,
+    heightCm: parseFloat(heightCm) || 0,
+    serumCreatinine: parseFloat(serumCreatinine) || 0,
+    creatinineUnit,
+    useMeasured,
+    urineVolumeMl: parseFloat(urineVolumeMl) || 0,
+    urineCollectionHours: parseFloat(urineCollectionHours) || 0,
+    urineCreatinine: parseFloat(urineCreatinine) || 0,
+    sofaScore: parseFloat(sofaScore) || 0,
+    traumaAdmission,
+    decimals: parseFloat(decimals),
+  });
 
-  const calculate = () => setResult(calculateArc(inputs));
+  const [calcInputs, setCalcInputs] = useState<ArcInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<ArcResult>(() => calculateArc(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateArc(inputs));
+  };
+
   const reset = () => {
-    setInputs(DEFAULTS);
-    setResult(calculateArc(DEFAULTS));
-    setShowAdvanced(false);
+    setAge(String(DEFAULTS.age));
+    setSex(DEFAULTS.sex);
+    setWeightKg(String(DEFAULTS.weightKg));
+    setHeightCm(String(DEFAULTS.heightCm));
+    setSerumCreatinine(String(DEFAULTS.serumCreatinine));
+    setCreatinineUnit(DEFAULTS.creatinineUnit);
+    setUseMeasured(DEFAULTS.useMeasured);
+    setUrineVolumeMl(String(DEFAULTS.urineVolumeMl));
+    setUrineCollectionHours(String(DEFAULTS.urineCollectionHours));
+    setUrineCreatinine(String(DEFAULTS.urineCreatinine));
+    setSofaScore(String(DEFAULTS.sofaScore));
+    setTraumaAdmission(DEFAULTS.traumaAdmission);
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateArc(DEFAULTS));
   };
 
-  const setNum = (key: keyof ArcInputs, raw: string) => {
-    const parsed = parseFloat(raw);
-    setInputs((prev) => ({ ...prev, [key]: isNaN(parsed) ? 0 : parsed }));
+  const ageNum = parseFloat(age);
+  const weightNum = parseFloat(weightKg);
+  const heightNum = parseFloat(heightCm);
+  const scrNum = parseFloat(serumCreatinine);
+
+  const errors = {
+    age: !Number.isFinite(ageNum) || ageNum < 1 || ageNum > 120 ? "Use 1–120 years" : "",
+    weightKg: !Number.isFinite(weightNum) || weightNum <= 0 || weightNum > 400 ? "Use 1–400 kg" : "",
+    heightCm: !Number.isFinite(heightNum) || heightNum <= 0 || heightNum > 260 ? "Use 1–260 cm" : "",
+    serumCreatinine: !Number.isFinite(scrNum) || scrNum <= 0 ? "Must be greater than zero" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
     {
       question: "What is augmented renal clearance?",
       answer:
-        "Augmented renal clearance, or ARC, is a sustained increase in kidney filtration above normal, conventionally defined as a creatinine clearance at or above 130 mL/min/1.73 m² persisting for at least 24 hours. It is not a disease and not a lab error. It reflects the hyperdynamic circulation of critical illness — raised cardiac output and renal blood flow drive glomerular filtration above baseline, which clears renally eliminated drugs faster than standard dosing assumes.",
+        "Augmented renal clearance is a state in which the kidneys remove renally eliminated drugs faster than normal, conventionally defined as a creatinine clearance at or above 130 mL/min per 1.73 m² sustained for at least 24 hours. It is common in younger critically ill patients — particularly after trauma, sepsis, burns or major surgery — and it means that standard weight-based doses of antibiotics, antifungals and low-molecular-weight heparins can be cleared before they have done their work.",
     },
     {
-      question: "Who develops ARC?",
+      question: "Why is clearance normalised to body surface area?",
       answer:
-        "It is common in critically ill patients who are young, male, and have relatively low illness severity scores — a combination that sounds counterintuitive until you recognise ARC as a marker of preserved physiological reserve rather than organ failure. Trauma, sepsis in the hyperdynamic phase, burns, subarachnoid haemorrhage, and the post-operative period are all associated. Reported prevalence in mixed ICU cohorts runs from 20% to over 65% depending on the population and the definition used.",
+        "Because raw creatinine clearance scales with body size, so a large young man can exceed the threshold purely because he is large. Dividing by body surface area and multiplying by the standard 1.73 m² removes that effect, which is why the definition of ARC is expressed per 1.73 m². The calculator also reports the unnormalised Cockcroft-Gault figure, because that is the number most dosing references print, and the two are not interchangeable when the patient is far from average size.",
     },
     {
-      question: "Why does ARC matter for antibiotic dosing?",
+      question: "Why do the estimating equations struggle here?",
       answer:
-        "Because standard doses were validated in patients with normal clearance. When clearance doubles, plasma concentrations fall proportionally, and beta-lactams in particular can spend too little time above the pathogen's minimum inhibitory concentration to be effective. This produces treatment failure and selects for resistance despite a technically correct prescription. ARC is one of the better-documented reasons that a patient on an appropriate antibiotic at an appropriate dose fails to improve.",
+        "Creatinine is a marker of muscle mass as much as of kidney function, and the Cockcroft-Gault and MDRD equations were derived in stable outpatients rather than in acute illness. In a young trauma patient with low muscle mass, inflammation and fluid shifts, a serum creatinine that looks normal can hide a clearance well above 130 mL/min. That is why a timed urine collection — creatinine clearance measured directly over a known interval — is the reference method, and why clinicians often rely on the ARCTIC score, a combination of age, sex, SOFA and trauma status, to decide whom to screen.",
     },
     {
-      question: "Is a low serum creatinine enough to identify ARC?",
+      question: "How does augmented renal clearance change drug dosing?",
       answer:
-        "It is a useful flag but not sufficient. A creatinine of 0.5 mg/dL in a muscular young trauma patient strongly suggests high clearance, but creatinine production depends on muscle mass, so a low value in a frail or cachectic patient may reflect reduced production rather than raised filtration. This is exactly where estimating equations mislead, and why a timed urine collection is the reference standard when the dosing decision matters.",
+        "It changes both the dose and the way the drug is given. For vancomycin, conventional weight-based dosing typically underexposes these patients, so many units start with a higher total daily dose and monitor the AUC closely rather than chasing a trough. For beta-lactams, whose killing depends on the time the free concentration stays above the MIC, extended or continuous infusion is a common answer because raising the dose alone is limited by toxicity. The state is usually temporary, which is why clearance is re-measured every day or two and the dose revised down as the acute phase resolves.",
     },
     {
-      question: "Should I use Cockcroft-Gault or a measured collection?",
+      question: "Does a high clearance mean the kidneys are healthy?",
       answer:
-        "Use a measured collection when you can. Cockcroft-Gault was derived in stable outpatients and systematically underestimates clearance in the ARC range, meaning it can miss the very patients it matters most to identify. An 8 to 24 hour timed urine creatinine clearance is the practical reference standard in the ICU, and 8-hour collections correlate well enough with 24-hour values to be clinically usable. This calculator reports both so you can see the gap.",
-    },
-    {
-      question: "Why normalise to 1.73 m² of body surface area?",
-      answer:
-        "Because the 130 mL/min ARC threshold is defined per 1.73 m², the standard adult body surface area. A large patient can have an absolute clearance of 140 mL/min that normalises to 115 and is not ARC, while a small patient at 125 mL/min absolute may normalise to 140 and is. Skipping the normalisation step biases identification by body size, which is why this calculator reports both the absolute and normalised values.",
-    },
-    {
-      question: "What is the ARCTIC score?",
-      answer:
-        "The ARCTIC score is a bedside screening tool that weights age under 50 at 6 points, age 50 to 59 at 3, male sex at 4, and a SOFA score of 4 or higher at 1 point. A total of 6 or more is the published cut-off for suspecting ARC and pursuing a measured clearance. It is a screening instrument, not a substitute for measurement — its purpose is to tell you which patients warrant a timed collection rather than to quantify clearance itself.",
-    },
-    {
-      question: "How should dosing change when ARC is present?",
-      answer:
-        "The general principles are to increase total daily dose for concentration-dependent agents and to extend the infusion for time-dependent ones. Beta-lactams benefit from extended or continuous infusion to maintain time above MIC; vancomycin typically needs a higher total daily dose with AUC-guided monitoring. Use therapeutic drug monitoring wherever available, and re-measure clearance every 24 to 48 hours, because ARC frequently resolves as the hyperdynamic phase settles and a dose that was correct on day two can be excessive on day five. These are general considerations, not a dosing prescription — specific regimens belong with the treating team and a clinical pharmacist.",
+        "Not necessarily. A clearance of 180 mL/min in a young trauma patient reflects hyperdynamic physiology — increased cardiac output, vasodilation and glomerular hyperfiltration driven by the inflammatory response — rather than better kidney function, and it can precede a decline if the patient deteriorates. In the longer term, persistent glomerular hyperfiltration is also seen in early diabetic nephropathy and in pregnancy, where it is physiological. The number describes how fast the kidneys are clearing solute at this moment, not how well they will do it next week.",
     },
   ];
 
@@ -309,7 +499,7 @@ export default function AugmentedRenalClearanceCalculator() {
         items={[
           { label: "Home", href: "/" },
           { label: "Calculators", href: "/calculator" },
-          { label: "Health", href: "/calculator/health" },
+          { label: "Health", href: "/calculator#health" },
           { label: "Augmented Renal Clearance Calculator" },
         ]}
       />
@@ -317,319 +507,432 @@ export default function AugmentedRenalClearanceCalculator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Augmented Renal Clearance Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="age" className={lbl}>Age (years)</label>
-                <input id="age" type="number" min="1" step="1" className={inp} value={inputs.age}
-                  onChange={(e) => setNum("age", e.target.value)} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Patient">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="age"
+                  label="Age"
+                  value={age}
+                  onChange={setAge}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="120"
+                  step="1"
+                  suffix="years"
+                  error={errors.age}
+                  tooltip="Age drives both Cockcroft-Gault and the ARCTIC score."
+                />
+                <CompactSelect
+                  id="sex"
+                  label="Sex"
+                  value={sex}
+                  onChange={setSex}
+                  options={[
+                    { value: "male", label: "Male" },
+                    { value: "female", label: "Female" },
+                  ]}
+                  tooltip="Adjusts Cockcroft-Gault by 15% for women and scores 4 points in ARCTIC for men."
+                />
               </div>
-              <div>
-                <label htmlFor="sex" className={lbl}>Sex</label>
-                <select id="sex" className={inp} value={inputs.sex}
-                  onChange={(e) => setInputs((p) => ({ ...p, sex: e.target.value as Sex }))}>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactInput
+                  id="weight"
+                  label="Weight"
+                  value={weightKg}
+                  onChange={setWeightKg}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="400"
+                  step="any"
+                  suffix="kg"
+                  error={errors.weightKg}
+                  tooltip="Used for body surface area and to choose the Cockcroft-Gault dosing weight."
+                />
+                <CompactInput
+                  id="height"
+                  label="Height"
+                  value={heightCm}
+                  onChange={setHeightCm}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="260"
+                  step="any"
+                  suffix="cm"
+                  error={errors.heightCm}
+                  tooltip="Needed for Du Bois body surface area and ideal body weight."
+                />
               </div>
-              <div>
-                <label htmlFor="weightKg" className={lbl}>Weight (kg)</label>
-                <input id="weightKg" type="number" min="1" step="0.5" className={inp} value={inputs.weightKg}
-                  onChange={(e) => setNum("weightKg", e.target.value)} />
-              </div>
-              <div>
-                <label htmlFor="serumCreatinine" className={lbl}>Serum Creatinine</label>
-                <input id="serumCreatinine" type="number" min="0.01" step="0.01" className={inp}
-                  value={inputs.serumCreatinine} onChange={(e) => setNum("serumCreatinine", e.target.value)} />
-              </div>
-            </div>
+            </SubSection>
 
+            <SubSection title="Serum Creatinine">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="scr"
+                  label="Serum Creatinine"
+                  value={serumCreatinine}
+                  onChange={setSerumCreatinine}
+                  onEnter={runCalculate}
+                  min="0.01"
+                  step="any"
+                  error={errors.serumCreatinine}
+                  tooltip="Serum creatinine in the unit selected next to it."
+                />
+                <CompactSelect
+                  id="unit"
+                  label="Creatinine Unit"
+                  value={creatinineUnit}
+                  onChange={setCreatinineUnit}
+                  options={[
+                    { value: "mgdl", label: "mg/dL" },
+                    { value: "umol", label: "µmol/L" },
+                  ]}
+                  tooltip="The conversion is a factor of 88.4 between the two units."
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactSelect
+                  id="use-measured"
+                  label="Clearance Source"
+                  value={useMeasured}
+                  onChange={setUseMeasured}
+                  options={[
+                    { value: "no", label: "Cockcroft-Gault estimate" },
+                    { value: "yes", label: "Measured urine collection" },
+                  ]}
+                  tooltip="Choose the timed collection when one is available; it is the reference method."
+                />
+                <CompactInput
+                  id="decimals"
+                  label="Decimals"
+                  value={decimals}
+                  onChange={setDecimals}
+                  onEnter={runCalculate}
+                  min="0"
+                  max="2"
+                  step="1"
+                  tooltip="Decimal places used for the clearance figures."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced ? (
-                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div>
-                    <div className={groupLabel}>
-                      <Activity className="h-3.5 w-3.5" /> Anthropometry &amp; Units
-                    </div>
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Timed Urine Collection">
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="heightCm" className={lbl}>Height (cm)</label>
-                        <input id="heightCm" type="number" min="1" step="1" className={inp} value={inputs.heightCm}
-                          onChange={(e) => setNum("heightCm", e.target.value)} />
-                      </div>
-                      <div>
-                        <label htmlFor="creatinineUnit" className={lbl}>Creatinine Unit</label>
-                        <select id="creatinineUnit" className={inp} value={inputs.creatinineUnit}
-                          onChange={(e) => setInputs((p) => ({ ...p, creatinineUnit: e.target.value as CreatinineUnit }))}>
-                          <option value="mgdl">mg/dL</option>
-                          <option value="umol">µmol/L</option>
-                        </select>
+                      <CompactInput
+                        id="urine-volume"
+                        label="Urine Volume"
+                        value={urineVolumeMl}
+                        onChange={setUrineVolumeMl}
+                        onEnter={runCalculate}
+                        min="1"
+                        step="any"
+                        suffix="mL"
+                        tooltip="Total volume collected over the timed interval."
+                      />
+                      <CompactInput
+                        id="collection-hours"
+                        label="Collection Time"
+                        value={urineCollectionHours}
+                        onChange={setUrineCollectionHours}
+                        onEnter={runCalculate}
+                        min="1"
+                        max="48"
+                        step="any"
+                        suffix="hours"
+                        tooltip="Length of the collection; 24 hours is the conventional interval for ARC."
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <CompactInput
+                        id="urine-creatinine"
+                        label="Urine Creatinine"
+                        value={urineCreatinine}
+                        onChange={setUrineCreatinine}
+                        onEnter={runCalculate}
+                        min="1"
+                        step="any"
+                        suffix="mg/dL"
+                        tooltip="Urine creatinine concentration from the same collection."
+                      />
+                      <CompactInput
+                        id="sofa"
+                        label="SOFA Score"
+                        value={sofaScore}
+                        onChange={setSofaScore}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="24"
+                        step="1"
+                        tooltip="A score of 4 or more adds a point to the ARCTIC screen."
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <CompactSelect
+                        id="trauma"
+                        label="Admission Type"
+                        value={traumaAdmission}
+                        onChange={setTraumaAdmission}
+                        options={[
+                          { value: "yes", label: "Trauma or surgical admission" },
+                          { value: "no", label: "Medical admission" },
+                        ]}
+                        tooltip="Recorded for context; the ARCTIC cut-off used here does not add points for it."
+                      />
+                      <div className="flex flex-col justify-center">
+                        <span className="text-[11px] text-muted-foreground">
+                          ARCTIC: age under 50 scores 6, under 60 scores 3, male sex 4, SOFA 4 or more 1 — six or more meets the screening
+                          cut-off.
+                        </span>
                       </div>
                     </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <FlaskConical className="h-3.5 w-3.5" /> Timed Urine Collection
-                    </div>
-                    <label htmlFor="useMeasured" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">
-                      <input id="useMeasured" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.useMeasured}
-                        onChange={(e) => setInputs((p) => ({ ...p, useMeasured: e.target.checked }))} />
-                      Use measured clearance as the primary result
-                    </label>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="urineVolumeMl" className={lbl}>Urine Volume (mL)</label>
-                        <input id="urineVolumeMl" type="number" min="0" step="50" className={inp}
-                          value={inputs.urineVolumeMl} onChange={(e) => setNum("urineVolumeMl", e.target.value)} />
-                      </div>
-                      <div>
-                        <label htmlFor="urineCollectionHours" className={lbl}>Collection (hours)</label>
-                        <input id="urineCollectionHours" type="number" min="1" step="1" className={inp}
-                          value={inputs.urineCollectionHours} onChange={(e) => setNum("urineCollectionHours", e.target.value)} />
-                      </div>
-                      <div className="col-span-2">
-                        <label htmlFor="urineCreatinine" className={lbl}>Urine Creatinine (mg/dL)</label>
-                        <input id="urineCreatinine" type="number" min="0" step="1" className={inp}
-                          value={inputs.urineCreatinine} onChange={(e) => setNum("urineCreatinine", e.target.value)} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <Stethoscope className="h-3.5 w-3.5" /> Professional Mode
-                    </div>
-                    <label htmlFor="proMode" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">
-                      <input id="proMode" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.proMode}
-                        onChange={(e) => setInputs((p) => ({ ...p, proMode: e.target.checked }))} />
-                      Unlock ARCTIC screening and dosing considerations
-                    </label>
-                    {inputs.proMode ? (
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label htmlFor="sofaScore" className={lbl}>SOFA Score</label>
-                          <input id="sofaScore" type="number" min="0" max="24" step="1" className={inp}
-                            value={inputs.sofaScore} onChange={(e) => setNum("sofaScore", e.target.value)} />
-                        </div>
-                        <div className="flex items-end">
-                          <label htmlFor="traumaAdmission" className="flex items-center gap-2 text-sm font-medium text-foreground cursor-pointer h-10">
-                            <input id="traumaAdmission" type="checkbox" className="h-4 w-4 accent-primary"
-                              checked={inputs.traumaAdmission}
-                              onChange={(e) => setInputs((p) => ({ ...p, traumaAdmission: e.target.checked }))} />
-                            Trauma admission
-                          </label>
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
+                  </SubSection>
                 </div>
-              ) : null}
+              )}
             </div>
 
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={calculate}
-                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={reset} aria-label="Reset"
-                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Normalised Creatinine Clearance</div>
-              <div className="text-4xl font-bold text-primary my-1">{result.normalisedCrCl.toFixed(1)}</div>
-              <div className="text-sm text-muted-foreground">
-                mL/min/1.73 m² — {inputs.useMeasured ? "measured collection" : "Cockcroft-Gault estimate"}
-              </div>
-              <div className={`text-base font-bold mt-2 ${result.arcColor}`}>{result.arcCategory}</div>
-            </div>
+            )}
 
-            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-              <div className="p-4 text-center">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">ARC Present</div>
-                <div className={`text-lg font-bold ${result.hasArc ? "text-red-600" : "text-emerald-600"}`}>
-                  {result.hasArc ? "Yes" : "No"}
-                </div>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Normalised Creatinine Clearance</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.normalisedCrCl, calcInputs.decimals)} mL/min` : "—"}
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Cockcroft-Gault</div>
-                <div className="text-lg font-bold text-amber-600">{result.cockcroftGault.toFixed(0)}</div>
-              </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">ARCTIC Score</div>
-                <div className={`text-lg font-bold ${result.arcticScore >= 6 ? "text-red-600" : "text-emerald-600"}`}>
-                  {result.arcticScore}
-                </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `Per 1.73 m² — ${results.arcCategory.toLowerCase()} against the ${ARC_THRESHOLD} mL/min ARC threshold`
+                  : "Fix the highlighted inputs to estimate the clearance"}
               </div>
             </div>
 
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Cockcroft-Gault</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.cockcroftGault, 1)}` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Measured</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.measuredCrCl, 1)}` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">ARCTIC Score</span>
+                <span className={`font-extrabold ${results.valid ? results.arcColor : "text-muted-foreground"}`}>
+                  {results.valid ? `${fmt(results.arcticScore, 0)} / 11` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Parameter</th>
-                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Clearance Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[240px]">Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {result.rows.map((row) => (
-                    <tr key={row.label} className={row.key ? "bg-primary/5" : ""}>
-                      <td className={`text-base py-2.5 px-3 ${row.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{row.label}</td>
-                      <td className={`text-base py-2.5 px-3 text-right font-medium ${row.key ? "text-primary font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the patient data to assess the clearance.
+                      </td>
                     </tr>
-                  ))}
-                  <tr className="font-bold border-t-2 border-border">
-                    <td className="text-base py-2.5 px-3 text-foreground">Normalised CrCl</td>
-                    <td className="text-base py-2.5 px-3 text-right text-primary">{result.normalisedCrCl.toFixed(1)} mL/min/1.73 m²</td>
-                  </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">ARC assessment</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(results.normalisedCrCl, calcInputs.decimals)} mL/min/1.73 m² · ${results.hasArc ? "ARC present" : "no ARC"}`}
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
 
-            {mounted ? (
-              <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-sm font-bold text-foreground mb-3">Clearance in Context (mL/min/1.73 m²)</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 40 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} angle={-30} textAnchor="end" height={60} />
-                    <YAxis tick={{ fontSize: 11 }} />
-                    <RTooltip formatter={(value: number) => `${value} mL/min/1.73 m²`}
-                      contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
-                    <ReferenceLine y={ARC_THRESHOLD} stroke="#EF4444" strokeDasharray="4 4" />
-                    <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                      {result.chartData.map((point) => (
-                        <Cell key={point.name}
-                          fill={point.isSubject ? (result.hasArc ? "#EF4444" : "#2563EB") : "#94A3B8"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: result.hasArc ? "#EF4444" : "#2563EB" }} /> This patient
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#94A3B8" }} /> Reference band
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#EF4444" }} /> ARC threshold (130)
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {inputs.proMode ? (
-              <div className="rounded-xl border border-border bg-card p-5">
-                <h3 className="text-sm font-bold text-foreground mb-3">ARCTIC Screening &amp; Dosing Considerations</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">ARCTIC Score</div>
-                    <div className={`text-base font-bold ${result.arcticScore >= 6 ? "text-red-600" : "text-emerald-600"}`}>
-                      {result.arcticScore} / 11 {result.arcticScore >= 6 ? "— cut-off met" : ""}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Screening Risk Band</div>
-                    <div className="text-base font-bold text-foreground">{result.arcticRiskPercent}</div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Beta-Lactam Consideration</div>
-                    <div className="text-base font-bold text-foreground">{result.betaLactamNote}</div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Vancomycin Consideration</div>
-                    <div className="text-base font-bold text-foreground">{result.vancomycinNote}</div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Monitoring</div>
-                    <div className="text-base font-bold text-foreground">{result.monitoringNote}</div>
-                  </div>
-                  <div className="col-span-2 pt-1">
-                    <div className="text-sm text-muted-foreground">
-                      These are general pharmacokinetic considerations for education, not dosing instructions. Specific
-                      regimens require the treating team, a clinical pharmacist, and therapeutic drug monitoring.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
+            {/* 4. SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
               <div className="grid grid-cols-2 gap-4">
-                {result.rows.map((row) => (
-                  <div key={row.label} className="flex flex-col">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">{row.label}</span>
-                    <span className={`text-base font-bold ${row.key ? "text-primary" : "text-foreground"}`}>{row.value}</span>
-                  </div>
-                ))}
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Body surface area</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.bsa, 2)} m²` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Dosing weight</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.dosingWeight, 1)} kg` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Cockcroft-Gault</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.cockcroftGault, 1)} mL/min` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Normalised clearance</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.normalisedCrCl, 1)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">ARC present</span>
+                  <span className={`text-base font-bold ${results.valid ? results.verdictColor : "text-muted-foreground"}`}>
+                    {results.valid ? (results.hasArc ? "yes" : "no") : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Category</span>
+                  <span className={`text-base font-bold ${results.valid ? results.arcColor : "text-muted-foreground"}`}>
+                    {results.valid ? results.arcCategory : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">ARCTIC score</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.arcticScore, 0)} of 11` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">ARCTIC band</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? results.arcticRiskBand.split(" —")[0] : "—"}</span>
+                </div>
               </div>
+              {results.valid && (
+                <>
+                  <p className={`text-[11px] mt-3 font-semibold ${results.verdictColor}`}>{results.verdict}.</p>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    <span className="font-bold text-foreground">Vancomycin:</span> {results.vancomycinNote}{" "}
+                    <span className="font-bold text-foreground">Beta-lactams:</span> {results.betaLactamNote}{" "}
+                    <span className="font-bold text-foreground">Monitoring:</span> {results.monitoringNote}
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
 
-        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Kidneys That Work Too Well</h2>
-            <p className="mb-4">
-              Augmented renal clearance is the mirror image of the renal problem clinicians are trained to look for.
-              Instead of filtration falling and drugs accumulating, filtration rises and drugs disappear faster than the
-              dosing interval assumes. The conventional definition is a creatinine clearance at or above 130 mL/min/1.73 m²
-              sustained for at least 24 hours. The mechanism is the hyperdynamic circulation of critical illness: raised
-              cardiac output increases renal blood flow, which increases glomerular filtration well above baseline.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">The Counterintuitive Risk Profile</h2>
-            <p className="mb-4">
-              ARC is most common in patients who look least sick by conventional severity scoring — young, male, with
-              relatively low SOFA scores, often admitted after trauma or in the hyperdynamic phase of sepsis. That pattern
-              makes sense once you read ARC as a marker of preserved physiological reserve rather than organ dysfunction.
-              The ARCTIC score formalises it, weighting age under 50 at 6 points, age 50 to 59 at 3, male sex at 4, and a
-              SOFA score of 4 or higher at 1, with a total of 6 or more prompting a measured clearance. Reported prevalence
-              in mixed ICU cohorts ranges from roughly 20% to over 65% depending on population and definition.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Why Estimating Equations Fail Here</h2>
-            <p className="mb-4">
-              Cockcroft-Gault was derived in stable outpatients with normal or reduced function, and it systematically
-              underestimates clearance in the augmented range — precisely where the miss carries the greatest cost. Serum
-              creatinine compounds the problem because production depends on muscle mass: a value of 0.5 mg/dL means high
-              filtration in a muscular young trauma patient but may mean low production in a cachectic one. A timed urine
-              collection, 8 to 24 hours, remains the practical reference standard, and 8-hour collections track 24-hour
-              values closely enough for clinical use. Normalising to 1.73 m² matters too, since the 130 threshold is
-              defined per standard body surface area and skipping the step biases detection by patient size.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">What Changes at the Bedside</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Augmented Renal Clearance Calculator?</h2>
             <p>
-              The clinical consequence is antibiotic underexposure. Beta-lactams are time-dependent, so raised clearance
-              shortens the fraction of the interval spent above the pathogen's minimum inhibitory concentration, which
-              argues for extended or continuous infusion rather than simply a bigger bolus. Vancomycin typically requires a
-              higher total daily dose under AUC-guided monitoring. Equally important is that ARC is dynamic: it commonly
-              resolves as the hyperdynamic phase settles, so a regimen that was correct on day two may be excessive by day
-              five, and clearance should be re-measured every 24 to 48 hours. This calculator is an educational tool for
-              understanding those relationships — dosing decisions belong with the treating team, a clinical pharmacist,
-              and therapeutic drug monitoring where available.
+              An augmented renal clearance calculator takes the usual demographic and creatinine inputs, estimates creatinine clearance,
+              normalises it to body surface area, and reports whether the patient is clearing renally eliminated drugs faster than normal.
+              The conventional threshold is 130 mL/min per 1.73 m² sustained for at least 24 hours; anything above that means a standard
+              weight-based dose of a renally cleared antibiotic may be gone before it can work.
+            </p>
+            <p>
+              The state is common in exactly the patients least able to afford a treatment failure: young people in intensive care after
+              trauma, major surgery, burns or sepsis, whose cardiac output and glomerular filtration are running high because of the
+              inflammatory response rather than because their kidneys are unusually healthy.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The estimate starts with the Cockcroft-Gault equation: 140 minus age, multiplied by weight, divided by 72 times serum
+              creatinine, with a 15 percent reduction for women. The weight is chosen deliberately, following the usual dosing convention —
+              actual weight for a patient below ideal body weight, ideal body weight for a normal build, and adjusted body weight at 40
+              percent of the excess when the patient is 30 percent or more above ideal — because creatinine production scales with lean
+              mass rather than with total mass.
+            </p>
+            <p>
+              Where a timed urine collection exists, the calculator prefers it, because creatinine clearance measured directly as urine
+              creatinine times urine volume divided by serum creatinine times collection time is the reference method, and the estimating
+              equations are least reliable in exactly the population that develops ARC. Either figure is then normalised by the Du Bois
+              body surface area and multiplied by 1.73 m², which is what makes the comparison across body sizes meaningful.
+            </p>
+            <p>
+              Because the creatinine estimate alone is insensitive in acute illness, the calculator also reports the ARCTIC score — a
+              screening tool built from routinely available admission data. Age under 50 scores 6, age 50 to 59 scores 3, male sex scores 4
+              and a SOFA score of 4 or more adds 1, for a maximum of 11; six or more is the published cut-off at which formal measurement
+              of clearance is worth arranging.
+            </p>
+            <p>
+              The drug implications follow directly from the number. Vancomycin is cleared renally and the conventional dose commonly
+              underexposes these patients, so units start higher and monitor the AUC rather than a trough. Beta-lactams are
+              time-dependent, so extending or continuing the infusion keeps the free concentration above the MIC for longer than raising
+              the dose alone can. Neither option is safe without monitoring, and neither stays appropriate for long — augmented clearance
+              typically resolves as the acute phase settles, so the dose has to come down again.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the normalised clearance per 1.73 m², with the category against the ARC threshold underneath. The
+              three-stat bar puts the Cockcroft-Gault estimate, the measured clearance if one was entered, and the ARCTIC score side by
+              side, which is the quickest way to see whether the two clearance methods disagree.
+            </p>
+            <p>
+              The breakdown table lists the unit conversions, body surface area, both body-weight conventions and the dosing weight chosen,
+              the two clearance estimates, the normalised figure, the threshold and category, and the ARCTIC components, followed by
+              reference clearances for comparison — a healthy adult, the ARC threshold, and CKD stages 3a and 4 — and the antimicrobial and
+              monitoring implications. The summary panel repeats the headline figures and prints the verdict line.
+            </p>
+            <p>
+              Treat the output as a screening conclusion rather than a dosing instruction. Creatinine-based estimates lose accuracy in
+              acute illness, in low muscle mass, in liver disease and in the presence of drugs that block tubular secretion. Even a timed
+              collection can be mis-collected, so the appropriate next step when ARC is suspected is a conversation with the clinical
+              pharmacist or the treating team about therapeutic drug monitoring, not a dose adjustment made from a calculator alone.
             </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/augmented-renal-clearance-calculator" />

@@ -69,6 +69,17 @@ export interface BarGeometry {
    *  every segment-derived readout contradicts the bar. The UI must refuse to
    *  present those numbers (and never silently rewrite the user's value). */
   segFits: boolean;
+  /** False when the Manual bar ITSELF is bigger than the tool's documented
+   *  maximum paper width — i.e. the largest boundary, converted at the current
+   *  scale, needs more paper than `SLIDER_RANGES.width.max`. Manual rows are
+   *  deliberately preserved across a scale change, so shrinking the scale can
+   *  turn a tidy 100 mm bar into a 16.7 m one without the rows moving; that bar
+   *  is beyond the range the Width control itself documents, and the per-row
+   *  "out of range" advisory already flags every row past the same bound. Like
+   *  `segFits`, this is a geometric gate for the UI — nothing here rewrites the
+   *  rows. Always true in Automatic mode, where Width defines the paper length
+   *  directly. */
+  manualFits: boolean;
   numSteps: number;
   steps: number[];            // per-step paper widths (mm), sum === totalPaperMm
   labels: { pos: number; text: string }[];
@@ -280,6 +291,16 @@ export function computeBar(p: BarParams): BarGeometry | null {
   // the bar. Nothing here clamps the user's value (that would silently rewrite
   // input on a scale change); the flag lets the UI say so instead.
   const segFits = segPaperMm <= totalPaperMm * (1 + 1e-9) + 1e-9;
+  // The Manual bar is bounded by the Width slider's own documented maximum: it
+  // is the ONLY paper-width bound a Manual bar has (its length comes from the
+  // largest boundary, not from the slider), and it is the same bound the
+  // per-row "out of range" advisory uses (see manualRangeMax), so the coarse
+  // result gate and the fine per-row flags cannot tell a user two different
+  // stories. The 1e-5 slack is the seed's OWN six-digit formatting resolution
+  // (`seedManualSteps`), so a Manual bar seeded from a legitimate Automatic bar
+  // can never be falsely blocked at the cap — it is 0.004 mm on a 400 mm bar.
+  // Automatic bars are exempt: there the user sets the paper width directly.
+  const manualFits = !useManual || totalPaperMm <= SLIDER_RANGES.width.max * (1 + 1e-5);
 
   // Labels: real-world distance at each step boundary. paper × scale = real —
   // the SAME conversion the stats panel uses, applied per boundary. Unlabeled
@@ -300,6 +321,7 @@ export function computeBar(p: BarParams): BarGeometry | null {
     // (equivalent to segVal × totalSegments, but with one code path only).
     totalRealValue: paperToReal(totalPaperMm, p.unit, scale),
     segFits,
+    manualFits,
     numSteps,
     steps,
     labels,

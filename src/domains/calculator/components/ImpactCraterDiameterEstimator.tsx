@@ -1,40 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, ChevronDown, Orbit, Mountain, Flame, Printer } from "lucide-react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip as RTooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
-
-type ImpactorMaterial = "ice" | "porousRock" | "denseRock" | "iron";
-type TargetMaterial = "water" | "sediment" | "crystalline";
-type Body = "earth" | "moon" | "mars";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
 interface MaterialSpec {
-  key: ImpactorMaterial;
-  label: string;
-  density: number;
-}
-
-interface TargetSpec {
-  key: TargetMaterial;
+  key: string;
   label: string;
   density: number;
 }
 
 interface BodySpec {
-  key: Body;
+  key: string;
   label: string;
   gravity: number;
   simpleComplexKm: number;
@@ -43,44 +23,12 @@ interface BodySpec {
 interface CraterInputs {
   diameterM: number;
   velocityKmS: number;
-  impactorMaterial: ImpactorMaterial;
+  impactorMaterial: string;
   angleDegrees: number;
-  targetMaterial: TargetMaterial;
-  body: Body;
-  proMode: boolean;
+  targetMaterial: string;
+  body: string;
   customImpactorDensity: number;
-}
-
-interface ChartPoint {
-  name: string;
-  km: number;
-  isSubject: boolean;
-}
-
-interface TableRow {
-  label: string;
-  value: string;
-  key?: boolean;
-}
-
-interface CraterResult {
-  massKg: number;
-  velocityMs: number;
-  kineticEnergyJ: number;
-  megatonsTnt: number;
-  transientDiameterM: number;
-  finalDiameterM: number;
-  finalDiameterKm: number;
-  depthM: number;
-  craterType: string;
-  craterTypeColor: string;
-  ejectaRadiusKm: number;
-  seismicMagnitude: number;
-  recurrenceYears: number;
-  chartData: ChartPoint[];
-  rows: TableRow[];
-  impactorDensity: number;
-  fireballRadiusKm: number;
+  decimals: number;
 }
 
 const IMPACTOR_MATERIALS: MaterialSpec[] = [
@@ -90,7 +38,7 @@ const IMPACTOR_MATERIALS: MaterialSpec[] = [
   { key: "iron", label: "Iron", density: 7900 },
 ];
 
-const TARGET_MATERIALS: TargetSpec[] = [
+const TARGET_MATERIALS: MaterialSpec[] = [
   { key: "water", label: "Water", density: 1000 },
   { key: "sediment", label: "Sedimentary rock", density: 2500 },
   { key: "crystalline", label: "Crystalline rock", density: 2750 },
@@ -104,6 +52,14 @@ const BODIES: BodySpec[] = [
 
 const JOULES_PER_MEGATON = 4.184e15;
 
+/** Reference craters the result is placed against. */
+const REFERENCE_CRATERS = [
+  { name: "Barringer (Arizona)", km: 1.2 },
+  { name: "Ries (Germany)", km: 24 },
+  { name: "Chicxulub", km: 180 },
+  { name: "Vredefort", km: 300 },
+];
+
 const DEFAULTS: CraterInputs = {
   diameterM: 50,
   velocityKmS: 17,
@@ -111,41 +67,125 @@ const DEFAULTS: CraterInputs = {
   angleDegrees: 45,
   targetMaterial: "crystalline",
   body: "earth",
-  proMode: false,
-  customImpactorDensity: 3000,
+  customImpactorDensity: 0,
+  decimals: 2,
 };
 
-export function calculateCrater(i: CraterInputs): CraterResult {
-  const spec = IMPACTOR_MATERIALS.find((m) => m.key === i.impactorMaterial) ?? IMPACTOR_MATERIALS[2];
-  const target = TARGET_MATERIALS.find((t) => t.key === i.targetMaterial) ?? TARGET_MATERIALS[2];
-  const body = BODIES.find((b) => b.key === i.body) ?? BODIES[0];
+function sciDisplay(v: number, digits = 3): string {
+  if (!Number.isFinite(v) || v === 0) return "0";
+  const abs = Math.abs(v);
+  if (abs >= 1e-2 && abs < 1e6) return v.toPrecision(digits + 1);
+  const exponent = Math.floor(Math.log10(abs));
+  const mantissa = v / Math.pow(10, exponent);
+  return `${mantissa.toFixed(2)} × 10^${exponent}`;
+}
 
-  const impactorDensity = i.proMode && i.customImpactorDensity > 0 ? i.customImpactorDensity : spec.density;
+const fmt = (v: number, d = 2) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
 
-  const radius = Math.max(0, i.diameterM) / 2;
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}
+
+interface CraterResult {
+  valid: boolean;
+  errorMsg: string;
+  massKg: number;
+  velocityMs: number;
+  kineticEnergyJ: number;
+  megatonsTnt: number;
+  transientDiameterM: number;
+  finalDiameterM: number;
+  finalDiameterKm: number;
+  depthM: number;
+  craterType: string;
+  craterTypeColor: string;
+  ejectaRadiusKm: number;
+  seismicMagnitude: number;
+  recurrenceYears: number;
+  impactorDensity: number;
+  fireballRadiusKm: number;
+  bodyLabel: string;
+  targetLabel: string;
+  scaleComparison: { name: string; km: number; ratio: number }[];
+  verdict: string;
+  verdictColor: string;
+  breakdown: BreakdownRow[];
+}
+
+function calculateCrater(i: CraterInputs): CraterResult {
+  const spec = IMPACTOR_MATERIALS.find((m) => m.key === i.impactorMaterial) || IMPACTOR_MATERIALS[2];
+  const target = TARGET_MATERIALS.find((t) => t.key === i.targetMaterial) || TARGET_MATERIALS[2];
+  const body = BODIES.find((b) => b.key === i.body) || BODIES[0];
+  const impactorDensity = i.customImpactorDensity > 0 ? i.customImpactorDensity : spec.density;
+
+  const blank = (errorMsg: string): CraterResult => ({
+    valid: false,
+    errorMsg,
+    massKg: 0,
+    velocityMs: 0,
+    kineticEnergyJ: 0,
+    megatonsTnt: 0,
+    transientDiameterM: 0,
+    finalDiameterM: 0,
+    finalDiameterKm: 0,
+    depthM: 0,
+    craterType: "",
+    craterTypeColor: "text-muted-foreground",
+    ejectaRadiusKm: 0,
+    seismicMagnitude: 0,
+    recurrenceYears: 0,
+    impactorDensity,
+    fireballRadiusKm: 0,
+    bodyLabel: body.label,
+    targetLabel: target.label,
+    scaleComparison: [],
+    verdict: "",
+    verdictColor: "text-muted-foreground",
+    breakdown: [],
+  });
+
+  const nums = [
+    i.diameterM,
+    i.velocityKmS,
+    i.angleDegrees,
+    i.customImpactorDensity,
+    i.decimals,
+  ];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field to estimate the crater.");
+  if (i.diameterM <= 0 || i.diameterM > 100000) return blank("Impactor diameter should be above 0 and no more than 100,000 m.");
+  if (i.velocityKmS <= 0 || i.velocityKmS > 100) return blank("Impact velocity should be above 0 and no more than 100 km/s.");
+  if (i.angleDegrees <= 0 || i.angleDegrees > 90) return blank("Impact angle should be between 1° and 90° from horizontal.");
+  if (i.customImpactorDensity < 0 || i.customImpactorDensity > 20000) {
+    return blank("A custom impactor density should be between 0 and 20,000 kg/m³, or 0 to use the material default.");
+  }
+
+  const d = Math.max(0, Math.min(4, i.decimals));
+
+  const radius = i.diameterM / 2;
   const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
   const massKg = volume * impactorDensity;
 
-  const velocityMs = Math.max(0, i.velocityKmS) * 1000;
+  const velocityMs = i.velocityKmS * 1000;
   const kineticEnergyJ = 0.5 * massKg * Math.pow(velocityMs, 2);
   const megatonsTnt = kineticEnergyJ / JOULES_PER_MEGATON;
 
-  // Pi-group crater scaling (Holsapple & Schmidt, gravity-dominated regime).
-  // Transient crater diameter for a vertical impact, then corrected for angle.
-  const angleRad = (Math.max(0, Math.min(90, i.angleDegrees)) * Math.PI) / 180;
+  // Pi-group crater scaling (Holsapple & Schmidt, gravity-dominated regime): the
+  // transient crater grows with the cube root of the density ratio, with impactor
+  // size and velocity, and shrinks with the target's gravity.
+  const angleRad = (Math.min(90, Math.max(0, i.angleDegrees)) * Math.PI) / 180;
   const angleFactor = Math.pow(Math.sin(angleRad), 1 / 3);
 
   const densityRatio = Math.pow(impactorDensity / target.density, 1 / 3);
-  const gravityTerm = Math.pow(
-    (Math.max(0.01, i.diameterM) * Math.pow(velocityMs, 2)) / body.gravity,
-    0.22
-  );
-
-  // Coefficient calibrated so a 50 m dense-rock impactor at 17 km/s into
-  // crystalline rock yields a transient crater close to the ~1 km Barringer scale.
   const transientDiameterM =
-    1.161 * densityRatio * Math.pow(Math.max(0.01, i.diameterM), 0.78) *
-    Math.pow(velocityMs, 0.44) * Math.pow(body.gravity, -0.22) * angleFactor;
+    1.161 *
+    densityRatio *
+    Math.pow(i.diameterM, 0.78) *
+    Math.pow(velocityMs, 0.44) *
+    Math.pow(body.gravity, -0.22) *
+    angleFactor;
 
   // Simple craters relax slightly; complex craters collapse and widen substantially.
   const simpleComplexM = body.simpleComplexKm * 1000;
@@ -158,11 +198,9 @@ export function calculateCrater(i: CraterInputs): CraterResult {
     craterType = "Simple bowl-shaped crater";
     craterTypeColor = "text-emerald-600";
   } else {
-    // Collapse widening above the transition, per Melosh's scaling.
-    finalDiameterM =
-      1.17 * Math.pow(transientDiameterM, 1.13) / Math.pow(simpleComplexM, 0.13);
+    finalDiameterM = (1.17 * Math.pow(transientDiameterM, 1.13)) / Math.pow(simpleComplexM, 0.13);
     craterType = "Complex crater with central uplift and terraced walls";
-    craterTypeColor = "text-red-600";
+    craterTypeColor = "text-orange-600";
   }
 
   const finalDiameterKm = finalDiameterM / 1000;
@@ -170,57 +208,62 @@ export function calculateCrater(i: CraterInputs): CraterResult {
   // Simple craters hold a depth-to-diameter ratio near 1:5; complex craters are
   // proportionally much shallower.
   const depthM =
-    transientDiameterM < simpleComplexM
-      ? finalDiameterM / 5
-      : 0.4 * Math.pow(finalDiameterM / 1000, 0.3) * 1000;
+    transientDiameterM < simpleComplexM ? finalDiameterM / 5 : 0.4 * Math.pow(finalDiameterKm, 0.3) * 1000;
 
-  // Continuous ejecta blanket extends to roughly 2-3 crater radii.
+  // The continuous ejecta blanket extends to roughly 2–3 crater radii.
   const ejectaRadiusKm = finalDiameterKm * 1.3;
 
   // Energy-to-magnitude relation with the standard seismic efficiency of 1e-4.
-  const seismicMagnitude =
-    kineticEnergyJ > 0 ? 0.67 * Math.log10(kineticEnergyJ * 1e-4) - 5.87 : 0;
+  const seismicMagnitude = kineticEnergyJ > 0 ? 0.67 * Math.log10(kineticEnergyJ * 1e-4) - 5.87 : 0;
 
-  // Rough terrestrial recurrence interval from the observed impactor size
-  // frequency distribution.
+  // Rough terrestrial recurrence interval from the observed impactor size-frequency
+  // distribution.
   const recurrenceYears = Math.pow(Math.max(1, i.diameterM), 2.7) / 12;
 
-  // Fireball radius scales roughly as the cube root of yield.
+  // Fireball radius scales roughly as the cube root of the yield.
   const fireballRadiusKm = megatonsTnt > 0 ? 0.28 * Math.pow(megatonsTnt, 1 / 3) : 0;
 
-  const chartData: ChartPoint[] = [
-    { name: "This impact", km: finalDiameterKm, isSubject: true },
-    { name: "Barringer (AZ)", km: 1.2, isSubject: false },
-    { name: "Ries (Germany)", km: 24, isSubject: false },
-    { name: "Chicxulub", km: 180, isSubject: false },
-    { name: "Vredefort", km: 300, isSubject: false },
-  ];
+  const scaleComparison = REFERENCE_CRATERS.map((c) => ({ ...c, ratio: finalDiameterKm / c.km }));
 
-  const sci = (v: number, digits = 3): string => {
-    if (v === 0) return "0";
-    const abs = Math.abs(v);
-    if (abs >= 1e-2 && abs < 1e6) return v.toPrecision(digits + 1);
-    const exponent = Math.floor(Math.log10(abs));
-    const mantissa = v / Math.pow(10, exponent);
-    return `${mantissa.toFixed(2)} × 10^${exponent}`;
-  };
+  const verdict =
+    finalDiameterKm >= (body.simpleComplexKm || 1)
+      ? `A complex crater forms — a ${fmt(finalDiameterKm, d)} km basin with a central uplift, an ejecta blanket reaching ${fmt(
+          ejectaRadiusKm,
+          d,
+        )} km and a seismic magnitude near ${fmt(seismicMagnitude, 1)}`
+      : `A simple bowl-shaped crater forms — ${fmt(finalDiameterKm, d)} km across and about ${fmt(depthM, 0)} m deep`;
+  const verdictColor = "text-foreground";
 
-  const rows: TableRow[] = [
-    { label: "Impactor Diameter", value: `${i.diameterM.toLocaleString("en-US")} m` },
-    { label: "Impactor Density", value: `${impactorDensity.toLocaleString("en-US")} kg/m³` },
-    { label: "Impactor Mass", value: `${sci(massKg)} kg` },
-    { label: "Impact Velocity", value: `${i.velocityKmS} km/s` },
-    { label: "Impact Angle", value: `${i.angleDegrees}° from horizontal` },
-    { label: "Kinetic Energy", value: `${sci(kineticEnergyJ)} J` },
-    { label: "Energy Yield", value: `${megatonsTnt >= 1 ? `${megatonsTnt.toFixed(1)} Mt` : `${(megatonsTnt * 1000).toFixed(1)} kt`} TNT` },
-    { label: "Transient Crater Diameter", value: `${(transientDiameterM / 1000).toFixed(2)} km` },
-    { label: "Final Crater Diameter", value: `${finalDiameterKm.toFixed(2)} km`, key: true },
-    { label: "Crater Depth", value: `${depthM >= 1000 ? `${(depthM / 1000).toFixed(2)} km` : `${Math.round(depthM)} m`}` },
-    { label: "Crater Morphology", value: craterType },
-    { label: "Ejecta Blanket Radius", value: `${ejectaRadiusKm.toFixed(2)} km` },
+  const breakdown: BreakdownRow[] = [
+    { label: `Impactor diameter ${fmt(i.diameterM, 1)} m`, value: `sphere of ${fmt(volume, 0)} m³ at ${fmt(impactorDensity, 0)} kg/m³` },
+    { label: "Impactor mass", value: `${sciDisplay(massKg)} kg` },
+    { label: `Impact velocity ${fmt(i.velocityKmS, 1)} km/s`, value: `${fmt(velocityMs, 0)} m/s` },
+    { label: "Kinetic energy", value: `${sciDisplay(kineticEnergyJ)} J`, highlight: true },
+    {
+      label: "Energy yield in TNT equivalent",
+      value: megatonsTnt >= 1 ? `${fmt(megatonsTnt, 2)} Mt` : `${fmt(megatonsTnt * 1000, 1)} kt`,
+      highlight: true,
+    },
+    { label: `Impact angle ${fmt(i.angleDegrees, 0)}° from horizontal`, value: `angle factor ${fmt(angleFactor, 3)} of a vertical impact` },
+    { label: `Target ${target.label} at ${fmt(target.density, 0)} kg/m³`, value: `density ratio term ${fmt(densityRatio, 3)}` },
+    { label: `Body gravity ${fmt(body.gravity, 2)} m/s²`, value: `gravity term ${fmt(Math.pow(body.gravity, -0.22), 3)}` },
+    { label: "Transient crater diameter", value: `${fmt(transientDiameterM / 1000, 3)} km`, highlight: true },
+    { label: "Final crater diameter", value: `${fmt(finalDiameterKm, d)} km`, highlight: true },
+    { label: "Crater depth", value: depthM >= 1000 ? `${fmt(depthM / 1000, 2)} km` : `${fmt(depthM, 0)} m` },
+    { label: `Morphology · simple-complex transition at ${fmt(body.simpleComplexKm, 1)} km on ${body.label}`, value: craterType, highlight: true },
+    { label: "Continuous ejecta blanket radius", value: `${fmt(ejectaRadiusKm, d)} km` },
+    { label: "Fireball radius", value: `${fmt(fireballRadiusKm, d)} km` },
+    { label: "Estimated seismic magnitude", value: fmt(seismicMagnitude, 2) },
+    { label: "Recurrence interval for an impactor this size", value: `${fmt(recurrenceYears, 0)} years` },
+    ...scaleComparison.map((c) => ({
+      label: `Compared with ${c.name} at ${fmt(c.km, 1)} km`,
+      value: `${fmt(c.ratio, 2)} times that diameter`,
+    })),
   ];
 
   return {
+    valid: true,
+    errorMsg: "",
     massKg,
     velocityMs,
     kineticEnergyJ,
@@ -234,90 +277,197 @@ export function calculateCrater(i: CraterInputs): CraterResult {
     ejectaRadiusKm,
     seismicMagnitude,
     recurrenceYears,
-    chartData,
-    rows,
     impactorDensity,
     fireballRadiusKm,
+    bodyLabel: body.label,
+    targetLabel: target.label,
+    scaleComparison,
+    verdict,
+    verdictColor,
+    breakdown,
   };
 }
-const inp =
-  "w-full h-10 px-3 text-base rounded-md border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/20";
-const lbl = "text-sm font-medium text-foreground mb-1 block";
-const groupLabel =
-  "text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold flex items-center gap-1.5";
 
-function sciDisplay(v: number, digits = 3): string {
-  if (v === 0) return "0";
-  const abs = Math.abs(v);
-  if (abs >= 1e-2 && abs < 1e6) return v.toPrecision(digits + 1);
-  const exponent = Math.floor(Math.log10(abs));
-  const mantissa = v / Math.pow(10, exponent);
-  return `${mantissa.toFixed(2)} × 10^${exponent}`;
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
 }
+
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
 
 export default function ImpactCraterDiameterEstimator() {
-  const [inputs, setInputs] = useState<CraterInputs>(DEFAULTS);
-  const [result, setResult] = useState<CraterResult>(calculateCrater(DEFAULTS));
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [diameterM, setDiameterM] = useState(String(DEFAULTS.diameterM));
+  const [velocityKmS, setVelocityKmS] = useState(String(DEFAULTS.velocityKmS));
+  const [angleDegrees, setAngleDegrees] = useState(String(DEFAULTS.angleDegrees));
+  const [impactorMaterial, setImpactorMaterial] = useState<string>(DEFAULTS.impactorMaterial);
+  const [targetMaterial, setTargetMaterial] = useState<string>(DEFAULTS.targetMaterial);
+  const [body, setBody] = useState<string>(DEFAULTS.body);
+  const [customImpactorDensity, setCustomImpactorDensity] = useState(String(DEFAULTS.customImpactorDensity));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-    setResult(calculateCrater(inputs));
-  }, []);
+  const getInputs = (): CraterInputs => ({
+    diameterM: parseFloat(diameterM) || 0,
+    velocityKmS: parseFloat(velocityKmS) || 0,
+    angleDegrees: parseFloat(angleDegrees) || 0,
+    impactorMaterial,
+    targetMaterial,
+    body,
+    customImpactorDensity: parseFloat(customImpactorDensity) || 0,
+    decimals: parseFloat(decimals),
+  });
 
-  const calculate = () => setResult(calculateCrater(inputs));
+  const [calcInputs, setCalcInputs] = useState<CraterInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<CraterResult>(() => calculateCrater(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateCrater(inputs));
+  };
+
   const reset = () => {
-    setInputs(DEFAULTS);
-    setResult(calculateCrater(DEFAULTS));
-    setShowAdvanced(false);
+    setDiameterM(String(DEFAULTS.diameterM));
+    setVelocityKmS(String(DEFAULTS.velocityKmS));
+    setAngleDegrees(String(DEFAULTS.angleDegrees));
+    setImpactorMaterial(DEFAULTS.impactorMaterial);
+    setTargetMaterial(DEFAULTS.targetMaterial);
+    setBody(DEFAULTS.body);
+    setCustomImpactorDensity(String(DEFAULTS.customImpactorDensity));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateCrater(DEFAULTS));
   };
 
-  const setNum = (key: keyof CraterInputs, raw: string) => {
-    const parsed = parseFloat(raw);
-    setInputs((prev) => ({ ...prev, [key]: isNaN(parsed) ? 0 : parsed }));
+  const diameterNum = parseFloat(diameterM);
+  const velocityNum = parseFloat(velocityKmS);
+  const angleNum = parseFloat(angleDegrees);
+
+  const errors = {
+    diameterM: !Number.isFinite(diameterNum) || diameterNum <= 0 || diameterNum > 100000 ? "Use 0.1–100,000 m" : "",
+    velocityKmS: !Number.isFinite(velocityNum) || velocityNum <= 0 || velocityNum > 100 ? "Use 0.1–100 km/s" : "",
+    angleDegrees: !Number.isFinite(angleNum) || angleNum <= 0 || angleNum > 90 ? "Use 1–90°" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
     {
-      question: "How much bigger is a crater than the object that made it?",
+      question: "Why is a crater so much bigger than the object that made it?",
       answer:
-        "Typically 10 to 20 times the impactor's diameter, and the ratio grows with impact energy. A 50 metre stony asteroid at 17 km/s excavates a crater around 1 kilometre across — roughly 20 times its own size. The reason is that the crater is carved by the shock wave and the excavation flow it drives, not by the projectile physically pushing material aside. The impactor itself is almost entirely vaporised in the first moments of contact.",
+        "Because a hypervelocity impact releases the impactor's kinetic energy into the target in microseconds. A 50 m stony body arriving at 17 km/s carries roughly 10^16 joules, about a quarter of a megaton of TNT, and almost all of it goes into excavating and shaking the ground rather than into moving the impactor. The transient cavity that opens is then widened further as the walls collapse, so the final crater ends up ten to twenty times the impactor's diameter. That ratio grows with impactor size: a 1 km body leaves a crater nearer 13 km across, and the basin that forms at Chicxulub is about 180 km wide.",
     },
     {
-      question: "What are pi-group scaling laws?",
+      question: "What does the Pi-group scaling relation actually do?",
       answer:
-        "They are dimensionless-parameter relationships derived from experiments and numerical models, principally by Holsapple and Schmidt, that predict crater size from impactor size, velocity, density, target properties, and gravity. The approach works because crater formation is governed by a handful of dimensionless ratios rather than absolute values, which lets laboratory-scale experiments and nuclear test data be extrapolated to planetary scales with reasonable confidence.",
+        "It groups the variables that control crater size into dimensionless numbers so that experiments with centimetre-scale projectiles can be extrapolated to kilometre-scale impacts. The gravity-dominated branch used here treats the crater diameter as a function of the impactor diameter, the impact velocity, the density ratio between impactor and target, the target's gravitational acceleration and the impact angle, each raised to an experimentally fitted exponent. Above the strength-dominated regime — where target rock strength, not gravity, resists the excavation — the exponents change, which is why small laboratory craters and large planetary ones do not scale in a simple straight line.",
     },
     {
-      question: "What is the difference between a transient and a final crater?",
+      question: "What is the difference between a simple and a complex crater?",
       answer:
-        "The transient crater is the bowl at maximum excavation, before gravity acts on the unstable walls. For small craters the walls slump only slightly and the final crater is about 25% wider than the transient. Above a threshold — roughly 3.2 km on Earth, 15 km on the Moon — the cavity is too deep to support itself, the floor rebounds into a central uplift, and the rim collapses inward along terraces, producing a final crater considerably wider and much shallower than the transient one.",
+        "Simple craters are bowl-shaped, with a depth-to-diameter ratio near one to five and a slightly raised rim. Above a threshold diameter that depends on the body's gravity — around 3 to 4 km on Earth, 15 km on the Moon and about 7 km on Mars — the transient cavity is too large to stand, and it collapses into a complex crater with a flat floor, terraced walls and often a central peak formed by rock rebounding from depth. That is why the same impactor makes a proportionally flatter crater on a low-gravity body: the Moon's craters are wider and shallower for the same energy, and their simple-to-complex transition happens at a much larger diameter.",
     },
     {
-      question: "Why does the simple-to-complex transition happen at different sizes on different worlds?",
+      question: "How much does the impact angle change the outcome?",
       answer:
-        "Because gravity drives the collapse. Stronger gravity destabilises a shallower cavity, so the transition occurs at smaller diameters. On Earth it is about 3.2 km, on Mars about 7 km, and on the Moon around 15 km. This is one of the more elegant results in impact cratering: measuring the transition diameter on an unfamiliar body tells you something about its surface gravity and near-surface material strength.",
-    },
-    {
-      question: "How much does impact angle matter?",
-      answer:
-        "Less than intuition suggests. Crater diameter scales roughly with the cube root of the sine of the angle from horizontal, so a 45° impact — the statistically most likely case — produces a crater about 89% the diameter of a vertical hit, and even a 30° impact yields about 79%. Craters stay essentially circular down to roughly 15°, below which they become elongated. What angle does change substantially is the ejecta distribution, which becomes markedly asymmetric.",
-    },
-    {
-      question: "What happens to the impactor itself?",
-      answer:
-        "It is destroyed. On contact, shock pressures reach hundreds of gigapascals — far beyond the strength of any material — and both the impactor and a comparable mass of target rock are vaporised or melted within microseconds. This is why meteoritic material is rarely found at large craters: the projectile no longer exists in recognisable form, and its signature survives mainly as trace-element and isotopic anomalies in the melt sheet, such as the iridium layer marking Chicxulub.",
-    },
-    {
-      question: "How often do impacts of a given size occur on Earth?",
-      answer:
-        "Frequency falls steeply with size. Metre-scale objects arrive several times a year and burn up harmlessly. Objects around 25 metres, like the Chelyabinsk airburst, arrive roughly every 60 to 100 years. Kilometre-scale impactors capable of global effects come every few hundred thousand years, and Chicxulub-scale events every hundred million or so. The recurrence estimate in this calculator follows the observed size-frequency distribution and should be read as an order-of-magnitude figure.",
-    },
-    {
-      question: "Does an airburst still make a crater?",
-      answer:
-        "Usually not. Smaller stony and icy objects decelerate and fragment in the atmosphere, releasing their energy as an airburst — Chelyabinsk in 2013 and Tunguska in 1908 both did this, causing substantial ground damage without excavating a crater. Roughly speaking, stony objects below about 25 metres rarely reach the surface intact, while iron impactors punch through far more readily, which is why Barringer Crater in Arizona was made by an iron body. This calculator models the ground impact and does not simulate atmospheric entry, so treat results for small stony impactors as an upper bound.",
+        "Less than intuition suggests for the crater itself. The scaling used here carries an angle term equal to the cube root of the sine of the impact angle, so a 30 degree impact produces about 79 percent of the diameter of a vertical one and a 45 degree impact about 89 percent — far from the dramatic difference a glancing hit would suggest. Below about 15 degrees the picture changes qualitatively: the impact becomes elongated, the energy is deposited over an increasing path length, and the resulting crater is elliptical rather than circular. The most probable impact angle is 45 degrees, because random directions on a sphere favour it over vertical.",
     },
   ];
 
@@ -327,7 +477,7 @@ export default function ImpactCraterDiameterEstimator() {
         items={[
           { label: "Home", href: "/" },
           { label: "Calculators", href: "/calculator" },
-          { label: "Science", href: "/calculator/science" },
+          { label: "Science", href: "/calculator#science" },
           { label: "Impact Crater Diameter Estimator" },
         ]}
       />
@@ -335,286 +485,365 @@ export default function ImpactCraterDiameterEstimator() {
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Impact Crater Diameter Estimator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT */}
-          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card rounded-xl">
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label htmlFor="diameterM" className={lbl}>Impactor Diameter (m)</label>
-                <input id="diameterM" type="number" min="0.1" step="1" className={inp} value={inputs.diameterM}
-                  onChange={(e) => setNum("diameterM", e.target.value)} />
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Impactor">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="diameter"
+                  label="Impactor Diameter"
+                  value={diameterM}
+                  onChange={setDiameterM}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  max="100000"
+                  step="any"
+                  suffix="m"
+                  error={errors.diameterM}
+                  hint="Barringer was about 50 m."
+                  tooltip="Diameter of the impactor, treated as a sphere."
+                />
+                <CompactInput
+                  id="velocity"
+                  label="Impact Velocity"
+                  value={velocityKmS}
+                  onChange={setVelocityKmS}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  max="100"
+                  step="any"
+                  suffix="km/s"
+                  error={errors.velocityKmS}
+                  hint="Earth encounters average 17–20 km/s."
+                  tooltip="Speed at contact; typical near-Earth encounter speeds are 12 to 20 km/s."
+                />
               </div>
-              <div>
-                <label htmlFor="velocityKmS" className={lbl}>Velocity (km/s)</label>
-                <input id="velocityKmS" type="number" min="0.1" step="0.5" className={inp} value={inputs.velocityKmS}
-                  onChange={(e) => setNum("velocityKmS", e.target.value)} />
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactSelect
+                  id="impactor"
+                  label="Impactor Material"
+                  value={impactorMaterial}
+                  onChange={setImpactorMaterial}
+                  options={IMPACTOR_MATERIALS.map((m) => ({ value: m.key, label: m.label }))}
+                  tooltip="Sets the density used in the mass and the density ratio of the scaling relation."
+                />
+                <CompactInput
+                  id="angle"
+                  label="Impact Angle"
+                  value={angleDegrees}
+                  onChange={setAngleDegrees}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="90"
+                  step="1"
+                  suffix="°"
+                  error={errors.angleDegrees}
+                  hint="45° is the most probable."
+                  tooltip="Measured from the horizontal; below about 15° the crater becomes elliptical."
+                />
               </div>
-              <div>
-                <label htmlFor="impactorMaterial" className={lbl}>Impactor Type</label>
-                <select id="impactorMaterial" className={inp} value={inputs.impactorMaterial}
-                  onChange={(e) => setInputs((p) => ({ ...p, impactorMaterial: e.target.value as ImpactorMaterial }))}>
-                  {IMPACTOR_MATERIALS.map((m) => (
-                    <option key={m.key} value={m.key}>{m.label}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="angleDegrees" className={lbl}>Impact Angle (°)</label>
-                <input id="angleDegrees" type="number" min="1" max="90" step="1" className={inp}
-                  value={inputs.angleDegrees} onChange={(e) => setNum("angleDegrees", e.target.value)} />
-              </div>
-            </div>
+            </SubSection>
 
+            <SubSection title="Target">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactSelect
+                  id="target"
+                  label="Target Material"
+                  value={targetMaterial}
+                  onChange={setTargetMaterial}
+                  options={TARGET_MATERIALS.map((t) => ({ value: t.key, label: t.label }))}
+                  tooltip="Target density enters the cube root of the density ratio."
+                />
+                <CompactSelect
+                  id="body"
+                  label="Planetary Body"
+                  value={body}
+                  onChange={setBody}
+                  options={BODIES.map((b) => ({ value: b.key, label: b.label }))}
+                  tooltip="Gravity sets the crater size, and the body sets the simple-to-complex transition diameter."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
             <div>
-              <button type="button" onClick={() => setShowAdvanced(!showAdvanced)}
-                className="flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-1 focus:outline-none">
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
                 Advanced Options
-                <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
               </button>
 
-              {showAdvanced ? (
-                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3">
-                  <div>
-                    <div className={groupLabel}>
-                      <Mountain className="h-3.5 w-3.5" /> Target &amp; Planetary Body
-                    </div>
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Overrides">
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label htmlFor="targetMaterial" className={lbl}>Target Material</label>
-                        <select id="targetMaterial" className={inp} value={inputs.targetMaterial}
-                          onChange={(e) => setInputs((p) => ({ ...p, targetMaterial: e.target.value as TargetMaterial }))}>
-                          {TARGET_MATERIALS.map((t) => (
-                            <option key={t.key} value={t.key}>{t.label}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="body" className={lbl}>Planetary Body</label>
-                        <select id="body" className={inp} value={inputs.body}
-                          onChange={(e) => setInputs((p) => ({ ...p, body: e.target.value as Body }))}>
-                          {BODIES.map((b) => (
-                            <option key={b.key} value={b.key}>{b.label} (g = {b.gravity} m/s²)</option>
-                          ))}
-                        </select>
-                      </div>
+                      <CompactInput
+                        id="custom-density"
+                        label="Custom Density"
+                        value={customImpactorDensity}
+                        onChange={setCustomImpactorDensity}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="20000"
+                        step="100"
+                        suffix="kg/m³"
+                        hint="0 uses the material default."
+                        tooltip="Override the impactor density when the material is known from spectroscopy."
+                      />
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="4"
+                        step="1"
+                        tooltip="Decimal places used for the crater diameter and depth."
+                      />
                     </div>
-                  </div>
-
-                  <div>
-                    <div className={groupLabel}>
-                      <Flame className="h-3.5 w-3.5" /> Professional Mode
-                    </div>
-                    <label htmlFor="proMode" className="flex items-center gap-2 text-sm font-medium text-foreground mb-3 cursor-pointer">
-                      <input id="proMode" type="checkbox" className="h-4 w-4 accent-primary" checked={inputs.proMode}
-                        onChange={(e) => setInputs((p) => ({ ...p, proMode: e.target.checked }))} />
-                      Unlock seismic, thermal, and recurrence estimates
-                    </label>
-                    {inputs.proMode ? (
-                      <div>
-                        <label htmlFor="customImpactorDensity" className={lbl}>Custom Impactor Density (kg/m³)</label>
-                        <input id="customImpactorDensity" type="number" min="1" step="50" className={inp}
-                          value={inputs.customImpactorDensity} onChange={(e) => setNum("customImpactorDensity", e.target.value)} />
-                      </div>
-                    ) : null}
-                  </div>
+                  </SubSection>
                 </div>
-              ) : null}
+              )}
             </div>
 
-            <div className="flex gap-2.5 mt-2.5">
-              <button type="button" onClick={calculate}
-                className="h-10 w-full flex-1 flex items-center justify-center rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold text-base transition-all active:scale-[0.98] shadow-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={reset} aria-label="Reset"
-                className="w-10 h-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 focus:outline-none">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex flex-col gap-4">
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button type="button" onClick={() => window.print()} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Final Crater Diameter</div>
-              <div className="text-4xl font-bold text-primary my-1">{result.finalDiameterKm.toFixed(2)} km</div>
-              <div className="text-sm text-muted-foreground">
-                {(result.finalDiameterM / Math.max(0.01, inputs.diameterM)).toFixed(0)}× the impactor diameter — {result.megatonsTnt >= 1 ? `${result.megatonsTnt.toFixed(1)} Mt` : `${(result.megatonsTnt * 1000).toFixed(1)} kt`} TNT equivalent
-              </div>
-              <div className={`text-base font-bold mt-2 ${result.craterTypeColor}`}>{result.craterType}</div>
-            </div>
+            )}
 
-            <div className="grid grid-cols-3 gap-0 border border-border rounded-lg overflow-hidden bg-card">
-              <div className="p-4 text-center">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Depth</div>
-                <div className="text-lg font-bold text-emerald-600">
-                  {result.depthM >= 1000 ? `${(result.depthM / 1000).toFixed(2)} km` : `${Math.round(result.depthM)} m`}
-                </div>
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Final Crater Diameter</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.finalDiameterKm, calcInputs.decimals)} km` : "—"}
               </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Energy</div>
-                <div className="text-lg font-bold text-amber-600">
-                  {result.megatonsTnt >= 1 ? `${result.megatonsTnt.toFixed(1)} Mt` : `${(result.megatonsTnt * 1000).toFixed(0)} kt`}
-                </div>
-              </div>
-              <div className="p-4 text-center border-l border-border">
-                <div className="text-xs font-bold uppercase text-muted-foreground tracking-wider mb-1">Ejecta Radius</div>
-                <div className="text-lg font-bold text-red-600">{result.ejectaRadiusKm.toFixed(1)} km</div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.craterType.toLowerCase()} on ${results.bodyLabel} from a ${fmt(
+                      calcInputs.diameterM,
+                      1,
+                    )} m impactor at ${fmt(calcInputs.velocityKmS, 1)} km/s`
+                  : "Fix the highlighted inputs to estimate the crater"}
               </div>
             </div>
 
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Energy Yield</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid
+                    ? results.megatonsTnt >= 1
+                      ? `${fmt(results.megatonsTnt, 1)} Mt`
+                      : `${fmt(results.megatonsTnt * 1000, 0)} kt`
+                    : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Transient Crater</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.transientDiameterM / 1000, 1)} km` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Seismic</span>
+                <span className={`font-extrabold ${results.valid ? "text-foreground" : "text-muted-foreground"}`}>
+                  {results.valid ? `M ${fmt(results.seismicMagnitude, 1)}` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
-                  <tr className="bg-secondary/40 border-b border-border text-[12px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Parameter</th>
-                    <th className="p-2.5 pr-3 text-right">Value</th>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Impact Item</th>
+                    <th className="p-2.5 pr-3 text-right w-[250px]">Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {result.rows.map((row) => (
-                    <tr key={row.label} className={row.key ? "bg-primary/5" : ""}>
-                      <td className={`text-base py-2.5 px-3 ${row.key ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{row.label}</td>
-                      <td className={`text-base py-2.5 px-3 text-right font-medium ${row.key ? "text-primary font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter the impactor and target to estimate the crater.
+                      </td>
                     </tr>
-                  ))}
-                  <tr className="font-bold border-t-2 border-border">
-                    <td className="text-base py-2.5 px-3 text-foreground">Final Crater Diameter</td>
-                    <td className="text-base py-2.5 px-3 text-right text-primary">{result.finalDiameterKm.toFixed(2)} km</td>
-                  </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Final crater</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(results.finalDiameterKm, calcInputs.decimals)} km · ${fmt(
+                          results.depthM >= 1000 ? results.depthM / 1000 : results.depthM,
+                          1,
+                        )} ${results.depthM >= 1000 ? "km" : "m"} deep`}
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
 
-            {mounted ? (
-              <div className="rounded-xl border border-border bg-card p-4">
-                <h3 className="text-sm font-bold text-foreground mb-3">Scale Against Known Terrestrial Craters (km)</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={result.chartData} margin={{ top: 5, right: 10, left: 0, bottom: 45 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" tick={{ fontSize: 10 }} interval={0} angle={-30} textAnchor="end" height={65} />
-                    <YAxis tick={{ fontSize: 11 }} scale="log" domain={[0.01, 400]} allowDataOverflow />
-                    <RTooltip formatter={(value: number) => `${value.toFixed(2)} km`}
-                      contentStyle={{ borderRadius: "8px", border: "1px solid hsl(var(--border))" }} />
-                    <Bar dataKey="km" radius={[4, 4, 0, 0]}>
-                      {result.chartData.map((point) => (
-                        <Cell key={point.name} fill={point.isSubject ? "#2563EB" : "#94A3B8"} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-2">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#2563EB" }} /> Your impact
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                    <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: "#94A3B8" }} /> Known crater (log scale)
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {inputs.proMode ? (
-              <div className="rounded-xl border border-border bg-card p-5">
-                <h3 className="text-sm font-bold text-foreground mb-3">Secondary Effects &amp; Recurrence</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Seismic Magnitude</div>
-                    <div className="text-base font-bold text-foreground">M {result.seismicMagnitude.toFixed(1)}</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Fireball Radius</div>
-                    <div className="text-base font-bold text-amber-600">{result.fireballRadiusKm.toFixed(2)} km</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Impactor Mass</div>
-                    <div className="text-base font-bold text-foreground">{sciDisplay(result.massKg)} kg</div>
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Kinetic Energy</div>
-                    <div className="text-base font-bold text-foreground">{sciDisplay(result.kineticEnergyJ)} J</div>
-                  </div>
-                  <div className="col-span-2">
-                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Estimated Terrestrial Recurrence Interval</div>
-                    <div className="text-base font-bold text-foreground">
-                      ~1 in {result.recurrenceYears >= 1e6
-                        ? `${(result.recurrenceYears / 1e6).toFixed(1)} million`
-                        : Math.round(result.recurrenceYears).toLocaleString("en-US")} years
-                    </div>
-                  </div>
-                  <div className="col-span-2 pt-1">
-                    <div className="text-sm text-muted-foreground">
-                      Atmospheric entry is not modelled. Stony objects below roughly 25 m usually airburst rather than
-                      cratering, so small-impactor results are an upper bound.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
+            {/* 4. SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
               <div className="grid grid-cols-2 gap-4">
-                {result.rows.map((row) => (
-                  <div key={row.label} className="flex flex-col">
-                    <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">{row.label}</span>
-                    <span className={`text-base font-bold ${row.key ? "text-primary" : "text-foreground"}`}>{row.value}</span>
-                  </div>
-                ))}
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Impactor mass</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${sciDisplay(results.massKg)} kg` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Kinetic energy</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${sciDisplay(results.kineticEnergyJ)} J` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Final diameter</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.finalDiameterKm, 2)} km` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Depth</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid
+                      ? results.depthM >= 1000
+                        ? `${fmt(results.depthM / 1000, 2)} km`
+                        : `${fmt(results.depthM, 0)} m`
+                      : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Ejecta radius</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.ejectaRadiusKm, 1)} km` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Fireball radius</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.fireballRadiusKm, 1)} km` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Seismic magnitude</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `M ${fmt(results.seismicMagnitude, 1)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Recurrence interval</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.recurrenceYears, 0)} years` : "—"}
+                  </span>
+                </div>
               </div>
+              {results.valid && <p className={`text-[11px] mt-3 font-semibold ${results.verdictColor}`}>{results.verdict}.</p>}
             </div>
           </div>
         </div>
 
-        {/* SEO */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Why Craters Are Far Larger Than the Objects That Make Them</h2>
-            <p className="mb-4">
-              A crater is typically 10 to 20 times wider than the body that formed it, and the ratio grows with impact
-              energy. The reason is that nothing about crater formation resembles a projectile pushing material aside. On
-              contact, shock pressures reach hundreds of gigapascals — well beyond the strength of any material — and both
-              the impactor and a comparable mass of target rock vaporise within microseconds. The cavity is then excavated
-              by the outward flow field the shock wave drives. A 50 metre stony asteroid at 17 km/s carves roughly a
-              kilometre of ground, which is why meteoritic fragments are rarely recovered at large craters: the projectile
-              no longer exists in recognisable form.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Pi-Group Scaling and What It Rests On</h2>
-            <p className="mb-4">
-              The estimates here follow pi-group scaling relationships, principally from the work of Holsapple and Schmidt,
-              which express crater size through dimensionless combinations of impactor size, velocity, density, target
-              properties, and surface gravity. The approach works because cratering is governed by a small number of
-              dimensionless ratios rather than absolute magnitudes, which is what permits laboratory experiments, explosive
-              tests, and numerical hydrocodes to be extrapolated across many orders of magnitude to planetary scales.
-              Gravity enters with a negative exponent — stronger gravity resists excavation and yields smaller craters for
-              identical impacts.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Simple Bowls, Complex Basins, and the Transition Between</h2>
-            <p className="mb-4">
-              The transient crater is the cavity at maximum excavation, before gravity acts on unstable walls. Below a
-              threshold diameter the walls slump only modestly and the final crater ends up about 25% wider, retaining a
-              clean bowl shape with a depth-to-diameter ratio near one to five. Above the threshold the cavity cannot
-              support itself: the floor rebounds into a central uplift, the rim collapses inward along terraces, and the
-              result is dramatically wider and shallower. That threshold is about 3.2 km on Earth, 7 km on Mars, and 15 km
-              on the Moon — the differences track surface gravity, since stronger gravity destabilises a shallower cavity.
-            </p>
-
-            <h2 className="text-2xl font-bold mb-3">Angle, Frequency, and the Atmosphere</h2>
+            <h2 className="text-2xl font-bold mb-3">What Is an Impact Crater Diameter Estimator?</h2>
             <p>
-              Impact angle matters less than intuition suggests. Diameter scales with roughly the cube root of the sine of
-              the angle from horizontal, so a 45° impact — the statistically most probable case — produces about 89% of the
-              vertical diameter, and craters stay essentially circular down to about 15°. What angle strongly affects is
-              ejecta asymmetry. Impact frequency falls steeply with size: metre-scale objects arrive several times a year,
-              Chelyabinsk-scale bodies every 60 to 100 years, kilometre-scale impactors every few hundred thousand years,
-              and Chicxulub-scale events on hundred-million-year timescales. One important limit on these results is that
-              atmospheric entry is not modelled here — stony objects below roughly 25 metres typically airburst rather than
-              reaching the ground, so results for small stony impactors should be read as an upper bound.
+              An impact crater diameter estimator takes the size, velocity, density and angle of an impactor and the properties of the
+              target body, and works out how large a crater the collision leaves behind. It reports the kinetic energy in TNT equivalent,
+              the transient cavity that opens in the first seconds, the final diameter after the walls collapse, the depth, the ejecta
+              blanket, the equivalent seismic magnitude and the average interval between impacts of that size.
+            </p>
+            <p>
+              The reason the answer needs a model rather than a rule of thumb is that a hypervelocity impact is not a hole punched in the
+              ground. Almost all of the impactor's energy goes into compressing, melting and throwing the target material, and the crater
+              that remains is the product of an excavation phase followed by a collapse phase whose behaviour depends on the planet's
+              gravity.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The energy comes first. The impactor is treated as a sphere, its volume multiplied by the density of the chosen material
+              gives the mass, and half the mass times the square of the velocity gives the kinetic energy — which for a 50 metre stony body
+              arriving at 17 km/s is about 10¹⁶ joules, or roughly a quarter of a megaton of TNT. That single number drives everything
+              else.
+            </p>
+            <p>
+              Crater size follows from Pi-group scaling, the framework that lets laboratory shots with centimetre projectiles be
+              extrapolated to planetary impacts. In the gravity-dominated regime the transient crater diameter grows with the cube root of
+              the ratio of impactor to target density, with the impactor diameter and velocity raised to fitted exponents, and shrinks
+              weakly with the target's gravity — which is why the Moon keeps a much larger crater from the same impactor than Earth does.
+              The angle of arrival enters as the cube root of its sine, so a 30 degree impact produces about 79 percent of the diameter of a
+              vertical one.
+            </p>
+            <p>
+              The final crater then depends on the transient size relative to the body's simple-to-complex transition diameter: about 3 to
+              4 km on Earth, 7 km on Mars and 15 km on the Moon. Below the transition the transient cavity relaxes slightly and keeps a
+              depth-to-diameter ratio near one to five; above it the walls fail, the floor rises and the crater widens while becoming
+              proportionally shallower. The model also converts the energy to an equivalent seismic magnitude using the standard seismic
+              efficiency of 10⁻⁴, estimates the fireball radius from the cube root of the yield, and places the result against Barringer,
+              Ries, Chicxulub and Vredefort so the scale is immediately legible.
+            </p>
+
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the final crater diameter on the selected body. The three-stat bar adds the energy yield in megatons,
+              the transient crater diameter and the equivalent seismic magnitude.
+            </p>
+            <p>
+              The breakdown table carries every step: the impactor volume and mass, the velocity, the kinetic energy and its TNT
+              equivalent, the angle factor, the density-ratio and gravity terms, the transient and final diameters, the depth, the
+              morphology verdict against the body's transition diameter, the ejecta blanket, the fireball, the seismic magnitude, the
+              recurrence interval and the comparison with four real craters. The summary panel repeats the headline figures.
+            </p>
+            <p>
+              Two cautions belong with the numbers. The scaling relation is calibrated on the gravity-dominated regime, which is the right
+              one for craters above a few hundred metres; small craters form in the strength-dominated regime where target rock strength
+              rather than gravity controls the size, and the exponents there are different. The model also assumes a solid, uniform target
+              and a vertical-to-oblique impact above roughly 15 degrees, below which craters become elliptical and the energy deposition
+              changes character. For comparison and education — how much bigger is Chicxulub than Barringer, and how much energy does that
+              take — it is a sound guide; for a specific real impact structure, the geology on the ground is the arbiter.
             </p>
           </section>
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/impact-crater-diameter-estimator" />

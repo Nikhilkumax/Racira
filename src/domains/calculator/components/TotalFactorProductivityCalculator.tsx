@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
+import PopularCalculators from "@/components/PopularCalculators";
 
 const DEFAULTS = {
   output: 1000,
@@ -188,6 +189,10 @@ const TotalFactorProductivityCalculator = () => {
             </div>
           </div>
         </div>
+
+      <div className="max-w-[1180px]">
+        <PopularCalculators exclude="/calculator/total-factor-productivity-calculator" />
+      </div>
     </div>
   );
 };

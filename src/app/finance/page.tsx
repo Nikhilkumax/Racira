@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button";
 import { listPosts, getFeaturedPost } from "@/domains/finance/data/posts";
 import { listCategories } from "@/domains/finance/data/taxonomy";
 
+// ISR: scheduled posts surface on their own as this window lapses —
+// the published_at filter is evaluated at re-render time. No cron.
+export const revalidate = 300;
+
 export const metadata = {
   title: FINANCE_SITE.title,
   description: "Long-form analysis on investing, personal finance, markets, and the economy. Written by former practitioners.",
@@ -21,10 +25,10 @@ export const metadata = {
   },
 };
 
-export default function Index() {
-  const featured = getFeaturedPost();
-  const latest = listPosts({ status: "published" }).filter((p) => p.id !== featured?.id).slice(0, 6);
-  const cats = listCategories();
+export default async function Index() {
+  const featured = await getFeaturedPost();
+  const latest = (await listPosts({ status: "published" })).filter((p) => p.id !== featured?.id).slice(0, 6);
+  const cats = await listCategories();
 
   return (
     <PageShell>

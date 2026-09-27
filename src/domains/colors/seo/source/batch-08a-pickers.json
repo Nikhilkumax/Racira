@@ -1,0 +1,478 @@
+[
+  {
+    "slug": "color-picker",
+    "keywords": [
+      "color picker",
+      "pick a color online",
+      "hex color picker",
+      "color picker with recent colors"
+    ],
+    "intro": "The color picker is a focused colour chooser with a large preview and a running row of the colors you have used recently, remembered in the browser between visits.",
+    "content": "The color picker is a deliberately small tool: choose a colour, see it, and get back to it. The left panel holds the chooser along with a large block filled with the current value, so you can judge the colour at a useful size rather than in a tiny input. The right panel is a grid called Recent, which fills with the colours you have settled on. It is the plainest of the picking tools, and most of its value sits in that Recent row rather than in the chooser itself, which is the part every colour picker has.\n\nThe history behaviour is worth describing precisely, because it is the one feature here that is not obvious:\n\n- Every colour you select is moved to the front of the list, and a value already in the list is repositioned rather than duplicated, so nothing appears twice.\n- The list is capped at twelve entries, and the oldest falls off the end as new ones arrive.\n- Clicking any swatch in the row loads it back into the chooser, which turns the row into a set of shortcuts rather than just a record.\n\nThat record persists between visits. The list is written to the browser's own local storage under a fixed key, and it is read back when the page loads. One small ordering detail protects the stored data: the component reads the saved list once on mount and only begins saving after that read has landed, so the initial default colour never overwrites history that was about to be restored. It is the kind of detail that is invisible when it is right and infuriating when it is wrong.\n\nThe practical case for the tool is iteration. When you are sampling and adjusting, the colour you want is very often the one you had thirty seconds ago, before you wandered two steps away from it. Having the last dozen candidates one click away removes a great deal of going backwards. It is equally useful when a colleague sends a value to try: set it, judge it, and it stays available in the row while you compare it against what came before.\n\nThere are limits, and they follow from how the storage works:\n\n- The history lives in one browser on one device, so it does not follow you to another machine or another browser, and clearing site data removes it.\n- There is no way to pin a colour permanently, because a twelve-item history is a working memory rather than a favourites list.\n- This picker cannot sample from anything: it has no eyedropper, no screen sampling and no image input, since those need their own tools.\n\nKeep it as a hex color picker with a short memory and it does its job well. Reach for the image colour picker when the value you want already exists in a picture, and the interactive wheel when you would rather explore harmonies than set one value. When what you need is simply to pick a color online, look at it large, and keep it close at hand, this is the one to open. It is a color picker with recent colors and nothing else, and that narrow promise is precisely why it stays out of the way.",
+    "howTo": [
+      "Set a colour with the chooser; the large block fills with the current value at a size you can judge.",
+      "Watch the Recent grid: each colour you settle on moves to the front, and the twelfth-oldest falls off the end.",
+      "Click any swatch in the row to load that colour back into the chooser.",
+      "Copy the hex value from the field when you are ready to use it."
+    ],
+    "whenToUse": "Use this picker when you are choosing and comparing individual colors and want the last few close to hand. Use the image color picker to sample from a picture, or the interactive wheel to explore relationships. Use the {{image-color-picker|image color picker}} when the value already exists in a picture, the {{screen-color-picker|screen color picker}} when it is on screen rather than in a file, and the {{color-picker-with-favorites|favorites picker}} when the set should be curated rather than merely recent.",
+    "faqs": [
+      {
+        "q": "How many recent colors are kept?",
+        "a": "Twelve. Each new choice moves to the front of the list, so values you come back to stay within reach while the oldest drops off."
+      },
+      {
+        "q": "Does the history survive a reload?",
+        "a": "Yes. It is stored in the browser's local storage and restored on load, with the save held back until the stored list has been read so it is not overwritten."
+      },
+      {
+        "q": "Can I save favorites permanently?",
+        "a": "No. The list is a rolling history of twelve entries, not a pinned collection, and it is cleared if you clear the browser's site data."
+      },
+      {
+        "q": "Can it pick a color from an image or the screen?",
+        "a": "No. This one is a plain chooser. The image color picker handles sampling from a picture, and there are separate tools for screen sampling."
+      },
+      {
+        "q": "Does the recent row survive a page refresh?",
+        "a": "Yes. The list is written to the browser's local storage under a fixed key and read back on load; it is lost only when you clear site data or when the twelve-entry cap pushes old values out."
+      }
+    ]
+  },
+  {
+    "slug": "color-picker-with-history",
+    "keywords": [
+      "color picker with history",
+      "color picker recent colors",
+      "keep picked color history",
+      "picker that remembers colors"
+    ],
+    "intro": "The color picker with history is a standard picker that keeps a recent colors strip, so every shade you touch is one click from coming back.",
+    "content": "A plain picker forgets everything the moment you move on, and half of color work is going back — the second button needs the same fill as the first, the hover state is the base darkened, the client asks for yesterday's accent. The color picker with history writes each value you choose into a recent strip beside the picker, and keeps that strip across visits in your browser's local storage, so the session's decisions survive a refresh and come back with you tomorrow.\n\nThe mechanics are deliberately boring, which is why they work:\n\n- Every colour you select becomes the current value immediately, with the large preview updating as you drag.\n- The same value is pushed onto the front of the history, and duplicates collapse so a colour appears once no matter how often you revisit it.\n- The strip holds the last twelve picks, and clicking any swatch makes it current again, which turns the history into a small working palette without asking you to name or save anything.\n\nAs a picker that remembers colors, it earns its keep in the unglamorous middle of a project: comparing two candidates by bouncing between them, reusing one grey across five screenshots, keeping a client's requested hex visible while you explore around it. When a decision hardens, promote the value properly — the favorites picker keeps an explicit set you curate, and the exporters turn a settled choice into CSS custom properties or design tokens.\n\nWhat makes a history worth keeping is that it answers questions nobody thought to ask at pick time. A colour saved an hour ago in a different tab is still available when a second screen needs the same accent, and a shade sampled from a reference site survives the reference site being redesigned. The list also documents drift: when three near-identical greys sit side by side in the color picker recent colors strip, it is telling you the palette was assembled by eye across several sessions rather than chosen once, which is the moment to consolidate, measure the candidates in the comparison tool and keep one.\n\nBecause entries move to the front as they are reused, the strip tunes itself to the current job, and because any entry can be re-picked with a click, keep picked color history turns into a two-second copy instead of a re-sample. That turns the tool into a small audit trail as well: the order in which values were chosen is often the order in which the design was decided.\n\nThe history is per-browser and per-machine, because it lives in local storage rather than an account:\n\n- Clearing site data clears it, and no one else sees it, which is the right default for client work.\n- There are no labels, no projects and no notes — the strip answers the honest question of what did I use recently.\n- Nothing can be pinned: entries age out in the order they were reused, so anything worth keeping belongs in the favorites picker.",
+    "howTo": [
+      "Pick a color with the field or the native picker — it becomes current and joins the recent strip.",
+      "Keep picking; the strip keeps the last twelve unique values, newest first.",
+      "Click any swatch in the strip to make that color current again."
+    ],
+    "whenToUse": "Use this when you keep needing yesterday's or five-minutes-ago's color and re-picking it is friction. Use the favorites picker when a set of colors is deliberate rather than recent, and the multi-color picker when you are assembling a palette instead of revisiting one. The {{color-picker-with-favorites|favorites picker}} keeps an explicit set you curate, and the {{multi-color-picker|multi-color picker}} is for assembling a palette rather than revisiting one value.",
+    "faqs": [
+      {
+        "q": "Does the history survive closing the browser?",
+        "a": "Yes. Recent colors are stored in your browser's local storage for this site, so the strip is still there after a restart — and disappears if you clear site data."
+      },
+      {
+        "q": "How many colors does it remember?",
+        "a": "The twelve most recent unique values. Picking an older color again moves it back to the front rather than duplicating it."
+      },
+      {
+        "q": "Is the history shared with other devices?",
+        "a": "No. It is local to this browser on this machine — nothing is uploaded, so client colors stay on your machine."
+      },
+      {
+        "q": "Can I remove a single color from the strip?",
+        "a": "The strip is a rolling recent list rather than a curated set; it ages out naturally as you pick. For a hand-picked permanent set, use the favorites picker."
+      },
+      {
+        "q": "How many colours does the history hold, and what happens when it is full?",
+        "a": "Twelve. Each new pick goes to the front, a repeat moves its existing entry forward rather than duplicating it, and the oldest entry falls off the end."
+      }
+    ]
+  },
+  {
+    "slug": "color-picker-with-favorites",
+    "keywords": [
+      "color picker with favorites",
+      "save favorite colors",
+      "bookmark color palette",
+      "keep favorite swatches"
+    ],
+    "intro": "The color picker with favorites is a standard picker plus a bookmark strip: save the colors you decide to keep and they stay one click away.",
+    "content": "A history answers what did I use lately; favorites answer what have I decided on. The color picker with favorites is the same comfortable picker with a persistent strip attached — when a value matters, you save it, and it sits beside the picker from then on, in this browser, across sessions, immune to the churn of exploration. Click a saved swatch to make it current; the large preview confirms you grabbed the right one before you copy it anywhere.\n\nThe distinction from history is deliberate and worth stating:\n\n- Recent colors age out and reshuffle no matter how important they were.\n- Favorites are a curated set that changes only when you change it, which makes this the right home for the short list that actually drives a project — the brand fill, the two neutrals every card sits on, the success and error accents.\n- The strip persists in local storage, so the set is still there next week and after a restart, yet it stays private to your machine, which is what client work wants from a bookmark color palette.\n\nIn day-to-day use the tool collapses a common loop: rather than keeping a sticky note of approved hexes and pasting them into a picker one at a time, the approved set is the picker. Exploration happens as usual in the field, and the moment a candidate is chosen, saving it promotes it from candidate to citizen. When a decision needs to leave your machine — into a stylesheet, a token file, a ticket — the exporters hand off cleanly, turning saved values into CSS custom properties or design tokens with the names they deserve.\n\nFavourites are the bridge between hunting and shipping. A colour found in a moodboard screenshot is a curiosity; the same colour saved with one tap is a candidate, and the gap between a candidate and a decision is usually just a short list in front of you. Keeping that list inside the picker removes the detour through a notes app or a scratch file, and it means save favorite colors happens at the moment of judgement, while the swatch is under the cursor and the comparison is still fresh, rather than an hour later from memory.\n\nThe strip also outlives the tab, so keep favorite swatches is durable rather than cosmetic: the set curated yesterday is the palette you start from today, one click each to re-select, compare or hand to the exporters when the moment to formalise arrives. It is worth clearing occasionally, because a bookmark strip that only grows stops being a short list and starts being a filing problem.\n\nWhat it does not try to be is a palette manager:\n\n- There are no projects, no tags and no sharing links — one flat set of favorite swatches for one person's browser.\n- The strip stays a single row, so it suits a short working set rather than a filing system that only grows.\n- Structure around many palettes belongs to the palette locker and the token exporters, which are the next rung up.\n\nFor keeping favorite swatches within reach while you work, a picker with a bookmark strip is exactly the right size.",
+    "howTo": [
+      "Pick a color as usual with the field or native picker.",
+      "Save it to the favorites strip when it is a keeper.",
+      "Click any saved swatch later to make it the current color again."
+    ],
+    "whenToUse": "Use this when a small set of approved colors should stay within reach across sessions. Use the history picker when you want automatic recall of recent picks instead of a curated set, and the palette locker when the unit of work is a whole palette rather than individual colors. Use the {{color-picker-with-history|history picker}} when automatic recall of recent picks is enough, the {{palette-locker|palette locker}} when the unit of work is a whole palette, and the {{css-custom-properties-exporter|CSS custom properties exporter}} when a saved set has to reach code.",
+    "faqs": [
+      {
+        "q": "Where are favorites stored?",
+        "a": "In your browser's local storage for this site. They persist across visits and restarts, stay private to this machine, and vanish if you clear site data."
+      },
+      {
+        "q": "How is this different from the history picker?",
+        "a": "History is automatic and rolling — the last dozen picks. Favorites are explicit and permanent until you remove them, which suits decided colors rather than recent ones."
+      },
+      {
+        "q": "Can I export my favorites?",
+        "a": "Copy any swatch's hex straight from the strip; for a whole set heading into code, the CSS custom properties exporter or the token exporters format it properly."
+      },
+      {
+        "q": "Is there a limit on how many I can save?",
+        "a": "The strip is meant for a short working set and stays one row; the storage limit of local storage is far beyond anything a favorites strip would hold."
+      },
+      {
+        "q": "Why keep favorites instead of relying on the recent list?",
+        "a": "Recent colors age out and reshuffle no matter how important they are, while favorites change only when you change them. A saved set stays put until it is removed, which is what a brand fill or a project neutral needs."
+      }
+    ]
+  },
+  {
+    "slug": "eyedropper-tool",
+    "keywords": [
+      "eyedropper tool",
+      "pick color from screen",
+      "sample color from anywhere",
+      "screen color picker tool",
+      "hex color picker tool"
+    ],
+    "intro": "The eyedropper tool samples any pixel on your screen using the browser's native EyeDropper API, returning the color as a hex value you can copy.",
+    "content": "The eyedropper tool is a single button and a result. Press Open eyedropper and the browser takes over: the cursor becomes a sampling target that you can move anywhere, over any application or window, not just this page. Click on a pixel and the tool fills a large swatch with the colour it found, along with the hex value and a copy button. Press Escape instead and nothing is picked, with a short cancelled message shown in place of a result.\n\nWhat the tool hands back is deliberately minimal:\n\n- One native EyeDropper call, where the browser takes over the cursor and can sample any window rather than only this page.\n- The result arrives as an sRGB hex value on a large swatch with a copy button.\n- Escape cancels instead of picking, leaving a short cancelled message in place of a result.\n\nThe mechanism behind it is the EyeDropper API, a browser-level sampling interface rather than a canvas trick. That distinction is the whole reason the tool is useful: because the browser is doing the sampling, it can read pixels outside the page — a desktop application, a video frame, a PDF, another browser tab — which no page-based colour picker can do. It also means the colour that comes back is the colour as rendered, after any display scaling and colour management the system has applied, which is usually what you want when matching something on screen.\n\nThe honest caveat is support. The API is implemented in the Chromium family — Chrome, Edge and Opera — and not in Firefox or Safari. The page detects this after loading and, where the API is missing, replaces the button with a plain statement of what to use instead. That detection is deliberately done on the client rather than during the render, so the page does not disagree with itself between the server and the browser.\n\nThe workflow is as direct as the tool. Open the dropper, move to whatever you are matching, click, and copy the value from the swatch. Because there is no intermediate state — no image upload, no zoom-and-click on a canvas — it is the right choice when the thing you are sampling is already on screen and you simply need its value. It is a poor choice when the source is a file on disk or a design asset, since there is nothing to sample until it is displayed.\n\nA couple of practical points:\n\n- The result arrives as a hex code and nothing else, so for rgb() or hsl() form the value goes through a converter.\n- Sampling a very small feature can be awkward at high display scaling, in which case zooming the source first helps.\n- Nothing can be sampled until it is displayed: a file on disk or a design asset has to be opened on screen first.\n\nAs a screen color picker tool it covers the case that image-based samplers cannot, and as a hex color picker tool it returns a value ready to paste. When you need to pick color from screen — matching an existing brand asset in another window, or grabbing a colour from a video — this is the shortest path available in a browser, and when you need to sample color from anywhere inside an uploaded image instead, the image colour picker is the tool to use.",
+    "howTo": [
+      "Press Open eyedropper; the cursor turns into a sampling target.",
+      "Move over whatever you are matching — any window, not just this page — and click the pixel.",
+      "Read the hex value from the large swatch and copy it.",
+      "Press Escape instead to cancel, which leaves nothing picked."
+    ],
+    "whenToUse": "Use this when the colour you need is already visible somewhere on screen and you want it as a value in one click. Use the image colour picker when you need to sample from an uploaded file, or the palette extractor when you want an image's several main colours rather than one pixel. For a file on disk the {{image-color-picker|image color picker}} samples an uploaded image, and the {{color-palette-extractor|palette extractor}} returns an image's main colors instead of one pixel.",
+    "faqs": [
+      {
+        "q": "Which browsers support it?",
+        "a": "The EyeDropper API works in Chrome, Edge and Opera. Firefox and Safari do not implement it, and the page shows a message explaining that instead of a button when support is missing."
+      },
+      {
+        "q": "Can I sample colours outside the browser window?",
+        "a": "Yes, and that is the advantage of using the native API. The browser performs the sampling, so you can pick from any application, video frame or document on screen."
+      },
+      {
+        "q": "What happens if I press Escape?",
+        "a": "The pick is cancelled and no swatch appears. The page reports the cancellation in place of a result rather than leaving a stale value on screen."
+      },
+      {
+        "q": "What format is the result?",
+        "a": "A hex code, shown on the swatch with a copy button. For rgb() or hsl() output, pass the hex through a converter afterwards."
+      },
+      {
+        "q": "Can I sample a colour from a file that is not open on screen?",
+        "a": "No. The browser samples rendered pixels, so an image has to be displayed before it can be picked. For files, the image color picker reads an uploaded picture directly."
+      }
+    ]
+  },
+  {
+    "slug": "screen-color-picker",
+    "keywords": [
+      "screen color picker",
+      "pick color from screen",
+      "browser eyedropper",
+      "capture on screen color"
+    ],
+    "intro": "The screen color picker uses the browser's built-in EyeDropper interface so you can pick a color from your screen and copy the hex value straight away.",
+    "content": "The screen color picker hands the job of sampling to the browser itself. Press the open button and the cursor becomes a magnified loupe that travels over everything currently on screen — this page, other tabs, other applications, the desktop underneath. Click, and the color under the loupe arrives back in the page as a standard sRGB hex value, ready to copy. Nothing is uploaded, nothing is processed remotely: the sampling happens in the browser's own interface layer, and only the final value crosses back into the document.\n\nThis is the honest way to pick a color from screen content. Screenshot-and-inspect workflows lose a step to compression and scaling, and they pull you out of the page you were working in. Here the loop is press, point, click, copy. The hex that comes back is the color as the browser composites it — after your operating system's color profile and the page's own rendering have had their say — which is exactly the color your eye was looking at when you decided you wanted it.\n\nAs a browser eyedropper it is deliberately thin:\n\n- One native sampling call, returning an sRGB hex value that drops straight into CSS, a design file or a ticket.\n- No palette management, no history and no format switching — a single colour shown back at full size so you can confirm the sample landed where you meant it to.\n- The capability check runs on load, so a browser without the EyeDropper interface gets a plain statement rather than a button that does nothing.\n\nA few constraints are worth knowing before you reach for it:\n\n- The EyeDropper interface is a Chromium-family feature — Chrome, Edge, Opera — and does not exist in Firefox or Safari.\n- The picker only sees what the screen shows, so a colour behind another window has to be brought forward first.\n- Whatever sits under the loupe at the moment of clicking is what you get: animating backgrounds, video playback and hover transitions change value from frame to frame, and a pinch taken mid-transition records a colour nobody intended to ship.\n\nA screen picker is only as good as the frame it samples, so the workflow matters as much as the arithmetic. Bring the source window forward, hold still, and let the loupe settle before clicking: animating backgrounds, video playback and hover transitions all change value from frame to frame, and a pinch taken mid-transition records a colour nobody intended to ship. Where the target is small, a magnified preview beats a hopeful click, and where it is text on a coloured panel, sampling the glyph edge rather than its centre is the difference between the palette colour and an anti-aliased blend of it.\n\nNone of that is the tool's job, but all of it is why this beats a screenshot. The pick color from screen step is a single gesture, the capture on screen color result that comes back is the real value rather than something reconstructed by eye afterwards, and the sample can be repeated as often as the layout changes without another round trip through the image editor. Work that needs a dozen picks in one sitting — auditing a theme, matching a competitor's accent palette, rebuilding a reference layout — therefore turns into a few minutes of clicking rather than an afternoon of annotated screenshots.\n\nBecause the value returns as sRGB hex, it drops straight into CSS, design files and ticket descriptions without a conversion step. That is the whole point of a screen color picker: remove every step between I want that color and that color is in my stylesheet, and do it with the capture precision of the platform rather than the guesswork of a screenshot.",
+    "howTo": [
+      "Press the open eyedropper button — the cursor becomes a magnified loupe.",
+      "Move the loupe over any pixel on screen, in any window, and click to capture it.",
+      "Confirm the swatch, then copy the hex value into your CSS or design tool."
+    ],
+    "whenToUse": "Use this when the color you want is somewhere on screen — another app, a photo viewer, a brand site in the next tab. Use the image color picker when the source is a file, and the pixel color picker when you need to sample inside an uploaded image rather than the live screen. Where the source is a file, the {{image-color-picker|image color picker}} samples inside an uploaded image, and the {{pixel-color-picker|pixel color picker}} reads exact pixel values when bit-level accuracy matters rather than the live screen.",
+    "faqs": [
+      {
+        "q": "Which browsers support screen picking?",
+        "a": "The browser EyeDropper interface is available in Chromium-based browsers such as Chrome, Edge and Opera. Firefox and Safari do not expose it yet, and the tool will tell you if it is unsupported."
+      },
+      {
+        "q": "Can it sample colors outside the browser?",
+        "a": "Yes. The loupe operates at the screen level, so any visible pixel — another application, a desktop wallpaper, a second monitor — can be sampled and returned as hex."
+      },
+      {
+        "q": "What format does it return?",
+        "a": "A six-digit sRGB hex value, the same notation CSS uses, which every design tool also accepts directly."
+      },
+      {
+        "q": "Does the picked color account for my display profile?",
+        "a": "You get the color as the browser composites and displays it on your system, which matches what your eye sees on that screen. A different display with a different profile may show the same hex slightly differently."
+      },
+      {
+        "q": "Why does the sampled value sometimes differ from the colour in the original asset?",
+        "a": "The sample is the colour as the browser composites and displays it, after your display profile and the page's rendering. That is usually what you want when matching something on screen; the same hex can look slightly different on another display."
+      }
+    ]
+  },
+  {
+    "slug": "pixel-color-picker",
+    "keywords": [
+      "pixel color picker",
+      "read pixel color from image",
+      "get exact pixel hex",
+      "sample image pixel value"
+    ],
+    "intro": "The pixel color picker reads the exact color of any pixel in an uploaded image — click the canvas and the precise hex value appears, computed from the image data itself.",
+    "content": "Upload an image and the pixel color picker lays it on a canvas where every pixel is addressable. Move the crosshair cursor over the picture and click; the tool reads the raw image data at that exact coordinate and returns the stored RGB value as a hex code. There is no averaging with neighbours, no downscaling guess, no compression of the sample into an approximate name — you get the color the file actually contains at that spot, down to the last bit the format preserved.\n\nReading a pixel this way has its own character:\n\n- A crosshair click reads a single pixel at that exact coordinate, with no averaging over neighbouring pixels.\n- The value comes back as a hex swatch at full size, so you can be certain the read landed where you meant it to.\n- The read comes from the browser's image decoder, so PNG values stay bit-exact while JPEG values reflect whatever the codec stored.\n\nReading a pixel color from an image this way is the ground truth for every other color workflow. When you are checking whether an export pipeline shifted a brand color, the question is what value survived in the file, and only pixel-level access answers it. The same goes for matching a gradient stop, verifying a soft edge, or pulling the exact highlight tone out of a photograph: the swatch panel shows the picked value at full size next to its hex so you can be certain the read landed on the pixel you intended.\n\nThe canvas is capped at a generous working size for display, but sampling happens against the rendered image data, and you can zoom by uploading a cropped region if you need to separate two adjacent pixels. Because the read comes from the browser's image decoder, PNG values are bit-exact, while JPEG values reflect whatever the codec stored — which is precisely the point when you are diagnosing compression artifacts: the shifts are visible as values, not just as texture.\n\nThere is no magnifier and no coordinate readout here, which shapes how the tool is used:\n\n- The image is shown at the size the layout gives it, so to read pixel color from image detail at that scale the file has to be uploaded as a cropped region first.\n- Textured areas return whichever single pixel sits under the cursor rather than a representative tone, and when the goal is to get exact pixel hex that single read is the whole answer.\n- Nothing carries over between clicks, so the sample image pixel value has to be recorded by hand if it is needed later.\n\nOne caveat is worth knowing before the numbers are treated as absolute:\n\n- The browser decodes the file to sRGB first, and any colour profile baked into the asset is applied during that decode, so the value you copy is what CSS, a canvas and a design tool will agree with rather than the raw number stored in a wide-gamut original.\n- Large files are downsampled before they are read, so hair, foliage and fine texture are averaged with their neighbours rather than reported exactly.\n- Transparency has no special handling: a click on an area the image does not cover reads as black, because only the colour channels are sampled.\n\nIf your work continues past the single sample, the multi-color picker accumulates several picks into one palette, and the format converters turn the hex into rgb(), hsl() or OKLCH strings. For live screen sampling instead of file sampling, the screen color picker drives the browser's native loupe. But for the plain question of what exact pixel hex this image holds here — the pixel color picker stays the sharpest instrument on the bench.",
+    "howTo": [
+      "Drop an image into the upload area; it renders on the sampling canvas.",
+      "Click the exact pixel you want — the crosshair cursor marks the read position.",
+      "Copy the returned hex value, shown on a full-size swatch beside the image."
+    ],
+    "whenToUse": "Use this when the source is a file and the answer must be exact — export checks, gradient stops, edge inspection. Use the screen color picker for colors living in other applications, and the dominant color tool when you want the overall color of an image rather than one coordinate's value. When several colours are wanted rather than one coordinate, an {{color-palette-extractor|extraction tool}} clusters the pixels, and the {{multi-color-picker|multi-color picker}} collects a series of single samples into one palette.",
+    "faqs": [
+      {
+        "q": "How exact is the value it returns?",
+        "a": "It reads the image data directly, so PNG results are bit-exact to what the file stores. JPEG and other lossy formats return whatever the codec stored, which is exactly what you want when diagnosing compression."
+      },
+      {
+        "q": "Can I pick from a specific zoomed region?",
+        "a": "Upload a cropped version of the region. Sampling addresses a pixel of the displayed image, so cropping enlarges the area each pixel covers and makes adjacent colors easier to separate."
+      },
+      {
+        "q": "Does uploading send my image anywhere?",
+        "a": "No. The image stays in your browser; the canvas and the pixel read both happen locally."
+      },
+      {
+        "q": "What is the difference between this and the eyedropper?",
+        "a": "The eyedropper samples the live screen via the browser's native API; this tool samples pixels inside an uploaded image file, so it also works in browsers without the EyeDropper interface."
+      },
+      {
+        "q": "Does it read the original file byte-for-byte?",
+        "a": "No. The file is decoded to sRGB and drawn onto a canvas capped at 800 pixels on its long side, so the value matches what the browser renders; PNG values stay bit-exact at that size, while JPEG values reflect what the codec stored."
+      }
+    ]
+  },
+  {
+    "slug": "multi-color-picker",
+    "keywords": [
+      "multi color picker",
+      "pick multiple colors",
+      "build a color palette manually",
+      "color palette builder",
+      "add colors to a palette list"
+    ],
+    "intro": "The multi color picker collects colors one at a time into a palette list, with a count, a remove button on each swatch and a single copy for the whole set.",
+    "content": "The multi color picker has two halves. On one side is a colour field and a button labelled Add to palette. On the other is a panel headed with the number of colours collected so far, containing a small swatch for each with a remove cross in its corner, and a Copy all button once there is at least one entry. The empty state says so plainly rather than showing an empty grid.\n\nThe workflow is a loop that suits the way palettes are actually assembled:\n\n- Pick a colour, press Add to palette, pick another, add it — there is no step limit and no slots to fill, so the tool never prescribes how many colours a palette should hold.\n- Each swatch is drawn small enough that a longer list still reads at a glance, and removal is per entry rather than a single undo.\n- One Copy all button puts every value on the clipboard as an uppercase comma-separated sequence, in the order added, while individual swatches carry their own copy buttons.\n\nWhat makes this different from the generators elsewhere in the domain is that nothing is suggested. Every other palette tool produces colours from a rule — a harmony, a theme, an image, a base colour — and the result is coherent by construction. This one takes whatever you give it, which means it can express a palette that comes from somewhere else entirely: a brand guide, a photograph you already matched by eye, a competitor's site, a physical sample. It is a container, and the ordering and editing are the whole feature.\n\nThe copy behaviour is worth noticing because it is the reason the tool is faster than a notes app. Copy all puts every value in the list on the clipboard as an uppercase comma-separated sequence, in the order added, so the palette can be pasted into a design review, a message or a code comment as one string. Individual swatches also carry their own copy buttons for when only one value is needed.\n\nThe honest limits all follow from the tool being manual:\n\n- Duplicates are allowed — adding the same colour twice produces two entries and nothing warns you.\n- There is no reordering, so the order in the list is the order you add, and correcting it means removing and re-adding.\n- Nothing is saved: reloading the page clears the palette, and there is no contrast checking, no naming and no way to swap a colour in place once it is in the list.\n\nUsed as a multi color picker, it covers a task the generators cannot: assembling a palette from colours that already exist, with the ability to prune as you go. If you want to pick multiple colors deliberately, or to build a color palette manually rather than having one proposed, this is the direct route — a color palette builder with no opinions, where the only thing you supply is the judgement and the only thing it supplies is a tidy list and a way to add colors to a palette list in one string.",
+    "howTo": [
+      "Pick a colour with the field.",
+      "Press Add to palette — the swatch appears in the list and the count updates.",
+      "Repeat for each colour, using the remove cross on any swatch you want to drop.",
+      "Press Copy all to take the whole list as a comma-separated string."
+    ],
+    "whenToUse": "Use this when a palette already exists in your head, on a brand sheet or in a photograph, and it needs to be collected in one place. Use a generator when you want the colours proposed rather than transcribed. When the colours should be proposed rather than transcribed, the {{palette-locker|palette locker}} and the {{random-palette-generator|random palette generator}} build a set from a rule, and the {{palette-comparison|palette comparison}} reads a finished list.",
+    "faqs": [
+      {
+        "q": "Is there a limit on how many colours I can add?",
+        "a": "No. The list grows as long as you keep adding, and the panel shows the running count rather than a fixed set of slots."
+      },
+      {
+        "q": "What does Copy all produce?",
+        "a": "Every value in the list in the order you added them, upper-cased, separated by commas, so the whole palette can be pasted as a single string."
+      },
+      {
+        "q": "Can I add the same colour twice?",
+        "a": "Yes, and nothing warns you. Duplicates are easy to introduce in a long list, so skim it before copying."
+      },
+      {
+        "q": "Is the palette saved between visits?",
+        "a": "No. The list lives in the page only and is cleared on reload, so copy anything you want to keep before navigating away."
+      },
+      {
+        "q": "Can I reorder entries once they are in the list?",
+        "a": "No. The list keeps the order you added colours in, so moving an entry means removing it and adding it again at the end."
+      }
+    ]
+  },
+  {
+    "slug": "color-stack-viewer",
+    "keywords": [
+      "color stack viewer",
+      "stack colors to inspect",
+      "collect colors in one place",
+      "build color list while browsing"
+    ],
+    "intro": "The color stack viewer accumulates colors into a single strip as you add them, so you can stack colors and inspect the collection side-by-side before committing it anywhere.",
+    "content": "Colors rarely arrive one at a time. They trickle in — one from a logo, one from a screenshot, one from a stakeholder's message — and the working question is always what do these look like together. The color stack viewer is built around exactly that: a field to add colors one by one, and a live strip where the whole collection sits side-by-side, so the set grows in front of you and the relationships are visible from the second color onward.\n\nEach entry in the stack shows its swatch and its hex, and the strip itself is the inspection surface:\n\n- Every entry can be removed with one click when it turns out not to belong.\n- Contrast between neighbours, accidental near-duplicates and whether the collection leans warm or cool all become obvious once the colors share a row.\n- The copy-all button serialises the whole stack into one comma-separated list, ready to paste into a stylesheet comment, a ticket or another tool.\n\nAs a place to stack colors and inspect them, it sits deliberately between a single picker and a full palette tool. There is no shuffling, no harmony maths, no export formats; it is the collection tray that the fancier tools assume you already have. That makes it the honest first stop for the assemble phase of any palette work — get the candidates together, look at them side-by-side, delete the one that ruins the set — and the exporters or the palette sorters take over when the set is settled enough to deserve structure.\n\nThe tray's real value shows up mid-task. Scraping a palette out of a photograph means holding seven or eight candidates long enough to judge them together, and stacking them as they are sampled makes that judgement possible while the tab holding the source is still open, rather than at the end when the source is gone and the memory of the image has faded. Adding is one click or one keypress, removing the muddy ones is the same, and the order can be reshuffled to test which arrangement tells the story best.\n\nThat is the workflow the tool is built for: stack colors to inspect candidates in the order they were found, collect colors in one place so no promising sample is lost to a stray refresh, and build color list while browsing instead of reconstructing the set from a finished design days later. Duplicates become obvious once they are adjacent, and suspiciously close values become worth a second look before any of them is promoted into the deliverables.\n\nThe stack lives for the session, which matches the job:\n\n- Reloading the page clears the list, so anything worth keeping has to be copied out first.\n- There is no shuffling, no harmony maths and no export format here — structure arrives from the sorters and the exporters once the set is settled.\n- Duplicates are shown rather than blocked, which is right for a collection tray but means the list can quietly gather near-identical values that deserve a second look.",
+    "howTo": [
+      "Set a color in the field and press add — it joins the stack.",
+      "Keep adding; inspect the strip for relationships, duplicates and clashes.",
+      "Remove entries that do not belong, then copy all as a single list."
+    ],
+    "whenToUse": "Use this while a set of colors is still being gathered and the question is how they sit together. Use the palette sorters once the set needs order, the exporters when it moves into code, and the multi-color picker when you are sampling from one image rather than collecting from anywhere. Once a set needs order the {{palette-sorter|palette sorters}} arrange it, the {{color-palette-css-exporter|CSS exporter}} and {{color-palette-json-exporter|JSON exporter}} format it for code, and the {{palette-importer|palette importer}} is the way back in.",
+    "faqs": [
+      {
+        "q": "Does the stack survive a page refresh?",
+        "a": "The stack is a working collection for the session and clears on reload. Anything worth keeping should be copied out or saved to favorites before you leave."
+      },
+      {
+        "q": "Can I reorder the colors?",
+        "a": "You can remove and re-add to reshape the set; ordering is the job of the palette sorters once the collection is final."
+      },
+      {
+        "q": "How many colors can it hold?",
+        "a": "There is no hard cap — the strip wraps, which is usually the signal that the collection has outgrown the tray and deserves a real palette tool."
+      },
+      {
+        "q": "Can I copy the whole stack at once?",
+        "a": "Yes. The copy-all button serialises every color in the stack into one comma-separated list of hex values."
+      },
+      {
+        "q": "Is there a limit on how many colors the stack holds?",
+        "a": "No cap is applied; the strip simply grows with each add. It is a working tray rather than an archive, and it clears when the page is reloaded."
+      }
+    ]
+  },
+  {
+    "slug": "image-color-picker",
+    "keywords": [
+      "image color picker",
+      "pick color from image",
+      "eyedropper for images",
+      "sample pixel color from photo",
+      "hex from image pixel"
+    ],
+    "intro": "The image color picker turns an uploaded photo into a sampling surface — click any point and read that pixel's exact hex value.",
+    "content": "The image color picker puts an uploaded image on a canvas beneath a crosshair cursor. Click anywhere and the pixel under the pointer is read and shown in a panel as a large swatch with its hex value and a copy button. Clicking again replaces the value, so the same image can be sampled repeatedly without reloading, and a Replace image button clears the state for a different file.\n\nThe accuracy of the sample comes from how the click is converted:\n\n- The image is drawn onto a canvas at a maximum of 800 pixels on its long side, and the click position is converted from the element's rendered bounds into canvas coordinates, so the value is the pixel actually under the pointer.\n- Reads come from the browser's decoder: PNG values are bit-exact, JPEG values reflect whatever the codec stored.\n- There is one mode — point and click, one colour at a time — with a Replace image button to clear the state for a different file.\n\nThe accuracy of the sample is worth explaining, because it is the part a naive implementation gets wrong. The canvas is displayed at whatever size the layout gives it, which is usually not the size of the canvas itself. The tool handles that by measuring the element's rendered bounds and converting the click position into canvas coordinates using the ratio between the two, then reading a single pixel at those coordinates. That means the value you get is the pixel actually under the pointer, not the pixel at the unscaled coordinate — a distinction that matters enormously on a wide image, where the two can be hundreds of pixels apart.\n\nOne consequence of the approach is that you are sampling the rendered image rather than the original file:\n\n- Very large files are downsampled before they are read, and colours from fine detail — hair, foliage, texture — are averaged with their neighbours.\n- Areas the image does not cover are transparent pixels, and sampling one returns black rather than nothing, since the sampler reads colour channels and ignores the alpha value.\n- There is no magnifier or zoom, no averaging over a small radius, and no history — each click replaces the last — so a palette cannot be assembled here.\n\nThe tool has one mode and does it well: point and click, one colour at a time. Textured areas give whichever single pixel is under the cursor rather than a representative tone, which is precisely what makes the read trustworthy when the question is what value sits at that spot.\n\nIf the immediate task is to pick color from image content — one specific point rather than a general impression — this is the fastest route there is, which is why the division of labour matters: what you do next. For a single colour read off an image, this is the right tool: quick, exact, no setup. For several colours from one image, an extraction tool that clusters the pixels will give you a more useful answer than clicking repeatedly, because it finds the colours that actually dominate rather than the ones you happened to click. For an image's overall tone, an average or dominant colour tool answers the question directly.\n\nUsed as an eyedropper for images, then, this is the direct route: upload a photo, click the point you care about, and copy hex from image pixel data — or work in the other direction and sample pixel color from photo content when matching a design to a picture. One click, one value, no interpretation in between.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Click anywhere on the image — the cursor is a crosshair to make the target clear.",
+      "Read or copy the hex value from the picked-colour panel.",
+      "Click again elsewhere to sample a different point, or replace the image to start over."
+    ],
+    "whenToUse": "Use this when you need the exact colour of a specific point in an image. Use a palette extractor when you need the image's several main colours, or the dominant colour finder when you want a single representative value rather than a chosen point. When several colours are wanted rather than one coordinate, an {{color-palette-extractor|extraction tool}} clusters the pixels, and the {{dominant-color-finder|dominant color finder}} answers the overall-tone question directly.",
+    "faqs": [
+      {
+        "q": "Is the value exact?",
+        "a": "It is the exact pixel under the pointer in the rendered image. Large files are downsampled to 800 pixels on the long side before display, so very fine detail is averaged away."
+      },
+      {
+        "q": "Why did I get black from an empty area?",
+        "a": "Transparent pixels have no colour, and the sampler reads only the colour channels, so clicking outside the subject returns black."
+      },
+      {
+        "q": "Is there a magnifier or zoom?",
+        "a": "No. Sampling is a plain click at the cursor position, so precisely hitting a small feature on a large image takes care."
+      },
+      {
+        "q": "Can I collect several colours into a palette?",
+        "a": "Not here — each click replaces the previous value. For a palette from one image, use an extraction tool that clusters the image's colours."
+      },
+      {
+        "q": "Can I zoom in before clicking a pixel?",
+        "a": "There is no zoom or magnifier — the image is shown at the size the layout gives it. Uploading a cropped region of the file is the way to separate two adjacent pixels."
+      }
+    ]
+  },
+  {
+    "slug": "webcam-color-picker",
+    "keywords": [
+      "webcam color picker",
+      "pick color from camera",
+      "capture color from webcam",
+      "live camera color sample"
+    ],
+    "intro": "The webcam color picker turns your camera into a sampling surface: grab a frame from the webcam and pick a color straight out of the live snapshot.",
+    "content": "Some colors are not in a file or on the desktop — they are in the world. Paint on a wall, a fabric swatch, a printed proof, a leaf. The webcam color picker bridges that last gap: point your camera at the thing, capture a snapshot, and pick a color out of the frame with a click. The color travels from the physical object to a hex value without a screenshot-and-crop detour, which is the entire appeal of a live camera color sample.\n\nThe workflow is two stages by design:\n\n- First the frame: whatever the camera sees is frozen into a still, so the target cannot drift between aiming and picking.\n- Then the pick: the snapshot sits on a canvas like any uploaded image, and the value you click is read from the frame's own pixels as a hex code.\n- The captured frame stays local — the camera stream never leaves the browser, and the browser asks permission before the camera turns on at all.\n\nHonesty about lighting is part of the tool's contract:\n\n- A camera renders the world through white balance, exposure and the sensor's own colour response, so the hex is the colour as the camera saw it in that light — an excellent match for matching things in similar light, and only an approximation of the object's true surface colour.\n- Nothing is corrected for you: no auto-white-balance pass and no named-colour guesses, because a capture is only trustworthy while the chain from photon to hex stays short and visible.\n- The sample is only as good as the frame: distance changes colour, the shadow of the hand ruins a reference, and a capture worth trusting is usually taken twice under different light and compared.\n\nPhysically pointing a camera at something is a different act from picking on screen, and it has its own discipline. Distance changes colour: a patch sampled from arm's length is lit differently from one sampled close up, and the shadow of the hand holding the object is a reliable way to ruin a reference. Diffuse daylight from a window is the flattering source, a desk lamp adds a warm cast and a single overhead tube adds green, so a capture worth trusting is usually taken twice under different light and compared.\n\nWhere the object is small, filling the frame with it before freezing gives the sampler more pixels to work with and makes the pick color from camera step less of a gamble on one noisy patch. Used that way the webcam becomes a colourimeter for the physical world, good enough to match a paint chip, a fabric swatch or a piece of packaging against a digital palette without leaving the page or borrowing a scanner.\n\nThe same frame can yield several samples, and the stack viewer or multi-color picker will collect a series of picks if the job is a palette from a scene rather than a single value. As a webcam color picker it deliberately does nothing smarter than freeze and sample — no auto-white-balance corrections, no named-color guesses — because a capture color from webcam tool is only trustworthy while its chain from photon to hex stays short and visible.",
+    "howTo": [
+      "Allow camera access, frame the object, and capture a still.",
+      "Click the exact spot in the snapshot whose color you want.",
+      "Copy the hex value from the swatch panel."
+    ],
+    "whenToUse": "Use this when the color exists physically — paint, fabric, print, nature — and a camera is the only sensor you have. Use the image color picker when the source is already a file, and the screen color picker when the color is on screen rather than in the world. When the source is already a file the {{image-color-picker|image color picker}} reads it directly, and for a colour already on screen the {{screen-color-picker|screen color picker}} skips the camera entirely.",
+    "faqs": [
+      {
+        "q": "Why does the picked color differ from the real object?",
+        "a": "Cameras apply white balance, exposure and their own color response, so you get the color as seen in that light. Include a known reference in the frame when the true surface color matters."
+      },
+      {
+        "q": "Is my camera feed uploaded anywhere?",
+        "a": "No. The stream and the snapshot both stay in your browser; the pick is read from the local frame."
+      },
+      {
+        "q": "Can I pick several colors from one snapshot?",
+        "a": "The frame stays on the canvas until replaced, so you can click as many points as you like — pair it with the stack viewer to collect a set."
+      },
+      {
+        "q": "Why freeze a frame instead of picking live?",
+        "a": "A still guarantees the pixel under your click is the pixel you read; live video drifts between aiming and clicking, which quietly corrupts the sample."
+      },
+      {
+        "q": "Does the camera stream or the snapshot ever leave the browser?",
+        "a": "No. The stream is decoded in the page and the frozen frame stays local, which is why the capture works without an account or an upload."
+      }
+    ]
+  },
+  {
+    "slug": "color-comparison-tool",
+    "keywords": [
+      "color comparison tool",
+      "compare two colors side by side",
+      "color difference checker",
+      "hex comparison tool"
+    ],
+    "intro": "The color comparison tool puts two colors side-by-side and measures how far apart they are, in plain RGB distance and in perceptual OKLCH terms.",
+    "content": "Two colors that look identical in one context can look obviously different in another, and eyeballing rarely settles the argument. The color comparison tool takes two values and answers the question three ways at once: the swatches sit literally side-by-side so your eye does the first pass, then the numbers quantify what the eye suspects. RGB Euclidean distance gives the straight arithmetic separation of the two values, and an OKLCH-based ΔE gives the perceptual reading — how different they look to a human, which is the number that actually matters when the question is will anyone notice.\n\nThe two numbers disagree, and that disagreement is the interesting part:\n\n- RGB Euclidean distance treats every channel equally, so a shift in blue can score the same as a shift in green while looking far smaller.\n- The OKLCH-based ΔE weights the channels the way vision does and folds lightness, chroma and hue into one figure, which is the number to cite when someone asks how different these two blues really are.\n- The swatches share an edge with no neutral between them, the one arrangement where the eye cannot smooth over a small gap.\n\nAs a hex comparison tool it earns its place in the dull but frequent disputes: did the export change the color, is this the same grey as last quarter's, are these two background tokens accidentally the same. Set both fields, read both numbers, and the discussion moves from opinion to measurement. When the verdict is too different, the mixers and shifters produce a value between the two; when the verdict is effectively the same, keeping the canonical one is a one-line cleanup.\n\nTwo colours are rarely compared for their own sake; they are compared because something depends on the answer. An accent against a surface, a hover state against a resting state, one brand asset against another: what matters is the size of the gap and its direction, and both are hard to judge by eye because the visual system adapts within seconds. Placing the swatches adjacent, sharing an edge with no neutral between them, exploits that adaptation deliberately — a direct join is the one place the eye cannot smooth over the difference, so a genuinely small gap becomes visible and a large one becomes obvious.\n\nReading the delta alongside the pair makes this a color difference checker rather than a swatch book: the fields give a number to attach to a review comment, and the side-by-side view gives the reviewer the same evidence the comment is built on, which is what makes the compare two colors side by side verdict stick. Numbers also survive hand-off, so a note that says the second grey is nearly indistinguishable from the first is checkable by whoever picks up the work.\n\nWhat the tool deliberately does not do is guess intent:\n\n- It will not tell you whether a difference is acceptable — a 2:1 contrast change is nothing in a decorative border and a failure on body text.\n- No accessibility verdict: the contrast checkers apply WCAG thresholds when a pass or fail is needed.\n- No harmony judgement either — the harmony finders read relationships, and the mixers are what produce a value between the two colours.",
+    "howTo": [
+      "Set color A and color B with the two fields.",
+      "Compare visually with the side-by-side swatches, then read the two distance figures.",
+      "Use the RGB distance for raw separation and the OKLCH ΔE for how different it will look."
+    ],
+    "whenToUse": "Use this when two specific values need a verdict — export checks, near-duplicate tokens, revision disputes. Use the contrast checkers when the question is accessibility rather than similarity, and the delta-E style readings here are also the basis of the just noticeable difference calculator for perception questions. The perceptual figure here is the same idea behind the {{just-noticeable-difference-calculator|just noticeable difference calculator}}, and for a pass or fail verdict the {{contrast-checker|contrast checker}} applies WCAG thresholds.",
+    "faqs": [
+      {
+        "q": "Why do the two distance numbers disagree?",
+        "a": "RGB distance is raw channel arithmetic with no reference to human vision, while the OKLCH reading weights channels the way eyes do and folds lightness, chroma and hue together. The perceptual number is usually the meaningful one."
+      },
+      {
+        "q": "What ΔE counts as noticeable?",
+        "a": "It depends on context and adjacency, but values under a few hundredths are generally indistinguishable, while anything approaching 0.1 in OKLCH terms is usually visible. The just noticeable difference calculator explores the boundary directly."
+      },
+      {
+        "q": "Can I compare a color against itself after export?",
+        "a": "That is the classic use: set the original and the exported value, and the two numbers tell you whether the pipeline changed anything and whether it matters."
+      },
+      {
+        "q": "Does it tell me if the difference passes accessibility?",
+        "a": "No — similarity and accessibility are different questions. The contrast checkers apply WCAG thresholds when you need a pass or fail verdict."
+      },
+      {
+        "q": "Which of the two numbers should I quote in a review?",
+        "a": "The OKLCH-based ΔE, because it folds lightness, chroma and hue into one figure the way vision weights them. The RGB distance is useful as raw arithmetic separation, but a blue shift can score large while looking small."
+      }
+    ]
+  },
+  {
+    "slug": "color-preview-on-background",
+    "keywords": [
+      "color preview on background",
+      "preview a color on a background",
+      "color over background preview",
+      "check a color against a background"
+    ],
+    "intro": "The color preview on background places any color onto a background you choose, showing it as a filled block and as text so the pairing can be judged as it will really appear.",
+    "content": "The color preview on background is a two-input pairing check. You set a colour and a background, and the tool renders the two together at a size you can actually judge: a solid block of the colour sitting on the background, plus two lines of sample text in that same colour on that same surface. Beneath sits a readout of both values. It answers a question that is genuinely hard to settle from memory, which is whether a colour still works once it is surrounded by something else instead of sitting alone on a neutral swatch.\n\nThe reason a pairing has to be seen rather than reasoned about is that colour is judged relative to its surroundings. The same blue reads as bright against charcoal and as heavy against cream, and a mid grey that looks balanced on white can look almost black on a dark surface. Two values that seem identical when examined one at a time can shift in the company of a third, so the reliable way to preview a color on a background is to use the surface it will actually live on rather than an approximation.\n\nThe two parts of the sample are doing different jobs, and it is worth understanding which one you are reading:\n\n- The filled block is the colour as an area — a button, a panel, a chart series, a border — and shows whether the colour separates from its surroundings or quietly disappears into them.\n- The text lines show the same value used as type, at a heading size and at a body size, which is where pairings most often fail: thin strokes deliver far less of the colour to the eye than a solid area does.\n- A readout beneath the sample reports both values as hex, updating as you work.\n\nIn practice the background is the constraint, so set it first. If a design already fixes the surface — a cream page, a dark dashboard, a tinted panel over a photograph — then the question is not what the background should be but which foreground survives it, and fixing the surface first turns the tool into a search rather than a compromise. From there, tuning the colour is quick, because the sample updates as you work and both values stay visible as hex. Ordering a color over background preview this way also makes it obvious early when no single colour will do and the surface itself has to move.\n\nWhat it will not do is grade the result:\n\n- No contrast ratio is shown, so the tool will cheerfully display a pairing that is technically unreadable and the judgement stays with you.\n- One pairing at a time — comparing three candidates means three separate passes rather than a row of alternatives.\n- Both inputs are colours rather than arbitrary CSS, which places gradients and other background syntaxes outside its scope.\n\nWhich leaves the question of when to reach for it. It is at its best whenever a colour and a surface have to be chosen together: picking an accent that must hold up on an existing brand background, checking that a new section fill does not swallow its own text, or settling a subtle border that only reads if it sits a shade or two off the surface. Because it shows the pairing in context and nothing else, it is the fastest way to check a color against a background before that combination is committed to a token file, and the block-plus-text sample covers the two ways a colour is almost always used.",
+    "howTo": [
+      "Set the background first, since the surface is usually the constraint the pairing has to survive.",
+      "Set the colour you are testing as the foreground value.",
+      "Judge the filled block for area use and the two text lines for type use.",
+      "Read both hex values from the pairing card and copy whichever one you need."
+    ],
+    "whenToUse": "Use this preview when a color and a surface have to be chosen together and the result needs judging by eye. Use a contrast checker when you need the ratio, and the format validator when you want an explicit valid or invalid verdict. For the ratio itself use the {{contrast-checker|contrast checker}}, and for a single CSS background value the {{css-background-color-preview|CSS background preview}} renders it without a foreground colour to pair against.",
+    "faqs": [
+      {
+        "q": "How do I set the two colors?",
+        "a": "Both are color fields, so you can type a hex value or pick by eye. The pairing panel then records both values so the combination can be copied exactly."
+      },
+      {
+        "q": "Does the preview tell me whether the text is readable?",
+        "a": "Only visually. No contrast ratio is calculated, so a pairing that is technically unreadable will still render happily. Use a contrast checker when you need the number."
+      },
+      {
+        "q": "Can I put a gradient behind the color?",
+        "a": "No. Both inputs are single colors rather than arbitrary CSS, so gradients and other background syntaxes are outside its scope. The single-value CSS previewer covers those."
+      },
+      {
+        "q": "Can I compare several candidates at once?",
+        "a": "No. One pairing is shown at a time, so comparing three candidates means three separate passes rather than a single row of alternatives."
+      },
+      {
+        "q": "Does it tell me whether the pairing is readable?",
+        "a": "No. No contrast ratio is shown, so the judgement stays with you; a pass or fail verdict is what the contrast checkers are for."
+      }
+    ]
+  }
+]

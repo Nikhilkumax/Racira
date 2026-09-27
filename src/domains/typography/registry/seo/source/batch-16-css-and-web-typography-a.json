@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "css-font-stack-builder",
+    "keywords": [
+      "css font stack builder",
+      "fallback chain",
+      "generic family",
+      "emoji fallback"
+    ],
+    "intro": "The CSS font stack builder assembles a font-family declaration in the order it is read: primary face, optional second face, generic family, and an optional emoji tail. The chain only ever shows itself when something is missing, which is exactly when it matters.",
+    "content": "The CSS font stack builder assembles a font-family declaration from four slots and previews it on real text. The order is the whole structure, and each slot has a job.\n\n- Primary face, chosen from the catalogue and quoted with its own stack, so the declaration can be pasted into any project.\n- An optional second face for the fallback chain, reduced to a bare family name so it does not drag the first face's generic families along with it.\n- The generic family last, which is the promise the browser can always keep: sans-serif, serif, monospace, system-ui or cursive.\n- An optional emoji fallback of three colour-emoji families, appended after the generic family so a glyph that no text face carries still renders as an emoji.\n\nA font stack is read left to right, and each entry is tried per character rather than per page. That is why the chain is invisible most of the time and suddenly visible in three situations: the primary face has not loaded yet, it is missing a glyph the copy needs, or it fails to load at all. The generic family at the end is not decoration — it is the entry that decides which metric the browser falls back to, so choosing serif under a sans primary produces a visibly different page during the swap period.\n\nThe panel reports the face count, the terminal family and the primary face's category, which together answer the question the declaration raises: how far does this chain have to stretch. The emoji tail is a good example of a decision that costs nothing when it is not needed and rescues a page when it is: a dingbat, a flag or a pictogram outside the text face renders as a coloured glyph rather than a blank box. The exported declaration is a single font-family line, and the preview shows the stack at two sizes, since a fallback that reads acceptably at 28 pixels can look wrong at 15.\n\nFour limits come with a one-line declaration, and each one explains why a particular problem moves to another tool.\n\n- It cannot express a unicode-range, so a stack cannot tell the browser which characters should come from which face; that belongs in the at-rules for the webfont.\n- It offers no metrics matching, so a fallback with different proportions still shifts the layout when the primary lands, which is a job for the size-adjust descriptor.\n- The catalogue is the only source of faces, so a project with a licensed family pastes the declaration and edits the first entry by hand.\n- The emoji fallback is all or nothing: three entries are added or none, so a page that needs a single symbol family carries the whole group.\n- Nothing limits the length of the chain, and a stack can grow until no one can say what each entry contributes, which is the failure this tool exists to make visible.\n\nWhat it does not need to do is verify anything: the declaration is valid CSS whatever the faces are, and the browser resolves it at render time. The discipline is in the order and in quoting names that contain spaces or a reserved word, which is the one place a hand-written stack usually breaks.",
+    "howTo": [
+      { "step": "Choose the primary face and note the category the panel reports, since that is the metric the generic family should match." },
+      { "step": "Add a second face only if there is a specific gap to fill, and check the face count readout rather than extending the chain for its own sake." },
+      { "step": "Set the generic family to match the primary's category, then decide whether the emoji fallback is worth its three entries." },
+      { "step": "Copy the declaration and paste it into the stylesheet, then confirm in the browser that a missing glyph and a blocked webfont both land where the chain intends." }
+    ],
+    "whenToUse": "Reach for it when a font stack has grown by accident and nobody can say what each entry is for, when a page shows blank boxes for a symbol the text face lacks, or when a webfont swap has to be made less jarring and the generic family is the only lever available. The order is the transferable lesson. For the metric matching that removes the jump, the {{css-variable-font-builder|CSS variable font builder}} covers size-adjust; the {{system-font-stack-generator|system font stack generator}} builds the zero-download alternative, and the {{font-face-generator|font-face generator}} writes the declarations the stack refers to.",
+    "faqs": [
+      {
+        "q": "How does a browser choose from a font stack?",
+        "a": "Per character and left to right. For each glyph the browser tries the first family, then the next, and so on until one resolves; the generic family at the end guarantees that something always does. That is why a stack can look correct for months and then show a fallback for a single character."
+      },
+      {
+        "q": "Why put the generic family last?",
+        "a": "Because everything after it is unreachable. A generic family always resolves, so an entry listed after sans-serif never gets a chance. That is also why the emoji tail is appended after the generic family in this tool: the emoji families are reached for characters the earlier entries cannot supply."
+      },
+      {
+        "q": "What does the emoji fallback add?",
+        "a": "Three colour-emoji families appended to the chain. Without them a pictogram outside the text face can render as a blank box, depending on the platform. With them the character resolves to a coloured glyph, at the cost of three entries that most stacks never need to use."
+      },
+      {
+        "q": "Does the fallback affect layout?",
+        "a": "It can. Each family has its own metrics, so text rendered in the second face occupies different line lengths and heights from the same text in the first. Matching those metrics is what the size-adjust descriptor is for; a stack cannot do it, since the chain has no place to state a size adjustment."
+      },
+      {
+        "q": "When do I need to quote a family name?",
+        "a": "Whenever the name contains a space or a word that could be read as a keyword. Quoting is always safe, so the tool quotes every named family. The one case worth care is a name that also matches a generic family, such as a family literally called monospace, which needs quoting to be treated as a name."
+      }
+    ]
+  },
+  {
+    "slug": "font-face-generator",
+    "keywords": [
+      "@font-face generator",
+      "font-display",
+      "unicode-range",
+      "src descriptor"
+    ],
+    "intro": "The @font-face generator writes the declaration a webfont actually needs: a local source first, a file second, and the weight, style, display and character-range fields that decide how it loads. The descriptors are what separate a working declaration from one that downloads on every page view.",
+    "content": "The @font-face generator builds a complete declaration and the matching usage rule, with the fields that change behaviour rather than the ones that merely satisfy a validator.\n\nThe descriptors it writes, and what each one decides:\n\n- Font family and an optional local source, listed first so a locally installed copy is used without a download when one exists.\n- The file URL with its format, offered as woff2, woff, truetype or opentype, with woff2 first in the list because of its size advantage.\n- The weight, which accepts a single value or a two-value range — a range is how one variable file covers several weights.\n- The style, normal, italic or oblique, which has to match the style the text asks for or the browser synthesises a slant instead.\n- The display policy, from swap, fallback, optional, block and auto, and an optional unicode-range that scopes the descriptor to a subset of characters.\n\nThe loading trade-off is reported beside the font-display choice, because font-display is the descriptor with a visible cost. Swap keeps text visible from the first paint and accepts a re-render when the webfont lands, which is the usual choice for body copy. Block hides the text for a short period and then paints the real face, which suits a logo and harms a paragraph. Optional gives the file a very short window and then never uses it for that page view, which removes layout shift entirely at the cost of the webfont often not appearing at all on a slow connection. Auto leaves the decision to the browser and is the least predictable of the five.\n\nTwo details deserve attention because they cause most of the confusion, and both live in the src descriptor. Listing a local source first is a performance win and a testing hazard: a developer with the family installed never sees the download, so the file path can be broken for weeks without anyone noticing. And a unicode-range only prevents a download when the referenced file is genuinely a subset; writing a range beside a full font file changes nothing about the bytes the page fetches, it only scopes which characters the declaration claims.\n\nWhat the generator leaves out is also a choice, and each omission points at a different follow-up.\n\n- It writes one file source, so a format chain for older browsers has to be assembled by hand and the woff2 preference is assumed rather than negotiated.\n- It does not emit the size-adjust or ascent-override descriptors that remove layout shift in a fallback, which belong with a stack rather than with a single face.\n- It cannot verify that the URL resolves, so a typo in the path produces a declaration that fails silently and shows the fallback face.\n- It does not check that a unicode-range matches the characters the subset file really contains, which is the difference between a scoped download and a request that quietly fetches a different file.\n- It generates no preload hint, so a file that is needed above the fold still waits for the stylesheet to be parsed before the browser learns about it.",
+    "howTo": [
+      { "step": "Enter the family name and the local name, keeping the local source first so an installed copy avoids the download." },
+      { "step": "Add the file URL and format, then set the weight and style to match the rules that will request the face." },
+      { "step": "Choose the display policy from the trade-off readout rather than by habit, and add a character range only if the file is a real subset." },
+      { "step": "Copy both outputs, then test with the local copy removed so the downloaded path is actually exercised." }
+    ],
+    "whenToUse": "Reach for it when a webfont has to be declared correctly the first time, when text is invisible for a moment on load and the display policy needs revisiting, or when a declaration has to be audited for the fields that decide whether it downloads at all. The trade-off readout is the quickest way to explain font-display to someone who has never met it. For the fallback metrics that remove the jump, the {{css-variable-font-builder|CSS variable font builder}} covers size-adjust, the {{font-loading-strategy-builder|font loading strategy builder}} decides how many files to serve, and the {{css-font-stack-builder|CSS font stack builder}} writes the chain the usage rule joins.",
+    "faqs": [
+      {
+        "q": "Why list a local source before the file?",
+        "a": "Because it avoids a download for anyone who already has the family installed, and it makes the webfont optional rather than mandatory. The trade-off is that a developer with the family installed will not notice a broken file path, so the downloaded route has to be tested deliberately by removing the local entry."
+      },
+      {
+        "q": "Which font-display value should I use?",
+        "a": "For body copy, swap: text is visible immediately and one re-render is acceptable. For a logo or a short display line, block can be defensible since a brief invisibility is less disruptive than a visible swap. Optional removes layout shift entirely but on a slow connection the webfont may never appear for that page view."
+      },
+      {
+        "q": "Does a unicode range reduce the download?",
+        "a": "Only when the file itself is a subset. The descriptor tells the browser which characters this declaration covers, so a page that needs none of them inside the range never fetches the file. Pointing a range at a full font file still transfers the whole file once it is used."
+      },
+      {
+        "q": "Can one declaration cover several weights?",
+        "a": "Yes, with a weight range. A variable file declared with a range from 100 to 900 serves every weight in between, and the text requests them with ordinary font-weight values. A static file, in contrast, needs one declaration per weight, which is why the row count and the file count grow together."
+      },
+      {
+        "q": "What if the font arrives as several formats?",
+        "a": "The generator writes one file source, since modern browsers all accept woff2. A chain for older engines has to be assembled by hand, listing each source with its format so the browser picks the first it understands. In practice the extra formats are rarely worth the complexity today."
+      }
+    ]
+  },
+  {
+    "slug": "css-variable-font-builder",
+    "keywords": [
+      "css variable font builder",
+      "size-adjust",
+      "font-variation-settings",
+      "registered properties"
+    ],
+    "intro": "The CSS variable font builder assembles the three rules a variable font needs in production: the declaration with a weight range, a fallback face whose metrics are close enough to survive the swap, and a usage rule that prefers registered properties over raw axis settings.",
+    "content": "The CSS variable font builder writes three rules rather than one, because a variable font in production is a loading strategy as much as a file format. The first rule declares the face with a weight range and a stretch range, the second declares a fallback face whose metrics have been adjusted to match, and the third applies the font with properties that behave like normal CSS.\n\nThe tool sets the work out as a five-layer ladder, and each layer is worth understanding.\n\n- Layer one is a plain fallback stack that always renders, with no request and no risk.\n- Layer two adds a metrics match: the fallback is declared with size-adjust set to a percentage between 60 and 150, which changes its rendered size so its lines occupy the space the webfont will occupy. That is what removes the shift when the real font lands.\n- Layer three declares the variable face itself with a format of woff2-variations, a weight range such as 300 to 800, a stretch range of 75 to 125 per cent and a display policy of swap.\n- Layer four applies the font with registered properties — font-weight for the weight axis, font-stretch for the width axis and optical sizing set to auto for a face with an optical size axis.\n- Layer five is the escape hatch: font-variation-settings for axes that have no standard property, such as a grade axis.\n\nThe reason registered properties come before the escape hatch is that they cascade, inherit and animate like any other CSS property, while font-variation-settings is a single declaration that resets every axis it does not mention and cannot be transitioned reliably. The preview makes the loading point visually: it renders the text in the fallback face at the adjusted size, because that is the version most first-time visitors actually see, and matching it to the webfont is what makes the swap invisible. Finding the figure is a matter of entering a value, comparing the two versions and repeating until they occupy the same lines, since the percentage belongs to the pair of faces rather than to any standard.\n\nFour limits apply, and they are the reasons the output still has to be reviewed.\n\n- One URL is generated, so a static fallback for very old engines has to be added by hand rather than being assembled by the tool.\n- The size-adjust figure is a single percentage, so a face that needs different adjustments at different weights cannot be matched exactly and the compromise has to be chosen deliberately.\n- Optical sizing only does anything when the file carries an optical size axis, and a variable font without one simply ignores the declaration.\n- The raw axis names in the final layer are specific to each file, so they are applied by whoever pastes the CSS and cannot be guessed from the font's name.\n- Nothing checks that the declared weight range matches the axes the file actually carries, so an optimistic range can advertise weights the font cannot render.",
+    "howTo": [
+      { "step": "Enter the family name, file URL and the weight range the variable file covers, matching the descriptor to the file's real axis." },
+      { "step": "Choose the fallback face and tune size-adjust while watching the preview, which shows the fallback at the adjusted size rather than the webfont." },
+      { "step": "Set the weight and stretch the type will actually use, so the usage rule carries real values rather than defaults." },
+      { "step": "Copy the full rule set and the fallback variant, then check the page with the webfont blocked to confirm the fallback reads acceptably." }
+    ],
+    "whenToUse": "Reach for it when a variable font is being introduced and the loading strategy has to be settled at the same time, when a swap is producing a visible jump in a page whose fallback metrics differ, or when someone is reaching for raw axis settings where a registered property would do the job and animate. The ladder is the useful model. For the declaration alone, the {{font-face-generator|font-face generator}} writes it without the metrics layer; the {{variable-font-sliders|variable font sliders}} explore what the axes do, and the {{font-loading-strategy-builder|font loading strategy builder}} decides how many files the page should ask for.",
+    "faqs": [
+      {
+        "q": "What does size-adjust do?",
+        "a": "It scales the fallback face's rendered size without changing its declared font size, so its lines take up roughly the space the webfont will take up. That is what removes the reflow when the webfont arrives. The value is a percentage, and matching it by eye against the preview is how the adjustment is found."
+      },
+      {
+        "q": "Why prefer font-weight over font-variation-settings?",
+        "a": "Because font-weight, font-stretch and optical sizing are ordinary CSS properties: they inherit, cascade and animate, and a stylesheet can override them per component. The raw axis declaration resets every axis it does not mention, does not animate reliably and cannot be reasoned about from the cascade, so it belongs only where no standard property exists."
+      },
+      {
+        "q": "Is one variable file smaller than three static weights?",
+        "a": "Usually smaller than the weights it replaces, and certainly fewer requests. A variable file carries every intermediate value, so it is larger than any single static weight but replaces the range. The trade is one file that covers 100 to 900 against four or five separate files that each need their own declaration."
+      },
+      {
+        "q": "What happens if the variable font fails to load?",
+        "a": "The adjusted fallback renders, which is why the second rule exists and why its metrics were matched. With the size-adjust figure close to the webfont's, the difference between the two states is a change of letterforms rather than a change of layout, which is the least disruptive failure mode available."
+      },
+      {
+        "q": "Which axes can I use this way?",
+        "a": "Weight, width and optical size have standard properties and should always use them. Other axes — grade, contrast, slant or a custom axis — have no equivalent, so they go through font-variation-settings with the axis tag and value. The tool's fifth layer is where that belongs, and the file's own documentation names the tags."
+      }
+    ]
+  },
+  {
+    "slug": "google-fonts-css-generator",
+    "keywords": [
+      "google fonts css generator",
+      "css2 api",
+      "preconnect",
+      "ital,wght"
+    ],
+    "intro": "The Google Fonts CSS generator turns a family and weight selection into a valid CSS2 API URL, the link tags that use it, and the CSS that applies the result. The ordering rules it implements are the ones the API actually enforces.",
+    "content": "The Google Fonts CSS generator builds a CSS2 API URL from a list of families, a set of weights and a display policy, then writes the link tags and the usage rules that go with it. The URL has rules that are easy to get wrong by hand, and the tool encodes them.\n\nThe encoding rules the generator applies:\n\n- Family names are joined with plus signs, and each family becomes its own parameter in the query string.\n- Weight tuples are sorted ascending, because the API requires the order it documents and rejects a list that arrives shuffled.\n- Italic styles are expressed as ital,wght tuples, sorted first by the italic flag and then by weight, so a normal 400 and an italic 400 are two distinct entries.\n- The display parameter is appended once for the whole request, not per family.\n\nThe sorting rule is the one that costs people time, because a hand-written URL usually works until a weight is added and then starts returning an error with no useful message. The generator reports the number of families, the number of weight tuples and the length of the resulting URL, and the last of those is a rough proxy for the cost of the request: a URL asking for four families across five weights is describing a lot of files, even though it is a single link tag.\n\nAlongside the URL, the tool writes the tags to paste into the document head. Two preconnect hints come first, one for the stylesheet host and one for the file host with the crossorigin attribute, and the stylesheet link follows. The preconnects are not decoration: without them the browser discovers the font host only after parsing the stylesheet, which puts a DNS and TLS handshake on the critical path at the worst possible moment. The usage block then writes one declaration per family, choosing a monospace fallback when the family name contains mono and a sans-serif one otherwise, which is a guess rather than a measurement but a better default than nothing. A family whose name contains a space is quoted in the declaration, which is the detail a hand-written usage rule most often misses.\n\nThe request has limits that the API itself does not have, and they are worth knowing before the URL is pasted.\n\n- No variable axes or optical sizing can be requested, so a variable family has to be specified weight by weight, which costs more files for the same visual result.\n- There is no text parameter, so a request cannot be subset to the characters a page actually uses — a technique that makes the smallest possible download for a heading-only face.\n- The weight list holds five values from 300 to 700, which covers most interface work but not a family whose light or black weights are the point.\n- Nothing validates a family name against the service, so a typo produces a URL that fails at runtime with the fallback silently appearing instead.\n- The usage declarations guess their generic family from the name, which is a reasonable default rather than a match for the project's own stack.",
+    "howTo": [
+      { "step": "Enter one family name per line, taking names from the suggested list unless the family is known to exist on the service." },
+      { "step": "Select the weights, and include italics only when an italic style is genuinely used, since each one adds tuples to the request." },
+      { "step": "Choose the display policy, then copy the three head tags in order so the preconnects come before the stylesheet link." },
+      { "step": "Paste the usage declarations and replace the guessed generic family with one that matches the design's fallback stack." }
+    ],
+    "whenToUse": "Reach for it when a Google Fonts request has to be written correctly rather than by trial and error, when a stylesheet link is returning an error after someone added a weight, or when a page needs the preconnect pair explained and placed. The ordering rules are the part that saves a debugging session. For self-hosted files instead of a hosted request, the {{font-face-generator|font-face generator}} writes the declarations and the {{font-loading-strategy-builder|font loading strategy builder}} sets the budget; to choose the faces themselves, the {{font-pairing-suggester|font pairing suggester}} and the {{google-fonts-pairing-picker|Google Fonts pairing picker}} work on the same catalogue.",
+    "faqs": [
+      {
+        "q": "Why does the order of weights matter in the URL?",
+        "a": "Because the API expects tuples in a documented order — italic flag first, then weight, both ascending — and rejects a request that does not match rather than sorting it for you. A hand-written URL often survives until a second weight is added, which is why the failure looks sudden."
+      },
+      {
+        "q": "What are the preconnect hints for?",
+        "a": "They open the connection to the font hosts before the browser reaches the stylesheet that names them. Without them, the DNS lookup and TLS handshake to the font host happen after the CSS is parsed, which delays the font on exactly the first paint where it matters. One hint is for the CSS host and one for the file host."
+      },
+      {
+        "q": "Can I request a variable font this way?",
+        "a": "The API supports it, but this tool does not, since it builds weight tuples from a fixed list. A variable family requested through the API still arrives as a range when the URL is written by hand; in this generator the alternative is to specify each weight individually, which costs more files for the same visual result."
+      },
+      {
+        "q": "Does adding families make the page slower?",
+        "a": "It adds files, not link tags. The URL length readout is a hint rather than a measurement: what actually matters is how many weights across how many families the request describes, since each combination is a separate download. Two families at two weights is a reasonable budget; four families at five weights is not."
+      },
+      {
+        "q": "What happens if a family name is misspelled?",
+        "a": "The stylesheet request fails and the browser falls back, usually with no visible error apart from the wrong typeface. Nothing in the tool checks the name against the service, so the suggested list or a quick check of the rendered page is the only verification before it ships."
+      }
+    ]
+  },
+  {
+    "slug": "system-font-stack-generator",
+    "keywords": [
+      "system font stack generator",
+      "system-ui",
+      "local fonts",
+      "generic family"
+    ],
+    "intro": "The system font stack generator writes zero-download stacks built from faces already installed on macOS, iOS, Windows, Android and Linux. Every non-generic entry is a real shipped system face, and the terminal generic keeps the stack working on anything not covered.",
+    "content": "The system font stack generator produces stacks that ask for nothing over the network, using only local fonts the operating system already has. That removes the download, the flash of unstyled text and the third-party connection in one decision, at the cost of the exact face being different on each platform.\n\nSix presets cover the common cases, and each one is a real stack rather than a description.\n\n- Modern UI leads with system-ui and -apple-system, then Segoe UI, Roboto, Helvetica Neue, Arial and Noto Sans before the generic, so each platform gets its own interface face.\n- Humanist uses Segoe UI, Helvetica Neue, Lucida Grande, Tahoma and Verdana for open apertures and a warmer voice than the default interface face.\n- Neo-grotesque runs Helvetica Neue, Helvetica, Arial and Liberation Sans, which is tight, neutral and predictable for dense interfaces.\n- Transitional serif stacks Charter, Bitstream Charter, Sitka Text, Cambria and Georgia, so a serif body text is available with no webfont at all.\n- Slab serif uses Roboto Slab, Rockwell and Courier New, the least reliably installed of the six and best treated as a display flavour.\n- Monospace leads with ui-monospace and SFMono-Regular, then SF Mono, Menlo, Consolas and Liberation Mono, which is where integer metrics matter for code and tabular data.\n\nThe panel reports the face count, the terminal generic family and, pointedly, zero network requests. For a design that has to survive offline, a locked-down device or a proxy that blocks font hosts, that is not a performance preference but the only kind of stack that renders at all. The last of those is the whole proposition: nothing about the first paint waits for a font, and no third-party host sits on the critical path. The trade is that the design is not identical between platforms, which is the intended behaviour of a system stack rather than a defect. The rendered face depends on the machine, and the preview says so under the sample, since the same page on a Mac and on Windows will show different letterforms two entries down the same stack.\n\nThree limits follow from the approach, and all three are consequences of choosing local fonts.\n\n- Metrics differ between the faces in a stack, so line breaks and block heights move between platforms, and no size-adjust is available here because there is no webfont to match against.\n- The terminal generic family decides the worst case, so a stack that ends in monospace makes a strong promise about anything unusual.\n- Name availability varies by version as well as by platform, so the least common entry in a stack can be years old on some machines and absent on others.\n- Nothing can be preloaded, since there is nothing to fetch, so the stack cannot be tuned for a faster first paint — it is already the fastest option available.\n- A stack is a single declaration with no at-rules behind it, which is why it is fast and also why it cannot express a weight, a style or a character range.",
+    "howTo": [
+      { "step": "Choose the preset that matches the voice the interface needs, then read the stack and confirm each entry is one you recognise as a shipped system face." },
+      { "step": "Check the terminal generic family, since that is what renders for a visitor whose platform has none of the named faces." },
+      { "step": "Type a sample line and compare the two preview sizes, remembering that the rendering you see is your own platform's." },
+      { "step": "Copy the declaration and, if the design depends on line breaks, verify the layout on a second operating system before shipping." }
+    ],
+    "whenToUse": "Reach for it when a page has no design reason to ship a webfont, when the first paint matters more than platform-identical letterforms, or when a project needs a serif or monospace voice without adding a single request. Zero requests is a design decision, not a compromise. Where exact letterforms do matter, the {{css-font-stack-builder|CSS font stack builder}} writes the chain around a chosen face, the {{font-loading-strategy-builder|font loading strategy builder}} budgets the files that follow, and the {{css-variable-font-builder|CSS variable font builder}} matches the fallback metrics so a swapped-in webfont does not move the layout.",
+    "faqs": [
+      {
+        "q": "Does a system stack really make no requests?",
+        "a": "None for the font itself. Every named entry is a face the operating system already ships, so the browser resolves the stack locally. There is no stylesheet, no font file and no third-party host involved, which removes both the download and the connection from the critical path."
+      },
+      {
+        "q": "Why does the design look different on another computer?",
+        "a": "Because the stack resolves to whatever that platform has installed, which is the point of the approach. A modern interface face on Windows and on macOS are different typefaces by design, each drawn for its platform's rendering. The layout is consistent while the letterforms are not."
+      },
+      {
+        "q": "What does system-ui resolve to?",
+        "a": "The operating system's own interface face, which is the safest single entry in a stack: on platforms that support it, it always resolves and always matches the surrounding interface. Its metrics differ from the named faces that follow it, so it is best used as the first entry rather than as a fallback."
+      },
+      {
+        "q": "Can I combine a system stack with a webfont?",
+        "a": "Yes, and that is a common production arrangement: the system entry renders immediately while the webfont loads, then the webfont takes over. For it to work without a visible jump, the fallback metrics need matching with size-adjust, which the variable font builder covers, since a system stack on its own cannot express that adjustment."
+      },
+      {
+        "q": "Which of the presets is least reliable?",
+        "a": "The slab serif, because Rockwell ships with some Windows editions and not others and Courier New is not a slab. Treat it as a display flavour with a monospace terminal rather than as a body stack, and check the rendering on the platforms the product actually supports."
+      }
+    ]
+  },
+  {
+    "slug": "font-loading-strategy-builder",
+    "keywords": [
+      "font loading strategy builder",
+      "preload",
+      "subsetting",
+      "font-display"
+    ],
+    "intro": "The font loading strategy builder does the arithmetic a font plan depends on: how many files a page asks for, how much they weigh, how many can be preloaded, and which of the loading trade-offs the project is choosing. Every extra weight is another request on the critical path.",
+    "content": "The font loading strategy builder turns a font plan into numbers. Families multiplied by weights gives the file count, the file count multiplied by the average file size gives the transfer, and a subsetting factor applied to that gives what the visitor actually downloads.\n\nFive decisions are made explicitly rather than left to default.\n\n- How many files are preloaded, which should be the ones used above the fold and nothing more, since preload is a hint that the request must start immediately.\n- The font-display policy, which decides what the visitor reads while the files arrive.\n- The subsetting approach, with typical reductions stated: latin only at roughly 35 per cent of the full size, latin extended at 55 per cent, and a unicode-range split at about 40 per cent, against no subsetting at all.\n- Where the files are hosted, self-hosted or through a third-party service.\n- The average file size, which is the one figure only the project can supply and the one that makes the total honest.\n\nThe verdict bands are deliberately blunt. One or two files with a single preload is lean. Up to four files is acceptable as long as the preload list stays at one or two. Beyond that the plan is heavy, and the advice is to consolidate weights or subset further rather than to add preloads. The tool also states the reason self-hosting is worth considering: a third-party host adds a DNS lookup and a TLS handshake on the critical path, and the service's availability becomes part of the page's. When a third-party host is chosen anyway, the preconnect hints become mandatory rather than optional, and the generated head markup includes them.\n\nThe outputs are the two blocks a page actually needs. The head markup contains the preconnect for the file host, a comment naming how many of the total files are being preloaded, and one preload link per chosen file with the font type and the crossorigin attribute. The style block writes one declaration per weight, each with its own URL, weight and display policy, and adds a character range when the unicode-range split was chosen. A strategy table then restates the plan as decisions with their reasons, which is the part to keep when the numbers change.\n\nWhat the tool cannot do is measure, and the plan is only as good as the figures entered.\n\n- The average file size is an estimate typed by hand, so the totals describe the assumption rather than the build.\n- The subsetting factors are typical reductions — roughly 35 per cent for latin, 55 for latin extended and 40 for a unicode-range split — rather than measurements of the project's own files.\n- Nothing checks that the paths in the generated markup exist, or that a preloaded file is the one the first screen actually uses.\n- The display policy is recorded as a decision with its trade-off rather than verified, so the result still has to be watched on a slow connection.\n- Layout shift is described rather than measured, since removing it depends on matching the fallback metrics in the declarations themselves.",
+    "howTo": [
+      { "step": "Enter the families and weights the design really uses, since the file count is their product and is the first thing the verdict reacts to." },
+      { "step": "Enter an average file size from the project's own files rather than the default, so the totals describe this site." },
+      { "step": "Choose subsetting and the display policy, then read the verdict and the totals before and after subsetting." },
+      { "step": "Set how many files are preloaded — the above-the-fold ones only — and copy the head markup before the style block." }
+    ],
+    "whenToUse": "Reach for it when a page has accumulated weights over several iterations and nobody has counted the files, when a product decision about a third-party font host has to be argued with numbers, or when subsetting is being considered and the size reduction needs an estimate before the work. The file count is the number to watch. For the declarations themselves the {{font-face-generator|font-face generator}} writes them one at a time, the {{css-variable-font-builder|CSS variable font builder}} collapses several weights into one file, and the {{system-font-stack-generator|system font stack generator}} removes the requests entirely.",
+    "faqs": [
+      {
+        "q": "How many font files should a page load?",
+        "a": "As few as the design allows, and the tool's verdict calls one or two files lean and anything past four heavy. Each file is a request on the critical path, so a plan with six weights across two families is twelve requests unless the weights are consolidated into a variable file or dropped."
+      },
+      {
+        "q": "What should be preloaded?",
+        "a": "Only the files used above the fold, usually a single body weight and sometimes one heading weight. Preload tells the browser to start the request immediately and at high priority, so adding more files to that list competes with the images and scripts the first screen also needs."
+      },
+      {
+        "q": "How much does subsetting save?",
+        "a": "The tool uses typical figures: about a third of the size for latin only, a little over half for latin extended, and around 40 per cent for a unicode-range split. The real saving depends on the file, so the estimate is there to justify the work rather than to replace measuring the result."
+      },
+      {
+        "q": "Why is a third-party font host a bigger decision than it looks?",
+        "a": "Because it adds a domain to resolve and a connection to open before the font can arrive, and the page's rendering then depends on someone else's uptime and response headers. Preconnect mitigates the handshake but not the dependency, which is why self-hosting is worth costing out at the same time."
+      },
+      {
+        "q": "Which display policy fits an e-commerce page?",
+        "a": "Swap in most cases, because readable text immediately is worth one re-render, and a product name that is invisible for a moment costs more than a change of letterforms. Optional is worth considering where any movement is unacceptable, accepting that a slow connection may never show the webfont."
+      }
+    ]
+  }
+]

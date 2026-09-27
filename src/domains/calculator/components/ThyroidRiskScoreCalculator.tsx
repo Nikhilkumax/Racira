@@ -1,441 +1,827 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { ChevronDown, Printer, RotateCcw, Activity } from "lucide-react";
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip, ResponsiveContainer } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-// 1. TypeScript Interfaces
-interface ThyroidInputs {
-  age: number;
-  sex: "female" | "male";
-  familyHistory: boolean;
-  symptoms: string[];
+type Pattern = "hypo" | "hyper";
+
+interface Symptom {
+  id: string;
+  label: string;
+  pattern: Pattern;
+  weight: number;
 }
 
-interface ThyroidResults {
-  hypoScore: number;
-  hyperScore: number;
-  overallRisk: "Low Risk" | "Moderate Hypothyroidism Risk" | "High Hypothyroidism Risk" | "Moderate Hyperthyroidism Risk" | "High Hyperthyroidism Risk" | "Mixed/Complex Risk";
-  recommendation: string;
-
-  chartData: { subject: string; score: number; fullMark: number }[];
-  summaryStats: { label: string; value: string; colorClass?: string }[];
-}
-
-// Symptom Definitions
-const SYMPTOMS = [
-  // Hypo Symptoms
-  { id: "fatigue", label: "Unexplained Fatigue / Lethargy", type: "hypo", weight: 2 },
-  { id: "weight_gain", label: "Unexplained Weight Gain", type: "hypo", weight: 2 },
-  { id: "cold_intol", label: "Cold Intolerance (always freezing)", type: "hypo", weight: 2 },
-  { id: "dry_skin", label: "Dry Skin / Brittle Nails", type: "hypo", weight: 1 },
-  { id: "hair_loss", label: "Hair Thinning / Loss", type: "hypo", weight: 1 },
-  { id: "constipation", label: "Chronic Constipation", type: "hypo", weight: 1 },
-  { id: "depression", label: "Depression / Brain Fog", type: "hypo", weight: 1 },
-  
-  // Hyper Symptoms
-  { id: "weight_loss", label: "Unexplained Weight Loss", type: "hyper", weight: 2 },
-  { id: "rapid_heart", label: "Rapid Heart Rate / Palpitations", type: "hyper", weight: 2 },
-  { id: "heat_intol", label: "Heat Intolerance / Excessive Sweating", type: "hyper", weight: 2 },
-  { id: "anxiety", label: "Severe Anxiety / Nervousness", type: "hyper", weight: 1 },
-  { id: "tremors", label: "Hand Tremors / Shaking", type: "hyper", weight: 2 },
-  { id: "insomnia", label: "Insomnia / Trouble Sleeping", type: "hyper", weight: 1 },
-  { id: "frequent_bm", label: "Frequent Bowel Movements", type: "hyper", weight: 1 }
+/**
+ * Symptom weights follow the classic underactive / overactive split used in
+ * clinical scoring questionnaires: the two or three symptoms that most strongly
+ * point at each direction carry double weight, the rest single weight.
+ */
+const SYMPTOMS: Symptom[] = [
+  { id: "fatigue", label: "Unexplained fatigue or lethargy", pattern: "hypo", weight: 2 },
+  { id: "weight-gain", label: "Weight gain without a change in diet", pattern: "hypo", weight: 2 },
+  { id: "cold-intolerance", label: "Feeling cold when others are comfortable", pattern: "hypo", weight: 2 },
+  { id: "dry-skin", label: "Dry skin or brittle nails", pattern: "hypo", weight: 1 },
+  { id: "hair-loss", label: "Hair thinning or loss", pattern: "hypo", weight: 1 },
+  { id: "constipation", label: "Chronic constipation", pattern: "hypo", weight: 1 },
+  { id: "brain-fog", label: "Depression or brain fog", pattern: "hypo", weight: 1 },
+  { id: "weight-loss", label: "Weight loss without trying", pattern: "hyper", weight: 2 },
+  { id: "palpitations", label: "Rapid heart rate or palpitations", pattern: "hyper", weight: 2 },
+  { id: "heat-intolerance", label: "Heat intolerance or excessive sweating", pattern: "hyper", weight: 2 },
+  { id: "tremor", label: "Hand tremor or shakiness", pattern: "hyper", weight: 2 },
+  { id: "anxiety", label: "Anxiety or nervousness", pattern: "hyper", weight: 1 },
+  { id: "insomnia", label: "Insomnia or trouble staying asleep", pattern: "hyper", weight: 1 },
+  { id: "frequent-bowel", label: "Frequent bowel movements", pattern: "hyper", weight: 1 },
 ];
 
-// 2. Pure Calculation Function
-const calculateThyroidRisk = (inputs: ThyroidInputs): ThyroidResults | null => {
-  const { age, sex, familyHistory, symptoms } = inputs;
-  
-  if (age <= 0) return null;
+interface LifeContext {
+  key: string;
+  label: string;
+  hypo: number;
+  hyper: number;
+  note: string;
+}
 
-  let hypoScore = 0;
-  let hyperScore = 0;
+/** Recognised periods of thyroid risk that shift either pattern. */
+const CONTEXTS: LifeContext[] = [
+  { key: "none", label: "None of these", hypo: 0, hyper: 0, note: "No additional period of risk applied." },
+  {
+    key: "pregnancy",
+    label: "Currently pregnant",
+    hypo: 0,
+    hyper: 1,
+    note: "Gestational hyperthyroidism from hCG stimulation is common in the first trimester.",
+  },
+  {
+    key: "postpartum",
+    label: "Gave birth within the last 12 months",
+    hypo: 2,
+    hyper: 0,
+    note: "Postpartum thyroiditis peaks three to six months after delivery and usually presents as an underactive phase.",
+  },
+  {
+    key: "menopause",
+    label: "Perimenopausal or menopausal",
+    hypo: 1,
+    hyper: 0,
+    note: "Thyroid disease and menopausal symptoms overlap heavily, and underactive patterns become more common.",
+  },
+];
 
-  // Base Risk Factors
-  if (sex === "female") {
-    hypoScore += 1;
-    hyperScore += 1;
-  }
-  if (age > 60) {
-    hypoScore += 1; // Hypo is much more common in elderly females
-  }
-  if (familyHistory) {
-    hypoScore += 2;
-    hyperScore += 2;
-  }
+interface ThyroidInputs {
+  age: number;
+  sex: string;
+  familyHistory: string;
+  context: string;
+  symptoms: string[];
+  decimals: number;
+}
 
-  // Calculate Symptom Scores
-  symptoms.forEach(sympId => {
-    const symptom = SYMPTOMS.find(s => s.id === sympId);
-    if (symptom) {
-      if (symptom.type === "hypo") hypoScore += symptom.weight;
-      if (symptom.type === "hyper") hyperScore += symptom.weight;
-    }
+const DEFAULTS: ThyroidInputs = {
+  age: 45,
+  sex: "female",
+  familyHistory: "no",
+  context: "none",
+  symptoms: [],
+  decimals: 0,
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}
+
+interface ThyroidResult {
+  valid: boolean;
+  errorMsg: string;
+  hypoScore: number;
+  hyperScore: number;
+  hypoMax: number;
+  hyperMax: number;
+  hypoPct: number;
+  hyperPct: number;
+  demographicHypo: number;
+  demographicHyper: number;
+  symptomHypo: number;
+  symptomHyper: number;
+  selectedCount: number;
+  pattern: string;
+  patternKey: "mixed" | "hypo-high" | "hyper-high" | "hypo-moderate" | "hyper-moderate" | "low";
+  patternColor: string;
+  recommendation: string;
+  nextStep: string;
+  breakdown: BreakdownRow[];
+}
+
+function calculateThyroid(input: ThyroidInputs): ThyroidResult {
+  const context = CONTEXTS.find((c) => c.key === input.context) || CONTEXTS[0];
+
+  const blank = (errorMsg: string): ThyroidResult => ({
+    valid: false,
+    errorMsg,
+    hypoScore: 0,
+    hyperScore: 0,
+    hypoMax: 0,
+    hyperMax: 0,
+    hypoPct: 0,
+    hyperPct: 0,
+    demographicHypo: 0,
+    demographicHyper: 0,
+    symptomHypo: 0,
+    symptomHyper: 0,
+    selectedCount: 0,
+    pattern: "",
+    patternKey: "low",
+    patternColor: "text-muted-foreground",
+    recommendation: "",
+    nextStep: "",
+    breakdown: [],
   });
 
-  // Determine Category
-  let overallRisk: ThyroidResults["overallRisk"] = "Low Risk";
-  let recommendation = "Your symptom profile does not currently indicate high risk for thyroid dysfunction. However, consult a doctor if you feel unwell.";
-  let color = "hsl(var(--primary))";
+  if (!Number.isFinite(input.age) || input.age <= 0) return blank("Enter an age above zero to score the risk profile.");
+  if (input.age > 120) return blank("Enter an age of 120 or below.");
 
-  const maxHypo = 13; // Max possible is 10 from symptoms + 3 from demographics
-  const maxHyper = 14; 
+  const d = Math.max(0, Math.min(2, input.decimals));
+  const female = input.sex === "female";
+  const family = input.familyHistory === "yes";
+  const older = input.age > 60;
 
-  const hypoPct = (hypoScore / maxHypo) * 100;
-  const hyperPct = (hyperScore / maxHyper) * 100;
+  const symptomRows = SYMPTOMS.filter((s) => input.symptoms.includes(s.id));
+  const symptomHypo = symptomRows.filter((s) => s.pattern === "hypo").reduce((sum, s) => sum + s.weight, 0);
+  const symptomHyper = symptomRows.filter((s) => s.pattern === "hyper").reduce((sum, s) => sum + s.weight, 0);
 
-  if (hypoPct > 50 && hyperPct > 50) {
-    overallRisk = "Mixed/Complex Risk";
-    recommendation = "You have significant symptoms of both overactive and underactive thyroid, which can occur in autoimmune conditions like Hashimoto's during flare-ups. A full thyroid panel (TSH, Free T3, Free T4) is highly recommended.";
-    color = "#f59e0b"; // amber
+  // Demographic and life-stage loading: autoimmunity that attacks the thyroid is
+  // far more common in women, in first-degree relatives and around childbirth.
+  const demographicHypo = (female ? 1 : 0) + (older ? 1 : 0) + (family ? 2 : 0) + context.hypo;
+  const demographicHyper = (female ? 1 : 0) + (family ? 2 : 0) + context.hyper;
+
+  const hypoScore = symptomHypo + demographicHypo;
+  const hyperScore = symptomHyper + demographicHyper;
+
+  const maxHypoSymptoms = SYMPTOMS.filter((s) => s.pattern === "hypo").reduce((sum, s) => sum + s.weight, 0);
+  const maxHyperSymptoms = SYMPTOMS.filter((s) => s.pattern === "hyper").reduce((sum, s) => sum + s.weight, 0);
+  const maxContextHypo = Math.max(...CONTEXTS.map((c) => c.hypo));
+  const maxContextHyper = Math.max(...CONTEXTS.map((c) => c.hyper));
+  const hypoMax = maxHypoSymptoms + 1 + 1 + 2 + maxContextHypo;
+  const hyperMax = maxHyperSymptoms + 1 + 2 + maxContextHyper;
+
+  const hypoPct = (hypoScore / hypoMax) * 100;
+  const hyperPct = (hyperScore / hyperMax) * 100;
+
+  let patternKey: ThyroidResult["patternKey"] = "low";
+  let pattern = "No clear pattern";
+  let patternColor = "text-muted-foreground";
+  let recommendation =
+    "The symptoms you reported do not currently point in either direction. Two or three persistent symptoms are still worth a conversation with a clinician, and asking for a thyroid panel is reasonable if the symptoms last more than a few weeks.";
+  let nextStep = "Track the symptoms for a few weeks and retest before requesting tests.";
+
+  if (hypoPct >= 60 && hyperPct >= 60) {
+    patternKey = "mixed";
+    pattern = "Mixed / complex pattern";
+    patternColor = "text-orange-600";
+    recommendation =
+      "You reported substantial symptoms in both directions. That combination is typical of autoimmune thyroiditis, where the gland releases stored hormone during a flare before settling into an underactive phase, and it can also reflect two unrelated problems at once.";
+    nextStep = "Ask for TSH, free T4, free T3 and the TPO and Tg antibodies, since antibodies separate autoimmune disease from a transient swing.";
   } else if (hypoPct >= 60) {
-    overallRisk = "High Hypothyroidism Risk";
-    recommendation = "Your symptoms strongly align with an underactive thyroid (Hypothyroidism). You should request a blood test from your doctor measuring TSH and Free T4.";
-    color = "#3b82f6"; // blue
+    patternKey = "hypo-high";
+    pattern = "Strong underactive pattern";
+    patternColor = "text-red-600";
+    recommendation =
+      "Your symptom profile aligns closely with an underactive thyroid: fatigue, weight gain, cold intolerance and constipation in combination are the classic presentation, and they appear together more often in hypothyroidism than in any other common condition.";
+    nextStep = "Request TSH and free T4 as the first tests, with TPO antibodies added if TSH is raised.";
   } else if (hyperPct >= 60) {
-    overallRisk = "High Hyperthyroidism Risk";
-    recommendation = "Your symptoms strongly align with an overactive thyroid (Hyperthyroidism). You should request a blood test from your doctor immediately, as this can affect your heart.";
-    color = "#ef4444"; // red
+    patternKey = "hyper-high";
+    pattern = "Strong overactive pattern";
+    patternColor = "text-red-600";
+    recommendation =
+      "Your symptom profile aligns closely with an overactive thyroid. Weight loss with a fast heart rate, heat intolerance and tremor is a combination worth investigating promptly, because untreated hyperthyroidism puts sustained strain on the heart.";
+    nextStep = "Request TSH, free T4 and free T3 without delay, and mention palpitations to the clinician.";
   } else if (hypoPct >= 30) {
-    overallRisk = "Moderate Hypothyroidism Risk";
-    recommendation = "You have a few symptoms of an underactive thyroid. If these persist and affect your quality of life, a routine thyroid check is a good idea.";
-    color = "#3b82f6";
+    patternKey = "hypo-moderate";
+    pattern = "Mild underactive pattern";
+    patternColor = "text-orange-600";
+    recommendation =
+      "A few features point towards an underactive thyroid, but not enough for the pattern to be convincing on its own. Many of these symptoms also accompany anaemia, low iron, sleep debt, depression and perimenopause.";
+    nextStep = "If the symptoms persist beyond a few weeks, ask for TSH and free T4 alongside a full blood count and ferritin.";
   } else if (hyperPct >= 30) {
-    overallRisk = "Moderate Hyperthyroidism Risk";
-    recommendation = "You have a few symptoms of an overactive thyroid. Monitor your heart rate and weight, and consult a doctor if symptoms worsen.";
-    color = "#ef4444";
+    patternKey = "hyper-moderate";
+    pattern = "Mild overactive pattern";
+    patternColor = "text-orange-600";
+    recommendation =
+      "A few features point towards an overactive thyroid. On its own that is not alarming, but a rising resting heart rate, unexplained weight loss or a new tremor should not be left to settle by itself.";
+    nextStep = "Check your resting pulse for a week and ask for TSH and free T4 if the symptoms build.";
   }
 
-  const chartData = [
-    { subject: 'Hypo Risk Factors', score: hypoPct, fullMark: 100 },
-    { subject: 'Hyper Risk Factors', score: hyperPct, fullMark: 100 },
-    { subject: 'Family History', score: familyHistory ? 100 : 0, fullMark: 100 },
-    { subject: 'Demographic Risk', score: sex === "female" ? (age > 60 ? 100 : 60) : 20, fullMark: 100 }
-  ];
+  const dominantLabel = hypoPct >= hyperPct ? "underactive" : "overactive";
+  const dominantPct = Math.max(hypoPct, hyperPct);
+  const selectedCount = symptomRows.length;
 
-  const summaryStats = [
-    { label: "Hypothyroid Indication", value: `${Math.round(hypoPct)}%`, colorClass: "text-blue-500 font-bold" },
-    { label: "Hyperthyroid Indication", value: `${Math.round(hyperPct)}%`, colorClass: "text-red-500 font-bold" },
-    { label: "Clinical Risk Status", value: overallRisk, colorClass: `text-[${color}] font-black` },
-    { label: "Reported Symptoms", value: `${symptoms.length} items` }
+  const breakdown: BreakdownRow[] = [
+    { label: "Age band used", value: `${fmt(input.age, 0)} years${older ? " — over 60, which raises the underactive loading" : ""}` },
+    { label: "Biological sex", value: `${female ? "Female — autoimmune thyroid disease is five to eight times more common" : "Male"}` },
+    { label: "Family history of thyroid disease", value: family ? "Yes — first-degree relatives carry a much higher risk" : "No" },
+    { label: "Life stage adjustment", value: `${context.label} — ${context.note}` },
+    { label: "Points from demography and life stage", value: `${fmt(demographicHypo, 0)} underactive · ${fmt(demographicHyper, 0)} overactive` },
+    {
+      label: `Symptoms reported (${fmt(selectedCount, 0)} of ${fmt(SYMPTOMS.length, 0)})`,
+      value: `${fmt(symptomHypo, 0)} underactive points · ${fmt(symptomHyper, 0)} overactive points`,
+    },
+    ...symptomRows.map((s) => ({
+      label: s.label,
+      value: `${s.pattern === "hypo" ? "Underactive" : "Overactive"} · ${fmt(s.weight, 0)} point${s.weight === 1 ? "" : "s"}`,
+    })),
+    { label: "Underactive score", value: `${fmt(hypoScore, 0)} of ${fmt(hypoMax, 0)} points · ${fmt(hypoPct, 1)}%`, highlight: true },
+    { label: "Overactive score", value: `${fmt(hyperScore, 0)} of ${fmt(hyperMax, 0)} points · ${fmt(hyperPct, 1)}%`, highlight: true },
+    { label: "Dominant direction", value: `${dominantLabel} at ${fmt(dominantPct, 1)}% of the maximum` },
+    { label: "Thresholds used", value: "60% of the maximum for a strong pattern, 30% for a mild one" },
+    { label: "Classified pattern", value: pattern, highlight: true },
   ];
 
   return {
+    valid: true,
+    errorMsg: "",
     hypoScore,
     hyperScore,
-    overallRisk,
+    hypoMax,
+    hyperMax,
+    hypoPct,
+    hyperPct,
+    demographicHypo,
+    demographicHyper,
+    symptomHypo,
+    symptomHyper,
+    selectedCount,
+    pattern,
+    patternKey,
+    patternColor,
     recommendation,
-    chartData,
-    summaryStats
+    nextStep,
+    breakdown,
   };
-};
+}
 
-// 3. DEFAULTS Object
-const DEFAULTS = {
-  age: "45",
-  sex: "female" as const,
-  familyHistory: false,
-  symptoms: [] as string[]
-};
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
 
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
-        <p className="font-bold mb-0.5" style={{ color: "hsl(var(--primary))" }}>{payload[0].payload.subject}</p>
-        <p className="text-muted-foreground">Relative Intensity: {Math.round(payload[0].value)}%</p>
-      </div>
-    );
-  }
-  return null;
-};
-
-// Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
       <input
         id={id}
         type={type}
         value={value}
+        min={min}
+        max={max}
+        step={step}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </div>
   </div>
 );
 
-// Checkbox Component
-const CheckboxInput = ({ label, checked, onChange, isHyper }: any) => (
-  <label className="flex items-start gap-2 text-sm font-medium text-foreground cursor-pointer group p-2 rounded-md hover:bg-secondary/50 transition-colors">
-    <div className={`w-5 h-5 mt-0.5 rounded border flex items-center justify-center shrink-0 transition-colors ${checked ? (isHyper ? 'bg-red-500 border-red-500 text-white' : 'bg-blue-500 border-blue-500 text-white') : 'border-input bg-background group-hover:border-primary/50'}`}>
-      {checked && <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-    </div>
-    <span className="select-none leading-tight pt-0.5">{label}</span>
-  </label>
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
+const SymptomChip = ({
+  symptom,
+  selected,
+  onToggle,
+}: {
+  symptom: Symptom;
+  selected: boolean;
+  onToggle: () => void;
+}) => (
+  <button
+    type="button"
+    aria-pressed={selected}
+    onClick={onToggle}
+    className={`w-full text-left rounded-md border px-3 py-2 text-[13px] font-medium leading-tight transition-all ${
+      selected
+        ? symptom.pattern === "hypo"
+          ? "border-blue-500 bg-blue-500/10 text-foreground"
+          : "border-red-500 bg-red-500/10 text-foreground"
+        : "border-border bg-background text-muted-foreground hover:border-primary/40"
+    }`}
+  >
+    <span className="block">{symptom.label}</span>
+    <span className="block text-[10px] uppercase tracking-wide text-muted-foreground mt-0.5">
+      {symptom.pattern === "hypo" ? "Underactive" : "Overactive"} · {symptom.weight} pt
+    </span>
+  </button>
 );
 
 export default function ThyroidRiskScoreCalculator() {
-  // 4. Component State
-  const [age, setAge] = useState(DEFAULTS.age);
-  const [sex, setSex] = useState<"female" | "male">(DEFAULTS.sex);
-  const [familyHistory, setFamilyHistory] = useState(DEFAULTS.familyHistory);
+  const [age, setAge] = useState(String(DEFAULTS.age));
+  const [sex, setSex] = useState<string>(DEFAULTS.sex);
+  const [familyHistory, setFamilyHistory] = useState<string>(DEFAULTS.familyHistory);
+  const [context, setContext] = useState<string>(DEFAULTS.context);
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>(DEFAULTS.symptoms);
-  
-  const [results, setResults] = useState<ThyroidResults | null>(null);
-  const printRef = useRef<HTMLDivElement>(null);
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
   const toggleSymptom = (id: string) => {
-    if (selectedSymptoms.includes(id)) {
-      setSelectedSymptoms(selectedSymptoms.filter(s => s !== id));
-    } else {
-      setSelectedSymptoms([...selectedSymptoms, id]);
-    }
+    setSelectedSymptoms((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]));
   };
 
-  const handleCalculate = () => {
-    const inputs: ThyroidInputs = {
-      age: parseInt(age) || 0,
-      sex,
-      familyHistory,
-      symptoms: selectedSymptoms
-    };
-    setResults(calculateThyroidRisk(inputs));
+  const getInputs = (): ThyroidInputs => ({
+    age: parseInt(age) || 0,
+    sex,
+    familyHistory,
+    context,
+    symptoms: selectedSymptoms,
+    decimals: parseFloat(decimals),
+  });
+
+  const [calcInputs, setCalcInputs] = useState<ThyroidInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<ThyroidResult>(() => calculateThyroid(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateThyroid(inputs));
   };
 
-  const handleReset = () => {
-    setAge(DEFAULTS.age);
+  const reset = () => {
+    setAge(String(DEFAULTS.age));
     setSex(DEFAULTS.sex);
     setFamilyHistory(DEFAULTS.familyHistory);
+    setContext(DEFAULTS.context);
     setSelectedSymptoms([]);
-    setResults(null);
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateThyroid(DEFAULTS));
   };
 
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [age, sex, familyHistory, selectedSymptoms]);
-
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Thyroid Risk Assessment</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+  const ageNum = parseInt(age);
+  const errors = {
+    age: !Number.isFinite(ageNum) || ageNum <= 0 || ageNum > 120 ? "Enter an age from 1 to 120" : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
+
+  const hypoPct = results.hypoPct;
+  const hyperPct = results.hyperPct;
+  const dominantIsHypo = hypoPct >= hyperPct;
 
   const faqs = [
-    { question: "What is the difference between Hypothyroidism and Hyperthyroidism?", answer: "Hypothyroidism means your thyroid is underactive; it doesn't produce enough hormone, causing your metabolism to slow down (leading to fatigue, weight gain, and feeling cold). Hyperthyroidism means your thyroid is overactive, producing too much hormone and driving your metabolism too fast (causing weight loss, rapid heart rate, and anxiety)." },
-    { question: "Is this calculator a diagnostic tool?", answer: "No. This tool provides an educational risk assessment based on clinical symptom profiles. Thyroid disorders share symptoms with many other conditions (like menopause, depression, or anemia). A formal diagnosis requires a blood test measuring TSH, Free T3, and Free T4 levels." },
-    { question: "Why does gender matter for thyroid risk?", answer: "Women are five to eight times more likely to develop thyroid problems than men. Autoimmune conditions that attack the thyroid, such as Hashimoto's disease and Graves' disease, have a strong predilection for females, particularly during hormonal shifts like pregnancy or menopause." },
-    { question: "Can I have symptoms of both at the same time?", answer: "Yes, this is known as a 'Mixed' or 'Complex' risk profile. In autoimmune thyroiditis (Hashimoto's), the immune system attacks the thyroid. As the thyroid cells are destroyed, they can dump stored hormone into the bloodstream, causing a temporary hyperthyroid 'flare' before settling into chronic hypothyroidism." },
-    { question: "What should I ask my doctor to test for?", answer: "Do not let a doctor test only 'TSH'. Request a 'Full Thyroid Panel', which includes TSH, Free T4, Free T3, and Thyroid Antibodies (TPOAb and TgAb) to check for autoimmune disease." }
+    {
+      question: "What is the difference between hypothyroidism and hyperthyroidism?",
+      answer:
+        "An underactive thyroid does not make enough hormone, so metabolism slows and the usual picture is fatigue, weight gain, cold intolerance, constipation and low mood. An overactive thyroid makes too much, so metabolism speeds up and the picture is weight loss, a fast or irregular heartbeat, heat intolerance, sweating and tremor. Both are diagnosed from blood tests rather than from symptoms, because the two profiles overlap with each other and with several unrelated conditions.",
+    },
+    {
+      question: "Is this calculator a diagnosis?",
+      answer:
+        "No. It is an educational way of seeing whether your symptoms cluster in one direction strongly enough to justify asking for a thyroid panel. Thyroid disease shares its symptoms with anaemia, iron deficiency, sleep deprivation, depression, perimenopause and simple overwork, so the tests are what matter. A high score here is a reason to make an appointment, not a result to act on by yourself.",
+    },
+    {
+      question: "Why do sex, age and family history carry points?",
+      answer:
+        "Because they change how likely thyroid disease is before any symptom is considered. Autoimmune thyroid conditions such as Hashimoto's thyroiditis and Graves' disease are five to eight times more common in women, a first-degree relative with thyroid disease raises your own risk substantially, and underactive patterns become more common with age. Those loadings are small next to the symptom points on purpose: they shift the odds, they do not decide the picture.",
+    },
+    {
+      question: "Can both patterns be present at the same time?",
+      answer:
+        "Yes, and it is a recognised stage rather than a contradiction. In Hashimoto's thyroiditis the immune attack destroys thyroid tissue, and when stored hormone leaks out of the damaged gland the person can swing temporarily overactive before settling into a chronic underactive phase. In that situation the antibody tests, particularly TPO and Tg, are what separate autoimmune thyroid disease from a one-off episode.",
+    },
+    {
+      question: "Which tests should I ask for?",
+      answer:
+        "Start with TSH and free T4, which are the two tests that define an underactive or overactive state. Add free T3 if the TSH result does not explain how you feel, and add TPO and Tg antibodies if autoimmune disease is suspected, since the antibody result is often positive years before the hormone levels move. A full blood count and ferritin are worth doing at the same time, because iron deficiency produces a very similar fatigue and cold intolerance.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Thyroid Risk Score Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Health", href: "/calculator#health" },
+          { label: "Thyroid Risk Score Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Thyroid Risk Score Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[560px_1fr] gap-6 items-start max-w-[1280px]">
-          
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mb-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Activity className="h-4 w-4" /> Endocrine Symptom Profiler
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="About You">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="age"
+                  label="Age"
+                  value={age}
+                  onChange={setAge}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="120"
+                  step="1"
+                  suffix="years"
+                  error={errors.age}
+                  tooltip="Age over 60 carries one extra point on the underactive side."
+                />
+                <CompactSelect
+                  id="sex"
+                  label="Biological Sex"
+                  value={sex}
+                  onChange={setSex}
+                  options={[
+                    { value: "female", label: "Female" },
+                    { value: "male", label: "Male" },
+                  ]}
+                  tooltip="Autoimmune thyroid disease is five to eight times more common in women."
+                />
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Select your demographics and any current, unexplained symptoms to calculate your relative risk for Hypothyroidism vs Hyperthyroidism.</p>
-            </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactSelect
+                  id="family"
+                  label="Family History"
+                  value={familyHistory}
+                  onChange={setFamilyHistory}
+                  options={[
+                    { value: "no", label: "No" },
+                    { value: "yes", label: "Yes" },
+                  ]}
+                  tooltip="A first-degree relative with thyroid disease, including a parent, sibling or child."
+                />
+                <CompactSelect
+                  id="context"
+                  label="Life Stage"
+                  value={context}
+                  onChange={setContext}
+                  options={CONTEXTS.map((c) => ({ value: c.key, label: c.label }))}
+                  tooltip="Recognised periods when thyroid risk rises: pregnancy, the year after birth and the menopause transition."
+                />
+              </div>
+            </SubSection>
 
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput id="age" label="Patient Age" value={age} onChange={setAge} suffix="years" />
-              <div className="flex flex-col">
-                <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Biological Sex</label>
-                <div className="flex p-1 bg-secondary rounded-lg border border-border">
-                  <button type="button" onClick={() => setSex("female")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${sex === "female" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Female</button>
-                  <button type="button" onClick={() => setSex("male")} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${sex === "male" ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Male</button>
+            <SubSection title="Symptoms You Have Now">
+              <div className="grid grid-cols-2 gap-3">
+                {SYMPTOMS.filter((s) => s.pattern === "hypo").map((s) => (
+                  <SymptomChip
+                    key={s.id}
+                    symptom={s}
+                    selected={selectedSymptoms.includes(s.id)}
+                    onToggle={() => toggleSymptom(s.id)}
+                  />
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                {SYMPTOMS.filter((s) => s.pattern === "hyper").map((s) => (
+                  <SymptomChip
+                    key={s.id}
+                    symptom={s}
+                    selected={selectedSymptoms.includes(s.id)}
+                    onToggle={() => toggleSymptom(s.id)}
+                  />
+                ))}
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="2"
+                        step="1"
+                        tooltip="Decimal places used for the percentage scores."
+                      />
+                      <div className="flex flex-col justify-center">
+                        <span className="text-[11px] text-muted-foreground">
+                          Scores are shown as a share of the maximum, so a long list of mild symptoms outranks a single strong one.
+                        </span>
+                      </div>
+                    </div>
+                  </SubSection>
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className="flex flex-col mb-2">
-              <label className="flex items-center text-sm font-semibold text-foreground mb-1.5">Family History of Thyroid Disease?</label>
-              <div className="flex p-1 bg-secondary rounded-lg border border-border">
-                <button type="button" onClick={() => setFamilyHistory(true)} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${familyHistory === true ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>Yes</button>
-                <button type="button" onClick={() => setFamilyHistory(false)} className={`flex-1 py-1.5 text-sm font-bold rounded-md transition-all ${familyHistory === false ? "bg-background shadow-sm text-primary" : "text-muted-foreground"}`}>No</button>
-              </div>
-            </div>
-
-            <div className="h-px bg-border my-2"></div>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              {/* Hypo List */}
-              <div className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-blue-500 border-b border-border pb-2 mb-1">Underactive Symptoms</h3>
-                {SYMPTOMS.filter(s => s.type === "hypo").map(s => (
-                  <CheckboxInput key={s.id} label={s.label} checked={selectedSymptoms.includes(s.id)} onChange={() => toggleSymptom(s.id)} isHyper={false} />
-                ))}
-              </div>
-
-              {/* Hyper List */}
-              <div className="flex flex-col gap-2">
-                <h3 className="text-sm font-bold text-red-500 border-b border-border pb-2 mb-1">Overactive Symptoms</h3>
-                {SYMPTOMS.filter(s => s.type === "hyper").map(s => (
-                  <CheckboxInput key={s.id} label={s.label} checked={selectedSymptoms.includes(s.id)} onChange={() => toggleSymptom(s.id)} isHyper={true} />
-                ))}
-              </div>
-            </div>
-
-            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-              <button type="button" onClick={handleCalculate} className="flex-1 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 h-10 transition-colors flex items-center justify-center font-bold text-sm">
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Calculate
               </button>
-              <button type="button" onClick={handleReset} className="w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center" aria-label="Reset">
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
                 <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
-          <div className="flex flex-col gap-4">
-            {results ? (
-              <div ref={printRef} className="flex flex-col gap-4">
-                
-                {/* 1. Primary Result Card */}
-                <div className={`border-l-4 rounded-lg p-5 relative ${
-                  results.overallRisk.includes("Hyper") ? "bg-red-500/10 border-red-500" :
-                  results.overallRisk.includes("Hypo") ? "bg-blue-500/10 border-blue-500" :
-                  results.overallRisk.includes("Mixed") ? "bg-amber-500/10 border-amber-500" :
-                  "bg-primary/10 border-primary"
-                }`}>
-                  <button onClick={handlePrint} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors print:hidden" aria-label="Print Results">
-                    <Printer className="h-4 w-4" />
-                  </button>
-                  <div className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: results.overallRisk.includes("Hyper") ? "#ef4444" : results.overallRisk.includes("Hypo") ? "#3b82f6" : results.overallRisk.includes("Mixed") ? "#f59e0b" : "hsl(var(--primary))" }}>
-                    Clinical Risk Category
-                  </div>
-                  <div className="text-3xl font-black text-foreground tracking-tight mb-3">
-                    {results.overallRisk}
-                  </div>
-                  <p className="text-sm font-medium text-foreground/80 leading-relaxed max-w-md">
-                    <strong>Recommendation:</strong> {results.recommendation}
-                  </p>
-                </div>
-
-                <div className="grid lg:grid-cols-2 gap-4">
-                  {/* 3. Breakdown Table */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 h-full">
-                    <h3 className="text-base font-bold mb-4">Risk Profile Summary</h3>
-                    <div className="grid grid-cols-1 gap-y-4 text-sm">
-                      {results.summaryStats.map((stat, i) => (
-                        <div key={i} className="flex justify-between items-center border-b border-border/40 pb-2 last:border-0 last:pb-0">
-                          <span className="text-muted-foreground">{stat.label}:</span>
-                          <span className={`font-semibold ${stat.colorClass || ''}`}>{stat.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 4. Chart */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center h-full min-h-[280px]">
-                    <h3 className="text-base font-bold mb-2 w-full text-left">Symptom Radar</h3>
-                    <ResponsiveContainer width="100%" height={220}>
-                      <RadarChart cx="50%" cy="50%" outerRadius="70%" data={results.chartData}>
-                        <PolarGrid stroke="hsl(var(--border))" />
-                        <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }} />
-                        <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                        <Radar name="Risk Intensity" dataKey="score" stroke="hsl(var(--primary))" fill="hsl(var(--primary))" fillOpacity={0.5} />
-                        <Tooltip content={<CustomTooltip />} />
-                      </RadarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-              </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Activity className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium">Enter your demographic data and select your symptoms to generate your Thyroid Risk Profile.</p>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
             )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">
+                {dominantIsHypo ? "Underactive Pattern Score" : "Overactive Pattern Score"}
+              </div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(Math.max(hypoPct, hyperPct), calcInputs.decimals)}%` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${results.pattern} — underactive ${fmt(hypoPct, 0)}%, overactive ${fmt(hyperPct, 0)}% of each maximum`
+                  : "Fix the highlighted inputs to score the profile"}
+              </div>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Underactive</span>
+                <span className="font-extrabold text-blue-600">{results.valid ? `${fmt(hypoPct, 0)}%` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Overactive</span>
+                <span className="font-extrabold text-red-600">{results.valid ? `${fmt(hyperPct, 0)}%` : "—"}</span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Symptoms</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.selectedCount, 0)} reported` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Risk Factor</th>
+                    <th className="p-2.5 pr-3 text-right w-[220px]">Contribution</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter your age and any symptoms to see the score breakdown.
+                      </td>
+                    </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Pattern</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">{results.pattern}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Underactive score</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.hypoScore, 0)} / ${fmt(results.hypoMax, 0)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Overactive score</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.hyperScore, 0)} / ${fmt(results.hyperMax, 0)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">From symptoms</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.symptomHypo, 0)} · ${fmt(results.symptomHyper, 0)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">From demography</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.demographicHypo, 0)} · ${fmt(results.demographicHyper, 0)}` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Underactive share</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(hypoPct, 1)}%` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Overactive share</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? `${fmt(hyperPct, 1)}%` : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Symptoms reported</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.selectedCount, 0) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Pattern</span>
+                  <span className={`text-base font-bold ${results.patternColor}`}>{results.valid ? results.pattern : "—"}</span>
+                </div>
+              </div>
+              {results.valid && (
+                <>
+                  <p className="text-[11px] text-muted-foreground mt-3">{results.recommendation}</p>
+                  <p className="text-[11px] text-muted-foreground mt-2">
+                    <span className="font-bold text-foreground">Next step:</span> {results.nextStep}
+                  </p>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding the Thyroid Risk Score Calculator</h2>
-            <p>The thyroid is a small, butterfly-shaped gland located at the base of your neck. Despite its small size, it acts as the master control center for your entire body's metabolism. It regulates how fast your heart beats, how quickly you burn calories, how you regulate body temperature, and even how your brain functions. When this gland malfunctions, the physical and psychological symptoms can be devastating.</p>
-            <p>The <strong>Thyroid Risk Score Calculator</strong> is an educational clinical profiling tool designed to help you quantify your symptoms. Because thyroid disease shares symptoms with many other common conditions (such as aging, menopause, stress, or depression), it is frequently misdiagnosed or ignored for years. By algorithmically weighting your demographics against the classic presentation of both overactive and underactive thyroid states, this calculator provides a clear visual risk profile to discuss with your endocrinologist.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Thyroid Risk Score Calculator?</h2>
+            <p>
+              A thyroid risk score calculator turns a list of symptoms and a handful of background risk factors into a score for each
+              direction a thyroid problem can take: underactive, where the gland makes too little hormone, and overactive, where it makes
+              too much. The value of scoring the two directions separately is that the symptom lists overlap — tiredness and mood change
+              appear on both — and a single lump score would hide which way the picture is leaning.
+            </p>
+            <p>
+              It is an educational tool rather than a diagnostic one. Thyroid disorders are confirmed from blood tests, and the symptoms
+              counted here are shared with anaemia, iron deficiency, poor sleep, depression and the menopause transition, so a score can
+              only tell you whether asking for those tests is sensible.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Hypothyroidism: The Sluggish Engine</h2>
-            <p>Hypothyroidism occurs when the thyroid gland is underactive and fails to produce enough thyroid hormones (T3 and T4). Without these hormones, every system in your body slows down. You can think of it as an engine running without enough oil. The most common cause of hypothyroidism in the developed world is <strong>Hashimoto's Thyroiditis</strong>, an autoimmune condition where the body's immune system mistakenly attacks and destroys the thyroid tissue.</p>
-            <p>The classic symptoms of hypothyroidism (which are heavily weighted in our calculator) include:</p>
-            <ul>
-              <li><strong>Unexplained Fatigue:</strong> A bone-deep exhaustion that does not improve with sleep.</li>
-              <li><strong>Weight Gain:</strong> Putting on 10 to 20 pounds without changing your diet, and finding it impossible to lose.</li>
-              <li><strong>Cold Intolerance:</strong> Feeling freezing cold when everyone else in the room is comfortable.</li>
-              <li><strong>Cognitive Issues:</strong> Often described as "brain fog," memory loss, and severe depression.</li>
-              <li><strong>Physical Changes:</strong> Dry skin, brittle nails, severe hair thinning, and chronic constipation.</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Each symptom carries a weight in one direction. Fatigue, unexplained weight gain and cold intolerance carry two points
+              each on the underactive side, with dry skin, hair thinning, constipation and brain fog at one point. Weight loss without
+              trying, palpitations, heat intolerance and tremor carry two points each on the overactive side, with anxiety, insomnia and
+              frequent bowel movements at one. The weights follow the relative specificity of the symptom rather than any measured
+              physiological quantity, which is why the result is a share of the maximum rather than a probability.
+            </p>
+            <p>
+              Background factors add a small number of points to both directions. Being female adds one point to each, because autoimmune
+              thyroid disease is five to eight times more common in women. A first-degree relative with thyroid disease adds two to each,
+              because the autoimmune forms run in families. Age over 60 adds one point on the underactive side, and the life-stage
+              selector covers the recognised windows of risk: pregnancy, where hCG stimulation can push towards overactivity; the year
+              after childbirth, when postpartum thyroiditis usually appears as an underactive phase; and the menopause transition, where
+              underactive patterns become more common.
+            </p>
+            <p>
+              The two totals are then divided by their own maximum — every symptom in that direction plus the largest possible background
+              loading — and expressed as a percentage. Sixty percent or more in one direction is treated as a strong pattern, thirty
+              percent or more as a mild one, and sixty percent in both directions as a mixed pattern, which is the profile that most
+              often points at autoimmune thyroiditis swinging between phases.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Hyperthyroidism: The Overheated Engine</h2>
-            <p>Conversely, Hyperthyroidism occurs when the gland is overactive, pumping massive amounts of hormone into the bloodstream. This throws the body into overdrive. The most common cause is <strong>Graves' Disease</strong>, another autoimmune condition that binds to the thyroid and forces it to overproduce.</p>
-            <p>The classic symptoms of hyperthyroidism include:</p>
-            <ul>
-              <li><strong>Unexplained Weight Loss:</strong> Dropping weight rapidly despite having a ravenous appetite.</li>
-              <li><strong>Cardiovascular Stress:</strong> A resting heart rate over 100 bpm, palpitations, and elevated blood pressure.</li>
-              <li><strong>Heat Intolerance:</strong> Sweating profusely in cool environments.</li>
-              <li><strong>Neurological Symptoms:</strong> Severe anxiety, panic attacks, insomnia, and visible hand tremors.</li>
-              <li><strong>Digestive Issues:</strong> Frequent bowel movements or diarrhea due to hyper-motility.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">Why Demographics Matter in Thyroid Disease</h2>
-            <p>When you input your data into our calculator, you will notice that biological sex and age immediately alter your baseline risk. This is because thyroid disease is highly discriminatory.</p>
-            <p><strong>Women are five to eight times more likely to develop thyroid disease than men.</strong> The primary trigger for autoimmune thyroid conditions is massive hormonal fluctuation, which is why onset frequently occurs during puberty, postpartum (after giving birth), or during perimenopause. If you are a woman over the age of 60, your risk of hypothyroidism is roughly 20%, which is why age is a heavily weighted factor in the clinical algorithm.</p>
-            <p><strong>Family history</strong> is another critical factor. Because Hashimoto's and Graves' diseases are autoimmune disorders, they run heavily in families. If your mother, sister, or grandmother required thyroid medication, your genetic risk is exponentially higher.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Danger of the "Mixed/Complex" Profile</h2>
-            <p>Our calculator may output a "Mixed/Complex Risk" result if you check multiple boxes for both hyperthyroid and hypothyroid symptoms. While this might seem contradictory, it is actually a common clinical presentation during the early stages of Hashimoto's Thyroiditis.</p>
-            <p>As the immune system attacks the thyroid gland, the dying thyroid cells rupture. When they rupture, they dump all of their stored thyroid hormone into the bloodstream at once. This causes a temporary, severe hyperthyroid "flare"—resulting in anxiety, palpitations, and weight loss. Once that dumped hormone is metabolized, the gland is now damaged and cannot produce enough hormone, causing the patient to crash into deep hypothyroidism (fatigue, weight gain). This rollercoaster of symptoms is the hallmark of autoimmune thyroid destruction.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Why TSH Testing is Not Enough</h2>
-            <p>If your calculator results indicate a high risk, the immediate next step is to request a blood test. However, the standard medical protocol is deeply flawed. Most primary care doctors will only order a single test: TSH (Thyroid Stimulating Hormone).</p>
-            <p>TSH is a pituitary hormone, not a thyroid hormone. Relying solely on TSH can completely miss early-stage autoimmune disease or problems with cellular hormone conversion. You must advocate for a <strong>Full Thyroid Panel</strong>, which includes:</p>
-            <ul>
-              <li><strong>TSH:</strong> To see the brain's signal to the thyroid.</li>
-              <li><strong>Free T4:</strong> The inactive storage hormone produced by the thyroid.</li>
-              <li><strong>Free T3:</strong> The active metabolic hormone utilized by the cells.</li>
-              <li><strong>TPOAb and TgAb (Antibodies):</strong> To determine if your immune system is actively attacking the gland (confirming Hashimoto's).</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">The Impact on Cardiovascular Health</h2>
-            <p>Ignoring a high thyroid risk score can have devastating consequences for your heart. Hyperthyroidism (an overactive thyroid) forces the heart to beat too fast and too hard, which can lead to Atrial Fibrillation (a dangerous irregular heartbeat) and eventual congestive heart failure. Conversely, Hypothyroidism (an underactive thyroid) causes LDL (bad) cholesterol levels to skyrocket and weakens the heart muscle, significantly increasing the risk of a major heart attack.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion: Taking Control of Your Endocrine Health</h2>
-            <p>The Thyroid Risk Score Calculator is your first step toward diagnosis and recovery. Thyroid disorders are insidious; they creep up slowly, stealing your energy, altering your physical appearance, and destroying your mental health. Do not allow a medical professional to dismiss your symptoms as "just getting older" or "just stress."</p>
-            <p>If your risk score points toward dysfunction, print these results, schedule an appointment with an endocrinologist, and demand comprehensive blood testing. With the correct diagnosis and proper hormone replacement therapy, thyroid disease is highly manageable, and you can fully reclaim your quality of life.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the dominant direction's percentage with the classified pattern underneath. The three-stat bar shows
+              both percentages side by side and how many symptoms were counted, which is a useful check that the score reflects the
+              profile you described.
+            </p>
+            <p>
+              The breakdown table lists the demographic points, the symptom points and each individual symptom with its weight, then the
+              two scores against their maxima, the thresholds applied and the final classification. The summary panel adds the split
+              between symptom and demographic points, the pattern and a recommendation with the next test to consider.
+            </p>
+            <p>
+              Read the score with its limits in mind. Symptom questionnaires cannot substitute for TSH, free T4 and free T3, and a low
+              score does not exclude disease: subclinical hypothyroidism, where TSH is raised but free T4 is still normal, frequently
+              produces few symptoms at all. If you are pregnant, recently postpartum, or already taking thyroid medication, the
+              interpretation changes enough that a clinician should make it — and if symptoms include chest pain, a resting pulse well
+              above 100 beats per minute, or rapid unexplained weight loss, that warrants prompt medical assessment rather than
+              calculation.
+            </p>
           </section>
-          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/thyroid-risk-score-calculator" />
           <PopularCalculators exclude="/calculator/thyroid-risk-score-calculator" />
         </div>

@@ -1,0 +1,441 @@
+[
+  {
+    "slug": "color-blend-tool",
+    "keywords": [
+      "color blend tool",
+      "blend two colors",
+      "mix two colors with a ratio",
+      "color blending calculator"
+    ],
+    "intro": "The color blend tool merges two colors at a ratio you control, previewing the blend at twenty-five, fifty and seventy-five percent so you can pick the exact midpoint you need.",
+    "content": "The color blend tool mixes two colors in a proportion you set with a single slider. Choose a color for each end, move the mix control to weight the blend toward either side, and the tool reports the resulting color and shows it as a large swatch. Beneath it, a strip previews the same pairing at twenty-five, fifty and seventy-five percent, so you can see how the transition behaves across the range rather than only at the point you happen to have selected.\n\n- The arithmetic is a straight per-channel interpolation.\n- Each of the red, green and blue channels is computed by taking the difference between the two source values, scaling it by the mix fraction and adding it to the first color.\n- At zero percent you get the first color exactly, at one hundred percent the second, and at fifty percent the value that sits precisely between them in RGB.\n- This is the same linear interpolation that underpins gradients and state transitions, which is why the result of a fifty percent blend often looks like the natural halfway point of a gradient between the two colours.\n\n- Blending in RGB is not the same as blending in paint, and that distinction catches people out.\n- Because RGB is a light model, a fifty-fifty blend of blue and yellow produces a desaturated grey rather than the green you would get from pigments.\n- If your question is about ink, pigment or paint, the subtractive mixer in this section is the right tool; this blend tool models what happens when two light values are combined proportionally, which is what a screen does.\n- Knowing which model you need is the single most important choice before you start.\n\nThe preview strip is the feature that makes the tool more than a calculator. State design and gradient work both rely on knowing how a colour behaves as it approaches another, and three evenly spaced samples reveal whether the transition is smooth or whether it passes through a muddy region in the middle. A blend between a saturated red and a saturated green, for example, dips through a dull brownish midpoint, and seeing that on the strip tells you to route the gradient through a third colour instead. That is a judgement you cannot make from the endpoints alone.\n\nUse the tool whenever you need a defensible intermediate colour rather than an eyeballed one. Whether you are deriving a disabled state from an active colour, finding the midpoint of a two-stop gradient, or building a hover transition, a ratio-controlled blend gives you a value that is provably between the two inputs, which is easier to document and to reproduce than a hand-picked hex. The result is copy-ready, and the neighbouring swatches give you the surrounding steps if you need a short scale.\n\nAt its simplest it is a color blending calculator for the everyday job of mixing a second colour into a first without opening a design application. Whether you need to blend two colors into a single state value or mix two colors with a ratio a design token can credit, the readout gives you the exact result and the surrounding steps.",
+    "howTo": [
+      "Set Color A and Color B.",
+      "Drag the Mix slider to the proportion you want, from zero to one hundred percent.",
+      "Read the result swatch and copy its hex.",
+      "Check the blend against the two parents when one of them must still be recognisable in the result."
+    ],
+    "whenToUse": "Use this tool when you need a precise intermediate colour between two known values. Use the subtractive mixer for pigment and ink blends, and the three-or-more-colour mixer when you want to combine a whole palette rather than a single pair. The {{color-mixer-2|color mixer}} shows the same blend at twenty-five, fifty and seventy-five percent in one view, and the {{color-mixer-3plus|palette mixer}} runs the operation across a whole list by adjacent pairs.",
+    "faqs": [
+      {
+        "q": "How is the blended colour calculated?",
+        "a": "Each red, green and blue channel is linearly interpolated: the difference between the two values is scaled by the mix percentage and added to the first colour."
+      },
+      {
+        "q": "Why does blue and yellow give grey instead of green?",
+        "a": "RGB is an additive light model, so opposite hues cancel toward grey. Pigments follow subtractive mixing and behave differently; use the subtractive mixer for that."
+      },
+      {
+        "q": "What are the extra swatches for?",
+        "a": "They preview the pairing at twenty-five, fifty and seventy-five percent so you can see whether the transition passes through an undesirable colour before you choose a value."
+      },
+      {
+        "q": "Can I blend more than two colours?",
+        "a": "Not in this tool. The three-or-more-colour mixer in this section combines a full palette, mixing each adjacent pair in turn."
+      },
+      {
+        "q": "Is blending in RGB the same as mixing paint?",
+        "a": "No. Each of the red, green and blue channels is interpolated independently, which is what a screen does with two stacked colours, while pigments mix by subtracting wavelengths and routinely land somewhere else entirely — a blue and a yellow blend to a greyish mid-tone here and to green in paint."
+      }
+    ]
+  },
+  {
+    "slug": "color-temperature-adjuster",
+    "keywords": [
+      "color temperature adjuster",
+      "make color warmer or cooler",
+      "shift color temperature",
+      "warm up a color online"
+    ],
+    "intro": "The color temperature adjuster shifts any color warmer or cooler by a controlled degree — nudging hue toward amber or blue while keeping the color recognisably itself.",
+    "content": "A color can be right in every coordinate and still wrong in temperature — the blue that reads cold next to a warm brand, the off-white that fights a sunset photograph. The color temperature adjuster fixes exactly that: set a color, move a slider, and the hue shifts toward warm amber or cool blue by controlled degrees while lightness and chroma hold steady. The result is the same color with its temperature turned — recognisably itself, one degree warmer or cooler.\n\n- The controlled part is what separates an adjuster from a repaint.\n- Because the shift walks the hue wheel in small steps, you can move by a whisper — the two-degree warm-up that makes a grey feel friendly — or by a stride, and every intermediate value is a legitimate color rather than a jump.\n- Lightness and chroma stay fixed throughout, so the adjustment changes only the question being asked: nothing about the color's weight or intensity moves while its warmth does.\n\nThe typical assignments: neutralising a palette whose members drifted apart in temperature — one pass with the adjuster and the greys agree again; warming a cold-feeling accent without abandoning it for a new hue; cooling a shadow color so it sits behind a warm subject without competing; and the endless white-balance theatre of landing an off-white that finally feels right against its neighbors. The temperature analyzer numbers the journey — check the Kelvin before and after — and the warm-to-cool shifter does the same job framed as direction of travel rather than degree.\n\nTemperature changes rarely happen in isolation. A warm gold on a marketing page usually needs a cooler companion for the functional interface, and a cool brand blue is often too clinical for a photography-led surface, so watching one swatch move while the relationship between the two stays visible is what keeps the decision honest. It is worth knowing how this differs from a saturation change, because the two are often confused. Desaturating makes a colour feel quieter and greyer; warming makes it feel nearer and more tactile, and the pair can be combined when a swatch needs to feel calmer and warmer at once. The direction to commit to is easier to judge against real content than on the swatch itself, since the surrounding surfaces tint the impression more than the isolated patch suggests. Dial one step at a time, apply it to the mock, and keep the version that reads as intended.\n\nKeeping a record of the original value matters as much as the new one, because a warm adjustment made for one surface can look overdone on the next, and stepping back a notch is usually cheaper than beginning the search again.\n\n- As a make color warmer or cooler instrument, the contract is one axis, finely controlled: shift color temperature without touching anything else.\n- For a warm up a color online task that keeps the original hue family intact — rather than reaching for a different color entirely — that narrow contract is precisely the tool for the job.",
+    "howTo": [
+      "Set the color whose temperature needs adjusting.",
+      "Move the slider toward warm or cool; the hue shifts in controlled steps, tone unchanged.",
+      "Stop when the temperature sits right against its neighbours, then copy the hex."
+    ],
+    "whenToUse": "Use this to nudge temperature while keeping everything else fixed. Use the temperature analyzer to measure before and after, the warm-to-cool shifter when you want the journey framed as direction, and the hue shift tool when any hue movement — not just warm-cool — is wanted. The {{warm-to-cool-color-shifter|warm-to-cool shifter}} frames the same shift as a flip between the two ends, and the {{hue-rotator|hue rotator}} exposes the rotation as a signed number.",
+    "faqs": [
+      {
+        "q": "Does adjusting temperature change the color's lightness or vividness?",
+        "a": "No — the slider moves hue only, toward amber or blue. Lightness and chroma stay fixed, so weight and intensity are untouched."
+      },
+      {
+        "q": "How large a shift is possible?",
+        "a": "The slider spans a controlled warm-to-cool range; small steps make subtle nudges, large steps approach a genuinely different color — the preview shows you when you have crossed the line."
+      },
+      {
+        "q": "Can I adjust a neutral grey?",
+        "a": "Yes — that is a classic use. Greys pick up temperature from hue remnants; warming or cooling a near-neutral is how off-whites are tuned to sit with a palette."
+      },
+      {
+        "q": "How is this different from hue shift?",
+        "a": "Hue shift moves around the whole wheel in any direction; this tool constrains movement to the warm-cool axis, which is usually the actual adjustment a temperature problem needs."
+      },
+      {
+        "q": "Does the shift preserve lightness and saturation?",
+        "a": "Yes. The rotation happens in OKLCH, so hue is the axis that moves while lightness and chroma stay where they were — which is what keeps a temperature correction from turning into a different colour altogether."
+      }
+    ]
+  },
+  {
+    "slug": "warm-to-cool-color-shifter",
+    "keywords": [
+      "warm to cool color shifter",
+      "cool down a warm color",
+      "shift color from warm to cool",
+      "temperature flip tool"
+    ],
+    "intro": "The warm-to-cool color shifter moves a color across the temperature divide — from its warm reading to a cool counterpart, or back — with the shift visible as you slide.",
+    "content": "Every warm color has a cool shadow-self: the coral that becomes a slate pink, the golden sand that becomes a grey-blue. The warm-to-cool color shifter walks a color across that divide — set the starting value, slide toward cool or toward warm, and watch the temperature flip happen in visible steps rather than as a jump between two unrelated colors.\n\n- The framing is the tool's identity.\n- The temperature adjuster treats warmth as a dial with a middle; this shifter treats it as a journey with two destinations — the question is not how warm but which side, and how far across.\n- That framing fits the assignments where temperature is binary: a brand palette that needs a cool variant of its warm anchor for a winter campaign; an interface whose sidebar must cool down behind content that stays warm; an illustration whose palette reads too fireside when the scene moved outdoors.\n- In each case the job is a shift color from warm to cool passage — recognisable origin, deliberate destination — and the slider's path guarantees continuity between the two.\n\nBecause the shift keeps lightness and chroma steady while the hue crosses the divide, the result inherits the original's weight and personality — a warm mid-tone arrives as a cool mid-tone, not as a washed-out blue or a darkened navy. That is what makes the output useful in systems: the cool counterpart slots into the same tonal slot the warm original occupied, and the palette keeps its structure while its temperature story changes.\n\nA temperature flip is one of the most useful single moves in palette work, because it changes mood without changing identity: the value stays in its place, the lightness stays where it was, and only the axis underneath rotates, which is why a set re-tempered this way still reads as the same family. That property makes a warm to cool color shifter useful for building a light and a dark register from one palette — warm the light side, cool the dark side, and the two look like deliberate siblings rather than two unrelated sets. Stepping through the sequence rather than jumping end to end is the other useful habit, since the intermediate values often suit surfaces better than either extreme: a slightly cooled mid tone can be exactly the neutral an interface was missing. Think of it as a temperature flip tool that also produces everything along the way, and the intermediate values become worth keeping rather than a byproduct of the journey.\n\n- As a cool down a warm color instrument — and the return trip too — the tool is one color, one axis, visible steps.\n- The temperature adjuster offers finer control around a fixed point; the analyzer numbers both ends of the journey; and for palettes needing the whole set shifted together, the member colors each take one pass through this shift color from warm to cool tool.\n\nRecord both ends of every journey, since a palette that documents its warm and cool variants is easier to extend later than one that only remembers its current state.",
+    "howTo": [
+      "Set the starting color on whichever side of the divide it lives.",
+      "Slide toward the opposite temperature; watch the hue cross in visible steps.",
+      "Stop when the cool (or warm) counterpart reads right, and copy the value."
+    ],
+    "whenToUse": "Use this when a color must cross the temperature divide deliberately — seasonal variants, campaign shifts, palette correction. Use the temperature adjuster for fine nudges near a fixed point, and the analyzer to verify the Kelvin before and after. The {{color-temperature-adjuster|temperature adjuster}} applies the same shift as a continuous correction, and the {{color-temperature-analyzer|temperature analyzer}} puts a Kelvin figure on where the result lands.",
+    "faqs": [
+      {
+        "q": "Will the shifted color keep the original's weight?",
+        "a": "Yes — lightness and chroma are held while hue crosses the divide, so a warm mid-tone arrives as a cool mid-tone and slots into the same role."
+      },
+      {
+        "q": "Can I shift only partway across?",
+        "a": "The slider is continuous — every intermediate temperature is available, so a half-crossed reading that leans cool without abandoning warmth is a valid stopping point."
+      },
+      {
+        "q": "How is this different from the temperature adjuster?",
+        "a": "Same underlying axis, different framing: the adjuster nudges around a fixed point, this shifter frames the movement as a journey between the warm and cool destinations."
+      },
+      {
+        "q": "Can I shift a whole palette at once?",
+        "a": "Run each member through individually — or for palette-level temperature work, the warm-cool analyzer first shows which members sit on which side."
+      },
+      {
+        "q": "Does it keep the original value anywhere?",
+        "a": "No. The shift replaces the colour in place and there is no history or saved original, so record both ends of the journey by hand when the palette has to document its warm and cool versions."
+      }
+    ]
+  },
+  {
+    "slug": "rgb-channel-adjuster",
+    "keywords": [
+      "rgb channel adjuster",
+      "adjust rgb values",
+      "rgb color mixer",
+      "set rgb channels",
+      "rgb value to hex"
+    ],
+    "intro": "The RGB channel adjuster sets a color by its red, green and blue values with three sliders from 0 to 255, showing the resulting hex value as you move them.",
+    "content": "- The RGB channel adjuster is three sliders and a swatch.\n- Red, green and blue each run from zero to two hundred and fifty-five, the numbers used by every eight-bit colour value on the web, and the swatch beside them updates as they move, carrying its hex value and a copy button.\n- The starting point sits at a mid blue, with the channels at their corresponding values.\n\nWorking in channels rather than with a colour picker is not simply a slower way to do the same thing — it exposes different information, and it is the only way to adjust rgb values that have been specified as numbers. A picker encourages you to hunt for a colour by eye; three numeric sliders let you see the structure of a colour directly. Raising red while the other two stay fixed shows exactly how much of the final appearance that channel is responsible for, and because the three are independent, the effect of each is isolated. That makes the tool useful for learning as much as for producing.\n\nIt is also the right interface when the numbers are the requirement. Matching a value that has been specified channel by channel — from a hardware colour profile, a firmware configuration, a serialised settings file, or a colleague's specification — is a matter of typing three integers here rather than trying to land on them with a picker. Whether a colour appeared in a screenshot slightly off, or a device needs an exact channel triple, sliders set to whole numbers give exact control where dragging in a colour field gives approximate control.\n\n- The sliders are absolute rather than relative, which is the main thing to understand about the tool's behaviour.\n- There is no way to say add twenty to red; you set red's new value.\n- That means adjustments are made by repositioning each channel and watching the swatch, which is a different mental model from the lightness, saturation and hue tools in this domain where a slider expresses a change rather than a value.\n\nA related limitation follows from working in channels: some things are easy to see and hard to name. Increasing green from a hundred and thirty to a hundred and eighty moves the colour clearly towards yellow-green, but nothing in the interface tells you what hue or saturation that represents. For calibration and matching, that is fine. For choosing a colour by intent, an HSL or perceptual tool expresses the adjustment more directly, and the format converter or the playground is the better starting point. There is also no hex input, so an existing value has to be re-created by reading its three channels and setting them — and the output shows the hex, so it is easy to check you landed on the right one.\n\nWhere it earns its place is precision work: reproducing an exact specification, debugging a colour that renders differently from the design, or teaching what each channel contributes. As an rgb color mixer it is the clearest of the mixing tools, because additive mixing of red, green and blue is literally what the three sliders are doing — pushing all three to the top gives white, pushing all three down gives black, and each pair in between produces one of the secondary colours. When the task is to set rgb channels to an exact triple, or to convert a known rgb value to hex, three sliders and a swatch do the job without any interpretation, and the channel numbers stay visible while you work rather than being hidden behind a hex field.",
+    "howTo": [
+      "Move the red, green and blue sliders, each from 0 to 255.",
+      "Watch the swatch change and check the hex value against the specification you are matching.",
+      "Copy the hex value once the channels are correct."
+    ],
+    "whenToUse": "Use this when a colour is specified as channel values, or when you need to see how each channel contributes. Use the OKLCH playground or an HSL tool when you want to adjust by intent — lightness, vividness or hue — rather than by number. The {{cmyk-channel-mixer|CMYK channel mixer}} edits the same colour through the ink channels, and the {{hsl-channel-adjuster|HSL channel adjuster}} works the lightness and saturation axes instead of the raw channels.",
+    "faqs": [
+      {
+        "q": "Why 0 to 255?",
+        "a": "Because that is the range of each channel in the eight-bit colour values the web uses. Two hundred and fifty-five of each gives white, and zero of each gives black."
+      },
+      {
+        "q": "Can I enter a hex value and adjust from there?",
+        "a": "Not here — the sliders are the only input, so an existing colour is reproduced by setting its three channel values. The hex output lets you confirm you reached it."
+      },
+      {
+        "q": "Are the sliders relative or absolute?",
+        "a": "Absolute. Each sets the channel's value rather than an amount to add, so adjustments are made by repositioning a channel and watching the swatch."
+      },
+      {
+        "q": "Why does raising green lead to yellow?",
+        "a": "Because this is additive mixing. Red and green together produce yellow, green and blue produce cyan, and red and blue produce magenta — the secondary colours of a screen."
+      },
+      {
+        "q": "Why do the sliders move the colour so unevenly?",
+        "a": "Because the sliders are absolute rather than relative and the channels are not perceptually even: green carries most of the brightness, so equal steps on the three sliders do not look like equal steps, and some colour changes are easy to hit this way while others, such as a pure hue rotation, are not."
+      }
+    ]
+  },
+  {
+    "slug": "hsl-channel-adjuster",
+    "keywords": [
+      "hsl channel adjuster",
+      "adjust hue saturation lightness",
+      "hsl slider tool",
+      "edit hsl channels independently"
+    ],
+    "intro": "The HSL channel adjuster exposes the three channels separately — hue, saturation and lightness each with its own slider — so you can edit HSL channels independently and see exactly which one a color needs.",
+    "content": "- Most color pickers mix the three decisions into one gesture: drag inside a gradient and hue, saturation and lightness all move at once.\n- The HSL channel adjuster pulls them apart — three sliders, one per channel, each showing its current value — so an adjustment becomes a statement about a single axis: this color needs more lightness, and nothing else.\n\nThe discipline pays off in the fixes that one-axis thinking enables. A logo color that must stay the same hue but read lighter is a lightness slider move and nothing more; a palette member that is vivid enough but too green is a hue-only correction; a set whose members feel inconsistent is often one channel — all need the same saturation — and three sliders per color makes that pattern visible and fixable. Because each channel displays its numeric value, adjustments become reproducible: a five-point hue shift or a ten-point lightness lift is a specification, not a vibe, and can be applied to the next color identically.\n\nThe HSL model's shape is worth knowing while using it. Hue is circular — 360 degrees around the wheel — so its slider wraps; saturation runs from grey to vivid; lightness runs black through the pure hue to white, which is why its extremes look unlike the middle. The model is intuitive and imperfect — equal slider steps are not quite equal to the eye — which is where the OKLCH playground earns its keep for appearance-critical work. But for the everyday vocabulary designers and CSS share, HSL is the lingua franca, and a tool that lets you adjust hue saturation lightness as separate, named decisions is the model's natural interface.\n\nHSL is an interface over RGB rather than a perceptual model, which is exactly why it is useful for hand-editing. Hue is a dial, saturation is a dial, lightness is a dial, and the effect of each is obvious from its name, so a colour can be diagnosed in the three-channel view before anything is changed: too saturated here, marginally too dark there, hue drifting a few degrees off the intended family. That diagnosis is much faster than dragging a two-dimensional picker and watching three values move together. The caveat worth carrying is that lightness in HSL is not perceived lightness, so equal steps at different hues do not look equal, and a ramp tuned only in this space looks uneven once rendered next to a sibling ramp built in OKLCH. The channel view is the right instrument for repair; the perceptual coordinates are the right one for construction, and using both in that order keeps a palette coherent.\n\n- As an hsl slider tool it is deliberately bare: three channels, live values, instant preview.\n- The single-channel specialist tools — tints, shades, saturation adjusters, hue shift — are pre-packaged versions of one slider each; this is the whole desk, for when the fix needs edit hsl channels independently rather than one at a time.\n\nReading the channels is also the fastest way to check a value somebody else wrote, because three numbers that look wrong usually are, and the offending channel is visible immediately.",
+    "howTo": [
+      "Set the hue with the first slider — the full circle runs through three hundred and sixty degrees.",
+      "Set saturation with the second slider, from grey at zero to the most vivid value at one hundred.",
+      "Set lightness with the third slider, from black through the colour to white.",
+      "Read the result swatch and copy its hex value."
+    ],
+    "whenToUse": "Use this when the fix is one named channel and you want it precise and repeatable. Use the specialist single-channel tools for packaged adjustments, the OKLCH playground when perceptual evenness matters, and the converter when the result must be read out in other formats. The {{rgb-channel-adjuster|RGB channel adjuster}} edits the same colour by its channel numbers, and the {{oklch-color-playground|OKLCH playground}} is the model to reach for when adjustments have to stay perceptually even.",
+    "faqs": [
+      {
+        "q": "Why does the lightness slider's middle look different from its ends?",
+        "a": "HSL lightness runs from black through the pure hue to white, so the middle is the vivid color and the extremes are black and white — a quirk of the model the slider makes visible."
+      },
+      {
+        "q": "Does the hue slider wrap around?",
+        "a": "Yes — hue is a circle of 360 degrees, so sliding past the end continues from the start. A 350-degree shift and a minus-10-degree shift are the same color."
+      },
+      {
+        "q": "Are equal slider steps visually equal?",
+        "a": "Not quite — HSL is intuitive but not perceptually uniform. For appearance-critical ramps, the OKLCH playground makes steps that look even."
+      },
+      {
+        "q": "Can I see the HSL values as numbers?",
+        "a": "Each slider reports its channel value live, and the color's full HSL string is readable in the converter tools for copy-paste into CSS."
+      },
+      {
+        "q": "What do the three sliders change?",
+        "a": "Hue is the circular axis, running through three hundred and sixty degrees, while saturation and lightness are percentages from zero to one hundred. Each slider prints its current value, so an adjustment can be written down and reproduced, and only the moved channel changes in the result."
+      }
+    ]
+  },
+  {
+    "slug": "hue-rotator",
+    "keywords": [
+      "hue rotator",
+      "hue shift tool",
+      "rotate hue of a color",
+      "shift color hue degrees",
+      "hue rotation css equivalent"
+    ],
+    "intro": "The hue rotator turns a color's hue by a chosen number of degrees while holding its lightness and saturation constant, returning the rotated color as a hex value.",
+    "content": "- The hue rotator is a two-control tool: a colour field and a slider running from minus one hundred and eighty degrees to plus one hundred and eighty, defaulting to thirty.\n- The result appears as a large swatch with its hex value and a copy button, updating as either control changes.\n- Negative values rotate the hue one way round the wheel and positive values the other, with the value wrapping when the rotation passes the end of the circle.\n\nThe behaviour that matters is what stays the same. The rotation is performed in a perceptual colour space — the color is converted to a lightness, chroma and hue triple, the hue angle is incremented, and the result is converted back. Because only the hue term is touched, the rotated colour has the same apparent lightness and the same chroma as the original. A medium blue at moderate saturation becomes a medium green at the same saturation, not a darker or brighter one.\n\nThat is worth contrasting with the hue rotation available in CSS filters, which is the closest thing most people have used. A filter-based hue rotation applies a matrix to the red, green and blue channels, which is an approximation: rotating a saturated colour that way frequently shifts its perceived lightness as well, so a careful design can come out brighter or duller after the rotation. The result here is the one you would get by picking a different hue and matching lightness and saturation by hand, achieved in one step.\n\nThe slider's range is a consequence of that symmetry. Rotating by one hundred and eighty degrees swings the hue to the opposite side of the wheel — the complementary relation — and anything beyond that is the same as a rotation in the other direction, so the range covers the full circle without redundancy. A rotation of zero returns the colour unchanged, which makes the slider's origin a useful reference point.\n\nThe practical uses are mostly derivative. Building a set of related colours in which only the hue changes is the obvious one: take a single brand colour, rotate it by a fixed step several times, and you have an evenly spaced family at a consistent tone, which is precisely what a categorical chart scale or a set of state colours needs. It is also a quick way to answer what a colour would look like in another hue without committing to it, and a way to correct a palette whose colours drift in brightness — rotating in this space leaves lightness untouched, so only the attribute you asked about moves.\n\nLimits to keep in mind.\n\n- Only hue changes, so a rotation cannot fix a colour that is too dark or too grey.\n- The output is a single hex value, and there is no history of previous rotations to compare against, so building a family means recording the values as you go.\n- Extreme rotations from a saturated starting colour can leave the target hue outside the range a display can render, in which case the result is the closest renderable colour rather than the exact rotation.\n- And the value shown is a screen-appropriate conversion, not a colour-managed one.\n\nEven so, as a hue shift tool it answers a narrow, frequent question cleanly: rotate hue of a color by a known number of degrees and get back something with the same weight. Where a hue rotation css filter would change the tone as a side effect, this is the equivalent performed properly — a hue rotation css equivalent that does not lose brightness along the way — which makes it a reliable way to shift color hue degrees while agreeing with the palette rather than fighting it.",
+    "howTo": [
+      "Pick the starting colour with the field.",
+      "Drag the slider to rotate the hue — negative values go one way round, positive the other.",
+      "Copy the hex value from the resulting swatch.",
+      "Repeat with the same rotation to build an evenly spaced family of hues at one tone."
+    ],
+    "whenToUse": "Use this when only the hue should change — building a categorical scale, exploring alternatives for a colour, or correcting tones that drifted. Use the saturation and lightness tools when those attributes are the problem instead. The {{color-temperature-adjuster|temperature adjuster}} and the {{warm-to-cool-color-shifter|warm-to-cool shifter}} are the same rotation framed as temperature rather than as an angle.",
+    "faqs": [
+      {
+        "q": "Does the rotated colour keep the same brightness?",
+        "a": "Yes. The rotation happens in a perceptual colour space where lightness and chroma are separate from hue, so only the hue angle changes and the apparent weight stays put."
+      },
+      {
+        "q": "How is this different from a CSS hue-rotate filter?",
+        "a": "The filter applies a matrix to the colour channels, which is an approximation and often shifts perceived lightness as a side effect. This rotation preserves lightness and chroma exactly."
+      },
+      {
+        "q": "Why does the slider stop at 180 degrees?",
+        "a": "Rotating by 180 degrees reaches the opposite side of the wheel, and anything further is equivalent to rotating the other way. The range therefore covers the whole circle without duplicating values."
+      },
+      {
+        "q": "Will the result always be displayable?",
+        "a": "Not necessarily. A large rotation from a saturated colour can land outside the range a screen can show, in which case the closest renderable colour is returned."
+      },
+      {
+        "q": "What does the rotation leave untouched?",
+        "a": "Lightness and chroma. The rotation is performed in OKLCH, so only hue moves, which means a rotation cannot fix a colour that is too dark or too dull. The range is plus or minus one hundred and eighty degrees, and the two ends therefore meet."
+      }
+    ]
+  },
+  {
+    "slug": "opacity-calculator",
+    "keywords": [
+      "opacity calculator",
+      "alpha blending calculator",
+      "color with transparency over background",
+      "hex with alpha",
+      "what color does 50 percent opacity look like"
+    ],
+    "intro": "The opacity calculator composites a foreground color over a background at any opacity and reports both the resulting solid color and the hex-with-alpha equivalent.",
+    "content": "The opacity calculator takes a background colour, a foreground colour and an opacity percentage, and returns the flattened result. Below the result swatch it prints a CSS declaration — the foreground colour written as an eight-digit hex value whose last two digits carry the alpha. Everything updates as the sliders and colour fields move.\n\nThe problem it solves is one of the most common sources of colour bugs in interface work. A translucent colour has no single appearance: what you see depends entirely on what is behind it. A white overlay at twenty percent over a dark header is a mid grey; the same overlay over a photograph is unpredictable. Developers write the alpha value and test it against one background, then ship it into a component that sits on another, and the result either disappears or muddy. Calculating the composite in advance turns an assumption into a number.\n\n- The arithmetic behind the flattened value is straightforward.\n- Each channel of the result is the background channel plus the difference between the foreground and background channels, scaled by the opacity.\n- At zero percent the result is exactly the background, at one hundred percent exactly the foreground, and in between it moves linearly along the line between them.\n- That linear movement in the red, green and blue channels matches how browsers composite opaque layers over each other, which is why the swatch and the browser agree rather than approximately agreeing.\n\nThe declaration underneath is the other useful half. It expresses the same colour as a single eight-digit hex value — six digits for the colour and two for the alpha — which is a portable way to write translucency when you already know the surface it will sit on. Setting that flattened value instead of a translucent one removes a dependency on the backdrop: the element will look the same whatever is behind it, which is exactly what you want for a badge, a tag or a chip that appears in several contexts.\n\nThe obvious workflow is to settle the appearance first and the notation second. Set the two colours, drag the opacity slider until the composite looks right, and then choose which of the two outputs you need: the flattened colour for a fixed surface, or the hex-with-alpha value for a translucent layer you intend to keep. Comparing the two is itself instructive — it shows how much a translucent token's appearance depends on context.\n\nTwo limits are worth knowing.\n\n- Anyone who has asked what color does 50 percent opacity look like over a given surface will recognise the problem this solves, and here it is answered exactly rather than approximately.\n- The composite is calculated in the standard eight-bit sRGB channels that browsers use by default, so it will not match an application that composites in a linear-light space; for web work that is the right choice, and for print or film pipelines it is not.\n- And there is no support for stacking several translucent layers — one foreground over one background is the whole computation, so three layers means three passes.\n\nUsed as an alpha blending calculator, it answers a question that otherwise requires a screenshot and a colour picker: what colour does this actually end up being. As a way to work out what a color with transparency over background produces, or to derive the hex with alpha that reproduces it, it is quicker than the loop of guessing, rendering and sampling.",
+    "howTo": [
+      "Set the Background colour to the surface the element will actually sit on.",
+      "Set the Foreground colour to the translucent colour.",
+      "Drag the opacity slider until the flattened result looks right.",
+      "Copy the result as a solid colour, or the declaration underneath as a hex value with alpha."
+    ],
+    "whenToUse": "Use this when a translucent colour needs to be judged against a specific surface, or when a flattened equivalent is needed so an element looks the same everywhere. Use the contrast checker when the question is legibility rather than appearance. The {{opacity-layering-calculator|opacity layering calculator}} is the same arithmetic framed as a stack to flatten, and the {{contrast-checker|contrast checker}} is what to run on the flattened value before it carries text.",
+    "faqs": [
+      {
+        "q": "What does the eight-digit hex value mean?",
+        "a": "Six digits for the colour and two for the alpha channel, which is how CSS writes a translucent colour in hex. It is the input colour, not the composite."
+      },
+      {
+        "q": "Why does the same translucent colour look different elsewhere?",
+        "a": "Because a translucent colour has no fixed appearance — it is the backdrop showing through. This calculator flattens one specific pairing so the result can be written as a solid value instead."
+      },
+      {
+        "q": "Does the composite match what the browser renders?",
+        "a": "For ordinary web work, yes. Both composite linearly in the eight-bit red, green and blue channels, so the swatch and the rendered page agree."
+      },
+      {
+        "q": "Can I stack three layers?",
+        "a": "Only one foreground over one background at a time. For a stack, calculate resulting pairs in sequence, feeding each flattened colour in as the next background."
+      },
+      {
+        "q": "Does the result account for anything below the background?",
+        "a": "No. It is a two-colour blend: the foreground is composited over the single background you set, so anything stacked underneath that background is outside the calculation. The flattened value is exact for the pair you entered."
+      }
+    ]
+  },
+  {
+    "slug": "opacity-layering-calculator",
+    "keywords": [
+      "opacity layering calculator",
+      "stack semi-transparent colors",
+      "rgba overlay result",
+      "alpha blending calculator"
+    ],
+    "intro": "The opacity layering calculator computes what a semi-transparent color becomes over a background — the solid result of alpha blending, shown as a swatch and as ready-to-paste CSS.",
+    "content": "A 50% blue over white is not blue — it is the pale sky color that blue-at-half-strength produces on that particular background, and it is a different color over every other background. The opacity layering calculator does that arithmetic for you: set the background, set the foreground with its opacity, and see the solid color the stack actually renders — as a swatch, and as the flattened hex or eight-digit CSS value you can paste in place of the transparency.\n\nThe value of computing stack semi-transparent colors explicitly is that alpha is a relationship, not a property. The same rgba overlay produces different results on white, on black, on the brand orange — which is why translucency chosen in isolation so often surprises on the page. Flattening the stack answers the real questions: what does this scrim do to the photo behind it, what solid color is this glass panel equivalent to, does the tooltip background stay legible over both the light and dark sections it will float across. The blended swatch shows the truth; the CSS output lets you bake it in when the transparency's flexibility is not needed.\n\n- The tool's blend is the standard source-over compositing the browser itself uses — foreground mixed over background weighted by alpha — so what you see is what the page will paint, not an approximation.\n- The slider spans the full 0-to-100 range, the preview updates live, and the resulting color's hex is copy-ready for stylesheets that would rather own a solid value than manage an alpha dependency.\n\nCompositing arithmetic is the reason opacity surprises people. A fifty per cent black over white does not land halfway to a neutral grey of the same perceived weight; it lands at a specific value that then behaves differently again when the surface behind it changes. Stacking makes this worse, because the order of layers matters as much as their values: two overlays applied in one sequence give a different result from the same two applied in the other. Those are the cases that break a design system quietly, when a translucent surface takes on the wrong tint over a photograph and nobody can say which layer was responsible. Reading the blended value directly removes the guesswork and turns a composition question into a palette question: once the flattened result is known, the surface either works with the text colour or it does not. Check the flattened value first, then the stack behind it.\n\n- As an alpha blending calculator it is deliberately a two-layer instrument: one background, one foreground, one result.\n- Chains of translucency can be flattened iteratively — compute the inner pair, use the result as the next background — and for overlays on images specifically, the overlay generator previews blend modes that go beyond plain transparency.\n- For the honest question of what rgba overlay result a stack produces, though, this is the ground truth.\n\nKeep the flattened values with the palette: a translucent surface that has been checked once does not need checking again on every new screen, and the recorded value settles the next argument before it starts.",
+    "howTo": [
+      "Set the background color the layer sits on.",
+      "Set the foreground color and its opacity percentage.",
+      "Copy the flattened result — as a swatch hex or as ready CSS."
+    ],
+    "whenToUse": "Use this to know what a translucent stack really renders as — scrims, glass panels, floating surfaces. Use the overlay generator for image overlays with blend modes, the frosted glass generator for backdrop-filter treatments, and the color on background preview for opaque pairs. The {{opacity-calculator|opacity calculator}} produces the same flattened value with an explicit alpha notation, and the {{overlay-color-generator|overlay color generator}} handles overlays that use blend modes rather than plain alpha.",
+    "faqs": [
+      {
+        "q": "Why does the same rgba look different on different backgrounds?",
+        "a": "Alpha blending is a relationship: the foreground mixes with whatever is behind it. The same translucent layer flattens to different solids on white, black or brand colors — which is exactly what the calculator shows."
+      },
+      {
+        "q": "Is the result what the browser will actually paint?",
+        "a": "Yes — the tool uses the same source-over compositing browsers use, so the swatch is the true rendered result, not an estimate."
+      },
+      {
+        "q": "Can it flatten three or more layers at once?",
+        "a": "Not in one pass, but iteratively: compute the bottom pair, then use the flattened result as the next layer's background."
+      },
+      {
+        "q": "Why would I bake the flattened value instead of keeping the alpha?",
+        "a": "Keep alpha when the layer must adapt to changing backgrounds; bake the solid when the background is fixed and you want one fewer moving part in the stylesheet."
+      },
+      {
+        "q": "Why does the same overlay look different on another background?",
+        "a": "Because alpha is a relationship rather than a property: a fifty per cent blue over white renders as a pale sky, and the identical declaration over black or over a brand orange renders as two other colours. The tool flattens the pair you set, so each background has to be computed separately."
+      }
+    ]
+  },
+  {
+    "slug": "color-inverter",
+    "keywords": [
+      "color inverter",
+      "invert a color",
+      "invert hex color",
+      "negative color generator"
+    ],
+    "intro": "The color inverter returns the exact opposite of any color by subtracting each channel from its maximum, giving you a clean RGB negative with a copy-ready hex value.",
+    "content": "The color inverter returns the opposite of any color by subtracting each of its channels from the maximum. The result is the classic RGB negative: red becomes cyan, green becomes magenta, blue becomes yellow, and greys map to other greys. You pick a color, and the tool shows the original and the inverted value side by side with copy-ready hex, which makes it easy to use the result immediately in code or in a design file.\n\n- The arithmetic is exact and simple.\n- Each channel, from zero to two hundred and fifty-five, is subtracted from that maximum, so the red, green and blue values are mirrored around the midpoint.\n- Because each channel inverts independently, saturated colors invert to other saturated colors and neutrals stay neutral, which makes the operation predictable.\n- A very dark color inverts to a very light one and vice versa, so the luminance of the result is the mirror of the input.\n\nUse it whenever you need to invert a color as part of a technical transformation: generating a dark-theme counterpart for a light-theme value, finding the exact opposite for a debug overlay, or building a negative filter for an image pipeline. Because the operator is its own inverse, applying it twice returns the original color exactly, which makes it safe in a round trip and easy to verify by inspection rather than by trust.\n\n- The inversion is not the same as a perceptual complement, and it is worth knowing the difference.\n- Rotating hue by one hundred and eighty degrees in a perceptual space keeps lightness and saturation while swinging the hue; subtracting channels in RGB also flips the lightness, so a light blue becomes a dark yellow rather than a light orange.\n- If your goal is a harmonious opposite, a perceptual complement is usually the better choice.\n- When you specifically want the literal photographic negative, this is the invert hex color operation you want.\n\nAs a negative color generator it is a small, single-purpose tool, and that is the point. It calculates one result accurately and shows it with a copy button, with no options to misconfigure. Pair it with the color format converter when the inverted value needs to be expressed in another notation, or with the color distance calculator when you want to know how far the inversion actually moved the color in a measurable sense.\n\nBear in mind what the result is for. An inverted color is almost never a color you would choose for a design; it is a transformation step. It shows up in image-processing pipelines that build a negative filter, in test harnesses that need a guaranteed-unique color against a known background, and in dark-mode migrations, where inverting an existing light value gives a fast first draft that you then adjust by hand. Because the arithmetic is trivial to reproduce, the inverted value also makes a decent audit entry: if a stored color and its recorded negative ever stop matching, something upstream has changed the original. Treated as a starting point rather than a finished color, the inverted value saves you the arithmetic and gives you something concrete to tune.",
+    "howTo": [
+      "Set the colour in the field.",
+      "Read the inverted swatch beside it.",
+      "Copy the hex value for the transformation you are building.",
+      "Check the contrast if the inverted value will carry text — the inversion is arithmetic and can take the pair too close."
+    ],
+    "whenToUse": "Use the inverter for literal RGB negatives such as dark-theme counterparts and negative filters. Use a complement finder when you want a harmonious opposite that keeps the original lightness rather than flipping it. The {{color-complement-finder|complement finder}} produces the perceptual opposite rather than the negative, and the {{contrast-checker|contrast checker}} is where an inverted pair gets judged before it is used.",
+    "faqs": [
+      {
+        "q": "How is the inversion calculated?",
+        "a": "Each red, green and blue channel is subtracted from 255, so the values mirror around the midpoint. The operation is exact and lossless."
+      },
+      {
+        "q": "Is this the same as a complementary color?",
+        "a": "No. A perceptual complement rotates the hue while keeping lightness; inversion also flips lightness, so a light color becomes a dark opposite."
+      },
+      {
+        "q": "What happens if I invert twice?",
+        "a": "You get the original color back exactly, because the operation is its own inverse. That makes it safe to use in a round trip."
+      },
+      {
+        "q": "Can it invert a whole image?",
+        "a": "This tool inverts a single color. The image effects section applies the same idea across every pixel for a negative filter."
+      },
+      {
+        "q": "Is an inverted colour the same as the complementary colour?",
+        "a": "No. Inversion subtracts each channel from two hundred and fifty-five, which is an arithmetic negative rather than a perceptual relationship: a mid blue inverts to a dull amber, while its complement on the wheel is a warm orange at the same lightness and chroma."
+      }
+    ]
+  },
+  {
+    "slug": "color-replacer",
+    "keywords": [
+      "color replacer",
+      "replace a color in an image",
+      "swap colors in a photo",
+      "recolor an image online"
+    ],
+    "intro": "The color replacer finds every pixel in an uploaded image within a tolerance of a target color and repaints it with the color you choose, live on a canvas.",
+    "content": "The color replacer does one specific job on an image: it finds the pixels that match a colour you nominate and repaints them. Upload a picture, set a target colour, choose what to replace it with, and drag a tolerance slider. The canvas beside the controls updates as you work, so the result is visible without any apply step. It is the tool for the everyday problem of a flat background that needs to be a different colour, or a logo whose one accent shade has to be swapped to match a new brand.\n\n- The matching rule is worth knowing precisely, because it explains both what the tool is good at and where it fringes.\n- A pixel is replaced when each of its red, green and blue values is individually within the tolerance of the target's corresponding channel.\n- That describes a box in colour space rather than a sphere: a colour can sit within tolerance on every channel and still be visually quite different, and two colours equidistant from the target by eye can fall on opposite sides of the boundary.\n- Raising the tolerance widens the box on all three channels at once, which is why a value that catches more of the background also starts bleeding into the subject.\n\nThe slider runs from zero, where only an exact match qualifies, up to two hundred, which is generous enough to sweep most of a scene. Starting values around the middle are usually right for a flat backdrop, and the honest way to work is to raise the tolerance until the background is covered and then back off a step or two as soon as the subject starts losing pixels. Because the swap runs on every change, that tuning is a matter of watching the canvas rather than guessing.\n\nTwo details make the result more usable than a naive swap. The replacement is written as a flat colour, so the exact hue you chose is what lands, and the alpha channel is left untouched, which means a transparent PNG stays transparent where it already was rather than gaining an opaque halo. The processing happens at the image's own resolution rather than on a downscaled copy, so fine details are preserved rather than smeared.\n\n- The limitation that matters most is the absence of any edge blending.\n- A pixel either matches and is fully replaced or does not match and is left exactly as it was, so along an anti-aliased edge between the target colour and its neighbour you get a ring of intermediate pixels that fall outside tolerance and keep their original values.\n- Against a contrasting background that shows as a visible fringe, and the fix is a higher tolerance or a different approach rather than a setting here.\n\nIt is also worth setting expectations about the output. The tool is a canvas preview rather than a file pipeline: there is no download button, so the way to keep a result is to save the rendered canvas from the browser. That makes it excellent for testing whether a recolour will work at all — the common case of a client asking whether the background could be a different shade — and less suited to batch work.\n\nUsed as a color replacer for that kind of quick trial it is hard to beat: no editing suite, no layers, no export dialog, just a target, a replacement and a tolerance. When the task is to swap colors in a photo that are effectively one flat value, or to see how an asset looks with a corrected shade, this gets you an answer in seconds. When the job needs feathered edges or a real file output, a recolouring tool that tints the whole image or an image editor will serve better. Where the job is to replace a color in an image that is effectively one flat value, or simply to recolor an image online without installing anything, that trade-off is an easy one to accept.",
+    "howTo": [
+      "Drop an image onto the upload area.",
+      "Set the target colour to the one you want replaced.",
+      "Set the replacement colour.",
+      "Raise the tolerance until the fringe disappears, watching for neighbouring colours being caught by mistake."
+    ],
+    "whenToUse": "Use the replacer for flat, near-uniform areas — a solid backdrop, a single logo accent — where you want to see the swap immediately. Use an image recolouring tool when the whole image should be tinted, and an editor when edges need feathering. The {{image-recolor-tool|image recolor tool}} tints every pixel rather than swapping one colour, and the {{duotone-generator|duotone generator}} flattens an image to two tones instead of hunting a match.",
+    "faqs": [
+      {
+        "q": "How does the tolerance work?",
+        "a": "A pixel is replaced when its red, green and blue values are each individually within the tolerance of the target's channels. It is a box in colour space, not a radius."
+      },
+      {
+        "q": "Why is there a fringe along edges?",
+        "a": "Anti-aliased pixels between the target colour and its neighbours take intermediate values, so they fall outside tolerance and keep their original colour, leaving a visible ring."
+      },
+      {
+        "q": "Is transparency preserved?",
+        "a": "Yes. Only the colour channels are rewritten, so an image that was transparent stays transparent where it already was."
+      },
+      {
+        "q": "Can I download the result?",
+        "a": "There is no download button. The output is a canvas rendered in the page, so saving it means storing the rendered canvas from the browser."
+      },
+      {
+        "q": "Why are there speckles or halos after a replacement?",
+        "a": "Because there is no edge blending: a pixel either matches within the tolerance or is left alone, so anti-aliased edges and JPEG noise keep a fringe of the original colour. Raising the tolerance catches more of the fringe and also catches more of the image."
+      }
+    ]
+  },
+  {
+    "slug": "color-complement-finder",
+    "keywords": [
+      "color complement finder",
+      "complementary color finder",
+      "opposite color on the color wheel",
+      "find the complement of a color"
+    ],
+    "intro": "The color complement finder returns the exact colour that sits opposite your base on the colour wheel, computed by rotating its hue a full one hundred and eighty degrees.",
+    "content": "The color complement finder takes a base colour and returns its opposite on the colour wheel. Give it a hex value and it rotates the hue by one hundred and eighty degrees, keeping lightness and chroma as they were, and shows the original next to the complement. The two colours are the classic complementary pair: placed together they produce the maximum hue contrast available for that starting point, which is why complements are the backbone of so many accent and call-to-action decisions.\n\n- The rotation is performed in OKLCH, which matters for the quality of the result.\n- Working in a perceptually uniform space means the complement keeps the same apparent brightness as the original, so the pair reads as balanced rather than one colour dominating the other.\n- In an older model the same numeric rotation could land on a noticeably lighter or darker tone, and the resulting pair would feel lopsided for reasons that were hard to diagnose.\n- Pinning lightness and chroma isolates hue as the only thing that changes.\n\nComplementary pairs are the highest-energy relationship on the wheel, and that energy is both the appeal and the risk. Used sparingly, a complement is a superb accent: a single button, a link, a highlight or a chart series can carry the eye precisely because it opposes the surrounding colour. Used at similar areas and similar intensity across a whole layout, the same pair vibrates uncomfortably, a phenomenon the simultaneous contrast tool in this section demonstrates directly. The practical guidance is to let one colour of the pair dominate and use the other as a minority accent.\n\nFinding the complement is also a useful first step in building a broader scheme. The complementary pair defines the poles of the design, and you can then soften the relationship by using split complements, which replace the single opposite hue with two near-opposites rather than one. If you want the tension without the harshness, that split version is usually the more forgiving choice, and this finder is still the right place to start because it establishes the reference point both variants are built from.\n\n- A caution specific to this approach is that a mathematically exact complement is not always a pleasing one.\n- Flipping a muted earth tone a full one hundred and eighty degrees can produce a saturated blue that is technically opposite but stylistically unrelated, because lightness and chroma were preserved but context was not.\n- Treat the result as the correct answer to the geometry question and a strong starting point, then adjust saturation or lightness to fit the mood.\n- For accents needing maximum separation, however, the exact complement is exactly what you want.\n\nA complementary color finder is most useful before you have settled on an accent: find the complement of a color early, decide whether the pair should be split, and only then start building. The opposite color on the color wheel gives you the maximum hue separation available for that base, so if a design still feels flat after using it, the problem is likely to be area or lightness rather than hue.",
+    "howTo": [
+      "Set the base colour with the picker.",
+      "Read the pair: the second swatch is the hue rotated one hundred and eighty degrees in OKLCH, at the base's own lightness and chroma.",
+      "Copy the complement's hex.",
+      "Move to the triadic or split-complementary tools when the exact opposite is too strong for the job."
+    ],
+    "whenToUse": "Use this finder when you need a single high-contrast accent for a base colour. Use the analogous finder when you want a calm family, and the split-complementary palette generator when you want the tension of a complement softened into two hues. The {{color-triadic-finder|triadic finder}} and {{color-tetradic-finder|tetradic finder}} widen the relationship to three and four hues, and the {{split-complementary-palette-generator|split-complementary generator}} keeps the tension while avoiding the exact opposite.",
+    "faqs": [
+      {
+        "q": "How is the complement calculated?",
+        "a": "The base colour's hue is rotated by one hundred and eighty degrees with lightness and chroma held constant, which produces the opposite hue on the wheel."
+      },
+      {
+        "q": "Why does the complement have the same brightness?",
+        "a": "The rotation happens in OKLCH, a perceptually uniform space, so only the hue changes. Both colours keep the same apparent lightness and read as balanced."
+      },
+      {
+        "q": "Can I use both colours in equal amounts?",
+        "a": "You can, but equal areas of opposing hues can vibrate uncomfortably. Let one dominate and use the complement as a minority accent for a more stable result."
+      },
+      {
+        "q": "What if the complement looks wrong for my palette?",
+        "a": "An exact complement preserves lightness and chroma but ignores context. Adjust saturation or lightness to fit the mood, or try a split complement instead."
+      },
+      {
+        "q": "Is the exact opposite always the right accent?",
+        "a": "No. A mathematically exact complement is a starting point: it is the highest-energy relationship on the wheel, and on a large area it can read as a clash rather than a pairing, which is why split-complementary and toned variants exist for cases where the exact opposite is too loud."
+      }
+    ]
+  }
+]

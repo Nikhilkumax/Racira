@@ -22,6 +22,7 @@ import { CATEGORIES as GAMES_CATS, slugify as gameSlugify } from "@/domains/game
 import { CATEGORIES as VOICE_CATS } from "@/domains/voice/registry";
 import { GAME_LIVE_SLUGS } from "@/lib/tools/gameLiveSlugs";
 import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isAliasSlug } from "@/domains/calculator/canonicalSlugs";
 import { toSlug } from "@/lib/utils/slug";
 
 // Only genuinely-built tools are sitemapped. `isLiveTool` enforces status === "live"
@@ -53,6 +54,10 @@ export const sitemapSources: SitemapSource[] = [
     getEntriesForCategory: (categorySlug) =>
       calculatorRegistry
         .filter(calc => calc && isLiveTool(calc) && toSlug(calc.category || "general") === categorySlug)
+        // Alias slugs (duplicate-content groups, see canonicalSlugs.ts) render
+        // their canonical sibling with a canonical tag — only canonical URLs
+        // belong in the sitemap.
+        .filter(calc => !isAliasSlug(calc.slug))
         .map(calc => ({
           loc: `${baseUrl}/calculator/${calc.slug || toSlug(calc.name)}`,
           lastmod: calc.updatedAt || FALLBACK_LASTMOD, // swap in real field if Step 0 found one

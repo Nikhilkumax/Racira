@@ -190,8 +190,14 @@ export default function MilesPerGallonCalculator() {
                 Advanced Options (Tank Range) <ChevronDown className={`h-3 w-3 transition-transform ${showAdvanced ? "rotate-180" : ""}`} />
               </button>
               {showAdvanced && (
-                <div className="grid grid-cols-1 gap-3 p-3.5 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up">
-                  <CompactInput id="capacity" label="Total Fuel Tank Capacity" value={inputs.tankCapacity} onChange={(v: string) => handleChange("tankCapacity", v)} suffix="gal" tooltip="Check your owner's manual for exact tank size." />
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  {/* Fuel Tank */}
+                  <div>
+                    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">Fuel Tank</div>
+                    <div className="grid grid-cols-1 gap-3">
+                      <CompactInput id="capacity" label="Total Fuel Tank Capacity" value={inputs.tankCapacity} onChange={(v: string) => handleChange("tankCapacity", v)} suffix="gal" tooltip="Check your owner's manual for exact tank size." />
+                    </div>
+                  </div>
                 </div>
               )}
             </div>

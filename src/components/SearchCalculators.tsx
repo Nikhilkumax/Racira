@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Search, Calculator } from "lucide-react";
 import type { CalculatorDef } from "@/domains/calculator/registry";
+import { canonicalSlug } from "@/domains/calculator/canonicalSlugs";
 import { trackSearchImpression } from "@/lib/analytics";
 import { CALCULATOR_STUB_SLUGS } from "@/lib/tools/calculatorStubSlugs";
 
@@ -79,6 +80,9 @@ const SearchCalculators = ({
           c.category?.toLowerCase().includes(normalizedQuery) ||
           (c.subcategory && c.subcategory.toLowerCase().includes(normalizedQuery))
         )
+        // Canonicalize duplicate-content alias slugs so results always link
+        // the one indexable URL per tool (see domains/calculator/canonicalSlugs.ts).
+        .map(c => ({ ...c, slug: canonicalSlug(c.slug) }))
         .sort((a, b) => {
           const aName = a.name.toLowerCase();
           const bName = b.name.toLowerCase();
@@ -190,7 +194,7 @@ const SearchCalculators = ({
             return (
               <Link
                 key={c.slug}
-                href={`/calculator/${c.slug}`}
+                href={`/calculator/${canonicalSlug(c.slug)}`}
                 prefetch={false}
                 onClick={() => { 
                   setQuery(""); 

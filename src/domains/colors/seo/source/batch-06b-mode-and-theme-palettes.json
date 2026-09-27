@@ -1,0 +1,242 @@
+[
+  {
+    "slug": "vintage-retro-palette-generator",
+    "keywords": [
+      "vintage retro palette generator",
+      "muted retro colors",
+      "faded print palette",
+      "retro color scheme"
+    ],
+    "intro": "The vintage retro palette generator builds five colours from a fixed run of faded hues — a burnt orange, a maroon, a mustard, a teal and a dusty pink — along a lightness ramp from 0.4 to 0.7.",
+    "content": "Ageing a palette is mostly a matter of chroma and warmth, and the vintage retro palette generator applies both to a fixed set of hues: 30, 10, 60, 200 and 350 in order, a lightness ramp from 0.4 at the first swatch to 0.7 at the last, and chroma rolled between 0.08 and 0.16. The mixture is what does the work — warm browns and mustards alongside a teal and a dusty pink, which is the colour language of printed packaging and mid-century posters rather than of screens.\n\n- Hues: burnt orange at 30, maroon at 10, mustard at 60, teal at 200 and dusty pink at 350.\n- Lightness: 0.4, 0.475, 0.55, 0.625 and 0.7 across the strip.\n- Chroma: rolled per swatch inside 0.08 to 0.16, which keeps every value short of full saturation.\n- Output: five hex swatches and a copyable CSS custom-property block from --color-1 to --color-5.\n\nThe teal matters more than its single slot suggests. Without it the palette would collapse into one warm family and read as sepia rather than as retro; a single cool note gives the eye something to compare against and makes the warm values look deliberately faded rather than merely old. That is also why muted retro colors work best in a layout that gives the cool slot real estate — as a background, a panel or the colour of one important element — rather than hiding it among four warm swatches.\n\n- Only five hues, fixed: no greens, no purple and no true neutral for text.\n- The darkest value sits at lightness 0.4, so a deep ink tone still has to come from elsewhere.\n- Low chroma at low lightness means several pairs inside the palette have little contrast between them; measure before using two of them together.\n- No preset selector, no transparency, and no export beyond the hex tokens.\n\nTreating it as a retro color scheme rather than as a historical reproduction is the most useful stance: the intent is the impression of age, and five values in a low-chroma, warm-dominant register produce that impression without depending on any particular decade. The same stance makes the palette easy to extend, because a sixth colour chosen from the same register will sit correctly beside the preset — rarely true of a palette copied out of a photograph.\n\nThe honest framing is that this is a faded print palette rather than a photographic one. It will not reproduce a particular era's packaging exactly, and it is not sampled from any archive; it is a set of hues in a register that reads as age. Use it for brand work that should feel made rather than rendered, for editorial surfaces, and for seasonal campaigns where warmth beats brightness. The earth-tone generator is the quieter, more neutral version of the same instincts, the sunset generator takes the warmth up to full saturation, and the shades tools supply the deep tone this preset leaves out.",
+    "howTo": [
+      "Open the page for the first roll of the faded set.",
+      "Press Regenerate to re-roll chroma while the hue order and the lightness ramp stay fixed.",
+      "Copy the custom-property block for a token file, or lift individual hex values.",
+      "Give the single cool swatch somewhere to be seen; the palette reads as retro because of it."
+    ],
+    "whenToUse": "Use this when a palette should look printed rather than rendered. The {{earth-tone-palette-generator|earth palette generator}} is the quieter take on warmth, the {{sunset-palette-generator|sunset palette generator}} is the saturated one, and the {{wes-anderson-style-palette|Wes Anderson palette}} is the same period instinct at much higher lightness.",
+    "faqs": [
+      {
+        "q": "Why does a single cool colour appear among the warm ones?",
+        "a": "Because it is what stops the palette reading as sepia. One teal gives the eye a reference point, and the warm values then look deliberately faded rather than simply brown."
+      },
+      {
+        "q": "What changes when I regenerate?",
+        "a": "Chroma only, rolled within 0.08 to 0.16 per swatch. The five hues, their order and the lightness ramp are fixed by the preset."
+      },
+      {
+        "q": "Why is the palette not more saturated if it is meant to look retro?",
+        "a": "Because saturation is what makes a palette look modern. Printed ink on paper, and screenshots of it decades later, sit in a narrow chroma band; keeping chroma low is what produces the effect."
+      },
+      {
+        "q": "Is there a dark tone for text in the set?",
+        "a": "No. The ramp starts at 0.4, which is a mid-dark surface rather than an ink tone, so a text colour still has to be chosen separately."
+      },
+      {
+        "q": "Does the CSS block include anything but hex values?",
+        "a": "No, just the five custom properties and a copy button. Roles, theme overrides and contrast notes are added by hand."
+      }
+    ]
+  },
+  {
+    "slug": "wes-anderson-style-palette",
+    "keywords": [
+      "wes anderson palette",
+      "cinematic color palette",
+      "symmetrical pastel colors",
+      "film palette generator"
+    ],
+    "intro": "The Wes Anderson palette takes one fixed run — orange, rose, mustard, teal and salmon — and pushes it up a lightness ramp from 0.5 to 0.8 into a cinematic colour palette.",
+    "content": "The palette this page produces is built from five hues — 30, 350, 60, 180 and 20 — raked upward from lightness 0.5 to 0.8 with chroma rolled between 0.1 and 0.2. That combination of warm orange, rose and salmon with a mustard and a single cool teal is the colour language people mean by a film palette generator: bright, evenly weighted, and closer to a painted set than to a natural scene. Regenerating rolls only chroma, so the arrangement survives while its intensity moves.\n\n- Hues: a warm orange at 30, a rose at 350, a mustard at 60, a teal at 180 and a salmon at 20.\n- Lightness: 0.5, 0.575, 0.65, 0.725 and 0.8.\n- Chroma: rolled per swatch within 0.1 to 0.2.\n- Output: five hex swatches plus a copyable block of CSS custom properties.\n\nWhat makes the set work compositionally is that four of the five sit on the warm half of the wheel while the teal sits alone on the cool half, and lightness rises through the whole run in the same order. The result is symmetrical in weight rather than in hue: nothing in the strip is dark, nothing is neutral, and the single cool colour gets more attention than its one slot in five would suggest. Designers usually end up assigning it to the element that has to be noticed, and letting the warm four carry the frame.\n\n- It is an approximation of a style, not an official or licensed palette, and no film is sampled to produce it.\n- Everything is light, so the set supplies surfaces and accents but no text colour and no deep ink.\n- Symmetrical pastel colors of this kind are unforgiving about contrast: warm light values in particular look darker than they measure, so pairs need checking rather than trusting.\n- No preset selector, no alpha, and no gradient output — hex tokens and the copy block only.\n\nUsed as a wes anderson palette of convenience, the strip is less an homage than a working register: light, warm, evenly weighted, with one cool note for contrast. A cinematic color palette of that shape is easy to place because nothing in it struggles for attention, which is what suits editorial layouts where photography does the shouting and the palette does the framing.\n\nUse it when a surface should feel staged and graphic: editorial spreads, event branding, packaging with a strong photographic direction, and interfaces that want warmth without noise. Give one element the teal, keep the warm four behind it, and add a deep brown or near-black from the shades tools for text. The sunset generator is the saturated, dusk-weighted version of the same warmth, the vintage generator takes it back to print-like chroma, and the pastel generator is the version with no hue story at all. Which of the four you choose is really a decision about how much colour the layout can carry, so open the page beside a real layout before committing to one of them.",
+    "howTo": [
+      "Open the page for the initial cinematic roll.",
+      "Press Regenerate to re-roll chroma while the hue order and rising ramp stay fixed.",
+      "Reserve the teal swatch for the element that has to be noticed.",
+      "Add a deep neutral from the shade tools before the palette carries any body text."
+    ],
+    "whenToUse": "Use this when a surface should feel composed and graphic rather than natural. The {{sunset-palette-generator|sunset palette generator}} takes the same warmth to full saturation, the {{vintage-retro-palette-generator|vintage retro generator}} moves it towards print, and the {{pastel-palette-generator|pastel palette generator}} is the version with no hue narrative behind it.",
+    "faqs": [
+      {
+        "q": "Is this an official palette from any film?",
+        "a": "No. It is a set of hues in a recognised register, generated from fixed parameters; nothing is sampled from a film and no licence is implied."
+      },
+      {
+        "q": "Why does one cool colour appear among four warm ones?",
+        "a": "It is the counterweight. With only warm hues the palette drifts into monotony, and a single teal gives the eye a comparison that makes the warm values look intentional."
+      },
+      {
+        "q": "Can the palette carry text as it stands?",
+        "a": "Not comfortably. Every swatch sits at lightness 0.5 or above, so a dark ink from another tool is needed for anything that has to be read."
+      },
+      {
+        "q": "What does Regenerate change?",
+        "a": "Chroma per swatch, within 0.1 to 0.2. The hue run, its order and the rising lightness ramp are fixed parts of the preset."
+      },
+      {
+        "q": "Where should the teal colour be used?",
+        "a": "On the single element that must attract attention. It carries more weight than one swatch in five suggests, so spreading it across several elements flattens the composition."
+      }
+    ]
+  },
+  {
+    "slug": "dark-mode-palette-generator",
+    "keywords": [
+      "dark mode palette generator",
+      "dark ui color palette",
+      "near black surfaces",
+      "dark theme colors"
+    ],
+    "intro": "The dark mode palette generator produces five near-black and deep-tinted surfaces from a fixed blue-violet run with lightness between 0.15 and 0.4 — a dark ui color palette, not an accent set.",
+    "content": "Dark interfaces are built from surfaces, and surfaces are where most dark themes go wrong: pure black flattens elevation and makes every layer look identical. This preset addresses that directly. Dark theme colors are generated from five blue-leaning hues — 220, 240, 260, 200 and 280 — with lightness climbing a narrow ramp from 0.15 to 0.4 and chroma rolled between 0.04 and 0.12, which is enough tint to separate layers without the surfaces reading as colours in their own right.\n\n- Hues: blue at 220, indigo at 240, violet at 260, cyan-blue at 200 and purple at 280.\n- Lightness: 0.15, 0.2125, 0.275, 0.3375 and 0.4 — five usable depth levels.\n- Chroma: rolled per swatch inside 0.04 to 0.12, keeping the tint subtle.\n- Output: five hex swatches and a copyable CSS custom-property block.\n\nA cast of a few degrees of blue or violet is what keeps near black surfaces from looking muddy, and it is also why dark themes are usually built on a tinted rather than a neutral base: pure greys sit beside each other ambiguously, while even a low-chroma tint gives the eye something to anchor elevation to. The ramp's five levels map naturally onto a surface ladder — page, panel, card, raised control, hover — which is the structure a dark ui color palette is actually for.\n\n- It supplies surfaces only. Text colours, accent colours and status colours all have to come from somewhere else.\n- Nothing in the set is dark enough to be a shadow and nothing is light enough to be a divider; both are separate jobs.\n- Chroma is low by design, so any colour used as an accent will need checking against every one of the five surfaces it might sit on.\n- No preset selector, no alpha and no theme tokens beyond the hex custom properties.\n\nChoosing between the five levels is easier if they are named before they are used. A dark mode palette generator of this design works best with the ramp mapped explicitly — surface, raised surface, control, overlay, emphasis — because names survive a redesign while hex values do not, and because a dark theme with unnamed levels drifts a little every time someone adds a component.\n\nUse it as the base layer of a dark theme and build the rest deliberately: pick one accent, confirm it passes against the lightest and darkest surfaces in the strip with the contrast checker, and keep text near-white rather than pure white so the surfaces retain a visible hierarchy. The light-mode generator is the mirror image of this page for a bright interface, the neon generator supplies the accents this palette is designed to carry, and the shade tools extend the ladder if five levels are not enough. Keep the palette honest as the theme grows: every new surface should come from the ramp rather than from a fresh guess. Five values cover most interfaces; a sixth needs a reason rather than a habit.",
+    "howTo": [
+      "Open the page and read the five surface levels, darkest first.",
+      "Press Regenerate to re-roll the tint chroma while the depth ramp stays fixed.",
+      "Assign the levels to page, panel, card, control and hover states in that order.",
+      "Check any accent or text colour against both the darkest and the lightest surfaces."
+    ],
+    "whenToUse": "Use this as the surface base of a dark interface. The {{light-mode-palette-generator|light mode palette generator}} is the mirror for bright themes, the {{neon-palette-generator|neon palette generator}} supplies the accents these surfaces are built to carry, and the {{contrast-checker|contrast checker}} settles which text colour survives on each level.",
+    "faqs": [
+      {
+        "q": "Why not just use pure black for a dark theme?",
+        "a": "Because black gives elevation nothing to work with: every layer looks the same, and shadows have no room to read. A tinted near-black at lightness 0.15 keeps depth visible."
+      },
+      {
+        "q": "How do I map five swatches onto an interface?",
+        "a": "Treat them as a surface ladder — page, panel, card, raised control and hover — from the darkest to the lightest. The ramp was designed to give that many levels."
+      },
+      {
+        "q": "Does the palette include text or accent colours?",
+        "a": "No. It is surfaces only, so text, accents and status colours have to be chosen and verified separately against these five values."
+      },
+      {
+        "q": "Why is there a blue or violet tint rather than a neutral grey?",
+        "a": "Tinted darks separate from one another more clearly than greys of the same lightness, which makes elevation legible without raising contrast."
+      },
+      {
+        "q": "Can I use a saturated accent on these surfaces?",
+        "a": "Yes, and low-chroma darks are ideal backdrops for one, but check the accent against the lightest surface as well as the darkest — mid-level surfaces are where contrast usually breaks."
+      }
+    ]
+  },
+  {
+    "slug": "light-mode-palette-generator",
+    "keywords": [
+      "light mode palette generator",
+      "light ui color palette",
+      "tinted white surfaces",
+      "light background palette"
+    ],
+    "intro": "The light mode palette generator produces five tinted white and pale blue surfaces from a fixed run with lightness between 0.85 and 0.97 — a light ui color palette built for bright themes.",
+    "content": "Bright interfaces live or die on surfaces that are nearly white but not identical to each other, and that is precisely the band this preset occupies. Its hues are 220, 200, 180, 0 and 30 — blue, cyan-blue, teal, a red and an orange — with lightness climbing from 0.85 to 0.97 and chroma rolled between 0.02 and 0.08. The tints are barely visible as colours and entirely visible as layers, which is the point of a light background palette.\n\n- Hues: 220, 200, 180, 0 and 30, giving blue, cyan, teal, red and orange casts.\n- Lightness: 0.85, 0.88, 0.91, 0.94 and 0.97 — five steps from soft tint to near paper.\n- Chroma: rolled per swatch in the very narrow band 0.02 to 0.08.\n- Output: five hex swatches and a copyable CSS custom-property block.\n\nThe narrow chroma band is what makes the result usable rather than decorative. At 0.02 a surface reads as white with an attitude; at 0.08 it is a distinguishable tint that can still sit behind dark text without competing. Because the ramp tops out at 0.97, the lightest swatch behaves like paper, and the darkest gives a footer or sidebar somewhere to sit without turning into a block of colour. Tinted white surfaces also avoid the pitfall of pure white in bright themes, where every subtle elevation change is invisible and the page reads as flat.\n\n- Text colours are not included: dark ink, muted ink and link colours all have to come from elsewhere.\n- Nothing in the set is dark enough for a border or a divider that must read clearly against the lightest surface.\n- The warm casts at hue 0 and 30 are easy to overuse; one warm surface plus four cool ones is the balance the preset implies.\n- No preset selector, no transparency, no theme tokens beyond the five hex custom properties.\n\nNaming the levels matters here for the same reason it does in a dark theme. A light mode palette generator is really a surface contract: page, panel, card, control and hover, one value each, so that a new component cannot invent its own near-white. Written down that way, a light ui color palette stops being a set of colours and becomes the rule that keeps a bright interface coherent as it grows.\n\nUse it as the base of a bright theme and assign it as a ladder: page, panel, card, raised control, hover state, from the lightest to the darkest. Then choose one accent and verify it against the two extremes with the contrast checker, because pale surfaces make accents look stronger than they measure. The dark-mode generator mirrors this page for night themes, the neutral shades tools supply the greys and inks this preset deliberately leaves out, and the CSS variables generator writes the ladder out as named tokens once the levels are assigned. A theme built from five named surfaces is far easier to audit than one assembled from dozens of near-whites.",
+    "howTo": [
+      "Open the page for the initial set of pale surfaces.",
+      "Press Regenerate to re-roll the tint chroma while the lightness ladder stays fixed.",
+      "Assign the five levels to page, panel, card, control and hover states.",
+      "Choose a dark ink and an accent separately, then measure both against the extremes."
+    ],
+    "whenToUse": "Use this as the surface base of a bright interface that needs more structure than plain white provides. The {{dark-mode-palette-generator|dark mode palette generator}} is the mirror for night themes, the {{css-color-variables-generator|CSS variables generator}} writes the levels out as named tokens, and the {{contrast-checker|contrast checker}} verifies the ink you pair with them.",
+    "faqs": [
+      {
+        "q": "Are these colours or just pale greys?",
+        "a": "Tinted surfaces. The chroma band is 0.02 to 0.08, so at the low end they read as white with a cast, and at the high end as a clearly distinguishable tint."
+      },
+      {
+        "q": "Why not use pure white for a light theme?",
+        "a": "Because elevation becomes invisible. Several near-whites at different lightness give cards, panels and hover states something to separate by, which one flat white cannot do."
+      },
+      {
+        "q": "Where do text colours come from?",
+        "a": "Elsewhere — this preset supplies surfaces only. A dark ink, a muted ink and a link colour all have to be chosen and checked against these values."
+      },
+      {
+        "q": "Why is one warm tint included among the cool ones?",
+        "a": "For contrast of temperature. A single warm surface gives notices, highlights or a sidebar a distinct register without introducing a saturated colour into a quiet palette."
+      },
+      {
+        "q": "Why does regenerating barely change the palette?",
+        "a": "Because only the tint chroma is re-rolled, inside the narrow 0.02 to 0.08 band. The five-step lightness ladder and the hue order are fixed, so the set keeps its structure."
+      }
+    ]
+  },
+  {
+    "slug": "corporate-palette-generator",
+    "keywords": [
+      "corporate palette generator",
+      "business color palette",
+      "low chroma blues",
+      "professional color scheme"
+    ],
+    "intro": "The corporate palette generator is built for professional color schemes: three low-chroma blues, a red and an orange, spread across a lightness ramp from 0.35 to 0.65.",
+    "content": "There is a reason enterprise design looks the way it does, and this preset encodes it: blues at 220, 200 and 240 carry the structure, a red at 0 and an orange at 30 supply the only two warm values, and chroma is rolled between 0.04 and 0.12 — low enough that nothing in the set can shout. Lightness climbs from 0.35 to 0.65 across the strip, which gives a business color palette both a surface and a light accent without straying outside the register.\n\n- Hues: blue at 220, cyan-blue at 200, indigo at 240, red at 0 and orange at 30.\n- Lightness: 0.35, 0.425, 0.5, 0.575 and 0.65.\n- Chroma: rolled per swatch inside 0.04 to 0.12 — deliberately restrained.\n- Output: five hex swatches plus a copyable block of CSS custom properties.\n\nLow chroma blues are the load-bearing part of that arrangement. Blues survive small sizes, printed reproduction, projection and colour-vision deficiency better than most families, and keeping chroma low means the palette still looks calm when it is used at scale. The single red at hue 0 exists for the opposite purpose: it is the only value in the strip that can carry a warning or a required field, and its presence is what makes the set a professional color scheme rather than a monochrome one.\n\n- Only five values, so nothing here covers error, warning, success and information states at once.\n- The red and orange are close neighbours; using both for different meanings invites confusion, so pick one as the alert colour.\n- Nothing dark enough for body text; a near-black ink is still needed.\n- No preset selector, no alpha, and no theme tokens beyond the five hex custom properties.\n\nJudged as a corporate palette generator rather than as a brand, the set has to survive two tests: small type and large surfaces. Low chroma helps with both — a blue at chroma 0.06 keeps its shape at twelve pixels and stays calm behind a wall of text, where the same hue at full saturation would look loud in one context and muddy in the other. That is the practical argument for the register.\n\nThe register is a cliché for a reason: it works where trust matters more than personality — finance, healthcare, government, enterprise software, and any product whose audience has to believe it will still exist in five years. Where the brand needs to be remembered rather than trusted, this palette will underperform by design, and the neon or Wes Anderson presets are better starting points. The dark-mode generator converts these surfaces for a night theme, the shades tools fill in the tonal steps a full status system needs, and the palette accessibility checker audits whichever values end up carrying text or icons. Treat the palette as the floor of the brand system rather than as the whole of it: the register is deliberately quiet, and anything expressive has to be added on top. One accent, chosen deliberately, is usually enough to keep it from feeling anonymous.",
+    "howTo": [
+      "Open the page for the first professional roll.",
+      "Press Regenerate to re-roll chroma while the blue-heavy hue order and the ramp stay fixed.",
+      "Reserve either the red or the orange for alerts, not both.",
+      "Add a near-black ink and, if needed, a tonal ladder from the shade tools."
+    ],
+    "whenToUse": "Use this when trust and legibility outrank memorability — finance, health, government and enterprise products. The {{dark-mode-palette-generator|dark mode palette generator}} adapts the same surfaces for a night theme, the {{color-shades-generator|shades generator}} builds the extra tonal steps a status system needs, and the {{palette-accessibility-checker|palette accessibility checker}} audits the values that end up carrying text.",
+    "faqs": [
+      {
+        "q": "Why is the palette almost entirely blue?",
+        "a": "Because blues hold up across sizes, printing, projection and colour-vision deficiencies, which is exactly what a palette has to do when trust is the brief. The other hues are accents rather than structure."
+      },
+      {
+        "q": "Can I use both the red and the orange for different meanings?",
+        "a": "Better to pick one. They sit close on the wheel and read as the same signal at small sizes, so two meanings attached to them will be confused."
+      },
+      {
+        "q": "Does the set cover status colours?",
+        "a": "Only partially. One alert colour is available; success and information states need extra values, usually built from the blues with the shade tools."
+      },
+      {
+        "q": "Is a low-chroma palette boring by accident or on purpose?",
+        "a": "On purpose. Restraint is what keeps a palette credible at scale and across media; a more saturated set would compete with the content it is framing."
+      },
+      {
+        "q": "Where would this palette be the wrong choice?",
+        "a": "Anywhere the brand has to be remembered rather than trusted — entertainment, youth products, nightlife. Those briefs want a register with more chroma and more personality."
+      }
+    ]
+  },
+  {
+    "slug": "seasonal-palette-generator",
+    "keywords": [
+      "seasonal palette generator",
+      "season color palettes",
+      "spring summer autumn winter colors",
+      "deterministic season palette"
+    ],
+    "intro": "The seasonal palette generator maps spring, summer, autumn and winter onto four fixed hue runs, giving season color palettes that are fully deterministic — the same season always returns the same five swatches.",
+    "content": "This page is the exception in the random-palette family: nothing about it is rolled. Each season owns a fixed run of five hues, and every swatch is placed with a lightness cycle of 0.55, 0.67, 0.79, 0.55 and 0.67 at a constant chroma of 0.14. Choose a season and the strip is rebuilt from those numbers; choose it again tomorrow and you will get the same result. That makes a seasonal palette generator unusually useful for anything a design system has to reproduce.\n\n- Spring — hues 80, 110, 50, 160 and 200: yellow-green, green, gold, teal-green and blue.\n- Summer — hues 200, 220, 180, 30 and 60: two blues, a cyan, an orange and a yellow.\n- Autumn — hues 25, 40, 15, 60 and 350: rust, ochre, brown-orange, mustard and a red-pink.\n- Winter — hues 240, 260, 220, 280 and 200: indigo, violet, blue, purple and cyan-blue.\n\nThe lightness cycle is what gives each run its rhythm. Because it repeats across five slots, the first and fourth swatches share a lightness, the second and fifth match, and the third sits alone at the lightest value — so each season's strip has a peak in the middle and a pair of parallel values either side, rather than a single monotonically rising ramp. Chroma is constant at 0.14, which is vivid enough to read as a season and muted enough that the four runs feel like members of one family rather than four unrelated palettes.\n\n- Only four presets, and no way to adjust hue, lightness or chroma from the page.\n- The runs are untitled set lists rather than sampled photographs, so they read as a season's colour family rather than as a month's palette.\n- Nothing in any run is dark; no text colour and no deep surface is supplied.\n- No export beyond copying individual hex values, and no CSS block on this page.\n\nIt is worth being explicit about what the determinism buys. A deterministic season palette can be written straight into a stylesheet as constants and reviewed like any other token, whereas a rolled palette has to be captured before anyone can discuss it. Because the four season color palettes share a chroma and a lightness structure, they also behave consistently as a family: a component styled for spring will not break when the theme switches to winter, which is the property a rotating theme actually needs.\n\nUse it for editorial and campaign work that has to be consistent across a year, for product themes that change with the calendar, and anywhere a seasonal rotation should be recognisable rather than constantly new. Because the values never change, they can be written into a stylesheet as constants; the spring summer autumn winter colors then behave like tokens rather than like rolls. Where the palette itself should be random, use the random or daily generators instead, and where a specific season needs more depth, take one value into the shade and tint tools.",
+    "howTo": [
+      "Choose a season from the dropdown; the strip rebuilds from that season's fixed hues.",
+      "Read the five swatches, noting that lightness peaks at the third and repeats elsewhere.",
+      "Copy the hex values you need — they are stable, so they can safely become tokens.",
+      "Add a dark tone from the shade tools if the palette has to carry text."
+    ],
+    "whenToUse": "Use this when a palette has to be reproducible across a year of campaigns or themes. The {{random-palette-generator|random palette generator}} is the unconstrained alternative, the {{color-tints-generator|tints generator}} and {{color-shades-generator|shades generator}} add the depth no season run contains, and the {{css-color-variables-generator|CSS variables generator}} turns a chosen season into named tokens.",
+    "faqs": [
+      {
+        "q": "Are the palettes generated randomly?",
+        "a": "No. Each season has a fixed hue run, a constant chroma of 0.14 and a repeating lightness cycle, so a season always produces exactly the same five values."
+      },
+      {
+        "q": "Why does the lightness pattern repeat instead of rising?",
+        "a": "The cycle is 0.55, 0.67 and 0.79 applied across five slots, so the third swatch is the lightest and the others pair up. That gives each season a peak rather than a slope."
+      },
+      {
+        "q": "Is there a way to tweak the season's colours?",
+        "a": "Not on this page. Hue, lightness and chroma are all fixed per season; to shift a season, take a swatch into the channel adjusters or hue rotator."
+      },
+      {
+        "q": "Can the four seasons be used in one interface?",
+        "a": "They can, since all four share a chroma and a lightness structure, but the hues are unrelated, so a page that shows two seasons at once should give one of them the dominant role."
+      },
+      {
+        "q": "Do these values work as text colours?",
+        "a": "No. At chroma 0.14 they are surface and accent colours, and nothing in any season is dark enough for body text."
+      }
+    ]
+  }
+]

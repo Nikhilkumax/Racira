@@ -1,0 +1,521 @@
+[
+  {
+    "slug": "random-color-generator",
+    "keywords": [
+      "random color generator",
+      "random hex colors",
+      "generate random colors",
+      "random color palette hex",
+      "color generator random"
+    ],
+    "intro": "The random color generator produces ten unconstrained random colors at once as copyable hex swatches, and regenerates the whole set on demand.",
+    "content": "The random color generator shows ten random colours as a grid of swatches, each with its hex value and a copy button, and a button that replaces the entire set with ten new ones. It appears after the page loads rather than in the initial HTML, because the values are generated on the client so that the server and browser never disagree about them.\n\nTen is the fixed count. There is no way to ask for three or for fifty, and no way to keep one swatch while the others change — pressing the button replaces everything, so a colour worth keeping should be copied first. Within those constraints the tool is about as simple as it can be: one button, ten values, nothing to configure.\n\nThe interesting property is how unconstrained the values are. Each of the ten is drawn uniformly across the whole colour space rather than from any usable band, which is what makes the tool able to generate random colors that are genuinely unpredictable rather than merely varied, so a set will typically include a few that would never be chosen deliberately: near-blacks, colours that read as muddy brownish greys because their channels happened to land close together, and the occasional almost-white. That is the nature of a uniform random hex value, and it is worth knowing rather than treating as a defect — this generator is not trying to produce a palette, and it will not.\n\nWhat it is actually for is placeholders and practical decisions. Ten arbitrary values at once is a convenient supply of distinct colours for a chart with ten series, a table with ten categories, or a set of mock-ups where the colours only need to be different from each other. It is also useful in testing: a random value is a quick way to check that a component handles an unexpected colour, or that a layout survives an awkward one. And for anyone staring at an undecided colour choice, generated options are often enough to clarify what is wanted by ruling things out.\n\n- If the goal is something usable rather than merely arbitrary, the neighbouring tools are structured differently.\n- A random palette generator produces a smaller set that still has no relationship between its colours; the themed generators draw from bands that are known to work in a design; and an accessible palette generator filters its output so that every colour clears a contrast threshold against a chosen background.\n- The distinction matters — a random set is a source of variety, not a source of a scheme.\n\n- Limits: exactly ten colours per press, no history and no seed so a set cannot be reproduced, no locking or editing of individual swatches, no contrast checking, and no palette logic of any kind, since every value is independent.\n- Used as a random hex colors supply it does one job quickly, and when you need a random color palette hex values can be copied out of, ten at a time is a more practical unit than one.\n- For a color generator random enough to be genuinely unpredictable while still giving you copyable values, the one button and the fixed count are the whole interface.",
+    "howTo": [
+      "Load the page — ten random swatches appear.",
+      "Copy any value you want to keep from its swatch.",
+      "Press the button to replace the whole set with ten new colours."
+    ],
+    "whenToUse": "Use this when you need a batch of clearly different colours for placeholders, categories or testing. Use a themed, palette or accessible generator when the colours have to be usable rather than merely random. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "How many colours are generated?",
+        "a": "Ten at a time, always. The count is fixed, and pressing the button replaces all ten rather than adding to them."
+      },
+      {
+        "q": "Why do the swatches appear after the page loads?",
+        "a": "The values are generated in the browser rather than on the server, so the initial HTML and the first render cannot disagree. The grid is empty for that first moment."
+      },
+      {
+        "q": "Are the colours constrained to look good?",
+        "a": "No. Each is drawn uniformly across the whole colour space, so near-blacks, near-whites and muddy mid-tones all appear regularly. It supplies variety rather than a scheme."
+      },
+      {
+        "q": "Can I lock a colour I like and regenerate the rest?",
+        "a": "No. Each press replaces the entire set, and there is no seed, so a set cannot be reproduced. Copy anything worth keeping before regenerating."
+      },
+      {
+        "q": "What does the random color generator not do?",
+        "a": "Used as a random hex colors supply it does one job quickly, and when you need a random color palette hex values can be copied out of, ten at a time is a more practical unit than one. For a color generator random enough to be genuinely unpredictable while still giving you copyable values, the one button and the fixed co"
+      }
+    ]
+  },
+  {
+    "slug": "random-accessible-color-generator",
+    "keywords": [
+      "random accessible color generator",
+      "random color that passes contrast",
+      "accessible random palette",
+      "wcag safe random colors"
+    ],
+    "intro": "The random accessible color generator rolls colors that are random in hue but verified in contrast — every candidate checked against your background until it clears the WCAG bar.",
+    "content": "- Random color generators produce two things: colors and problems — most of what they emit fails contrast against any given background, because vivid randomness ignores legibility.\n- The random accessible color generator inverts the contract: set a background, press the button, and receive colors that are random in hue but verified against your surface — each candidate drawn, measured with the standard contrast formula, rejected if it misses the 4.5:1 bar, retried until the set fills with passes.\n- A random color that passes contrast, by construction rather than luck.\n\nThe verification loop is the tool's entire difference. Unconstrained rolls land most often in the mid-lightness band where failure is guaranteed; this generator keeps drawing until candidates clear the bar, so the accessible random palette it returns is random where randomness delights — the hues — and disciplined where legibility demands it — the contrast. The result is a set you can deploy without a checking pass: every swatch shown renders sample content against your actual background, so the passes are visible as well as counted.\n\nThe natural deployments: playful interfaces that must stay legible — generators, games, educational tools; decorative accents behind or beneath text where contrast obligations apply; and teaching contrast itself, since the tool's output demonstrates that randomness and accessibility are compatible when the right axis carries the randomness. For guaranteed-neutral text on any surface, the friendly picker's ladder is the stronger instrument; for palettes with a planned harmony rather than a random one, the harmony generators apply craft where this applies chance.\n\n- Randomness and accessibility are usually enemies, and the reason is structural: a palette generated in an unconstrained space wanders through the ranges where text stops being readable, and no amount of previewing fixes a value that should never have been proposed.\n- Constraining the generator is what makes the two compatible.\n- If the surface is fixed and the contrast target is given, the search space narrows to values that can actually work on that surface, and randomness then operates where it is genuinely useful — hue, temperature and the character of the accent — rather than where it produces failures.\n- The result behaves like a briefed collaborator instead of a slot machine: every roll is admissible, so the choosing is aesthetic rather than remedial.\n- It is a good first stop when a design needs a colour from nothing, because whatever comes out is already usable.\n\nThat also changes how the output is used: with a floor under the quality, the rarer wins are the interesting ones and there is less need to keep rolling in the hope of a legal result. Keeping the contrast reading alongside each generated value is worth the extra line, since it is the first thing a later reviewer will want to verify.\n\nAs an accessible random palette instrument it makes one promise and keeps it mechanically: wcag safe random colors against the background you set, random in the dimensions where randomness is fun, verified in the dimension where failure costs users.\n\nKeeping the surface value with the generated set matters too, since a palette that passes on white can fail completely on the tinted panel it later moves onto.",
+    "howTo": [
+      "Set the background the colors must work against.",
+      "Press generate — the tool draws and verifies until five candidates clear 4.5:1.",
+      "Copy the verified set; every swatch is pre-checked for your surface."
+    ],
+    "whenToUse": "Use this when playfulness and legibility must coexist — games, generators, decorative accents. Use the friendly picker for guaranteed neutral text, the harmony generators for planned palettes, and the contrast checker to verify any pair this tool did not draw. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "What threshold do the colors pass?",
+        "a": "4.5:1 against your chosen background — the WCAG AA bar for normal text — verified per candidate before it enters the set."
+      },
+      {
+        "q": "Are the hues coordinated between the five colors?",
+        "a": "No — hue is genuinely random; only contrast is verified. Coordination is the harmony generators' department."
+      },
+      {
+        "q": "Why does generation sometimes take a moment?",
+        "a": "The tool rejects candidates that miss the bar and redraws — against a mid-lightness background, most random draws fail, so several rounds of verification are normal."
+      },
+      {
+        "q": "Can I use the colors as text on the background?",
+        "a": "Yes — that is the bar they passed. For large text the 3:1 bar applies and any of these passes it too; verify any other pairing with the contrast checker."
+      },
+      {
+        "q": "What does the random accessible color generator not do?",
+        "a": "Constraining the generator is what makes the two compatible. If the surface is fixed and the contrast target is given, the search space narrows to values that can actually work on that surface, and randomness then operates where it is genuinely useful — hue, temperature and the character of the accent — rather than whe"
+      }
+    ]
+  },
+  {
+    "slug": "lucky-color-generator",
+    "keywords": [
+      "lucky color generator",
+      "random lucky color",
+      "roll a random color",
+      "color of the day generator",
+      "random hex color generator"
+    ],
+    "intro": "The lucky color generator rolls a single random color on demand and shows it as one swatch with its hex value ready to copy.",
+    "content": "- The lucky color generator is one button and one swatch.\n- Press Roll a lucky color and a fresh random colour appears, with its hex value underneath and a copy button beside it.\n- Press again and it is replaced.\n- There is nothing to configure, and no history of previous rolls is kept — the tool always shows exactly one colour, the most recent one.\n\nThe randomisation is uniform across the whole colour space rather than restricted to a pleasant subset, and that has a visible consequence. Because every hue, saturation and lightness combination is equally likely, a good share of rolls come back as colours most people would not choose: very dark near-blacks, washed-out greys where the three channels happen to land close together, or combinations that look muddy once converted to hex. That is the honest character of a uniform random hex generator. It is not a palette assistant that will hand you something tasteful; it is a die with sixteen million faces.\n\nWhat it is genuinely good for is breaking a decision. Designers and illustrators who have been circling the same three colours for an hour can roll until one of them is wrong in an interesting way, which is often enough to see what the work actually needs. It is also a quick source of an arbitrary value when something needs a placeholder — a test swatch, a dummy avatar colour, a one-off marker on a chart — where any distinct colour will do and choosing one properly would be wasted effort.\n\nIt is also a convenient way to settle a colour for a small personal project, where the appeal of a random lucky color is that the decision is out of your hands and the result is at least distinctive. Two practical points. The result is a single hex value with a copy button, so it transfers to a stylesheet or a design file immediately. And there is no seed and no repeat, so a colour you liked cannot be recovered once you roll again; copy it before pressing the button if it is worth keeping. That is a small thing that catches people out when they roll several times in a row looking for something better.\n\nIf the aim is something applicative rather than arbitrary, other tools in this domain do more. A random palette generator produces five colours at once that have some chance of working together, a themed generator draws from bands that are known to be usable, and an accessible palette generator filters its output so that every colour clears a contrast threshold against a chosen background. Rolling a single unconstrained colour is the least structured option of the four, which is precisely why it is useful when structure is the problem.\n\nAs a random lucky color tool, then, it does one thing: roll a random color on demand, show it, and let you copy the hex. Treat it as a random hex color generator for placeholders and for jolting a stalled decision, or as a light-hearted color of the day generator for a personal project — and take the results as they come, since that is the nature of a uniform roll.",
+    "howTo": [
+      "Press the Roll a lucky color button.",
+      "Read the swatch and its hex value.",
+      "Copy the value if you want to keep it — rolling again replaces it with no way back."
+    ],
+    "whenToUse": "Use this when you need an arbitrary colour quickly or want to break out of a decision loop. Use a themed, palette or accessible generator when the colour has to be usable rather than merely random. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Is the colour constrained in any way?",
+        "a": "No. It is uniform across the whole colour space, so very dark, very pale and muddy results are all possible and reasonably common."
+      },
+      {
+        "q": "Can I get the previous colour back?",
+        "a": "No. No history is kept and there is no seed, so rolling again discards the last value permanently. Copy it first if you might want it."
+      },
+      {
+        "q": "How is this different from the random color generator?",
+        "a": "This returns one colour with no constraints; the palette generator returns five at once, and the accessible generator filters its output so each colour clears a contrast threshold."
+      },
+      {
+        "q": "How many possible results are there?",
+        "a": "Every hexadecimal colour is possible — around sixteen and a half million values, each equally likely."
+      },
+      {
+        "q": "Where does the lucky color generator stop short?",
+        "a": "As a random lucky color tool, then, it does one thing: roll a random color on demand, show it, and let you copy the hex. Treat it as a random hex color generator for placeholders and for jolting a stalled decision, or as a light-hearted color of the day generator for a personal project — and take the results as they co"
+      }
+    ]
+  },
+  {
+    "slug": "daily-color-generator",
+    "keywords": [
+      "daily color generator",
+      "color of the day",
+      "date-based color",
+      "fresh color every day tool"
+    ],
+    "intro": "The daily color generator derives one color from today's date — the color of the day, identical for everyone, new again tomorrow.",
+    "content": "One color per day, chosen by the calendar: the daily color generator hashes the date into a hue and renders the result as a full-size swatch with its hex. Today's color is today's color — the same on every screen, in every time zone that still shares the date — and tomorrow it is replaced by one nobody has met. The palette of the day's single-color sibling, with the same determinism and the same refusal to take requests.\n\nThe mechanism is the point: the date is the seed, the seed is the color, and no button exists to reroll it. That determinism is what makes the social layer work — a team can wear today's color in a stand-up theme, a community can generate art against the shared daily value, a personal practice can treat the color as a constraint for a sketch. None of it functions with a random roller, whose privacy and unrepeatable presses are exactly wrong for shared prompts. A date-based color is a tiny daily ritual with the agreement built in.\n\nThe color itself derives in a coherent register — the same derivation care the palette version applies — so the daily result is usable, not just novel: seed a design exercise, pick an accent for a one-day page, name a mood. Keepers go to the favorites picker before midnight; the daily palette generator extends the ritual to five-color sets; the color of the day browser surveys the named-color tradition the ritual nods toward.\n\n- A daily colour has a property that a generator does not: it is the same for everyone.\n- That shared constraint is what turns a random prompt into something conversational, because two people working from the same value can compare results without agreeing on a seed, and a week of values reads as a series with an internal logic nobody designed.\n- For a practice that depends on repetition, removing the choice is the whole mechanism: there is nothing to tune, so the time goes into the making rather than the picking.\n- Treat the result as a constraint rather than a palette — one component, one thumbnail, one illustration coloured from it is enough — and pin the values that turn out to be usable before the day rolls over, since the archive of interesting days is the part that survives.\n- A fresh color every day tool also works well as a variable inside longer projects, where a small daily accent keeps the practice alive without derailing the main job.\n\nOver a month the collection is more interesting than any single day, and the calendar is the only schedule, which is exactly what makes it repeatable.\n\nWhat the tool will never do is negotiate. The fresh color every day arrives on the calendar's schedule, identical for everyone sharing the date — which is, as with its palette sibling, the entire point: a constraint you did not choose, a result everyone shares, and a small daily surprise that costs nothing but attention.",
+    "howTo": [
+      "Open the tool — today's color derives automatically from the date.",
+      "Share it: everyone on the same date sees the same color.",
+      "Use it as a prompt, accent or constraint — and copy the hex before midnight."
+    ],
+    "whenToUse": "Use this for shared daily prompts and one-color constraints. Use the daily palette generator for five-color sets, the random color tool for on-demand rolls, and the favorites picker to keep the values worth keeping. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Is the color the same for everyone?",
+        "a": "Yes — the date seeds the derivation deterministically, so everyone sharing the date sees the same color, regardless of device."
+      },
+      {
+        "q": "Can I reroll or request a different color?",
+        "a": "No — the date is the seed and the tool takes no requests. The random generator is the tool for unlimited private rolls."
+      },
+      {
+        "q": "When does the color change?",
+        "a": "At your browser's local midnight, since the seed is the date your device reports."
+      },
+      {
+        "q": "Can I see yesterday's color?",
+        "a": "Not in the tool — the daily value is not archived. Copy it out before the rollover if it matters."
+      },
+      {
+        "q": "What does the daily color generator not do?",
+        "a": "That shared constraint is what turns a random prompt into something conversational, because two people working from the same value can compare results without agreeing on a seed, and a week of values reads as a series with an internal logic nobody designed. For a practice that depends on repetition, removing the choice"
+      }
+    ]
+  },
+  {
+    "slug": "color-of-the-year-browser",
+    "keywords": [
+      "color of the year",
+      "color of the year list",
+      "annual color trends by year",
+      "color of the year names and hex"
+    ],
+    "intro": "The color of the year browser lays out recent annual color picks as a swatch grid, each card showing the year, the name and its hex value.",
+    "content": "The color of the year browser is a compact reference grid of recent annual color picks. Each card carries a large swatch, the year it was announced, the name attached to it, and the hex value, so you can read the whole recent run in one screen rather than hunting through archives. The current set runs from 2020 onward: Classic Blue, then Illuminating and Ultimate Gray, then Very Peri, Viva Magenta, Peach Fuzz, Mocha Mousse and Future Dusk. Because every card states its hex, the grid doubles as a source of copy-ready values.\n\nOne detail in the layout is deliberate rather than a duplication error. The 2021 entry appears as two cards, because that year was announced as a pair: a bright yellow and a neutral grey, intended to be used together. Showing both keeps the grid faithful to what was actually published, and it is a useful reminder that an annual colour is sometimes a combination rather than a single swatch.\n\nUse it when you want a palette to feel of its moment rather than timeless. Starting a moodboard from a recent pick gives a design a defensible anchor, and pairing the year's shade with its neutral partner is often enough to build a working scheme. It is equally useful for the reverse question: when a client references a shade by name from a particular year, the grid tells you immediately which colour they mean and gives you the value to work with instead of a guess.\n\n- The practical workflow is to lift the hex and carry it into the rest of the toolkit.\n- Take a value into the shade and tint generators to build a ramp, check it as a text colour with a contrast checker before using it on a surface, or feed it into the palette tools to see how it sits beside your existing brand colours.\n- Because the grid only shows a swatch, a name and a code, there is nothing to configure and no state to reset.\n\n- It is worth being precise about the limits, because colour-of-the-year announcements are easy to overstate.\n- The data here is a fixed, hand-maintained list rather than a live feed; adding a new year means editing the set, so a very recent announcement may not appear immediately.\n- The window covered is recent years only, not the full history of the idea.\n- And these are industry colour announcements rather than any kind of standard, so nothing about a shade is more correct because a company named it; treat the set as a cultural reference, not a specification.\n\nTwo nearby tools answer different questions. If you want to see how a colour has drifted in popularity rather than which single shade was named, the trend analyzer is the better fit, since it looks at movement over time rather than a discrete pick. And if you need to identify an arbitrary colour rather than look up a known one, the naming and lookup tools do that.\n\nAs a color of the year list the grid is intentionally shallow and wide: eight or nine entries, each fully described in three fields. That is enough to browse in seconds, to copy a value you need, or to sanity-check a name you half-remember. If you are building a case for a particular direction, the value of the list is that it gives you a defensible cultural reference point and an exact color of the year names and hex values to quote, which is usually all a moodboard needs before the real palette work starts. Read end to end the grid is also a short history of annual color trends by year, and that is the simplest way to use it.",
+    "howTo": [
+      "Scan the grid: each card carries the year, the colour's name and its hex value.",
+      "Read the sequence to see how the picks moved between 2020 and 2026.",
+      "Copy the hex of the year that fits the brief.",
+      "Treat the list as curated rather than live — the newest entry on the page is 2026."
+    ],
+    "whenToUse": "Use this browser when you want a recent annual color pick by name, year or hex. Use the trend analyzer for movement over time, and the color name lookup to identify an arbitrary value. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Why are there two cards for 2021?",
+        "a": "That year's pick was announced as a pair, a bright yellow alongside a neutral grey intended to be used together. Both are shown so the grid matches what was published."
+      },
+      {
+        "q": "Does the list update automatically?",
+        "a": "No. It is a fixed, hand-maintained set of entries covering recent years, so a brand new announcement may not be present until the data is edited."
+      },
+      {
+        "q": "Are these official standards?",
+        "a": "No. They are industry colour announcements. The values are exact, but nothing is more authoritative simply because a company named it — treat them as cultural references."
+      },
+      {
+        "q": "Can I use the colors in a project?",
+        "a": "Yes. Each card shows its hex, so you can copy it into a palette, a ramp generator or a contrast check like any other value."
+      },
+      {
+        "q": "What does the color of the year browser not do?",
+        "a": "The data here is a fixed, hand-maintained list rather than a live feed; adding a new year means editing the set, so a very recent announcement may not appear immediately. The window covered is recent years only, not the full history of the idea. And these are industry colour announcements rather than any kind of standa"
+      }
+    ]
+  },
+  {
+    "slug": "color-name-generator",
+    "keywords": [
+      "color name generator",
+      "generate a name for a color",
+      "color nickname generator",
+      "fun color names"
+    ],
+    "intro": "The color name generator gives any color an evocative two-word nickname like Royal Ember, drawn deterministically from its hue and lightness, with a button to roll alternatives.",
+    "content": "The color name generator turns a color into an evocative two-word nickname. Pick a hue and the tool answers with a phrase such as Royal Ember, Quiet Aurora or Electric Mist, presented large beside a swatch of the color it describes. It is a creative naming aid rather than a dictionary: the point is to generate a name for a color that a person will actually remember, which is useful when a palette needs labels for a moodboard, a product, a theme or a writing project.\n\nThe words come from two fixed lists, one of adjectives and one of nouns, each indexed by a number derived from the color itself. Because that index is computed from the color's hue and its lightness, the generator is deterministic on first sight: two people who open the tool with the same hex see the same phrase, and changing the color a little shifts the name in a way that feels related to what changed. This is not a random word machine bolted to a colour picker; the result is repeatable as long as the inputs are.\n\nA roll button advances an extra seed, which is what makes it a usable generator rather than a single lookup. Each press walks through further adjective and noun combinations for the same color, so you can cycle until a phrase lands. In practice people mix the two behaviours: nudge the color until the hue direction feels right, then roll a few times to find wording that suits the project.\n\nTypical uses are naming a design token something friendlier than a hex, labelling swatches in a presentation, and giving brand or campaign colours a working title while the real naming is still undecided. It also works well as a creative prompt, since the pairing of hue and phrase often suggests an image or a mood you had not considered. For those tasks the generator is fast, playful and entirely appropriate.\n\n- It is not an authority, and it is worth being explicit about that.\n- It will not tell you the nearest standardised name for a color, and it does not use any paint, fashion or design-industry nomenclature; the phrases are invented.\n- If what you need is the closest official name — one a browser or stylesheet recognises — the lookup tool is the right one, since it matches against the standard named-color list rather than composing something new.\n\nUsed with that limitation in mind, it is a small tool with a clear job: fun color names on demand, consistent for a given input, with enough variation when you want it. Note that the same color always begins with the same phrase, so if you are naming several colors in one project, roll each one deliberately and record the choices rather than reopening the tool later and hoping the same words appear. Keep a note of the adjectives you like and reuse them as a family prefix, and a set of generated names starts to read like a deliberate naming scheme rather than a collection of coincidences. Think of it as a color nickname generator with a short memory rather than a naming authority, and it will serve exactly that purpose.",
+    "howTo": [
+      "Set the colour with the picker.",
+      "Read the generated name beside the swatch.",
+      "Press Roll new name for a different pairing drawn from the same colour.",
+      "Change the colour to move where the name starts from."
+    ],
+    "whenToUse": "Use it for creative labels, moodboards and working titles on a palette. Use the color name lookup when you need the closest recognised standard name for a value instead of an invented phrase. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Is the name random every time?",
+        "a": "No. The first phrase is derived from the color's hue and lightness, so the same color always opens with the same name. The roll button then advances to alternatives."
+      },
+      {
+        "q": "Are these official color names?",
+        "a": "No. The adjectives and nouns are invented pairings, not paint, fashion or CSS nomenclature. Nothing here is a recognised standard."
+      },
+      {
+        "q": "What if I need the real name of a color?",
+        "a": "Use the color name lookup, which matches your value against the standard CSS named color list and reports the nearest match."
+      },
+      {
+        "q": "Can I get the same name again later?",
+        "a": "Yes, for the starting phrase: re-entering the same color reproduces it. Rolled alternatives are not saved, so note down any you intend to keep."
+      },
+      {
+        "q": "What does the color name generator not do?",
+        "a": "It will not tell you the nearest standardised name for a color, and it does not use any paint, fashion or design-industry nomenclature; the phrases are invented. If what you need is the closest official name — one a browser or stylesheet recognises — the lookup tool is the right one, since it matches against the standa"
+      }
+    ]
+  },
+  {
+    "slug": "flag-color-extractor",
+    "keywords": [
+      "flag color extractor",
+      "flag colors with hex",
+      "national flag color codes",
+      "extract colors from flag",
+      "country flag palettes"
+    ],
+    "intro": "The flag color extractor lists the colors of eight national flags with the hex code for each, so a flag palette can be read or copied directly rather than picked by eye.",
+    "content": "- The flag color extractor presents eight flags as cards — the United States, Germany, Japan, Brazil, India, France, the United Kingdom and Italy.\n- Each card shows the flag's colours as a row of coloured bands, with the hex code for every band printed underneath in monospace and a copy button that takes the whole set at once.\n- There are no inputs: this is a reference, and the palette for each flag is fixed.\n\nThe bands are proportioned equally, which is a deliberate simplification rather than an error. A real flag alternates stripe widths and includes devices — crescents, stars, wheels, crosses — that no row of equal rectangles can represent. What the cards give you is the flag's palette and its order, which is what matters when the colours are being reused: the codes are the exact values, and the sequence tells you which colour leads.\n\nThe eight flags are also a useful reminder of how small the world's flag palette really is. Red, white and blue account for the great majority of them, and the differences lie in the specific reds and blues rather than in the hues themselves. Germany's black, red and gold is one of the few sets without white; Japan is a single red on white; Brazil stacks green, yellow, blue and white. Comparing them in one place makes it obvious how much character comes from the particular shade of a familiar hue — the deep navy of the Union Jack and the lighter blue of the French tricolour are the same colour in name only.\n\nIn practice the tool is used two ways. The first is as a source of a ready-made palette: a red, a white and a deep blue taken straight from a flag gives a palette with an unmistakable national character that has already been tested for legibility by a century of use, and the copy button takes the whole set into a project in one click. The second is verification — confirming that the blue you have been using matches the blue the flag actually specifies, which is a common problem when an asset has been resampled a few times.\n\nA word on the values themselves, because flag colours are less fixed than they look. What a flag looks like depends on the textile it is printed on, the dye batch and the light it is seen in, which is why national specifications usually give approximate references rather than exact codes. The hexes here are screen-appropriate interpretations of those references, chosen to look right on a display, and they are the ones you want for web and interface work rather than for print reproduction.\n\nThere is no export beyond copying the codes and no image input, so if the flag you need is not among the eight there is nothing to upload — the image colour picker or the palette extractor will read colours from a picture instead. Within those bounds, as a set of country flag palettes this is a quick way to get flag colors with hex, and as a source of national flag color codes it removes the guesswork from extract colors from flag work entirely.",
+    "howTo": [
+      "Find the flag card you want.",
+      "Read the swatch row: each flag's colours are shown side by side with their hex values beneath.",
+      "Copy the values you need for a project.",
+      "Remember the set is curated rather than searchable — eight flags are included."
+    ],
+    "whenToUse": "Use this when a design calls for a national palette — a sporting event, a travel or language feature, a localised campaign — and you want the codes rather than an approximation. Use the image colour picker or palette extractor when the flag you need is not in the list. For the neighbouring steps, see the {{brand-color-library|brand color library}} and the {{cultural-color-palettes|cultural color palettes}}.",
+    "faqs": [
+      {
+        "q": "How many flags are included?",
+        "a": "Eight: the United States, Germany, Japan, Brazil, India, France, the United Kingdom and Italy. Each includes its full set of colours with hex codes."
+      },
+      {
+        "q": "Are the stripe proportions accurate?",
+        "a": "No. The bands are shown at equal widths, so the cards convey each flag's palette and colour order rather than its geometry or devices."
+      },
+      {
+        "q": "Can I copy a whole palette at once?",
+        "a": "Yes. The copy button on each card copies all of that flag's hex values in order, separated by spaces, so they can be pasted as a group."
+      },
+      {
+        "q": "Why do the colours differ from an official specification?",
+        "a": "Because a flag's appearance depends on dye, fabric and lighting; specifications give approximate references. These are screen-appropriate values intended for web and interface use."
+      },
+      {
+        "q": "Where does the flag color extractor stop short?",
+        "a": "There is no export beyond copying the codes and no image input, so if the flag you need is not among the eight there is nothing to upload — the image colour picker or the palette extractor will read colours from a picture instead. Within those bounds, as a set of country flag palettes this is a quick way to get flag co"
+      }
+    ]
+  },
+  {
+    "slug": "brand-color-library",
+    "keywords": [
+      "brand color library",
+      "brand colors list",
+      "famous brand color codes",
+      "brand hex color reference"
+    ],
+    "intro": "The brand color library is a quick reference of the primary hex colors used by well-known brands, laid out as swatches you can browse and copy.",
+    "content": "The brand color library is a reference sheet of primary colors associated with recognisable brands, presented as labelled swatches with their hex codes. It exists for the moments when you need a plausible, familiar color quickly: a mockup that should feel like a social platform, a placeholder logo, a comparison chart where a recognisable accent helps the reader, or simply a starting point when you are studying how large companies handle a single dominant hue.\n\n- Each entry shows the brand name, a swatch of its signature color and the hex value, so you can scan the grid visually and copy the code you want.\n- Reading it as a set is more instructive than reading any single entry.\n- Notice how many brands converge on a small number of hue families, with a large cluster of saturated blues used for trust, a handful of strong reds for energy and attention, and a smaller group of greens for growth.\n- That clustering is not an accident, and browsing the library is a fast way to see where a proposed brand color would sit relative to the established field.\n\nIt is important to treat the values as references rather than specifications. Most large brands maintain full multi-hue systems with specific tones for surfaces, text and states, and they update them over time; a brand may also use different colors for different products. The library records one representative primary per brand, which is enough for a mockup or a study but not authoritative for production work. If you are recreating a real identity, confirm the values against the brand's own guidelines and check the current version.\n\nA practical use is comparison. If you are choosing a color for a new product in a crowded category, laying your candidate next to the swatches of established players shows immediately whether it will read as distinct or disappear into the crowd. Because the swatches are large and consistent, differences in saturation and lightness that are hard to judge from hex codes alone become obvious. The same view is useful when you are documenting a competitor landscape for a design brief.\n\nFor anything beyond reference, pair the library with the other tools in this section. Copy a hex into the shade or tint generator to build a full ramp from one brand color, or take an existing brand's primary and run it through the color psychology reference to see the associations it tends to evoke. The library answers what color a brand uses; the neighbouring tools help you understand why it works and how to extend it into a coherent system.\n\nUsed as a brand colors list for early exploration, it saves the step of searching each company individually for a set of famous brand color codes. A single brand hex color reference also makes comparison easy: open your proposed accent beside a row of established swatches and the difference in hue, saturation and weight becomes immediate rather than something you have to imagine. Keep it open during a naming or positioning workshop and it doubles as a quick aid for discussing where a new color would sit in the field.",
+    "howTo": [
+      "Scan the grid of brand colours.",
+      "Read each brand's hex value under its swatch.",
+      "Copy the value you need for a mock or a comparison.",
+      "Check the current brand guidelines before shipping a colour as official."
+    ],
+    "whenToUse": "Use this library for quick reference and mockups where a familiar brand color is useful. For building your own identity, use the brand palette generator to derive a fresh set, and for documentation of a real brand, confirm against that brand's official guidelines. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{cultural-color-palettes|cultural color palettes}}.",
+    "faqs": [
+      {
+        "q": "Are these the official brand colors?",
+        "a": "They are representative primary colors for reference and mockups. Most brands maintain larger systems and update them, so verify against official guidelines for production use."
+      },
+      {
+        "q": "Can I use these in commercial work?",
+        "a": "A color itself is generally not protected, but a brand's logo, name and overall identity are. Use these as references, not as a substitute for a licensed identity."
+      },
+      {
+        "q": "How many brands are included?",
+        "a": "The library is a curated set of widely recognised brands rather than an exhaustive directory, chosen so the grid stays scannable at a glance."
+      },
+      {
+        "q": "Why do so many brands use blue?",
+        "a": "Blue is widely associated with trust, calm and reliability. Browsing the grid makes that convergence visible almost immediately."
+      },
+      {
+        "q": "Where does the brand color library stop short?",
+        "a": "Used as a brand colors list for early exploration, it saves the step of searching each company individually for a set of famous brand color codes. A single brand hex color reference also makes comparison easy: open your proposed accent beside a row of established swatches and the difference in hue, saturation and weigh"
+      }
+    ]
+  },
+  {
+    "slug": "hair-color-reference",
+    "keywords": [
+      "hair color reference",
+      "hair color palette",
+      "hair color hex codes",
+      "hair shades with hex",
+      "natural hair colors"
+    ],
+    "intro": "The hair color reference generates a five-swatch palette spanning the full range of natural hair — near-black through auburn and warm brown to ash blonde — with each value as a hex code.",
+    "content": "The hair color reference works like the other themed generators in this domain: five swatches with their codes, a Regenerate button, and a panel listing the set as numbered CSS custom properties. What sets it apart from its siblings is the shape of the range it draws from, which is unusual in two respects at once.\n\nThe first is the lightness span. Hair covers a wider tonal range than almost any other subject a palette generator is asked about — from near-black through mid browns to pale blonde — and this tool reflects that, generating across roughly ten to eighty-five percent lightness. That is by far the broadest ladder in the set. Most themed palettes keep their colours within a narrow band so they feel like one material; hair has to include both the darkest and one of the lightest values a person can have, and the even spacing between them is what makes the five swatches read as a family rather than as unrelated colours.\n\n- The second is the saturation, which is held between about 0.02 and 0.12 — very low, and deliberately so.\n- Natural hair colour is pigment seen through a translucent fibre, so even the warmest auburn reads as muted rather than vivid.\n- A saturated orange is a hair dye; a low-chroma orange is brown.\n- Keeping the chroma in that narrow band is what makes the palettes believable.\n\nThe hues complete the picture. The first swatch sits around thirty degrees, a warm brown; the second drops to fifteen for a red-brown that reads as auburn; the third falls to zero for a black-brown with a red undertone; the fourth climbs to forty-five for a golden tone; and the fifth reaches sixty, which at low saturation is the ash blonde that reads as cool rather than yellow. Read in order, that is the familiar ladder from dark to light, warm to ashen.\n\nRegenerate re-rolls the saturation only, so each of the five positions keeps its hue band and its place on the lightness ladder. Repeated presses move the palette between a richer, warmer set and a flatter, cooler one without changing its structure — which is the behaviour you want when choosing a direction rather than a single colour.\n\n- Where it earns its place is character work.\n- Avatars, illustrated figures, game characters and doll customisation all need a small set of hair colours that are distinguishable from one another yet clearly belong to the same world, and the two constraints here — a wide lightness ladder at very low saturation — produce exactly that.\n- It is also useful in reverse for checking a claim: if a sketch palette looks too orange or too yellow to read as natural hair, the chroma is usually the culprit.\n\nBeing honest about the limits: these are generated values chosen to occupy the right bands, not samples of real hair, and the palette covers natural colour rather than dye — there is no blue, green or pink here. Real hair also changes tone along its length, with highlights reflecting light and roots reading darker, so a single flat value is always an approximation. Nor is the set organised by shade name, so look elsewhere if you need a specific term. As a hair color palette to draw character work from, though, it is quicker than inventing natural hair colors by hand, and every swatch arrives as hair color hex codes with hex values you can use directly — a compact set of hair shades with hex notation, generated in one press.",
+    "howTo": [
+      "Press Regenerate until the saturation level suits the character or asset.",
+      "Read the five swatches, which run from near-black through browns to pale blonde.",
+      "Copy the numbered custom properties, or copy a single swatch value."
+    ],
+    "whenToUse": "Use this when a character, avatar or illustration needs a consistent set of natural hair colours. Use the eye colour reference for the same job on irises, or a themed palette generator when the subject is a mood rather than a material. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Why is the palette's lightness range so wide?",
+        "a": "Because hair spans more tones than most subjects — near-black through mid browns to pale blonde. The five swatches are spaced evenly across roughly 10 to 85 percent lightness so the set covers that range."
+      },
+      {
+        "q": "Why are the colours so muted?",
+        "a": "Chroma is capped at about 0.12. Natural hair colour is pigment behind a translucent fibre, so even a warm auburn reads as brown rather than orange. Higher saturation would look like dye."
+      },
+      {
+        "q": "Does it include unnatural hair colours?",
+        "a": "No. The five bands cover black-brown, auburn, warm brown, golden and ash blonde, so dips and fashion colours are outside its range."
+      },
+      {
+        "q": "Are these sample values from real hair?",
+        "a": "No, they are generated within the right bands. Real hair also varies along its length, with roots reading darker than the highlighted tips, so a single flat value is an approximation."
+      },
+      {
+        "q": "What does the hair color reference not do?",
+        "a": "Avatars, illustrated figures, game characters and doll customisation all need a small set of hair colours that are distinguishable from one another yet clearly belong to the same world, and the two constraints here — a wide lightness ladder at very low saturation — produce exactly that. It is also useful in reverse for"
+      }
+    ]
+  },
+  {
+    "slug": "eye-color-reference",
+    "keywords": [
+      "eye color reference",
+      "eye color palette",
+      "eye color hex codes",
+      "iris color shades",
+      "eye colors with hex"
+    ],
+    "intro": "The eye color reference generates a five-swatch palette drawn from the hue bands associated with iris colour — blue, green, amber, violet and red — with every value written out as a hex code.",
+    "content": "The eye color reference works like the other themed generators: five swatches, each with its colour and code, a Regenerate button, and a panel listing the set as numbered CSS custom properties ready to copy. What distinguishes it is the hue bands the five swatches are drawn from, which follow the spectrum you actually see in irises rather than an arbitrary spread.\n\n- The first swatch comes from the blue band around 200 degrees, the second from a green near 120, the third from an amber around 30, the fourth from a violet near 260, and the fifth from a red at zero.\n- Read as a set that is the familiar range of eye colours, running from the cool blues and greens through hazel and amber to the reddish browns that dominate in most populations.\n- Anyone who has looked at a chart of iris pigmentation will recognise the arc.\n\n- The second constraint is lightness, which is held between roughly twenty-five and fifty-five percent across the whole set.\n- That is a darker band than most of the other themed generators use, and it is what keeps the swatches reading as eyes rather than as pastels: a pale blue is a wall colour, while the blue here carries the depth of an iris in shadow.\n- The third constraint is chroma, capped at about 0.16, so no swatch comes out fully saturated.\n\nAs with the other generated palettes, Regenerate re-rolls only the saturation, not the hues or the lightness ladder. Each of the five positions keeps its band and its tonal position, so repeated presses give you the same five kinds of colour at slightly different intensities. That makes the tool a chooser rather than a slot machine — you are settling on how deep and how muted the set should feel, not gambling on a new palette.\n\nWhere this is useful is anywhere a character, an illustration or a product is being given eye colour, and the value has to be consistent across several assets. An avatar system, a doll or a game character generator all need a small fixed set of iris shades that are distinguishable from one another but sit in the same tonal world, which is exactly what the five bands produce. It is also handy for illustration palettes generally, since a set of five muted warm and cool darks works for skin, hair and shadow notation.\n\nBe clear about what it is not. These are generated colours chosen to sit in the right hue bands, not measurements of real eyes — actual iris colour is produced by pigmentation and light scattering, varies across the surface of a single eye, and never appears as one flat value. Nor is this a list of commonly named eye colours like hazel or grey; the bands cover blue, green, amber, violet and red, and grey-brown falls between the bands rather than inside one. Used as an eye color palette to pick a consistent set of iris color shades from, though, it is quicker than inventing eye color hex codes by hand, and every swatch arrives as an eye colors with hex value you can paste straight into an asset file.",
+    "howTo": [
+      "Press Regenerate until the saturation level suits the assets you are making.",
+      "Read the five swatches — blue, green, amber, violet and red bands, from darker to lighter.",
+      "Copy the numbered custom properties, or copy an individual swatch value."
+    ],
+    "whenToUse": "Use this when you need a consistent set of iris colours for avatars, characters or illustrations. Use the hair colour reference for the same job on hair, or a themed palette generator when the mood rather than the subject is the guide. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Are these real eye colours?",
+        "a": "No. They are generated values chosen from the hue bands associated with irises, not measurements. Real iris colour varies across the surface of one eye and never appears as a single flat value."
+      },
+      {
+        "q": "Why are the swatches darker than other themed palettes?",
+        "a": "Lightness is held between about 25 and 55 percent. That deeper band is what keeps the result reading as an eye rather than a pastel wall colour."
+      },
+      {
+        "q": "Does Regenerate change the hues?",
+        "a": "No. Each of the five positions keeps its hue band and its place on the lightness ladder; only the saturation is re-rolled, so the character of the set stays stable."
+      },
+      {
+        "q": "Is grey included?",
+        "a": "Not as its own band. The five cover blue, green, amber, violet and red, so greyish-brown iris colours sit between the bands rather than inside one of them."
+      },
+      {
+        "q": "What does the eye color reference not do?",
+        "a": "That is a darker band than most of the other themed generators use, and it is what keeps the swatches reading as eyes rather than as pastels: a pale blue is a wall colour, while the blue here carries the depth of an iris in shadow. The third constraint is chroma, capped at about 0.16, so no swatch comes out fully satur"
+      }
+    ]
+  },
+  {
+    "slug": "cultural-color-palettes",
+    "keywords": [
+      "cultural color palettes",
+      "palettes from world cultures",
+      "japanese color palette",
+      "traditional color palettes",
+      "indian color palette"
+    ],
+    "intro": "Cultural color palettes presents five curated palettes drawn from world cultures — Japanese, Scandinavian, Indian, Mexican and Moroccan — each rendered as five swatches with copyable hex values.",
+    "content": "Cultural color palettes is a browse-only page: five labelled cards, one per tradition, each holding five swatches. Every swatch shows its hex value and a copy button, so a colour can be lifted out of a set and used on its own. There are no controls and nothing to configure, which suits a page whose job is to hand you a direction rather than a computation.\n\nThe Japanese set pairs a strong vermilion with a golden yellow, a deep navy, a near-black and a warm off-white — red, gold, indigo, ink and paper, which is a recognisably traditional overlap of lacquerware and indigo dyeing. The Scandinavian palette runs almost the other way: a warm paper white and a soft sage are the two colours with any personality, supported by charcoal, a muted terracotta and a pale straw. It is the quietest of the five, and the only one whose accents are desaturated.\n\nThe Indian palette is built on contrast — a bright red and a warm orange set directly against a teal and a dark slate, with a saturated yellow available to lift any composition. The Mexican palette carries the same red as its loudest note but surrounds it with near-white, pale aqua, a mid steel blue and a deep navy, which cools the whole set and makes the red read as accent rather than theme. Sharing a colour across two palettes is a useful reminder that a palette is defined by its relationships, not its ingredients.\n\n- The Moroccan set uses a different strategy again: two blues at very different lightnesses, a pale mint, a warm orange and a saturated crimson.\n- It reads as tilework — a cool field with warm incident — and it is the most evenly weighted of the five, with no single colour claiming the foreground.\n\nIn practice the page is a mood board with exact codes attached. Pick the tradition whose character matches the brief, copy two or three values and use them as fixed points while the rest of the interface falls into place. Because each set includes at least one neutral and one accent, a palette is usually enough to establish a tonal hierarchy without adding anything, and the neutrals in each are the values most worth copying first, since they are the hardest to invent convincingly.\n\n- A word of care about the framing, because it is the honest part of working with this material.\n- A culture is not a palette, and colour symbolism is regional, contested and frequently inverted — white signals mourning in parts of East Asia while reading as celebration elsewhere, and red moves between prosperity and danger depending on context and era.\n- These five sets are design interpretations with a regional flavour, chosen for how well they work together rather than as scholarly references, and they should be treated as traditional color palettes in the loosest sense: starting points for a mood.\n- Used that way — as five usable palettes from world cultures, with a japanese color palette to hand when you need one instantly — the page does its job.\n- Treat any single one as a claim about an indian color palette or about how a whole region uses colour and it will mislead you.",
+    "howTo": [
+      "Find the group you want — Japanese, Scandinavian, Indian, Mexican or Moroccan.",
+      "Read the five-swatch row for that group.",
+      "Copy the values that fit the project.",
+      "Treat a group as a starting point rather than a specification of any culture's palette."
+    ],
+    "whenToUse": "Use this when a project needs a regional or cultural mood and you want concrete values to start from. Use the flag colour extractor for national flags specifically, or the seasonal and dessert palette generators when the imagery is thematic rather than cultural. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Can I edit or shuffle these palettes?",
+        "a": "No. The page is a reference — five fixed sets, each with five swatches. The copy button on each swatch is the only interaction."
+      },
+      {
+        "q": "Do the palettes repeat any colours?",
+        "a": "Yes. Indian and Mexican share the same red, #E63946, which is a useful illustration of how much context changes the role a colour plays."
+      },
+      {
+        "q": "How should I use a palette like this?",
+        "a": "Treat it as direction rather than a finished scheme. Each set contains at least one neutral and one accent, so it is usually enough to establish a tonal hierarchy in a first pass."
+      },
+      {
+        "q": "Is this an authoritative cultural reference?",
+        "a": "No. These are design interpretations with a regional flavour. Colour symbolism varies by region, era and context, and often carries opposite meanings in neighbouring cultures."
+      },
+      {
+        "q": "What does the cultural color palettes not do?",
+        "a": "A culture is not a palette, and colour symbolism is regional, contested and frequently inverted — white signals mourning in parts of East Asia while reading as celebration elsewhere, and red moves between prosperity and danger depending on context and era. These five sets are design interpretations with a regional flav"
+      }
+    ]
+  },
+  {
+    "slug": "rgb-cube-visualizer",
+    "keywords": [
+      "rgb cube visualizer",
+      "rgb color space 3d",
+      "visualize rgb cube",
+      "rgb volume explorer"
+    ],
+    "intro": "The RGB cube visualizer renders the RGB color space as the cube it is — axes for red, green and blue, colors living at the corners and between — as an interactive way to see where a color sits.",
+    "content": "- RGB is a cube.\n- Every color the model can express is a point inside a unit cube whose axes are the three channel intensities — black at the origin, white at the far corner, the primaries and their secondaries occupying the other corners, and the vast muted population filling the space between.\n- The RGB cube visualizer renders that geometry: an interactive rgb color space 3d view where the cube can be turned, its corners and interior sampled, and any picked point identified as a color with its coordinates.\n\nSeeing the cube does for color intuition what seeing a map does for geography. The greys run diagonally from black to white — the line every desaturation walks. The primaries own three edges; the secondaries own the opposite three; complementary pairs sit at opposite ends of body diagonals. Uniform random RGB sampling, which the random tools perform, is throwing darts at this volume — which is why they land so often in the greyish middle: the middle is most of the cube. These are facts every color worker eventually internalizes; the visualize rgb cube view installs them visually, in one rotatable object.\n\nThe interactive part earns its keep in exploration: rotate to a corner and watch a family of related colors cluster; sample along the black-white diagonal and watch chroma drain; find your brand color's neighborhood and see what sits beside it in RGB space — which is not, the OKLCH tools will show, where perceptual neighbors live. That contrast is the deeper lesson: the cube is the machine's truth, and the wheel is the eye's; knowing both, and when each lies, is the beginning of color competence.\n\nRGB is a coordinate system before it is a notation, and the cube is where that becomes visible: three axes, each running the full range of one channel, every possible colour a point inside them. Two properties are worth learning from the geometry rather than from a diagram. The greys form a diagonal from black to white, so any move along it is a lightness change while any move away from it is a chroma change — the fastest way to understand why tinting and shading are different operations. And the space is not perceptually uniform, which shows up as the crowded region near white and the sparse region near the saturated primaries: equal distances in RGB do not correspond to equal differences in appearance, and the cube makes that unevenness obvious in a way a flat wheel cannot. Navigating it also builds an intuition for what a hex value means, since the three pairs of digits are the three axes and a typo moves the point rather than producing a value that is merely unattractive.\n\nPutting a favourite colour into the space is the exercise worth doing once, because seeing where it sits relative to its neighbours explains more about it than any label.\n\nAs an rgb volume explorer it is deliberately the raw geometry — no harmonies, no conversions, just the space itself, navigable. For the perceptual alternative, the OKLCH playground renders the uniform view of the same colors; for the wheel convention, the interactive color wheel spins the flat classic. The cube is where RGB actually lives — worth visiting at least once, preferably with your favorite color in hand.",
+    "howTo": [
+      "Rotate the cube to inspect its corners — primaries, secondaries, black and white.",
+      "Sample points on the surface or inside to identify colors and their coordinates.",
+      "Trace the black-white diagonal and the body diagonals to see greys and complements geometrically."
+    ],
+    "whenToUse": "Use this to build or refresh RGB-space intuition — where colors live, why random rolls go grey, what sits near what. Use the OKLCH playground for the perceptual view of the same space, and the color wheel for the artist's flat model. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Why does the cube look muted in the middle?",
+        "a": "Because it is: most of RGB's volume is desaturated. Uniform channel sampling lands in the middle far more often than at the vivid corners — the geometry explains the statistics."
+      },
+      {
+        "q": "Where do complementary pairs sit in the cube?",
+        "a": "At opposite ends of body diagonals through the cube's center — which is also why RGB-space complement rotation can look wrong to the eye; perception does not live in this geometry."
+      },
+      {
+        "q": "Is this the same as the HSL cylinder?",
+        "a": "They are different projections of the same colors — the cube is the channel-space truth; HSL reshapes it into a cylinder. Neither matches perception; OKLCH is the space that tries."
+      },
+      {
+        "q": "Can I find my brand color's neighbors here?",
+        "a": "Yes — sample its position and inspect the region. Just remember RGB-adjacent is not perceptually adjacent; check neighbors in OKLCH too."
+      },
+      {
+        "q": "Where does the rgb cube visualizer stop short?",
+        "a": "As an rgb volume explorer it is deliberately the raw geometry — no harmonies, no conversions, just the space itself, navigable. For the perceptual alternative, the OKLCH playground renders the uniform view of the same colors; for the wheel convention, the interactive color wheel spins the flat classic. The cube is wher"
+      }
+    ]
+  },
+  {
+    "slug": "hue-circle-interactive",
+    "keywords": [
+      "hue circle",
+      "hue circle picker",
+      "color wheel hue circle",
+      "pick a hue from the circle",
+      "interactive hue wheel"
+    ],
+    "intro": "The hue circle lays twelve evenly spaced hues around a ring, all generated at the same lightness and chroma, and lets you select one to read its hex value.",
+    "content": "The hue circle arranges twelve buttons in a ring, spaced thirty degrees apart around a circular track. Each button is filled with the hue at that position, and clicking one selects it, filling a large swatch below with the same colour, its hex value and a copy button. Selection is discrete — twelve positions rather than a continuous sweep.\n\nThe important detail is how each button's colour is calculated. Rather than walking the red, green and blue channels, every hue is generated in a perceptual colour space at a fixed lightness and chroma, with only the hue angle changing from one button to the next. That matters, because evenly spaced hues in a channel-based model are not evenly spaced to the eye: the same numeric step produces a much larger perceptual jump through yellow and green than through blue. Here, all twelve sit at the same apparent lightness, which is why the ring reads as an even spectrum with no single swatch dominating, and why any two adjacent buttons are distinguishable from each other.\n\nThat uniformity is the reason to use a hue circle rather than the colour picker. A general picker trades this clarity for range: continuous hue, adjustable lightness, adjustable saturation, and usually a recent-colours list. The circle does one thing — laying out hue, at a constant tone, so the relationships between colours are easy to see. If you know you want a teal but not which one, the ring shows the family at a glance. If you need a dark teal for a border and a light one for a background, the ring cannot help beyond choosing the hue angle, and you would take that angle to a tool with lightness and chroma controls.\n\nThe workflow is a single click and a copy. Find the hue that matches your intent, select it, and read or copy the generated hex. Because the twelve values are computed rather than curated, the same twelve always appear, which makes the ring a stable reference — you can revisit the page months later and the turquoise in the same position will be the same colour.\n\nWhat it does not do is worth stating clearly.\n\n- There is no continuous selection, so the hue you want is one of twelve and never between them.\n- There is no lightness or chroma control, so every colour is a mid-tone of moderate saturation.\n- There is no harmony output, so complementary or triadic relationships have to be worked out or taken to a dedicated tool.\n- And there is no way to enter a starting colour and see its neighbour on the ring.\n\nThat makes it a deliberate simplification rather than a limitation to work around. Used as a hue circle picker, it does the one job without any of the noise: a color wheel hue circle with an interactive hue wheel at a constant tone, twelve options, and the hex for whichever you pick. It is the fastest way to pick a hue from the circle when the decision is about the colour's identity rather than its shade, and it keeps the ring readable by refusing to let lightness creep in and spoil the comparison.",
+    "howTo": [
+      "Look around the ring and choose the hue that matches what you have in mind.",
+      "Click that button — the selection fills the swatch below.",
+      "Copy the hex value, or note the hue and take it to a tool with lightness and chroma controls."
+    ],
+    "whenToUse": "Use this when you know which hue you want and need to see the options at a consistent tone. Use a full colour picker when lightness or saturation also need choosing, or a harmony tool when you need coordinated colours rather than one. For the neighbouring steps, see the {{flag-color-extractor|flag color extractor}} and the {{brand-color-library|brand color library}}.",
+    "faqs": [
+      {
+        "q": "Why are all the swatches the same brightness?",
+        "a": "Each is generated in a perceptual colour space at a fixed lightness and chroma, with only the hue changing. That keeps the ring even to the eye, so no single hue dominates the comparison."
+      },
+      {
+        "q": "Can I pick a hue between two buttons?",
+        "a": "No. There are twelve discrete positions, thirty degrees apart, so the hue you want is the nearest of them rather than an exact value."
+      },
+      {
+        "q": "Why not just use a colour picker?",
+        "a": "A picker offers continuous hue plus lightness and saturation, which is more powerful and harder to compare at a glance. The ring trades range for an even, stable spectrum."
+      },
+      {
+        "q": "Does it suggest matching colours?",
+        "a": "No. It selects a single hue and reports its hex value. Complementary, analogous and triadic relationships are handled by dedicated harmony tools."
+      },
+      {
+        "q": "What does the hue circle interactive not do?",
+        "a": "There is no continuous selection, so the hue you want is one of twelve and never between them. There is no lightness or chroma control, so every colour is a mid-tone of moderate saturation. There is no harmony output, so complementary or triadic relationships have to be worked out or taken to a dedicated tool. And ther"
+      }
+    ]
+  }
+]

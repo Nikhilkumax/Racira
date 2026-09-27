@@ -34,7 +34,7 @@ function stripBlockWrappers(html: string): string {
 const VALID_INLINE_TAGS = new Set([
   "strong", "em", "b", "i", "u", "s", "code", "pre",
   "a", "br", "sup", "sub", "small", "mark", "span",
-  "ol", "ul", "li", "h3",
+  "ol", "ul", "li", "h3", "p",
 ]);
 
 export function htmlToReact(html: string): ReactNode {

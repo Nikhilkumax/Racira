@@ -1,0 +1,487 @@
+[
+  {
+    "slug": "linear-gradient-generator",
+    "keywords": [
+      "linear gradient generator",
+      "css linear gradient maker",
+      "two color gradient tool",
+      "angled gradient css"
+    ],
+    "intro": "The linear gradient generator builds two-stop linear gradients with live angle control — drag the angle, set the colors, copy the CSS the browser will render.",
+    "content": "- The linear gradient generator takes the classic two-stop case and makes both of its decisions explicit: a colour field for each stop, and a single angle slider spanning the full 360 degrees.\n- A large live preview fills the panel above the controls, so the blend is judged as the browser paints it rather than in a separate swatch.\n- Underneath, one copy-ready line carries the exact linear-gradient declaration the preview is rendering — no translation step between the tool and the stylesheet.\n\nAngle is the axis most tools treat carelessly, and this one does not: the slider talks degrees the way CSS does — 0deg pointing up, 90deg pointing right, clockwise throughout — so the number you set is the number the stylesheet needs. The preview updates continuously as the angle drags, which is how you find the direction a design actually wants: not by reasoning about vectors but by watching the blend sweep until it settles. Stop positions are fixed at the extremes for the pure two-color case — the hard-stop and multi-stop tools open up interior positioning when a gradient needs more architecture.\n\nThe workflow the tool is built for is the fast one: set two colors, sweep the angle, copy. It is the right instrument for the vast population of gradients that are exactly this — a button fill, a banner wash, a card background — and the wrong one for gradient work that needs three or more stops, radial geometry or conic sweeps; the specialized generators cover those. The gradient previewer accepts hand-written CSS for editing existing values, and the exporters go beyond CSS to SVG and canvas when the gradient must leave the browser.\n\nThe two-stop gradient is the workhorse of the family and the one most often done badly, usually by eye. Two problems recur. The first is banding: interpolation through sRGB can produce a dull, grey-brown middle on a saturated pair, which is the sign that the interpolation space should be a perceptual one — a nuance the preview makes visible and a hex guess never does. The second is angle, because the same pair at the same length reads as completely different lighting depending on whether the axis runs top to bottom or across the corner, and a few degrees of rotation often changes which end the eye reads as the light source. Trying three or four angles against real content, rather than the same swatch box, is what settles which one the composition actually wants.\n\nAs a css linear gradient maker it is the definition of scoped: a two color gradient tool with an angled gradient css output that is exactly honest — what the preview shows is what the copy produces, and nothing in between needs trusting.\n\nBuilding the blend from the palette rather than from the picker is the habit worth keeping, because a two-stop gradient assembled from two existing values inherits the palette's relationships instead of introducing a pair that has to be justified later. Test it at the size it will render, too: a band that looks smooth in a thumbnail can band visibly across a full-width hero.",
+    "howTo": [
+      "Set the start and end colors in the two fields.",
+      "Drag the angle slider until the direction reads right in the live preview.",
+      "Copy the CSS line — it is the exact declaration the preview is rendering."
+    ],
+    "whenToUse": "Use this for the classic two-stop linear gradient. Use the multi-stop builder for interior positioning, the radial and conic generators for other geometries, and the hard-stop generator when the blend should be a crisp boundary instead. When the degree value itself needs explaining, the {{gradient-angle-calculator|gradient angle calculator}} spells the same angle in turns, radians and its nearest keyword; when a value already exists and you want to look at it without rebuilding it, the {{gradient-previewer|gradient previewer}} renders it.",
+    "faqs": [
+      {
+        "q": "How do CSS gradient angles work here?",
+        "a": "As CSS defines them: 0deg points up, 90deg points right, and values increase clockwise. The slider and the output use the same convention, so the copied number is exact."
+      },
+      {
+        "q": "Can I position the color stops?",
+        "a": "The pure two-stop version pins them at the extremes; for interior positions, the multi-stop builder gives each stop its own percentage."
+      },
+      {
+        "q": "Why does the preview look slightly different from my site?",
+        "a": "If colors match and CSS matches, rendering matches — differences usually come from the surrounding surface or color profile. The copied declaration is standard CSS either way."
+      },
+      {
+        "q": "Can I get the gradient as SVG or an image?",
+        "a": "The dedicated exporters output SVG, canvas code and PNG; this generator stays CSS-only by design."
+      },
+      {
+        "q": "Do the copied stops carry their positions?",
+        "a": "Yes — each stop is written out with an explicit percentage, so a two-stop ramp arrives as 0% and 100% rather than as bare colours. That makes the declaration easy to edit later: change a number and the stop moves without you having to add positions first."
+      }
+    ]
+  },
+  {
+    "slug": "radial-gradient-generator",
+    "keywords": [
+      "radial gradient generator",
+      "radial gradient css",
+      "circular gradient css",
+      "radial gradient code",
+      "generate radial gradient"
+    ],
+    "intro": "The radial gradient generator builds a circular gradient from a list of color stops and writes the finished CSS declaration, with the ramp running outwards from the centre.",
+    "content": "- The radial gradient generator keeps the shared gradient controls — a live preview, one row per stop with a colour field and a position slider, and the CSS panel underneath — and swaps the axis for a centre.\n- There is no angle slider, because a radial gradient has no direction to set: it radiates from a point rather than running along an axis.\n\nEverything else about the stops still applies, and their meaning is worth restating for this shape. The zero percent position is the centre, not the left edge, so the first stop is the colour at the middle of the circle and the last is the colour at the outer boundary. A two-stop ramp therefore reads as a vignette or a spotlight, while adding stops creates rings — three colours produce a centre, a middle band and an outer band, which is the quickest way to build a soft halo or a button that appears lit from within.\n\nWhat the output always contains is a circle. The shape keyword is fixed: the declaration opens with a radial gradient of a circle, and the ramp is scaled to reach the corners of the element's box, which is the default sizing the browser applies when nothing else is specified. That combination behaves sensibly in most cases and is not adjustable here — there is no way to request an ellipse, to place the origin away from the centre, or to choose a different sizing keyword such as closest-side. Those are all legitimate things to want, and each would need to be written by hand into the copied declaration.\n\nPosition is the other omission worth naming. A radial gradient's centre can be moved, and moving it is often the difference between a spotlight effect and a wash, but with the centre fixed there is no control for it. In practice the workaround is the same as for the shape: copy the declaration and add the position clause manually, which is a small edit to a value that is otherwise generated correctly.\n\nThe angle slider's absence has a useful side effect, which is that the stops become the only variable. With a linear gradient it is easy to blame the direction when the ramp does not look right; here the only things to adjust are the colours and their spacing, so the effect of moving a stop is much easier to learn. That makes this a good place to experiment with stop management for its own sake, separate from direction decisions.\n\nWhere radial gradients are the right choice is when the light source matters — a soft glow behind a logo, a spotlight on a hero section, a vignette that draws the eye towards the centre of an image, a subtle interior shading on a card. They also work as decorative background layers stacked behind other elements, where the circle's soft edge blends into whatever is beneath.\n\n- Limits: one circle at a fixed centre, no ellipse, no repeat, no interpolation-space control and no conic form.\n- Within those bounds it produces a correct radial gradient css declaration in one pass, with the stops placed by drag rather than by typing numbers.\n- For a glow or a vignette it is the shortest route from a colour pair to a pasteable circular gradient css; to generate radial gradient code for anything more elaborate, the copied declaration is the right place to edit.",
+    "howTo": [
+      "Set the stop colours — the zero percent stop is the centre of the circle.",
+      "Drag the position sliders to control how far each colour reaches from the middle.",
+      "Add further stops if the gradient needs rings rather than a simple ramp.",
+      "Copy the background declaration, adding a position clause by hand if the centre should move."
+    ],
+    "whenToUse": "Use this when the effect should radiate — glows, spotlights, vignettes, interior shading. Use the linear gradient generator when the ramp should run across the element, or a conic tool when it should sweep around it. Where a radial gradient covers a large, soft area, the {{noise-grain-texture-generator|noise & grain texture generator}} is the direct antidote to the banding that shows in the widest part of the ramp, and wrapping several of these circles onto one surface is what the {{mesh-gradient-generator|mesh gradient generator}} does.",
+    "faqs": [
+      {
+        "q": "Why is there no angle control?",
+        "a": "Because a radial gradient radiates from a point rather than running along an axis, so it has no direction to set. The angle slider only exists on the linear and conic builders."
+      },
+      {
+        "q": "What does the zero percent stop mean here?",
+        "a": "The centre. The first stop is the colour at the middle of the circle and the last is the colour at the outer boundary, so a two-stop ramp reads as a vignette."
+      },
+      {
+        "q": "Can I move the centre or make it an ellipse?",
+        "a": "Not from the interface — the shape is fixed to a circle at the centre. Both changes are a small manual edit to the copied declaration."
+      },
+      {
+        "q": "How do I get rings instead of a smooth ramp?",
+        "a": "Add stops. Three colours produce a centre, a middle band and an outer band, and placing two stops at the same position creates a hard-edged ring."
+      },
+      {
+        "q": "Does the ramp run out to the edge of the box or past it?",
+        "a": "Past the nearest edge. With no sizing keyword the browser scales the circle to reach the farthest corner, so a two-stop radial still has colour in the corners rather than fading out along the short side."
+      }
+    ]
+  },
+  {
+    "slug": "conic-gradient-generator",
+    "keywords": [
+      "conic gradient generator",
+      "conic-gradient css",
+      "conic gradient with color stops",
+      "angular gradient generator"
+    ],
+    "intro": "The conic gradient generator builds a gradient that sweeps around a centre point, with editable color stops, a from-angle control and copy-ready CSS output.",
+    "content": "- The conic gradient generator builds the gradient that travels around a point instead of across a box.\n- The controls are the shared set with one addition: a live preview, a stop list with a position slider per colour, an angle that decides where the sweep begins, and the finished CSS with a copy button.\n- Two stops are in place to begin with; more can be added, and a stop can be removed once more than two remain.\n- Between them, the simplest two-tone disc and a multi-band ring are both a few clicks away.\n\nThat circular behaviour is what makes conic different from its linear and radial relatives, and it changes what a stop position means. In a linear gradient a percentage is a distance across the element; in a conic gradient it is a fraction of the full turn, so fifty percent sits on the opposite side of the centre from zero, and one hundred percent arrives back where the sweep started. Reading the preview with that in mind makes the stop sliders predictable rather than fiddly, and it is why a two-stop conic looks like two halves rather than a smooth blend from one edge to another.\n\nThe from-angle control rotates where the sweep begins. It is set to ninety degrees by default, and dragging it moves the whole gradient around the centre without changing the colours or the spacing between them, which is how you aim the transition at a particular corner or line it up with a layout. The generated declaration takes the form of a background using a conic-gradient function with the angle first and the stop list after it, so the angle and the stops are the only two things in the output.\n\nOne consequence of the geometry is worth planning for. Because zero and one hundred percent occupy the same point on the circle, a two-stop gradient has a hard seam where the second colour meets the first. Adding a third stop at one hundred percent using the first colour closes the loop and produces a continuous ring, which is the standard fix and the reason loop-based conics usually have one more stop than you might expect. Conversely, deliberately leaving a seam is how you get a two-tone disc.\n\nBecause stop positions are independent sliders, unequal spacing and hard bands are both available. Placing two stops at the same position produces an abrupt edge rather than a blend, which is the approach behind segmented discs: a pie-chart style ring is a conic gradient with pairs of stops sharing positions. That makes this tool useful beyond decoration, since a quick segmented backdrop or a progress disc can be built here and copied out as a single declaration rather than assembled as markup.\n\nA few practical notes about the output. The CSS is emitted as a background declaration and uses the standard function with an angle and a percentage-positioned stop list, so it drops into a stylesheet, a styled component or an inline style without alteration. Everything is computed from the stops you have set, and the preview updates as you drag, so tuning is a matter of watching rather than guessing. There is no export beyond the declaration itself, which keeps the tool focused on getting the gradient right rather than on packaging it.\n\nUsed as a conic gradient generator it is fast and exact: set two stops for a disc, add a closing stop for a ring, drag the from-angle until the seam sits where it should, then copy the conic-gradient CSS straight into a stylesheet. For anything that needs an angular gradient generator — colour rings, segmented charts, decorative sweeps built from a conic gradient with color stops — the preview and the emitted declaration together are usually all you need.",
+    "howTo": [
+      "Set the starting angle with the Angle slider.",
+      "Set each stop's colour and position, using Add stop and Remove to edit the list.",
+      "Watch the preview repaint as the stops change.",
+      "Copy the background declaration from the CSS panel."
+    ],
+    "whenToUse": "Use this generator for any gradient that sweeps around a centre point: rings, discs, segmented charts and angular decoration. Use the linear or radial generator when the gradient should run across or outward instead. When the job is placing the boundaries rather than aiming the sweep, the {{gradient-color-stop-editor|gradient color stop editor}} turns the same stop maths into sliders, and a value you have written yourself can be checked in the {{gradient-previewer|gradient previewer}} — conic gradients included.",
+    "faqs": [
+      {
+        "q": "How is a conic gradient different from a linear one?",
+        "a": "It sweeps around a centre point rather than across the element, so stop percentages are fractions of a full turn rather than distances across the box."
+      },
+      {
+        "q": "Why is there a visible seam in my gradient?",
+        "a": "Zero and one hundred percent are the same point on the circle, so the last colour meets the first. Add a stop at one hundred percent using the first colour to close the loop."
+      },
+      {
+        "q": "What does the angle control do?",
+        "a": "It sets where the sweep begins, rotating the whole gradient around its centre without altering the colours or the distances between stops."
+      },
+      {
+        "q": "Can I make a segmented disc instead of a smooth blend?",
+        "a": "Yes. Place two stops at the same position to create an abrupt edge rather than a transition, which is how a pie-chart style ring is built."
+      },
+      {
+        "q": "Can I build a pie chart with unequal sectors?",
+        "a": "Yes — every sector is a pair of stops sharing a boundary position, and the spacing between the pairs is free, so unequal slices are just uneven gaps. The percentages have to be worked out from the data first, since the sliders take numbers rather than values."
+      }
+    ]
+  },
+  {
+    "slug": "hard-stop-gradient-generator",
+    "keywords": [
+      "hard stop gradient generator",
+      "sharp gradient boundaries",
+      "stripe gradient css",
+      "no blend gradient tool"
+    ],
+    "intro": "The hard-stop gradient generator builds gradients whose stops touch — sharp boundaries instead of blends — for stripes, segments and stepped fills in pure CSS.",
+    "content": "Most gradients exist to blend; the hard-stop gradient exists to refuse. When two stops share a position, the gradient produces no transition at all — an instant switch from one color to the next — and that refusal is the raw material of CSS stripes, segmented progress bars, stepped backgrounds and the crisp color-block effects that blends cannot make. The hard-stop gradient generator builds those: set the colors, set the boundary positions, and the preview shows the sharp-edged result with the CSS ready to copy.\n\n- The technique inverts normal gradient intuition: an ordinary two-stop gradient blends across the whole span, while placing both stops at 50% compresses the transition to zero width and turns a gradient into a boundary.\n- Add more touching pairs and the result is a stripe pattern — as many bands as the stops define, every edge crisp at any resolution because it is vector geometry rather than drawn pixels.\n- That is what makes a stripe gradient css approach better than sliced background images: it scales, it needs no assets, and the bands stay editable as colours and percentages.\n\n- Every stop's colour and position are set independently, so a three-stripe flag, a segmented meter or a stepped heat scale is a matter of pairing stops correctly — two per boundary, adjacent stops sharing a position.\n- The preview does the checking: touching stops that are off by a fraction render as a visible hairline of blend rather than a crisp edge.\n- Reading the finished declaration back is how the pattern gets recorded, because the stop positions are the part that has to be reproduced at another size.\n\nHard stops are the cheapest way to get several flat colours out of a single background, and they are used far less often than they deserve. Because a hard stop creates an edge rather than a blend, the technique replaces extra elements: a three-tone backdrop becomes one declaration, a striped pattern becomes one property, a progress track becomes a set of proportional bands. It is also the most predictable member of the gradient family, since nothing between the stops is interpolated and therefore nothing can band, and every value is exactly the value written. Keeping the stops on a scale — at ten, forty and one hundred per cent, say — turns the technique into something a reader can decode, because the proportions then mean something rather than reflecting a drag that happened once. Used that way, a hard stop gradient generator produces structure: dividers, gauges and backgrounds in which the boundaries are the design.\n\nAs a sharp gradient boundaries instrument, it is the specialist in the gradient family — the no blend gradient tool for when the brief says crisp. For genuine blends, the linear and multi-stop builders are the right instruments; for repeating stripe patterns specifically, CSS repeating gradients extend the same trick, and the previewer can verify those values too.\n\nRecord the stop percentages with the palette, because a pattern assembled from guessed positions is hard to reproduce at another size, while one built on a scale adapts simply by rescaling the numbers.",
+    "howTo": [
+      "Set each band's color as a stop.",
+      "Pair stops at shared positions so each boundary has zero width — the preview shows crisp edges.",
+      "Copy the CSS; the stripes are vector-sharp at any size."
+    ],
+    "whenToUse": "Use this for stripes, segments and stepped fills that must not blend. Use the multi-stop builder for genuine blends with interior positions, the linear generator for simple two-color washes, and the previewer to fine-tune hand-written values. When the structure comes first and the blending second, the {{gradient-color-stop-editor|gradient color stop editor}} works the same boundaries on a fixed horizontal axis, and if the bands should actually melt into each other, the {{multi-stop-gradient-builder|multi-stop gradient builder}} is the general form.",
+    "faqs": [
+      {
+        "q": "How do I make a boundary perfectly sharp?",
+        "a": "Give the two colors meeting at the boundary the same stop position — the transition width becomes zero. The preview shows a hairline if the positions are even slightly apart."
+      },
+      {
+        "q": "Do hard-stop stripes scale without blurring?",
+        "a": "Yes — they are vector geometry computed by the browser at display resolution, so edges stay crisp at any size, unlike sliced background images."
+      },
+      {
+        "q": "Can the stripes repeat?",
+        "a": "The tool builds one explicit sequence; CSS repeating-linear-gradient extends the same construction for wallpaper-style repetition — the gradient previewer verifies those values."
+      },
+      {
+        "q": "Why does my stripe show a faint blend line?",
+        "a": "The paired stops are not exactly equal — a fraction of a percent apart leaves a hairline of transition. Nudge the positions to match and the line disappears."
+      },
+      {
+        "q": "How many stops does one crisp band need?",
+        "a": "Two per boundary, so a two-colour split comes to four entries — the first band's colour at 0% and again at 50%, the second band's colour at 50% and again at 100%. Every stop is written out explicitly in the declaration, so the stop count grows twice as fast as the number of stripes."
+      }
+    ]
+  },
+  {
+    "slug": "multi-stop-gradient-builder",
+    "keywords": [
+      "multi stop gradient builder",
+      "three color gradient",
+      "gradient with multiple stops",
+      "multi color gradient css",
+      "gradient stops builder"
+    ],
+    "intro": "The multi stop gradient builder opens with a three-color ramp and lets you add, position and remove stops while the CSS declaration updates live.",
+    "content": "The multi stop gradient builder is the general-purpose ramp builder. It starts further along than the other gradient tools in this domain: instead of the usual pair of colours it opens with three — a blue at the start, a purple at the midpoint and a red at the end — so the moment the page loads there is already a multi-stop gradient on screen to work from.\n\n- Every stop gets its own row — a colour field and a position slider together — with a Remove button that appears once more than two remain.\n- The guard matters: a gradient with fewer than two colours has nothing to interpolate between, so the builder refuses to let you get there.\n- Add stop appends an entry at the midpoint of the ramp rather than at the end, so a new colour is immediately visible and can be dragged either way.\n\nThe distinction between this and a two-stop gradient is not just the number of colours. With two stops, every value on the ramp is a straight interpolation between the endpoints, and the only design decision is which two colours. With three or more, the positions matter as much as the colours: stops spread evenly give a smooth progression through the middle colour, while stops pushed towards one end compress the transition and leave flat colour on the other side. Pulling two stops onto the same position produces a hard edge instead of a blend. That is the vocabulary this tool exists to let you use, and it is why the position sliders are as important as the colour fields once you go past two colours.\n\n- Stop positions do not have to be in order: the browser sorts them before painting, so dragging the middle stop past the first only reorders the ramp.\n- Two stops at identical positions produce an abrupt transition rather than an error, which is the standard way CSS builds a hard stop.\n\nThe angle slider covers the full circle from zero to three hundred and sixty degrees, and the declaration is always written in degrees rather than as a direction keyword. Copy takes the whole thing as a background declaration. There is no radial or conic option here — this page builds linear ramps — and no interpolation-space control, so the browser's default interpolation applies.\n\nWhere a multi-stop gradient is worth the extra complexity is any surface that has to carry a story: a sky going from deep blue through orange to pale yellow, a chart background that signals a threshold, a hero that needs two hues plus a light passage between them. Two colours give a direction; three give a sequence. As a multi stop gradient builder it makes that structure editable rather than hand-written: a gradient with multiple stops can be reshaped by dragging rather than by editing numbers in a text editor. For a three color gradient or any other multi color gradient css, this gradient stops builder keeps the declaration in step with what you see, which is the difference between guessing at a ramp and watching it change.",
+    "howTo": [
+      "Start from the three default stops, or recolour them with the colour fields.",
+      "Drag the position sliders to control where each colour sits along the ramp.",
+      "Use Add stop for more colours — new stops arrive at the midpoint — and Remove to simplify.",
+      "Set the angle, then copy the background declaration."
+    ],
+    "whenToUse": "Use this when a ramp needs three or more colours, or when stop positions have to be placed precisely. Use the two-stop angle adjuster for simple direction changes, or the stop editor when the axis should stay fixed horizontally. For a two-colour sweep with no interior positions to place, the {{linear-gradient-generator|linear gradient generator}} is the same builder with fewer controls, and a ramp whose axis should stay put while the stops are placed is the {{gradient-color-stop-editor|gradient color stop editor}}.",
+    "faqs": [
+      {
+        "q": "How many stops can I use?",
+        "a": "As many as you need. Add stop appends another entry at the midpoint, and Remove appears on each row once more than two remain."
+      },
+      {
+        "q": "What happens if I move a stop past another one?",
+        "a": "Nothing breaks. The browser sorts stops by position before painting, so dragging the middle stop to the left of the first simply reorders the ramp."
+      },
+      {
+        "q": "How do I make a hard edge?",
+        "a": "Place two stops at the same position. The transition between them collapses to a line, which is the standard way CSS expresses a hard stop."
+      },
+      {
+        "q": "Can I build a radial or conic gradient here?",
+        "a": "No. This page produces linear ramps only, with the direction given in degrees. Radial and conic generators are separate tools."
+      },
+      {
+        "q": "What colour does a new stop arrive with?",
+        "a": "A random one, chosen the moment Add stop is pressed. It lands at the midpoint of the ramp, so the position is sensible from the start and recolouring it is the only step left."
+      }
+    ]
+  },
+  {
+    "slug": "gradient-angle-adjuster",
+    "keywords": [
+      "gradient angle adjuster",
+      "linear gradient angle",
+      "change gradient direction",
+      "css gradient angle",
+      "gradient angle slider"
+    ],
+    "intro": "The gradient angle adjuster drives a linear gradient's direction with a 0 to 360 degree slider and writes the finished declaration, stops and all, as copyable CSS.",
+    "content": "- The gradient angle adjuster is laid out as a large preview panel with a single Angle slider beneath it, running the full circle from zero to three hundred and sixty degrees.\n- Below that, a Stops section gives each colour a field and a position slider, and a CSS section prints the result as a background declaration with a copy button.\n- The preview redraws as the slider moves, so the linear gradient angle is chosen against the ramp you are actually shipping.\n\nThe output is the familiar linear-form function with the angle in degrees followed by the stops, each written as a colour and a percentage, so what you copy is a complete declaration rather than a fragment. The default state produces a two-stop gradient from a blue at zero percent to a red at a hundred percent, at ninety degrees, which in CSS points to the right. Dragging the slider through the full circle sweeps the direction of the ramp while the colours stay put, which is the quickest way to see how much a gradient's character depends on its angle rather than its palette — the same two colours read as a horizon, a sidebar or a diagonal depending only on that number. If you only ever need to change gradient direction, the angle slider is the control you will spend the whole session on.\n\n- The angle is always emitted as a number of degrees, never as a direction keyword, so the number is the only thing that identifies the direction.\n- A ninety-degree ramp could be written as to right and would render identically, but this tool does not make that substitution, which keeps the output predictable.\n- Converting an angle into its nearest keyword is a separate job, handled by the angle calculator.\n\nThe stop controls are the second half of the tool and they make it a general linear builder rather than an angle dial. Each stop has a colour field and a percentage slider, so you can move a colour along the ramp, and Add stop appends a new one — seeded with a random colour and parked at fifty percent — which is how you get past a two-colour gradient to a three- or four-colour sweep. Remove appears only when more than two stops remain, so the gradient can never be reduced below the two colours it needs.\n\nIn practice the workflow is to set your colours first, adjust their positions second, and sweep the angle last, because the angle is the variable you judge by eye and the others are decided by intent. It is equally useful as a quick sanity check on a gradient someone else wrote: paste the values in, drag the angle, and see whether the direction was deliberate or arbitrary.\n\nWhat it does not do is radial or conic gradients — this page always emits the linear form, and separate tools cover the other two — and it offers no interpolation controls, so the ramp is interpolated by the browser in its default colour space. There is no keyword direction output and no way to save a gradient you like beyond copying the declaration. Within those bounds, changing gradient direction with a css gradient angle is about as immediate as it can be: one slider, one gradient angle slider, and the CSS updating under your hand.",
+    "howTo": [
+      "Set the stop colours and drag their position sliders to place them on the ramp.",
+      "Add stops if the gradient needs more than two colours.",
+      "Sweep the angle slider until the direction reads the way you want.",
+      "Copy the background declaration from the CSS section."
+    ],
+    "whenToUse": "Use this when a linear gradient needs its direction tuned or its stops placed precisely. Use the gradient angle calculator when you need to know which human-readable direction a degree value corresponds to, or a conic or radial generator for other gradient types. When only two colours are in play, the {{linear-gradient-generator|linear gradient generator}} is the same sweep with fewer controls; when the stops are the subject and the angle is noise, the {{gradient-color-stop-editor|gradient color stop editor}} keeps the axis fixed at ninety degrees.",
+    "faqs": [
+      {
+        "q": "Does 0 degrees point up?",
+        "a": "Yes — in CSS, zero degrees points to the top and angles increase clockwise, so ninety degrees points to the right and one hundred and eighty points to the bottom."
+      },
+      {
+        "q": "Why is the direction always written in degrees?",
+        "a": "The tool never substitutes a keyword such as to right, even when the angle matches one exactly. That keeps the output predictable; use the angle calculator when you want the keyword form."
+      },
+      {
+        "q": "Can it build radial or conic gradients?",
+        "a": "No. This page always emits a linear gradient. Radial and conic generators exist as separate tools in the same domain."
+      },
+      {
+        "q": "How many stops can I add?",
+        "a": "As many as you like, though the output gets unwieldy past four or five. Stops can be removed freely, down to a minimum of two."
+      },
+      {
+        "q": "Is the copied value a complete declaration or just the function?",
+        "a": "Complete: the panel hands over a background declaration, with the angle in degrees first and every stop written as a colour and a percentage after it, so it pastes straight into a rule."
+      }
+    ]
+  },
+  {
+    "slug": "gradient-color-stop-editor",
+    "keywords": [
+      "gradient color stop editor",
+      "add gradient stops",
+      "gradient stop position",
+      "multi stop gradient",
+      "three color gradient"
+    ],
+    "intro": "The gradient color stop editor gives each color in a gradient its own position control, making it a three-color starting point for building multi stop gradients on a fixed horizontal axis.",
+    "content": "- Three stops are in place from the start — a blue at zero percent, a purple at fifty and a red at a hundred — which is the smallest arrangement that behaves differently from a plain two-colour ramp.\n- Every stop gets a colour field, a position slider and a delete button; Add stop appends another, seeded with a random colour.\n- Under the controls, a preview band shows the result and a CSS card prints the declaration with a copy button.\n\nThe interesting part of the tool is what the position sliders let you do. A gradient between two colours interpolates evenly across the whole element; the moment a third colour arrives, its position determines the shape of the ramp. Park it at fifty percent and you get a balanced three-colour sweep. Push it to ten percent and the first colour becomes a narrow band while the other two fill the rest, which is how you produce the hard-ish edge that gives a gradient a horizon or a stripe. Drag two stops together and you compress the transition between them into a tight line, leaving flat colour on either side. None of that requires anything except moving a slider, which is why this is a better tool for understanding gradients than a previewer is.\n\nThe axis is fixed horizontally — the declaration is always written at ninety degrees, pointing to the right — and that is a deliberate division of labour with the other tools in this domain. With the direction constant you can concentrate on the distribution of colour rather than juggling two variables at once, and when the arrangement is right, that declaration can be handed to an angle tool to be rotated. Each stop is written as a colour followed by its percentage, so the output is a plain, readable linear gradient with as many stops as you have added.\n\nTwo behaviours are worth knowing before you rely on them. New stops are added at a hundred percent, which means a stop you add lands on top of the last one and its position slider has to be dragged back before it becomes visible in the ramp. And removal has no floor: the delete button is present on every row, so it is possible to remove every stop and end up with a declaration that has no colours at all, which renders as nothing. Keeping at least two stops on the board is on you.\n\n- The tool is used two ways: building a three color gradient from scratch by distributing three colours until the ramp balances, and repairing one that looks wrong by looking at where its stops actually sit.\n- Most gradients that read as muddy or banded have their stops bunched in one part of the range, and laying the positions out as sliders shows that faster than reading the declaration does.\n\nWhat it does not offer is an angle control, a radial or conic axis, or the ability to drag stops along the preview band directly — the sliders are the only way in. That is a fair trade for a tool whose subject is position. As a gradient color stop editor it does the one thing that matters, and for add gradient stops with precise gradient stop position control it is quicker than editing the declaration by hand, especially once a multi stop gradient runs past four colours.",
+    "howTo": [
+      "Set the three starting colours, or delete one and add your own with Add stop.",
+      "Drag each stop's position slider to distribute the colours along the ramp.",
+      "Add further stops for more complex transitions, then drag the new ones back from 100%.",
+      "Copy the background declaration from the CSS card."
+    ],
+    "whenToUse": "Use this when a gradient needs its colour distribution tuned — hard edges, tight transitions or a balanced three-colour sweep. Use the gradient angle adjuster when the direction is the problem rather than the stop positions. The {{multi-stop-gradient-builder|multi-stop gradient builder}} adds the angle control this page deliberately lacks, and when a boundary should be genuinely abrupt rather than merely tight, the {{hard-stop-gradient-generator|hard-stop gradient generator}} builds it from paired stops.",
+    "faqs": [
+      {
+        "q": "Where are new stops added?",
+        "a": "At 100 percent, so a new stop lands on top of the last one. Drag its slider back to bring it into the ramp — the preview will not change until you do."
+      },
+      {
+        "q": "Can I remove all the stops?",
+        "a": "Yes, and the declaration will then contain no colours and render as nothing. There is no minimum enforced, so keep at least two on the board."
+      },
+      {
+        "q": "Can I change the angle?",
+        "a": "No. The declaration is always written at 90 degrees. Copy it into an angle tool if you need a different direction; keeping it fixed keeps the focus on stop positions."
+      },
+      {
+        "q": "What does moving a stop actually change?",
+        "a": "The shape of the ramp. Stops bunched together create a tight transition and flat colour either side; evenly spaced stops give a smooth sweep from end to end."
+      },
+      {
+        "q": "Do the slider numbers match the percentages in the CSS?",
+        "a": "Exactly — the slider value is written into the declaration as that percentage, with no conversion in between. If the copied CSS shows a stop at 37%, that is where the slider was sitting."
+      }
+    ]
+  },
+  {
+    "slug": "css-gradient-animation-generator",
+    "keywords": [
+      "css gradient animation generator",
+      "animated gradient css",
+      "css animated background",
+      "gradient animation css"
+    ],
+    "intro": "The CSS gradient animation generator produces a complete keyframes-plus-class snippet for a drifting three-colour animated gradient background, with the running animation previewed above the code.",
+    "content": "The CSS gradient animation generator is a two-part page: a panel with a live animated gradient, and a card holding the entire snippet that produces it. Copying that card gives you a @keyframes shift rule and a .animated-bg class, ready to paste into a stylesheet. There are no inputs — the colours, angle, duration and easing are fixed — so the preview and the code are guaranteed to match, which is the point of showing them side by side.\n\n- The class declares a three-stop linear gradient at 270 degrees, running blue through purple to red, and then sets background-size to 600 percent in both directions.\n- At that size the gradient is far larger than the element it paints, so only a slice of it is visible at any moment.\n- The keyframes then animate background-position from 0 percent to 100 percent and back, sliding the visible window across the oversized gradient.\n- That is what produces the sense of colours drifting past rather than the element changing colour.\n- Nothing in the snippet changes colour: the same three stops slide across the element, which is why the effect reads as movement rather than as a state change.\n\nUsing it is a two-step job: copy the block and paste it into a stylesheet, then add the class name to whichever element should carry the effect. Because the animation lives in a class rather than an inline style, any element that receives animated-bg inherits the whole effect, which makes it easy to give a hero banner, a card header or a loading placeholder a css animated background without duplicating declarations.\n\n- If the animation should carry your own brand colours, this page will not accept them.\n- The gradient, angle, duration and easing are all fixed in the emitted snippet, so any variation starts with an edit to the copied CSS.\n- The workable route is to generate the static gradient you want and reuse only the background-size and keyframes from this snippet around it.\n- The timing is a deliberately slow drift at 12 seconds, ease, infinite; shortening it reads as motion rather than ambience, and stretching it much further reads as static.\n\nWhere it belongs is behind content that is allowed to be decorative: hero sections, empty states, marketing panels. It is a poor choice directly behind body text, and worth avoiding in any interface that needs to hold attention on a task. Continuous animation also costs paint work, so the larger the element, the more it shows up in performance profiles.\n\nFinally, the snippet carries no accessibility guard. The CSS is a gradient animation, so it is exactly the kind of motion a prefers-reduced-motion query exists for, and you should wrap the animation property in a media query that disables it for people who ask for reduced motion. With that addition — and a decision about whether the drifting gradient suits the surface — this is the fastest way to get animated gradient css into a page, complete with the gradient animation css keyframes that make it move.",
+    "howTo": [
+      "Copy the CSS block from the card under the preview.",
+      "Paste it into a stylesheet — it brings both the @keyframes rule and the .animated-bg class.",
+      "Add the class to the element that should carry the animated background.",
+      "Wrap the animation property in a prefers-reduced-motion query if the effect is decorative."
+    ],
+    "whenToUse": "Use this when you want a ready-made drifting gradient and are happy with its fixed palette and timing. Use the linear or radial gradient generators when you need your own colours and will add the animation yourself. Where the drift has to exist without CSS animation — an email header, a slide background, a static mock — the {{css-gradient-to-image-exporter|CSS gradient to image exporter}} writes a gradient of your own out as a PNG, and a hand-edited version of the snippet's background value can be checked in the {{gradient-previewer|gradient previewer}} before it goes back into the keyframes.",
+    "faqs": [
+      {
+        "q": "Can I change the colours or the speed?",
+        "a": "Not on this page. The gradient, angle, duration and easing are fixed in the emitted snippet. Edit the copied CSS afterwards, or generate the gradient you want separately and reuse only the background-size and keyframes."
+      },
+      {
+        "q": "Why does the snippet set background-size to 600%?",
+        "a": "It makes the gradient far larger than the element, so animating background-position slides a visible window across it. Without the enlarged background size, the position change would have nothing to move across."
+      },
+      {
+        "q": "How do I apply it to an element?",
+        "a": "Paste the block into your stylesheet and add the class animated-bg to the element. The keyframes rule is global; the class is what carries the background and the animation."
+      },
+      {
+        "q": "Is there a reduced-motion guard?",
+        "a": "No. The emitted CSS animates unconditionally, so if the effect is decorative you should add a prefers-reduced-motion media query that turns it off."
+      },
+      {
+        "q": "What happens if I paste the snippet twice?",
+        "a": "It duplicates the same @keyframes shift rule. CSS tolerates that — the definitions are identical, so the later one wins — but the tidier deployment is to paste the block once and put the animated-bg class on every element that should carry the effect."
+      }
+    ]
+  },
+  {
+    "slug": "mesh-gradient-generator",
+    "keywords": [
+      "mesh gradient generator",
+      "mesh gradient css",
+      "multi blob gradient",
+      "random mesh background",
+      "aurora gradient css"
+    ],
+    "intro": "The mesh gradient generator builds a mesh gradient CSS background from five randomly placed colour blobs and gives you the layered value to copy.",
+    "content": "The mesh gradient generator works with one button. Press Regenerate mesh and five coloured blobs are placed at random positions across a panel, producing a soft, clouded background rather than a directional ramp. Below the preview, the CSS card holds the whole background value with a copy button.\n\nThe construction is what separates a mesh gradient from an ordinary one, and it is visible in the emitted CSS. It is, in effect, a multi blob gradient: several soft shapes on one surface rather than a single sweep from one side to the other. Rather than a single gradient, the value is a comma-separated stack of five radial gradients, each centred at its own percentage coordinates and each fading from a solid colour to transparent by the halfway point of its radius. Layered on one background, those five circles overlap and blend, and because each fades out rather than ending abruptly, there are no visible edges — just regions where one colour is dominant and transitional areas where two or three mix.\n\nThat layering is also why the output looks the way it does when a blob has no neighbour nearby. A radial gradient fading to transparent leaves whatever is behind it showing through, and behind the whole stack there is nothing, so a blob near the edge of the panel reads as a colour floating on the page's own background. That is a feature for layering over an image and a surprise when you expected an opaque tile: if the result should be self-contained, place the mesh over a solid background colour rather than on its own.\n\n- Both the colours and the positions are drawn at random, so one regeneration produces a harmonious aurora and the next is closer to a palette accident.\n- Positions can also cluster by chance, leaving one region crowded and another bare.\n- There are no sliders for colour, position or blob count — the button is the only control, and the honest workflow is to press it until the result is worth keeping.\n\nIn use, this is a decorative background generator, and the sensible places for it follow from that — hero sections, page headers, empty states, card headers, presentation slides. It is a poor choice behind body text, both because a mesh gradient is busy and because the overlapping translucent layers make the effective background colour underneath any given word unpredictable, which is exactly what makes contrast hard to guarantee. If text has to sit on it, place the text in a panel with its own solid backing, or reduce the effect's prominence with an overlay.\n\n- Practical limits: five blobs at fixed saturation, no control over any of them, no seed, and no export beyond the CSS — so a mesh you liked cannot be reproduced once you regenerate.\n- Compared with the linear and conic gradients in this domain, it trades precision for variety, which is the right trade when the only requirement is that a background looks alive on the day.\n- Used as a random mesh background, it produces a plausible mesh gradient css value in one click, and the layered-blob recipe inside the declaration is exactly the aurora gradient css look that marketing pages chase.",
+    "howTo": [
+      "Press Regenerate mesh until the arrangement looks right.",
+      "Copy the background value from the CSS panel.",
+      "Place it over a solid background colour if the result needs to be opaque.",
+      "Keep text off the busy areas, or give it its own backing panel."
+    ],
+    "whenToUse": "Use this when a page needs a soft, multi-coloured decorative background — hero sections, headers, empty states. Use a linear or conic gradient generator when the direction and stops need to be controlled precisely. Where one blob needs its centre and its reach controlled rather than randomised, the {{radial-gradient-generator|radial gradient generator}} is the deliberate version; where the mesh has to carry text, the {{opacity-layering-calculator|opacity layering calculator}} flattens the translucent stack into the single effective colour contrast should be measured against.",
+    "faqs": [
+      {
+        "q": "How is a mesh gradient built here?",
+        "a": "As five radial gradients layered on one background, each fading from a solid colour to transparent. Where they overlap, the colours blend into each other."
+      },
+      {
+        "q": "Can I control the colours or positions?",
+        "a": "No. Both are drawn at random and the only control is the Regenerate button. There are no sliders for blob count, spread or colour."
+      },
+      {
+        "q": "Why does the background look transparent in places?",
+        "a": "Because each blob fades to transparent and nothing sits behind the stack. Place the mesh over a solid colour if the result should be opaque."
+      },
+      {
+        "q": "Can I reproduce a mesh I liked?",
+        "a": "Not after regenerating — there is no seed and no history. Copy the CSS value to keep it."
+      },
+      {
+        "q": "Can the mesh be layered over a photograph?",
+        "a": "Yes — and there the transparency works in its favour: the five blobs go on as a background layer over the image, and the photograph shows through the gaps, which is exactly what the floating-colour look is after."
+      }
+    ]
+  },
+  {
+    "slug": "svg-gradient-generator",
+    "keywords": [
+      "svg gradient generator",
+      "svg gradient markup",
+      "svg gradient code",
+      "linear gradient in svg",
+      "svg gradient stops"
+    ],
+    "intro": "The SVG gradient generator writes a complete <linearGradient> element with the right axis coordinates for any angle, plus a rectangle that uses it, so the markup renders on its own.",
+    "content": "- The SVG gradient generator keeps the controls of the CSS builders — a large preview, stops with colour and position sliders, and an angle from zero to three hundred and sixty degrees — but the panel at the bottom holds markup rather than a declaration.\n- Copy takes the whole element, from the opening svg tag to the closing one.\n\nWhat the markup contains is the part worth understanding, because SVG does not think about gradients the way CSS does. A gradient in SVG is defined once inside a defs block, given an identifier, and then referenced by other elements through a fill or stroke attribute. So the output here is three things in one: a linearGradient element with an id, one stop per colour carrying an offset percentage and a stop color, and a rectangle filled with a reference to that gradient so the snippet renders as a picture the moment it is saved or pasted into a page.\n\nThe more interesting translation is the axis. CSS describes a gradient direction with a single angle; SVG describes it with a vector — an x1, y1 pair saying where the ramp begins and an x2, y2 pair saying where it ends, expressed in fractions of the shape's bounding box. So zero degrees, which in CSS points to the top, becomes a vector running from the bottom edge to the top edge, and ninety degrees becomes one running from the left edge to the right. Each coordinate is written to three decimal places, which is precision past the point of visible difference but keeps the markup stable and diff-friendly when the angle changes.\n\nStops are written as offset percentages, matching the positions set with the sliders. Only the offset and the colour are emitted, so a stop cannot carry a separate opacity here — SVG expresses that with a stop opacity attribute, which you would add by hand if a fade is needed. The identifier is fixed at grad, which matters as soon as you use the snippet twice: two elements in the same document with the same id are a collision, and the second reference will pick up the first definition. Rename the identifier on one of them.\n\nThe output is also a rectangle, and for many uses that is not what you want — an SVG gradient is usually there to fill a shape you already have. The defs block is the part to keep; the rectangle is a demonstration, and replacing its fill with your own path or icon is the expected next step.\n\n- Scale is the reason to choose this over a PNG: a gradient defined this way has no resolution, stays smooth at any size and weighs almost nothing, which is what icons, favicons and anything printed need.\n- The limits are that only a linear gradient is produced, and that the geometry is a bounding-box vector, so the ramp scales with whatever shape references it rather than with the document.\n- The workflow is one pass: set the colours and positions, choose the angle, copy the svg gradient markup, and keep the linear gradient in svg form wherever it has to scale.\n- Dropping it into a document takes no conversion — the svg gradient code arrives as a defs block with an identifier and bounding-box coordinates already written, svg gradient stops and all.",
+    "howTo": [
+      "Set the stop colours and drag their position sliders to place them on the ramp.",
+      "Choose the angle — the axis coordinates in the markup follow it.",
+      "Copy the entire element from the SVG panel.",
+      "Keep the defs block and reference the gradient from your own shape; rename the id if you use it twice."
+    ],
+    "whenToUse": "Use this when the gradient has to end up as vector artwork — icons, logos, illustrations or anything that must stay sharp at any size. Use the CSS exporter for backgrounds in a stylesheet, or the canvas generator when the gradient is drawn by script. When the same ramp has to be drawn by script rather than declared as markup, the {{canvas-gradient-generator|canvas gradient generator}} is the counterpart; when it only has to exist as a flat file, the {{css-gradient-to-image-exporter|CSS gradient to image exporter}} writes it out as a PNG.",
+    "faqs": [
+      {
+        "q": "Why is there a rectangle in the output?",
+        "a": "So the snippet renders standalone. An SVG gradient on its own paints nothing until something references it, so a rectangle filled with url(#grad) is included as a worked example — replace it with your own shape."
+      },
+      {
+        "q": "How does the angle become coordinates?",
+        "a": "SVG describes direction as a vector between two points in the shape's bounding box rather than as an angle. The tool converts the angle into that vector, which is why the corner cases come out as edges of the bounding box."
+      },
+      {
+        "q": "Can I use two of these in one document?",
+        "a": "Yes, but rename the id on one of them. Both are emitted with the identifier grad, and duplicate ids in a document mean the second reference resolves to the first definition."
+      },
+      {
+        "q": "Does it support radial or conic gradients?",
+        "a": "No. Only linear gradients are produced here. SVG has a radial gradient element, but this page does not emit it."
+      },
+      {
+        "q": "How do I fill a multi-path icon with one gradient?",
+        "a": "Define the gradient once in the defs block, then point every path at the same identifier with fill set to url(#grad). The rectangle in the snippet is only there to make it render standalone — delete it and the definition stays usable."
+      }
+    ]
+  },
+  {
+    "slug": "canvas-gradient-generator",
+    "keywords": [
+      "canvas gradient generator",
+      "html5 canvas gradient",
+      "canvas linear gradient javascript",
+      "canvas gradient code",
+      "draw gradient on canvas"
+    ],
+    "intro": "The canvas gradient generator produces a ready-to-run JavaScript snippet that draws your gradient on a canvas, with the axis coordinates already calculated for the chosen angle.",
+    "content": "- The canvas gradient generator shares its controls with the CSS builders — stops with positions, an angle slider, a live preview — and changes only what the bottom panel contains.\n- Instead of CSS or markup, the panel holds six lines of JavaScript that draw the gradient onto a canvas element, with a copy button for the block.\n\nThe snippet follows the same order a person would write by hand. It is the html5 canvas gradient recipe in full. First it looks up an element by identifier, which is assumed to be gradient, then gets the two-dimensional drawing context. Then it creates the gradient object with four coordinates, adds one colour stop per entry in the ramp, assigns the result as the fill style, and finally fills a rectangle covering the canvas. Running it produces exactly the preview shown above it.\n\nThe interesting part is the pair of coordinate systems the tool has to reconcile. CSS expresses a gradient direction as an angle, while the canvas API wants two absolute points in pixel space — the start of the ramp and the end of it. The tool calculates those four numbers from the angle and the canvas size, centring the axis on the canvas and stretching it just far enough that the ramp spans the whole box, which is the same geometry a browser uses when it paints the CSS version. For the default ninety degrees on a four hundred and eighty by three hundred and twenty canvas, that resolves to a horizontal axis running from the left edge to the right edge at mid-height.\n\n- Stop positions are converted on the way out: canvas expects a number between zero and one, so each percentage from the slider is divided by a hundred and written to two decimal places.\n- That conversion is the easiest part to get wrong by hand — passing fifty rather than half a value does not throw, it simply crams both stops at one end.\n\nTwo assumptions are baked into the output and are worth checking before running it. The element is looked up with the identifier gradient, so either name your canvas that or rename the lookup. And the fill rectangle covers four hundred and eighty by three hundred and twenty pixels, matching the size the coordinates were computed for. On a canvas of a different size the code still runs, but the axis will no longer span the full box — the numbers need recalculating, which is what the angle slider is doing for you.\n\nWhere this is useful is anywhere the gradient has to be drawn by script rather than declared in a stylesheet — every case of a canvas linear gradient javascript is the answer instead: charts that paint their own backgrounds, image processing that composites a tint, generative art, or a canvas whose size is only known at runtime. In those cases a CSS declaration is not an option at all, and hand-building the gradient object with the right coordinates and normalised stops is precisely the fiddly part this removes. The limits are that it is a linear gradient only, that there is no support for radial or conic ramps in the canvas API here, and that the snippet draws once — animating it is a separate exercise in redrawing on each frame. As canvas gradient code to draw gradient on canvas without computing the axis yourself, it covers the part that is easiest to get wrong.",
+    "howTo": [
+      "Set the stops and their positions, then choose the angle.",
+      "Copy the JavaScript block from the Canvas panel.",
+      "Give your canvas element the id gradient, or rename the lookup in the first line to match.",
+      "Adjust the fill rectangle if your canvas is not 480 by 320."
+    ],
+    "whenToUse": "Use this when a gradient has to be drawn in script — charts, compositing, generative work or a canvas sized at runtime. Use the CSS exporter when a stylesheet can carry the gradient, or the SVG generator when the output should be vector artwork. When the ramp should end up as a picture rather than a drawing routine, the {{css-gradient-to-image-exporter|CSS gradient to image exporter}} saves it as a 1200 by 800 PNG, and when it should stay vector, the {{svg-gradient-generator|SVG gradient generator}} writes the markup instead.",
+    "faqs": [
+      {
+        "q": "What element does the snippet expect?",
+        "a": "A canvas with the identifier gradient. Either give yours that id or change the first line, which is the only place the element is looked up."
+      },
+      {
+        "q": "Why are the coordinates specific numbers rather than percentages?",
+        "a": "The canvas API takes absolute pixel positions for the gradient axis rather than a direction. The tool computes them from the angle and the assumed canvas size so the ramp spans the whole box."
+      },
+      {
+        "q": "How are the stop positions converted?",
+        "a": "Canvas expects values between zero and one, so each percentage from the sliders is divided by a hundred and written to two decimal places. Passing the percentage directly is a common mistake."
+      },
+      {
+        "q": "Can it draw a radial gradient?",
+        "a": "No. Only the linear form is emitted. The canvas API does offer radial gradients, but this page does not generate that code."
+      },
+      {
+        "q": "What happens if the canvas is a different size?",
+        "a": "The code still runs, but the four axis coordinates were computed for a 480 by 320 box, so a differently sized canvas gets a ramp that no longer spans it. Recreate the gradient inside your redraw with the new width and height; the normalised stop values carry over unchanged."
+      }
+    ]
+  },
+  {
+    "slug": "gradient-previewer",
+    "keywords": [
+      "gradient previewer",
+      "preview css gradient",
+      "css gradient tester",
+      "test gradient css",
+      "radial and conic gradient preview"
+    ],
+    "intro": "The gradient previewer renders any CSS gradient value you paste into it, which makes it a test bed for gradients written by hand or generated elsewhere.",
+    "content": "- A text area holds a gradient value and the panel underneath renders it; change a character and the panel updates.\n- There are no sliders, no colour fields and no stops, because the input is CSS rather than a set of controls.\n\nThat inversion is the point. Every other gradient tool in this domain builds a value from controls and shows you the result; this one starts from the value, so it can preview a gradient that came from somewhere else — copied out of a design tool, pasted from a code review, generated by a script, or written by hand from memory. The default value is a simple two-stop horizontal ramp, and replacing it with any other gradient expression is the whole workflow.\n\nThe property being previewed is background rather than background-image, which is a quiet advantage. It means the field is not restricted to gradients at all: a flat colour, an image URL, or a multi-layer stack combining an image with a gradient overlay all render correctly, because the browser is doing the parsing and this tool is only handing the value over. A layered gradient over a photograph is exactly the kind of value that is tedious to check in a stylesheet and trivial to check here.\n\nEvery gradient syntax a browser understands therefore works, and that is broader than it might sound. Radial gradients, conic gradients, repeating variants, hard colour stops, interpolation hints, gradients with the interpolation space specified, and gradients with stops given in any of the supported colour notations — all render as soon as they are typed, because none of it is being interpreted by this tool. That makes it the right place to test an unfamiliar form before trusting it in production, and the wrong place to find out why something is broken, since any syntax the browser rejects simply renders as the fallback.\n\n- There is no validation and no error state: a mistyped property, a missing closing parenthesis or a stray character produces an empty panel rather than a message.\n- The panel is a fixed height, so the ramp is always shown in one proportion regardless of whether it will end up in a hero or a sidebar.\n- Contrast, banding and legibility are outside its remit, because the value is passed straight through to the browser.\n\nIn practice it earns its place as a fast second opinion. When a gradient from another generator renders differently than expected in a page, pasting the exact value here shows whether the browser agrees with the generator; when a gradient is built from several layers, this is the quickest place to check that the top layer is not hiding the rest. As a gradient previewer it does exactly one thing — preview css gradient values — and as a css gradient tester it covers more ground than the sliders do, simply because it accepts everything a css gradient can be, including a radial and conic gradient preview and any multi-layer stack you want to test gradient css against.",
+    "howTo": [
+      "Paste or type a gradient value into the text area.",
+      "Watch the panel below render it — any browser-supported syntax works.",
+      "Edit the value in place to compare variants without leaving the page."
+    ],
+    "whenToUse": "Use this when a gradient value exists already and you want to see it — checking output from another generator, reviewing a layered background, or testing unfamiliar syntax. Use the builders when you are creating the gradient from colours rather than from code. If the value needs flipping rather than looking at, the {{gradient-reverser|gradient reverser}} mirrors its stops while keeping its angle; if it needs to go into a stylesheet, the {{gradient-to-css-exporter|gradient to CSS exporter}} returns it in the three forms a stylesheet consumes.",
+    "faqs": [
+      {
+        "q": "Which gradient types can it preview?",
+        "a": "Any the browser supports: linear, radial, conic, repeating variations, hard stops and interpolation hints. Nothing is parsed here, so the value is simply handed to the browser."
+      },
+      {
+        "q": "Why does nothing appear when I type an invalid value?",
+        "a": "There is no validation or error state. A broken value renders as nothing rather than reporting a problem, so an empty panel usually means a syntax error."
+      },
+      {
+        "q": "Can I preview a background image or a flat colour?",
+        "a": "Yes. The value is applied as a background, so colours, image URLs and stacks of several layers all render. That makes it useful for checking layered backgrounds."
+      },
+      {
+        "q": "Does it remember what I typed?",
+        "a": "No. The value resets to its default when the page is reloaded, so copy anything you want to keep before leaving."
+      },
+      {
+        "q": "Should I paste the value or the whole declaration?",
+        "a": "Just the value — the property name is applied by the page, so a pasted background: prefix or a trailing semicolon is one of the things that renders as nothing. Strip the wrapper and the value itself is exactly what the field wants."
+      }
+    ]
+  }
+]

@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   CSS_NAMED_COLORS, CVD_TYPES, applyCVDToImageData, contrastRatio, darken,
-  fileToImage, harmonyColors, imageFileToPixels, invertColor, isValidColor,
+  dominantColor, fileToImage, harmonyColors, imageFileToPixels, invertColor, isValidColor,
   kmeansPalette, lighten, mix, parseColor, randomHex, rgbToHex, saturate,
   shades, shiftHue, simulateCVD, tints, toCmyk, toHex, toHslObj, toHslString,
   toHwbObj, toLabObj, toLchObj, toOklchObj, toOklchString, toRgb255,
@@ -194,7 +194,7 @@ function ManipPage({ c, setC, colors }: { c: string; setC: (v: string) => void; 
   );
 }
 
-function SliderTool({ label, min, max, step, fn, defaultV = 20 }: { label: string; min: number; max: number; step: number; fn: (c: string, n: number) => string; defaultV?: number }) {
+function SliderTool({ label, min, max, step, fn, defaultV = 20, unit = "%" }: { label: string; min: number; max: number; step: number; fn: (c: string, n: number) => string; defaultV?: number; unit?: string }) {
   const [c, setC] = useState("#3B82F6");
   const [n, setN] = useState(defaultV);
   const result = fn(c, n);
@@ -203,7 +203,7 @@ function SliderTool({ label, min, max, step, fn, defaultV = 20 }: { label: strin
       <Section>
         <ColorField value={c} onChange={setC} />
         <div className="mt-6">
-          <Label>{label}: {n}{step < 1 ? "" : "%"}</Label>
+          <Label>{label}: {n}{step < 1 ? "" : unit}</Label>
           <Slider min={min} max={max} step={step} value={[n]} onValueChange={(v) => setN(v[0])} className="mt-2" />
         </div>
       </Section>
@@ -217,7 +217,37 @@ function SliderTool({ label, min, max, step, fn, defaultV = 20 }: { label: strin
 export function LightenTool() { return <SliderTool label="Lighten" min={0} max={100} step={1} fn={(c, n) => lighten(c, n / 100)} />; }
 export function DarkenTool() { return <SliderTool label="Darken" min={0} max={100} step={1} fn={(c, n) => darken(c, n / 100)} />; }
 export function SaturationAdjuster() { return <SliderTool label="Saturation" min={-30} max={30} step={1} fn={(c, n) => saturate(c, n / 100)} defaultV={0} />; }
-export function HueShift() { return <SliderTool label="Hue shift (deg)" min={-180} max={180} step={1} fn={(c, n) => shiftHue(c, n)} defaultV={30} />; }
+export function SaturationBooster() { return <SliderTool label="Boost saturation" min={0} max={30} step={1} fn={(c, n) => saturate(c, n / 100)} defaultV={20} />; }
+export function SaturationReducer() { return <SliderTool label="Reduce saturation" min={0} max={30} step={1} fn={(c, n) => saturate(c, -n / 100)} defaultV={20} />; }
+
+/**
+ * Three sliders, one per HSL channel, with each channel's value printed beside
+ * it. Hue is circular (0-360 degrees) while saturation and lightness are
+ * percentages, so a move is a statement about a single axis and the resulting
+ * hex is reproducible from the figures on screen.
+ */
+export function HslChannelAdjuster() {
+  const [h, setH] = useState(217);
+  const [s, setS] = useState(91);
+  const [l, setL] = useState(60);
+  const hex = toHex(`hsl(${h}, ${s}%, ${l}%)`);
+  return (
+    <div className="grid gap-6 md:grid-cols-2">
+      <Section>
+        <Label>Hue: {h}°</Label>
+        <Slider min={0} max={360} step={1} value={[h]} onValueChange={(v) => setH(v[0])} className="mt-2" />
+        <Label className="mt-4">Saturation: {s}%</Label>
+        <Slider min={0} max={100} step={1} value={[s]} onValueChange={(v) => setS(v[0])} className="mt-2" />
+        <Label className="mt-4">Lightness: {l}%</Label>
+        <Slider min={0} max={100} step={1} value={[l]} onValueChange={(v) => setL(v[0])} className="mt-2" />
+      </Section>
+      <Section title="Result">
+        <Swatch color={hex} size="lg" />
+      </Section>
+    </div>
+  );
+}
+export function HueShift() { return <SliderTool label="Hue shift" min={-180} max={180} step={1} unit="°" fn={(c, n) => shiftHue(c, n)} defaultV={30} />; }
 
 export function OpacityCalculator() {
   const [bg, setBg] = useState("#FFFFFF");
@@ -517,12 +547,84 @@ function gradientCSS(kind: string, angle: number, stops: Stop[]) {
   return `linear-gradient(${angle}deg, ${stopStr})`;
 }
 
-function GradientBuilder({ kind, initialAngle = 90, initialStops }: { kind: "linear" | "radial" | "conic" | "multi"; initialAngle?: number; initialStops?: Stop[] }) {
+/**
+ * The gradient axis in canvas/SVG coordinates for a CSS angle. CSS measures from
+ * "up" and turns clockwise, while canvas and SVG both grow downward, so the
+ * direction vector is (sin, -cos); the axis is centred and stretched so it spans
+ * the box exactly the way the browser paints the CSS gradient.
+ */
+function gradientAxis(angle: number, w: number, h: number): [number, number, number, number] {
+  const rad = (angle * Math.PI) / 180;
+  const dx = Math.sin(rad), dy = -Math.cos(rad);
+  const len = Math.abs(w * dx) + Math.abs(h * dy);
+  const cx = w / 2, cy = h / 2;
+  return [cx - (dx * len) / 2, cy - (dy * len) / 2, cx + (dx * len) / 2, cy + (dy * len) / 2];
+}
+
+function gradientSVG(angle: number, stops: Stop[], w = 480, h = 320): string {
+  const [x0, y0, x1, y1] = gradientAxis(angle, 1, 1);
+  const stopLines = stops.map((s) => `      <stop offset="${s.pos}%" stop-color="${s.color}" />`).join("\n");
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">`,
+    `  <defs>`,
+    `    <linearGradient id="grad" x1="${x0.toFixed(3)}" y1="${y0.toFixed(3)}" x2="${x1.toFixed(3)}" y2="${y1.toFixed(3)}">`,
+    stopLines,
+    `    </linearGradient>`,
+    `  </defs>`,
+    `  <rect width="${w}" height="${h}" fill="url(#grad)" />`,
+    `</svg>`,
+  ].join("\n");
+}
+
+function gradientCanvasJS(angle: number, stops: Stop[], w = 480, h = 320): string {
+  const [x0, y0, x1, y1] = gradientAxis(angle, w, h).map((n) => Math.round(n));
+  const stopLines = stops.map((s) => `g.addColorStop(${(s.pos / 100).toFixed(2)}, '${s.color}');`).join("\n");
+  return [
+    `const canvas = document.getElementById('gradient');`,
+    `const ctx = canvas.getContext('2d');`,
+    `const g = ctx.createLinearGradient(${x0}, ${y0}, ${x1}, ${y1});`,
+    stopLines,
+    `ctx.fillStyle = g;`,
+    `ctx.fillRect(0, 0, ${w}, ${h});`,
+  ].join("\n");
+}
+
+/** Paints the gradient onto a real canvas and saves it as a PNG file. */
+function GradientPngDownload({ angle, stops }: { angle: number; stops: Stop[] }) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  function download() {
+    const w = 1200, h = 800;
+    const canvas = document.createElement("canvas");
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    const link = linkRef.current;
+    if (!ctx || !link) return;
+    const [x0, y0, x1, y1] = gradientAxis(angle, w, h);
+    const g = ctx.createLinearGradient(x0, y0, x1, y1);
+    stops.forEach((s) => g.addColorStop(Math.min(1, Math.max(0, s.pos / 100)), s.color));
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+    link.href = canvas.toDataURL("image/png");
+    link.download = "gradient.png";
+    link.click();
+  }
+  return (
+    <div className="flex items-center gap-3">
+      <Button onClick={download}>Download PNG</Button>
+      <a ref={linkRef} className="hidden" aria-hidden="true" />
+      <span className="text-xs text-muted-foreground">1200 × 800</span>
+    </div>
+  );
+}
+
+function GradientBuilder({ kind, initialAngle = 90, initialStops, format = "css" }: { kind: "linear" | "radial" | "conic" | "multi"; initialAngle?: number; initialStops?: Stop[]; format?: "css" | "css-all" | "svg" | "canvas" | "png" }) {
   const [angle, setAngle] = useState(initialAngle);
   const [stops, setStops] = useState<Stop[]>(initialStops ?? [
     { color: "#3B82F6", pos: 0 }, { color: "#EF4444", pos: 100 },
   ]);
   const css = gradientCSS(kind === "multi" ? "linear" : kind, angle, stops);
+  const svg = gradientSVG(angle, stops);
+  const canvasJS = gradientCanvasJS(angle, stops);
 
   return (
     <div className="grid gap-6">
@@ -548,15 +650,41 @@ function GradientBuilder({ kind, initialAngle = 90, initialStops }: { kind: "lin
           <Slider min={0} max={360} value={[angle]} onValueChange={(v) => setAngle(v[0])} className="mt-2" />
         </Section>
       )}
-      <Section title="CSS">
-        <code className="block rounded-md bg-muted p-3 font-mono text-xs break-all">background: {css};</code>
-        <CopyButton value={`background: ${css};`} className="mt-2" />
+      <Section title={format === "css" || format === "css-all" ? "CSS" : format === "svg" ? "SVG" : format === "canvas" ? "Canvas" : "PNG"}>
+        {format === "css" && (
+          <>
+            <code className="block rounded-md bg-muted p-3 font-mono text-xs break-all">background: {css};</code>
+            <CopyButton value={`background: ${css};`} className="mt-2" />
+          </>
+        )}
+        {format === "css-all" && (
+          <>
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs break-all">{`background: ${css};\nbackground-image: ${css};\n--gradient: ${css};`}</pre>
+            <CopyButton value={`background: ${css};\nbackground-image: ${css};\n--gradient: ${css};`} className="mt-2" />
+          </>
+        )}
+        {format === "svg" && (
+          <>
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{svg}</pre>
+            <CopyButton value={svg} className="mt-2" />
+          </>
+        )}
+        {format === "canvas" && (
+          <>
+            <pre className="overflow-auto rounded-md bg-muted p-3 font-mono text-xs">{canvasJS}</pre>
+            <CopyButton value={canvasJS} className="mt-2" />
+          </>
+        )}
+        {format === "png" && <GradientPngDownload angle={angle} stops={stops} />}
       </Section>
     </div>
   );
 }
 
 export function GradientGenerator() { return <GradientBuilder kind="linear" />; }
+export function SVGGradientExporter() { return <GradientBuilder kind="linear" format="svg" />; }
+export function CanvasGradientExporter() { return <GradientBuilder kind="linear" format="canvas" />; }
+export function GradientImageExporter() { return <GradientBuilder kind="linear" format="png" />; }
 export function makeGradient(kind: "linear" | "radial" | "conic" | "multi") {
   return function GradientVariant() {
     const initial = kind === "multi"
@@ -579,17 +707,32 @@ export function GradientPreviewer() {
   );
 }
 
+/**
+ * The CSS exporter writes the gradient in all three forms a stylesheet might want:
+ * the shorthand, the explicit background-image property, and a custom property that
+ * can be referenced from several rules.
+ */
 export function CSSGradientExporter() {
-  return <GradientBuilder kind="linear" />;
+  return <GradientBuilder kind="linear" format="css-all" />;
 }
+
+const GRADIENT_DIRECTIONS: Array<[number, string]> = [
+  [0, "to top"], [45, "to top right"], [90, "to right"], [135, "to bottom right"],
+  [180, "to bottom"], [225, "to bottom left"], [270, "to left"], [315, "to top left"],
+];
 
 export function GradientAngleCalc() {
   const [angle, setAngle] = useState(90);
-  const directionMap: Record<number, string> = {
-    0: "to top", 45: "to top right", 90: "to right", 135: "to bottom right",
-    180: "to bottom", 225: "to bottom left", 270: "to left", 315: "to top left",
-  };
-  const nearest = Object.keys(directionMap).map(Number).reduce((a, b) => Math.abs(b - angle) < Math.abs(a - angle) ? b : a);
+  // Normalize to [0, 360) and match with circular distance, so 360° resolves to
+  // "to top" rather than the previous incorrect "to top left".
+  const normalized = ((angle % 360) + 360) % 360;
+  const nearest = GRADIENT_DIRECTIONS.reduce(
+    (best, [deg, keyword]) => {
+      const d = Math.min(Math.abs(normalized - deg), 360 - Math.abs(normalized - deg));
+      return d < best.d ? { d, keyword } : best;
+    },
+    { d: Infinity, keyword: GRADIENT_DIRECTIONS[0][1] },
+  );
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Section>
@@ -603,7 +746,7 @@ export function GradientAngleCalc() {
         <Row label="degrees" value={`${angle}deg`} />
         <Row label="turn" value={`${(angle / 360).toFixed(3)}turn`} />
         <Row label="rad" value={`${((angle * Math.PI) / 180).toFixed(3)}rad`} />
-        <Row label="nearest keyword" value={directionMap[nearest]} />
+        <Row label="nearest keyword" value={nearest.keyword} />
       </Section>
     </div>
   );
@@ -911,12 +1054,24 @@ export function ColorHistogram() {
 
 export function DominantColor() {
   const { file, setFile } = useImageState();
-  const palette = useImagePalette(file, 1);
+  const [dominant, setDominant] = useState<string | null>(null);
+  const [empty, setEmpty] = useState(false);
+  useEffect(() => {
+    if (!file) { setDominant(null); setEmpty(false); return; }
+    imageFileToPixels(file, 100).then(({ pixels }) => {
+      // Count-based dominant colour, not an average: the bucket covering the most
+      // area wins. A fully-transparent image yields no pixels at all.
+      const d = dominantColor(pixels);
+      setEmpty(!d);
+      setDominant(d ? rgbToHex(d[0], d[1], d[2]) : null);
+    });
+  }, [file]);
   return (
     <div className="grid gap-6">
       {!file ? <ImageDropzone onFile={setFile} /> : (
         <>
-          {palette[0] && <Swatch color={palette[0]} label="Dominant" size="lg" />}
+          {dominant && <Swatch color={dominant} label="Dominant" size="lg" />}
+          {empty && <p className="text-sm text-muted-foreground">No opaque pixels found in this image.</p>}
           <Button variant="outline" onClick={() => setFile(null)}>Replace image</Button>
         </>
       )}
@@ -927,9 +1082,14 @@ export function DominantColor() {
 export function AverageColor() {
   const { file, setFile } = useImageState();
   const [avg, setAvg] = useState<string | null>(null);
+  const [empty, setEmpty] = useState(false);
   useEffect(() => {
-    if (!file) { setAvg(null); return; }
+    if (!file) { setAvg(null); setEmpty(false); return; }
     imageFileToPixels(file, 150).then(({ pixels }) => {
+      // A fully-transparent image yields zero sampled pixels; guard the average
+      // so we never divide by zero and emit `#NaNNaNNaN`.
+      if (!pixels.length) { setAvg(null); setEmpty(true); return; }
+      setEmpty(false);
       const s = pixels.reduce((acc, p) => [acc[0] + p[0], acc[1] + p[1], acc[2] + p[2]], [0, 0, 0]);
       setAvg(rgbToHex(s[0] / pixels.length, s[1] / pixels.length, s[2] / pixels.length));
     });
@@ -939,6 +1099,7 @@ export function AverageColor() {
       {!file ? <ImageDropzone onFile={setFile} /> : (
         <>
           {avg && <Swatch color={avg} label="Average" size="lg" />}
+          {empty && <p className="text-sm text-muted-foreground">No opaque pixels found in this image.</p>}
           <Button variant="outline" onClick={() => setFile(null)}>Replace image</Button>
         </>
       )}

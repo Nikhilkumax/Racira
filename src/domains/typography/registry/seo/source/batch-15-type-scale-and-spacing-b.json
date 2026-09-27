@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "type-hierarchy-planner",
+    "keywords": [
+      "type hierarchy planner",
+      "role map",
+      "modular scale",
+      "heading weight"
+    ],
+    "intro": "The type hierarchy planner assigns every text role a step on one modular scale, then renders the whole outline so the jump between body and the smallest heading can be judged against the jump between the largest headings. Most hierarchies fail in the middle, not at the top.",
+    "content": "The type hierarchy planner takes a body size and a ratio, assigns each text role a step on the resulting modular scale, and renders the page outline the assignment produces. The default role map is the opinionated part, and it is worth reading before it is changed.\n\n- Display sits six steps above the body at weight 700 and a line-height of 1.05, for a hero marketing line that is read once.\n- H1 sits five steps up at the same weight and a leading of 1.1, which is the page title.\n- H2 and H3 take four and three steps at weight 600, leading 1.15 and 1.2, for sections and sub-sections.\n- H4 takes two steps at weight 600 and a leading of 1.25, which is the group label that most hierarchies get wrong.\n- Body sits at step zero, weight 400 and a leading of 1.6, and Small drops one step below it at 1.45 for captions and metadata.\n\nThe scale itself is the familiar modular construction: each role's size is the body size multiplied by the ratio raised to its step number, so changing the ratio re-proportions the whole outline at once and changing the base shifts it. Every role above the body takes the heading weight set in the panel rather than keeping its own, which is the quick way to see whether a hierarchy is carried by size or by weight. The table reports each role in pixels, as a multiple of body size, with its weight and leading, and the exported CSS writes one class per role — so the plan transfers as a set of declarations rather than as a description.\n\nThe outline is where the plan is tested. In page mode, body-sized roles also render a paragraph beneath them, which is how a reader will actually meet them; in type-only mode the ladder is shown alone. Two things become visible that a table hides. The step from Body to H4 is usually the weakest link, because if the ratio is small the group label barely differs from the paragraph beneath it. And mid-step sizes are the giveaway of a hierarchy that grew by accident: when a design has a 15px role between a 14px and a 17px one, the map has a hole in it, and the honest fix is to move the role rather than add a step.\n\nWhat the tool does not do is set the type, and the gaps are worth knowing before the role map is adopted.\n\n- Sizes are not snapped to a baseline grid, so a plan that has to sit on one is re-derived afterwards with a grid tool.\n- The sample copy is a single string, so roles are judged at one length rather than at the short and long lines real pages produce.\n- Heading weight is uniform above the body, which hides the case where two headings need different weights to separate.\n- Nothing accounts for measure, so a heading that works at 60 characters has to be re-checked at 20.\n- The role list is fixed at seven entries, so a project with a different set of roles edits the exported classes rather than the map.\n\nRead the map as a starting structure to be argued with rather than a specification to be applied.",
+    "howTo": [
+      { "step": "Set the body size and the ratio first, since every role's size is derived from those two numbers." },
+      { "step": "Read the role map table and check the multiple-of-body column, which is easier to judge than the pixel values." },
+      { "step": "Switch to page mode and compare adjacent roles in the outline, starting with the jump between the group label and the paragraph under it." },
+      { "step": "Set the heading weight and copy the role classes, remembering that the plan still has to be snapped to any baseline grid the project uses." }
+    ],
+    "whenToUse": "Reach for it when a page has too many text sizes to keep straight, when a heading level looks redundant against the copy beneath it, or when a scale has to be documented as roles rather than as a list of sizes. The role map is the transferable part. For the raw steps, the {{modular-scale-calculator|modular scale calculator}} and the {{type-scale-generator|type scale generator}} build the ladder, the {{vertical-rhythm-builder|vertical rhythm builder}} snaps each role's line box to a unit, and the {{css-typography-token-generator|CSS typography token generator}} exports the whole set as tokens.",
+    "faqs": [
+      {
+        "q": "Why assign roles to steps instead of sizes?",
+        "a": "Because a role survives a change of base size and a size does not. When every heading is defined as a number of steps above the body, raising the ratio or the base re-proportions the whole hierarchy in one move. A list of pixel values has to be recomputed by hand every time one of them changes."
+      },
+      {
+        "q": "Which jump usually fails first?",
+        "a": "The one between the body and the smallest heading. Body copy sits at step zero with a generous leading, while a group label two steps up is only slightly larger and often the same weight, so it reads as emphasised text rather than as a heading. Raising the step count or the weight fixes it more reliably than adding a new level."
+      },
+      {
+        "q": "Why does the heading weight apply to every heading role?",
+        "a": "Because it answers one question quickly: is the hierarchy carried by size or by weight. With a single weight above the body, any role that fails to separate is failing on size alone. Per-role weights are the next step, and the exported classes can be edited to give one, but the uniform setting is the honest first test."
+      },
+      {
+        "q": "What is a mid-step size and why is it a problem?",
+        "a": "It is a role whose size does not sit on any step of the scale, usually because a design grew by adding a size rather than by moving a role. A 15px role between a 14px and a 17px one makes the hierarchy irregular, and readers feel it as inconsistency even when they cannot name the cause."
+      },
+      {
+        "q": "Does the plan account for line length?",
+        "a": "No. The outline sets each role at one sample string, so a heading that looks convincing at 60 characters may be too large at 20 and too small across a full-width container. Roles that carry long lines usually need a step down or an extra leading, which is a decision to take on a real page rather than in the planner."
+      }
+    ]
+  },
+  {
+    "slug": "heading-scale-visualizer",
+    "keywords": [
+      "heading scale visualizer",
+      "ratio ladder",
+      "mobile floor",
+      "clamp"
+    ],
+    "intro": "The heading scale visualizer builds an H1 to H6 ratio ladder from a base size and puts a mobile floor under it. It also writes the clamp declaration for each level, so the hierarchy survives on a phone without a second scale being maintained.",
+    "content": "The heading scale visualizer derives all six heading sizes from one base value and one ratio, then exports each one as a clamp declaration that holds the hierarchy on a narrow screen. The base is the H6 size, which means the ladder is anchored at the bottom rather than the top.\n\nThe construction is a ratio ladder: H1 is the base multiplied by the ratio raised to the fifth power, H2 by the fourth, and so on down to H6, which is the base exactly. That leaves the largest heading five multiplications away from the smallest, which is why the ratio matters more here than anywhere else in a type system. Six ratios are offered, each with a different character.\n\n- 1.125 is tight and suits a dense interface where headings are labels rather than statements.\n- 1.2, the minor third, is a gentle ladder for content-heavy pages with many heading levels in view at once.\n- 1.25, the major third, is the default and the usual compromise between presence and compression.\n- 1.333, the perfect fourth, gives headings a clear step up without the display sizes getting unwieldy.\n- 1.5, the perfect fifth, is the editorial choice, where H1 is allowed to be genuinely large and the lower levels stay modest.\n- 1.618, the golden ratio, produces the most dramatic spread and needs long-form content to justify it.\n\nThe mobile floor is the second control, and it is expressed as a multiple of the desktop size rather than as a separate scale. Each heading's exported declaration is a clamp whose lower bound is the desktop size times the floor factor — 0.78 by default, adjustable from 0.5 to 0.95 — whose upper bound is the full desktop size, and whose middle term is a fixed linear expression of 75 per cent of the desktop size in rem plus 1.4 viewport widths. The result is one rule per heading that grows with the viewport and stops at a floor and a ceiling, which is what keeps an H1 readable on a phone without shrinking the rest of the hierarchy out of proportion.\n\nThe table shows the multiplier, the desktop size in pixels and rem, and the mobile floor for each level, so a ladder that collapses at the bottom is visible before the CSS is copied: at a tight ratio the difference between H5 and H6 can fall under a pixel of rendered size, which is a hierarchy in name only. The limits of the generated ramp are worth knowing before the declarations ship.\n\n- The middle term is a linear approximation rather than a line drawn between two known sizes at two known viewports, so a ramp that has to pass through exact values belongs in a clamp calculator.\n- The same ratio applies to every level, where an editorial design often wants a larger jump between H1 and H2 and a smaller one further down.\n- The exported rem values assume a sixteen-pixel root, so a project that changes the root size shifts every heading with it.\n- The ceiling is the desktop size, which means very wide screens stop growing rather than continuing to scale.\n- Nothing checks the result against a line length, so a display heading on a short line may still need a step down by hand.\n\nUsed as a first pass, the ladder removes the guesswork from six headings at once; the deviations are then deliberate rather than accidental.",
+    "howTo": [
+      { "step": "Set the base size, remembering that it is the H6 size and that every other heading is derived upward from it." },
+      { "step": "Pick a ratio and read the table, checking that neighbouring levels at the bottom still differ enough to be seen." },
+      { "step": "Set the mobile floor and compare the desktop and floor columns, since the floor is what a phone will show." },
+      { "step": "Enter the sample text, read the rendered ladder, then copy the clamp declarations into the stylesheet." }
+    ],
+    "whenToUse": "Reach for it when a heading hierarchy has to be established across breakpoints in one pass, when H5 and H6 have collapsed into the same effective size, or when a design needs to move from a fixed ladder to a fluid one without redoing the ratio choice. The mobile floor is the part that saves a second scale. For the same sizes as design tokens, the {{css-typography-token-generator|CSS typography token generator}} exports them as custom properties, the {{type-scale-generator|type scale generator}} builds the underlying scale, and the {{line-height-optimizer|line height optimizer}} gives each level a leading that matches its size.",
+    "faqs": [
+      {
+        "q": "Why is the base size the H6 size?",
+        "a": "Because headings usually grow from the smallest one. Anchoring the ladder at H6 means the base is a value the page already uses somewhere, and the display sizes are the furthest away from it. Anchoring at H1 would make every other heading a division, which is harder to reason about when the ratio changes."
+      },
+      {
+        "q": "What does the mobile floor actually change?",
+        "a": "It sets the minimum a heading may shrink to. The exported clamp keeps the desktop size as the ceiling, sets the floor at the desktop size multiplied by the factor, and lets the middle term move between them as the viewport changes. On a phone the headings sit at or near the floor, and the hierarchy stays proportional."
+      },
+      {
+        "q": "Why does a tight ratio collapse at the bottom of the ladder?",
+        "a": "Because the steps are multiplied, and a small ratio compounds. At 1.125 the difference between two adjacent low levels can fall below a pixel of rendered size, which reads as inconsistency rather than hierarchy. Either widen the ratio or drop a level, since a heading that cannot be distinguished is not a level."
+      },
+      {
+        "q": "Is the middle term of the clamp a real ramp?",
+        "a": "Not exactly. It is a linear expression built from 75 per cent of the desktop size plus 1.4 viewport widths, which is a reasonable approximation rather than a line drawn between two known sizes at two known viewports. When the ramp has to pass through specific sizes at specific widths, calculate it properly with the clamp calculator."
+      },
+      {
+        "q": "Can I use different ratios for different levels?",
+        "a": "Not here, since the ladder is built from one ratio. In practice editorial designs often want a larger jump between the first two levels and smaller ones below, and that has to be done by editing the exported declarations. The tool's single-ratio view is the baseline to deviate from with intent."
+      }
+    ]
+  },
+  {
+    "slug": "caption-and-footnote-scale",
+    "keywords": [
+      "caption and footnote scale",
+      "legibility floor",
+      "superscript",
+      "small type"
+    ],
+    "intro": "The caption and footnote scale works the small end of a type system: captions, footnotes, legal lines and superscripts, all derived from the body size. The check column flags the sizes that fall under the practical floor for continuous reading.",
+    "content": "The caption and footnote scale derives five small roles from the body size and reports whether each one is above the point where small type stops being comfortable to read.\n\nThe roles and how each is built:\n\n- Body is the anchor at one rem with a leading of 1.6, so every other role is a fraction of it.\n- Caption defaults to 0.8125 of the body size at a leading of 1.45, for figure captions and table notes.\n- Footnote defaults to 0.75 at a leading of 1.4, for notes at the foot of a page or the end of a chapter.\n- Legal and fine print is derived as nine tenths of the footnote size at a leading of 1.35, which is where terms and disclaimers live.\n- Superscript defaults to 0.65 of the body size, with a leading of one so it cannot push the line box apart.\n\nThe check column is the useful part, because small type is where a type system quietly breaks. Sizes below about 11 pixels are flagged as below the floor for continuous reading, and the distinction the tool draws is between reading and consulting. A caption that has to be read like a sentence should stay at or above the floor; a footnote, a reference mark or a legal line is consulted rather than read, and can sit below it without harming anyone. That is why a 16px body produces a comfortable 13px caption and a 12px footnote that is still acceptable in reference matter, while the same ratios applied to a 13px body fall under the floor and need the body size raised rather than the ratios adjusted.\n\nSuperscripts get their own treatment for a mechanical reason. A raised digit set at the normal line height pushes its line apart and leaves a visible gap in a paragraph of running text, so the exported rule sets the superscript size as a custom property, zeroes its line height and raises it with vertical alignment. That keeps the reference mark on its line without moving the lines around it, which is the same technique a real footnote mark needs.\n\nThe output is a small token block: a caption size, a footnote size and a superscript ratio as custom properties, plus figure caption and superscript rules that use them. Three limits are worth knowing before the block is adopted.\n\n- The ratios are not face-specific, and a face with a small x-height needs a larger caption than a face with a large one at the same nominal size, which is the usual reason a legibility floor verdict feels wrong in the browser.\n- The eleven-pixel threshold is a practical floor rather than a standard, so formal accessibility requirements still come first for anything that has to be read.\n- The legal size is derived from the footnote rather than adjustable on its own, so a design that wants more separation edits the declaration afterwards.\n- The superscript ratio sizes the mark but not its raised position, so an unusually high or low mark is a styling decision made where the rule is applied.\n- Nothing sets the width of a caption, so a long figure note still has to be wrapped or centred deliberately.\n\nRead the pixel column rather than the ratios: it is the number the reader meets, and it is the one that has to clear the floor.",
+    "howTo": [
+      { "step": "Set the body size, then read the pixel column rather than the ratio column, since the pixel values are what the reader meets." },
+      { "step": "Adjust the caption and footnote ratios and watch the check column, raising the body size if the roles fall under the floor." },
+      { "step": "Set the superscript ratio and confirm the line-height rule is copied with it, or the raised marks will open up the paragraph." },
+      { "step": "Enter a sample line and read the rendered roles against each other, checking that the caption does not look like body copy." }
+    ],
+    "whenToUse": "Reach for it when a document has captions, notes or legal lines that have drifted out of proportion with the body text, when small type has to be justified against a legibility floor, or when superscripts are opening up the leading in running text. The reading-versus-consulting distinction is what makes the floor usable. For the larger end of the same system, the {{type-scale-generator|type scale generator}} and the {{heading-scale-visualizer|heading scale visualizer}} cover headings, the {{css-typography-token-generator|CSS typography token generator}} exports the sizes as tokens, and the {{line-height-optimizer|line height optimizer}} settles the leading for each role.",
+    "faqs": [
+      {
+        "q": "Is there a minimum size for small type?",
+        "a": "There is a practical floor rather than a rule. Around 11 pixels is where continuous reading starts to suffer, so anything read like a sentence should stay at or above it. Reference matter — a footnote, a legal line, a figure note consulted rather than read — can sit below, which is why the check column separates the two cases."
+      },
+      {
+        "q": "Why is the caption larger than the footnote?",
+        "a": "Because captions are usually read and footnotes are usually consulted. A caption sits under a figure and has to work as a sentence, while a note is looked up after the fact. The defaults reflect that: the caption keeps a slightly larger size and a more generous leading than the footnote at the same body size."
+      },
+      {
+        "q": "Why does the superscript need a special rule?",
+        "a": "Because a raised character set at the normal line height enlarges the line box and opens a gap in the paragraph. Zeroing its line height takes it out of the vertical calculation while vertical alignment keeps the mark raised, so the reference digit sits where it should without disturbing the lines around it."
+      },
+      {
+        "q": "How is the legal size determined?",
+        "a": "It is derived as nine tenths of the footnote size with a leading of 1.35, which keeps the two in a fixed relationship. That means a design that wants a bigger step between notes and fine print edits the exported declaration rather than a control, since the derivation is deliberate rather than adjustable."
+      },
+      {
+        "q": "Do the ratios work for every typeface?",
+        "a": "No. A face with a small x-height needs more nominal size to reach the same apparent size, so the same ratio can look smaller in one family than another. The ratios are a starting structure; the pixel column and a rendered sample are what confirm whether the small roles actually read."
+      }
+    ]
+  },
+  {
+    "slug": "css-typography-token-generator",
+    "keywords": [
+      "css typography token generator",
+      "design tokens",
+      "custom properties",
+      "modular scale"
+    ],
+    "intro": "The CSS typography token generator exports one modular scale twice: as a block of CSS custom properties and as a JSON token object. Sizes and leading ship together, so a token carries the pairing rather than leaving it to whoever consumes it.",
+    "content": "The CSS typography token generator turns a base size, a ratio and three font stacks into a token set that can be dropped into a design system. It emits the same values twice — as CSS custom properties for a stylesheet and as a JSON object for whatever build step consumes tokens — which is the practical way to keep one source of numbers in a project that has both.\n\nThe token set has a fixed shape, described by the panel before anything is generated.\n\n- Nine size steps named from 2xs to 4xl, running from two steps below the body to six above it, so the scale covers small print and display sizes in one ladder.\n- A paired line height for each step, loosening to 1.6 at the small end, holding at 1.5 for body, and tightening to 1.4, 1.25 and then 1.15 as the steps grow.\n- Three family tokens — body, heading and monospace — carried as complete stacks rather than as single family names, so a token can be applied without a second fallback decision.\n\nThe emitted set is twenty-one declarations: nine sizes, nine leadings and three families. Two readouts describe the scale's span rather than its contents: the size range, from the smallest step to the largest in pixels, and the full scale factor, which is the largest size divided by the smallest and therefore the number that says how dramatic the ladder is. A prefix control renames the token namespace, so the set can land as a project's own tokens rather than as a generic one, and the JSON mirrors the same three groups with sizes and leadings as keyed objects.\n\nThe interesting decision the tool makes for you is the leading pairing. A modular scale produces sizes, not line heights, and design tokens that ship sizes alone leave every consumer to guess the leading. Pairing them by rule — looser at the small end, tighter at the top — matches what a designer would do by hand and keeps the relationship stable when the base size changes.\n\nWhat the tool does not do is scale fluidly, and a few other decisions are left outside it.\n\n- Every pixel value is fixed, so a responsive project still needs clamp declarations on top, and the heading scale visualizer is the tool for that layer.\n- The leading values are paired by rule rather than measured, so a face with unusual vertical metrics may need one or two of them adjusted after a look at real paragraphs.\n- The JSON and the CSS are generated side by side but nothing keeps them in step afterwards, so editing one output by hand starts a divergence that is invisible until a release.\n- The token names are fixed to the nine-step ladder, so a project whose scale has a different number of steps renames or extends the set by hand.\n- No spacing tokens are emitted, so the margins between type blocks stay outside the system even though the sizes and leadings are inside it.\n\nUsed as the single source for type values, the block turns a scale into something a build step and a stylesheet can share; the discipline is copying it rather than editing it.",
+    "howTo": [
+      { "step": "Set the base size and the ratio, then read the size range and full scale factor to check the ladder is as dramatic as the design needs." },
+      { "step": "Set the prefix so the tokens land in the project's own namespace, and confirm in the CSS output that no name collides." },
+      { "step": "Replace the three family stacks with the project's real stacks, since they ship as complete fallback chains." },
+      { "step": "Copy both outputs — the custom properties into the stylesheet and the JSON into the token pipeline — and treat the generated block as the source rather than editing either by hand." }
+    ],
+    "whenToUse": "Reach for it when a type scale has to be handed to a build step as well as to a stylesheet, when a project has sizes but no agreed leading per size, or when a design system needs a scale named consistently from small print to display. The paired leading is the part that saves the most argument. For the steps themselves the {{modular-scale-calculator|modular scale calculator}} and the {{type-scale-generator|type scale generator}} derive the ladder, the {{heading-scale-visualizer|heading scale visualizer}} adds the fluid clamp layer on top, and the {{letter-spacing-calculator|letter spacing calculator}} supplies the tracking values that belong to each step.",
+    "faqs": [
+      {
+        "q": "Why does each size token carry a line height?",
+        "a": "Because a scale defines sizes, not leading, and shipping sizes alone leaves every consumer to invent a leading per size. Pairing them by rule — looser for small text, tighter as the size grows — keeps the relationship between size and leading stable even when the base size changes and every token moves."
+      },
+      {
+        "q": "What do the size range and scale factor readouts mean?",
+        "a": "The range is the smallest and largest size in the set, in pixels, which tells you whether the ladder covers what the project needs. The scale factor is the largest size divided by the smallest, so it expresses how dramatic the ratio is in a single number that can be compared between candidate ratios."
+      },
+      {
+        "q": "Are the tokens fluid or fixed?",
+        "a": "Fixed. Every size is a pixel value, so a heading that has to grow with the viewport still needs a clamp declaration around the token. That is deliberate: tokens are the stable values, and the fluid behaviour is layered on top where it can be tuned per breakpoint."
+      },
+      {
+        "q": "Can I add a step to the scale?",
+        "a": "Not through the tool. The nine names from 2xs to 4xl are fixed and map to the nine steps, so a scale with more levels has to be renamed or extended by hand after export. Keeping the names fixed is what allows the JSON and the CSS to describe the same set without a mapping table."
+      },
+      {
+        "q": "Why ship the same values as JSON as well as CSS?",
+        "a": "Because design systems usually have two consumers: the stylesheet, which wants custom properties, and a build step or documentation site, which wants structured data. Emitting both from one configuration is what keeps them consistent; editing one output afterwards is exactly how they drift apart."
+      }
+    ]
+  }
+]

@@ -1,0 +1,362 @@
+[
+  {
+    "slug": "square-harmony-palette",
+    "keywords": [
+      "square harmony palette",
+      "90 degree color harmony",
+      "four evenly spaced hues",
+      "square color scheme"
+    ],
+    "intro": "The square harmony palette takes one base colour and returns four hues spaced ninety degrees apart — a square inscribed on the colour wheel, anchored wherever your base sits.",
+    "content": "Four hues at even spacing is the most symmetric thing a colour wheel can do, and the square harmony palette produces exactly that from one input. Set a base colour and four swatches appear: the base itself, then the hues ninety, one hundred and eighty and two hundred and seventy degrees around the wheel. Because the spacing is equal, the resulting square color scheme has no dominant member by construction — every hue has the same number of neighbours at the same distance, which is why four-way charts and four-category dashboards reach for it.\n\n- The four slots are the base, +90°, +180° and +270°, in that order.\n- Rotation happens in OKLCH and only hue moves: lightness and chroma are carried over from your base, so the four swatches share one weight.\n- Hue wraps through the full circle, so a base near 300 degrees produces derived hues that continue past 360 rather than clipping.\n- The derivation is deterministic: the same base always returns the same four values, on any machine and in any session.\n\nThe engine behind it is the shared harmony routine this domain uses everywhere: the base is converted to OKLCH once, each derived hue is written back as an oklch string and converted to hex for the strip, and every value is clamped to the valid range. The page presents the tetradic derivation, which is the 90 degree color harmony by another name — the same four evenly spaced hues the tetradic page produces, since all four-square work in this domain runs through one function.\n\nThe set is also easy to reason about when something looks wrong later. Because the angles are equal, a complaint that two colours sit too close is always a complaint about the base's lightness and chroma rather than about the geometry, and the remedy is a tonal step rather than a different rule. Recording the base beside the four values keeps that diagnosis possible months afterwards, when nobody remembers which hue the square started from.\n\n- There is no control beyond the base colour: no spacing, no rotation offset, no count.\n- The order is fixed at base, +90, +180, +270. Nothing sorts or reorders the strip.\n- Equal lightness across four hues does not mean equal legibility. Two of the four can look far closer than the angles suggest, and none of them is checked for text use.\n- No alpha, no neutrals and no lightness ladder: this is a hue set, not a full design system.\n\nUse it when a layout genuinely has four channels that deserve equal weight: a four-series chart, a quad of feature cards, a board with four columns. Where one of the four needs to dominate, the square is the wrong geometry — the triadic set leaves room for an accent and the complementary pair is louder still. Before any of the four carries text, put the pairing through the contrast checker, since even spacing says nothing about readability, and use the palette sorter if the strip has to be ordered by hue or lightness for a legend.",
+    "howTo": [
+      "Set the base colour with the picker field, or type a hex value and let the field normalise it.",
+      "Read the four swatches: the base, then the hues at +90, +180 and +270 degrees.",
+      "Copy the hex value from any swatch you want to keep.",
+      "Check any text pairing from the set with the contrast checker before it ships."
+    ],
+    "whenToUse": "Use this when four categories deserve equal visual weight. The {{rectangle-harmony-palette|rectangle harmony palette}} describes the other four-hue geometry, the {{triadic-palette-generator|triadic generator}} spreads three hues for the same purpose with room left for an accent, and the {{palette-sorter|palette sorter}} orders the result for a legend or a swatch sheet.",
+    "faqs": [
+      {
+        "q": "Which four hues does it return?",
+        "a": "The base colour and the hues ninety, one hundred and eighty and two hundred and seventy degrees around the wheel, in that order. All four share the base's lightness and chroma."
+      },
+      {
+        "q": "Is this the same set as the tetradic generator?",
+        "a": "Yes. Both pages run the same 90-degree derivation from one shared routine, so the same base gives the same four values on either page. The names differ; the engine does not."
+      },
+      {
+        "q": "Does it change lightness or saturation?",
+        "a": "No. Hue is the only coordinate that moves, so all four swatches sit at the base's weight. If you need depth rather than hue variety, the shade and tint tools are the right next step."
+      },
+      {
+        "q": "Why can two of the four colours look almost identical?",
+        "a": "Because equal hue spacing says nothing about perceived difference: two yellows ninety degrees apart can read as one colour to most viewers. Assign them to large separate areas or pick a different geometry."
+      },
+      {
+        "q": "Can I rotate the square without changing the base?",
+        "a": "Not directly — the base anchors the square. To place the square elsewhere, set a different base colour and keep your original as the accent."
+      }
+    ]
+  },
+  {
+    "slug": "rectangle-harmony-palette",
+    "keywords": [
+      "rectangle harmony palette",
+      "rectangular color scheme",
+      "two complementary pairs",
+      "four hue rectangle"
+    ],
+    "intro": "The rectangle harmony palette is named for the four-hue geometry of two complementary pairs, and it renders the domain's square derivation of ninety-degree spacing — which is worth knowing before you rely on it.",
+    "content": "Colour theory knows two four-hue shapes. The square puts four hues at ninety degrees, all equally spaced. The rectangle uses two complementary pairs placed at unequal angles — one pair at, say, thirty degrees and two hundred and ten, the other at one hundred and twenty and three hundred. This page is named for the rectangle, and it renders the square: set a base colour and you get the base plus the hues at ninety, one hundred and eighty and two hundred and seventy degrees, generated by the same shared routine as the square and tetradic pages.\n\nA four hue rectangle is often the better shape for a product with two complementary jobs — an identity colour and a warning colour, say — because each pair can be separated from the other while the square holds everything equidistant. That is the design argument for the geometry, and it is also why the naming matters here: anyone arriving for the rectangle harmony palette meets the square derivation instead, and the difference only becomes visible once the palette is in use.\n\n- Output: four swatches, evenly spaced at 90-degree intervals, with the base first.\n- The rectangular color scheme as usually defined — two complementary pairs at unequal spacing — is not one of the routines this domain implements.\n- Hue is the only coordinate that changes; lightness and chroma follow the base, so the four share a weight.\n- Hue wraps around the circle rather than clipping, and the derivation is reproducible for a given base.\n\nThe practical consequence is a two-step workflow rather than a one-step one. Use this page to get the first pair and its opposites — the anchors of the two-hue rectangle — and then build the second pair deliberately with the hue tools, choosing the spacing that suits the layout instead of accepting a default. Where the second pair comes from, the hue rotator shifts a colour by a fixed number of degrees and the channel adjusters edit hue directly, so the rectangle can be placed by hand rather than inherited.\n\n- No rectangle mode, no spacing control and no per-pair offset: the geometry is fixed at ninety degrees.\n- No ordering, no count control and no lightness work — every swatch inherits the base's weight.\n- Nothing is checked for readability, and no neutrals are offered to separate hues that sit close together.\n- The page does not warn you that it produced a square; the name is the only place the expectation is set.\n\nReach for it as a starting point rather than as a finished rectangle: the four evenly spaced hues make a usable base, and the two extra angles that turn a square into a rectangle are a small manual step afterwards. Where the four-way split has to be exact, keep the values and adjust them in a hue tool; where the layout is a chart or a colour-coded board, the square derivation is often the better answer anyway. Either way the ordering is your job — the sorter orders by hue, lightness or chroma once the set is final.",
+    "howTo": [
+      "Set the base colour that anchors the first pair.",
+      "Read the four evenly spaced swatches the page returns.",
+      "Build the second pair deliberately with a hue tool if the layout needs the true rectangle.",
+      "Order the finished set with the palette sorter before it goes into a legend or a sheet."
+    ],
+    "whenToUse": "Use this when four hues are needed and the exact geometry is negotiable. The {{square-harmony-palette|square harmony palette}} is the same derivation under its accurate name, the {{hue-rotator|hue rotator}} is how the second pair of a true rectangle gets placed, and the {{palette-sorter|palette sorter}} gives the finished set an order.",
+    "faqs": [
+      {
+        "q": "Does this page produce a rectangular color scheme?",
+        "a": "Not strictly. It renders the domain's square derivation — four hues at ninety degrees. A true rectangle uses two complementary pairs at unequal spacing, which has to be built by hand from these anchors."
+      },
+      {
+        "q": "Then why is it called the rectangle harmony palette?",
+        "a": "The page slug names the geometry it advertises. The component behind it is the shared four-hue routine, so the output is the square; treat the title as a description of intent rather than of behaviour."
+      },
+      {
+        "q": "How do I build the second pair of a rectangle?",
+        "a": "Take two of the returned hues and rotate them by hand — the hue rotator shifts a colour by a chosen number of degrees, and the channel adjusters edit hue directly. Keep the spacing uneven and the rectangle reads as intended."
+      },
+      {
+        "q": "Is the square set a bad palette?",
+        "a": "No. It is the most balanced four-hue arrangement available and suits charts and equal-weight categories. It simply is not a rectangle, and the two are used for different moods."
+      },
+      {
+        "q": "Does the page check that the four colours can be told apart?",
+        "a": "No. Equal angles do not guarantee perceptual separation, and nothing here measures it. Put the pairs through a contrast check before they carry text."
+      }
+    ]
+  },
+  {
+    "slug": "random-palette-generator",
+    "keywords": [
+      "random palette generator",
+      "random five color palette",
+      "surprise palette",
+      "roll a palette"
+    ],
+    "intro": "The random palette generator rolls five independent colours per press — no harmony rule, no register, just a surprise palette to react to.",
+    "content": "Unconstrained randomness is a legitimate design tool, and the random palette generator is the plainest version of it. One press rolls a random five color palette; each swatch is an independent draw, so the five have no relationship to each other by construction and no relationship to any earlier roll. There is nothing to configure and nothing to remember, which is exactly what makes it useful at the start of a project when the problem is not having an opinion yet.\n\nThe page is a button and a strip. It arrives with one roll already generated, filling a grid that runs two columns wide on a phone and five across on a desktop, and the button re-rolls the whole set rather than one swatch. Each swatch shows its hex value, ready to copy.\n\n- Five independent colours per roll, drawn without a harmony constraint.\n- A fresh set on page load, and a full re-roll on every press of the button.\n- Nothing is seeded, stored or shared, so no two visits produce the same set.\n- The values are ordinary hex strings and can be copied straight into any tool that follows.\n\nIt helps to have a way to judge a roll quickly: look for one value that could carry a surface, one that could carry an accent and one that could carry text. Rolls that supply all three are rare, and that rarity is the useful signal — a surprise palette is a source of individual colours, so the roll a palette habit is best spent collecting them rather than waiting for a finished set.\n\nThe honest weaknesses are the reason curated registers exist. A draw that is uniform across the channel space puts a lot of mass in the muddy middle: the set will often contain two near-neighbours by accident, one colour that looks desaturated next to the rest, and nothing dark enough to serve as a surface. That is not a defect of the generator; it is what unconstrained randomness looks like, and it is why the pastel, neon and earth-tone generators pin a register instead.\n\n- - No reproducibility: there is no seed, so a roll you liked cannot be regenerated exactly. Copy the values you want to keep.\n- No coordination between swatches: no complementary or analogous structure is imposed, and none is guaranteed to emerge.\n- No neutrality: the set seldom contains a usable background or a neutral for text.\n- No text-safety signal: nothing here reports contrast, so every pair has to be checked before it carries copy.\n\nTreat it as an idea generator with a short memory. Roll until something catches, copy the two or three swatches that earned their place, and build the rest deliberately: the shade and tint tools for depth from the keepers, the sorter to give the strip an order, and the register-specific generators when the brief already says soft, electric or earthy. When a roll is nearly right, keep the good slots and re-roll the rest rather than restarting from nothing, which is how a random page turns into a real palette.",
+    "howTo": [
+      "Open the page and respond to the roll that is already there.",
+      "Press generate to roll a fresh five-colour set; repeat until something catches your eye.",
+      "Copy the hex values worth keeping before rolling again, since the old set is not recoverable.",
+      "Build the rest deliberately — neutrals, shades and an order — from the keepers."
+    ],
+    "whenToUse": "Use this when you want options rather than a rule — early exploration, mood boards, a fresh angle on a stale brief. The {{daily-color-palette-generator|daily palette generator}} is the same roll with a day-sized frame around it, the {{pastel-palette-generator|pastel palette generator}} pins the opposite register when the brief already says soft, and the {{palette-locker|palette locker}} is where keepers go while the rest of the set is re-rolled.",
+    "faqs": [
+      {
+        "q": "Are the five colours coordinated in any way?",
+        "a": "No. Each swatch is an independent random draw with no harmony rule applied, so any coordination that appears in a roll is coincidence rather than design."
+      },
+      {
+        "q": "Can I reproduce a set I liked?",
+        "a": "No — there is no seed and nothing is stored. Copy the hex values you want before pressing generate again, because the previous roll cannot be recovered."
+      },
+      {
+        "q": "Why do random sets so often look muddy?",
+        "a": "Because a uniform draw across channel space spends a lot of its range on desaturated mid-tones. Registers like pastel and neon exist precisely to pin the output away from that middle."
+      },
+      {
+        "q": "Does it guarantee a dark colour or a neutral for text?",
+        "a": "It guarantees nothing. A roll is just as likely to be all mid-tones as to include a usable surface, so plan on adding a neutral from the shade tools."
+      },
+      {
+        "q": "Can I lock colours from one roll and roll the others?",
+        "a": "Not in this page — every press replaces all five. Copy the keepers elsewhere first, then roll again and build the set around them."
+      }
+    ]
+  },
+  {
+    "slug": "palette-locker",
+    "keywords": [
+      "palette locker",
+      "shuffle a palette",
+      "lock colors and shuffle",
+      "palette order"
+    ],
+    "intro": "The palette locker is an editable five-colour list with one action: shuffle. It reorders the palette so a familiar set is seen in a new sequence — the name promises more than the page does.",
+    "content": "The palette locker is a small workbench with an honest limitation worth stating first: despite a name that suggests you can lock colors and shuffle the rest, the page does not hold anything. What it provides is an editable palette — five rows, each with a colour field and a remove button, plus an add button that appends a fresh random colour — and a single shuffle action that reorders the rows.\n\nThat is still useful, because order is a design decision that is easy to stop noticing. A palette sorted by hue reads as a ramp; the same five values in a shuffled order can suggest a different hierarchy, and seeing the set out of sequence is often what surfaces the two colours that were doing the same job.\n\nOrder also changes what a palette communicates. Sorted by hue, five colours read as a spectrum and invite comparison between neighbours; shuffled, the same values read as a set and the eye picks out the outlier. Shuffle a palette a few times and whichever colour keeps drawing attention is usually the one that should become the accent, which is a cheap way to let the palette make the decision. Where the arrangement has to be defended rather than noticed, sort for palette order instead of shuffling: a rule a reader can follow is worth more than a fresh sequence in a template or a style guide.\n\n- Each row is independently editable: change a value with the colour field or remove the row entirely.\n- Add color appends a new slot seeded with a random colour, so a palette can grow past five.\n- Shuffle reorders the existing values; it never changes or invents a colour.\n- Nothing persists between visits: the page returns to its default set on reload.\n\nThe shuffle is worth understanding precisely, because the implementation is a comparator sort rather than a card shuffle. Each comparison returns a random sign, which randomises the sequence but not uniformly: the outcome is biased towards its starting order, so some colours can remain near where they began. Nothing breaks — the palette is still reordered — but if the goal is a clean random permutation, a Fisher–Yates shuffle is the stronger tool, and this one is best used for a fresh look rather than for statistical exercise.\n\n- No lock or freeze control exists, so a colour cannot be pinned while the others move.\n- No undo: removing a row or editing a value is immediate and unrecoverable in the page.\n- No ordering by any property — the sorter is where hue, lightness and chroma ordering live.\n- No export: the confirmed palette has to be copied out value by value.\n\nUse it as a working palette on screen while you decide what the set actually is. Where a real lock-and-reroll loop is needed, hold the keepers elsewhere — a second tab of this page, or an imported palette of values you have already approved — and roll the rest against that fixed list. Where the goal is a defensible order rather than a new one, sort by hue or lightness instead of shuffling; a legend and a swatch sheet both want a rule, not a roll.",
+    "howTo": [
+      "Edit the rows to the palette you are working on, or press Add color to extend the list.",
+      "Press shuffle to see the same values in a new order and notice what the original order was hiding.",
+      "Copy out the values you want to keep; nothing is saved between visits.",
+      "Sort rather than shuffle once the palette needs an order that a reader can follow."
+    ],
+    "whenToUse": "Use this when a palette feels settled but its order may not be. The {{palette-sorter|palette sorter}} gives the set a defensible order by hue, lightness or chroma, the {{random-palette-generator|random palette generator}} is where the raw colours come from, and the {{palette-comparison|palette comparison}} tool is the better way to judge two arrangements side by side.",
+    "faqs": [
+      {
+        "q": "Can I lock a colour and shuffle the others?",
+        "a": "No. The page has no lock control, so a colour cannot be pinned while the rest move. Keep a fixed list elsewhere and roll a second working copy against it."
+      },
+      {
+        "q": "Does shuffle change the colours?",
+        "a": "Never. It only reorders the rows, so the palette contains exactly the values you put in, in a different sequence."
+      },
+      {
+        "q": "Is the shuffle order truly random?",
+        "a": "It is randomised by a comparator sort rather than a uniform shuffle, so the result leans towards the starting order. Treat it as a fresh look rather than as a random permutation."
+      },
+      {
+        "q": "Is my palette saved when I leave the page?",
+        "a": "No. Nothing persists, and the page returns to its default five colours on the next visit. Copy the values out before navigating away."
+      },
+      {
+        "q": "What is the difference between shuffling and sorting a palette?",
+        "a": "Shuffling gives a new sequence with no rule behind it; sorting applies one — by hue, lightness or chroma. A reader can follow a sort; a shuffle is a fresh perspective for you."
+      }
+    ]
+  },
+  {
+    "slug": "single-color-to-full-palette",
+    "keywords": [
+      "single color to full palette",
+      "palette from one color",
+      "hue band",
+      "five swatch family"
+    ],
+    "intro": "The single color to full palette tool spreads one colour across a sixty-degree hue band, returning five swatches at fifteen-degree steps with your base in the middle.",
+    "content": "One colour in, five colours out, and the shape of the spread is the whole story. The single color to full palette tool derives its set by rotating hue only: the strip runs from thirty degrees below your base to thirty above, in steps of fifteen, with the base itself occupying the middle slot. Nothing else about the colour changes — the derived swatches keep the base's lightness and chroma, so the five read as one family at one weight rather than as a ramp.\n\n- The five slots are the hues at -30°, -15°, the base, +15° and +30°, in that order.\n- Rotation happens in OKLCH, so the fifteen-degree steps are perceptually even rather than even only on paper.\n- Hue wraps through the full circle, which keeps bases near the ends of the wheel from clipping.\n- Lightness and chroma are inherited, and the derivation is deterministic for a given base.\n\nIt is a hue band rather than a tonal ladder, so this five swatch family shares a single weight — that is both its appeal and its main constraint. The name promises a full palette; what it delivers is a family, and knowing which of the two you need is the difference between a finished strip and one that still has work to do.\n\nA sixty-degree span is the classic analogous zone, and that is what this page is: a palette from one color that stays inside a single neighbourhood of the wheel. It is not a lightness ladder. That distinction matters, because the two produce very different palettes from the same base — a lightness ladder varies how light or dark a single hue is, while this tool varies the hue while holding the tonal weight constant. If your goal for the palette was depth (light surfaces, dark text, states in between), a shade or tint tool built on the same base is the one that will deliver it.\n\nThe results are best judged at the size they will be used. Fifteen degrees apart at one lightness is a subtle difference by design, and on small chips some of the five can be indistinguishable; on large surfaces the same five separate clearly. That is not a bug in the maths, it is the nature of a narrow band, and it is why the strip works well for atmospheric surfaces and poorly for tiny colour-coded dots.\n\n- Only five slots, all fixed: there is no count control and no way to widen the band.\n- No tonal variation: every swatch sits at the base's lightness and chroma, so there is nothing here for a surface, a border or a text colour.\n- No ordering or sorting, and no contrast reading of any kind.\n- No alpha handling, so translucent and solid steps are not part of the output.\n\nUse it when the base colour is already right and the palette simply needs company: a hero surface with two neighbours, a card background and its hover, a chart that steps gently through one family. Pair it with a tonal tool for anything that has to hold text, and use the analogous generator when you want the same idea structured as a rule rather than as a band you configure yourself.",
+    "howTo": [
+      "Set the base colour with the picker field.",
+      "Read the five swatches: two hues below the base, the base in the middle, two above.",
+      "Copy the hex values you want, remembering that all five share one tonal weight.",
+      "Add depth from a shade or tint tool if the palette has to carry surfaces or text."
+    ],
+    "whenToUse": "Use this when one anchor colour needs a small, subtle family around it. The {{analogous-palette-generator|analogous generator}} builds the same neighbourhood as a fixed three-hue rule, the {{color-tints-generator|tints generator}} and its shade counterparts supply the tonal depth this band deliberately lacks, and the {{palette-sorter|palette sorter}} orders the family once it is chosen.",
+    "faqs": [
+      {
+        "q": "Is this a lightness ladder?",
+        "a": "No. Lightness and chroma stay with the base; only hue moves, at fifteen-degree steps across a sixty-degree band. Depth has to come from a shade or tint tool."
+      },
+      {
+        "q": "Why do some of the five look identical?",
+        "a": "Because a narrow hue band at one lightness produces subtle differences. They separate on large surfaces and disappear on small ones, which is a property of the band rather than of the tool."
+      },
+      {
+        "q": "Can I choose how wide the band is?",
+        "a": "Not on this page — the span is fixed at plus and minus thirty degrees. Wider hue variety comes from the harmony generators, which move in much larger steps."
+      },
+      {
+        "q": "Does the base stay in the palette?",
+        "a": "Yes, in the middle slot. That makes the tool useful for extending a brand colour without changing it, because the anchor is always present in the strip."
+      },
+      {
+        "q": "Will these five work as text and background pairs?",
+        "a": "Not on their own. Every swatch shares one tonal weight, so pairs of them have little contrast. Bring in a tonal step before using any of them for text."
+      }
+    ]
+  },
+  {
+    "slug": "5-color-palette-generator",
+    "keywords": [
+      "5 color palette generator",
+      "five color palette",
+      "harmony rule count",
+      "monochromatic five"
+    ],
+    "intro": "The 5 color palette generator opens the base-plus-harmony workbench at a five-slot brief, and the honest detail is that only one of its six rules actually returns five colours.",
+    "content": "Most real palettes are small — four to six slots covering a surface, a couple of accents and a text colour — so a five-slot brief is common. This page answers it with the domain's standard workbench: one base colour, one harmony rule, and a strip of swatches whose length the rule decides. The rules available are the six this family always offers, and their counts are fixed, which is the fact worth knowing before starting: only the monochromatic rule delivers a five color palette, because it is the only one that varies lightness instead of hue.\n\nStarting from the count rather than from the rule is how this page earns its keep. Ask which of the six covers the brief, then check its harmony rule count before touching the base: the 5 color palette generator reaches five slots only through the monochromatic five, whose lightness steps of 0.15 and 0.30 sit either side of the base. A brief that asks for a vibrant five usually means five hues, which none of these rules produces, and knowing that in advance turns a mismatch into a decision instead of a surprise.\n\n- Complementary — the base and its opposite, two swatches.\n- Analogous — the neighbours thirty degrees either side, three swatches.\n- Triadic — a hundred and twenty degrees apart, three swatches.\n- Split-complementary — a hundred and fifty and two hundred and ten degrees, three swatches.\n- Tetradic — ninety degrees apart, four swatches.\n- Monochromatic — the base's own hue at lightness steps of -0.30, -0.15, 0, +0.15 and +0.30, clamped at the ends: five swatches.\n\nAll of the hue rules work in OKLCH and move hue alone, so their swatches keep the base's lightness and chroma; the monochromatic rule is the one that keeps hue and moves lightness. That difference is why \"five colours\" and \"a harmonious five\" are not the same request: the hue rules give you a family of related hues at one weight, while monochromatic gives you a single hue across five weights that can carry surfaces and states.\n\n- No slot count control. The harmony rule is the specification, and five is the ceiling rather than a setting.\n- The four hue rules return fewer than five, so the page cannot fill the brief by itself for those rules.\n- No neutrals and no text colour: nothing in the output is chosen for readability.\n- No ordering, no export and no alpha handling.\n\nReach for monochromatic when the brief is genuinely five slots and the palette should carry surfaces as well as accents — its five lightness steps map onto backgrounds, borders and text in a way a hue family cannot. Reach for a hue rule when the five colours are five things rather than five levels, and plan to complete the set with a neutral and a text colour from the tonal tools. Either way, record which rule produced the strip: two rules can land close together, and the rule is the part that makes the palette reproducible after the fact, when two sets sit side by side in a review and only one of them matches the brief.",
+    "howTo": [
+      "Set the base colour with the picker field.",
+      "Choose a harmony rule from the dropdown; the strip changes length to match the rule.",
+      "Pick monochromatic if the brief needs five swatches rather than a hue family.",
+      "Complete the palette with a neutral and a text colour from the tonal tools before shipping it."
+    ],
+    "whenToUse": "Use this when a brief specifies five slots and the harmony is still open. The {{8-color-palette-generator|8 color palette generator}} and the {{10-color-palette-generator|10 color palette generator}} are the same workbench for larger briefs, the {{color-shades-generator|shades generator}} extends any of these sets into a tonal ladder, and the {{contrast-checker|contrast checker}} is the check before the palette carries text.",
+    "faqs": [
+      {
+        "q": "Does every rule return five colours?",
+        "a": "No. Complementary returns two; analogous, triadic and split-complementary return three; tetradic returns four; and only monochromatic returns five, by varying lightness instead of hue."
+      },
+      {
+        "q": "So how do I get exactly five colours for my brief?",
+        "a": "Pick monochromatic, or choose a hue rule for the hue structure and add a neutral plus a text colour from the tonal tools. The page will not pad a set to a requested count."
+      },
+      {
+        "q": "Which rule is best for a UI palette?",
+        "a": "Monochromatic, usually. Five lightness steps of one hue map onto surfaces, borders and text; a hue family does not, because every member sits at the same weight."
+      },
+      {
+        "q": "Can I request a different number of slots?",
+        "a": "No. The rule fixes the count, and five is the maximum this workbench produces. Larger briefs go to the eight and ten colour pages, which run the same engine."
+      },
+      {
+        "q": "Does the page check contrast for the set?",
+        "a": "It does not. Nothing in the output is measured for readability, so send any pair that carries text through the contrast checker before it ships."
+      }
+    ]
+  },
+  {
+    "slug": "8-color-palette-generator",
+    "keywords": [
+      "8 color palette generator",
+      "eight color palette",
+      "layer a palette",
+      "neutrals and accents"
+    ],
+    "intro": "The 8 color palette generator takes a base colour and a harmony rule from the shared workbench, which means it hands you hue anchors for an eight-slot brief rather than eight swatches.",
+    "content": "Eight slots is where a palette stops being a set of colours and starts being a system: a couple of hue families, several neutrals, and states layered on top. The 8 color palette generator approaches that from the only direction this family knows — one base colour plus one harmony rule — and its ceiling is five swatches, because that is what the rules produce. Understanding the gap is the useful part of the page: the harmony strip supplies the hue anchors, and the remaining slots are a layering job rather than a generation one.\n\nThe six rules and their counts are fixed. Complementary returns two swatches, analogous three, triadic three, split-complementary three, tetradic four, and monochromatic five lightness steps of the base hue. The four hue rules hold lightness and chroma steady while moving hue, so they describe families; the monochromatic rule holds hue and moves lightness, so it describes levels.\n\nThinking in layers rather than in colours is what makes an eight color palette generator unnecessary as a generator and useful as an anchor source: layer a palette by deciding first how many neutrals and accents it needs, then filling the hue slots from the swatches this page returns. Two hue families, three or four neutrals and one accent is a shape that holds together at eight slots far more often than eight hues ever will.\n\n- Hue anchors: use a hue rule and treat its swatches as the family heads of the eight-slot system.\n- Tonal layers: extend each anchor with the shade and tint tools to get surfaces, borders and hover states at the same hue.\n- Neutrals: pull a low-chroma version of the base hue rather than a pure grey, so the eight slots feel related even where they are quiet.\n- States: derive hover and active variants from one of the tonal steps instead of inventing a new colour.\n\nThe reason an eight-slot palette usually fails is not a shortage of colours but a shortage of hierarchy. Eight equally saturated hues read as noise; eight slots that include two hue families, three or four neutrals and one accent read as a design. That is why this page is more useful as an anchor generator than as a finished palette: it gives you the two or three colours that carry identity, and the layering work supplies the rest.\n\n- It cannot return eight colours. Five is the maximum, and only monochromatic reaches it.\n- No neutrals, no text colour and no state variants are generated anywhere on the page.\n- No ordering, no export, no contrast readings.\n- No persistence: the strip is rebuilt from the current base and rule on each visit.\n\nUse it when the brief names eight slots and you need the hue decisions made quickly: pick the family heads here, then build the ladder from them with the tonal tools, and place the neutral where the layout needs a surface rather than where the wheel suggests one. Check the pairs that carry text as you go, because a system's readability is decided by its quietest slots rather than its loudest.",
+    "howTo": [
+      "Set the base colour and choose the harmony rule whose hue family suits the product.",
+      "Treat the returned swatches as the anchors of the eight-slot system rather than as the whole palette.",
+      "Extend each anchor into light and dark steps with the shade and tint tools.",
+      "Add a low-chroma neutral derived from the base hue, then check every text pair before shipping."
+    ],
+    "whenToUse": "Use this when a brief names eight slots and the hue decisions have to be made first. The {{5-color-palette-generator|5 color palette generator}} and the {{10-color-palette-generator|10 color palette generator}} are the same workbench at other briefs, the {{color-shades-generator|shades generator}} and the {{color-tints-generator|tints generator}} supply the layers an eight-slot system needs, and the {{palette-balance-analyzer|palette balance analyzer}} checks whether the finished set is weighted sensibly.",
+    "faqs": [
+      {
+        "q": "Does this page return eight colours?",
+        "a": "No. The harmony rules produce between two and five swatches, so eight is a brief the page cannot fill on its own. It supplies hue anchors for a larger system."
+      },
+      {
+        "q": "What belongs in the remaining slots of an eight-colour palette?",
+        "a": "Usually three or four neutrals, one or two tonal steps per hue anchor and a state variant. Those come from the shade, tint and tone tools rather than from a harmony rule."
+      },
+      {
+        "q": "Should the neutrals be pure grey?",
+        "a": "A low-chroma version of a hue already in the palette usually looks more coherent than pure grey, because it carries a trace of the family into the quiet parts of the interface."
+      },
+      {
+        "q": "Why do eight-hue palettes so often look chaotic?",
+        "a": "Because hierarchy collapses when every slot competes. Systems keep identity colours to two or three and let neutrals and tonal steps occupy the rest."
+      },
+      {
+        "q": "Can I save the set from this page?",
+        "a": "No. Nothing persists, and the strip is rebuilt from the base and rule each visit. Copy the anchors before moving to the tonal tools."
+      }
+    ]
+  },
+  {
+    "slug": "daily-color-palette-generator",
+    "keywords": [
+      "daily color palette generator",
+      "palette of the day",
+      "random palette roll",
+      "fresh palette"
+    ],
+    "intro": "The daily color palette generator frames a fresh five-colour roll as a palette of the day, though the implementation is the same unseeded random roll used by the random palette page.",
+    "content": "A palette of the day is a pleasant ritual: open the page, meet five colours you did not choose, and see whether anything in them is useful. The daily color palette generator provides the ritual and not much more. Behind the page-length framing there is a single unseeded random roll — five independent hex values, generated when the page loads and re-rolled by one button — so nothing about the output is tied to the calendar. Reload twice in a minute and you will meet two different palettes.\n\n- Five swatches per roll, each drawn independently with no harmony rule.\n- One roll on load, and a complete re-roll on each press of the button.\n- No date, no seed and no history: the page has no memory of yesterday's set and cannot return to it.\n- The output is plain hex values, ready to copy into anything else.\n\nTelling the truth about that matters because the day-based framing quietly promises reproducibility — the idea that a palette belongs to a date and can be looked up again. It cannot. A genuinely daily palette needs a stored value: choose the roll you liked, copy the values into an imported palette or a note, and the day's palette becomes something you own rather than something the page remembers. The same trick turns a set of rolls into a proper series, which is what most people actually want from a daily habit.\n\n- The name suggests a schedule the page does not keep; there is no difference between this page and the random palette page in what it produces.\n- Nothing is reproducible: no seed, no history, no way to re-open the same set.\n- No register control, so rolls land wherever uniform randomness lands — often in muted mid-tones.\n- No contrast or readability check, and no neutral is guaranteed in a roll.\n\nIf the ritual is what you are after, the frictionless version is to keep the list rather than expecting the page to remember. Take one random palette roll, copy the values that interest you, and let a collection grow; a fresh palette every day then belongs to you, and the page stays what it is — a source of unexpected colours with no memory at all. The same advice covers the reverse case too: when a brief needs a palette that can be regenerated from a decision, choose a tool that derives from an input rather than one that rolls dice.\n\nTreat it as a low-friction way to collect colours you would not have picked. Keep a file of the rolls worth keeping, curate later rather than at the moment of rolling, and use the tonal tools to turn one interesting swatch into something buildable. Where the brief already has a register — soft, electric, earthy — the themed generators are the better source, and where the palette needs to be reproducible from a single input, the base-plus-harmony workbench is the tool that guarantees it every time. Where the brief names a season, a register or a mood instead, let the themed generators carry that decision and keep this page for the days when no decision has been made yet.",
+    "howTo": [
+      "Open the page for the day's roll — the palette is generated on load.",
+      "Press the button for a fresh set if the first roll says nothing to you.",
+      "Copy the swatches worth keeping into a note or an imported palette, since the roll is not recoverable.",
+      "Curate the collection later and develop one keeper with the tonal tools."
+    ],
+    "whenToUse": "Use this as a lightweight habit for collecting colours you would not otherwise try. The {{random-palette-generator|random palette generator}} is the identical roll without the daily framing, the {{palette-importer|palette importer}} is where the keepers belong if the series should survive, and the {{seasonal-palette-generator|seasonal palette generator}} is the themed option when the palette should follow the calendar rather than the dice.",
+    "faqs": [
+      {
+        "q": "Is the palette tied to today's date?",
+        "a": "No. The roll is unseeded and happens on page load, so the set is not derived from the calendar and two reloads in the same minute will differ."
+      },
+      {
+        "q": "Can I look up yesterday's palette again?",
+        "a": "No. Nothing is stored and there is no seed, so a set cannot be recovered. Recording the values you like is the only way to keep them."
+      },
+      {
+        "q": "How is this different from the random palette generator?",
+        "a": "In output, not at all — both roll five independent colours from the same routine. The difference is the daily framing, which suits a habit rather than a task."
+      },
+      {
+        "q": "Is the palette suitable for a whole interface?",
+        "a": "Rarely as it stands. A roll can be all mid-tones with no surface or neutral, so expect to add a dark and a neutral from the tonal tools before it can carry a layout."
+      },
+      {
+        "q": "What is a better source for a palette that must be reproducible?",
+        "a": "The base-plus-harmony workbench: one base colour and one rule reproduce the same set on any machine, which is what a design system needs and a random roll cannot provide."
+      }
+    ]
+  },
+  {
+    "slug": "accessible-palette-generator",
+    "keywords": [
+      "accessible palette generator",
+      "wcag aa colors",
+      "4.5 contrast",
+      "foreground colors for a background"
+    ],
+    "intro": "The accessible palette generator picks a background and rolls foreground colours that clear WCAG AA against it, keeping five that reach a 4.5:1 contrast ratio.",
+    "content": "Contrast is a property of a pair, not of a colour, so this tool starts where the problem actually is: you choose the background, and it hunts for foreground colours that work on top of it. That is the reverse of the way most palettes are built, and it is the reason the page exists — a set of wcag aa colors is far easier to assemble when the surface is fixed first and the text colours are fitted to it.\n\nThe mechanism is rejection sampling against the WCAG ratio. A random colour is generated, its contrast ratio against your background is computed with the same formula the rest of the domain uses, and the colour is kept only if the ratio reaches 4.5:1 — the AA threshold for normal-size text. The loop repeats until five colours have passed or two hundred attempts have been spent, and it runs again whenever the background changes.\n\n- Threshold: a 4.5 contrast ratio, the AA requirement for body text, applied to every candidate.\n- Target: up to five foreground colours, each previewed as sample text on your chosen background with its hex value underneath.\n- Budget: two hundred attempts per run, which is generous for most backgrounds and occasionally insufficient for hard ones.\n- Refresh: changing the background colour regenerates the set rather than adding to it.\n\nThe failure mode is worth knowing, because it is predictable rather than random. Mid-grey backgrounds are the hardest case: at 4.5:1 against a mid-tone, the acceptable colours form two narrow bands at the extremes, so a run can end with fewer than five swatches or with a set dominated by near-black and near-white. Very dark and very light backgrounds are easy, which is why the tool is most useful against the pale surfaces that most interfaces actually use. Two hundred attempts is a budget rather than a guarantee: an accessible palette generator can return three colours on an awkward surface, and that is the mechanism working as designed rather than a fault.\n\n- AA only. There is no 7:1 AAA mode, and no 3:1 option for large text, icons or component boundaries.\n- One background at a time: a palette that has to work on both light and dark surfaces needs two runs and a merge.\n- The colours are random apart from the contrast rule, so they carry no hue relationships and no curation.\n- Nothing is checked for colour-vision deficiency, and nothing is exported — the values are copied by hand.\n\nUse it to fill the last awkward slot of a palette: the text colour, the icon tint, the border that has to be seen against a known surface. Where the relationship runs the other way — a fixed foreground colour that needs a background — the pair finder searches for partners instead, and where the question is not compliance but legibility, the readability checker adds the APCA reading that WCAG ratios do not provide. It is built for the case where the surface is settled and the foreground colors for a background are the open question, so run it after the layout is decided rather than before.",
+    "howTo": [
+      "Set the background colour the interface will actually use.",
+      "Read the five candidates: each is previewed as sample text on that background.",
+      "Copy the hex values that fit the design; regenerate by nudging the background if the roll is unpromising.",
+      "Confirm each pair with the contrast checker, and add an APCA read if you need more than compliance."
+    ],
+    "whenToUse": "Use this when the surface is fixed and the text colours are the open question. The {{contrast-checker|contrast checker}} verifies any pair afterwards, the {{10-color-palette-generator|10 colour palette generator}} builds a related hue family instead of a contrast-filtered set, and the {{wcag-21-aaa-checker|WCAG AAA checker}} is the tool when the requirement is 7:1 rather than 4.5:1.",
+    "faqs": [
+      {
+        "q": "What contrast threshold does it target?",
+        "a": "4.5:1 — the WCAG AA requirement for normal-size text. Every candidate is measured against your background and kept only if it reaches the threshold."
+      },
+      {
+        "q": "Why did I get fewer than five colours?",
+        "a": "The generator stops after two hundred attempts. Mid-grey backgrounds are the hard case, because very few colours reach 4.5:1 against them, so the loop can run out of budget."
+      },
+      {
+        "q": "Does it produce AAA-level colours?",
+        "a": "Not specifically. The threshold is fixed at AA, so a returned colour may or may not also clear 7:1. Check candidates with the AAA checker when that level is required."
+      },
+      {
+        "q": "Can it check a palette that has to work on light and dark?",
+        "a": "Run it once per background and compare: a colour set that satisfies both is the intersection of the two results, and nothing here computes that for you."
+      },
+      {
+        "q": "Are the generated colours related to each other?",
+        "a": "No. Apart from the contrast rule they are random, so they share no hue relationships. Treat them as usable foreground candidates rather than as a designed palette."
+      }
+    ]
+  }
+]

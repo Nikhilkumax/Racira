@@ -1,372 +1,745 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { Printer, RotateCcw, ActivitySquare, AlertTriangle, Timer, Flame, Map } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-// 1. TypeScript Interfaces
+type UnitSystem = "metric" | "imperial";
+
 interface CompareInputs {
-  unitSystem: "imperial" | "metric";
-  weight: number;
-  distance: number;
-  walkSpeed: number;
-  runSpeed: number;
+  unitSystem: UnitSystem;
+  weightKg: number;
+  distanceKm: number;
+  walkKmh: number;
+  runKmh: number;
+  gradientPct: number;
+  terrainFactor: number;
+  decimals: number;
 }
 
-interface CompareResults {
-  walkCalories: number;
-  runCalories: number;
-  walkTimeMins: number;
-  runTimeMins: number;
-  
+const DEFAULTS: CompareInputs = {
+  unitSystem: "metric",
+  weightKg: 70,
+  distanceKm: 5,
+  walkKmh: 5.5,
+  runKmh: 10,
+  gradientPct: 0,
+  terrainFactor: 1,
+  decimals: 0,
+};
+
+const fmt = (v: number, d = 0) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+/** 2011 Compendium of Physical Activities walking METs, by km/h. */
+function walkMet(kmh: number): number {
+  if (kmh <= 3.2) return 2.8;
+  if (kmh <= 4.0) return 3.0;
+  if (kmh <= 4.8) return 3.5;
+  if (kmh <= 5.6) return 4.3;
+  if (kmh <= 6.4) return 5.0;
+  if (kmh <= 7.2) return 6.3;
+  return 7.0;
+}
+
+/** 2011 Compendium of Physical Activities running METs, by km/h. */
+function runMet(kmh: number): number {
+  if (kmh <= 8.0) return 8.3;
+  if (kmh <= 9.7) return 9.8;
+  if (kmh <= 11.3) return 11.0;
+  if (kmh <= 12.9) return 11.8;
+  if (kmh <= 14.5) return 12.8;
+  if (kmh <= 16.1) return 14.5;
+  return 16.0;
+}
+
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
+}
+
+interface CompareResult {
+  valid: boolean;
+  errorMsg: string;
   walkMet: number;
   runMet: number;
-
-  chartData: { name: string; calories: number; color: string }[];
+  walkMinutes: number;
+  runMinutes: number;
+  walkCalories: number;
+  runCalories: number;
+  calorieDiff: number;
+  perKmWalk: number;
+  perKmRun: number;
+  perMinuteWalk: number;
+  perMinuteRun: number;
+  timeSavedMinutes: number;
+  perHourRun: number;
+  equivalentKm: number;
+  breakdown: BreakdownRow[];
 }
 
-// Helper to estimate METs based on speed
-const getWalkMet = (speedMph: number): number => {
-  if (speedMph <= 2.0) return 2.8;
-  if (speedMph <= 2.5) return 3.0;
-  if (speedMph <= 3.0) return 3.5;
-  if (speedMph <= 3.5) return 4.3;
-  if (speedMph <= 4.0) return 5.0;
-  return 5.5; // very brisk walking
-};
+function calculateComparison(input: CompareInputs): CompareResult {
+  const blank = (errorMsg: string): CompareResult => ({
+    valid: false,
+    errorMsg,
+    walkMet: 0,
+    runMet: 0,
+    walkMinutes: 0,
+    runMinutes: 0,
+    walkCalories: 0,
+    runCalories: 0,
+    calorieDiff: 0,
+    perKmWalk: 0,
+    perKmRun: 0,
+    perMinuteWalk: 0,
+    perMinuteRun: 0,
+    timeSavedMinutes: 0,
+    perHourRun: 0,
+    equivalentKm: 0,
+    breakdown: [],
+  });
 
-const getRunMet = (speedMph: number): number => {
-  if (speedMph <= 5.0) return 8.3;
-  if (speedMph <= 6.0) return 9.8;
-  if (speedMph <= 7.0) return 11.0;
-  if (speedMph <= 8.0) return 11.8;
-  if (speedMph <= 9.0) return 12.8;
-  if (speedMph <= 10.0) return 14.5;
-  return 16.0; // very fast running
-};
+  const nums = [input.weightKg, input.distanceKm, input.walkKmh, input.runKmh, input.gradientPct, input.terrainFactor, input.decimals];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field to compare the two activities.");
+  if (input.weightKg <= 0) return blank("Body weight must be greater than zero.");
+  if (input.distanceKm <= 0) return blank("Distance must be greater than zero.");
+  if (input.walkKmh <= 0 || input.runKmh <= 0) return blank("Both speeds must be greater than zero.");
+  if (input.walkKmh > 12) return blank("Walking speed above 12 km/h is unrealistic — check the value.");
+  if (input.runKmh > 40) return blank("Running speed above 40 km/h is unrealistic — check the value.");
+  if (input.runKmh <= input.walkKmh) return blank("Running speed should be faster than walking speed.");
+  if (input.gradientPct < -20 || input.gradientPct > 40) return blank("Gradient should be between −20% and 40%.");
+  if (input.terrainFactor < 0.8 || input.terrainFactor > 2) return blank("Terrain factor should be between 0.8 and 2.0.");
 
-// 2. Pure Calculation Function
-const calculateComparison = (inputs: CompareInputs): CompareResults | null => {
-  const { unitSystem, weight, distance, walkSpeed, runSpeed } = inputs;
-  
-  if (weight <= 0 || distance <= 0 || walkSpeed <= 0 || runSpeed <= 0) return null;
+  const d = Math.max(0, Math.min(3, input.decimals));
+  const walkBase = walkMet(input.walkKmh);
+  const runBase = runMet(input.runKmh);
+  // Uphill walking costs roughly 0.9 MET per percent of grade (ACSM walking
+  // equation); downhill recovers about half of that. Running grade cost is
+  // gentler per percent, about 0.6 MET.
+  const walkGrade = input.gradientPct * 0.9;
+  const runGrade = input.gradientPct * 0.6;
+  const wMet = Math.max(1.5, (walkBase + walkGrade) * input.terrainFactor);
+  const rMet = Math.max(2, (runBase + runGrade) * input.terrainFactor);
 
-  const wKg = unitSystem === "imperial" ? weight * 0.453592 : weight;
-  
-  // Convert all speeds/distances to Imperial for MET matching, then do the math.
-  const distMiles = unitSystem === "imperial" ? distance : distance * 0.621371;
-  const walkMph = unitSystem === "imperial" ? walkSpeed : walkSpeed * 0.621371;
-  const runMph = unitSystem === "imperial" ? runSpeed : runSpeed * 0.621371;
+  const walkHours = input.distanceKm / input.walkKmh;
+  const runHours = input.distanceKm / input.runKmh;
+  const walkCalories = wMet * input.weightKg * walkHours;
+  const runCalories = rMet * input.weightKg * runHours;
 
-  const walkMet = getWalkMet(walkMph);
-  const runMet = getRunMet(runMph);
+  const calorieDiff = runCalories - walkCalories;
+  const perKmWalk = walkCalories / input.distanceKm;
+  const perKmRun = runCalories / input.distanceKm;
+  const walkMinutes = walkHours * 60;
+  const runMinutes = runHours * 60;
+  const perMinuteWalk = walkCalories / walkMinutes;
+  const perMinuteRun = runCalories / runMinutes;
+  const perHourRun = rMet * input.weightKg;
+  const timeSavedMinutes = walkMinutes - runMinutes;
+  const equivalentKm = perKmRun > 0 ? walkCalories / perKmRun : 0;
 
-  // Time in hours = Distance / Speed
-  const walkTimeHrs = distMiles / walkMph;
-  const runTimeHrs = distMiles / runMph;
-
-  // Calories = MET * weight(kg) * time(hrs)
-  const walkCalories = walkMet * wKg * walkTimeHrs;
-  const runCalories = runMet * wKg * runTimeHrs;
-
-  const chartData = [
-    { name: "Walking", calories: Math.round(walkCalories), color: "#3b82f6" },
-    { name: "Running", calories: Math.round(runCalories), color: "#ec4899" }
+  const breakdown: BreakdownRow[] = [
+    { label: "Walking MET value (with grade and terrain)", value: fmt(wMet, 2) },
+    { label: "Running MET value (with grade and terrain)", value: fmt(rMet, 2) },
+    { label: "Walking time for the distance", value: `${fmt(walkMinutes, 1)} min` },
+    { label: "Running time for the distance", value: `${fmt(runMinutes, 1)} min` },
+    { label: "Calories burned walking", value: `${fmt(walkCalories, d)} kcal`, highlight: true },
+    { label: "Calories burned running", value: `${fmt(runCalories, d)} kcal`, highlight: true },
+    { label: "Extra calories from running", value: `${calorieDiff >= 0 ? "+" : ""}${fmt(calorieDiff, d)} kcal` },
+    { label: "Calories per kilometre walked", value: fmt(perKmWalk, 1) },
+    { label: "Calories per kilometre run", value: fmt(perKmRun, 1) },
+    { label: "Time saved by running", value: `${fmt(timeSavedMinutes, 1)} min` },
+    { label: "Walking distance worth one run kilometre", value: `${fmt(equivalentKm, 2)} km` },
   ];
 
   return {
-    walkCalories: Math.round(walkCalories),
-    runCalories: Math.round(runCalories),
-    walkTimeMins: Math.round(walkTimeHrs * 60),
-    runTimeMins: Math.round(runTimeHrs * 60),
-    walkMet,
-    runMet,
-    chartData
+    valid: true,
+    errorMsg: "",
+    walkMet: wMet,
+    runMet: rMet,
+    walkMinutes,
+    runMinutes,
+    walkCalories,
+    runCalories,
+    calorieDiff,
+    perKmWalk,
+    perKmRun,
+    perMinuteWalk,
+    perMinuteRun,
+    timeSavedMinutes,
+    perHourRun,
+    equivalentKm,
+    breakdown,
   };
-};
+}
 
-// 3. DEFAULTS Object
-const DEFAULTS = {
-  unitSystem: "imperial" as const,
-  weight: "160",
-  distance: "3",
-  walkSpeed: "3", // mph
-  runSpeed: "6", // mph
-};
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
 
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
-        <p className="font-bold mb-1" style={{ color: payload[0].payload.color }}>{payload[0].payload.name}</p>
-        <p className="text-muted-foreground"><span className="font-bold">{payload[0].value}</span> Calories Burned</p>
-      </div>
-    );
-  }
-  return null;
-};
-
-// Input Component
-const CompactInput = ({ id, label, value, onChange, prefix, suffix, type = "number", onEnter, ...props }: any) => (
+const CompactInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  onEnter,
+  hint,
+  error,
+  type = "number",
+  min,
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1.5">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{prefix}</span>}
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
       <input
         id={id}
         type={type}
         value={value}
+        min={min}
+        max={max}
+        step={step}
         onChange={(e) => onChange(e.target.value)}
-        onKeyDown={(e) => { if (e.key === "Enter" && onEnter) onEnter(); }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
         className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-        {...props}
       />
-      {suffix && <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>}
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
+}) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </div>
   </div>
 );
 
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
+  </div>
+);
+
 export default function WalkVsRunCalorieComparisonCalculator() {
-  // 4. Component State
-  const [unitSystem, setUnitSystem] = useState<"imperial" | "metric">(DEFAULTS.unitSystem);
-  const [weight, setWeight] = useState(DEFAULTS.weight);
-  const [distance, setDistance] = useState(DEFAULTS.distance);
-  const [walkSpeed, setWalkSpeed] = useState(DEFAULTS.walkSpeed);
-  const [runSpeed, setRunSpeed] = useState(DEFAULTS.runSpeed);
-  const [errorMsg, setErrorMsg] = useState("");
-  
-  const [results, setResults] = useState<CompareResults | null>(null);
-  const printRef = useRef<HTMLDivElement>(null);
+  const [unitSystem, setUnitSystem] = useState<string>(DEFAULTS.unitSystem);
+  const [weightKg, setWeightKg] = useState(String(DEFAULTS.weightKg));
+  const [distanceKm, setDistanceKm] = useState(String(DEFAULTS.distanceKm));
+  const [walkKmh, setWalkKmh] = useState(String(DEFAULTS.walkKmh));
+  const [runKmh, setRunKmh] = useState(String(DEFAULTS.runKmh));
+  const [gradientPct, setGradientPct] = useState(String(DEFAULTS.gradientPct));
+  const [terrainFactor, setTerrainFactor] = useState(String(DEFAULTS.terrainFactor));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  const handleCalculate = () => {
-    setErrorMsg("");
-    const w = parseFloat(weight);
-    const d = parseFloat(distance);
-    const ws = parseFloat(walkSpeed);
-    const rs = parseFloat(runSpeed);
+  const metric = unitSystem === "metric";
 
-    if (isNaN(w) || w <= 0) return setErrorMsg("Please enter a valid body weight.");
-    if (isNaN(d) || d <= 0) return setErrorMsg("Please enter a valid distance.");
-    if (isNaN(ws) || ws <= 0) return setErrorMsg("Please enter a valid walking speed.");
-    if (isNaN(rs) || rs <= 0) return setErrorMsg("Please enter a valid running speed.");
-
-    const res = calculateComparison({ unitSystem, weight: w, distance: d, walkSpeed: ws, runSpeed: rs });
-    
-    if (!res) {
-      setErrorMsg("Unable to calculate. Please check your inputs.");
-    } else {
-      setResults(res);
-    }
+  const getInputs = (): CompareInputs => {
+    const weight = parseFloat(weightKg) || 0;
+    const distance = parseFloat(distanceKm) || 0;
+    const walk = parseFloat(walkKmh) || 0;
+    const run = parseFloat(runKmh) || 0;
+    return {
+      unitSystem: unitSystem as UnitSystem,
+      weightKg: metric ? weight : weight * 0.45359237,
+      distanceKm: metric ? distance : distance * 1.609344,
+      walkKmh: metric ? walk : walk * 1.609344,
+      runKmh: metric ? run : run * 1.609344,
+      gradientPct: parseFloat(gradientPct),
+      terrainFactor: parseFloat(terrainFactor) || 1,
+      decimals: parseFloat(decimals),
+    };
   };
 
-  const handleReset = () => {
+  const [calcInputs, setCalcInputs] = useState<CompareInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<CompareResult>(() => calculateComparison(DEFAULTS));
+
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateComparison(inputs));
+  };
+
+  const reset = () => {
     setUnitSystem(DEFAULTS.unitSystem);
-    setWeight(DEFAULTS.weight);
-    setDistance(DEFAULTS.distance);
-    setWalkSpeed(DEFAULTS.walkSpeed);
-    setRunSpeed(DEFAULTS.runSpeed);
-    setErrorMsg("");
-    setTimeout(handleCalculate, 0);
+    setWeightKg(String(DEFAULTS.weightKg));
+    setDistanceKm(String(DEFAULTS.distanceKm));
+    setWalkKmh(String(DEFAULTS.walkKmh));
+    setRunKmh(String(DEFAULTS.runKmh));
+    setGradientPct(String(DEFAULTS.gradientPct));
+    setTerrainFactor(String(DEFAULTS.terrainFactor));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateComparison(DEFAULTS));
   };
 
-  useEffect(() => {
-    handleCalculate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const weightNum = parseFloat(weightKg);
+  const distanceNum = parseFloat(distanceKm);
+  const walkNum = parseFloat(walkKmh);
+  const runNum = parseFloat(runKmh);
 
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Walk vs Run Calorie Comparison</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
+  const errors = {
+    weightKg: !Number.isFinite(weightNum) || weightNum <= 0 ? "Must be greater than zero" : "",
+    distanceKm: !Number.isFinite(distanceNum) || distanceNum <= 0 ? "Must be greater than zero" : "",
+    walkKmh: !Number.isFinite(walkNum) || walkNum <= 0 ? "Must be greater than zero" : "",
+    runKmh:
+      !Number.isFinite(runNum) || runNum <= 0
+        ? "Must be greater than zero"
+        : Number.isFinite(walkNum) && runNum <= walkNum
+          ? "Running must be faster than walking"
+          : "",
   };
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
-    { question: "Do you burn the same amount of calories walking and running a mile?", answer: "No, this is a common fitness myth. Running a mile burns approximately 20% to 30% more calories than walking the exact same distance. Running is entirely different biomechanically; it requires your body to lift its entire weight off the ground with every stride (a series of continuous bounds), which requires significantly more explosive muscle power and cardiovascular effort than the continuous contact of walking." },
-    { question: "Why does running burn more calories over the same distance?", answer: "Running requires a massive recruitment of fast-twitch muscle fibers and drastically elevates your heart rate, pushing your body into an anaerobic state. The sheer force required to propel your body mass into the air and absorb the impact upon landing creates a massive demand for oxygen (measured in METs), resulting in a much higher caloric burn per mile compared to walking." },
-    { question: "Is walking better for 'fat burning' than running?", answer: "It depends on how you measure 'better.' Because walking is a low-intensity, aerobic activity, a higher percentage of the calories burned come from fat stores rather than muscle glycogen. However, running burns far more total calories in the same amount of time. Since fat loss is dictated entirely by total caloric deficit, running is ultimately faster for weight loss simply because you burn a massive amount of total energy." },
-    { question: "What is the 'Afterburn Effect' (EPOC)?", answer: "EPOC stands for Excess Post-Exercise Oxygen Consumption, commonly known as the Afterburn Effect. High-intensity running causes micro-tears in your muscles and severely depletes oxygen and glycogen. Your body must burn additional calories for hours after the run just to repair this damage and return to baseline. Walking is so low-intensity that it generates almost zero EPOC; once you stop walking, your calorie burn drops back to normal almost immediately." },
-    { question: "If running burns more, why walk?", answer: "Walking is the ultimate sustainable exercise. Running places extreme stress on the joints, ligaments, and tendons of the knees and ankles. Heavy runners, or those with existing joint issues, risk severe injury from running. Walking can be done daily with almost zero recovery time required, making it incredibly effective for long-term, sustainable weight management." }
+    {
+      question: "Does running burn more calories than walking the same distance?",
+      answer:
+        "Yes, but by less than most people expect. The extra cost comes from the vertical work of running, the elastic loading of the legs and a slightly higher metabolic rate after the session. At typical speeds, running a kilometre costs roughly sixty to eighty percent more energy than walking it, so a five kilometre run burns around 200 to 300 kcal more than a five kilometre walk for the same person.",
+    },
+    {
+      question: "Why does walking burn calories more slowly per minute?",
+      answer:
+        "Because intensity sets the rate and distance sets the duration. Walking at 5.5 km/h lands around 4.3 METs while running at 10 km/h sits near 11 METs, so the runner is spending energy about two and a half times faster. Walking compensates by taking two to three times as long to cover the same ground, which is why the gap in total calories is narrower than the gap in intensity.",
+    },
+    {
+      question: "What are MET values based on?",
+      answer:
+        "A MET is the rate at which the body uses oxygen at rest, taken as 3.5 millilitres of oxygen per kilogram per minute, which approximates 1 kcal per kilogram per hour. The compendium assigns each activity and speed a multiple of that resting rate, so calories equal METs multiplied by body weight in kilograms multiplied by hours. Speed bands in the tables are the reason the output changes in steps rather than smoothly.",
+    },
+    {
+      question: "How do hills and rough ground change the comparison?",
+      answer:
+        "Gradient raises the cost of both, but it hurts walking more in relative terms because walkers have less momentum to carry them up. Rough ground, sand or soft trail adds a terrain multiplier to both figures. In practice a hilly trail walk can approach the per-kilometre cost of running on the flat, which is one reason hikers are often surprised by how many calories a day on the trail involves.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Walk vs Run Calorie Comparison Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Health", href: "/calculator#health" },
+          { label: "Walk vs Run Calorie Comparison Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Walk vs. Run Calorie Comparison</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Walk vs Run Calorie Comparison Calculator</h1>
 
-        <div className="grid grid-cols-1 xl:grid-cols-[460px_1fr] gap-6 items-start max-w-[1280px]">
-          
-          {/* LEFT: Inputs */}
-          <div className="card-calculator flex flex-col gap-4 !p-5 shadow-sm border border-border bg-card">
-            
-            <div className="flex bg-secondary p-1 rounded-lg border border-border">
-              <button type="button" onClick={() => setUnitSystem("imperial")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "imperial" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Imperial (lbs/mph)</button>
-              <button type="button" onClick={() => setUnitSystem("metric")} className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-colors ${unitSystem === "metric" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground"}`}>Metric (kg/kmh)</button>
-            </div>
-
-            <div className="bg-primary/5 border-l-4 border-primary rounded-lg p-4 mt-2">
-              <div className="flex items-center gap-2 text-primary font-bold mb-1">
-                <Map className="h-4 w-4" /> Distance & Physics
+        <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="You & The Session">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactSelect
+                  id="unit-system"
+                  label="Units"
+                  value={unitSystem}
+                  onChange={setUnitSystem}
+                  options={[
+                    { value: "metric", label: "Metric (kg, km, km/h)" },
+                    { value: "imperial", label: "Imperial (lb, miles, mph)" },
+                  ]}
+                  tooltip="Switches the labels on every distance, speed and weight field."
+                />
+                <CompactInput
+                  id="body-weight"
+                  label="Body Weight"
+                  value={weightKg}
+                  onChange={setWeightKg}
+                  onEnter={runCalculate}
+                  min="1"
+                  step="any"
+                  suffix={metric ? "kg" : "lb"}
+                  error={errors.weightKg}
+                  tooltip="Calorie burn scales directly with body mass."
+                />
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">Calculate the exact thermodynamic difference between moving your body weight across a set distance at two different intensities.</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="weight" label="Body Weight" value={weight} onChange={setWeight} suffix={unitSystem === "imperial" ? "lbs" : "kg"} onEnter={handleCalculate} />
-              <CompactInput id="dist" label="Target Distance" value={distance} onChange={setDistance} suffix={unitSystem === "imperial" ? "miles" : "km"} onEnter={handleCalculate} />
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mt-2">
-              <CompactInput id="wspeed" label="Walking Speed" value={walkSpeed} onChange={setWalkSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} onEnter={handleCalculate} />
-              <CompactInput id="rspeed" label="Running Speed" value={runSpeed} onChange={setRunSpeed} suffix={unitSystem === "imperial" ? "mph" : "km/h"} onEnter={handleCalculate} />
-            </div>
-
-            {errorMsg && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-600 text-xs font-bold p-3 rounded-md mt-1">
-                {errorMsg}
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactInput
+                  id="distance"
+                  label="Target Distance"
+                  value={distanceKm}
+                  onChange={setDistanceKm}
+                  onEnter={runCalculate}
+                  min="0.1"
+                  step="any"
+                  suffix={metric ? "km" : "mi"}
+                  error={errors.distanceKm}
+                  tooltip="The distance both sessions cover."
+                />
+                <CompactInput
+                  id="walk-speed"
+                  label="Walking Speed"
+                  value={walkKmh}
+                  onChange={setWalkKmh}
+                  onEnter={runCalculate}
+                  min="0.5"
+                  max={metric ? "12" : "7.5"}
+                  step="any"
+                  suffix={metric ? "km/h" : "mph"}
+                  error={errors.walkKmh}
+                  hint="5.5 km/h is a brisk walk."
+                  tooltip="Speed sets the walking MET value."
+                />
               </div>
-            )}
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactInput
+                  id="run-speed"
+                  label="Running Speed"
+                  value={runKmh}
+                  onChange={setRunKmh}
+                  onEnter={runCalculate}
+                  min="1"
+                  max={metric ? "40" : "25"}
+                  step="any"
+                  suffix={metric ? "km/h" : "mph"}
+                  error={errors.runKmh}
+                  hint="10 km/h is a six-minute kilometre."
+                  tooltip="Speed sets the running MET value."
+                />
+              </div>
+            </SubSection>
 
-            <div className="flex gap-3 mt-4 pt-4 border-t border-border">
-                            <button type="button" onClick={handleCalculate} className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm">Calculate</button>
-              <button type="button" onClick={handleReset} className="flex-1 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground h-10 transition-colors flex items-center justify-center font-bold text-sm">
-                <RotateCcw className="h-4 w-4 mr-2" /> Reset Profile
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Route & Surface">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="gradient"
+                        label="Average Gradient"
+                        value={gradientPct}
+                        onChange={setGradientPct}
+                        onEnter={runCalculate}
+                        min="-20"
+                        max="40"
+                        step="any"
+                        suffix="%"
+                        tooltip="Positive for uphill, negative for downhill."
+                      />
+                      <CompactInput
+                        id="terrain"
+                        label="Terrain Factor"
+                        value={terrainFactor}
+                        onChange={setTerrainFactor}
+                        onEnter={runCalculate}
+                        min="0.8"
+                        max="2"
+                        step="0.05"
+                        suffix="×"
+                        hint="1.0 road, 1.1–1.3 trail, 1.4–1.8 sand or snow."
+                        tooltip="Multiplier that raises the cost of soft or rough ground."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="3"
+                        step="1"
+                        tooltip="Decimal places used for calorie figures."
+                      />
+                    </div>
+                  </SubSection>
+                </div>
+              )}
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex gap-2.5 mt-2">
+              <button
+                type="button"
+                onClick={runCalculate}
+                disabled={hasErrors}
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
+              <button
+                type="button"
+                onClick={reset}
+                aria-label="Reset"
+                className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
+              >
+                <RotateCcw className="h-4 w-4" />
               </button>
             </div>
           </div>
 
-          {/* RIGHT: Results */}
-          <div className="flex flex-col gap-4">
-            {results && !errorMsg ? (
-              <div ref={printRef} className="flex flex-col gap-4 animate-fade-in-up">
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  {/* Primary Result Card */}
-                  <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden shadow-sm">
-                    <div className="relative z-10 flex flex-col gap-2">
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                        Walking Outcome
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-4xl font-bold tracking-tight text-primary">{results.walkCalories.toLocaleString()}</div>
-                        <div className="text-sm font-bold text-muted-foreground">kcal</div>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
-                        <Timer className="h-4 w-4" /> {results.walkTimeMins} Minutes to complete
-                      </div>
-                    </div>
-                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-primary" />
-                  </div>
-
-                  {/* Running Card */}
-                  <div className="bg-card border border-border rounded-lg p-5 relative overflow-hidden shadow-sm">
-                    <div className="relative z-10 flex flex-col gap-2">
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground">
-                        Running Outcome
-                      </div>
-                      <div className="flex items-baseline gap-2">
-                        <div className="text-4xl font-bold tracking-tight text-foreground">{results.runCalories.toLocaleString()}</div>
-                        <div className="text-sm font-bold text-muted-foreground">kcal</div>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
-                        <Timer className="h-4 w-4" /> {results.runTimeMins} Minutes to complete
-                      </div>
-                    </div>
-                    <Flame className="absolute -bottom-4 -right-4 h-24 w-24 opacity-5 text-pink-500" />
-                  </div>
-                </div>
-
-                <div className="grid lg:grid-cols-[1fr_200px] gap-4">
-                  {/* Bar Chart */}
-                  <div className="card-calculator !p-5 border border-border bg-card flex flex-col justify-center items-center min-h-[220px]">
-                    <h3 className="text-base font-bold mb-4 w-full text-left">Total Caloric Burn Comparison</h3>
-                    <ResponsiveContainer width="100%" height={160}>
-                      <BarChart data={results.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }} layout="vertical">
-                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="hsl(var(--border))" />
-                        <XAxis type="number" hide />
-                        <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fontWeight: 'bold', fill: 'hsl(var(--foreground))' }} axisLine={false} tickLine={false} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'hsl(var(--muted)/0.3)' }} />
-                        <Bar dataKey="calories" radius={[0, 4, 4, 0]} barSize={40}>
-                          {results.chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-
-                  {/* Physics Panel */}
-                  <div className="bg-muted/30 border border-border rounded-lg p-5 flex flex-col justify-center">
-                    <h3 className="text-xs font-bold uppercase text-muted-foreground mb-3 text-center">Metabolic Equivalent (METs)</h3>
-                    <div className="flex flex-col gap-3 text-center">
-                      <div className="bg-blue-500/10 border border-blue-500/20 rounded-md p-3">
-                        <div className="text-xl font-black text-blue-600 dark:text-blue-400">{results.walkMet.toFixed(1)}</div>
-                        <div className="text-[10px] uppercase font-bold text-blue-600/70 mt-1">Walk Intensity</div>
-                      </div>
-                      <div className="bg-pink-500/10 border border-pink-500/20 rounded-md p-3">
-                        <div className="text-xl font-black text-pink-600 dark:text-pink-400">{results.runMet.toFixed(1)}</div>
-                        <div className="text-[10px] uppercase font-bold text-pink-600/70 mt-1">Run Intensity</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl bg-card/50 text-muted-foreground p-8 text-center">
-                <Map className="h-12 w-12 mb-4 opacity-20" />
-                <p className="font-medium max-w-xs">Enter your weight, a target distance, and two different speeds to calculate the exact physiological difference between walking and running.</p>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
             )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Calories Burned</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.walkCalories, calcInputs.decimals)} walking` : "—"}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {results.valid
+                  ? `${fmt(results.runCalories, calcInputs.decimals)} kcal running the same ${fmt(calcInputs.distanceKm, 2)} km — ${fmt(results.calorieDiff, 0)} kcal more, in ${fmt(results.timeSavedMinutes, 0)} minutes less`
+                  : "Fix the highlighted inputs to compare the two"}
+              </div>
+            </div>
+
+            {/* 2. 3-STAT BAR */}
+            <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Run Calories</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.runCalories, 0)} kcal` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Extra vs Walking</span>
+                <span className="font-extrabold text-orange-600">
+                  {results.valid ? `${fmt(results.calorieDiff, 0)} kcal` : "—"}
+                </span>
+              </div>
+              <div className="w-px h-8 bg-border"></div>
+              <div className="flex flex-col">
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Run Time</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.runMinutes, 0)} min` : "—"}
+                </span>
+              </div>
+            </div>
+
+            {/* 3. BREAKDOWN TABLE */}
+            <div className="overflow-x-auto rounded-lg border border-border bg-card">
+              <table className="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
+                    <th className="p-2.5 pl-3">Comparison</th>
+                    <th className="p-2.5 pr-3 text-right w-[180px]">Value</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/50">
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter a body weight, distance and both speeds to compare the sessions.
+                      </td>
+                    </tr>
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Walking · running</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {`${fmt(results.walkCalories, calcInputs.decimals)} · ${fmt(results.runCalories, calcInputs.decimals)} kcal`}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4. SUMMARY STATISTICS */}
+            <div className="bg-muted/30 rounded-lg p-5">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Walking METs used</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.walkMet, 2) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Running METs used</span>
+                  <span className="text-base font-bold text-foreground">{results.valid ? fmt(results.runMet, 2) : "—"}</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Walk time</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.walkMinutes, 0)} min` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Run time</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.runMinutes, 0)} min` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Walking per km</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.perKmWalk, 1)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Running per km</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.perKmRun, 1)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Running per hour</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.perHourRun, 0)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Walking per minute</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.perMinuteWalk, 2)} kcal` : "—"}
+                  </span>
+                </div>
+              </div>
+              {results.valid && (
+                <p className="text-[11px] text-muted-foreground mt-3">
+                  MET values follow the 2011 Compendium of Physical Activities speed bands with a grade adjustment of 0.9 MET per
+                  percent for walking and 0.6 for running. Estimates are typical values, not measurements.
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* SEO CONTENT (1500+ words, 8 sections) */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">The Great Debate: Walking vs. Running for Calorie Burn</h2>
-            <p>One of the most pervasive myths in the fitness industry is the belief that moving a specific mass across a specific distance burns the exact same amount of energy, regardless of speed. People often say, "A mile is a mile; if you weigh 150 pounds, you'll burn 100 calories whether you walk it or run it." From a strict Newtonian physics perspective (Work = Force × Distance), this sounds logical. However, human biology does not operate like a simple machine. The <strong>Walk vs Run Calorie Comparison Calculator</strong> mathematically proves that the biomechanics and cardiovascular demands of running force your body to expend significantly more energy over the exact same distance compared to walking.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Walk vs Run Calorie Comparison Calculator?</h2>
+            <p>
+              A walk versus run calorie comparison calculator puts two sessions over the same distance side by side: how long each
+              takes, how many calories each burns, and how the difference splits between intensity and duration. It reports the
+              calories per kilometre for both activities, the per-minute rate while walking, the per-hour rate while running, and the
+              distance you would have to walk to match one kilometre of running.
+            </p>
+            <p>
+              The comparison is more interesting than the headline suggests. Running is roughly two and a half times as intense, yet
+              because it takes two to three times less time, the calorie gap over a fixed distance is smaller than most people
+              assume — which is why a daily brisk walk is a credible strategy and not just a pale substitute for running.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">Why Running Burns More Calories Per Mile</h2>
-            <p>The difference in caloric burn comes down entirely to biomechanical efficiency and metabolic demand. Walking is an incredibly efficient mode of transportation. During a walk, one foot is almost always in contact with the ground, and your center of gravity moves forward in a smooth, relatively flat plane. Your body has evolved over millions of years to make walking as metabolically cheap as possible to conserve energy.</p>
-            <p>Running is the exact opposite. Biomechanically, running is a series of continuous, explosive bounds. To run, your leg muscles must generate enough vertical force to propel your entire body weight completely off the ground (the "flight phase"). Upon landing, your muscles and tendons must absorb massive shock forces—often up to 3 times your body weight. This explosive lifting and harsh landing requires massive recruitment of fast-twitch muscle fibers, which burn energy at a highly inefficient, rapid rate. Because your body has to do so much vertical "work" to move forward, running a mile burns approximately <strong>20% to 30% more calories</strong> than walking that exact same mile.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              Both figures come from the MET method. A MET is the resting metabolic rate, about 1 kilocalorie per kilogram per hour,
+              and the Compendium of Physical Activities assigns each activity and speed a multiple of it — around 4.3 METs for walking
+              at 5.5 km/h, 11 METs for running at 10 km/h. Calories equal METs multiplied by body weight in kilograms multiplied by
+              time in hours, and because speed bands are used, the output steps rather than sliding smoothly as you change speed.
+            </p>
+            <p>
+              Grade and surface then adjust the rate. Walking uphill costs about 0.9 MET for every percent of gradient, running
+              uphill about 0.6 MET per percent, so a ten percent climb adds roughly nine METs to a walk and six to a run. A terrain
+              factor handles soft or rough ground: one for road, 1.1 to 1.3 for trail, and 1.4 to 1.8 for sand or snow. Both adjust
+              the rate, which then flows into the calorie total for the fixed distance you entered.
+            </p>
+            <p>
+              The derived figures are what make the comparison usable. Calories per kilometre flattens out the time difference so the
+              two activities can be compared like for like. The walking distance worth one run kilometre shows how far you would have
+              to walk for the same burn, and the time saved figure quantifies the trade — running usually wins on time, walking on
+              joint load and sustainability.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">The Role of METs (Metabolic Equivalents)</h2>
-            <p>To accurately calculate calorie burn, exercise physiologists use a metric called METs (Metabolic Equivalent of Task). One MET is defined as the energy you burn while sitting perfectly still at rest. </p>
-            <p>A brisk walk at 3.5 miles per hour has a MET value of roughly 4.3. This means that while walking, you are burning calories at 4.3 times your resting rate. Conversely, running at a moderate pace of 6.0 miles per hour has a MET value of 9.8. You are burning energy at nearly 10 times your resting rate. The calculator uses these exact, clinically established MET values, multiplied by your specific body weight and the duration of the activity, to output a highly accurate caloric comparison.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Time Efficiency: The Ultimate Running Advantage</h2>
-            <p>While the difference in calories burned <em>per mile</em> is significant (roughly a 20-30% difference), the difference in calories burned <em>per minute</em> is absolutely massive. This is where running truly shines as a weight-loss tool for busy individuals.</p>
-            <p>If you only have exactly 30 minutes to exercise before work, your choice of activity dictates your results. A 160-pound person walking at 3 mph for 30 minutes will cover 1.5 miles and burn roughly 125 calories. That same person running at 6 mph for 30 minutes will cover 3.0 miles and burn over 350 calories. In the exact same 30-minute time block, running yields almost triple the caloric burn. If your primary goal is maximizing energy expenditure in a limited timeframe, running is exponentially more efficient.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Afterburn Effect (EPOC)</h2>
-            <p>The caloric gap between walking and running actually widens after the workout is completely finished due to a physiological phenomenon known as Excess Post-Exercise Oxygen Consumption (EPOC), commonly called the "Afterburn Effect."</p>
-            <p>When you walk, you stay in a comfortable aerobic state. Your body consumes oxygen easily, and when you stop walking, your heart rate and metabolism return to baseline almost instantly. There is virtually zero EPOC.</p>
-            <p>Running, however, pushes your cardiovascular system to its limits, causing micro-tears in your muscle fibers, depleting glycogen stores, and elevating your core temperature. To repair this massive physiological disruption and restore homeostasis, your body must rapidly consume oxygen and burn calories for hours after the run has ended. You might burn an additional 50 to 100 "bonus" calories while sitting on the couch recovering from a hard run, further cementing running's superiority for absolute caloric expenditure.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Is Walking Better for "Fat Burning"?</h2>
-            <p>You may have heard that low-intensity exercise like walking puts you in the "Fat Burning Zone." This is scientifically true, but highly misleading. When you walk, the intensity is so low that your body has plenty of time to convert stored body fat into energy via oxidation. Therefore, a higher <em>percentage</em> of the calories burned while walking come from fat.</p>
-            <p>When you run, the intensity is so high that your body demands instant fuel. It cannot oxidize fat fast enough, so it switches to burning stored carbohydrates (glycogen). Therefore, a higher percentage of the calories burned while running come from sugar, not fat.</p>
-            <p>However, total fat loss is dictated entirely by a 24-hour caloric deficit, not the specific fuel source used during a 30-minute workout. Because running burns so many more total calories overall, it creates a much larger daily caloric deficit. Ultimately, the person running will lose more total body fat over time than the person walking, assuming their diets are identical.</p>
-
-            <h2 className="text-2xl font-bold mb-3">The Case for Walking: Joint Health and Sustainability</h2>
-            <p>If running burns more calories per mile, more calories per minute, and generates an afterburn effect, why should anyone walk? The answer lies in orthopedics and sustainability. </p>
-            <p>Running is incredibly punishing on the human skeletal system. The repetitive impact can cause shin splints, stress fractures, plantar fasciitis, and severe knee cartilage degradation (runner's knee). If you weigh over 200 pounds, running can be downright dangerous for your joints. Walking, on the other hand, is a low-impact activity that causes virtually zero orthopedic trauma. You can walk 5 miles a day, every single day, without ever needing a "recovery day." For long-term, sustainable, injury-free weight management, walking is arguably the greatest exercise tool in existence. Use the calculator to balance your goals: run for time efficiency and cardiovascular power, or walk for joint health and sustainable daily volume.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card leads with walking calories, and the subtext gives the running figure for the same distance, the extra
+              calories and the minutes saved. The three-stat bar adds the running total, the difference and the running time, all of
+              which update together when you press Calculate.
+            </p>
+            <p>
+              The breakdown table lists the MET values actually used, both times, both calorie totals, the calories per kilometre and
+              the equivalent-walking-distance figure. The summary panel repeats the key inputs and outputs in a compact form,
+              including the per-minute walking rate and the per-hour running rate, which are the numbers to use when you are planning
+              a session by duration rather than distance.
+            </p>
+            <p>
+              Treat the totals as estimates. MET tables are population averages, individual efficiency varies by ten to fifteen
+              percent, and heart rate, fitness and technique all matter. The figures are most useful for comparing two options for the
+              same person on the same day, which is exactly what this tool is built for, rather than for predicting a precise daily
+              expenditure.
+            </p>
           </section>
-          
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/walk-vs-run-calorie-comparison-calculator" />
           <PopularCalculators exclude="/calculator/walk-vs-run-calorie-comparison-calculator" />
         </div>

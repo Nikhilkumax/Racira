@@ -84,7 +84,7 @@ export default function InternalGrowthRateCalculator() {
   useEffect(() => {
     setMounted(true);
     runCalc();
-  }, [vals.netIncome, vals.totalAssets, vals.dividendsPaid]);
+  }, []);
 
   const reset = () => {
     setVals(DEFAULTS);

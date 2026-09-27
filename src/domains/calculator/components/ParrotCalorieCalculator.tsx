@@ -1,288 +1,624 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+
+import React, { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb";
 import AdPlaceholder from "@/components/AdPlaceholder";
-import PopularCalculators from "@/components/PopularCalculators";
 import FAQSection from "@/components/FAQSection";
-import { RotateCcw, Printer } from "lucide-react";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import PopularCalculators from "@/components/PopularCalculators";
+import { ChevronDown, RotateCcw } from "lucide-react";
 
-// 1. TypeScript Interfaces
-interface AvianInputs {
+type Species = "non_passerine" | "passerine";
+type Activity = "inactive" | "moderate" | "active";
+type LifeStage = "maintenance" | "molt" | "breeding" | "growth";
+type Condition = "ideal" | "underweight" | "overweight";
+
+const SPECIES: { key: Species; label: string; k: number }[] = [
+  { key: "non_passerine", label: "Parrot / macaw / cockatiel (non-passerine)", k: 78 },
+  { key: "passerine", label: "Canary / finch (passerine)", k: 129 },
+];
+
+const ACTIVITY: { key: Activity; label: string; mult: number }[] = [
+  { key: "inactive", label: "Inactive — cage bound, clipped", mult: 1.5 },
+  { key: "moderate", label: "Moderate — out of cage, short flights", mult: 2.0 },
+  { key: "active", label: "Active — free flight, breeding", mult: 3.0 },
+];
+
+const LIFE_STAGE: { key: LifeStage; label: string; mult: number }[] = [
+  { key: "maintenance", label: "Adult maintenance", mult: 1.0 },
+  { key: "molt", label: "Moulting (+20%)", mult: 1.2 },
+  { key: "breeding", label: "Breeding / laying (+30%)", mult: 1.3 },
+  { key: "growth", label: "Juvenile growth (+50%)", mult: 1.5 },
+];
+
+const CONDITION: { key: Condition; label: string; mult: number }[] = [
+  { key: "ideal", label: "Ideal body condition", mult: 1.0 },
+  { key: "underweight", label: "Underweight (+10%)", mult: 1.1 },
+  { key: "overweight", label: "Overweight (−10%)", mult: 0.9 },
+];
+
+interface ParrotInputs {
   weightGrams: number;
-  activityLevel: "inactive" | "moderate" | "active";
-  birdType: "non_passerine" | "passerine";
+  species: Species;
+  activity: Activity;
+  lifeStage: LifeStage;
+  condition: Condition;
+  pelletPct: number;
+  vegPct: number;
+  treatPct: number;
+  pelletKcalPerGram: number;
+  vegKcalPerGram: number;
+  treatKcalPerGram: number;
+  decimals: number;
 }
 
-interface AvianResults {
-  ber: number; // Basal Energy Requirement
-  dailyCalories: number; // Maintenance Energy Requirement
-  pelletCalories: number; // 70%
-  freshVegCalories: number; // 20%
-  treatCalories: number; // 10%
-  chartData: { name: string; value: number; color: string }[];
-  summaryStats: { label: string; value: string; colorClass?: string }[];
+const DEFAULTS: ParrotInputs = {
+  weightGrams: 400,
+  species: "non_passerine",
+  activity: "moderate",
+  lifeStage: "maintenance",
+  condition: "ideal",
+  pelletPct: 70,
+  vegPct: 20,
+  treatPct: 10,
+  pelletKcalPerGram: 3.6,
+  vegKcalPerGram: 0.4,
+  treatKcalPerGram: 5.0,
+  decimals: 1,
+};
+
+const fmt = (v: number, d = 1) =>
+  Number.isFinite(v) ? v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }) : "—";
+
+interface BreakdownRow {
+  label: string;
+  value: string;
+  highlight?: boolean;
 }
 
-// 2. Pure Calculation Function
-const calculateAvianDiet = (inputs: AvianInputs): AvianResults => {
-  const { weightGrams, activityLevel, birdType } = inputs;
-  const safeWeight = weightGrams > 0 ? weightGrams : 0;
+interface ParrotResult {
+  valid: boolean;
+  errorMsg: string;
+  ber: number;
+  kFactor: number;
+  activityMult: number;
+  stageMult: number;
+  conditionMult: number;
+  dailyCalories: number;
+  pelletCalories: number;
+  vegCalories: number;
+  treatCalories: number;
+  pelletGrams: number;
+  vegGrams: number;
+  treatGrams: number;
+  totalGrams: number;
+  splitTotal: number;
+  waterMl: number;
+  sizeLabel: string;
+  breakdown: BreakdownRow[];
+}
 
-  const weightKg = safeWeight / 1000;
+function calculateAvianDiet(input: ParrotInputs): ParrotResult {
+  const speciesSpec = SPECIES.find((s) => s.key === input.species) || SPECIES[0];
+  const activitySpec = ACTIVITY.find((a) => a.key === input.activity) || ACTIVITY[1];
+  const stageSpec = LIFE_STAGE.find((l) => l.key === input.lifeStage) || LIFE_STAGE[0];
+  const conditionSpec = CONDITION.find((c) => c.key === input.condition) || CONDITION[0];
 
-  // Avian Basal Energy Requirement (BER)
-  // Non-Passerines (Parrots, Macaws, Cockatiels): 78 * W^0.75
-  // Passerines (Canaries, Finches): 129 * W^0.75
-  const kFactor = birdType === "passerine" ? 129 : 78;
-  const ber = kFactor * Math.pow(weightKg, 0.75);
+  const blank = (errorMsg: string): ParrotResult => ({
+    valid: false,
+    errorMsg,
+    ber: 0,
+    kFactor: speciesSpec.k,
+    activityMult: activitySpec.mult,
+    stageMult: stageSpec.mult,
+    conditionMult: conditionSpec.mult,
+    dailyCalories: 0,
+    pelletCalories: 0,
+    vegCalories: 0,
+    treatCalories: 0,
+    pelletGrams: 0,
+    vegGrams: 0,
+    treatGrams: 0,
+    totalGrams: 0,
+    splitTotal: 0,
+    waterMl: 0,
+    sizeLabel: "",
+    breakdown: [],
+  });
 
-  // Activity Multipliers (Maintenance Energy Requirement)
-  const multipliers = {
-    inactive: 1.5, // Cage-bound, rarely flies, clipped wings
-    moderate: 2.0, // Out of cage time, short flights
-    active: 3.0    // Free flight, breeding, highly active
-  };
-
-  const dailyCalories = ber * multipliers[activityLevel];
-
-  // Avian Diet Rule of Thumb: 70% pellets, 20% fresh vegetables, 10% treats
-  const pelletCalories = dailyCalories * 0.70;
-  const freshVegCalories = dailyCalories * 0.20;
-  const treatCalories = dailyCalories * 0.10;
-
-  const chartData = [
-    { name: "Formulated Pellets", value: Math.round(pelletCalories), color: "hsl(var(--primary))" },
-    { name: "Fresh Vegetables", value: Math.round(freshVegCalories), color: "#10b981" },
-    { name: "Seeds / Nuts / Fruit", value: Math.round(treatCalories), color: "#f59e0b" }
+  const nums = [
+    input.weightGrams,
+    input.pelletPct,
+    input.vegPct,
+    input.treatPct,
+    input.pelletKcalPerGram,
+    input.vegKcalPerGram,
+    input.treatKcalPerGram,
+    input.decimals,
   ];
+  if (!nums.every((v) => Number.isFinite(v))) return blank("Enter a number in every field to work out the daily ration.");
+  if (input.weightGrams <= 0) return blank("Body weight must be greater than zero.");
+  if (input.weightGrams > 2000) return blank("Body weight above 2,000 g is outside the range of a companion bird — check the value.");
+  if (input.pelletPct < 0 || input.vegPct < 0 || input.treatPct < 0) return blank("Diet percentages cannot be negative.");
+  const splitTotal = input.pelletPct + input.vegPct + input.treatPct;
+  if (Math.abs(splitTotal - 100) > 0.5) return blank(`Diet percentages must add up to 100% (currently ${fmt(splitTotal, 0)}%).`);
+  if (input.pelletKcalPerGram <= 0 || input.vegKcalPerGram <= 0 || input.treatKcalPerGram <= 0) {
+    return blank("Energy density must be greater than zero for every food type.");
+  }
 
-  let speciesSize = "Small";
-  if (safeWeight > 600) speciesSize = "Extra Large (Macaw/Cockatoo)";
-  else if (safeWeight > 300) speciesSize = "Large (African Grey/Amazon)";
-  else if (safeWeight > 100) speciesSize = "Medium (Conure/Quaker)";
-  else speciesSize = "Small (Budgie/Cockatiel/Finch)";
+  const d = Math.max(0, Math.min(2, input.decimals));
+  const weightKg = input.weightGrams / 1000;
 
-  const summaryStats = [
-    { label: "Total Daily Calories", value: `${dailyCalories.toFixed(1)} kcal`, colorClass: "text-primary font-bold" },
-    { label: "Basal Metabolism", value: `${ber.toFixed(1)} kcal` },
-    { label: "Pellet Allocation (70%)", value: `${pelletCalories.toFixed(1)} kcal` },
-    { label: "Veggie Allocation (20%)", value: `${freshVegCalories.toFixed(1)} kcal` },
-    { label: "Max Treat Allocation (10%)", value: `${treatCalories.toFixed(1)} kcal`, colorClass: "text-amber-500 font-medium" },
-    { label: "Size Category", value: speciesSize }
+  // Avian basal energy requirement, allometric: BER = K x W(kg)^0.75.
+  // K = 78 for non-passerines (psittacines) and 129 for passerines.
+  const ber = speciesSpec.k * Math.pow(weightKg, 0.75);
+  const dailyCalories = ber * activitySpec.mult * stageSpec.mult * conditionSpec.mult;
+
+  const pelletCalories = dailyCalories * (input.pelletPct / 100);
+  const vegCalories = dailyCalories * (input.vegPct / 100);
+  const treatCalories = dailyCalories * (input.treatPct / 100);
+
+  const pelletGrams = pelletCalories / input.pelletKcalPerGram;
+  const vegGrams = vegCalories / input.vegKcalPerGram;
+  const treatGrams = treatCalories / input.treatKcalPerGram;
+  const totalGrams = pelletGrams + vegGrams + treatGrams;
+
+  const waterMl = dailyCalories;
+
+  const sizeLabel =
+    input.weightGrams > 600
+      ? "Extra large (macaw / large cockatoo)"
+      : input.weightGrams > 300
+        ? "Large (African grey / Amazon)"
+        : input.weightGrams > 100
+          ? "Medium (conure / quaker)"
+          : "Small (budgie / cockatiel / finch)";
+
+  const breakdown: BreakdownRow[] = [
+    { label: "Body weight", value: `${fmt(input.weightGrams, 0)} g · ${fmt(weightKg, 3)} kg` },
+    { label: "Allometric constant (K)", value: `${fmt(speciesSpec.k, 0)} kcal × W^0.75` },
+    { label: "Basal energy requirement (BER)", value: `${fmt(ber, d)} kcal` },
+    { label: "Activity multiplier", value: `×${fmt(activitySpec.mult, 2)} (${activitySpec.label.split(" —")[0]})` },
+    { label: "Life stage multiplier", value: `×${fmt(stageSpec.mult, 2)}` },
+    { label: "Body condition multiplier", value: `×${fmt(conditionSpec.mult, 2)}` },
+    { label: "Maintenance energy requirement", value: `${fmt(dailyCalories, d)} kcal`, highlight: true },
+    {
+      label: `Pellets · ${fmt(input.pelletPct, 0)}% at ${fmt(input.pelletKcalPerGram, 2)} kcal/g`,
+      value: `${fmt(pelletCalories, d)} kcal · ${fmt(pelletGrams, 1)} g`,
+    },
+    {
+      label: `Fresh vegetables · ${fmt(input.vegPct, 0)}% at ${fmt(input.vegKcalPerGram, 2)} kcal/g`,
+      value: `${fmt(vegCalories, d)} kcal · ${fmt(vegGrams, 1)} g`,
+    },
+    {
+      label: `Treats, seeds & fruit · ${fmt(input.treatPct, 0)}% at ${fmt(input.treatKcalPerGram, 2)} kcal/g`,
+      value: `${fmt(treatCalories, d)} kcal · ${fmt(treatGrams, 1)} g`,
+      highlight: true,
+    },
+    { label: "Total food weight offered", value: `${fmt(totalGrams, 1)} g/day` },
+    { label: "Water requirement (≈1 mL per kcal)", value: `${fmt(waterMl, 0)} mL/day` },
   ];
 
   return {
+    valid: true,
+    errorMsg: "",
     ber,
+    kFactor: speciesSpec.k,
+    activityMult: activitySpec.mult,
+    stageMult: stageSpec.mult,
+    conditionMult: conditionSpec.mult,
     dailyCalories,
     pelletCalories,
-    freshVegCalories,
+    vegCalories,
     treatCalories,
-    chartData,
-    summaryStats
+    pelletGrams,
+    vegGrams,
+    treatGrams,
+    totalGrams,
+    splitTotal,
+    waterMl,
+    sizeLabel,
+    breakdown,
   };
-};
+}
 
-// 3. DEFAULTS Object
-const DEFAULTS = {
-  weightGrams: "400", // Average African Grey
-  activityLevel: "moderate" as const,
-  birdType: "non_passerine" as const
-};
+interface CompactInputProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  onEnter?: () => void;
+  hint?: string;
+  error?: string;
+  type?: string;
+  min?: string;
+  max?: string;
+  step?: string;
+  suffix?: string;
+  tooltip?: string;
+}
 
-const fmt = (n: number, dec = 1) => n.toLocaleString("en-US", { minimumFractionDigits: dec, maximumFractionDigits: dec });
-
-// Custom Chart Tooltip
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-card border border-border p-2.5 rounded-lg shadow-md text-xs font-semibold text-foreground">
-        <p className="font-bold mb-0.5" style={{ color: payload[0].payload.color }}>{payload[0].name}</p>
-        <p className="text-muted-foreground">{payload[0].value.toFixed(0)} kcal / day</p>
-      </div>
-    );
-  }
-  return null;
-};
-
-// Input Component
 const CompactInput = ({
   id,
   label,
   value,
   onChange,
-  prefix,
-  suffix,
+  onEnter,
+  hint,
+  error,
+  type = "number",
   min,
-  error
+  max,
+  step,
+  suffix,
+  tooltip,
+}: CompactInputProps) => (
+  <div className="flex flex-col">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
+      {label}
+    </label>
+    <div
+      className={`relative w-full flex items-center rounded-md border bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+        error ? "border-destructive" : "border-input"
+      }`}
+    >
+      <input
+        id={id}
+        type={type}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && onEnter) onEnter();
+        }}
+        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
+      />
+      {suffix && (
+        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">{suffix}</span>
+      )}
+    </div>
+    {hint && !error && <p className="text-[11px] text-muted-foreground mt-1">{hint}</p>}
+    {error && <p className="text-[11px] text-destructive mt-1">{error}</p>}
+  </div>
+);
+
+const CompactSelect = ({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  tooltip,
 }: {
   id: string;
   label: string;
   value: string;
-  onChange: (val: string) => void;
-  prefix?: string;
-  suffix?: string;
-  min?: string;
-  error?: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  tooltip?: string;
 }) => (
   <div className="flex flex-col">
-    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1">
+    <label htmlFor={id} className="flex items-center text-sm font-semibold text-foreground mb-1" title={tooltip}>
       {label}
     </label>
-    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-      {prefix && (
-        <span className="pl-3 pr-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
-          {prefix}
-        </span>
-      )}
-      <input
+    <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-9 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
+      <select
         id={id}
-        type="number"
         value={value}
-        min={min}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-full px-3 py-1 text-base bg-transparent outline-none focus:outline-none border-none text-foreground"
-      />
-      {suffix && (
-        <span className="pr-3 pl-1 text-sm text-muted-foreground select-none pointer-events-none shrink-0">
-          {suffix}
-        </span>
-      )}
+        className="w-full h-full px-3 py-1 text-base bg-background outline-none focus:outline-none border-none text-foreground"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
     </div>
-    {error && <p className="text-[11px] text-red-500 font-medium mt-1">{error}</p>}
+  </div>
+);
+
+const SubSection = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2 font-bold">{title}</div>
+    {children}
   </div>
 );
 
 export default function ParrotCalorieCalculator() {
-  // 4. Component State
-  const [weightGrams, setWeightGrams] = useState(DEFAULTS.weightGrams);
-  const [activityLevel, setActivityLevel] = useState<"inactive" | "moderate" | "active">(DEFAULTS.activityLevel);
-  const [birdType, setBirdType] = useState<"non_passerine" | "passerine">(DEFAULTS.birdType);
+  const [weightGrams, setWeightGrams] = useState(String(DEFAULTS.weightGrams));
+  const [species, setSpecies] = useState<string>(DEFAULTS.species);
+  const [activity, setActivity] = useState<string>(DEFAULTS.activity);
+  const [lifeStage, setLifeStage] = useState<string>(DEFAULTS.lifeStage);
+  const [condition, setCondition] = useState<string>(DEFAULTS.condition);
+  const [pelletPct, setPelletPct] = useState(String(DEFAULTS.pelletPct));
+  const [vegPct, setVegPct] = useState(String(DEFAULTS.vegPct));
+  const [treatPct, setTreatPct] = useState(String(DEFAULTS.treatPct));
+  const [pelletKcalPerGram, setPelletKcalPerGram] = useState(String(DEFAULTS.pelletKcalPerGram));
+  const [vegKcalPerGram, setVegKcalPerGram] = useState(String(DEFAULTS.vegKcalPerGram));
+  const [treatKcalPerGram, setTreatKcalPerGram] = useState(String(DEFAULTS.treatKcalPerGram));
+  const [decimals, setDecimals] = useState(String(DEFAULTS.decimals));
+  const [showAdv, setShowAdv] = useState(false);
 
-  const getInputs = (): AvianInputs => ({
+  const getInputs = (): ParrotInputs => ({
     weightGrams: parseFloat(weightGrams) || 0,
-    activityLevel,
-    birdType
+    species: species as Species,
+    activity: activity as Activity,
+    lifeStage: lifeStage as LifeStage,
+    condition: condition as Condition,
+    pelletPct: parseFloat(pelletPct) || 0,
+    vegPct: parseFloat(vegPct) || 0,
+    treatPct: parseFloat(treatPct) || 0,
+    pelletKcalPerGram: parseFloat(pelletKcalPerGram) || 0,
+    vegKcalPerGram: parseFloat(vegKcalPerGram) || 0,
+    treatKcalPerGram: parseFloat(treatKcalPerGram) || 0,
+    decimals: parseFloat(decimals),
   });
 
-  const [results, setResults] = useState<AvianResults>(() => calculateAvianDiet(getInputs()));
-  const printRef = useRef<HTMLDivElement>(null);
+  const [calcInputs, setCalcInputs] = useState<ParrotInputs>(() => DEFAULTS);
+  const [results, setResults] = useState<ParrotResult>(() => calculateAvianDiet(DEFAULTS));
 
-  useEffect(() => {
-    setResults(calculateAvianDiet(getInputs()));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const wg = parseFloat(weightGrams) || 0;
-  const hasErrors = wg <= 0;
-
-  const handleCalculate = () => {
-    if (hasErrors) return;
-    setResults(calculateAvianDiet(getInputs()));
+  const runCalculate = () => {
+    const inputs = getInputs();
+    setCalcInputs(inputs);
+    setResults(calculateAvianDiet(inputs));
   };
 
-  const handleReset = () => {
-    setWeightGrams(DEFAULTS.weightGrams);
-    setActivityLevel(DEFAULTS.activityLevel);
-    setBirdType(DEFAULTS.birdType);
-    setResults(calculateAvianDiet(getInputs()));
+  const reset = () => {
+    setWeightGrams(String(DEFAULTS.weightGrams));
+    setSpecies(DEFAULTS.species);
+    setActivity(DEFAULTS.activity);
+    setLifeStage(DEFAULTS.lifeStage);
+    setCondition(DEFAULTS.condition);
+    setPelletPct(String(DEFAULTS.pelletPct));
+    setVegPct(String(DEFAULTS.vegPct));
+    setTreatPct(String(DEFAULTS.treatPct));
+    setPelletKcalPerGram(String(DEFAULTS.pelletKcalPerGram));
+    setVegKcalPerGram(String(DEFAULTS.vegKcalPerGram));
+    setTreatKcalPerGram(String(DEFAULTS.treatKcalPerGram));
+    setDecimals(String(DEFAULTS.decimals));
+    setCalcInputs(DEFAULTS);
+    setResults(calculateAvianDiet(DEFAULTS));
   };
 
-  const handlePrint = () => {
-    if (!printRef.current) return;
-    const w = window.open("", "_blank");
-    if (!w) return;
-    w.document.write(`<html><head><title>Avian Diet Results</title><style>body{font-family:system-ui;padding:2rem}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #ddd;padding:8px;text-align:left}th{background:#f5f5f5}</style></head><body>`);
-    w.document.write(printRef.current.innerHTML);
-    w.document.write("</body></html>");
-    w.document.close();
-    w.print();
-  };
+  const weightNum = parseFloat(weightGrams);
+  const pelletNum = parseFloat(pelletPct);
+  const vegNum = parseFloat(vegPct);
+  const treatNum = parseFloat(treatPct);
+  const splitSum = (pelletNum || 0) + (vegNum || 0) + (treatNum || 0);
 
-  const breakdown = [
-    { label: "Basal Energy Requirement (BER)", value: `${fmt(results.ber)} kcal` },
-    { label: "Maintenance Calories (MER)", value: `${fmt(results.dailyCalories)} kcal` },
-    { label: "Pellet Allocation (70%)", value: `${fmt(results.pelletCalories)} kcal`, highlight: true },
-    { label: "Veggie Allocation (20%)", value: `${fmt(results.freshVegCalories)} kcal` },
-    { label: "Treat Allocation (10%)", value: `${fmt(results.treatCalories)} kcal` },
-    { label: "Total Daily Calories", value: `${fmt(results.dailyCalories)} kcal`, isTotal: true }
-  ];
+  const errors = {
+    weightGrams:
+      !Number.isFinite(weightNum) || weightNum <= 0
+        ? "Must be greater than zero"
+        : weightNum > 2000
+          ? "Above 2,000 g — check the value"
+          : "",
+    split:
+      [pelletNum, vegNum, treatNum].every((v) => Number.isFinite(v)) && Math.abs(splitSum - 100) > 0.5
+        ? `Adds up to ${fmt(splitSum, 0)}% — needs 100%`
+        : "",
+  };
+  const hasErrors = Object.values(errors).some(Boolean);
 
   const faqs = [
-    { question: "Why is a seed-only diet dangerous for parrots?", answer: "Seeds are incredibly high in fat and low in essential vitamins, particularly Vitamin A and Calcium. Feeding a parrot a 100% seed diet is the equivalent of feeding a human a diet composed entirely of fast food. It leads to obesity, fatty liver disease, and severely shortened lifespans." },
-    { question: "What is a Non-Passerine vs Passerine?", answer: "Non-passerines include all parrots, macaws, cockatoos, budgies, and conures. They have a slightly lower basal metabolic rate. Passerines are 'perching birds' like canaries and finches. They have extremely fast metabolisms and require significantly more calories per gram of body weight." },
-    { question: "What is the 70/20/10 Rule?", answer: "Avian veterinarians generally recommend a diet consisting of 70% formulated high-quality pellets, 20% fresh vegetables (like kale, carrots, and bell peppers), and only 10% seeds, nuts, or high-sugar fruits." },
-    { question: "How do I transition my bird to pellets?", answer: "Never remove a bird's seed abruptly; birds will stubbornly starve themselves rather than eat an unfamiliar food. Transition slowly over weeks by mixing pellets with seeds, moistening the pellets with a tiny bit of unsweetened fruit juice, or pretending to eat the pellets yourself to trigger their flock-foraging instinct." },
-    { question: "Why is my bird losing weight?", answer: "Weight loss in birds is an extreme medical emergency. Birds hide their illnesses instinctively to avoid predators. By the time you notice weight loss or fluffed feathers, the bird is often critically ill. Seek an avian veterinarian immediately." }
+    {
+      question: "How many calories does a parrot need each day?",
+      answer:
+        "Avian energy needs scale allometrically with body weight rather than linearly: the basal energy requirement is the constant K multiplied by body weight in kilograms raised to the power 0.75, with K around 78 for psittacines and 129 for passerines. A 400 g African grey therefore has a basal requirement near 39 kcal, and maintenance lands near 79 kcal once the 2.0 activity multiplier for a moderately active bird is applied.",
+    },
+    {
+      question: "Why does the multiplier matter so much?",
+      answer:
+        "Because a companion bird's energy use depends more on flight than on size. A clipped bird that never leaves its cage sits near 1.5 times basal, one that flies around a room sits near 2.0, and a free-flying or breeding bird can need three times basal. Feeding an inactive bird the ration of an active one is one of the most common paths to obesity and hepatic lipidosis in parrots.",
+    },
+    {
+      question: "What is the 70/20/10 diet split?",
+      answer:
+        "It is the standard veterinary recommendation for companion psittacines: roughly 70 percent of calories from a formulated pellet, 20 percent from fresh vegetables and greens, and no more than 10 percent from seeds, nuts and fruit. The split matters because seed-heavy diets are high in fat, low in calcium and vitamin A, and are associated with fatty liver disease, feather problems and shortened lifespan.",
+    },
+    {
+      question: "How do I convert calories into grams to feed?",
+      answer:
+        "Divide each allocation by the energy density of that food: extruded pellets average about 3.6 kcal per gram, fresh vegetables around 0.4 kcal per gram because of their water content, and nuts or seeds about 5 kcal per gram. That is why a small pile of vegetables can look like a lot of food while offering very few calories, and why a couple of nuts can consume a bird's entire treat allowance.",
+    },
   ];
 
   return (
     <>
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Calculators", href: "/calculator" }, { label: "Health", href: "/calculator#health" }, { label: "Parrot Calorie Calculator" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculator" },
+          { label: "Health", href: "/calculator#health" },
+          { label: "Parrot Calorie Calculator" },
+        ]}
+      />
       <div className="racira-page-container py-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-foreground">Parrot Calorie Calculator</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
-          {/* LEFT: INPUT PANEL */}
-          <div className="card-calculator flex flex-col gap-4 !p-4 shadow-sm border border-border bg-card">
-            <div className="grid grid-cols-2 gap-4">
-              <CompactInput
-                id="weight"
-                label="Bird's Weight"
-                value={weightGrams}
-                onChange={setWeightGrams}
-                suffix="grams"
-                min="1"
-                error={wg <= 0 ? "Must be > 0" : undefined}
-              />
-              <div className="flex flex-col">
-                <label htmlFor="birdType" className="flex items-center text-sm font-semibold text-foreground mb-1">
-                  Avian Classification
-                </label>
-                <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                  <select
-                    id="birdType"
-                    value={birdType}
-                    onChange={(e) => setBirdType(e.target.value as "non_passerine" | "passerine")}
-                    className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
-                  >
-                    <option value="non_passerine">Parrots, Macaws, Cockatiels, Budgies</option>
-                    <option value="passerine">Passerines (Canaries, Finches)</option>
-                  </select>
+          {/* LEFT: INPUTS */}
+          <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
+            <SubSection title="Your Bird">
+              <div className="grid grid-cols-2 gap-3">
+                <CompactInput
+                  id="bird-weight"
+                  label="Body Weight"
+                  value={weightGrams}
+                  onChange={setWeightGrams}
+                  onEnter={runCalculate}
+                  min="1"
+                  max="2000"
+                  step="any"
+                  suffix="g"
+                  error={errors.weightGrams}
+                  hint="A 400 g African grey is typical."
+                  tooltip="Weigh the bird on a gram scale for accuracy."
+                />
+                <CompactSelect
+                  id="species-group"
+                  label="Species Group"
+                  value={species}
+                  onChange={setSpecies}
+                  options={SPECIES.map((s) => ({ value: s.key, label: s.label }))}
+                  tooltip="Sets the allometric constant K."
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3 mt-3">
+                <CompactSelect
+                  id="activity-level"
+                  label="Activity Level"
+                  value={activity}
+                  onChange={setActivity}
+                  options={ACTIVITY.map((a) => ({ value: a.key, label: a.label }))}
+                  tooltip="Flight is the single biggest driver of avian energy use."
+                />
+                <CompactSelect
+                  id="body-condition"
+                  label="Body Condition"
+                  value={condition}
+                  onChange={setCondition}
+                  options={CONDITION.map((c) => ({ value: c.key, label: c.label }))}
+                  tooltip="Adjusts the ration for weight gain or loss goals."
+                />
+              </div>
+            </SubSection>
+
+            {/* ADVANCED OPTIONS */}
+            <div>
+              <button
+                type="button"
+                onClick={() => setShowAdv(!showAdv)}
+                className="flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline mt-1 focus:outline-none"
+              >
+                Advanced Options
+                <ChevronDown className={`h-3 w-3 transition-transform ${showAdv ? "rotate-180" : ""}`} />
+              </button>
+
+              {showAdv && (
+                <div className="flex flex-col gap-4 p-4 rounded-lg bg-secondary/20 border border-border mt-3 animate-fade-in-up !overflow-visible">
+                  <SubSection title="Life Stage">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactSelect
+                        id="life-stage"
+                        label="Life Stage"
+                        value={lifeStage}
+                        onChange={setLifeStage}
+                        options={LIFE_STAGE.map((l) => ({ value: l.key, label: l.label }))}
+                        tooltip="Growth, moulting and egg production all raise energy needs."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Diet Split (must total 100%)">
+                    <div className="grid grid-cols-3 gap-3">
+                      <CompactInput
+                        id="pellet-pct"
+                        label="Pellets"
+                        value={pelletPct}
+                        onChange={setPelletPct}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="100"
+                        step="1"
+                        suffix="%"
+                        tooltip="Formulated diet share of total calories."
+                      />
+                      <CompactInput
+                        id="veg-pct"
+                        label="Vegetables"
+                        value={vegPct}
+                        onChange={setVegPct}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="100"
+                        step="1"
+                        suffix="%"
+                        tooltip="Fresh vegetables, greens and sprouted seed."
+                      />
+                      <CompactInput
+                        id="treat-pct"
+                        label="Treats"
+                        value={treatPct}
+                        onChange={setTreatPct}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="100"
+                        step="1"
+                        suffix="%"
+                        error={errors.split || undefined}
+                        tooltip="Seeds, nuts and fruit; keep this at 10% or less."
+                      />
+                    </div>
+                  </SubSection>
+                  <SubSection title="Energy Density & Display">
+                    <div className="grid grid-cols-2 gap-3">
+                      <CompactInput
+                        id="pellet-density"
+                        label="Pellet Energy"
+                        value={pelletKcalPerGram}
+                        onChange={setPelletKcalPerGram}
+                        onEnter={runCalculate}
+                        min="0.1"
+                        step="0.05"
+                        suffix="kcal/g"
+                        tooltip="Check the bag; extruded pellets run 3.2–4.0 kcal/g."
+                      />
+                      <CompactInput
+                        id="veg-density"
+                        label="Vegetable Energy"
+                        value={vegKcalPerGram}
+                        onChange={setVegKcalPerGram}
+                        onEnter={runCalculate}
+                        min="0.05"
+                        step="0.05"
+                        suffix="kcal/g"
+                        tooltip="Fresh vegetables are mostly water, around 0.4 kcal/g."
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 mt-3">
+                      <CompactInput
+                        id="treat-density"
+                        label="Treat Energy"
+                        value={treatKcalPerGram}
+                        onChange={setTreatKcalPerGram}
+                        onEnter={runCalculate}
+                        min="0.1"
+                        step="0.1"
+                        suffix="kcal/g"
+                        tooltip="Seeds average about 5 kcal/g, nuts slightly higher."
+                      />
+                      <CompactInput
+                        id="decimals"
+                        label="Decimals"
+                        value={decimals}
+                        onChange={setDecimals}
+                        onEnter={runCalculate}
+                        min="0"
+                        max="2"
+                        step="1"
+                        tooltip="Decimal places used for calorie figures."
+                      />
+                    </div>
+                  </SubSection>
                 </div>
-              </div>
+              )}
             </div>
 
-            <div className="flex flex-col">
-              <label htmlFor="activity" className="flex items-center text-sm font-semibold text-foreground mb-1">
-                Flight Activity Level
-              </label>
-              <div className="relative w-full flex items-center rounded-md border border-input bg-background overflow-hidden h-10 shadow-sm focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-                <select
-                  id="activity"
-                  value={activityLevel}
-                  onChange={(e) => setActivityLevel(e.target.value as "inactive" | "moderate" | "active")}
-                  className="w-full h-full px-3 py-1 text-base bg-transparent outline-none border-none text-foreground cursor-pointer font-medium"
-                >
-                  <option value="inactive">Cage-Bound / Clipped Wings / Inactive</option>
-                  <option value="moderate">Moderate (Out of cage, short flights)</option>
-                  <option value="active">Free Flight / Highly Active / Breeding</option>
-                </select>
-              </div>
-            </div>
-
+            {/* BUTTONS */}
             <div className="flex gap-2.5 mt-2">
               <button
                 type="button"
+                onClick={runCalculate}
                 disabled={hasErrors}
-                onClick={handleCalculate}
-                className={`flex-1 flex items-center justify-center gap-1.5 rounded-md font-bold h-10 text-base transition-all shadow-sm ${
-                  hasErrors ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary hover:bg-primary/95 text-primary-foreground active:scale-[0.98]"
-                }`}
-              >Calculate</button>
+                className="flex-1 flex items-center justify-center gap-1.5 rounded-md bg-primary hover:bg-primary/95 text-primary-foreground font-bold h-10 text-base transition-all active:scale-[0.98] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Calculate
+              </button>
               <button
                 type="button"
-                onClick={handleReset}
+                onClick={reset}
                 aria-label="Reset"
                 className="h-10 w-10 rounded-md border border-border bg-background hover:bg-secondary text-muted-foreground transition-colors flex items-center justify-center shrink-0 shadow-sm"
               >
@@ -291,159 +627,204 @@ export default function ParrotCalorieCalculator() {
             </div>
           </div>
 
-          {/* RIGHT: RESULTS PANEL */}
-          <div className="flex flex-col gap-4 lg:sticky lg:top-6 lg:self-start" ref={printRef}>
-            {/* 1. Primary Result Card */}
-            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 relative overflow-hidden">
-              <div className="flex justify-end absolute top-3 right-3">
-                <button onClick={handlePrint} className="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline focus:outline-none">
-                  <Printer className="h-3.5 w-3.5" /> Print
-                </button>
+          {/* RIGHT: RESULTS */}
+          <div className="flex flex-col gap-3 lg:sticky lg:top-6 lg:self-start">
+            {!results.valid && (
+              <div className="bg-destructive/10 border-l-4 border-destructive rounded-lg p-5">
+                <div className="text-sm font-bold text-destructive mb-1 uppercase tracking-wider">Check your inputs</div>
+                <div className="text-base font-medium text-foreground">{results.errorMsg}</div>
               </div>
-              <div className="text-xs font-bold text-primary uppercase tracking-wider mb-1">Total Daily Maintenance Calories</div>
-              <div className="text-4xl font-extrabold text-primary mb-1 tracking-tight">
-                {fmt(results.dailyCalories)} <span className="text-xl font-bold text-muted-foreground">kcal</span>
+            )}
+
+            {/* 1. PRIMARY RESULT CARD */}
+            <div className="bg-primary/10 border-l-4 border-primary rounded-lg p-5 text-center relative overflow-hidden">
+              <div className="text-[13px] font-bold text-primary mb-1 uppercase tracking-wider">Daily Calories</div>
+              <div className="text-4xl font-extrabold text-foreground mb-1 tracking-tight">
+                {results.valid ? `${fmt(results.dailyCalories, calcInputs.decimals)} kcal` : "—"}
               </div>
               <div className="text-sm text-muted-foreground font-medium">
-                Distribute using the veterinary 70/20/10 protocol: pellets, vegetables, and treats.
+                {results.valid
+                  ? `${results.sizeLabel} at ${fmt(calcInputs.weightGrams, 0)} g · basal need ${fmt(results.ber, calcInputs.decimals)} kcal × ${fmt(results.activityMult, 2)} activity`
+                  : "Fix the highlighted inputs to see the ration"}
               </div>
             </div>
 
-            {/* 2. 3-Stat Bar */}
+            {/* 2. 3-STAT BAR */}
             <div className="flex items-center justify-between px-4 py-3 bg-secondary/30 border border-border rounded-lg text-sm">
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Pellets (70%)</span>
-                <span className="font-extrabold text-emerald-600">{fmt(results.pelletCalories)} kcal</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Pellets</span>
+                <span className="font-extrabold text-foreground">
+                  {results.valid ? `${fmt(results.pelletGrams, 0)} g` : "—"}
+                </span>
               </div>
               <div className="w-px h-8 bg-border"></div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Veggies (20%)</span>
-                <span className="font-extrabold text-emerald-600">{fmt(results.freshVegCalories)} kcal</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Vegetables</span>
+                <span className="font-extrabold text-foreground">{results.valid ? `${fmt(results.vegGrams, 0)} g` : "—"}</span>
               </div>
               <div className="w-px h-8 bg-border"></div>
               <div className="flex flex-col">
-                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Treats (10%)</span>
-                <span className="font-extrabold text-amber-600">{fmt(results.treatCalories)} kcal</span>
+                <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">Treat Limit</span>
+                <span className="font-extrabold text-orange-600">
+                  {results.valid ? `${fmt(results.treatGrams, 1)} g` : "—"}
+                </span>
               </div>
             </div>
 
-            {/* 3. Breakdown Table */}
+            {/* 3. BREAKDOWN TABLE */}
             <div className="overflow-x-auto rounded-lg border border-border bg-card">
               <table className="w-full text-left border-collapse text-sm">
                 <thead>
                   <tr className="bg-secondary/40 border-b border-border text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                    <th className="p-2.5 pl-3">Breakdown</th>
-                    <th className="p-2.5 pr-3 text-right w-[160px]">Value</th>
+                    <th className="p-2.5 pl-3">Energy & Ration</th>
+                    <th className="p-2.5 pr-3 text-right w-[220px]">Value</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border/50">
-                  {breakdown.map((row, idx) => (
-                    <tr key={idx} className={`hover:bg-secondary/20 transition-colors ${row.isTotal ? "font-bold bg-secondary/30 border-t-2 border-border" : ""} ${row.highlight ? "bg-amber-500/10" : ""}`}>
-                      <td className={`p-2.5 pl-3 font-semibold ${row.highlight ? "text-amber-700" : "text-foreground"}`}>{row.label}</td>
-                      <td className={`p-2.5 pr-3 text-right ${row.highlight ? "text-amber-700 font-bold" : "text-foreground"}`}>{row.value}</td>
+                  {results.valid ? (
+                    results.breakdown.map((row) => (
+                      <tr key={row.label} className={row.highlight ? "bg-secondary/20" : "hover:bg-secondary/20 transition-colors"}>
+                        <td className="p-2.5 pl-3 font-semibold text-foreground">{row.label}</td>
+                        <td className="p-2.5 pr-3 text-right text-foreground">{row.value}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td className="p-2.5 pl-3 text-muted-foreground" colSpan={2}>
+                        Enter your bird's weight and routine to see the ration.
+                      </td>
                     </tr>
-                  ))}
+                  )}
+                  {results.valid && (
+                    <tr className="font-bold bg-secondary/30 border-t-2 border-border">
+                      <td className="p-2.5 pl-3 text-foreground">Daily energy requirement</td>
+                      <td className="p-2.5 pr-3 text-right text-foreground">
+                        {fmt(results.dailyCalories, calcInputs.decimals)} kcal
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
 
-            {/* 4. Chart */}
-            <div className="rounded-lg border border-border bg-card p-4">
-              <h3 className="text-sm font-bold text-foreground mb-3">The 70/20/10 Protocol</h3>
-              <ResponsiveContainer width="100%" height={220}>
-                <PieChart>
-                  <Pie
-                    data={results.chartData}
-                    cx="50%" cy="50%"
-                    innerRadius={60} outerRadius={85}
-                    paddingAngle={3} dataKey="value"
-                  >
-                    {results.chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip content={<CustomTooltip />} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="flex flex-col gap-2 mt-2">
-                {results.chartData.map((d, i) => {
-                  const pct = results.dailyCalories > 0 ? (d.value / results.dailyCalories) * 100 : 0;
-                  return (
-                    <div key={i} className="flex justify-between items-center text-xs font-medium">
-                      <div className="flex items-center gap-1.5 text-muted-foreground">
-                        <span className="w-3 h-3 rounded-sm" style={{ backgroundColor: d.color }}></span>
-                        {d.name}
-                      </div>
-                      <span className="font-bold">{pct.toFixed(0)}% · {d.value} kcal</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 5. Summary Statistics */}
+            {/* 4. SUMMARY STATISTICS */}
             <div className="bg-muted/30 rounded-lg p-5">
-              <h3 className="text-sm font-bold text-foreground mb-4">Nutritional Distribution</h3>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                {results.summaryStats.map((stat, i) => (
-                  <div key={i} className="flex flex-col">
-                    <span className="text-[11px] font-bold uppercase text-muted-foreground tracking-wider">{stat.label}</span>
-                    <span className={`text-base font-extrabold ${stat.colorClass || "text-foreground"}`}>{stat.value}</span>
-                  </div>
-                ))}
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-3 font-bold">Summary Statistics</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Body weight</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(calcInputs.weightGrams, 0)} g` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Basal requirement</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.ber, calcInputs.decimals)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Maintenance calories</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.dailyCalories, calcInputs.decimals)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Pellet calories</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.pelletCalories, calcInputs.decimals)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Vegetable calories</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.vegCalories, calcInputs.decimals)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Treat calories</span>
+                  <span className="text-base font-bold text-orange-600">
+                    {results.valid ? `${fmt(results.treatCalories, calcInputs.decimals)} kcal` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Total food per day</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.totalGrams, 1)} g` : "—"}
+                  </span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs uppercase tracking-wide text-muted-foreground mb-0.5">Water estimate</span>
+                  <span className="text-base font-bold text-foreground">
+                    {results.valid ? `${fmt(results.waterMl, 0)} mL` : "—"}
+                  </span>
+                </div>
               </div>
+              {results.valid && (
+                <p className="text-[11px] text-muted-foreground mt-3">
+                  Allometric basal energy (K × W^0.75, K = 78 psittacine / 129 passerine), activity ×1.5–3.0, life stage and body
+                  condition from the fields in Advanced Options. Weigh your bird weekly and adjust the ration by 5–10% at a time.
+                </p>
+              )}
             </div>
           </div>
         </div>
 
-        {/* SEO CONTENT */}
         <div className="max-w-[1180px] mt-8">
-          <AdPlaceholder className="mb-10" />
+          <AdPlaceholder className="mb-10" label="Ad Space – In Content" />
           <section className="prose-finance text-[15.75px]">
-            <h2 className="text-2xl font-bold mb-3">Understanding Avian Metabolism and Nutrition</h2>
-            <p>Parrots, macaws, and finches are incredibly complex animals with a metabolism vastly different from the domestic dogs and cats we are used to caring for. A bird's metabolic engine runs incredibly hot; their core body temperature is higher, their heart rate is significantly faster, and their respiratory system is highly specialized for the immense physical demands of flight. The <strong>Parrot Calorie Calculator</strong> utilizes veterinary allometric scaling equations to pinpoint exactly how much energy your bird needs to maintain this high-performance biology.</p>
-            <p>Unfortunately, malnutrition is the leading cause of premature death in captive exotic birds. Many owners inadvertently feed their birds diets that are too high in fat, too low in calcium, and devoid of Vitamin A. By understanding your bird's precise daily caloric limit, you can transition them to a medically sound 70/20/10 diet plan, ensuring vibrant plumage, a strong immune system, and a lifespan that can stretch for decades.</p>
+            <h2 className="text-2xl font-bold mb-3">What Is a Parrot Calorie Calculator?</h2>
+            <p>
+              A parrot calorie calculator estimates the daily energy a companion bird needs and converts that energy into grams of
+              food for each part of the diet. It uses allometric scaling rather than a simple calorie-per-kilogram figure, because
+              small birds burn far more energy per unit of body mass than large ones, and it splits the ration into formulated
+              pellets, fresh vegetables and the limited treats allowance that veterinary guidance recommends.
+            </p>
+            <p>
+              Feeding by eye is the usual practice and the usual problem. A parrot that eats a bowl of seed mix is selecting the
+              highest-fat items and leaving the rest, which over years produces obesity, fatty liver disease and feather abnormalities.
+              Quantifying the ration makes the point concrete: a few sunflower seeds can consume a bird's entire treat allowance for
+              the day.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">The Mathematics of Avian Basal Energy Requirements</h2>
-            <p>To calculate a bird's daily caloric needs, avian veterinarians must first determine their Basal Energy Requirement (BER)—the amount of energy needed simply to keep the bird alive while at rest in a neutral temperature environment.</p>
-            <p>Birds are divided into two main categories, which scale differently:</p>
-            <ul>
-              <li><strong>Non-Passerines (Parrots, Macaws, Cockatoos, Doves):</strong> These birds are highly efficient. Their formula is <code>BER = 78 × (Weight in kg)^0.75</code>.</li>
-              <li><strong>Passerines (Canaries, Finches, Songbirds):</strong> These tiny 'perching birds' have a furiously fast metabolism. Their formula requires a much higher constant: <code>BER = 129 × (Weight in kg)^0.75</code>.</li>
-            </ul>
-            <p>Once the basal requirement is calculated, an <strong>Activity Multiplier</strong> must be applied to determine the Maintenance Energy Requirement (MER)—the actual calories they need to consume daily. A fully flighted macaw flying around a house requires significantly more energy (up to 3x BER) than a cage-bound, wing-clipped budgie (1.5x BER). Our calculator automatically applies these multipliers based on your selected activity level.</p>
+            <h2 className="text-2xl font-bold mb-3">How It Works</h2>
+            <p>
+              The basal energy requirement uses the standard avian allometric equation, the constant K multiplied by body weight in
+              kilograms raised to the power 0.75. K is 78 for psittacines — parrots, macaws, cockatiels and conures — and 129 for
+              passerines such as canaries and finches, reflecting their higher mass-specific metabolic rate. A 400 g African grey
+              therefore has a basal requirement of roughly 24 kcal per day.
+            </p>
+            <p>
+              Maintenance is basal multiplied by activity: 1.5 for a clipped bird that rarely leaves the cage, 2.0 for one with out-of-cage
+              time and short flights, and 3.0 for a free-flighted or breeding bird. Life stage adjusts the figure again — moulting and
+              egg production are expensive, and a growing juvenile can need half as much energy again. Body condition applies a final
+              ten percent adjustment, raising the ration for an underweight bird and lowering it for one carrying excess weight.
+            </p>
+            <p>
+              The result is then split across the diet. The standard companion recommendation is about 70 percent of calories from a
+              formulated pellet, 20 percent from fresh vegetables and greens, and no more than 10 percent from seeds, nuts and fruit.
+              Each share is divided by the energy density of that food group — roughly 3.6 kcal per gram for extruded pellets, 0.4 for
+              fresh vegetables and 5.0 for seeds and nuts — to give the grams to offer each day.
+            </p>
 
-            <h2 className="text-2xl font-bold mb-3">The Dangers of the All-Seed Diet</h2>
-            <p>For decades, the standard pet trade narrative was that parrots should eat seeds. This is perhaps the most dangerous myth in avian care. Feeding a parrot a 100% seed diet is the nutritional equivalent of feeding a human child nothing but potato chips and donuts for their entire life.</p>
-            <p>Commercial seed mixes are primarily composed of sunflower and safflower seeds. These are incredibly high in fat and devastatingly low in essential vitamins and minerals. Because seeds are tasty, birds will quickly become "seed junkies," refusing to eat anything else. Over years, this leads to:</p>
-            <ul>
-              <li><strong>Fatty Liver Disease (Hepatic Lipidosis):</strong> The liver becomes overwhelmed by the high-fat diet, eventually failing completely.</li>
-              <li><strong>Vitamin A Deficiency (Hypovitaminosis A):</strong> Leading to respiratory infections, poor feather quality, and lesions in the mouth.</li>
-              <li><strong>Calcium Deficiency:</strong> Causing weak bones, seizures, and fatal egg-binding in female birds.</li>
-              <li><strong>Severe Obesity:</strong> Leading to arthritis and cardiovascular failure.</li>
-            </ul>
-
-            <h2 className="text-2xl font-bold mb-3">The 70/20/10 Protocol</h2>
-            <p>To reverse these statistics, board-certified avian veterinarians strongly advocate for the 70/20/10 protocol. Our calculator breaks down your bird's daily caloric limit into these three specific buckets:</p>
-            <p><strong>1. Formulated Pellets (70%):</strong> The vast majority of your bird's calories must come from a high-quality, extruded pellet (brands like Harrison's, Roudybush, or ZuPreem). Pellets are scientifically engineered so that every single bite contains the exact ratio of protein, calcium, vitamins, and minerals required. Because it is uniform, the bird cannot "pick out" the unhealthy bits as they do with seed mixes.</p>
-            <p><strong>2. Fresh Vegetables & Greens (20%):</strong> To provide phytonutrients and psychological foraging enrichment, one-fifth of the diet should be fresh, bird-safe vegetables. Dark leafy greens (kale, spinach, mustard greens), orange vegetables (carrots, sweet potatoes, butternut squash), and bell peppers are excellent choices. Avocado is highly toxic and must never be fed.</p>
-            <p><strong>3. Seeds, Nuts, and Fruits (10% max):</strong> Seeds and nuts should be treated strictly as training rewards. They are excellent high-value tools for teaching your bird tricks or step-up commands, but they must not exceed 10% of their daily caloric intake. Fruits, while natural, are very high in fructose and should be limited as well.</p>
-
-            <h2 className="text-2xl font-bold mb-3">How to Transition a Seed-Junkie to Pellets</h2>
-            <p>If you realize your bird has been living on an unhealthy seed diet, do not simply replace their seeds with pellets overnight. Birds are neophobic (fearful of new things). If they do not recognize a pellet as food, they will stubbornly starve themselves to death rather than eat it.</p>
-            <p>Transitioning requires time and patience. Start by mixing 90% seed and 10% pellets. Slowly increase the pellet ratio over four to six weeks. You can encourage curiosity by pretending to eat the pellets yourself; parrots are flock animals, and seeing you (their flock leader) eat something will often trigger them to try it. Another trick is slightly moistening the pellets with a tiny drop of unsweetened apple juice to make them smell sweeter, gradually reducing the juice over time.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Weight Monitoring and Avian Health</h2>
-            <p>A digital gram scale is the most important medical tool an avian owner can possess. In the wild, a sick bird is quickly targeted by predators. To survive, birds have evolved to mask symptoms of illness perfectly. By the time a parrot looks sick (sitting at the bottom of the cage, fluffed feathers, lethargy), they are usually within hours of death.</p>
-            <p>The only reliable early warning sign of avian illness is rapid weight loss. You should weigh your bird on a digital scale every single week at the exact same time of day (preferably in the morning before they eat). A loss of 5% of their body weight over a few days is a major red flag; a 10% loss is a critical emergency requiring an immediate trip to an exotic veterinarian.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Hydration and Caloric Intake</h2>
-            <p>While the focus is often on food, hydration is equally critical. Unlike mammals, birds produce uric acid instead of liquid urea, which is why their droppings have a white, chalky component. While this is water-efficient, they still require constant access to fresh, clean water. A general rule of thumb is that a bird requires roughly 1 milliliter of water for every kilocalorie of energy consumed. A bird eating 100 kcal per day will generally drink about 100 mL of water, though much of this can come from the moisture content in their fresh vegetables.</p>
-
-            <h2 className="text-2xl font-bold mb-3">Conclusion</h2>
-            <p>Feeding a parrot is more akin to feeding a highly specialized human athlete than an ordinary house pet. Their brilliant minds and delicate biologies require exact nutritional inputs to thrive. By utilizing the Parrot Calorie Calculator, converting their diet to a pellet-based protocol, and vigilantly monitoring their weight on a gram scale, you can protect your feathered companion from the silent epidemic of avian malnutrition.</p>
+            <h2 className="text-2xl font-bold mb-3">Understanding Your Results</h2>
+            <p>
+              The primary card is the maintenance energy requirement in kilocalories, with the basal figure and the activity
+              multiplier in the subtext. The three-stat bar converts the diet split into grams of pellets, grams of vegetables and the
+              gram ceiling for treats, which are the numbers you actually put on a kitchen scale.
+            </p>
+            <p>
+              The breakdown table shows every multiplier applied, both calorie and gram figures for each food group, the total weight
+              of food offered, and a water estimate of about one millilitre per kilocalorie. The summary panel repeats the totals and
+              the bird's size category so the numbers can be recorded and compared week to week.
+            </p>
+            <p>
+              Treat the output as a starting point, not a prescription. Individual birds vary, pellets differ in energy density between
+              brands, and a bird that is ill will often need a different plan entirely. Weigh your parrot weekly at the same time of
+              day, adjust the ration by five to ten percent at a time, and involve an avian veterinarian before making large changes —
+              especially for a bird that is losing weight, laying eggs or moulting heavily.
+            </p>
           </section>
-
           <FAQSection faqs={faqs} pageUrl="https://racira.com/calculator/parrot-calorie-calculator" />
           <PopularCalculators exclude="/calculator/parrot-calorie-calculator" />
         </div>

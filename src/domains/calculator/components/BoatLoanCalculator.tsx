@@ -76,7 +76,16 @@ export default function BoatLoanCalculator() {
   const [salesTax, setSalesTax] = useState(DEFAULTS.salesTax);
   const [fees, setFees] = useState(DEFAULTS.fees);
   
-  const [result, setResult] = useState<BoatLoanResult | null>(null);
+  const [result, setResult] = useState<BoatLoanResult | null>(() => calcBoatLoan(
+    parseFloat(DEFAULTS.price) || 0, parseFloat(DEFAULTS.downPayment) || 0, parseFloat(DEFAULTS.tradeIn) || 0,
+    parseFloat(DEFAULTS.rate) || 0, parseFloat(DEFAULTS.termYears) || 0, parseFloat(DEFAULTS.salesTax) || 0,
+    parseFloat(DEFAULTS.fees) || 0
+  ));
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const calculate = () => setResult(calcBoatLoan(
     parseFloat(price) || 0, parseFloat(downPayment) || 0, parseFloat(tradeIn) || 0, parseFloat(rate) || 0, parseFloat(termYears) || 0, parseFloat(salesTax) || 0, parseFloat(fees) || 0
@@ -88,8 +97,6 @@ export default function BoatLoanCalculator() {
     setResult(calcBoatLoan(45000, 5000, 0, 7.5, 10, 6, 500)); 
   };
   
-  useEffect(() => { calculate(); }, []);
-
   const inp = "flex items-center rounded-md border border-input bg-background h-10 overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-primary/20";
   const ci = "w-full h-full px-3 text-base bg-transparent outline-none border-none text-foreground";
 
@@ -157,7 +164,7 @@ export default function BoatLoanCalculator() {
               </div>
               <div className="card-calculator !p-5 border border-border bg-card">
                 <h3 className="text-base font-bold mb-4">Principal vs Interest</h3>
-                <ResponsiveContainer width="100%" height={220}><PieChart><Pie data={result.pieData} cx="50%" cy="50%" outerRadius={90} dataKey="value" label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`} labelLine={false}>{result.pieData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}</Pie><Tooltip formatter={(v: number) => `$${v.toLocaleString("en-US", { maximumFractionDigits: 0 })}`} /><Legend /></PieChart></ResponsiveContainer>
+                {mounted && (<ResponsiveContainer width="100%" height={220}><PieChart><Pie data={result.pieData} cx="50%" cy="50%" outerRadius={90} dataKey="value" label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`} labelLine={false}>{result.pieData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}</Pie><Tooltip formatter={(v: number) => `$${v.toLocaleString("en-US", { maximumFractionDigits: 0 })}`} /><Legend /></PieChart></ResponsiveContainer>)}
               </div>
               <div className="bg-muted/30 rounded-lg p-5">
                 <h3 className="text-base font-bold mb-4">Summary Statistics</h3>

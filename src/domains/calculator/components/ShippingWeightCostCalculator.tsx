@@ -122,7 +122,7 @@ export default function ShippingWeightCostCalculator() {
   useEffect(() => { 
     setMounted(true);
     handleCalculate(); 
-  }, [isMetric]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
@@ -154,11 +154,11 @@ export default function ShippingWeightCostCalculator() {
                 <button 
                   onClick={() => setIsMetric(false)}
                   className={`h-9 rounded-md font-bold text-[13px] transition-colors border ${!isMetric ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}
-                >Calculate</button>
+                >Imperial</button>
                 <button 
                   onClick={() => setIsMetric(true)}
                   className={`h-9 rounded-md font-bold text-[13px] transition-colors border ${isMetric ? "bg-primary text-primary-foreground border-primary" : "bg-background text-muted-foreground border-input hover:bg-secondary"}`}
-                >Calculate</button>
+                >Metric</button>
               </div>
             </div>
 

@@ -9,15 +9,19 @@ import { isComingSoonToolPage, isLiveTool } from "@/lib/tools/liveToolFilters";
 import { inferIcon } from "@/components/shared/icon-map";
 import Header from "@/components/Header";
 import ToolPageHeader from "@/components/tools/shared/ToolPageHeader";
+import SeoContent from "@/components/shared/SeoContent";
+import { RelatedTools } from "@/domains/typography/components/related-tools";
+import { getToolSeo } from "@/domains/typography/registry/tool-seo";
+import { TYPOGRAPHY_SITE } from "@/domains/typography/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const category = categories.find(c => toSlug(c.name) === slug);
-  if (category) return { title: `${category.name} — Racira Typography`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/typography/${slug}` } };
+  if (category) return { title: `${category.name} — ${TYPOGRAPHY_SITE.copyrightName}`, description: `Free browser-based ${category.name} tools.`, alternates: { canonical: `/typography/${slug}` } };
   const result = findTool(slug);
-  if (result) return { title: `${result.tool.name} — Racira Typography`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` }, robots: isComingSoonToolPage(result.tool, "typography") ? { index: false, follow: false } : undefined };
+  if (result) return { title: `${result.tool.name} — ${TYPOGRAPHY_SITE.copyrightName}`, description: result.tool.desc ?? "", alternates: { canonical: `/typography/${slug}` }, robots: isComingSoonToolPage(result.tool, "typography") ? { index: false, follow: false } : undefined };
   return { title: "Not Found — Racira" };
 }
 
@@ -35,13 +39,13 @@ export async function generateStaticParams() {
 function CategoryView({ category }: { category: typeof categories[0] }) {
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="Typography" />
+      <Header mode="category" categoryName={TYPOGRAPHY_SITE.shortName} />
       <main className="flex-1">
         <div className="racira-page-container pt-8 pb-0">
           <nav aria-label="breadcrumb" className="flex items-center text-sm text-muted-foreground mb-6">
             <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
             <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
-            <Link href="/typography" className="hover:text-foreground transition-colors">Typography</Link>
+            <Link href="/typography" className="hover:text-foreground transition-colors">{TYPOGRAPHY_SITE.shortName}</Link>
             <ChevronRight className="h-4 w-4 mx-1 opacity-50 shrink-0" />
             <span className="text-foreground font-medium">{category.name}</span>
           </nav>
@@ -56,7 +60,8 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {category.tools.map((tool: any) => {
               const Icon = tool.icon || inferIcon(tool.name, tool.slug);
-              // No typography tool page renders a real tool — every card is inert.
+              // Live = registry status is "live" AND a component is wired — soon
+              // cards stay non-clickable and never get a page.
               const isLive = isLiveTool(tool, "typography");
               const cardBody = (
                 <>
@@ -91,14 +96,15 @@ function CategoryView({ category }: { category: typeof categories[0] }) {
 
 function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
   const Cmp = tool.component;
+  const seo = getToolSeo(tool.slug);
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Header mode="category" categoryName="Typography" />
+      <Header mode="category" categoryName={TYPOGRAPHY_SITE.shortName} />
       <main className="flex-1">
         <ToolPageHeader
           breadcrumbItems={[
             { label: "Home", href: "/" },
-            { label: "Typography", href: "/typography" },
+            { label: TYPOGRAPHY_SITE.shortName, href: "/typography" },
             { label: categoryName, href: `/typography/${toSlug(categoryName)}` },
             { label: tool.name, href: null },
           ]}
@@ -108,6 +114,12 @@ function ToolView({ tool, categoryName }: { tool: any; categoryName: string }) {
           <div className="rounded-xl border border-border bg-card p-4 sm:p-6 min-h-[400px]">
             {React.createElement(Cmp)}
           </div>
+          {/* Related tools — a separate full-width row, not part of the SEO block. */}
+          <RelatedTools currentSlug={tool.slug} category={categoryName} />
+          {/* Editorial SEO block — full container width, unboxed, rendered by the
+              shared component so the locked structure stays identical across
+              domains. Link targets resolve against /typography. */}
+          {seo && <SeoContent seo={seo} toolName={tool.name} basePath="/typography" />}
         </div>
       </main>
     </div>

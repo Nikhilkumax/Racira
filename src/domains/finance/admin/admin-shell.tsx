@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, FileText, FolderTree, Tag, Image, LogOut, ExternalLink } from "lucide-react";
 import { Toaster } from "sonner";
 import type { ReactNode } from "react";
+import { createClient } from "@/domains/finance/lib/supabase/client";
 
 const nav = [
   { to: "/finance/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
@@ -16,6 +17,15 @@ const nav = [
 
 export function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+
+  async function signOut() {
+    try {
+      await createClient().auth.signOut();
+    } finally {
+      // Full navigation back to login; middleware takes over from there.
+      window.location.assign("/finance/admin/login");
+    }
+  }
   return (
     <div className="flex min-h-screen bg-muted/30">
       <aside className="hidden w-64 flex-col border-r border-border/60 bg-card md:flex">
@@ -48,7 +58,10 @@ export function AdminShell({ children }: { children: ReactNode }) {
           <Link href="/" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground">
             <ExternalLink className="h-4 w-4" /> View site
           </Link>
-          <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground" onClick={() => { try { localStorage.removeItem("racira-admin"); location.href = "/"; } catch {} }}>
+          <button
+            className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+            onClick={signOut}
+          >
             <LogOut className="h-4 w-4" /> Sign out
           </button>
         </div>

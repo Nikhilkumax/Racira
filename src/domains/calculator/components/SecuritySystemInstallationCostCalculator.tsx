@@ -207,13 +207,13 @@ const SecuritySystemInstallationCostCalculator: React.FC = () => {
   const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#82ca9d', '#ff8b64'];
 
   return (
-    <div className="p-6">
+    <div className="racira-page-container py-4">
       <h1 className="text-3xl font-bold mb-6">
         Security System Installation Cost Calculator
       </h1>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[460px_1fr] gap-6 items-start max-w-[1180px]">
         {/* LEFT COLUMN: INPUTS */}
-        <div className="space-y-6">
+        <div className="card-calculator flex flex-col gap-3 !p-4 shadow-sm border border-border bg-card !overflow-visible">
           {/* Primary Inputs */}
           <div className="border p-4 rounded-lg">
             <h2 className="text-2xl font-bold mb-3">Property Details</h2>

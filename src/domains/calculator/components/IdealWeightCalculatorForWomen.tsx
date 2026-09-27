@@ -207,7 +207,7 @@ export default function IdealWeightCalculatorForWomen() {
   useEffect(() => {
     handleCalculate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [heightFt, heightIn, heightCm, frameSize, unit]);
+  }, []);
 
   const handlePrint = () => {
     if (!printRef.current) return;
