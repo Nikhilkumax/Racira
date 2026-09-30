@@ -5,9 +5,18 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, PenLine } from "lucide-react";
 import { categories, totalToolCount } from "@/domains/writing/registry";
-import { onlyLive, isLiveTool } from "@/lib/tools/liveToolFilters";
+import { isLiveTool } from "@/lib/tools/liveToolFilters";
+import { WRITING_TOOL_COMPONENTS } from "@/domains/writing/components/tools/registry";
 
-const LIVE_WRITING_COUNT = onlyLive(categories.flatMap((c) => c.tools), "writing").length;
+/**
+ * A `live` flag is only truthful when the slug has a wired component, so the
+ * index asks both questions. The writing reconcile gate enforces the pairing;
+ * this keeps a card honest even if the flag is set before the component lands.
+ */
+const isWiredLiveTool = (tool: (typeof categories)[number]["tools"][number]) =>
+  isLiveTool(tool, "writing") && Boolean(WRITING_TOOL_COMPONENTS[tool.slug]);
+
+const LIVE_WRITING_COUNT = categories.flatMap((c) => c.tools).filter(isWiredLiveTool).length;
 
 export default function Index() {
   const [query, setQuery] = useState("");
@@ -79,8 +88,9 @@ export default function Index() {
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {cat.tools.map((t) => {
-                  // No writing tool page renders a real tool — every card is inert.
-                  const isLive = isLiveTool(t, "writing");
+                  // A live card requires both a live flag and a wired component,
+                  // so it always links to a page that renders the real tool.
+                  const isLive = isWiredLiveTool(t);
                   const cardBody = (
                     <>
                       {!isLive && (

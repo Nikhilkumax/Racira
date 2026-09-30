@@ -8,15 +8,19 @@ const stubSlugs = new Set<string>(CALCULATOR_STUB_SLUGS);
  * Verified by DOM audit: the [slug] pages in these domains require a `component`
  * on the tool to render anything, and the registries never attach one — so every
  * tool page renders "Coming soon" regardless of `status: "live"`.
- * (photo, design, seo, writing, productivity: no component in registry;
+ * (photo, design, seo, productivity: no component in registry;
  *  cad: un-gated 2026-09 — 2d-cad-sketch-tool now has a wired component in
- *  app/cad/[slug]/page.tsx via the TOOL_COMPONENTS map; its live flag is real.)
+ *  app/cad/[slug]/page.tsx via the TOOL_COMPONENTS map; its live flag is real;
+ *  writing: un-gated 2026-09 (batch B1) — app/writing/[slug]/page.tsx now
+ *  resolves every live slug through the per-tool component map in
+ *  src/domains/writing/components/tools/registry.tsx, and a slug is only
+ *  flagged live once it has a wired component. The writing reconcile gate
+ *  (_scripts/writing-reconcile.mjs) enforces that pairing.)
  */
 const COMPONENT_GATED_DOMAINS = new Set([
   "photo",
   "design",
   "seo",
-  "writing",
   "productivity",
 ]);
 

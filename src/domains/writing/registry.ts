@@ -5,6 +5,14 @@ export type Tool = {
   description: string;
   status?: "live" | "soon";
   icon?: any;
+  /**
+   * Authored editorial SEO block, resolved per slug by
+   * `src/domains/writing/registry/tool-seo.ts` and attached on the server page.
+   * It is deliberately NOT imported here: this registry is part of the client
+   * bundle for the /writing index, and the SEO prose (500+ words per tool)
+   * belongs only in the server-rendered tool route.
+   */
+  seo?: ToolSeo;
 };
 
 export type ToolCategory = {
@@ -12,6 +20,7 @@ export type ToolCategory = {
   tools: Tool[];
 };
 
+import type { ToolSeo } from "@/components/shared/seo-types";
 import { toSlug } from "@/lib/utils/slug";
 const slugify = toSlug;
 
@@ -32,47 +41,47 @@ export const categories: ToolCategory[] = [
       mk("Rich Text Editor", "WYSIWYG editor with formatting controls", BookText, false),
       mk("Outline Builder", "Plan documents with nested outlines", Layout, false),
       mk("Draft Versioning Tool", "Track and compare draft versions", Edit, false),
-      mk("Writing Sprint Timer", "Time-boxed writing sessions", Activity, false),
+      mk("Writing Sprint Timer", "Time-boxed writing sessions", Activity, true),
       mk("Scene & Chapter Organizer", "Organize scenes and chapters visually", BookOpen, false),
       mk("Plot Point Mapper", "Map key plot points across your story", BookOpenCheck, false),
       mk("Story Beat Builder", "Design narrative beats step by step", LayoutDashboard, false),
       mk("Manuscript Formatter", "Standard manuscript formatting in seconds", LayoutGrid, false),
       mk("Document Diff Viewer", "See changes between two documents", AlarmClockCheck, false),
-      mk("Writing Goal Tracker", "Set and track daily word goals", AlertOctagon, false),
+      mk("Writing Goal Tracker", "Set and track daily word goals", AlertOctagon, true),
       mk("Block-Based Editor", "Notion-style block editing", Edit2, false),
-      mk("Focus Sentence Highlighter", "Highlight the sentence you're editing", FileText, false),
+      mk("Focus Sentence Highlighter", "Highlight the sentence you're editing", FileText, true),
     ],
   },
   {
     name: "Grammar & Style",
     tools: [
-      mk("Grammar Checker", "Local grammar checking, no upload required", SpellCheck, false),
-      mk("Passive Voice Detector", "Spot passive constructions instantly", BadgeJapaneseYen, false),
-      mk("Readability Grade Scorer", "Score your text's reading level", Calculator, false),
-      mk("Sentence Complexity Analyzer", "Find sentences that need simplifying", LetterText, false),
-      mk("Overused Word Finder", "Find words you lean on too often", BookOpenText, false),
-      mk("Cliché Detector", "Catch tired phrases before publishing", AlignCenter, false),
-      mk("Redundancy Finder", "Identify repetitive phrasing", Eye, false),
-      mk("Wordy Phrase Simplifier", "Tighten wordy expressions", BookText, false),
-      mk("Sentence Variety Checker", "Vary sentence rhythm and length", FileText, false),
-      mk("Tone Analyzer", "Detect the tone of your writing", Calculator, false),
-      mk("Formality Level Detector", "Measure how formal your text reads", AlignCenterHorizontal, false),
-      mk("Clarity Score Tool", "Score how clearly your text communicates", CircleGauge, false),
-      mk("Style Guide Adherence Checker", "Check against common style guides", Megaphone, false),
-      mk("Academic Writing Tone Checker", "Match an academic register", MegaphoneOff, false),
+      mk("Grammar Checker", "Check a documented set of common errors locally", SpellCheck, true),
+      mk("Passive Voice Detector", "Spot passive constructions instantly", BadgeJapaneseYen, true),
+      mk("Readability Grade Scorer", "Score your text's reading level", Calculator, true),
+      mk("Sentence Complexity Analyzer", "Find sentences that need simplifying", LetterText, true),
+      mk("Overused Word Finder", "Find words you lean on too often", BookOpenText, true),
+      mk("Cliché Detector", "Catch tired phrases before publishing", AlignCenter, true),
+      mk("Redundancy Finder", "Identify repetitive phrasing", Eye, true),
+      mk("Wordy Phrase Simplifier", "Tighten wordy expressions", BookText, true),
+      mk("Sentence Variety Checker", "Vary sentence rhythm and length", FileText, true),
+      mk("Tone Analyzer", "Detect the tone of your writing", Calculator, true),
+      mk("Formality Level Detector", "Measure how formal your text reads", AlignCenterHorizontal, true),
+      mk("Clarity Score Tool", "Score how clearly your text communicates", CircleGauge, true),
+      mk("Style Guide Adherence Checker", "Check against common style guides", Megaphone, true),
+      mk("Academic Writing Tone Checker", "Match an academic register", MegaphoneOff, true),
     ],
   },
   {
     name: "Spelling & Proofreading",
     tools: [
-      mk("Spell Checker", "Catch typos and misspellings", SpellCheck2, false),
-      mk("Homophone Confusion Detector", "Spot your/you're, its/it's mix-ups", AlignCenterVertical, false),
-      mk("Punctuation Checker", "Find misplaced punctuation", AlignEndHorizontal, false),
-      mk("Apostrophe Error Finder", "Find apostrophe mistakes", AlignEndVertical, false),
-      mk("Capitalization Checker", "Find capitalization issues", AlignHorizontalDistributeCenter, false),
-      mk("Proper Noun Checker", "Verify proper noun usage", AlignHorizontalDistributeEnd, false),
-      mk("Number Format Checker", "Standardize number formats", LayoutList, false),
-      mk("Consistent Spelling Checker", "UK vs US spelling consistency", SpellCheck, false),
+      mk("Spell Checker", "Catch typos and misspellings", SpellCheck2, true),
+      mk("Homophone Confusion Detector", "Spot your/you're, its/it's mix-ups", AlignCenterVertical, true),
+      mk("Punctuation Checker", "Find misplaced punctuation", AlignEndHorizontal, true),
+      mk("Apostrophe Error Finder", "Find apostrophe mistakes", AlignEndVertical, true),
+      mk("Capitalization Checker", "Find capitalization issues", AlignHorizontalDistributeCenter, true),
+      mk("Proper Noun Checker", "Verify proper noun usage", AlignHorizontalDistributeEnd, true),
+      mk("Number Format Checker", "Standardize number formats", LayoutList, true),
+      mk("Consistent Spelling Checker", "UK vs US spelling consistency", SpellCheck, true),
     ],
   },
   {
@@ -108,7 +117,7 @@ export const categories: ToolCategory[] = [
     tools: [
       mk("Citation Formatter", "APA, MLA, and Chicago citations", LayoutTemplate, false),
       mk("Bibliography Builder", "Build complete bibliographies", Layout, false),
-      mk("Footnote Formatter", "Format footnotes consistently", LayoutDashboard, false),
+      mk("Footnote Formatter", "Format footnotes consistently", LayoutDashboard, true),
       mk("Endnote Manager", "Manage your endnotes", MessageSquareQuote, false),
       mk("Reference List Generator", "Generate reference lists fast", LayoutGrid, false),
       mk("In-Text Citation Builder", "Build in-text citations", ReceiptText, false),
@@ -151,7 +160,7 @@ export const categories: ToolCategory[] = [
       mk("Dialogue Practice Tool", "Practice and refine dialogue", AlignHorizontalJustifyStart, false),
       mk("Writing Prompt Generator", "Endless writing prompts", FileEdit, false),
       mk("Poetry Form Guide", "Reference guide to poetry forms", BookOpenCheck, false),
-      mk("Flash Fiction Timer", "Write tight flash fiction", Book, false),
+      mk("Flash Fiction Timer", "Write tight flash fiction", Book, true),
       mk("Scene Description Builder", "Build vivid scene descriptions", FolderEdit, false),
       mk("Conflict & Resolution Planner", "Plan story conflicts", AlignHorizontalSpaceAround, false),
       mk("Villain Motivation Builder", "Craft compelling villains", Clipboard, false),
@@ -182,18 +191,18 @@ export const categories: ToolCategory[] = [
   {
     name: "Text Analysis & Statistics",
     tools: [
-      mk("Word Count Tool", "Count words instantly", ScanText, false),
-      mk("Character Count Tool", "Count characters with and without spaces", GaugeCircle, false),
-      mk("Reading Time Estimator", "Estimate reading time", CircleGauge, false),
-      mk("Sentence Count Tool", "Count sentences in text", ScrollText, false),
-      mk("Average Word Length Calculator", "Average word length stats", Text, false),
-      mk("Vocabulary Richness Scorer", "Measure vocabulary richness", Gauge, false),
-      mk("Keyword Density Analyzer", "Analyze keyword density", TextCursor, false),
-      mk("Flesch-Kincaid Score Calculator", "Compute Flesch-Kincaid", GaugeCircle, false),
-      mk("Gunning Fog Index Calculator", "Compute Gunning Fog index", AreaChart, false),
-      mk("SMOG Index Calculator", "Compute SMOG readability", BarChart, false),
-      mk("Lexical Diversity Calculator", "Lexical diversity scoring", BarChart2, false),
-      mk("Text Fingerprint Analyzer", "Fingerprint a body of text", TextCursorInput, false),
+      mk("Word Count Tool", "Count words instantly", ScanText, true),
+      mk("Character Count Tool", "Count characters with and without spaces", GaugeCircle, true),
+      mk("Reading Time Estimator", "Estimate reading time", CircleGauge, true),
+      mk("Sentence Count Tool", "Count sentences in text", ScrollText, true),
+      mk("Average Word Length Calculator", "Average word length stats", Text, true),
+      mk("Vocabulary Richness Scorer", "Measure vocabulary richness", Gauge, true),
+      mk("Keyword Density Analyzer", "Analyze keyword density", TextCursor, true),
+      mk("Flesch-Kincaid Score Calculator", "Compute Flesch-Kincaid", GaugeCircle, true),
+      mk("Gunning Fog Index Calculator", "Compute Gunning Fog index", AreaChart, true),
+      mk("SMOG Index Calculator", "Compute SMOG readability", BarChart, true),
+      mk("Lexical Diversity Calculator", "Lexical diversity scoring", BarChart2, true),
+      mk("Text Fingerprint Analyzer", "Fingerprint a body of text", TextCursorInput, true),
     ],
   },
   {
@@ -201,13 +210,13 @@ export const categories: ToolCategory[] = [
     tools: [
       mk("Language Detector", "Detect the language of text", Globe2, false),
       mk("Text Translation Previewer", "Preview translated text", TextSearch, false),
-      mk("Locale Date Formatter", "Format dates by locale", ClipboardCopy, false),
-      mk("Number Locale Formatter", "Format numbers by locale", ClipboardList, false),
-      mk("RTL Text Tester", "Test right-to-left text", TextSelect, false),
-      mk("Unicode Text Normalizer", "Normalize Unicode forms", TextSelection, false),
+      mk("Locale Date Formatter", "Format dates by locale", ClipboardCopy, true),
+      mk("Number Locale Formatter", "Format numbers by locale", ClipboardList, true),
+      mk("RTL Text Tester", "Test right-to-left text", TextSelect, true),
+      mk("Unicode Text Normalizer", "Normalize Unicode forms", TextSelection, true),
       mk("Character Encoding Converter", "Convert character encodings", BookA, false),
-      mk("Bidirectional Text Tester", "Test bidirectional text", WrapText, false),
-      mk("Locale-Aware Sort Tool", "Sort with locale awareness", GlobeLock, false),
+      mk("Bidirectional Text Tester", "Test bidirectional text", WrapText, true),
+      mk("Locale-Aware Sort Tool", "Sort with locale awareness", GlobeLock, true),
       mk("Text Expansion Estimator", "Estimate UI text expansion", MessageSquareText, false),
     ],
   },

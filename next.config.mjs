@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // A second dev server on this checkout (e.g. a Freebuff preview thread while
@@ -156,6 +158,23 @@ const nextConfig = {
       include: /node_modules/,
       type: 'javascript/auto',
     })
+    // The Writing spell checker (/writing/spell-checker) needs Hunspell data at
+    // runtime in the browser. `dictionary-en`'s entry point reads it with
+    // `node:fs/promises`, which cannot run there, so its two data files are
+    // bundled directly as strings instead: `asset/source` inlines the bytes and
+    // the aliases let the app import the files by name (the package's `exports`
+    // field would otherwise block the subpath). Only the spell-checker component
+    // imports these, lazily, so the ~540 KB never reaches any other route.
+    const dictionaryDir = path.join(process.cwd(), 'node_modules', 'dictionary-en')
+    config.module.rules.push({
+      test: /dictionary-en[\\/]index\.(aff|dic)$/,
+      type: 'asset/source',
+    })
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      'dictionary-en/index.aff': path.join(dictionaryDir, 'index.aff'),
+      'dictionary-en/index.dic': path.join(dictionaryDir, 'index.dic'),
+    }
     config.resolve.fallback = {
       ...(config.resolve.fallback || {}),
       fs: false,

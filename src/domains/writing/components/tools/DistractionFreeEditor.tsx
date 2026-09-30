@@ -52,9 +52,11 @@ export function DistractionFreeEditor() {
     <div className="mx-auto flex max-w-5xl flex-col px-5 py-10">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          {/* The page shell (ToolPageHeader) renders the single page h1, so
+              this is a plain paragraph, not a second heading. */}
+          <p className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Distraction-Free Writing Editor
-          </h1>
+          </p>
           <p className="mt-1.5 text-sm text-muted-foreground">
             Just you and the words. Autosaves locally as you type.
           </p>
@@ -129,6 +131,10 @@ export function DistractionFreeEditor() {
     </div>
   );
 }
+
+// Default export so `next/dynamic` can load it straight from the per-tool
+// component map (WRITING_TOOL_COMPONENTS) without a `.then(m => m.X)` hop.
+export default DistractionFreeEditor;
 
 function Stat({ label, value }: { label: string; value: number | string }) {
   return (
