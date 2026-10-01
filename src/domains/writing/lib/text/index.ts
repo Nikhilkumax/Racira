@@ -54,3 +54,8 @@ export * from "./plot-point-mapper.ts";
 export * from "./story-beats.ts";
 export * from "./draft-versions.ts";
 export * from "./manuscript.ts";
+export * from "./dialogue.ts";
+export * from "./scene-description.ts";
+export * from "./poetry-form.ts";
+export * from "./character-profile.ts";
+export * from "./conflict-planner.ts";

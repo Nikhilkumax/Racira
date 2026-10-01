@@ -104,6 +104,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "story-beat-builder": dynamic(() => import("./story-beat-builder")),
   "manuscript-formatter": dynamic(() => import("./manuscript-formatter")),
 
+  // ── B13: creative writing — dialogue, description, forms, characters ────
+  "dialogue-practice-tool": dynamic(() => import("./dialogue-practice-tool")),
+  "scene-description-builder": dynamic(() => import("./scene-description-builder")),
+  "poetry-form-guide": dynamic(() => import("./poetry-form-guide")),
+  "character-profile-builder": dynamic(() => import("./character-profile-builder")),
+  "conflict-and-resolution-planner": dynamic(() => import("./conflict-and-resolution-planner")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };
