@@ -12,6 +12,7 @@ import { B9_SUMMARIES_SEO } from "./seo/b9-summaries";
 import { B9_CITATION_SEO } from "./seo/b9-citation";
 import { B10_REFERENCES_SEO } from "./seo/b10-references";
 import { B11_EDITORS_SEO } from "./seo/b11-editors";
+import { B12_ORGANIZERS_SEO } from "./seo/b12-organizers";
 
 /**
  * Authored editorial SEO content for the Writing domain, keyed by registry slug.
@@ -44,6 +45,7 @@ const WRITING_SEO: Record<string, ToolSeo> = {
   ...B9_CITATION_SEO,
   ...B10_REFERENCES_SEO,
   ...B11_EDITORS_SEO,
+  ...B12_ORGANIZERS_SEO,
 };
 
 /**

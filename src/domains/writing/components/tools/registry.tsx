@@ -97,6 +97,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "outline-builder": dynamic(() => import("./outline-builder")),
   "document-diff-viewer": dynamic(() => import("./document-diff-viewer")),
 
+  // ── B12: story organisers and the manuscript formatter ──────────────────
+  "scene-and-chapter-organizer": dynamic(() => import("./scene-and-chapter-organizer")),
+  "draft-versioning-tool": dynamic(() => import("./draft-versioning-tool")),
+  "plot-point-mapper": dynamic(() => import("./plot-point-mapper")),
+  "story-beat-builder": dynamic(() => import("./story-beat-builder")),
+  "manuscript-formatter": dynamic(() => import("./manuscript-formatter")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };
