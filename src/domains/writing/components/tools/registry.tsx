@@ -90,6 +90,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "in-text-citation-builder": dynamic(() => import("./in-text-citation-builder")),
   "academic-journal-reference-formatter": dynamic(() => import("./academic-journal-reference-formatter")),
 
+  // ── B11: citation leftovers, editors and organisers ─────────────────────
+  "legal-citation-formatter": dynamic(() => import("./legal-citation-formatter")),
+  "newspaper-article-citation-maker": dynamic(() => import("./newspaper-article-citation-maker")),
+  "markdown-editor": dynamic(() => import("./markdown-editor")),
+  "outline-builder": dynamic(() => import("./outline-builder")),
+  "document-diff-viewer": dynamic(() => import("./document-diff-viewer")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

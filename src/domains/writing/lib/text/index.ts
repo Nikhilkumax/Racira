@@ -43,3 +43,8 @@ export * from "./meeting-notes.ts";
 export * from "./bullet-points.ts";
 export * from "./citation.ts";
 export * from "./reference-list.ts";
+export * from "./legal-citation.ts";
+export * from "./newspaper-citation.ts";
+export * from "./markdown.ts";
+export * from "./outline.ts";
+export * from "./doc-diff.ts";
