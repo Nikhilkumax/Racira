@@ -69,6 +69,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "character-encoding-converter": dynamic(() => import("./character-encoding-converter")),
   "text-expansion-estimator": dynamic(() => import("./text-expansion-estimator")),
 
+  // ── B8: jargon, style consistency and extractive summarisation ──────────
+  "jargon-remover": dynamic(() => import("./jargon-remover")),
+  "style-consistency-enforcer": dynamic(() => import("./style-consistency-enforcer")),
+  "text-summarizer": dynamic(() => import("./text-summarizer")),
+  "key-points-extractor": dynamic(() => import("./key-points-extractor")),
+  "tldr-generator": dynamic(() => import("./tldr-generator")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

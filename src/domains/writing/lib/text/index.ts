@@ -36,3 +36,6 @@ export * from "./spelling-variants.ts";
 export * from "./language.ts";
 export * from "./encoding.ts";
 export * from "./text-expansion.ts";
+export * from "./jargon.ts";
+export * from "./style-consistency.ts";
+export * from "./summarize.ts";

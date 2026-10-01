@@ -285,13 +285,16 @@ export interface SimplifyResult {
 }
 
 /**
- * Apply the wordiness replacements left to right. A phrase with an empty
- * replacement is removed and the surrounding spacing tidied, so
- * "in my opinion the plan" becomes "the plan" rather than " the plan".
+ * Apply a set of matches left to right. A phrase with an empty replacement is
+ * removed and the surrounding spacing tidied, so "in my opinion the plan"
+ * becomes "the plan" rather than " the plan". Shared with the jargon remover so
+ * both tools behave identically on deletions and capitalisation.
  */
-export function simplifyWordiness(text: string): SimplifyResult {
-  const matches = findWordiness(text);
-  if (matches.length === 0) return { output: text, replacements: [] };
+export function applyPhraseReplacements(
+  text: string,
+  matches: readonly PhraseMatch[],
+): { output: string } {
+  if (matches.length === 0) return { output: text };
 
   let output = "";
   let cursor = 0;
@@ -314,5 +317,11 @@ export function simplifyWordiness(text: string): SimplifyResult {
     .replace(/ +([,.;:!?])/g, "$1")
     .replace(/(^|[.!?]\s+)([a-z])/g, (_all, lead: string, letter: string) => lead + letter.toUpperCase());
 
-  return { output, replacements: matches };
+  return { output };
+}
+
+/** Wordiness replacements applied to the text, with the list of changes. */
+export function simplifyWordiness(text: string): SimplifyResult {
+  const matches = findWordiness(text);
+  return { output: applyPhraseReplacements(text, matches).output, replacements: matches };
 }

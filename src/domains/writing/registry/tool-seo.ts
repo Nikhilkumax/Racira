@@ -6,6 +6,8 @@ import { B5_ANALYSIS_SEO } from "./seo/b5-analysis";
 import { B6_GRAMMAR_SEO } from "./seo/b6-grammar";
 import { B7_PROOFREADING_SEO } from "./seo/b7-proofreading";
 import { B7_LANGUAGE_SEO } from "./seo/b7-language";
+import { B8_EXTRACTION_SEO } from "./seo/b8-extraction";
+import { B8_CONSISTENCY_SEO } from "./seo/b8-consistency";
 
 /**
  * Authored editorial SEO content for the Writing domain, keyed by registry slug.
@@ -32,6 +34,8 @@ const WRITING_SEO: Record<string, ToolSeo> = {
   ...B6_GRAMMAR_SEO,
   ...B7_PROOFREADING_SEO,
   ...B7_LANGUAGE_SEO,
+  ...B8_EXTRACTION_SEO,
+  ...B8_CONSISTENCY_SEO,
 };
 
 /**
