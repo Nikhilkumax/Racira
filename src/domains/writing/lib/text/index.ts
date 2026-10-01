@@ -39,3 +39,6 @@ export * from "./text-expansion.ts";
 export * from "./jargon.ts";
 export * from "./style-consistency.ts";
 export * from "./summarize.ts";
+export * from "./meeting-notes.ts";
+export * from "./bullet-points.ts";
+export * from "./citation.ts";

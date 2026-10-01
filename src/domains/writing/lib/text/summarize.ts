@@ -409,6 +409,60 @@ export function tldr(text: string, options: TldrOptions = {}): TldrResult {
   };
 }
 
+export interface HighlightSegment {
+  text: string;
+  highlighted: boolean;
+  /** Rank of the sentence this segment belongs to, for highlighted segments. */
+  rank: number | null;
+}
+
+export interface HighlightResult {
+  /** The source split into alternating plain and highlighted runs. */
+  segments: HighlightSegment[];
+  selected: SummarySentence[];
+  sentences: number;
+  words: number;
+}
+
+/**
+ * The whole text as alternating plain and highlighted runs, with the top-ranked
+ * sentences highlighted. Segments keep the source exactly — joining every
+ * segment's text reproduces the input, so nothing is dropped or reordered.
+ */
+export function highlightImportantSentences(
+  text: string,
+  options: { limit?: number; locale?: string } = {},
+): HighlightResult {
+  const locale = options.locale ?? "en";
+  const tokens = sentenceTokens(text, locale);
+  const scored = rankSentences(text, locale);
+  const limit = Math.max(1, Math.min(tokens.length, options.limit ?? 5));
+  const selected = [...scored].sort((a, b) => a.rank - b.rank).slice(0, limit);
+  const byIndex = new Map(selected.map((sentence) => [sentence.index, sentence]));
+
+  const segments: HighlightSegment[] = [];
+  let cursor = 0;
+  tokens.forEach((token, index) => {
+    const start = token.index;
+    if (start > cursor) segments.push({ text: text.slice(cursor, start), highlighted: false, rank: null });
+    const sentence = byIndex.get(index);
+    segments.push({
+      text: text.slice(start, start + token.text.length),
+      highlighted: Boolean(sentence),
+      rank: sentence ? sentence.rank : null,
+    });
+    cursor = start + token.text.length;
+  });
+  if (cursor < text.length) segments.push({ text: text.slice(cursor), highlighted: false, rank: null });
+
+  return {
+    segments,
+    selected,
+    sentences: tokens.length,
+    words: wordTokens(text, locale).length,
+  };
+}
+
 /** Plain-text report for the summariser's copy and download buttons. */
 export function formatSummaryReport(result: SummaryResult): string {
   const lines: string[] = [];

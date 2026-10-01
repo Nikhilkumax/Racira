@@ -76,6 +76,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "key-points-extractor": dynamic(() => import("./key-points-extractor")),
   "tldr-generator": dynamic(() => import("./tldr-generator")),
 
+  // ── B9: summarisation family continued, and the citation engine ─────────
+  "executive-summary-builder": dynamic(() => import("./executive-summary-builder")),
+  "bullet-point-extractor": dynamic(() => import("./bullet-point-extractor")),
+  "important-sentence-highlighter": dynamic(() => import("./important-sentence-highlighter")),
+  "meeting-summary-formatter": dynamic(() => import("./meeting-summary-formatter")),
+  "citation-formatter": dynamic(() => import("./citation-formatter")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };
