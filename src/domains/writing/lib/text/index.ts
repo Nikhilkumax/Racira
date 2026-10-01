@@ -33,3 +33,6 @@ export * from "./apostrophes.ts";
 export * from "./proper-nouns.ts";
 export * from "./capitalization.ts";
 export * from "./spelling-variants.ts";
+export * from "./language.ts";
+export * from "./encoding.ts";
+export * from "./text-expansion.ts";

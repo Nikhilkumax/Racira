@@ -64,6 +64,11 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "proper-noun-checker": dynamic(() => import("./proper-noun-checker")),
   "consistent-spelling-checker": dynamic(() => import("./consistent-spelling-checker")),
 
+  // ── B7: language tools (detector, codec, expansion) ─────────────────────
+  "language-detector": dynamic(() => import("./language-detector")),
+  "character-encoding-converter": dynamic(() => import("./character-encoding-converter")),
+  "text-expansion-estimator": dynamic(() => import("./text-expansion-estimator")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

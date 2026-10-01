@@ -214,3 +214,82 @@ test("complexWordCount counts only genuine three-syllable words", () => {
   assert.equal(complexWordCount(["cat", "elephant", "created", "table"]), 1);
   assert.equal(complexWordCount(["Understanding", "readability"]), 1, "proper nouns are dropped");
 });
+
+/**
+ * Held-out sample: 60 common English words chosen after the heuristic was
+ * frozen. None of them appears in the tables above or in the exceptions map,
+ * and syllables.ts was not adjusted to fit them — this is an audit, not a
+ * training set. Result at the time of writing: 60/60. The assertion lists any
+ * word that ever regresses, so a rule change cannot trade these away quietly.
+ */
+const HELD_OUT: Record<string, number> = {
+  water: 2,
+  river: 2,
+  doctor: 2,
+  morning: 2,
+  window: 2,
+  garden: 2,
+  market: 2,
+  summer: 2,
+  winter: 2,
+  mother: 2,
+  father: 2,
+  sister: 2,
+  brother: 2,
+  teacher: 2,
+  student: 2,
+  letter: 2,
+  paper: 2,
+  moment: 2,
+  minute: 2,
+  second: 2,
+  music: 2,
+  mountain: 2,
+  island: 2,
+  forest: 2,
+  flower: 2,
+  happy: 2,
+  silly: 2,
+  funny: 2,
+  sunny: 2,
+  heavy: 2,
+  angry: 2,
+  hungry: 2,
+  early: 2,
+  easy: 2,
+  lazy: 2,
+  pretty: 2,
+  tiny: 2,
+  magic: 2,
+  model: 2,
+  metal: 2,
+  total: 2,
+  local: 2,
+  apple: 2,
+  orange: 2,
+  lemon: 2,
+  cherry: 2,
+  animal: 3,
+  hospital: 3,
+  holiday: 3,
+  energy: 3,
+  history: 3,
+  mystery: 3,
+  industry: 3,
+  memory: 3,
+  company: 3,
+  potato: 3,
+  tomato: 3,
+  camera: 3,
+  umbrella: 3,
+  restaurant: 3,
+};
+
+test("countSyllables: held-out 60-word sample (no tuning)", () => {
+  const failures = Object.entries(HELD_OUT).filter(([word, expected]) => countSyllables(word) !== expected);
+  assert.deepEqual(
+    failures.map(([word, expected]) => `${word}: expected ${expected}, got ${countSyllables(word)}`),
+    [],
+    "held-out words must keep their dictionary counts",
+  );
+});

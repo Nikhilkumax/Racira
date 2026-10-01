@@ -1,14 +1,16 @@
 /**
  * writing-b7.test.ts — verification of Writing batch B7 (Spelling &
- * Proofreading: the dictionary-backed spell checker and the mechanical
- * proofreading checks).
+ * Proofreading plus the language group: dictionary-backed spell checking,
+ * mechanical proofreading checks, language detection, encoding conversion and
+ * text expansion estimation).
  *
  * Two layers:
  *   1. Every slug in the batch renders as a real tool page — HTTP 200, exactly
  *      one non-empty `<h1>` carrying the registry name, no uncaught page error.
  *   2. Each tool is driven with a fixed input and asserted against a value the
  *      engine's own unit tests pin (two unknown words, three punctuation
- *      findings, one homophone hit) — not merely "something rendered".
+ *      findings, one homophone hit, twelve profile languages) — not merely
+ *      "something rendered".
  *
  * The spell checker loads its dictionary lazily in the browser, so its test
  * waits for the loaded state before asserting.
@@ -28,6 +30,9 @@ const BATCH: { slug: string; name: string }[] = [
   { slug: "capitalization-checker", name: "Capitalization Checker" },
   { slug: "proper-noun-checker", name: "Proper Noun Checker" },
   { slug: "consistent-spelling-checker", name: "Consistent Spelling Checker" },
+  { slug: "language-detector", name: "Language Detector" },
+  { slug: "character-encoding-converter", name: "Character Encoding Converter" },
+  { slug: "text-expansion-estimator", name: "Text Expansion Estimator" },
 ];
 
 test.describe("Writing B7 — page contract", () => {
@@ -165,5 +170,74 @@ test.describe("Writing B7 — functional results", () => {
     await page.getByTestId("in-text").fill("We traveled and travelled.");
     await expect(page.getByTestId("res-dominant")).toHaveText("Mixed");
     await expect(page.getByTestId("res-families")).toContainText("traveled");
+  });
+
+  test("language-detector answers on real prose and refuses short or non-Latin samples", async ({ page }) => {
+    await page.goto(`${BASE}/writing/language-detector`, { waitUntil: "networkidle" });
+
+    await page.getByTestId("in-text").fill("The quick brown fox jumps over the lazy dog and the sleepy cat.");
+    await expect(page.getByTestId("res-language")).toHaveText("English");
+    await expect(page.getByTestId("res-scores")).toContainText("English");
+
+    // The same sentence in Spanish must win its own profile, not English.
+    await page.getByTestId("in-text").fill("El zorro marrón rápido salta sobre el perro perezoso y el gato.");
+    await expect(page.getByTestId("res-language")).toHaveText("Spanish");
+
+    // Short input is refused rather than guessed.
+    await page.getByTestId("in-text").fill("Hola");
+    await expect(page.getByTestId("res-status")).toContainText("Not enough text");
+    await expect(page.getByTestId("res-language")).toHaveText("—");
+
+    // A non-Latin script is reported as unsupported, with the script named.
+    await page.getByTestId("in-text").fill("Привет, как дела сегодня? Всё хорошо.");
+    await expect(page.getByTestId("res-status")).toContainText("Cyrillic");
+  });
+
+  test("character-encoding-converter writes reference bytes and reports lossy substitutions", async ({ page }) => {
+    await page.goto(`${BASE}/writing/character-encoding-converter`, { waitUntil: "networkidle" });
+
+    // "é" is U+00E9: C3 A9 in UTF-8, E9 in Windows-1252.
+    await page.getByTestId("in-text").fill("é");
+    await expect(page.getByTestId("res-output")).toHaveText("C3 A9");
+    await expect(page.getByTestId("res-bytes")).toHaveText("2");
+
+    await page.getByTestId("in-encoding").selectOption("windows-1252");
+    await expect(page.getByTestId("res-output")).toHaveText("E9");
+
+    // € is representable in Windows-1252 but not in Latin-1, so it is flagged.
+    await page.getByTestId("in-encoding").selectOption("iso-8859-1");
+    await page.getByTestId("in-text").fill("€");
+    await expect(page.getByTestId("res-lossy")).toHaveText("1");
+    await expect(page.getByTestId("res-lossy-list")).toContainText("€");
+
+    // The same codec runs backwards: E9 in Windows-1252 decodes to é.
+    await page.getByTestId("in-mode").selectOption("decode");
+    await page.getByTestId("in-encoding").selectOption("windows-1252");
+    await page.getByTestId("in-bytes").fill("E9");
+    await expect(page.getByTestId("res-decoded")).toHaveText("é");
+
+    // Malformed bytes are refused with a stated reason, not decoded silently.
+    await page.getByTestId("in-bytes").fill("ZZ");
+    await expect(page.getByTestId("res-error")).toContainText("hexadecimal");
+  });
+
+  test("text-expansion-estimator applies the locale range and the character budget", async ({ page }) => {
+    await page.goto(`${BASE}/writing/text-expansion-estimator`, { waitUntil: "networkidle" });
+
+    // German is the default: Settings (8) is 10-11; Save document changes now
+    // (25) is 30-34; totals 40-45.
+    await page.getByTestId("in-text").fill("Settings\nSave document changes now");
+    await expect(page.getByTestId("res-low-chars")).toHaveText("40");
+    await expect(page.getByTestId("res-high-chars")).toHaveText("45");
+    await expect(page.getByTestId("res-estimate")).toHaveText("40–45");
+    await expect(page.getByTestId("res-too-short")).toHaveText("1");
+
+    // A 30-character budget flags only the line whose high estimate is 34.
+    await page.getByTestId("in-budget").fill("30");
+    await expect(page.getByTestId("res-overflow")).toHaveText("1");
+
+    // Japanese contracts: 8 characters at x0.50-x0.70 is 4-6.
+    await page.getByTestId("in-locale").selectOption("ja-JP");
+    await expect(page.getByTestId("res-lines")).toContainText("4–6");
   });
 });

@@ -208,16 +208,16 @@ export const categories: ToolCategory[] = [
   {
     name: "Localization & Internationalization",
     tools: [
-      mk("Language Detector", "Detect the language of text", Globe2, false),
+      mk("Language Detector", "Detect the language of text", Globe2, true),
       mk("Text Translation Previewer", "Preview translated text", TextSearch, false),
       mk("Locale Date Formatter", "Format dates by locale", ClipboardCopy, true),
       mk("Number Locale Formatter", "Format numbers by locale", ClipboardList, true),
       mk("RTL Text Tester", "Test right-to-left text", TextSelect, true),
       mk("Unicode Text Normalizer", "Normalize Unicode forms", TextSelection, true),
-      mk("Character Encoding Converter", "Convert character encodings", BookA, false),
+      mk("Character Encoding Converter", "Convert character encodings", BookA, true),
       mk("Bidirectional Text Tester", "Test bidirectional text", WrapText, true),
       mk("Locale-Aware Sort Tool", "Sort with locale awareness", GlobeLock, true),
-      mk("Text Expansion Estimator", "Estimate UI text expansion", MessageSquareText, false),
+      mk("Text Expansion Estimator", "Estimate UI text expansion", MessageSquareText, true),
     ],
   },
   {

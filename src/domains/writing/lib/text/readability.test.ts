@@ -162,3 +162,30 @@ test("readabilityNotes: states the sample limits instead of hiding them", () => 
   assert.equal(empty.length, 1);
   assert.ok(empty[0].includes("at least one full sentence"));
 });
+
+test("readabilityScores: the standard sanity sentence matches the published formulas", () => {
+  // "The cat sat on the mat." — six one-syllable words in one sentence. Both
+  // formulas reduce to constants: Flesch Reading Ease is exactly 116.145 and
+  // Flesch-Kincaid Grade exactly -1.45 before the display rounding.
+  const scores = readabilityScores("The cat sat on the mat.");
+  assert.equal(scores.words, 6);
+  assert.equal(scores.sentences, 1);
+  assert.equal(scores.syllables, 6);
+
+  const asl = 6;
+  const asw = 1;
+  const fleschRaw = 206.835 - 1.015 * asl - 84.6 * asw;
+  const kincaidRaw = 0.39 * asl + 11.8 * asw - 15.59;
+  assert.ok(Math.abs(fleschRaw - 116.145) < 1e-9, `raw Flesch Reading Ease is ${fleschRaw}`);
+  assert.ok(Math.abs(kincaidRaw - -1.45) < 1e-9, `raw Flesch-Kincaid Grade is ${kincaidRaw}`);
+
+  // The engine rounds to one decimal, like every score it reports.
+  assert.ok(
+    Math.abs(scores.fleschReadingEase - 116.145) <= 0.05,
+    `rounded Flesch Reading Ease is ${scores.fleschReadingEase}`,
+  );
+  assert.ok(
+    Math.abs(scores.fleschKincaidGrade - -1.45) <= 0.1,
+    `rounded Flesch-Kincaid Grade is ${scores.fleschKincaidGrade}`,
+  );
+});
