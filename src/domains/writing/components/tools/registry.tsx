@@ -111,6 +111,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "character-profile-builder": dynamic(() => import("./character-profile-builder")),
   "conflict-and-resolution-planner": dynamic(() => import("./conflict-and-resolution-planner")),
 
+  // ── B14: specialized and academic — argument, thesis, survey, review ────
+  "logical-fallacy-detector": dynamic(() => import("./logical-fallacy-detector")),
+  "thesis-statement-builder": dynamic(() => import("./thesis-statement-builder")),
+  "argument-mapping-tool": dynamic(() => import("./argument-mapping-tool")),
+  "survey-question-builder": dynamic(() => import("./survey-question-builder")),
+  "peer-review-checklist": dynamic(() => import("./peer-review-checklist")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

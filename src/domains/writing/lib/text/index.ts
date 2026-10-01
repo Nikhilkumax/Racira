@@ -59,3 +59,8 @@ export * from "./scene-description.ts";
 export * from "./poetry-form.ts";
 export * from "./character-profile.ts";
 export * from "./conflict-planner.ts";
+export * from "./fallacy.ts";
+export * from "./thesis.ts";
+export * from "./argument-map.ts";
+export * from "./survey-question.ts";
+export * from "./peer-review.ts";
