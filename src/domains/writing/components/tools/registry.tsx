@@ -83,6 +83,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "meeting-summary-formatter": dynamic(() => import("./meeting-summary-formatter")),
   "citation-formatter": dynamic(() => import("./citation-formatter")),
 
+  // ── B10: citation engine continued — reference lists and notes ──────────
+  "bibliography-builder": dynamic(() => import("./bibliography-builder")),
+  "endnote-manager": dynamic(() => import("./endnote-manager")),
+  "reference-list-generator": dynamic(() => import("./reference-list-generator")),
+  "in-text-citation-builder": dynamic(() => import("./in-text-citation-builder")),
+  "academic-journal-reference-formatter": dynamic(() => import("./academic-journal-reference-formatter")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

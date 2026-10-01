@@ -68,6 +68,8 @@ export interface CitationFields {
   /** Notes and short forms use this (e.g. "45" or "45-47"). */
   pinpoint?: string;
   reportNumber?: string;
+  /** Online-only journals that number articles instead of paginating them. */
+  articleNumber?: string;
   // Legal fields
   reporter?: string;
   court?: string;
@@ -250,6 +252,14 @@ function warningsFor(fields: CitationFields, style: CitationStyle): string[] {
   if (!legal && !doiOrUrl(fields) && fields.sourceType === "website") {
     warnings.push("No URL: a web page cannot be located without one.");
   }
+  if (
+    style === "chicago17" &&
+    fields.sourceType === "journal-article" &&
+    fields.articleNumber &&
+    !fields.pages
+  ) {
+    warnings.push("Chicago prints an article number in the page slot; enter it in Pages.");
+  }
   return warnings;
 }
 
@@ -278,9 +288,13 @@ function apaBibliography(fields: CitationFields, options: CitationOptions): stri
     case "journal-article": {
       const volume = fields.volume ? `, ${fields.volume}` : "";
       const issue = fields.issue ? `(${fields.issue})` : "";
-      const pages = fields.pages ? `, ${pageRange(fields.pages, "apa7")}` : "";
+      const locator = fields.pages
+        ? `, ${pageRange(fields.pages, "apa7")}`
+        : fields.articleNumber
+          ? `, Article ${fields.articleNumber}`
+          : "";
       const tail = link ? ` ${link}` : "";
-      return `${lead}(${year}). ${title}. ${italic(fields.container ?? "", options)}${volume}${issue}${pages}.${tail}`.trim();
+      return `${lead}(${year}). ${title}. ${italic(fields.container ?? "", options)}${volume}${issue}${locator}.${tail}`.trim();
     }
     case "newspaper-article": {
       const date = fields.date ? `, ${fields.date}` : "";
@@ -335,9 +349,13 @@ function mlaBibliography(fields: CitationFields, options: CitationOptions): stri
     case "journal-article": {
       const volume = fields.volume ? `, vol. ${fields.volume}` : "";
       const issue = fields.issue ? `, no. ${fields.issue}` : "";
-      const pages = fields.pages ? `, pp. ${pageRange(fields.pages, "mla9")}` : "";
+      const locator = fields.pages
+        ? `, pp. ${pageRange(fields.pages, "mla9")}`
+        : fields.articleNumber
+          ? `, Art. no. ${fields.articleNumber}`
+          : "";
       const tail = link ? `, ${link}` : "";
-      return `${lead}"${title}." ${italic(fields.container ?? "", options)}${volume}${issue}, ${year}${pages}${tail}.`.trim();
+      return `${lead}"${title}." ${italic(fields.container ?? "", options)}${volume}${issue}, ${year}${locator}${tail}.`.trim();
     }
     case "newspaper-article": {
       const date = fields.date || year;
