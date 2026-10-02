@@ -181,6 +181,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "plagiarism-self-check-prep-tool": dynamic(() => import("./plagiarism-self-check-prep-tool")),
   "writing-portfolio-builder": dynamic(() => import("./writing-portfolio-builder")),
 
+  // ── B24: templates and generators — pages, proposals, postings, terms ───
+  "about-page-builder": dynamic(() => import("./about-page-builder")),
+  "rfp-response-builder": dynamic(() => import("./rfp-response-builder")),
+  "job-description-writer": dynamic(() => import("./job-description-writer")),
+  "product-description-writer": dynamic(() => import("./product-description-writer")),
+  "terms-of-service-template": dynamic(() => import("./terms-of-service-template")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

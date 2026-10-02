@@ -109,3 +109,8 @@ export * from "./debate-script.ts";
 export * from "./irb-consent.ts";
 export * from "./plagiarism-prep.ts";
 export * from "./writing-portfolio.ts";
+export * from "./about-page.ts";
+export * from "./rfp-response.ts";
+export * from "./job-description.ts";
+export * from "./product-description.ts";
+export * from "./terms-of-service.ts";
