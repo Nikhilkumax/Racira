@@ -18,6 +18,7 @@ import { B14_ACADEMIC_SEO } from "./seo/b14-academic";
 import { B15_TEMPLATES_SEO } from "./seo/b15-templates";
 import { B16_TEMPLATES_SEO } from "./seo/b16-templates";
 import { B17_MARKETING_SEO } from "./seo/b17-marketing";
+import { B18_MARKETING_SEO } from "./seo/b18-marketing";
 
 /**
  * Authored editorial SEO content for the Writing domain, keyed by registry slug.
@@ -56,6 +57,7 @@ const WRITING_SEO: Record<string, ToolSeo> = {
   ...B15_TEMPLATES_SEO,
   ...B16_TEMPLATES_SEO,
   ...B17_MARKETING_SEO,
+  ...B18_MARKETING_SEO,
 };
 
 /**

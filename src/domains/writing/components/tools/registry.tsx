@@ -139,6 +139,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "email-subject-line-tester": dynamic(() => import("./email-subject-line-tester")),
   "value-proposition-builder": dynamic(() => import("./value-proposition-builder")),
 
+  // ── B18: content and marketing — landing pages, ads, social, launches ──
+  "landing-page-copy-builder": dynamic(() => import("./landing-page-copy-builder")),
+  "ad-copy-framework-builder": dynamic(() => import("./ad-copy-framework-builder")),
+  "social-post-caption-builder": dynamic(() => import("./social-post-caption-builder")),
+  "product-launch-copy-builder": dynamic(() => import("./product-launch-copy-builder")),
+  "case-study-template": dynamic(() => import("./case-study-template")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

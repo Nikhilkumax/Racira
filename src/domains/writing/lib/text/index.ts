@@ -79,3 +79,8 @@ export * from "./cta-copy.ts";
 export * from "./tagline.ts";
 export * from "./subject-line.ts";
 export * from "./value-prop.ts";
+export * from "./landing-page.ts";
+export * from "./ad-frameworks.ts";
+export * from "./social-caption.ts";
+export * from "./launch-copy.ts";
+export * from "./case-study.ts";
