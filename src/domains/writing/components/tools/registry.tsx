@@ -188,6 +188,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "product-description-writer": dynamic(() => import("./product-description-writer")),
   "terms-of-service-template": dynamic(() => import("./terms-of-service-template")),
 
+  // ── B25: content and marketing — sales, testimonials, voice, microcopy ──
+  "sales-page-copywriting-tool": dynamic(() => import("./sales-page-copywriting-tool")),
+  "testimonial-formatter": dynamic(() => import("./testimonial-formatter")),
+  "brand-voice-guide-builder": dynamic(() => import("./brand-voice-guide-builder")),
+  "microcopy-library": dynamic(() => import("./microcopy-library")),
+  "privacy-policy-template": dynamic(() => import("./privacy-policy-template")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

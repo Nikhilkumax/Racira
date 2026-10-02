@@ -114,3 +114,8 @@ export * from "./rfp-response.ts";
 export * from "./job-description.ts";
 export * from "./product-description.ts";
 export * from "./terms-of-service.ts";
+export * from "./sales-page.ts";
+export * from "./testimonial.ts";
+export * from "./brand-voice.ts";
+export * from "./microcopy.ts";
+export * from "./privacy-policy.ts";
