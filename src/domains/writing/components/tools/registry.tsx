@@ -174,6 +174,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "grant-proposal-outline": dynamic(() => import("./grant-proposal-outline")),
   "technical-report-template": dynamic(() => import("./technical-report-template")),
 
+  // ── B23: specialized and academic — argument, debate, consent, prep ─────
+  "counterargument-generator": dynamic(() => import("./counterargument-generator")),
+  "debate-script-formatter": dynamic(() => import("./debate-script-formatter")),
+  "irb-consent-form-template": dynamic(() => import("./irb-consent-form-template")),
+  "plagiarism-self-check-prep-tool": dynamic(() => import("./plagiarism-self-check-prep-tool")),
+  "writing-portfolio-builder": dynamic(() => import("./writing-portfolio-builder")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

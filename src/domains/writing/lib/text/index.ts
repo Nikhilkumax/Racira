@@ -104,3 +104,8 @@ export * from "./literature-review.ts";
 export * from "./paper-section-planner.ts";
 export * from "./grant-proposal.ts";
 export * from "./technical-report.ts";
+export * from "./counterargument.ts";
+export * from "./debate-script.ts";
+export * from "./irb-consent.ts";
+export * from "./plagiarism-prep.ts";
+export * from "./writing-portfolio.ts";
