@@ -195,6 +195,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "microcopy-library": dynamic(() => import("./microcopy-library")),
   "privacy-policy-template": dynamic(() => import("./privacy-policy-template")),
 
+  // ── B26: story planning and structured editing — plots, genres, endings, editors ──
+  "plot-structure-planner": dynamic(() => import("./plot-structure-planner")),
+  "genre-blender-idea-tool": dynamic(() => import("./genre-blender-idea-tool")),
+  "ending-generator": dynamic(() => import("./ending-generator")),
+  "rich-text-editor": dynamic(() => import("./rich-text-editor")),
+  "block-based-editor": dynamic(() => import("./block-based-editor")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

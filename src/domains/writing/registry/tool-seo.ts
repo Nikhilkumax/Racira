@@ -26,6 +26,7 @@ import { B22_ACADEMIC_SEO } from "./seo/b22-academic";
 import { B23_SPECIALIZED_SEO } from "./seo/b23-specialized";
 import { B24_TEMPLATES_SEO } from "./seo/b24-templates";
 import { B25_CONTENT_SEO } from "./seo/b25-content";
+import { B26_EDITORS_SEO } from "./seo/b26-editors";
 
 /**
  * Authored editorial SEO content for the Writing domain, keyed by registry slug.
@@ -72,6 +73,7 @@ const WRITING_SEO: Record<string, ToolSeo> = {
   ...B23_SPECIALIZED_SEO,
   ...B24_TEMPLATES_SEO,
   ...B25_CONTENT_SEO,
+  ...B26_EDITORS_SEO,
 };
 
 /**
