@@ -125,6 +125,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "author-profile-writer": dynamic(() => import("./author-profile-writer")),
   "press-release-template": dynamic(() => import("./press-release-template")),
 
+  // ── B16: templates and generators — outlines, issues, emails, proposals ─
+  "blog-post-outline-builder": dynamic(() => import("./blog-post-outline-builder")),
+  "newsletter-template-builder": dynamic(() => import("./newsletter-template-builder")),
+  "email-template-library": dynamic(() => import("./email-template-library")),
+  "proposal-template": dynamic(() => import("./proposal-template")),
+  "faq-generator": dynamic(() => import("./faq-generator")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

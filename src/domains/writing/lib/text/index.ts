@@ -69,3 +69,8 @@ export * from "./resume.ts";
 export * from "./bio.ts";
 export * from "./author-profile.ts";
 export * from "./press-release.ts";
+export * from "./blog-outline.ts";
+export * from "./newsletter.ts";
+export * from "./email-templates.ts";
+export * from "./proposal.ts";
+export * from "./faq.ts";
