@@ -87,11 +87,11 @@ export const categories: ToolCategory[] = [
   {
     name: "Paraphrasing & Rewriting",
     tools: [
-      mk("Sentence Rewriter", "Rewrite sentences locally", LetterText, false),
-      mk("Simplify Text Tool", "Make complex text easier to read", MessageSquareText, false),
-      mk("Formality Adjuster", "Dial formality up or down", Megaphone, false),
-      mk("Technical to Plain Language Converter", "Translate jargon to plain English", Globe, false),
-      mk("Active Voice Converter", "Turn passive sentences active", AlignHorizontalDistributeStart, false),
+      mk("Sentence Rewriter", "Compare four rule-based rewrites of each sentence", LetterText, true),
+      mk("Simplify Text Tool", "Replace wordy phrases and split long sentences", MessageSquareText, true),
+      mk("Formality Adjuster", "Shift register with a paired word table", Megaphone, true),
+      mk("Technical to Plain Language Converter", "Expand acronyms and replace listed jargon", Globe, true),
+      mk("Active Voice Converter", "Recast passives that name their actor", AlignHorizontalDistributeStart, true),
       mk("Headline Rewriter", "Generate sharper headlines", Edit3, false),
       mk("Paragraph Compressor", "Compress long paragraphs", NotebookText, false),
       mk("Email to Formal Letter Converter", "Turn casual emails into formal letters", Mail, false),

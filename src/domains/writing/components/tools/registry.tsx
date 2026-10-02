@@ -153,6 +153,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "villain-motivation-builder": dynamic(() => import("./villain-motivation-builder")),
   "first-line-generator": dynamic(() => import("./first-line-generator")),
 
+  // ── B20: paraphrasing and rewriting — sentence moves, simplification ──────
+  "sentence-rewriter": dynamic(() => import("./sentence-rewriter")),
+  "simplify-text-tool": dynamic(() => import("./simplify-text-tool")),
+  "formality-adjuster": dynamic(() => import("./formality-adjuster")),
+  "technical-to-plain-language-converter": dynamic(() => import("./technical-to-plain-language-converter")),
+  "active-voice-converter": dynamic(() => import("./active-voice-converter")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

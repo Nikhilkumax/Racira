@@ -89,3 +89,8 @@ export * from "./world-building.ts";
 export * from "./writing-prompt.ts";
 export * from "./villain-motivation.ts";
 export * from "./first-line.ts";
+export * from "./sentence-rewriter.ts";
+export * from "./simplify-text.ts";
+export * from "./formality-adjuster.ts";
+export * from "./technical-to-plain-language.ts";
+export * from "./active-voice-converter.ts";
