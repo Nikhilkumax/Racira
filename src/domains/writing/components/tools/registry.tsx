@@ -160,6 +160,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "technical-to-plain-language-converter": dynamic(() => import("./technical-to-plain-language-converter")),
   "active-voice-converter": dynamic(() => import("./active-voice-converter")),
 
+  // ── B21: paraphrasing and rewriting — headlines, compression, letters ────
+  "headline-rewriter": dynamic(() => import("./headline-rewriter")),
+  "paragraph-compressor": dynamic(() => import("./paragraph-compressor")),
+  "email-to-formal-letter-converter": dynamic(() => import("./email-to-formal-letter")),
+  "bullet-to-prose-converter": dynamic(() => import("./bullet-to-prose")),
+  "abstract-generator": dynamic(() => import("./abstract-generator")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

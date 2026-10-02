@@ -94,3 +94,8 @@ export * from "./simplify-text.ts";
 export * from "./formality-adjuster.ts";
 export * from "./technical-to-plain-language.ts";
 export * from "./active-voice-converter.ts";
+export * from "./headline-rewriter.ts";
+export * from "./paragraph-compressor.ts";
+export * from "./email-to-formal-letter.ts";
+export * from "./bullet-to-prose.ts";
+export * from "./abstract.ts";

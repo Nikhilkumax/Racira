@@ -27,7 +27,7 @@ The engine also protects the words it does not own. When a clause moves, only a 
 
 A typical pass is fast. Paste a paragraph, read the variants, keep the one or two that improve the rhythm, and copy them with the copy button beside each. The tool does not write the paragraph and cannot tell whether a rewrite is an improvement in context; it offers the sentence-level options and says plainly what each one changes. That is the whole contract, and it is enough to break a run of flat, same-shaped sentences without giving up authorship of the prose.
 
-For a paragraph that reads heavily rather than flatly, the Simplify Text Tool satisfies a different need: it replaces published wordy phrases and splits long sentences, with before and after metrics on the same page.\\n\\nKeep the original beside the rewrite for a day before accepting it. A reordered clause often sounds better on the page and worse in the paragraph, and the ear is a better judge of that than the tool is.`,
+For a paragraph that reads heavily rather than flatly, the Simplify Text Tool satisfies a different need: it replaces published wordy phrases and splits long sentences, with before and after metrics on the same page.\n\nKeep the original beside the rewrite for a day before accepting it. A reordered clause often sounds better on the page and worse in the paragraph, and the ear is a better judge of that than the tool is.`,
     howTo: [
       { step: "Paste a paragraph into the text box — each sentence is handled on its own." },
       { step: "Read the original and its word count, then the variants beneath it." },
@@ -35,7 +35,7 @@ For a paragraph that reads heavily rather than flatly, the Simplify Text Tool sa
       { step: "Use the split variant where two ideas are competing for one full stop." },
       { step: "Copy the variants you want and paste them back into the draft." },
     ],
-    whenToUse: `Use the sentence rewriter when a paragraph is technically correct but monotonous — the same shape of sentence arriving three times in a row. When the problem is wordiness rather than rhythm, the {{simplify-text-tool|Simplify Text Tool}} replaces published phrases and splits long sentences instead.\\n\\nIf the flatness comes from too many passives, the {{active-voice-converter|Active Voice Converter}} recasts the clauses that name their actor, and the two tools together cover most of what makes a draft feel heavy.`,
+    whenToUse: `Use the sentence rewriter when a paragraph is technically correct but monotonous — the same shape of sentence arriving three times in a row. When the problem is wordiness rather than rhythm, the {{simplify-text-tool|Simplify Text Tool}} replaces published phrases and splits long sentences instead.\n\nIf the flatness comes from too many passives, the {{active-voice-converter|Active Voice Converter}} recasts the clauses that name their actor, and the two tools together cover most of what makes a draft feel heavy.`,
     faqs: [
       {
         q: "How many rewrites does each sentence get?",
@@ -76,7 +76,7 @@ The tool is honest about the trade. Shorter is not automatically clearer, and a 
 
 A document can be pasted whole. The simplifications are produced in order, the copy button exports the simplified text entire, and the download button saves it as a plain text file beside the draft. Nothing is uploaded and nothing is stored beyond the tab, so a client document stays where it belongs. What the tool will not do is rewrite an idea: it simplifies the sentences you wrote and leaves the thinking exactly where it was.
 
-Pair the tool with the {{sentence-rewriter|Sentence Rewriter}} when a paragraph is monotonous rather than wordy; the rewriter changes the shape of sentences while the simplifier changes their weight.\\n\\nOne habit makes the metrics useful: simplify before you revise content, not after. Wordy phrases hide missing detail, and a sentence that shrinks from forty words to twenty often shows exactly which fact was never stated.`,
+Pair the tool with the {{sentence-rewriter|Sentence Rewriter}} when a paragraph is monotonous rather than wordy; the rewriter changes the shape of sentences while the simplifier changes their weight.\n\nOne habit makes the metrics useful: simplify before you revise content, not after. Wordy phrases hide missing detail, and a sentence that shrinks from forty words to twenty often shows exactly which fact was never stated.`,
     howTo: [
       { step: "Paste a paragraph or a whole document into the text box." },
       { step: "Read the phrase count and the before to after sentence-length figures." },
@@ -84,7 +84,7 @@ Pair the tool with the {{sentence-rewriter|Sentence Rewriter}} when a paragraph 
       { step: "Review the split sentences in context; keep the split only where it reads better." },
       { step: "Copy or download the simplified version and compare it with the original." },
     ],
-    whenToUse: `Use the simplify text tool when a draft is padded rather than wrong — where the ideas are sound and the sentences are carrying more words than they need. It is the fastest first pass on instructions, policies and product copy, because the substitutions come from a fixed table and change no meaning.\\n\\nWhere the problem is sentence shape rather than sentence length, the {{sentence-rewriter|Sentence Rewriter}} offers clause-order and splitting variants instead. And when the padding is technical vocabulary rather than wordiness, the {{technical-to-plain-language-converter|Technical to Plain Language Converter}} expands acronyms and replaces listed jargon with plain words.`,
+    whenToUse: `Use the simplify text tool when a draft is padded rather than wrong — where the ideas are sound and the sentences are carrying more words than they need. It is the fastest first pass on instructions, policies and product copy, because the substitutions come from a fixed table and change no meaning.\n\nWhere the problem is sentence shape rather than sentence length, the {{sentence-rewriter|Sentence Rewriter}} offers clause-order and splitting variants instead. And when the padding is technical vocabulary rather than wordiness, the {{technical-to-plain-language-converter|Technical to Plain Language Converter}} expands acronyms and replaces listed jargon with plain words.`,
     faqs: [
       {
         q: "What counts as a wordy phrase?",
@@ -127,7 +127,7 @@ Vocabulary is not the only lever, and the page says so. Sentence length, contrac
 
 Practically, the adjuster is most useful in the last pass before sending something. A support reply that has drifted casual, a policy written in the voice of a chat message, a cover letter that reads like a text: each is a few substitutions away from the register it needs. Copy the adjusted version, read it once for tone, and keep the changes you agree with. Nothing is uploaded, and the original stays on the page beside the result.
 
-For brevity rather than register, the {{simplify-text-tool|Simplify Text Tool}} is the better next step, and for prose that has lost its actor, the {{active-voice-converter|Active Voice Converter}} recasts the passives.\\n\\nA useful test after adjusting: read the result aloud. Register is heard before it is seen, and a sentence that sounds like a stranger usually still needs a substitution or two.`,
+For brevity rather than register, the {{simplify-text-tool|Simplify Text Tool}} is the better next step, and for prose that has lost its actor, the {{active-voice-converter|Active Voice Converter}} recasts the passives.\n\nA useful test after adjusting: read the result aloud. Register is heard before it is seen, and a sentence that sounds like a stranger usually still needs a substitution or two.`,
     howTo: [
       { step: "Paste the message or paragraph you want to adjust." },
       { step: "Read the formality score, its band and the casual and formal marker counts." },
@@ -135,7 +135,7 @@ For brevity rather than register, the {{simplify-text-tool|Simplify Text Tool}} 
       { step: "Review the change list — every substitution is listed with its source." },
       { step: "Copy the adjusted version and read it once for tone before sending." },
     ],
-    whenToUse: `Use the formality adjuster when the content is right and only the tone is off: a support reply that reads too casually, a policy that reads like a chat message, or a covering note that needs to sound less stiff. The substitutions are listed, so nothing changes without being visible.\\n\\nFor drafts that are padded rather than misjudged, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits long sentences. When register is fine but the prose has lost its actor, the {{active-voice-converter|Active Voice Converter}} recasts the passives that name one.`,
+    whenToUse: `Use the formality adjuster when the content is right and only the tone is off: a support reply that reads too casually, a policy that reads like a chat message, or a covering note that needs to sound less stiff. The substitutions are listed, so nothing changes without being visible.\n\nFor drafts that are padded rather than misjudged, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits long sentences. When register is fine but the prose has lost its actor, the {{active-voice-converter|Active Voice Converter}} recasts the passives that name one.`,
     faqs: [
       {
         q: "What is the formality score?",
@@ -178,7 +178,7 @@ The rules are vocabulary-level and the page says so. Nothing is paraphrased, no 
 
 The usual workflow is a first pass on user-facing prose: paste a help article, a release note or a policy summary, read the plain version and the term list, restore the two or three substitutions that were wrong for the audience, and take the leftover list as a short to-do. Because everything is listed, the pass takes minutes and the result is explainable to whoever reviews the document.
 
-Use it before a document goes to an audience that did not choose the subject — end users, applicants, patients, customers. Then let a human decide which precise terms must stay.\\n\\nFor sentence-level weight rather than vocabulary, the {{simplify-text-tool|Simplify Text Tool}} and the {{sentence-rewriter|Sentence Rewriter}} take over where this converter stops.`,
+Use it before a document goes to an audience that did not choose the subject — end users, applicants, patients, customers. Then let a human decide which precise terms must stay.\n\nFor sentence-level weight rather than vocabulary, the {{simplify-text-tool|Simplify Text Tool}} and the {{sentence-rewriter|Sentence Rewriter}} take over where this converter stops.`,
     howTo: [
       { step: "Paste the technical text into the box." },
       { step: "Read the converted version and the count of terms rewritten." },
@@ -186,7 +186,7 @@ Use it before a document goes to an audience that did not choose the subject —
       { step: "Review the leftover list and handle the long words by hand." },
       { step: "Copy or download the plain version and restore any term your audience needs exactly." },
     ],
-    whenToUse: `Use the technical to plain language converter when a document written by specialists has to be read by everyone else: help articles, release notes, policy summaries, onboarding material and consent text. It expands listed acronyms, replaces listed jargon, and tells you what it left alone.\\n\\nWhen the sentences themselves are the problem, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits long sentences, and the {{sentence-rewriter|Sentence Rewriter}} offers clause-level rewrites for prose that has gone flat.`,
+    whenToUse: `Use the technical to plain language converter when a document written by specialists has to be read by everyone else: help articles, release notes, policy summaries, onboarding material and consent text. It expands listed acronyms, replaces listed jargon, and tells you what it left alone.\n\nWhen the sentences themselves are the problem, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits long sentences, and the {{sentence-rewriter|Sentence Rewriter}} offers clause-level rewrites for prose that has gone flat.`,
     faqs: [
       {
         q: "Which acronyms are expanded?",
@@ -229,7 +229,7 @@ The move from passive to active is a choice about emphasis rather than a rule of
 
 Practically, a pass takes a minute: paste a paragraph, read the converted version, scan the amber findings for the clauses that need a human, and copy the result. Every original clause is shown beside its rewrite, so nothing is lost if a recast reads worse in context. Nothing is uploaded, and the whole conversion happens in the tab.
 
-When a paragraph is flat for other reasons, the {{sentence-rewriter|Sentence Rewriter}} changes sentence shape and the {{simplify-text-tool|Simplify Text Tool}} trims the weight from long sentences.\\n\\nOne caution worth repeating: the passive voice is not a fault. Convert a passive only when naming the actor adds information; if it adds an accusation or a guess, the passive was doing honest work.`,
+When a paragraph is flat for other reasons, the {{sentence-rewriter|Sentence Rewriter}} changes sentence shape and the {{simplify-text-tool|Simplify Text Tool}} trims the weight from long sentences.\n\nOne caution worth repeating: the passive voice is not a fault. Convert a passive only when naming the actor adds information; if it adds an accusation or a guess, the passive was doing honest work.`,
     howTo: [
       { step: "Paste a paragraph containing passive clauses." },
       { step: "Read the active version and the converted-clause count." },
@@ -237,7 +237,7 @@ When a paragraph is flat for other reasons, the {{sentence-rewriter|Sentence Rew
       { step: "Add a named actor where one exists, then convert that clause by hand or with the tool." },
       { step: "Copy the result and check each recast clause in the context of the paragraph." },
     ],
-    whenToUse: `Use the active voice converter on reports, procedures and briefings where too many clauses have lost their subject and the prose has gone grey. It recasts the clauses that name their actor and can be rebuilt safely, and it reports the ones that cannot.\\n\\nIf the paragraphs are still long and padded after conversion, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits sentences, while the {{sentence-rewriter|Sentence Rewriter}} handles prose whose problem is shape rather than voice.`,
+    whenToUse: `Use the active voice converter on reports, procedures and briefings where too many clauses have lost their subject and the prose has gone grey. It recasts the clauses that name their actor and can be rebuilt safely, and it reports the ones that cannot.\n\nIf the paragraphs are still long and padded after conversion, the {{simplify-text-tool|Simplify Text Tool}} replaces wordy phrases and splits sentences, while the {{sentence-rewriter|Sentence Rewriter}} handles prose whose problem is shape rather than voice.`,
     faqs: [
       {
         q: "Which passives can be converted automatically?",
