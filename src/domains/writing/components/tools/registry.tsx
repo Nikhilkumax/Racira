@@ -146,6 +146,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "product-launch-copy-builder": dynamic(() => import("./product-launch-copy-builder")),
   "case-study-template": dynamic(() => import("./case-study-template")),
 
+  // ── B19: creative writing — ideas, worlds, prompts, villains, openings ──
+  "story-idea-generator": dynamic(() => import("./story-idea-generator")),
+  "world-building-template": dynamic(() => import("./world-building-template")),
+  "writing-prompt-generator": dynamic(() => import("./writing-prompt-generator")),
+  "villain-motivation-builder": dynamic(() => import("./villain-motivation-builder")),
+  "first-line-generator": dynamic(() => import("./first-line-generator")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };
