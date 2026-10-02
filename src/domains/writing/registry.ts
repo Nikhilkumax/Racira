@@ -172,13 +172,13 @@ export const categories: ToolCategory[] = [
   {
     name: "Content & Marketing Copy",
     tools: [
-      mk("Headline Analyzer", "Score and improve headlines", Gauge, false),
-      mk("CTA Button Copy Generator", "High-converting CTA copy", ClipboardMinus, false),
+      mk("Headline Analyzer", "Score a headline on length, detail, power words and faults", Gauge, true),
+      mk("CTA Button Copy Generator", "Build five button-label variants from a verb, object and benefit", ClipboardMinus, true),
       mk("Landing Page Copy Builder", "Build landing page copy fast", ClipboardPaste, false),
-      mk("Value Proposition Builder", "Clarify your value prop", ClipboardPen, false),
-      mk("Tagline Generator", "Generate memorable taglines", ClipboardPenLine, false),
+      mk("Value Proposition Builder", "Assemble audience, need, benefit, alternative and proof", ClipboardPen, true),
+      mk("Tagline Generator", "Compose five tagline patterns from a brand, benefit and audience", ClipboardPenLine, true),
       mk("Social Post Caption Builder", "Captions for every platform", ClipboardPlus, false),
-      mk("Email Subject Line Tester", "Test subject line strength", MailCheck, false),
+      mk("Email Subject Line Tester", "Score a subject line for length, trigger phrases and shouting", MailCheck, true),
       mk("Ad Copy Framework Builder", "AIDA, PAS, and more", ClipboardSignature, false),
       mk("Sales Page Copywriting Tool", "Long-form sales page structure", MegaphoneOff, false),
       mk("Product Launch Copy Builder", "Launch announcements that pop", ClipboardType, false),

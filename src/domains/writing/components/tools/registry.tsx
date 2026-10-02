@@ -132,6 +132,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "proposal-template": dynamic(() => import("./proposal-template")),
   "faq-generator": dynamic(() => import("./faq-generator")),
 
+  // ── B17: content and marketing — headlines, CTAs, taglines, subject lines ─
+  "headline-analyzer": dynamic(() => import("./headline-analyzer")),
+  "cta-button-copy-generator": dynamic(() => import("./cta-button-copy-generator")),
+  "tagline-generator": dynamic(() => import("./tagline-generator")),
+  "email-subject-line-tester": dynamic(() => import("./email-subject-line-tester")),
+  "value-proposition-builder": dynamic(() => import("./value-proposition-builder")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

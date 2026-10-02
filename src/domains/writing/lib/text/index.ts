@@ -74,3 +74,8 @@ export * from "./newsletter.ts";
 export * from "./email-templates.ts";
 export * from "./proposal.ts";
 export * from "./faq.ts";
+export * from "./headline.ts";
+export * from "./cta-copy.ts";
+export * from "./tagline.ts";
+export * from "./subject-line.ts";
+export * from "./value-prop.ts";
