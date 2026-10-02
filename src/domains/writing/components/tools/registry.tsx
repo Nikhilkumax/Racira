@@ -118,6 +118,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "survey-question-builder": dynamic(() => import("./survey-question-builder")),
   "peer-review-checklist": dynamic(() => import("./peer-review-checklist")),
 
+  // ── B15: templates and generators — letters, resumes, bios, releases ────
+  "cover-letter-builder": dynamic(() => import("./cover-letter-builder")),
+  "resume-writer": dynamic(() => import("./resume-writer")),
+  "bio-generator": dynamic(() => import("./bio-generator")),
+  "author-profile-writer": dynamic(() => import("./author-profile-writer")),
+  "press-release-template": dynamic(() => import("./press-release-template")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

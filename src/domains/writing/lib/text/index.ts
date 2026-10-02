@@ -64,3 +64,8 @@ export * from "./thesis.ts";
 export * from "./argument-map.ts";
 export * from "./survey-question.ts";
 export * from "./peer-review.ts";
+export * from "./cover-letter.ts";
+export * from "./resume.ts";
+export * from "./bio.ts";
+export * from "./author-profile.ts";
+export * from "./press-release.ts";

@@ -132,12 +132,12 @@ export const categories: ToolCategory[] = [
   {
     name: "Templates & Generators",
     tools: [
-      mk("Cover Letter Builder", "Build standout cover letters", Wand, false),
-      mk("Resume Writer", "Craft a polished resume", FileEdit, false),
-      mk("Bio Generator", "Generate short and long bios", Wand2, false),
+      mk("Cover Letter Builder", "Assemble a cover letter from your facts and check each section", Wand, true),
+      mk("Resume Writer", "Assemble a plain-text resume and check every entry", FileEdit, true),
+      mk("Bio Generator", "Turn your facts into one-line, short and long bios", Wand2, true),
       mk("About Page Builder", "Build an About page that converts", WandSparkles, false),
-      mk("Author Profile Writer", "Write a strong author profile", FolderEdit, false),
-      mk("Press Release Template", "Press release structure ready to go", Wand, false),
+      mk("Author Profile Writer", "Assemble a publication-facing profile from genre, works and themes", FolderEdit, true),
+      mk("Press Release Template", "Build a release with a 5W lead, quote, boilerplate and contact", Wand, true),
       mk("Blog Post Outline Builder", "Outline blog posts quickly", Wand2, false),
       mk("Newsletter Template Builder", "Newsletter sections and layouts", WandSparkles, false),
       mk("Email Template Library", "Reusable email templates", Sparkles, false),
