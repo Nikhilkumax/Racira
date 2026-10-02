@@ -22,6 +22,7 @@ import { B18_MARKETING_SEO } from "./seo/b18-marketing";
 import { B19_CREATIVE_SEO } from "./seo/b19-creative";
 import { B20_PARAPHRASING_SEO } from "./seo/b20-paraphrasing";
 import { B21_PARAPHRASING_SEO } from "./seo/b21-paraphrasing";
+import { B22_ACADEMIC_SEO } from "./seo/b22-academic";
 
 /**
  * Authored editorial SEO content for the Writing domain, keyed by registry slug.
@@ -64,6 +65,7 @@ const WRITING_SEO: Record<string, ToolSeo> = {
   ...B19_CREATIVE_SEO,
   ...B20_PARAPHRASING_SEO,
   ...B21_PARAPHRASING_SEO,
+  ...B22_ACADEMIC_SEO,
 };
 
 /**

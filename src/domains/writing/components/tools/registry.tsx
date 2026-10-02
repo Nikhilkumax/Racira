@@ -167,6 +167,13 @@ export const WRITING_TOOL_COMPONENTS: Record<string, ComponentType> = {
   "bullet-to-prose-converter": dynamic(() => import("./bullet-to-prose")),
   "abstract-generator": dynamic(() => import("./abstract-generator")),
 
+  // ── B22: specialized and academic — abstracts, reviews, plans, reports ──
+  "scientific-abstract-builder": dynamic(() => import("./scientific-abstract-builder")),
+  "literature-review-organizer": dynamic(() => import("./literature-review-organizer")),
+  "academic-paper-section-planner": dynamic(() => import("./academic-paper-section-planner")),
+  "grant-proposal-outline": dynamic(() => import("./grant-proposal-outline")),
+  "technical-report-template": dynamic(() => import("./technical-report-template")),
+
   // ── Pre-existing tool wired into this map ───────────────────────────────
   "distraction-free-writing-editor": dynamic(() => import("./DistractionFreeEditor")),
 };

@@ -99,3 +99,8 @@ export * from "./paragraph-compressor.ts";
 export * from "./email-to-formal-letter.ts";
 export * from "./bullet-to-prose.ts";
 export * from "./abstract.ts";
+export * from "./scientific-abstract.ts";
+export * from "./literature-review.ts";
+export * from "./paper-section-planner.ts";
+export * from "./grant-proposal.ts";
+export * from "./technical-report.ts";
