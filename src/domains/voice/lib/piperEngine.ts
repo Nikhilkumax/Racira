@@ -1,7 +1,8 @@
 // Voice engine wrapper: the only module in the domain the UI talks to. It
-// presents a plain `generateSpeech(request)` promise and a structured progress
-// stream, and hides everything else about how speech is produced — the worker
-// boundary, the inference runtime, the model cache.
+// presents a plain `generateSpeech(request)` promise, a structured progress
+// stream, and `cancelSpeech()` to stop the one run in flight, and hides
+// everything else about how speech is produced — the worker boundary, the
+// inference runtime, the model cache.
 //
 // The actual synthesis happens in `piper.worker.ts`. This module is the client
 // half of that pair: it owns the worker's lifetime, tags each request with an
@@ -59,6 +60,19 @@ export class SpeechInputError extends Error {
 }
 
 /**
+ * Raised when a generation the visitor started was stopped on purpose.
+ *
+ * Distinct from a failure because it is not one: the page is expected to
+ * return to its normal state silently, with nothing for the visitor to read.
+ */
+export class SpeechCancelledError extends Error {
+  constructor() {
+    super("Generation cancelled.");
+    this.name = "SpeechCancelledError";
+  }
+}
+
+/**
  * Raised when one part fails, carrying which part for the console.
  *
  * The message is deliberately generic (see GENERIC_GENERATION_ERROR); the real
@@ -90,7 +104,10 @@ export function toUserFacingError(error: unknown): string {
 export interface GenerateSpeechRequest {
   text: string;
   voiceId: string;
-  /** Output container. Defaults to "wav", which needs no re-encoding. */
+  /**
+   * Output container. The page always passes one; when a caller omits it the
+   * engine writes "wav", which needs no re-encoding.
+   */
   format?: SpeechFormat;
   onProgress?: (progress: SpeechProgress) => void;
 }
@@ -202,6 +219,7 @@ function errorFor(response: VoiceWorkerResponse): unknown {
     return new Error(GENERIC_GENERATION_ERROR);
   }
 
+  if (response.kind === "cancelled") return new SpeechCancelledError();
   if (response.kind === "input") return new SpeechInputError(response.message);
   if (response.kind === "part") {
     return new SpeechPartError(response.part ?? 1, response.total ?? 1, new Error(response.message));
@@ -214,9 +232,12 @@ function postRequest<T extends VoiceWorkerResponse["type"]>(
   build: (id: number) => IdentifiedRequest,
   accept: T,
   onProgress?: (progress: SpeechProgress) => void,
+  /** Handed the id before the request is posted, so the caller can cancel it. */
+  onStart?: (id: number) => void,
 ): Promise<Extract<VoiceWorkerResponse, { type: T }>> {
   const id = nextRequestId++;
   const message = build(id);
+  onStart?.(id);
 
   return new Promise((resolve, reject) => {
     const started = dispatch(message, {
@@ -236,6 +257,43 @@ function postRequest<T extends VoiceWorkerResponse["type"]>(
 
 // ── Generation ──────────────────────────────────────────────────────────
 
+// The generate request in flight, so a cancel can name it. Only one generation
+// runs at a time — the page locks its controls while one is going — so a single
+// value is the whole of the state needed here.
+let activeGenerateId: number | null = null;
+
+/**
+ * Stop the generation currently in flight, if any.
+ *
+ * Returns the page to its normal state at once: the pending promise is settled
+ * here rather than waiting for the worker, which cannot interrupt a part it has
+ * already started and may not answer for some seconds. The worker is told as
+ * well, so it stops before the next part instead of synthesizing a clip nobody
+ * is waiting for.
+ *
+ * A no-op when nothing is generating, so a double click cannot cancel the run
+ * that replaced the first one.
+ */
+export function cancelSpeech(): void {
+  const id = activeGenerateId;
+  if (id === null) return;
+  activeGenerateId = null;
+
+  const entry = pending.get(id);
+  if (entry) {
+    pending.delete(id);
+    entry.settle({ type: "failed", id, kind: "cancelled", message: "Generation cancelled." });
+  }
+
+  try {
+    worker?.postMessage({ type: "cancel", id });
+  } catch (error) {
+    // The worker is gone, which is itself a stopping condition — the request
+    // has already been settled above, so there is nothing left to report.
+    console.error("[voice] could not reach the speech worker to cancel:", error);
+  }
+}
+
 /**
  * Synthesize `request.text` into one continuous audio file.
  *
@@ -251,23 +309,35 @@ export async function generateSpeech(
   const trimmed = request.text.trim();
   if (!trimmed) throw new SpeechInputError(EMPTY_INPUT_ERROR);
 
-  const response = await postRequest(
-    (id) => ({
-      type: "generate",
-      id,
-      voiceId: request.voiceId,
-      text: trimmed,
-      format: request.format ?? "wav",
-    }),
-    "audio",
-    request.onProgress,
-  );
+  let requestId: number | null = null;
+  try {
+    const response = await postRequest(
+      (id) => ({
+        type: "generate",
+        id,
+        voiceId: request.voiceId,
+        text: trimmed,
+        format: request.format ?? "wav",
+      }),
+      "audio",
+      request.onProgress,
+      (id) => {
+        requestId = id;
+        activeGenerateId = id;
+      },
+    );
 
-  return {
-    blob: new Blob([response.bytes], { type: response.mime }),
-    durationSec: response.durationSec,
-    parts: response.parts,
-  };
+    return {
+      blob: new Blob([response.bytes], { type: response.mime }),
+      durationSec: response.durationSec,
+      parts: response.parts,
+    };
+  } finally {
+    // Only clear the slot when this request still owns it: a cancel already
+    // cleared it (and a later generation may already have taken it), and
+    // clobbering that here would strand the newer request's cancel.
+    if (activeGenerateId === requestId) activeGenerateId = null;
+  }
 }
 
 // ── Local storage (OPFS) ────────────────────────────────────────────────

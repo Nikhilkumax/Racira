@@ -88,11 +88,38 @@ const countryCodes = countryMatch
   ? [...countryMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1])
   : [];
 
-const QUALITY_LABELS = {
-  x_low: "Very light",
-  low: "Light",
-  medium: "Standard",
-  high: "High fidelity",
+// The quality tiers the engine publishes, in descending order of work per
+// character. Only the keys are listed: the words a visitor reads for a tier
+// live in src/domains/voice/lib/voicePresentation.ts, which is also where the
+// picker's sort order comes from. A tier is validated here so a library bump
+// that adds one stops the generator instead of shipping an unlabelled voice.
+const QUALITY_TIERS = ["high", "medium", "low", "x_low"];
+
+// Speed tier and synthesis time per 1000 characters, both keyed by quality tier.
+//
+// PROVISIONAL — TODO: replace with measured values. Neither number is a
+// measurement: they only encode the tier ordering (a Basic-tier model does less
+// work per character than a Good-tier one, and a Best-tier model does the most),
+// which is all the page's rough "about N s" estimate needs to be directionally
+// honest. Treat them as placeholders until real timings are taken.
+const SPEED_BY_QUALITY = {
+  x_low: "fast",
+  low: "fast",
+  medium: "normal",
+  high: "slow",
+};
+
+// TODO: replace with measured values (see SPEED_BY_QUALITY above).
+//
+// Anchored on a single informal run on one development machine (~2-3 s per
+// 1000 characters at the middle tier, multi-threaded), then rounded up so the
+// estimate stays an over-estimate on slower hardware. One machine, one run:
+// replace these before trusting the numbers.
+const SECONDS_PER_1000_CHARS_BY_QUALITY = {
+  x_low: 3,
+  low: 3,
+  medium: 6,
+  high: 20,
 };
 
 // Display names for the language-region codes in the union. A missing entry is
@@ -142,10 +169,10 @@ const LANGUAGE_LABELS = {
 // English-first shortlist pinned to the top of the picker. Every id must exist
 // in the union; a stale entry fails the generator rather than rendering a
 // dead option. The first entry is the picker's default: Ryan, the flagship US
-// male voice — at *standard* quality. The high-fidelity model is twice the
-// download and roughly four times the synthesis time per part, and the default
-// is the first impression of the tool, so the fast tier leads. High fidelity
-// sits one row below it and every tier stays selectable.
+// male voice — at *Good* quality. The Best-tier model is twice the download and
+// roughly four times the synthesis time per part, and the default is the first
+// impression of the tool, so the fast tier leads. Best sits one row below it
+// and every tier stays selectable.
 const FEATURED_VOICE_IDS = [
   "en_US-ryan-medium",
   "en_US-ryan-high",
@@ -244,8 +271,8 @@ for (const id of voiceIds) {
   if (!LANGUAGE_LABELS[lang]) {
     problems.push(`No display label for language code: ${lang} (voice ${id})`);
   }
-  if (!QUALITY_LABELS[quality]) {
-    problems.push(`No display label for quality tier: ${quality} (voice ${id})`);
+  if (!QUALITY_TIERS.includes(quality)) {
+    problems.push(`Unrecognised quality tier: ${quality} (voice ${id})`);
   }
   if (seen.has(id)) problems.push(`Duplicate voice id: ${id}`);
   seen.add(id);
@@ -282,9 +309,16 @@ for (const id of voiceIds) {
     langName: LANGUAGE_LABELS[lang] ?? lang,
     speaker,
     name: override?.name ?? speaker,
-    gender: override?.gender ?? "female",
+    // Never guessed: an uncurated speaker reports no gender rather than being
+    // assumed male or female. The picker renders those voices without a
+    // parenthetical and sorts them after the known ones.
+    gender: override?.gender ?? null,
+    speed: SPEED_BY_QUALITY[quality] ?? "normal",
+    // TODO: replace with measured values (see SPEED_BY_QUALITY).
+    secondsPer1000Chars: SECONDS_PER_1000_CHARS_BY_QUALITY[quality] ?? 6,
+    // The tier key only. Its display name and its sort position both come from
+    // voicePresentation.ts, so no wording is baked into the catalog.
     quality,
-    qualityLabel: QUALITY_LABELS[quality] ?? quality,
   });
 }
 
@@ -321,14 +355,27 @@ const sortedLanguages = [
     .sort((a, b) => LANGUAGE_LABELS[a].localeCompare(LANGUAGE_LABELS[b])),
 ];
 
-/** Featured first (in shortlist order), then everything else alphabetically. */
+/**
+ * Featured first (in shortlist order), then everything else by name and
+ * quality. The picker sorts for itself; this only keeps the written file in a
+ * stable, readable order.
+ *
+ * The quality tiebreak uses the tier's position in QUALITY_TIERS rather than a
+ * display name, because the words for the tiers do not live in this script.
+ * The id breaks a remaining tie, so the output cannot depend on sort stability.
+ */
 function orderVoicesForLanguage(code) {
   const inLanguage = voices.filter((v) => v.lang === code);
   const featured = FEATURED_VOICE_IDS.filter((id) => inLanguage.some((v) => v.id === id))
     .map((id) => inLanguage.find((v) => v.id === id));
   const rest = inLanguage
     .filter((v) => !FEATURED_VOICE_IDS.includes(v.id))
-    .sort((a, b) => a.name.localeCompare(b.name) || a.qualityLabel.localeCompare(b.qualityLabel));
+    .sort(
+      (a, b) =>
+        a.name.localeCompare(b.name) ||
+        QUALITY_TIERS.indexOf(a.quality) - QUALITY_TIERS.indexOf(b.quality) ||
+        a.id.localeCompare(b.id),
+    );
   return [...featured, ...rest];
 }
 
@@ -358,6 +405,11 @@ const out = `// AUTO-GENERATED — do not edit by hand.
 // the generator hard-fails if any voice is missing from that mapping, if the
 // mapping names a voice the library no longer ships, or if two speakers in one
 // language share a display name.
+//
+// speed and secondsPer1000Chars are derived from the quality tier and are
+// PROVISIONAL placeholders awaiting measurement. The quality tier is stored as
+// its key alone: the words shown for it and the order it sorts in belong to
+// voicePresentation.ts.
 
 export interface VoiceOption {
   /** Engine-facing id, e.g. "en_US-ryan-high". */
@@ -370,12 +422,32 @@ export interface VoiceOption {
   speaker: string;
   /** Curated display name, e.g. "Ryan" (from voiceNames.ts). */
   name: string;
-  /** Voice gender for the picker's filter (from voiceNames.ts). */
-  gender: "male" | "female";
-  /** Quality tier as published. */
+  /**
+   * Curated voice gender (from voiceNames.ts), or null when it is unknown.
+   * Null means "not recorded", never a guess, and is rendered as a label with
+   * no parenthetical.
+   */
+  gender: "male" | "female" | null;
+  /**
+   * Relative speed tier, derived from the quality tier.
+   *
+   * PROVISIONAL — TODO: replace with measured values. Only the ordering is
+   * meaningful; see SPEED_BY_QUALITY in scripts/generate-voice-catalog.mjs.
+   */
+  speed: "fast" | "normal" | "slow";
+  /**
+   * Rough synthesis time per 1000 characters, in seconds.
+   *
+   * PROVISIONAL — TODO: replace with measured values. Not a measurement; see
+   * SECONDS_PER_1000_CHARS_BY_QUALITY in scripts/generate-voice-catalog.mjs.
+   */
+  secondsPer1000Chars: number;
+  /**
+   * Quality tier as published — a key, never a label. There is deliberately no
+   * qualityLabel field: the display names and their order live in
+   * voicePresentation.ts, so a rename cannot leave a stale word in the picker.
+   */
   quality: "x_low" | "low" | "medium" | "high";
-  /** Display label for the quality tier. */
-  qualityLabel: string;
 }
 
 export const VOICE_CATALOG: VoiceOption[] = [
@@ -410,7 +482,7 @@ ${FEATURED_VOICE_IDS.map((id) => `  ${JSON.stringify(id)},`).join("\n")}
 export const VOICE_COUNT = VOICE_CATALOG.length;
 export const LANGUAGE_COUNT = VOICE_LANGUAGES.length;
 
-/** Initial picker value — the flagship US male voice at standard quality. */
+/** Initial picker value — the flagship US male voice at the middle quality tier. */
 export const DEFAULT_VOICE_ID = FEATURED_VOICE_IDS[0];
 
 export function voicesForLanguage(code: string): VoiceOption[] {
@@ -431,3 +503,7 @@ console.log(
   `[voices] Wrote ${path.relative(root, outPath)} — ${voices.length} voices, ` +
     `${sortedLanguages.length} languages (piper-tts-web@${version})`,
 );
+const uncurated = voices.filter((v) => v.gender === null).length;
+if (uncurated > 0) {
+  console.warn(`[voices] ${uncurated} voice(s) have no curated gender.`);
+}

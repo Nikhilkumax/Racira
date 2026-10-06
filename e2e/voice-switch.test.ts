@@ -65,7 +65,7 @@ test.describe("Voice Studio — voice switch", () => {
     const script = "Hello world, this is a test.";
     await textarea.fill(script);
 
-    // 1. Default voice: English (US) / Male / Ryan (standard) / WAV.
+    // 1. Default voice: English (US) / Ryan (the middle quality tier) / MP3.
     await expect(generateBtn).toBeEnabled({ timeout: 5000 });
     await generateBtn.click();
     await page
@@ -75,9 +75,10 @@ test.describe("Voice Studio — voice switch", () => {
     const firstSrc = await audioEl.getAttribute("src");
     expect(firstSrc).toMatch(/^blob:/);
 
-    // 2. Switch to a different voice without reloading the page.
-    await page.locator('[data-testid="gender-select"]').click();
-    await page.getByRole("option", { name: "Female", exact: true }).click();
+    // 2. Switch to a different voice without reloading the page. The list is
+    //    no longer gender-filtered, so Amy is one pick away; the sorted list
+    //    puts her Good model above her Basic one, which is what `.first()`
+    //    resolves to.
     await page.locator('[data-testid="voice-select"]').click();
     await page.getByRole("option", { name: /amy/i }).first().click();
 

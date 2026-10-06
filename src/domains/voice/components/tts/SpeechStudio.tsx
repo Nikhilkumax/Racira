@@ -5,25 +5,43 @@ import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Play, Pause, Download, Trash2, Loader2, HardDriveDownload, X } from "lucide-react";
+import { Play, Pause, Download, Trash2, HardDriveDownload, X } from "lucide-react";
 import {
   VOICE_LANGUAGES,
   DEFAULT_VOICE_ID,
   findVoice,
-  isFeaturedVoice,
   voicesForLanguage,
+  type VoiceOption,
 } from "@/domains/voice/lib/voiceCatalog";
 import {
+  SPEED_BADGE,
+  LONG_TEXT_MIN_CHARS,
+  LONG_TEXT_TIP,
+  RECOMMENDED_LABEL,
+  RECOMMENDED_MARK,
+  estimateSeconds,
+  formatEstimateSeconds,
+  groupVoicesByGender,
+  isRecommendedVoice,
+  resolveSelection,
+  sortVoices,
+  voiceLabelText,
+} from "@/domains/voice/lib/voicePresentation";
+import {
+  cancelSpeech,
   generateSpeech,
   deleteStoredVoice,
   clearStoredVoices,
   scheduleVoicePrefetch,
+  SpeechCancelledError,
   toUserFacingError,
   PART_MAX_CHARS,
   type SpeechFormat,
@@ -41,18 +59,42 @@ import { cn } from "@/lib/utils";
 // this ceiling bounds the total wait rather than preventing truncation.
 const MAX_INPUT_CHARS = 5000;
 
-type Gender = "male" | "female";
+/**
+ * One voice as the picker shows it: its label, plus the recommended mark when
+ * it has one.
+ *
+ * The mark is an element rather than a character in the label string so it can
+ * carry an accessible name: the star is a glyph, and a screen reader reading
+ * the list would otherwise announce a symbol with no meaning or skip it
+ * entirely. `role="img"` is what makes the label count, and it does not change
+ * how the mark looks.
+ */
+function VoiceOptionLabel({ voice }: { voice: VoiceOption }) {
+  return (
+    <>
+      {voiceLabelText(voice)}
+      {isRecommendedVoice(voice) && (
+        <>
+          {" "}
+          <span role="img" aria-label={RECOMMENDED_LABEL}>
+            {RECOMMENDED_MARK}
+          </span>
+        </>
+      )}
+    </>
+  );
+}
 
 export function SpeechStudio() {
-  // Defaults: English (US) / Male / Ryan (standard) / WAV.
+  // Defaults: English (US) / Ryan (the middle quality tier) / MP3.
   const [language, setLanguage] = useState<string>(VOICE_LANGUAGES[0].code);
-  const [gender, setGender] = useState<Gender>("male");
   const [voice, setVoice] = useState<string>(DEFAULT_VOICE_ID);
-  // WAV by default: the engine emits WAV natively, so it is written straight
-  // out, while MP3 is a second pass through a pure-JavaScript encoder that adds
-  // a flat several seconds to every run — a cost a visitor pays on the default
-  // path whether or not it is worth it to them. MP3 stays one selection away.
-  const [format, setFormat] = useState<SpeechFormat>("wav");
+  // MP3 by default. It costs a client-side re-encode that the natively emitted
+  // WAV does not, but the encoder runs in the worker rather than on the page and
+  // the resulting file is a fraction of the size, which is what most visitors
+  // want out of a voiceover. Nothing about the choice is persisted, so WAV is
+  // never more than one selection away on any visit.
+  const [format, setFormat] = useState<SpeechFormat>("mp3");
   const [text, setText] = useState("");
 
   const [status, setStatus] = useState<"idle" | "loading-model" | "generating" | "error">("idle");
@@ -106,40 +148,38 @@ export function SpeechStudio() {
     audioRef.current?.play().catch((err) => console.error("[voice] play() rejected:", err));
   }, [audioUrl]);
 
-  // Gender filters the voice list. A language with no voice of the selected
-  // gender (several ship only one voice) falls back to all of that language's
-  // voices, so the dropdown is never empty.
-  const languageVoices = voicesForLanguage(language);
-  const maleAvailable = languageVoices.some((v) => v.gender === "male");
-  const femaleAvailable = languageVoices.some((v) => v.gender === "female");
-  const genderVoices = languageVoices.filter((v) => v.gender === gender);
-  const availableVoices = genderVoices.length > 0 ? genderVoices : languageVoices;
-  const selectedVoice = findVoice(voice);
+  // Voices are filtered by language only, and always in the picker's own order:
+  // recommended first, then by gender, quality and name. A long language is
+  // grouped instead of flattened so it stays scannable; the label carries the
+  // gender either way.
+  const languageVoices = useMemo(
+    () => sortVoices(voicesForLanguage(language)),
+    [language],
+  );
+  const voiceGroups = useMemo(() => groupVoicesByGender(languageVoices), [languageVoices]);
 
-  // A language switch re-evaluates gender availability for that language and
-  // re-picks a sensible default voice: first match for the current gender, or
-  // the first voice overall when the gender has none there. A language that
-  // lacks the chosen gender flips the gender to one it has, rather than
-  // leaving a selectable-but-useless value in the field.
+  // The selection is derived rather than merely stored: `voice` holds the last
+  // explicit pick, and any pick this language cannot offer resolves to the
+  // language's default. That is what keeps the select from ever holding a stale
+  // value, and what makes a single-voice language select its voice with no
+  // extra state and no layout change — the dropdown stays rendered either way.
+  const selectedVoiceId = resolveSelection(languageVoices, voice);
+  const selectedVoice = findVoice(selectedVoiceId);
+
+  // A language switch keeps the current voice when the new language offers it,
+  // and otherwise takes that language's first recommended (or best) voice.
   const handleLanguageChange = (code: string) => {
-    const nextVoices = voicesForLanguage(code);
-    let nextGender = gender;
-    if (nextVoices.length > 0 && !nextVoices.some((v) => v.gender === gender)) {
-      nextGender = nextVoices[0].gender;
-      setGender(nextGender);
-    }
+    const nextVoices = sortVoices(voicesForLanguage(code));
     setLanguage(code);
-    const firstMatch = nextVoices.find((v) => v.gender === nextGender) ?? nextVoices[0];
-    if (firstMatch) setVoice(firstMatch.id);
+    setVoice(resolveSelection(nextVoices, voice));
   };
 
-  const handleGenderChange = (next: Gender) => {
-    setGender(next);
-    const firstMatch = languageVoices.find((v) => v.gender === next) ?? languageVoices[0];
-    if (firstMatch) setVoice(firstMatch.id);
-  };
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
   const charCount = text.length;
+  // Characters that will actually be synthesized: the same trim the engine
+  // applies, so the estimate describes the work and not the whitespace.
+  const synthChars = text.trim().length;
+  const hasText = synthChars > 0;
   const overLimit = charCount > MAX_INPUT_CHARS;
 
   // Planned part count for the current text, shown before generation starts so
@@ -159,7 +199,7 @@ export function SpeechStudio() {
   };
 
   const handleGenerate = async () => {
-    if (!voice || !text.trim() || overLimit || busy) return;
+    if (!selectedVoiceId || !text.trim() || overLimit || busy) return;
 
     setStatus("loading-model");
     setProgress(null);
@@ -168,12 +208,12 @@ export function SpeechStudio() {
     try {
       const result = await generateSpeech({
         text: text.trim(),
-        voiceId: voice,
+        voiceId: selectedVoiceId,
         format,
         // The engine's phase stream drives the status machine: model download
         // is the loading branch, synthesis and assembly are the generating
-        // branch (the stepped part bar). Without this, synthesis runs entirely
-        // under "Preparing voice..." and the per-part progress never shows.
+        // branch. Without this, synthesis runs entirely under the preparing
+        // label and the progress bar never moves.
         onProgress: (p) => {
           setProgress(p);
           setStatus(p.phase === "loading" ? "loading-model" : "generating");
@@ -195,6 +235,10 @@ export function SpeechStudio() {
       // The first generation for this voice downloaded and stored its model.
       refreshStoredVoices();
     } catch (err) {
+      // A stop the visitor asked for is not a failure: cancel already returned
+      // the page to idle, so there is nothing to report and nothing to undo.
+      if (err instanceof SpeechCancelledError) return;
+
       // Console only. Whatever was thrown is developer text — it can name the
       // library, a model host, or a runtime internal — and none of that belongs
       // on screen. What is rendered is written for a visitor.
@@ -205,8 +249,8 @@ export function SpeechStudio() {
 
       // Drop any previously generated clip. Nothing partial was ever assigned
       // to audioUrl, but leaving an older clip in the player directly beneath
-      // "Generation failed at part 7 of 13" invites reading it as the partial
-      // result of the run that just failed.
+      // an error invites reading it as the partial result of the run that just
+      // failed.
       setAudioUrl(null);
       setCurrentTime(0);
       setDuration(0);
@@ -218,8 +262,16 @@ export function SpeechStudio() {
     }
   };
 
+  const handleCancel = () => {
+    // Unlocks immediately; the abandoned run's rejection is swallowed in
+    // handleGenerate, so a cancel never renders an error.
+    cancelSpeech();
+    setStatus("idle");
+    setProgress(null);
+  };
+
   const handleRemoveStoredVoice = async () => {
-    await deleteStoredVoice(voice);
+    await deleteStoredVoice(selectedVoiceId);
     refreshStoredVoices();
   };
 
@@ -269,14 +321,69 @@ export function SpeechStudio() {
   };
 
   // Everything is frozen while a run is in flight — including the text and the
-  // language/voice pickers. A mid-run language change would repoint the voice
-  // list at a model that is not the one being synthesized.
+  // language/voice/format pickers. A mid-run language change would repoint the
+  // voice list at a model that is not the one being synthesized.
   const busy = status === "loading-model" || status === "generating";
 
-  const canGenerate =
-    Boolean(voice) && Boolean(text.trim()) && !overLimit && !busy;
+  const canGenerate = Boolean(selectedVoiceId) && hasText && !overLimit && !busy;
 
-  const voiceIsStored = storedVoices.includes(voice);
+  const voiceIsStored = storedVoices.includes(selectedVoiceId);
+
+  // ── Progress and time estimates ────────────────────────────────────────
+
+  // A first run downloads the voice model before it synthesizes anything, so
+  // that download is its own phase with its own percentage. The engine reports
+  // it as a fraction of the bytes fetched, and a cached model reports nothing —
+  // so this is null on every run after the first.
+  const downloadFraction = progress?.phase === "loading" ? progress.modelFraction : null;
+  const downloading = downloadFraction != null;
+
+  // Percentage is completed parts over total parts. The engine reports the
+  // 1-based part it is about to synthesize, so a part is complete only when the
+  // next one begins; assembly is the last part finishing.
+  const totalParts = progress?.totalParts ?? plannedParts;
+  const completedParts = progress
+    ? progress.phase === "assembling"
+      ? progress.totalParts
+      : Math.max(0, progress.part - 1)
+    : 0;
+  const generationPercent =
+    totalParts > 0 ? Math.min(100, Math.round((completedParts / totalParts) * 100)) : 0;
+  const percent = downloading ? Math.round((downloadFraction ?? 0) * 100) : generationPercent;
+
+  // Three labels, not two: the engine reports "loading" before its first byte
+  // arrives, and that window is a genuine third state — a cached voice passes
+  // through it instantly, a new one sits there while the request is set up. It
+  // is only called a download once there are bytes to count, so a cached run
+  // never claims to be downloading anything.
+  //
+  // The run's own status answers for the window before the engine's first
+  // report: the bar is shown the moment a run starts, and a label derived only
+  // from the progress stream would call those first frames "Generating audio…"
+  // while nothing is being synthesized yet.
+  const progressLabel = downloading
+    ? "Downloading voice…"
+    : status === "loading-model"
+      ? "Preparing voice…"
+      : "Generating audio…";
+
+  // Whole-text estimate for the selected voice, and what is left of it once
+  // some parts are done. Rounded coarsely by formatEstimateSeconds, and always
+  // introduced with "About": the per-1000-character figure is a placeholder and
+  // the real cost depends on the machine.
+  const totalEstimateSeconds = estimateSeconds(synthChars, selectedVoice);
+  const remainingSeconds =
+    totalParts > 0
+      ? Math.max(1, Math.round(totalEstimateSeconds * (1 - completedParts / totalParts)))
+      : Math.max(1, Math.round(totalEstimateSeconds));
+  const timeLeftLabel = downloading
+    ? "Keep this tab open."
+    : `About ${formatEstimateSeconds(remainingSeconds)} s left. Keep this tab open.`;
+
+  // Long text read by the slow speed tier is the one combination worth warning
+  // about. Keyed off the tier, never off the badge's wording, so rewording the
+  // badge cannot switch the tip on or off.
+  const showLongTextTip = synthChars >= LONG_TEXT_MIN_CHARS && selectedVoice?.speed === "slow";
 
   return (
     // pt-0: the hero's pb owns the heading-to-tool-box gap, so it stays equal
@@ -358,6 +465,7 @@ export function SpeechStudio() {
                 Voice options
               </h3>
 
+              {/* 1. Language */}
               <div className="space-y-2">
                 <Label className="text-[13px] font-semibold text-muted-foreground">
                   Language
@@ -376,74 +484,95 @@ export function SpeechStudio() {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label className="text-[13px] font-semibold text-muted-foreground">Gender</Label>
-                <Select
-                  value={gender}
-                  onValueChange={(v) => handleGenderChange(v as Gender)}
-                  disabled={busy}
-                >
-                  <SelectTrigger className="w-full h-11 rounded-xl" data-testid="gender-select">
-                    <SelectValue placeholder="Select gender" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="male" disabled={!maleAvailable}>
-                      Male
-                    </SelectItem>
-                    <SelectItem value="female" disabled={!femaleAvailable}>
-                      Female
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
+              {/* 2. Voice — every voice for the language, no gender filter */}
               <div className="space-y-2">
                 <Label className="text-[13px] font-semibold text-muted-foreground">Voice</Label>
-                <Select value={voice} onValueChange={setVoice} disabled={busy}>
+                <Select value={selectedVoiceId} onValueChange={setVoice} disabled={busy}>
                   <SelectTrigger className="w-full h-11 rounded-xl" data-testid="voice-select">
                     <SelectValue placeholder="Select a voice" />
                   </SelectTrigger>
                   <SelectContent>
-                    {availableVoices.map((v) => (
-                      <SelectItem key={v.id} value={v.id}>
-                        {isFeaturedVoice(v.id) ? `${v.name} — ${v.qualityLabel} ★` : `${v.name} — ${v.qualityLabel}`}
-                      </SelectItem>
-                    ))}
+                    {voiceGroups
+                      ? voiceGroups.map((group) => (
+                          <SelectGroup key={group.label}>
+                            <SelectLabel>{group.label}</SelectLabel>
+                            {group.voices.map((v) => (
+                              <SelectItem key={v.id} value={v.id}>
+                                <VoiceOptionLabel voice={v} />
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        ))
+                      : languageVoices.map((v) => (
+                          <SelectItem key={v.id} value={v.id}>
+                            <VoiceOptionLabel voice={v} />
+                          </SelectItem>
+                        ))}
                   </SelectContent>
                 </Select>
 
-                {/* What is already on this device. Shown only for a voice that
-                    has been downloaded, so first-time visitors see nothing. */}
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12.5px] text-muted-foreground" data-testid="tts-stored-voices">
-                  {voiceIsStored ? (
-                    <>
-                      <span className="inline-flex items-center gap-1.5">
-                        <HardDriveDownload className="h-3.5 w-3.5" />
-                        Saved on this device — ready offline.
-                      </span>
-                      <button
-                        type="button"
-                        onClick={handleRemoveStoredVoice}
-                        disabled={busy}
-                        className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
+                {/* Speed and what the text will cost in time. Both update as
+                    the voice or the text changes. The badge is wide enough that
+                    it and the estimate share a line only on a wide panel, so
+                    the row wraps and the estimate drops below the badge when it
+                    has to — never squeezed, never clipped. */}
+                <div
+                  className="space-y-1 text-[12.5px] text-muted-foreground"
+                  data-testid="tts-voice-hint"
+                >
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    {selectedVoice && (
+                      <span
+                        data-testid="tts-speed-badge"
+                        className="inline-flex items-center rounded-full border border-border-subtle bg-surface-muted px-2 py-0.5 font-medium text-foreground"
                       >
-                        <X className="h-3 w-3" />
-                        Remove
-                      </button>
-                    </>
-                  ) : (
-                    <span>
-                      {selectedVoice
-                        ? "First use downloads this voice to your device; later runs are offline."
-                        : "\u00a0"}
-                    </span>
+                        {SPEED_BADGE[selectedVoice.speed]}
+                      </span>
+                    )}
+                    {hasText && selectedVoice && (
+                      <span data-testid="tts-time-estimate" aria-live="polite">
+                        About{" "}
+                        {formatEstimateSeconds(estimateSeconds(synthChars, selectedVoice))} s for
+                        your text
+                      </span>
+                    )}
+                  </div>
+
+                  {/* What is already on this device, and only that. The list is
+                      read from local storage, never uploaded. */}
+                  <div
+                    data-testid="tts-stored-voices"
+                    className="flex flex-wrap items-center gap-x-2 gap-y-1"
+                  >
+                    {voiceIsStored && (
+                      <>
+                        <span className="inline-flex items-center gap-1.5">
+                          <HardDriveDownload className="h-3.5 w-3.5" />
+                          Saved on this device.
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleRemoveStoredVoice}
+                          disabled={busy}
+                          className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
+                        >
+                          <X className="h-3 w-3" />
+                          Remove
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  {showLongTextTip && (
+                    <p data-testid="tts-long-text-tip">{LONG_TEXT_TIP}</p>
                   )}
+
                   {storedVoices.length > 1 && (
                     <button
                       type="button"
                       onClick={handleClearStoredVoices}
                       disabled={busy}
-                      className="rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
+                      className="block rounded-md px-1.5 py-0.5 transition-colors hover:bg-surface-muted hover:text-foreground disabled:opacity-40"
                     >
                       Clear all saved voices ({storedVoices.length})
                     </button>
@@ -451,7 +580,7 @@ export function SpeechStudio() {
                 </div>
               </div>
 
-              {/* Format */}
+              {/* 3. Format */}
               <div className="space-y-2">
                 <Label className="text-[13px] font-semibold text-muted-foreground">Format</Label>
                 <Select
@@ -469,7 +598,7 @@ export function SpeechStudio() {
                 </Select>
               </div>
 
-              {/* Generate / Loading / Error */}
+              {/* 4. Generate / progress / error */}
               <div className="mt-auto space-y-3">
                 {status === "error" && loadError && (
                   <div
@@ -481,69 +610,46 @@ export function SpeechStudio() {
                   </div>
                 )}
 
-                {status === "loading-model" ? (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-[13px] text-muted-foreground">
-                      <span>{progress?.phase === "loading" ? "Preparing voice..." : "Starting..."}</span>
-                      <span>
-                        {progress?.modelFraction != null
-                          ? `${Math.round(progress.modelFraction * 100)}%`
-                          : ""}
-                      </span>
+                {busy ? (
+                  // One bar for the whole run: a first-use download is its own
+                  // phase, then the parts. The percentage is completed parts
+                  // over total parts, so every visible change corresponds to
+                  // work that actually finished rather than an animation.
+                  <div className="space-y-3" data-testid="tts-generation-progress">
+                    <div aria-live="polite" className="space-y-1">
+                      <div className="flex items-center justify-between text-[13px]">
+                        <span className="font-medium" data-testid="tts-progress-label">
+                          {progressLabel}
+                        </span>
+                        <span
+                          data-testid="tts-progress-percent"
+                          className="font-mono tabular-nums text-muted-foreground"
+                        >
+                          {percent}%
+                        </span>
+                      </div>
+                      <p data-testid="tts-time-left" className="text-[12.5px] text-muted-foreground">
+                        {timeLeftLabel}
+                      </p>
                     </div>
                     <div className="h-2 w-full overflow-hidden rounded-full bg-muted/30">
                       <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${Math.round((progress?.fraction ?? 0) * 100)}%` }}
+                        className="h-full bg-brand transition-all duration-300"
+                        style={{ width: `${percent}%` }}
                       />
                     </div>
-                  </div>
-                ) : status === "generating" ? (
-                  progress && progress.totalParts > 1 ? (
-                    // Multi-part: a stepped bar rather than a spinner. One step
-                    // per completed part, so every visible change corresponds to
-                    // real progress instead of an animation that keeps moving
-                    // after the page has stopped responding.
-                    <div className="space-y-3" data-testid="tts-chunk-progress">
-                      <div className="flex items-center justify-between text-[13px]">
-                        <span aria-live="polite" className="font-medium">
-                          {progress.phase === "assembling"
-                            ? "Finishing the clip..."
-                            : `Generating part ${progress.part} of ${progress.totalParts}...`}
-                        </span>
-                        <span className="font-mono tabular-nums text-muted-foreground">
-                          {Math.round((progress.fraction ?? 0) * 100)}%
-                        </span>
-                      </div>
-                      <div className="flex gap-1" aria-hidden="true">
-                        {Array.from({ length: progress.totalParts }, (_, i) => (
-                          <div
-                            key={i}
-                            className={cn(
-                              "h-2 flex-1 rounded-full",
-                              i < progress.part - 1
-                                ? "bg-brand"
-                                : i === progress.part - 1
-                                  ? "bg-brand/40"
-                                  : "bg-muted/30",
-                            )}
-                          />
-                        ))}
-                      </div>
-                      <p className="text-[12.5px] text-muted-foreground">
-                        Parts are generated one after another on your device, then joined into a
-                        single file.
-                      </p>
+                    <div className="flex justify-end">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleCancel}
+                        data-testid="tts-cancel"
+                        className="h-9 rounded-full px-4"
+                      >
+                        Cancel
+                      </Button>
                     </div>
-                  ) : (
-                    <Button
-                      disabled
-                      className="w-full h-11 rounded-full bg-brand text-brand-foreground font-semibold"
-                    >
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                      Generating...
-                    </Button>
-                  )
+                  </div>
                 ) : (
                   <Button
                     onClick={handleGenerate}
@@ -592,46 +698,60 @@ export function SpeechStudio() {
                   setCurrentTime(0);
                 }}
               />
-              <div className="flex items-center gap-3">
-                <Button
-                  type="button"
-                  size="icon"
-                  aria-label={isPlaying ? "Pause" : "Play"}
-                  onClick={handlePlayPause}
-                  className="h-11 w-11 flex-shrink-0 rounded-full bg-brand text-brand-foreground shadow-brand hover:bg-brand/90"
-                >
-                  {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 translate-x-[1px]" />}
-                </Button>
+              {/* Two rows below sm, one row from sm up. On a narrow screen the
+                  transport (play, elapsed time, seek, duration) takes the first
+                  row and the actions take the second, so the row is never wider
+                  than the card. The seek input carries min-w-0 on purpose: a
+                  range input has an intrinsic width and is otherwise treated as
+                  unshrinkable, which is what pushed it and the buttons past the
+                  card's right edge on mobile. */}
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <Button
+                    type="button"
+                    size="icon"
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                    onClick={handlePlayPause}
+                    className="h-11 w-11 flex-shrink-0 rounded-full bg-brand text-brand-foreground shadow-brand hover:bg-brand/90"
+                  >
+                    {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 translate-x-[1px]" />}
+                  </Button>
 
-                <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground">
-                  {fmt(currentTime)}
-                </span>
+                  <span className="w-10 shrink-0 text-right font-mono text-sm tabular-nums text-muted-foreground">
+                    {fmt(currentTime)}
+                  </span>
 
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  step={0.1}
-                  value={duration > 0 ? (currentTime / duration) * 100 : 0}
-                  onChange={handleSeek}
-                  aria-label="Seek"
-                  className="flex-1 h-1 cursor-pointer"
-                  style={{ accentColor: "var(--brand, #7c3aed)" }}
-                />
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={0.1}
+                    value={duration > 0 ? (currentTime / duration) * 100 : 0}
+                    onChange={handleSeek}
+                    aria-label="Seek"
+                    className="h-1 min-w-0 flex-1 cursor-pointer"
+                    style={{ accentColor: "var(--brand, #7c3aed)" }}
+                  />
 
-                <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground">
-                  {fmt(duration)}
-                </span>
+                  <span className="w-10 shrink-0 font-mono text-sm tabular-nums text-muted-foreground">
+                    {fmt(duration)}
+                  </span>
+                </div>
 
-                <a
-                  href={audioUrl}
-                  download={`racira-tts-output.${format}`}
-                  data-testid="tts-download"
-                  className="inline-flex h-9 items-center gap-2 rounded-full border border-border-subtle bg-surface px-3 text-sm font-semibold"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  Download
-                </a>
+                {/* Actions: a full-width row on mobile, a right-hand item in
+                    the single row from sm up. The 40px height keeps the touch
+                    target comfortable; desktop keeps its original 36px pill. */}
+                <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:flex-nowrap">
+                  <a
+                    href={audioUrl}
+                    download={`racira-tts-output.${format}`}
+                    data-testid="tts-download"
+                    className="inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-full border border-border-subtle bg-surface px-4 text-sm font-semibold sm:h-9 sm:flex-none sm:px-3"
+                  >
+                    <Download className="h-3.5 w-3.5 shrink-0" />
+                    Download
+                  </a>
+                </div>
               </div>
             </div>
           )}

@@ -22,8 +22,9 @@
  */
 
 import type { Progress, TtsSession as TtsSessionInstance, VoiceId } from "@mintplex-labs/piper-tts-web";
+import { normalizeSpeechLoudness } from "./loudness";
 import { chunkText } from "./textChunker";
-import { concatWavSamples, encodeWav } from "./wavUtils";
+import { concatWavSamples, encodeWav, floatToInt16 } from "./wavUtils";
 import {
   EMPTY_INPUT_ERROR,
   FORMAT_MIME,
@@ -82,6 +83,24 @@ class SupersededFailure extends Error {
   }
 }
 
+/**
+ * A generation the visitor stopped.
+ *
+ * Raised at the first part boundary after a cancel arrives, and deliberately
+ * silent: the page asked for the stop and has already returned to its normal
+ * state, so answering the request would only put an error on screen for
+ * something that was not an error.
+ *
+ * A single engine call cannot be interrupted once it has started, so this
+ * cannot abandon a part already in flight — it only prevents the next one.
+ */
+class CancelledFailure extends Error {
+  constructor() {
+    super("Generation cancelled.");
+    this.name = "CancelledFailure";
+  }
+}
+
 // ── Engine ──────────────────────────────────────────────────────────────
 // The library is fetched on first use, so a page that never generates never
 // pays for it.
@@ -128,6 +147,13 @@ let activeLoad: { voiceId: string; promise: Promise<TtsSessionInstance> } | null
 // How many generations are running right now. Only the prefetch cares: it is
 // the one thing here that spends bandwidth for work nobody asked for.
 let generationsInFlight = 0;
+
+// Generate requests the page has asked to stop. A cancel is checked between
+// parts rather than mid-inference, because one engine call is not
+// interruptible; the boundary is the only point at which it can take effect.
+// Each id is dropped when its request ends, so a set entry can never outlive
+// the run it names.
+const cancelledIds = new Set<number>();
 
 /**
  * Drop the cached session and the library singleton that backs it.
@@ -326,8 +352,7 @@ async function encodeMp3(samples: Float32Array, sampleRate: number): Promise<Arr
     const frame = samples.subarray(at, at + frameSize);
     const pcm = new Int16Array(frame.length);
     for (let i = 0; i < frame.length; i++) {
-      const value = frame[i];
-      pcm[i] = value >= 1 ? 32767 : value <= -1 ? -32768 : (value * 32768) | 0;
+      pcm[i] = floatToInt16(frame[i]);
     }
     const encoded = encoder.encodeBuffer(pcm);
     if (encoded.length > 0) chunks.push(asBytes(encoded));
@@ -367,6 +392,7 @@ async function runGeneration(request: {
     await synthesizeParts({ id, voiceId, parts, format: request.format });
   } finally {
     generationsInFlight--;
+    cancelledIds.delete(id);
   }
 }
 
@@ -410,9 +436,15 @@ async function synthesizeParts({
     });
   });
 
+  // A cancel that arrived while the model was loading stops the run here: the
+  // download is already spent, but none of the synthesis is.
+  if (cancelledIds.has(id)) throw new CancelledFailure();
+
   const blobs: Blob[] = [];
 
   for (let i = 0; i < parts.length; i++) {
+    if (cancelledIds.has(id)) throw new CancelledFailure();
+
     scope.postMessage({
       type: "progress",
       id,
@@ -446,12 +478,18 @@ async function synthesizeParts({
 
   const { samples, sampleRate } = await concatWavSamples(blobs, { gapMs: SEAM_GAP_MS });
 
+  // One loudness pass over the whole joined buffer, after the seams exist and
+  // before either encoder sees a sample. Level is a property of the finished
+  // clip, so it is decided here, once — never per part, which would step the
+  // level at every seam and across voices. See lib/loudness.ts.
+  const { samples: leveled } = normalizeSpeechLoudness(samples, sampleRate);
+
   // Duration comes from the merged buffer rather than from re-decoding the
   // finished file: the sample count is already exact, and re-reading a long
   // clip to recover it would be pure waste.
-  const durationSec = samples.length / sampleRate;
+  const durationSec = leveled.length / sampleRate;
   const bytes =
-    format === "mp3" ? await encodeMp3(samples, sampleRate) : encodeWav(samples, sampleRate);
+    format === "mp3" ? await encodeMp3(leveled, sampleRate) : encodeWav(leveled, sampleRate);
 
   // Transferred, not copied: a long clip is handed to the page without a
   // second full-size buffer existing at any point.
@@ -528,6 +566,11 @@ async function handleRequest(request: VoiceWorkerRequest): Promise<void> {
       await flushModels();
       scope.postMessage({ type: "ok", id: request.id });
       return;
+    case "cancel":
+      // Idempotent, and safe for an id that is already finished: the entry it
+      // leaves behind is dropped by that request's own cleanup.
+      cancelledIds.add(request.id);
+      return;
     case "release":
       releaseSession();
       return;
@@ -557,12 +600,12 @@ function failureResponse(id: number, error: unknown) {
 scope.onmessage = (event: MessageEvent<VoiceWorkerRequest>) => {
   const request = event.data;
   void handleRequest(request).catch((error) => {
-    // A superseded request is not a failure. A newer request replaced it, and
-    // that newer one is what the visitor is actually waiting on — so answering
-    // here would put an error on screen for work they have already moved on
-    // from. The whole error is dropped, and deliberately only this one: every
-    // real failure still reaches its caller below.
-    if (error instanceof SupersededFailure) return;
+    // A superseded or cancelled request is not a failure. A newer request
+    // replaced the first, and the visitor asked for the second — so answering
+    // here would put an error on screen for work that was deliberately
+    // abandoned. Only these two are dropped; every real failure still reaches
+    // its caller below.
+    if (error instanceof SupersededFailure || error instanceof CancelledFailure) return;
     console.error(`[voice] worker request "${request.type}" failed:`, error);
     // "release" is the one request with nothing to answer; everything else
     // carries the id that ties this failure back to its caller.

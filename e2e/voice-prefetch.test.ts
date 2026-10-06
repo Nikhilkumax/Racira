@@ -110,7 +110,7 @@ test.describe("Voice studio — failure copy and connection-aware prefetch", () 
     expect(prefetchRequests[0]).toContain("en_US-ryan-medium.onnx");
 
     // And it stays invisible: no progress UI, no error, Generate still ready.
-    await expect(page.locator('[data-testid="tts-chunk-progress"]')).toHaveCount(0);
+    await expect(page.locator('[data-testid="tts-generation-progress"]')).toHaveCount(0);
     await expect(page.locator('[data-testid="tts-generate-error"]')).toHaveCount(0);
     await expect(page.locator("textarea")).toBeEnabled();
   });

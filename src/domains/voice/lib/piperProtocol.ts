@@ -122,6 +122,20 @@ export interface FlushVoicesRequest {
 }
 
 /**
+ * Stop the generate request with `id` at its next part boundary.
+ *
+ * A single engine call cannot be interrupted once it has started, so a cancel
+ * is cooperative: the worker stops before starting the next part and drops the
+ * request. The page does not wait for that to unlock — it settles its own
+ * promise at once and stops listening for `id` — so the reply this may or may
+ * not produce is ignored either way.
+ */
+export interface CancelRequest {
+  type: "cancel";
+  id: number;
+}
+
+/**
  * Drop the in-memory model. Fire-and-forget: nothing waits on it, and there is
  * nothing to report — the next generation rebuilds the session from the copy
  * already in local storage.
@@ -135,11 +149,13 @@ export type VoiceWorkerRequest =
   | PrefetchRequest
   | RemoveVoiceRequest
   | FlushVoicesRequest
+  | CancelRequest
   | ReleaseRequest;
 
 /**
- * Every request except `release` — the ones that carry an id and expect a
- * reply. The client dispatches only these; `release` is fire-and-forget.
+ * Every request except `release` — the ones that carry an id. The client
+ * resolves only these; `release` has nothing to address, and `cancel` names
+ * another request's id rather than its own reply.
  */
 export type IdentifiedRequest = Exclude<VoiceWorkerRequest, ReleaseRequest>;
 
@@ -185,7 +201,12 @@ export interface OkResponse {
 export interface FailedResponse {
   type: "failed";
   id: number;
-  kind: "input" | "part" | "other";
+  /**
+   * "cancelled" is raised by the worker after a CancelRequest; it exists so the
+   * page can tell a deliberate stop (nothing to report) from a real failure
+   * without parsing any text.
+   */
+  kind: "input" | "part" | "other" | "cancelled";
   message: string;
   /** Set for kind "part": which part failed, and out of how many. */
   part?: number;

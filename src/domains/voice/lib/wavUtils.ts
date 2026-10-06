@@ -42,6 +42,21 @@ function clampSample(value: number): number {
 }
 
 /**
+ * One float sample in [-1, 1] as its 16-bit integer code.
+ *
+ * Round-to-nearest rather than truncate: truncation biases every sample toward
+ * zero by up to half a code step, which is measurable as quantization error on
+ * quiet material. The rounded result is clamped because a value just under 1
+ * rounds to 32768, which setInt16 would wrap to -32768.
+ */
+export function floatToInt16(value: number): number {
+  if (value >= 1) return 32767;
+  if (value <= -1) return -32768;
+  const scaled = Math.round(value * 32768);
+  return scaled > 32767 ? 32767 : scaled < -32768 ? -32768 : scaled;
+}
+
+/**
  * Decode a RIFF/WAVE buffer into mono samples.
  *
  * Handles the two formats that occur in practice — integer PCM (8/16/24/32
@@ -171,9 +186,8 @@ export function encodeWav(samples: Float32Array, sampleRate: number): ArrayBuffe
 
   let at = HEADER_BYTES;
   for (let i = 0; i < samples.length; i++) {
-    // Asymmetric clamp: positive full scale is 32767, negative is -32768.
-    const value = samples[i];
-    view.setInt16(at, value >= 1 ? 32767 : value <= -1 ? -32768 : (value * 32768) | 0, true);
+    // Asymmetric full scale: positive is 32767, negative is -32768.
+    view.setInt16(at, floatToInt16(samples[i]), true);
     at += 2;
   }
 
